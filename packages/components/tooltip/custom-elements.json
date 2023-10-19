@@ -4,6 +4,29 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/tooltip.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/tooltip-directive.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -27,6 +50,12 @@
     },
     {
       "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "register.ts",
       "declarations": [],
       "exports": [
@@ -36,6 +65,144 @@
           "declaration": {
             "name": "Tooltip",
             "module": "/src/tooltip.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tooltip-directive.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "TooltipDirective",
+          "members": [
+            {
+              "kind": "field",
+              "name": "content",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "didSetupLazy",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "part",
+              "type": {
+                "text": "ElementPart | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderContent",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setupLazy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "Tooltip | undefined"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "renderContent",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setupLazy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "content",
+              "type": {
+                "text": "unknown | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "didSetupLazy",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "part",
+              "type": {
+                "text": "ElementPart | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "tooltip",
+              "type": {
+                "text": "Tooltip | undefined"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "tooltip",
+          "type": {
+            "text": "(_content: unknown) => import(\"lit-html/directive.js\").DirectiveResult<typeof TooltipDirective>"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TooltipDirective",
+          "declaration": {
+            "name": "TooltipDirective",
+            "module": "src/tooltip-directive.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "tooltip",
+          "declaration": {
+            "name": "tooltip",
+            "module": "src/tooltip-directive.d.ts"
           }
         }
       ]
@@ -179,6 +346,147 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/tooltip.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Tooltip component.",
+          "name": "Tooltip",
+          "members": [
+            {
+              "kind": "method",
+              "name": "lazy",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "callback",
+                  "type": {
+                    "text": "(target: Tooltip) => void"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "maxWidth",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Tooltip max-width."
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition"
+              },
+              "description": "Tooltip position."
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-tooltip",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "lazy",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "callback",
+                  "type": {
+                    "text": "(target: Tooltip) => void"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "maxWidth",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Tooltip max-width."
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition"
+              },
+              "description": "Tooltip position."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Tooltip",
+          "declaration": {
+            "name": "Tooltip",
+            "module": "src/tooltip.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tooltip.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/tooltip.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/tooltip.scss.ts",
       "declarations": [],
       "exports": [
@@ -187,6 +495,180 @@
           "name": "default",
           "declaration": {
             "module": "src/tooltip.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tooltip.spec.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tooltip.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tooltip.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n    parameters: {\n        layout: string;\n    };\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Directive",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Overflow",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Shared",
+          "type": {
+            "text": "StoryObj"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/tooltip.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/tooltip.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Directive",
+          "declaration": {
+            "name": "Directive",
+            "module": "src/tooltip.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Overflow",
+          "declaration": {
+            "name": "Overflow",
+            "module": "src/tooltip.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Shared",
+          "declaration": {
+            "name": "Shared",
+            "module": "src/tooltip.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/tooltip.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    message: 'Tooltip message',\n    position: 'top',\n    maxWidth: 150\n  },\n  argTypes: {\n    position: {\n      control: 'inline-radio',\n      options: [\n        'top',\n        'top-start',\n        'top-end',\n        'right',\n        'right-start',\n        'right-end',\n        'bottom',\n        'bottom-start',\n        'bottom-end',\n        'left',\n        'left-start',\n        'left-end'\n      ]\n    }\n  },\n  render: ({ message, position, maxWidth }) => {\n    return html`\n      <sl-button aria-describedby=\"tooltip\" fill=\"outline\">Button element</sl-button>\n      <sl-tooltip id=\"tooltip\" .position=${position} .maxWidth=${maxWidth}>${message}</sl-tooltip>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Directive",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () =>\n    html`<sl-button ${tooltip('This tooltip is from a directive')} fill=\"outline\">I have a tooltip</sl-button>`\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Overflow",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <section style=\"display:grid\">\n      <p>blaaaaa</p>\n      <p>blaaaaa</p>\n      <p>blaaaaa</p>\n      <p>blaaaaa</p>\n      <p>blaaaaa</p>\n      <p>blaaaaa</p>\n      <figure>\n        <section style=\"border: 1px solid red; position:relative; padding:40px 100px;\">\n          <sl-button aria-describedby=\"tooltip\" fill=\"outline\" style=\"position: absolute;\">Button</sl-button>\n          <div style=\"overflow: hidden; position: absolute;\">\n            <sl-tooltip id=\"tooltip\">This appears outside the overflow parent</sl-tooltip>\n          </div>\n        </section>\n      </figure>\n    </section>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Shared",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-button-bar>\n      <sl-button aria-describedby=\"tooltip\" fill=\"outline\">We</sl-button>\n      <sl-button aria-describedby=\"tooltip\" fill=\"outline\">all</sl-button>\n      <sl-button aria-describedby=\"tooltip\" fill=\"outline\">share</sl-button>\n      <sl-button aria-describedby=\"tooltip\" fill=\"outline\">the</sl-button>\n      <sl-button aria-describedby=\"tooltip\" fill=\"outline\">same</sl-button>\n      <sl-button aria-describedby=\"tooltip\" fill=\"outline\">tooltip</sl-button>\n    </sl-button-bar>\n    <sl-tooltip id=\"tooltip\">I am shared between different elements</sl-tooltip>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/tooltip.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/tooltip.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Directive",
+          "declaration": {
+            "name": "Directive",
+            "module": "src/tooltip.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Overflow",
+          "declaration": {
+            "name": "Overflow",
+            "module": "src/tooltip.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Shared",
+          "declaration": {
+            "name": "Shared",
+            "module": "src/tooltip.stories.ts"
           }
         }
       ]

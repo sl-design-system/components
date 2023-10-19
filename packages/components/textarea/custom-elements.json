@@ -4,6 +4,21 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/textarea.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -16,6 +31,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -34,6 +55,289 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/textarea.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single line text input component.",
+          "name": "Textarea",
+          "slots": [
+            {
+              "description": "The slot for the textarea element",
+              "name": "textarea"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`."
+            },
+            {
+              "kind": "field",
+              "name": "maxLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum length (number of characters)."
+            },
+            {
+              "kind": "field",
+              "name": "minLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum length (number of characters)."
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder text in the input."
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the textarea or if it is just a static, readonly display."
+            },
+            {
+              "kind": "field",
+              "name": "resize",
+              "type": {
+                "text": "'none' | 'vertical' | 'auto'"
+              },
+              "description": "The way the textarea can be resized."
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the textarea should get valid styles when is valid."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "description": "The size of the textarea."
+            },
+            {
+              "kind": "field",
+              "name": "textarea",
+              "type": {
+                "text": "HTMLTextAreaElement"
+              },
+              "description": "The textarea in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is valid."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the textarea."
+            },
+            {
+              "kind": "field",
+              "name": "wrap",
+              "type": {
+                "text": "'soft' | 'hard'"
+              },
+              "description": "The text way should be wrapped during form submission."
+            }
+          ],
+          "superclass": {
+            "name": "Textarea_base",
+            "module": "src/textarea.d.ts"
+          },
+          "tagName": "sl-textarea",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "type": {
+                "text": "ElementInternals"
+              },
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "textarea",
+              "type": {
+                "text": "HTMLTextAreaElement"
+              },
+              "description": "The textarea in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`."
+            },
+            {
+              "kind": "field",
+              "name": "maxLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum length (number of characters)."
+            },
+            {
+              "kind": "field",
+              "name": "minLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum length (number of characters)."
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder text in the input."
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the textarea or if it is just a static, readonly display."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the textarea."
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is valid."
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the textarea should get valid styles when is valid."
+            },
+            {
+              "kind": "field",
+              "name": "resize",
+              "type": {
+                "text": "'none' | 'vertical' | 'auto'"
+              },
+              "description": "The way the textarea can be resized."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "description": "The size of the textarea."
+            },
+            {
+              "kind": "field",
+              "name": "wrap",
+              "type": {
+                "text": "'soft' | 'hard'"
+              },
+              "description": "The text way should be wrapped during form submission."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Textarea",
+          "declaration": {
+            "name": "Textarea",
+            "module": "src/textarea.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/textarea.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/textarea.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/textarea.scss.ts",
       "declarations": [],
       "exports": [
@@ -42,6 +346,304 @@
           "name": "default",
           "declaration": {
             "module": "src/textarea.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/textarea.spec.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/textarea.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/textarea.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Disabled",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Label",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Hint",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "RichLabelHint",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "MinMaxLength",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "CustomValidation",
+          "type": {
+            "text": "StoryObj"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/textarea.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/textarea.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Disabled",
+          "declaration": {
+            "name": "Disabled",
+            "module": "src/textarea.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/textarea.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "src/textarea.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Hint",
+          "declaration": {
+            "name": "Hint",
+            "module": "src/textarea.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RichLabelHint",
+          "declaration": {
+            "name": "RichLabelHint",
+            "module": "src/textarea.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MinMaxLength",
+          "declaration": {
+            "name": "MinMaxLength",
+            "module": "src/textarea.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomValidation",
+          "declaration": {
+            "name": "CustomValidation",
+            "module": "src/textarea.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/textarea.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    disabled: false,\n    placeholder: 'Type here',\n    required: false,\n    size: 'md',\n    value: '',\n    resize: 'none',\n    readonly: false,\n    hint: ''\n  },\n  argTypes: {\n    size: {\n      control: 'inline-radio',\n      options: ['md', 'lg']\n    },\n    resize: {\n      control: 'inline-radio',\n      options: resizeTypes\n    }\n  },\n  render: ({ disabled, placeholder, required, size, value, resize, readonly, hint }) =>\n    html`\n      <sl-textarea\n        ?readonly=${readonly}\n        .disabled=${disabled}\n        .placeholder=${placeholder}\n        .required=${required}\n        .size=${size}\n        .value=${value}\n        .resize=${resize}\n        .hint=${hint}\n      ></sl-textarea>\n    `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Disabled",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`<sl-textarea disabled value=\"Textarea disabled\"></sl-textarea>`\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  argTypes: {\n    size: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: () => html`\n    <style>\n      .content-wrapper {\n        display: inline-grid;\n        gap: 1rem;\n      }\n      .wrapper {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: repeat(2, 1fr);\n        justify-items: center;\n      }\n      sl-textarea {\n        width: 300px;\n      }\n    </style>\n\n    ${sizes.map(\n      size => html`\n        <h2>Size: ${size}</h2>\n        <div class=\"content-wrapper\">\n          <div class=\"wrapper\">\n            <sl-textarea size=${size} placeholder=\"Placeholder ${size}\"></sl-textarea>\n            <sl-textarea size=${size} value=\"I am ${size}\"></sl-textarea>\n            <sl-textarea readonly size=${size} value=\"${size} readonly\"></sl-textarea>\n            <sl-textarea disabled size=${size} value=\"${size} disabled\"></sl-textarea>\n            <sl-textarea disabled size=${size} placeholder=\"Placeholder ${size} disabled\"></sl-textarea>\n          </div>\n          <div class=\"wrapper\">\n            <sl-textarea invalid size=${size} value=\"${size} invalid\"></sl-textarea>\n            <sl-textarea invalid size=${size} placeholder=\"Placeholder ${size} invalid\"></sl-textarea>\n            <sl-textarea disabled invalid size=${size} value=\"${size} invalid disabled\"></sl-textarea>\n            <sl-textarea disabled invalid size=${size} placeholder=\"Placeholder ${size} disabled invalid\"></sl-textarea>\n          </div>\n          <div class=\"wrapper\">\n            <sl-textarea showValid valid size=${size} value=\"I am md valid\"></sl-textarea>\n            <sl-textarea disabled showValid valid size=${size} value=\"${size} valid disabled\"></sl-textarea>\n          </div>\n        </div>\n      `\n    )}\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Label",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    return html`\n      <style>\n        form {\n          display: flex;\n          flex-direction: column;\n        }\n\n        sl-textarea {\n          width: 300px;\n          --sl-textarea-rows: 5;\n          margin-bottom: 1rem;\n        }\n      </style>\n      <form>\n        ${labelSizes.map((size, id) => {\n          const textareaSize = size === 'lg' ? size : 'md';\n          return html`\n            <sl-label for=\"form-textarea-${id}\" size=${size}>What is your name?</sl-label>\n            <sl-textarea id=\"form-textarea-${id}\" size=${textareaSize}></sl-textarea>\n          `;\n        })}\n      </form>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Hint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    return html`\n      <style>\n        form {\n          display: flex;\n          flex-direction: column;\n        }\n\n        sl-textarea {\n          margin-bottom: 1rem;\n        }\n      </style>\n      <form>\n        ${hintSizes.map((hintSize, id) => {\n          return html`\n            <sl-label for=\"form-textarea-${id}\">Nickname</sl-label>\n            <sl-textarea\n              id=\"form-textarea-${id}\"\n              hint=\"What would you like people to call you?\"\n              hintSize=${hintSize}\n            ></sl-textarea>\n          `;\n        })}\n        <sl-label for=\"textarea4\">Nickname</sl-label>\n        <sl-textarea\n          id=\"textarea4\"\n          disabled\n          hint=\"What would you like people to call you?\"\n          hintSize=\"lg\"\n          value=\"Disabled textarea\"\n        ></sl-textarea>\n      </form>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "RichLabelHint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      div {\n        gap: 0.25rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"textarea\">\n        <label slot=\"label\">Custom <i>label</i></label>\n      </sl-label>\n      <sl-textarea id=\"textarea\">\n        <div slot=\"hint\">\n          Hint is an accessible way to provide <strong>additional information</strong> that might help the user\n        </div>\n      </sl-textarea>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "MinMaxLength",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Textarea)?.reportValidity();\n    };\n\n    return html`\n      <style>\n        sl-textarea {\n          width: 350px;\n          margin-bottom: 8px;\n        }\n      </style>\n      <sl-textarea minlength=\"3\" maxlength=\"5\" placeholder=\"Min 3 and max 5 chars\" required></sl-textarea>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomValidation",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as Textarea)?.reportValidity();\n    };\n\n    return html`\n      <style>\n        sl-textarea {\n          width: 350px;\n          margin-bottom: 8px;\n        }\n      </style>\n      <sl-textarea minlength=\"3\" maxlength=\"5\" required=\"true\">\n        <div slot=\"too-short\">You need to enter at least 3 characters here; this is a custom message.</div>\n        <div slot=\"value-missing\">This is the custom value-missing message (for the required attribute).</div>\n      </sl-textarea>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/textarea.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/textarea.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Disabled",
+          "declaration": {
+            "name": "Disabled",
+            "module": "src/textarea.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/textarea.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "src/textarea.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Hint",
+          "declaration": {
+            "name": "Hint",
+            "module": "src/textarea.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RichLabelHint",
+          "declaration": {
+            "name": "RichLabelHint",
+            "module": "src/textarea.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MinMaxLength",
+          "declaration": {
+            "name": "MinMaxLength",
+            "module": "src/textarea.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomValidation",
+          "declaration": {
+            "name": "CustomValidation",
+            "module": "src/textarea.stories.ts"
           }
         }
       ]

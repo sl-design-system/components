@@ -4,6 +4,21 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/text-input"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -16,6 +31,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -34,6 +55,361 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/text-input.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Single line text input component.",
+          "name": "TextInput",
+          "slots": [
+            {
+              "description": "Content shown before the input",
+              "name": "prefix"
+            },
+            {
+              "description": "The slot for the input element",
+              "name": "input"
+            },
+            {
+              "description": "Content shown after the input",
+              "name": "suffix"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the input.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`."
+            },
+            {
+              "kind": "field",
+              "name": "input",
+              "type": {
+                "text": "HTMLInputElement"
+              },
+              "description": "The input element in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is invalid."
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum value. Only applies to number input type."
+            },
+            {
+              "kind": "field",
+              "name": "maxLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum length (number of characters)."
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum value. Only applies to number input type."
+            },
+            {
+              "kind": "field",
+              "name": "minLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum length (number of characters)."
+            },
+            {
+              "kind": "field",
+              "name": "pattern",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Validation using pattern. Native HTML input functionality."
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder text in the input."
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the input or if it is just a static, readonly display."
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the input should get valid styles when is valid."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "description": "The size of the input."
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'email' | 'number' | 'tel' | 'text' | 'url' | 'password'"
+              },
+              "description": "The input type. Only text types are valid here. For other types,\nsee their respective components."
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is valid."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the input, to be used in forms."
+            }
+          ],
+          "superclass": {
+            "name": "TextInput_base",
+            "module": "src/text-input.d.ts"
+          },
+          "tagName": "sl-text-input",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "input",
+              "type": {
+                "text": "HTMLInputElement"
+              },
+              "description": "The input element in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "type": {
+                "text": "ElementInternals"
+              },
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "autocomplete",
+              "type": {
+                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+              },
+              "description": "Specifies which type of data the browser can use to pre-fill the input.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`."
+            },
+            {
+              "kind": "field",
+              "name": "maxLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum length (number of characters)."
+            },
+            {
+              "kind": "field",
+              "name": "minLength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum length (number of characters)."
+            },
+            {
+              "kind": "field",
+              "name": "min",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum value. Only applies to number input type."
+            },
+            {
+              "kind": "field",
+              "name": "max",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Maximum value. Only applies to number input type."
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type"
+            },
+            {
+              "kind": "field",
+              "name": "pattern",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Validation using pattern. Native HTML input functionality."
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Placeholder text in the input."
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is invalid."
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the input is valid."
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the input should get valid styles when is valid."
+            },
+            {
+              "kind": "field",
+              "name": "readonly",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether you can interact with the input or if it is just a static, readonly display."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "description": "The size of the input."
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'email' | 'number' | 'tel' | 'text' | 'url' | 'password'"
+              },
+              "description": "The input type. Only text types are valid here. For other types,\nsee their respective components."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the input, to be used in forms."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TextInput",
+          "declaration": {
+            "name": "TextInput",
+            "module": "src/text-input.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/text-input.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/text-input.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/text-input.scss.ts",
       "declarations": [],
       "exports": [
@@ -42,6 +418,521 @@
           "name": "default",
           "declaration": {
             "module": "src/text-input.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/text-input.spec.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/text-input.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/text-input.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Disabled",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Label",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Hint",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "RichLabelHint",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "ErrorMessageSizes",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "InputTypes",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "PrefixSuffix",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "MinMaxLength",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Pattern",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "CustomInput",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "ValidInput",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "CustomValidation",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "CustomValidationWithHint",
+          "type": {
+            "text": "StoryObj"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Disabled",
+          "declaration": {
+            "name": "Disabled",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Hint",
+          "declaration": {
+            "name": "Hint",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RichLabelHint",
+          "declaration": {
+            "name": "RichLabelHint",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ErrorMessageSizes",
+          "declaration": {
+            "name": "ErrorMessageSizes",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InputTypes",
+          "declaration": {
+            "name": "InputTypes",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PrefixSuffix",
+          "declaration": {
+            "name": "PrefixSuffix",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MinMaxLength",
+          "declaration": {
+            "name": "MinMaxLength",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Pattern",
+          "declaration": {
+            "name": "Pattern",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomInput",
+          "declaration": {
+            "name": "CustomInput",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ValidInput",
+          "declaration": {
+            "name": "ValidInput",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomValidation",
+          "declaration": {
+            "name": "CustomValidation",
+            "module": "src/text-input.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomValidationWithHint",
+          "declaration": {
+            "name": "CustomValidationWithHint",
+            "module": "src/text-input.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/text-input.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    disabled: false,\n    hint: '',\n    placeholder: 'Type something here',\n    prefix: '',\n    required: false,\n    suffix: '',\n    value: '',\n    readonly: false,\n    size: 'md',\n    type: 'text'\n  },\n  argTypes: {\n    maxLength: { type: 'number' },\n    minLength: { type: 'number' },\n    size: {\n      control: 'inline-radio',\n      options: ['md', 'lg']\n    },\n    type: {\n      control: 'inline-radio',\n      options: ['text', 'number', 'email', 'tel', 'url']\n    },\n    min: { type: 'number' },\n    max: { type: 'number' },\n    step: { type: 'number' }\n  },\n  render: ({\n    disabled,\n    hint,\n    maxLength,\n    minLength,\n    placeholder,\n    prefix,\n    required,\n    suffix,\n    value,\n    readonly,\n    size,\n    type,\n    min,\n    max,\n    step\n  }) => html`\n    <style>\n      sl-text-input {\n        width: 400px;\n      }\n    </style>\n    <sl-text-input\n      ?disabled=${disabled}\n      ?required=${required}\n      ?readonly=${readonly}\n      .hint=${hint}\n      .size=${size}\n      .min=${min}\n      .max=${max}\n      .step=${step}\n      .maxLength=${maxLength}\n      .minLength=${minLength}\n      .placeholder=${placeholder}\n      .value=${value}\n      .type=${type}\n    >\n      ${prefix ? html`<span slot=\"prefix\">${prefix}</span>` : ''}\n      ${suffix ? html`<span slot=\"suffix\">${suffix}</span>` : ''}\n    </sl-text-input>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Disabled",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      sl-text-input {\n        width: 400px;\n      }\n      </style>\n    </style><sl-text-input disabled value=\"Input disabled\"></sl-text-input>`\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  argTypes: {\n    size: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: () => html`\n    <style>\n      .content-wrapper {\n        display: inline-grid;\n        gap: 1rem;\n      }\n      .wrapper {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: repeat(2, 1fr);\n        justify-items: center;\n      }\n      sl-text-input {\n        width: 300px;\n      }\n    </style>\n    ${sizes.map(\n      size => html`\n        <h2>Size: ${size}</h2>\n        <div class=\"content-wrapper\">\n          <div class=\"wrapper\">\n            <sl-text-input size=${size} placeholder=\"Placeholder ${size}\"></sl-text-input>\n            <sl-text-input size=${size} value=\"I am ${size}\"></sl-text-input>\n            <sl-text-input readonly size=${size} value=\"${size} readonly\"></sl-text-input>\n            <sl-text-input disabled size=${size} value=\"${size} disabled\"></sl-text-input>\n            <sl-text-input disabled size=${size} placeholder=\"Placeholder ${size} disabled\"></sl-text-input>\n          </div>\n          <div class=\"wrapper\">\n            <sl-text-input invalid size=${size} value=\"I am ${size} invalid\"></sl-text-input>\n            <sl-text-input invalid size=${size} placeholder=\"Placeholder ${size} invalid\"></sl-text-input>\n            <sl-text-input disabled invalid size=${size} value=\"${size} invalid disabled\"></sl-text-input>\n            <sl-text-input\n              disabled\n              invalid\n              size=${size}\n              placeholder=\"Placeholder ${size} disabled invalid\"\n            ></sl-text-input>\n          </div>\n          <div class=\"wrapper\">\n            <sl-text-input showValid valid size=${size} value=\"I am ${size} valid\"></sl-text-input>\n            <sl-text-input disabled showValid valid size=${size} value=\"${size} valid disabled\"></sl-text-input>\n          </div>\n        </div>\n      `\n    )}\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Label",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    return html`\n      <style>\n        form {\n          display: flex;\n          flex-direction: column;\n        }\n\n        sl-text-input {\n          margin-bottom: 16px;\n        }\n      </style>\n      <form>\n        ${labelSizes.map((size, id) => {\n          const inputSize = size === 'lg' ? size : 'md';\n          return html`\n            <sl-label for=\"form-text-input-${id}\" size=${size}>What is your name?</sl-label>\n            <sl-text-input id=\"form-text-input-${id}\" size=${inputSize}></sl-text-input>\n          `;\n        })}\n      </form>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Hint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    return html`\n      <style>\n        form {\n          display: flex;\n          flex-direction: column;\n        }\n\n        sl-text-input {\n          margin-bottom: 16px;\n        }\n      </style>\n      <form>\n        ${hintSizes.map((hintSize, id) => {\n          return html`\n            <sl-label for=\"form-text-input-${id}\">Nickname</sl-label>\n            <sl-text-input\n              id=\"form-text-input-${id}\"\n              hint=\"What would you like people to call you?\"\n              hintSize=${hintSize}\n            ></sl-text-input>\n          `;\n        })}\n        <sl-label for=\"input4\">Nickname</sl-label>\n        <sl-text-input\n          id=\"input4\"\n          disabled\n          hint=\"What would you like people to call you?\"\n          hintSize=\"lg\"\n          value=\"Disabled input\"\n        ></sl-text-input>\n      </form>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "RichLabelHint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      div {\n        gap: 0.25rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">\n        <label slot=\"label\">Custom <i>label</i></label>\n      </sl-label>\n      <sl-text-input id=\"input\">\n        <div slot=\"hint\">\n          Hint is an accessible way to provide <strong>additional information</strong> that might help the user\n        </div>\n      </sl-text-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "ErrorMessageSizes",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    setTimeout(() => document.querySelector('form')?.reportValidity());\n\n    return html`\n      <style>\n        form {\n          align-items: start;\n          display: flex;\n          flex-direction: column;\n        }\n        sl-label {\n          margin-block-start: 0.5rem;\n        }\n        sl-label:first-of-type {\n          margin-block-start: 0;\n        }\n        sl-text-input {\n          align-self: stretch;\n        }\n      </style>\n      <form>\n        <sl-label for=\"input\" size=\"sm\">Small</sl-label>\n        <sl-text-input id=\"input\" name=\"input\" required error-size=\"sm\"></sl-text-input>\n\n        <sl-label for=\"input2\" size=\"md\">Medium</sl-label>\n        <sl-text-input id=\"input2\" name=\"input\" required error-size=\"md\"></sl-text-input>\n\n        <sl-label for=\"input3\" size=\"lg\">Large</sl-label>\n        <sl-text-input id=\"input3\" name=\"input\" required error-size=\"lg\"></sl-text-input>\n      </form>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "InputTypes",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"inputNumber\">Number</sl-label>\n      <sl-text-input id=\"inputNumber\" type=\"number\" min=\"0\" max=\"6\" step=\"2\"></sl-text-input>\n      <sl-label for=\"inputEmail\">Email</sl-label>\n      <sl-text-input id=\"inputEmail\" type=\"email\"> </sl-text-input>\n      <sl-label for=\"inputTel\">Tel</sl-label>\n      <sl-text-input id=\"inputTel\" type=\"tel\"> </sl-text-input>\n      <sl-label for=\"inputUrl\">Url</sl-label>\n      <sl-text-input id=\"inputUrl\" type=\"url\"> </sl-text-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "PrefixSuffix",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      .wrapper {\n        display: flex;\n        gap: 16px;\n      }\n      sl-text-input {\n        width: 400px;\n      }\n      sl-icon {\n        display: flex;\n        align-self: center;\n      }\n    </style>\n    <div class=\"wrapper\">\n      <sl-text-input>\n        <span slot=\"prefix\">prefix</span>\n        <span slot=\"suffix\">suffix</span>\n      </sl-text-input>\n      <sl-text-input>\n        <sl-icon slot=\"prefix\" name=\"face-smile\"></sl-icon>\n        <sl-icon slot=\"suffix\" name=\"face-smile\"></sl-icon>\n      </sl-text-input>\n    </div>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "MinMaxLength",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as TextInput)?.reportValidity();\n    };\n\n    return html`\n      <style>\n        sl-text-input {\n          width: 300px;\n          margin-bottom: 8px;\n        }\n      </style>\n      <sl-text-input minlength=\"3\" maxlength=\"5\" placeholder=\"Min 3 and max 5 chars\" required></sl-text-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Pattern",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as TextInput)?.reportValidity();\n    };\n\n    return html`\n      <style>\n        sl-text-input {\n          width: 300px;\n          margin-bottom: 8px;\n        }\n      </style>\n      <sl-text-input pattern=\".{3,5}\" placeholder=\"Min 3 and max 5 chars using pattern\" required></sl-text-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomInput",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-label for=\"custom\">Custom input</sl-label>\n    <sl-text-input id=\"custom\">\n      <input id=\"foo\" slot=\"input\" placeholder=\"I am a custom input\" />\n    </sl-text-input>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "ValidInput",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      const secondInput = event.target.previousElementSibling as TextInput;\n      secondInput.reportValidity();\n    };\n\n    const validator: Validator = {\n      message: 'Enter the same email address',\n      isValid: (_: HTMLElement, value: ValidationValue): boolean => {\n        return value?.toString() === document.querySelectorAll('sl-text-input')[0].value;\n      }\n    };\n\n    return html`\n      <style>\n        .wrapper {\n          display: flex;\n          flex-direction: column;\n        }\n        sl-text-input {\n          width: 400px;\n          margin-bottom: 16px;\n        }\n        sl-button {\n          width: fit-content;\n        }\n      </style>\n      <div class=\"wrapper\">\n        <sl-label for=\"input1\">Email</sl-label>\n        <sl-text-input\n          showValid\n          .validators=${[validator]}\n          id=\"input1\"\n          placeholder=\"email\"\n          type=\"email\"\n        ></sl-text-input>\n        <sl-label for=\"input2\">Confirm email</sl-label>\n        <sl-text-input\n          id=\"input2\"\n          showValid\n          .validators=${[validator]}\n          placeholder=\"confirm email\"\n          type=\"email\"\n        ></sl-text-input>\n        <sl-button @click=${onClick}>Validate</sl-button>\n      </div>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomValidation",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as TextInput)?.reportValidity();\n    };\n\n    const validator: Validator = {\n      message: 'Enter \"SLDS\"',\n      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'\n    };\n\n    return html`\n      <style>\n        sl-text-input {\n          width: 300px;\n          margin-bottom: 8px;\n        }\n      </style>\n      <sl-text-input required=\"true\" .validators=${[validator]} error-size=\"sm\"></sl-text-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomValidationWithHint",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: HTMLElement }): void => {\n      (event.target.previousElementSibling as TextInput)?.reportValidity();\n    };\n\n    const validator: Validator = {\n      message: 'Enter \"SLDS\"',\n      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'\n    };\n\n    return html`\n      <style>\n        sl-text-input {\n          width: 300px;\n          margin-bottom: 8px;\n        }\n      </style>\n      <sl-text-input required=\"true\" .validators=${[validator]} hint=\"You need to enter 'SLDS'\"></sl-text-input>\n      <sl-button @click=${onClick}>Validate</sl-button>\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Disabled",
+          "declaration": {
+            "name": "Disabled",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Hint",
+          "declaration": {
+            "name": "Hint",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RichLabelHint",
+          "declaration": {
+            "name": "RichLabelHint",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ErrorMessageSizes",
+          "declaration": {
+            "name": "ErrorMessageSizes",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InputTypes",
+          "declaration": {
+            "name": "InputTypes",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "PrefixSuffix",
+          "declaration": {
+            "name": "PrefixSuffix",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "MinMaxLength",
+          "declaration": {
+            "name": "MinMaxLength",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Pattern",
+          "declaration": {
+            "name": "Pattern",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomInput",
+          "declaration": {
+            "name": "CustomInput",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ValidInput",
+          "declaration": {
+            "name": "ValidInput",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomValidation",
+          "declaration": {
+            "name": "CustomValidation",
+            "module": "src/text-input.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomValidationWithHint",
+          "declaration": {
+            "name": "CustomValidationWithHint",
+            "module": "src/text-input.stories.ts"
           }
         }
       ]

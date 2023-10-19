@@ -4,6 +4,21 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/editor.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -19,6 +34,12 @@
     },
     {
       "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "register.ts",
       "declarations": [],
       "exports": [
@@ -28,6 +49,29 @@
           "declaration": {
             "name": "Editor",
             "module": "/src/editor.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/commands.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "setHTML",
+          "type": {
+            "text": "(content: string) => Command"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "setHTML",
+          "declaration": {
+            "name": "setHTML",
+            "module": "src/commands.d.ts"
           }
         }
       ]
@@ -67,6 +111,169 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/editor.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Editor",
+          "members": [
+            {
+              "kind": "method",
+              "name": "createEditor",
+              "return": {
+                "type": {
+                  "text": "EditorView"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "createSchema",
+              "return": {
+                "type": {
+                  "text": "Schema<EditorNodes, EditorMarks>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "createState",
+              "return": {
+                "type": {
+                  "text": "EditorState"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "plugins",
+              "type": {
+                "text": "Plugin[] | undefined"
+              },
+              "description": "Additional plugins."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "Editor_base",
+            "module": "src/editor.d.ts"
+          },
+          "tagName": "sl-editor",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "createEditor",
+              "return": {
+                "type": {
+                  "text": "EditorView"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "createSchema",
+              "return": {
+                "type": {
+                  "text": "Schema<EditorNodes, EditorMarks>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "createState",
+              "return": {
+                "type": {
+                  "text": "EditorState"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "type": {
+                "text": "ElementInternals"
+              },
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "plugins",
+              "type": {
+                "text": "Plugin[] | undefined"
+              },
+              "description": "Additional plugins."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Editor",
+          "declaration": {
+            "name": "Editor",
+            "module": "src/editor.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/editor.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/editor.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/editor.scss.ts",
       "declarations": [],
       "exports": [
@@ -75,6 +282,75 @@
           "name": "default",
           "declaration": {
             "module": "src/editor.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/editor.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n    render: ({ value }: Props) => import(\"lit-html\").TemplateResult<1>;\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/editor.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/editor.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/editor.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  args: {\n    value: `\n      <h1>Rich Text Editor</h1>\n      <p>This component is a <em>rich text editor</em> based on the <a href=\"https://prosemirror.net/\" target=\"_blank\">ProseMirror</a> library.</p>\n      <p>It has support for the following editor actions:</p>\n      <ul>\n        <li><p>Typography: <strong>bold</strong>, <em>italic</em>, <u>underline</u> and <del>strikethrough</del></p></li>\n        <li><p>Format: paragraph, quotation and headings</p></li>\n        <li><p>Alignment: left, right or center</p></li>\n        <li><p>Lists: ordered or unordered</p></li>\n        <li><p>Indentation: indent and outdent</p></li>\n        <li><p>Insert links</p></li>\n      </ul>\n    `\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/editor.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/editor.stories.ts"
           }
         }
       ]
@@ -267,6 +543,44 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/keymap.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "buildKeymap",
+          "type": {
+            "text": "(schema: Schema<EditorNodes, EditorMarks>) => {\n    [key: string]: Command;\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "buildListKeymap",
+          "type": {
+            "text": "(schema: Schema<EditorNodes, EditorMarks>) => {\n    [key: string]: Command;\n}"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "buildKeymap",
+          "declaration": {
+            "name": "buildKeymap",
+            "module": "src/keymap.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "buildListKeymap",
+          "declaration": {
+            "name": "buildListKeymap",
+            "module": "src/keymap.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/keymap.ts",
       "declarations": [
         {
@@ -319,6 +633,406 @@
           "declaration": {
             "name": "buildListKeymap",
             "module": "src/keymap.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/list-utils.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "rootListDepth",
+          "type": {
+            "text": "(pos: ResolvedPos, nodes: {\n    [key: string]: NodeType;\n}) => number | undefined"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "getListLiftTarget",
+          "type": {
+            "text": "(schema: Schema, resPos: ResolvedPos) => number"
+          }
+        },
+        {
+          "kind": "function",
+          "name": "liftSelectionList",
+          "return": {
+            "type": {
+              "text": "Transaction"
+            }
+          },
+          "parameters": [
+            {
+              "name": "state",
+              "type": {
+                "text": "EditorState"
+              }
+            },
+            {
+              "name": "tr",
+              "type": {
+                "text": "Transaction"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "toggleList",
+          "type": {
+            "text": "(state: EditorState, dispatch: DispatchFn, view: EditorView, listType: string) => boolean"
+          }
+        },
+        {
+          "kind": "function",
+          "name": "toggleListCommand",
+          "return": {
+            "type": {
+              "text": "Command"
+            }
+          },
+          "parameters": [
+            {
+              "name": "listType",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "liftFollowingList",
+          "return": {
+            "type": {
+              "text": "Transaction"
+            }
+          },
+          "parameters": [
+            {
+              "name": "state",
+              "type": {
+                "text": "EditorState"
+              }
+            },
+            {
+              "name": "from",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "to",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "rootListDepthNum",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "tr",
+              "type": {
+                "text": "Transaction"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "isRangeOfType",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "doc",
+              "type": {
+                "text": "Node"
+              }
+            },
+            {
+              "name": "$from",
+              "type": {
+                "text": "ResolvedPos"
+              }
+            },
+            {
+              "name": "$to",
+              "type": {
+                "text": "ResolvedPos"
+              }
+            },
+            {
+              "name": "nodeType",
+              "type": {
+                "text": "NodeType"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getAncestorNodesBetween",
+          "return": {
+            "type": {
+              "text": "Node[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "doc",
+              "type": {
+                "text": "Node"
+              }
+            },
+            {
+              "name": "$from",
+              "type": {
+                "text": "ResolvedPos"
+              }
+            },
+            {
+              "name": "$to",
+              "type": {
+                "text": "ResolvedPos"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "findAncestorPosition",
+          "return": {
+            "type": {
+              "text": "ResolvedPos"
+            }
+          },
+          "parameters": [
+            {
+              "name": "doc",
+              "type": {
+                "text": "Node"
+              }
+            },
+            {
+              "name": "pos",
+              "type": {
+                "text": "ResolvedPos"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "liftListItems",
+          "return": {
+            "type": {
+              "text": "Command"
+            }
+          }
+        },
+        {
+          "kind": "function",
+          "name": "wrapInList",
+          "return": {
+            "type": {
+              "text": "Command"
+            }
+          },
+          "parameters": [
+            {
+              "name": "nodeType",
+              "type": {
+                "text": "NodeType"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "toggleUnorderedList",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "state",
+              "type": {
+                "text": "EditorState"
+              }
+            },
+            {
+              "name": "dispatch",
+              "type": {
+                "text": "DispatchFn"
+              }
+            },
+            {
+              "name": "view",
+              "type": {
+                "text": "EditorView"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "toggleOrderedList",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "state",
+              "type": {
+                "text": "EditorState"
+              }
+            },
+            {
+              "name": "dispatch",
+              "type": {
+                "text": "DispatchFn"
+              }
+            },
+            {
+              "name": "view",
+              "type": {
+                "text": "EditorView"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "splitListItemKeepMarks",
+          "type": {
+            "text": "(itemType: NodeType) => (state: EditorState, dispatch?: DispatchFn) => boolean"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "rootListDepth",
+          "declaration": {
+            "name": "rootListDepth",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getListLiftTarget",
+          "declaration": {
+            "name": "getListLiftTarget",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "liftSelectionList",
+          "declaration": {
+            "name": "liftSelectionList",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "toggleList",
+          "declaration": {
+            "name": "toggleList",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "toggleListCommand",
+          "declaration": {
+            "name": "toggleListCommand",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "liftFollowingList",
+          "declaration": {
+            "name": "liftFollowingList",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isRangeOfType",
+          "declaration": {
+            "name": "isRangeOfType",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getAncestorNodesBetween",
+          "declaration": {
+            "name": "getAncestorNodesBetween",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "findAncestorPosition",
+          "declaration": {
+            "name": "findAncestorPosition",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "liftListItems",
+          "declaration": {
+            "name": "liftListItems",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "wrapInList",
+          "declaration": {
+            "name": "wrapInList",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "toggleUnorderedList",
+          "declaration": {
+            "name": "toggleUnorderedList",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "toggleOrderedList",
+          "declaration": {
+            "name": "toggleOrderedList",
+            "module": "src/list-utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "splitListItemKeepMarks",
+          "declaration": {
+            "name": "splitListItemKeepMarks",
+            "module": "src/list-utils.d.ts"
           }
         }
       ]
@@ -790,6 +1504,104 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/schema.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "isEmpty",
+          "type": {
+            "text": "(obj: Record<string, unknown>) => boolean"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "removeEntries",
+          "type": {
+            "text": "(obj: Record<string, unknown>, predicate: (key: string) => boolean) => Record<string, string>"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "removeEmptyEntries",
+          "type": {
+            "text": "(obj: Record<string, unknown>) => Record<string, string>"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "commonAttributes",
+          "type": {
+            "text": "() => Attrs"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "marks",
+          "type": {
+            "text": "Record<EditorMarks, MarkSpec>"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "nodes",
+          "type": {
+            "text": "Record<EditorNodes, NodeSpec>"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "isEmpty",
+          "declaration": {
+            "name": "isEmpty",
+            "module": "src/schema.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "removeEntries",
+          "declaration": {
+            "name": "removeEntries",
+            "module": "src/schema.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "removeEmptyEntries",
+          "declaration": {
+            "name": "removeEmptyEntries",
+            "module": "src/schema.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "commonAttributes",
+          "declaration": {
+            "name": "commonAttributes",
+            "module": "src/schema.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "marks",
+          "declaration": {
+            "name": "marks",
+            "module": "src/schema.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "nodes",
+          "declaration": {
+            "name": "nodes",
+            "module": "src/schema.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/schema.ts",
       "declarations": [
         {
@@ -922,6 +1734,44 @@
           "declaration": {
             "name": "nodes",
             "module": "src/schema.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "createContentNode",
+          "type": {
+            "text": "(schema: Schema, value?: string) => Node"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "getHTML",
+          "type": {
+            "text": "(state: EditorState) => string"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "createContentNode",
+          "declaration": {
+            "name": "createContentNode",
+            "module": "src/utils.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getHTML",
+          "declaration": {
+            "name": "getHTML",
+            "module": "src/utils.d.ts"
           }
         }
       ]

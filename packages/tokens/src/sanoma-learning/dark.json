@@ -11,13 +11,13 @@
       "description": "color.body.default.foreground"
     },
     "surface": {
-      "200": {
-        "value": "{color.palette.neutral.800}",
+      "100": {
+        "value": "{color.palette.neutral.900}",
         "type": "color",
         "description": "color.body.default.foreground"
       },
-      "100": {
-        "value": "{color.palette.neutral.900}",
+      "200": {
+        "value": "{color.palette.neutral.800}",
         "type": "color",
         "description": "color.body.default.foreground"
       },
@@ -27,7 +27,7 @@
         "description": "color.body.default.foreground"
       },
       "overlay": {
-        "value": "rgba({body.background},{opacity.400})",
+        "value": "rgba( {color.palette.white.base},{opacity.500})",
         "type": "color",
         "description": "body.surface.200"
       }
@@ -3293,6 +3293,11 @@
       },
       "foreground": {
         "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      },
+      "border": {
+        "value": "{body.background}",
         "type": "color",
         "description": "color.surface.solid.primary.background"
       }

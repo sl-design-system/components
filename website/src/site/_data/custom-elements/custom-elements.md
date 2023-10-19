@@ -30,22 +30,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
 
-# `../packages/components/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./src/button-bar.js |
-
-# `../packages/components/button-bar/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                            | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
-
 # `../packages/components/checkbox/index.ts`:
 
 ## Exports
@@ -64,6 +48,22 @@
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/components/checkbox/src/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/components/checkbox/src/checkbox-group.js |         |
 
+# `../packages/components/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package             |
+| ---- | ---- | ----------- | ------ | ------------------- |
+| `js` | `*`  | *           |        | ./src/button-bar.js |
+
+# `../packages/components/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                            | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
+
 # `../packages/components/dialog/index.ts`:
 
 ## Exports
@@ -80,22 +80,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
 
-# `../packages/components/drawer/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/drawer.js |
-
-# `../packages/components/drawer/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
-
 # `../packages/components/editor/index.ts`:
 
 ## Exports
@@ -111,6 +95,22 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
+
+# `../packages/components/drawer/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/drawer.js |
+
+# `../packages/components/drawer/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
 
 # `../packages/components/grid/index.ts`:
 
@@ -276,22 +276,6 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-switch` | Switch      | /packages/components/switch/src/switch.js |         |
 
-# `../packages/components/text-input/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package          |
-| ---- | ---- | ----------- | ------ | ---------------- |
-| `js` | `*`  | *           |        | ./src/text-input |
-
-# `../packages/components/text-input/register.ts`:
-
-## Exports
-
-| Kind                        | Name            | Declaration | Module                                         | Package |
-| --------------------------- | --------------- | ----------- | ---------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-text-input` | TextInput   | /packages/components/text-input/src/text-input |         |
-
 # `../packages/components/tabs/index.ts`:
 
 ## Exports
@@ -311,6 +295,22 @@
 | `custom-element-definition` | `sl-tab`       | Tab         | /packages/components/tabs/src/tab.js       |         |
 | `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/components/tabs/src/tab-group.js |         |
 | `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/components/tabs/src/tab-panel.js |         |
+
+# `../packages/components/text-input/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package          |
+| ---- | ---- | ----------- | ------ | ---------------- |
+| `js` | `*`  | *           |        | ./src/text-input |
+
+# `../packages/components/text-input/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                         | Package |
+| --------------------------- | --------------- | ----------- | ---------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-text-input` | TextInput   | /packages/components/text-input/src/text-input |         |
 
 # `../packages/components/textarea/index.ts`:
 
@@ -446,52 +446,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Avatar` | Avatar      | ../packages/components/avatar/src/avatar.ts |         |
-
-# `../packages/components/button-bar/src/button-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
-
-# `../packages/components/button-bar/src/button-bar.ts`:
-
-## class: `ButtonBar`, `sl-button-bar`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name      | Privacy | Type                                              | Default   | Description                                                                                    | Inherited From |
-| --------- | ------- | ------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------- | -------------- |
-| `align`   |         | `'start' \| 'center' \| 'end' \| 'space-between'` | `'start'` | The alignment of the buttons within the bar.&#xA;Functionally the same as flex-box alignments. |                |
-| `reverse` |         | `boolean`                                         | `false`   | When set to true, the button order is reversed using flex-direction.                           |                |
-
-### Attributes
-
-| Name      | Field   | Inherited From |
-| --------- | ------- | -------------- |
-| `align`   | align   |                |
-| `reverse` | reverse |                |
-
-### Slots
-
-| Name      | Description                      |
-| --------- | -------------------------------- |
-| `default` | Buttons to be grouped in the bar |
-
-<hr/>
-
-## Exports
-
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
 
 # `../packages/components/checkbox/src/checkbox-group.scss.ts`:
 
@@ -637,6 +591,52 @@
 | ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Checkbox` | Checkbox    | ../packages/components/checkbox/src/checkbox.ts |         |
 
+# `../packages/components/button-bar/src/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
+
+# `../packages/components/button-bar/src/button-bar.ts`:
+
+## class: `ButtonBar`, `sl-button-bar`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name      | Privacy | Type                                              | Default   | Description                                                                                    | Inherited From |
+| --------- | ------- | ------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------- | -------------- |
+| `align`   |         | `'start' \| 'center' \| 'end' \| 'space-between'` | `'start'` | The alignment of the buttons within the bar.&#xA;Functionally the same as flex-box alignments. |                |
+| `reverse` |         | `boolean`                                         | `false`   | When set to true, the button order is reversed using flex-direction.                           |                |
+
+### Attributes
+
+| Name      | Field   | Inherited From |
+| --------- | ------- | -------------- |
+| `align`   | align   |                |
+| `reverse` | reverse |                |
+
+### Slots
+
+| Name      | Description                      |
+| --------- | -------------------------------- |
+| `default` | Buttons to be grouped in the bar |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                              | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
+
 # `../packages/components/dialog/src/dialog.scss.ts`:
 
 ## Exports
@@ -663,11 +663,11 @@
 
 ### Fields
 
-| Name           | Privacy | Type                             | Default    | Description                                                    | Inherited From |
-| -------------- | ------- | -------------------------------- | ---------- | -------------------------------------------------------------- | -------------- |
-| `dialog`       |         | `HTMLDialogElement \| undefined` |            |                                                                |                |
-| `disableClose` |         | `boolean`                        | `false`    | Disables the ability to close the dialog using the Escape key. |                |
-| `role`         |         | `'dialog' \| 'alertdialog'`      | `'dialog'` | The ARIA role of the dialog.                                   |                |
+| Name            | Privacy | Type                        | Default    | Description                                                                              | Inherited From |
+| --------------- | ------- | --------------------------- | ---------- | ---------------------------------------------------------------------------------------- | -------------- |
+| `closingButton` |         | `boolean \| undefined`      |            | Determines whether closing button (default one) should be shown in the top right corner. |                |
+| `disableClose`  |         | `boolean`                   | `false`    | Disables the ability to close the dialog using the Escape key.                           |                |
+| `role`          |         | `'dialog' \| 'alertdialog'` | `'dialog'` | The ARIA role of the dialog.                                                             |                |
 
 ### Methods
 
@@ -678,20 +678,24 @@
 
 ### Attributes
 
-| Name            | Field        | Inherited From |
-| --------------- | ------------ | -------------- |
-| `disable-close` | disableClose |                |
-| `role`          | role         |                |
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `disable-close`  | disableClose  |                |
+| `closing-button` | closingButton |                |
+| `role`           | role          |                |
 
 ### Slots
 
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `action`  | Area where action buttons are placed |
-| `default` | Body content for the dialog          |
-| `footer`  | Footer content for the dialog        |
-| `header`  | Header content for the dialog        |
-| `title`   | The title of the dialog              |
+| Name             | Description                                      |
+| ---------------- | ------------------------------------------------ |
+| `actions`        | Area where action buttons are placed             |
+| `default`        | Body content for the dialog                      |
+| `footer`         | Footer content for the dialog                    |
+| `header`         | Header content for the dialog                    |
+| `close-button`   | Closing button (placed in header) for the dialog |
+| `header-buttons` | More space for buttons for the dialog's header   |
+| `title`          | The title of the dialog                          |
+| `subtitle`       | The subtitle of the dialog                       |
 
 <hr/>
 
@@ -700,70 +704,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
-
-# `../packages/components/drawer/src/drawer.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
-
-# `../packages/components/drawer/src/drawer.ts`:
-
-## class: `Drawer`, `sl-drawer`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                  |
-| --------------------- | ------ | ------------------------ |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
-
-### Fields
-
-| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
-| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
-| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
-| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
-| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
-| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
-
-### Methods
-
-| Name        | Privacy | Description | Parameters | Return | Inherited From |
-| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `close`     |         |             |            | `void` |                |
-| `showModal` |         |             |            | `void` |                |
-
-### Attributes
-
-| Name              | Field           | Inherited From |
-| ----------------- | --------------- | -------------- |
-| `disable-close`   | disableClose    |                |
-| `attachment`      | attachment      |                |
-| `closeButtonSize` | closeButtonSize |                |
-
-### Slots
-
-| Name      | Description                   |
-| --------- | ----------------------------- |
-| `default` | Body content for the drawer   |
-| `header`  | Header content for the drawer |
-| `title`   | The title of the drawer       |
-
-<hr/>
-
-## Exports
-
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
 
 # `../packages/components/editor/src/commands.ts`:
 
@@ -961,6 +901,70 @@
 | ---- | ------------------- | ----------------- | ------------------------------------------ | ------- |
 | `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
 | `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
+
+# `../packages/components/drawer/src/drawer.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
+
+# `../packages/components/drawer/src/drawer.ts`:
+
+## class: `Drawer`, `sl-drawer`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                  |
+| --------------------- | ------ | ------------------------ |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements |
+
+### Fields
+
+| Name              | Privacy | Type                             | Default   | Description                                                    | Inherited From |
+| ----------------- | ------- | -------------------------------- | --------- | -------------------------------------------------------------- | -------------- |
+| `attachment`      |         | `DrawerAttachment`               | `'right'` | The side of the screen where the drawer is attached            |                |
+| `closeButtonSize` |         | `ButtonSize`                     | `'sm'`    | The size of the button                                         |                |
+| `dialog`          |         | `HTMLDialogElement \| undefined` |           |                                                                |                |
+| `disableClose`    |         | `boolean`                        | `false`   | Disables the ability to close the dialog using the Escape key. |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters | Return | Inherited From |
+| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `close`     |         |             |            | `void` |                |
+| `showModal` |         |             |            | `void` |                |
+
+### Attributes
+
+| Name              | Field           | Inherited From |
+| ----------------- | --------------- | -------------- |
+| `disable-close`   | disableClose    |                |
+| `attachment`      | attachment      |                |
+| `closeButtonSize` | closeButtonSize |                |
+
+### Slots
+
+| Name      | Description                   |
+| --------- | ----------------------------- |
+| `default` | Body content for the drawer   |
+| `header`  | Header content for the drawer |
+| `title`   | The title of the drawer       |
+
+<hr/>
+
+## Exports
+
+| Kind | Name     | Declaration | Module                                      | Package |
+| ---- | -------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
 
 # `../packages/components/grid/src/column-group.ts`:
 
@@ -1841,6 +1845,44 @@
 | ---- | ------- | ----------- | ----------------------------------------------- | ------- |
 | `js` | `Radio` | Radio       | ../packages/components/radio-group/src/radio.ts |         |
 
+# `../packages/components/skeleton/src/skeleton.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/skeleton/src/skeleton.scss.ts |         |
+
+# `../packages/components/skeleton/src/skeleton.ts`:
+
+## class: `Skeleton`, `sl-skeleton`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name     | Privacy | Type             | Default     | Description        | Inherited From |
+| -------- | ------- | ---------------- | ----------- | ------------------ | -------------- |
+| `effect` |         | `SkeletonEffect` | `'shimmer'` | Skeleton's effect. |                |
+
+### Attributes
+
+| Name     | Field  | Inherited From |
+| -------- | ------ | -------------- |
+| `effect` | effect |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name       | Declaration | Module                                          | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
+| `js` | `Skeleton` | Skeleton    | ../packages/components/skeleton/src/skeleton.ts |         |
+
 # `../packages/components/select/src/select-option-group.scss.ts`:
 
 ## Exports
@@ -1994,6 +2036,14 @@
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Select` | Select      | ../packages/components/select/src/select.ts |         |
 
+# `../packages/components/shared/src/breakpoints.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/shared/src/breakpoints.scss.ts |         |
+
 # `../packages/components/shared/src/css.ts`:
 
 ## Variables
@@ -2008,6 +2058,7 @@
 
 | Kind | Name                     | Declaration            | Module                                   | Package |
 | ---- | ------------------------ | ---------------------- | ---------------------------------------- | ------- |
+| `js` | `breakpoints`            | breakpoints            | ../packages/components/shared/src/css.ts |         |
 | `js` | `firstFocusableSelector` | firstFocusableSelector | ../packages/components/shared/src/css.ts |         |
 
 # `../packages/components/shared/src/path.ts`:
@@ -2108,44 +2159,6 @@
 | `js` | `minLengthValidator`    | minLengthValidator    | ../packages/components/shared/src/validators.ts |         |
 | `js` | `maxLengthValidator`    | maxLengthValidator    | ../packages/components/shared/src/validators.ts |         |
 | `js` | `patternValidator`      | patternValidator      | ../packages/components/shared/src/validators.ts |         |
-
-# `../packages/components/skeleton/src/skeleton.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/skeleton/src/skeleton.scss.ts |         |
-
-# `../packages/components/skeleton/src/skeleton.ts`:
-
-## class: `Skeleton`, `sl-skeleton`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name     | Privacy | Type             | Default     | Description        | Inherited From |
-| -------- | ------- | ---------------- | ----------- | ------------------ | -------------- |
-| `effect` |         | `SkeletonEffect` | `'shimmer'` | Skeleton's effect. |                |
-
-### Attributes
-
-| Name     | Field  | Inherited From |
-| -------- | ------ | -------------- |
-| `effect` | effect |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                          | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Skeleton` | Skeleton    | ../packages/components/skeleton/src/skeleton.ts |         |
 
 # `../packages/components/switch/src/switch.scss.ts`:
 
@@ -2647,178 +2660,6 @@
 | ---- | --------- | ----------- | --------------------------------------------- | ------- |
 | `js` | `Tooltip` | Tooltip     | ../packages/components/tooltip/src/tooltip.ts |         |
 
-# `../packages/components/shared/src/data-source/array-data-source.ts`:
-
-## class: `ArrayDataSource`
-
-### Superclass
-
-| Name         | Module                                                     | Package |
-| ------------ | ---------------------------------------------------------- | ------- |
-| `DataSource` | /packages/components/shared/src/data-source/data-source.js |         |
-
-### Fields
-
-| Name            | Privacy | Type                               | Default | Description                                | Inherited From |
-| --------------- | ------- | ---------------------------------- | ------- | ------------------------------------------ | -------------- |
-| `filteredItems` |         | `T[]`                              |         | The filtered & sorted array of items.      | DataSource     |
-| `filters`       |         | `Map<string, DataSourceFilter<T>>` |         |                                            | DataSource     |
-| `items`         |         | `T[]`                              |         | The array of all items.                    | DataSource     |
-| `size`          |         | `number`                           |         | Total number of items in this data source. | DataSource     |
-| `sort`          |         | `DataSourceSort<T> \| undefined`   |         |                                            | DataSource     |
-
-### Methods
-
-| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
-| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
-| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` | DataSource     |
-| `removeFilter` |         |             | `id: string`                                                      | `void` | DataSource     |
-| `removeSort`   |         |             |                                                                   | `void` | DataSource     |
-| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` | DataSource     |
-
-### Events
-
-| Name        | Type          | Description | Inherited From |
-| ----------- | ------------- | ----------- | -------------- |
-| `sl-update` | `CustomEvent` |             |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name              | Declaration     | Module                                                             | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------ | ------- |
-| `js` | `ArrayDataSource` | ArrayDataSource | ../packages/components/shared/src/data-source/array-data-source.ts |         |
-
-# `../packages/components/shared/src/data-source/data-source.ts`:
-
-## class: `DataSource`
-
-### Superclass
-
-| Name          | Module                                                       | Package |
-| ------------- | ------------------------------------------------------------ | ------- |
-| `EventTarget` | ../packages/components/shared/src/data-source/data-source.ts |         |
-
-### Fields
-
-| Name            | Privacy | Type                               | Default | Description                                | Inherited From |
-| --------------- | ------- | ---------------------------------- | ------- | ------------------------------------------ | -------------- |
-| `filteredItems` |         | `T[]`                              |         | The filtered & sorted array of items.      |                |
-| `filters`       |         | `Map<string, DataSourceFilter<T>>` |         |                                            |                |
-| `items`         |         | `T[]`                              |         | The array of all items.                    |                |
-| `size`          |         | `number`                           |         | Total number of items in this data source. |                |
-| `sort`          |         | `DataSourceSort<T> \| undefined`   |         |                                            |                |
-
-### Methods
-
-| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
-| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
-| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` |                |
-| `removeFilter` |         |             | `id: string`                                                      | `void` |                |
-| `removeSort`   |         |             |                                                                   | `void` |                |
-| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                                       | Package |
-| ---- | ------------ | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `DataSource` | DataSource  | ../packages/components/shared/src/data-source/data-source.ts |         |
-
-# `../packages/components/shared/src/data-source/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                |
-| ---- | ---- | ----------- | ------ | ---------------------- |
-| `js` | `*`  | *           |        | ./array-data-source.js |
-| `js` | `*`  | *           |        | ./data-source.js       |
-
-# `../packages/components/shared/src/decorators/base.ts`:
-
-## Functions
-
-| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
-    finisher,
-    descriptor
-  }: {
-    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
-    descriptor?: (property: PropertyKey) => PropertyDescriptor;
-  }, finisher: function, descriptor: function` | `ClassElement\|void` |
-
-<hr/>
-
-## Exports
-
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `decorateProperty` | decorateProperty | ../packages/components/shared/src/decorators/base.ts |         |
-
-# `../packages/components/shared/src/decorators/event.ts`:
-
-## class: `EventEmitter`
-
-### Methods
-
-| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
-| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
-| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
-
-<hr/>
-
-## Variables
-
-| Name    | Description | Type    |
-| ------- | ----------- | ------- |
-| `event` |             | `Event` |
-
-<hr/>
-
-## Functions
-
-| Name    | Description | Parameters              | Return |
-| ------- | ----------- | ----------------------- | ------ |
-| `event` |             | `options: EventOptions` | `any`  |
-
-<hr/>
-
-## Exports
-
-| Kind | Name           | Declaration  | Module                                                | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | ../packages/components/shared/src/decorators/event.ts |         |
-| `js` | `event`        | event        | ../packages/components/shared/src/decorators/event.ts |         |
-
-# `../packages/components/shared/src/decorators/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package      |
-| ---- | ---- | ----------- | ------ | ------------ |
-| `js` | `*`  | *           |        | ./base.js    |
-| `js` | `*`  | *           |        | ./event.js   |
-| `js` | `*`  | *           |        | ./observe.js |
-
-# `../packages/components/shared/src/decorators/observe.ts`:
-
-## Functions
-
-| Name      | Description | Parameters                                          | Return |
-| --------- | ----------- | --------------------------------------------------- | ------ |
-| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | ../packages/components/shared/src/decorators/observe.ts |         |
-
 # `../packages/components/shared/src/controllers/anchor.ts`:
 
 ## class: `AnchorController`
@@ -3065,6 +2906,178 @@
 | ---- | ---------------------- | -------------------- | ----------------------------------------------------------- | ------- |
 | `js` | `validationStyles`     | validationStyles     | ../packages/components/shared/src/controllers/validation.ts |         |
 | `js` | `ValidationController` | ValidationController | ../packages/components/shared/src/controllers/validation.ts |         |
+
+# `../packages/components/shared/src/data-source/array-data-source.ts`:
+
+## class: `ArrayDataSource`
+
+### Superclass
+
+| Name         | Module                                                     | Package |
+| ------------ | ---------------------------------------------------------- | ------- |
+| `DataSource` | /packages/components/shared/src/data-source/data-source.js |         |
+
+### Fields
+
+| Name            | Privacy | Type                               | Default | Description                                | Inherited From |
+| --------------- | ------- | ---------------------------------- | ------- | ------------------------------------------ | -------------- |
+| `filteredItems` |         | `T[]`                              |         | The filtered & sorted array of items.      | DataSource     |
+| `filters`       |         | `Map<string, DataSourceFilter<T>>` |         |                                            | DataSource     |
+| `items`         |         | `T[]`                              |         | The array of all items.                    | DataSource     |
+| `size`          |         | `number`                           |         | Total number of items in this data source. | DataSource     |
+| `sort`          |         | `DataSourceSort<T> \| undefined`   |         |                                            | DataSource     |
+
+### Methods
+
+| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
+| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
+| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` | DataSource     |
+| `removeFilter` |         |             | `id: string`                                                      | `void` | DataSource     |
+| `removeSort`   |         |             |                                                                   | `void` | DataSource     |
+| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` | DataSource     |
+
+### Events
+
+| Name        | Type          | Description | Inherited From |
+| ----------- | ------------- | ----------- | -------------- |
+| `sl-update` | `CustomEvent` |             |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                                             | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------ | ------- |
+| `js` | `ArrayDataSource` | ArrayDataSource | ../packages/components/shared/src/data-source/array-data-source.ts |         |
+
+# `../packages/components/shared/src/data-source/data-source.ts`:
+
+## class: `DataSource`
+
+### Superclass
+
+| Name          | Module                                                       | Package |
+| ------------- | ------------------------------------------------------------ | ------- |
+| `EventTarget` | ../packages/components/shared/src/data-source/data-source.ts |         |
+
+### Fields
+
+| Name            | Privacy | Type                               | Default | Description                                | Inherited From |
+| --------------- | ------- | ---------------------------------- | ------- | ------------------------------------------ | -------------- |
+| `filteredItems` |         | `T[]`                              |         | The filtered & sorted array of items.      |                |
+| `filters`       |         | `Map<string, DataSourceFilter<T>>` |         |                                            |                |
+| `items`         |         | `T[]`                              |         | The array of all items.                    |                |
+| `size`          |         | `number`                           |         | Total number of items in this data source. |                |
+| `sort`          |         | `DataSourceSort<T> \| undefined`   |         |                                            |                |
+
+### Methods
+
+| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
+| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
+| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` |                |
+| `removeFilter` |         |             | `id: string`                                                      | `void` |                |
+| `removeSort`   |         |             |                                                                   | `void` |                |
+| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name         | Declaration | Module                                                       | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------ | ------- |
+| `js` | `DataSource` | DataSource  | ../packages/components/shared/src/data-source/data-source.ts |         |
+
+# `../packages/components/shared/src/data-source/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./array-data-source.js |
+| `js` | `*`  | *           |        | ./data-source.js       |
+
+# `../packages/components/shared/src/decorators/base.ts`:
+
+## Functions
+
+| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
+    finisher,
+    descriptor
+  }: {
+    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
+    descriptor?: (property: PropertyKey) => PropertyDescriptor;
+  }, finisher: function, descriptor: function` | `ClassElement\|void` |
+
+<hr/>
+
+## Exports
+
+| Kind | Name               | Declaration      | Module                                               | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
+| `js` | `decorateProperty` | decorateProperty | ../packages/components/shared/src/decorators/base.ts |         |
+
+# `../packages/components/shared/src/decorators/event.ts`:
+
+## class: `EventEmitter`
+
+### Methods
+
+| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
+| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
+| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
+
+<hr/>
+
+## Variables
+
+| Name    | Description | Type    |
+| ------- | ----------- | ------- |
+| `event` |             | `Event` |
+
+<hr/>
+
+## Functions
+
+| Name    | Description | Parameters              | Return |
+| ------- | ----------- | ----------------------- | ------ |
+| `event` |             | `options: EventOptions` | `any`  |
+
+<hr/>
+
+## Exports
+
+| Kind | Name           | Declaration  | Module                                                | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | ../packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | ../packages/components/shared/src/decorators/event.ts |         |
+
+# `../packages/components/shared/src/decorators/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package      |
+| ---- | ---- | ----------- | ------ | ------------ |
+| `js` | `*`  | *           |        | ./base.js    |
+| `js` | `*`  | *           |        | ./event.js   |
+| `js` | `*`  | *           |        | ./observe.js |
+
+# `../packages/components/shared/src/decorators/observe.ts`:
+
+## Functions
+
+| Name      | Description | Parameters                                          | Return |
+| --------- | ----------- | --------------------------------------------------- | ------ |
+| `observe` |             | `propertyName: string, lifecycle: ObserveLifecycle` |        |
+
+<hr/>
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | ../packages/components/shared/src/decorators/observe.ts |         |
 
 # `../packages/components/shared/src/directives/anchor.ts`:
 

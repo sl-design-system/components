@@ -4,6 +4,29 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/checkbox.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/checkbox-group.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -24,6 +47,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -50,6 +79,148 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/checkbox-group.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Checkbox group; treat a group of checkboxes as one form input with valitation, hints and errors\n\n```html\n  <sl-checkbox-group>\n    <sl-checkbox>Option 1</sl-checkbox>\n    <sl-checkbox>Option 2</sl-checkbox>\n    <sl-checkbox>Option 3</sl-checkbox>\n  </sl-checkbox-group>\n```",
+          "name": "CheckboxGroup",
+          "slots": [
+            {
+              "description": "A list of `sl-checkbox` elements.",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Name of the form control"
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators."
+            }
+          ],
+          "superclass": {
+            "name": "CheckboxGroup_base",
+            "module": "src/checkbox-group.d.ts"
+          },
+          "tagName": "sl-checkbox-group",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "type": {
+                "text": "import(\"element-internals-polyfill/dist/element-internals.js\").ElementInternals & import(\"element-internals-polyfill\").IElementInternals"
+              },
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "boxes",
+              "type": {
+                "text": "Checkbox[] | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators."
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Name of the form control"
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "Native form property",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CheckboxGroup",
+          "declaration": {
+            "name": "CheckboxGroup",
+            "module": "src/checkbox-group.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/checkbox-group.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/checkbox-group.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/checkbox-group.scss.ts",
       "declarations": [],
       "exports": [
@@ -61,6 +232,18 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/checkbox-group.spec.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/checkbox-group.spec.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -240,6 +423,186 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/checkbox.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A checkbox with 3 states; unchecked, checked and intermediate.\n\n```html\n  <sl-checkbox>Foo</sl-checkbox>\n```",
+          "name": "Checkbox",
+          "slots": [
+            {
+              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is checked."
+            },
+            {
+              "kind": "field",
+              "name": "indeterminate",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the checkbox has the indeterminate state."
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is invalid."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "description": "The size of the checkbox"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the checkbox, to be used in forms."
+            }
+          ],
+          "superclass": {
+            "name": "Checkbox_base",
+            "module": "src/checkbox.d.ts"
+          },
+          "tagName": "sl-checkbox",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "type": {
+                "text": "ElementInternals & IElementInternals"
+              },
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is checked."
+            },
+            {
+              "kind": "field",
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is invalid."
+            },
+            {
+              "kind": "field",
+              "name": "indeterminate",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the checkbox has the indeterminate state."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "description": "The size of the checkbox"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value for the checkbox, to be used in forms."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Checkbox",
+          "declaration": {
+            "name": "Checkbox",
+            "module": "src/checkbox.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/checkbox.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/checkbox.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/checkbox.scss.ts",
       "declarations": [],
       "exports": [
@@ -248,6 +611,304 @@
           "name": "default",
           "declaration": {
             "module": "src/checkbox.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/checkbox.spec.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/checkbox.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/checkbox.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n    args: {\n        checked: boolean;\n        disabled: boolean;\n        indeterminate: boolean;\n        text: string;\n        value: string;\n        size: string;\n        hint: string;\n    };\n    argTypes: {\n        size: {\n            control: string;\n            options: string[];\n        };\n    };\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Indeterminate",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "NoText",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Overflow",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "WithLabel",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Group",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "ValidateInForm",
+          "type": {
+            "text": "StoryObj"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/checkbox.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/checkbox.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/checkbox.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Indeterminate",
+          "declaration": {
+            "name": "Indeterminate",
+            "module": "src/checkbox.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "NoText",
+          "declaration": {
+            "name": "NoText",
+            "module": "src/checkbox.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Overflow",
+          "declaration": {
+            "name": "Overflow",
+            "module": "src/checkbox.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "WithLabel",
+          "declaration": {
+            "name": "WithLabel",
+            "module": "src/checkbox.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Group",
+          "declaration": {
+            "name": "Group",
+            "module": "src/checkbox.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ValidateInForm",
+          "declaration": {
+            "name": "ValidateInForm",
+            "module": "src/checkbox.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/checkbox.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ checked, disabled, indeterminate, text, value, size, hint }) => html`\n    <sl-checkbox\n      ?checked=${checked}\n      ?disabled=${disabled}\n      .indeterminate=${indeterminate}\n      .value=${value}\n      .size=${size}\n      .hint=${hint}\n      >${text}</sl-checkbox\n    >\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    setTimeout(() => document.querySelector('form')?.reportValidity());\n    return html`\n      <style>\n        table {\n          border-collapse: collapse;\n          margin-bottom: 24px;\n        }\n\n        th {\n          text-transform: capitalize;\n        }\n        th,\n        td {\n          padding: 4px 8px;\n        }\n        thead td {\n          text-align: center;\n        }\n\n        tbody td:nth-of-type(4n + 5) {\n          border-right: 2px solid #dedede;\n          padding-right: 24px;\n        }\n        tbody td:nth-of-type(4n + 2):not(:first-of-type) {\n          padding-left: 24px;\n        }\n        tbody td:last-of-type {\n          border: none;\n        }\n\n        sl-error {\n          display: none;\n        }\n      </style>\n      <form>\n        <table>\n          <thead>\n            <tr>\n              <th></th>\n              ${sizes.map(size => html` <th colspan=${states.length + 1}>Size: ${size}</th> `)}\n            </tr>\n          </thead>\n          <tbody>\n            ${checked.map(\n              c =>\n                html` <tr>\n                  <td>${c}</td>\n                  ${sizes.map(\n                    size =>\n                      html`${states.map(\n                          state =>\n                            html`\n                              <td>\n                                <sl-checkbox\n                                  ?checked=${c === 'checked'}\n                                  ?indeterminate=${c === 'indeterminate'}\n                                  ?invalid=${state === 'invalid'}\n                                  ?required=${state === 'invalid'}\n                                  ?valid=${state === 'valid'}\n                                  size=${size}\n                                  data-mock-state\n                                  >Label\n                                </sl-checkbox>\n                              </td>\n                            `\n                        )}\n                        <td>\n                          <sl-checkbox\n                            ?checked=${c === 'checked'}\n                            ?indeterminate=${c === 'indeterminate'}\n                            size=${size}\n                            disabled\n                            data-mock-state\n                            >Label\n                          </sl-checkbox>\n                        </td>`\n                  )}\n                </tr>`\n            )}\n          </tbody>\n        </table>\n      </form>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Indeterminate",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <h2>Single</h2>\n    <sl-checkbox indeterminate>Indeterminate</sl-checkbox>\n    <h2>In group, with children</h2>\n    <p>\n      When you use the checkboxes in a nested structure, or have one checkbox to rule them all (to select all in a list\n      of items for example) this is how the indeterminate state should behave:\n    </p>\n    <ul>\n      <li>\n        <sl-checkbox @sl-change=${onChange} name=\"tall\" id=\"tall\">Tall Things</sl-checkbox>\n        <ul>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"tall-1\" id=\"tall-1\">Buildings</sl-checkbox>\n          </li>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"tall-2\" id=\"tall-2\">Giants</sl-checkbox>\n\n            <ul>\n              <li>\n                <sl-checkbox @sl-change=${onChange} name=\"tall-2-1\" id=\"tall-2-1\">Andre</sl-checkbox>\n              </li>\n              <li>\n                <sl-checkbox @sl-change=${onChange} name=\"tall-2-2\" id=\"tall-2-2\">Paul Bunyan</sl-checkbox>\n              </li>\n            </ul>\n          </li>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"tall-3\" id=\"tall-3\">Two sandwiches</sl-checkbox>\n          </li>\n        </ul>\n      </li>\n      <li>\n        <sl-checkbox @sl-change=${onChange} name=\"short\" id=\"short\">Short Things</sl-checkbox>\n        <ul>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"short-1\" id=\"short-1\">Smurfs</sl-checkbox>\n          </li>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"short-2\" id=\"short-2\">Mushrooms</sl-checkbox>\n          </li>\n          <li>\n            <sl-checkbox @sl-change=${onChange} name=\"short-3\" id=\"short-3\">One Sandwich</sl-checkbox>\n          </li>\n        </ul>\n      </li>\n    </ul>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "NoText",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      div {\n        align-items: start;\n        display: flex;\n        flex-direction: column;\n        gap: 1rem;\n      }\n      sl-checkbox {\n        background: hotpink;\n      }\n    </style>\n    <div>\n      <sl-checkbox aria-label=\"Hello world\"> </sl-checkbox>\n      <sl-checkbox>Hello world</sl-checkbox>\n      <sl-checkbox aria-label=\"Hello world\" size=\"lg\"></sl-checkbox>\n      <sl-checkbox size=\"lg\">Hello world</sl-checkbox>\n    </div>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Overflow",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      div {\n        display: flex;\n        flex-direction: column;\n        gap: 16px;\n      }\n      .wrapper {\n        border: 2px solid rgb(var(--sl-color-palette-accent-base));\n      }\n    </style>\n    <em>Borders are added to show the alignment in the container</em>\n    <div class=\"wrapper\">\n      <sl-checkbox\n        >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla\n        consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident\n        enim.\n      </sl-checkbox>\n    </div>\n    <div class=\"wrapper\">\n      <sl-checkbox>Elit consectetur. </sl-checkbox>\n    </div>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "WithLabel",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      .wrapper {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    ${sizes.map(\n      size => html`\n        <h2>Size: ${size}</h2>\n        <div class=\"wrapper\">\n          <sl-label for=\"checkbox\" size=${size}>Label</sl-label>\n          <sl-checkbox id=\"checkbox\" size=${size}>Checkbox</sl-checkbox>\n        </div>\n      `\n    )}\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Group",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-label for=\"group\">Checkbox group</sl-label>\n    <sl-checkbox-group id=\"group\" hint=\"Pick one of these options.\">\n      <sl-checkbox>Check me</sl-checkbox>\n      <sl-checkbox>No me</sl-checkbox>\n      <sl-checkbox>I was here first!</sl-checkbox>\n      <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>\n    </sl-checkbox-group>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "ValidateInForm",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    setTimeout(() => document.querySelector('form')?.reportValidity());\n\n    return html`\n      <style>\n        form {\n          align-items: start;\n          display: flex;\n          flex-direction: column;\n        }\n        sl-label {\n          margin-block-start: 0.5rem;\n        }\n        sl-label:first-of-type {\n          margin-block-start: 0;\n        }\n        sl-button-bar,\n        sl-text-input,\n        sl-textarea {\n          align-self: stretch;\n        }\n      </style>\n      <form @submit=${onSubmit}>\n        <sl-label for=\"group\">Checkbox group</sl-label>\n        <sl-checkbox-group id=\"group\" required id=\"options\" name=\"options\">\n          <sl-checkbox value=\"1\">Check me</sl-checkbox>\n          <sl-checkbox value=\"2\" checked>No me</sl-checkbox>\n          <sl-checkbox value=\"3\">I was here first!</sl-checkbox>\n          <sl-checkbox value=\"4\" disabled>Can't check me, even if you wanted to</sl-checkbox>\n        </sl-checkbox-group>\n        <sl-label for=\"conditions\">Read everything?</sl-label>\n        <sl-checkbox value=\"read\" name=\"conditions\" required checked\n          >Yes, I have read the terms and conditions</sl-checkbox\n        >\n        <sl-label for=\"newletter\">Can we spam you?</sl-label>\n        <sl-checkbox value=\"yes\" name=\"newletter\">Yes, subscribe me to the newsletter</sl-checkbox>\n        <sl-button-bar align=\"end\">\n          <sl-button type=\"reset\">Reset</sl-button>\n          <sl-button type=\"submit\">Submit</sl-button>\n        </sl-button-bar>\n      </form>\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/checkbox.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/checkbox.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/checkbox.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Indeterminate",
+          "declaration": {
+            "name": "Indeterminate",
+            "module": "src/checkbox.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "NoText",
+          "declaration": {
+            "name": "NoText",
+            "module": "src/checkbox.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Overflow",
+          "declaration": {
+            "name": "Overflow",
+            "module": "src/checkbox.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "WithLabel",
+          "declaration": {
+            "name": "WithLabel",
+            "module": "src/checkbox.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Group",
+          "declaration": {
+            "name": "Group",
+            "module": "src/checkbox.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ValidateInForm",
+          "declaration": {
+            "name": "ValidateInForm",
+            "module": "src/checkbox.stories.ts"
           }
         }
       ]

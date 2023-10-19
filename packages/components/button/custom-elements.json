@@ -4,6 +4,21 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/button.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -16,6 +31,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -34,6 +55,179 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/button.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A single, simple button, with optionally an icon.\n\n```html\n  <sl-button>Foo</sl-button>\n```",
+          "name": "Button",
+          "slots": [
+            {
+              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "description": "The fill of the button."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "description": "The size of the button."
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons."
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "description": "The variant of the button."
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "formDisabledCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "disabled",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "privacy": "private"
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "type": {
+                "text": "ElementInternals"
+              },
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "originalTabIndex",
+              "privacy": "private",
+              "description": "The original tabIndex before disabled."
+            },
+            {
+              "kind": "field",
+              "name": "fill",
+              "type": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              },
+              "description": "The fill of the button."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "description": "The size of the button."
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "'button' | 'reset' | 'submit'"
+              },
+              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons."
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              },
+              "description": "The variant of the button."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Button",
+          "declaration": {
+            "name": "Button",
+            "module": "src/button.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/button.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/button.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/button.scss.ts",
       "declarations": [],
       "exports": [
@@ -42,6 +236,180 @@
           "name": "default",
           "declaration": {
             "module": "src/button.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/button.spec.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/button.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/button.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n    args: {\n        text: string;\n        icon: string;\n        size: \"md\";\n        fill: \"solid\";\n        variant: \"default\";\n        disabled: false;\n    };\n    argTypes: {\n        size: {\n            control: string;\n            options: ButtonSize[];\n        };\n        icon: {\n            control: string;\n            options: string[];\n        };\n        fill: {\n            control: string;\n            options: ButtonFill[];\n        };\n        variant: {\n            control: string;\n            options: ButtonVariant[];\n        };\n        disabled: {\n            control: string;\n            options: boolean[];\n        };\n    };\n    render: ({ fill, size, text, variant, icon, disabled }: Props) => import(\"lit-html\").TemplateResult<1>;\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "Story"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Sizes",
+          "type": {
+            "text": "Story"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "AlignmentIssues",
+          "type": {
+            "text": "Story"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/button.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/button.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/button.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Sizes",
+          "declaration": {
+            "name": "Sizes",
+            "module": "src/button.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AlignmentIssues",
+          "declaration": {
+            "name": "AlignmentIssues",
+            "module": "src/button.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/button.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  render: () => {\n    return html` <style>\n        table {\n          border-collapse: collapse;\n        }\n\n        th {\n          text-transform: capitalize;\n        }\n        th,\n        td {\n          padding: 4px 8px;\n        }\n        thead td {\n          text-align: center;\n        }\n\n        tbody td:nth-of-type(6n) {\n          border-right: 2px solid #dedede;\n          padding-right: 24px;\n        }\n        tbody td:nth-of-type(6n + 1):not(:first-of-type) {\n          padding-left: 24px;\n        }\n        tbody td:last-of-type {\n          border: none;\n        }\n      </style>\n      ${sizes.map(\n        size => html` <h2>Size: ${size}</h2>\n          <table>\n            <thead>\n              <tr>\n                <td></td>\n                ${fills.map(fill => html`<th colspan=\"6\">${fill}</th>`)}\n              </tr>\n              <tr>\n                <td></td>\n                ${fills.map(_ =>\n                  disabledStates.map(\n                    disabledState =>\n                      html` <td colspan=\"3\" class=\"${disabledState ? 'sb-disabled' : ''}\">\n                        ${disabledState ? 'Disabled' : 'Enabled'}\n                      </td>`\n                  )\n                )}\n              </tr>\n            </thead>\n            <tbody>\n              ${variants.map(\n                variant => html`\n                  <tr>\n                    <th>${variant}</th>\n                    ${fills.map(fill =>\n                      disabledStates.map(\n                        disabledState => html` <td class=\"${disabledState ? 'sb-disabled' : ''}\">\n                            <sl-button\n                              .fill=${fill}\n                              .size=${size}\n                              ?disabled=${disabledState}\n                              .variant=${variant}\n                              data-mock-state\n                              >Label\n                            </sl-button>\n                          </td>\n                          <td class=\"${disabledState ? 'sb-disabled' : ''}\">\n                            <sl-button\n                              .fill=${fill}\n                              .size=${size}\n                              ?disabled=${disabledState}\n                              .variant=${variant}\n                              data-mock-state\n                            >\n                              <sl-icon name=\"face-smile\"></sl-icon> Label\n                            </sl-button>\n                          </td>\n                          <td class=\"${disabledState ? 'sb-disabled' : ''}\">\n                            <sl-button\n                              .fill=${fill}\n                              .size=${size}\n                              ?disabled=${disabledState}\n                              .variant=${variant}\n                              data-mock-state\n                            >\n                              <sl-icon name=\"face-smile\"></sl-icon>\n                            </sl-button>\n                          </td>`\n                      )\n                    )}\n                  </tr>\n                `\n              )}\n            </tbody>\n          </table>`\n      )}`;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Sizes",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  argTypes: {\n    size: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: ({ fill, variant }) => html`\n    <style>\n      .grid {\n        display: inline-grid;\n        gap: 1rem;\n        grid-template-columns: repeat(4, max-content);\n        justify-items: start;\n      }\n    </style>\n    <div class=\"grid\">\n      ${sizes.map(\n        size => html`\n          <sl-button .fill=${fill} .size=${size} .variant=${variant}><sl-icon name=\"face-smile\"></sl-icon></sl-button>\n          <sl-button .fill=${fill} .size=${size} .variant=${variant}\n            ><sl-icon name=\"face-smile\"></sl-icon> Icon ${size}</sl-button\n          >\n          <sl-button .fill=${fill} .size=${size} .variant=${variant}\n            >Icon ${size}<sl-icon name=\"face-smile\"></sl-icon\n          ></sl-button>\n          <sl-button .fill=${fill} .size=${size} .variant=${variant}>${size}</sl-button>\n        `\n      )}\n    </div>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "AlignmentIssues",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  argTypes: {\n    size: {\n      table: {\n        disable: true\n      }\n    }\n  },\n  render: ({ fill, variant }) => {\n    Icon.registerIcon(faPinata);\n    return html`\n      <sl-button .fill=${fill} size=\"md\" .variant=${variant}><sl-icon name=\"far-pinata\"></sl-icon></sl-button>\n      <sl-button .fill=${fill} size=\"md\" .variant=${variant}><sl-icon name=\"far-pinata\"></sl-icon></sl-button><br />\n      <span>Some random text</span>\n      <sl-button .fill=${fill} size=\"md\" .variant=${variant}><sl-icon name=\"far-pinata\"></sl-icon></sl-button>\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Sizes",
+          "declaration": {
+            "name": "Sizes",
+            "module": "src/button.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AlignmentIssues",
+          "declaration": {
+            "name": "AlignmentIssues",
+            "module": "src/button.stories.ts"
           }
         }
       ]

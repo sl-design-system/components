@@ -4,6 +4,21 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/drawer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -16,6 +31,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -34,6 +55,189 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/drawer.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A drawer component for displaying UI at the side of the screen.",
+          "name": "Drawer",
+          "slots": [
+            {
+              "description": "Body content for the drawer",
+              "name": "default"
+            },
+            {
+              "description": "Header content for the drawer",
+              "name": "header"
+            },
+            {
+              "description": "The title of the drawer",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "attachment",
+              "type": {
+                "text": "DrawerAttachment"
+              },
+              "description": "The side of the screen where the drawer is attached"
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "description": "The size of the button"
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableClose",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disables the ability to close the dialog using the Escape key."
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "superclass": {
+            "name": "Drawer_base",
+            "module": "src/drawer.d.ts"
+          },
+          "tagName": "sl-drawer",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableClose",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Disables the ability to close the dialog using the Escape key."
+            },
+            {
+              "kind": "field",
+              "name": "attachment",
+              "type": {
+                "text": "DrawerAttachment"
+              },
+              "description": "The side of the screen where the drawer is attached"
+            },
+            {
+              "kind": "field",
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "description": "The size of the button"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Drawer",
+          "declaration": {
+            "name": "Drawer",
+            "module": "src/drawer.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/drawer.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/drawer.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/drawer.scss.ts",
       "declarations": [],
       "exports": [
@@ -42,6 +246,149 @@
           "name": "default",
           "declaration": {
             "module": "src/drawer.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/drawer.spec.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/drawer.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/drawer.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n    args: {\n        attachment: string;\n        buttonSize: string;\n    };\n    argTypes: {\n        attachment: {\n            control: string;\n            options: string[];\n        };\n        buttonSize: {\n            control: string;\n            options: string[];\n        };\n    };\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "DisableClose",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "CompleteHeader",
+          "type": {
+            "text": "StoryObj"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/drawer.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/drawer.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DisableClose",
+          "declaration": {
+            "name": "DisableClose",
+            "module": "src/drawer.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CompleteHeader",
+          "declaration": {
+            "name": "CompleteHeader",
+            "module": "src/drawer.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/drawer.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h2 slot=\"title\">In this sidepanel you can find a lot of info</h2>\n      <p>\n        Apple pie chocolate jelly-o carrot cake gummi bears halvah cake cheesecake. Sesame snaps macaroon shortbread\n        cheesecake muffin soufflé. Powder croissant sugar plum candy canes cupcake chupa chups cake marzipan. Chocolate\n        bar pie jujubes chocolate powder jelly. Marshmallow biscuit bear claw cookie topping. Tart sugar plum toffee\n        gingerbread macaroon danish brownie. Candy canes dragée sesame snaps lollipop ice cream.\n      </p>\n    </sl-drawer>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "DisableClose",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer disable-close>\n      <span slot=\"title\" id=\"title\">Drawer title</span>\n      <p>\n        Jelly beans macaroon bonbon chocolate cake jelly beans chocolate lollipop cake. Wafer bonbon powder toffee pie.\n        Shortbread sweet dessert tiramisu danish jelly-o wafer. Brownie lemon drops cake lollipop tart candy cookie\n        gummies chocolate. Cupcake gummies sesame snaps topping gummi bears. Croissant danish marshmallow macaroon\n        fruitcake.\n      </p>\n    </sl-drawer>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CompleteHeader",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: ({ attachment, buttonSize }) => html`\n    <sl-button @click=${onClick}>Show Drawer</sl-button>\n    <sl-drawer .attachment=${attachment} .closeButtonSize=${buttonSize}>\n      <h1 slot=\"title\">Test title</h1>\n      <sl-button slot=\"actions\">download</sl-button>\n      <p>\n        Macaroon caramels tootsie roll cookie liquorice cake gingerbread cookie. Toffee fruitcake macaroon cheesecake\n        muffin gingerbread apple pie. Donut powder lollipop macaroon jelly-o. Powder powder tiramisu brownie jelly\n        macaroon jelly ice cream. Cake macaroon pudding cookie cookie powder macaroon. Sesame snaps cheesecake jujubes\n        tootsie roll macaroon oat cake jujubes cotton candy. Chocolate chocolate cake tart fruitcake sugar plum. Lemon\n        drops dessert pastry jujubes bonbon fruitcake muffin. Candy canes wafer brownie chocolate cake macaroon\n        cheesecake.\n      </p>\n    </sl-drawer>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/drawer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/drawer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DisableClose",
+          "declaration": {
+            "name": "DisableClose",
+            "module": "src/drawer.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CompleteHeader",
+          "declaration": {
+            "name": "CompleteHeader",
+            "module": "src/drawer.stories.ts"
           }
         }
       ]

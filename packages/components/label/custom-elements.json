@@ -4,6 +4,21 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/label.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -16,6 +31,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -34,6 +55,162 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/label.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Label",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible."
+            },
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to."
+            },
+            {
+              "kind": "field",
+              "name": "noPadding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should have no padding bottom."
+            },
+            {
+              "kind": "field",
+              "name": "optional",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as optional."
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as required."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "description": "The size of the label."
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-label",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The DOM id of the form control this is linked to."
+            },
+            {
+              "kind": "field",
+              "name": "optional",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as optional."
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should be marked as required."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg'"
+              },
+              "description": "The size of the label."
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the form control is disabled; when set no interaction is possible."
+            },
+            {
+              "kind": "field",
+              "name": "noPadding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this label should have no padding bottom."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Label",
+          "declaration": {
+            "name": "Label",
+            "module": "src/label.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/label.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/label.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/label.scss.ts",
       "declarations": [],
       "exports": [
@@ -42,6 +219,242 @@
           "name": "default",
           "declaration": {
             "module": "src/label.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/label.spec.d.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/label.spec.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/label.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "LabelSizes",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "CustomLabel",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Required",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Optional",
+          "type": {
+            "text": "StoryObj"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "LabelWithInfoIcon",
+          "type": {
+            "text": "StoryObj"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/label.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/label.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LabelSizes",
+          "declaration": {
+            "name": "LabelSizes",
+            "module": "src/label.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomLabel",
+          "declaration": {
+            "name": "CustomLabel",
+            "module": "src/label.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Required",
+          "declaration": {
+            "name": "Required",
+            "module": "src/label.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Optional",
+          "declaration": {
+            "name": "Optional",
+            "module": "src/label.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LabelWithInfoIcon",
+          "declaration": {
+            "name": "LabelWithInfoIcon",
+            "module": "src/label.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/label.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "API",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  args: {\n    required: false,\n    disabled: true,\n    text: 'Label text'\n  },\n  render: ({ required, text, disabled }) => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">${text}</sl-label>\n      <sl-text-input ?required=${required} id=\"input\" ?disabled=${disabled}></sl-text-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "LabelSizes",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    setTimeout(() => {\n      const form = document.querySelector('form');\n      const slLabels = form?.querySelectorAll('sl-label');\n\n      slLabels?.forEach((label, idx) => {\n        const id = `form-${idx}`;\n        label.setAttribute('for', id);\n        (label.nextElementSibling as HTMLElement).setAttribute('id', id);\n      });\n    });\n\n    return html`\n      <style>\n        form {\n          display: flex;\n          flex-direction: column;\n        }\n        sl-label:not(:first-child) {\n          margin-top: 16px;\n        }\n      </style>\n      <form>\n        ${sizes.map(\n          (size, id) => html`\n            <h2>Size: ${size}</h2>\n            <sl-label size=${size} info=\"true\">\n              I am ${size} label\n              <sl-icon slot=\"icon\" name=\"info\" aria-describedby=\"tooltip1\" size=${iconSizes[id]}></sl-icon>\n              <sl-tooltip slot=\"tooltip\" id=\"tooltip1\">I am a tooltip for the info icon</sl-tooltip>\n            </sl-label>\n            <sl-text-input required></sl-text-input>\n            <sl-label size=${size} info=\"true\">\n              ${size} disabled label\n              <sl-icon slot=\"icon\" name=\"info\" aria-describedby=\"tooltip1\" size=${iconSizes[id]}></sl-icon>\n              <sl-tooltip slot=\"tooltip\" id=\"tooltip1\">I am a tooltip for the info icon</sl-tooltip>\n            </sl-label>\n            <sl-text-input disabled></sl-text-input>\n            <sl-label size=${size} info=\"true\">\n              I am ${size} invalid label\n              <sl-icon slot=\"icon\" name=\"info\" aria-describedby=\"tooltip1\" size=${iconSizes[id]}></sl-icon>\n              <sl-tooltip slot=\"tooltip\" id=\"tooltip1\">I am a tooltip for the info icon</sl-tooltip>\n            </sl-label>\n            <sl-text-input invalid required></sl-text-input>\n            <sl-label for=\"input3a\" size=${size} info=\"true\" no-padding>\n              I am ${size} label with no padding\n              <sl-icon slot=\"icon\" name=\"info\" aria-describedby=\"tooltip3a\" size=${iconSizes[id]}></sl-icon>\n              <sl-tooltip slot=\"tooltip\" id=\"tooltip3a\">I am a tooltip for the info icon</sl-tooltip>\n            </sl-label>\n            <sl-text-input id=\"input3a\" size=\"lg\"></sl-text-input>\n          `\n        )}\n      </form>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "CustomLabel",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n      sl-icon {\n        margin-left: 8px;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">\n        <label slot=\"label\"\n          ><u>Hello</u> <em>World</em><sl-icon slot=\"icon\" name=\"info\" aria-describedby=\"tooltip1\"></sl-icon>\n          <sl-tooltip id=\"tooltip1\">I am a tooltip for the info icon</sl-tooltip></label\n        >\n      </sl-label>\n      <sl-text-input id=\"input\"></sl-text-input>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Required",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-text-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as required</sl-label>\n      <sl-text-input required id=\"input\"></sl-text-input>\n\n      <sl-label for=\"input2\">Optional input</sl-label>\n      <sl-text-input id=\"input2\"></sl-text-input>\n\n      <sl-label for=\"input3\">Optional input</sl-label>\n      <sl-text-input id=\"input3\"></sl-text-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Optional",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-text-input {\n        margin-block-end: 0.5rem;\n      }\n\n      sl-button-bar {\n        margin-top: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input\">This label should be marked as optional</sl-label>\n      <sl-text-input id=\"input\"></sl-text-input>\n\n      <sl-label for=\"input2\">Required input</sl-label>\n      <sl-text-input required id=\"input2\"></sl-text-input>\n\n      <sl-label for=\"input3\">Required input</sl-label>\n      <sl-text-input required id=\"input3\"></sl-text-input>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "LabelWithInfoIcon",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n      sl-text-input {\n        margin-block-end: 0.5rem;\n      }\n    </style>\n    <form>\n      <sl-label for=\"input1\" size=\"sm\" info=\"true\">\n        Label small\n        <sl-icon slot=\"icon\" name=\"info\" size=\"xs\" aria-describedby=\"tooltip\"></sl-icon>\n        <sl-tooltip slot=\"tooltip\" id=\"tooltip\">I am a tooltip for the info icon</sl-tooltip>\n      </sl-label>\n      <sl-text-input id=\"input1\"></sl-text-input>\n      <sl-label for=\"input2\" size=\"md\" info=\"true\">\n        Label medium\n        <sl-icon slot=\"icon\" name=\"info\" size=\"sm\" aria-describedby=\"tooltip1\"></sl-icon>\n        <sl-tooltip slot=\"tooltip\" id=\"tooltip1\">I am a tooltip for the info icon</sl-tooltip>\n      </sl-label>\n      <sl-text-input id=\"input2\"></sl-text-input>\n      <sl-label for=\"input3\" size=\"lg\" info=\"true\">\n        Label large\n        <sl-icon slot=\"icon\" name=\"info\" size=\"md\" aria-describedby=\"tooltip2\"></sl-icon>\n        <sl-tooltip slot=\"tooltip\" id=\"tooltip2\">I am a tooltip for the info icon</sl-tooltip>\n      </sl-label>\n      <sl-text-input id=\"input3\" size=\"lg\"></sl-text-input>\n    </form>\n  `\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "API",
+          "declaration": {
+            "name": "API",
+            "module": "src/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LabelSizes",
+          "declaration": {
+            "name": "LabelSizes",
+            "module": "src/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CustomLabel",
+          "declaration": {
+            "name": "CustomLabel",
+            "module": "src/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Required",
+          "declaration": {
+            "name": "Required",
+            "module": "src/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Optional",
+          "declaration": {
+            "name": "Optional",
+            "module": "src/label.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LabelWithInfoIcon",
+          "declaration": {
+            "name": "LabelWithInfoIcon",
+            "module": "src/label.stories.ts"
           }
         }
       ]

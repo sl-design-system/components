@@ -4,6 +4,21 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/popover.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -16,6 +31,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -34,6 +55,97 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/popover.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Base popover web component.",
+          "name": "Popover",
+          "cssParts": [
+            {
+              "description": "The container for the popover",
+              "name": "container"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "description": "The position of this popover relative to its anchor."
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-popover",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#private",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "{\n        delegatesFocus: boolean;\n        mode: ShadowRootMode;\n        slotAssignment?: SlotAssignmentMode | undefined;\n    }"
+              },
+              "static": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "description": "The position of this popover relative to its anchor."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Popover",
+          "declaration": {
+            "name": "Popover",
+            "module": "src/popover.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/popover.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/popover.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/popover.scss.ts",
       "declarations": [],
       "exports": [
@@ -42,6 +154,199 @@
           "name": "default",
           "declaration": {
             "module": "src/popover.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/popover.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n    parameters: {\n        layout: string;\n    };\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "Story"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Dialog",
+          "type": {
+            "text": "Story"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Edges",
+          "type": {
+            "text": "Story"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Focus",
+          "type": {
+            "text": "Story"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/popover.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/popover.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/popover.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Dialog",
+          "declaration": {
+            "name": "Dialog",
+            "module": "src/popover.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Edges",
+          "declaration": {
+            "name": "Edges",
+            "module": "src/popover.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Focus",
+          "declaration": {
+            "name": "Focus",
+            "module": "src/popover.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/popover.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  args: {\n    position: 'top'\n  },\n  argTypes: {\n    position: {\n      control: 'inline-radio',\n      options: ['top', 'right', 'bottom', 'left']\n    }\n  },\n  render: ({ position }) => {\n    const onClick = (event: Event & { target: Button }): void => {\n      const popover = event.target.nextElementSibling as HTMLElement;\n\n      popover.togglePopover();\n    };\n\n    return html`\n      <sl-button @click=${onClick} id=\"button\">Toggle popover</sl-button>\n      <sl-popover anchor=\"button\" position=${ifDefined(position)}>I'm a popover</sl-popover>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  render: () => {\n    setTimeout(() => {\n      document.querySelectorAll('sl-popover').forEach(popover => popover.showPopover());\n    });\n\n    return html`\n      <style>\n        sl-popover {\n          --sl-popover-offset: 16px;\n        }\n      </style>\n      <span id=\"anchor\">Popover</span>\n      <sl-popover anchor=\"anchor\" popover=\"manual\" position=\"top\">Top</sl-popover>\n      <sl-popover anchor=\"anchor\" popover=\"manual\" position=\"right\">Right</sl-popover>\n      <sl-popover anchor=\"anchor\" popover=\"manual\" position=\"bottom\">Bottom</sl-popover>\n      <sl-popover anchor=\"anchor\" popover=\"manual\" position=\"left\">Left</sl-popover>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Dialog",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: Button }): void => {\n      const popover = event.target.nextElementSibling as HTMLElement;\n\n      popover.togglePopover();\n    };\n\n    return html`\n      <!--added this to get the polyfill working in FF and Safari-->\n      <style>\n        [popover],\n        :host(:where([popover])) {\n          background-color: canvas;\n          border-color: initial;\n          border-image: initial;\n          border-style: solid;\n          border-width: initial;\n          color: canvastext;\n          height: fit-content;\n          margin: auto;\n          overflow: auto;\n          padding: 0.25em;\n          position: fixed;\n          width: fit-content;\n          z-index: 2147483647;\n        }\n\n        [popover] {\n          inset: 0;\n        }\n\n        [popover]:not(.\\\\:popover-open),\n        :host([popover]:not(.\\\\:popover-open)) {\n          display: none;\n        }\n\n        [popover]:is(dialog[open], .\\\\:popover-open) {\n          display: block;\n        }\n\n        [anchor].\\\\:popover-open {\n          inset: auto;\n        }\n\n        @supports selector([popover]:popover-open) {\n          [popover]:not(.\\\\:popover-open, dialog[open]),\n          :host([popover]:not(.\\\\:popover-open, dialog[open])) {\n            display: revert;\n          }\n\n          [anchor]:is(:popover-open) {\n            inset: auto;\n          }\n        }\n      </style>\n      <sl-button @click=${onClick} id=\"button\">Toggle popover</sl-button>\n      <dialog anchor=\"button\" popover ${anchor({ position: 'bottom' })}>I'm a popover</dialog>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Edges",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  render: () => {\n    setTimeout(() => {\n      document.querySelectorAll('sl-popover').forEach(popover => popover.showPopover());\n    });\n\n    return html`\n      <style>\n        #anchor1 {\n          inset: 0 auto auto 50%;\n          position: fixed;\n          translate: -50%;\n        }\n        #anchor2 {\n          inset: 50% 0 auto auto;\n          position: fixed;\n          translate: 0 -50%;\n        }\n        #anchor3 {\n          inset: auto auto 0 50%;\n          position: fixed;\n          translate: -50%;\n        }\n        #anchor4 {\n          inset: 50% auto auto 0;\n          position: fixed;\n          translate: 0 -50%;\n        }\n      </style>\n      <span id=\"anchor1\">Popover</span>\n      <span id=\"anchor2\">Popover</span>\n      <span id=\"anchor3\">Popover</span>\n      <span id=\"anchor4\">Popover</span>\n      <sl-popover anchor=\"anchor1\" popover=\"manual\" position=\"top\">Top</sl-popover>\n      <sl-popover anchor=\"anchor2\" popover=\"manual\" position=\"right\">Right</sl-popover>\n      <sl-popover anchor=\"anchor3\" popover=\"manual\" position=\"bottom\">Bottom</sl-popover>\n      <sl-popover anchor=\"anchor4\" popover=\"manual\" position=\"left\">Left</sl-popover>\n    `;\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "Focus",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{\n  render: () => {\n    const onClick = (event: Event & { target: Button }): void => {\n      const popover = event.target.nextElementSibling as HTMLElement;\n\n      popover.togglePopover();\n    };\n\n    return html`\n      <style>\n        sl-popover form {\n          align-items: center;\n          display: grid;\n          gap: 0.5rem;\n          grid-template-columns: auto 1fr;\n          grid-template-rows: 1fr 1fr;\n        }\n        sl-button-bar {\n          grid-column: 1 / -1;\n        }\n      </style>\n      <sl-button @click=${onClick} id=\"button\">Toggle popover</sl-button>\n      <sl-popover anchor=\"button\">\n        <form>\n          <label>Label</label>\n          <sl-text-input placeholder=\"Input\"></sl-text-input>\n          <sl-button-bar align=\"end\">\n            <sl-button size=\"sm\">Save</sl-button>\n          </sl-button-bar>\n        </form>\n      </sl-popover>\n    `;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/popover.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/popover.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/popover.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Dialog",
+          "declaration": {
+            "name": "Dialog",
+            "module": "src/popover.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Edges",
+          "declaration": {
+            "name": "Edges",
+            "module": "src/popover.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Focus",
+          "declaration": {
+            "name": "Focus",
+            "module": "src/popover.stories.ts"
           }
         }
       ]

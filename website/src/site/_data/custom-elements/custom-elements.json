@@ -64,36 +64,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button-bar/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/button-bar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-button-bar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "/packages/components/button-bar/src/button-bar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/checkbox/index.ts",
       "declarations": [],
       "exports": [
@@ -140,6 +110,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/button-bar/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-button-bar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "/packages/components/button-bar/src/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/dialog/index.ts",
       "declarations": [],
       "exports": [
@@ -170,36 +170,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/drawer/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/drawer.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/drawer/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-drawer",
-          "declaration": {
-            "name": "Drawer",
-            "module": "/packages/components/drawer/src/drawer.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/editor/index.ts",
       "declarations": [],
       "exports": [
@@ -224,6 +194,36 @@
           "declaration": {
             "name": "Editor",
             "module": "/packages/components/editor/src/editor.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/drawer/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/drawer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/drawer/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-drawer",
+          "declaration": {
+            "name": "Drawer",
+            "module": "/packages/components/drawer/src/drawer.js"
           }
         }
       ]
@@ -709,36 +709,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/text-input/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/text-input"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/text-input/register.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-text-input",
-          "declaration": {
-            "name": "TextInput",
-            "module": "/packages/components/text-input/src/text-input"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/tabs/index.ts",
       "declarations": [],
       "exports": [
@@ -795,6 +765,36 @@
           "declaration": {
             "name": "TabPanel",
             "module": "/packages/components/tabs/src/tab-panel.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/text-input/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/text-input"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/text-input/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-text-input",
+          "declaration": {
+            "name": "TextInput",
+            "module": "/packages/components/text-input/src/text-input"
           }
         }
       ]
@@ -1207,99 +1207,6 @@
           "declaration": {
             "name": "Avatar",
             "module": "../packages/components/avatar/src/avatar.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
-          "name": "ButtonBar",
-          "slots": [
-            {
-              "description": "Buttons to be grouped in the bar",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "attribute": "align",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "attribute": "reverse",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "align",
-              "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
-              },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "fieldName": "align"
-            },
-            {
-              "name": "reverse",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "When set to true, the button order is reversed using flex-direction.",
-              "fieldName": "reverse"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-button-bar",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ButtonBar",
-          "declaration": {
-            "name": "ButtonBar",
-            "module": "../packages/components/button-bar/src/button-bar.ts"
           }
         }
       ]
@@ -2028,6 +1935,99 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
+          "name": "ButtonBar",
+          "slots": [
+            {
+              "description": "Buttons to be grouped in the bar",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "attribute": "align",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "attribute": "reverse",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "'start' | 'center' | 'end' | 'space-between'"
+              },
+              "default": "'start'",
+              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "fieldName": "align"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set to true, the button order is reversed using flex-direction.",
+              "fieldName": "reverse"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-button-bar",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ButtonBar",
+          "declaration": {
+            "name": "ButtonBar",
+            "module": "../packages/components/button-bar/src/button-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/dialog/src/dialog.scss.ts",
       "declarations": [],
       "exports": [
@@ -2051,7 +2051,7 @@
           "slots": [
             {
               "description": "Area where action buttons are placed",
-              "name": "action"
+              "name": "actions"
             },
             {
               "description": "Body content for the dialog",
@@ -2066,8 +2066,20 @@
               "name": "header"
             },
             {
+              "description": "Closing button (placed in header) for the dialog",
+              "name": "close-button"
+            },
+            {
+              "description": "More space for buttons for the dialog's header",
+              "name": "header-buttons"
+            },
+            {
               "description": "The title of the dialog",
               "name": "title"
+            },
+            {
+              "description": "The subtitle of the dialog",
+              "name": "subtitle"
             }
           ],
           "members": [
@@ -2082,10 +2094,12 @@
             },
             {
               "kind": "field",
-              "name": "dialog",
+              "name": "closingButton",
               "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "attribute": "closing-button"
             },
             {
               "kind": "field",
@@ -2126,6 +2140,14 @@
               "default": "false",
               "description": "Disables the ability to close the dialog using the Escape key.",
               "fieldName": "disableClose"
+            },
+            {
+              "name": "closing-button",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "fieldName": "closingButton"
             },
             {
               "name": "role",
@@ -2169,15 +2191,7 @@
               }
             }
           ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            }
-          ]
+          "fields": []
         }
       ],
       "exports": [
@@ -2187,183 +2201,6 @@
           "declaration": {
             "name": "Dialog",
             "module": "../packages/components/dialog/src/dialog.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/drawer/src/drawer.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/drawer/src/drawer.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/drawer/src/drawer.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A drawer component for displaying UI at the side of the screen.",
-          "name": "Drawer",
-          "slots": [
-            {
-              "description": "Body content for the drawer",
-              "name": "default"
-            },
-            {
-              "description": "Header content for the drawer",
-              "name": "header"
-            },
-            {
-              "description": "The title of the drawer",
-              "name": "title"
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "attachment",
-              "type": {
-                "text": "DrawerAttachment"
-              },
-              "default": "'right'",
-              "description": "The side of the screen where the drawer is attached",
-              "attribute": "attachment",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "closeButtonSize",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'sm'",
-              "description": "The size of the button",
-              "attribute": "closeButtonSize"
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disableClose",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
-            },
-            {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disable-close",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "attachment",
-              "type": {
-                "text": "DrawerAttachment"
-              },
-              "default": "'right'",
-              "description": "The side of the screen where the drawer is attached",
-              "fieldName": "attachment"
-            },
-            {
-              "name": "closeButtonSize",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'sm'",
-              "description": "The size of the button",
-              "fieldName": "closeButtonSize"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-drawer",
-          "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Drawer",
-          "declaration": {
-            "name": "Drawer",
-            "module": "../packages/components/drawer/src/drawer.ts"
           }
         }
       ]
@@ -3622,6 +3459,183 @@
           "declaration": {
             "name": "getHTML",
             "module": "../packages/components/editor/src/utils.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/drawer/src/drawer.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/drawer/src/drawer.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/drawer/src/drawer.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A drawer component for displaying UI at the side of the screen.",
+          "name": "Drawer",
+          "slots": [
+            {
+              "description": "Body content for the drawer",
+              "name": "default"
+            },
+            {
+              "description": "Header content for the drawer",
+              "name": "header"
+            },
+            {
+              "description": "The title of the drawer",
+              "name": "title"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "attachment",
+              "type": {
+                "text": "DrawerAttachment"
+              },
+              "default": "'right'",
+              "description": "The side of the screen where the drawer is attached",
+              "attribute": "attachment",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'sm'",
+              "description": "The size of the button",
+              "attribute": "closeButtonSize"
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disableClose",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "attribute": "disable-close"
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disable-close",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "fieldName": "disableClose"
+            },
+            {
+              "name": "attachment",
+              "type": {
+                "text": "DrawerAttachment"
+              },
+              "default": "'right'",
+              "description": "The side of the screen where the drawer is attached",
+              "fieldName": "attachment"
+            },
+            {
+              "name": "closeButtonSize",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'sm'",
+              "description": "The size of the button",
+              "fieldName": "closeButtonSize"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-drawer",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Drawer",
+          "declaration": {
+            "name": "Drawer",
+            "module": "../packages/components/drawer/src/drawer.ts"
           }
         }
       ]
@@ -8518,6 +8532,73 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Skeleton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "attribute": "effect",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "effect",
+              "type": {
+                "text": "SkeletonEffect"
+              },
+              "default": "'shimmer'",
+              "description": "Skeleton's effect.",
+              "fieldName": "effect"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-skeleton",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Skeleton",
+          "declaration": {
+            "name": "Skeleton",
+            "module": "../packages/components/skeleton/src/skeleton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/select/src/select-option-group.scss.ts",
       "declarations": [],
       "exports": [
@@ -9127,6 +9208,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/shared/src/breakpoints.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/shared/src/breakpoints.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/shared/src/css.ts",
       "declarations": [
         {
@@ -9139,6 +9234,14 @@
         }
       ],
       "exports": [
+        {
+          "kind": "js",
+          "name": "breakpoints",
+          "declaration": {
+            "name": "breakpoints",
+            "module": "../packages/components/shared/src/css.ts"
+          }
+        },
         {
           "kind": "js",
           "name": "firstFocusableSelector",
@@ -9621,73 +9724,6 @@
           "declaration": {
             "name": "patternValidator",
             "module": "../packages/components/shared/src/validators.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "Skeleton",
-          "members": [
-            {
-              "kind": "field",
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "attribute": "effect",
-              "reflects": true
-            }
-          ],
-          "attributes": [
-            {
-              "name": "effect",
-              "type": {
-                "text": "SkeletonEffect"
-              },
-              "default": "'shimmer'",
-              "description": "Skeleton's effect.",
-              "fieldName": "effect"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-skeleton",
-          "customElement": true,
-          "methods": [],
-          "fields": []
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Skeleton",
-          "declaration": {
-            "name": "Skeleton",
-            "module": "../packages/components/skeleton/src/skeleton.ts"
           }
         }
       ]
@@ -12178,904 +12214,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/packages/components/shared/src/data-source/data-source.js"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "../packages/components/shared/src/data-source/data-source.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "../packages/components/shared/src/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items."
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items."
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source."
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "../packages/components/shared/src/data-source/data-source.ts"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source."
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "../packages/components/shared/src/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/base.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "decorateProperty",
-          "parameters": [
-            {
-              "name": "{\n    finisher,\n    descriptor\n  }",
-              "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
-              }
-            },
-            {
-              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
-              "name": "finisher",
-              "type": {
-                "text": "function"
-              }
-            },
-            {
-              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
-              "name": "descriptor",
-              "type": {
-                "text": "function"
-              }
-            }
-          ],
-          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
-          "return": {
-            "type": {
-              "text": "ClassElement|void"
-            }
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "decorateProperty",
-          "declaration": {
-            "name": "decorateProperty",
-            "module": "../packages/components/shared/src/decorators/base.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "EventEmitter",
-          "members": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ],
-          "methods": [
-            {
-              "kind": "method",
-              "name": "emit",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "EventOptions"
-                  }
-                }
-              ]
-            }
-          ],
-          "fields": []
-        },
-        {
-          "kind": "variable",
-          "name": "event",
-          "type": {
-            "text": "Event"
-          }
-        },
-        {
-          "kind": "function",
-          "name": "event",
-          "return": {
-            "type": {
-              "text": "any"
-            }
-          },
-          "parameters": [
-            {
-              "name": "options",
-              "optional": true,
-              "type": {
-                "text": "EventOptions"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "EventEmitter",
-          "declaration": {
-            "name": "EventEmitter",
-            "module": "../packages/components/shared/src/decorators/event.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "event",
-          "declaration": {
-            "name": "event",
-            "module": "../packages/components/shared/src/decorators/event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./base.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/decorators/observe.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "observe",
-          "parameters": [
-            {
-              "name": "propertyName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "lifecycle",
-              "default": "'update'",
-              "type": {
-                "text": "ObserveLifecycle"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "observe",
-          "declaration": {
-            "name": "observe",
-            "module": "../packages/components/shared/src/decorators/observe.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/shared/src/controllers/anchor.ts",
       "declarations": [
         {
@@ -15516,6 +14654,904 @@
           "declaration": {
             "name": "ValidationController",
             "module": "../packages/components/shared/src/controllers/validation.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/data-source/array-data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ArrayDataSource",
+          "members": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-update",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "DataSource",
+            "module": "/packages/components/shared/src/data-source/data-source.js"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ArrayDataSource",
+          "declaration": {
+            "name": "ArrayDataSource",
+            "module": "../packages/components/shared/src/data-source/array-data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/data-source/data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSource",
+          "members": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items."
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
+            }
+          ],
+          "superclass": {
+            "name": "EventTarget",
+            "module": "../packages/components/shared/src/data-source/data-source.ts"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataSource",
+          "declaration": {
+            "name": "DataSource",
+            "module": "../packages/components/shared/src/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/data-source/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./array-data-source.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./data-source.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/base.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "decorateProperty",
+          "parameters": [
+            {
+              "name": "{\n    finisher,\n    descriptor\n  }",
+              "type": {
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+              }
+            },
+            {
+              "description": "Optional finisher method; receives the element\nconstructor and property key as arguments and has no return value.",
+              "name": "finisher",
+              "type": {
+                "text": "function"
+              }
+            },
+            {
+              "description": "Optional descriptor method; receives the\nproperty key as an argument and returns a property descriptor to define for\nthe given property.",
+              "name": "descriptor",
+              "type": {
+                "text": "function"
+              }
+            }
+          ],
+          "description": "Helper for decorating a property that is compatible with both TypeScript\nand Babel decorators. The optional `finisher` can be used to perform work on\nthe class. The optional `descriptor` should return a PropertyDescriptor\nto install for the given property.",
+          "return": {
+            "type": {
+              "text": "ClassElement|void"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "decorateProperty",
+          "declaration": {
+            "name": "decorateProperty",
+            "module": "../packages/components/shared/src/decorators/base.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EventEmitter",
+          "members": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "emit",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "EventOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": []
+        },
+        {
+          "kind": "variable",
+          "name": "event",
+          "type": {
+            "text": "Event"
+          }
+        },
+        {
+          "kind": "function",
+          "name": "event",
+          "return": {
+            "type": {
+              "text": "any"
+            }
+          },
+          "parameters": [
+            {
+              "name": "options",
+              "optional": true,
+              "type": {
+                "text": "EventOptions"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EventEmitter",
+          "declaration": {
+            "name": "EventEmitter",
+            "module": "../packages/components/shared/src/decorators/event.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "event",
+          "declaration": {
+            "name": "event",
+            "module": "../packages/components/shared/src/decorators/event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./base.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./observe.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/decorators/observe.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "observe",
+          "parameters": [
+            {
+              "name": "propertyName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "lifecycle",
+              "default": "'update'",
+              "type": {
+                "text": "ObserveLifecycle"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "observe",
+          "declaration": {
+            "name": "observe",
+            "module": "../packages/components/shared/src/decorators/observe.ts"
           }
         }
       ]

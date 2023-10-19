@@ -4,6 +4,21 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "index.d.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/avatar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "index.ts",
       "declarations": [],
       "exports": [
@@ -16,6 +31,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.d.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -34,6 +55,209 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/avatar.d.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Avatar",
+          "members": [
+            {
+              "kind": "field",
+              "name": "fallback",
+              "type": {
+                "text": "AvatarFallbackType | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "imageOnly",
+              "type": {
+                "text": "boolean | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "AvatarOrientation | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "AvatarSize | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "status",
+              "type": {
+                "text": "UserStatus | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "statusBadge",
+              "type": {
+                "text": "TemplateResult | typeof nothing"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-avatar",
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "AvatarSize | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "fallback",
+              "type": {
+                "text": "AvatarFallbackType | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "AvatarOrientation | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "status",
+              "type": {
+                "text": "UserStatus | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "imageOnly",
+              "type": {
+                "text": "boolean | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "statusBadge",
+              "type": {
+                "text": "TemplateResult | typeof nothing"
+              },
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Avatar",
+          "declaration": {
+            "name": "Avatar",
+            "module": "src/avatar.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/avatar.scss.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "import(\"lit\").CSSResult"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/avatar.scss.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/avatar.scss.ts",
       "declarations": [],
       "exports": [
@@ -42,6 +266,106 @@
           "name": "default",
           "declaration": {
             "module": "src/avatar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/avatar.stories.d.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "_default",
+          "type": {
+            "text": "{\n    title: string;\n    args: {\n        title: string;\n        firstName: string;\n        lastName: string;\n        picture: string;\n        imageOnly: false;\n        size: \"md\";\n    };\n    argTypes: {\n        subheading: {\n            control: string;\n            defaultValue: null;\n        };\n        size: {\n            control: string;\n            options: AvatarSize[];\n        };\n        fallback: {\n            control: string;\n            options: AvatarFallbackType[];\n        };\n        status: {\n            control: string;\n            options: (UserStatus | undefined)[];\n        };\n        imageOnly: {\n            control: string;\n        };\n        orientation: {\n            control: string;\n            options: AvatarOrientation[];\n        };\n    };\n    render: ({ title, firstName, lastName, picture, size, fallback, status, imageOnly, subheading, orientation }: Props) => import(\"lit-html\").TemplateResult<1>;\n}"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          }
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "_default",
+            "module": "src/avatar.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/avatar.stories.d.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/avatar.stories.d.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/avatar.stories.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "Basic",
+          "type": {
+            "text": "Story"
+          },
+          "default": "{}"
+        },
+        {
+          "kind": "variable",
+          "name": "All",
+          "type": {
+            "text": "StoryObj"
+          },
+          "default": "{\n  render: () => {\n    return html` <style>\n        table {\n          border-collapse: collapse;\n          margin-bottom: 24px;\n        }\n\n        th {\n          text-transform: capitalize;\n        }\n        th,\n        td {\n          padding: 4px 8px;\n        }\n      </style>\n      <table>\n        <thead>\n          <tr>\n            <th>Size</th>\n            <th>With avatar</th>\n            <th>With initials</th>\n            <th>With placeholder</th>\n            <th>With subheading</th>\n            <th>With status</th>\n            <th>Image only</th>\n          </tr>\n        </thead>\n        <tbody>\n          ${sizes.map(\n            size => html` <tr>\n              <th>${sizeName(size)}</th>\n              <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>\n              <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>\n              <td><sl-avatar .user=${users[4]} .size=${size} fallback=\"image\"></sl-avatar></td>\n              <td><sl-avatar .user=${users[1]} .size=${size}>Very good student</sl-avatar></td>\n              <td><sl-avatar .user=${users[0]} .size=${size} status=\"online\"></sl-avatar></td>\n              <td><sl-avatar .user=${users[5]} .size=${size} image-only></sl-avatar></td>\n            </tr>`\n          )}\n          </tr>\n        </tbody>\n      </table>`;\n  }\n}"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "src/avatar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Basic",
+          "declaration": {
+            "name": "Basic",
+            "module": "src/avatar.stories.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "All",
+          "declaration": {
+            "name": "All",
+            "module": "src/avatar.stories.ts"
           }
         }
       ]

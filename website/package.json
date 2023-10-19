@@ -116,12 +116,12 @@
       ]
     },
     "build:type-check": {
-      "command": "tsc -p tsconfig.json --pretty --incremental",
+      "command": "tsc --build tsconfig.json --pretty",
+      "clean": "if-file-deleted",
       "files": [
         "tsconfig.json",
-        "src/**/*"
+        "src/**/*.ts"
       ],
-      "clean": "if-file-deleted",
       "output": [
         "tsconfig.tsbuildinfo"
       ]
@@ -155,7 +155,7 @@
       ]
     },
     "start": {
-      "command": "wds --watch --root-dir dist",
+      "command": "wds -w -r dist",
       "service": true,
       "dependencies": [
         {
@@ -165,7 +165,7 @@
       ]
     },
     "start:dev": {
-      "command": "wds --watch --root-dir public --open",
+      "command": "wds -w -r public -o",
       "service": true,
       "dependencies": [
         {

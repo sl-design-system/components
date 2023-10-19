@@ -103,7 +103,7 @@ function generateTabsElements(): void {
     tab.setAttribute('tabindex', '-1');
   });
 
-  tabsContents?.forEach((tabContent, id) => {
+  tabsContents.forEach((tabContent, id) => {
     tabContent.setAttribute('id', `ds-tab-content-${nextUniqueId++}`);
     tabContent.setAttribute('role', 'tabpanel');
     tabContent.setAttribute('aria-labelledby', tabs[id].getAttribute('id') as string);
@@ -308,9 +308,7 @@ function selectTab(tab: Element): void {
   current?.setAttribute('tabindex', '-1');
   tab.setAttribute('tabindex', '0');
   const tabContent = Array.from(tabsContents).find(tabContent => {
-    if (tabContent.getAttribute('aria-labelledby') === tab.getAttribute('id')) {
-      return tabContent;
-    }
+    return tabContent.getAttribute('aria-labelledby') === tab.getAttribute('id');
   });
   currentContent?.classList.replace('ds-tabs__tab-content--active', 'ds-tabs__tab-content--hidden');
   tabContent?.classList.replace('ds-tabs__tab-content--hidden', 'ds-tabs__tab-content--active');

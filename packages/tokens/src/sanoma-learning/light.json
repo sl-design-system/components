@@ -22,7 +22,7 @@
         "description": "body.surface.100"
       },
       "overlay": {
-        "value": "rgba({body.foreground},{opacity.700})",
+        "value": "rgba({color.palette.primary.base} , {opacity.700})",
         "type": "color",
         "description": "body.surface.200"
       }
@@ -3802,6 +3802,11 @@
       },
       "foreground": {
         "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      },
+      "border": {
+        "value": "{body.background}",
         "type": "color",
         "description": "color.surface.solid.primary.background"
       }

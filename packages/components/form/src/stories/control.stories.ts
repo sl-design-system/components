@@ -8,7 +8,7 @@ import { FormControl } from '../form-control.js';
 import '../../register.js';
 
 class ControlForm extends LitElement {
-  name = new FormControl<string>(this, '');
+  name = new FormControl(this, '');
 
   @property() value?: string;
 

@@ -50,20 +50,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/checkbox-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/checkbox-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/checkbox-group.ts",
       "declarations": [
         {
@@ -234,20 +220,6 @@
           "declaration": {
             "name": "CheckboxGroup",
             "module": "src/checkbox-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/checkbox.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/checkbox.scss.ts"
           }
         }
       ]

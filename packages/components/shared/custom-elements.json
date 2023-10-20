@@ -113,6 +113,14 @@
       "exports": [
         {
           "kind": "js",
+          "name": "breakpoints",
+          "declaration": {
+            "name": "breakpoints",
+            "module": "src/css.ts"
+          }
+        },
+        {
+          "kind": "js",
           "name": "firstFocusableSelector",
           "declaration": {
             "name": "firstFocusableSelector",
@@ -209,20 +217,6 @@
           "declaration": {
             "name": "getValueByPath",
             "module": "src/path.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/popover.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/popover.scss.ts"
           }
         }
       ]
@@ -3739,104 +3733,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/directives/anchor.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "AnchorDirective",
-          "members": [],
-          "superclass": {
-            "name": "Directive",
-            "package": "lit/directive.js"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "#onBeforeToggle",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "ToggleEvent & { target: HTMLElement }"
-                  }
-                }
-              ]
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "#config",
-              "privacy": "private",
-              "type": {
-                "text": "AnchorDirectiveConfig | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#host",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#cleanup",
-              "privacy": "private",
-              "type": {
-                "text": "() => void | undefined"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "anchor"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "AnchorDirective",
-          "declaration": {
-            "name": "AnchorDirective",
-            "module": "src/directives/anchor.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "anchor",
-          "declaration": {
-            "name": "anchor",
-            "module": "src/directives/anchor.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./anchor.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/data-source/array-data-source.ts",
       "declarations": [
         {
@@ -4572,6 +4468,104 @@
           "declaration": {
             "name": "*",
             "package": "./data-source.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/directives/anchor.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "AnchorDirective",
+          "members": [],
+          "superclass": {
+            "name": "Directive",
+            "package": "lit/directive.js"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onBeforeToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "ToggleEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#config",
+              "privacy": "private",
+              "type": {
+                "text": "AnchorDirectiveConfig | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#host",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#cleanup",
+              "privacy": "private",
+              "type": {
+                "text": "() => void | undefined"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "anchor"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AnchorDirective",
+          "declaration": {
+            "name": "AnchorDirective",
+            "module": "src/directives/anchor.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "anchor",
+          "declaration": {
+            "name": "anchor",
+            "module": "src/directives/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/directives/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./anchor.js"
           }
         }
       ]

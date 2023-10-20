@@ -34,20 +34,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/label.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/label.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/label.ts",
       "declarations": [
         {

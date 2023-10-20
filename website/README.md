@@ -24,7 +24,7 @@ The documentation for every component should be kept in separated directory in `
 eg.:
   - Button should have path like `docs/website/src/site/categories/components/button`,
 
-  - Checkbox should have path like `docs/website/src/site/categories/components/checkbox` etc. 
+  - Checkbox should have path like `docs/website/src/site/categories/components/checkbox` etc.
 
 ## Component's files structure
 

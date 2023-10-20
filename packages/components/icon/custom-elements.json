@@ -42,20 +42,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/icon.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/icon.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/icon.ts",
       "declarations": [
         {

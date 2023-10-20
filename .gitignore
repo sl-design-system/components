@@ -71,8 +71,6 @@ packages/themes/**/*.js
 packages/themes/**/*.js.map
 website/build
 website/dist
-website/lib
-website/public
 
 # Generated files
 *.scss.ts

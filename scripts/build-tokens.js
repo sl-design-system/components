@@ -13,17 +13,17 @@ const TEMPLATES = [
       @import 'base.scss';
       @import 'dark.scss';
       @import 'light.scss';
-      
+
       :root {
         @include sl-theme-base;
       }
-      
+
       @media (prefers-color-scheme: light) {
         :root {
           @include sl-theme-light;
         }
       }
-      
+
       @media (prefers-color-scheme: dark) {
         :root {
           @include sl-theme-dark;
@@ -72,18 +72,18 @@ const buildTokens = async name => {
   for (const { input, output } of TEMPLATES) {
     const folder = join(cwd, `../packages/themes/${name}`),
       { css } = sass.compileString(input, { loadPaths: [folder] });
-    
+
     await fs.writeFile(`${folder}/${output}`, css);
   }
-  
-  await stylelint.lint({ 
+
+  await stylelint.lint({
     cwd,
     files: [
-      `../packages/themes/${name}/*.css`, 
+      `../packages/themes/${name}/*.css`,
       `../packages/themes/${name}/*.scss`
     ],
     fix: true
-  });  
+  });
 };
 
 const buildAllTokens = async (themesToBuild) => {
@@ -91,7 +91,7 @@ const buildAllTokens = async (themesToBuild) => {
     .filter(({ name }) => themesToBuild.length === 0 || themesToBuild.includes(name))
     .map(({ name: nameVariant, selectedTokenSets }) => {
       const [name, mode] = nameVariant.split('/');
-    
+
       return {
         name,
         mode,
@@ -101,12 +101,12 @@ const buildAllTokens = async (themesToBuild) => {
           .map(([name]) => name)
       };
     });
-  
+
   figmaThemes
     .reduce((acc, { name }) => {
       if (themesToBuild.length === 0 || themesToBuild.includes(name)) {
         const id = name.split('/')[0];
-  
+
         return acc.includes(id) ? acc : [...acc, id];
       } else {
         return acc;

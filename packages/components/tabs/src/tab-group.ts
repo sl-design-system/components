@@ -159,7 +159,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     /**
      * Reset all the selected state of the tabs, and select the clicked tab
      */
-    this.querySelectorAll('sl-tab').forEach((tab: Tab) => {
+    this.querySelectorAll<Tab>('sl-tab').forEach((tab: Tab) => {
       tab.removeAttribute('selected');
       if (tab === selectedTab) {
         tab.setAttribute('selected', '');

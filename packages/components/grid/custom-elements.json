@@ -1848,20 +1848,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/filter.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/filter.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/filter.ts",
       "declarations": [
         {
@@ -2123,20 +2109,6 @@
           "declaration": {
             "name": "GridFilter",
             "module": "src/filter.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/grid.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/grid.scss.ts"
           }
         }
       ]
@@ -4041,20 +4013,6 @@
           "declaration": {
             "name": "GridSortColumn",
             "module": "src/sort-column.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/sorter.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/sorter.scss.ts"
           }
         }
       ]

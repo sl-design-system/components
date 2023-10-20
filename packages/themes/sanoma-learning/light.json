@@ -26,7 +26,7 @@
         "failedToResolve": true
       },
       "overlay": {
-        "value": "rgba({body.foreground},{opacity.700})",
+        "value": "rgba({color.palette.primary.base} , {opacity.700})",
         "type": "color",
         "description": "body.surface.200",
         "failedToResolve": true
@@ -4488,6 +4488,12 @@
       },
       "foreground": {
         "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{body.background}",
         "type": "color",
         "description": "color.surface.solid.primary.background",
         "failedToResolve": true

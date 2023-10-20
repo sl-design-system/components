@@ -67,20 +67,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/editor.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/editor.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/editor.ts",
       "declarations": [
         {

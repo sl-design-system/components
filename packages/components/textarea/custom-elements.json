@@ -34,20 +34,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/textarea.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/textarea.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/textarea.ts",
       "declarations": [
         {

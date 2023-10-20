@@ -34,20 +34,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/popover.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/popover.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/popover.ts",
       "declarations": [
         {

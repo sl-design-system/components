@@ -7,20 +7,31 @@ eleventyNavigation:
   key: RadioGroupCode
 ---
 
-<section>
+<section class="no-heading">
 
-## Code
+<div class="ds-example">
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  <sl-label for="radio-group">What animal do you like best?</sl-label>
+  <sl-radio-group id="radio-group">
+    <sl-radio>Dog</sl-radio>
+    <sl-radio>Cat</sl-radio>
+    <sl-radio>Hamster</sl-radio>
+  </sl-radio-group>
+
+</div>
+
+<div class="ds-code">
+
+  ```html 
+    <sl-radio-group>
+      <sl-radio>Dog</sl-radio>
+      <sl-radio>Cat</sl-radio>
+      <sl-radio>Hamster</sl-radio>
+    </sl-radio-group>
+  ```
+
+</div>
 
 </section>
 
 {%- include "../component-table.njk" -%}
-
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  

@@ -7,7 +7,7 @@ eleventyNavigation:
   parent: Button
   key: ButtonCode
 ---
-<section>
+<section class="no-heading">
 <div class="ds-example">
   <div class="ds-component__buttons-wrapper">
     <sl-button fill="solid" size="md">Default</sl-button>

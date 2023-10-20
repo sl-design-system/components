@@ -9,17 +9,17 @@ export type ValidatorFn = (value: Signal<any>) => ValidatorErrors | null;
 export class Validators {
   static required: ValidatorFn = value => (value.value ? null : { required: true });
 
-  // static minLength(minLength: number): ValidatorFn {
-  //   return control => {
-  //     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  //     return control.value && control.value.length >= minLength ? null : { minLength: true };
-  //   };
-  // }
+  static minLength(minLength: number): ValidatorFn {
+    return value => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      return value.value && value.value.length >= minLength ? null : { minLength: true };
+    };
+  }
 
-  // static maxLength(maxLength: number): ValidatorFn {
-  //   return control => {
-  //     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  //     return control.value && control.value.length <= maxLength ? null : { maxLength: true };
-  //   };
-  // }
+  static maxLength(maxLength: number): ValidatorFn {
+    return value => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      return value.value && value.value.length <= maxLength ? null : { maxLength: true };
+    };
+  }
 }

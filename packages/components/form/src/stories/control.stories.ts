@@ -77,6 +77,6 @@ export const Value: Story = {
 
 export const Validation: Story = {
   args: {
-    validators: [Validators.required]
+    validators: [Validators.required, Validators.minLength(3), Validators.maxLength(5)]
   }
 };

@@ -1,6 +1,6 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import type { DirectiveResult } from 'lit/directive.js';
-import type { ValidatorFn } from './validators.js';
+import type { ValidatorErrors, ValidatorFn } from './validators.js';
 import { computed } from '@lit-labs/preact-signals';
 import { FormControlAdapter } from './adapter.js';
 
@@ -11,13 +11,20 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
   initialValue?: T;
   validators: ValidatorFn[];
 
-  /** A signal of whether this control is valid. */
-  readonly valid = computed<boolean>(() => {
-    return this.validators.every(validator => !validator(this.value));
+  /** A signal containing any validator errors (if any). */
+  readonly errors = computed<ValidatorErrors>(() => {
+    return this.validators.reduce((errors: ValidatorErrors, validator: ValidatorFn) => {
+      const error = validator(this.value);
+
+      return error ? { ...errors, ...error } : errors;
+    }, {});
   });
 
-  /** The inverse of the valid signal. */
-  readonly invalid = computed<boolean>(() => !this.valid.value);
+  /** A signal indicating whether the control is invalid. */
+  readonly invalid = computed<boolean>(() => Object.keys(this.errors.value).length > 0);
+
+  /** A signal indicating whether the control is valid. */
+  readonly valid = computed<boolean>(() => !this.invalid.value);
 
   /** A signal containing the current value of the control. */
   readonly value = computed<T | undefined>(() => this.adapter?.value.value);

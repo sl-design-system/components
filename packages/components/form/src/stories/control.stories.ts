@@ -1,13 +1,14 @@
 import type { PropertyValues, TemplateResult } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/text-input/register.js';
+import { watch } from '@lit-labs/preact-signals';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { FormControl } from '../form-control.js';
 import '../../register.js';
 
 class ControlForm extends LitElement {
-  name = new FormControl(this, '');
+  name = new FormControl<string>(this, '');
 
   @property() value?: string;
 
@@ -20,7 +21,11 @@ class ControlForm extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<sl-text-input ${this.name.bind()}></sl-text-input>`;
+    return html`
+      <sl-text-input ${this.name.bind()}></sl-text-input>
+
+      <p>Value: ${watch(this.name.value)}</p>
+    `;
   }
 }
 

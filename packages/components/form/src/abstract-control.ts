@@ -1,7 +1,7 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import type { DirectiveResult } from 'lit/directive.js';
 import type { ValidatorFn } from './validators.js';
-import type { Signal } from '@lit-labs/preact-signals';
+import { computed } from '@lit-labs/preact-signals';
 import { FormControlAdapter } from './adapter.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,13 +11,8 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
   initialValue?: T;
   validators: ValidatorFn[];
 
-  /**
-   * Returns a signal with the current value of the control. If the control is not
-   * bound to an element yet, it returns undefined.
-   */
-  get value(): Signal<T> | undefined {
-    return this.adapter?.value;
-  }
+  /** A signal containing the current value of the control. */
+  readonly value = computed<T | undefined>(() => this.adapter?.value.value);
 
   constructor(host: ReactiveControllerHost, initialValue: T | undefined, validators: ValidatorFn[]) {
     (this.host = host).addController(this);

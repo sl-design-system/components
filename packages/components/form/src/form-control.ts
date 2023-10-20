@@ -5,7 +5,7 @@ import { AbstractControl } from './abstract-control.js';
 import { bind } from './bind-directive.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class FormControl<T = any> extends AbstractControl {
+export class FormControl<T = any> extends AbstractControl<T> {
   constructor(host: ReactiveControllerHost, initialValue: T, validators: ValidatorFn[] = []) {
     super(host, initialValue, validators);
   }

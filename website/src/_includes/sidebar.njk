@@ -14,10 +14,8 @@
           class="ds-sidebar-nav__link{% if page.url == entry.url %} ds-sidebar-nav__link--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar-nav__link--active{% endif %} {% if entry.children | length %}ds-sidebar-nav__link--has-submenu{% endif %}"
           href="{% if not entry.children | length %}{{ entry.url | url }}{% endif %}" data-content="{{ entry.title }}" {% if entry.children | length %}aria-expanded="false" {% endif %} role="menuitem">
           {{ entry.title }}
-          {% if entry.children | length %}
-          <span class="ds-sidebar-nav__arrow {% if page.url == entry.url %} ds-sidebar-nav__arrow--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar-nav__arrow--active{% endif %}"></span>
+          {% if entry.children | length %}<span class="ds-sidebar-nav__arrow {% if page.url == entry.url %} ds-sidebar-nav__arrow--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar-nav__arrow--active{% endif %}"></span>{% endif %}
         </a>
-        {% endif %}
       </li>
       {% if entry.children | length %}
         <ul role="group"

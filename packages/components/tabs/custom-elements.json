@@ -66,105 +66,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/tab-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/tab-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/tab-group.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/tab-group.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "API",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ vertical }) => html`\n    <style>\n      sl-tab-panel {\n        padding: 8px;\n      }\n    </style>\n    <sl-tab-group .vertical=${vertical}>\n      <sl-tab disabled>🧁 Tab 1</sl-tab>\n      <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>\n\n      <sl-tab>🍰 Tab 2</sl-tab>\n      <sl-tab-panel>\n        <p>Contents tab 2</p>\n        <sl-avatar></sl-avatar>\n      </sl-tab-panel>\n\n      <sl-tab>🍡 Tab 3</sl-tab>\n      <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>\n\n      <sl-tab>🥞 Tab 4</sl-tab>\n      <sl-tab-panel>Contents tab 4</sl-tab-panel>\n\n      <sl-tab>🍪 Tab 5</sl-tab>\n      <sl-tab-panel>Contents tab 5</sl-tab-panel>\n    </sl-tab-group>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "LongTitles",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ vertical }) => html`<sl-tab-group .vertical=${vertical}>\n    <sl-tab selected>This is the first tab</sl-tab>\n    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(4)}</sl-tab-panel>\n\n    <sl-tab>This is the second tab</sl-tab>\n    <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>\n\n    <sl-tab>This is the third tab</sl-tab>\n    <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>\n\n    <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>\n    <sl-tab-panel>Contents tab 4</sl-tab-panel>\n\n    <sl-tab>This is the fifth tab</sl-tab>\n    <sl-tab-panel>Contents tab 5</sl-tab-panel>\n\n    <sl-tab>This is the sixth tab</sl-tab>\n    <sl-tab-panel>Contents tab 6</sl-tab-panel>\n\n    <sl-tab>This is the seventh tab</sl-tab>\n    <sl-tab-panel>Contents tab 7</sl-tab-panel>\n\n    <sl-tab>This is the eighth tab</sl-tab>\n    <sl-tab-panel>Contents tab 8</sl-tab-panel>\n\n    <sl-tab>This is the nineth tab</sl-tab>\n    <sl-tab-panel>Contents tab 9</sl-tab-panel>\n\n    <sl-tab>This is the tenth tab</sl-tab>\n    <sl-tab-panel>Contents tab 10</sl-tab-panel>\n  </sl-tab-group>`\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "ExternalInteraction",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ vertical }) => html`\n    <sl-tab-group .vertical=${vertical} id=\"externalInteraction\" @sl-tab-change=${tabChange}>\n      <sl-tab selected>Tab 1</sl-tab>\n      <sl-tab>Tab 2</sl-tab>\n      <sl-tab>Tab 3</sl-tab>\n      <sl-tab>Tab 4</sl-tab>\n      <sl-tab>Tab 5</sl-tab>\n    </sl-tab-group>\n    <hr />\n    <sl-button @click=\"${() => activateTab(1)}\"> Activate tab 2</sl-button>\n    <sl-button @click=\"${() => activateTab(3)}\"> Activate tab 4</sl-button>\n    <h2 id=\"output\">Active tab:</h2>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "SingleTab",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: ({ vertical }) => html`\n    <style>\n      sl-tab-panel {\n        padding: 8px;\n      }\n    </style>\n    <sl-tab-group .vertical=${vertical} id=\"singleTab\" @sl-tab-change=${tabChange}>\n      <sl-tab>Tab 1</sl-tab>\n      <sl-tab>Tab 2</sl-tab>\n      <sl-tab selected>Tab 3</sl-tab>\n      <sl-tab>Tab 4</sl-tab>\n      <sl-tab>Tab 5</sl-tab>\n      <sl-tab-panel>\n        <p>place your router-outlet in this panel</p>\n        <h2 id=\"output\">Active tab:</h2>\n      </sl-tab-panel>\n    </sl-tab-group>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/tab-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "API",
-          "declaration": {
-            "name": "API",
-            "module": "src/tab-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "LongTitles",
-          "declaration": {
-            "name": "LongTitles",
-            "module": "src/tab-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ExternalInteraction",
-          "declaration": {
-            "name": "ExternalInteraction",
-            "module": "src/tab-group.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "SingleTab",
-          "declaration": {
-            "name": "SingleTab",
-            "module": "src/tab-group.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/tab-group.ts",
       "declarations": [
         {
@@ -416,26 +317,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/tab-panel.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/tab-panel.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/tab-panel.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/tab-panel.ts",
       "declarations": [
         {
@@ -461,26 +342,6 @@
           }
         }
       ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/tab.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/tab.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/tab.spec.ts",
-      "declarations": [],
-      "exports": []
     },
     {
       "kind": "javascript-module",

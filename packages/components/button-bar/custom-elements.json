@@ -34,57 +34,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/button-bar.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/button-bar.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Basic",
-          "type": {
-            "text": "Story"
-          },
-          "default": "{}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/button-bar.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Basic",
-          "declaration": {
-            "name": "Basic",
-            "module": "src/button-bar.stories.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/button-bar.ts",
       "declarations": [
         {

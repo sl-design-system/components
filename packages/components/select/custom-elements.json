@@ -66,26 +66,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/select-option-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select-option-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select-option-group.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/select-option-group.ts",
       "declarations": [
         {
@@ -139,26 +119,6 @@
           }
         }
       ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select-option.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select-option.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select-option.spec.ts",
-      "declarations": [],
-      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -264,105 +224,6 @@
           "declaration": {
             "name": "SelectOption",
             "module": "src/select-option.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select.spec.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select.stories.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Basic",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  args: {\n    size: 'md',\n    maxOverlayHeight: '200px',\n    placeholder: 'Placeholder'\n  },\n  render: ({ maxOverlayHeight, size, placeholder }) => html`\n    <style>\n      sl-select {\n        width: 400px;\n        max-width: 90vw;\n        display: inline-flex;\n      }\n    </style>\n    <sl-button>To focus</sl-button>\n    <sl-select .maxOverlayHeight=${maxOverlayHeight} .size=${size} .placeholder=${placeholder}>\n      <sl-select-option-group group-heading=\"Happy\">\n        <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>\n        <sl-select-option>😂 Face with Tears of Joy</sl-select-option>\n        <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>\n        <sl-select-option>🤩 Star-Struck</sl-select-option>\n        <sl-select-option disabled>🙂 Slightly Smiling Face</sl-select-option>\n        <sl-select-option>🥳 Partying Face</sl-select-option>\n      </sl-select-option-group>\n      <sl-select-option>😶 Unfazed</sl-select-option>\n      <sl-select-option-group group-heading=\"Sad\">\n        <sl-select-option>😒 Unamused Face</sl-select-option>\n        <sl-select-option>🤧 Sneezing Face</sl-select-option>\n        <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>\n        <sl-select-option>😡 Enraged Face</sl-select-option>\n      </sl-select-option-group>\n      <sl-select-option-group>\n        <sl-select-option>🐷 Pig</sl-select-option>\n        <sl-select-option selected>🐨 Koala</sl-select-option>\n        <sl-select-option>🐼 Panda</sl-select-option>\n        <sl-select-option>🦊 Fox</sl-select-option>\n      </sl-select-option-group>\n      <sl-select-option>🤖 Robot</sl-select-option>\n    </sl-select>\n    <sl-button>To focus</sl-button>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "All",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => {\n    return html` <style>\n        table {\n          border-collapse: collapse;\n        }\n\n        th {\n          text-transform: capitalize;\n        }\n        th,\n        td {\n          padding: 4px 8px;\n        }\n        thead td {\n          text-align: center;\n        }\n      </style>\n      ${sizes.map(\n        size => html`<h2>Size: ${size}</h2>\n          <table>\n            <thead>\n              <tr>\n                <td></td>\n                ${disabledStates.map(\n                  disabledState =>\n                    html` <td class=\"${disabledState ? 'sb-disabled' : ''}\">\n                      ${disabledState ? 'Disabled' : 'Enabled'}\n                    </td>`\n                )}\n              </tr>\n            </thead>\n            <tbody>\n              ${states.map(\n                state => html` <tr>\n                  <th>${state}</th>\n                  ${disabledStates.map(\n                    disabledState => html` <td class=\"${disabledState ? 'sb-disabled' : ''}\">\n                      <sl-select\n                        ?valid=${state === 'valid'}\n                        ?invalid=${state === 'invalid'}\n                        ?required=${state === 'invalid'}\n                        .size=${size}\n                        ?disabled=${disabledState}\n                        data-mock-state\n                        >${options}\n                      </sl-select>\n                    </td>`\n                  )}\n                </tr>`\n              )}\n              ${states.map(\n                state => html`<tr>\n                  <th>Placeholder ${state}</th>\n                  ${disabledStates.map(\n                    disabledState => html`\n                      <td class=\"${disabledState ? 'sb-disabled' : ''}\">\n                        <sl-select\n                          ?valid=${state === 'valid'}\n                          ?invalid=${state === 'invalid'}\n                          ?required=${state === 'invalid'}\n                          .size=${size}\n                          ?disabled=${disabledState}\n                          data-mock-state\n                          placeholder=\"Placeholder\"\n                          ><sl-select-option .size=${size} ?disabled=${disabledState}>Hamster</sl-select-option>\n                        </sl-select>\n                      </td>\n                    `\n                  )}\n                </tr>`\n              )}\n              <tr>\n                <th>Unselected Option</th>\n                ${disabledStates.map(\n                  disabledState => html`\n                    <td class=\"${disabledState ? 'sb-disabled' : ''}\">\n                      <sl-select-option .size=${size} ?disabled=${disabledState}>🐹 Hamster</sl-select-option>\n                    </td>\n                  `\n                )}\n              </tr>\n              <tr>\n                <th>Selected Option</th>\n                ${disabledStates.map(\n                  disabledState => html`\n                    <td class=\"${disabledState ? 'sb-disabled' : ''}\">\n                      <sl-select-option .size=${size} ?disabled=${disabledState} selected>🐹 Hamster</sl-select-option>\n                    </td>\n                  `\n                )}\n              </tr>\n            </tbody>\n          </table>`\n      )}`;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "CustomComponents",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      sl-avatar {\n        margin: 0 4px;\n      }\n    </style>\n    <sl-button>To focus</sl-button>\n    <sl-select>\n      <sl-select-option><sl-avatar uniqueProfileId=\"1\"></sl-avatar></sl-select-option>\n      <sl-select-option selected><sl-avatar uniqueProfileId=\"2\"></sl-avatar></sl-select-option>\n      <sl-select-option><sl-avatar uniqueProfileId=\"3\"></sl-avatar></sl-select-option>\n      <sl-select-option><sl-avatar uniqueProfileId=\"14\"></sl-avatar></sl-select-option>\n      <sl-select-option disabled><sl-avatar uniqueProfileId=\"4\"></sl-avatar></sl-select-option>\n      <sl-select-option><sl-avatar uniqueProfileId=\"5\"></sl-avatar></sl-select-option>\n    </sl-select>\n    <sl-button>To focus</sl-button>\n  `\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "InForm",
-          "type": {
-            "text": "StoryObj"
-          },
-          "default": "{\n  render: () => html`\n    <style>\n      form {\n        display: flex;\n        flex-direction: column;\n      }\n\n      sl-label {\n        margin-block-start: 0.5rem;\n      }\n      sl-button-bar {\n        margin-block-start: 1rem;\n      }\n\n      sl-avatar {\n        margin: 0 4px;\n      }\n    </style>\n    <form @submit=${onSubmit}>\n      <sl-label for=\"smiley\">Smiley</sl-label>\n      <sl-select id=\"smiley\" name=\"smiley\" required>\n        <sl-select-option>😍 Option 1 </sl-select-option>\n        <sl-select-option>🥸 Option 2 </sl-select-option>\n        <sl-select-option>🤔 Option 3 </sl-select-option>\n        <sl-select-option>😅 Option 4 </sl-select-option>\n        <sl-select-option disabled>🤪 Option 5 </sl-select-option>\n        <sl-select-option>🫣 Option 6 </sl-select-option>\n      </sl-select>\n\n      <sl-label for=\"avatar\">Avatar</sl-label>\n      <sl-select id=\"avatar\" name=\"avatar\">\n        <sl-select-option value=\"0\"><sl-avatar uniqueProfileId=\"0\"></sl-avatar></sl-select-option>\n        <sl-select-option value=\"1\"><sl-avatar uniqueProfileId=\"1\"></sl-avatar></sl-select-option>\n        <sl-select-option value=\"2\" selected><sl-avatar uniqueProfileId=\"2\"></sl-avatar></sl-select-option>\n        <sl-select-option value=\"3\"><sl-avatar uniqueProfileId=\"3\"></sl-avatar></sl-select-option>\n        <sl-select-option value=\"4\" disabled><sl-avatar uniqueProfileId=\"4\"></sl-avatar></sl-select-option>\n        <sl-select-option value=\"14\"><sl-avatar uniqueProfileId=\"14\"></sl-avatar></sl-select-option>\n      </sl-select>\n\n      <sl-label for=\"mood\">Your mood</sl-label>\n      <sl-select id=\"mood\" name=\"mood\" placeholder=\"How are you feeling today?\">\n        <sl-select-option-group group-heading=\"Happy\">\n          <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>\n          <sl-select-option>😂 Face with Tears of Joy</sl-select-option>\n          <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>\n          <sl-select-option>🤩 Star-Struck</sl-select-option>\n          <sl-select-option disabled>🙂 Slightly Smiling Face</sl-select-option>\n          <sl-select-option>🥳 Partying Face</sl-select-option>\n        </sl-select-option-group>\n        <sl-select-option-group group-heading=\"Sad\">\n          <sl-select-option>😒 Unamused Face</sl-select-option>\n          <sl-select-option>🤧 Sneezing Face</sl-select-option>\n          <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>\n          <sl-select-option>😡 Enraged Face</sl-select-option>\n        </sl-select-option-group>\n        <sl-select-option>🤖 Robot</sl-select-option>\n      </sl-select>\n\n      <sl-button-bar align=\"end\">\n        <sl-button type=\"reset\">Reset</sl-button>\n        <sl-button type=\"submit\">Submit</sl-button>\n      </sl-button-bar>\n    </form>\n  `\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Basic",
-          "declaration": {
-            "name": "Basic",
-            "module": "src/select.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "All",
-          "declaration": {
-            "name": "All",
-            "module": "src/select.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CustomComponents",
-          "declaration": {
-            "name": "CustomComponents",
-            "module": "src/select.stories.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "InForm",
-          "declaration": {
-            "name": "InForm",
-            "module": "src/select.stories.ts"
           }
         }
       ]

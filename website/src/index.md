@@ -12,8 +12,8 @@ eleventyNavigation:
 Craft products that are not only enjoyable and user-friendly but also meet the needs of both students and teachers, while ensuring accessibility for all.
 
 <span>
-  <a class="ds-call-to-action__button" href="/categories/getting-started/designers"><sl-icon name="far-pen-ruler"></sl-icon>Start designing</a>
-  <a class="ds-call-to-action__button" href="/categories/getting-started/developers"><sl-icon name="far-code"></sl-icon>Start developing</a>
+  <a class="ds-button-cta-negative" href="/categories/getting-started/designers"><sl-icon name="far-pen-ruler"></sl-icon>Start designing</a>
+  <a class="ds-button-cta-negative" href="/categories/getting-started/developers"><sl-icon name="far-code"></sl-icon>Start developing</a>
 </span>
 </section>
 

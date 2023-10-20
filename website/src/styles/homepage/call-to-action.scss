@@ -158,22 +158,6 @@ $transition-timing: 200ms;
   margin-bottom: 1.6rem;
 }
 
-.ds-call-to-action__button {
-  align-items: center;
-  border: 2px solid var(--cta-link-color);
-  border-radius: 2px;
-  color: var(--cta-link-color);
-  display: inline-flex;
-  font-size: 1.6rem;
-  font-weight: 600;
-  gap: 8px;
-  line-height: 2.4rem;
-  padding: 8px 12px;
-  position: relative;
-  text-decoration: none;
-  width: fit-content;
-}
-
 .ds-call-to-action__link {
   color: var(--cta-link-color);
   font-size: 1.6rem;

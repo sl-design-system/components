@@ -12,7 +12,7 @@ $transition-timing: 200ms;
   padding: 4.8rem 2.4rem;
 
   @media screen and (min-width: $md-breakpoint) {
-    grid-template-columns: repeat(2, calc((88rem - var(--_gap)) / 2));
+    grid-template-columns: repeat(2, minmax(200px, calc((88rem - var(--_gap)) / 2)));
     padding: 7.4rem 6.4rem;
   }
 

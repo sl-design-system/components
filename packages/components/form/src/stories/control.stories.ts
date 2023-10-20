@@ -19,6 +19,8 @@ class ControlForm extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    console.log(this.validators);
+
     this.name = new FormControl(this, this.initialValue ?? '', this.validators);
   }
 
@@ -35,6 +37,8 @@ class ControlForm extends LitElement {
       <sl-text-input ${this.name.bind()}></sl-text-input>
 
       <p>Value: ${watch(this.name.value)}</p>
+      <p>Valid: ${watch(this.name.valid)}</p>
+      <p>Invalid: ${watch(this.name.invalid)}</p>
     `;
   }
 }

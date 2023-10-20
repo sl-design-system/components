@@ -11,6 +11,14 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
   initialValue?: T;
   validators: ValidatorFn[];
 
+  /** A signal of whether this control is valid. */
+  readonly valid = computed<boolean>(() => {
+    return this.validators.every(validator => !validator(this.value));
+  });
+
+  /** The inverse of the valid signal. */
+  readonly invalid = computed<boolean>(() => !this.valid.value);
+
   /** A signal containing the current value of the control. */
   readonly value = computed<T | undefined>(() => this.adapter?.value.value);
 

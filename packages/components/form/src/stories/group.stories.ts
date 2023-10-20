@@ -16,6 +16,9 @@ class GroupForm extends LitElement {
       gap: 0.5rem;
       grid-template-columns: auto 1fr;
     }
+    p {
+      grid-column: 1 / 3;
+    }
   `;
 
   group = new FormGroup(this, {

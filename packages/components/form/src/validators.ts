@@ -1,14 +1,13 @@
-import type { FormControl } from './form-control.js';
+import type { Signal } from '@lit-labs/preact-signals';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ValidatorErrors = { [key: string]: any };
 
-export type ValidatorFn = (control: FormControl) => ValidatorErrors | null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ValidatorFn = (value: Signal<any>) => ValidatorErrors | null;
 
 export class Validators {
-  static required(): ValidatorFn {
-    return control => (control.value ? null : { required: true });
-  }
+  static required: ValidatorFn = value => (value.value ? null : { required: true });
 
   // static minLength(minLength: number): ValidatorFn {
   //   return control => {

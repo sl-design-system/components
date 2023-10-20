@@ -37,6 +37,7 @@ Icon.registerIcon(
   faPencilRuler,
   faSlack
 );
+console.log('blaaaaal', faCode);
 
 /** Workaround for the error:
  * Uncaught DOMException: "Failed to execute 'define' on 'CustomElementRegistry': the name "sl-tab-panel" has already been used with this registry"

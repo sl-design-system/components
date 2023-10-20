@@ -5,6 +5,7 @@ eleventyNavigation:
   key: Pages
 ---
 
+<div class="ds-homepage-wrapper">
 <section class="ds-hero-block">
 
 # Learn, develop, deploy
@@ -136,3 +137,4 @@ Submit an issue
 </div>
 
 </section>
+</div>

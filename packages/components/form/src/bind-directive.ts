@@ -32,8 +32,8 @@ export class BindDirective extends AsyncDirective {
     }
 
     if (this.control !== control) {
+      this.disconnected();
       this.control = control;
-
       this.reconnected();
     }
 

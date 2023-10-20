@@ -1,27 +1,15 @@
+import type { FormControlAdapterOptions, FormControlAdapterUpdateOn } from '../adapter.js';
 import type { Signal } from '@lit-labs/preact-signals';
 import { signal } from '@lit-labs/preact-signals';
 import { TextInput } from '@sl-design-system/text-input';
+import { FormControlAdapter } from '../adapter.js';
 
-export type FormControlAdpaterUpdateOn = 'blur' | 'change';
-
-export interface FormControlAdapterOptions {
-  updateOn: FormControlAdpaterUpdateOn;
-}
-
-export class FormControlAdapter<T extends Element = Element, U = string> {
-  element!: T;
-  value!: Signal<U>;
-
-  disconnect(): void {}
-  setValue(_value: U): void {}
-}
-
-export class TextInputAdapter extends FormControlAdapter<TextInput, string> {
+export class TextInputAdapter extends FormControlAdapter<string> {
   static canAdapt(element: Element): boolean {
     return element instanceof TextInput;
   }
 
-  updateOn: FormControlAdpaterUpdateOn;
+  updateOn: FormControlAdapterUpdateOn;
   override readonly element: TextInput;
   override readonly value: Signal<string>;
 
@@ -41,7 +29,7 @@ export class TextInputAdapter extends FormControlAdapter<TextInput, string> {
     this.element.removeEventListener('blur', this.#onBlur);
   }
 
-  override setValue(value: string): void {
+  override setValue(value: string = ''): void {
     this.element.value = value;
     this.value.value = value;
   }

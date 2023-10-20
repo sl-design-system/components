@@ -10,17 +10,17 @@ export class Validators {
     return control => (control.value ? null : { required: true });
   }
 
-  static minLength(minLength: number): ValidatorFn {
-    return control => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      return control.value && control.value.length >= minLength ? null : { minLength: true };
-    };
-  }
+  // static minLength(minLength: number): ValidatorFn {
+  //   return control => {
+  //     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  //     return control.value && control.value.length >= minLength ? null : { minLength: true };
+  //   };
+  // }
 
-  static maxLength(maxLength: number): ValidatorFn {
-    return control => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      return control.value && control.value.length <= maxLength ? null : { maxLength: true };
-    };
-  }
+  // static maxLength(maxLength: number): ValidatorFn {
+  //   return control => {
+  //     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  //     return control.value && control.value.length <= maxLength ? null : { maxLength: true };
+  //   };
+  // }
 }

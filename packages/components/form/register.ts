@@ -1,4 +1,4 @@
-import { AbstractControl } from './src/abstract-control.js';
-import { TextInputAdapter } from './src/accessors.js';
+import { FormControlAdapter } from './src/adapter.js';
+import { TextInputAdapter } from './src/adapters/text-input-adapter.js';
 
-AbstractControl.addAdapter(TextInputAdapter);
+FormControlAdapter.register(TextInputAdapter);

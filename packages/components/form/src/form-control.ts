@@ -6,28 +6,11 @@ import { bind } from './bind-directive.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class FormControl<T = any> extends AbstractControl {
-  readonly defaultValue: T = null as unknown as T;
-
-  constructor(host: ReactiveControllerHost, value: T, validators: ValidatorFn[] = []) {
-    super(host, validators);
-
-    this.value = value;
-    this.defaultValue = value;
+  constructor(host: ReactiveControllerHost, initialValue: T, validators: ValidatorFn[] = []) {
+    super(host, initialValue, validators);
   }
 
   override bind(): DirectiveResult {
     return bind(this);
-  }
-
-  override getRawValue(): T {
-    return this.value;
-  }
-
-  override patchValue(value: T): void {
-    this.value = value;
-  }
-
-  override setValue(value: T): void {
-    this.value = value;
   }
 }

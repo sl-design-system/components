@@ -49,7 +49,14 @@ export abstract class AbstractControl<TValue = any, TRawValue extends TValue = T
 
   abstract setValue(value: TRawValue): void;
 
-  public setControlElement(host: Element): void {
+  public setBoundElement(host: Element | null): void {
+    if (!host) {
+      this.adapter?.disconnect();
+      this.adapter = null;
+
+      return;
+    }
+
     const adapter = AbstractControl.adapters.find(a => a.canAdapt(host));
 
     if (adapter === undefined) {
@@ -57,7 +64,7 @@ export abstract class AbstractControl<TValue = any, TRawValue extends TValue = T
     }
 
     this.adapter = new adapter(host);
-    console.log('setControlElement', this.adapter);
+    console.log('setBoundElement', this.adapter);
   }
 
   _find(_name: string): AbstractControl | null {

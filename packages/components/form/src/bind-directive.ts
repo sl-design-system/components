@@ -17,11 +17,14 @@ export class BindDirective extends AsyncDirective {
     this.host = (partInfo as ElementPart).element;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  override reconnected(): void {}
+  override reconnected(): void {
+    this.control?.setBoundElement(this.host);
+  }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  override disconnected(): void {}
+  override disconnected(): void {
+    this.control?.setBoundElement(null);
+    this.control = null;
+  }
 
   render(control: AbstractControl | null, name?: string): DirectiveResult {
     if (control === null) {
@@ -30,7 +33,6 @@ export class BindDirective extends AsyncDirective {
 
     if (this.control !== control) {
       this.control = control;
-      this.control.setControlElement(this.host);
 
       this.reconnected();
     }

@@ -12,6 +12,7 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   event.target.after(output);
 
   output.textContent = '';
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 

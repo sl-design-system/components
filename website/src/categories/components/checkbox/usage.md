@@ -174,18 +174,26 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 
 <div class="ds-example">
 
-<sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
-
-Example of the checkbox group
+<sl-label for="group">Checkbox group</sl-label>
+<sl-checkbox-group id="group" hint="Pick one of these options.">
+<sl-checkbox>Check me</sl-checkbox>
+<sl-checkbox>No me</sl-checkbox>
+<sl-checkbox>I was here first!</sl-checkbox>
+<sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
+</sl-checkbox-group>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
-
-Example of the checkbox group
+  <sl-label for="group">Checkbox group</sl-label>
+  <sl-checkbox-group id="group" hint="Pick one of these options.">
+    <sl-checkbox>Check me</sl-checkbox>
+    <sl-checkbox>No me</sl-checkbox>
+    <sl-checkbox>I was here first!</sl-checkbox>
+    <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
+  </sl-checkbox-group>
   ```
 
 </div>

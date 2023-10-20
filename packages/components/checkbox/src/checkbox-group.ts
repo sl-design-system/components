@@ -84,6 +84,13 @@ export class CheckboxGroup extends HintMixin(LitElement) {
     return this.internals.form;
   }
 
+  /** @ignore */
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.internals.role = 'group';
+  }
+
   override render(): TemplateResult {
     return html`
       <div class="wrapper">

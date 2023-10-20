@@ -280,7 +280,7 @@
     },
     "website": {
       "dependencies": [
-        "./website:build:prod"
+        "./website:build"
       ]
     }
   },

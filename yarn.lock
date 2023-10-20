@@ -3647,16 +3647,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/eleventy-plugin-lit@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "@lit-labs/eleventy-plugin-lit@npm:1.0.2"
-  dependencies:
-    "@lit-labs/ssr": ^3.1.8-pre.0
-    lit: ^3.0.0
-  checksum: e332bc02a3f99d1fb55feb9ef7eebed466f20f29b86b991783b2d4330f67205c400dd57b255beb69c7a9355e584cbe0230543aef4891d15082b3d6caad8e0584
-  languageName: node
-  linkType: hard
-
 "@lit-labs/observers@npm:^2.0.1":
   version: 2.0.1
   resolution: "@lit-labs/observers@npm:2.0.1"
@@ -3666,40 +3656,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/ssr-client@npm:^1.1.4-pre.0":
-  version: 1.1.4
-  resolution: "@lit-labs/ssr-client@npm:1.1.4"
-  dependencies:
-    "@lit/reactive-element": ^2.0.0
-    lit: ^3.0.0
-    lit-html: ^3.0.0
-  checksum: d9db1804593cf2f64b248bdcdb0456d58c9cdf4fcfb5dc0afaa48f2c74366675908a4ee45a8e7b8be0456405721ae0a02fd59c424fa7af2ed4b64de0fd8032e9
-  languageName: node
-  linkType: hard
-
 "@lit-labs/ssr-dom-shim@npm:^1.0.0, @lit-labs/ssr-dom-shim@npm:^1.1.0, @lit-labs/ssr-dom-shim@npm:^1.1.2-pre.0":
   version: 1.1.2
   resolution: "@lit-labs/ssr-dom-shim@npm:1.1.2"
   checksum: e51c7c156317ac95cac8d534d8608ac2a9dda7441f14f73e9e66a995d277851a90315324fe74690d1169a66dce645ed9674a8f5a9a467d183156de1c87549b23
-  languageName: node
-  linkType: hard
-
-"@lit-labs/ssr@npm:^3.1.8-pre.0":
-  version: 3.1.8
-  resolution: "@lit-labs/ssr@npm:3.1.8"
-  dependencies:
-    "@lit-labs/ssr-client": ^1.1.4-pre.0
-    "@lit-labs/ssr-dom-shim": ^1.1.2-pre.0
-    "@lit/reactive-element": ^2.0.0
-    "@parse5/tools": ^0.3.0
-    "@types/node": ^16.0.0
-    enhanced-resolve: ^5.10.0
-    lit: ^3.0.0
-    lit-element: ^4.0.0
-    lit-html: ^3.0.0
-    node-fetch: ^3.2.8
-    parse5: ^7.1.1
-  checksum: 8b9faa50278e8e9a19213e797dd800bd4508d52757816a3974c041ab7c340e06696946770d3304b8fc5c92424e62bbea74bf87f5af045ad2ef9a0ef0a375d423
   languageName: node
   linkType: hard
 
@@ -5680,12 +5640,10 @@ __metadata:
     "@11ty/is-land": ^3.0.2
     "@custom-elements-manifest/analyzer": ^0.9.0
     "@custom-elements-manifest/to-markdown": ^0.1.0
-    "@lit-labs/eleventy-plugin-lit": ^1.0.2
     "@luncheon/esbuild-plugin-gzip": ^0.1.0
     "@oddbird/popover-polyfill": ^0.2.3
     "@types/markdown-it": ^13.0.2
     "@web/dev-server": ^0.3.3
-    "@webcomponents/template-shadowroot": ^0.2.1
     cpx: ^1.5.0
     elasticlunr: ^0.9.5
     esbuild: ^0.19.5
@@ -5696,7 +5654,6 @@ __metadata:
     markdown-it-anchor: ^8.6.7
     markdown-it-attrs: ^4.1.6
     octokit: ^3.1.1
-    rimraf: ^5.0.5
     sass: ^1.69.3
     slugify: ^1.6.6
     tiny-glob: ^0.2.9
@@ -7489,13 +7446,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^16.0.0":
-  version: 16.18.58
-  resolution: "@types/node@npm:16.18.58"
-  checksum: ec39c4245f47cd0784ca037108ee4df09aea90bc070f9281c952c5096126b6600e6eaa950d5be05fa3fe2c5099be9c06d8920c08284f9c7fc215ecf10f6e44e2
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:^18.0.0":
   version: 18.18.5
   resolution: "@types/node@npm:18.18.5"
@@ -8374,13 +8324,6 @@ __metadata:
   version: 0.0.9
   resolution: "@webcomponents/scoped-custom-element-registry@npm:0.0.9"
   checksum: a70e564ecd5f65d8e3174c64888249e00f97ae1e8a06fd0ed03db0eea598136a44a4594bb6706a12ae778f4d7bdba59176b44c0e5bf54ec13abb43a6e7fe6b0b
-  languageName: node
-  linkType: hard
-
-"@webcomponents/template-shadowroot@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@webcomponents/template-shadowroot@npm:0.2.1"
-  checksum: 6a68f88cf06c4eed586db567e2c2493871a76d0e6eb1e181ccfb247ace557800a9c0a451546e3f2a412c4b70b66269016f4cd36c390049bd8478efdbf35046fb
   languageName: node
   linkType: hard
 
@@ -11082,13 +11025,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"data-uri-to-buffer@npm:^4.0.0":
-  version: 4.0.1
-  resolution: "data-uri-to-buffer@npm:4.0.1"
-  checksum: 20a6b93107597530d71d4cb285acee17f66bcdfc03fd81040921a81252f19db27588d87fc8fc69e1950c55cfb0bf8ae40d0e5e21d907230813eb5d5a7f9eb45b
-  languageName: node
-  linkType: hard
-
 "data-uri-to-buffer@npm:^6.0.0":
   version: 6.0.1
   resolution: "data-uri-to-buffer@npm:6.0.1"
@@ -11822,7 +11758,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.10.0, enhanced-resolve@npm:^5.12.0, enhanced-resolve@npm:^5.15.0, enhanced-resolve@npm:^5.7.0":
+"enhanced-resolve@npm:^5.12.0, enhanced-resolve@npm:^5.15.0, enhanced-resolve@npm:^5.7.0":
   version: 5.15.0
   resolution: "enhanced-resolve@npm:5.15.0"
   dependencies:
@@ -13061,16 +12997,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fetch-blob@npm:^3.1.2, fetch-blob@npm:^3.1.4":
-  version: 3.2.0
-  resolution: "fetch-blob@npm:3.2.0"
-  dependencies:
-    node-domexception: ^1.0.0
-    web-streams-polyfill: ^3.0.3
-  checksum: 60054bf47bfa10fb0ba6cb7742acec2f37c1f56344f79a70bb8b1c48d77675927c720ff3191fa546410a0442c998d27ab05e9144c32d530d8a52fbe68f843b69
-  languageName: node
-  linkType: hard
-
 "fetch-retry@npm:^5.0.2":
   version: 5.0.6
   resolution: "fetch-retry@npm:5.0.6"
@@ -13427,15 +13353,6 @@ __metadata:
   version: 0.2.2
   resolution: "format@npm:0.2.2"
   checksum: 6032ba747541a43abf3e37b402b2f72ee08ebcb58bf84d816443dd228959837f1cddf1e8775b29fa27ff133f4bd146d041bfca5f9cf27f048edf3d493cf8fee6
-  languageName: node
-  linkType: hard
-
-"formdata-polyfill@npm:^4.0.10":
-  version: 4.0.10
-  resolution: "formdata-polyfill@npm:4.0.10"
-  dependencies:
-    fetch-blob: ^3.1.2
-  checksum: 5392ec484f9ce0d5e0d52fb5a78e7486637d516179b0eb84d81389d7eccf9ca2f663079da56f761355c0a65792810e3b345dc24db9a8bbbcf24ef3c8c88570c6
   languageName: node
   linkType: hard
 
@@ -18452,13 +18369,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-domexception@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "node-domexception@npm:1.0.0"
-  checksum: 5e5d63cda29856402df9472335af4bb13875e1927ad3be861dc5ebde38917aecbf9ae337923777af52a48c426b70148815e890a5d72760f1b4d758cc671b1a2b
-  languageName: node
-  linkType: hard
-
 "node-fetch-native@npm:^1.4.0":
   version: 1.4.0
   resolution: "node-fetch-native@npm:1.4.0"
@@ -18477,17 +18387,6 @@ __metadata:
     encoding:
       optional: true
   checksum: b55786b6028208e6fbe594ccccc213cab67a72899c9234eb59dba51062a299ea853210fcf526998eaa2867b0963ad72338824450905679ff0fa304b8c5093ae8
-  languageName: node
-  linkType: hard
-
-"node-fetch@npm:^3.2.8":
-  version: 3.3.2
-  resolution: "node-fetch@npm:3.3.2"
-  dependencies:
-    data-uri-to-buffer: ^4.0.0
-    fetch-blob: ^3.1.4
-    formdata-polyfill: ^4.0.10
-  checksum: f3d5e56190562221398c9f5750198b34cf6113aa304e34ee97c94fd300ec578b25b2c2906edba922050fce983338fde0d5d34fcb0fc3336ade5bd0e429ad7538
   languageName: node
   linkType: hard
 
@@ -24331,13 +24230,6 @@ __metadata:
   dependencies:
     defaults: ^1.0.3
   checksum: 5b61ca583a95e2dd85d7078400190efd452e05751a64accb8c06ce4db65d7e0b0cde9917d705e826a2e05cc2548f61efde115ffa374c3e436d04be45c889e5b4
-  languageName: node
-  linkType: hard
-
-"web-streams-polyfill@npm:^3.0.3":
-  version: 3.2.1
-  resolution: "web-streams-polyfill@npm:3.2.1"
-  checksum: 70ed6b5708e14afa2ab699221ea197d7c68ec0c8274bbe0181aecc5ba636ca27cbd383d2049f0eb9d529e738f5c088825502b317f3df24d18a278e4cc9a10e8b
   languageName: node
   linkType: hard
 

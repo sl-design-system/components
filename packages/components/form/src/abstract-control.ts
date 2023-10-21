@@ -1,15 +1,17 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import type { DirectiveResult } from 'lit/directive.js';
-import type { ValidatorErrors, ValidatorFn } from './validators.js';
+import type { AsyncValidatorFn, ValidatorErrors, ValidatorFn } from './validators.js';
 import { computed } from '@lit-labs/preact-signals';
 import { FormControlAdapter } from './adapter.js';
+
+export type AbstractControlStatus = 'valid' | 'invalid' | 'pending' | 'disabled';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class AbstractControl<T = any> implements ReactiveController {
   adapter: FormControlAdapter<T> | null = null;
   host: ReactiveControllerHost;
   initialValue?: T;
-  validators: ValidatorFn[];
+  validators: Array<AsyncValidatorFn | ValidatorFn>;
 
   /** A signal containing any validator errors (if any). */
   readonly errors = computed<ValidatorErrors>(() => {
@@ -29,7 +31,11 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
   /** A signal containing the current value of the control. */
   readonly value = computed<T | undefined>(() => this.adapter?.value.value);
 
-  constructor(host: ReactiveControllerHost, initialValue: T | undefined, validators: ValidatorFn[]) {
+  constructor(
+    host: ReactiveControllerHost,
+    initialValue: T | undefined,
+    validators: Array<AsyncValidatorFn | ValidatorFn>
+  ) {
     (this.host = host).addController(this);
     this.initialValue = initialValue;
     this.validators = validators.slice();

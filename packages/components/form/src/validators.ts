@@ -6,6 +6,9 @@ export type ValidatorErrors = { [key: string]: any };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ValidatorFn = (value: Signal<any>) => ValidatorErrors | null;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type AsyncValidatorFn = (value: Signal<any>) => Promise<ValidatorErrors | null>;
+
 export class Validators {
   static required: ValidatorFn = value => (value.value ? null : { required: true });
 

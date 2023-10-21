@@ -1,5 +1,5 @@
 import type { PropertyValues, TemplateResult } from 'lit';
-import type { ValidatorFn } from '../validators.js';
+import type { AsyncValidatorFn, ValidatorFn } from '../validators.js';
 import type { Signal } from '@lit-labs/preact-signals';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/text-input/register.js';
@@ -15,8 +15,9 @@ class ControlForm extends LitElement {
   errors!: Signal<string>;
 
   @property({ type: String, attribute: 'initial-value' }) initialValue?: string;
-  @property({ attribute: false }) validators?: ValidatorFn[];
   @property({ type: String }) value?: string;
+  @property({ attribute: false }) validators?: ValidatorFn[];
+  @property({ attribute: false }) asyncValidators?: AsyncValidatorFn[];
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -55,11 +56,19 @@ export default {
   title: 'Form/Control',
   args: {
     initialValue: undefined,
+    value: undefined,
     validators: undefined,
-    value: undefined
+    asyncValidators: undefined
   },
-  render: ({ initialValue, validators, value }) =>
-    html`<control-form .initialValue=${initialValue} .validators=${validators} .value=${value}></control-form>`
+  render: ({ initialValue, value, validators, asyncValidators }) =>
+    html`
+      <control-form
+        .initialValue=${initialValue}
+        .value=${value}
+        .validators=${validators}
+        .asyncValidators=${asyncValidators}
+      ></control-form>
+    `
 } satisfies Meta<ControlForm>;
 
 export const Blank: Story = {};
@@ -80,5 +89,20 @@ export const Value: Story = {
 export const Validation: Story = {
   args: {
     validators: [Validators.required, Validators.minLength(3), Validators.maxLength(5)]
+  }
+};
+
+export const AsyncValidation: Story = {
+  args: {
+    validators: [
+      Validators.required,
+      async value => {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve(value.value === 'Foo' ? null : { invalid: true });
+          }, 1000);
+        });
+      }
+    ]
   }
 };

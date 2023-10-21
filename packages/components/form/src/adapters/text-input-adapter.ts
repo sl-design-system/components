@@ -1,4 +1,5 @@
-import type { FormControlAdapterOptions, FormControlAdapterUpdateOn } from '../adapter.js';
+import type { FormControlAdapterOptions } from '../adapter.js';
+import type { AbstractControlUpdateOn } from '../abstract-control.js';
 import type { Signal } from '@lit-labs/preact-signals';
 import { signal } from '@lit-labs/preact-signals';
 import { TextInput } from '@sl-design-system/text-input';
@@ -9,7 +10,7 @@ export class TextInputAdapter extends FormControlAdapter<string> {
     return element instanceof TextInput;
   }
 
-  updateOn: FormControlAdapterUpdateOn;
+  updateOn: AbstractControlUpdateOn;
   override readonly element: TextInput;
   override readonly value: Signal<string>;
 

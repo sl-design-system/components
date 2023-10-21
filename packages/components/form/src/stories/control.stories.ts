@@ -14,10 +14,11 @@ class ControlForm extends LitElement {
   name!: FormControl<string>;
   errors!: Signal<string>;
 
-  @property({ type: String, attribute: 'initial-value' }) initialValue?: string;
-  @property({ type: String }) value?: string;
+  @property({ attribute: 'initial-value' }) initialValue?: string;
+  @property() value?: string;
   @property({ attribute: false }) validators?: ValidatorFn[];
   @property({ attribute: false }) asyncValidators?: AsyncValidatorFn[];
+  @property() placeholder?: string;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -36,7 +37,7 @@ class ControlForm extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <sl-text-input ${this.name.bind()}></sl-text-input>
+      <sl-text-input ${this.name.bind()} .placeholder=${this.placeholder}></sl-text-input>
 
       <p>Value: ${watch(this.name.value)}</p>
       <p>Errors: ${watch(this.errors)}</p>
@@ -56,17 +57,19 @@ export default {
   title: 'Form/Control',
   args: {
     initialValue: undefined,
+    placeholder: '',
     value: undefined,
     validators: undefined,
     asyncValidators: undefined
   },
-  render: ({ initialValue, value, validators, asyncValidators }) =>
+  render: ({ initialValue, value, validators, asyncValidators, placeholder }) =>
     html`
       <control-form
         .initialValue=${initialValue}
         .value=${value}
         .validators=${validators}
         .asyncValidators=${asyncValidators}
+        .placeholder=${placeholder}
       ></control-form>
     `
 } satisfies Meta<ControlForm>;
@@ -88,14 +91,15 @@ export const Value: Story = {
 
 export const Validation: Story = {
   args: {
+    placeholder: 'Required, min length of 3, max length of 5',
     validators: [Validators.required, Validators.minLength(3), Validators.maxLength(5)]
   }
 };
 
 export const AsyncValidation: Story = {
   args: {
+    placeholder: 'Async validation of "Foo" value after 1 second',
     validators: [
-      Validators.required,
       async value => {
         return new Promise(resolve => {
           setTimeout(() => {

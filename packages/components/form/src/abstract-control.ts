@@ -4,6 +4,14 @@ import type { AsyncValidatorFn, ValidatorErrors, ValidatorFn } from './validator
 import { computed } from '@lit-labs/preact-signals';
 import { FormControlAdapter } from './adapter.js';
 
+export type AbstractControlUpdateOn = 'change' | 'blur' | 'submit';
+
+export interface AbstractControlOptions {
+  validators?: ValidatorFn[];
+  asyncValidators?: AsyncValidatorFn[];
+  updateOn?: AbstractControlUpdateOn;
+}
+
 export type AbstractControlStatus = 'valid' | 'invalid' | 'pending' | 'disabled';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,7 +19,9 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
   adapter: FormControlAdapter<T> | null = null;
   host: ReactiveControllerHost;
   initialValue?: T;
-  validators: Array<AsyncValidatorFn | ValidatorFn>;
+  validators: ValidatorFn[];
+  asyncValidators: AsyncValidatorFn[];
+  updateOn: AbstractControlUpdateOn = 'change';
 
   /** A signal containing any validator errors (if any). */
   readonly errors = computed<ValidatorErrors>(() => {
@@ -34,11 +44,28 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
   constructor(
     host: ReactiveControllerHost,
     initialValue: T | undefined,
-    validators: Array<AsyncValidatorFn | ValidatorFn>
+    validatorOrOptions?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
+    asyncValidators?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
     (this.host = host).addController(this);
     this.initialValue = initialValue;
-    this.validators = validators.slice();
+
+    if (typeof validatorOrOptions === 'function') {
+      this.validators = [validatorOrOptions];
+    } else if (Array.isArray(validatorOrOptions)) {
+      this.validators = validatorOrOptions.slice();
+    } else {
+      this.validators = validatorOrOptions?.validators ?? [];
+      this.updateOn = validatorOrOptions?.updateOn ?? 'change';
+    }
+
+    if (typeof asyncValidators === 'function') {
+      this.asyncValidators = [asyncValidators];
+    } else if (Array.isArray(asyncValidators)) {
+      this.asyncValidators = asyncValidators.slice();
+    } else {
+      this.asyncValidators = [];
+    }
   }
 
   /** @private */
@@ -85,7 +112,7 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
       return;
     }
 
-    this.adapter = FormControlAdapter.create<T>(host);
+    this.adapter = FormControlAdapter.create<T>(host, { updateOn: this.updateOn });
 
     if (this.adapter === undefined) {
       throw new Error(`Could not find a form control adapter for element: ${host.tagName.toLowerCase()}`);

@@ -1,3 +1,4 @@
+import type { AbstractControlUpdateOn } from './abstract-control.js';
 import type { Constructor } from '@sl-design-system/shared';
 import type { Signal } from '@lit-labs/preact-signals';
 
@@ -5,10 +6,8 @@ interface FormControlAdapterClass extends Constructor<FormControlAdapter> {
   canAdapt(element: Element): boolean;
 }
 
-export type FormControlAdapterUpdateOn = 'blur' | 'change';
-
 export interface FormControlAdapterOptions {
-  updateOn: FormControlAdapterUpdateOn;
+  updateOn: AbstractControlUpdateOn;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

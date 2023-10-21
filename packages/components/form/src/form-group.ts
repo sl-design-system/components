@@ -1,6 +1,7 @@
 import type { DirectiveResult } from 'lit/directive.js';
 import type { ReactiveControllerHost } from 'lit';
-import type { ValidatorFn } from './validators.js';
+import type { AsyncValidatorFn, ValidatorFn } from './validators.js';
+import type { AbstractControlOptions } from './abstract-control.js';
 import { type Signal, computed } from '@lit-labs/preact-signals';
 import { AbstractControl } from './abstract-control.js';
 import { bind } from './bind-directive.js';
@@ -26,8 +27,13 @@ export class FormGroup<T extends Record<string, AbstractControl> = any> extends 
     return value;
   });
 
-  constructor(host: ReactiveControllerHost, public controls: T, validators: ValidatorFn[] = []) {
-    super(host, undefined, validators);
+  constructor(
+    host: ReactiveControllerHost,
+    public controls: T,
+    validatorOrOptions?: ValidatorFn | ValidatorFn[] | AbstractControlOptions | null,
+    asyncValidators?: AsyncValidatorFn | AsyncValidatorFn[] | null
+  ) {
+    super(host, undefined, validatorOrOptions, asyncValidators);
   }
 
   override bind(name: string): DirectiveResult {

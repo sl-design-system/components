@@ -23,7 +23,10 @@ class ControlForm extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.name = new FormControl(this, this.initialValue ?? '', this.validators);
+    this.name = new FormControl(this, this.initialValue ?? '', {
+      validators: this.validators,
+      asyncValidators: this.asyncValidators
+    });
     this.errors = computed(() => JSON.stringify(this.name.errors.value));
   }
 
@@ -99,7 +102,23 @@ export const Validation: Story = {
 export const AsyncValidation: Story = {
   args: {
     placeholder: 'Async validation of "Foo" value after 1 second',
-    validators: [
+    asyncValidators: [
+      async value => {
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve(value.value === 'Foo' ? null : { invalid: true });
+          }, 1000);
+        });
+      }
+    ]
+  }
+};
+
+export const MixedValidation: Story = {
+  args: {
+    placeholder: 'Required, min length of 3 and async validation of "Foo"',
+    validators: [Validators.required, Validators.minLength(3)],
+    asyncValidators: [
       async value => {
         return new Promise(resolve => {
           setTimeout(() => {

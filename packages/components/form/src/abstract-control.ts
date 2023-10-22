@@ -1,7 +1,8 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 import type { DirectiveResult } from 'lit/directive.js';
 import type { AsyncValidatorFn, ValidatorErrors, ValidatorFn } from './validators.js';
-import { computed } from '@lit-labs/preact-signals';
+import type { Signal } from '@lit-labs/preact-signals';
+import { computed, effect, signal } from '@lit-labs/preact-signals';
 import { FormControlAdapter } from './adapter.js';
 
 export type AbstractControlUpdateOn = 'change' | 'blur' | 'submit';
@@ -20,17 +21,25 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
   host: ReactiveControllerHost;
   initialValue?: T;
   validators: ValidatorFn[];
-  asyncValidators: AsyncValidatorFn[];
+  asyncValidators: AsyncValidatorFn[] = [];
+  disposeAsyncValidators: () => void;
+  disposeSyncAdapterValue?: () => void;
   updateOn: AbstractControlUpdateOn = 'change';
 
-  /** A signal containing any validator errors (if any). */
-  readonly errors = computed<ValidatorErrors>(() => {
+  /** A signal containing any async validator errors. */
+  readonly asyncErrors = signal({} as ValidatorErrors);
+
+  /** A signal containing any non-async validator errors. */
+  readonly syncErrors = computed<ValidatorErrors>(() => {
     return this.validators.reduce((errors: ValidatorErrors, validator: ValidatorFn) => {
       const error = validator(this.value);
 
       return error ? { ...errors, ...error } : errors;
     }, {});
   });
+
+  /** A signal containing all validator errors (sync and async). */
+  readonly errors = computed<ValidatorErrors>(() => ({ ...this.syncErrors.value, ...this.asyncErrors.value }));
 
   /** A signal indicating whether the control is invalid. */
   readonly invalid = computed<boolean>(() => Object.keys(this.errors.value).length > 0);
@@ -39,7 +48,7 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
   readonly valid = computed<boolean>(() => !this.invalid.value);
 
   /** A signal containing the current value of the control. */
-  readonly value = computed<T | undefined>(() => this.adapter?.value.value);
+  readonly value: Signal<T | undefined> = signal(undefined);
 
   constructor(
     host: ReactiveControllerHost,
@@ -48,24 +57,42 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
     asyncValidators?: AsyncValidatorFn | AsyncValidatorFn[] | null
   ) {
     (this.host = host).addController(this);
-    this.initialValue = initialValue;
+    this.value.value = this.initialValue = initialValue;
 
     if (typeof validatorOrOptions === 'function') {
       this.validators = [validatorOrOptions];
     } else if (Array.isArray(validatorOrOptions)) {
       this.validators = validatorOrOptions.slice();
     } else {
-      this.validators = validatorOrOptions?.validators ?? [];
+      this.asyncValidators = validatorOrOptions?.asyncValidators ?? [];
       this.updateOn = validatorOrOptions?.updateOn ?? 'change';
+      this.validators = validatorOrOptions?.validators ?? [];
     }
 
     if (typeof asyncValidators === 'function') {
       this.asyncValidators = [asyncValidators];
     } else if (Array.isArray(asyncValidators)) {
       this.asyncValidators = asyncValidators.slice();
-    } else {
-      this.asyncValidators = [];
     }
+
+    this.disposeAsyncValidators = effect(() => {
+      if (this.asyncValidators.length === 0) {
+        return;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises, @typescript-eslint/promise-function-async
+      Promise.all(this.asyncValidators.map(validator => validator(this.value))).then(
+        (errors: Array<ValidatorErrors | null>) => {
+          console.log('validated', errors);
+
+          this.asyncErrors.value = errors
+            .filter((err): err is ValidatorErrors => !!err)
+            .reduce((errors: ValidatorErrors, error: ValidatorErrors) => {
+              return error ? { ...errors, ...error } : errors;
+            }, {});
+        }
+      );
+    });
   }
 
   /** @private */
@@ -106,6 +133,7 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
    */
   setBoundElement(host: Element | null): void {
     if (!host) {
+      this.disposeSyncAdapterValue?.();
       this.adapter?.disconnect();
       this.adapter = null;
 
@@ -113,6 +141,11 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
     }
 
     this.adapter = FormControlAdapter.create<T>(host, { updateOn: this.updateOn });
+
+    // This effect synchronizes the adapter value with the value here
+    this.disposeSyncAdapterValue = effect(() => {
+      this.value.value = this.adapter!.value.value;
+    });
 
     if (this.adapter === undefined) {
       throw new Error(`Could not find a form control adapter for element: ${host.tagName.toLowerCase()}`);

@@ -74,6 +74,8 @@ website/dist
 
 # Generated files
 *.scss.ts
+custom-elements.json
+custom-elements.md
 
 # System Files
 .DS_Store

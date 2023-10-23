@@ -183,9 +183,13 @@ $transition-timing: 300ms;
 }
 
 .ds-component__buttons-wrapper {
-  column-gap: 1.6rem;
   display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
   margin: 2.4rem 0;
+  @media screen and (min-width: $md-breakpoint) {
+    flex-direction: row;
+  }
 }
 
 .ds-success {

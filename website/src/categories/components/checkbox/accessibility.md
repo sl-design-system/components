@@ -114,7 +114,7 @@ WAI-ARIA Roles, States, and Properties for a checkbox provide essential informat
 |Checkbox, Checkbox group|`aria-label`|string|Can be added when the checkbox doesn't have a label text. <br /> In the checkbox group can be added when there is no label or header that could be described by.|yes|
 |Checkbox|`aria-describedby`|string|Used to describe (link with) hint (helper text) and/or error message. |no|
 |Checkbox|`aria-disabled`|boolean|Announces the checkbox component as disabled with a screen reader. See [Note 1] below. |yes|
-|Checkbox group|`role`|`'group''`|Declare our group of custom checkbox components as a checkbox group.|no|
+|Checkbox group|`role`|`'group'`|Declare our group of custom checkbox components as a checkbox group.|no|
 |Checkbox group|`aria-labelledby`|string|When multiple checkboxes are used to connect with single header that describes checkboxes. |yes|
 
 {.ds-table .ds-table-align-top}

@@ -23,6 +23,26 @@
     line-height: 28px;
   }
 
+  span {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 2.4rem;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    @media screen and (min-width: $md-breakpoint) {
+      flex-direction: row;
+    }
+  }
+
+  @media screen and (max-width: $md-breakpoint) {
+    /* stylelint-disable-next-line max-nesting-depth */
+    .ds-button-cta-negative {
+      justify-content: center;
+      width: auto;
+    }
+  }
+
   @media screen and (min-width: $md-breakpoint) {
     padding: 4.8rem 3.2rem;
   }
@@ -33,6 +53,7 @@
 
   @media screen and (min-width: $xl-breakpoint) {
     margin-right: 4.8rem;
+    max-width: 88rem;
   }
 
   @media screen and (prefers-reduced-motion: reduce) {

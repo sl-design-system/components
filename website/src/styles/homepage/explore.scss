@@ -12,6 +12,7 @@ $transition-timing: 300ms;
   @media screen and (min-width: $xl-breakpoint) {
     margin-right: 4.8rem;
     margin-top: 4.8rem;
+    max-width: 88rem;
   }
 
   .ds-heading-1 {
@@ -161,6 +162,13 @@ $transition-timing: 300ms;
         transform-box: fill-box;
         transform-origin: center;
       }
+
+      /* stylelint-disable-next-line max-nesting-depth */
+      .ds-explore__whats-new-eye-left {
+        animation: blinkEyeAnimation 700ms ease-in-out;
+        animation-delay: 0.2s;
+        transform-origin: 90.6px 30.2px;
+      }
     }
   }
 }
@@ -218,5 +226,19 @@ $transition-timing: 300ms;
 
   100% {
     transform: rotate(0);
+  }
+}
+
+@keyframes blinkEyeAnimation {
+  30% {
+    transform: rotateZ(0deg) scale3d(1, 1, 1);
+  }
+
+  60% {
+    transform: rotateZ(-12deg) scale3d(1.2, 0.1, 1);
+  }
+
+  100% {
+    transform: rotateZ(0deg) scale3d(1, 1, 1);
   }
 }

@@ -12,6 +12,28 @@ Exploring essential accessibility considerations for buttons: ensuring an inclus
 
 <section>
 
+## Content
+Having an accessible application is not only achieved by writing good code, but also (maybe even MORE so) by writing good copy. To make sure buttons and their actions are clear for all users make sure to keep these points in mind:
+
+### Concise Clarity
+Button text should be brief, ideally 1 or 2 words, and at most 4 words with fewer than 20 characters, spaces included. Avoid punctuation like periods or exclamation points.
+
+### Action-Centric
+Buttons should express actions, using verbs in their labels and a bare infinitive conjunction. This approach enhances clarity and user orientation.
+
+### Clear Outcomes
+The button's label should unmistakably convey the action's result, mirroring the wording elsewhere in the experience.
+
+### Sentence Case
+Always use sentence case for button text; capitalization should not be used for emphasis.
+
+### Mindful Tone
+Buttons serve a functional purpose, so emojis and exclamation points should be left behind. Keep labels as plain text, free from extra punctuation or embellishments.
+
+</section>
+
+<section>
+
 ## Interaction
 
 ### Keyboard Interaction
@@ -59,24 +81,4 @@ When the button has focus:
 
 </section>
 
-<section>
 
-## Content
-Having an accessible application is not only achieved by writing good code, but also (maybe even MORE so) by writing good copy. To make sure buttons and their actions are clear for all users make sure to keep these points in mind:
-
-### Concise Clarity
-Button text should be brief, ideally 1 or 2 words, and at most 4 words with fewer than 20 characters, spaces included. Avoid punctuation like periods or exclamation points.
-
-### Action-Centric
-Buttons should express actions, using verbs in their labels and a bare infinitive conjunction. This approach enhances clarity and user orientation.
-
-### Clear Outcomes
-The button's label should unmistakably convey the action's result, mirroring the wording elsewhere in the experience.
-
-### Sentence Case
-Always use sentence case for button text; capitalization should not be used for emphasis.
-
-### Mindful Tone
-Buttons serve a functional purpose, so emojis and exclamation points should be left behind. Keep labels as plain text, free from extra punctuation or embellishments.
-
-</section>

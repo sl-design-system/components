@@ -2,8 +2,8 @@
 title: Radio group code
 tags: code
 APIdescription: {
-  sl-radio-group: "Radio group has a range of properties to define the experience in different use cases.",
-  sl-radio: "Radio has a range of properties to define the experience in different use cases."
+  sl-radio-group: "Radio group is the wrapper for the radiobuttons that represent the options for one value in your form. Per radio-group you can only check one radio button.",
+  sl-radio: "The radio button is a single button that can either be selected or deselected (by picking another option in the same radio-group)."
 }
 eleventyNavigation:
   parent: Radio group

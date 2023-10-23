@@ -119,7 +119,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native ElementInternals function. */
+    /**  Method returns a boolean value which indicates validity of the value of the element. */
     checkValidity(): boolean {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.checkValidity();
@@ -128,7 +128,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native ElementInternals function. */
+    /** Method that checks the validity of a form element and reports validation constraints or errors associated with it. The method works similar to checkValidity() function. */
     reportValidity(): boolean {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.reportValidity();
@@ -142,13 +142,19 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       this.#formControlElement = element;
     }
 
-    /** Native ElementInternals function. */
+    /** @ignore Native ElementInternals function. */
     setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void {
       console.log('setValidity', { flags, message, anchor });
     }
 
-    /** Native ElementInternals function. */
+    // /** Method used to set the value of the form element.
+    //  * @type {`File` | `FormData` | `string` | `undefined`}
+    //  * */
+    /** Method used to set the value of the form element.
+     * @param {`value` `File` | null}
+     */
     setFormValue(value?: FormControlValue): void {
+      // TODO: change properties type, how?
       this.#cachedValue = value;
 
       if (isNative(this.formControlElement)) {

@@ -2,8 +2,8 @@
 title: Checkbox code
 tags: code
 APIdescription: {
-  sl-checkbox: "Checkbox component has a range of properties, attributes etc. to define the experience in different use cases and it can be used as the replacement of the html checkbox",
-  sl-checkbox-group: "Checkbox group component has a range of properties to define the experience in different use cases and it is a kind of wrapper for multiple checkboxes."
+  sl-checkbox: "Checkbox component has a range of properties, attributes etc. to define the experience in different use cases, and it can be used as the replacement of the HTML native checkbox.",
+  sl-checkbox-group: "Checkbox group component provides properties to define the experience in different use cases, and it is a kind of wrapper for multiple checkboxes."
 }
 eleventyNavigation:
   parent: Checkbox

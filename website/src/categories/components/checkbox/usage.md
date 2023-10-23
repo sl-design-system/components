@@ -91,10 +91,7 @@ For actions that affect preferences or application behavior, opt for a switch fo
 <section>
 
 ## Anatomy
-
-```html
-  (Visual)
-```
+{{ 'components/checkbox/sl-checkbox-anatomy.svg' | svgImage }}
 
 |Item|Name| Description | Optional|
 |-|-|-|-|

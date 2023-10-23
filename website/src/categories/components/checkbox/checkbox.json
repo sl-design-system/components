@@ -4,13 +4,11 @@
   "componentTagName": [
     {
       "name": "Checkbox",
-      "selector": "sl-checkbox",
-      "APIdescription": "Checkbox component has a range of properties, attributes etc. to define the experience in different use cases and it can be used as the replacement of the html checkbox"
+      "selector": "sl-checkbox"
     },
     {
       "name": "Checkbox group",
-      "selector": "sl-checkbox-group",
-      "APIdescription": "Checkbox group component has a range of properties to define the experience in different use cases and it is a kind of wrapper for multiple checkboxes."
+      "selector": "sl-checkbox-group"
     }
   ]
 }

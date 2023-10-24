@@ -13,6 +13,7 @@
   --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
   --sl-border-width-select-copy-listbox: var(--sl-border-width-xs);
+  --sl-color-badge-neutral: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-badge-accent: rgb(var(--sl-color-palette-accent-base));
   --sl-color-badge-yellow: rgb(var(--sl-color-palette-warning-base));
   --sl-color-badge-green: rgb(var(--sl-color-palette-success-base));

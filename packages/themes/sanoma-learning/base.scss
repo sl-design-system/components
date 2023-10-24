@@ -403,6 +403,15 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-3xs);
   --sl-border-radius-button-md: var(--sl-border-radius-3xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-3xs);
+  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) / undefined
+    var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) / undefined
+    var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) / undefined
+    var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) / undefined
+    var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-bold) 8 / undefined var(--sl-text-typeset-font-family-body);
   --sl-text-select-selectbox-title-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-select-selectbox-title-md: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-xs) /

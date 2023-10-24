@@ -3828,6 +3828,10 @@
       "accent": {
         "value": "{color.palette.accent.base}",
         "type": "color"
+      },
+      "neutral": {
+        "value": "{color.palette.neutral.200}",
+        "type": "color"
       }
     }
   },

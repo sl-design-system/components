@@ -75,12 +75,16 @@ Positioned beneath checkbox groups, help text offers valuable context and guidan
 
 The focus order for a checkbox determines the sequence in which users can navigate and interact with checkboxes using the keyboard or other input methods. This order ensures accessibility and allows users to select or deselect checkboxes by tabbing through them logically and consistently. It makes it easier for individuals who rely on keyboard navigation or assistive technologies to interact with checkboxes in a web or application interface.
 
+<div class="ds-table-wrapper">
 
 |Order|Element|Role|
 |-|-|-|
 |1|Checkbox input|Navigate to the Checkbox Input|
 
 {.ds-table .ds-table-align-top}
+
+</div>
+
 
 </section>
 
@@ -91,6 +95,8 @@ The focus order for a checkbox determines the sequence in which users can naviga
 Keyboard interaction with a checkbox refers to how users can interact with checkboxes using keyboard inputs. Typically, users can navigate to a checkbox using the "Tab" key, select or deselect it with the "Spacebar" key, and sometimes use other keyboard shortcuts for efficiency. Keyboard interaction ensures that individuals who rely on keyboard navigation or assistive technologies can easily control checkboxes within a user interface.
 We use a tab to switch between checkbox groups to enable faster navigation in a form; when you want to navigate to the "Save" button quickly, you shouldn't be required to go over the complete list of options just to get to the end of the form.
 
+<div class="ds-table-wrapper">
+
 |Command|Description|
 |-|-|
 |Tab|Shifts focus to the first checkbox input in a checkbox group or a checkbox that isn't in a group.|
@@ -99,33 +105,55 @@ We use a tab to switch between checkbox groups to enable faster navigation in a 
 
 {.ds-table .ds-table-align-top}
 
+</div>
+
 </section>
 
 <section> 
 
-## WAI-ARIA Roles, States, and Properties
+## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for a checkbox provide essential information to assistive technologies and screen readers. They convey the checkbox's role, state (checked or unchecked), and additional properties to ensure accessibility and a better user experience for individuals with disabilities.
+WAI-ARIA Roles, States, and Properties for a checkbox provide essential information to assistive technologies and screen readers. They convey the checkbox's role, state (checked or unchecked), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
-|Element|Attribute|Value|Description|User - supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
-|-|-|-|-|-|
-|Checkbox|`aria-checked`|`'true','false','mixed'`|The state of the checkbox.|no|
-|Checkbox|`role`|`'checkbox''`|Declare our custom component as a checkbox.|no|
-|Checkbox, Checkbox group|`aria-label`|string|Can be added when the checkbox doesn't have a label text. <br /> In the checkbox group can be added when there is no label or header that could be described by.|yes|
-|Checkbox|`aria-describedby`|string|Used to describe (link with) hint (helper text) and/or error message. |no|
-|Checkbox|`aria-disabled`|boolean|Announces the checkbox component as disabled with a screen reader. See [Note 1] below. |yes|
-|Checkbox group|`role`|`'group'`|Declare our group of custom checkbox components as a checkbox group.|no|
-|Checkbox group|`aria-labelledby`|string|When multiple checkboxes are used to connect with single header that describes checkboxes. |yes|
+### Checkbox
+
+<div class="ds-table-wrapper">
+
+|Attribute|Value|Description|User - supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`aria-checked`|`'true','false','mixed'`|The state of the checkbox.|no|
+|`role`|`'checkbox''`|Declare our custom component as a checkbox.|no|
+|`aria-label`|string|Can be added when the checkbox doesn't have a label text.|yes|
+|`aria-describedby`|string|Used to describe (link with) hint (helper text) and/or error message.|no|
+|`aria-disabled`|boolean|Announces the checkbox component as disabled with a screen reader. See [Note 1] below.|yes|
+|`aria-labelledby`|string|When multiple checkboxes are used to connect with single header that describes checkboxes.|yes|
 
 {.ds-table .ds-table-align-top}
+
+</div>
 
 **Notes:**
 1. The `aria-disabled` should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities:
 
-  - `disabled` dims the checkbox visually, takes it out of the tab-focus sequence, prevents actions (click, enter) on it and announces it as 'dimmed' or 'disabled' in a screen reader.
+- `disabled` dims the checkbox visually, takes it out of the tab-focus sequence, prevents actions (click, enter) on it and announces it as 'dimmed' or 'disabled' in a screen reader.
 
-  - `aria-disabled` only does the latter. You will need to disable the functionality yourself. This might be useful for scenarios where you don't want to take the checkbox out of the navigation flow.
+- `aria-disabled` only does the latter. You will need to disable the functionality yourself. This might be useful for scenarios where you don't want to take the checkbox out of the navigation flow.
 
-   When `disabled` is added to a checkbox there is no need to also add `aria-disabled`. Everything `aria-disabled` does, `disabled` does as well. You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled).
+When `disabled` is added to a checkbox there is no need to also add `aria-disabled`. Everything `aria-disabled` does, `disabled` does as well. You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled).
+
+### Checkbox group
+
+<div class="ds-table-wrapper">
+
+|Attribute|Value|Description|User - supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`role`|`'group'`|Declare our group of custom checkbox components as a checkbox group.|no|
+|`aria-label`|string|Can be added when there is no label or header that could be described by.|yes|
+|`aria-describedby`|string|Used to describe (link with) hint (helper text) and/or error message.|no|
+|`aria-labelledby`|string|Used to connect with single header that describes checkbox group, when there is no label component connected to.|yes|
+
+{.ds-table .ds-table-align-top}
+
+</div>
 
 </section>

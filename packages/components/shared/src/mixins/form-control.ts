@@ -71,7 +71,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native form property. */
+    /** Native form property. Form associated with the element. */
     get form(): HTMLFormElement | null {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.form;
@@ -80,7 +80,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native labels property.
+    /** Native labels property. Labels associated with the element.
      * @type {`NodeListOf<HTMLLabelElement>` | null}
      */
     get labels(): NodeListOf<HTMLLabelElement> | null {
@@ -128,7 +128,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Method that checks the validity of a form element and reports validation constraints or errors associated with it. The method works similar to checkValidity() function. */
+    /** Method that checks the validity of an element and reports validation constraints or errors associated with it. The method works similar to checkValidity() function. */
     reportValidity(): boolean {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.reportValidity();
@@ -147,11 +147,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       console.log('setValidity', { flags, message, anchor });
     }
 
-    // /** Method used to set the value of the form element.
-    //  * @type {`File` | `FormData` | `string` | `undefined`}
-    //  * */
-    /** Method used to set the value of the form element.
-     * @param {`value` `File` | null}
+    /** Method used to set the value of the element.
+     * @param {File | FormData | string | undefined} [value]
      */
     setFormValue(value?: FormControlValue): void {
       // TODO: change properties type, how?

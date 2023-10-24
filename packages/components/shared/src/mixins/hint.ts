@@ -46,7 +46,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     /** The hint size.
      *  @type {'sm' | 'md' | 'lg'}
      */
-    @property() hintSize: HintSize = 'md';
+    @property({ attribute: 'hint-size' }) hintSize: HintSize = 'md';
 
     /** The hint disabled state. */
     @property() disabled?: boolean;

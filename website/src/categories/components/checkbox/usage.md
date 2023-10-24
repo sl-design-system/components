@@ -10,14 +10,14 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
+<sl-checkbox id="checkbox" name="checkbox" value="yes" aria-label="Element to toggle">Checkbox</sl-checkbox>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-checkbox id="checkbox" name="checkbox" value="yes">Checkbox</sl-checkbox>
+  <sl-checkbox id="checkbox" name="checkbox" value="yes" aria-label="Element to toggle">Checkbox</sl-checkbox>
   ```
 
 </div>
@@ -80,11 +80,26 @@ Checkboxes are handy for users dealing with lots of options. They can fine-tune 
 
 The following guidance describes when not to use the Checkbox component.
 
+<section class="ds-cards">
+
+<figure>
+    {{'components/button/sl-button-when-use-actions.svg' | svgImage}}
+<figcaption>
+
 ### Exclusive choices
 While checkboxes work well in forms and filters, they're not suitable for exclusive selections. Instead, use radio buttons for single choices.
+</figcaption>
+</figure>
+
+<figure>
+    {{'components/button/sl-button-when-use-navigation.svg' | svgImage}}
+    <figcaption>
 
 ### Toggle preferences
 For actions that affect preferences or application behavior, opt for a switch for a better user experience.
+</figcaption>
+</figure>
+</section>
 
 </section>
 
@@ -151,6 +166,7 @@ This checkbox variant is prominently featured in form validation processes and t
 
 With these options, you can tweak the appearance of the radio in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
 
+<div class="ds-table-wrapper">
 
 |Item|Options|Description|
 |-|-|-|
@@ -159,11 +175,13 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 |States|`???`|Idle, hover, active and disabled|
 |Status |`???`|Checked or unchecked|
 |Indeterminate |`???`|To turn the indeterminate state on or off|
-|Label|`???`|To turn to label on or off (label is turned on by default)|
+|Label|`input text`|To turn to label on or off (label is turned on by default)|
 |Label text|`???`|To insert the text of the label
 |Focus ring|`???`|Turn the focus ring option to show the focus state of the checkbox|
 
 {.ds-table .ds-table-align-top}
+
+</div>
 
 </section>
 
@@ -202,6 +220,8 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 ## Checkbox group
 
 Use the checkbox group component to group multiple checkboxes with the same category, together with the group label, and help text for clear organization.
+
+{{ 'components/checkbox/sl-checkbox-group-anatomy.svg' | svgImage }}
 
 ### Group label
 The group label, positioned at the top of a checkbox group, provides a clear and concise description of the category or context for the choices contained within the group. It serves as a visual and informational cue that helps users understand the purpose of the options and facilitates more straightforward decision-making in the user interface.

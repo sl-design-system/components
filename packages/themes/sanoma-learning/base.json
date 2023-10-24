@@ -1564,6 +1564,12 @@
         "value": "{border.radius.3xs}",
         "type": "borderRadius"
       }
+    },
+    "badge": {
+      "full": {
+        "value": "{border.radius.full}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {

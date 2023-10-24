@@ -1,12 +1,12 @@
 $transition-timing: 300ms;
 
 .ds-code {
-  margin-bottom: 2.4rem;
+  margin: 1.6rem 0 2.4rem;
   position: relative;
 
   pre {
     border: 1px solid var(--code-border);
-    border-radius: 0 0 0.6rem 0.6rem;
+    border-radius: 0.6rem;
     border-top: 0;
     margin: 0;
   }
@@ -99,6 +99,14 @@ $transition-timing: 300ms;
 .ds-cards .ds-example {
   background: var(--control-color-surface-100-surface);
   border-radius: 0;
+}
+
+.ds-example + .ds-code {
+  margin-top: 0;
+
+  pre {
+    border-radius: 0 0 0.6rem 0.6rem;
+  }
 }
 
 .ds-example sl-icon[name='fas-hand-back-point-up'] {

@@ -1,0 +1,38 @@
+.ds-button-cta-negative {
+  --_background: var(--control-color-state-accent-container-default-state);
+  --_border-color: var(--control-color-state-accent-border-default-state);
+  --_color: var(--control-color-state-accent-font-default-state);
+
+  align-items: center;
+  background: var(--_background);
+  border: 1px solid var(--_border-color);
+  border-radius: 2px;
+  color: var(--_color);
+  display: inline-flex;
+  font-size: 1.6rem;
+  font-weight: 600;
+  gap: 8px;
+  line-height: 2.4rem;
+  padding: 8px 12px;
+  position: relative;
+  text-decoration: none;
+  width: fit-content;
+
+  &:hover {
+    --_background: var(--control-color-state-accent-container-hover-state);
+    --_border-color: var(--control-color-state-accent-border-hover-state);
+    --_color: var(--control-color-state-accent-font-hover-state);
+  }
+
+  &:active {
+    --_background: var(--control-color-state-accent-container-active-state);
+    --_border-color: var(--control-color-state-accent-border-active-state);
+    --_color: var(--control-color-state-accent-font-active-state);
+  }
+
+  &:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--control-color-focus-accent-focus);
+    outline-offset: 2px;
+  }
+}

@@ -5,12 +5,17 @@ eleventyNavigation:
   key: Pages
 ---
 
+<div class="ds-homepage-wrapper">
 <section class="ds-hero-block">
 
 # Learn, develop, deploy
 
-Create enjoyable, usable and accessible products that meet students and teachers needs.
+Craft products that are not only enjoyable and user-friendly but also meet the needs of both students and teachers, while ensuring accessibility for all.
 
+<span>
+  <a class="ds-button-cta-negative" href="/categories/getting-started/designers"><sl-icon name="far-pen-ruler"></sl-icon>Start designing</a>
+  <a class="ds-button-cta-negative" href="/categories/getting-started/developers"><sl-icon name="far-code"></sl-icon>Start developing</a>
+</span>
 </section>
 
 <section class="ds-explore">
@@ -18,6 +23,22 @@ Create enjoyable, usable and accessible products that meet students and teachers
 Explore {.ds-heading-1}
 
 <div class="ds-explore-wrapper">
+
+<div class="ds-explore__whats-new ds-explore__card">
+
+<div class="ds-explore__card-image">
+{{'homepage/newspaper.svg' | svgImage }}
+</div>
+
+<div class="ds-heading-2">
+<a href="/categories/whats-new/" aria-labelledby="whatsNewParagraph">
+What's new
+</a>
+</div>
+
+<p id="whatsNewParagraph">Stay updated with the SL Design System's latest improvements and news.</p>
+
+</div>
 
 <div class="ds-explore__components ds-explore__card">
 
@@ -51,21 +72,7 @@ Design tokens
 
 </div>
 
-<div class="ds-explore__guidelines ds-explore__card">
 
-<div class="ds-explore__card-image">
-{{'homepage/brush-ruler.svg' | svgImage }}
-</div>
-
-<div class="ds-heading-2">
-<a href="/categories/guidelines/" aria-labelledby="guidelinesParagraph">
-Guidelines
-</a>
-</div>
-
-<p id="guidelinesParagraph">Practical guides to get started with designing and developing your experience with Sanoma Learning's Design System.</p>
-
-</div>
 
 </div>
 
@@ -130,3 +137,4 @@ Submit an issue
 </div>
 
 </section>
+</div>

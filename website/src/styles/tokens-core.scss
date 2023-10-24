@@ -1,13 +1,13 @@
 :root {
   /* colors */
   --900-accent: #000d33;
-  --colors-200-warning: #fde376;
+  --colors-200-warnng: #fde376;
   --colors-600-danger: #992224;
   --colors-600-success: #1b6137;
-  --colors-600-warning: #79590d;
+  --colors-600-warnng: #79590d;
   --colors-base-danger: #ff575c;
   --colors-base-success: #70e09d;
-  --colors-base-warning: #feda42;
+  --colors-base-warnng: #feda42;
   --colors-accent-100-accent: #e0eaff;
   --colors-accent-150-accent: #ccdbff;
   --colors-accent-200-accent: #9ebaff;
@@ -69,19 +69,19 @@
   --colors-warning-900-warning: #261d0b;
   --colors-warning-base-warning: #ffcf0d;
   /* numbers */
-  --scale-none-scale: 0px;
-  --scale-50-scale: 4px;
-  --scale-100-scale: 8px;
-  --scale-150-scale: 12px;
-  --scale-200-scale: 16px;
-  --scale-300-scale: 20px;
-  --scale-400-scale: 24px;
-  --scale-500-scale: 28px;
-  --scale-600-scale: 32px;
-  --scale-700-scale: 40px;
-  --scale-800-scale: 48px;
-  --scale-900-scale: 48px;
-  --scale-1000-scale: 56px;
-  --scale-1200-scale: 64px;
-  --scale-1300-scale: 80px;
+  --scale-none-scale: 0rem;
+  --scale-50-scale: 0.25rem;
+  --scale-100-scale: 0.5rem;
+  --scale-150-scale: 0.75rem;
+  --scale-200-scale: 1rem;
+  --scale-300-scale: 1.25rem;
+  --scale-400-scale: 1.5rem;
+  --scale-500-scale: 1.75rem;
+  --scale-600-scale: 2rem;
+  --scale-700-scale: 2.5rem;
+  --scale-800-scale: 3rem;
+  --scale-900-scale: 3rem;
+  --scale-1000-scale: 3.5rem;
+  --scale-1200-scale: 4rem;
+  --scale-1300-scale: 5rem;
 }

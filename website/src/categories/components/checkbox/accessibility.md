@@ -122,7 +122,7 @@ WAI-ARIA Roles, States, and Properties for a checkbox provide essential informat
 |Attribute|Value|Description|User - supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
 |-|-|-|-|
 |`aria-checked`|`'true','false','mixed'`|The state of the checkbox.|no|
-|`role`|`'checkbox''`|Declare our custom component as a checkbox.|no|
+|`role`|`'checkbox'`|Declare our custom component as a checkbox.|no|
 |`aria-label`|string|Can be added when the checkbox doesn't have a label text.|yes|
 |`aria-describedby`|string|Used to describe (link with) hint (helper text) and/or error message.|no|
 |`aria-disabled`|boolean|Announces the checkbox component as disabled with a screen reader. See [Note 1] below.|yes|

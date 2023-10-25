@@ -32,7 +32,7 @@ The following guidance describes when to use the Checkbox component.
 
 <section class="ds-cards">
 <figure>
-{{'components/button/sl-button-when-use-actions.svg' | svgImage}}
+{{'components/checkbox/sl-checkbox-when-use-yes-no.svg' | svgImage}}
 <figcaption>
 
 ### Yes or No Decisions
@@ -40,7 +40,7 @@ Checkboxes simplify making yes-or-no decisions. Users can independently toggle o
 </figcaption>
 </figure>
 <figure>
-    {{'components/button/sl-button-when-use-navigation.svg' | svgImage}}
+    {{'components/checkbox/sl-checkbox-when-use-multiple.svg' | svgImage}}
     <figcaption>
 
 ### Multiple Selections
@@ -48,29 +48,22 @@ When users need to pick multiple items from a list, checkboxes are a go-to. They
 </figcaption>
   </figure>
 <figure>
-{{'components/button/sl-button-when-use-actions.svg' | svgImage}}
+{{'components/checkbox/sl-checkbox-when-use-filter.svg' | svgImage}}
 <figcaption>
 
 ### Filtering and Sorting
 Checkboxes are handy for users dealing with lots of options. They can fine-tune what they see by selecting specific attributes.
 </figcaption>
 </figure>
+<figure>
+{{'components/button/sl-button-when-use-actions.svg' | svgImage}}
+<figcaption>
+
+### Only checkbox
+When it becomes necessary to indicate to the user that certain elements have been selected. A practical instance would be the selection of a table’s row or a series of cards.
+</figcaption>
+</figure>
 </section>
-
-
-[//]: # (### Binary Decisions)
-
-[//]: # (Checkboxes simplify making yes-or-no decisions. Users can independently toggle options, whether it's about their preferences, agreeing to terms, or picking from a list.)
-
-[//]: # ()
-[//]: # (### Multiple Selections)
-
-[//]: # (When users need to pick multiple items from a list, checkboxes are a go-to. They offer flexibility, helping users select multiple choices or refine their search results.)
-
-[//]: # ()
-[//]: # (### Filtering and Sorting)
-
-[//]: # (Checkboxes are handy for users dealing with lots of options. They can fine-tune what they see by selecting specific attributes.)
 
 </section>
 

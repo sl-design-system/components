@@ -1505,7 +1505,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{text.typeset.fontSize.md}"
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.uppercase}"
           },
           "type": "typography"
         },
@@ -1513,7 +1514,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{text.typeset.fontSize.lg}"
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textCase": "{text.typeset.textCase.uppercase}"
           },
           "type": "typography"
         },
@@ -1521,7 +1523,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{text.typeset.fontSize.xl}"
+            "fontSize": "{text.typeset.fontSize.xl}",
+            "textCase": "{text.typeset.textCase.uppercase}"
           },
           "type": "typography"
         },
@@ -1529,7 +1532,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{text.typeset.fontSize.2xl}"
+            "fontSize": "{text.typeset.fontSize.2xl}",
+            "textCase": "{text.typeset.textCase.uppercase}"
           },
           "type": "typography"
         },
@@ -1537,7 +1541,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{icon.typeset.fontSize.2xl}"
+            "fontSize": "{icon.typeset.fontSize.2xl}",
+            "textCase": "{text.typeset.textCase.uppercase}"
           },
           "type": "typography"
         },
@@ -1545,7 +1550,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{icon.typeset.fontSize.2xl}"
+            "fontSize": "{icon.typeset.fontSize.2xl}",
+            "textCase": "{text.typeset.textCase.uppercase}"
           },
           "type": "typography"
         }

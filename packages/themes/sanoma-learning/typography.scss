@@ -7,36 +7,42 @@
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-icon-typeset-font-size-2xl);
   font-weight: var(--sl-text-typeset-font-weight-bold);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 @mixin sl-text-avatar-text-2xl {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-icon-typeset-font-size-2xl);
   font-weight: var(--sl-text-typeset-font-weight-bold);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 @mixin sl-text-avatar-text-xl {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-2xl);
   font-weight: var(--sl-text-typeset-font-weight-bold);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 @mixin sl-text-avatar-text-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-xl);
   font-weight: var(--sl-text-typeset-font-weight-bold);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 @mixin sl-text-avatar-text-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-bold);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 @mixin sl-text-avatar-text-sm {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-md);
+  font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-bold);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 @mixin sl-text-badge-text-3xl {

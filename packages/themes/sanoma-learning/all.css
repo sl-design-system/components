@@ -457,7 +457,7 @@
     var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-text-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) / undefined
     var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-text-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) / undefined
+  --sl-text-avatar-text-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) / undefined
     var(--sl-text-typeset-font-family-body);
   --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) / undefined
     var(--sl-text-typeset-font-family-body);

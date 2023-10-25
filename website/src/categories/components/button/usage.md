@@ -217,10 +217,10 @@ This table provides guidance on when to use each button variant (Solid, Outline,
 Here's an example that explains which button to use in different scenarios:
 {{ 'components/button/sl-button-variants-types-example.svg' | svgImage}}
 
-1. The "remove" button should be Default-Outline; it's a secondary action and not part of the main user flow on this page.
-1. The "add coupon" button should be Default-Solid; although it's not part of the main user flow, it requires emphasis.
-1. The "Proceed to checkout" button should be Primary-Solid; it represents the next step in the user flow and the primary reason the user is on this page.
-1. Add a "cancel" or "back" button, which should be Primary-Outline; it's part of the main user flow but a secondary action.
+1. The "remove" button should be Danger-Outline; it's a secondary action and not part of the main user flow on this page.
+2. The "Upload CSV" button should be Default-Outline; although it's not part of the main user flow, it requires emphasis.
+3. The "Confirm Participants" button should be Primary-Solid; it represents the next step in the user flow and the primary reason the user is on this page.
+4. Add a "Cancel" or "back" button, which should be Primary-Outline; it's part of the main user flow but a secondary action.
 </section>
 <section>
 

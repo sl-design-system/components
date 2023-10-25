@@ -3813,24 +3813,44 @@
       }
     },
     "badge": {
-      "red": {
-        "value": "{color.palette.danger.base}",
+      "background": {
+        "red": {
+          "value": "{color.palette.danger.base}",
+          "type": "color"
+        },
+        "green": {
+          "value": "{color.palette.success.base}",
+          "type": "color"
+        },
+        "yellow": {
+          "value": "{color.palette.warning.base}",
+          "type": "color"
+        },
+        "accent": {
+          "value": "{color.palette.accent.base}",
+          "type": "color"
+        },
+        "neutral": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      },
+      "text": {
+        "value": "{color.palette.white.base}",
         "type": "color"
       },
-      "green": {
-        "value": "{color.palette.success.base}",
+      "icon": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      }
+    },
+    "avatar": {
+      "background": {
+        "value": "{color.palette.accent.150}",
         "type": "color"
       },
-      "yellow": {
-        "value": "{color.palette.warning.base}",
-        "type": "color"
-      },
-      "accent": {
-        "value": "{color.palette.accent.base}",
-        "type": "color"
-      },
-      "neutral": {
-        "value": "{color.palette.neutral.200}",
+      "foreground": {
+        "value": "{color.palette.accent.300}",
         "type": "color"
       }
     }

@@ -113,28 +113,16 @@ With these options you can tweak the appearance of the text input in Figma. They
 
 |Item|Options|Description|
 |-|-|-|
-|Size|`'small', 'medium', 'large'`|The text input is available in three sizes. If not specified the default value is `medium`.|
-|Width|
-|Type|`'solid', 'outline', 'ghost', 'link'`.|There are four button types to choose from so you can differentiate between buttons, depending on how essential they are.  <br> [More info about button types](#types)|
-|Variant|`'default', 'primary', 'success', 'warning', 'danger'`|The button offers four distinct intents: Default, Primary, Success, Warning, and Danger, each conveying a unique tone to the user. <br> [More info about button variants](#button-variants) |
-|Icons |`'start', 'end'`|Elevate your buttons by including icons either before (start) or after (end) the label for enhanced functionality and visual impact.|
+|Size|`'md', 'lg'`|The text input is available in two sizes. If not specified the default value is `md` (medium).|
+|Variant|`'default', 'valid', 'invalid'`| When you're working on a scenario where you show what happens when a field is skipped or filled in incorrectly you can choose a different variant to show this.|
+|State|`'idle','hover','active','disabled'`|These states are applied automatically in interactive examples or can be set explicitly when the use case asks for it. Default value is `idle`.|
+|Placeholder|`'on', 'off'`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
+|Placeholder text|`string`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). <br> Read further to learn why you need to be mindful of placeholder texts on the accessibility tab.|
+|Helper|`'on', 'off'`|To turn to Helper Text on or off. Default value is `off`.|
+|Input Text |`string`|Will be shown as the value of the text input|
 |Label|`text`|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|
-|Icon only|`'on', 'off'`|Enjoy the same options, behaviors, and properties as regular buttons, but with a single, centrally positioned icon for a sleek and focused user experience.|
+|Focus ring|`'on', 'off'`|Turn the focus ring option to show the focus state of the text input. Default value is `off`.|
 
 {.ds-table .ds-table-align-top}
 
-</section>
-
-<section>
-
-## Behavior
-
-### Mouse Interaction
-Users can activate a button by clicking anywhere within the button container.
-
-### Tooltip When Label is Hidden
-When the button label is concealed, a tooltip appears on hover, revealing the label text and, when applicable, a keyboard shortcut.
-
-### Transition
-Hover and Active State Transitions: When users hover over a button or the button is in an active state, the background color and/or border color smoothly transition to provide visual feedback. 
 </section>

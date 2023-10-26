@@ -34,7 +34,7 @@ Buttons should be used in user interfaces when you want to provide users with a 
 
 <section class="ds-cards">
 <figure class="ds-cards__do">
-{{'components/button/sl-button-when-use-actions.svg' | svgImage}}
+  {{'components/button/sl-button-when-use-actions.svg' | svgImage}}
 <figcaption>
 
 ### To Initiate Actions 
@@ -43,7 +43,7 @@ Buttons are used to trigger specific actions or functions. For example, you can 
 </figure>
 <figure class="ds-cards__do">
     {{'components/button/sl-button-when-use-navigation.svg' | svgImage}}
-    <figcaption>
+<figcaption>
 
   ### To Provide Navigation
   Buttons can be used as links or navigation elements. For instance, a "Learn More" button can take users to a detailed page about a product or service.
@@ -59,11 +59,11 @@ Buttons are used to trigger specific actions or functions. For example, you can 
 <section class="ds-cards">
   <figure class="ds-cards__dont">
     {{'components/button/sl-button-when-not-use-menu.svg' | svgImage}}
-    <figcaption>
+<figcaption>
 
   ### Menu Items
   When creating a navigation menu, such as a dropdown menu or a side menu, using text links or icons is typically more common and efficient. Buttons can make menus look bulky and less streamlined.
-    </figcaption>
+</figcaption>
   </figure>
 </section>
 </section>

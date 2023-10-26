@@ -30,6 +30,10 @@ export class TextInputAdapter extends FormControlAdapter<string> {
     this.element.removeEventListener('blur', this.#onBlur);
   }
 
+  override setCustomValidity(message: string): void {
+    this.element.setCustomValidity(message);
+  }
+
   override setValue(value: string = ''): void {
     this.element.value = value;
     this.value.value = value;

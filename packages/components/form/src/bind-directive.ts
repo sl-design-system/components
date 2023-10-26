@@ -34,7 +34,11 @@ export class BindDirective extends AsyncDirective {
     if (this.control !== control) {
       this.disconnected();
       this.control = control;
-      this.reconnected();
+
+      // Part of the form API is that the host element has to call `setFormControlElement` on the
+      // `FormControlMixin`. We have to wait for that to happen before we can call `setBoundElement`.
+      // Otherwise the mixin will not have a formControlElement yet and will throw an error.
+      void Promise.resolve().then(() => this.reconnected());
     }
 
     return noChange;

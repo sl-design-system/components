@@ -18,6 +18,8 @@ export class FormControlAdapter<T = any> {
     const adapter = this.adapters.find(a => a.canAdapt(element));
 
     if (adapter === undefined) {
+      console.warn(`No form control adapter found for ${element.tagName.toLowerCase()}`);
+
       return null;
     }
 
@@ -32,5 +34,6 @@ export class FormControlAdapter<T = any> {
   value!: Signal<T>;
 
   disconnect(): void {}
+  setCustomValidity(_message: string): void {}
   setValue(_value: T | undefined): void {}
 }

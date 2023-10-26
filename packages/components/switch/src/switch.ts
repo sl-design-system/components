@@ -1,58 +1,51 @@
-import type { IElementInternals } from 'element-internals-polyfill';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import type { EventEmitter } from '@sl-design-system/shared';
-import {
-  EventsController,
-  FormControlMixin,
-  HintMixin,
-  ValidationController,
-  event,
-  hintStyles,
-  requiredValidator,
-  validationStyles
-} from '@sl-design-system/shared';
 import type { IconSize } from '@sl-design-system/icon';
-import { LitElement, html } from 'lit';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { Icon } from '@sl-design-system/icon';
+import { FormControlMixin, HintMixin, event, hintStyles } from '@sl-design-system/shared';
+import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './switch.scss.js';
 
-export type SwitchSize = 'sm' | 'md' | 'lg';
 export type SwitchOrientation = 'horizontal' | 'vertical';
 
+export type SwitchSize = 'sm' | 'md' | 'lg';
+
 /**
- * Atoggle switch.
- *
- * ```html
- *   <sl-switch>Foo</sl-switch>
- * ```
+ * A toggle switch.
  *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
-export class Switch extends FormControlMixin(HintMixin(LitElement)) {
+export class Switch extends FormControlMixin(HintMixin(ScopedElementsMixin(LitElement))) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles, hintStyles];
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-icon': Icon
+    };
+  }
 
-  #events = new EventsController(this);
+  /** @private */
+  static override styles: CSSResultGroup = [hintStyles, styles];
 
-  #validation = new ValidationController(this, {
-    validators: [requiredValidator]
-  });
+  /** The initial state of the switch. Used for when a parent form is reset. */
   #initialState = false;
 
-  /** @private Element internals. */
-  readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
+  /** @private */
+  readonly internals = this.attachInternals();
 
   /** Emits when the checked state changes. */
   @event() change!: EventEmitter<boolean>;
 
   /** Whether the switch is on or off. */
-  @property({ type: Boolean, reflect: true }) checked?: boolean;
+  @property({ type: Boolean, reflect: true }) checked = false;
 
-  /** Whether the switch is invalid. */
-  @property({ type: Boolean, reflect: true }) invalid?: boolean;
+  /** Whether the text input is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** Custom icon in "off" state. */
   @property({ reflect: true }) iconOff?: string;
@@ -60,16 +53,23 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
   /** Custom icon in "on" state. */
   @property({ reflect: true }) iconOn?: string;
 
-  /** The size of the switch.
-   * @type { 'sm' | 'md' | 'lg'}*/
-  @property({ reflect: true }) size: SwitchSize = 'md';
+  /** Whether the switch is invalid. */
+  @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
-  /** The orientation of the switch.
-   * @type {'horizontal' | 'vertical'}*/
+  /**
+   * The orientation of the switch.
+   * @type {'horizontal' | 'vertical'}
+   */
   @property({ reflect: true }) orientation: SwitchOrientation = 'horizontal';
 
+  /**
+   * The size of the switch.
+   * @type { 'sm' | 'md' | 'lg'}
+   */
+  @property({ reflect: true }) size: SwitchSize = 'md';
+
   /** The value for the switch, to be used in forms. */
-  @property() value?: string;
+  @property() value: string | null = null;
 
   /** @private The name of the icon, factoring in state and custom icons. */
   get icon(): string {
@@ -90,39 +90,11 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     this.hintSize = this.size;
 
     this.internals.role = 'switch';
-    this.internals.ariaChecked = this.checked ? 'true' : 'false';
-
-    this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this, 'keydown', this.#onKeydown);
 
     this.setFormControlElement(this);
 
-    this.#validation.validate(this.checked ? this.value : undefined);
-
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('size')) {
-      this.setAttribute('error-size', this.size);
-    }
-
-    if (changes.has('checked')) {
-      this.internals.ariaChecked = this.checked ? 'true' : 'false';
-
-      if (this.checked && this.internals.states) {
-        this.internals.states.add('--checked');
-      } else {
-        this.internals.states.delete('--checked');
-      }
-    }
-
-    if (changes.has('checked') || changes.has('value')) {
-      this.setFormValue(this.checked ? this.value : undefined);
     }
   }
 
@@ -131,58 +103,65 @@ export class Switch extends FormControlMixin(HintMixin(LitElement)) {
     this.#initialState = this.getAttribute('checked') !== null;
   }
 
-  /** @ignore  Resets the switch to the initial state */
+  /** @ignore Resets the switch to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
-    this.#validation.validate(this.checked ? this.value : undefined);
     this.change.emit(this.checked);
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('checked')) {
+      this.internals.ariaChecked = this.checked ? 'true' : 'false';
+    }
+
+    if (changes.has('disabled')) {
+      this.internals.ariaDisabled = this.disabled ? 'true' : 'false';
+    }
+
+    if (changes.has('checked') || changes.has('value')) {
+      this.internals.setFormValue(this.checked ? this.value : null);
+    }
+
+    if (changes.has('size')) {
+      this.setAttribute('error-size', this.size);
+    }
   }
 
   override render(): TemplateResult {
     return html`
-      <slot class="input-label" @slotchange=${this.#onSlotchange}></slot>
-      <div class="toggle">
-        <div @click=${this.#onToggle} class="track">
-          <div>${this.size !== 'sm' ? html`<sl-icon .name=${this.icon} .size=${this.iconSize}></sl-icon>` : ``}</div>
+      <div @click=${this.#onClick} @keydown=${this.#onKeydown} class="wrapper" part="wrapper">
+        <slot class="input-label" @slotchange=${this.#onSlotchange}></slot>
+        <div class="toggle">
+          <div class="track">
+            <div>
+              ${this.size !== 'sm' ? html`<sl-icon .name=${this.icon} .size=${this.iconSize}></sl-icon>` : nothing}
+            </div>
+          </div>
         </div>
       </div>
-      <div class="helper">${this.renderHint()} ${this.#validation.render()}</div>
-      </div>
+
+      <div class="hint" part="hint">${this.renderHintSlot()}</div>
     `;
   }
 
   #onClick(event: Event): void {
-    // If the user clicked the label, toggle the switch
-
-    // TODO: make sure this only happens with clicks on the toggle and the label?
-    if (event.target === this) {
-      this.renderRoot.querySelector<HTMLElement>('.track')?.click();
-    }
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
     if (this.disabled) {
       return;
     }
 
-    if (['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-
-      this.renderRoot.querySelector<HTMLElement>('.track')?.click();
-    }
-  }
-
-  #onToggle(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
 
-    if (this.disabled) {
-      return;
-    }
-
     this.checked = !this.checked;
-    this.#validation.validate(this.checked ? this.value : undefined);
     this.change.emit(this.checked);
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (['Enter', ' '].includes(event.key)) {
+      this.#onClick(event);
+    }
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

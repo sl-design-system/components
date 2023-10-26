@@ -1,7 +1,7 @@
 $variants: default, valid, invalid;
 $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 $states: unchecked, checked;
-$state-selectors: '', ':where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])';
+$state-selectors: '', '[checked]';
 $sizes: md, lg;
 
 :host {

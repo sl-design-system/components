@@ -5,7 +5,7 @@ import type { Signal } from '@lit-labs/preact-signals';
 import { computed, effect, signal } from '@lit-labs/preact-signals';
 import { FormControlAdapter } from './adapter.js';
 
-export type AbstractControlUpdateOn = 'change' | 'blur' | 'submit';
+export type AbstractControlUpdateOn = 'change' | 'blur';
 
 export interface AbstractControlOptions {
   validators?: ValidatorFn[];
@@ -18,13 +18,14 @@ export type AbstractControlStatus = 'valid' | 'invalid' | 'pending' | 'disabled'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class AbstractControl<T = any> implements ReactiveController {
   adapter: FormControlAdapter<T> | null = null;
-  host: ReactiveControllerHost;
-  initialValue?: T;
-  validators: ValidatorFn[];
   asyncValidators: AsyncValidatorFn[] = [];
   disposeAsyncValidators: () => void;
   disposeSyncAdapterValue?: () => void;
+  disposeSyncErrors?: () => void;
+  host: ReactiveControllerHost;
+  initialValue?: T;
   updateOn: AbstractControlUpdateOn = 'change';
+  validators: ValidatorFn[];
 
   /** A signal containing any async validator errors. */
   readonly asyncErrors = signal({} as ValidatorErrors);
@@ -80,8 +81,7 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
         return;
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises, @typescript-eslint/promise-function-async
-      Promise.all(this.asyncValidators.map(validator => validator(this.value))).then(
+      void Promise.all(this.asyncValidators.map(async validator => validator(this.value))).then(
         (errors: Array<ValidatorErrors | null>) => {
           console.log('validated', errors);
 
@@ -95,8 +95,10 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
     });
   }
 
-  /** @private */
-  hostConnected(): void {}
+  /** @ignore */
+  hostDisconnected(): void {
+    this.setBoundElement(null);
+  }
 
   /**
    * This is used to bind an element to this control. This is used by the bind() directive.
@@ -133,6 +135,7 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
    */
   setBoundElement(host: Element | null): void {
     if (!host) {
+      this.disposeSyncErrors?.();
       this.disposeSyncAdapterValue?.();
       this.adapter?.disconnect();
       this.adapter = null;
@@ -145,6 +148,17 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
     // This effect synchronizes the adapter value with the value here
     this.disposeSyncAdapterValue = effect(() => {
       this.value.value = this.adapter!.value.value;
+    });
+
+    // This effect synchronizes any validation errors with the adapter
+    this.disposeSyncErrors = effect(() => {
+      const errors = Object.entries(this.errors.value);
+
+      if (errors.length) {
+        this.adapter!.setCustomValidity(errors[0][1].message);
+      } else {
+        this.adapter!.setCustomValidity('');
+      }
     });
 
     if (this.adapter === undefined) {

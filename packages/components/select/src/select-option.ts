@@ -1,6 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { SelectSize } from './select.js';
-import type { FormControlValue } from '@sl-design-system/shared';
 import { observe } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -17,7 +16,7 @@ export class SelectOption extends LitElement {
   @property({ reflect: true }) contentType?: 'string' | 'element';
 
   /** The value for the option item, to be used in forms.*/
-  @property() value?: FormControlValue;
+  @property() value?: string | null;
 
   /** Whether the option item is selected. */
   @property({ reflect: true, type: Boolean }) selected = false;

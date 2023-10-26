@@ -1,16 +1,8 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Checkbox } from './checkbox.js';
-import type { Validator } from '@sl-design-system/shared';
+import { msg } from '@lit/localize';
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import {
-  EventsController,
-  HintMixin,
-  RovingTabindexController,
-  ValidationController,
-  hintStyles,
-  requiredValidator,
-  validationStyles
-} from '@sl-design-system/shared';
+import { FormControlMixin, HintMixin, RovingTabindexController, hintStyles } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
@@ -28,29 +20,27 @@ import styles from './checkbox-group.scss.js';
  *
  * @slot default - A list of `sl-checkbox` elements.
  */
-export class CheckboxGroup extends HintMixin(LitElement) {
+export class CheckboxGroup extends FormControlMixin(HintMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
+  static override styles: CSSResultGroup = [hintStyles, styles];
 
-  /** Events controller. */
-  #events = new EventsController(this, { click: this.#onClick });
-
-  /**
-   * Observe changes to the checkboxes.
-   *
-   * FIXME: This causes a warning in the console: https://github.com/lit/lit/issues/3597
-   */
+  /** Observe changes to the checkboxes. */
   #mutation = new MutationController(this, {
-    callback: () => {
-      const value = this.boxes
-        ?.map(box => (box.checked ? box.value : null))
-        .filter(Boolean)
-        .join(', ');
+    callback: async () => {
+      // Workaround for https://github.com/lit/lit/issues/3597
+      await this.updateComplete;
 
-      this.#validation.validate(value);
+      const someChecked = this.boxes?.some(box => !!box.checked);
+
+      this.internals.setValidity(
+        { valueMissing: this.required && !someChecked },
+        msg('At least one item must be checked.')
+      );
+
+      this.requestUpdate();
     },
     config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }
   });
@@ -62,34 +52,54 @@ export class CheckboxGroup extends HintMixin(LitElement) {
     isFocusableElement: (el: Checkbox) => !el.disabled
   });
 
-  /** Support validation that at least 1 checkbox is required in the group. */
-  #validation = new ValidationController(this, {
-    validators: [requiredValidator]
-  });
-
-  /** @private Element internals. */
+  /** @private */
   readonly internals = this.attachInternals();
 
   /** @private The slotted checkboxes. */
   @queryAssignedElements() boxes?: Checkbox[];
 
-  /** Custom validators. */
-  @property({ attribute: false }) validators?: Validator[];
+  /** Whether the group is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** Name of the form control */
-  @property() name?: string;
+  /** At least one checkbox in the group must be checked if true. */
+  @property({ type: Boolean, reflect: true }) required?: boolean;
 
-  /**  Native form property */
-  get form(): HTMLFormElement | null {
-    return this.internals.form;
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.internals.role = 'group';
+
+    this.setFormControlElement(this);
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('disabled')) {
+      this.boxes?.forEach(box => (box.disabled = this.disabled));
+    }
+
+    if (changes.has('name')) {
+      if (this.name) {
+        this.boxes?.forEach(box => box.setAttribute('name', this.name!));
+      } else {
+        this.boxes?.forEach(box => box.removeAttribute('name'));
+      }
+    }
+
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
+    }
   }
 
   override render(): TemplateResult {
     return html`
-      <div class="wrapper">
+      <div @click=${this.#onClick} class="wrapper" part="wrapper">
         <slot @slotchange=${this.#onSlotchange}></slot>
       </div>
-      ${this.renderHint()} ${this.#validation.render()}
+
+      <div class="error" part="error">${this.renderErrorSlot()}</div>
+      <div class="hint" part="hint">${this.renderHintSlot()}</div>
     `;
   }
 
@@ -102,10 +112,12 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   #onSlotchange(): void {
     this.#rovingTabindexController.clearElementCache();
 
-    if (typeof this.name === 'string') {
-      const name = this.name;
+    this.boxes?.forEach(box => {
+      box.disabled = this.disabled;
 
-      this.boxes?.forEach(box => box.setAttribute('name', name));
-    }
+      if (this.name) {
+        box.name = this.name;
+      }
+    });
   }
 }

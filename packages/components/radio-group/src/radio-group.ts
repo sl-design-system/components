@@ -1,14 +1,11 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { Validator } from '@sl-design-system/shared';
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
   EventsController,
   FormControlMixin,
   HintMixin,
   RovingTabindexController,
-  ValidationController,
   hintStyles,
-  requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
@@ -38,9 +35,11 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
 
   /** Events controller. */
   #events = new EventsController(this, {
-    click: this.#onClick,
     focusout: this.#onFocusout
   });
+
+  /** The initial value of the component. Used when the parent form is reset. */
+  #initialState: string | null = null;
 
   /** Observe the state of the radios. */
   #mutation = new MutationController(this, {
@@ -52,11 +51,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
         this.value = target.value;
       }
     },
-    config: {
-      attributeFilter: ['checked'],
-      attributeOldValue: true,
-      subtree: true
-    }
+    config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }
   });
 
   /** Manage the keyboard navigation. */
@@ -73,25 +68,23 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     isFocusableElement: (el: Radio) => !el.disabled
   });
 
-  #validation = new ValidationController(this, {
-    validators: [requiredValidator]
-  });
-  #initialState?: string;
-
-  /** @private Element internals. */
+  /** @private */
   readonly internals = this.attachInternals();
 
   /** @ignore The assigned nodes. */
   @queryAssignedNodes() defaultNodes?: Node[];
 
+  /** Whether the group is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
   /** The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other. */
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
 
-  /** Custom validators. */
-  @property({ attribute: false }) validators?: Validator[];
+  /** At least one radio in the group must be checked if true. */
+  @property({ type: Boolean, reflect: true }) required?: boolean;
 
   /** The value for the radio group, to be used in forms. */
-  @property({ reflect: true }) value?: string;
+  @property() value: string | null = null;
 
   /** @private All included sl-radio components. */
   get buttons(): Radio[] {
@@ -104,29 +97,6 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     this.internals.role = 'radiogroup';
 
     this.setFormControlElement(this);
-
-    this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
-    // Run initial validation
-    this.#validation.validate(this.value);
-  }
-
-  override willUpdate(changes: PropertyValues<this>): void {
-    super.willUpdate(changes);
-
-    if (changes.has('value')) {
-      this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
-      this.setFormValue(this.value);
-      this.#validation.validate(this.value);
-    }
-  }
-
-  override render(): TemplateResult {
-    return html`
-      <div class="wrapper">
-        <slot @slotchange=${this.#onSlotchange}></slot>
-      </div>
-      ${this.renderHint()} ${this.#validation.render()}
-    `;
   }
 
   /** @ignore Stores the initial state of the radio group */
@@ -134,14 +104,33 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     this.#initialState = this.value;
   }
 
-  /** @ignore  Resets the radio group to the initial state */
+  /** @ignore Resets the radio group to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
   }
 
-  #onClick(event: Event): void {
-    event.preventDefault();
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
+    if (changes.has('value')) {
+      this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
+      this.internals.setFormValue(this.value);
+      this.internals.setValidity({ valueMissing: this.required && !this.value }, 'At least one item must be checked.');
+    }
+  }
+
+  override render(): TemplateResult {
+    return html`
+      <div @click=${this.#onClick} class="wrapper" part="wrapper">
+        <slot @slotchange=${this.#onSlotchange}></slot>
+      </div>
+
+      <div class="error" part="error">${this.renderErrorSlot()}</div>
+      <div class="hint" part="hint">${this.renderHintSlot()}</div>
+    `;
+  }
+
+  #onClick(): void {
     this.#rovingTabindexController.focus();
   }
 
@@ -150,7 +139,7 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
       // This component is weird in that it doesn't actually contain the form controls,
       // those are the `<sl-radio>` custom elements in the light DOM. So run the validation
       // manually from here.
-      this.#validation.validate(this.value);
+      // this.#validation.validate(this.value);
     }
   }
 

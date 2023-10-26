@@ -278,7 +278,7 @@ describe('sl-textarea', () => {
     it('should show circle-check-solid icon when the textarea is valid', async () => {
       el.value = "my value";
       el.setAttribute('showValid', '');
-      el.valid = true;
+      el.reportValidity();
       await el.updateComplete;
 
       const textarea = el.querySelector('textarea'),

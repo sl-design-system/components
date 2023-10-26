@@ -1,6 +1,6 @@
 $sizes: md, lg;
 $variants: default, valid, invalid;
-$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$variant-selectors: ':not([show-validity])', ':where([show-validity="valid"])', ':where([show-validity="invalid"])';
 
 :host {
   --_border-size: var(--sl-border-width-button-default);
@@ -128,9 +128,19 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   outline-offset: var(--_focus-outline-offset);
 }
 
-:host(:disabled) {
+:host([disabled]) {
   cursor: default;
   pointer-events: none;
+}
+
+:host([show-validity]) {
+  .error {
+    display: block;
+  }
+
+  .hint {
+    display: none;
+  }
 }
 
 slot[name='input']::slotted(input) {
@@ -167,20 +177,6 @@ slot[name='input']::slotted(input) {
   transition: var(--_transition);
   transition-property: background, border, color, filter, outline-color;
   width: auto;
-}
-
-.invalid-icon {
-  display: none;
-}
-
-:host(:where([invalid])) {
-  .invalid-icon {
-    display: block;
-  }
-
-  slot[name='hint']::slotted(*) {
-    display: none;
-  }
 }
 
 sl-error {

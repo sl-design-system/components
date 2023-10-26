@@ -6,7 +6,7 @@ import { property } from 'lit/decorators.js';
 export interface HintInterface {
   hint?: string;
   hintSize?: HintSize;
-  renderHint(): TemplateResult;
+  renderHintSlot(): TemplateResult;
 }
 
 export type HintSize = 'sm' | 'md' | 'lg';
@@ -43,13 +43,14 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     /** The hint. If you need to display HTML, use the `hint` slot instead. */
     @property() hint?: string;
 
-    /** The hint size.
-     *  @type {'sm' | 'md' | 'lg'}
+    /**
+     * The hint size.
+     * @type {'sm' | 'md' | 'lg'}
      */
-    @property() hintSize: HintSize = 'md';
+    @property({ attribute: 'hint-size' }) hintSize: HintSize = 'md';
 
     /** The hint disabled state. */
-    @property() disabled?: boolean;
+    @property({ type: Boolean }) disabled?: boolean;
 
     /** @ignore */
     override updated(changes: PropertyValues<this>): void {
@@ -65,7 +66,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     }
 
     /** @private */
-    renderHint(): TemplateResult {
+    renderHintSlot(): TemplateResult {
       const input = this.querySelector('input, textarea');
       if (input?.hasAttribute('disabled')) {
         this.disabled = true;

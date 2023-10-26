@@ -1,18 +1,18 @@
-import type { PropertyValues, ReactiveElement } from 'lit';
+import type { PropertyValues, ReactiveElement, TemplateResult } from 'lit';
 import type { Constructor } from '../types.js';
-import type { ValidationValue } from '../validators.js';
+import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-
-export type FormControlValue = ValidationValue;
 
 export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;
   labels: NodeListOf<HTMLLabelElement> | null;
   name: string;
-  value?: FormControlValue;
+  validationMessage: string;
+  validity: ValidityState;
 
   checkValidity(): boolean;
   reportValidity(): boolean;
+  setCustomValidity(message: string): void;
 }
 
 export interface CustomFormControlElement extends HTMLElement {
@@ -25,17 +25,22 @@ export interface FormControlInterface {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
+  readonly showValidity?: 'valid' | 'invalid';
+  readonly validationMessage: string;
+  readonly validity: ValidityState;
 
-  disabled?: boolean;
+  errorText?: string;
   name?: string;
-  required?: boolean;
 
   checkValidity(): boolean;
   reportValidity(): boolean;
+  setCustomValidity(message: string): void;
   setFormControlElement(element: FormControlElement): void;
-  setFormValue(value?: FormControlValue): void;
-  setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void;
+
+  renderErrorSlot(): TemplateResult;
 }
+
+let nextUniqueId = 0;
 
 const isNative = (element: FormControlElement): element is NativeFormControlElement =>
   element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement;
@@ -44,23 +49,32 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<FormControlInterface> {
   class FormControl extends constructor {
-    /** The cached value for the form control. */
-    #cachedValue?: FormControlValue;
+    /** The element containing the error message that is slotted into the `error` slot. */
+    #errorElement?: HTMLElement;
 
     /**
      * The actual element that integrates with the form; either
-     * a Form Associated Custom Element, or an `<input>` or `<textarea>`.
+     * a Form Associated Custom Element, an `<input>` or a `<textarea>`.
      */
     #formControlElement?: FormControlElement;
 
-    /** Whether the form control is disabled; when set no interaction is possible. */
-    @property({ type: Boolean, reflect: true }) disabled?: boolean;
+    #onInvalid = (event: Event): void => {
+      // Prevent the browser from showing the built-in validation UI
+      event.preventDefault();
+
+      // Due to not knowing when to show the validation message, we'll just show it now
+      // See https://github.com/whatwg/html/issues/9878
+      this.#updateValidity();
+    };
+
+    /** An error text that will be shown over any other validation messages. */
+    @property({ attribute: 'error-text' }) errorText?: string;
 
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
 
-    /** Whether this form control is a required field. */
-    @property({ type: Boolean, reflect: true }) required?: boolean;
+    /** Whether to show the validity state. */
+    @property({ attribute: 'show-validity', reflect: true }) showValidity?: 'valid' | 'invalid';
 
     /** @ignore For internal use only */
     get formControlElement(): FormControlElement {
@@ -71,7 +85,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native form property. */
+    /** The form associated with the control. */
     get form(): HTMLFormElement | null {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.form;
@@ -80,7 +94,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native labels property.
+    /**
+     * The labels associated with the control.
      * @type {`NodeListOf<HTMLLabelElement>` | null}
      */
     get labels(): NodeListOf<HTMLLabelElement> | null {
@@ -91,19 +106,34 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** @ignore */
-    override shouldUpdate(changes: PropertyValues<this>): boolean {
-      if (super.shouldUpdate(changes)) {
-        if (changes.has('disabled') && isNative(this.formControlElement)) {
-          if (this.disabled) {
-            this.formControlElement.setAttribute('disabled', '');
-          } else {
-            this.formControlElement.removeAttribute('disabled');
-          }
-        }
-        return true;
+    /**
+     * String representing a localized message that describes the validation constraints
+     * that the control does not satisfy (if any). The string is empty if the control is
+     * not a candidate for constraint validation, or it satisfies its constraints.
+     */
+    get validationMessage(): string {
+      if (isNative(this.formControlElement)) {
+        return this.formControlElement.validationMessage;
+      } else {
+        return this.formControlElement.internals.validationMessage;
       }
-      return false;
+    }
+
+    /** Returns the validity state the control is in. */
+    get validity(): ValidityState {
+      if (isNative(this.formControlElement)) {
+        return this.formControlElement.validity;
+      } else {
+        return this.formControlElement.internals.validity;
+      }
+    }
+
+    /** @ignore */
+    override disconnectedCallback(): void {
+      this.#formControlElement?.removeEventListener('invalid', this.#onInvalid);
+      this.#formControlElement = undefined;
+
+      super.disconnectedCallback();
     }
 
     /** @ignore */
@@ -113,48 +143,96 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       if (changes.has('name') && isNative(this.formControlElement)) {
         this.formControlElement.name = this.name ?? '';
       }
-
-      if (changes.has('required') && isNative(this.formControlElement)) {
-        this.formControlElement.toggleAttribute('required', this.required);
-      }
     }
 
-    /** Native ElementInternals function. */
+    /** Returns whether the control is valid or invalid. */
     checkValidity(): boolean {
-      if (isNative(this.formControlElement)) {
-        return this.formControlElement.checkValidity();
-      } else {
-        return this.formControlElement.internals.checkValidity();
-      }
+      return this.validity.valid;
     }
 
-    /** Native ElementInternals function. */
+    /**
+     * Returns whether the control is valid. If the control is invalid, calling this will
+     * also cause an `invalid` event to be dispatched. After calling this, the control
+     * will also report the validity to the user.
+     */
     reportValidity(): boolean {
+      let valid = false;
+
       if (isNative(this.formControlElement)) {
-        return this.formControlElement.reportValidity();
+        valid = this.formControlElement.reportValidity();
       } else {
-        return this.formControlElement.internals.reportValidity();
+        valid = this.formControlElement.internals.reportValidity();
+      }
+
+      this.#updateValidity();
+
+      return valid;
+    }
+
+    /**
+     * Set's a custom validation message for the form control. If the message
+     * is not an empty string, that will make the control invalid. By setting it to
+     * an empty string again, you can make the control valid again.
+     * @param message The validation message.
+     */
+    setCustomValidity(message: string): void {
+      if (isNative(this.formControlElement)) {
+        this.formControlElement.setCustomValidity(message);
+      } else {
+        if (message === '') {
+          this.formControlElement.internals.setValidity({});
+        } else {
+          this.formControlElement.internals.setValidity({ customError: true }, message);
+        }
+      }
+
+      if (this.#errorElement) {
+        this.#errorElement.innerText = this.validationMessage;
       }
     }
 
-    /** @ignore Native ElementInternals helper function. */
+    /**
+     * This tells the mixin what the form control element is. This can either be a native input
+     * or textarea element, or a Form Associated Custom Element (FACE) with an internals property.
+     *
+     * The form control element must be either the same as the FormControlMixin host (in the case of
+     * a FACE), or a child of it. Otherwise we can't link the validation message to the form control
+     * element, which is necessary for accessibility.
+     * @param element The form control element.
+     */
     setFormControlElement(element: FormControlElement): void {
+      if (element !== this && element.parentElement !== this) {
+        throw new Error(
+          'The form control element should either be the same as the FormControlMixin host, or a child of it.'
+        );
+      }
+
       this.#formControlElement = element;
+      this.#formControlElement.addEventListener('invalid', this.#onInvalid);
     }
 
-    /** Native ElementInternals function. */
-    setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void {
-      console.log('setValidity', { flags, message, anchor });
+    /** Renders a slot for the error message. */
+    renderErrorSlot(): TemplateResult {
+      return html`<slot name="error"></slot>`;
     }
 
-    /** Native ElementInternals function. */
-    setFormValue(value?: FormControlValue): void {
-      this.#cachedValue = value;
+    #updateValidity(): void {
+      this.showValidity = this.validationMessage ? 'invalid' : 'valid';
 
-      if (isNative(this.formControlElement)) {
-        this.formControlElement.value = value?.toString() ?? '';
-      } else {
-        this.formControlElement.internals.setFormValue(value ?? null);
+      this.#errorElement ??= document.createElement('div');
+      this.#errorElement.id ||= `sl-error-${nextUniqueId++}`;
+      this.#errorElement.innerText = this.errorText ?? this.validationMessage;
+      this.#errorElement.slot ||= 'error';
+
+      const ids = this.formControlElement.getAttribute('aria-describedby')?.split(' ') ?? [];
+      if (!ids.includes(this.#errorElement.id)) {
+        this.formControlElement.setAttribute('aria-describedby', [...ids, this.#errorElement.id].join(' '));
+      }
+
+      // The error is added to the light DOM so that it can be linked to by the aria-describedby
+      // attribute. This is necessary for accessibility.
+      if (!this.#errorElement.parentElement) {
+        this.append(this.#errorElement);
       }
     }
   }

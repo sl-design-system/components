@@ -18,26 +18,26 @@ describe('sl-radio', () => {
 
     it('should not be checked by default', () => {
       expect(el.checked).not.to.equal(true);
-      expect(el.internals.ariaChecked).not.to.equal('true');
+      expect(el).to.have.attribute('aria-checked', 'false');
     });
 
     it('should not be disabled by default', () => {
       expect(el).not.to.have.attribute('disabled');
+      expect(el).to.have.attribute('aria-disabled', 'false');
     });
 
     it('should change the state to checked when clicked', async () => {
       el.click();
 
-      expect(el.checked).to.equal(true);
+      expect(el.checked).to.be.true;
     });
 
     it('should change the state to checked on key down', async () => {
       el.focus();
       await sendKeys({ press: 'Enter' });
 
-      expect(el.checked).to.equal(true);
+      expect(el.checked).to.be.true;
     });
-
   });
 
   describe('disabled', () => {
@@ -48,18 +48,19 @@ describe('sl-radio', () => {
 
     it('should be disabled if set', async () => {
       expect(el).to.have.attribute('disabled');
+      expect(el).to.have.attribute('aria-disabled', 'true');
     });
 
     it('should not change the state to checked when clicked', async () => {
       el.click();
 
-      expect(el.checked).to.equal(false);
+      expect(el.checked).to.be.false;
     });
 
     it('should change the state to checked when clicked on the wrapper', async () => {
       (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
 
-      expect(el.checked).to.equal(false);
+      expect(el.checked).to.be.false;
     });
 
     it('should not change the state to checked on key down', async () => {
@@ -69,7 +70,7 @@ describe('sl-radio', () => {
       el.focus();
       await sendKeys({ press: 'Enter' });
 
-      expect(el.checked).to.equal(false);
+      expect(el.checked).to.be.false;
     });
   });
 
@@ -79,8 +80,8 @@ describe('sl-radio', () => {
     });
 
     it('should be checked when the property is set', () => {
-      expect(el.checked).to.equal(true);
-      expect(el.internals.ariaChecked).to.equal('true');
+      expect(el.checked).to.be.true;
+      expect(el).to.have.attribute('aria-checked', 'true');
     });
   });
 });

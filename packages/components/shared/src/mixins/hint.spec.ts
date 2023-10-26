@@ -9,7 +9,7 @@ class TestHint extends HintMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return this.renderHint();
+    return this.renderHintSlot();
   }
 }
 

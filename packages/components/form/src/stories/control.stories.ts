@@ -2,8 +2,10 @@ import type { PropertyValues, TemplateResult } from 'lit';
 import type { AsyncValidatorFn, ValidatorFn } from '../validators.js';
 import type { Signal } from '@lit-labs/preact-signals';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/button/register.js';
 import '@sl-design-system/text-input/register.js';
 import { computed, watch } from '@lit-labs/preact-signals';
+import { msg } from '@lit/localize';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { FormControl } from '../form-control.js';
@@ -46,7 +48,13 @@ class ControlForm extends LitElement {
       <p>Errors: ${watch(this.errors)}</p>
       <p>Valid: ${watch(this.name.valid)}</p>
       <p>Invalid: ${watch(this.name.invalid)}</p>
+
+      <sl-button @click=${this.#onClick} fill="outline">Report validity</sl-button>
     `;
+  }
+
+  #onClick(): void {
+    this.renderRoot.querySelector('sl-text-input')?.reportValidity();
   }
 }
 
@@ -106,7 +114,7 @@ export const AsyncValidation: Story = {
       async value => {
         return new Promise(resolve => {
           setTimeout(() => {
-            resolve(value.value === 'Foo' ? null : { invalid: true });
+            resolve(value.value === 'Foo' ? null : { invalid: { message: msg('Please enter "Foo"') } });
           }, 1000);
         });
       }
@@ -122,7 +130,7 @@ export const MixedValidation: Story = {
       async value => {
         return new Promise(resolve => {
           setTimeout(() => {
-            resolve(value.value === 'Foo' ? null : { invalid: true });
+            resolve(value.value === 'Foo' ? null : { invalid: { message: msg('Please enter "Foo"') } });
           }, 1000);
         });
       }

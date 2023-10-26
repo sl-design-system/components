@@ -1,22 +1,23 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { SelectOptionGroup } from './select-option-group.js';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import {
   FormControlMixin,
+  HintMixin,
   RovingTabindexController,
-  ValidationController,
   anchor,
   hintStyles,
   isPopoverOpen,
   popoverPolyfillStyles,
-  requiredValidator,
   validationStyles
 } from '@sl-design-system/shared';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { Icon } from '@sl-design-system/icon';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
 
-let nextUniqueId = 0;
 interface ToggleEvent extends Event {
   oldState: string;
   newState: string;
@@ -24,11 +25,21 @@ interface ToggleEvent extends Event {
 
 export type SelectSize = 'md' | 'lg';
 
-export class Select extends FormControlMixin(LitElement) {
-  static override styles: CSSResultGroup = [popoverPolyfillStyles, validationStyles, hintStyles, styles];
+let nextUniqueId = 0;
 
+export class Select extends FormControlMixin(HintMixin(ScopedElementsMixin(LitElement))) {
   /** @private */
   static formAssociated = true;
+
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-icon': Icon
+    };
+  }
+
+  /** @private */
+  static override styles: CSSResultGroup = [popoverPolyfillStyles, validationStyles, hintStyles, styles];
 
   static #observerOptions = {
     attributes: true,
@@ -45,31 +56,32 @@ export class Select extends FormControlMixin(LitElement) {
 
   /** @private */
   @query('button') button?: HTMLButtonElement;
+
   /** @private */
   @query('dialog') dialog?: HTMLDialogElement;
+
+  /** Whether the text input is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen. */
   @property({ attribute: 'max-overlay-height', reflect: true }) maxOverlayHeight?: string;
 
-  /** The size of the select.
-   *  @type {'md' | 'lg'}
-   */
-  @property({ reflect: true }) size: SelectSize = 'md';
-
   /** The placeholder text to show when no option is chosen. */
   @property({ reflect: true }) placeholder?: string;
 
-  /** Whether the select is invalid. */
-  @property({ type: Boolean, reflect: true }) invalid?: boolean;
+  /** Whether the text input is a required field. */
+  @property({ type: Boolean, reflect: true }) required?: boolean;
+
+  /**
+   * The size of the select.
+   * @type {'md' | 'lg'}
+   */
+  @property({ reflect: true }) size: SelectSize = 'md';
 
   #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
     focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && isPopoverOpen(this.dialog)),
     elements: () => this.allOptions || [],
     isFocusableElement: (el: SelectOption) => !el.disabled
-  });
-
-  #validation = new ValidationController(this, {
-    validators: [requiredValidator]
   });
 
   #observer?: MutationObserver;
@@ -134,17 +146,20 @@ export class Select extends FormControlMixin(LitElement) {
       >
         <slot @slotchange=${this.#handleOptionsSlotChange}></slot>
       </dialog>
-      ${this.#validation.render()}
+
+      <div class="error" part="error">${this.renderErrorSlot()}</div>
+      <div class="hint" part="hint">${this.renderHintSlot()}</div>
     `;
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
+
     this.setFormControlElement(this);
 
-    this.#validation.validate(
-      this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
-    );
+    // this.#validation.validate(
+    //   this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
+    // );
   }
 
   override firstUpdated(): void {
@@ -258,8 +273,8 @@ export class Select extends FormControlMixin(LitElement) {
         option.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 
         this.selectedOption = option;
-        const selectedValue = option.value || option.innerHTML;
-        this.#validation.validate(this.selectedOption ? selectedValue : undefined);
+        // const selectedValue = option.value || option.innerHTML;
+        // this.#validation.validate(this.selectedOption ? selectedValue : undefined);
         this.#setSelectedOptionVisible(option);
       }
     });
@@ -269,7 +284,7 @@ export class Select extends FormControlMixin(LitElement) {
    * Copy the value/represenation of the selected option to the placeholder
    */
   #setSelectedOptionVisible(option: SelectOption): void {
-    this.setFormValue(option.value || option.innerHTML);
+    this.internals.setFormValue(option.value || option.innerHTML);
 
     const clonedOption = (option.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
     const contentType = (option.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';

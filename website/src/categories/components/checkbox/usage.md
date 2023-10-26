@@ -31,7 +31,7 @@ eleventyNavigation:
 The following guidance describes when to use the Checkbox component.
 
 <section class="ds-cards">
-<figure>
+<figure class="ds-cards__do">
 {{'components/checkbox/sl-checkbox-when-use-yes-no.svg' | svgImage}}
 <figcaption>
 
@@ -39,7 +39,7 @@ The following guidance describes when to use the Checkbox component.
 Checkboxes simplify making yes-or-no decisions. Users can independently toggle options, whether it's about their preferences, agreeing to terms, or picking from a list.
 </figcaption>
 </figure>
-<figure>
+<figure class="ds-cards__do">
     {{'components/checkbox/sl-checkbox-when-use-multiple.svg' | svgImage}}
     <figcaption>
 
@@ -47,7 +47,7 @@ Checkboxes simplify making yes-or-no decisions. Users can independently toggle o
 When users need to pick multiple items from a list, checkboxes are a go-to. They offer flexibility, helping users select multiple choices or refine their search results.
 </figcaption>
   </figure>
-<figure>
+<figure class="ds-cards__do">
 {{'components/checkbox/sl-checkbox-when-use-filter.svg' | svgImage}}
 <figcaption>
 
@@ -55,8 +55,8 @@ When users need to pick multiple items from a list, checkboxes are a go-to. They
 Checkboxes are handy for users dealing with lots of options. They can fine-tune what they see by selecting specific attributes.
 </figcaption>
 </figure>
-<figure>
-{{'components/button/sl-button-when-use-actions.svg' | svgImage}}
+<figure class="ds-cards__do">
+{{'components/checkbox/sl-checkbox-when-use-only.svg' | svgImage}}
 <figcaption>
 
 ### Only checkbox
@@ -75,8 +75,8 @@ The following guidance describes when not to use the Checkbox component.
 
 <section class="ds-cards">
 
-<figure>
-    {{'components/button/sl-button-when-use-actions.svg' | svgImage}}
+<figure class="ds-cards__dont">
+    {{'components/checkbox/sl-checkbox-when-not-use-exclusive.svg' | svgImage}}
 <figcaption>
 
 ### Exclusive choices
@@ -84,8 +84,8 @@ While checkboxes work well in forms and filters, they're not suitable for exclus
 </figcaption>
 </figure>
 
-<figure>
-    {{'components/button/sl-button-when-use-navigation.svg' | svgImage}}
+<figure class="ds-cards__dont">
+    {{'components/checkbox/sl-checkbox-when-not-use-toggle.svg' | svgImage}}
     <figcaption>
 
 ### Toggle preferences
@@ -101,6 +101,8 @@ For actions that affect preferences or application behavior, opt for a switch fo
 ## Anatomy
 {{ 'components/checkbox/sl-checkbox-anatomy.svg' | svgImage }}
 
+<div class="ds-table-wrapper">
+
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Checkbox input (unchecked)	|An unchecked checkbox input is like a blank canvas. It represents an option or choice that is currently unselected, waiting for the user to make a decision and activate it.	|no|
@@ -108,6 +110,8 @@ For actions that affect preferences or application behavior, opt for a switch fo
 |3|Label	|A checkbox label is a brief, descriptive text next to the checkbox element.|yes|
 
 {.ds-table}
+
+</div>
 
 </section>
 

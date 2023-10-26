@@ -14,60 +14,11 @@ section.ds-cards {
     flex-direction: column;
     gap: 1.6rem;
     position: relative;
-
-    //:first-child::before {
-    //  background: var(--highlight-color);
-    //  content: '';
-    //  height: 4rem;
-    //  left: 0;
-    //  position: absolute;
-    //  bottom: 0;
-    //  width: 100%;
-    //}
-
-    //svg {
-    //  margin: 0;
-    //  //box-shadow: inset 0 -3px 0 0 cornflowerblue;
-    //  //position: relative;
-    //  //border-bottom: 4px solid red;
-    //  box-sizing: content-box;
-    //  border-radius: 4px;
-    //  filter: drop-shadow( 0px  0px 0px black)
-    //  drop-shadow(0px  0px 0px black)
-    //  drop-shadow( 0px  4px 0px black)
-    //  drop-shadow( 0px 0px 0px black);
-    //
-    //  //&::after, &::before {
-    //  //  background: var(--highlight-color);
-    //  //  content: '';
-    //  //  height: 4rem;
-    //  //  left: 0;
-    //  //  position: absolute;
-    //  //  bottom: 0;
-    //  //  width: 100%;
-    //  //}
-    //}
   }
 
   svg {
-    border-radius: 4px;
-    //box-shadow: inset 0 -3px 0 0 cornflowerblue;
-    //position: relative;
-    //border-bottom: 4px solid red;
+    border-radius: 0.2rem;
     box-sizing: content-box;
-    filter: drop-shadow(0 0 0 var(--highlight-color)) drop-shadow(0 0 0 var(--highlight-color))
-      drop-shadow(0 4px 0 var(--highlight-color)) drop-shadow(0 0 0 var(--highlight-color));
-    margin: 0;
-
-    //&::after, &::before {
-    //  background: var(--highlight-color);
-    //  content: '';
-    //  height: 4rem;
-    //  left: 0;
-    //  position: absolute;
-    //  bottom: 0;
-    //  width: 100%;
-    //}
   }
 
   h3 {
@@ -76,5 +27,17 @@ section.ds-cards {
 
   .ds-cards .ds-example {
     border-radius: 0;
+  }
+}
+
+.ds-cards__do {
+  svg {
+    box-shadow: 0 0.4rem 0 0 var(--control-color-surface-success-surface);
+  }
+}
+
+.ds-cards__dont {
+  svg {
+    box-shadow: 0 0.4rem 0 0 var(--control-color-surface-danger-surface);
   }
 }

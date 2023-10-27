@@ -164,6 +164,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
+    this.updateValidity();
   }
 
   #onKeydown(event: KeyboardEvent): void {

@@ -1,7 +1,10 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EventEmitter } from '@sl-design-system/shared';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { msg } from '@lit/localize';
-import { FormControlMixin, HintMixin, event, hintStyles } from '@sl-design-system/shared';
+import { Error, FormControlMixin, Hint } from '@sl-design-system/form';
+import { event } from '@sl-design-system/shared';
 import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -16,12 +19,20 @@ export type CheckboxSize = 'md' | 'lg';
  * @csspart wrapper - The checkbox's wrapper
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
-export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
+export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [hintStyles, styles];
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-error': Error,
+      'sl-hint': Hint
+    };
+  }
+
+  /** @private */
+  static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
 
   /** The initial state when the form was associated with the checkbox. Used to reset the checkbox. */
   #initialState = false;
@@ -89,7 +100,8 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
 
     if (changes.has('checked') || changes.has('value')) {
       this.internals.setFormValue(this.checked ? this.value : null);
-      this.internals.setValidity({ valueMissing: this.required && !this.checked }, msg('Please check this box'));
+      this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box'));
+      this.updateValidity();
     }
   }
 
@@ -117,8 +129,8 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
         </span>
       </div>
 
-      <div class="error" part="error">${this.renderErrorSlot()}</div>
-      <div class="hint" part="hint">${this.renderHintSlot()}</div>
+      <sl-error .size=${this.size}></sl-error>
+      <sl-hint .size=${this.size}></sl-hint>
     `;
   }
 

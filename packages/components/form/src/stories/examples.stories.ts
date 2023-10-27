@@ -4,7 +4,7 @@ import type { Signal } from '@lit-labs/preact-signals';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/checkbox/register.js';
-import '@sl-design-system/label/register.js';
+import '@sl-design-system/form/register.js';
 import '@sl-design-system/text-input/register.js';
 import { LitElement, css, html } from 'lit';
 import { FormGroup } from '../form-group.js';
@@ -19,16 +19,9 @@ export const Login: StoryObj = {
   render: () => {
     class LoginForm extends LitElement {
       static override styles: CSSResultGroup = css`
-        :host {
-          display: block;
-        }
-
+        sl-checkbox,
         sl-text-input {
           margin-block-end: 1rem;
-        }
-
-        sl-checkbox {
-          width: 100%;
         }
       `;
 

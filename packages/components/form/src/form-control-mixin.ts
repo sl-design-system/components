@@ -1,6 +1,6 @@
 import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from '@sl-design-system/shared';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './form-control-mixin.scss.js';
 
 export interface NativeFormControlElement extends HTMLElement {
@@ -34,6 +34,8 @@ export interface FormControlInterface {
   name?: string;
 
   reportValidity(): boolean;
+  updateValidity(): void;
+
   setCustomValidity(message: string): void;
   setFormControlElement(element: FormControlElement): void;
 }
@@ -65,7 +67,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
       // Due to not knowing when to show the validation message, we'll just show it now
       // See https://github.com/whatwg/html/issues/9878
-      this.#updateValidity();
+      this.report = true;
     };
 
     /** An error text that will be shown over any other validation messages. */
@@ -76,6 +78,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
 
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
+
+    /** Whether the form control should report the validity of the control. */
+    @state() report?: boolean;
 
     /** Whether to show the validity state. */
     @property({ attribute: 'show-validity', reflect: true }) showValidity?: 'valid' | 'invalid';
@@ -146,6 +151,15 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
 
     /** @ignore */
+    override willUpdate(changes: PropertyValues<this>): void {
+      super.willUpdate(changes);
+
+      if (changes.has('report')) {
+        this.updateValidity();
+      }
+    }
+
+    /** @ignore */
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
@@ -168,17 +182,19 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      * will also report the validity to the user.
      */
     reportValidity(): boolean {
-      let valid = false;
+      return isNative(this.formControlElement)
+        ? this.formControlElement.reportValidity()
+        : this.formControlElement.internals.reportValidity();
+    }
 
-      if (isNative(this.formControlElement)) {
-        valid = this.formControlElement.reportValidity();
-      } else {
-        valid = this.formControlElement.internals.reportValidity();
-      }
-
-      this.#updateValidity();
-
-      return valid;
+    /**
+     * Updates the validity of the form control. This does not *change* the `validity` of the
+     * form control, it just updates the display of any validation message. Changing the validity
+     * is up to the form control itself.
+     */
+    updateValidity(): void {
+      this.showValidity = this.report ? (this.valid ? 'valid' : 'invalid') : undefined;
+      this.#setErrorText(this.errorText ?? this.validationMessage);
     }
 
     /**
@@ -198,9 +214,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
         }
       }
 
-      if (this.#errorElement) {
-        this.#errorElement.innerText = this.validationMessage;
-      }
+      this.updateValidity();
     }
 
     /**
@@ -254,16 +268,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
         this.formControlElement.setAttribute('aria-describedby', [...ids, this.#hintElement.id].join(' '));
       }
 
-      // The error is added to the light DOM so that it can be linked to by the aria-describedby
+      // The hint is added to the light DOM so that it can be linked to by the aria-describedby
       // attribute. This is necessary for accessibility.
       if (!this.#hintElement.parentElement) {
         this.append(this.#hintElement);
       }
-    }
-
-    #updateValidity(): void {
-      this.showValidity = this.validationMessage ? 'invalid' : 'valid';
-      this.#setErrorText(this.errorText ?? this.validationMessage);
     }
   }
 

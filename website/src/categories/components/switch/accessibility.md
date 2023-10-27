@@ -7,6 +7,12 @@ eleventyNavigation:
 ---
 <section>
 
+When designed with accessibility in mind, switches can be useful for users with disabilities, as they offer a clear and easily distinguishable way to change settings.
+
+</section>
+
+<section>
+
 ## Accessibility content
 
 This is the accessibility example content

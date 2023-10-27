@@ -5,28 +5,66 @@ eleventyNavigation:
   parent: Switch
   key: SwitchUsage
 ---
+<section>
+
+<div class="ds-example">
+<sl-switch size="md" checked>switch text</sl-switch>
+</div>
+
+<div class="ds-code">
+
+```html
+
+<sl-switch size="md" checked>switch text</sl-switch>
+
+```
+
+</div>
+</section>
 
 <section>
 
-## Usage
+## When to use
+A switch component is best used when:
 
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+- **Binary Settings**
+When you have straightforward on/off options that users should be able to control effortlessly, switches are the ideal choice. They offer a simple and intuitive way to switch between two states.
+
+- **Instant Feedback**
+Ensure users receive immediate, clear visual feedback regarding the status of a setting. Changes are instantly visible when a switch is toggled.
+
 
 </section>
 
 <section>
 
-## How to use
+## When not to use
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+- **Complex Settings**
+If your setting has multiple states or requires more than a simple on/off toggle, switches may not be suitable. Consider alternative components like checkboxes, dropdown menus, or sliders that can accommodate more options and nuances in such cases.
 
 </section>
 
 <section>
 
-## Content
+## Anatomy
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+...
+
+</section>
+
+<section>
+
+## Options
+
+...
+
+</section>
+
+<section>
+
+## Behavior
+
+...
 
 </section>

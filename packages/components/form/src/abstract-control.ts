@@ -120,10 +120,8 @@ export abstract class AbstractControl<T = any> implements ReactiveController {
    * @param path - The path of the child control's name to retrieve.
    * @returns The child control associated with the specified path, or null if not found.
    */
-  get(path: string | string[]): AbstractControl | null {
-    const paths: string[] = Array.isArray(path) ? path : path.split('.');
-
-    return paths.reduce((control: AbstractControl | null, name: string) => {
+  get(path: string): AbstractControl | null {
+    return path.split('.').reduce((control: AbstractControl | null, name: string) => {
       return control?.find(name) || null;
     }, this);
   }

@@ -32,6 +32,7 @@ export interface FormControlInterface {
   errorText?: string;
   hintText?: string;
   name?: string;
+  report?: boolean;
 
   reportValidity(): boolean;
   updateValidity(): void;

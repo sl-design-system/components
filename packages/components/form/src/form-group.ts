@@ -44,6 +44,10 @@ export class FormGroup<T extends Record<string, AbstractControl> = any> extends 
     return this.controls[name] || null;
   }
 
+  override get<Key extends keyof T>(path: Key): T[Key] | null {
+    return super.get(path.toString()) as T[Key] | null;
+  }
+
   /**
    * Set's the value of each control in the group.
    * @param value the form group value

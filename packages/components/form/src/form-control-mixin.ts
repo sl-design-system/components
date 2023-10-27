@@ -191,6 +191,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      * Updates the validity of the form control. This does not *change* the `validity` of the
      * form control, it just updates the display of any validation message. Changing the validity
      * is up to the form control itself.
+     *
+     * NOTE: This method updates the `showValidity` property and therefore should be called from
+     * `willUpdate`, never from `updated` or you will trigger a new lifecycle update.
      */
     updateValidity(): void {
       this.showValidity = this.report ? (this.valid ? 'valid' : 'invalid') : undefined;

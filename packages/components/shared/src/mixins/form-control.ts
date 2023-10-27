@@ -151,7 +151,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      * @param {File | FormData | string | undefined} [value]
      */
     setFormValue(value?: FormControlValue): void {
-      // TODO: change properties type, how?
       this.#cachedValue = value;
 
       if (isNative(this.formControlElement)) {

@@ -153,6 +153,8 @@ The following guidance describes when not to use the Checkbox component.
 
 ## Status
 
+The checkbox input facilitates multiple statuses, including unchecked, checked, and indeterminate. By default, a set of checkboxes the options are initially unchecked.
+
 <section class="ds-cards">
 
 <figure>
@@ -189,6 +191,8 @@ The following guidance describes when not to use the Checkbox component.
 <section>
 
 ## Variants
+
+The default, valid, and invalid checkboxes play a pivotal role in offering users essential feedback on their interactions and guiding them toward necessary actions. These variants serve as visual indicators, providing users with clear cues about the status of their selections.
 
 <section class="ds-cards">
 

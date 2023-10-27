@@ -1,31 +1,34 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Checkbox } from './checkbox.js';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { msg } from '@lit/localize';
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { FormControlMixin, HintMixin, RovingTabindexController, hintStyles } from '@sl-design-system/shared';
+import { Error, FormControlMixin, Hint } from '@sl-design-system/form';
+import { RovingTabindexController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
+import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
 
 /**
  * Checkbox group; treat a group of checkboxes as one form input with valitation, hints and errors
  *
- * ```html
- *   <sl-checkbox-group>
- *     <sl-checkbox>Option 1</sl-checkbox>
- *     <sl-checkbox>Option 2</sl-checkbox>
- *     <sl-checkbox>Option 3</sl-checkbox>
- *   </sl-checkbox-group>
- * ```
- *
  * @slot default - A list of `sl-checkbox` elements.
  */
-export class CheckboxGroup extends FormControlMixin(HintMixin(LitElement)) {
+export class CheckboxGroup extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [hintStyles, styles];
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-error': Error,
+      'sl-hint': Hint
+    };
+  }
+
+  /** @private */
+  static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
 
   /** Observe changes to the checkboxes. */
   #mutation = new MutationController(this, {
@@ -33,14 +36,7 @@ export class CheckboxGroup extends FormControlMixin(HintMixin(LitElement)) {
       // Workaround for https://github.com/lit/lit/issues/3597
       await this.updateComplete;
 
-      const someChecked = this.boxes?.some(box => !!box.checked);
-
-      this.internals.setValidity(
-        { valueMissing: this.required && !someChecked },
-        msg('At least one item must be checked.')
-      );
-
-      this.requestUpdate();
+      this.value = this.boxes?.map(box => !!box.checked);
     },
     config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }
   });
@@ -64,12 +60,31 @@ export class CheckboxGroup extends FormControlMixin(HintMixin(LitElement)) {
   /** At least one checkbox in the group must be checked if true. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
+  /**
+   * The value for the checkbox group, for internal use.
+   * @private
+   */
+  @state() value?: boolean[];
+
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.internals.role = 'group';
 
     this.setFormControlElement(this);
+  }
+
+  override willUpdate(changes: PropertyValues): void {
+    super.willUpdate(changes);
+
+    if (changes.has('required') || changes.has('value')) {
+      this.internals.setValidity(
+        { valueMissing: this.required && !this.value?.some(v => v) },
+        msg('At least one item must be checked.')
+      );
+
+      this.updateValidity();
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -98,8 +113,8 @@ export class CheckboxGroup extends FormControlMixin(HintMixin(LitElement)) {
         <slot @slotchange=${this.#onSlotchange}></slot>
       </div>
 
-      <div class="error" part="error">${this.renderErrorSlot()}</div>
-      <div class="hint" part="hint">${this.renderHintSlot()}</div>
+      <sl-error></sl-error>
+      <sl-hint></sl-hint>
     `;
   }
 

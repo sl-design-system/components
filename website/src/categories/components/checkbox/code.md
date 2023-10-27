@@ -11,16 +11,10 @@ eleventyNavigation:
 ---
 
 <section>
-<style>
-  form {
-    display: flex;
-    gap: 2.4rem;
-  }
-</style>
 
 <div class="ds-example">
 
-<form id="checkboxes-example">
+<form id="checkboxes-example" class="ds-component__checkboxes-wrapper">
     <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox" value="yes">Checkbox</sl-checkbox>
     <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox disabled" value="yes" disabled>Disabled</sl-checkbox>
     <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox disabled checked" value="yes" checked disabled>Disabled checked</sl-checkbox>

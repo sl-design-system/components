@@ -50,7 +50,7 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Whether the checkbox has the indeterminate state. */
-  @property({ type: Boolean }) indeterminate = false;
+  @property({ type: Boolean, reflect: true }) indeterminate = false;
 
   /** Whether the checkbox is required. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
@@ -122,7 +122,7 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
           <div class="inner">
             <svg
               aria-hidden="true"
-              class=${classMap({ checked: !!this.checked, indeterminate: !!(this.checked && this.indeterminate) })}
+              class=${classMap({ checked: this.checked, indeterminate: this.indeterminate })}
               focusable="false"
               part="svg"
               version="1.1"

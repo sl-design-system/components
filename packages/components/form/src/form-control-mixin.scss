@@ -1,0 +1,13 @@
+:host([show-validity='invalid']) {
+  sl-error {
+    display: block;
+  }
+
+  sl-hint {
+    display: none;
+  }
+}
+
+sl-error {
+  display: none;
+}

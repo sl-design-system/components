@@ -1,5 +1,5 @@
 import type { InputSize, TextInput } from './text-input';
-import type { HintSize, ValidationValue, Validator } from '@sl-design-system/shared';
+import type { ValidationValue, Validator } from '@sl-design-system/shared';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/label/register.js';
@@ -12,13 +12,12 @@ export default {
 };
 
 const sizes: InputSize[] = ['md', 'lg'],
-  labelSizes: LabelSize[] = ['sm', 'md', 'lg'],
-  hintSizes: HintSize[] = ['sm', 'md', 'lg'];
+  labelSizes: LabelSize[] = ['sm', 'md', 'lg'];
 
 export const API: StoryObj = {
   args: {
     disabled: false,
-    hint: '',
+    hintText: '',
     placeholder: 'Type something here',
     prefix: '',
     required: false,
@@ -45,7 +44,7 @@ export const API: StoryObj = {
   },
   render: ({
     disabled,
-    hint,
+    hintText,
     maxLength,
     minLength,
     placeholder,
@@ -69,7 +68,7 @@ export const API: StoryObj = {
       ?disabled=${disabled}
       ?required=${required}
       ?readonly=${readonly}
-      .hint=${hint}
+      .hintText=${hintText}
       .size=${size}
       .min=${min}
       .max=${max}
@@ -192,13 +191,13 @@ export const Hint: StoryObj = {
         }
       </style>
       <form>
-        ${hintSizes.map((hintSize, id) => {
+        ${sizes.map((size, id) => {
           return html`
             <sl-label for="form-text-input-${id}">Nickname</sl-label>
             <sl-text-input
-              id="form-text-input-${id}"
-              hint="What would you like people to call you?"
-              hintSize=${hintSize}
+              .id=${`form-text-input-${id}`}
+              .size=${size}
+              hint-text="What would you like people to call you?"
             ></sl-text-input>
           `;
         })}
@@ -206,8 +205,8 @@ export const Hint: StoryObj = {
         <sl-text-input
           id="input4"
           disabled
-          hint="What would you like people to call you?"
-          hintSize="lg"
+          hint-size="lg"
+          hint-text="What would you like people to call you?"
           value="Disabled input"
         ></sl-text-input>
       </form>
@@ -232,7 +231,7 @@ export const RichLabelHint: StoryObj = {
         <label slot="label">Custom <i>label</i></label>
       </sl-label>
       <sl-text-input id="input">
-        <div slot="hint">
+        <div slot="hint-text">
           Hint is an accessible way to provide <strong>additional information</strong> that might help the user
         </div>
       </sl-text-input>
@@ -440,7 +439,7 @@ export const CustomValidation: StoryObj = {
           margin-bottom: 8px;
         }
       </style>
-      <sl-text-input required="true" .validators=${[validator]} error-size="sm"></sl-text-input>
+      <sl-text-input required .validators=${[validator]} error-size="sm"></sl-text-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
   }
@@ -464,7 +463,7 @@ export const CustomValidationWithHint: StoryObj = {
           margin-bottom: 8px;
         }
       </style>
-      <sl-text-input required="true" .validators=${[validator]} hint="You need to enter 'SLDS'"></sl-text-input>
+      <sl-text-input required .validators=${[validator]} hint-text="You need to enter 'SLDS'"></sl-text-input>
       <sl-button @click=${onClick}>Validate</sl-button>
     `;
   }

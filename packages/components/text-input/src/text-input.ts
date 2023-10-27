@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import { FormControlMixin, HintMixin, hintStyles, validationStyles } from '@sl-design-system/shared';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { Error, FormControlMixin, Hint } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -14,22 +14,25 @@ let nextUniqueId = 0;
 /**
  * Single line text input component.
  *
- * @csspart hint - The input's hint
  * @csspart wrapper - The input's wrapper
  * @slot prefix - Content shown before the input
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
+ * @slot error-text - The error text to display
+ * @slot hint-text - The hint text to display
  */
-export class TextInput extends FormControlMixin(HintMixin(ScopedElementsMixin(LitElement))) {
+export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-error': Error,
+      'sl-hint': Hint,
       'sl-icon': Icon
     };
   }
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
+  static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
 
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
@@ -46,13 +49,13 @@ export class TextInput extends FormControlMixin(HintMixin(ScopedElementsMixin(Li
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Maximum value. Only applies to number input type. */
-  @property({ type: Number, attribute: 'max' }) max?: number;
+  @property({ type: Number }) max?: number;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
 
   /** Minimum value. Only applies to number input type.	*/
-  @property({ type: Number, attribute: 'min' }) min?: number;
+  @property({ type: Number }) min?: number;
 
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
@@ -69,17 +72,17 @@ export class TextInput extends FormControlMixin(HintMixin(ScopedElementsMixin(Li
   /** Whether the text input is a required field. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
+  /** Indicates whether the control should indicate it is valid. */
+  @property({ type: Boolean, attribute: 'show-valid' }) showValid?: boolean;
+
   /**
    * The size of the input.
    * @type {'md' | 'lg'}
    */
   @property({ reflect: true }) size: InputSize = 'md';
 
-  /** Indicates whether the control should indicate it is valid. */
-  @property({ type: Boolean, attribute: 'show-valid' }) showValid?: boolean;
-
   /** Specifies the interval between legal numbers for an input field. Only applies to number input type */
-  @property({ type: Number, attribute: 'step' }) step?: number;
+  @property({ type: Number }) step?: number;
 
   /**
    * The input type. Only text types are valid here. For other types,
@@ -95,7 +98,7 @@ export class TextInput extends FormControlMixin(HintMixin(ScopedElementsMixin(Li
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
-      this.input.slot = 'input';
+      this.input.slot ||= 'input';
       this.#syncInput(this.input);
 
       if (!this.input.parentElement) {
@@ -148,8 +151,8 @@ export class TextInput extends FormControlMixin(HintMixin(ScopedElementsMixin(Li
         </slot>
       </div>
 
-      <div class="error" part="error">${this.renderErrorSlot()}</div>
-      <div class="hint" part="hint">${this.renderHintSlot()}</div>
+      <sl-error .size=${this.size}></sl-error>
+      <sl-hint .size=${this.size}></sl-hint>
     `;
   }
 
@@ -159,14 +162,14 @@ export class TextInput extends FormControlMixin(HintMixin(ScopedElementsMixin(Li
     this.input.focus();
   }
 
+  #onInput({ target }: Event & { target: HTMLInputElement }): void {
+    this.value = target.value;
+  }
+
   #onKeydown(event: KeyboardEvent): void {
     if (!this.disabled && event.key === 'Enter') {
       this.form?.requestSubmit(this.input);
     }
-  }
-
-  #onInput({ target }: Event & { target: HTMLInputElement }): void {
-    this.value = target.value;
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

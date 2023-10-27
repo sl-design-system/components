@@ -1,5 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EventEmitter } from '@sl-design-system/shared';
+import { msg } from '@lit/localize';
 import { FormControlMixin, HintMixin, event, hintStyles } from '@sl-design-system/shared';
 import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -32,7 +33,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
   @event() change!: EventEmitter<boolean>;
 
   /** Whether the checkbox is checked. */
-  @property({ type: Boolean, reflect: true }) checked?: boolean;
+  @property({ type: Boolean, reflect: true }) checked = false;
 
   /** Whether the checkbox is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -88,6 +89,7 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
 
     if (changes.has('checked') || changes.has('value')) {
       this.internals.setFormValue(this.checked ? this.value : null);
+      this.internals.setValidity({ valueMissing: this.required && !this.checked }, msg('Please check this box'));
     }
   }
 

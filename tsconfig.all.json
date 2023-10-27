@@ -8,6 +8,7 @@
     "packages/components/**/*.ts"
   ],
   "exclude": [
+    "packages/components/**/*.d.ts",
     "packages/components/*/node_modules/**/*.ts"
   ],
   "references": [
@@ -18,6 +19,7 @@
     { "path": "./packages/components/dialog" },
     { "path": "./packages/components/drawer" },
     { "path": "./packages/components/editor" },
+    { "path": "./packages/components/form" },
     { "path": "./packages/components/grid" },
     { "path": "./packages/components/icon" },
     { "path": "./packages/components/label" },

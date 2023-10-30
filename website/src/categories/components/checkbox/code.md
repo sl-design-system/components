@@ -27,7 +27,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <form id="checkboxes-example">
+  <form>
     <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox" value="yes">
         Checkbox
     </sl-checkbox>
@@ -44,10 +44,6 @@ eleventyNavigation:
       Invalid
     </sl-checkbox>
   </form>
-
-  <script>
-    setTimeout(() => document.querySelector('#checkboxes-example')?.reportValidity(), 100);
-  </script>
   ```
 
 </div>

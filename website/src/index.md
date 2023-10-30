@@ -31,7 +31,7 @@ Explore {.ds-heading-1}
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/whats-new/" aria-labelledby="whatsNewParagraph">
+<a href="/categories/whats-new/" aria-describedby="whatsNewParagraph">
 What's new
 </a>
 </div>
@@ -47,7 +47,7 @@ What's new
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/components/overview/" aria-labelledby="componentsParagraph">
+<a href="/categories/components/overview/" aria-describedby="componentsParagraph">
 Components
 </a>
 </div>
@@ -63,7 +63,7 @@ Components
 </div>
 
 <div class="ds-heading-2">
-<a href="/categories/design-tokens/color" aria-labelledby="tokensParagraph">
+<a href="/categories/design-tokens/color" aria-describedby="tokensParagraph">
 Design tokens
 </a>
 </div>

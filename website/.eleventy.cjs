@@ -112,7 +112,7 @@ module.exports = function(eleventyConfig) {
       permalinkBefore: true,
       permalinkClass: 'direct-link',
       permalinkSymbol: '#',
-      level: [1, 2, 3, 4],
+      level: [1, 2],
     })
     .use(markdownItAttrs);
 

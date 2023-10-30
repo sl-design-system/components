@@ -75,6 +75,7 @@ function generateTabsElements(): void {
 
   tabsWrapper = document.createElement('div');
   tabsWrapper.classList.add('ds-tabs-wrapper');
+  tabsWrapper.setAttribute('role', 'tablist');
   tabsContainer.appendChild(tabsWrapper);
 
   slider = document.createElement('div');
@@ -152,10 +153,11 @@ function generateVerticalTabs(verticalTabContent: Element): void {
   headerAnchors = verticalTabContent.querySelectorAll('.header-anchor');
   const headerAnchorsParents = Array.from(headerAnchors)
     .map(element => {
+      console.log(element.parentElement);
       if (element.parentElement?.tagName === 'H2') {
-        if (element.parentElement.parentNode) {
-          (element.parentElement.parentNode as Element).id = element.parentElement.id;
-        }
+        // if (element.parentElement.parentNode) {
+        //   (element.parentElement.parentNode as Element).id = element.parentElement.id;
+        // }
         return element.parentElement;
       }
       return;

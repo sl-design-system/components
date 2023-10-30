@@ -14,7 +14,7 @@ layout: base.njk
 <section>
   {%- for post in collections.component -%}
     {% if page.url === post.url %}
-      <div horizontal class="ds-tabs" role="tablist">
+      <div horizontal class="ds-tabs">
         <button class="ds-tab">Usage</button>
         <button class="ds-tab">Code</button>
         <button class="ds-tab">Accessibility</button>

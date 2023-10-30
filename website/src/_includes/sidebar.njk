@@ -12,7 +12,7 @@
       <li id="{{ entry.url }}" class="ds-sidebar-nav__list-item">
         <a
           class="ds-sidebar-nav__link{% if page.url == entry.url %} ds-sidebar-nav__link--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar-nav__link--active{% endif %} {% if entry.children | length %}ds-sidebar-nav__link--has-submenu{% endif %}"
-          href="{% if not entry.children | length %}{{ entry.url | url }}{% endif %}" data-content="{{ entry.title }}" {% if entry.children | length %}aria-expanded="false" {% endif %} role="menuitem">
+          href="{% if not entry.children | length %}{{ entry.url | url }}{% endif %}" data-content="{{ entry.title }}" {% if entry.children | length %}aria-expanded="false" {% endif %}>
           {{ entry.title }}
           {% if entry.children | length %}<span class="ds-sidebar-nav__arrow {% if page.url == entry.url %} ds-sidebar-nav__arrow--active{% endif %} {% if page.url.includes(entry.url) %} ds-sidebar-nav__arrow--active{% endif %}"></span>{% endif %}
         </a>
@@ -23,7 +23,7 @@
           {% for child in entry.children %}
             <li>
               <a class="ds-sublist__link{% if page.url == child.url %} ds-sublist__link--active{% endif %} {% if child.status == 'coming' %}ds-sublist__link--disabled{% endif %}"
-                 {% if child.status != 'coming' %}href="{{ child.url }}"{% endif %} role="menuitem" {% if child.status == 'coming' %}aria-disabled="true"{% endif %}>
+                 {% if child.status != 'coming' %} href="{{ child.url }}"{% endif %} {% if child.status == 'coming' %} aria-disabled="true"{% endif %}>
                 {{ child.title }} {% if child.status == 'coming' %}<div class="ds-badge">Coming</div>{% endif %}
               </a>
             </li>

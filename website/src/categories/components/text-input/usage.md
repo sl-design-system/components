@@ -37,7 +37,7 @@ Text fields come in handy in certain situations:
 
 <section class="ds-cards">
 <figure>
-{{'components/button/sl-button-when-use-actions.svg' | svgImage}}
+{{'components/text-field/sl-text-field-when-use-unique.svg' | svgImage}}
 <figcaption>
 
 ### Unique input 
@@ -45,7 +45,7 @@ When users need to input information that is unique and cannot be anticipated fr
 </figcaption>
 </figure>
 <figure>
-    {{'components/button/sl-button-when-use-navigation.svg' | svgImage}}
+    {{'components/text-field/sl-text-field-when-use-memorable.svg' | svgImage}}
     <figcaption>
 
   ### Memorable data
@@ -62,7 +62,7 @@ Text fields may not be the best choice in the following scenarios:
 
 <section class="ds-cards">
   <figure>
-    {{'components/button/sl-button-when-not-use-menu.svg' | svgImage}}
+    {{'components/text-field/sl-text-field-when-not-use-predefined.svg' | svgImage}}
     <figcaption>
 
   ### Predefined options
@@ -70,7 +70,7 @@ Text fields may not be the best choice in the following scenarios:
     </figcaption>
   </figure>
   <figure>
-    {{'components/button/sl-button-when-not-use-menu.svg' | svgImage}}
+    {{'components/text-field/sl-text-field-when-not-use-sensitive.svg' | svgImage}}
     <figcaption>
 
   ### Sensitive information
@@ -78,7 +78,7 @@ Text fields may not be the best choice in the following scenarios:
     </figcaption>
   </figure>
   <figure>
-    {{'components/button/sl-button-when-not-use-menu.svg' | svgImage}}
+    {{'components/text-field/sl-text-field-when-not-use-long.svg' | svgImage}}
     <figcaption>
 
   ### Longer text responses
@@ -91,7 +91,7 @@ Text fields may not be the best choice in the following scenarios:
 
 ## Anatomy
 Let's dive into the fundamental elements that make up a text field and understand how they enhance user experiences.
-{{ 'components/button/sl-buttons-anatomy.svg' | svgImage }}
+{{ 'components/text-field/sl-text-field-anatomy.svg' | svgImage }}
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
@@ -109,7 +109,7 @@ Let's dive into the fundamental elements that make up a text field and understan
 
 With these options you can tweak the appearance of the text input in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
 
-{{ 'components/button/sl-button-figma-options.svg' | svgImage }}
+{{ 'components/text-field/sl-text-field-figma-options.svg' | svgImage }}
 
 |Item|Options|Description|
 |-|-|-|

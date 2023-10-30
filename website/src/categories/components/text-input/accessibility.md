@@ -20,7 +20,9 @@ Keep labels brief and to the point. Avoid unnecessary words or details that coul
 
 ### No Colons
 Avoid the use of colons after label names, as they can clutter the label and potentially cause confusion.
+</section>
 
+<section>
 
 ## Placeholder text
 Placeholder text plays a valuable role in guiding users and providing examples of input. It's an optional feature that disappears once users begin entering their data. However, it's important to use it thoughtfully and in alignment with best practices.
@@ -35,6 +37,9 @@ Remember that placeholder text is not a requirement, and it remains hidden in te
 
 ### Exercise Caution
 Be mindful when adding placeholder text; overuse can potentially disrupt the user experience. Utilize it only when it genuinely enhances user interactions.
+</section>
+
+<section>
 
 ## Help text
 Positioned beneath text field, help text offers valuable context and guidance. Follow these tips to craft informative and user-friendly help text:
@@ -76,11 +81,11 @@ Here's an overview of the common keyboard interactions associated with a text fi
 
 ## WAI-ARIA
 WAI-ARIA Roles, States, and Properties for a text input provide essential information to assistive technologies and screen readers. They convey the text field's role, state, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
-<sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>
+<sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it can be provided by the developer (yes)</sl-tooltip>
 
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
 |-|-|-|-|
-|`role`	|`'button'`|Makes it clear that our custom component is a button |no [Note 1]|
+|`role`	|`'button'`|Makes it clear that our custom component is a button |no|
 |`aria-labelledby`|string| When different element serves as the label, for example in the case of an icon-only button that has a label outside the button, this property can be set to the `id` of that element|yes|
 |`aria-label`|string|To be used when the button is icon-only|yes|
 |`aria-describedby`|string| When the button needs extra explanation or description you can reference this element here by the `id`. See [Note 2] below for more explanation| yes|
@@ -90,7 +95,6 @@ WAI-ARIA Roles, States, and Properties for a text input provide essential inform
 {.ds-table .ds-table-align-top}
 
 **Notes:** 
-1. This means the attribute is always set in the component, so you don't need to do anyting.
 1. There is a subtle difference between `aria-labelledby` and `aria-describedby`; a label should be concise, where a description is intended to provide more verbose information. A description can for example be "Items in the trash will be permanently removed after 30 days." to explain what (delayed) effect a "Move to trash" button has.
 1. The `aria-disabled` should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities:
 

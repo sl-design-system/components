@@ -2,14 +2,14 @@ import type { TextInput } from './text-input';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
-import { spy} from "sinon";
 
 describe('sl-text-input', () => {
-  let el: TextInput;
+  let el: TextInput, input: HTMLInputElement;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-input></sl-text-input>`);
+      input = el.querySelector('input')!;
     });
 
     it('should render correctly', () => {
@@ -19,12 +19,12 @@ describe('sl-text-input', () => {
     it('should have an input slot', () => {
       const slot = el.renderRoot.querySelector('slot[name="input"]');
 
-      expect(slot).to.not.be.null;
-      expect(slot).to.have.attribute('name', 'input');
+      expect(slot).not.to.be.null;
     });
 
     it('should not be disabled', () => {
-      expect(el).not.to.have.attribute('disabled');
+      expect(el.disabled).to.be.undefined;
+      expect(input.disabled).to.be.false;
     });
 
     it('should be disabled if set', async () => {
@@ -32,33 +32,36 @@ describe('sl-text-input', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('disabled');
+      expect(input.disabled).to.be.true;
     });
 
-    it('should not have a value by default', () => {
-      expect(el).not.to.have.attribute('value');
+    it('should not have a value', () => {
+      expect(el.value).to.be.null;
+      expect(input.value).to.equal('');
     });
 
     it('should have a value when set', async() => {
-      el.value = "my value";
+      el.value = 'my value';
       await el.updateComplete;
 
-      const input = el.querySelector('input');
-
-      expect(input?.value).to.equal('my value');
+      expect(input.value).to.equal('my value');
     });
 
-    it('should have a medium size by default', () => {
+    it('should have a medium size', () => {
+      expect(el.size).to.equal('md');
       expect(el).to.have.attribute('size', 'md');
     });
 
-    it('should have a large size when set', () => {
-      el.setAttribute('size', 'lg');
+    it('should have a large size when set', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
 
       expect(el).to.have.attribute('size', 'lg');
     });
 
-    it('should not be readonly by default', () => {
-      expect(el).not.to.have.attribute('readonly');
+    it('should not be readonly', () => {
+      expect(el.readonly).to.be.undefined;
+      expect(input.readOnly).to.be.false;
     });
 
     it('should be readonly when set', async () => {
@@ -66,355 +69,251 @@ describe('sl-text-input', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('readonly');
+      expect(input.readOnly).to.be.true;
     });
 
-    it('should not have an autocomplete by default', () => {
-      expect(el).not.to.have.attribute('autocomplete');
-    });
-
-    it('should not have an autocomplete when set', async() => {
-      el.autocomplete = 'off';
-      await el.updateComplete;
-
-      const input = el.querySelector('input');
-
+    it('should have autocomplete turned off', () => {
+      expect(el.autocomplete).to.be.undefined;
       expect(input).to.have.attribute('autocomplete', 'off');
     });
 
-    it('should not have a placeholder by default', () => {
-      expect(el).not.to.have.attribute('placeholder');
+    it('should have autocomplete when set', async () => {
+      el.autocomplete = 'on';
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('autocomplete', 'on');
+    });
+
+    it('should not have a placeholder', () => {
+      expect(el.placeholder).to.be.undefined;
+      expect(input).to.have.attribute('placeholder', '');
     });
 
     it('should have a placeholder when set', async () => {
       el.placeholder = 'my placeholder';
       await el.updateComplete;
 
-      const input = el.querySelector('input');
-
       expect(input).to.have.attribute('placeholder', 'my placeholder');
     });
 
-    it('should have a text type by default', () => {
-      const input = el.querySelector('input');
-
-      expect(input).to.have.attribute('type', 'text');
+    it('should have a text type', () => {
+      expect(el.type).to.equal('text');
+      expect(input.type).to.equal('text');
     });
 
-    it('should have a email type when set', async() => {
-      el.type = "email";
+    it('should have a type when set', async () => {
+      el.type = 'email';
       await el.updateComplete;
 
-      const input = el.querySelector('input');
-
-      expect(input).to.have.attribute('type', 'email');
-    });
-
-    it('should have a number type when set', async() => {
-      el.type = "number";
-      await el.updateComplete;
-
-      const input = el.querySelector('input');
-
-      expect(input).to.have.attribute('type', 'number');
-    });
-
-    it('should have a tel type when set', async() => {
-      el.type = "tel";
-      await el.updateComplete;
-
-      const input = el.querySelector('input');
-
-      expect(input).to.have.attribute('type', 'tel');
-    });
-
-    it('should have a url type when set', async() => {
-      el.type = "url";
-      await el.updateComplete;
-
-      const input = el.querySelector('input');
-
-      expect(input).to.have.attribute('type', 'url');
+      expect(input.type).to.equal('email');
     });
 
     it('should not have a pattern by default', () => {
-      expect(el).not.to.have.attribute('pattern');
+      expect(el.pattern).to.be.undefined;
+      expect(input).not.to.have.attribute('pattern');
     });
 
     it('should have a pattern when set', async () => {
       el.pattern = '.{3,5}';
       await el.updateComplete;
 
-      const input = el.querySelector('input');
-
       expect(input).to.have.attribute('pattern', '.{3,5}');
     });
 
-    it('should not have a min by default', () => {
-      expect(el).not.to.have.attribute('min');
+    it('should not have a max', () => {
+      expect(el.max).to.be.undefined;
+      expect(input).not.to.have.attribute('max');
     });
 
-    it('should not have a minlength by default', () => {
-      expect(el).not.to.have.attribute('minlength');
+    it('should have a max when set', async () => {
+      el.max = 3;
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('max', '3');
     });
 
-    it('should not have a maxlength by default', () => {
+    it('should not have a min', () => {
+      expect(el.min).to.be.undefined;
+      expect(input).not.to.have.attribute('min');
+    });
+
+    it('should have a min when set', async () => {
+      el.min = 3;
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('min', '3');
+    });
+
+    it('should not have a maxlength', () => {
+      expect(el.maxLength).to.be.undefined;
       expect(el).not.to.have.attribute('maxlength');
     });
 
-    it('should not be invalid by default', () => {
-      expect(el).not.to.have.attribute('invalid');
+    it('should have a maxlength when set', async () => {
+      el.maxLength = 3;
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('maxlength', '3');
     });
 
-    it('should not be valid by default', () => {
-      expect(el).not.to.have.attribute('valid');
+    it('should not have a minlength', () => {
+      expect(el.minLength).to.be.undefined;
+      expect(el).not.to.have.attribute('minlength');
     });
 
-    it('should not have showValid by default', () => {
-      expect(el).not.to.have.attribute('showValid');
-    });
-
-    it('should not have a max by default', () => {
-      expect(el).not.to.have.attribute('max');
-    });
-
-    it('should not have a step by default', () => {
-      expect(el).not.to.have.attribute('step');
-    });
-
-    it('should not have a autocomplete attribute when autocomplete property is not provided', async() => {
-      el.autocomplete = "off";
-      await el.updateComplete;
-
-      el.autocomplete = undefined;
-      await el.updateComplete;
-
-      expect(el.input.getAttribute('autocomplete')).to.be.null;
-    });
-
-    it('should not have maxlength attribute when maxlength property is not provided', async() => {
-      el.maxLength = 8;
-      await el.updateComplete;
-
-      el.maxLength = undefined;
-      await el.updateComplete;
-
-      expect(el.input.getAttribute('maxlength')).to.be.null;
-    });
-
-    it('should not have minlength attribute when minlength property is not provided', async() => {
-      el.minLength = 2;
-      await el.updateComplete;
-
-      el.minLength = undefined;
-      await el.updateComplete;
-
-      expect(el.input.getAttribute('minlength')).to.be.null;
-    });
-
-    it('should not have min attribute when min property is not provided', async() => {
-      el.min = 2;
-      await el.updateComplete;
-
-      el.min = undefined;
-      await el.updateComplete;
-
-      expect(el.input.getAttribute('min')).to.be.null;
-    });
-
-    it('should not have max attribute when max property is not provided', async() => {
-      el.max = 20;
-      await el.updateComplete;
-
-      el.max = undefined;
-      await el.updateComplete;
-
-      expect(el.input.getAttribute('max')).to.be.null;
-    });
-
-    it('should not have step attribute when step property is not provided', async() => {
-      el.step = 2;
-      await el.updateComplete;
-
-      el.step = undefined;
-      await el.updateComplete;
-
-      expect(el.input.getAttribute('step')).to.be.null;
-    });
-
-    it('should not have a pattern attribute when pattern property is not provided', async() => {
-      el.pattern = '.{3,5}';
-      await el.updateComplete;
-
-      el.pattern = undefined;
-      await el.updateComplete;
-
-      expect(el.input.getAttribute('pattern')).to.be.null;
-    });
-
-    it('should not have a placeholder attribute when placeholder property is not provided', async() => {
-      el.placeholder = "my placeholder";
-      await el.updateComplete;
-
-      el.placeholder = undefined;
-      await el.updateComplete;
-
-      expect(el.input.getAttribute('placeholder')).to.be.null;
-    });
-
-    it('should not have readonly attribute when readonly property is not provided', async() => {
-      el.readonly = true;
-      await el.updateComplete;
-
-      el.readonly = undefined;
-      await el.updateComplete;
-
-      expect(el.input.getAttribute('readonly')).to.be.null;
-    });
-  });
-
-  describe('text input', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-text-input type="text"></sl-text-input>`);
-    });
-
-    it('should have a minlength of 3 when set', async() => {
+    it('should have a minlength when set', async () => {
       el.minLength = 3;
       await el.updateComplete;
 
-      const input = el.querySelector('input');
-
       expect(input).to.have.attribute('minlength', '3');
+    })
+
+    it('should not have show-valid', () => {
+      expect(el.showValid).to.be.undefined;
+      expect(el).not.to.have.attribute('show-valid');
     });
 
-    it('should have a maxlength of 8 when set', async() => {
-      el.maxLength = 8;
+    it('should have show-valid when set', async () => {
+      el.showValid = true;
       await el.updateComplete;
 
-      const input = el.querySelector('input');
+      expect(el).to.have.attribute('show-valid');
+    });
 
-      expect(input).to.have.attribute('maxlength', '8');
+    it('should not have a step', () => {
+      expect(el.step).to.be.undefined;
+      expect(el).not.to.have.attribute('step');
+    });
+
+    it('should have a step when set', async () => {
+      el.step = 3;
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('step', '3');
+    });
+
+    it('should focus the input when clicking the wrapper', async () => {
+      el.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+
+      expect(document.activeElement).to.equal(input);
     });
   });
 
-  describe('number input', () => {
+  describe('invalid', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-text-input type="number"></sl-text-input>`);
+      el = await fixture(html`<sl-text-input required></sl-text-input>`);
+      input = el.querySelector('input')!;
     });
 
-    it('should have a min of 2 when set', async() => {
-      el.min = 2;
-      await el.updateComplete;
-
-      const input = el.querySelector('input');
-
-      expect(input).to.have.attribute('min', '2');
+    it('should have an invalid input', () => {
+      expect(input.matches(':invalid')).to.be.true;
+      expect(input.validity.valid).to.be.false;
+      expect(input.validity.valueMissing).to.be.true;
     });
 
-    it('should have a max of 8 when set', async() => {
-      el.max = 8;
-      await el.updateComplete;
-
-      const input = el.querySelector('input');
-
-      expect(input).to.have.attribute('max', '8');
+    it('should not have an error message', () => {
+      expect(el.querySelector('[slot="error-text"]')).to.not.exist;
     });
 
-    it('should have a step of 4 when set', async() => {
-      el.step = 4;
-      await el.updateComplete;
-
-      const input = el.querySelector('input');
-
-      expect(input).to.have.attribute('step', '4');
-    });
-  });
-
-  describe('focusing', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-text-input></sl-text-input>`);
-    });
-
-    it('should focus input on click', async () => {
-      const input = el.querySelector('input');
-      const focusSpy = spy(input as any, 'focus');
-
-      el.click();
-      input?.focus();
-
-      expect(focusSpy).to.have.been.called;
-    });
-  });
-
-  describe('validation', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-text-input name="my-input" required></sl-text-input>`);
-    });
-
-    it('should not be valid when the input is empty and when it is required', async () => {
-      const input = el.querySelector('input');
-
-      expect(input?.validity.valid).to.equal(false);
-    });
-
-    it('should have an error message when it is invalid', async () => {
+    it('should have a show-validity attribute when reported', async () => {
       el.reportValidity();
-      const error = el.querySelector('sl-error');
+      await el.updateComplete;
 
+      expect(el).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should have an error message when reported', async () => {
+      el.reportValidity();
+      await el.updateComplete;
+
+      const error = el.querySelector('[slot="error-text"]');
       expect(error).to.exist;
+      expect(error).to.have.trimmed.text('Please fill out this field.')
     });
 
-    it('should be valid when the input has a value and when it is required', async () => {
-      el.value = "my value";
+    it('should not show a hint when reported', async () => {
+      const hint = el.renderRoot.querySelector('sl-hint');
+
+      el.hintText = 'Lorem ipsum';
       await el.updateComplete;
 
-      const input = el.querySelector('input');
+      expect(hint).not.to.have.style('display', 'none');
 
-      expect(input?.validity.valid).to.equal(true);
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(hint).to.have.style('display', 'none');
     });
 
-    it('should show valid state when the input is valid', async () => {
-      el.value = "my value";
-      el.setAttribute('showValid', '');
+    it('should show a warning icon when reported', async () => {
+      el.reportValidity();
       await el.updateComplete;
 
-      const input = el.querySelector('input');
+      const icon = el.renderRoot.querySelector('sl-icon');
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
+    });
+  });
 
-      expect(input?.validity.valid).to.equal(true);
-      expect(el).to.have.attribute('showValid');
+  describe('valid', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-input required value="foo"></sl-text-input>`);
+      input = el.querySelector('input')!;
+    });
+
+    it('should have an valid input', () => {
+      expect(input.matches(':valid')).to.be.true;
+      expect(input.validity.valid).to.be.true;
+      expect(input.validity.valueMissing).to.be.false;
+    });
+
+    it('should not have an error message', () => {
+      expect(el.querySelector('[slot="error-text"]')).to.not.exist;
+    });
+
+    it('should have a show-validity attribute when reported', async () => {
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'valid');
+    });
+
+    it('should not show a correct icon when reported', async () => {
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('sl-icon')).not.to.exist;
+    });
+
+    it('should show a correct icon when show-valid and reported', async () => {
+      el.showValid = true;
+      el.reportValidity();
+      await el.updateComplete;
+
+      const icon = el.renderRoot.querySelector('sl-icon');
+      expect(icon).to.exist;
+      expect(icon).to.have.attribute('name', 'circle-check-solid');
     });
   });
 
   describe('slotted input', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <form>
-          <sl-label for="custom">Custom input</sl-label>
-          <sl-text-input id="custom">
-            <input id="foo" slot="input" placeholder="I am a custom input" />
-          </sl-text-input>
-        </form>
+        <sl-text-input>
+          <input id="foo" slot="input" placeholder="I am a custom input" type="color"/>
+        </sl-text-input>
       `);
+
+      input = el.querySelector('input')!;
     });
 
     it('should use the slotted input', () => {
-      const slInput = el.querySelector('sl-text-input') as TextInput;
-      const input = slInput.querySelector('input');
-
-      expect(input).to.have.attribute('placeholder', 'I am a custom input');
+      expect(el.input).to.equal(input);
     });
 
-    it('should have a slotted input with autocomplete by default when not set', () => {
-      const slInput = el.querySelector('sl-text-input') as TextInput;
-      const input = slInput.querySelector('input');
-
-      expect(input).to.have.attribute('autocomplete', 'off');
-    });
-
-    it('should have a slotted input which is not readonly by default', () => {
-      const slInput = el.querySelector('sl-text-input') as TextInput;
-      const input = slInput.querySelector('input');
-
-      expect(input).not.to.have.attribute('readonly');
+    it('should overwrite text input properties except for "type"', () => {
+      expect(input).to.have.attribute('placeholder', '');
+      expect(input.type).to.equal('color');
     });
   });
 
@@ -431,43 +330,15 @@ describe('sl-text-input', () => {
     it('should use the slotted prefix', () => {
       const prefix = el.querySelector('[slot="prefix"]');
 
-      expect(prefix).to.not.be.null;
+      expect(prefix).to.exist;
       expect(prefix).to.have.trimmed.text('prefix example');
     });
 
     it('should use the slotted suffix', () => {
       const prefix = el.querySelector('[slot="suffix"]');
 
-      expect(prefix).to.not.be.null;
+      expect(prefix).to.exist;
       expect(prefix).to.have.trimmed.text('suffix example');
-    });
-
-  });
-
-  describe('readonly input', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-text-input readonly></sl-text-input>`);
-    });
-
-    it('should not allow editing the value when input is readonly', () => {
-      el.value = 'my value';
-
-      el.dispatchEvent(new Event('input'));
-
-      expect(el.value).to.equal('my value');
-    });
-
-    it('should not emit input event when value changes through user interaction', () => {
-      el.value = 'initial value';
-
-      const event = new Event('input');
-      const inputEventSpy = spy(event,'preventDefault');
-
-      el.dispatchEvent(event);
-
-      expect(inputEventSpy).not.to.have.been.called;
-      el.removeEventListener('input', inputEventSpy);
     });
   });
 });
-

@@ -71,7 +71,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
   /** Indicates whether the control should indicate it is valid. */
-  @property({ type: Boolean, attribute: 'show-valid' }) showValid?: boolean;
+  @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
 
   /**
    * The size of the input.
@@ -102,9 +102,9 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
       if (!this.input.parentElement) {
         this.append(this.input);
       }
-
-      this.setFormControlElement(this.input);
     }
+
+    this.setFormControlElement(this.input);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -192,7 +192,11 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
     input.placeholder = this.placeholder ?? '';
     input.readOnly = !!this.readonly;
     input.required = !!this.required;
-    input.type = this.type;
+
+    // Do not overwrite the type on slotted inputs
+    if (input.type !== this.type && input.type === 'text') {
+      input.type = this.type;
+    }
 
     if (typeof this.max === 'number') {
       input.setAttribute('max', this.max.toString());

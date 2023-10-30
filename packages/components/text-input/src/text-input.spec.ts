@@ -357,7 +357,7 @@ describe('sl-text-input', () => {
     });
 
     it('should have an error message when it is invalid', async () => {
-      el.checkValidity();
+      el.reportValidity();
       const error = el.querySelector('sl-error');
 
       expect(error).to.exist;

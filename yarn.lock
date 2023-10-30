@@ -5307,6 +5307,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/form@workspace:packages/components/form":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/form@workspace:packages/components/form"
+  dependencies:
+    "@sl-design-system/shared": 0.1.8
+    lit: ^3.0.0
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/grid@workspace:packages/components/grid":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/grid@workspace:packages/components/grid"

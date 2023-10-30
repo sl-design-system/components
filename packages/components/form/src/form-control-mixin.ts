@@ -46,6 +46,12 @@ let nextUniqueId = 0;
 const isNative = (element: FormControlElement): element is NativeFormControlElement =>
   element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement;
 
+/**
+ * Mixin that adds form control functionality to a component.
+ *
+ * @slot error-text - The error text to display
+ * @slot hint-text - The hint text to display
+ */
 export function FormControlMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<FormControlInterface> {
@@ -116,7 +122,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Returns whether the from control is valid or not. */
+    /** Returns whether the form control is valid or not. */
     get valid(): boolean {
       return this.validity.valid;
     }

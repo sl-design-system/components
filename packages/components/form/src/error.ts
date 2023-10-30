@@ -5,6 +5,11 @@ import styles from './error.scss.js';
 
 export type ErrorSize = 'sm' | 'md' | 'lg';
 
+/**
+ * Component for displaying an error message for a form control.
+ *
+ * @slot error-text - The error message to display.
+ */
 export class Error extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;

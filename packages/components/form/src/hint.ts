@@ -5,6 +5,11 @@ import styles from './hint.scss.js';
 
 export type HintSize = 'sm' | 'md' | 'lg';
 
+/**
+ * Component for displaying a hint for a form control.
+ *
+ * @slot hint-text - The hint to display.
+ */
 export class Hint extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;

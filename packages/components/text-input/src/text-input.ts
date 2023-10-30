@@ -18,8 +18,6 @@ let nextUniqueId = 0;
  * @slot prefix - Content shown before the input
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
- * @slot error-text - The error text to display
- * @slot hint-text - The hint text to display
  */
 export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */

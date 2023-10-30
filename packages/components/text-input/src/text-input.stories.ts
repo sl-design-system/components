@@ -131,19 +131,42 @@ export const All: StoryObj = {
             <sl-text-input disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-text-input>
           </div>
           <div class="wrapper">
-            <sl-text-input invalid size=${size} value="I am ${size} invalid"></sl-text-input>
-            <sl-text-input invalid size=${size} placeholder="Placeholder ${size} invalid"></sl-text-input>
-            <sl-text-input disabled invalid size=${size} value="${size} invalid disabled"></sl-text-input>
+            <sl-text-input
+              minlength="30"
+              show-validity="invalid"
+              size=${size}
+              value="I am ${size} invalid"
+            ></sl-text-input>
+            <sl-text-input
+              minlength="3"
+              placeholder="Placeholder ${size} invalid"
+              show-validity="invalid"
+              size=${size}
+            ></sl-text-input>
             <sl-text-input
               disabled
-              invalid
+              minlength="30"
+              show-validity="invalid"
               size=${size}
+              value="${size} invalid disabled"
+            ></sl-text-input>
+            <sl-text-input
+              disabled
+              minlength="3"
               placeholder="Placeholder ${size} disabled invalid"
+              show-validity="invalid"
+              size=${size}
             ></sl-text-input>
           </div>
           <div class="wrapper">
-            <sl-text-input showValid valid size=${size} value="I am ${size} valid"></sl-text-input>
-            <sl-text-input disabled showValid valid size=${size} value="${size} valid disabled"></sl-text-input>
+            <sl-text-input show-valid show-validity="valid" size=${size} value="I am ${size} valid"></sl-text-input>
+            <sl-text-input
+              disabled
+              show-valid
+              show-validity="valid"
+              size=${size}
+              value="${size} valid disabled"
+            ></sl-text-input>
           </div>
         </div>
       `
@@ -262,13 +285,13 @@ export const ErrorMessageSizes: StoryObj = {
       </style>
       <form>
         <sl-label for="input" size="sm">Small</sl-label>
-        <sl-text-input id="input" name="input" required error-size="sm"></sl-text-input>
+        <sl-text-input id="input" name="input" required size="sm"></sl-text-input>
 
         <sl-label for="input2" size="md">Medium</sl-label>
-        <sl-text-input id="input2" name="input" required error-size="md"></sl-text-input>
+        <sl-text-input id="input2" name="input" required size="md"></sl-text-input>
 
         <sl-label for="input3" size="lg">Large</sl-label>
-        <sl-text-input id="input3" name="input" required error-size="lg"></sl-text-input>
+        <sl-text-input id="input3" name="input" required size="lg"></sl-text-input>
       </form>
     `;
   }

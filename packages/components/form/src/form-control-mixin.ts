@@ -208,7 +208,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
 
     /**
-     * Set's a custom validation message for the form control. If the message
+     * Sets a custom validation message for the form control. If the message
      * is not an empty string, that will make the control invalid. By setting it to
      * an empty string again, you can make the control valid again.
      * @param message The validation message.

@@ -254,12 +254,12 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 
 <div class="ds-example">
 
-<sl-label for="group">Checkbox group</sl-label>
-<sl-checkbox-group id="group" hint="Pick one of these options.">
-<sl-checkbox>Check me</sl-checkbox>
-<sl-checkbox>No me</sl-checkbox>
-<sl-checkbox>I was here first!</sl-checkbox>
-<sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
+<sl-label for="group">Subjects</sl-label>
+<sl-checkbox-group id="group" hint="Pick one or more.">
+<sl-checkbox>Mathematics</sl-checkbox>
+<sl-checkbox>Geography</sl-checkbox>
+<sl-checkbox>Physics</sl-checkbox>
+<sl-checkbox disabled>History</sl-checkbox>
 </sl-checkbox-group>
 
 </div>
@@ -267,12 +267,12 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 <div class="ds-code">
 
   ```html
-  <sl-label for="group">Checkbox group</sl-label>
-  <sl-checkbox-group id="group" hint="Pick one of these options.">
-    <sl-checkbox>Check me</sl-checkbox>
-    <sl-checkbox>No me</sl-checkbox>
-    <sl-checkbox>I was here first!</sl-checkbox>
-    <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
+  <sl-label for="group">Subjects</sl-label>
+  <sl-checkbox-group id="group" hint="Pick one or more.">
+    <sl-checkbox>Mathematics</sl-checkbox>
+    <sl-checkbox>Geography</sl-checkbox>
+    <sl-checkbox>Physics</sl-checkbox>
+    <sl-checkbox disabled>History</sl-checkbox>
   </sl-checkbox-group>
   ```
 
@@ -286,13 +286,15 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 
 Use the checkbox group component to group multiple checkboxes with the same category, together with the group label, and help text for clear organization.
 
+### Anatomy
+
 {{ 'components/checkbox/sl-checkbox-group-anatomy.svg' | svgImage }}
 
 |Item|Name|Description|Optional|
 |-|-|-|-|
 |1|Field Label|The group label, positioned at the top of a checkbox group, provides a clear and concise description of the category or context for the choices contained within the group. It serves as a visual and informational cue that helps users understand the purpose of the options and facilitates more straightforward decision-making in the user interface. More information about group labels you can find in the **Accessibility** tab.|No|
 |2|Checkboxes|The checkbox group is designed with a minimum requirement of two options and allows a maximum of five selections. When the list of options exceeds this maximum limit, it's advisable to consider alternative design elements like a dropdown menu or combobox. These options provide a more user-friendly way to navigate and select from a larger set of choices, ensuring a streamlined and efficient user experience.|No|
-|3|Helpetr Text & Hint|The help text for a checkbox group is a informative component, it provides users with guidance and clarifications related to the available options. It assists users in making informed decisions by offering context, explanations, or additional details about the purpose or implications of the choices within the group. More information about help text you can find in the **Accessibility** tab.|Yes|
+|3|Helper Text & Hint|The help text for a checkbox group is a informative component, it provides users with guidance and clarifications related to the available options. It assists users in making informed decisions by offering context, explanations, or additional details about the purpose or implications of the choices within the group. More information about help text you can find in the **Accessibility** tab.|Yes|
 
 {.ds-table .ds-table-align-top}
 

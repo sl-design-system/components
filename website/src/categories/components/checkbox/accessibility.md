@@ -6,60 +6,85 @@ eleventyNavigation:
   key: CheckboxAccessibility
 ---
 
-<section> 
-
-## Content
+<section>
 
 Having an accessible application is not only achieved by writing good code, but also (maybe even MORE so) by writing good copy. To make sure checkbox groups and their options are clear for all users make sure to keep these points in mind:
 
-### Group labels
+</section>
+
+<section>
+
+## Group labels
 
 Positioned above checkbox groups to ensure clear organization when multiple checkboxes share a common category. They must effectively convey the common theme while maintaining a balance between brevity and descriptiveness for user clarity.
 
 
 By following the tips below, you can write group labels that effectively categorize checkboxes.
 
-- **Conciseness**: Keep the label concise. Use as few words as possible while still conveying the primary purpose or theme of the checkboxes in the group.
+### Conciseness
+Keep the label concise. Use as few words as possible while still conveying the primary purpose or theme of the checkboxes in the group.
 
-- **Descriptive Clarity**: While being concise, ensure the label provides enough information to make it clear what the checkboxes within the group represent. Use descriptive language that leaves no ambiguity.
+### Descriptive Clarity 
+While being concise, ensure the label provides enough information to make it clear what the checkboxes within the group represent. Use descriptive language that leaves no ambiguity.
 
-- **User-Centered Language**: Use language that your target audience can easily understand. Avoid complex terminology or jargon that might confuse users.
+### User-Centered Language
+Use language that your target audience can easily understand. Avoid complex terminology or jargon that might confuse users.
 
-- **Consistency**: Maintain a consistent style and wording for group labels throughout your interface. This creates a cohesive design and makes it easier for users to understand the organization.
+### Consistency
+Maintain a consistent style and wording for group labels throughout your interface. This creates a cohesive design and makes it easier for users to understand the organization.
+
+</section>
 
 
-### Checkbox labels
+<section>
+
+## Checkbox labels
 
 Positioned alongside individual checkboxes, checkbox labels play a pivotal role in user understanding and interaction. Follow these tips for creating clear and user-friendly checkbox labels:
 
-- **Conciseness**: Keep the label concise. Use as few words as necessary to convey the checkbox's primary purpose or action.
+### Conciseness 
+Keep the label concise. Use as few words as necessary to convey the checkbox's primary purpose or action.
 
-- **Descriptive Clarity**: While being concise, ensure the label provides enough information to make it clear what the checkbox represents or the action it triggers. Use descriptive language that leaves no room for ambiguity.
+### Descriptive Clarity 
+While being concise, ensure the label provides enough information to make it clear what the checkbox represents or the action it triggers. Use descriptive language that leaves no room for ambiguity.
 
-- **User-Centered Language**: Use language that your target audience can easily understand. Avoid using technical jargon or industry-specific terms that might confuse users.
+### User-Centered Language
+Use language that your target audience can easily understand. Avoid using technical jargon or industry-specific terms that might confuse users.
 
-- **No Negative Statements**: Avoid using negative statements that might confuse users, such as "checking the checkbox to turn off" or "opt-out." Instead, positively frame the label.
+### No Negative Statements 
+Avoid using negative statements that might confuse users, such as "checking the checkbox to turn off" or "opt-out." Instead, positively frame the label.
 
-- **Avoid Mixing "Enable" and "Disable" Options**: In a group of checkboxes, maintain consistency by not mixing "enable" and "disable" options. Users should easily discern the purpose of each checkbox.
+### Avoid Mixing "Enable" and "Disable" Options
+In a group of checkboxes, maintain consistency by not mixing "enable" and "disable" options. Users should easily discern the purpose of each checkbox.
 
-- **Consistency**: Ensure that all options in a group have the same form or category. Avoid mixing unrelated categories (e.g., nationalities and countries) within the same checkbox group.
+### Consistency
+Ensure that all options in a group have the same form or category. Avoid mixing unrelated categories (e.g., nationalities and countries) within the same checkbox group.
 
-- **Sorting Options**: When presenting checkboxes in a group, consider sorting them logically. You can arrange them alphabetically or by importance.
+### Sorting Options 
+When presenting checkboxes in a group, consider sorting them logically. You can arrange them alphabetically or by importance.
 
+</section>
 
-### Help text
+<section>
+
+## Help text
 
 Positioned beneath checkbox groups, help text offers valuable context and guidance. Follow these tips to craft informative and user-friendly help text:
 
-- **Conciseness**: Keep the help text brief, using only 1-2 short, complete sentences. Avoid unnecessary verbosity to maintain clarity.
+### Conciseness
+Keep the help text brief, using only 1-2 short, complete sentences. Avoid unnecessary verbosity to maintain clarity.
 
-- **Descriptive Clarity**: While being concise, ensure the help text provides clear and informative guidance. Explain what happens when the user selects the option, ensuring they understand the consequences or benefits associated with their choice.
+### Descriptive Clarity
+While being concise, ensure the help text provides clear and informative guidance. Explain what happens when the user selects the option, ensuring they understand the consequences or benefits associated with their choice.
 
-- **User-Centered Language**: Use language that aligns with your target audience. Avoid technical jargon or industry-specific terms that might confuse users.
+### User-Centered Language 
+Use language that aligns with your target audience. Avoid technical jargon or industry-specific terms that might confuse users.
 
-- **No Repetition**: Avoid merely restating the label in different phrasing within your help text. Instead, focus on providing additional context and information that enhances the user's understanding.
+### No Repetition 
+Avoid merely restating the label in different phrasing within your help text. Instead, focus on providing additional context and information that enhances the user's understanding.
 
-- **Consistency**: Maintain a consistent style and tone throughout your help text. This consistency aids users in understanding and interacting with your interface.
+### Consistency
+Maintain a consistent style and tone throughout your help text. This consistency aids users in understanding and interacting with your interface.
 
 </section>
 
@@ -113,7 +138,7 @@ WAI-ARIA Roles, States, and Properties for a checkbox provide essential informat
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User - supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|Attribute|Value|Description|User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
 |-|-|-|-|
 |`aria-checked`|`'true','false','mixed'`|The state of the checkbox.|no|
 |`role`|`'checkbox'`|Declare our custom component as a checkbox.|no|
@@ -130,7 +155,7 @@ WAI-ARIA Roles, States, and Properties for a checkbox provide essential informat
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User - supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|Attribute|Value|Description|User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
 |-|-|-|-|
 |`role`|`'group'`|Declare our group of custom checkbox components as a checkbox group.|no|
 |`aria-label`|string|Can be added when there is no label or header that could be described by.|yes|

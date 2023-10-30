@@ -57,6 +57,12 @@ If your setting has multiple states or requires more than a simple on/off toggle
 
 ## Options
 
+The switch provides a set of options, ensuring it's ready to adapt to your unique use cases.
+
+```
+  table
+```
+
 ...
 
 </section>

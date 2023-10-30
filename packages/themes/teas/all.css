@@ -241,6 +241,18 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-space-avatar-block-3xl: var(--sl-space-sm);
+  --sl-space-avatar-block-2xl: var(--sl-space-sm);
+  --sl-space-avatar-block-xl: var(--sl-space-sm);
+  --sl-space-avatar-block-lg: var(--sl-space-sm);
+  --sl-space-avatar-block-md: var(--sl-space-sm);
+  --sl-space-avatar-block-sm: var(--sl-space-sm);
+  --sl-space-avatar-inline-3xl: var(--sl-space-lg);
+  --sl-space-avatar-inline-2xl: var(--sl-space-lg);
+  --sl-space-avatar-inline-xl: var(--sl-space-lg);
+  --sl-space-avatar-inline-lg: var(--sl-space-lg);
+  --sl-space-avatar-inline-md: var(--sl-space-sm);
+  --sl-space-avatar-inline-sm: var(--sl-space-sm);
   --sl-space-badge-icon-block-3xl: var(--sl-space-2xs);
   --sl-space-badge-icon-block-xl: var(--sl-space-none);
   --sl-space-badge-icon-block-lg: var(--sl-space-none);

@@ -1500,7 +1500,7 @@
       }
     },
     "avatar": {
-      "text": {
+      "initials": {
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
@@ -1602,6 +1602,130 @@
             "fontFamily": "{text.typeset.fontFamily.icon}",
             "fontWeight": "{icon.style.outline}",
             "fontSize": "{icon.typeset.fontSize.2xl}"
+          },
+          "type": "typography"
+        }
+      },
+      "header": {
+        "sm": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
+          },
+          "type": "typography"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
+          },
+          "type": "typography"
+        },
+        "xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "type": "typography"
+        },
+        "2xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "type": "typography"
+        },
+        "3xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
+          },
+          "type": "typography"
+        }
+      },
+      "subheader": {
+        "sm": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.xs}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
+          },
+          "type": "typography"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
+          },
+          "type": "typography"
+        },
+        "xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
+          },
+          "type": "typography"
+        },
+        "2xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
+          },
+          "type": "typography"
+        },
+        "3xl": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
           "type": "typography"
         }
@@ -2961,6 +3085,60 @@
             "value": "{space.2xs}",
             "type": "spacing"
           }
+        }
+      }
+    },
+    "avatar": {
+      "inline": {
+        "sm": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "block": {
+        "sm": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.sm}",
+          "type": "spacing"
         }
       }
     }

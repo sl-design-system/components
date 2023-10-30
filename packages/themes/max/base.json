@@ -2223,6 +2223,60 @@
           }
         }
       }
+    },
+    "avatar": {
+      "inline": {
+        "sm": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "block": {
+        "sm": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
     }
   },
   "animation": {

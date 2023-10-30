@@ -132,13 +132,17 @@ export const Nested: StoryObj = {
         super.connectedCallback();
 
         this.setFormControlElement(this);
-
-        effect(() => {
-          this.internals.setValidity({ valueMissing: !this.address?.valid.value }, 'Address is invalid');
-        });
       }
 
       override willUpdate(changes: PropertyValues<this>): void {
+        if (changes.has('address') && this.address) {
+          effect(() => {
+            console.log('Address changed', this.address!.valid.value);
+
+            this.internals.setValidity({ valueMissing: !this.address!.valid.value }, 'Address is invalid');
+          });
+        }
+
         if (changes.has('report')) {
           this.renderRoot.querySelector('form')?.reportValidity();
         }
@@ -214,7 +218,10 @@ export const Nested: StoryObj = {
       }
 
       #onClick(): void {
-        if (this.renderRoot.querySelector('form')?.reportValidity()) {
+        const form = this.renderRoot.querySelector('form') as HTMLFormElement,
+          valid = Array.from(form.elements).every(e => (e as HTMLInputElement).reportValidity());
+
+        if (valid) {
           console.log('Valid form', this.form.value.value);
         }
       }

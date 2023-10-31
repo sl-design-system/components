@@ -360,7 +360,7 @@ export const MinMaxLength: StoryObj = {
         }
       </style>
       <sl-text-input minlength="3" maxlength="5" placeholder="Min 3 and max 5 chars" required></sl-text-input>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
 };
@@ -379,7 +379,7 @@ export const Pattern: StoryObj = {
         }
       </style>
       <sl-text-input pattern=".{3,5}" placeholder="Min 3 and max 5 chars using pattern" required></sl-text-input>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
 };
@@ -398,6 +398,12 @@ export const ValidInput: StoryObj = {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       const secondInput = event.target.previousElementSibling as TextInput;
       secondInput.reportValidity();
+    };
+
+    const onInput = (event: Event & { target: HTMLInputElement }): void => {
+      if (event.target.value !== 'SLDS') {
+        event.target.setCustomValidity('Enter the same email address');
+      }
     };
 
     const validator: Validator = {
@@ -423,13 +429,7 @@ export const ValidInput: StoryObj = {
       </style>
       <div class="wrapper">
         <sl-label for="input1">Email</sl-label>
-        <sl-text-input
-          showValid
-          .validators=${[validator]}
-          id="input1"
-          placeholder="email"
-          type="email"
-        ></sl-text-input>
+        <sl-text-input @input=${onInput} id="input1" placeholder="email" show-valid type="email"></sl-text-input>
         <sl-label for="input2">Confirm email</sl-label>
         <sl-text-input
           id="input2"
@@ -438,7 +438,7 @@ export const ValidInput: StoryObj = {
           placeholder="confirm email"
           type="email"
         ></sl-text-input>
-        <sl-button @click=${onClick}>Validate</sl-button>
+        <sl-button @click=${onClick} fill="outline">Validate</sl-button>
       </div>
     `;
   }
@@ -463,7 +463,7 @@ export const CustomValidation: StoryObj = {
         }
       </style>
       <sl-text-input required .validators=${[validator]} error-size="sm"></sl-text-input>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
 };
@@ -487,7 +487,7 @@ export const CustomValidationWithHint: StoryObj = {
         }
       </style>
       <sl-text-input required .validators=${[validator]} hint-text="You need to enter 'SLDS'"></sl-text-input>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
 };

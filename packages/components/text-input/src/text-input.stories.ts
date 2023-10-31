@@ -1,6 +1,5 @@
 import type { InputSize, TextInput } from './text-input';
 import type { LabelSize } from '@sl-design-system/label';
-import type { ValidationValue, Validator } from '@sl-design-system/shared';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
@@ -204,7 +203,6 @@ export const Hint: StoryObj = {
           display: flex;
           flex-direction: column;
         }
-
         sl-text-input {
           margin-block-end: 1rem;
         }
@@ -384,50 +382,45 @@ export const CustomInput: StoryObj = {
 export const ValidInput: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      const secondInput = event.target.previousElementSibling as TextInput;
-      secondInput.reportValidity();
+      (event.target.parentElement as HTMLFormElement).reportValidity();
     };
 
     const onInput = (event: Event & { target: HTMLInputElement }): void => {
-      if (event.target.value !== 'SLDS') {
-        event.target.setCustomValidity('Enter the same email address');
-      }
-    };
+      const email = document.querySelector<TextInput>('#input1')?.value;
 
-    const validator: Validator = {
-      message: 'Enter the same email address',
-      isValid: (_: HTMLElement, value: ValidationValue): boolean => {
-        return value?.toString() === document.querySelectorAll('sl-text-input')[0].value;
-      }
+      (event.target.parentElement as TextInput).setCustomValidity(
+        event.target.value !== email ? 'Enter the same email address' : ''
+      );
     };
 
     return html`
       <style>
-        .wrapper {
+        form {
           display: flex;
           flex-direction: column;
+          align-items: start;
         }
         sl-text-input {
           width: 400px;
-          margin-bottom: 16px;
-        }
-        sl-button {
-          width: fit-content;
+          margin-block-end: 1rem;
         }
       </style>
-      <div class="wrapper">
+      <form>
         <sl-label for="input1">Email</sl-label>
-        <sl-text-input @input=${onInput} id="input1" placeholder="email" show-valid type="email"></sl-text-input>
+        <sl-text-input id="input1" placeholder="email" required type="email"></sl-text-input>
+
         <sl-label for="input2">Confirm email</sl-label>
         <sl-text-input
+          @input=${onInput}
           id="input2"
-          showValid
-          .validators=${[validator]}
           placeholder="confirm email"
+          required
+          show-valid
           type="email"
         ></sl-text-input>
+
         <sl-button @click=${onClick} fill="outline">Validate</sl-button>
-      </div>
+      </form>
     `;
   }
 };
@@ -438,19 +431,20 @@ export const CustomValidation: StoryObj = {
       (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
-    const validator: Validator = {
-      message: 'Enter "SLDS"',
-      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'
+    const onInput = (event: Event & { target: HTMLInputElement }): void => {
+      const { parentElement: textInput, value } = event.target;
+
+      (textInput as TextInput).setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
     };
 
     return html`
       <style>
         sl-text-input {
           width: 300px;
-          margin-bottom: 8px;
+          margin-block-end: 0.5rem;
         }
       </style>
-      <sl-text-input required .validators=${[validator]} error-size="sm"></sl-text-input>
+      <sl-text-input @input=${onInput} required></sl-text-input>
       <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
@@ -462,19 +456,20 @@ export const CustomValidationWithHint: StoryObj = {
       (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
-    const validator: Validator = {
-      message: 'Enter "SLDS"',
-      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'
+    const onInput = (event: Event & { target: HTMLInputElement }): void => {
+      const { parentElement: textInput, value } = event.target;
+
+      (textInput as TextInput).setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
     };
 
     return html`
       <style>
         sl-text-input {
           width: 300px;
-          margin-bottom: 8px;
+          margin-block-end: 0.5rem;
         }
       </style>
-      <sl-text-input required .validators=${[validator]} hint-text="You need to enter 'SLDS'"></sl-text-input>
+      <sl-text-input @input=${onInput} hint-text="You need to enter 'SLDS'" required></sl-text-input>
       <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }

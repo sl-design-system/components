@@ -442,7 +442,7 @@ export const CustomValidation: StoryObj = {
           margin-block-end: 0.5rem;
         }
       </style>
-      <sl-text-input @input=${onInput} required></sl-text-input>
+      <sl-text-input @sl-input=${onInput} required></sl-text-input>
       <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
@@ -467,7 +467,7 @@ export const CustomValidationWithHint: StoryObj = {
           margin-block-end: 0.5rem;
         }
       </style>
-      <sl-text-input @input=${onInput} hint-text="You need to enter 'SLDS'" required></sl-text-input>
+      <sl-text-input @sl-input=${onInput} hint-text="You need to enter 'SLDS'" required></sl-text-input>
       <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }

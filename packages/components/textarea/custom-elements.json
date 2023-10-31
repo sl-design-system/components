@@ -34,20 +34,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/textarea.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/textarea.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/textarea.ts",
       "declarations": [
         {
@@ -69,12 +55,6 @@
               },
               "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
               "attribute": "autocomplete"
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
             },
             {
               "kind": "field",
@@ -117,10 +97,10 @@
               "kind": "field",
               "name": "resize",
               "type": {
-                "text": "ResizeType"
+                "text": "'none' | 'vertical' | 'auto'"
               },
               "default": "'vertical'",
-              "description": "Specifies how textarea can be resized.",
+              "description": "The way the textarea can be resized.",
               "attribute": "resize",
               "reflects": true
             },
@@ -139,10 +119,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "TextareaSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Textarea size.",
+              "description": "The size of the textarea.",
               "attribute": "size",
               "reflects": true
             },
@@ -185,10 +165,10 @@
               "kind": "field",
               "name": "wrap",
               "type": {
-                "text": "WrapType | undefined"
+                "text": "'soft' | 'hard'"
               },
               "default": "'soft'",
-              "description": "Specifies how the text should be wrapped during form submission.",
+              "description": "The text way should be wrapped during form submission.",
               "attribute": "wrap",
               "reflects": true
             }
@@ -262,28 +242,28 @@
             {
               "name": "resize",
               "type": {
-                "text": "ResizeType"
+                "text": "'none' | 'vertical' | 'auto'"
               },
               "default": "'vertical'",
-              "description": "Specifies how textarea can be resized.",
+              "description": "The way the textarea can be resized.",
               "fieldName": "resize"
             },
             {
               "name": "size",
               "type": {
-                "text": "TextareaSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Textarea size.",
+              "description": "The size of the textarea.",
               "fieldName": "size"
             },
             {
               "name": "wrap",
               "type": {
-                "text": "WrapType | undefined"
+                "text": "'soft' | 'hard'"
               },
               "default": "'soft'",
-              "description": "Specifies how the text should be wrapped during form submission.",
+              "description": "The text way should be wrapped during form submission.",
               "fieldName": "wrap"
             }
           ],
@@ -302,7 +282,114 @@
             "package": "lit"
           },
           "tagName": "sl-textarea",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onInput",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "{ target }",
+                  "type": {
+                    "text": "Event & { target: HTMLTextAreaElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#setSize",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    target: () => this.textarea\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "textarea",
+              "type": {
+                "text": "HTMLTextAreaElement"
+              },
+              "description": "The textarea in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "#resizeObserver",
+              "privacy": "private",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "description": "Observe the textarea width."
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators specified by the user."
+            }
+          ]
         }
       ],
       "exports": [

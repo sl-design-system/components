@@ -1,5 +1,0 @@
-{
-  "layout": "components/components.njk",
-  "tags": "drawer",
-  "componentTagName": "sl-drawer"
-}

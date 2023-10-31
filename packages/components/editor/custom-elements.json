@@ -67,20 +67,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/editor.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/editor.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/editor.ts",
       "declarations": [
         {
@@ -114,12 +100,6 @@
                   "text": "EditorState"
                 }
               }
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
             },
             {
               "kind": "field",
@@ -162,7 +142,102 @@
             "package": "lit"
           },
           "tagName": "sl-editor",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "createEditor",
+              "return": {
+                "type": {
+                  "text": "EditorView"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "createSchema",
+              "return": {
+                "type": {
+                  "text": "Schema<EditorNodes, EditorMarks>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "createState",
+              "return": {
+                "type": {
+                  "text": "EditorState"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusout",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)",
+              "description": "Manage events."
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#value",
+              "privacy": "private",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The value of the content in the editor."
+            },
+            {
+              "kind": "field",
+              "name": "#view",
+              "privacy": "private",
+              "type": {
+                "text": "EditorView | undefined"
+              },
+              "description": "The ProseMirror editor view instance."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "plugins",
+              "type": {
+                "text": "Plugin[] | undefined"
+              },
+              "description": "Additional plugins."
+            }
+          ]
         }
       ],
       "exports": [

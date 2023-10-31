@@ -43,12 +43,15 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
     /** The hint. If you need to display HTML, use the `hint` slot instead. */
     @property() hint?: string;
 
-    /** The hint size. */
+    /** The hint size.
+     *  @type {'sm' | 'md' | 'lg'}
+     */
     @property() hintSize: HintSize = 'md';
 
     /** The hint disabled state. */
     @property() disabled?: boolean;
 
+    /** @ignore */
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
@@ -61,6 +64,7 @@ export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T
       }
     }
 
+    /** @private */
     renderHint(): TemplateResult {
       const input = this.querySelector('input, textarea');
       if (input?.hasAttribute('disabled')) {

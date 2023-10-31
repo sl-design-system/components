@@ -14,43 +14,72 @@ export default {
 
 export const API: StoryObj = {
   args: {
-    message: 'Tooltip',
-    position: 'bottom'
+    message: 'Tooltip message',
+    position: 'top',
+    maxWidth: 150
   },
   argTypes: {
     position: {
       control: 'inline-radio',
-      options: ['top', 'right', 'bottom', 'left']
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'right',
+        'right-start',
+        'right-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end'
+      ]
     }
   },
-  render: ({ message, position }) => html`
-    <sl-button aria-describedby="tooltip">Button</sl-button>
-    <sl-tooltip id="tooltip" .position=${position}>${message}</sl-tooltip>
-  `
+  render: ({ message, position, maxWidth }) => {
+    return html`
+      <sl-button aria-describedby="tooltip" fill="outline">Button element</sl-button>
+      <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}>${message}</sl-tooltip>
+    `;
+  }
 };
 
 export const Directive: StoryObj = {
-  render: () => html`<sl-button ${tooltip('This tooltip is from a directive')}>I have a tooltip</sl-button>`
+  render: () =>
+    html`<sl-button ${tooltip('This tooltip is from a directive')} fill="outline">I have a tooltip</sl-button>`
 };
 
 export const Overflow: StoryObj = {
   render: () => html`
-    <div style="overflow: hidden">
-      <sl-button aria-describedby="tooltip">Button</sl-button>
-      <sl-tooltip id="tooltip">This appears outside the overflow parent</sl-tooltip>
-    </div>
+    <section style="display:grid">
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <p>blaaaaa</p>
+      <figure>
+        <section style="border: 1px solid red; position:relative; padding:40px 100px;">
+          <sl-button aria-describedby="tooltip" fill="outline" style="position: absolute;">Button</sl-button>
+          <div style="overflow: hidden; position: absolute;">
+            <sl-tooltip id="tooltip">This appears outside the overflow parent</sl-tooltip>
+          </div>
+        </section>
+      </figure>
+    </section>
   `
 };
 
 export const Shared: StoryObj = {
   render: () => html`
     <sl-button-bar>
-      <sl-button aria-describedby="tooltip">We</sl-button>
-      <sl-button aria-describedby="tooltip">all</sl-button>
-      <sl-button aria-describedby="tooltip">share</sl-button>
-      <sl-button aria-describedby="tooltip">the</sl-button>
-      <sl-button aria-describedby="tooltip">same</sl-button>
-      <sl-button aria-describedby="tooltip">tooltip</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">We</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">all</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">share</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">the</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">same</sl-button>
+      <sl-button aria-describedby="tooltip" fill="outline">tooltip</sl-button>
     </sl-button-bar>
     <sl-tooltip id="tooltip">I am shared between different elements</sl-tooltip>
   `

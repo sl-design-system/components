@@ -1,5 +1,7 @@
-import { arrow, flip, offset, shift, size } from '@floating-ui/core';
-import { autoUpdate, computePosition } from '@floating-ui/dom';
+import type { Middleware, MiddlewareState } from '@floating-ui/dom';
+import { arrow, flip, shift, size } from '@floating-ui/core';
+import { autoUpdate, computePosition, offset } from '@floating-ui/dom';
+import { getContainingBlock, getWindow, isContainingBlock } from '@floating-ui/utils/dom';
 import popoverPolyfillStyles from './popover.scss.js';
 
 export { popoverPolyfillStyles };
@@ -15,6 +17,7 @@ export interface PositionPopoverOptions {
   position?: PopoverPosition;
   offset?: [block: number, inline: number];
   viewportMargin?: number;
+  maxWidth?: number;
 }
 
 function getArrowElement(element: HTMLElement, arrow?: string | HTMLElement): HTMLElement | undefined {
@@ -66,6 +69,105 @@ const flipPlacement = (position: PopoverPosition): PopoverPosition => {
   return position.replace(pos, replace) as PopoverPosition;
 };
 
+/** This is a temporary workaround until @floating-ui fixes this issue.
+ *  https://github.com/floating-ui/floating-ui/pull/2351
+ */
+const topLayerOverTransforms = (): Middleware => ({
+  name: 'topLayer',
+  async fn(middlewareArguments: MiddlewareState) {
+    const {
+      x,
+      y,
+      elements: { reference, floating }
+    } = middlewareArguments;
+    let onTopLayer = false;
+    let topLayerIsFloating = false;
+    let withinReference = false;
+    const diffCoords = {
+      x: 0,
+      y: 0
+    };
+    try {
+      onTopLayer = onTopLayer || floating.matches(':popover-open');
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
+    try {
+      onTopLayer = onTopLayer || floating.matches(':open');
+      // eslint-disable-next-line no-empty
+    } catch (error) {}
+    try {
+      onTopLayer = onTopLayer || floating.matches(':modal');
+      // eslint-disable-next-line no-empty
+      /* c8 ignore next 3 */
+    } catch (error) {}
+    topLayerIsFloating = onTopLayer;
+    const dialogAncestorQueryEvent = new Event('floating-ui-dialog-test', {
+      composed: true,
+      bubbles: true
+    });
+    floating.addEventListener(
+      'floating-ui-dialog-test',
+      (event: Event) => {
+        (event.composedPath() as unknown as Element[]).forEach(el => {
+          withinReference = withinReference || el === reference;
+          if (el === floating || el.localName !== 'dialog') return;
+          try {
+            onTopLayer = onTopLayer || el.matches(':modal');
+            // eslint-disable-next-line no-empty
+            /* c8 ignore next */
+          } catch (error) {}
+        });
+      },
+      { once: true }
+    );
+    floating.dispatchEvent(dialogAncestorQueryEvent);
+    let overTransforms = false;
+
+    const root = (withinReference ? reference : floating) as Element;
+    const containingBlock = isContainingBlock(root) ? root : getContainingBlock(root);
+
+    if (containingBlock !== null && getWindow(containingBlock) !== (containingBlock as unknown as Window)) {
+      const css = getComputedStyle(containingBlock);
+      overTransforms = css.transform !== 'none' || (css.filter ? css.filter !== 'none' : false);
+    }
+
+    if (onTopLayer && overTransforms && containingBlock) {
+      const rect = containingBlock.getBoundingClientRect();
+      diffCoords.x = rect.x;
+      diffCoords.y = rect.y;
+    }
+
+    if (onTopLayer && topLayerIsFloating) {
+      return {
+        x: x + diffCoords.x,
+        y: y + diffCoords.y,
+        data: diffCoords
+      };
+    }
+
+    if (onTopLayer) {
+      return {
+        x,
+        y,
+        data: diffCoords
+      };
+    }
+
+    return {
+      x: x - diffCoords.x,
+      y: y - diffCoords.y,
+      data: diffCoords
+    };
+  }
+});
+
+// const isWindow = (value: unknown): boolean => {
+//   if (typeof value === 'undefined' || value === null || !(value instanceof Object)) {
+//     return false;
+//   }
+//   return ['document', 'location', 'alert', 'setInterval'].every(p => Object.keys(value).includes(p));
+// };
+
 export const positionPopover = (
   element: HTMLElement,
   anchor: Element,
@@ -93,11 +195,12 @@ export const positionPopover = (
           isConstrained = actualHeight < initialHeight || maxHeight <= actualHeight;
           const appliedHeight = isConstrained ? `${maxHeight}px` : '';
           Object.assign(element.style, {
-            maxWidth: `${Math.floor(availableWidth)}px`,
+            maxWidth: `${options.maxWidth ?? Math.floor(availableWidth)}px`,
             maxHeight: appliedHeight
           });
         }
-      })
+      }),
+      topLayerOverTransforms()
     ];
 
     let arrowElement: HTMLElement | undefined;

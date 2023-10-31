@@ -1,19 +1,10 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "module": "esnext",
-    "strict": true,
-    "esModuleInterop": false,
-    "declaration": true,
-    "outDir": "dist",
-    "rootDir": "src",
-    "emitDecoratorMetadata": false
+    "noEmit": true,
+    "emitDeclarationOnly": false
   },
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.build.json"
-    }
+  "include": [
+    "src/**/*.ts"
   ]
 }

@@ -2,6 +2,8 @@ import type { Switch, SwitchOrientation, SwitchSize } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/icon/register.js';
 import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/label/register.js';
 import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
@@ -13,7 +15,8 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   event.target.after(output);
 
   output.textContent = '';
-  data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
+  // for a switch the value can only be a string, not a file, but we need to cast it because otherwise the linter gets upset
+  data.forEach((value, key) => (output.textContent += `${key}: ${(value as string).toString()}\n`));
 };
 
 interface Props extends Pick<Switch, 'checked' | 'disabled' | 'value' | 'size' | 'hint' | 'orientation'> {
@@ -172,13 +175,15 @@ export const ValidateInForm: Story = {
         width: 50%;
         display: flex;
         flex-direction: column;
-        gap: 24px;
       }
       sl-label {
         margin-block-start: 0.5rem;
       }
       sl-label:first-of-type {
         margin-block-start: 0;
+      }
+      sl-button-bar {
+        margin-top: 24px;
       }
       sl-button-bar,
       sl-input,

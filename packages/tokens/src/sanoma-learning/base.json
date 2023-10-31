@@ -775,6 +775,28 @@
         }
       }
     },
+    "tooltip": {
+      "text": {
+        "tip": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        },
+        "title": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        }
+      }
+    },
     "dialog": {
       "heading": {
         "value": {
@@ -1231,8 +1253,22 @@
         "value": "{borderRadius.default} + 1",
         "type": "borderRadius"
       },
+      "checkbox": {
+        "value": "{borderRadius.checkbox} + 1",
+        "type": "borderRadius"
+      },
       "full": {
         "value": "{border.radius.full}",
+        "type": "borderRadius"
+      }
+    },
+    "dialog": {
+      "desktop": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      },
+      "mobile": {
+        "value": "{border.radius.none}",
         "type": "borderRadius"
       }
     },
@@ -1251,24 +1287,24 @@
     "width": {
       "button": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.default"
         },
         "outline": {
-          "value": "{border.width.xs}",
+          "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },
         "link": {
-          "value": "{border.width.xs}",
+          "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.link"
         }
       },
       "select": {
         "listbox": {
-          "value": "{border.width.xs}",
+          "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.default"
         }
@@ -1280,7 +1316,7 @@
           "description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.xs}",
+          "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },
@@ -1296,9 +1332,38 @@
           "type": "borderWidth"
         }
       },
+      "dialog": {
+        "default": {
+          "value": "{border.width.none}",
+          "type": "borderWidth"
+        }
+      },
       "divider": {
         "value": "{border.width.xs}",
         "type": "borderWidth"
+      },
+      "tooltip": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        }
+      }
+    }
+  },
+  "conceptual": {
+    "border": {
+      "width": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "Conceptual Theme Border Token"
+        }
       }
     }
   },
@@ -1343,6 +1408,34 @@
       "solid": {
         "value": "{text.typeset.fontWeight.icon-solid}",
         "type": "fontWeights"
+      }
+    }
+  },
+  "space": {
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
+    }
+  },
+  "dialog": {
+    "header": {
+      "flexDirection": {
+        "value": "{flexDirection.column}",
+        "type": "Flex"
+      }
+    },
+    "footer": {
+      "flexDirection": {
+        "value": "{flexDirection.row}",
+        "type": "Flex"
+      },
+      "justifyContent": {
+        "value": "{justifyContent.end}",
+        "type": "Flex"
       }
     }
   }

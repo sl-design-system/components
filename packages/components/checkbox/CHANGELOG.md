@@ -1,5 +1,16 @@
 # @sl-design-system/checkbox
 
+## 0.0.13
+
+### Patch Changes
+
+- [#545](https://github.com/sl-design-system/components/pull/545) [`680e9a9`](https://github.com/sl-design-system/components/commit/680e9a97c4332a37b5949ca74eb699a3bc95f448) - changed focus indicator to outline instead of box shadow
+
+- [#563](https://github.com/sl-design-system/components/pull/563) [`7fc4823`](https://github.com/sl-design-system/components/commit/7fc482392ab89ca8cb15f0c9254b6758f6171baa) - added tokens for size of the icon in the checkbox
+
+- Updated dependencies [[`680e9a9`](https://github.com/sl-design-system/components/commit/680e9a97c4332a37b5949ca74eb699a3bc95f448), [`5208fa3`](https://github.com/sl-design-system/components/commit/5208fa38b4d702f9939a2b6c19065bc7a6ffa2cb)]:
+  - @sl-design-system/shared@0.1.8
+
 ## 0.0.12
 
 ### Patch Changes

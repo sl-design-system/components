@@ -1,5 +1,0 @@
-{
-  "layout": "components/components.njk",
-  "tags": "checkbox",
-  "componentTagName": "sl-checkbox"
-}

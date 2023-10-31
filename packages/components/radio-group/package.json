@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/radio-group",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Radio group component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@lit-labs/observers": "^2.0.0",
-    "@sl-design-system/shared": "0.1.7",
-    "lit": "^2.7.5"
+    "@lit-labs/observers": "^2.0.1",
+    "@sl-design-system/shared": "0.1.8",
+    "lit": "^3.0.0"
   }
 }

@@ -34,20 +34,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/dialog.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/dialog.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/dialog.ts",
       "declarations": [
         {
@@ -57,7 +43,7 @@
           "slots": [
             {
               "description": "Area where action buttons are placed",
-              "name": "action"
+              "name": "actions"
             },
             {
               "description": "Body content for the dialog",
@@ -72,8 +58,20 @@
               "name": "header"
             },
             {
+              "description": "Closing button (placed in header) for the dialog",
+              "name": "close-button"
+            },
+            {
+              "description": "More space for buttons for the dialog's header",
+              "name": "header-buttons"
+            },
+            {
               "description": "The title of the dialog",
               "name": "title"
+            },
+            {
+              "description": "The subtitle of the dialog",
+              "name": "subtitle"
             }
           ],
           "members": [
@@ -88,10 +86,12 @@
             },
             {
               "kind": "field",
-              "name": "dialog",
+              "name": "closingButton",
               "type": {
-                "text": "HTMLDialogElement | undefined"
-              }
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "attribute": "closing-button"
             },
             {
               "kind": "field",
@@ -134,6 +134,14 @@
               "fieldName": "disableClose"
             },
             {
+              "name": "closing-button",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "fieldName": "closingButton"
+            },
+            {
               "name": "role",
               "type": {
                 "text": "'dialog' | 'alertdialog'"
@@ -154,7 +162,141 @@
             "package": "lit"
           },
           "tagName": "sl-dialog",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onCancel",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onCloseClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#closeDialogOnAnimationend",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClose",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              },
+              "privacy": "private"
+            }
+          ]
         }
       ],
       "exports": [

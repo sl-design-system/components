@@ -1029,7 +1029,7 @@
       }
     },
     "input": {
-      "option": {
+      "textField": {
         "fontIcon": {
           "md": {
             "value": {
@@ -1050,7 +1050,7 @@
             "type": "typography"
           }
         },
-        "label": {
+        "text": {
           "md": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
@@ -1058,7 +1058,8 @@
               "lineHeight": "{text.typeset.lineHeight.md}",
               "fontSize": "{text.typeset.fontSize.md}"
             },
-            "type": "typography"
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
           },
           "lg": {
             "value": {
@@ -1068,6 +1069,215 @@
               "fontSize": "{text.typeset.fontSize.lg}"
             },
             "type": "typography"
+          }
+        }
+      },
+      "option": {
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.md}",
+            "fontSize": "{text.typeset.fontSize.md}"
+          },
+          "type": "typography",
+          "description": "Is use in Radio and Checkbox"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.lg}",
+            "fontSize": "{text.typeset.fontSize.lg}"
+          },
+          "type": "typography",
+          "description": "Is use in Radio and Checkbox"
+        }
+      },
+      "fieldLabel": {
+        "label": {
+          "sm": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.xl}"
+            },
+            "type": "typography",
+            "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+          }
+        },
+        "tag": {
+          "sm": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.xl}"
+            },
+            "type": "typography",
+            "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+          }
+        }
+      },
+      "helper": {
+        "text": {
+          "sm": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{text.typeset.fontSize.sm}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography",
+            "description": "UPDATED - Line height md from 22px to 20px"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography"
+          }
+        },
+        "fontIcon": {
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": 15
+            },
+            "type": "typography"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.icon-solid}",
+              "lineHeight": "{text.typeset.lineHeight.md}",
+              "fontSize": 18
+            },
+            "type": "typography"
+          }
+        }
+      },
+      "switch": {
+        "inputField": {
+          "regular": {
+            "sm": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.regular}",
+                "lineHeight": "{text.typeset.lineHeight.sm}",
+                "fontSize": "{text.typeset.fontSize.md}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.regular}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.lg}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.regular}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.xl}"
+              },
+              "type": "typography",
+              "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+            }
+          },
+          "bold": {
+            "sm": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "lineHeight": "{text.typeset.lineHeight.sm}",
+                "fontSize": "{text.typeset.fontSize.md}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "md": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.lg}"
+              },
+              "type": "typography",
+              "description": "UPDATED - Line height md from 22px to 20px"
+            },
+            "lg": {
+              "value": {
+                "fontFamily": "{text.typeset.fontFamily.body}",
+                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "lineHeight": "{text.typeset.lineHeight.lg}",
+                "fontSize": "{text.typeset.fontSize.xl}"
+              },
+              "type": "typography",
+              "description": "Font size xl is 18px need to be change to 20px to match 4-Grid layout."
+            }
           }
         }
       }
@@ -1115,6 +1325,39 @@
       },
       "value": "[object Object]",
       "type": "other"
+    },
+    "icon": {
+      "font": {
+        "icon": {
+          "sm": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xxs}",
+              "fontSize": 13
+            },
+            "type": "typography"
+          },
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.xs}",
+              "fontSize": "{text.typeset.fontSize.md}"
+            },
+            "type": "typography"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.icon}",
+              "fontWeight": "{text.typeset.fontWeight.regular}",
+              "lineHeight": "{text.typeset.lineHeight.sm}",
+              "fontSize": "{text.typeset.fontSize.lg}"
+            },
+            "type": "typography"
+          }
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1210,7 +1453,7 @@
       },
       "focusring": {
         "default": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth"
         }
       },
@@ -1854,6 +2097,104 @@
         }
       }
     },
+    "dialog": {
+      "desktop": {
+        "container": {
+          "paddingTop": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "paddingBottom": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          }
+        },
+        "body": {
+          "block": {
+            "value": "{space.2xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "inline": {
+            "value": "{space.2xl}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.2xl}",
+            "type": "spacing"
+          }
+        }
+      },
+      "mobile": {
+        "container": {
+          "paddingTop": {
+            "value": "{space.xl} * 2",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "inline": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "paddingBottom": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          }
+        },
+        "body": {
+          "block": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          }
+        }
+      },
+      "subtitle": {
+        "paddingBottom": {
+          "value": "{space.xs}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        }
+      },
+      "gap": {
+        "header": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "space.button.solid.block.md"
+        }
+      }
+    },
+    "buttonBar": {
+      "gap": {
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "inline": {
+          "value": "{space.buttonBar.gap.block}",
+          "type": "spacing"
+        }
+      }
+    },
     "select": {
       "listbox": {
         "block": {
@@ -2004,6 +2345,26 @@
             "description": "{space.button.gap.lg}"
           }
         }
+      }
+    },
+    "tooltip": {
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      },
+      "offset": {
+        "value": "{space.sm}",
+        "type": "spacing"
       }
     }
   },
@@ -2181,11 +2542,32 @@
       }
     }
   },
+  "conceptual": {
+    "border": {
+      "width": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "Conceptual Theme Border Token"
+        }
+      }
+    }
+  },
   "opacity": {
+    "50": {
+      "value": 0.02,
+      "type": "opacity",
+      "description": "opacity.50"
+    },
     "100": {
       "value": 0.04,
       "type": "opacity",
       "description": "opacity.100"
+    },
+    "150": {
+      "value": 0.06,
+      "type": "opacity",
+      "description": "opacity.150"
     },
     "200": {
       "value": 0.08,
@@ -2445,6 +2827,23 @@
           }
         }
       }
+    },
+    "dialog": {
+      "min": {
+        "value": 400,
+        "type": "sizing",
+        "description": "size.input.md"
+      },
+      "max": {
+        "value": 960,
+        "type": "sizing",
+        "description": "size.input.lg"
+      },
+      "full": {
+        "value": "100%",
+        "type": "sizing",
+        "description": "size.input.lg"
+      }
     }
   },
   "button": {
@@ -2465,6 +2864,27 @@
   },
   "elevation": {
     "shadow": {
+      "sm": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 6,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.50})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 2,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.200})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
+      },
       "md": {
         "value": [
           {
@@ -2477,15 +2897,81 @@
           },
           {
             "x": 0,
-            "y": 8,
+            "y": 4,
             "blur": 8,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.150})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
+      },
+      "lg": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "blur": 16,
             "spread": 0,
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
             "type": "dropShadow"
           }
         ],
         "type": "boxShadow"
+      },
+      "none": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.transparent})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
       }
+    }
+  },
+  "flexDirection": {
+    "column": {
+      "value": "column",
+      "type": "Flex"
+    },
+    "columnReverse": {
+      "value": "column-reverse",
+      "type": "Flex"
+    },
+    "rowReverse": {
+      "value": "row-reverse",
+      "type": "Flex"
+    },
+    "row": {
+      "value": "row",
+      "type": "Flex"
+    }
+  },
+  "justifyContent": {
+    "start": {
+      "value": "start",
+      "type": "Flex"
+    },
+    "spaceBetween": {
+      "value": "space-between",
+      "type": "Flex"
+    },
+    "end": {
+      "value": "end",
+      "type": "Flex"
     }
   }
 }

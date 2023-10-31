@@ -24,6 +24,12 @@
         "type": "color",
         "description": "body.surface.100",
         "failedToResolve": true
+      },
+      "overlay": {
+        "value": "rgba({color.palette.primary.base} , {opacity.700})",
+        "type": "color",
+        "description": "body.surface.200",
+        "failedToResolve": true
       }
     }
   },
@@ -2958,7 +2964,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.accent.300}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2984,7 +2990,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.neutral.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -3319,7 +3325,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.input.textField.default.active.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -3653,7 +3659,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.input.textField.default.active.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -3685,7 +3691,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.input.textField.default.active.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -4028,7 +4034,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.input.textField.default.active.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -4060,7 +4066,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.input.textField.default.focus.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -4456,9 +4462,46 @@
         }
       }
     },
+    "tooltip": {
+      "background": {
+        "value": "{color.palette.accent.600}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{color.palette.white.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color",
+        "failedToResolve": true
+      }
+    },
+    "dialog": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{body.background}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background",
+        "failedToResolve": true
+      }
+    },
     "focusring": {
       "default": {
-        "value": "{color.palette.accent.300}",
+        "value": "{color.palette.accent.base}",
         "type": "color",
         "failedToResolve": true
       }
@@ -4499,6 +4542,13 @@
         "type": "composition",
         "failedToResolve": true
       }
+    },
+    "tooltip": {
+      "value": {
+        "boxShadow": "{elevation.shadow.none}"
+      },
+      "type": "composition",
+      "failedToResolve": true
     }
   },
   "border": {

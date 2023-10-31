@@ -22,7 +22,7 @@
         "description": "color.body.default.foreground"
       },
       "overlay": {
-        "value": "rgba({body.background},{opacity.400})",
+        "value": "rgba( {color.palette.white.base},{opacity.500})",
         "type": "color",
         "description": "body.surface.200"
       }
@@ -2529,7 +2529,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.accent.300}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2551,7 +2551,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.accent.400}",
+                "value": "{color.palette.neutral.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2605,7 +2605,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{color.palette.neutral.700}",
+                "value": "{color.palette.neutral.300}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2707,7 +2707,7 @@
             },
             "disabled": {
               "background": {
-                "value": "{color.palette.success.600}",
+                "value": "{color.palette.success.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -3266,6 +3266,20 @@
         }
       }
     },
+    "tooltip": {
+      "background": {
+        "value": "{color.palette.accent.200}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{color.palette.black.base}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color"
+      }
+    },
     "dialog": {
       "background": {
         "value": "{body.background}",
@@ -3274,6 +3288,11 @@
       },
       "foreground": {
         "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      },
+      "border": {
+        "value": "{body.background}",
         "type": "color",
         "description": "color.surface.solid.primary.background"
       }
@@ -3308,6 +3327,12 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.none"
+    },
+    "tooltip": {
+      "value": {
+        "boxShadow": "{elevation.shadow.none}"
+      },
+      "type": "composition"
     }
   }
 }

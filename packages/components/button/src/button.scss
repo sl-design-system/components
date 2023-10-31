@@ -88,6 +88,7 @@ $variants: default, primary, success, warning, danger;
   display: inline-flex;
   font: var(--_font);
   gap: var(--_label-gap);
+  justify-content: center;
   outline-color: transparent;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);

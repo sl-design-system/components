@@ -34,34 +34,27 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/switch.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/switch.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/switch.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Atoggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
           "name": "Switch",
+          "slots": [
+            {
+              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
+              "name": "default"
+            }
+          ],
           "members": [
             {
-              "kind": "field",
+              "kind": "event",
               "name": "change",
               "type": {
                 "text": "EventEmitter<boolean>"
               },
-              "description": "Emits when the checked state changes."
+              "description": "Emits when the checked state changes.",
+              "attribute": "change"
             },
             {
               "kind": "field",
@@ -72,32 +65,6 @@
               "description": "Whether the switch is on or off.",
               "attribute": "checked",
               "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
             },
             {
               "kind": "field",
@@ -121,21 +88,6 @@
             },
             {
               "kind": "field",
-              "name": "iconSize",
-              "type": {
-                "text": "IconSize"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "default": "this.attachInternals()",
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
               "name": "invalid",
               "type": {
                 "text": "boolean | undefined"
@@ -146,19 +98,12 @@
             },
             {
               "kind": "field",
-              "name": "label",
-              "type": {
-                "text": "string | undefined"
-              }
-            },
-            {
-              "kind": "field",
               "name": "orientation",
               "type": {
-                "text": "SwitchOrientation"
+                "text": "'horizontal' | 'vertical'"
               },
               "default": "'horizontal'",
-              "description": "Switch orientation.",
+              "description": "The orientation of the switch.",
               "attribute": "orientation",
               "reflects": true
             },
@@ -166,10 +111,10 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "SwitchSize"
+                "text": "'sm' | 'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Switch size.",
+              "description": "The size of the switch.",
               "attribute": "size",
               "reflects": true
             },
@@ -179,8 +124,18 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the switch.",
+              "description": "The value for the switch, to be used in forms.",
               "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes.",
+              "fieldName": "change"
             }
           ],
           "attributes": [
@@ -219,19 +174,19 @@
             {
               "name": "size",
               "type": {
-                "text": "SwitchSize"
+                "text": "'sm' | 'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Switch size.",
+              "description": "The size of the switch.",
               "fieldName": "size"
             },
             {
               "name": "orientation",
               "type": {
-                "text": "SwitchOrientation"
+                "text": "'horizontal' | 'vertical'"
               },
               "default": "'horizontal'",
-              "description": "Switch orientation.",
+              "description": "The orientation of the switch.",
               "fieldName": "orientation"
             },
             {
@@ -239,7 +194,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for the switch.",
+              "description": "The value for the switch, to be used in forms.",
               "fieldName": "value"
             }
           ],
@@ -258,7 +213,135 @@
             "package": "lit"
           },
           "tagName": "sl-switch",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)"
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#initialState",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "default": "this.attachInternals()",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "iconSize",
+              "type": {
+                "text": "IconSize"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [

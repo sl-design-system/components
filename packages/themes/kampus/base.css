@@ -3,6 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
+  --sl-justify-content-end: end;
+  --sl-justify-content-space-between: space-between;
+  --sl-justify-content-start: start;
+  --sl-flex-direction-row: row;
+  --sl-flex-direction-row-reverse: row-reverse;
+  --sl-flex-direction-column-reverse: column-reverse;
+  --sl-flex-direction-column: column;
+  --sl-size-dialog-full: 100%;
+  --sl-size-dialog-max: 960px;
+  --sl-size-dialog-min: 400px;
   --sl-size-4xl: 64px;
   --sl-size-3xl: 48px;
   --sl-size-2xl: 32px;
@@ -25,7 +35,9 @@
   --sl-opacity-400: 0.16;
   --sl-opacity-300: 0.12;
   --sl-opacity-200: 0.08;
+  --sl-opacity-150: 0.06;
   --sl-opacity-100: 0.04;
+  --sl-opacity-50: 0.02;
   --sl-icon-core-circle-check-solid: circle-check;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
   --sl-icon-core-xmark: xmark;
@@ -208,9 +220,18 @@
   --sl-color-palette-primary-150: 224 210 239;
   --sl-color-palette-primary-100: 240 236 245;
   --sl-color-palette-primary-50: 254 254 255;
+  --sl-elevation-shadow-none: calc(0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0));
+  --sl-elevation-shadow-lg: calc(
+    0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 8 16 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+  );
   --sl-elevation-shadow-md: calc(
     0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0 8 8 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+    0 4 8 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150))
+  );
+  --sl-elevation-shadow-sm: calc(
+    0 0 6 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
+    0 2 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
   );
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
@@ -240,6 +261,7 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
+  --sl-conceptual-border-width-default: var(--sl-border-width-xs);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
   --sl-icon-typeset-font-size-3xl: var(--sl-size-3xl);
   --sl-icon-typeset-font-size-2xl: var(--sl-size-2xl);
@@ -254,6 +276,10 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-tooltip-offset: var(--sl-space-sm);
+  --sl-space-tooltip-gap: var(--sl-space-xs);
+  --sl-space-tooltip-inline: var(--sl-space-md);
+  --sl-space-tooltip-block: var(--sl-space-sm);
   --sl-space-select-divider-line-md: var(--sl-space-sm);
   --sl-space-select-divider-line-lg: var(--sl-space-sm);
   --sl-space-select-divider-gap-md: var(--sl-space-sm);
@@ -268,6 +294,21 @@
   --sl-space-select-listbox-inline-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-select-listbox-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-select-listbox-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
+  --sl-space-button-bar-gap-block: var(--sl-space-sm);
+  --sl-space-dialog-gap-header: var(--sl-space-none);
+  --sl-space-dialog-subtitle-padding-bottom: var(--sl-space-xs);
+  --sl-space-dialog-mobile-body-gap: var(--sl-space-xl);
+  --sl-space-dialog-mobile-body-inline: var(--sl-space-xl);
+  --sl-space-dialog-mobile-body-block: var(--sl-space-xl);
+  --sl-space-dialog-mobile-container-padding-bottom: var(--sl-space-none);
+  --sl-space-dialog-mobile-container-inline: var(--sl-space-none);
+  --sl-space-dialog-mobile-container-padding-top: var(--sl-space-xl) * 2;
+  --sl-space-dialog-desktop-body-gap: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-body-inline: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-body-block: var(--sl-space-2xl);
+  --sl-space-dialog-desktop-container-padding-bottom: var(--sl-space-xl);
+  --sl-space-dialog-desktop-container-inline: var(--sl-space-xl);
+  --sl-space-dialog-desktop-container-padding-top: var(--sl-space-xl);
   --sl-space-button-link-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-link));
@@ -340,11 +381,17 @@
   --sl-space-input-helper-gap-lg: var(--sl-space-sm);
   --sl-space-input-helper-gap-md: var(--sl-space-xs);
   --sl-space-input-helper-gap-sm: var(--sl-space-xs);
+  --sl-space-input-option-gap-lg: var(--sl-space-sm);
+  --sl-space-input-option-gap-md: var(--sl-space-sm);
+  --sl-space-input-option-inline-lg: var(--sl-space-none);
+  --sl-space-input-option-inline-md: var(--sl-space-none);
+  --sl-space-input-option-block-lg: var(--sl-space-xs);
+  --sl-space-input-option-block-md: var(--sl-space-xs);
   --sl-space-input-text-field-inline-lg: var(--sl-space-lg);
   --sl-space-input-text-field-inline-md: var(--sl-space-md);
   --sl-space-input-text-field-block-lg: var(--sl-space-sm);
   --sl-space-input-text-field-block-md: var(--sl-space-sm);
-  --sl-border-width-focusring-default: var(--sl-border-width-xs);
+  --sl-border-width-focusring-default: var(--sl-border-width-sm);
   --sl-border-width-input-border: var(--sl-border-width-xs);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-button-link: var(--sl-border-width-xs);
@@ -390,7 +437,7 @@
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-button-link-md: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-button-link-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
+  --sl-text-button-link-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
     undefined;
@@ -442,6 +489,7 @@
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
+  --sl-space-button-bar-gap-inline: var(--sl-space-button-bar-gap-block);
   --sl-space-input-switch-padding-row-lg: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
     (var(--sl-space-input-switch-padding-container) * 2)
@@ -456,12 +504,6 @@
   );
   --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
-  --sl-space-input-option-gap-lg: var(--sl-space-button-outline-block-md);
-  --sl-space-input-option-gap-md: var(--sl-space-button-outline-block-md);
-  --sl-space-input-option-inline-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-option-inline-md: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-option-block-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-option-block-md: var(--sl-space-button-outline-block-sm);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-text-icon-font-icon-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);

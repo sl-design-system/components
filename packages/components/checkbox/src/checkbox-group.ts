@@ -15,6 +15,19 @@ import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
 
+/**
+ * Checkbox group; treat a group of checkboxes as one form input with valitation, hints and errors
+ *
+ * ```html
+ *   <sl-checkbox-group>
+ *     <sl-checkbox>Option 1</sl-checkbox>
+ *     <sl-checkbox>Option 2</sl-checkbox>
+ *     <sl-checkbox>Option 3</sl-checkbox>
+ *   </sl-checkbox-group>
+ * ```
+ *
+ * @slot default - A list of `sl-checkbox` elements.
+ */
 export class CheckboxGroup extends HintMixin(LitElement) {
   /** @private */
   static formAssociated = true;
@@ -54,18 +67,19 @@ export class CheckboxGroup extends HintMixin(LitElement) {
     validators: [requiredValidator]
   });
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
-  /** The slotted checkboxes. */
+  /** @private The slotted checkboxes. */
   @queryAssignedElements() boxes?: Checkbox[];
 
   /** Custom validators. */
   @property({ attribute: false }) validators?: Validator[];
 
-  /** Name of the form element */
+  /** Name of the form control */
   @property() name?: string;
 
+  /**  Native form property */
   get form(): HTMLFormElement | null {
     return this.internals.form;
   }

@@ -1,0 +1,14 @@
+{
+  "layout": "components/components.njk",
+  "tags": "checkbox",
+  "componentTagName": [
+    {
+      "name": "Checkbox",
+      "selector": "sl-checkbox"
+    },
+    {
+      "name": "Checkbox group",
+      "selector": "sl-checkbox-group"
+    }
+  ]
+}

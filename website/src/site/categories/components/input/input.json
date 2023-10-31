@@ -1,5 +1,0 @@
-{
-  "layout": "components/components.njk",
-  "tags": "input",
-  "componentTagName": "sl-text-input"
-}

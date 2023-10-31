@@ -5,6 +5,11 @@ $state-selectors: '', ':where(:--checked, :--indeterminate, [state--checked], [s
 $sizes: md, lg;
 
 :host {
+  // these are temporary, until we have actual tokens for the size of the icon in the checkbox.
+  // https://github.com/sl-design-system/components/issues/554
+  --_icon-size-md: 16px;
+  --_icon-size-lg: 18px;
+
   --_border-radius: var(--sl-border-radius-checkbox);
   --_border-size: var(--sl-border-width-input-border);
   --_box-shadow: none;
@@ -19,6 +24,7 @@ $sizes: md, lg;
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
+    --_icon-size: var(--_icon-size-#{$size});
     --_line-height: var(--sl-text-typeset-line-height-#{$size});
     --_padding-block: var(--sl-space-input-option-block-#{$size});
     --_padding-inline: var(--sl-space-input-option-inline-#{$size});

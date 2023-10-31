@@ -3184,7 +3184,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.input.textField.default.active.border}",
+              "value": "{color.palette.primary.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true

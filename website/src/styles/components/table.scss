@@ -1,0 +1,67 @@
+.ds-table {
+  border-collapse: collapse;
+  color: var(--table-text-color);
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  width: 100%;
+
+  thead {
+    line-height: 1.4rem;
+    padding: 0.8rem 1.6rem;
+    text-align: left;
+  }
+
+  th,
+  td {
+    padding: 0.8rem 0 0.8rem 2.4rem;
+  }
+
+  tbody {
+    /* stylelint-disable-next-line max-nesting-depth */
+    tr {
+      border-top: 1px solid var(--table-separator);
+      position: relative;
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    td {
+      line-height: 2.4rem;
+      padding: 1.6rem 0 1.6rem 2.4rem;
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    code {
+      background-color: var(--table-code-background);
+      border-radius: 0.6rem;
+      /* stylelint-disable-next-line property-no-vendor-prefix */
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      font-family: 'source-code-pro', monospace;
+      font-size: 1.4rem;
+      line-height: 1.6rem;
+      padding: 0.4rem 1.2rem;
+    }
+
+    /* stylelint-disable-next-line max-nesting-depth, selector-max-compound-selectors */
+    code > code {
+      padding: 0;
+    }
+  }
+}
+
+.ds-table-component-description {
+  margin-top: 2.4rem;
+}
+
+.ds-table-wrapper {
+  margin: 2.4rem 0;
+  overflow-x: auto;
+}
+
+.ds-table__description {
+  min-width: 18rem;
+}
+
+.ds-table-align-top td {
+  vertical-align: top;
+}

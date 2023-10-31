@@ -222,7 +222,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
       input.removeAttribute('minlength');
     }
 
-    if (this.pattern) {
+    if (typeof this.pattern === 'string') {
       input.setAttribute('pattern', this.pattern);
     } else {
       input.removeAttribute('pattern');

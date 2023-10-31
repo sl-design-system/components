@@ -199,6 +199,10 @@
       ],
       "dependencies": [
         {
+          "script": "build:cem",
+          "cascade": false
+        },
+        {
           "script": "build:components",
           "cascade": false
         },

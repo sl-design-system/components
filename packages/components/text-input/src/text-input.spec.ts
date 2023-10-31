@@ -1,6 +1,8 @@
 import type { TextInput } from './text-input';
 import { expect, fixture } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import '../register.js';
 
 describe('sl-text-input', () => {
@@ -196,6 +198,49 @@ describe('sl-text-input', () => {
       el.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
 
       expect(document.activeElement).to.equal(input);
+    });
+
+    it('should emit an sl-focus event when focusing the input', () => {
+      const onFocus = spy();
+
+      el.addEventListener('sl-focus', onFocus);
+      input.focus();
+
+      expect(onFocus).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-blur event when blurring the input', async () => {
+      const onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+      input.focus();
+      await sendKeys({ press: 'Tab' });
+
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when leaving the input after typing', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      input.focus();
+      await sendKeys({ type: 'Lorem' });
+
+      expect(onChange).not.to.have.been.called;
+
+      await sendKeys({ press: 'Tab' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-input event when typing in the input', async () => {
+      const onInput = spy();
+
+      el.addEventListener('sl-input', onInput);
+      input.focus();
+      await sendKeys({ type: 'Lorem' });
+
+      expect(onInput.callCount).to.equal(5);
     });
   });
 

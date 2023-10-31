@@ -138,7 +138,7 @@ WAI-ARIA Roles, States, and Properties for a checkbox provide essential informat
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
 |-|-|-|-|
 |`aria-checked`|`'true','false','mixed'`|The state of the checkbox.|no|
 |`role`|`'checkbox'`|Declare our custom component as a checkbox.|no|
@@ -155,7 +155,7 @@ WAI-ARIA Roles, States, and Properties for a checkbox provide essential informat
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
 |-|-|-|-|
 |`role`|`'group'`|Declare our group of custom checkbox components as a checkbox group.|no|
 |`aria-label`|string|Can be added when there is no label or header that could be described by.|yes|

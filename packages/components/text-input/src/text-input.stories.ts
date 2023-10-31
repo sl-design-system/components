@@ -1,10 +1,10 @@
 import type { InputSize, TextInput } from './text-input';
-import type { HintSize, ValidationValue, Validator } from '@sl-design-system/shared';
+import type { LabelSize } from '@sl-design-system/label';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/icon/register.js';
 import '@sl-design-system/label/register.js';
-import type { LabelSize } from '@sl-design-system/label';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import '../register.js';
 
 export default {
@@ -12,13 +12,12 @@ export default {
 };
 
 const sizes: InputSize[] = ['md', 'lg'],
-  labelSizes: LabelSize[] = ['sm', 'md', 'lg'],
-  hintSizes: HintSize[] = ['sm', 'md', 'lg'];
+  labelSizes: LabelSize[] = ['sm', 'md', 'lg'];
 
 export const API: StoryObj = {
   args: {
     disabled: false,
-    hint: '',
+    hintText: '',
     placeholder: 'Type something here',
     prefix: '',
     required: false,
@@ -45,7 +44,7 @@ export const API: StoryObj = {
   },
   render: ({
     disabled,
-    hint,
+    hintText,
     maxLength,
     minLength,
     placeholder,
@@ -69,31 +68,25 @@ export const API: StoryObj = {
       ?disabled=${disabled}
       ?required=${required}
       ?readonly=${readonly}
-      .hint=${hint}
-      .size=${size}
-      .min=${min}
+      .hintText=${hintText}
       .max=${max}
-      .step=${step}
       .maxLength=${maxLength}
+      .min=${min}
       .minLength=${minLength}
       .placeholder=${placeholder}
-      .value=${value}
+      .size=${size}
+      .step=${step}
       .type=${type}
+      .value=${value}
     >
-      ${prefix ? html`<span slot="prefix">${prefix}</span>` : ''}
-      ${suffix ? html`<span slot="suffix">${suffix}</span>` : ''}
+      ${prefix ? html`<span slot="prefix">${prefix}</span>` : nothing}
+      ${suffix ? html`<span slot="suffix">${suffix}</span>` : nothing}
     </sl-text-input>
   `
 };
 
 export const Disabled: StoryObj = {
-  render: () => html`
-    <style>
-      sl-text-input {
-        width: 400px;
-      }
-      </style>
-    </style><sl-text-input disabled value="Input disabled"></sl-text-input>`
+  render: () => html`<sl-text-input disabled value="Input disabled"></sl-text-input>`
 };
 
 export const All: StoryObj = {
@@ -132,19 +125,42 @@ export const All: StoryObj = {
             <sl-text-input disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-text-input>
           </div>
           <div class="wrapper">
-            <sl-text-input invalid size=${size} value="I am ${size} invalid"></sl-text-input>
-            <sl-text-input invalid size=${size} placeholder="Placeholder ${size} invalid"></sl-text-input>
-            <sl-text-input disabled invalid size=${size} value="${size} invalid disabled"></sl-text-input>
+            <sl-text-input
+              minlength="30"
+              show-validity="invalid"
+              size=${size}
+              value="I am ${size} invalid"
+            ></sl-text-input>
+            <sl-text-input
+              minlength="3"
+              placeholder="Placeholder ${size} invalid"
+              show-validity="invalid"
+              size=${size}
+            ></sl-text-input>
             <sl-text-input
               disabled
-              invalid
+              minlength="30"
+              show-validity="invalid"
               size=${size}
+              value="${size} invalid disabled"
+            ></sl-text-input>
+            <sl-text-input
+              disabled
+              minlength="3"
               placeholder="Placeholder ${size} disabled invalid"
+              show-validity="invalid"
+              size=${size}
             ></sl-text-input>
           </div>
           <div class="wrapper">
-            <sl-text-input showValid valid size=${size} value="I am ${size} valid"></sl-text-input>
-            <sl-text-input disabled showValid valid size=${size} value="${size} valid disabled"></sl-text-input>
+            <sl-text-input show-valid show-validity="valid" size=${size} value="I am ${size} valid"></sl-text-input>
+            <sl-text-input
+              disabled
+              show-valid
+              show-validity="valid"
+              size=${size}
+              value="${size} valid disabled"
+            ></sl-text-input>
           </div>
         </div>
       `
@@ -162,12 +178,13 @@ export const Label: StoryObj = {
         }
 
         sl-text-input {
-          margin-bottom: 16px;
+          margin-block-end: 16px;
         }
       </style>
       <form>
         ${labelSizes.map((size, id) => {
           const inputSize = size === 'lg' ? size : 'md';
+
           return html`
             <sl-label for="form-text-input-${id}" size=${size}>What is your name?</sl-label>
             <sl-text-input id="form-text-input-${id}" size=${inputSize}></sl-text-input>
@@ -186,19 +203,18 @@ export const Hint: StoryObj = {
           display: flex;
           flex-direction: column;
         }
-
         sl-text-input {
-          margin-bottom: 16px;
+          margin-block-end: 1rem;
         }
       </style>
       <form>
-        ${hintSizes.map((hintSize, id) => {
+        ${sizes.map((size, id) => {
           return html`
             <sl-label for="form-text-input-${id}">Nickname</sl-label>
             <sl-text-input
-              id="form-text-input-${id}"
-              hint="What would you like people to call you?"
-              hintSize=${hintSize}
+              .id=${`form-text-input-${id}`}
+              .size=${size}
+              hint-text="What would you like people to call you?"
             ></sl-text-input>
           `;
         })}
@@ -206,8 +222,7 @@ export const Hint: StoryObj = {
         <sl-text-input
           id="input4"
           disabled
-          hint="What would you like people to call you?"
-          hintSize="lg"
+          hint-text="What would you like people to call you?"
           value="Disabled input"
         ></sl-text-input>
       </form>
@@ -222,17 +237,13 @@ export const RichLabelHint: StoryObj = {
         display: flex;
         flex-direction: column;
       }
-
-      div {
-        gap: 0.25rem;
-      }
     </style>
     <form>
       <sl-label for="input">
         <label slot="label">Custom <i>label</i></label>
       </sl-label>
       <sl-text-input id="input">
-        <div slot="hint">
+        <div slot="hint-text">
           Hint is an accessible way to provide <strong>additional information</strong> that might help the user
         </div>
       </sl-text-input>
@@ -247,29 +258,19 @@ export const ErrorMessageSizes: StoryObj = {
     return html`
       <style>
         form {
-          align-items: start;
           display: flex;
           flex-direction: column;
         }
-        sl-label {
-          margin-block-start: 0.5rem;
-        }
-        sl-label:first-of-type {
-          margin-block-start: 0;
-        }
-        sl-text-input {
-          align-self: stretch;
+        sl-text-input:first-of-type {
+          margin-block-end: 0.5rem;
         }
       </style>
       <form>
-        <sl-label for="input" size="sm">Small</sl-label>
-        <sl-text-input id="input" name="input" required error-size="sm"></sl-text-input>
-
         <sl-label for="input2" size="md">Medium</sl-label>
-        <sl-text-input id="input2" name="input" required error-size="md"></sl-text-input>
+        <sl-text-input id="input2" name="input" required size="md"></sl-text-input>
 
         <sl-label for="input3" size="lg">Large</sl-label>
-        <sl-text-input id="input3" name="input" required error-size="lg"></sl-text-input>
+        <sl-text-input id="input3" name="input" required size="lg"></sl-text-input>
       </form>
     `;
   }
@@ -282,16 +283,22 @@ export const InputTypes: StoryObj = {
         display: flex;
         flex-direction: column;
       }
+      sl-text-input {
+        margin-block-end: 0.5rem;
+      }
     </style>
     <form>
       <sl-label for="inputNumber">Number</sl-label>
       <sl-text-input id="inputNumber" type="number" min="0" max="6" step="2"></sl-text-input>
+
       <sl-label for="inputEmail">Email</sl-label>
-      <sl-text-input id="inputEmail" type="email"> </sl-text-input>
+      <sl-text-input id="inputEmail" type="email"></sl-text-input>
+
       <sl-label for="inputTel">Tel</sl-label>
-      <sl-text-input id="inputTel" type="tel"> </sl-text-input>
+      <sl-text-input id="inputTel" type="tel"></sl-text-input>
+
       <sl-label for="inputUrl">Url</sl-label>
-      <sl-text-input id="inputUrl" type="url"> </sl-text-input>
+      <sl-text-input id="inputUrl" type="url"></sl-text-input>
     </form>
   `
 };
@@ -301,14 +308,10 @@ export const PrefixSuffix: StoryObj = {
     <style>
       .wrapper {
         display: flex;
-        gap: 16px;
+        gap: 1rem;
       }
       sl-text-input {
         width: 400px;
-      }
-      sl-icon {
-        display: flex;
-        align-self: center;
       }
     </style>
     <div class="wrapper">
@@ -334,11 +337,11 @@ export const MinMaxLength: StoryObj = {
       <style>
         sl-text-input {
           width: 300px;
-          margin-bottom: 8px;
+          margin-block-end: 0.5rem;
         }
       </style>
       <sl-text-input minlength="3" maxlength="5" placeholder="Min 3 and max 5 chars" required></sl-text-input>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
 };
@@ -357,16 +360,21 @@ export const Pattern: StoryObj = {
         }
       </style>
       <sl-text-input pattern=".{3,5}" placeholder="Min 3 and max 5 chars using pattern" required></sl-text-input>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
 };
 
 export const CustomInput: StoryObj = {
   render: () => html`
-    <sl-label for="custom">Custom input</sl-label>
+    <sl-label for="custom">Custom input with datalist</sl-label>
     <sl-text-input id="custom">
-      <input id="foo" slot="input" placeholder="I am a custom input" />
+      <input slot="input" list="list" />
+      <datalist id="list">
+        <option value="123"></option>
+        <option value="456"></option>
+        <option value="789"></option>
+      </datalist>
     </sl-text-input>
   `
 };
@@ -374,50 +382,45 @@ export const CustomInput: StoryObj = {
 export const ValidInput: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      const secondInput = event.target.previousElementSibling as TextInput;
-      secondInput.reportValidity();
+      (event.target.parentElement as HTMLFormElement).reportValidity();
     };
 
-    const validator: Validator = {
-      message: 'Enter the same email address',
-      isValid: (_: HTMLElement, value: ValidationValue): boolean => {
-        return value?.toString() === document.querySelectorAll('sl-text-input')[0].value;
-      }
+    const onInput = (event: Event & { target: HTMLInputElement }): void => {
+      const email = document.querySelector<TextInput>('#input1')?.value;
+
+      (event.target.parentElement as TextInput).setCustomValidity(
+        event.target.value !== email ? 'Enter the same email address' : ''
+      );
     };
 
     return html`
       <style>
-        .wrapper {
+        form {
           display: flex;
           flex-direction: column;
+          align-items: start;
         }
         sl-text-input {
           width: 400px;
-          margin-bottom: 16px;
-        }
-        sl-button {
-          width: fit-content;
+          margin-block-end: 1rem;
         }
       </style>
-      <div class="wrapper">
+      <form>
         <sl-label for="input1">Email</sl-label>
-        <sl-text-input
-          showValid
-          .validators=${[validator]}
-          id="input1"
-          placeholder="email"
-          type="email"
-        ></sl-text-input>
+        <sl-text-input id="input1" placeholder="email" required type="email"></sl-text-input>
+
         <sl-label for="input2">Confirm email</sl-label>
         <sl-text-input
+          @input=${onInput}
           id="input2"
-          showValid
-          .validators=${[validator]}
           placeholder="confirm email"
+          required
+          show-valid
           type="email"
         ></sl-text-input>
-        <sl-button @click=${onClick}>Validate</sl-button>
-      </div>
+
+        <sl-button @click=${onClick} fill="outline">Validate</sl-button>
+      </form>
     `;
   }
 };
@@ -428,20 +431,21 @@ export const CustomValidation: StoryObj = {
       (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
-    const validator: Validator = {
-      message: 'Enter "SLDS"',
-      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'
+    const onInput = (event: Event & { target: HTMLInputElement }): void => {
+      const { parentElement: textInput, value } = event.target;
+
+      (textInput as TextInput).setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
     };
 
     return html`
       <style>
         sl-text-input {
           width: 300px;
-          margin-bottom: 8px;
+          margin-block-end: 0.5rem;
         }
       </style>
-      <sl-text-input required="true" .validators=${[validator]} error-size="sm"></sl-text-input>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <sl-text-input @input=${onInput} required></sl-text-input>
+      <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
 };
@@ -452,20 +456,21 @@ export const CustomValidationWithHint: StoryObj = {
       (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
-    const validator: Validator = {
-      message: 'Enter "SLDS"',
-      isValid: (_: HTMLElement, value: ValidationValue): boolean => value === 'SLDS'
+    const onInput = (event: Event & { target: HTMLInputElement }): void => {
+      const { parentElement: textInput, value } = event.target;
+
+      (textInput as TextInput).setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
     };
 
     return html`
       <style>
         sl-text-input {
           width: 300px;
-          margin-bottom: 8px;
+          margin-block-end: 0.5rem;
         }
       </style>
-      <sl-text-input required="true" .validators=${[validator]} hint="You need to enter 'SLDS'"></sl-text-input>
-      <sl-button @click=${onClick}>Validate</sl-button>
+      <sl-text-input @input=${onInput} hint-text="You need to enter 'SLDS'" required></sl-text-input>
+      <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
 };

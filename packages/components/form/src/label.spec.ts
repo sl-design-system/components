@@ -1,8 +1,10 @@
 import type { TextInput } from '@sl-design-system/text-input';
 import type { Label } from './label.js';
 import { expect, fixture } from '@open-wc/testing';
+import '@sl-design-system/checkbox/register.js';
+import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-input/register.js';
-import {html} from 'lit';
+import { html } from 'lit';
 import '../register.js';
 
 describe('sl-label', () => {
@@ -28,24 +30,21 @@ describe('sl-label', () => {
     });
 
     it('should link the label to the form control', () => {
-      const input = el.querySelector('input'),
-        label = el.querySelector('label');
+      const input = el.querySelector('input');
 
-      expect(input?.id).to.match(/sl-text-input-\d+/);
-      expect(label).to.have.attribute('for', input?.id);
+      expect(el.querySelector('label')?.htmlFor).to.equal(input!.id);
     });
 
     it('should unlink the label when the for property is reset', async () => {
       slLabel.for = undefined;
       await slLabel.updateComplete;
 
-      const label = el.querySelector('label');
-      expect(label).not.to.have.attribute('for');
+      expect(el.querySelector('label')?.htmlFor).to.equal('')
     });
 
-    it('should not mark the label as optional', async () => {
+    it('should not mark the label as optional', () => {
       expect(slLabel.optional).to.be.false;
-      expect(slLabel.renderRoot.querySelector('.optional')).to.be.null;
+      expect(slLabel.renderRoot.querySelector('.optional')).not.to.exist;
     });
 
     it('should not mark the label as required', async () => {
@@ -53,31 +52,30 @@ describe('sl-label', () => {
       await slInput.updateComplete;
 
       expect(slLabel.required).to.be.false;
-      expect(slLabel.renderRoot.querySelector('.required')).to.be.null;
+      expect(slLabel.renderRoot.querySelector('.required')).not.to.exist;
     });
 
-    it('should have a label of medium size by default', () => {
+    it('should have a medium size', () => {
       expect(slLabel).to.have.attribute('size', 'md');
     });
 
-    it('should have a label of small size when set', () => {
-      slLabel.setAttribute('size', 'sm');
-
-      expect(slLabel).to.have.attribute('size', 'sm');
-    });
-
-    it('should not be disabled by default', () => {
+    it('should not be disabled', () => {
+      expect(slLabel.disabled).to.be.false;
       expect(slLabel).not.to.have.attribute('disabled');
-      expect(slLabel).not.to.match(':disabled');
     });
 
-    it('should not have no-padding by default', () => {
-      expect(slLabel).not.to.have.attribute('no-padding');
-    });
+    it('should be disabled when the form control is disabled', async () => {
+      slInput.disabled = true;
+      await slInput.updateComplete;
 
-    it('should have no-padding when set', () => {
-      slLabel.setAttribute('no-padding', '');
-      expect(slLabel).to.have.attribute('no-padding');
+      // This is for the mutation observer callback updating the disabled property
+      await slLabel.updateComplete;
+
+      // This is for the disabled property changing the attribute
+      await slLabel.updateComplete;
+
+      expect(slLabel.disabled).to.be.true;
+      expect(slLabel).to.have.attribute('disabled');
     });
   });
 
@@ -142,7 +140,6 @@ describe('sl-label', () => {
     });
   });
 
-
   describe('required label', () => {
     beforeEach(async () => {
       el = await fixture(html`
@@ -173,6 +170,56 @@ describe('sl-label', () => {
 
         expect(requiredOrOptional).to.be.null;
       });
+    });
+  });
+
+  describe('size', () => {
+    it('should adopt the size of the switch', async () => {
+      el = await fixture(html`
+        <form>
+          <sl-label for="switch">Label</sl-label>
+          <sl-switch id="switch" size="sm">Toggle me</sl-switch>
+        </form>
+      `);
+
+      expect(el.querySelector('sl-label')).to.have.attribute('size', 'sm');
+    });
+
+    it('should adopt the size of the text input', async () => {
+      el = await fixture(html`
+        <form>
+          <sl-label for="input">Label</sl-label>
+          <sl-text-input id="input"></sl-text-input>
+        </form>
+      `);
+
+      expect(el.querySelector('sl-label')).to.have.attribute('size', 'md');
+    });
+
+    it('should adopt the size of the checkbox group', async () => {
+      el = await fixture(html`
+        <form>
+          <sl-label for="group">Label</sl-label>
+          <sl-checkbox-group id="group" size="lg">
+            <sl-checkbox>Checkbox 1</sl-checkbox>
+            <sl-checkbox>Checkbox 2</sl-checkbox>
+            <sl-checkbox>Checkbox 3</sl-checkbox>
+          </sl-checkbox-group>
+        </form>
+      `);
+
+      expect(el.querySelector('sl-label')).to.have.attribute('size', 'lg');
+    });
+
+    it('should only adopt supported sizes', async () => {
+      el = await fixture(html`
+        <form>
+          <sl-label for="input">Label</sl-label>
+          <sl-text-input id="input" size="asdf"></sl-text-input>
+        </form>
+      `);
+
+      expect(el.querySelector('sl-label')).to.have.attribute('size', 'md');
     });
   });
 });

@@ -97,11 +97,7 @@ export class Label extends LitElement {
           this.size = (['sm', 'md', 'lg'].find(s => s === this.formControl!.size) as LabelSize) || 'md';
         }
 
-        if (this.formControl.hasAttribute('disabled')) {
-          this.disabled = true;
-        }
-
-        this.#observer.observe(target, { attributes: true, attributeFilter: ['required'] });
+        this.#observer.observe(target, { attributes: true, attributeFilter: ['disabled', 'required'] });
         void this.#update();
       } else {
         this.#observer.disconnect();
@@ -141,6 +137,8 @@ export class Label extends LitElement {
 
     const { form } = this.formControl || {},
       required = this.formControl?.hasAttribute('required');
+
+    this.disabled = this.formControl?.hasAttribute('disabled') ?? false;
 
     if (form) {
       const controls = Array.from(form.elements).filter(el => el.tagName !== 'SL-BUTTON');

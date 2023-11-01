@@ -11,7 +11,7 @@ describe('sl-checkbox-group', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-checkbox-group></sl-checkbox-group>`);
     });
-  
+
     it('should not break', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
@@ -32,22 +32,31 @@ describe('sl-checkbox-group', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
+    it('should propagate the group size to the checkboxes', async () => {
+      el.size = 'lg';
+      await el.updateComplete;
+
+      const size = Array.from(el.querySelectorAll('sl-checkbox')).every(c => c.size === 'lg');
+
+      expect(size).to.be.true;
+    });
+
     it('should be valid when no option is chosen but the group is not required', () =>{
       expect(el.internals.validity.valid).to.equal(true);
     });
 
-    it('should handle the navigating between options correctly', async () => {            
+    it('should handle the navigating between options correctly', async () => {
       expect(el.boxes?.[0].checked).not.to.equal(true);
       expect(el.boxes?.[0].tabIndex).to.equal(0);
       expect(el.boxes?.[1].checked).not.to.equal(true);
       expect(el.boxes?.[1].tabIndex).to.equal(-1);
-      
+
       el.boxes?.[0]?.focus();
       await sendKeys({ press: 'Space' });
 
       expect(el.boxes?.[0].checked).to.equal(true);
       expect(el.boxes?.[1].checked).not.to.equal(true);
-      
+
       await sendKeys({ press: 'ArrowRight' });
       await sendKeys({ press: 'Enter' });
 
@@ -87,7 +96,7 @@ describe('sl-checkbox-group', () => {
 
     it('should validate that an option is chosen when it is a required group', async () => {
       expect(el.internals.validity.valid).to.equal(false);
-      
+
       el.boxes?.[0]?.setAttribute('checked','');
       await el.form?.checkValidity();
 

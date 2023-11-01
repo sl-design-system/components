@@ -1,4 +1,4 @@
-import type { InputSize, TextInput } from './text-input';
+import type { InputSize, TextInput } from './text-field.js';
 import type { LabelSize } from '@sl-design-system/form';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';

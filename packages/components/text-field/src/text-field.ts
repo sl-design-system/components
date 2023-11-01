@@ -7,7 +7,7 @@ import { Icon } from '@sl-design-system/icon';
 import { event } from '@sl-design-system/shared';
 import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './text-input.scss.js';
+import styles from './text-field.scss.js';
 
 export type InputSize = 'md' | 'lg';
 

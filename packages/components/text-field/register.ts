@@ -1,4 +1,4 @@
-import { TextInput } from './src/text-input';
+import { TextInput } from './src/text-field.js';
 
 customElements.define('sl-text-input', TextInput);
 

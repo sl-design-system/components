@@ -1,1 +1,1 @@
-export * from './src/text-input';
+export * from './src/text-field.js';

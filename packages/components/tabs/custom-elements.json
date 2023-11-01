@@ -78,8 +78,7 @@
               "name": "tabChange",
               "type": {
                 "text": "EventEmitter<number>"
-              },
-              "attribute": "tabChange"
+              }
             },
             {
               "kind": "field",

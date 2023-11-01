@@ -385,12 +385,10 @@ export const ValidInput: StoryObj = {
       (event.target.parentElement as HTMLFormElement).reportValidity();
     };
 
-    const onInput = (event: Event & { target: HTMLInputElement }): void => {
+    const onInput = (event: Event & { target: TextInput }): void => {
       const email = document.querySelector<TextInput>('#input1')?.value;
 
-      (event.target.parentElement as TextInput).setCustomValidity(
-        event.target.value !== email ? 'Enter the same email address' : ''
-      );
+      event.target.setCustomValidity(event.target.value !== email ? 'Enter the same email address' : '');
     };
 
     return html`
@@ -411,7 +409,7 @@ export const ValidInput: StoryObj = {
 
         <sl-label for="input2">Confirm email</sl-label>
         <sl-text-input
-          @input=${onInput}
+          @sl-input=${onInput}
           id="input2"
           placeholder="confirm email"
           required
@@ -431,10 +429,10 @@ export const CustomValidation: StoryObj = {
       (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
-    const onInput = (event: Event & { target: HTMLInputElement }): void => {
-      const { parentElement: textInput, value } = event.target;
+    const onInput = (event: Event & { target: TextInput }): void => {
+      const value = event.target.value;
 
-      (textInput as TextInput).setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
+      event.target.setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
     };
 
     return html`
@@ -444,7 +442,7 @@ export const CustomValidation: StoryObj = {
           margin-block-end: 0.5rem;
         }
       </style>
-      <sl-text-input @input=${onInput} required></sl-text-input>
+      <sl-text-input @sl-input=${onInput} required></sl-text-input>
       <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }
@@ -456,10 +454,10 @@ export const CustomValidationWithHint: StoryObj = {
       (event.target.previousElementSibling as TextInput)?.reportValidity();
     };
 
-    const onInput = (event: Event & { target: HTMLInputElement }): void => {
-      const { parentElement: textInput, value } = event.target;
+    const onInput = (event: Event & { target: TextInput }): void => {
+      const value = event.target.value;
 
-      (textInput as TextInput).setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
+      event.target.setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
     };
 
     return html`
@@ -469,7 +467,7 @@ export const CustomValidationWithHint: StoryObj = {
           margin-block-end: 0.5rem;
         }
       </style>
-      <sl-text-input @input=${onInput} hint-text="You need to enter 'SLDS'" required></sl-text-input>
+      <sl-text-input @sl-input=${onInput} hint-text="You need to enter 'SLDS'" required></sl-text-input>
       <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }

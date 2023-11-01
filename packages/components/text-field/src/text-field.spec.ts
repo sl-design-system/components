@@ -1,16 +1,16 @@
-import type { TextInput } from './text-input';
+import type { TextField } from './text-field.js';
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 
-describe('sl-text-input', () => {
-  let el: TextInput, input: HTMLInputElement;
+describe('sl-text-field', () => {
+  let el: TextField, input: HTMLInputElement;
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-text-input></sl-text-input>`);
+      el = await fixture(html`<sl-text-field></sl-text-field>`);
       input = el.querySelector('input')!;
     });
 
@@ -246,7 +246,7 @@ describe('sl-text-input', () => {
 
   describe('invalid', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-text-input required></sl-text-input>`);
+      el = await fixture(html`<sl-text-field required></sl-text-field>`);
       input = el.querySelector('input')!;
     });
 
@@ -302,7 +302,7 @@ describe('sl-text-input', () => {
 
   describe('valid', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-text-input required value="foo"></sl-text-input>`);
+      el = await fixture(html`<sl-text-field required value="foo"></sl-text-field>`);
       input = el.querySelector('input')!;
     });
 
@@ -344,9 +344,9 @@ describe('sl-text-input', () => {
   describe('slotted input', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-text-input>
+        <sl-text-field>
           <input id="foo" slot="input" placeholder="I am a custom input" type="color"/>
-        </sl-text-input>
+        </sl-text-field>
       `);
 
       input = el.querySelector('input')!;
@@ -365,10 +365,10 @@ describe('sl-text-input', () => {
   describe('slotted prefix / suffix', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-text-input>
+        <sl-text-field>
           <span slot="prefix">prefix example</span>
           <span slot="suffix">suffix example</span>
-        </sl-text-input>
+        </sl-text-field>
       `);
     });
 

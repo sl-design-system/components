@@ -9,7 +9,7 @@ import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './text-field.scss.js';
 
-export type InputSize = 'md' | 'lg';
+export type TextFieldSize = 'md' | 'lg';
 
 let nextUniqueId = 0;
 
@@ -21,7 +21,7 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
  */
-export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -91,7 +91,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
    * The size of the input.
    * @type {'md' | 'lg'}
    */
-  @property({ reflect: true }) size: InputSize = 'md';
+  @property({ reflect: true }) size: TextFieldSize = 'md';
 
   /** Specifies the interval between legal numbers for an input field. Only applies to number input type */
   @property({ type: Number }) step?: number;
@@ -127,7 +127,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    const props: Array<keyof TextInput> = [
+    const props: Array<keyof TextField> = [
       'autocomplete',
       'disabled',
       'max',
@@ -209,7 +209,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
     input.autocomplete = this.autocomplete || 'off';
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
-    input.id ||= `sl-text-input-${nextUniqueId++}`;
+    input.id ||= `sl-text-field-${nextUniqueId++}`;
     input.placeholder = this.placeholder ?? '';
     input.readOnly = !!this.readonly;
     input.required = !!this.required;

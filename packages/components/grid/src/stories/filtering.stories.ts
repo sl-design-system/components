@@ -1,5 +1,5 @@
 import type { Person } from '@sl-design-system/example-data';
-import type { TextInput } from '@sl-design-system/text-field';
+import type { TextField } from '@sl-design-system/text-field';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { getPeople } from '@sl-design-system/example-data';
 import { ArrayDataSource } from '@sl-design-system/shared';
@@ -61,7 +61,7 @@ export const OutsideGrid: Story = {
   render: (_, { loaded: { people } }) => {
     const dataSource = new ArrayDataSource(people as Person[]);
 
-    const onInput = ({ target }: Event & { target: TextInput }): void => {
+    const onInput = ({ target }: Event & { target: TextField }): void => {
       const value = target.value?.toString().trim() ?? '';
 
       if (value) {
@@ -79,12 +79,12 @@ export const OutsideGrid: Story = {
 
     return html`
       <style>
-        sl-text-input {
+        sl-text-field {
           margin-bottom: 1rem;
           width: 300px;
         }
       </style>
-      <sl-text-input @input=${onInput} placeholder="Filter here"></sl-text-input>
+      <sl-text-field @input=${onInput} placeholder="Filter here"></sl-text-field>
       <sl-grid .dataSource=${dataSource}>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>

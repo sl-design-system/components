@@ -1,9 +1,9 @@
-import { TextInput } from './src/text-field.js';
+import { TextField } from './src/text-field.js';
 
-customElements.define('sl-text-input', TextInput);
+customElements.define('sl-text-field', TextField);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-text-input': TextInput;
+    'sl-text-field': TextField;
   }
 }

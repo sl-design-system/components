@@ -12,7 +12,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/text-input"
+            "package": "./src/text-field.js"
           }
         }
       ]
@@ -24,22 +24,22 @@
       "exports": [
         {
           "kind": "custom-element-definition",
-          "name": "sl-text-input",
+          "name": "sl-text-field",
           "declaration": {
-            "name": "TextInput",
-            "module": "/src/text-input"
+            "name": "TextField",
+            "module": "/src/text-field.js"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/text-input.ts",
+      "path": "src/text-field.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "Single line text input component.",
-          "name": "TextInput",
+          "name": "TextField",
           "cssParts": [
             {
               "description": "The input's wrapper",
@@ -418,7 +418,7 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "sl-text-input",
+          "tagName": "sl-text-field",
           "customElement": true,
           "methods": [
             {
@@ -532,10 +532,10 @@
       "exports": [
         {
           "kind": "js",
-          "name": "TextInput",
+          "name": "TextField",
           "declaration": {
-            "name": "TextInput",
-            "module": "src/text-input.ts"
+            "name": "TextField",
+            "module": "src/text-field.ts"
           }
         }
       ]

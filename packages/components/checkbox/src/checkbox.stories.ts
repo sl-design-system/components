@@ -343,7 +343,7 @@ export const ValidateInForm: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-text-input,
+        sl-text-field,
         sl-textarea {
           align-self: stretch;
         }

@@ -28,7 +28,7 @@ export const API: StoryObj = {
     </style>
     <form>
       <sl-label for="input">${text}</sl-label>
-      <sl-text-input ?required=${required} id="input" ?disabled=${disabled}></sl-text-input>
+      <sl-text-field ?required=${required} id="input" ?disabled=${disabled}></sl-text-field>
     </form>
   `
 };
@@ -47,10 +47,10 @@ export const Disabled: StoryObj = {
       </style>
       <form>
         <sl-label for="enabled">I should be enabled</sl-label>
-        <sl-text-input id="enabled"></sl-text-input>
+        <sl-text-field id="enabled"></sl-text-field>
 
         <sl-label for="disabled">I should be disabled</sl-label>
-        <sl-text-input disabled id="disabled"></sl-text-input>
+        <sl-text-field disabled id="disabled"></sl-text-field>
       </form>
     `;
   }
@@ -73,7 +73,7 @@ export const Size: StoryObj = {
         <sl-switch id="switch" size="sm">Toggle me</sl-switch>
 
         <sl-label for="text-input">I should be medium</sl-label>
-        <sl-text-input id="text-input"></sl-text-input>
+        <sl-text-field id="text-input"></sl-text-field>
 
         <sl-label for="checkbox-group">I should be large</sl-label>
         <sl-checkbox-group id="checkbox-group" size="lg">
@@ -93,19 +93,19 @@ export const Optional: StoryObj = {
         display: flex;
         flex-direction: column;
       }
-      sl-text-input {
+      sl-text-field {
         margin-block-end: 1rem;
       }
     </style>
     <form>
       <sl-label for="input">This label should be marked as optional</sl-label>
-      <sl-text-input id="input"></sl-text-input>
+      <sl-text-field id="input"></sl-text-field>
 
       <sl-label for="input2">Required input</sl-label>
-      <sl-text-input required id="input2"></sl-text-input>
+      <sl-text-field required id="input2"></sl-text-field>
 
       <sl-label for="input3">Required input</sl-label>
-      <sl-text-input required id="input3"></sl-text-input>
+      <sl-text-field required id="input3"></sl-text-field>
 
       <sl-button-bar align="end">
         <sl-button fill="outline" type="submit">Submit</sl-button>
@@ -121,19 +121,19 @@ export const Required: StoryObj = {
         display: flex;
         flex-direction: column;
       }
-      sl-text-input {
+      sl-text-field {
         margin-block-end: 1rem;
       }
     </style>
     <form>
       <sl-label for="input">This label should be marked as required</sl-label>
-      <sl-text-input required id="input"></sl-text-input>
+      <sl-text-field required id="input"></sl-text-field>
 
       <sl-label for="input2">Optional input</sl-label>
-      <sl-text-input id="input2"></sl-text-input>
+      <sl-text-field id="input2"></sl-text-field>
 
       <sl-label for="input3">Optional input</sl-label>
-      <sl-text-input id="input3"></sl-text-input>
+      <sl-text-field id="input3"></sl-text-field>
 
       <sl-button-bar align="end">
         <sl-button fill="outline" type="submit">Submit</sl-button>
@@ -163,7 +163,7 @@ export const Custom: StoryObj = {
           <sl-tooltip id="tooltip1">I am a tooltip for the info icon</sl-tooltip>
         </label>
       </sl-label>
-      <sl-text-input id="input"></sl-text-input>
+      <sl-text-field id="input"></sl-text-field>
     </form>
   `
 };

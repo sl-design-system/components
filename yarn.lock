@@ -5354,17 +5354,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/label@workspace:packages/components/label":
-  version: 0.0.0-use.local
-  resolution: "@sl-design-system/label@workspace:packages/components/label"
-  dependencies:
-    "@sl-design-system/button": 0.0.13
-    "@sl-design-system/text-input": 0.1.8
-    "@sl-design-system/textarea": 0.1.8
-    lit: ^3.0.1
-  languageName: unknown
-  linkType: soft
-
 "@sl-design-system/locales@workspace:packages/locales":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/locales@workspace:packages/locales"
@@ -5583,7 +5572,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/textarea@0.1.8, @sl-design-system/textarea@workspace:packages/components/textarea":
+"@sl-design-system/textarea@workspace:packages/components/textarea":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/textarea@workspace:packages/components/textarea"
   dependencies:

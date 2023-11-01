@@ -1,6 +1,6 @@
 import type { Checkbox, CheckboxSize } from './checkbox.js';
 import type { StoryObj } from '@storybook/web-components';
-import '@sl-design-system/label/register.js';
+import '@sl-design-system/form/register.js';
 import { html } from 'lit';
 import '../register.js';
 
@@ -12,6 +12,7 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   event.target.after(output);
 
   output.textContent = '';
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 

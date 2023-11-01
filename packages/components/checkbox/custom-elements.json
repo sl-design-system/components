@@ -83,6 +83,15 @@
             },
             {
               "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "CheckboxSize | undefined"
+              },
+              "description": "The size of the checkboxes in the group.",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
               "name": "validators",
               "type": {
                 "text": "Validator[] | undefined"
@@ -98,6 +107,14 @@
               },
               "description": "Name of the form control",
               "fieldName": "name"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "CheckboxSize | undefined"
+              },
+              "description": "The size of the checkboxes in the group.",
+              "fieldName": "size"
             }
           ],
           "mixins": [

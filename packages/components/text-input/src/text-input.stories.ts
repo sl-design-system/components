@@ -1,9 +1,9 @@
 import type { InputSize, TextInput } from './text-input';
-import type { LabelSize } from '@sl-design-system/label';
+import type { LabelSize } from '@sl-design-system/form';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
-import '@sl-design-system/label/register.js';
+import '@sl-design-system/form/register.js';
 import { html, nothing } from 'lit';
 import '../register.js';
 

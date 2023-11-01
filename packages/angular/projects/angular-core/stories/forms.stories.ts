@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/angular';
-import '@sl-design-system/label/register.js';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/form/register.js';
 import {
   AbstractControl,
   FormControl,
@@ -14,15 +14,14 @@ import {
 import {
   AfterContentChecked,
   AfterViewChecked,
-  AfterViewInit,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef,
   ViewChild
 } from '@angular/core';
+import { Radio } from '@sl-design-system/radio-group';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
-import { Radio } from '@sl-design-system/radio-group';
 
 @Component({
   selector: 'sla-input',
@@ -193,19 +192,19 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
   ngAfterViewChecked(): void {
     if (this.submitted) {
       const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
-       urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+        urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
 
       if (this.myForm.controls.website.errors?.['invalidUrl']) {
         urlInput.setCustomValidity('The url is invalid, please check it. It should contain "https" and ".com" parts');
-      }  else {
+      } else {
         urlInput.setCustomValidity('');
       }
 
-     urlInput.checkValidity();
+      urlInput.checkValidity();
       input.checkValidity();
 
       const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement,
-       otherErrors = this.myForm.controls.description.errors ? Object.keys(this.myForm.controls.description.errors).length : 0;
+        otherErrors = this.myForm.controls.description.errors ? Object.keys(this.myForm.controls.description.errors).length : 0;
 
       if (this.myForm.controls.description.errors?.['invalidStart'] && otherErrors <= 1) {
         textarea.setCustomValidity('The description should starts with "This is"');
@@ -225,8 +224,8 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
 
   ngAfterContentChecked(): void {
     const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
-     textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement,
-     urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+      textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement,
+      urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
 
     if (this.submitted) {
       urlInput.checkValidity();
@@ -261,8 +260,8 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
     });
 
     const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
-     urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement,
-     textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement,
+      textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
 
     input.checkValidity();
     urlInput.checkValidity();
@@ -369,7 +368,7 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
     });
 
     const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
-     textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
     input.checkValidity();
     textarea.checkValidity();
     this.myCheckbox.nativeElement.internals.checkValidity();
@@ -456,17 +455,17 @@ export class TemplateFormComponent implements AfterViewChecked {
   submitted = false;
 
   ngAfterViewChecked(): void {
-      if (this.submitted) {
-        const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement,
-         textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
-        input.checkValidity();
-        textarea.checkValidity();
-      } else {
-        this.inputWithNgmodel.control.markAsUntouched();
-        this.inputWithNgmodel.control.markAsPristine();
-        this.textareaWithNgmodel.control.markAsUntouched();
-        this.textareaWithNgmodel.control.markAsPristine();
-      }
+    if (this.submitted) {
+      const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement,
+        textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      input.checkValidity();
+      textarea.checkValidity();
+    } else {
+      this.inputWithNgmodel.control.markAsUntouched();
+      this.inputWithNgmodel.control.markAsPristine();
+      this.textareaWithNgmodel.control.markAsUntouched();
+      this.textareaWithNgmodel.control.markAsPristine();
+    }
   }
 
   onInput(target: NgModel): void {
@@ -586,7 +585,7 @@ export class TemplateFormRequiredReportComponent implements AfterViewChecked {
     });
 
     const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement,
-     textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
 
     input.checkValidity();
     textarea.checkValidity();

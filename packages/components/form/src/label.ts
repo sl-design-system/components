@@ -1,11 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { FormControlInterface } from '@sl-design-system/shared';
-import { Button } from '@sl-design-system/button';
-import { TextInput } from '@sl-design-system/text-input';
-import { Textarea } from '@sl-design-system/textarea';
+import type { FormControlInterface } from './form-control-mixin.js';
 import { msg } from '@lit/localize';
 import { property, state } from 'lit/decorators.js';
-import { LitElement, html } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import styles from './label.scss.js';
 
 export type LabelSize = 'sm' | 'md' | 'lg';
@@ -23,27 +20,29 @@ export class Label extends LitElement {
   /** Observe the form control for changes to the required attribute. */
   #observer = new MutationObserver(() => void this.#update());
 
+  /** Whether the form control is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled = false;
+
   /** The DOM id of the form control this is linked to. */
   @property() for?: string;
 
   /** @ignore The associated form control. */
-  @state() formControl: (HTMLElement & FormControlInterface) | null = null;
-
-  /** Whether this label should be marked as optional. */
-  @state() optional?: boolean;
-
-  /** Whether this label should be marked as required. */
-  @state() required?: boolean;
-
-  /** The size of the label.
-   * @type {'sm' | 'md' | 'lg'} */
-  @property({ reflect: true }) size: LabelSize = 'md';
-
-  /** Whether the form control is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @state() formControl: (HTMLElement & FormControlInterface & { size?: string }) | null = null;
 
   /** Whether this label should have no padding bottom. */
   @property({ type: Boolean, attribute: 'no-padding' }) noPadding?: boolean;
+
+  /** @ignore Whether this label should be marked as optional. */
+  @state() optional?: boolean;
+
+  /** @ignore Whether this label should be marked as required. */
+  @state() required?: boolean;
+
+  /**
+   * The size of the label.
+   * @type {'sm' | 'md' | 'lg'}
+   */
+  @property({ reflect: true }) size: LabelSize = 'md';
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();
@@ -56,25 +55,29 @@ export class Label extends LitElement {
 
     if (changes.has('for')) {
       if (this.for) {
-        this.formControl = (this.getRootNode() as Element)?.querySelector<HTMLElement & FormControlInterface>(
-          `#${this.for}`
-        );
+        this.formControl = (this.getRootNode() as Element)?.querySelector<
+          HTMLElement & FormControlInterface & { size?: string }
+        >(`#${this.for}`);
 
-        // If the form control is an <sl-text-input> or <sl-textarea>,
-        // automatically associate the label with the <input> or
-        // <textarea> in the light DOM
-        if (this.formControl instanceof TextInput || this.formControl instanceof Textarea) {
+        if (this.formControl instanceof LitElement) {
+          // If the form control is a LitElement, wait for it to render the form control element
           void this.formControl.updateComplete.then(() => {
-            const input = this.formControl?.querySelector('input, textarea');
+            this.#formControlId = this.formControl?.formControlElement?.id;
 
-            if (input) {
-              this.#formControlId = input.id;
-              this.#label?.setAttribute('for', input.id);
+            if (this.#formControlId) {
+              this.#label?.setAttribute('for', this.#formControlId);
+            } else {
+              this.#label?.removeAttribute('for');
             }
           });
-        } else {
+        } else if (!this.formControl) {
           this.#formControlId = this.for;
           this.#label?.setAttribute('for', this.for);
+        } else {
+          console.warn(`The form control with id "${this.for}" could not be found.`);
+
+          this.#label?.removeAttribute('for');
+          this.formControl = null;
         }
       } else {
         this.#label?.removeAttribute('for');
@@ -86,8 +89,12 @@ export class Label extends LitElement {
       if (this.formControl) {
         let target: HTMLElement = this.formControl;
 
-        if (target instanceof TextInput || target instanceof Textarea) {
-          target = this.formControl.querySelector('input, textarea') as HTMLElement;
+        if (target instanceof LitElement && this.formControl.formControlElement) {
+          target = this.formControl.formControlElement;
+        }
+
+        if (typeof this.formControl.size === 'string') {
+          this.size = (['sm', 'md', 'lg'].find(s => s === this.formControl!.size) as LabelSize) || 'md';
         }
 
         if (this.formControl.hasAttribute('disabled')) {
@@ -107,10 +114,8 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label"></slot>
-      <slot name="icon"></slot>
-      <slot name="tooltip"></slot>
-      ${this.optional ? html`<span class="optional">(${msg('optional')})</span>` : ''}
-      ${this.required ? html`<span class="required">(${msg('required')})</span>` : ''}
+      ${this.optional ? html`<span class="optional">(${msg('optional')})</span>` : nothing}
+      ${this.required ? html`<span class="required">(${msg('required')})</span>` : nothing}
     `;
   }
 
@@ -138,7 +143,7 @@ export class Label extends LitElement {
       required = this.formControl?.hasAttribute('required');
 
     if (form) {
-      const controls = Array.from(form.elements).filter(el => !(el instanceof Button));
+      const controls = Array.from(form.elements).filter(el => el.tagName !== 'SL-BUTTON');
 
       // Count the required form controls
       const requiredCount = controls.reduce((count, control) => {

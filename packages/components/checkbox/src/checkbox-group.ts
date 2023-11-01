@@ -1,5 +1,5 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { Checkbox } from './checkbox.js';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { Checkbox, CheckboxSize } from './checkbox.js';
 import type { Validator } from '@sl-design-system/shared';
 import { MutationController } from '@lit-labs/observers/mutation-controller.js';
 import {
@@ -79,9 +79,20 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   /** Name of the form control */
   @property() name?: string;
 
+  /** The size of the checkboxes in the group. */
+  @property() size?: CheckboxSize;
+
   /**  Native form property */
   get form(): HTMLFormElement | null {
     return this.internals.form;
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('size')) {
+      this.boxes?.forEach(box => (box.size = this.size || 'md'));
+    }
   }
 
   override render(): TemplateResult {
@@ -105,7 +116,13 @@ export class CheckboxGroup extends HintMixin(LitElement) {
     if (typeof this.name === 'string') {
       const name = this.name;
 
-      this.boxes?.forEach(box => box.setAttribute('name', name));
+      this.boxes?.forEach(box => {
+        box.name = name;
+
+        if (this.size) {
+          box.size = this.size;
+        }
+      });
     }
   }
 }

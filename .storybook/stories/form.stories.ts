@@ -2,13 +2,12 @@ import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
-import '@sl-design-system/text-input/register.js';
-import '@sl-design-system/label/register.js';
+import '@sl-design-system/form/register.js';
 import '@sl-design-system/radio-group/register.js';
+import '@sl-design-system/text-input/register.js';
 import '@sl-design-system/textarea/register.js';
+import { MessageSize } from "@sl-design-system/shared";
 import { html } from 'lit';
-import {MessageSize} from "@sl-design-system/shared";
-import {Label} from "@sl-design-system/label";
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),
@@ -300,16 +299,16 @@ export const Validation: StoryObj = {
 };
 
 export const ValidationSizes: StoryObj = {
-  render: ({size}) => {
+  render: ({ size }) => {
     setTimeout(() => {
-    const form = document.querySelector('form');
-    const slLabels = form?.querySelectorAll('sl-label') as Label[];
+      const form = document.querySelector('form');
+      const slLabels = form?.querySelectorAll('sl-label') as Label[];
 
-    slLabels?.forEach((label, idx) => {
-      const id = `form-${idx}`;
-      label.setAttribute('for', id);
-      (label.nextElementSibling as HTMLElement).setAttribute('id', id);
-    });
+      slLabels?.forEach((label, idx) => {
+        const id = `form-${idx}`;
+        label.setAttribute('for', id);
+        (label.nextElementSibling as HTMLElement).setAttribute('id', id);
+      });
 
       form?.reportValidity()
     });
@@ -335,7 +334,7 @@ export const ValidationSizes: StoryObj = {
       </style>
       <form>
         ${sizes.map(
-          (size) => html`
+      (size) => html`
             <h2>Size: ${size}</h2>
 
             <sl-label>Input</sl-label>
@@ -361,7 +360,7 @@ export const ValidationSizes: StoryObj = {
               <sl-radio value="3">Three</sl-radio>
             </sl-radio-group>
         `
-        )}
+    )}
       </form>
     `;
   }

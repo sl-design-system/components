@@ -126,10 +126,10 @@ describe('sl-label', () => {
     });
 
     it('should mark it as optional', async () => {
-      const slLabel = el.querySelector('sl-label'),
-        optional = slLabel?.renderRoot.querySelector('.optional');
+      const slLabel = el.querySelector('sl-label') as Label,
+        optional = slLabel.renderRoot.querySelector('.optional');
 
-      expect(optional).not.to.be.null;
+      expect(optional).to.exist;
       expect(optional).to.have.text('(optional)');
     });
 
@@ -160,10 +160,10 @@ describe('sl-label', () => {
     });
 
     it('should mark it as required', () => {
-      const label = el.querySelector('sl-label'),
-        required = label?.renderRoot.querySelector('.required');
+      const label = el.querySelector('sl-label') as Label,
+        required = label.renderRoot.querySelector('.required');
 
-      expect(required).not.to.be.null;
+      expect(required).to.exist;
       expect(required).to.have.text('(required)');
     });
 

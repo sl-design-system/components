@@ -465,8 +465,8 @@
                 "text": "boolean"
               },
               "static": true,
-              "privacy": "private",
-              "readonly": true
+              "default": "true",
+              "privacy": "private"
             },
             {
               "kind": "field",

@@ -20,9 +20,7 @@ export type CheckboxSize = 'md' | 'lg';
  */
 export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
-  static get formAssociated(): boolean {
-    return true;
-  }
+  static formAssociated = true;
 
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -73,14 +71,8 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     super.connectedCallback();
 
     this.internals.role = 'checkbox';
-
     this.setFormControlElement(this);
-
     this.#updateNoLabel();
-
-    if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = 0;
-    }
   }
 
   /** @ignore Stores the initial state of the checkbox */
@@ -113,10 +105,6 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
       this.internals.ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
     }
 
-    if (changes.has('disabled')) {
-      this.internals.ariaDisabled = this.disabled ? 'true' : 'false';
-    }
-
     if (changes.has('required')) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
     }
@@ -126,8 +114,8 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   override render(): TemplateResult {
     return html`
       <div @click=${this.#onClick} @keydown=${this.#onKeydown} class="wrapper" part="wrapper">
-        <div class="outer" .tabIndex=${this.disabled ? -1 : 0}>
-          <div class="inner">
+        <div class="outer">
+          <div class="inner" .tabIndex=${this.disabled ? -1 : 0}>
             <svg
               aria-hidden="true"
               class=${classMap({ checked: this.checked, indeterminate: this.indeterminate })}

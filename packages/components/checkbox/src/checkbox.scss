@@ -67,7 +67,7 @@ $sizes: md, lg;
       --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:not([disabled]):focus-visible) {
+    :host(#{$variant-selector + $state-selector}:not([disabled]):focus) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
@@ -91,7 +91,7 @@ $sizes: md, lg;
   outline: none;
 }
 
-:host(:focus-visible) .inner {
+:host(:focus) .inner:focus-visible {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
   transition: var(--_transition);

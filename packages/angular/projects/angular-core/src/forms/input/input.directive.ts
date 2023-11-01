@@ -15,7 +15,7 @@ import { FormControlElementDirective } from '../form-control/form-control-elemen
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'sl-text-input',
+  selector: 'sl-text-field',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

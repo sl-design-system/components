@@ -1,8 +1,8 @@
 ---
-title: Text input accessibility
+title: Text field accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Text input
+  parent: Text field
   key: TextInputAccessibility
 ---
 <section>
@@ -33,7 +33,7 @@ Here's how to make the most of placeholder text:
 Keep the text straightforward by using sentence-style capitalization. In most cases, present the text as a clear statement without punctuation.
 
 ### Not Mandatory
-Remember that placeholder text is not a requirement, and it remains hidden in text input fields by default.
+Remember that placeholder text is not a requirement, and it remains hidden in text field fields by default.
 
 ### Exercise Caution
 Be mindful when adding placeholder text; overuse can potentially disrupt the user experience. Utilize it only when it genuinely enhances user interactions.
@@ -64,7 +64,7 @@ Maintain a consistent style and tone throughout your help text. This consistency
 <section>
 
 ## Focus order
-The focus order of a text field refers to the sequence in which the cursor or focus moves between different text input fields or interactive elements on a user interface, typically when using the keyboard to navigate. It's an essential aspect of web and application accessibility and usability.
+The focus order of a text field refers to the sequence in which the cursor or focus moves between different text field fields or interactive elements on a user interface, typically when using the keyboard to navigate. It's an essential aspect of web and application accessibility and usability.
 
 </section>
 
@@ -80,7 +80,7 @@ Here's an overview of the common keyboard interactions associated with a text fi
 
 
 ## WAI-ARIA
-WAI-ARIA Roles, States, and Properties for a text input provide essential information to assistive technologies and screen readers. They convey the text field's role, state, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+WAI-ARIA Roles, States, and Properties for a text field provide essential information to assistive technologies and screen readers. They convey the text field's role, state, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 <sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it can be provided by the developer (yes)</sl-tooltip>
 
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |

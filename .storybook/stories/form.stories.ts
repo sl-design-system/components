@@ -101,7 +101,7 @@ export const Hints: StoryObj = {
     </style>
     <form @submit=${onSubmit}>
       <sl-label for="input">Input</sl-label>
-      <sl-text-input id="input" hint="Hint for the text input." name="input" required></sl-text-input>
+      <sl-text-input id="input" hint="Hint for the text field." name="input" required></sl-text-input>
 
       <sl-label for="textarea">Textarea</sl-label>
       <sl-textarea id="textarea" hint="Hint for the textarea." name="textarea" required></sl-textarea>

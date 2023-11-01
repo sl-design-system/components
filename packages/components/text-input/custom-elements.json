@@ -40,6 +40,12 @@
           "kind": "class",
           "description": "Single line text input component.",
           "name": "TextInput",
+          "cssParts": [
+            {
+              "description": "The input's wrapper",
+              "name": "wrapper"
+            }
+          ],
           "slots": [
             {
               "description": "Content shown before the input",
@@ -66,21 +72,21 @@
             },
             {
               "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the text input is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "input",
               "type": {
                 "text": "HTMLInputElement"
               },
               "description": "The input element in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is invalid.",
-              "attribute": "invalid",
-              "reflects": true
             },
             {
               "kind": "field",
@@ -148,13 +154,22 @@
             },
             {
               "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the text input is a required field.",
+              "attribute": "required",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "showValid",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
-              "description": "Whether the input should get valid styles when is valid.",
-              "attribute": "showValid",
+              "description": "Indicates whether the control should indicate it is valid.",
+              "attribute": "show-valid",
               "reflects": true
             },
             {
@@ -189,28 +204,11 @@
             },
             {
               "kind": "field",
-              "name": "valid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is valid.",
-              "attribute": "valid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the input, to be used in forms.",
               "attribute": "value"
             }
@@ -225,28 +223,12 @@
               "fieldName": "autocomplete"
             },
             {
-              "name": "maxlength",
+              "name": "disabled",
               "type": {
-                "text": "number | undefined"
+                "text": "boolean | undefined"
               },
-              "description": "Maximum length (number of characters).",
-              "fieldName": "maxLength"
-            },
-            {
-              "name": "minlength",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum length (number of characters).",
-              "fieldName": "minLength"
-            },
-            {
-              "name": "min",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum value. Only applies to number input type.",
-              "fieldName": "min"
+              "description": "Whether the text input is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
             },
             {
               "name": "max",
@@ -257,12 +239,28 @@
               "fieldName": "max"
             },
             {
-              "name": "step",
+              "name": "maxlength",
               "type": {
                 "text": "number | undefined"
               },
-              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
-              "fieldName": "step"
+              "description": "Maximum length (number of characters).",
+              "fieldName": "maxLength"
+            },
+            {
+              "name": "min",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum value. Only applies to number input type.",
+              "fieldName": "min"
+            },
+            {
+              "name": "minlength",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Minimum length (number of characters).",
+              "fieldName": "minLength"
             },
             {
               "name": "pattern",
@@ -281,37 +279,28 @@
               "fieldName": "placeholder"
             },
             {
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is invalid.",
-              "fieldName": "invalid"
-            },
-            {
-              "name": "valid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the input is valid.",
-              "fieldName": "valid"
-            },
-            {
-              "name": "showValid",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the input should get valid styles when is valid.",
-              "fieldName": "showValid"
-            },
-            {
               "name": "readonly",
               "type": {
                 "text": "boolean | undefined"
               },
               "description": "Whether you can interact with the input or if it is just a static, readonly display.",
               "fieldName": "readonly"
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the text input is a required field.",
+              "fieldName": "required"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Indicates whether the control should indicate it is valid.",
+              "fieldName": "showValid"
             },
             {
               "name": "size",
@@ -321,6 +310,14 @@
               "default": "'md'",
               "description": "The size of the input.",
               "fieldName": "size"
+            },
+            {
+              "name": "step",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
+              "fieldName": "step"
             },
             {
               "name": "type",
@@ -334,8 +331,9 @@
             {
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the input, to be used in forms.",
               "fieldName": "value"
             }
@@ -343,11 +341,11 @@
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             },
             {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
             }
           ],
           "superclass": {
@@ -393,6 +391,23 @@
             },
             {
               "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onSlotchange",
               "return": {
                 "type": {
@@ -407,25 +422,35 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#syncInput",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "input",
+                  "type": {
+                    "text": "HTMLInputElement"
+                  }
+                }
+              ]
             }
           ],
           "fields": [
             {
               "kind": "field",
-              "name": "#onKeydown",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#events",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
               "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
-            },
-            {
-              "kind": "field",
-              "name": "#validation",
-              "privacy": "private",
-              "default": "new ValidationController(this, {\n    target: () => this.input\n  })"
+              "readonly": true
             },
             {
               "kind": "field",
@@ -434,20 +459,6 @@
                 "text": "HTMLInputElement"
               },
               "description": "The input element in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
             }
           ]
         }

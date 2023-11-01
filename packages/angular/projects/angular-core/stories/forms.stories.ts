@@ -138,7 +138,7 @@ export class CheckboxComponent {
   template: `
     <form [formGroup]="myForm" (ngSubmit)="onSubmit($event, myForm)">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="This is a hint for the text input with your name" minlength="8" required>
+      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="This is a hint for the text field with your name" minlength="8" required>
       </sl-text-input>
       <sl-label for="website-input">Url (with custom validation)</sl-label>
       <sl-text-input id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="Your website adress (should contain 'https' and 'com' parts)" minlength="8" required>
@@ -323,7 +323,7 @@ function startsWithThisIs(control: AbstractControl): ValidationErrors | null {
   template: `
     <form [formGroup]="myForm">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text input" required>
+      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text field" required>
       </sl-text-input>
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" #myReactiveTextarea formControlName="description" placeholder="Add short description here" required>
@@ -407,7 +407,7 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
   template: `
     <form #myForm="ngForm" (ngSubmit)="onSubmit($event, model, myForm)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" hint="This is a hint for text input" placeholder="Type at least 8 characters" [(ngModel)]="model.name" (input)="onInput(inputWithNgmodel);" #inputWithNgmodel="ngModel" name="name" minlength="8" required>
+      <sl-text-input id="my-value" hint="This is a hint for text field" placeholder="Type at least 8 characters" [(ngModel)]="model.name" (input)="onInput(inputWithNgmodel);" #inputWithNgmodel="ngModel" name="name" minlength="8" required>
         <div slot="value-missing">error message example when the field is required</div>
       </sl-text-input>
       <sl-label for="textarea-ngmodel-id">Description</sl-label>

@@ -1,9 +1,9 @@
 {
   "layout": "components/components.njk",
-  "tags": "text-input",
+  "tags": "text-field",
   "componentTagName": [
     {
-      "name": "Text input",
+      "name": "Text field",
       "selector": "sl-text-input"
     }
   ]

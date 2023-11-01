@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/label",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Label component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,9 +38,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "0.0.13",
-    "@sl-design-system/text-input": "0.1.8",
-    "@sl-design-system/textarea": "0.1.8",
+    "@sl-design-system/button": "0.0.14",
+    "@sl-design-system/text-input": "0.1.9",
+    "@sl-design-system/textarea": "0.1.9",
     "lit": "^3.0.1"
   }
 }

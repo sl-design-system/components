@@ -1,5 +1,18 @@
 # @sl-design-system/grid
 
+## 0.0.30
+
+### Patch Changes
+
+- [#688](https://github.com/sl-design-system/components/pull/688) [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0) - Upgrade to Lit 3.0
+
+- Updated dependencies [[`5883fee`](https://github.com/sl-design-system/components/commit/5883fee3bb584130e5cd0009b7a2ed9b45d124af), [`f3993f3`](https://github.com/sl-design-system/components/commit/f3993f394e17fe14c8a1fccb9d79e33d8aac4163), [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0)]:
+  - @sl-design-system/text-input@0.1.9
+  - @sl-design-system/checkbox@0.0.14
+  - @sl-design-system/popover@0.0.13
+  - @sl-design-system/shared@0.1.9
+  - @sl-design-system/icon@0.0.4
+
 ## 0.0.29
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @sl-design-system/button
 
+## 0.0.14
+
+### Patch Changes
+
+- [#688](https://github.com/sl-design-system/components/pull/688) [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0) - Upgrade to Lit 3.0
+
+- Updated dependencies [[`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0)]:
+  - @sl-design-system/shared@0.1.9
+
 ## 0.0.13
 
 ### Patch Changes

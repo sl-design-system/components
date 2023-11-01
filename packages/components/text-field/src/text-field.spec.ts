@@ -356,7 +356,7 @@ describe('sl-text-field', () => {
       expect(el.input).to.equal(input);
     });
 
-    it('should overwrite text input properties except for "type"', () => {
+    it('should overwrite text field properties except for "type"', () => {
       expect(input).to.have.attribute('placeholder', '');
       expect(input.type).to.equal('color');
     });

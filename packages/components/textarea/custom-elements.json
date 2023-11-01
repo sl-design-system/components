@@ -38,7 +38,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Single line text input component.",
+          "description": "Multi line text area component.",
           "name": "Textarea",
           "slots": [
             {

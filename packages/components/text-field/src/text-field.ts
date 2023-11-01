@@ -14,7 +14,7 @@ export type TextFieldSize = 'md' | 'lg';
 let nextUniqueId = 0;
 
 /**
- * Single line text input component.
+ * Single line text field component.
  *
  * @csspart wrapper - The input's wrapper
  * @slot prefix - Content shown before the input
@@ -57,7 +57,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
 
-  /** Whether the text input is disabled; when set no interaction is possible. */
+  /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Maximum value. Only applies to number input type. */
@@ -81,7 +81,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Whether you can interact with the input or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
-  /** Whether the text input is a required field. */
+  /** Whether the text field is a required field. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
   /** Indicates whether the control should indicate it is valid. */
@@ -93,7 +93,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   @property({ reflect: true }) size: TextFieldSize = 'md';
 
-  /** Specifies the interval between legal numbers for an input field. Only applies to number input type */
+  /** Specifies the interval between legal numbers for a text field. Only applies to number input type */
   @property({ type: Number }) step?: number;
 
   /**

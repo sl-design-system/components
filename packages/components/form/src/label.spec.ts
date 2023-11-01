@@ -185,11 +185,11 @@ describe('sl-label', () => {
       expect(el.querySelector('sl-label')).to.have.attribute('size', 'sm');
     });
 
-    it('should adopt the size of the text input', async () => {
+    it('should adopt the size of the text field', async () => {
       el = await fixture(html`
         <form>
-          <sl-label for="input">Label</sl-label>
-          <sl-text-field id="input"></sl-text-field>
+          <sl-label for="text">Label</sl-label>
+          <sl-text-field id="text"></sl-text-field>
         </form>
       `);
 

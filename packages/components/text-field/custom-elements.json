@@ -38,7 +38,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Single line text input component.",
+          "description": "Single line text field component.",
           "name": "TextField",
           "cssParts": [
             {
@@ -76,7 +76,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text input is disabled; when set no interaction is possible.",
+              "description": "Whether the text field is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -158,7 +158,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text input is a required field.",
+              "description": "Whether the text field is a required field.",
               "attribute": "required",
               "reflects": true
             },
@@ -221,7 +221,7 @@
               "type": {
                 "text": "number | undefined"
               },
-              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
+              "description": "Specifies the interval between legal numbers for a text field. Only applies to number input type",
               "attribute": "step"
             },
             {
@@ -293,7 +293,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text input is disabled; when set no interaction is possible.",
+              "description": "Whether the text field is disabled; when set no interaction is possible.",
               "fieldName": "disabled"
             },
             {
@@ -357,7 +357,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text input is a required field.",
+              "description": "Whether the text field is a required field.",
               "fieldName": "required"
             },
             {
@@ -382,7 +382,7 @@
               "type": {
                 "text": "number | undefined"
               },
-              "description": "Specifies the interval between legal numbers for an input field. Only applies to number input type",
+              "description": "Specifies the interval between legal numbers for a text field. Only applies to number input type",
               "fieldName": "step"
             },
             {

@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@lit-labs/observers": "^2.0.2",
+    "@sl-design-system/form": "0.0.0",
     "@sl-design-system/shared": "0.1.8",
     "lit": "^3.0.1"
   }

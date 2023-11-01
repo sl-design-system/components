@@ -1,18 +1,13 @@
-import type { IElementInternals } from 'element-internals-polyfill';
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EventEmitter } from '@sl-design-system/shared';
-import {
-  EventsController,
-  FormControlMixin,
-  HintMixin,
-  ValidationController,
-  event,
-  hintStyles,
-  requiredValidator,
-  validationStyles
-} from '@sl-design-system/shared';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { msg } from '@lit/localize';
+import { Error, FormControlMixin, Hint } from '@sl-design-system/form';
+import { event } from '@sl-design-system/shared';
 import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import styles from './checkbox.scss.js';
 
 export type CheckboxSize = 'md' | 'lg';
@@ -20,50 +15,58 @@ export type CheckboxSize = 'md' | 'lg';
 /**
  * A checkbox with 3 states; unchecked, checked and intermediate.
  *
- * ```html
- *   <sl-checkbox>Foo</sl-checkbox>
- * ```
- *
+ * @csspart wrapper - The checkbox's wrapper
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
-export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
+export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
-  static formAssociated = true;
+  static get formAssociated(): boolean {
+    return true;
+  }
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-error': Error,
+      'sl-hint': Hint
+    };
+  }
 
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
-  });
+  /** @private */
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  #validation = new ValidationController(this, {
-    validators: [requiredValidator]
-  });
+  /** @private */
+  static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
+
+  /** The initial state when the form was associated with the checkbox. Used to reset the checkbox. */
   #initialState = false;
 
-  /** @private Element internals. */
-  readonly internals = this.attachInternals() as ElementInternals & IElementInternals;
+  /** @private */
+  readonly internals = this.attachInternals();
 
   /** Emits when the checked state changes. */
   @event() change!: EventEmitter<boolean>;
 
   /** Whether the checkbox is checked. */
-  @property({ type: Boolean, reflect: true }) checked?: boolean;
+  @property({ type: Boolean, reflect: true }) checked = false;
 
-  /** Whether the checkbox is invalid. */
-  @property({ type: Boolean, reflect: true }) invalid?: boolean;
+  /** Whether the checkbox is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** Whether the checkbox has the indeterminate state. */
-  @property({ type: Boolean }) indeterminate = false;
+  @property({ type: Boolean, reflect: true }) indeterminate = false;
 
-  /** The size of the checkbox
-   * @type {'md' | 'lg'} */
+  /** Whether the checkbox is required. */
+  @property({ type: Boolean, reflect: true }) required = false;
+
+  /**
+   * The size of the checkbox
+   * @type {'md' | 'lg'}
+   */
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
   /** The value for the checkbox, to be used in forms. */
-  @property() value?: string;
+  @property() value: string | null = null;
 
   /** @ignore */
   override connectedCallback(): void {
@@ -73,12 +76,32 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
 
     this.setFormControlElement(this);
 
-    this.#validation.validate(this.checked ? this.value : undefined);
-
     this.#updateNoLabel();
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
+    }
+  }
+
+  /** @ignore Stores the initial state of the checkbox */
+  formAssociatedCallback(): void {
+    this.#initialState = this.hasAttribute('checked');
+  }
+
+  /** @ignore Resets the checkbox to the initial state */
+  formResetCallback(): void {
+    this.checked = this.#initialState;
+    this.change.emit(this.checked);
+  }
+
+  /** @ignore */
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('checked') || changes.has('required') || changes.has('value')) {
+      this.internals.setFormValue(this.checked ? this.value : null);
+      this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box'));
+      this.updateValidity();
     }
   }
 
@@ -88,43 +111,31 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
 
     if (changes.has('checked') || changes.has('indeterminate')) {
       this.internals.ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
-
-      if (this.indeterminate) {
-        this.internals.states.add('--indeterminate');
-      } else {
-        this.internals.states.delete('--indeterminate');
-      }
-
-      if (this.checked) {
-        this.internals.states.add('--checked');
-      } else {
-        this.internals.states.delete('--checked');
-      }
     }
 
-    if (changes.has('checked') || changes.has('value')) {
-      this.setFormValue(this.checked ? this.value : undefined);
+    if (changes.has('disabled')) {
+      this.internals.ariaDisabled = this.disabled ? 'true' : 'false';
+    }
+
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
     }
   }
 
-  /** @ignore Stores the initial state of the checkbox */
-  formAssociatedCallback(): void {
-    this.#initialState = this.getAttribute('checked') === null ? false : true;
-  }
-
-  /** @ignore  Resets the checkbox to the initial state */
-  formResetCallback(): void {
-    this.checked = this.#initialState;
-    this.#validation.validate(this.checked ? this.value : undefined);
-    this.change.emit(this.checked);
-  }
-
+  /** @ignore */
   override render(): TemplateResult {
     return html`
-      <div @click=${this.#onToggle} class="wrapper">
-        <div class="outer">
+      <div @click=${this.#onClick} @keydown=${this.#onKeydown} class="wrapper" part="wrapper">
+        <div class="outer" .tabIndex=${this.disabled ? -1 : 0}>
           <div class="inner">
-            <svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
+            <svg
+              aria-hidden="true"
+              class=${classMap({ checked: this.checked, indeterminate: this.indeterminate })}
+              focusable="false"
+              part="svg"
+              version="1.1"
+              viewBox="0 0 24 24"
+            >
               ${this.indeterminate
                 ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
                 : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
@@ -135,46 +146,30 @@ export class Checkbox extends FormControlMixin(HintMixin(LitElement)) {
           <slot @slotchange=${() => this.#updateNoLabel()}></slot>
         </span>
       </div>
-      ${this.renderHint()} ${this.#validation.render()}
+
+      <sl-error .size=${this.size}></sl-error>
+      <sl-hint .size=${this.size}></sl-hint>
     `;
   }
 
   #onClick(event: Event): void {
-    // If the user clicked the label, toggle the checkbox
-    if (event.target === this) {
-      this.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
-    }
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
     if (this.disabled) {
       return;
     }
 
-    if (['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-
-      this.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
-    }
-  }
-
-  #onToggle(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
 
-    if (this.disabled) {
-      return;
-    }
-
     this.checked = !this.checked;
-    this.#validation.validate(this.checked ? this.value : undefined);
     this.change.emit(this.checked);
   }
 
-  /**
-   * Updates the `no-label` attribute based on the presence of a label.
-   * @listens slotchange
-   */
+  #onKeydown(event: KeyboardEvent): void {
+    if (['Enter', ' '].includes(event.key)) {
+      this.#onClick(event);
+    }
+  }
+
   #updateNoLabel(): void {
     const empty = Array.from(this.childNodes)
       .filter(

@@ -66,6 +66,14 @@
   <source>Blank</source>
   <target>Leeg</target>
 </trans-unit>
+<trans-unit id="sa37ee0d223f8a860">
+  <source>Please check this box</source>
+  <target>Vink deze af</target>
+</trans-unit>
+<trans-unit id="se4627bc6dce5cbbf">
+  <source>At least one item must be checked.</source>
+  <target>Tenminste 1 moet aangevinkt zijn.</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

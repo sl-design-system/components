@@ -1,7 +1,7 @@
 $variants: default, valid, invalid;
 $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 $states: unchecked, checked;
-$state-selectors: '', ':where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])';
+$state-selectors: '', ':where([checked], [indeterminate])';
 $sizes: md, lg;
 
 :host {
@@ -53,28 +53,28 @@ $sizes: md, lg;
       --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled])) .wrapper:hover {
+    :host(#{$variant-selector + $state-selector}:not([disabled])) .wrapper:hover {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
       --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled])) .wrapper:active {
+    :host(#{$variant-selector + $state-selector}:not([disabled])) .wrapper:active {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
       --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):focus-visible) {
+    :host(#{$variant-selector + $state-selector}:not([disabled]):focus-visible) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
       --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:where(:disabled, [internals-disabled])) {
+    :host(#{$variant-selector + $state-selector}[disabled]) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
@@ -85,11 +85,22 @@ $sizes: md, lg;
 
 :host {
   align-items: start;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  gap: var(--_gap);
   line-height: var(--_line-height);
   outline: none;
+}
+
+:host(:focus-visible) .inner {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+  transition: var(--_transition);
+  transition-property: background, border-color, color, filter, outline-color;
+}
+
+:host([disabled]) {
+  --_cursor: default;
+  pointer-events: none;
 }
 
 :host([no-label]) {
@@ -102,20 +113,14 @@ $sizes: md, lg;
   }
 }
 
-:host(:focus-visible) .inner {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
-  transition: var(--_transition);
-  transition-property: background, border-color, color, filter, outline-color;
-}
+:host([show-validity]) {
+  .error {
+    display: block;
+  }
 
-:host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
-  --_stroke-dashoffset: 0;
-}
-
-:host(:where(:disabled, [internals-disabled])) {
-  --_cursor: default;
-  pointer-events: none;
+  .hint {
+    display: none;
+  }
 }
 
 .wrapper {
@@ -159,6 +164,11 @@ svg {
   block-size: var(--_icon-size);
   fill: none;
   inline-size: var(--_icon-size);
+
+  &.checked,
+  &.indeterminate {
+    --_stroke-dashoffset: 0;
+  }
 }
 
 path {
@@ -169,10 +179,4 @@ path {
   stroke-linejoin: round;
   stroke-width: 3px;
   transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);
-}
-
-:host(:where([invalid])) {
-  slot[name='hint']::slotted(*) {
-    display: none;
-  }
 }

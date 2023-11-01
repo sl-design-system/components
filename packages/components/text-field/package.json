@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/text-input",
+  "name": "@sl-design-system/text-field",
   "version": "0.1.8",
-  "description": "Input component for the SL Design System",
+  "description": "Text field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/input"
+    "directory": "packages/text-field"
   },
-  "homepage": "https://sanomalearning.design/components/input",
+  "homepage": "https://sanomalearning.design/components/text-field",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },

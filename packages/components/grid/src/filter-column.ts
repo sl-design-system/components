@@ -29,7 +29,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
    * The mode for the filter:
    * - `select`: The filter will allow you to select from a list of options. If none
    * are provided, the filter will create a list of options based on the column's values
-   * - `text`: The filter will be a text input.
+   * - `text`: The filter will be a text field.
    *
    * @type {select | text}
    */
@@ -37,7 +37,7 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
 
   /**
    * The options you can choose from to filter. If not provided,
-   * the filter will be a text input.
+   * the filter will be a text field.
    */
   @property({ attribute: false }) options?: GridFilterOption[];
 

@@ -32,14 +32,14 @@ import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
       gap: 8px;
     }
 
-    sl-text-input {
+    sl-text-field {
       width: 250px;
     }
   `],
   template: `
     <div class="example-input">
-      <sl-label for="input-id">My label</sl-label>
-      <sl-text-input id="input-id" [value]="value" (input)="onValueChange($event.target)" required></sl-text-input>
+      <sl-label for="text-field">My label</sl-label>
+      <sl-text-field id="text-field" [value]="value" (input)="onValueChange($event.target)" required></sl-text-field>
       <div>value: <i>{{value}}</i></div>
     </div>
   `
@@ -124,7 +124,7 @@ export class CheckboxComponent {
       margin-block-start: 0;
     }
 
-    sl-text-input,
+    sl-text-field,
     sl-textarea {
       width: 50%;
     }
@@ -137,11 +137,11 @@ export class CheckboxComponent {
   template: `
     <form [formGroup]="myForm" (ngSubmit)="onSubmit($event, myForm)">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="This is a hint for the text input with your name" minlength="8" required>
-      </sl-text-input>
+      <sl-text-field id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="This is a hint for the text field with your name" minlength="8" required>
+      </sl-text-field>
       <sl-label for="website-input">Url (with custom validation)</sl-label>
-      <sl-text-input id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="Your website adress (should contain 'https' and 'com' parts)" minlength="8" required>
-      </sl-text-input>
+      <sl-text-field id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="Your website adress (should contain 'https' and 'com' parts)" minlength="8" required>
+      </sl-text-field>
       <sl-label for="description-id">Description (with custom validation)</sl-label>
       <sl-textarea id="description-id" #myReactiveTextarea (input)="onInput(this.myForm.controls.description);" formControlName="description" placeholder="Add short description here" hint="This textarea should contain a short description starting with 'This is'" required>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
@@ -309,7 +309,7 @@ function startsWithThisIs(control: AbstractControl): ValidationErrors | null {
       margin-block-start: 0;
     }
 
-    sl-text-input,
+    sl-text-field,
     sl-textarea {
       width: 50%;
     }
@@ -322,8 +322,8 @@ function startsWithThisIs(control: AbstractControl): ValidationErrors | null {
   template: `
     <form [formGroup]="myForm">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text input" required>
-      </sl-text-input>
+      <sl-text-field id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text field" required>
+      </sl-text-field>
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" #myReactiveTextarea formControlName="description" placeholder="Add short description here" required>
       </sl-textarea>
@@ -393,7 +393,7 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
       margin-block-start: 0;
     }
 
-    sl-text-input,
+    sl-text-field,
     sl-textarea {
       width: 50%;
     }
@@ -406,9 +406,9 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
   template: `
     <form #myForm="ngForm" (ngSubmit)="onSubmit($event, model, myForm)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" hint="This is a hint for text input" placeholder="Type at least 8 characters" [(ngModel)]="model.name" (input)="onInput(inputWithNgmodel);" #inputWithNgmodel="ngModel" name="name" minlength="8" required>
+      <sl-text-field id="my-value" hint="This is a hint for text field" placeholder="Type at least 8 characters" [(ngModel)]="model.name" (input)="onInput(inputWithNgmodel);" #inputWithNgmodel="ngModel" name="name" minlength="8" required>
         <div slot="value-missing">error message example when the field is required</div>
-      </sl-text-input>
+      </sl-text-field>
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" placeholder="Type at least 8 characters" [(ngModel)]="model.description" #textareaWithNgmodel="ngModel" (input)="onInput(textareaWithNgmodel);" name="description" hint="This is a hint for textarea" minlength="8" required></sl-textarea>
       <sl-label for="checkboxWithNgmodel">Checkbox</sl-label>
@@ -529,7 +529,7 @@ export class TemplateFormComponent implements AfterViewChecked {
       margin-block-start: 0;
     }
 
-    sl-text-input,
+    sl-text-field,
     sl-textarea {
       width: 50%;
     }
@@ -542,9 +542,9 @@ export class TemplateFormComponent implements AfterViewChecked {
   template: `
     <form #myForm="ngForm">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" hint="this is a hint" placeholder="Please write a name" [(ngModel)]="model.name" #inputWithNgmodel="ngModel" name="name" required>
+      <sl-text-field id="my-value" hint="this is a hint" placeholder="Please write a name" [(ngModel)]="model.name" #inputWithNgmodel="ngModel" name="name" required>
         <div slot="value-missing">This is a custom error message example when the field is required</div>
-      </sl-text-input>
+      </sl-text-field>
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" hint="This is a hint for the description" placeholder="Please write a short description" [(ngModel)]="model.description" #textareaWithNgmodel="ngModel" name="description" required></sl-textarea>
       <sl-label for="checkboxWithNgmodel">Checkbox</sl-label>

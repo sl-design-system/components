@@ -480,6 +480,16 @@
             },
             {
               "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "#initialState",
               "privacy": "private",
               "type": {

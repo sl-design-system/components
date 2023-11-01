@@ -1,9 +1,9 @@
-import type { TextInput } from '@sl-design-system/text-input';
+import type { TextInput } from '@sl-design-system/text-field';
 import type { Label } from './label.js';
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/switch/register.js';
-import '@sl-design-system/text-input/register.js';
+import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../register.js';
 

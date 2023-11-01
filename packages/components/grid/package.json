@@ -44,7 +44,7 @@
     "@sl-design-system/icon": "0.0.3",
     "@sl-design-system/popover": "0.0.12",
     "@sl-design-system/shared": "0.1.8",
-    "@sl-design-system/text-input": "0.1.8",
+    "@sl-design-system/text-field": "0.1.8",
     "lit": "^3.0.1"
   }
 }

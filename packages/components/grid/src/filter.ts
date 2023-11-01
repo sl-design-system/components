@@ -9,7 +9,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Button } from '@sl-design-system/button';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
-import { TextInput } from '@sl-design-system/text-input';
+import { TextInput } from '@sl-design-system/text-field';
 import { Popover } from '@sl-design-system/popover';
 import { event, getNameByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';

@@ -4,7 +4,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
 import '@sl-design-system/radio-group/register.js';
-import '@sl-design-system/text-input/register.js';
+import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/textarea/register.js';
 import { MessageSize } from "@sl-design-system/shared";
 import { html } from 'lit';

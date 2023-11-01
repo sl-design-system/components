@@ -3,7 +3,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/icon/register.js';
-import '@sl-design-system/text-input/register.js';
+import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/tooltip/register.js';
 import '@sl-design-system/switch/register.js';
 import { html } from 'lit';

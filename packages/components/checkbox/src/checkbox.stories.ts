@@ -1,6 +1,6 @@
 import type { Checkbox, CheckboxSize } from './checkbox.js';
 import type { StoryObj } from '@storybook/web-components';
-import '@sl-design-system/label/register.js';
+import '@sl-design-system/form/register.js';
 import { html } from 'lit';
 import '../register.js';
 
@@ -344,7 +344,7 @@ export const ValidateInForm: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-text-input,
+        sl-text-field,
         sl-textarea {
           align-self: stretch;
         }

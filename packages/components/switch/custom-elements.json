@@ -53,8 +53,7 @@
               "type": {
                 "text": "EventEmitter<boolean>"
               },
-              "description": "Emits when the checked state changes.",
-              "attribute": "change"
+              "description": "Emits when the checked state changes."
             },
             {
               "kind": "field",

@@ -9,12 +9,7 @@ $sizes: sm, md, lg;
   align-items: center;
   color: var(--_color);
   display: inline-flex;
-  padding-bottom: var(--_padding-bottom);
-}
-
-slot[name='icon']::slotted(sl-icon) {
-  fill: var(--_fill);
-  margin-left: var(--sl-space-input-field-label-icon-md);
+  margin-block-end: var(--_margin-block-end);
 }
 
 :host([disabled]) {
@@ -24,7 +19,7 @@ slot[name='icon']::slotted(sl-icon) {
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_padding-bottom: var(--sl-space-input-field-label-padding-bottom-#{$size});
+    --_margin-block-end: var(--sl-space-input-field-label-padding-bottom-#{$size});
 
     slot[name='label']::slotted(label) {
       font: var(--sl-text-input-field-label-label-#{$size});
@@ -33,11 +28,13 @@ slot[name='icon']::slotted(sl-icon) {
     .optional,
     .required {
       font: var(--sl-text-input-field-label-tag-#{$size});
-      margin-left: var(--sl-space-input-field-label-gap-#{$size});
+      margin-inline-start: var(--sl-space-input-field-label-gap-#{$size});
     }
   }
+}
 
-  :host([no-padding]) {
-    --_padding-bottom: var(--sl-space-input-field-label-padding-bottom-none);
-  }
+slot[name='icon']::slotted(sl-icon) {
+  align-self: center;
+  fill: var(--_fill);
+  margin-left: var(--sl-space-input-field-label-icon-md);
 }

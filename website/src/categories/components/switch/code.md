@@ -1,7 +1,7 @@
 ---
 title: Switch code
 tags: code
-APIdescription: Component has a range of properties to define the experience in different use cases.
+APIdescription: The switch component has a range of properties to define the experience in different use cases. It is commonly used to enable and disable different options.
 eleventyNavigation:
   parent: Switch
   key: SwitchCode
@@ -9,10 +9,9 @@ eleventyNavigation:
 <section>
 
 <div class="ds-example">
-  <div>
-    <sl-switch size="md" checked>switch text</sl-switch>
-  <sl-switch size="md" checked valid>switch text</sl-switch>
-  <sl-switch size="md" checked invalid>switch text</sl-switch>
+  <div class="ds-example__examples-wrapper">
+    <sl-switch size="md" hint="helper text" checked>horizontal orientation</sl-switch>
+    <sl-switch size="md" orientation="vertical" hint="helper text">vertical orientation</sl-switch>
   </div>
 </div>
 
@@ -20,9 +19,8 @@ eleventyNavigation:
 
   ```html
     <div>
-        <sl-switch size="md" checked>switch text</sl-switch>
-        <sl-switch size="md" checked valid>switch text</sl-switch>
-        <sl-switch size="md" checked invalid>switch text</sl-switch>
+      <sl-switch size="md" hint="helper text" checked>horizontal orientation</sl-switch>
+      <sl-switch size="md" orientation="vertical" hint="helper text">vertical orientation</sl-switch>
     </div>
   ```
 

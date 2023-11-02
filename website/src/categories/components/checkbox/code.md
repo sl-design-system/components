@@ -19,7 +19,7 @@ eleventyNavigation:
     <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox disabled" value="yes" disabled>Disabled</sl-checkbox>
     <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox disabled checked" value="yes" checked disabled>Disabled checked</sl-checkbox>
     <sl-checkbox id="checkbox-valid" name="checkbox" aria-label="checkbox valid" value="yes" valid>Valid</sl-checkbox>
-    <sl-checkbox id="checkbox-invalid" name="checkbox" aria-label="checkbox invalid" value="yes" required invalid="true">Invalid</sl-checkbox>
+    <sl-checkbox id="checkbox-invalid" name="checkbox" aria-label="checkbox invalid" value="yes" required invalid>Label</sl-checkbox>
 </form>
 
 </div>
@@ -40,7 +40,7 @@ eleventyNavigation:
     <sl-checkbox id="checkbox-valid" name="checkbox" aria-label="checkbox valid" value="yes" valid>
       Valid
     </sl-checkbox>
-    <sl-checkbox id="checkbox-invalid" name="checkbox" aria-label="checkbox invalid" value="yes" required invalid="true">
+    <sl-checkbox id="checkbox-invalid" name="checkbox" aria-label="checkbox invalid" value="yes" required invalid>
       Invalid
     </sl-checkbox>
   </form>

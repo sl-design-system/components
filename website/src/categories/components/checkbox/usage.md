@@ -10,14 +10,26 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-checkbox id="checkbox" name="checkbox" value="yes" aria-label="Element to toggle">Checkbox</sl-checkbox>
+<sl-label for="group">Subjects</sl-label>
+<sl-checkbox-group id="group" hint="Pick one or more.">
+<sl-checkbox checked>Mathematics</sl-checkbox>
+<sl-checkbox>Geography</sl-checkbox>
+<sl-checkbox>Physics</sl-checkbox>
+<sl-checkbox disabled>History</sl-checkbox>
+</sl-checkbox-group>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-checkbox id="checkbox" name="checkbox" value="yes" aria-label="Element to toggle">Checkbox</sl-checkbox>
+  <sl-label for="group">Subjects</sl-label>
+  <sl-checkbox-group id="group" hint="Pick one or more.">
+    <sl-checkbox checked>Mathematics</sl-checkbox>
+    <sl-checkbox>Geography</sl-checkbox>
+    <sl-checkbox>Physics</sl-checkbox>
+    <sl-checkbox disabled>History</sl-checkbox>
+  </sl-checkbox-group>
   ```
 
 </div>
@@ -247,36 +259,6 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 |Focus ring|`'on', 'off'`|Turn the focus ring option to show the focus state of the checkbox.|
 
 {.ds-table .ds-table-align-top}
-
-</section>
-
-<section>
-
-<div class="ds-example">
-
-<sl-label for="group">Subjects</sl-label>
-<sl-checkbox-group id="group" hint="Pick one or more.">
-<sl-checkbox>Mathematics</sl-checkbox>
-<sl-checkbox>Geography</sl-checkbox>
-<sl-checkbox>Physics</sl-checkbox>
-<sl-checkbox disabled>History</sl-checkbox>
-</sl-checkbox-group>
-
-</div>
-
-<div class="ds-code">
-
-  ```html
-  <sl-label for="group">Subjects</sl-label>
-  <sl-checkbox-group id="group" hint="Pick one or more.">
-    <sl-checkbox>Mathematics</sl-checkbox>
-    <sl-checkbox>Geography</sl-checkbox>
-    <sl-checkbox>Physics</sl-checkbox>
-    <sl-checkbox disabled>History</sl-checkbox>
-  </sl-checkbox-group>
-  ```
-
-</div>
 
 </section>
 

@@ -90,25 +90,6 @@ Maintain a consistent style and tone throughout your help text. This consistency
 
 <section> 
 
-## Focus order
-
-The focus order for a checkbox determines the sequence in which users can navigate and interact with checkboxes using the keyboard or other input methods. This order ensures accessibility and allows users to select or deselect checkboxes by tabbing through them logically and consistently. It makes it easier for individuals who rely on keyboard navigation or assistive technologies to interact with checkboxes in a web or application interface.
-
-<div class="ds-table-wrapper">
-
-|Order|Element|Role|
-|-|-|-|
-|1|Checkbox input|Navigate to the Checkbox Input|
-
-{.ds-table .ds-table-align-top}
-
-</div>
-
-
-</section>
-
-<section> 
-
 ## Keyboard interactions
 
 Keyboard interaction with a checkbox refers to how users can interact with checkboxes using keyboard inputs. Typically, users can navigate to a checkbox using the "Tab" key, select or deselect it with the "Spacebar" key, and sometimes use other keyboard shortcuts for efficiency. Keyboard interaction ensures that individuals who rely on keyboard navigation or assistive technologies can easily control checkboxes within a user interface.

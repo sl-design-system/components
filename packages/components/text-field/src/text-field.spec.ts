@@ -1,14 +1,16 @@
-import type { TextInput } from './text-input';
+import type { TextField } from './text-field.js';
 import { expect, fixture } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import '../register.js';
 
-describe('sl-text-input', () => {
-  let el: TextInput, input: HTMLInputElement;
+describe('sl-text-field', () => {
+  let el: TextField, input: HTMLInputElement;
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-text-input></sl-text-input>`);
+      el = await fixture(html`<sl-text-field></sl-text-field>`);
       input = el.querySelector('input')!;
     });
 
@@ -197,11 +199,54 @@ describe('sl-text-input', () => {
 
       expect(document.activeElement).to.equal(input);
     });
+
+    it('should emit an sl-focus event when focusing the input', () => {
+      const onFocus = spy();
+
+      el.addEventListener('sl-focus', onFocus);
+      input.focus();
+
+      expect(onFocus).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-blur event when blurring the input', async () => {
+      const onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+      input.focus();
+      await sendKeys({ press: 'Tab' });
+
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when leaving the input after typing', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      input.focus();
+      await sendKeys({ type: 'Lorem' });
+
+      expect(onChange).not.to.have.been.called;
+
+      await sendKeys({ press: 'Tab' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-input event when typing in the input', async () => {
+      const onInput = spy();
+
+      el.addEventListener('sl-input', onInput);
+      input.focus();
+      await sendKeys({ type: 'Lorem' });
+
+      expect(onInput.callCount).to.equal(5);
+    });
   });
 
   describe('invalid', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-text-input required></sl-text-input>`);
+      el = await fixture(html`<sl-text-field required></sl-text-field>`);
       input = el.querySelector('input')!;
     });
 
@@ -257,7 +302,7 @@ describe('sl-text-input', () => {
 
   describe('valid', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-text-input required value="foo"></sl-text-input>`);
+      el = await fixture(html`<sl-text-field required value="foo"></sl-text-field>`);
       input = el.querySelector('input')!;
     });
 
@@ -299,9 +344,9 @@ describe('sl-text-input', () => {
   describe('slotted input', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-text-input>
+        <sl-text-field>
           <input id="foo" slot="input" placeholder="I am a custom input" type="color"/>
-        </sl-text-input>
+        </sl-text-field>
       `);
 
       input = el.querySelector('input')!;
@@ -311,7 +356,7 @@ describe('sl-text-input', () => {
       expect(el.input).to.equal(input);
     });
 
-    it('should overwrite text input properties except for "type"', () => {
+    it('should overwrite text field properties except for "type"', () => {
       expect(input).to.have.attribute('placeholder', '');
       expect(input.type).to.equal('color');
     });
@@ -320,10 +365,10 @@ describe('sl-text-input', () => {
   describe('slotted prefix / suffix', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-text-input>
+        <sl-text-field>
           <span slot="prefix">prefix example</span>
           <span slot="suffix">suffix example</span>
-        </sl-text-input>
+        </sl-text-field>
       `);
     });
 

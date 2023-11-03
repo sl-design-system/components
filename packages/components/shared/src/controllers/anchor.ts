@@ -13,14 +13,24 @@ export class AnchorController implements ReactiveController {
   #host: ReactiveControllerHost & HTMLElement;
 
   #onBeforeToggle = (event: Event): void => {
+    const host = this.#host as HTMLElement;
+    let anchorElement = host.anchorElement;
+    if (!anchorElement && host.hasAttribute('anchor')) {
+      anchorElement =
+        (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
+    }
     if ((event as ToggleEvent).newState === 'open') {
-      const host = this.#host as HTMLElement;
+      // const host = this.#host as HTMLElement;
 
-      let anchorElement = host.anchorElement;
-      if (!anchorElement && host.hasAttribute('anchor')) {
-        anchorElement =
-          (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
-      }
+      // let anchorElement = host.anchorElement;
+      // if (!anchorElement && host.hasAttribute('anchor')) {
+      //   anchorElement =
+      //     (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
+      // }
+
+      console.log('anchor and host', anchorElement, host, host.matches('sl-popover'));
+
+      // (anchorElement as HTMLElement)?.toggleAttribute('popover-open');
 
       if (anchorElement) {
         this.#cleanup = positionPopover(host, anchorElement, {
@@ -28,10 +38,18 @@ export class AnchorController implements ReactiveController {
           position: this.position ?? this.#config.position ?? 'top',
           maxWidth: this.maxWidth ?? this.#config.maxWidth
         });
+        // host.getAttribute('sl-popover')
+        if (host.matches('sl-popover')) {
+          /** popover-open can be used for styling anchor element, when popover is opened and the anchor is not a sl-button  */
+          (anchorElement as HTMLElement)?.setAttribute('popover-open', '');
+        }
       }
     } else if (this.#cleanup) {
       this.#cleanup();
       this.#cleanup = undefined;
+      if (host.matches('sl-popover')) {
+        (anchorElement as HTMLElement)?.removeAttribute('popover-open');
+      }
     }
   };
 

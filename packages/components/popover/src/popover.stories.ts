@@ -32,6 +32,7 @@ export const Basic: Story = {
   render: ({ position }) => {
     const onClick = (event: Event & { target: Button }): void => {
       const popover = event.target.nextElementSibling as HTMLElement;
+      // (event.target as Button).style.setProperty("background-color", "yellow");
 
       popover.togglePopover();
     };
@@ -39,6 +40,10 @@ export const Basic: Story = {
     return html`
       <sl-button @click=${onClick} id="button">Toggle popover</sl-button>
       <sl-popover anchor="button" position=${ifDefined(position)}>I'm a popover</sl-popover>
+      <button popovertarget="my-popover">Open Popover</button>
+      <div id="my-popover" popover>
+        <p>I am a popover.</p>
+      </div>
     `;
   }
 };

@@ -17,14 +17,16 @@ $variants: default, primary, success, warning, danger;
   }
 
   @each $variant in $variants {
-    :host([fill='#{$fill}'][variant='#{$variant}']) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:not([popover-open])) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):hover) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):hover),
+    :host([popover-open]) {
+      // TODO: needs to be improved
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);

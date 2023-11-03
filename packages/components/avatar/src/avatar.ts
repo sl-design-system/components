@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { LitElement, html, nothing, svg } from 'lit';
+import { property, state } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
 
 export interface UserProfile {
@@ -16,6 +16,24 @@ export interface UserProfilePicture {
   thumbnail: string;
 }
 
+export interface AvatarImage {
+  containerSize: number;
+  size: number;
+  radius: number;
+  y: number;
+}
+
+export interface AvatarBadge {
+  height: number;
+  width: number;
+  radius: number;
+  badgeY: number;
+  badgeX: number;
+  badgeBaseX: number;
+  textY?: number;
+  textX?: number;
+}
+
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type AvatarFallbackType = 'initials' | 'image';
 export type AvatarOrientation = 'horizontal' | 'vertical';
@@ -26,57 +44,167 @@ export class Avatar extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   @property() user?: UserProfile;
-  @property({ reflect: true }) size?: AvatarSize = 'md';
+  @property({ reflect: true }) size: AvatarSize = 'md';
+  @property({ reflect: true, attribute: 'badge-text' }) badgeText?: string;
   @property() fallback?: AvatarFallbackType = 'initials';
-  @property({ reflect: true }) orientation?: AvatarOrientation = 'horizontal';
+  @property({ reflect: true }) orientation: AvatarOrientation = 'horizontal';
   @property({ reflect: true }) status?: UserStatus;
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
 
+  private imageSizes = {
+    sm: 24,
+    md: 32,
+    lg: 40,
+    xl: 52,
+    '2xl': 64,
+    '3xl': 80
+  };
+  private badgeSizes = {
+    sm: 8,
+    md: 12,
+    lg: 14,
+    xl: 16,
+    '2xl': 18,
+    '3xl': 20
+  };
+
+  // offset relative to image; same principle as with css-positioning.
+  private offsetCircle = {
+    sm: -2,
+    md: -4,
+    lg: -4,
+    xl: -2,
+    '2xl': -2,
+    '3xl': 2
+  };
+
+  private offsetSquare = {
+    sm: -2,
+    md: -4,
+    lg: -4,
+    xl: -2,
+    '2xl': -2,
+    '3xl': 2
+  };
+
+  private borderWidth = 4; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
+
+  @state() image?: AvatarImage;
+  @state() badge?: AvatarBadge;
+
+  private offset = this.offsetCircle;
+
   get profileName(): string {
-    return `${this.user?.name.first || 'John'} ${this.user?.name.last || 'Doe'}`;
+    return `${this.user?.name?.first || 'John'} ${this.user?.name?.last || 'Doe'}`;
   }
 
   get initials(): string {
     return this.user ? this.user.name.first.substring(0, 1) + this.user.name.last.substring(0, 1) : '';
   }
 
-  get image(): TemplateResult {
-    if (this.user?.picture) {
-      return html`<img
+  get imageContent(): TemplateResult {
+    if (this.user?.picture && this.image) {
+      return svg`<image
         alt="picture of ${this.profileName}"
-        .src=${this.user?.picture?.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
-      />`;
+        height="${this.image.size}"
+        width="${this.image.size}"
+        x="0"
+        y="${this.image.y}" 
+        mask="url(#circle)"
+        href=${this.user?.picture?.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
+      ></image>`;
     } else if (this.user && this.fallback === 'initials') {
-      return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-        <text x="8" y="8" dy=".3em">${this.initials}</text>
-      </svg>`;
+      return svg`<text x="8" y="8" dy=".3em">${this.initials}</text>`;
     } else {
-      return html`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-        <path
-          d="M8 1a3 3 0 1 0 .002 6.002A3 3 0 0 0 8 1zM6.5 8A4.491 4.491 0 0 0 2 12.5v.5c0 1.11.89 2 2 2h8c1.11 0 2-.89 2-2v-.5C14 10.008 11.992 8 9.5 8zm0 0"
-        />
-      </svg>`;
+      return svg`<path
+        d="M8 1a3 3 0 1 0 .002 6.002A3 3 0 0 0 8 1zM6.5 8A4.491 4.491 0 0 0 2 12.5v.5c0 1.11.89 2 2 2h8c1.11 0 2-.89 2-2v-.5C14 10.008 11.992 8 9.5 8zm0 0"
+      /> `;
     }
   }
 
-  get statusBadge(): TemplateResult | typeof nothing {
-    if (this.status) {
-      return html`<div class="status-badge"></div>`;
+  get imageSVG(): TemplateResult {
+    if (!this.image || !this.badge) {
+      return html``;
     }
-    return nothing;
+    return html`
+      <svg
+        viewBox=" 0 0 ${this.image.containerSize} ${this.image.containerSize}"
+        width="${this.image.containerSize}"
+        height="${this.image.containerSize}"
+      >
+        <defs>
+          <mask id="badge-cutout">
+            <rect width="${this.image.containerSize}" height="${this.image.containerSize}" fill="white" />
+            <rect
+              class="badge"
+              y="${this.badge.badgeY}"
+              x="${this.badge.badgeX}"
+              height="${this.badge.height}"
+              width="${this.badge.width}"
+              rx="${this.badge.radius}"
+              fill="black"
+              stroke-width="${this.borderWidth}"
+              stroke="black"
+            />
+          </mask>
+          <mask id="circle">
+            <rect
+              y="${this.image.y}"
+              x="0"
+              height="${this.image.size}"
+              width="${this.image.size}"
+              rx="${this.image.radius}"
+              fill="white"
+              mask="url(#badge-cutout)"
+            />
+          </mask>
+        </defs>
+        <rect
+          class="badge"
+          y="${this.badge.badgeY}"
+          x="${this.badge.badgeX}"
+          height="${this.badge.height}"
+          width="${this.badge.width}"
+          rx="${this.badge.radius}"
+          fill="red"
+        />
+        <text y="${this.badge.textY}" x="${this.badge.textX}" fill="white">${this.badgeText}</text>
+        ${this.imageContent}
+      </svg>
+    `;
+  }
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#setBaseValues();
   }
 
   override render(): TemplateResult {
     return html`
-      <picture> ${this.image} ${this.statusBadge} </picture>
+      <picture> ${this.imageSVG}</picture>
       ${!this.imageOnly
         ? html`<div>
             <span>${this.profileName}</span>
             <slot></slot>
           </div>`
         : nothing}
+      <span class="measure-text" style="line-height:1em">${this.badgeText}</span>
     `;
   }
+  // ${JSON.stringify(this.badge)}
+
+  // override firstUpdated(): void {
+  //   const txt = this.renderRoot.querySelector('.measure-text');
+  //   if (txt && this.badge) {
+  //     console.log(
+  //       'firstUpdated',
+  //       txt?.getBoundingClientRect().width,
+  //       parseFloat(window.getComputedStyle(txt).fontSize)
+  //     );
+  //     this.badge.fontSize = parseFloat(window.getComputedStyle(txt).fontSize);
+  //   }
+  // }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
@@ -92,5 +220,89 @@ export class Avatar extends LitElement {
         }
       }
     }
+    if (changes.has('size')) {
+      this.#setBaseValues();
+    }
+
+    if (changes.has('badgeText')) {
+      if (this.badge) {
+        const txt = this.renderRoot.querySelector('.measure-text');
+        const svgtxt = this.renderRoot.querySelector('text');
+
+        if (!txt || !svgtxt) return;
+
+        const fontSize = parseFloat(window.getComputedStyle(txt).fontSize) || 8;
+        // FIX: this reading/calculation is wrong, but no idea why
+        const textWidth = svgtxt.getBoundingClientRect().width;
+        const textPadding = (this.badge.height - fontSize) / 2;
+        const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
+        const width = textWidth + textPadding * 2;
+
+        // console.log(textPaddingVertical, fontSize);
+
+        this.badge = {
+          ...this.badge,
+          width,
+          badgeX: this.badge.badgeBaseX - width,
+          textX: this.imageSizes[this.size] - textPadding - this.offset[this.size],
+          textY: fontSize + textPaddingVertical + this.badge.badgeY
+        };
+        // console.log(txt.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().width);
+        this.requestUpdate();
+
+        // console.log(txt.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().width);
+      }
+    }
   }
+
+  #setBaseValues(): void {
+    const cssQuery = this.renderRoot.querySelector('picture');
+    //TODO: apply this radius
+    const radius: number = cssQuery
+      ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
+      : 0;
+    this.offset = radius > 8 ? this.offsetCircle : this.offsetSquare; //or offset for square
+    const badgeOffset = this.offset[this.size] < 0 ? this.offset[this.size] * -1 : 0;
+    const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
+
+    this.image = {
+      ...this.image,
+      containerSize: this.imageSizes[this.size] + badgeOffset,
+      size: this.imageSizes[this.size],
+      radius: this.imageSizes[this.size] / 2,
+      y: badgeOffset
+    };
+
+    const badgeBaseX = this.imageSizes[this.size] - this.offset[this.size];
+    this.badge = {
+      ...this.badge,
+      height: this.badgeSizes[this.size],
+      width: this.badgeSizes[this.size],
+      radius: this.badgeSizes[this.size] / 2,
+      badgeY: calculatedOffset,
+      badgeX: badgeBaseX - this.badgeSizes[this.size],
+      badgeBaseX
+    };
+  }
+
+  // #redrawBadge(): void {
+  //   console.log('redrawBadge');
+  //   // const svgtxt = this.renderRoot.querySelector('text');
+  //   const txt = this.renderRoot.querySelector('svg');
+
+  //   if (!txt || !this.badgeText || !this.badge || !this.image) return;
+  //   const txtWidth = txt.width;
+
+  //   // console.log(txtWidth, txt.getBoundingClientRect().width, txt?.getBoundingClientRect().height);
+  //   // console.log(txtWidth, svgtxt?.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().height);
+
+  //   const badgeWidth = Math.max(this.badge.textPadding || 0 * 2 + txtWidth, this.badge.height);
+  //   const badgeX = this.badge.badgeBaseX - badgeWidth;
+
+  //   this.renderRoot.querySelectorAll('rect.badge').forEach(rect => {
+  //     rect.setAttribute('width', badgeWidth.toString());
+  //     rect.setAttribute('x', badgeX.toString());
+  //   });
+  //   this.requestUpdate();
+  // }
 }

@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
 
-interface Props extends Pick<Avatar, 'title' | 'size' | 'fallback' | 'status' | 'imageOnly' | 'orientation'> {
+interface Props
+  extends Pick<Avatar, 'title' | 'size' | 'fallback' | 'status' | 'imageOnly' | 'orientation' | 'badgeText'> {
   title: string;
   firstName: string;
   lastName: string;
@@ -11,6 +12,7 @@ interface Props extends Pick<Avatar, 'title' | 'size' | 'fallback' | 'status' | 
   imageOnly: boolean;
   orientation: AvatarOrientation;
   subheading: string;
+  badgeText: string;
 }
 
 type Story = StoryObj<Props>;
@@ -105,10 +107,15 @@ export default {
     lastName: 'Nylund',
     picture: 'https://randomuser.me/api/portraits/thumb/women/14.jpg',
     imageOnly: false,
+    badgeText: '34',
     size: 'md'
   },
   argTypes: {
     subheading: {
+      control: 'text',
+      defaultValue: null
+    },
+    badgeText: {
       control: 'text',
       defaultValue: null
     },
@@ -132,7 +139,19 @@ export default {
       options: orientations
     }
   },
-  render: ({ title, firstName, lastName, picture, size, fallback, status, imageOnly, subheading, orientation }) => {
+  render: ({
+    title,
+    firstName,
+    lastName,
+    picture,
+    size,
+    fallback,
+    status,
+    imageOnly,
+    subheading,
+    orientation,
+    badgeText
+  }) => {
     let user: UserProfile = {
       name: {
         title,
@@ -154,6 +173,7 @@ export default {
       .fallback=${fallback}
       .status=${status}
       ?image-only=${imageOnly}
+      badge-text=${badgeText}
       .orientation=${orientation}
       >${subheading}</sl-avatar
     >`;
@@ -163,7 +183,7 @@ export default {
 export const Basic: Story = {};
 
 export const All: StoryObj = {
-  render: () => {
+  render: ({ badgeText }) => {
     return html` <style>
         table {
           border-collapse: collapse;
@@ -182,24 +202,20 @@ export const All: StoryObj = {
         <thead>
           <tr>
             <th>Size</th>
-            <th>With avatar</th>
-            <th>With initials</th>
-            <th>With placeholder</th>
-            <th>With subheading</th>
-            <th>With status</th>
+
             <th>Image only</th>
+            <th>empty badge</th>
+            <th>number badge</th>
           </tr>
         </thead>
         <tbody>
           ${sizes.map(
             size => html` <tr>
               <th>${sizeName(size)}</th>
-              <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>
-              <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>
-              <td><sl-avatar .user=${users[4]} .size=${size} fallback="image"></sl-avatar></td>
-              <td><sl-avatar .user=${users[1]} .size=${size}>Very good student</sl-avatar></td>
-              <td><sl-avatar .user=${users[0]} .size=${size} status="online"></sl-avatar></td>
-              <td><sl-avatar .user=${users[5]} .size=${size} image-only></sl-avatar></td>
+
+              <td><sl-avatar .user=${users[0]} .size=${size} image-only></sl-avatar></td>
+              <td><sl-avatar .user=${users[0]} .size=${size} image-only status="online"></sl-avatar></td>
+              <td><sl-avatar .user=${users[0]} .size=${size} image-only badge-text="${badgeText}"></sl-avatar></td>
             </tr>`
           )}
           </tr>
@@ -207,3 +223,15 @@ export const All: StoryObj = {
       </table>`;
   }
 };
+
+// <th>With avatar</th>
+// <th>With initials</th>
+// <th>With placeholder</th>
+// <th>With subheading</th>
+// <th>With status</th>
+
+// <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>
+// <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>
+// <td><sl-avatar .user=${users[4]} .size=${size} fallback="image"></sl-avatar></td>
+// <td><sl-avatar .user=${users[1]} .size=${size}>Very good student</sl-avatar></td>
+// <td><sl-avatar .user=${users[0]} .size=${size} status="online"></sl-avatar></td>

@@ -43,6 +43,22 @@
           "members": [
             {
               "kind": "field",
+              "name": "badge",
+              "type": {
+                "text": "AvatarBadge | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "badgeText",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "badge-text",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "fallback",
               "type": {
                 "text": "AvatarFallbackType | undefined"
@@ -53,6 +69,13 @@
             {
               "kind": "field",
               "name": "image",
+              "type": {
+                "text": "AvatarImage | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "imageContent",
               "type": {
                 "text": "TemplateResult"
               },
@@ -69,6 +92,14 @@
             },
             {
               "kind": "field",
+              "name": "imageSVG",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "initials",
               "type": {
                 "text": "string"
@@ -79,7 +110,7 @@
               "kind": "field",
               "name": "orientation",
               "type": {
-                "text": "AvatarOrientation | undefined"
+                "text": "AvatarOrientation"
               },
               "default": "'horizontal'",
               "attribute": "orientation",
@@ -97,7 +128,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "AvatarSize | undefined"
+                "text": "AvatarSize"
               },
               "default": "'md'",
               "attribute": "size",
@@ -111,14 +142,6 @@
               },
               "attribute": "status",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "statusBadge",
-              "type": {
-                "text": "TemplateResult | typeof nothing"
-              },
-              "readonly": true
             },
             {
               "kind": "field",
@@ -140,10 +163,17 @@
             {
               "name": "size",
               "type": {
-                "text": "AvatarSize | undefined"
+                "text": "AvatarSize"
               },
               "default": "'md'",
               "fieldName": "size"
+            },
+            {
+              "name": "badge-text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "badgeText"
             },
             {
               "name": "fallback",
@@ -156,7 +186,7 @@
             {
               "name": "orientation",
               "type": {
-                "text": "AvatarOrientation | undefined"
+                "text": "AvatarOrientation"
               },
               "default": "'horizontal'",
               "fieldName": "orientation"
@@ -182,8 +212,82 @@
           },
           "tagName": "sl-avatar",
           "customElement": true,
-          "methods": [],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#setBaseValues",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "imageSizes",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: 24,\n    md: 32,\n    lg: 40,\n    xl: 52,\n    '2xl': 64,\n    '3xl': 80\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "badgeSizes",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: 8,\n    md: 12,\n    lg: 14,\n    xl: 16,\n    '2xl': 18,\n    '3xl': 20\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "offsetCircle",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: -2,\n    md: -4,\n    lg: -4,\n    xl: -2,\n    '2xl': -2,\n    '3xl': 2\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "offsetSquare",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: -2,\n    md: -4,\n    lg: -4,\n    xl: -2,\n    '2xl': -2,\n    '3xl': 2\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "borderWidth",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "4"
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "type": {
+                "text": "AvatarImage | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "badge",
+              "type": {
+                "text": "AvatarBadge | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "privacy": "private"
+            },
             {
               "kind": "field",
               "name": "profileName",
@@ -202,7 +306,7 @@
             },
             {
               "kind": "field",
-              "name": "image",
+              "name": "imageContent",
               "type": {
                 "text": "TemplateResult"
               },
@@ -210,9 +314,9 @@
             },
             {
               "kind": "field",
-              "name": "statusBadge",
+              "name": "imageSVG",
               "type": {
-                "text": "TemplateResult | typeof nothing"
+                "text": "TemplateResult"
               },
               "readonly": true
             }

@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224" aria-labelledby="varValidTitle varValidDesc" role="img">
+  <title id="varValidTitle">Checkbox valid variant</title>
+  <desc id="varValidDesc">The valid variant of the checkbox in unchecked and checked status.</desc>
   <g clip-path="url(#clip0_2359_5582)">
     <path fill="var(--control-color-surface-100-surface, #F4F4F4)" d="M0 0h320v224H0z"/>
     <rect width="31" height="31" x="103.75" y="96.5" fill="var(--control-color-state-danger-container-active-state, #39B26C)" rx="1.5"/>

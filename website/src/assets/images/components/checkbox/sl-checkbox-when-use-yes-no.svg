@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" viewBox="0 0 320 220">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" viewBox="0 0 320 220" aria-labelledby="uYesNoTitle uYesNoDesc" role="img">
+  <title id="uYesNoTitle">When to use - example of yes or no checkbox usage</title>
+  <desc id="uYesNoDesc">Example of when to use a single checkbox in log in form to remember the user when comeback.</desc>
 <g clip-path="url(#clip0_2262_95739)">
   <path fill="var(--control-color-surface-200-surface, #EAEAEA)" d="M0 0h320v224H0z"/>
   <rect width="288" height="243" x="16" y="-35" fill="var(--control-color-state-primary-font-default-state, #fff)" rx="1.1667"/>

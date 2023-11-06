@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" viewBox="0 0 656 352">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" viewBox="0 0 656 352" aria-labelledby="figmaOptionsTitle figmaOptionsDesc" role="img">
+  <title id="figmaOptionsTitle">Options in Figma</title>
+  <desc id="figmaOptionsDesc">Capture of the checkbox’s properties panel in Figma.</desc>
   <g clip-path="url(#clip0_2359_5493)">
     <path fill="var(--control-color-surface-200-surface, #EAEAEA)" d="M0 0h656v352H0z"/>
     <g clip-path="url(#clip1_2359_5493)">

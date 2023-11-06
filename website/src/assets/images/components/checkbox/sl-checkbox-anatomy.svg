@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 656 224" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 656 224" fill="none" aria-labelledby="anatomyTitle anatomyDesc" role="img">
+  <title id="anatomyTitle">Checkbox anatomy</title>
+  <desc id="anatomyDesc">Anatomy of a checkbox control form. 1. Checkbox input; 2. Icon; 3. Label.</desc>
   <g clip-path="url(#clip0_2320_6652)">
     <path fill="var(--control-color-surface-100-surface, #F4F4F4)" d="M0 0h656v224H0z"/>
     <rect width="31" height="31" x="272" y="96.5" fill="var(--control-color-visuals-background, #9EBAFF)" rx="1.5"/>

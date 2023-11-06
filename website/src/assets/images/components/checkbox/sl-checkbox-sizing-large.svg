@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224" aria-labelledby="sizeLargeTitle sizeLargeDesc" role="img">
+  <title id="sizeLargeTitle">Sizing of the checkbox - large</title>
+  <desc id="sizeLargeDesc">Diagram of the large checkbox. The clickable area height of the checkbox is 40px, the height and width of the checkbox input is 32px and the line height of the label is 24px.</desc>
 <g clip-path="url(#clip0_2428_3698)">
   <path fill="var(--control-color-surface-100-surface, #F4F4F4)" d="M0 0h320v224H0z"/>
   <path fill="var(--control-color-visuals-clickable-area, #FCECAA)" d="M103.25 92h113v40h-113z"/>

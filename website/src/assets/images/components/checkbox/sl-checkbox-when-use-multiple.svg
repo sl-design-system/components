@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 220">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 220" aria-labelledby="uMultipleTitle uMultipleDesc" role="img">
+  <title id="uMultipleTitle">When to use - example of multiple selections</title>
+  <desc id="uMultipleDesc">Example of when to use a checkbox group to select one or multiple options of them.</desc>
 <g clip-path="url(#clip0_2262_95738)">
   <path fill="var(--control-color-surface-200-surface, #EAEAEA)" d="M0 0h320v224H0z"/>
   <rect width="248" height="530.333" x="36" y="-221.5" fill="var(--control-color-surface-base-surface, #FFF)" rx="1.3333"/>

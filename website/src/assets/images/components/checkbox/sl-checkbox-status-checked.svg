@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224" aria-labelledby="statusCheckedTitle statusCheckedDesc" role="img">
+  <title id="statusCheckedTitle">Checkbox checked</title>
+  <desc id="statusCheckedDesc">Checked status of the checkbox.</desc>
   <g clip-path="url(#clip0_2359_8650)">
     <path fill="var(--control-color-surface-100-surface, #F4F4F4)" d="M0 0h320v224H0z"/>
     <rect width="31" height="31" x="103.75" y="96.5" fill="var(--control-color-state-accent-container-default-state, #36F)" rx="1.5"/>

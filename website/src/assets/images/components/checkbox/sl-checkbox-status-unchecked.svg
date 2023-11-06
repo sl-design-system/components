@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224" aria-labelledby="statusUncheckedTitle statusUncheckedDesc" role="img">
+  <title id="statusUncheckedTitle">Checkbox unchecked</title>
+  <desc id="statusUncheckedDesc">Unchecked status of the checkbox.</desc>
   <g clip-path="url(#clip0_2359_6304)">
     <path fill="var(--control-color-surface-100-surface, #F4F4F4)"  d="M0 0h320v224H0z"/>
     <rect width="31" height="31" x="95.25" y="92.5" stroke="var(--control-color-border-400-border, #898989)" rx="1.5"/>

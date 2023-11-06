@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 320 224" aria-labelledby="varDefaultTitle varDefaultDesc" role="img">
+  <title id="varDefaultTitle">Checkbox default variant</title>
+  <desc id="varDefaultDesc">The default variant of the checkbox in unchecked and checked status.</desc>
   <g clip-path="url(#clip0_2359_6519)"><path fill="var(--control-color-surface-100-surface, #F4F4F4)" d="M0 0h320v224H0z"/>
     <rect width="31" height="31" x="103.75" y="124.5" fill="var(--control-color-surface-accent-surface, #36F)" rx="1.5"/>
     <path stroke="var(--colors-neutral-base-white, #FFF)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m111.75 140 5 5 10-10"/>

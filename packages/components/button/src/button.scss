@@ -24,16 +24,16 @@ $variants: default, primary, success, warning, danger;
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):hover),
-    :host([popover-open]) {
-      // TODO: needs to be improved
+    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):hover, [popover-open]) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-hover);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):active) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):active),
+    :host([fill='#{$fill}'][variant='#{$variant}'][popover-open]) {
+      // TODO: needs to be improved ???
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);

@@ -10,8 +10,8 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
   --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-body-background: rgb(var(--sl-color-palette-black-base));
-  --sl-color-avatar-foreground: rgb(var(--sl-color-palette-accent-300));
-  --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-150));
+  --sl-color-avatar-foreground: rgb(var(--sl-color-palette-accent-150));
+  --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-300));
   --sl-color-badge-icon: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-text: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-background-neutral: rgb(var(--sl-color-palette-neutral-200));

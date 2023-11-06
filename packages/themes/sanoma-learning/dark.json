@@ -3919,12 +3919,12 @@
     },
     "avatar": {
       "background": {
-        "value": "{color.palette.accent.150}",
+        "value": "{color.palette.accent.300}",
         "type": "color",
         "failedToResolve": true
       },
       "foreground": {
-        "value": "{color.palette.accent.300}",
+        "value": "{color.palette.accent.150}",
         "type": "color",
         "failedToResolve": true
       },

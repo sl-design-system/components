@@ -9,14 +9,16 @@ $statuses: online, offline, away, do-not-disturb;
   --sl-avatar-font-size-2xl: 12px;
   --sl-avatar-font-size-3xl: 12px;
 
-  --sl-avatar-status-color-online: var(--sl-color-palette-success-base);
-  --sl-avatar-status-color-offline: var(--sl-color-palette-neutral-base);
-  --sl-avatar-status-color-away: var(--sl-color-palette-warning-base);
-  --sl-avatar-status-color-do-not-disturb: var(--sl-color-palette-danger-base);
+  --sl-avatar-status-color-online: rgb(var(--sl-color-palette-success-base));
+  --sl-avatar-status-color-offline: rgb(var(--sl-color-palette-neutral-base));
+  --sl-avatar-status-color-away: rgb(var(--sl-color-palette-warning-base));
+  --sl-avatar-status-color-do-not-disturb: rgb(var(--sl-color-palette-danger-base));
 
   --_avatar-background: var(--sl-body-surface-100);
   --_avatar-foreground: var(--sl-body-foreground);
-  --_avatar_border-radius: 2px;
+  --_avatar_border-radius: 50%;
+  --_avatar_badge-background-color: rgb(var(--sl-color-palette-warning-base));
+  --_avatar_badge-text-color: #fff;
   align-items: center;
   display: inline-flex;
   gap: 8px;
@@ -31,7 +33,7 @@ $statuses: online, offline, away, do-not-disturb;
 
 @each $status in $statuses {
   :host([status='#{$status}']) {
-    --_status-color: var(--sl-avatar-status-color-#{$status});
+    --_avatar_badge-background-color: var(--sl-avatar-status-color-#{$status});
   }
 }
 
@@ -47,6 +49,12 @@ picture {
     height: inherit;
     object-fit: contain;
     width: inherit;
+  }
+
+  sl-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 

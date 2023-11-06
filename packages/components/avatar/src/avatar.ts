@@ -39,6 +39,8 @@ export type AvatarFallbackType = 'initials' | 'image';
 export type AvatarOrientation = 'horizontal' | 'vertical';
 export type UserStatus = 'online' | 'offline' | 'away' | 'do-not-disturb';
 
+let nextUniqueId = 0;
+
 export class Avatar extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
@@ -51,6 +53,8 @@ export class Avatar extends LitElement {
   @property({ reflect: true }) status?: UserStatus;
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
 
+  #avatarId = nextUniqueId++;
+
   private imageSizes = {
     sm: 24,
     md: 32,
@@ -59,6 +63,7 @@ export class Avatar extends LitElement {
     '2xl': 64,
     '3xl': 80
   };
+
   private badgeSizes = {
     sm: 8,
     md: 12,
@@ -79,12 +84,12 @@ export class Avatar extends LitElement {
   };
 
   private offsetSquare = {
-    sm: -2,
-    md: -4,
-    lg: -4,
-    xl: -2,
-    '2xl': -2,
-    '3xl': 2
+    sm: -4,
+    md: -6,
+    lg: -7,
+    xl: -8,
+    '2xl': -9,
+    '3xl': -10
   };
 
   private borderWidth = 4; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
@@ -110,7 +115,7 @@ export class Avatar extends LitElement {
         width="${this.image.size}"
         x="0"
         y="${this.image.y}" 
-        mask="url(#circle)"
+        mask="url(#circle-${this.#avatarId})"
         href=${this.user?.picture?.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
       ></image>`;
     } else if (this.user && this.fallback === 'initials') {
@@ -122,20 +127,31 @@ export class Avatar extends LitElement {
     }
   }
 
-  get imageSVG(): TemplateResult {
-    if (!this.image || !this.badge) {
-      return html``;
+  get badgeContent(): TemplateResult {
+    if (!this.badge || !(this.badgeText || this.status)) {
+      return svg``;
     }
-    return html`
-      <svg
-        viewBox=" 0 0 ${this.image.containerSize} ${this.image.containerSize}"
-        width="${this.image.containerSize}"
-        height="${this.image.containerSize}"
-      >
-        <defs>
-          <mask id="badge-cutout">
-            <rect width="${this.image.containerSize}" height="${this.image.containerSize}" fill="white" />
-            <rect
+    return svg`<rect
+          class="badge"
+          y="${this.badge.badgeY}"
+          x="${this.badge.badgeX}"
+          height="${this.badge.height}"
+          width="${this.badge.width}"
+          rx="${this.badge.radius}"
+          fill="var(--_avatar_badge-background-color)"
+        />
+        ${
+          this.badgeText && this.size != 'sm'
+            ? svg`<text y="${this.badge.textY}" x="${this.badge.textX}" fill="var(--_avatar_badge-text-color)">${this.badgeText}</text>`
+            : nothing
+        }`;
+  }
+
+  get badgeCutout(): TemplateResult {
+    if (!this.badge || !(this.badgeText || this.status)) {
+      return svg``;
+    }
+    return svg`<rect
               class="badge"
               y="${this.badge.badgeY}"
               x="${this.badge.badgeX}"
@@ -145,9 +161,25 @@ export class Avatar extends LitElement {
               fill="black"
               stroke-width="${this.borderWidth}"
               stroke="black"
-            />
+            />`;
+  }
+
+  get imageSVG(): TemplateResult {
+    if (!this.image) {
+      return html``;
+    }
+    return html`
+      <svg
+        viewBox=" 0 0 ${this.image.containerSize} ${this.image.containerSize}"
+        width="${this.image.containerSize}"
+        height="${this.image.containerSize}"
+      >
+        <defs>
+          <mask id="badge-cutout-${this.#avatarId}">
+            <rect width="${this.image.containerSize}" height="${this.image.containerSize}" fill="white" />
+            ${this.badgeCutout}
           </mask>
-          <mask id="circle">
+          <mask id="circle-${this.#avatarId}">
             <rect
               y="${this.image.y}"
               x="0"
@@ -155,21 +187,11 @@ export class Avatar extends LitElement {
               width="${this.image.size}"
               rx="${this.image.radius}"
               fill="white"
-              mask="url(#badge-cutout)"
+              mask="url(#badge-cutout-${this.#avatarId})"
             />
           </mask>
         </defs>
-        <rect
-          class="badge"
-          y="${this.badge.badgeY}"
-          x="${this.badge.badgeX}"
-          height="${this.badge.height}"
-          width="${this.badge.width}"
-          rx="${this.badge.radius}"
-          fill="red"
-        />
-        <text y="${this.badge.textY}" x="${this.badge.textX}" fill="white">${this.badgeText}</text>
-        ${this.imageContent}
+        ${this.badgeContent} ${this.imageContent}
       </svg>
     `;
   }
@@ -182,7 +204,7 @@ export class Avatar extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <picture> ${this.imageSVG}</picture>
+      <picture> ${this.imageSVG} </picture>
       ${!this.imageOnly
         ? html`<div>
             <span>${this.profileName}</span>
@@ -236,11 +258,16 @@ export class Avatar extends LitElement {
 
   #setBaseValues(): void {
     const cssQuery = this.renderRoot.querySelector('picture');
+
+    const percentageRadius =
+      cssQuery && window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius').indexOf('%') > 0;
+
+    console.log(percentageRadius);
     //TODO: apply this radius
     const radius: number = cssQuery
       ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
       : 0;
-    this.offset = radius > 8 ? this.offsetCircle : this.offsetSquare; //or offset for square
+    this.offset = percentageRadius || radius > 8 ? this.offsetCircle : this.offsetSquare; //or offset for square
     const badgeOffset = this.offset[this.size] < 0 ? this.offset[this.size] * -1 : 0;
     const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
 
@@ -248,7 +275,7 @@ export class Avatar extends LitElement {
       ...this.image,
       containerSize: this.imageSizes[this.size] + badgeOffset,
       size: this.imageSizes[this.size],
-      radius: this.imageSizes[this.size] / 2,
+      radius: percentageRadius ? this.imageSizes[this.size] * (radius / 100) : radius,
       y: badgeOffset
     };
 

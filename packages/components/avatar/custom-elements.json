@@ -50,6 +50,22 @@
             },
             {
               "kind": "field",
+              "name": "badgeContent",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "badgeCutout",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "badgeText",
               "type": {
                 "text": "string | undefined"
@@ -226,6 +242,12 @@
           "fields": [
             {
               "kind": "field",
+              "name": "#avatarId",
+              "privacy": "private",
+              "default": "nextUniqueId++"
+            },
+            {
+              "kind": "field",
               "name": "imageSizes",
               "type": {
                 "text": "object"
@@ -258,7 +280,7 @@
                 "text": "object"
               },
               "privacy": "private",
-              "default": "{\n    sm: -2,\n    md: -4,\n    lg: -4,\n    xl: -2,\n    '2xl': -2,\n    '3xl': 2\n  }"
+              "default": "{\n    sm: -4,\n    md: -6,\n    lg: -7,\n    xl: -8,\n    '2xl': -9,\n    '3xl': -10\n  }"
             },
             {
               "kind": "field",
@@ -307,6 +329,22 @@
             {
               "kind": "field",
               "name": "imageContent",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "badgeContent",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "badgeCutout",
               "type": {
                 "text": "TemplateResult"
               },

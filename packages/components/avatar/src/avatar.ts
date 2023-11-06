@@ -230,6 +230,7 @@ export class Avatar extends LitElement {
         const svgtxt = this.renderRoot.querySelector('text');
 
         if (!txt || !svgtxt) return;
+        this.requestUpdate();
 
         const fontSize = parseFloat(window.getComputedStyle(txt).fontSize) || 8;
         // FIX: this reading/calculation is wrong, but no idea why
@@ -247,7 +248,10 @@ export class Avatar extends LitElement {
           textX: this.imageSizes[this.size] - textPadding - this.offset[this.size],
           textY: fontSize + textPaddingVertical + this.badge.badgeY
         };
-        // console.log(txt.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().width);
+        console.log('without timeout', txt.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().width);
+        setTimeout(() => {
+          console.log('2sec timeout', txt.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().width);
+        }, 200);
         this.requestUpdate();
 
         // console.log(txt.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().width);

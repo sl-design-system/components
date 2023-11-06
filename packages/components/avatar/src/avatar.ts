@@ -229,32 +229,23 @@ export class Avatar extends LitElement {
         const txt = this.renderRoot.querySelector('.measure-text');
         const svgtxt = this.renderRoot.querySelector('text');
 
-        if (!txt || !svgtxt) return;
-        this.requestUpdate();
-
-        const fontSize = parseFloat(window.getComputedStyle(txt).fontSize) || 8;
-        // FIX: this reading/calculation is wrong, but no idea why
-        const textWidth = svgtxt.getBoundingClientRect().width;
-        const textPadding = (this.badge.height - fontSize) / 2;
-        const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
-        const width = textWidth + textPadding * 2;
-
-        // console.log(textPaddingVertical, fontSize);
-
-        this.badge = {
-          ...this.badge,
-          width,
-          badgeX: this.badge.badgeBaseX - width,
-          textX: this.imageSizes[this.size] - textPadding - this.offset[this.size],
-          textY: fontSize + textPaddingVertical + this.badge.badgeY
-        };
-        console.log('without timeout', txt.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().width);
         setTimeout(() => {
-          console.log('2sec timeout', txt.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().width);
+          if (!txt || !svgtxt || !this.badge) return;
+          const fontSize = parseFloat(window.getComputedStyle(txt).fontSize) || 8;
+          const textWidth = svgtxt.getBoundingClientRect().width;
+          const textPadding = (this.badge.height - fontSize) / 2;
+          const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
+          const width = Math.max(textWidth + textPadding * 2, this.badge.height);
+
+          this.badge = {
+            ...this.badge,
+            width,
+            badgeX: this.badge.badgeBaseX - width,
+            textX: this.imageSizes[this.size] - textPadding - this.offset[this.size],
+            textY: fontSize + textPaddingVertical + this.badge.badgeY
+          };
         }, 200);
         this.requestUpdate();
-
-        // console.log(txt.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().width);
       }
     }
   }
@@ -288,25 +279,4 @@ export class Avatar extends LitElement {
       badgeBaseX
     };
   }
-
-  // #redrawBadge(): void {
-  //   console.log('redrawBadge');
-  //   // const svgtxt = this.renderRoot.querySelector('text');
-  //   const txt = this.renderRoot.querySelector('svg');
-
-  //   if (!txt || !this.badgeText || !this.badge || !this.image) return;
-  //   const txtWidth = txt.width;
-
-  //   // console.log(txtWidth, txt.getBoundingClientRect().width, txt?.getBoundingClientRect().height);
-  //   // console.log(txtWidth, svgtxt?.getBoundingClientRect().width, svgtxt?.getBoundingClientRect().height);
-
-  //   const badgeWidth = Math.max(this.badge.textPadding || 0 * 2 + txtWidth, this.badge.height);
-  //   const badgeX = this.badge.badgeBaseX - badgeWidth;
-
-  //   this.renderRoot.querySelectorAll('rect.badge').forEach(rect => {
-  //     rect.setAttribute('width', badgeWidth.toString());
-  //     rect.setAttribute('x', badgeX.toString());
-  //   });
-  //   this.requestUpdate();
-  // }
 }

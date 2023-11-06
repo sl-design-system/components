@@ -105,7 +105,7 @@ export default {
     title: 'Ms',
     firstName: 'Rose',
     lastName: 'Nylund',
-    picture: 'https://randomuser.me/api/portraits/thumb/women/14.jpg',
+    picture: 'https://randomuser.me/api/portraits/women/81.jpg',
     imageOnly: false,
     badgeText: '34',
     size: 'md'

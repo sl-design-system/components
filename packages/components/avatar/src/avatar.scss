@@ -50,11 +50,10 @@ picture {
   }
 }
 
-.measure-text,
 svg text {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--_font-size);
-  text-anchor: end;
+  text-anchor: middle;
 }
 
 .measure-text {

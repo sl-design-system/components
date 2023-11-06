@@ -189,22 +189,8 @@ export class Avatar extends LitElement {
             <slot></slot>
           </div>`
         : nothing}
-      <span class="measure-text" style="line-height:1em">${this.badgeText}</span>
     `;
   }
-  // ${JSON.stringify(this.badge)}
-
-  // override firstUpdated(): void {
-  //   const txt = this.renderRoot.querySelector('.measure-text');
-  //   if (txt && this.badge) {
-  //     console.log(
-  //       'firstUpdated',
-  //       txt?.getBoundingClientRect().width,
-  //       parseFloat(window.getComputedStyle(txt).fontSize)
-  //     );
-  //     this.badge.fontSize = parseFloat(window.getComputedStyle(txt).fontSize);
-  //   }
-  // }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
@@ -225,13 +211,12 @@ export class Avatar extends LitElement {
     }
 
     if (changes.has('badgeText')) {
-      if (this.badge) {
-        const txt = this.renderRoot.querySelector('.measure-text');
-        const svgtxt = this.renderRoot.querySelector('text');
+      setTimeout(() => {
+        if (this.badge) {
+          const svgtxt = this.renderRoot.querySelector('text');
 
-        setTimeout(() => {
-          if (!txt || !svgtxt || !this.badge) return;
-          const fontSize = parseFloat(window.getComputedStyle(txt).fontSize) || 8;
+          if (!svgtxt || !this.badge) return;
+          const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
           const textWidth = svgtxt.getBoundingClientRect().width;
           const textPadding = (this.badge.height - fontSize) / 2;
           const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
@@ -241,12 +226,11 @@ export class Avatar extends LitElement {
             ...this.badge,
             width,
             badgeX: this.badge.badgeBaseX - width,
-            textX: this.imageSizes[this.size] - textPadding - this.offset[this.size],
+            textX: this.imageSizes[this.size] - width / 2 - this.offset[this.size],
             textY: fontSize + textPaddingVertical + this.badge.badgeY
           };
-        }, 200);
-        this.requestUpdate();
-      }
+        }
+      }, 200);
     }
   }
 

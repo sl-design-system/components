@@ -26,7 +26,20 @@ export const Basic: Story = {
   argTypes: {
     position: {
       control: 'inline-radio',
-      options: ['top', 'right', 'bottom', 'left']
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'right',
+        'right-start',
+        'right-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end'
+      ]
     }
   },
   render: ({ position }) => {

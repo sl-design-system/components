@@ -5,6 +5,12 @@
   --_border-radius: 3px;
   --_box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2), 0 0 0.0625rem rgba(0, 0, 0, 0.11);
   --_padding: 0.5rem;
+
+  /* to position */ // TODO: change to popover tokens
+  --_arrow-height: 6px;
+  --_arrow-width: 16px;
+  /* the distance from the edge when the arrow is positionend at start or end */ // TODO: change to popover tokens
+  --_arrow-start-end-offset: var(--sl-space-tooltip-arrow-offset);
 }
 
 :host {
@@ -24,21 +30,60 @@
   scale: 1 -1;
 }
 
+:host([actual-placement='bottom-start']) .arrow {
+  inset-inline-start: var(--_arrow-start-end-offset);
+}
+
+:host([actual-placement='bottom-end']) .arrow {
+  inset-inline-end: var(--_arrow-start-end-offset);
+}
+
 :host([actual-placement='left']) .arrow {
   inset-block-start: 0;
   inset-inline-end: -18px;
   rotate: -90deg;
 }
 
+:host([actual-placement='left-start']) .arrow {
+  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
+}
+
+:host([actual-placement='left-end']) .arrow {
+  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
+}
+
 :host([actual-placement='right']) .arrow {
   inset-block-start: 0;
-  inset-inline-start: -18px;
-  rotate: 90deg;
+  //inset-inline-start: -18px;
+  //rotate: 90deg;
+  inset-inline-start: calc(var(--_arrow-height) * -1);
+
+  svg {
+    rotate: 90deg; //-90deg;
+    transform-origin: top center;
+    translate: -8px 8px;
+  }
+}
+
+:host([actual-placement='right-start']) .arrow {
+  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
+}
+
+:host([actual-placement='right-end']) .arrow {
+  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
 }
 
 :host([actual-placement='top']) .arrow {
   inset-block-end: -12px;
   inset-inline-start: 0;
+}
+
+:host([actual-placement='top-start']) .arrow {
+  inset-inline-start: var(--_arrow-start-end-offset);
+}
+
+:host([actual-placement='top-end']) .arrow {
+  inset-inline-end: var(--_arrow-start-end-offset);
 }
 
 .container {

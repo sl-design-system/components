@@ -1261,6 +1261,13 @@
       "type": "borderRadius",
       "description": "borderRadius.button"
     },
+    "popover": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius",
+        "description": "borderRadius.button"
+      }
+    },
     "circle": {
       "value": "{border.radius.full}",
       "type": "borderRadius",

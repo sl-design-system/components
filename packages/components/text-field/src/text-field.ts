@@ -1,25 +1,27 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import type { EventEmitter } from '@sl-design-system/shared';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Error, FormControlMixin, Hint } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
+import { event } from '@sl-design-system/shared';
 import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './text-input.scss.js';
+import styles from './text-field.scss.js';
 
-export type InputSize = 'md' | 'lg';
+export type TextFieldSize = 'md' | 'lg';
 
 let nextUniqueId = 0;
 
 /**
- * Single line text input component.
+ * Single line text field component.
  *
  * @csspart wrapper - The input's wrapper
  * @slot prefix - Content shown before the input
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
  */
-export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -32,6 +34,18 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @private */
   static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
 
+  /** Emits when the `blur` event is fired on the `<input>`. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+
+  /** Emits when the `change` event is fired on the `<input>`. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<void>;
+
+  /** Emits when the `focus` event is fired on the `<input>`. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+
+  /** Emits when the `input` event is fired on the `<input>`. */
+  @event({ name: 'sl-input' }) inputEvent!: EventEmitter<string>;
+
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
 
@@ -43,7 +57,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
 
-  /** Whether the text input is disabled; when set no interaction is possible. */
+  /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Maximum value. Only applies to number input type. */
@@ -67,7 +81,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Whether you can interact with the input or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
-  /** Whether the text input is a required field. */
+  /** Whether the text field is a required field. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
   /** Indicates whether the control should indicate it is valid. */
@@ -77,9 +91,9 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
    * The size of the input.
    * @type {'md' | 'lg'}
    */
-  @property({ reflect: true }) size: InputSize = 'md';
+  @property({ reflect: true }) size: TextFieldSize = 'md';
 
-  /** Specifies the interval between legal numbers for an input field. Only applies to number input type */
+  /** Specifies the interval between legal numbers for a text field. Only applies to number input type */
   @property({ type: Number }) step?: number;
 
   /**
@@ -96,6 +110,9 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
+      this.input.addEventListener('blur', () => this.blurEvent.emit());
+      this.input.addEventListener('change', () => this.changeEvent.emit());
+      this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.input.slot ||= 'input';
       this.#syncInput(this.input);
 
@@ -110,7 +127,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    const props: Array<keyof TextInput> = [
+    const props: Array<keyof TextField> = [
       'autocomplete',
       'disabled',
       'max',
@@ -163,6 +180,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
     this.updateValidity();
+    this.inputEvent.emit(this.value);
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -178,6 +196,9 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (inputs.length) {
       this.input = inputs[0];
+      this.input.addEventListener('blur', () => this.blurEvent.emit());
+      this.input.addEventListener('change', () => this.changeEvent.emit());
+      this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncInput(this.input);
 
       this.setFormControlElement(this.input);
@@ -188,7 +209,7 @@ export class TextInput extends FormControlMixin(ScopedElementsMixin(LitElement))
     input.autocomplete = this.autocomplete || 'off';
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
-    input.id ||= `sl-text-input-${nextUniqueId++}`;
+    input.id ||= `sl-text-field-${nextUniqueId++}`;
     input.placeholder = this.placeholder ?? '';
     input.readOnly = !!this.readonly;
     input.required = !!this.required;

@@ -1,8 +1,7 @@
 import type { ResizeType, Textarea, TextareaSize } from './textarea.js';
+import type { HintSize, LabelSize } from '@sl-design-system/form';
 import type { StoryObj } from '@storybook/web-components';
-import '@sl-design-system/label/register.js';
-import type { HintSize } from '@sl-design-system/shared';
-import type { LabelSize } from '@sl-design-system/label';
+import '@sl-design-system/form/register.js';
 import { html } from 'lit';
 import '../register.js';
 

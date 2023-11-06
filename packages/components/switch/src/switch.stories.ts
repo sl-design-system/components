@@ -1,9 +1,9 @@
 import type { Switch, SwitchOrientation, SwitchSize } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import '@sl-design-system/icon/register.js';
-import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
-import '@sl-design-system/label/register.js';
+import '@sl-design-system/icon/register.js';
+import '@sl-design-system/form/register.js';
+import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
@@ -15,8 +15,8 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   event.target.after(output);
 
   output.textContent = '';
-  // for a switch the value can only be a string, not a file, but we need to cast it because otherwise the linter gets upset
-  data.forEach((value, key) => (output.textContent += `${key}: ${(value as string).toString()}\n`));
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
+  data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 
 interface Props extends Pick<Switch, 'checked' | 'disabled' | 'value' | 'size' | 'hint' | 'orientation'> {

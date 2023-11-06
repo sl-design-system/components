@@ -4549,6 +4549,16 @@
         "value": "{color.palette.accent.300}",
         "type": "color",
         "failedToResolve": true
+      },
+      "header": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "subheader": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "failedToResolve": true
       }
     }
   },

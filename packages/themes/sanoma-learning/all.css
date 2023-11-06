@@ -1169,6 +1169,8 @@
     --sl-box-shadow-tooltip: [object Object];
     --sl-box-shadow-select-listbox: [object Object];
     --sl-body-surface-overlay: rgba(var(--sl-body-foreground) / var(--sl-opacity-700));
+    --sl-color-avatar-subheader: var(--sl-body-foreground);
+    --sl-color-avatar-header: var(--sl-body-foreground);
     --sl-color-dialog-foreground: var(--sl-body-foreground);
     --sl-color-dialog-background: var(--sl-body-background);
     --sl-color-select-selectbox-valid-disabled-placeholder: var(

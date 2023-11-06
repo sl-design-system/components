@@ -1388,6 +1388,11 @@
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "Conceptual Theme Border Token"
+        },
+        "default1": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "Conceptual Theme Border Token"
         }
       }
     }

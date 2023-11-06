@@ -1153,5 +1153,16 @@
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
     }
+  },
+  "conceptual": {
+    "border": {
+      "width": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "Conceptual Theme Border Token"
+        }
+      }
+    }
   }
 }

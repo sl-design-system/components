@@ -269,8 +269,6 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 
 ## Behavior
 
-Let's explore the behavior of the checkbox:
-
 ### Label overflow wrap
 When a label is too long for the available horizontal space, it wraps to form another line, with the text aligned to the top.
 

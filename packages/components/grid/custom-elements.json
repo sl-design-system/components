@@ -1351,7 +1351,7 @@
               "type": {
                 "text": "select | text"
               },
-              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text input.",
+              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text field.",
               "attribute": "mode"
             },
             {
@@ -1360,7 +1360,7 @@
               "type": {
                 "text": "GridFilterOption[] | undefined"
               },
-              "description": "The options you can choose from to filter. If not provided,\nthe filter will be a text input."
+              "description": "The options you can choose from to filter. If not provided,\nthe filter will be a text field."
             },
             {
               "kind": "field",
@@ -1516,7 +1516,7 @@
               "type": {
                 "text": "select | text"
               },
-              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text input.",
+              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text field.",
               "fieldName": "mode"
             },
             {
@@ -1768,7 +1768,7 @@
               "type": {
                 "text": "GridFilterOption[] | undefined"
               },
-              "description": "The options you can choose from to filter. If not provided,\nthe filter will be a text input."
+              "description": "The options you can choose from to filter. If not provided,\nthe filter will be a text field."
             },
             {
               "kind": "field",

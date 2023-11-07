@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/checkbox/register.js';
-import '@sl-design-system/text-input/register.js';
+import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/textarea/register.js';
 import { CheckboxDirective} from './checkbox/checkbox.directive';

@@ -1,26 +1,26 @@
-import type { TextInput } from '@sl-design-system/text-input';
+import type { TextField } from '@sl-design-system/text-field';
 import type { Label } from './label.js';
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/switch/register.js';
-import '@sl-design-system/text-input/register.js';
+import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../register.js';
 
 describe('sl-label', () => {
-  let el: HTMLElement, slLabel: Label, slInput: TextInput;
+  let el: HTMLElement, slLabel: Label, slInput: TextField;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <form>
           <sl-label for="input">My label</sl-label>
-          <sl-text-input id="input"></sl-text-input>
+          <sl-text-field id="input"></sl-text-field>
         </form>
       `);
 
       slLabel = el.querySelector('sl-label') as Label;
-      slInput = el.querySelector('sl-text-input') as TextInput;
+      slInput = el.querySelector('sl-text-field') as TextField;
     });
 
     it('should render the label in the light DOM', () => {
@@ -86,12 +86,12 @@ describe('sl-label', () => {
           <sl-label for="input">
             <label slot="label">Slotted label</label>
           </sl-label>
-          <sl-text-input id="input"></sl-text-input>
+          <sl-text-field id="input"></sl-text-field>
         </form>
       `);
 
       slLabel = el.querySelector('sl-label') as Label;
-      slInput = el.querySelector('sl-text-input') as TextInput;
+      slInput = el.querySelector('sl-text-field') as TextField;
     });
 
     it('should use the slotted label', () => {
@@ -103,7 +103,7 @@ describe('sl-label', () => {
     it('should link the label to the input', () => {
       const label = slLabel.querySelector('label');
 
-      expect(label?.htmlFor).to.match(/sl-text-input-\d+/);
+      expect(label?.htmlFor).to.match(/sl-text-field-\d+/);
     });
   });
 
@@ -112,13 +112,13 @@ describe('sl-label', () => {
       el = await fixture(html`
         <form>
           <sl-label for="input">My label</sl-label>
-          <sl-text-input id="input"></sl-text-input>
+          <sl-text-field id="input"></sl-text-field>
 
           <sl-label for="input2">Input 2</sl-label>
-          <sl-text-input id="input2" required></sl-text-input>
+          <sl-text-field id="input2" required></sl-text-field>
 
           <sl-label for="input3">Input 3</sl-label>
-          <sl-text-input id="input3" required></sl-text-input>
+          <sl-text-field id="input3" required></sl-text-field>
         </form>
       `);
     });
@@ -145,13 +145,13 @@ describe('sl-label', () => {
       el = await fixture(html`
         <form>
           <sl-label for="input">My label</sl-label>
-          <sl-text-input id="input" required></sl-text-input>
+          <sl-text-field id="input" required></sl-text-field>
 
           <sl-label for="input2">Input 2</sl-label>
-          <sl-text-input id="input2"></sl-text-input>
+          <sl-text-field id="input2"></sl-text-field>
 
           <sl-label for="input3">Input 3</sl-label>
-          <sl-text-input id="input3"></sl-text-input>
+          <sl-text-field id="input3"></sl-text-field>
         </form>
       `);
     });
@@ -185,11 +185,11 @@ describe('sl-label', () => {
       expect(el.querySelector('sl-label')).to.have.attribute('size', 'sm');
     });
 
-    it('should adopt the size of the text input', async () => {
+    it('should adopt the size of the text field', async () => {
       el = await fixture(html`
         <form>
-          <sl-label for="input">Label</sl-label>
-          <sl-text-input id="input"></sl-text-input>
+          <sl-label for="text">Label</sl-label>
+          <sl-text-field id="text"></sl-text-field>
         </form>
       `);
 
@@ -215,7 +215,7 @@ describe('sl-label', () => {
       el = await fixture(html`
         <form>
           <sl-label for="input">Label</sl-label>
-          <sl-text-input id="input" size="asdf"></sl-text-input>
+          <sl-text-field id="input" size="asdf"></sl-text-field>
         </form>
       `);
 

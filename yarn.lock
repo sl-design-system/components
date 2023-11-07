@@ -5325,7 +5325,7 @@ __metadata:
     "@sl-design-system/icon": 0.0.3
     "@sl-design-system/popover": 0.0.12
     "@sl-design-system/shared": 0.1.8
-    "@sl-design-system/text-input": 0.1.8
+    "@sl-design-system/text-field": 0.1.8
     lit: ^3.0.1
   languageName: unknown
   linkType: soft
@@ -5562,9 +5562,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-input@0.1.8, @sl-design-system/text-input@workspace:packages/components/text-input":
+"@sl-design-system/text-field@0.1.8, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
-  resolution: "@sl-design-system/text-input@workspace:packages/components/text-input"
+  resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:
     "@sl-design-system/form": 0.0.0
     "@sl-design-system/shared": 0.1.8

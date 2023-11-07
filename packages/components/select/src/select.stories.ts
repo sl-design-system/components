@@ -4,7 +4,7 @@ import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/form/register.js';
-import '@sl-design-system/text-input/register.js';
+import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../register.js';
 

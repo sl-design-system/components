@@ -262,8 +262,6 @@ export class Avatar extends LitElement {
     const percentageRadius =
       cssQuery && window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius').indexOf('%') > 0;
 
-    console.log(percentageRadius);
-    //TODO: apply this radius
     const radius: number = cssQuery
       ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
       : 0;

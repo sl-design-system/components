@@ -12,6 +12,6 @@ eleventyNavigation:
   parent: Components
   key: Text field
   order: 18
-  status: ready
+  status: coming
 ---
 

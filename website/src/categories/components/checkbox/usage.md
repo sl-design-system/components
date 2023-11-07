@@ -123,9 +123,12 @@ The following guidance describes when not to use the Checkbox component.
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Checkbox input (unchecked)	|An unchecked checkbox input is like a blank canvas. It represents an option or choice that is currently unselected, waiting for the user to make a decision and activate it.	|no|
-|2|Icon	|The icon in a checkbox is a visual confirmation of user selection.	|no|
-|3|Label	|A checkbox label is a brief, descriptive text next to the checkbox element.|yes|
+|1|Field Label	|The group label, positioned at the top of a checkbox group, provides a clear and concise description of the category or context for the choices contained within the group. It serves as a visual and informational cue that helps users understand the purpose of the options and facilitates more straightforward decision-making in the user interface. More information about group labels you can find in the **Accessibility** tab.	|No|
+|2|Checkbox input (unchecked)	|An unchecked checkbox input is like a blank canvas. It represents an option or choice that is currently unselected, waiting for the user to make a decision and activate it.	|No|
+|3|Icon	|The icon in a checkbox is a visual confirmation of user selection.|No|
+|4|Label	|A checkbox label is a brief, descriptive text next to the checkbox element.|Yes|
+|5|Helper Text & Hint|The help text for a checkbox group is a informative component, it provides users with guidance and clarifications related to the available options. It assists users in making informed decisions by offering context, explanations, or additional details about the purpose or implications of the choices within the group. More information about help text you can find in the **Accessibility** tab.|Yes|
+|6|Checkboxes|The checkbox group is designed with a minimum requirement of two options and allows a maximum of five selections. When the list of options exceeds this maximum limit, it's advisable to consider alternative design elements like a dropdown menu or combobox. These options provide a more user-friendly way to navigate and select from a larger set of choices, ensuring a streamlined and efficient user experience.|No|
 
 {.ds-table}
 
@@ -257,26 +260,6 @@ With these options, you can tweak the appearance of the radio in Figma. They are
 |Label|`'on', 'off'`|To turn to label on or off (label is turned on by default)|
 |Label text|`'input text'`|To insert the text of the label.|
 |Focus ring|`'on', 'off'`|Turn the focus ring option to show the focus state of the checkbox.|
-
-{.ds-table .ds-table-align-top}
-
-</section>
-
-<section>
-
-## Checkbox group
-
-Use the checkbox group component to group multiple checkboxes with the same category, together with the group label, and help text for clear organization.
-
-### Anatomy
-
-{{ 'components/checkbox/sl-checkbox-group-anatomy.svg' | svgImage }}
-
-|Item|Name|Description|Optional|
-|-|-|-|-|
-|1|Field Label|The group label, positioned at the top of a checkbox group, provides a clear and concise description of the category or context for the choices contained within the group. It serves as a visual and informational cue that helps users understand the purpose of the options and facilitates more straightforward decision-making in the user interface. More information about group labels you can find in the **Accessibility** tab.|No|
-|2|Checkboxes|The checkbox group is designed with a minimum requirement of two options and allows a maximum of five selections. When the list of options exceeds this maximum limit, it's advisable to consider alternative design elements like a dropdown menu or combobox. These options provide a more user-friendly way to navigate and select from a larger set of choices, ensuring a streamlined and efficient user experience.|No|
-|3|Helper Text & Hint|The help text for a checkbox group is a informative component, it provides users with guidance and clarifications related to the available options. It assists users in making informed decisions by offering context, explanations, or additional details about the purpose or implications of the choices within the group. More information about help text you can find in the **Accessibility** tab.|Yes|
 
 {.ds-table .ds-table-align-top}
 

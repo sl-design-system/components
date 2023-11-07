@@ -21,6 +21,7 @@ $statuses: online, offline, away, do-not-disturb;
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_badge-font: var(--sl-text-badge-text-#{$size});
+    --_initials-font: var(--sl-text-avatar-initials-#{$size});
   }
 }
 
@@ -44,17 +45,17 @@ picture {
     width: inherit;
   }
 
-  sl-icon {
-    position: absolute;
-    right: 0;
-    top: 0;
+  text.badge-text {
+    font: var(--_badge-font);
+    text-anchor: middle;
+    text-transform: uppercase;
   }
-}
 
-svg text.badge-text {
-  font: var(--_badge-font);
-  text-anchor: middle;
-  text-transform: uppercase;
+  text.initials {
+    font: var(--_initials-font);
+    text-anchor: middle;
+    text-transform: uppercase;
+  }
 }
 
 div {

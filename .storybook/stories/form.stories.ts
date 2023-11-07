@@ -2,13 +2,12 @@ import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
-import '@sl-design-system/text-input/register.js';
-import '@sl-design-system/label/register.js';
+import '@sl-design-system/form/register.js';
 import '@sl-design-system/radio-group/register.js';
+import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/textarea/register.js';
+import { MessageSize } from "@sl-design-system/shared";
 import { html } from 'lit';
-import {MessageSize} from "@sl-design-system/shared";
-import {Label} from "@sl-design-system/label";
 
 const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   const data = new FormData(event.target),
@@ -42,14 +41,14 @@ export const Form: StoryObj = {
         margin-block-start: 0;
       }
       sl-button-bar,
-      sl-text-input,
+      sl-text-field,
       sl-textarea {
         align-self: stretch;
       }
     </style>
     <form>
       <sl-label for="input">Input</sl-label>
-      <sl-text-input id="input" name="input" placeholder="Placeholder"></sl-text-input>
+      <sl-text-field id="input" name="input" placeholder="Placeholder"></sl-text-field>
 
       <sl-label for="textarea">Textarea</sl-label>
       <sl-textarea id="textarea" name="textarea" placeholder="Placeholder"></sl-textarea>
@@ -94,14 +93,14 @@ export const Hints: StoryObj = {
         margin-block-start: 0;
       }
       sl-button-bar,
-      sl-text-input,
+      sl-text-field,
       sl-textarea {
         align-self: stretch;
       }
     </style>
     <form @submit=${onSubmit}>
       <sl-label for="input">Input</sl-label>
-      <sl-text-input id="input" hint="Hint for the text input." name="input" required></sl-text-input>
+      <sl-text-field id="input" hint="Hint for the text field." name="input" required></sl-text-field>
 
       <sl-label for="textarea">Textarea</sl-label>
       <sl-textarea id="textarea" hint="Hint for the textarea." name="textarea" required></sl-textarea>
@@ -149,20 +148,20 @@ export const ValidationRequired: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-text-input,
+        sl-text-field,
         sl-textarea {
           align-self: stretch;
         }
       </style>
       <form>
         <sl-label for="input">Input</sl-label>
-        <sl-text-input id="input" name="input" required></sl-text-input>
+        <sl-text-field id="input" name="input" required></sl-text-field>
 
         <sl-label for="textarea">Textarea</sl-label>
         <sl-textarea id="textarea" name="textarea" required></sl-textarea>
 
         <sl-label for="inputEmail">Email</sl-label>
-        <sl-text-input id="inputEmail" type="email" required></sl-text-input>
+        <sl-text-field id="inputEmail" type="email" required></sl-text-field>
 
         <sl-label for="checkbox">Checkbox</sl-label>
         <sl-checkbox id="checkbox" name="checkbox" required value="checkbox">Checkbox</sl-checkbox>
@@ -208,14 +207,14 @@ export const ValidationRequiredReport: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-text-input,
+        sl-text-field,
         sl-textarea {
           align-self: stretch;
         }
       </style>
       <form>
         <sl-label for="input">Input</sl-label>
-        <sl-text-input id="input" name="input" required></sl-text-input>
+        <sl-text-field id="input" name="input" required></sl-text-field>
 
         <sl-label for="textarea">Textarea</sl-label>
         <sl-textarea id="textarea" name="textarea" required></sl-textarea>
@@ -256,14 +255,14 @@ export const Validation: StoryObj = {
         margin-block-start: 0;
       }
       sl-button-bar,
-      sl-text-input,
+      sl-text-field,
       sl-textarea {
         align-self: stretch;
       }
     </style>
     <form @submit=${onSubmit}>
       <sl-label for="input">Label for the input</sl-label>
-      <sl-text-input id="input" minlength="8" name="input" placeholder="Type at least 8 characters here" required></sl-text-input>
+      <sl-text-field id="input" minlength="8" name="input" placeholder="Type at least 8 characters here" required></sl-text-field>
 
       <sl-label for="textarea">Textarea</sl-label>
       <sl-textarea
@@ -300,16 +299,16 @@ export const Validation: StoryObj = {
 };
 
 export const ValidationSizes: StoryObj = {
-  render: ({size}) => {
+  render: ({ size }) => {
     setTimeout(() => {
-    const form = document.querySelector('form');
-    const slLabels = form?.querySelectorAll('sl-label') as Label[];
+      const form = document.querySelector('form');
+      const slLabels = form?.querySelectorAll('sl-label') as Label[];
 
-    slLabels?.forEach((label, idx) => {
-      const id = `form-${idx}`;
-      label.setAttribute('for', id);
-      (label.nextElementSibling as HTMLElement).setAttribute('id', id);
-    });
+      slLabels?.forEach((label, idx) => {
+        const id = `form-${idx}`;
+        label.setAttribute('for', id);
+        (label.nextElementSibling as HTMLElement).setAttribute('id', id);
+      });
 
       form?.reportValidity()
     });
@@ -328,18 +327,18 @@ export const ValidationSizes: StoryObj = {
           margin-block-start: 0;
         }
         sl-button-bar,
-        sl-text-input,
+        sl-text-field,
         sl-textarea {
           align-self: stretch;
         }
       </style>
       <form>
         ${sizes.map(
-          (size) => html`
+      (size) => html`
             <h2>Size: ${size}</h2>
 
             <sl-label>Input</sl-label>
-            <sl-text-input name="input" required error-size=${size}></sl-text-input>
+            <sl-text-field name="input" required error-size=${size}></sl-text-field>
 
             <sl-label>Textarea</sl-label>
             <sl-textarea name="textarea" required error-size=${size}></sl-textarea>
@@ -361,7 +360,7 @@ export const ValidationSizes: StoryObj = {
               <sl-radio value="3">Three</sl-radio>
             </sl-radio-group>
         `
-        )}
+    )}
       </form>
     `;
   }

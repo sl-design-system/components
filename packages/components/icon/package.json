@@ -38,6 +38,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "lit": "^2.7.5"
+    "lit": "^3.0.1"
   }
 }

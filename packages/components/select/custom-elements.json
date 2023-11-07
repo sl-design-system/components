@@ -66,20 +66,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/select-option-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select-option-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/select-option-group.ts",
       "declarations": [
         {
@@ -130,20 +116,6 @@
           "declaration": {
             "name": "SelectOptionGroup",
             "module": "src/select-option-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select-option.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select-option.scss.ts"
           }
         }
       ]
@@ -252,20 +224,6 @@
           "declaration": {
             "name": "SelectOption",
             "module": "src/select-option.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select.scss.ts"
           }
         }
       ]

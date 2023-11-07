@@ -50,20 +50,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/checkbox-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/checkbox-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/checkbox-group.ts",
       "declarations": [
         {
@@ -97,6 +83,15 @@
             },
             {
               "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "CheckboxSize | undefined"
+              },
+              "description": "The size of the checkboxes in the group.",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
               "name": "validators",
               "type": {
                 "text": "Validator[] | undefined"
@@ -112,6 +107,14 @@
               },
               "description": "Name of the form control",
               "fieldName": "name"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "CheckboxSize | undefined"
+              },
+              "description": "The size of the checkboxes in the group.",
+              "fieldName": "size"
             }
           ],
           "mixins": [
@@ -240,20 +243,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/checkbox.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/checkbox.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/checkbox.ts",
       "declarations": [
         {
@@ -273,8 +262,7 @@
               "type": {
                 "text": "EventEmitter<boolean>"
               },
-              "description": "Emits when the checked state changes.",
-              "attribute": "change"
+              "description": "Emits when the checked state changes."
             },
             {
               "kind": "field",

@@ -4,10 +4,20 @@
  */
 
 @mixin sl-theme-base {
+  --sl-justify-content-end: end;
+  --sl-justify-content-space-between: space-between;
+  --sl-justify-content-start: start;
+  --sl-flex-direction-row: row;
+  --sl-flex-direction-row-reverse: row-reverse;
+  --sl-flex-direction-column-reverse: column-reverse;
+  --sl-flex-direction-column: column;
   --sl-size-avatar-3xl: 80px;
   --sl-size-avatar-xl: 52px;
   --sl-size-avatar-lg: 40px;
   --sl-size-badge-2xl: 18px;
+  --sl-size-dialog-full: 100%;
+  --sl-size-dialog-max: 960px;
+  --sl-size-dialog-min: 400px;
   --sl-size-4xl: 64px;
   --sl-size-3xl: 48px;
   --sl-size-2xl: 32px;
@@ -333,9 +343,9 @@
   --sl-space-select-listbox-inline-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-select-listbox-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-select-listbox-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
-  --sl-space-dialog-gap-footer: var(--sl-space-sm);
-  --sl-space-dialog-gap-header: var(--sl-space-lg);
-  --sl-space-dialog-gap-heading: var(--sl-space-xs);
+  --sl-space-button-bar-gap-block: var(--sl-space-sm);
+  --sl-space-dialog-gap-header: var(--sl-space-none);
+  --sl-space-dialog-subtitle-padding-bottom: var(--sl-space-xs);
   --sl-space-dialog-mobile-body-gap: var(--sl-space-xl);
   --sl-space-dialog-mobile-body-inline: var(--sl-space-xl);
   --sl-space-dialog-mobile-body-block: var(--sl-space-xl);
@@ -528,6 +538,7 @@
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
+  --sl-space-button-bar-gap-inline: var(--sl-space-button-bar-gap-block);
   --sl-space-input-switch-padding-row-lg: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
     (var(--sl-space-input-switch-padding-container) * 2)

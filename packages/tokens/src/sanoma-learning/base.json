@@ -1546,6 +1546,16 @@
         "type": "borderRadius"
       }
     },
+    "dialog": {
+      "desktop": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      },
+      "mobile": {
+        "value": "{border.radius.none}",
+        "type": "borderRadius"
+      }
+    },
     "select": {
       "listbox": {
         "value": "{border.radius.2xs}",
@@ -1619,6 +1629,12 @@
       "focusring": {
         "default": {
           "value": "{border.width.sm}",
+          "type": "borderWidth"
+        }
+      },
+      "dialog": {
+        "default": {
+          "value": "{border.width.none}",
           "type": "borderWidth"
         }
       },
@@ -1702,6 +1718,24 @@
           "value": "{space.sm}",
           "type": "spacing"
         }
+      }
+    }
+  },
+  "dialog": {
+    "header": {
+      "flexDirection": {
+        "value": "{flexDirection.column}",
+        "type": "Flex"
+      }
+    },
+    "footer": {
+      "flexDirection": {
+        "value": "{flexDirection.row}",
+        "type": "Flex"
+      },
+      "justifyContent": {
+        "value": "{justifyContent.end}",
+        "type": "Flex"
       }
     }
   }

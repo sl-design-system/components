@@ -163,7 +163,6 @@
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
-              "attribute": "columnUpdate",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -745,8 +744,7 @@
               "type": {
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
-              "description": "Emits when the column definition has changed.",
-              "attribute": "columnUpdate"
+              "description": "Emits when the column definition has changed."
             },
             {
               "kind": "method",
@@ -1251,7 +1249,6 @@
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
-              "attribute": "columnUpdate",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1354,7 +1351,7 @@
               "type": {
                 "text": "select | text"
               },
-              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text input.",
+              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text field.",
               "attribute": "mode"
             },
             {
@@ -1363,7 +1360,7 @@
               "type": {
                 "text": "GridFilterOption[] | undefined"
               },
-              "description": "The options you can choose from to filter. If not provided,\nthe filter will be a text input."
+              "description": "The options you can choose from to filter. If not provided,\nthe filter will be a text field."
             },
             {
               "kind": "field",
@@ -1519,7 +1516,7 @@
               "type": {
                 "text": "select | text"
               },
-              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text input.",
+              "description": "The mode for the filter:\n- `select`: The filter will allow you to select from a list of options. If none\nare provided, the filter will create a list of options based on the column's values\n- `text`: The filter will be a text field.",
               "fieldName": "mode"
             },
             {
@@ -1771,7 +1768,7 @@
               "type": {
                 "text": "GridFilterOption[] | undefined"
               },
-              "description": "The options you can choose from to filter. If not provided,\nthe filter will be a text input."
+              "description": "The options you can choose from to filter. If not provided,\nthe filter will be a text field."
             },
             {
               "kind": "field",
@@ -1848,20 +1845,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/filter.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/filter.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/filter.ts",
       "declarations": [
         {
@@ -1891,8 +1874,7 @@
               "type": {
                 "text": "EventEmitter<GridFilterChange>"
               },
-              "description": "Emits when the filter has been added or removed.",
-              "attribute": "filterChange"
+              "description": "Emits when the filter has been added or removed."
             },
             {
               "kind": "event",
@@ -1900,8 +1882,7 @@
               "type": {
                 "text": "EventEmitter<GridFilterValueChangeEvent<T>>"
               },
-              "description": "Emits when the value of the this filter has changed.",
-              "attribute": "filterValueChange"
+              "description": "Emits when the value of the this filter has changed."
             },
             {
               "kind": "field",
@@ -2129,20 +2110,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/grid.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/grid.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/grid.ts",
       "declarations": [
         {
@@ -2164,8 +2131,7 @@
               "type": {
                 "text": "EventEmitter<GridActiveItemChangeEvent<T>>"
               },
-              "description": "Emits when the active item changes",
-              "attribute": "activeItemChange"
+              "description": "Emits when the active item changes"
             },
             {
               "kind": "field",
@@ -2190,8 +2156,7 @@
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
               },
-              "description": "Emits when the items in the grid have changed.",
-              "attribute": "gridItemsChange"
+              "description": "Emits when the items in the grid have changed."
             },
             {
               "kind": "event",
@@ -2199,8 +2164,7 @@
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
               },
-              "description": "Emits when the state in the grid have changed.",
-              "attribute": "gridStateChange"
+              "description": "Emits when the state in the grid have changed."
             },
             {
               "kind": "field",
@@ -2825,7 +2789,6 @@
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
-              "attribute": "columnUpdate",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -3499,7 +3462,6 @@
                 "text": "EventEmitter<GridColumnEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
-              "attribute": "columnUpdate",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -4047,20 +4009,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/sorter.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/sorter.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/sorter.ts",
       "declarations": [
         {
@@ -4110,8 +4058,7 @@
               "type": {
                 "text": "EventEmitter<GridSortDirectionChangeEvent<T>>"
               },
-              "description": "Emits when the direction has changed.",
-              "attribute": "sortDirectionChange"
+              "description": "Emits when the direction has changed."
             },
             {
               "kind": "field",
@@ -4127,8 +4074,7 @@
               "type": {
                 "text": "EventEmitter<GridSorterChange>"
               },
-              "description": "Emits when the sorter has been added or removed.",
-              "attribute": "sorterChange"
+              "description": "Emits when the sorter has been added or removed."
             }
           ],
           "events": [

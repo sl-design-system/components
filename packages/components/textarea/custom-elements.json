@@ -34,25 +34,11 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/textarea.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/textarea.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/textarea.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Single line text input component.",
+          "description": "Multi line text area component.",
           "name": "Textarea",
           "slots": [
             {

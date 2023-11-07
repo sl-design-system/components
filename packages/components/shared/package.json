@@ -29,6 +29,6 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^1.5.3",
-    "lit": "^2.7.5"
+    "lit": "^3.0.1"
   }
 }

@@ -179,20 +179,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/tooltip.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/tooltip.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/tooltip.ts",
       "declarations": [
         {

@@ -41,11 +41,11 @@ jobs:
           node-version: 18
           cache: 'yarn'
       - run: yarn install --immutable
-      - run: yarn website
+      - run: NODE_ENV=production yarn website
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: 'website/dist/site'
+          path: 'website/dist'
       - id: deployment
         uses: actions/deploy-pages@v1
 
@@ -59,13 +59,13 @@ jobs:
           node-version: 18
           cache: 'yarn'
       - run: yarn install --immutable
-      - run: yarn website
+      - run: NODE_ENV=production yarn website
       - uses: azure/static-web-apps-deploy@v1
         id: deploy
         with:
           azure_static_web_apps_api_token: ${{ secrets.WEBSITE_AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: upload
-          app_location: website/dist/site
+          app_location: website/dist
           production_branch: main
           skip_api_build: true
           skip_app_build: true

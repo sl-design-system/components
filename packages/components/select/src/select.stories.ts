@@ -1,10 +1,10 @@
 import type { SelectSize } from './select.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/avatar/register.js';
-import '@sl-design-system/label/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
-import '@sl-design-system/text-input/register.js';
+import '@sl-design-system/form/register.js';
+import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../register.js';
 
@@ -16,6 +16,7 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   event.target.after(output);
 
   output.textContent = '';
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 

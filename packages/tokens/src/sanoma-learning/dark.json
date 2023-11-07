@@ -21,11 +21,6 @@
         "type": "color",
         "description": "color.body.default.foreground"
       },
-      "200": {
-        "value": "{color.palette.neutral.800}",
-        "type": "color",
-        "description": "color.body.default.foreground"
-      },
       "overlay": {
         "value": "rgba( {color.palette.white.base},{opacity.500})",
         "type": "color",

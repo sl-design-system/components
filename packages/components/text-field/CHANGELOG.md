@@ -1,4 +1,4 @@
-# @sl-design-system/text-input
+# @sl-design-system/text-field
 
 ## 0.1.8
 

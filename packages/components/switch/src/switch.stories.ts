@@ -1,9 +1,9 @@
 import type { Switch, SwitchOrientation, SwitchSize } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import '@sl-design-system/icon/register.js';
-import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
-import '@sl-design-system/label/register.js';
+import '@sl-design-system/icon/register.js';
+import '@sl-design-system/form/register.js';
+import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
@@ -15,6 +15,7 @@ const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
   event.target.after(output);
 
   output.textContent = '';
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string
   data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
 };
 

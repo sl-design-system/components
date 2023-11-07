@@ -24,16 +24,16 @@ export const hintStyles: CSSResultGroup = css`
   }
 
   slot[hintsize='sm']::slotted(*) {
-    font: var(--sl-text-input-helper-text-sm);
+    font: var(--sl-text-field-helper-text-sm);
     padding-top: var(--sl-space-input-helper-padding-top-sm);
   }
   slot[hintsize='md']::slotted(*) {
-    font: var(--sl-text-input-helper-text-md);
+    font: var(--sl-text-field-helper-text-md);
     padding-top: var(--sl-space-input-helper-padding-top-md);
   }
 
   slot[hintsize='lg']::slotted(*) {
-    font: var(--sl-text-input-helper-text-lg);
+    font: var(--sl-text-field-helper-text-lg);
     padding-top: var(--sl-space-input-helper-padding-top-lg);
   }
 `;

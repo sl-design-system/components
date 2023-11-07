@@ -1453,7 +1453,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": 6
+            "fontSize": "6px",
+            "lineHeight": "6px"
           },
           "type": "typography"
         },
@@ -1461,7 +1462,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": 8
+            "fontSize": "8px",
+            "lineHeight": "8px"
           },
           "type": "typography"
         },
@@ -1469,7 +1471,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{text.typeset.fontSize.xs}"
+            "fontSize": "{text.typeset.fontSize.xs}",
+            "lineHeight": "{text.typeset.lineHeight.xs}"
           },
           "type": "typography"
         },
@@ -1477,7 +1480,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{text.typeset.fontSize.xs}"
+            "fontSize": "{text.typeset.fontSize.xs}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
           "type": "typography"
         },
@@ -1485,7 +1489,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{text.typeset.fontSize.xs}"
+            "fontSize": "{text.typeset.fontSize.xs}",
+            "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
           "type": "typography"
         },
@@ -1493,7 +1498,8 @@
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "{text.typeset.fontSize.sm}"
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
           },
           "type": "typography"
         }

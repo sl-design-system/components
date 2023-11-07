@@ -119,7 +119,16 @@ export class Avatar extends LitElement {
         href=${this.user?.picture?.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
       ></image>`;
     } else if (this.user && this.fallback === 'initials') {
-      return svg`<text x="8" y="8" dy=".3em">${this.initials}</text>`;
+      return svg`
+      <rect
+              y="0"
+              x="0"
+              height="${this.image.size}"
+              width="${this.image.size}"
+              fill="var(--_avatar-background)"
+              mask="url(#badge-cutout-${this.#avatarId})"
+            />
+            <text x="8" y="8" dy=".3em">${this.initials}</text>`;
     } else {
       return svg`<path
         d="M8 1a3 3 0 1 0 .002 6.002A3 3 0 0 0 8 1zM6.5 8A4.491 4.491 0 0 0 2 12.5v.5c0 1.11.89 2 2 2h8c1.11 0 2-.89 2-2v-.5C14 10.008 11.992 8 9.5 8zm0 0"
@@ -142,7 +151,7 @@ export class Avatar extends LitElement {
         />
         ${
           this.badgeText && this.size != 'sm'
-            ? svg`<text y="${this.badge.textY}" x="${this.badge.textX}" fill="var(--_avatar_badge-text-color)">${this.badgeText}</text>`
+            ? svg`<text class="badge-text" y="${this.badge.textY}" x="${this.badge.textX}" fill="var(--_avatar_badge-text-color)">${this.badgeText}</text>`
             : nothing
         }`;
   }
@@ -238,6 +247,7 @@ export class Avatar extends LitElement {
           const svgtxt = this.renderRoot.querySelector('text');
 
           if (!svgtxt || !this.badge) return;
+          console.log(parseFloat(window.getComputedStyle(svgtxt).fontSize));
           const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
           const textWidth = svgtxt.getBoundingClientRect().width;
           const textPadding = (this.badge.height - fontSize) / 2;

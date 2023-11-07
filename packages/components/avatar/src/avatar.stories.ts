@@ -202,7 +202,8 @@ export const All: StoryObj = {
         <thead>
           <tr>
             <th>Size</th>
-
+            <th>With placeholder</th>
+            <th>With initials</th>
             <th>Image only</th>
             <th>empty badge</th>
             <th>number badge</th>
@@ -212,7 +213,8 @@ export const All: StoryObj = {
           ${sizes.map(
             size => html` <tr>
               <th>${sizeName(size)}</th>
-
+              <td><sl-avatar .user=${users[4]} .size=${size} fallback="image"></sl-avatar></td>
+              <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>
               <td><sl-avatar .user=${users[0]} .size=${size} image-only></sl-avatar></td>
               <td><sl-avatar .user=${users[0]} .size=${size} image-only status="online"></sl-avatar></td>
               <td><sl-avatar .user=${users[0]} .size=${size} image-only badge-text="${badgeText}"></sl-avatar></td>
@@ -225,13 +227,9 @@ export const All: StoryObj = {
 };
 
 // <th>With avatar</th>
-// <th>With initials</th>
-// <th>With placeholder</th>
 // <th>With subheading</th>
 // <th>With status</th>
 
 // <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>
-// <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>
-// <td><sl-avatar .user=${users[4]} .size=${size} fallback="image"></sl-avatar></td>
 // <td><sl-avatar .user=${users[1]} .size=${size}>Very good student</sl-avatar></td>
 // <td><sl-avatar .user=${users[0]} .size=${size} status="online"></sl-avatar></td>

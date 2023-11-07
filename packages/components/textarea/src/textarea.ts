@@ -21,7 +21,7 @@ export type WrapType = 'soft' | 'hard';
 let nextUniqueId = 0;
 
 /**
- * Multi line text input component.
+ * Multi line text area component.
  *
  * @slot textarea - The slot for the textarea element
  */

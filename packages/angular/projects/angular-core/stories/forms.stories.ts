@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/angular';
-import '@sl-design-system/label/register.js';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/form/register.js';
 import {
   AbstractControl,
   FormControl,
@@ -14,15 +14,14 @@ import {
 import {
   AfterContentChecked,
   AfterViewChecked,
-  AfterViewInit,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef,
   ViewChild
 } from '@angular/core';
+import { Radio } from '@sl-design-system/radio-group';
 import { moduleMetadata, StoryFn } from '@storybook/angular';
 import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
-import { Radio } from '@sl-design-system/radio-group';
 
 @Component({
   selector: 'sla-input',
@@ -33,14 +32,14 @@ import { Radio } from '@sl-design-system/radio-group';
       gap: 8px;
     }
 
-    sl-text-input {
+    sl-text-field {
       width: 250px;
     }
   `],
   template: `
     <div class="example-input">
-      <sl-label for="input-id">My label</sl-label>
-      <sl-text-input id="input-id" [value]="value" (input)="onValueChange($event.target)" required></sl-text-input>
+      <sl-label for="text-field">My label</sl-label>
+      <sl-text-field id="text-field" [value]="value" (input)="onValueChange($event.target)" required></sl-text-field>
       <div>value: <i>{{value}}</i></div>
     </div>
   `
@@ -125,7 +124,7 @@ export class CheckboxComponent {
       margin-block-start: 0;
     }
 
-    sl-text-input,
+    sl-text-field,
     sl-textarea {
       width: 50%;
     }
@@ -138,11 +137,11 @@ export class CheckboxComponent {
   template: `
     <form [formGroup]="myForm" (ngSubmit)="onSubmit($event, myForm)">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="This is a hint for the text field with your name" minlength="8" required>
-      </sl-text-input>
+      <sl-text-field id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="This is a hint for the text field with your name" minlength="8" required>
+      </sl-text-field>
       <sl-label for="website-input">Url (with custom validation)</sl-label>
-      <sl-text-input id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="Your website adress (should contain 'https' and 'com' parts)" minlength="8" required>
-      </sl-text-input>
+      <sl-text-field id="website-input" #myReactiveInputUrl formControlName="website" placeholder="Your website" hint="Your website adress (should contain 'https' and 'com' parts)" minlength="8" required>
+      </sl-text-field>
       <sl-label for="description-id">Description (with custom validation)</sl-label>
       <sl-textarea id="description-id" #myReactiveTextarea (input)="onInput(this.myForm.controls.description);" formControlName="description" placeholder="Add short description here" hint="This textarea should contain a short description starting with 'This is'" required>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
@@ -193,19 +192,19 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
   ngAfterViewChecked(): void {
     if (this.submitted) {
       const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
-       urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+        urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
 
       if (this.myForm.controls.website.errors?.['invalidUrl']) {
         urlInput.setCustomValidity('The url is invalid, please check it. It should contain "https" and ".com" parts');
-      }  else {
+      } else {
         urlInput.setCustomValidity('');
       }
 
-     urlInput.checkValidity();
+      urlInput.checkValidity();
       input.checkValidity();
 
       const textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement,
-       otherErrors = this.myForm.controls.description.errors ? Object.keys(this.myForm.controls.description.errors).length : 0;
+        otherErrors = this.myForm.controls.description.errors ? Object.keys(this.myForm.controls.description.errors).length : 0;
 
       if (this.myForm.controls.description.errors?.['invalidStart'] && otherErrors <= 1) {
         textarea.setCustomValidity('The description should starts with "This is"');
@@ -225,8 +224,8 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
 
   ngAfterContentChecked(): void {
     const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
-     textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement,
-     urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
+      textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement,
+      urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement;
 
     if (this.submitted) {
       urlInput.checkValidity();
@@ -261,8 +260,8 @@ export class ReactiveFormComponent implements AfterViewChecked, AfterContentChec
     });
 
     const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
-     urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement,
-     textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      urlInput = this.myUrlInput.nativeElement.querySelector('input') as HTMLInputElement,
+      textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
 
     input.checkValidity();
     urlInput.checkValidity();
@@ -310,7 +309,7 @@ function startsWithThisIs(control: AbstractControl): ValidationErrors | null {
       margin-block-start: 0;
     }
 
-    sl-text-input,
+    sl-text-field,
     sl-textarea {
       width: 50%;
     }
@@ -323,8 +322,8 @@ function startsWithThisIs(control: AbstractControl): ValidationErrors | null {
   template: `
     <form [formGroup]="myForm">
       <sl-label for="name-input">Name</sl-label>
-      <sl-text-input id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text field" required>
-      </sl-text-input>
+      <sl-text-field id="name-input" #myReactiveInput formControlName="name" placeholder="Your name" hint="this is a hint for the text field" required>
+      </sl-text-field>
       <sl-label for="description-id">Description</sl-label>
       <sl-textarea id="description-id" #myReactiveTextarea formControlName="description" placeholder="Add short description here" required>
       </sl-textarea>
@@ -369,7 +368,7 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
     });
 
     const input = this.myInput.nativeElement.querySelector('input') as HTMLInputElement,
-     textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      textarea = this.myTextarea.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
     input.checkValidity();
     textarea.checkValidity();
     this.myCheckbox.nativeElement.internals.checkValidity();
@@ -394,7 +393,7 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
       margin-block-start: 0;
     }
 
-    sl-text-input,
+    sl-text-field,
     sl-textarea {
       width: 50%;
     }
@@ -407,9 +406,9 @@ export class ReactiveFormRequiredReportComponent implements AfterViewChecked {
   template: `
     <form #myForm="ngForm" (ngSubmit)="onSubmit($event, model, myForm)">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" hint="This is a hint for text field" placeholder="Type at least 8 characters" [(ngModel)]="model.name" (input)="onInput(inputWithNgmodel);" #inputWithNgmodel="ngModel" name="name" minlength="8" required>
+      <sl-text-field id="my-value" hint="This is a hint for text field" placeholder="Type at least 8 characters" [(ngModel)]="model.name" (input)="onInput(inputWithNgmodel);" #inputWithNgmodel="ngModel" name="name" minlength="8" required>
         <div slot="value-missing">error message example when the field is required</div>
-      </sl-text-input>
+      </sl-text-field>
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" placeholder="Type at least 8 characters" [(ngModel)]="model.description" #textareaWithNgmodel="ngModel" (input)="onInput(textareaWithNgmodel);" name="description" hint="This is a hint for textarea" minlength="8" required></sl-textarea>
       <sl-label for="checkboxWithNgmodel">Checkbox</sl-label>
@@ -456,17 +455,17 @@ export class TemplateFormComponent implements AfterViewChecked {
   submitted = false;
 
   ngAfterViewChecked(): void {
-      if (this.submitted) {
-        const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement,
-         textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
-        input.checkValidity();
-        textarea.checkValidity();
-      } else {
-        this.inputWithNgmodel.control.markAsUntouched();
-        this.inputWithNgmodel.control.markAsPristine();
-        this.textareaWithNgmodel.control.markAsUntouched();
-        this.textareaWithNgmodel.control.markAsPristine();
-      }
+    if (this.submitted) {
+      const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement,
+        textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      input.checkValidity();
+      textarea.checkValidity();
+    } else {
+      this.inputWithNgmodel.control.markAsUntouched();
+      this.inputWithNgmodel.control.markAsPristine();
+      this.textareaWithNgmodel.control.markAsUntouched();
+      this.textareaWithNgmodel.control.markAsPristine();
+    }
   }
 
   onInput(target: NgModel): void {
@@ -530,7 +529,7 @@ export class TemplateFormComponent implements AfterViewChecked {
       margin-block-start: 0;
     }
 
-    sl-text-input,
+    sl-text-field,
     sl-textarea {
       width: 50%;
     }
@@ -543,9 +542,9 @@ export class TemplateFormComponent implements AfterViewChecked {
   template: `
     <form #myForm="ngForm">
       <sl-label for="my-value">Name</sl-label>
-      <sl-text-input id="my-value" hint="this is a hint" placeholder="Please write a name" [(ngModel)]="model.name" #inputWithNgmodel="ngModel" name="name" required>
+      <sl-text-field id="my-value" hint="this is a hint" placeholder="Please write a name" [(ngModel)]="model.name" #inputWithNgmodel="ngModel" name="name" required>
         <div slot="value-missing">This is a custom error message example when the field is required</div>
-      </sl-text-input>
+      </sl-text-field>
       <sl-label for="textarea-ngmodel-id">Description</sl-label>
       <sl-textarea id="textarea-ngmodel-id" hint="This is a hint for the description" placeholder="Please write a short description" [(ngModel)]="model.description" #textareaWithNgmodel="ngModel" name="description" required></sl-textarea>
       <sl-label for="checkboxWithNgmodel">Checkbox</sl-label>
@@ -586,7 +585,7 @@ export class TemplateFormRequiredReportComponent implements AfterViewChecked {
     });
 
     const input = this.myInputRef.nativeElement.querySelector('input') as HTMLInputElement,
-     textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
+      textarea = this.myTextareaRef.nativeElement.querySelector('textarea') as HTMLTextAreaElement;
 
     input.checkValidity();
     textarea.checkValidity();

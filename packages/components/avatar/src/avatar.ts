@@ -125,7 +125,7 @@ export class Avatar extends LitElement {
       const fontSize = cssQuery
         ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_initials-font'))
         : 8;
-      console.log(window.getComputedStyle(cssQuery).getPropertyValue('--_initials-font'));
+      // console.log(window.getComputedStyle(cssQuery).getPropertyValue('--_initials-font'));
       return svg`
       <rect
               y="0"

@@ -993,6 +993,38 @@
           },
           "type": "typography"
         }
+      },
+      "link": {
+        "sm": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.md}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.lg}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "textDecoration": "{text.typeset.textDecoration.underline}"
+          },
+          "type": "typography"
+        }
       }
     },
     "input": {
@@ -1269,7 +1301,7 @@
       }
     },
     "default": {
-      "value": "{border.radius.3xs}",
+      "value": "{border.radius.2xs}",
       "type": "borderRadius",
       "description": "borderRadius.button"
     },
@@ -1281,6 +1313,16 @@
     "checkbox": {
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
+    },
+    "focusring": {
+      "default": {
+        "value": "{borderRadius.default} + 1",
+        "type": "borderRadius"
+      },
+      "full": {
+        "value": "{border.radius.full}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -1309,9 +1351,15 @@
           "description": "border.width.button.default"
         },
         "border": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        }
+      },
+      "focusring": {
+        "default": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth"
         }
       },
       "none": {
@@ -1870,6 +1918,23 @@
             "type": "sizing"
           }
         }
+      }
+    },
+    "dialog": {
+      "min": {
+        "value": 400,
+        "type": "sizing",
+        "description": "size.input.md"
+      },
+      "max": {
+        "value": 960,
+        "type": "sizing",
+        "description": "size.input.lg"
+      },
+      "full": {
+        "value": "100%",
+        "type": "sizing",
+        "description": "size.input.lg"
       }
     }
   },
@@ -2468,19 +2533,29 @@
           }
         }
       },
-      "gap": {
-        "heading": {
+      "subtitle": {
+        "paddingBottom": {
           "value": "{space.xs}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
-        },
+        }
+      },
+      "gap": {
         "header": {
-          "value": "{space.lg}",
+          "value": "{space.none}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
-        },
-        "footer": {
+        }
+      }
+    },
+    "buttonBar": {
+      "gap": {
+        "block": {
           "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "inline": {
+          "value": "{space.buttonBar.gap.block}",
           "type": "spacing"
         }
       }
@@ -2790,6 +2865,38 @@
         ],
         "type": "boxShadow"
       }
+    }
+  },
+  "flexDirection": {
+    "column": {
+      "value": "column",
+      "type": "Flex"
+    },
+    "columnReverse": {
+      "value": "column-reverse",
+      "type": "Flex"
+    },
+    "rowReverse": {
+      "value": "row-reverse",
+      "type": "Flex"
+    },
+    "row": {
+      "value": "row",
+      "type": "Flex"
+    }
+  },
+  "justifyContent": {
+    "start": {
+      "value": "start",
+      "type": "Flex"
+    },
+    "spaceBetween": {
+      "value": "space-between",
+      "type": "Flex"
+    },
+    "end": {
+      "value": "end",
+      "type": "Flex"
     }
   }
 }

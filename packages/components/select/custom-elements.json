@@ -61,28 +61,6 @@
             "name": "SelectOptionGroup",
             "module": "/src/select-option-group.js"
           }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "sl-select-overlay",
-          "declaration": {
-            "name": "SelectOverlay",
-            "module": "/src/select-overlay.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select-option-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select-option-group.scss.ts"
-          }
         }
       ]
     },
@@ -92,25 +70,33 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A way to group together options, with or without heading.\n\n```html\n <sl-select>\n   <sl-select-option-group group-heading=\"Europ\">\n   <sl-select-option>Netherlands</sl-select-option>\n   <sl-select-option>Spain</sl-select-option>\n     <sl-select-option>Poland</sl-select-option>\n   </sl-select-option-group>\n </sl-select>\n```",
           "name": "SelectOptionGroup",
+          "slots": [
+            {
+              "description": "List of `sl-option` elements",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "field",
-              "name": "groupTitle",
+              "name": "groupHeading",
               "type": {
                 "text": "string | undefined"
               },
-              "attribute": "group-title"
+              "description": "The heading of the option group",
+              "attribute": "group-heading"
             }
           ],
           "attributes": [
             {
-              "name": "group-title",
+              "name": "group-heading",
               "type": {
                 "text": "string | undefined"
               },
-              "fieldName": "groupTitle"
+              "description": "The heading of the option group",
+              "fieldName": "groupHeading"
             }
           ],
           "superclass": {
@@ -118,7 +104,9 @@
             "package": "lit"
           },
           "tagName": "sl-select-option-group",
-          "customElement": true
+          "customElement": true,
+          "methods": [],
+          "fields": []
         }
       ],
       "exports": [
@@ -134,20 +122,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/select-option.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select-option.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/select-option.ts",
       "declarations": [
         {
@@ -157,35 +131,14 @@
           "members": [
             {
               "kind": "field",
-              "name": "contentType",
-              "type": {
-                "text": "'string' | 'element' | undefined"
-              },
-              "description": "Whether the content of the option item is a node",
-              "attribute": "contentType",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether the option item is disabled",
+              "description": "Whether the option item is disabled.",
               "attribute": "disabled",
               "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
             },
             {
               "kind": "field",
@@ -194,18 +147,8 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether the option item is selected",
+              "description": "Whether the option item is selected.",
               "attribute": "selected",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "{ width: number; height: number }"
-              },
-              "default": "{ width: 0, height: 0 }",
-              "attribute": "size",
               "reflects": true
             },
             {
@@ -214,7 +157,7 @@
               "type": {
                 "text": "FormControlValue | undefined"
               },
-              "description": "Whether the option item is selected",
+              "description": "The value for the option item, to be used in forms.",
               "attribute": "value"
             }
           ],
@@ -224,7 +167,7 @@
               "type": {
                 "text": "FormControlValue | undefined"
               },
-              "description": "Whether the option item is selected",
+              "description": "The value for the option item, to be used in forms.",
               "fieldName": "value"
             },
             {
@@ -233,7 +176,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether the option item is selected",
+              "description": "Whether the option item is selected.",
               "fieldName": "selected"
             },
             {
@@ -242,24 +185,8 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether the option item is disabled",
+              "description": "Whether the option item is disabled.",
               "fieldName": "disabled"
-            },
-            {
-              "name": "contentType",
-              "type": {
-                "text": "'string' | 'element' | undefined"
-              },
-              "description": "Whether the content of the option item is a node",
-              "fieldName": "contentType"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "{ width: number; height: number }"
-              },
-              "default": "{ width: 0, height: 0 }",
-              "fieldName": "size"
             }
           ],
           "superclass": {
@@ -267,7 +194,27 @@
             "package": "lit"
           },
           "tagName": "sl-select-option",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": []
         }
       ],
       "exports": [
@@ -283,118 +230,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/select-overlay.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select-overlay.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select-overlay.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "SelectOverlay",
-          "members": [
-            {
-              "kind": "method",
-              "name": "hide",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget | null"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition"
-              },
-              "default": "'bottom-start'",
-              "description": "Tooltip position.",
-              "attribute": "position"
-            },
-            {
-              "kind": "method",
-              "name": "show",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ]
-            }
-          ],
-          "attributes": [
-            {
-              "name": "position",
-              "type": {
-                "text": "PopoverPosition"
-              },
-              "default": "'bottom-start'",
-              "description": "Tooltip position.",
-              "fieldName": "position"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-select-overlay",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "SelectOverlay",
-          "declaration": {
-            "name": "SelectOverlay",
-            "module": "src/select-overlay.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/select.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/select.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/select.ts",
       "declarations": [
         {
@@ -404,26 +239,13 @@
           "members": [
             {
               "kind": "field",
-              "name": "allOptions",
+              "name": "invalid",
               "type": {
-                "text": "SelectOption[]"
+                "text": "boolean | undefined"
               },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
+              "description": "Whether the select is invalid.",
+              "attribute": "invalid",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -431,81 +253,65 @@
               "type": {
                 "text": "string | undefined"
               },
-              "attribute": "maxOverlayHeight"
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
+              "attribute": "max-overlay-height",
+              "reflects": true
             },
             {
-              "kind": "method",
-              "name": "openSelect",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
               },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "optionGroups",
-              "type": {
-                "text": "SelectOptionGroup[] | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "options",
-              "type": {
-                "text": "SelectOption[] | undefined"
-              },
-              "description": "The slotted options."
-            },
-            {
-              "kind": "field",
-              "name": "overlay",
-              "type": {
-                "text": "SelectOverlay | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "selectedOptionPlaceholder",
-              "type": {
-                "text": "HTMLElement | undefined"
-              }
+              "description": "The placeholder text to show when no option is chosen.",
+              "attribute": "placeholder",
+              "reflects": true
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "{ width: string; height: string } | undefined"
+                "text": "'md' | 'lg'"
               },
-              "default": "{ width: '500px', height: '32px' }",
-              "description": "render helpers",
-              "attribute": "size"
+              "default": "'md'",
+              "description": "The size of the select.",
+              "attribute": "size",
+              "reflects": true
             }
           ],
           "attributes": [
             {
-              "name": "size",
-              "type": {
-                "text": "{ width: string; height: string } | undefined"
-              },
-              "default": "{ width: '500px', height: '32px' }",
-              "description": "render helpers",
-              "fieldName": "size"
-            },
-            {
-              "name": "maxOverlayHeight",
+              "name": "max-overlay-height",
               "type": {
                 "text": "string | undefined"
               },
+              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
               "fieldName": "maxOverlayHeight"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'md' | 'lg'"
+              },
+              "default": "'md'",
+              "description": "The size of the select.",
+              "fieldName": "size"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The placeholder text to show when no option is chosen.",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "invalid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is invalid.",
+              "fieldName": "invalid"
             }
           ],
           "mixins": [
@@ -519,7 +325,266 @@
             "package": "lit"
           },
           "tagName": "sl-select",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#closeSelect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#handleOptionsSlotChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#handleMutation",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "mutations",
+                  "type": {
+                    "text": "MutationRecord[]"
+                  }
+                }
+              ],
+              "description": "If an option is selected programmatically update all the options or the size of the select itself"
+            },
+            {
+              "kind": "method",
+              "name": "#handleOptionChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ],
+              "description": "One of the options in the select has been clicked, get the right target and update the selection"
+            },
+            {
+              "kind": "method",
+              "name": "#handleOptionFocus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Make sure the focus is on the currently selected option"
+            },
+            {
+              "kind": "method",
+              "name": "#updateSelectedOption",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selectedOption",
+                  "type": {
+                    "text": "SelectOption"
+                  }
+                }
+              ],
+              "description": "Update the selected option with attributes and values."
+            },
+            {
+              "kind": "method",
+              "name": "#setSelectedOptionVisible",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "option",
+                  "type": {
+                    "text": "SelectOption"
+                  }
+                }
+              ],
+              "description": "Copy the value/represenation of the selected option to the placeholder"
+            },
+            {
+              "kind": "method",
+              "name": "#handleOverlayKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ],
+              "description": "Handle keyboard accessible controls."
+            },
+            {
+              "kind": "method",
+              "name": "#setPopoverWidth",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "ToggleEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#observerOptions",
+              "privacy": "private",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{\n    attributes: true,\n    subtree: true,\n    attributeFilter: ['selected', 'size'],\n    attributeOldValue: true\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "selectedOptionPlaceholder",
+              "type": {
+                "text": "HTMLElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "optionGroups",
+              "type": {
+                "text": "SelectOptionGroup[] | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "button",
+              "type": {
+                "text": "HTMLButtonElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<SelectOption>(this, {\n    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && isPopoverOpen(this.dialog)),\n    elements: () => this.allOptions || [],\n    isFocusableElement: (el: SelectOption) => !el.disabled\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "type": {
+                "text": "MutationObserver | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#selectId",
+              "privacy": "private",
+              "default": "`sl-select-${nextUniqueId++}`"
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "selectedOption",
+              "type": {
+                "text": "SelectOption | null | undefined"
+              },
+              "privacy": "private",
+              "description": "The current node selected in the list of options."
+            },
+            {
+              "kind": "field",
+              "name": "allOptions",
+              "type": {
+                "text": "SelectOption[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#renderSelectedOption",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement | TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#optionContentType",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [

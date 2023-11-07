@@ -3,7 +3,7 @@ import type { Button } from '@sl-design-system/button';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/text-input/register.js';
+import '@sl-design-system/text-field/register.js';
 import { anchor } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
@@ -73,8 +73,55 @@ export const Dialog: Story = {
     };
 
     return html`
+      <!--added this to get the polyfill working in FF and Safari-->
+      <style>
+        [popover],
+        :host(:where([popover])) {
+          background-color: canvas;
+          border-color: initial;
+          border-image: initial;
+          border-style: solid;
+          border-width: initial;
+          color: canvastext;
+          height: fit-content;
+          margin: auto;
+          overflow: auto;
+          padding: 0.25em;
+          position: fixed;
+          width: fit-content;
+          z-index: 2147483647;
+        }
+
+        [popover] {
+          inset: 0;
+        }
+
+        [popover]:not(.\\:popover-open),
+        :host([popover]:not(.\\:popover-open)) {
+          display: none;
+        }
+
+        [popover]:is(dialog[open], .\\:popover-open) {
+          display: block;
+        }
+
+        [anchor].\\:popover-open {
+          inset: auto;
+        }
+
+        @supports selector([popover]:popover-open) {
+          [popover]:not(.\\:popover-open, dialog[open]),
+          :host([popover]:not(.\\:popover-open, dialog[open])) {
+            display: revert;
+          }
+
+          [anchor]:is(:popover-open) {
+            inset: auto;
+          }
+        }
+      </style>
       <sl-button @click=${onClick} id="button">Toggle popover</sl-button>
-      <dialog anchor="button" popover ${anchor()}>I'm a popover</dialog>
+      <dialog anchor="button" popover ${anchor({ position: 'bottom' })}>I'm a popover</dialog>
     `;
   }
 };
@@ -145,7 +192,7 @@ export const Focus: Story = {
       <sl-popover anchor="button">
         <form>
           <label>Label</label>
-          <sl-text-input placeholder="Input"></sl-text-input>
+          <sl-text-field placeholder="Input"></sl-text-field>
           <sl-button-bar align="end">
             <sl-button size="sm">Save</sl-button>
           </sl-button-bar>

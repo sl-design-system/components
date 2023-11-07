@@ -5,24 +5,32 @@ $state-selectors: '', ':where(:--checked, :--indeterminate, [state--checked], [s
 $sizes: md, lg;
 
 :host {
+  // these are temporary, until we have actual tokens for the size of the icon in the checkbox.
+  // https://github.com/sl-design-system/components/issues/554
+  --_icon-size-md: 16px;
+  --_icon-size-lg: 18px;
+
   --_border-radius: var(--sl-border-radius-checkbox);
   --_border-size: var(--sl-border-width-input-border);
   --_box-shadow: none;
   --_cursor: pointer;
-  --_icon-size: 1rem;
   --_path-length: 23;
   --_stroke-dashoffset: var(--_path-length);
   --_stroke-linecap: round;
   --_transition: 200ms ease-in-out;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: 1px;
 }
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
+    --_icon-size: var(--_icon-size-#{$size});
     --_line-height: var(--sl-text-typeset-line-height-#{$size});
     --_padding-block: var(--sl-space-input-option-block-#{$size});
     --_padding-inline: var(--sl-space-input-option-inline-#{$size});
     --_gap: calc(var(--sl-space-input-option-gap-#{$size}) - var(--_padding-inline));
     --_size: var(--sl-size-input-option-#{$size});
+    --_icon-size: var(--sl-size-input-option-checkbox-icon-#{$size});
 
     .wrapper {
       --_font: var(--sl-text-input-option-#{$size});
@@ -62,7 +70,6 @@ $sizes: md, lg;
     :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):focus-visible) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
-      --_box-shadow: var(--sl-box-shadow-focus);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
       --_stroke: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
     }
@@ -96,8 +103,10 @@ $sizes: md, lg;
 }
 
 :host(:focus-visible) .inner {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
   transition: var(--_transition);
-  transition-property: background, border-color, box-shadow, color, filter;
+  transition-property: background, border-color, color, filter, outline-color;
 }
 
 :host(:where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])) {
@@ -137,6 +146,7 @@ $sizes: md, lg;
   box-shadow: var(--_box-shadow, none);
   display: inline-flex;
   flex-shrink: 0;
+  outline-color: transparent;
   padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
 }
 

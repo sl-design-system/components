@@ -43,7 +43,7 @@ export class Editor extends FormControlMixin(HintMixin(LitElement)) {
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
   /** Additional plugins. */

@@ -34,20 +34,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/popover.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/popover.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/popover.ts",
       "declarations": [
         {
@@ -88,7 +74,27 @@
             "package": "lit"
           },
           "tagName": "sl-popover",
-          "customElement": true
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#anchor",
+              "privacy": "private",
+              "default": "new AnchorController(this, { arrow: '.arrow' })",
+              "description": "Controller for managing anchoring."
+            }
+          ]
         }
       ],
       "exports": [

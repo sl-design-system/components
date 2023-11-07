@@ -1,0 +1,188 @@
+{%- for component in collections.components -%}
+  {%- for module in custom-elements.custom-elements.modules -%}
+    {%- if page.url == component.url -%}
+      {%- for declaration in module.declarations -%}
+        {%- for tagName in component.data.componentTagName -%}
+          {%- if declaration.tagName == tagName.selector -%}
+            <section>
+            <h2 id={{ tagName.selector }} tabindex="-1">
+              <a class="header-anchor" href="#{{ tagName.selector }}">
+                {%- if component.data.componentTagName.length > 1 -%}{{ tagName.name }}{% endif %} API
+              </a>
+            </h2>
+            <p class="ds-table-component-description">{{ component.data.APIdescription }}</p>
+            {%- if declaration.fields.length > 0 -%}
+              <h3>Properties</h3>
+              <div class="ds-table-wrapper"><table class="ds-table">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Default</th>
+                    <th class="ds-table__description">Description</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {%- for member in declaration.fields -%}
+                    <tr>
+                    <td><code>{{member.name}}</code></td>
+                    <td>
+                      {% if member.type %}
+                        <code>{{member.type.text}}</code>
+                      {% endif %}</td>
+                    <td>
+                      {% if member.default %}
+                        <code>{{member.default}}</code>
+                      {% endif %}
+                    </td>
+                    <td class="ds-table__description">{{member.description}}</td>
+                    </tr>
+                  {% endfor -%}
+                  </tbody>
+                </table>
+              </div>
+            {%- endif -%}
+            {%- if declaration.methods.length > 0 -%}
+              <h3>Methods</h3>
+              <div class="ds-table-wrapper">
+                <table class="ds-table">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Parameters</th>
+                    <th>Return</th>
+                    <th class="ds-table__description">Description</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {%- for member in declaration.methods -%}
+                    <tr>
+                    <td><code>{{member.name}}</code></td>
+                    <td>
+                      {% for parameter in member.parameters -%}
+                        {% if parameter %}
+                          <code>{{parameter.name}}{% if parameter.optional%}?{% endif %}: {{ parameter.type.text }}</code>
+                        {% endif %}
+                      {% endfor -%}
+                    </td>
+                    <td>
+                      {% if member.return.type.text %}
+                        <code>{{member.return.type.text}}</code>
+                      {% endif %}
+                    </td>
+                    <td class="ds-table__description">{{member.description}}</td>
+                    </tr>
+                  {% endfor -%}
+                  </tbody>
+                </table>
+              </div>
+            {%- endif -%}
+            {% if declaration.events.length %}
+              <h3>Events</h3>
+              <div class="ds-table-wrapper">
+                <table class="ds-table">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Event type</th>
+                    <th>Description</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for event in declaration.events -%}
+                    <tr>
+                      <td><code>{{event.name}}</code></td>
+                      <td>
+                        {% if event.type %}
+                          <code>{{ event.type.text }}</code>
+                        {% endif %}
+                      </td>
+                      <td>{{event.description}}</td>
+                    </tr>
+                  {% endfor -%}
+                  </tbody>
+                </table>
+              </div>
+            {% endif %}
+            {% if declaration.slots.length %}
+              <h3>Slots</h3>
+              <div class="ds-table-wrapper">
+                <table class="ds-table">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for slot in declaration.slots -%}
+                    <tr>
+                      <td><code>{{slot.name}}</code></td>
+                      <td>{{slot.description}}</td>
+                    </tr>
+                  {% endfor -%}
+                  </tbody>
+                </table>
+               </div>
+            {% endif %}
+            {%- if declaration.attributes.length -%}
+              <h3>Attributes</h3>
+              <div class="ds-table-wrapper">
+                <table class="ds-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Default</th>
+                      <th class="ds-table__description">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {%- for attribute in declaration.attributes -%}
+                    <tr>
+                      <td><code>{{attribute.name}}</code></td>
+                      <td>
+                        {% if attribute.type.text %}
+                          <code>{{attribute.type.text}}</code>
+                        {% endif %}
+                      </td>
+                      <td>
+                        {% if attribute.default %}
+                          <code>{{attribute.default}}</code>
+                        {% endif %}
+                      </td>
+                      <td class="ds-table__description">{{attribute.description}}</td>
+                    </tr>
+                  {%- endfor -%}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            {%- if declaration.cssProperties.length -%}
+            <h3>CSS Properties</h3>            
+              <div class="ds-table-wrapper">
+                <table class="ds-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {%- for property in declaration.cssProperties -%}
+                    <tr>
+                      <td><code>{{property.name}}</code></td>
+                      <td>{{property.description}}</td>
+                    </tr>
+                  {%- endfor -%}
+                  </tbody>
+                </table>
+              </div>
+            {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}

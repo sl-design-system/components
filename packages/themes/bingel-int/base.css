@@ -3,6 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
+  --sl-justify-content-end: end;
+  --sl-justify-content-space-between: space-between;
+  --sl-justify-content-start: start;
+  --sl-flex-direction-row: row;
+  --sl-flex-direction-row-reverse: row-reverse;
+  --sl-flex-direction-column-reverse: column-reverse;
+  --sl-flex-direction-column: column;
+  --sl-size-dialog-full: 100%;
+  --sl-size-dialog-max: 960px;
+  --sl-size-dialog-min: 400px;
   --sl-size-4xl: 64px;
   --sl-size-3xl: 48px;
   --sl-size-2xl: 32px;
@@ -124,8 +134,7 @@
   --sl-text-typeset-font-family-body: open-sans;
   --sl-text-typeset-font-family-heading: open-sans;
   --sl-color-palette-transparent-base: 0 0 0 / 0;
-  --sl-color-palette-white-base: 255 255 255;
-  --sl-color-palette-black-base: 41 41 41;
+  --sl-color-palette-white-base: 248 248 248;
   --sl-color-palette-danger-base: 227 10 39;
   --sl-color-palette-danger-900: 36 2 6;
   --sl-color-palette-danger-800: 74 3 13;
@@ -210,18 +219,18 @@
   --sl-color-palette-primary-150: 129 186 239;
   --sl-color-palette-primary-100: 172 210 245;
   --sl-color-palette-primary-50: 230 241 251;
-  --sl-elevation-shadow-none: calc(0px 0px 0px 0px rgba(var(--sl-color-palette-neutral-base) / 0));
+  --sl-elevation-shadow-none: calc(0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0));
   --sl-elevation-shadow-lg: calc(
-    0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0px 8px 16px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+    0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 8 16 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
   );
   --sl-elevation-shadow-md: calc(
-    0px 0px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0px 4px 8px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150))
+    0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 4 8 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150))
   );
   --sl-elevation-shadow-sm: calc(
-    0px 0px 6px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
-    0px 2px 4px 0px rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
+    0 0 6 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
+    0 2 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
   );
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
@@ -288,9 +297,9 @@
   --sl-space-select-listbox-inline-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-select-listbox-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
   --sl-space-select-listbox-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-xs));
-  --sl-space-dialog-gap-footer: var(--sl-space-sm);
-  --sl-space-dialog-gap-header: var(--sl-space-lg);
-  --sl-space-dialog-gap-heading: var(--sl-space-xs);
+  --sl-space-button-bar-gap-block: var(--sl-space-sm);
+  --sl-space-dialog-gap-header: var(--sl-space-none);
+  --sl-space-dialog-subtitle-padding-bottom: var(--sl-space-xs);
   --sl-space-dialog-mobile-body-gap: var(--sl-space-xl);
   --sl-space-dialog-mobile-body-inline: var(--sl-space-xl);
   --sl-space-dialog-mobile-body-block: var(--sl-space-xl);
@@ -375,15 +384,23 @@
   --sl-space-input-helper-gap-lg: var(--sl-space-sm);
   --sl-space-input-helper-gap-md: var(--sl-space-xs);
   --sl-space-input-helper-gap-sm: var(--sl-space-xs);
+  --sl-space-input-option-gap-lg: var(--sl-space-sm);
+  --sl-space-input-option-gap-md: var(--sl-space-sm);
+  --sl-space-input-option-inline-lg: var(--sl-space-none);
+  --sl-space-input-option-inline-md: var(--sl-space-none);
+  --sl-space-input-option-block-lg: var(--sl-space-xs);
+  --sl-space-input-option-block-md: var(--sl-space-xs);
   --sl-space-input-text-field-inline-lg: var(--sl-space-lg);
   --sl-space-input-text-field-inline-md: var(--sl-space-md);
   --sl-space-input-text-field-block-lg: var(--sl-space-sm);
   --sl-space-input-text-field-block-md: var(--sl-space-sm);
+  --sl-border-width-focusring-default: var(--sl-border-width-sm);
   --sl-border-width-input-border: var(--sl-border-width-sm);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-button-link: var(--sl-border-width-xs);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-xs);
+  --sl-border-radius-focusring-full: var(--sl-border-radius-full);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
   --sl-border-radius-default: var(--sl-border-radius-3xs);
@@ -397,6 +414,12 @@
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-opiton-label-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-link-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-link-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-link-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-button-font-icon-lg: undefined var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
     undefined;
   --sl-text-button-font-icon-md: undefined var(--sl-text-typeset-font-size-md) / var(--sl-text-typeset-line-height-xs)
@@ -437,6 +460,7 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
+  --sl-color-palette-black-base: 0 38 73;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);
@@ -447,6 +471,7 @@
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
+  --sl-space-button-bar-gap-inline: var(--sl-space-button-bar-gap-block);
   --sl-space-input-switch-padding-row-lg: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
     (var(--sl-space-input-switch-padding-container) * 2)
@@ -461,12 +486,7 @@
   );
   --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
-  --sl-space-input-option-gap-lg: var(--sl-space-button-outline-block-md);
-  --sl-space-input-option-gap-md: var(--sl-space-button-outline-block-md);
-  --sl-space-input-option-inline-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-option-inline-md: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-option-block-lg: var(--sl-space-button-outline-block-sm);
-  --sl-space-input-option-block-md: var(--sl-space-button-outline-block-sm);
+  --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-text-input-opiton-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-icon);
   --sl-text-input-opiton-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 /

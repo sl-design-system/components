@@ -15,21 +15,19 @@ export class Radio extends FormControlMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
-  #events = new EventsController(this, {
-    click: this.#onClick,
-    keydown: this.#onKeydown
-  });
+  #events = new EventsController(this);
 
-  /** Element internals. */
+  /** @private Element internals. */
   readonly internals = this.attachInternals();
 
-  /** Whether the radio is selected. */
+  /** Whether the radio is checked. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** The value for this radio button. */
   @property() value = '';
 
-  /** Button size. */
+  /** The size of the radio button.
+   * @type {'md' | 'lg'} */
   @property({ reflect: true }) size: RadioButtonSize = 'md';
 
   override connectedCallback(): void {
@@ -37,6 +35,9 @@ export class Radio extends FormControlMixin(LitElement) {
 
     this.internals.role = 'radio';
     this.setFormControlElement(this);
+
+    this.#events.listen(this, 'click', this.#onClick);
+    this.#events.listen(this, 'keydown', this.#onKeydown);
 
     // Move this to a new `FocusableMixin`
     if (!this.hasAttribute('tabindex')) {

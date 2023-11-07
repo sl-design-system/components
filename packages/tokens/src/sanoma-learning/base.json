@@ -1291,6 +1291,16 @@
         "type": "borderRadius"
       }
     },
+    "dialog": {
+      "desktop": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      },
+      "mobile": {
+        "value": "{border.radius.none}",
+        "type": "borderRadius"
+      }
+    },
     "select": {
       "listbox": {
         "value": "{border.radius.2xs}",
@@ -1351,6 +1361,12 @@
           "type": "borderWidth"
         }
       },
+      "dialog": {
+        "default": {
+          "value": "{border.width.none}",
+          "type": "borderWidth"
+        }
+      },
       "divider": {
         "value": "{border.width.xs}",
         "type": "borderWidth"
@@ -1385,11 +1401,6 @@
     "border": {
       "width": {
         "default": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth",
-          "description": "Conceptual Theme Border Token"
-        },
-        "default1": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "Conceptual Theme Border Token"
@@ -1448,10 +1459,6 @@
           "value": "{space.sm}",
           "type": "spacing"
         }
-      },
-      "offset": {
-        "value": "{space.sm}",
-        "type": "spacing"
       }
     },
     "popover": {
@@ -1464,6 +1471,24 @@
       "offset": {
         "value": "{space.sm}",
         "type": "spacing"
+      }
+    }
+  },
+  "dialog": {
+    "header": {
+      "flexDirection": {
+        "value": "{flexDirection.column}",
+        "type": "Flex"
+      }
+    },
+    "footer": {
+      "flexDirection": {
+        "value": "{flexDirection.row}",
+        "type": "Flex"
+      },
+      "justifyContent": {
+        "value": "{justifyContent.end}",
+        "type": "Flex"
       }
     }
   }

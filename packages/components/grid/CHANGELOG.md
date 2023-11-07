@@ -1,5 +1,55 @@
 # @sl-design-system/grid
 
+## 0.0.29
+
+### Patch Changes
+
+- [#676](https://github.com/sl-design-system/components/pull/676) [`8210783`](https://github.com/sl-design-system/components/commit/8210783b47f97d299ea4005628cbfc21d3e393b9) - Fix missing parts in columns
+
+## 0.0.28
+
+### Patch Changes
+
+- [#674](https://github.com/sl-design-system/components/pull/674) [`dac4905`](https://github.com/sl-design-system/components/commit/dac4905063ad4aafb238a515b133b6621901da44) - Fix selection count when filter is active
+
+## 0.0.27
+
+### Patch Changes
+
+- [#672](https://github.com/sl-design-system/components/pull/672) [`6992852`](https://github.com/sl-design-system/components/commit/69928524af458423710621b82d70e6356637b38a) - Fix incorrect selection count after all rows have been selected
+
+- Updated dependencies [[`680e9a9`](https://github.com/sl-design-system/components/commit/680e9a97c4332a37b5949ca74eb699a3bc95f448), [`5208fa3`](https://github.com/sl-design-system/components/commit/5208fa38b4d702f9939a2b6c19065bc7a6ffa2cb), [`7fc4823`](https://github.com/sl-design-system/components/commit/7fc482392ab89ca8cb15f0c9254b6758f6171baa)]:
+  - @sl-design-system/text-input@0.1.8
+  - @sl-design-system/checkbox@0.0.13
+  - @sl-design-system/shared@0.1.8
+  - @sl-design-system/popover@0.0.12
+
+## 0.0.26
+
+### Patch Changes
+
+- Updated dependencies [[`34696fb`](https://github.com/sl-design-system/components/commit/34696fb6c288a8c6101b7a5b80cef1240229a522)]:
+  - @sl-design-system/shared@0.1.7
+  - @sl-design-system/checkbox@0.0.12
+  - @sl-design-system/popover@0.0.11
+  - @sl-design-system/text-input@0.1.7
+
+## 0.0.25
+
+### Patch Changes
+
+- Updated dependencies [[`c901f6c`](https://github.com/sl-design-system/components/commit/c901f6c5409367d19f2ced63c486f820af834faf), [`2203785`](https://github.com/sl-design-system/components/commit/22037855352e444362e42ebfebf9e6d1295bada1), [`b9a0b33`](https://github.com/sl-design-system/components/commit/b9a0b338b4e4047dbd809e501c163fa97a39130e)]:
+  - @sl-design-system/shared@0.1.6
+  - @sl-design-system/popover@0.0.10
+  - @sl-design-system/checkbox@0.0.11
+  - @sl-design-system/text-input@0.1.6
+
+## 0.0.24
+
+### Patch Changes
+
+- [#546](https://github.com/sl-design-system/components/pull/546) [`f1aed34`](https://github.com/sl-design-system/components/commit/f1aed34f48df752f74e218558948315234e2fa49) - Fix the grid not updating when the data-source updates
+
 ## 0.0.23
 
 ### Patch Changes

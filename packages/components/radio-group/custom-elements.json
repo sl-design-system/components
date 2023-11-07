@@ -50,76 +50,28 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/radio-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/radio-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/radio-group.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Radio group; treat a group of radio button as one form input with valitation, hints and errors\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
           "name": "RadioGroup",
+          "slots": [
+            {
+              "description": "A list of `sl-radio` elements.",
+              "name": "default"
+            }
+          ],
           "members": [
-            {
-              "kind": "field",
-              "name": "buttons",
-              "type": {
-                "text": "Radio[]"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "defaultNodes",
-              "type": {
-                "text": "Node[] | undefined"
-              },
-              "description": "The assigned nodes."
-            },
-            {
-              "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
             {
               "kind": "field",
               "name": "horizontal",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "If true, displays the radio buttons next to each other instead of below.",
+              "description": "The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.",
               "attribute": "horizontal",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
             },
             {
               "kind": "field",
@@ -127,7 +79,7 @@
               "type": {
                 "text": "Validator[] | undefined"
               },
-              "description": "Custom validators specified by the user."
+              "description": "Custom validators."
             },
             {
               "kind": "field",
@@ -135,7 +87,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for this group.",
+              "description": "The value for the radio group, to be used in forms.",
               "attribute": "value",
               "reflects": true
             }
@@ -146,7 +98,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "If true, displays the radio buttons next to each other instead of below.",
+              "description": "The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.",
               "fieldName": "horizontal"
             },
             {
@@ -154,7 +106,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The value for this group.",
+              "description": "The value for the radio group, to be used in forms.",
               "fieldName": "value"
             }
           ],
@@ -173,7 +125,122 @@
             "package": "lit"
           },
           "tagName": "sl-radio-group",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusout",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "FocusEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    focusout: this.#onFocusout\n  })",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "#mutation",
+              "privacy": "private",
+              "default": "new MutationController(this, {\n    callback: mutations => {\n      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n      if (target instanceof Radio && target.value) {\n        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));\n        this.value = target.value;\n      }\n    },\n    config: {\n      attributeFilter: ['checked'],\n      attributeOldValue: true,\n      subtree: true\n    }\n  })",
+              "description": "Observe the state of the radios."
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<Radio>(this, {\n    focusInIndex: (elements: Radio[]) => {\n      return elements.findIndex(el => {\n        return this.value ? !el.disabled && el.value === this.value : !el.disabled;\n      });\n    },\n    elementEnterAction: (el: Radio) => {\n      this.value = el.value;\n    },\n    elements: () => this.buttons,\n    isFocusableElement: (el: Radio) => !el.disabled\n  })",
+              "description": "Manage the keyboard navigation."
+            },
+            {
+              "kind": "field",
+              "name": "#validation",
+              "privacy": "private",
+              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#initialState",
+              "privacy": "private",
+              "type": {
+                "text": "string | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "validators",
+              "type": {
+                "text": "Validator[] | undefined"
+              },
+              "description": "Custom validators."
+            },
+            {
+              "kind": "field",
+              "name": "buttons",
+              "type": {
+                "text": "Radio[]"
+              },
+              "privacy": "private",
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [
@@ -183,20 +250,6 @@
           "declaration": {
             "name": "RadioGroup",
             "module": "src/radio-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/radio.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "src/radio.scss.ts"
           }
         }
       ]
@@ -216,24 +269,18 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is selected.",
+              "description": "Whether the radio is checked.",
               "attribute": "checked",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "description": "Element internals."
-            },
-            {
-              "kind": "field",
               "name": "size",
               "type": {
-                "text": "RadioButtonSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "The size of the radio button.",
               "attribute": "size",
               "reflects": true
             },
@@ -254,7 +301,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is selected.",
+              "description": "Whether the radio is checked.",
               "fieldName": "checked"
             },
             {
@@ -269,10 +316,10 @@
             {
               "name": "size",
               "type": {
-                "text": "RadioButtonSize"
+                "text": "'md' | 'lg'"
               },
               "default": "'md'",
-              "description": "Button size.",
+              "description": "The size of the radio button.",
               "fieldName": "size"
             }
           ],
@@ -287,7 +334,68 @@
             "package": "lit"
           },
           "tagName": "sl-radio",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formAssociated",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "default": "true",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
+            }
+          ]
         }
       ],
       "exports": [

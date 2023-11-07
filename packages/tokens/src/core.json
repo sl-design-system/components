@@ -373,6 +373,23 @@
           }
         }
       }
+    },
+    "dialog": {
+      "min": {
+        "value": "400",
+        "type": "sizing",
+        "description": "size.input.md"
+      },
+      "max": {
+        "value": "960",
+        "type": "sizing",
+        "description": "size.input.lg"
+      },
+      "full": {
+        "value": "100%",
+        "type": "sizing",
+        "description": "size.input.lg"
+      }
     }
   },
   "space": {
@@ -970,19 +987,29 @@
           }
         }
       },
-      "gap": {
-        "heading": {
+      "subtitle": {
+        "paddingBottom": {
           "value": "{space.xs}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
-        },
+        }
+      },
+      "gap": {
         "header": {
-          "value": "{space.lg}",
+          "value": "{space.none}",
           "type": "spacing",
           "description": "space.button.solid.block.md"
-        },
-        "footer": {
+        }
+      }
+    },
+    "buttonBar": {
+      "gap": {
+        "block": {
           "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "inline": {
+          "value": "{space.buttonBar.gap.block}",
           "type": "spacing"
         }
       }
@@ -1696,6 +1723,38 @@
         ],
         "type": "boxShadow"
       }
+    }
+  },
+  "flexDirection": {
+    "column": {
+      "value": "column",
+      "type": "Flex"
+    },
+    "columnReverse": {
+      "value": "column-reverse",
+      "type": "Flex"
+    },
+    "rowReverse": {
+      "value": "row-reverse",
+      "type": "Flex"
+    },
+    "row": {
+      "value": "row",
+      "type": "Flex"
+    }
+  },
+  "justifyContent": {
+    "start": {
+      "value": "start",
+      "type": "Flex"
+    },
+    "spaceBetween": {
+      "value": "space-between",
+      "type": "Flex"
+    },
+    "end": {
+      "value": "end",
+      "type": "Flex"
     }
   }
 }

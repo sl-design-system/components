@@ -1,5 +1,23 @@
 # @sanomalearning/slds-bingel-int
 
+## 0.0.8
+
+### Patch Changes
+
+- [#641](https://github.com/sl-design-system/components/pull/641) [`0bee2dc`](https://github.com/sl-design-system/components/commit/0bee2dcaeff1b0648cfb2da397e7e8046007bea9) - added tokens for tooltip
+
+- [#586](https://github.com/sl-design-system/components/pull/586) [`734a39f`](https://github.com/sl-design-system/components/commit/734a39fb38b83e307686e76ff39d191772dbb541) - Added text field, textarea and switch
+
+- [#563](https://github.com/sl-design-system/components/pull/563) [`7fc4823`](https://github.com/sl-design-system/components/commit/7fc482392ab89ca8cb15f0c9254b6758f6171baa) - added tokens for size of the icon in the checkbox
+
+## 0.0.7
+
+### Patch Changes
+
+- [#499](https://github.com/sl-design-system/components/pull/499) [`2203785`](https://github.com/sl-design-system/components/commit/22037855352e444362e42ebfebf9e6d1295bada1) - Added tokens for select component.
+
+- [#478](https://github.com/sl-design-system/components/pull/478) [`b9a0b33`](https://github.com/sl-design-system/components/commit/b9a0b338b4e4047dbd809e501c163fa97a39130e) - added textfield, text area and switch
+
 ## 0.0.6
 
 ### Patch Changes

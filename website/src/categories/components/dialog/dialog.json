@@ -1,0 +1,10 @@
+{
+  "layout": "components/components.njk",
+  "tags": "dialog",
+  "componentTagName": [
+    {
+      "name": "Dialog",
+      "selector": "sl-dialog"
+    }
+  ]
+}

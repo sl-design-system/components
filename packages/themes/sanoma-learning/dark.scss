@@ -4,9 +4,9 @@
  */
 
 @mixin sl-theme-dark {
-  --sl-box-shadow-none: 0px 0px 0px 0px rgb(var(--sl-color-palette-transparent-base));
-  --sl-box-shadow-focus: 0px 0px 0px 3pxpx rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
-  --sl-body-surface-100-copy: rgb(var(--sl-color-palette-neutral-800));
+  --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+  --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
+  --sl-body-surface-overlay: rgba(var(--sl-color-palette-white-base) / var(--sl-opacity-500));
   --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-800));
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
   --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
@@ -437,8 +437,8 @@
   --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-150));
   --sl-box-shadow-tooltip: [object Object];
-  --sl-body-surface-overlay: rgba(var(--sl-body-background) / var(--sl-opacity-400));
   --sl-color-popover-foreground: var(--sl-body-foreground);
+  --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);
   --sl-color-dialog-background: var(--sl-body-background);
   --sl-color-input-field-label-icon-default: var(--sl-body-foreground);

@@ -1,5 +1,29 @@
 # @sl-design-system/shared
 
+## 0.1.8
+
+### Patch Changes
+
+- [#545](https://github.com/sl-design-system/components/pull/545) [`680e9a9`](https://github.com/sl-design-system/components/commit/680e9a97c4332a37b5949ca74eb699a3bc95f448) - changed focus indicator to outline instead of box shadow
+
+- [#642](https://github.com/sl-design-system/components/pull/642) [`5208fa3`](https://github.com/sl-design-system/components/commit/5208fa38b4d702f9939a2b6c19065bc7a6ffa2cb) - Added tooltip component + some cleanup in related components
+
+## 0.1.7
+
+### Patch Changes
+
+- [#552](https://github.com/sl-design-system/components/pull/552) [`34696fb`](https://github.com/sl-design-system/components/commit/34696fb6c288a8c6101b7a5b80cef1240229a522) - Fix regexp matching in `getValueByPath`
+
+## 0.1.6
+
+### Patch Changes
+
+- [#551](https://github.com/sl-design-system/components/pull/551) [`c901f6c`](https://github.com/sl-design-system/components/commit/c901f6c5409367d19f2ced63c486f820af834faf) - Support arrays in `getValueByPath`
+
+- [#499](https://github.com/sl-design-system/components/pull/499) [`2203785`](https://github.com/sl-design-system/components/commit/22037855352e444362e42ebfebf9e6d1295bada1) - added select component
+
+- [#478](https://github.com/sl-design-system/components/pull/478) [`b9a0b33`](https://github.com/sl-design-system/components/commit/b9a0b338b4e4047dbd809e501c163fa97a39130e) - added textfield, text area and switch
+
 ## 0.1.5
 
 ### Patch Changes

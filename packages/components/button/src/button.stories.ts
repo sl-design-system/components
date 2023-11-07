@@ -15,7 +15,7 @@ interface Props extends Pick<Button, 'fill' | 'size' | 'variant'> {
 
 type Story = StoryObj<Props>;
 
-const fills: ButtonFill[] = ['default', 'outline', 'link'];
+const fills: ButtonFill[] = ['solid', 'outline', 'link', 'ghost'];
 const variants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
 const disabledStates = [false, true];
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
@@ -26,8 +26,9 @@ export default {
     text: 'Button',
     icon: 'none',
     size: 'md',
-    fill: 'default',
-    variant: 'default'
+    fill: 'solid',
+    variant: 'default',
+    disabled: false
   },
   argTypes: {
     size: {
@@ -45,13 +46,19 @@ export default {
     variant: {
       control: 'radio',
       options: variants
+    },
+    disabled: {
+      control: 'inline-radio',
+      options: disabledStates
     }
   },
-  render: ({ fill, size, text, variant, icon }) => {
+  render: ({ fill, size, text, variant, icon, disabled }) => {
     const startIcon = icon === 'start' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
     const endIcon = icon === 'end' ? html`<sl-icon name="face-smile"></sl-icon>` : '';
 
-    return html`<sl-button .fill=${fill} .size=${size} .variant=${variant}>${startIcon}${text}${endIcon}</sl-button>`;
+    return html`<sl-button .fill=${fill} .size=${size} .variant=${variant} ?disabled=${disabled}
+      >${startIcon}${text}${endIcon}</sl-button
+    >`;
   }
 } satisfies Meta<Props>;
 

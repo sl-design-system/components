@@ -636,5 +636,13 @@
       "type": "fontWeights",
       "description": "icon.font-weight"
     }
+  },
+  "color": {
+    "focusring": {
+      "default": {
+        "value": "{color.palette.accent.300}",
+        "type": "color"
+      }
+    }
   }
 }

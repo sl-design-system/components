@@ -6,58 +6,101 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "docs/website"
+    "directory": "website"
   },
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build:dev": "wireit",
-    "build:prod": "wireit",
-    "start:site": "wireit",
-    "start:teaser": "wireit",
-    "dev:site": "wireit",
-    "dev:teaser": "wireit",
-    "serve:site": "wireit",
-    "serve:teaser": "wireit",
-    "serve:site:dev": "wireit",
-    "serve:teaser:dev": "wireit",
-    "build:site:dev": "wireit",
-    "build:teaser:dev": "wireit",
-    "build:site:dev:eleventy": "wireit",
-    "build:teaser:dev:eleventy": "wireit",
-    "build:site:dev:styles": "wireit",
-    "build:teaser:dev:styles": "wireit",
-    "build:site:dev:ts": "wireit",
-    "build:type-check": "wireit",
-    "build:site:prod": "wireit",
-    "build:teaser:prod": "wireit",
-    "build:site:prod:eleventy": "wireit",
-    "build:teaser:prod:eleventy": "wireit",
-    "build:site:prod:styles": "wireit",
-    "build:teaser:prod:styles": "wireit",
-    "build:site:prod:ts": "wireit",
-    "clean": "wireit",
+    "build": "wireit",
     "lint": "wireit",
-    "lint:scss": "wireit",
-    "lint:ts": "wireit",
-    "analyze": "wireit",
-    "copy:tokens": "cpx '../packages/themes/sanoma-learning/base.json' 'src/site/_data/tokens/'"
+    "start": "wireit"
   },
   "wireit": {
-    "build:dev": {
-      "dependencies": [
-        "build:site:dev",
-        "build:teaser:dev"
+    "analyze": {
+      "command": "cem analyze",
+      "files": [
+        "../packages/components/**/*.ts",
+        "!../packages/components/**/*.{d,spec,stories}.ts",
+        "custom-elements-manifest.config.js"
+      ],
+      "output": [
+        "src/_data/custom-elements/custom-elements.{json,md}"
       ]
     },
-    "build:prod": {
+    "build": {
       "dependencies": [
-        "build:site:prod",
-        "build:teaser:prod"
+        "build:eleventy",
+        "build:styles",
+        "build:ts"
       ]
     },
-    "clean": {
-      "command": "rimraf dist"
+    "build:eleventy": {
+      "command": "eleventy --config=.eleventy.cjs",
+      "env": {
+        "NODE_ENV": {
+          "external": true
+        }
+      },
+      "dependencies": [
+        "analyze",
+        "copy-tokens"
+      ],
+      "files": [
+        ".eleventy.cjs",
+        "src/*.md",
+        "src/{_data,_includes,assets,categories,scripts,site}/**/*"
+      ],
+      "output": [
+        "dist/**/*.{html,json}"
+      ]
+    },
+    "build:styles": {
+      "command": "sass src/styles:dist/styles",
+      "files": [
+        "src/styles/**/*.scss"
+      ],
+      "output": [
+        "dist/styles/**/*.{css,css.map}",
+        "!dist/styles/slds-sanoma-learning/**/*"
+      ]
+    },
+    "build:ts": {
+      "command": "node esbuild.config.js",
+      "dependencies": [
+        "..:build:components"
+      ],
+      "files": [
+        "esbuild.config.mjs",
+        "tsconfig.json",
+        "src/ts/**/*.ts"
+      ],
+      "output": [
+        "build/**/*.js",
+        "build/**/*.js.map"
+      ]
+    },
+    "build:type-check": {
+      "command": "tsc --build tsconfig.json --pretty",
+      "clean": "if-file-deleted",
+      "files": [
+        "tsconfig.json",
+        "src/**/*.ts"
+      ],
+      "output": [
+        "tsconfig.tsbuildinfo"
+      ]
+    },
+    "copy-tokens": {
+      "command": "cpx '../packages/themes/sanoma-learning/base.json' 'src/_data/tokens/'",
+      "dependencies": [
+        "..:transform-tokens"
+      ],
+      "files": [
+        "../packages/themes/sanoma-learning/base.json"
+      ],
+      "output": [
+        "src/_data/tokens/base.json"
+      ]
     },
     "lint": {
       "dependencies": [
@@ -84,249 +127,54 @@
         "src/**/*.ts"
       ]
     },
-    "build:site:dev:styles": {
-      "command": "NODE_ENV=DEV sass src/site/styles:public/site/styles",
-      "files": [
-        "src/site/styles"
-      ],
-      "output": [
-        "public/site/styles"
-      ]
-    },
-    "build:teaser:dev:styles": {
-      "command": "NODE_ENV=DEV sass src/teaser/styles:public/teaser/styles",
-      "files": [
-        "src/teaser/styles"
-      ],
-      "output": [
-        "public/teaser/styles"
-      ]
-    },
-    "build:site:prod:styles": {
-      "command": "NODE_ENV=PROD sass src/site/styles:dist/site/styles",
-      "files": [
-        "src/site/styles"
-      ],
-      "output": [
-        "dist/site/styles"
-      ]
-    },
-    "build:teaser:prod:styles": {
-      "command": "NODE_ENV=PROD sass src/teaser/styles:dist/teaser/styles",
-      "files": [
-        "src/teaser/styles"
-      ],
-      "output": [
-        "dist/teaser/styles"
-      ]
-    },
-    "build:site:dev": {
-      "dependencies": [
-        "build:site:dev:styles",
-        "build:site:dev:eleventy",
-        "build:site:dev:ts",
-        "build:type-check"
-      ]
-    },
-    "build:teaser:dev": {
-      "dependencies": [
-        "build:teaser:dev:styles",
-        "build:teaser:dev:eleventy"
-      ]
-    },
-    "build:site:dev:eleventy": {
-      "command": "NODE_ENV=DEV eleventy --config=site.eleventy.cjs",
-      "dependencies": [
-        "..:build:tokens",
-        "analyze",
-        "copy:tokens",
-        "build:site:dev:styles",
-        "build:site:dev:ts"
-      ],
-      "files": [
-        "lib/site/**/*",
-        "src/site/**/*",
-        "site.eleventy.cjs"
-      ]
-    },
-    "build:teaser:dev:eleventy": {
-      "command": "NODE_ENV=DEV eleventy --config=teaser.eleventy.cjs",
-      "dependencies": [
-        {
-          "script": "build:teaser:dev:styles",
-          "cascade": false
-        }
-      ],
-      "files": [
-        "src/teaser/**/*",
-        "teaser.eleventy.cjs"
-      ]
-    },
-    "build:site:dev:ts": {
-      "command": "NODE_ENV=DEV node esbuild.config.mjs",
-      "dependencies": [
-        "..:build"
-      ],
-      "files": [
-        "src/site/ts/**/*",
-        "tsconfig.json",
-        "esbuild.config.mjs"
-      ],
-      "output": [
-        "lib/site/**/*"
-      ]
-    },
-    "build:type-check": {
-      "command": "tsc -p tsconfig.json --pretty --incremental",
-      "files": [
-        "src/**/*",
-        "tsconfig.json"
-      ],
-      "clean": "if-file-deleted",
-      "output": [
-        "tsconfig.tsbuildinfo"
-      ]
-    },
-    "build:site:prod": {
-      "dependencies": [
-        "build:site:prod:styles",
-        "build:site:prod:eleventy",
-        "build:site:prod:ts"
-      ]
-    },
-    "build:teaser:prod": {
-      "dependencies": [
-        "build:teaser:prod:styles",
-        "build:teaser:prod:eleventy"
-      ]
-    },
-    "build:site:prod:eleventy": {
-      "command": "NODE_ENV=PROD eleventy --config=site.eleventy.cjs",
-      "dependencies": [
-        "..:build:tokens",
-        "analyze",
-        "copy:tokens",
-        "build:site:prod:styles",
-        "build:site:prod:ts"
-      ],
-      "files": [
-        "build/site/**/*",
-        "src/site/**/*",
-        "site.eleventy.cjs"
-      ]
-    },
-    "analyze": {
-      "command": "cem analyze --litelement"
-    },
-    "build:teaser:prod:eleventy": {
-      "command": "NODE_ENV=PROD eleventy --config=teaser.eleventy.cjs",
-      "dependencies": [
-        "build:teaser:prod:styles"
-      ],
-      "files": [
-        "src/teaser/**/*",
-        "teaser.eleventy.cjs"
-      ]
-    },
-    "build:site:prod:ts": {
-      "command": "NODE_ENV=PROD node esbuild.config.mjs",
-      "dependencies": [
-        "..:build"
-      ],
-      "files": [
-        "src/site/ts/**/*",
-        "tsconfig.json",
-        "esbuild.config.mjs"
-      ],
-      "output": [
-        "build/**/*"
-      ]
-    },
-    "start:site": {
-      "command": "yarn run serve:site",
-      "service": true
-    },
-    "start:teaser": {
-      "command": "yarn run serve:teaser --watch",
-      "service": true
-    },
-    "dev:site": {
-      "command": "yarn run serve:site:dev --watch",
-      "service": true
-    },
-    "dev:teaser": {
-      "command": "yarn run serve:teaser:dev --watch",
-      "service": true
-    },
-    "serve:site:dev": {
-      "command": "wds --watch --root-dir public/site --open",
+    "start": {
+      "command": "wds -w -r dist",
       "service": true,
       "dependencies": [
         {
-          "script": "build:site:dev",
+          "script": "build:eleventy",
           "cascade": false
-        }
-      ]
-    },
-    "serve:teaser:dev": {
-      "command": "wds --watch --root-dir public/teaser --open",
-      "service": true,
-      "dependencies": [
+        },
         {
-          "script": "build:teaser:dev",
+          "script": "build:styles",
           "cascade": false
-        }
-      ]
-    },
-    "serve:site": {
-      "command": "wds --watch --root-dir dist/site",
-      "service": true,
-      "dependencies": [
+        },
         {
-          "script": "build:site:prod",
+          "script": "build:ts",
           "cascade": false
-        }
-      ]
-    },
-    "serve:teaser": {
-      "command": "wds --watch --root-dir dist/teaser",
-      "service": true,
-      "dependencies": [
+        },
         {
-          "script": "build:teaser:prod",
+          "script": "build:type-check",
           "cascade": false
         }
       ]
     }
   },
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.2",
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-fetch": "^4.0.0",
+    "@11ty/eleventy-img": "^3.1.1",
     "@11ty/eleventy-navigation": "^0.3.5",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^4.2.0",
-    "@custom-elements-manifest/analyzer": "^0.8.3",
+    "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
+    "@custom-elements-manifest/analyzer": "^0.9.0",
     "@custom-elements-manifest/to-markdown": "^0.1.0",
-    "@lit-labs/eleventy-plugin-lit": "^0.2.3",
     "@luncheon/esbuild-plugin-gzip": "^0.1.0",
-    "@types/markdown-it": "^12.2.3",
-    "@web/dev-server": "^0.2.3",
-    "@webcomponents/template-shadowroot": "^0.1.0",
+    "@oddbird/popover-polyfill": "^0.3.0",
+    "@types/markdown-it": "^13.0.5",
+    "@web/dev-server": "^0.3.6",
     "cpx": "^1.5.0",
-    "esbuild": "^0.17.19",
+    "elasticlunr": "^0.9.5",
+    "esbuild": "^0.19.5",
     "esbuild-plugin-minify-html-literals": "^1.0.5",
     "html-minifier": "^4.0.0",
-    "markdown-it": "^13.0.1",
+    "markdown-it": "^13.0.2",
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-attrs": "^4.1.6",
-    "rimraf": "^5.0.1",
-    "sass": "^1.63.6",
+    "octokit": "^3.1.1",
+    "sass": "^1.69.5",
     "slugify": "^1.6.6",
     "tiny-glob": "^0.2.9",
-    "typescript": "^5.2.0-beta",
-    "wireit": "^0.9.5"
-  },
-  "dependencies": {
-    "@11ty/is-land": "^3.0.0",
-    "elasticlunr": "^0.9.5",
-    "lit": "^2.7.5"
+    "typescript": "^5.2.2",
+    "wireit": "^0.14.1"
   }
 }

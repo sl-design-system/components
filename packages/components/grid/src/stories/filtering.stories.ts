@@ -1,9 +1,9 @@
-import type { Grid } from '../grid.js';
 import type { Person } from '@sl-design-system/example-data';
-import type { TextInput } from '@sl-design-system/text-input';
+import type { TextField } from '@sl-design-system/text-field';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { getPeople } from '@sl-design-system/example-data';
-import '@sl-design-system/text-input/register.js';
+import { ArrayDataSource } from '@sl-design-system/shared';
+import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../../register.js';
 
@@ -59,24 +59,34 @@ export const EmptyValues: Story = {
 
 export const OutsideGrid: Story = {
   render: (_, { loaded: { people } }) => {
-    const onInput = ({ target }: Event & { target: TextInput }): void => {
-      const grid = document.querySelector('sl-grid') as Grid<Person>,
-        regex = new RegExp(target.value?.toString().trim() ?? '', 'i');
+    const dataSource = new ArrayDataSource(people as Person[]);
 
-      grid.items = (people as Person[]).filter(({ firstName, lastName, email, profession }) => {
-        return regex.test(firstName) || regex.test(lastName) || regex.test(email) || regex.test(profession);
-      });
+    const onInput = ({ target }: Event & { target: TextField }): void => {
+      const value = target.value?.toString().trim() ?? '';
+
+      if (value) {
+        const regex = new RegExp(value, 'i');
+
+        dataSource.addFilter('search', ({ firstName, lastName, email, profession }) => {
+          return regex.test(firstName) || regex.test(lastName) || regex.test(email) || regex.test(profession);
+        });
+      } else {
+        dataSource.removeFilter('search');
+      }
+
+      dataSource.update();
     };
 
     return html`
       <style>
-        sl-text-input {
+        sl-text-field {
           margin-bottom: 1rem;
           width: 300px;
         }
       </style>
-      <sl-text-input @input=${onInput} placeholder="Filter here"></sl-text-input>
-      <sl-grid .items=${people}>
+      <sl-text-field @input=${onInput} placeholder="Filter here"></sl-text-field>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>

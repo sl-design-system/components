@@ -1,5 +1,28 @@
 # @sl-design-system/drawer
 
+## 0.0.13
+
+### Patch Changes
+
+- [#642](https://github.com/sl-design-system/components/pull/642) [`5208fa3`](https://github.com/sl-design-system/components/commit/5208fa38b4d702f9939a2b6c19065bc7a6ffa2cb) - Added tooltip component + some cleanup in related components
+
+- Updated dependencies [[`680e9a9`](https://github.com/sl-design-system/components/commit/680e9a97c4332a37b5949ca74eb699a3bc95f448)]:
+  - @sl-design-system/button@0.0.13
+
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.12
+
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.11
+
 ## 0.0.10
 
 ### Patch Changes

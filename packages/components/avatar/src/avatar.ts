@@ -108,7 +108,9 @@ export class Avatar extends LitElement {
   }
 
   get imageContent(): TemplateResult {
-    if (this.user?.picture && this.image) {
+    if (!this.image) return svg``;
+
+    if (this.user?.picture) {
       return svg`<image
         alt="picture of ${this.profileName}"
         height="${this.image.size}"

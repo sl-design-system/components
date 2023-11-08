@@ -24,6 +24,8 @@
   --sl-color-badge-background-yellow: rgb(var(--sl-color-palette-warning-base));
   --sl-color-badge-background-green: rgb(var(--sl-color-palette-success-base));
   --sl-color-badge-background-red: rgb(var(--sl-color-palette-danger-base));
+  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
   --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
@@ -505,6 +507,7 @@
   --sl-box-shadow-select-listbox: [object Object];
   --sl-color-avatar-subheader: var(--sl-body-foreground);
   --sl-color-avatar-header: var(--sl-body-foreground);
+  --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);
   --sl-color-dialog-background: var(--sl-body-background);

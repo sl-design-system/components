@@ -11,10 +11,10 @@ eleventyNavigation:
 <div class="ds-example">
 <form>
   <sl-label for="nickname">Nickname</sl-label>
-  <sl-text-input
+  <sl-text-field
     id="nickname"
     hint="What would you like people to call you?"
-  ></sl-text-input>
+  ></sl-text-field>
   </form>
 </div>
 
@@ -22,7 +22,7 @@ eleventyNavigation:
 
   ```html
     <sl-label for="nickname">Nickname</sl-label>
-    <sl-text-input id="nickname" hint="What would you like people to call you?"></sl-text-input>
+    <sl-text-field id="nickname" hint="What would you like people to call you?"></sl-text-field>
   ```
 
 </div>

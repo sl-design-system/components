@@ -79,7 +79,8 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   /** Name of the form control */
   @property() name?: string;
 
-  /** The size of the checkboxes in the group. */
+  /** The size of the checkboxes in the group.
+   * @type {'md' | 'lg'} */
   @property() size?: CheckboxSize;
 
   /**  Native form property */

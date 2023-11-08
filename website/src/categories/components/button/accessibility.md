@@ -15,11 +15,18 @@ Exploring essential accessibility considerations for buttons: ensuring an inclus
 ## Interaction
 
 ### Keyboard Interaction
-When the button has focus:
 
-- Space: Activates the button.
-- Enter: Activates the button.
-- Following button activation, the focus is set depending on the type of action the button performs. For example:
+Here is an overview of the common keyboard interactions associated with a button:
+
+|Key| Description |
+|---|-------------|
+|Tab | Pressing the "Tab" key typically moves the keyboard focus from one interactive element to the next in the tab order.|
+|Space/Enter | Activates the button when it has the focus. It will perform the same action as when it's clicked.|
+
+
+{.ds-table .ds-table-align-top}
+
+Following button activation, the focus is set depending on the type of action the button performs. For example:
   - If activating the button opens a dialog, the focus moves inside the dialog.
   - If activating the button closes a dialog, focus typically returns to the button that opened the dialog unless the function performed in the dialog context logically leads to a different element. For example, activating a cancel button in a dialog returns focus to the button that opened the dialog. However, if the dialog were confirming the action of deleting the page from which it was opened, the focus would logically move to a new context.
   - If activating the button does not dismiss the current context, focus typically remains on the button after activation, e.g., an Apply or Recalculate button.

@@ -1,7 +1,7 @@
 {
   "body": {
     "background": {
-      "value": "{color.palette.primary.100}",
+      "value": "{color.palette.white.base}",
       "type": "color",
       "description": "color.body.background",
       "failedToResolve": true
@@ -3841,6 +3841,23 @@
         }
       }
     },
+    "tooltip": {
+      "background": {
+        "value": "{color.palette.primary.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{color.palette.white.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color",
+        "failedToResolve": true
+      }
+    },
     "focusring": {
       "default": {
         "value": "{color.palette.primary.base}",
@@ -3861,6 +3878,13 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.focus",
+      "failedToResolve": true
+    },
+    "tooltip": {
+      "value": {
+        "boxShadow": "{elevation.shadow.none}"
+      },
+      "type": "composition",
       "failedToResolve": true
     },
     "none": {

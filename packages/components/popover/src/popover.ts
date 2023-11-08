@@ -48,11 +48,17 @@ export class Popover extends LitElement {
         <slot></slot>
       </div>
       <div class="arrow">
-        <svg xmlns="http://www.w3.org/svg/2000" width="24" height="12" viewBox="0 0 24 12">
+        <!--<svg xmlns="http://www.w3.org/svg/2000" width="24" height="12" viewBox="0 0 24 12">
           <defs>
             <clipPath id="modal-arrow-cut-stroke-top"><path d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path></clipPath>
           </defs>
           <path clip-path="url(#modal-arrow-cut-stroke-top)" d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path>
+        </svg>-->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="6" height="16" viewBox="0 0 6 16">
+          <path
+            fill="#FEFEFE"
+            d="M.5885 14.4806C.2155 14.8641.001 15.4178 0 16V0c.001.5822.2154 1.1359.5885 1.5193l4.823 4.9572c.7847.8065.7847 2.2405 0 3.047l-4.823 4.9571Z"
+          />
         </svg>
       </div>
     `;

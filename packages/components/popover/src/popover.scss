@@ -1,7 +1,8 @@
 :host {
   --_background: var(--sl-color-popover-background); //#fff;
-  --_border: 1px solid var(--_border-color);
+  --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: var(--sl-color-popover-border); //rgba(0, 0, 0, 0.2);
+  --_border-width: 1px;
   --_border-radius: var(--sl-border-radius-popover-default); //3px;
   --_box-shadow: var(
     --sl-elevation-shadow-md
@@ -9,8 +10,8 @@
   --_padding: var(--sl-space-popover-block) var(--sl-space-popover-inline); //0.5rem;
 
   /* to position */ // TODO: change to popover tokens
-  --_arrow-height: 6px;
-  --_arrow-width: 16px;
+  --_arrow-height: 16px;
+  --_arrow-width: 6px;
   /* the distance from the edge when the arrow is positionend at start or end */ // TODO: change to popover tokens
   --_arrow-start-end-offset: var(--sl-space-tooltip-arrow-offset);
 }
@@ -57,17 +58,17 @@
 //}
 
 :host([actual-placement^='left']) .arrow {
-  inset-inline-end: calc(var(--_arrow-height) * -1);
+  inset-inline-end: -5px; //calc(var(--_arrow-height) * -1); // TODO: improve
 
   svg {
-    rotate: -90deg;
+    //rotate: 90deg;
     transform-origin: top center;
-    translate: 8px -8px;
+    translate: 0 8px; //3px -3px; //8px -8px;
   }
 }
 
 :host([actual-placement='left']) .arrow {
-  inset-block: calc(50% - var(--_arrow-width) / 2);
+  inset-block: 0; //calc(50% - var(--_arrow-width) / 2);
 }
 
 :host([actual-placement='left-start']) .arrow {
@@ -95,9 +96,9 @@
   inset-inline-start: calc(var(--_arrow-height) * -1);
 
   svg {
-    rotate: 90deg;
+    rotate: 180deg; //90deg;
     transform-origin: top center;
-    translate: -8px -4px;
+    translate: 8px -4px; //-8px -4px;
   }
 }
 
@@ -144,5 +145,5 @@
   fill: var(--_background);
   position: absolute;
   stroke: var(--_border-color);
-  stroke-width: 2px;
+  stroke-width: var(--_border-width); //2px;
 }

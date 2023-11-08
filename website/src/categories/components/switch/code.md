@@ -1,26 +1,31 @@
 ---
 title: Switch code
 tags: code
-APIdescription: Component has a range of properties to define the experience in different use cases.
+APIdescription: The switch component has a range of properties to define the experience in different use cases. It is commonly used to enable and disable different options.
 eleventyNavigation:
   parent: Switch
   key: SwitchCode
 ---
-
 <section>
 
-## Code
+<div class="ds-example">
+  <div class="ds-example__examples-wrapper">
+    <sl-switch size="md" hint="helper text" checked>horizontal orientation</sl-switch>
+    <sl-switch size="md" orientation="vertical" hint="helper text">vertical orientation</sl-switch>
+  </div>
+</div>
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+<div class="ds-code">
+
+  ```html
+    <div>
+      <sl-switch size="md" hint="helper text" checked>horizontal orientation</sl-switch>
+      <sl-switch size="md" orientation="vertical" hint="helper text">vertical orientation</sl-switch>
+    </div>
+  ```
+
+</div>
 
 </section>
 
 {% include "../component-table.njk" %}
-
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  

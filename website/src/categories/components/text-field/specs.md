@@ -1,15 +1,15 @@
 ---
-title: Text input specs
+title: Text field specs
 tags: specs
 eleventyNavigation:
-  parent: Text input
+  parent: Text field
   key: TextInputSpecs
 ---
 <section>
 
-## Text input specs content
+## Text field specs content
 
-This is the text input specs content
+This is the text field specs content
 
 </section>
 

@@ -1,7 +1,7 @@
 ---
 '@sl-design-system/radio-group': patch
 '@sl-design-system/button-bar': patch
-'@sl-design-system/text-input': patch
+'@sl-design-system/text-field': patch
 '@sl-design-system/checkbox': patch
 '@sl-design-system/skeleton': patch
 '@sl-design-system/textarea': patch
@@ -15,7 +15,6 @@
 '@sl-design-system/select': patch
 '@sl-design-system/shared': patch
 '@sl-design-system/switch': patch
-'@sl-design-system/label': patch
 '@sl-design-system/grid': patch
 '@sl-design-system/icon': patch
 '@sl-design-system/tabs': patch

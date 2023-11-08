@@ -16,6 +16,7 @@ $transition-timing: 300ms;
   width: 100%;
 
   @media screen and (min-width: $lg-breakpoint) {
+    padding: 3.2rem 2.4rem 0;
     transform: translateX(28rem);
     transition: none;
     width: calc(100% - 28rem);

@@ -3,4 +3,4 @@
 '@sl-design-system/form': patch
 ---
 
-New form package with updated text input
+New form package with updated text field

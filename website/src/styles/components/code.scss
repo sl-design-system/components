@@ -99,6 +99,17 @@ $transition-timing: 300ms;
   position: relative;
 }
 
+.ds-example__examples-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+  margin: 2.4rem 0;
+
+  @media screen and (min-width: $lg-breakpoint) {
+    flex-direction: row;
+  }
+}
+
 .ds-cards .ds-example {
   background: var(--control-color-surface-100-surface);
   border-radius: 0;

@@ -101,6 +101,7 @@ export const API: StoryObj = {
       .value=${value}
       .size=${size}
       .hint=${hint}
+      aria-label="checkbox to toggle"
       >${text}</sl-checkbox
     >
   `

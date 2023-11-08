@@ -1,7 +1,10 @@
 ---
 title: Radio group code
 tags: code
-APIdescription: Component has a range of properties to define the experience in different use cases.
+APIdescription: {
+  sl-radio-group: "Radio group has a range of properties to define the experience in different use cases.",
+  sl-radio: "Radio has a range of properties to define the experience in different use cases."
+}
 eleventyNavigation:
   parent: Radio group
   key: RadioGroupCode

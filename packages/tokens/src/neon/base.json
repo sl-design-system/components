@@ -1154,6 +1154,13 @@
           "value": "{border.width.sm}",
           "type": "borderWidth"
         }
+      },
+      "select": {
+        "listbox": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        }
       }
     }
   },

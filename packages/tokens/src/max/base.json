@@ -926,6 +926,16 @@
         "value": "{border.radius.full}",
         "type": "borderRadius"
       }
+    },
+    "select": {
+      "listbox": {
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius"
+      },
+      "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {

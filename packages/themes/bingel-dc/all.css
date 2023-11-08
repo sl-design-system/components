@@ -587,6 +587,9 @@
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-500));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
+    --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-tooltip-background: rgb(var(--sl-color-palette-accent-base));
     --sl-color-input-field-label-select-panel-bacground-copy: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-input-field-label-select-disabled-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-input-field-label-select-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
@@ -1010,6 +1013,7 @@
     --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-primary-700));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-white-base));
+    --sl-box-shadow-tooltip: [object Object];
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-input-field-label-select-panel-bacground: var(--sl-body-background);
     --sl-color-input-field-label-select-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));

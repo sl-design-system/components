@@ -1,5 +1,5 @@
 ---
-'@sl-design-system/text-input': patch
+'@sl-design-system/text-field': patch
 '@sl-design-system/form': patch
 ---
 

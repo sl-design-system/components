@@ -2814,6 +2814,20 @@
         }
       }
     },
+    "tooltip": {
+      "background": {
+        "value": "{color.palette.accent.700}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color"
+      }
+    },
     "focusring": {
       "default": {
         "value": "{color.palette.accent.300}",
@@ -2833,6 +2847,12 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.focus"
+    },
+    "tooltip": {
+      "value": {
+        "boxShadow": "{elevation.shadow.none}"
+      },
+      "type": "composition"
     },
     "none": {
       "value": {

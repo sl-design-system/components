@@ -31,6 +31,20 @@ section.ds-cards {
   }
 }
 
+@media screen and (min-width: $md-breakpoint) {
+  section.ds-cards-horizontal {
+    grid-template-columns: 1fr;
+
+    figure {
+      flex-direction: row;
+    }
+
+    svg {
+      flex: 0 0 30%;
+    }
+  }
+}
+
 .ds-cards__do {
   svg {
     box-shadow: 0 0.4rem 0 0 var(--control-color-surface-success-surface);

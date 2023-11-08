@@ -4825,7 +4825,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "description": "The hint text.",
               "attribute": "hint"
             },
             {
@@ -4845,7 +4845,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The hint. If you need to display HTML, use the `hint` slot instead.",
+              "description": "The hint text.",
               "fieldName": "hint"
             },
             {

@@ -3304,6 +3304,23 @@
         }
       }
     },
+    "tooltip": {
+      "background": {
+        "value": "{color.palette.accent.700}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{color.palette.white.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{color.palette.transparent.base}",
+        "type": "color",
+        "failedToResolve": true
+      }
+    },
     "focusring": {
       "default": {
         "value": "{color.palette.accent.300}",
@@ -3324,6 +3341,13 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.focus",
+      "failedToResolve": true
+    },
+    "tooltip": {
+      "value": {
+        "boxShadow": "{elevation.shadow.none}"
+      },
+      "type": "composition",
       "failedToResolve": true
     },
     "none": {

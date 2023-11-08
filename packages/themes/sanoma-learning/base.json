@@ -1447,6 +1447,28 @@
         }
       }
     },
+    "popover": {
+      "text": {
+        "text": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        },
+        "title": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        }
+      }
+    },
     "badge": {
       "text": {
         "sm": {
@@ -1772,6 +1794,13 @@
       "type": "borderRadius",
       "description": "borderRadius.button"
     },
+    "popover": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius",
+        "description": "borderRadius.button"
+      }
+    },
     "circle": {
       "value": "{border.radius.full}",
       "type": "borderRadius",
@@ -1892,6 +1921,18 @@
         "type": "borderWidth"
       },
       "tooltip": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        }
+      },
+      "popover": {
         "none": {
           "value": "{border.width.none}",
           "type": "borderWidth",
@@ -2210,6 +2251,32 @@
       },
       "offset": {
         "value": "{space.sm}",
+        "type": "spacing"
+      }
+    },
+    "popover": {
+      "arrow": {
+        "offset": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "offset": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
+      },
+      "gap": {
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },

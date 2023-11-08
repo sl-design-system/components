@@ -85,7 +85,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "CheckboxSize | undefined"
+                "text": "'md' | 'lg'"
               },
               "description": "The size of the checkboxes in the group.",
               "attribute": "size"
@@ -111,7 +111,7 @@
             {
               "name": "size",
               "type": {
-                "text": "CheckboxSize | undefined"
+                "text": "'md' | 'lg'"
               },
               "description": "The size of the checkboxes in the group.",
               "fieldName": "size"

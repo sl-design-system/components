@@ -1,8 +1,8 @@
 ---
-title: Text input
+title: Text field
 tags: overview
 eleventyNavigation:
-  parent: Text input
+  parent: Text field
   key: TextInputOverview
 ---
 <section>

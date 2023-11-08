@@ -15,7 +15,6 @@
 '@sl-design-system/select': patch
 '@sl-design-system/shared': patch
 '@sl-design-system/switch': patch
-'@sl-design-system/label': patch
 '@sl-design-system/grid': patch
 '@sl-design-system/icon': patch
 '@sl-design-system/tabs': patch

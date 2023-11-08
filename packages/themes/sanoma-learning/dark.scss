@@ -11,6 +11,8 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
   --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-body-background: rgb(var(--sl-color-palette-black-base));
+  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-700));
+  --sl-color-popover-background: rgb(var(--sl-color-palette-neutral-900));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-accent-150));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-300));
   --sl-color-badge-icon: rgb(var(--sl-color-palette-white-base));
@@ -444,6 +446,7 @@
   --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-150));
   --sl-box-shadow-tooltip: [object Object];
+  --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-avatar-subheader: var(--sl-body-foreground);
   --sl-color-avatar-header: var(--sl-body-foreground);
   --sl-color-dialog-border: var(--sl-body-background);

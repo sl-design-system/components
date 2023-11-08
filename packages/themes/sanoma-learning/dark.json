@@ -3938,6 +3938,23 @@
         "type": "color",
         "failedToResolve": true
       }
+    },
+    "popover": {
+      "background": {
+        "value": "{color.palette.neutral.900}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{color.palette.neutral.700}",
+        "type": "color",
+        "failedToResolve": true
+      }
     }
   },
   "boxShadow": {

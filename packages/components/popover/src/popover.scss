@@ -1,10 +1,12 @@
 :host {
-  --_background: #fff;
+  --_background: var(--sl-color-popover-background); //#fff;
   --_border: 1px solid var(--_border-color);
-  --_border-color: rgba(0, 0, 0, 0.2);
-  --_border-radius: 3px;
-  --_box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2), 0 0 0.0625rem rgba(0, 0, 0, 0.11);
-  --_padding: 0.5rem;
+  --_border-color: var(--sl-color-popover-border); //rgba(0, 0, 0, 0.2);
+  --_border-radius: var(--sl-border-radius-popover-default); //3px;
+  --_box-shadow: var(
+    --sl-elevation-shadow-md
+  ); //0 0.75rem 1.5rem rgba(0, 0, 0, 0.2), 0 0 0.0625rem rgba(0, 0, 0, 0.11);
+  --_padding: var(--sl-space-popover-block) var(--sl-space-popover-inline); //0.5rem;
 
   /* to position */ // TODO: change to popover tokens
   --_arrow-height: 6px;
@@ -22,6 +24,7 @@
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
   overflow: visible;
+  padding: 0;
 }
 
 //:host([actual-placement='bottom']) .arrow {

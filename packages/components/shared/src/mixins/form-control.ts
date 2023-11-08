@@ -71,7 +71,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native form property. */
+    /** Native form property. Form associated with the element. */
     get form(): HTMLFormElement | null {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.form;
@@ -80,7 +80,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native labels property.
+    /** Native labels property. Labels associated with the element.
      * @type {`NodeListOf<HTMLLabelElement>` | null}
      */
     get labels(): NodeListOf<HTMLLabelElement> | null {
@@ -119,7 +119,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native ElementInternals function. */
+    /** Native checkValidity function. */
     checkValidity(): boolean {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.checkValidity();
@@ -128,7 +128,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       }
     }
 
-    /** Native ElementInternals function. */
+    /** Native reportValidity function. */
     reportValidity(): boolean {
       if (isNative(this.formControlElement)) {
         return this.formControlElement.reportValidity();
@@ -142,12 +142,14 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       this.#formControlElement = element;
     }
 
-    /** Native ElementInternals function. */
+    /** @ignore Native ElementInternals function. */
     setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void {
       console.log('setValidity', { flags, message, anchor });
     }
 
-    /** Native ElementInternals function. */
+    /** Used to set the value of the element.
+     * @param {File | FormData | string | undefined} [value]
+     */
     setFormValue(value?: FormControlValue): void {
       this.#cachedValue = value;
 

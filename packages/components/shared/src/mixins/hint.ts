@@ -40,7 +40,7 @@ export const hintStyles: CSSResultGroup = css`
 
 export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<HintInterface> {
   class Hint extends constructor {
-    /** The hint. If you need to display HTML, use the `hint` slot instead. */
+    /** The hint text. */
     @property() hint?: string;
 
     /** The hint size.

@@ -37,14 +37,16 @@
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
       font-family: 'source-code-pro', monospace;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       line-height: 1.6rem;
       padding: 0.4rem 1.2rem;
+      text-wrap: balance;
     }
 
     /* stylelint-disable-next-line max-nesting-depth, selector-max-compound-selectors */
     code > code {
       padding: 0;
+      word-break: break-word;
     }
   }
 
@@ -61,6 +63,10 @@
 .ds-table-wrapper {
   margin: 2.4rem 0;
   overflow-x: auto;
+}
+
+.ds-table__type {
+  max-width: 15rem;
 }
 
 .ds-table__description {

@@ -3337,7 +3337,7 @@
         },
         "hover": {
           "background": {
-            "value": "{color.palette.accent.100}",
+            "value": "{color.palette.accent.50}",
             "type": "color",
             "failedToResolve": true
           },
@@ -3359,7 +3359,7 @@
         },
         "active": {
           "background": {
-            "value": "{color.palette.accent.150}",
+            "value": "{color.palette.accent.100}",
             "type": "color",
             "failedToResolve": true
           },
@@ -3511,7 +3511,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -3543,7 +3543,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "failedToResolve": true
             },

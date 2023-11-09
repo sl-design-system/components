@@ -3,6 +3,36 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+@mixin sl-text-select-selectbox-title-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-icon-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xs);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-select-selectbox-title-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-icon-typeset-font-size-xs);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-select-selectbox-text-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-select-selectbox-text-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
 @mixin sl-text-input-switch-input-field-bold-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-xl);

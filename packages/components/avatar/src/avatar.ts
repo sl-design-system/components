@@ -121,23 +121,20 @@ export class Avatar extends LitElement {
         href=${this.user?.picture?.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
       ></image>`;
     } else if (this.user && this.fallback === 'initials') {
-      const cssQuery = this.renderRoot.querySelector('picture');
-      const fontSize = cssQuery
-        ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_initials-font'))
-        : 8;
-      // console.log(window.getComputedStyle(cssQuery).getPropertyValue('--_initials-font'));
       return svg`
       <rect
-              y="0"
+              y="${this.image.y}"
               x="0"
               height="${this.image.size}"
               width="${this.image.size}"
               fill="var(--_avatar-background)"
-              mask="url(#badge-cutout-${this.#avatarId})"
+              mask="url(#circle-${this.#avatarId})"
             />
-            <text class="initials" x="${this.image.size / 2}" y="${
-        this.image.size - (this.image.size - fontSize) / 2
-      }" dy=".3em" fill="var(--_avatar-foreground)">${this.initials}</text>`;
+            <text class="initials"
+               dominant-baseline="central" 
+               x="${this.image.size / 2}" 
+               y="${this.image.size / 2 + this.image.y}" 
+               fill="var(--_avatar-foreground)">${this.initials}</text>`;
     } else {
       return svg`<path
         d="M8 1a3 3 0 1 0 .002 6.002A3 3 0 0 0 8 1zM6.5 8A4.491 4.491 0 0 0 2 12.5v.5c0 1.11.89 2 2 2h8c1.11 0 2-.89 2-2v-.5C14 10.008 11.992 8 9.5 8zm0 0"
@@ -253,7 +250,7 @@ export class Avatar extends LitElement {
     if (changes.has('badgeText')) {
       setTimeout(() => {
         if (this.badge) {
-          const svgtxt = this.renderRoot.querySelector('text');
+          const svgtxt = this.renderRoot.querySelector('text.badge-text');
 
           if (!svgtxt || !this.badge) return;
           const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
@@ -278,7 +275,7 @@ export class Avatar extends LitElement {
     const cssQuery = this.renderRoot.querySelector('picture');
 
     const percentageRadius =
-      cssQuery && window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius').indexOf('rem') > 0;
+      cssQuery && window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius').indexOf('%') > 0;
 
     const radius: number = cssQuery
       ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))

@@ -27,7 +27,6 @@
     "**/*.js.map",
     "**/*.json",
     "**/*.scss",
-    "fonts/*",
     "CHANGELOG.md"
   ],
   "dependencies": {

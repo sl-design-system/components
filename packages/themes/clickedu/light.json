@@ -3933,7 +3933,7 @@
           "failedToResolve": true
         },
         "background": {
-          "value": "{color.palette.primary.50}",
+          "value": "{color.palette.white.base}",
           "type": "color",
           "failedToResolve": true
         }

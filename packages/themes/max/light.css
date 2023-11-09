@@ -7,7 +7,7 @@
   --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-400));
   --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
-  --sl-color-select-listbox-background: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-select-listbox-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-select-selectbox-default-focus-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-select-selectbox-default-active-border: rgb(var(--sl-color-palette-primary-base));

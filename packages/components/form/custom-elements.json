@@ -97,6 +97,15 @@
             },
             {
               "kind": "field",
+              "name": "noIcon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "If true, the error icon won't be displayed. Useful for form controls that show\nthe icon inline, like text-field.",
+              "attribute": "no-icon"
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "ErrorSize"
@@ -109,6 +118,14 @@
           ],
           "attributes": [
             {
+              "name": "no-icon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "If true, the error icon won't be displayed. Useful for form controls that show\nthe icon inline, like text-field.",
+              "fieldName": "noIcon"
+            },
+            {
               "name": "size",
               "type": {
                 "text": "ErrorSize"
@@ -116,6 +133,12 @@
               "default": "'md'",
               "description": "The size at which the error is displayed.",
               "fieldName": "size"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
             }
           ],
           "superclass": {
@@ -144,6 +167,16 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
             {
               "kind": "field",
               "name": "name",

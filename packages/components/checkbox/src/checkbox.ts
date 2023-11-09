@@ -31,9 +31,6 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   }
 
   /** @private */
-  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
-  /** @private */
   static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
 
   /** The initial state when the form was associated with the checkbox. Used to reset the checkbox. */

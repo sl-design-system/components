@@ -3,15 +3,13 @@
 }
 
 :host([show-validity='invalid']) {
-  sl-error {
-    display: block;
-  }
-
   sl-hint {
     display: none;
   }
 }
 
-sl-error {
-  display: none;
+:host(:not([show-validity='invalid'])) {
+  sl-error {
+    display: none;
+  }
 }

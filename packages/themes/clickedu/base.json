@@ -1465,6 +1465,16 @@
         "value": "{border.radius.full}",
         "type": "borderRadius"
       }
+    },
+    "select": {
+      "listbox": {
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius"
+      },
+      "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -1502,6 +1512,13 @@
         "default": {
           "value": "{border.width.sm}",
           "type": "borderWidth"
+        }
+      },
+      "select": {
+        "listbox": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
         }
       },
       "none": {

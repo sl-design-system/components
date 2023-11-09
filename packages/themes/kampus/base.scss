@@ -450,6 +450,8 @@
   --sl-border-width-button-link: var(--sl-border-width-xs);
   --sl-border-width-button-outline: var(--sl-border-width-xs);
   --sl-border-width-button-default: var(--sl-border-width-xs);
+  --sl-border-radius-select-item: var(--sl-border-radius-3xs);
+  --sl-border-radius-select-listbox: var(--sl-border-radius-2xs);
   --sl-border-radius-focusring-full: var(--sl-border-radius-full);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
@@ -557,6 +559,7 @@
   );
   --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
+  --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-text-icon-font-icon-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);

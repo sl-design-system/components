@@ -4476,6 +4476,15 @@
       "type": "boxShadow",
       "description": "boxShadow.none",
       "failedToResolve": true
+    },
+    "select": {
+      "listbox": {
+        "value": {
+          "boxShadow": "{elevation.shadow.md}"
+        },
+        "type": "composition",
+        "failedToResolve": true
+      }
     }
   }
 }

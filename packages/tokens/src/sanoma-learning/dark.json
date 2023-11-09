@@ -3911,6 +3911,14 @@
         "boxShadow": "{elevation.shadow.none}"
       },
       "type": "composition"
+    },
+    "select": {
+      "listbox": {
+        "value": {
+          "boxShadow": "{elevation.shadow.md}"
+        },
+        "type": "composition"
+      }
     }
   }
 }

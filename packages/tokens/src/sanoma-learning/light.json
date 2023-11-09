@@ -3921,30 +3921,5 @@
       },
       "type": "composition"
     }
-  },
-  "dropshadow": {
-    "select": {
-      "listbox": {
-        "value": [
-          {
-            "x": "0",
-            "y": "0",
-            "blur": "{size.3xs}",
-            "spread": "0",
-            "color": "rgba({color.palette.neutral.base},{opacity.100})",
-            "type": "dropShadow"
-          },
-          {
-            "x": "0",
-            "y": "{size.3xs}",
-            "blur": "{size.2xs}",
-            "spread": "0",
-            "color": "rgba({color.palette.neutral.base},{opacity.200})",
-            "type": "dropShadow"
-          }
-        ],
-        "type": "boxShadow"
-      }
-    }
   }
 }

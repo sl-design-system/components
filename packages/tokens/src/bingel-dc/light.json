@@ -3920,6 +3920,14 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.none"
+    },
+    "select": {
+      "listbox": {
+        "value": {
+          "boxShadow": "{elevation.shadow.md}"
+        },
+        "type": "composition"
+      }
     }
   }
 }

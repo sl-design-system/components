@@ -84,6 +84,13 @@
             },
             {
               "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "AvatarIcon | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "image",
               "type": {
                 "text": "AvatarImage | undefined"
@@ -266,6 +273,15 @@
             },
             {
               "kind": "field",
+              "name": "iconSizes",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: 14,\n    md: 16,\n    lg: 18,\n    xl: 24,\n    '2xl': 32,\n    '3xl': 32\n  }"
+            },
+            {
+              "kind": "field",
               "name": "offsetCircle",
               "type": {
                 "text": "object"
@@ -303,6 +319,13 @@
               "name": "badge",
               "type": {
                 "text": "AvatarBadge | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "AvatarIcon | undefined"
               }
             },
             {

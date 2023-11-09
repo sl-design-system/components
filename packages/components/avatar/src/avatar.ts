@@ -34,6 +34,12 @@ export interface AvatarBadge {
   textX?: number;
 }
 
+export interface AvatarIcon {
+  size: number;
+  y?: number;
+  x?: number;
+}
+
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type AvatarFallbackType = 'initials' | 'image';
 export type AvatarOrientation = 'horizontal' | 'vertical';
@@ -73,6 +79,15 @@ export class Avatar extends LitElement {
     '3xl': 20
   };
 
+  private iconSizes = {
+    sm: 14,
+    md: 16,
+    lg: 18,
+    xl: 24,
+    '2xl': 32,
+    '3xl': 32
+  };
+
   // offset relative to image; same principle as with css-positioning.
   private offsetCircle = {
     sm: -2,
@@ -96,6 +111,7 @@ export class Avatar extends LitElement {
 
   @state() image?: AvatarImage;
   @state() badge?: AvatarBadge;
+  @state() icon?: AvatarIcon;
 
   private offset = this.offsetCircle;
 
@@ -134,11 +150,23 @@ export class Avatar extends LitElement {
                dominant-baseline="central" 
                x="${this.image.size / 2}" 
                y="${this.image.size / 2 + this.image.y}" 
-               fill="var(--_avatar-foreground)">${this.initials}</text>`;
+               fill="var(--_avatar-foreground)">${this.initials}</text></g>`;
+    } else if (this.icon) {
+      return svg`
+      <rect
+        y="${this.image.y}"
+        x="0"
+        height="${this.image.size}"
+        width="${this.image.size}"
+        fill="var(--_avatar-background)"
+        mask="url(#circle-${this.#avatarId})"
+      />
+      <use href="#fallback-icon-${this.#avatarId}" x="${this.icon.x}" y="${this.icon.y}" height="${
+        this.icon.size
+      }" width="${this.icon.size}"/>
+     `;
     } else {
-      return svg`<path
-        d="M8 1a3 3 0 1 0 .002 6.002A3 3 0 0 0 8 1zM6.5 8A4.491 4.491 0 0 0 2 12.5v.5c0 1.11.89 2 2 2h8c1.11 0 2-.89 2-2v-.5C14 10.008 11.992 8 9.5 8zm0 0"
-      /> `;
+      return svg``;
     }
   }
 
@@ -190,6 +218,12 @@ export class Avatar extends LitElement {
         height="${this.image.containerSize}"
       >
         <defs>
+          <symbol id="fallback-icon-${this.#avatarId}" viewBox="0 0 28 33">
+            <path
+              fill="var(--_avatar-foreground)"
+              d="M19 9c0-1.75-1-3.375-2.5-4.313-1.563-.875-3.5-.875-5 0C9.937 5.625 9 7.25 9 9c0 1.813.938 3.438 2.5 4.375 1.5.875 3.438.875 5 0C18 12.437 19 10.812 19 9ZM6 9c0-2.813 1.5-5.438 4-6.875 2.438-1.438 5.5-1.438 8 0C20.438 3.563 22 6.188 22 9c0 2.875-1.563 5.5-4 6.938-2.5 1.437-5.563 1.437-8 0A7.953 7.953 0 0 1 6 9ZM3.062 30h21.813c-.563-3.938-3.938-7-8.063-7h-5.687c-4.125 0-7.5 3.063-8.063 7ZM0 31.188C0 25 4.938 20 11.125 20h5.688C23 20 28 25 28 31.188c0 1-.875 1.812-1.875 1.812H1.812A1.814 1.814 0 0 1 0 31.187Z"
+            />
+          </symbol>
           <mask id="badge-cutout-${this.#avatarId}">
             <rect width="${this.image.containerSize}" height="${this.image.containerSize}" fill="white" />
             ${this.badgeCutout}
@@ -290,6 +324,12 @@ export class Avatar extends LitElement {
       size: this.imageSizes[this.size],
       radius: percentageRadius ? this.imageSizes[this.size] * (radius / 100) : radius,
       y: badgeOffset
+    };
+
+    this.icon = {
+      size: this.iconSizes[this.size],
+      x: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2,
+      y: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2 + this.image.y
     };
 
     const badgeBaseX = this.imageSizes[this.size] - this.offset[this.size];

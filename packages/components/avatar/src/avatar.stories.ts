@@ -216,8 +216,8 @@ export const All: StoryObj = {
               <th>${sizeName(size)}</th>
               <td><sl-avatar .user=${users[4]} .size=${size} fallback="image"></sl-avatar></td>
               <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>
-              <td><sl-avatar .user=${users[0]} .size=${size} image-only></sl-avatar></td>
-              <td><sl-avatar .user=${users[0]} .size=${size} image-only status="online"></sl-avatar></td>
+              <td><sl-avatar .user=${users[2]} .size=${size} image-only></sl-avatar></td>
+              <td><sl-avatar .user=${users[1]} .size=${size} image-only status="online"></sl-avatar></td>
               <td><sl-avatar .user=${users[0]} .size=${size} image-only badge-text="${badgeText}"></sl-avatar></td>
             </tr>`
           )}

@@ -3890,7 +3890,7 @@
           "type": "color"
         },
         "background": {
-          "value": "{color.palette.primary.50}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         }
       }

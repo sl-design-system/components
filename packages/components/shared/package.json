@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^1.5.3",
-    "lit": "^3.0.1"
+    "@lit/localize": "^0.12.1",
+    "lit": "^3.0.2"
   }
 }

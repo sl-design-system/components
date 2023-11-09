@@ -7946,32 +7946,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web/dev-server@npm:^0.3.3":
-  version: 0.3.6
-  resolution: "@web/dev-server@npm:0.3.6"
-  dependencies:
-    "@babel/code-frame": "npm:^7.12.11"
-    "@types/command-line-args": "npm:^5.0.0"
-    "@web/config-loader": "npm:^0.2.2"
-    "@web/dev-server-core": "npm:^0.6.3"
-    "@web/dev-server-rollup": "npm:^0.5.4"
-    camelcase: "npm:^6.2.0"
-    command-line-args: "npm:^5.1.1"
-    command-line-usage: "npm:^7.0.1"
-    debounce: "npm:^1.2.0"
-    deepmerge: "npm:^4.2.2"
-    ip: "npm:^1.1.5"
-    nanocolors: "npm:^0.2.1"
-    open: "npm:^8.0.2"
-    portfinder: "npm:^1.0.32"
-  bin:
-    wds: dist/bin.js
-    web-dev-server: dist/bin.js
-  checksum: 5335f68fd3e6cabf04a64a283043ccd7fa792dca69d51f21329a569c14e7a77da25a2829c2e8e831bcf3222263f312e5a328d9c0c56b6693b5fde7bca643d374
-  languageName: node
-  linkType: hard
-
-"@web/dev-server@npm:^0.3.7":
+"@web/dev-server@npm:^0.3.3, @web/dev-server@npm:^0.3.7":
   version: 0.3.7
   resolution: "@web/dev-server@npm:0.3.7"
   dependencies:
@@ -12916,7 +12891,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:3.3.1, fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.11, fast-glob@npm:^3.2.12, fast-glob@npm:^3.2.7, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.0, fast-glob@npm:^3.3.1":
+"fast-glob@npm:3.3.1":
   version: 3.3.1
   resolution: "fast-glob@npm:3.3.1"
   dependencies:
@@ -12929,7 +12904,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.3.2":
+"fast-glob@npm:^3.1.1, fast-glob@npm:^3.2.11, fast-glob@npm:^3.2.12, fast-glob@npm:^3.2.7, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.0, fast-glob@npm:^3.3.1, fast-glob@npm:^3.3.2":
   version: 3.3.2
   resolution: "fast-glob@npm:3.3.2"
   dependencies:
@@ -16439,7 +16414,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:^2.0.0 || ^3.0.0":
+"lit-html@npm:^2.0.0 || ^3.0.0, lit-html@npm:^3.0.0":
   version: 3.0.2
   resolution: "lit-html@npm:3.0.2"
   dependencies:
@@ -16448,27 +16423,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "lit-html@npm:3.0.0"
-  dependencies:
-    "@types/trusted-types": "npm:^2.0.2"
-  checksum: 0c23e937137e397f23f33586a323f0ca47b98d4cb8e2b0bc699a818968f10126caba44408f66a33edad84f7a4d8476c68eb9f87f7c84c6340ac1d9315170e08b
-  languageName: node
-  linkType: hard
-
-"lit@npm:^2 || ^3, lit@npm:^2.0.0 || ^3.0.0":
-  version: 3.0.1
-  resolution: "lit@npm:3.0.1"
-  dependencies:
-    "@lit/reactive-element": "npm:^2.0.0"
-    lit-element: "npm:^4.0.0"
-    lit-html: "npm:^3.0.0"
-  checksum: 04df16bdccedececc01312450249a15dc183cf65d829ca24bbc7e1004a96a67f78b59d640c4aceda047ecfab369cb0cea3f094653ce0b5a4a015dd39c21cb23b
-  languageName: node
-  linkType: hard
-
-"lit@npm:^3.0.2":
+"lit@npm:^2 || ^3, lit@npm:^2.0.0 || ^3.0.0, lit@npm:^3.0.2":
   version: 3.0.2
   resolution: "lit@npm:3.0.2"
   dependencies:
@@ -20137,18 +20092,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-view@npm:^1.27.0, prosemirror-view@npm:^1.31.0":
-  version: 1.32.1
-  resolution: "prosemirror-view@npm:1.32.1"
-  dependencies:
-    prosemirror-model: "npm:^1.16.0"
-    prosemirror-state: "npm:^1.0.0"
-    prosemirror-transform: "npm:^1.1.0"
-  checksum: 9e78ac9f99d1cbfe913eb1efc56d174818f7b835e78bd941edf00084416e94dde172c0c48fd720e656f73956adb73e5c9301388713166d5fb6eaf2ff2386ae1a
-  languageName: node
-  linkType: hard
-
-"prosemirror-view@npm:^1.32.4":
+"prosemirror-view@npm:^1.27.0, prosemirror-view@npm:^1.31.0, prosemirror-view@npm:^1.32.4":
   version: 1.32.4
   resolution: "prosemirror-view@npm:1.32.4"
   dependencies:

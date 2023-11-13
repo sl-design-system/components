@@ -3671,7 +3671,7 @@
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.900}",
             "type": "color"
           },
           "border": {
@@ -3689,7 +3689,7 @@
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.900}",
             "type": "color"
           },
           "border": {
@@ -3707,7 +3707,7 @@
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.900}",
             "type": "color"
           },
           "border": {
@@ -3725,7 +3725,7 @@
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.900}",
             "type": "color"
           },
           "border": {

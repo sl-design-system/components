@@ -224,7 +224,7 @@ export const positionPopover = (
       element.setAttribute('actual-placement', actualPlacement);
 
       if (arrow && arrowElement) {
-        arrowElement.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`;
+        // arrowElement.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`; // TODO: not necessary??
       }
     });
   });

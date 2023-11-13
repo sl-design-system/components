@@ -168,7 +168,7 @@
 }*/
 
 :host([actual-placement^='bottom']) .arrow {
-  inset-block-start: calc(var(--_arrow-height) * -1);
+  inset-block-start: -11px; //calc(var(--_arrow-height) * -1);
 }
 
 :host([actual-placement='bottom']) .arrow {
@@ -189,7 +189,7 @@
   svg {
     rotate: 90deg;
     transform-origin: top center;
-    translate: 8px 8px;
+    translate: 13px 8px; //8px 8px;
   }
 }
 
@@ -211,7 +211,7 @@
   svg {
     rotate: -90deg;
     transform-origin: top center;
-    translate: -8px 8px;
+    translate: -13px 8px; // -8px 8px;
   }
 }
 
@@ -228,7 +228,7 @@
 }
 
 :host([actual-placement^='top']) .arrow {
-  inset-block-end: calc(var(--_arrow-height) * -1);
+  inset-block-end: -11px; //calc(var(--_arrow-height) * -1);
   scale: 1 -1;
 }
 
@@ -250,4 +250,11 @@
   height: var(--_arrow-width);
   position: absolute;
   width: var(--_arrow-width);
+
+  path {
+    //stroke: #646464;
+    //stroke-width:1px;
+    //stroke-linejoin: round;
+    fill: var(--_background);
+  }
 }

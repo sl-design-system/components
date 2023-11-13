@@ -255,6 +255,15 @@
             },
             {
               "kind": "field",
+              "name": "avatarConfig",
+              "type": {
+                "text": "AvatarConfig"
+              },
+              "privacy": "private",
+              "default": "{\n    // shape: 'square',\n    shape: 'circle',\n    badgeGapWidth: 2\n  }"
+            },
+            {
+              "kind": "field",
               "name": "imageSizes",
               "type": {
                 "text": "object"
@@ -301,11 +310,7 @@
             {
               "kind": "field",
               "name": "borderWidth",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "4"
+              "privacy": "private"
             },
             {
               "kind": "field",

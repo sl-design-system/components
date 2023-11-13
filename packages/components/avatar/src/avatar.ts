@@ -43,6 +43,11 @@ export interface AvatarIcon {
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type AvatarFallbackType = 'initials' | 'image';
 export type AvatarOrientation = 'horizontal' | 'vertical';
+export type AvatarShape = 'circle' | 'square';
+export type AvatarConfig = {
+  shape: AvatarShape;
+  badgeGapWidth: number;
+};
 export type UserStatus = 'online' | 'offline' | 'away' | 'do-not-disturb';
 
 let nextUniqueId = 0;
@@ -60,6 +65,11 @@ export class Avatar extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
 
   #avatarId = nextUniqueId++;
+  private avatarConfig: AvatarConfig = {
+    // shape: 'square',
+    shape: 'circle',
+    badgeGapWidth: 2
+  };
 
   private imageSizes = {
     sm: 24,
@@ -107,7 +117,7 @@ export class Avatar extends LitElement {
     '3xl': -10
   };
 
-  private borderWidth = 4; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
+  private borderWidth = this.avatarConfig.badgeGapWidth * 2; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
 
   @state() image?: AvatarImage;
   @state() badge?: AvatarBadge;
@@ -247,7 +257,7 @@ export class Avatar extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
-
+    this.setAttribute('shape', this.avatarConfig.shape);
     this.#setBaseValues();
   }
 
@@ -256,8 +266,8 @@ export class Avatar extends LitElement {
       <picture> ${this.imageSVG} </picture>
       ${!this.imageOnly
         ? html`<div>
-            <span>${this.profileName}</span>
-            <slot></slot>
+            <span class="header">${this.profileName}</span>
+            <slot class="subheader"></slot>
           </div>`
         : nothing}
     `;
@@ -278,7 +288,9 @@ export class Avatar extends LitElement {
       }
     }
     if (changes.has('size')) {
-      this.#setBaseValues();
+      setTimeout(() => {
+        this.#setBaseValues();
+      }, 200);
     }
 
     if (changes.has('badgeText')) {
@@ -308,13 +320,11 @@ export class Avatar extends LitElement {
   #setBaseValues(): void {
     const cssQuery = this.renderRoot.querySelector('picture');
 
-    const percentageRadius =
-      cssQuery && window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius').indexOf('%') > 0;
-
     const radius: number = cssQuery
       ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
       : 0;
-    this.offset = percentageRadius || radius > 8 ? this.offsetCircle : this.offsetSquare; //or offset for square
+
+    this.offset = this.avatarConfig.shape === 'circle' ? this.offsetCircle : this.offsetSquare; //or offset for square
     const badgeOffset = this.offset[this.size] < 0 ? this.offset[this.size] * -1 : 0;
     const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
 
@@ -322,7 +332,7 @@ export class Avatar extends LitElement {
       ...this.image,
       containerSize: this.imageSizes[this.size] + badgeOffset,
       size: this.imageSizes[this.size],
-      radius: percentageRadius ? this.imageSizes[this.size] * (radius / 100) : radius,
+      radius: this.avatarConfig.shape === 'circle' ? this.imageSizes[this.size] / 2 : radius,
       y: badgeOffset
     };
 

@@ -35,7 +35,7 @@ const users: UserProfile[] = [
       last: 'Reid'
     },
     picture: {
-      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/19.jpg'
     }
   },
   {
@@ -45,7 +45,7 @@ const users: UserProfile[] = [
       last: 'Henderson'
     },
     picture: {
-      thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/women/19.jpg'
     }
   },
   {
@@ -105,7 +105,7 @@ export default {
     title: 'Ms',
     firstName: 'Rose',
     lastName: 'Nylund',
-    // picture: 'https://randomuser.me/api/portraits/women/81.jpg',
+    picture: 'https://randomuser.me/api/portraits/women/81.jpg',
     imageOnly: false,
     badgeText: '34',
     size: 'md',
@@ -197,12 +197,16 @@ export const All: StoryObj = {
         th,
         td {
           padding: 4px 8px;
+          vertical-align: top
         }
       </style>
       <table>
         <thead>
           <tr>
             <th>Size</th>
+            <th>With name</th>
+            <th>With subheader</th>
+            <th>Vertical</th>
             <th>With placeholder</th>
             <th>With initials</th>
             <th>Image only</th>
@@ -214,8 +218,11 @@ export const All: StoryObj = {
           ${sizes.map(
             size => html` <tr>
               <th>${sizeName(size)}</th>
-              <td><sl-avatar .user=${users[4]} .size=${size} fallback="image"></sl-avatar></td>
-              <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>
+              <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>
+              <td><sl-avatar .user=${users[2]} .size=${size}>Subheader</sl-avatar></td>
+              <td><sl-avatar .user=${users[2]} .size=${size} orientation="vertical">Subheader</sl-avatar></td>
+              <td><sl-avatar .user=${users[4]} .size=${size} image-only fallback="image"></sl-avatar></td>
+              <td><sl-avatar .user=${users[3]} .size=${size} image-only></sl-avatar></td>
               <td><sl-avatar .user=${users[2]} .size=${size} image-only></sl-avatar></td>
               <td><sl-avatar .user=${users[1]} .size=${size} image-only status="online"></sl-avatar></td>
               <td><sl-avatar .user=${users[0]} .size=${size} image-only badge-text="${badgeText}"></sl-avatar></td>
@@ -226,11 +233,3 @@ export const All: StoryObj = {
       </table>`;
   }
 };
-
-// <th>With avatar</th>
-// <th>With subheading</th>
-// <th>With status</th>
-
-// <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>
-// <td><sl-avatar .user=${users[1]} .size=${size}>Very good student</sl-avatar></td>
-// <td><sl-avatar .user=${users[0]} .size=${size} status="online"></sl-avatar></td>

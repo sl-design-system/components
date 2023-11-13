@@ -1,4 +1,5 @@
 $sizes: sm, md, lg, xl, 2xl, 3xl;
+$shapes: circle, square;
 $statuses: online, offline, away, do-not-disturb;
 
 :host {
@@ -9,9 +10,8 @@ $statuses: online, offline, away, do-not-disturb;
 
   --_avatar-background: var(--sl-color-avatar-background);
   --_avatar-foreground: var(--sl-color-avatar-foreground);
-  --_avatar_border-radius: 50%;
-  --_avatar_badge-background-color: rgb(var(--sl-color-palette-danger-base));
-  --_avatar_badge-text-color: #fff;
+  --_avatar_badge-background-color: var(--sl-color-badge-background-red);
+  --_avatar_badge-text-color: var(--sl-color-badge-text);
   align-items: center;
   display: inline-flex;
   gap: 8px;
@@ -22,6 +22,14 @@ $statuses: online, offline, away, do-not-disturb;
   :host([size='#{$size}']) {
     --_badge-font: var(--sl-text-badge-text-#{$size});
     --_initials-font: var(--sl-text-avatar-initials-#{$size});
+    --_header-font: var(--sl-text-avatar-header-#{$size});
+    --_subheader-font: var(--sl-text-avatar-subheader-#{$size});
+  }
+}
+
+@each $shape in $shapes {
+  :host([shape='#{$shape}']) {
+    --_avatar_border-radius: var(--sl-border-radius-avatar-#{$shape});
   }
 }
 
@@ -62,14 +70,20 @@ div {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
+  font: var(--_subheader-font);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  span.header {
+    font: var(--_header-font);
+  }
 }
 
 // this is VERY POC; the display gets removed when converting to css, the max-width should be a token
 :host([orientation='vertical']) {
   flex-direction: column;
+  gap: 0;
   max-width: 100px;
 
   div {

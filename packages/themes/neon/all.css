@@ -245,6 +245,7 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-size-skeleton-min-height: var(--sl-size-2xs);
   --sl-size-button-icon-container-inline-lg: var(--sl-size-md);
   --sl-size-button-icon-container-inline-md: var(--sl-size-sm);
   --sl-size-button-icon-container-inline-sm: var(--sl-size-xs);

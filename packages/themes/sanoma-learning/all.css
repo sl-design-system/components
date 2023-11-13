@@ -244,6 +244,7 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-size-skeleton-min-height: var(--sl-size-2xs);
   --sl-size-button-icon-container-inline-lg: var(--sl-size-md);
   --sl-size-button-icon-container-inline-md: var(--sl-size-sm);
   --sl-size-button-icon-container-inline-sm: var(--sl-size-xs);
@@ -559,6 +560,7 @@
   --sl-border-width-button-link: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-outline: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-default: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-skeleton-default: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
@@ -589,6 +591,9 @@
     --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-border-width-select-copy-listbox: var(--sl-border-width-xs);
+    --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
+    --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
+    --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
     --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
@@ -1068,6 +1073,15 @@
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-tooltip: [object Object];
     --sl-box-shadow-select-listbox: [object Object];
+    --sl-color-skeleton-shimmer: linear-gradient
+      (
+        90deg,
+        var(--sl-color-skeleton-base) 0%,
+        var(--sl-color-skeleton-base) 10%,
+        var(--sl-color-skeleton-effect) 50%,
+        var(--sl-color-skeleton-base) 90%,
+        var(--sl-color-skeleton-base) 100%
+      );
     --sl-color-dialog-border: var(--sl-body-background);
     --sl-color-dialog-foreground: var(--sl-body-foreground);
     --sl-color-dialog-background: var(--sl-body-background);

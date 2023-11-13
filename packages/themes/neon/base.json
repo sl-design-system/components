@@ -2776,6 +2776,12 @@
         "type": "sizing",
         "description": "size.input.lg"
       }
+    },
+    "skeleton": {
+      "minHeight": {
+        "value": "{size.2xs}",
+        "type": "sizing"
+      }
     }
   },
   "button": {

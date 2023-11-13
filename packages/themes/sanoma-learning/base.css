@@ -236,6 +236,7 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-size-skeleton-min-height: var(--sl-size-2xs);
   --sl-size-button-icon-container-inline-lg: var(--sl-size-md);
   --sl-size-button-icon-container-inline-md: var(--sl-size-sm);
   --sl-size-button-icon-container-inline-sm: var(--sl-size-xs);
@@ -551,6 +552,7 @@
   --sl-border-width-button-link: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-outline: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-default: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-skeleton-default: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);

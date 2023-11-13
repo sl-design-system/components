@@ -1530,6 +1530,12 @@
         "value": "{border.radius.3xs}",
         "type": "borderRadius"
       }
+    },
+    "skeleton": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -3013,6 +3019,12 @@
         "value": "100%",
         "type": "sizing",
         "description": "size.input.lg"
+      }
+    },
+    "skeleton": {
+      "minHeight": {
+        "value": "{size.2xs}",
+        "type": "sizing"
       }
     }
   },

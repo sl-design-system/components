@@ -1,5 +1,17 @@
 # @sl-design-system/dialog
 
+## 0.0.3
+
+### Patch Changes
+
+- [#679](https://github.com/sl-design-system/components/pull/679) [`e123f89`](https://github.com/sl-design-system/components/commit/e123f894a45a70d0d26ebd5f8a66bc41ea78814d) - Added dialog component
+
+- [#688](https://github.com/sl-design-system/components/pull/688) [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0) - Upgrade to Lit 3.0
+
+- Updated dependencies [[`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0)]:
+  - @sl-design-system/button-bar@0.0.3
+  - @sl-design-system/icon@0.0.4
+
 ## 0.0.2
 
 ### Patch Changes

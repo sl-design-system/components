@@ -3823,7 +3823,7 @@
         "type": "color",
         "description": "body.surface.100"
       },
-      "secondary": {
+      "effect": {
         "value": "{color.palette.neutral.150}",
         "type": "color",
         "description": "body.surface.100"
@@ -3843,12 +3843,7 @@
         "description": "body.surface.100"
       },
       "shimmer": {
-        "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.secondary} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",
-        "type": "color",
-        "description": "body.surface.100"
-      },
-      "sheen": {
-        "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.secondary} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",
+        "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.effect} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",
         "type": "color",
         "description": "body.surface.100"
       }

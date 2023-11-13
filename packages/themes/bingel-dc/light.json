@@ -3995,7 +3995,7 @@
         },
         "hover": {
           "background": {
-            "value": "{color.palette.accent.100}",
+            "value": "{color.palette.accent.50}",
             "type": "color",
             "failedToResolve": true
           },
@@ -4017,7 +4017,7 @@
         },
         "active": {
           "background": {
-            "value": "{color.palette.accent.150}",
+            "value": "{color.palette.accent.100}",
             "type": "color",
             "failedToResolve": true
           },

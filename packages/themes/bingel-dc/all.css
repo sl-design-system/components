@@ -456,8 +456,8 @@
   --sl-border-width-button-link: var(--sl-border-width-sm);
   --sl-border-width-button-outline: var(--sl-border-width-sm);
   --sl-border-width-button-default: var(--sl-border-width-sm);
-  --sl-border-radius-select-item: var(--sl-border-radius-3xs);
-  --sl-border-radius-select-listbox: var(--sl-border-radius-2xs);
+  --sl-border-radius-select-item: var(--sl-border-radius-xs);
+  --sl-border-radius-select-listbox: var(--sl-border-radius-sm);
   --sl-border-radius-focusring-full: var(--sl-border-radius-full);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
@@ -613,10 +613,10 @@
     --sl-color-select-item-focus-foreground: rgb(var(--sl-color-palette-neutral-600));
     --sl-color-select-item-active-indicator: rgb(var(--sl-color-palette-accent-base));
     --sl-color-select-item-active-foreground: rgb(var(--sl-color-palette-neutral-600));
-    --sl-color-select-item-active-background: rgb(var(--sl-color-palette-accent-150));
+    --sl-color-select-item-active-background: rgb(var(--sl-color-palette-accent-100));
     --sl-color-select-item-hover-indicator: rgb(var(--sl-color-palette-accent-base));
     --sl-color-select-item-hover-foreground: rgb(var(--sl-color-palette-neutral-600));
-    --sl-color-select-item-hover-background: rgb(var(--sl-color-palette-accent-100));
+    --sl-color-select-item-hover-background: rgb(var(--sl-color-palette-accent-50));
     --sl-color-select-item-default-indicator: rgb(var(--sl-color-palette-accent-base));
     --sl-color-select-item-default-foreground: rgb(var(--sl-color-palette-neutral-600));
     --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));

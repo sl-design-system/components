@@ -2662,7 +2662,7 @@
     "border": {
       "width": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "Conceptual Theme Border Token"
         }

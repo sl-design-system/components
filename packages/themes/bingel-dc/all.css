@@ -277,7 +277,7 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
-  --sl-conceptual-border-width-default: var(--sl-border-width-xs);
+  --sl-conceptual-border-width-default: var(--sl-border-width-sm);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
   --sl-icon-typeset-font-size-3xl: var(--sl-size-3xl);
   --sl-icon-typeset-font-size-2xl: var(--sl-size-2xl);
@@ -584,7 +584,7 @@
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-500));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-focusring-default: rgb(var(--sl-color-palette-primary-base));
     --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-tooltip-background: rgb(var(--sl-color-palette-accent-base));

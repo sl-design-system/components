@@ -235,19 +235,13 @@
   --sl-color-palette-primary-150: 222 224 227;
   --sl-color-palette-primary-100: 238 239 241;
   --sl-color-palette-primary-50: 254 254 254;
-  --sl-elevation-shadow-none: calc(0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0));
-  --sl-elevation-shadow-lg: calc(
-    0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0 8 16 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
-  );
-  --sl-elevation-shadow-md: calc(
-    0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0 4 8 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150))
-  );
-  --sl-elevation-shadow-sm: calc(
-    0 0 6 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
-    0 2 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
-  );
+  --sl-elevation-shadow-none: 0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0);
+  --sl-elevation-shadow-lg: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 8px 16px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
+  --sl-elevation-shadow-md: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150));
+  --sl-elevation-shadow-sm: 0 0 6px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
+    0 2px 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
@@ -560,6 +554,9 @@
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
+    --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-tooltip-background: rgb(var(--sl-color-palette-accent-800));
     --sl-color-input-field-label-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-input-field-label-text-disabled: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-input-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
@@ -1003,6 +1000,7 @@
     --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-primary-100));
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-primary-100));
+    --sl-box-shadow-tooltip: [object Object];
     --sl-color-input-field-label-icon-invalid: var(--sl-color-input-text-field-invalid-default-icon);
     --sl-color-input-field-label-icon-default: var(--sl-body-foreground);
     --sl-color-input-field-label-text-invalid: var(--sl-color-input-text-field-invalid-default-icon);

@@ -148,23 +148,6 @@
               "readonly": true
             },
             {
-              "kind": "method",
-              "name": "renderBadgeText",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "svgtxt",
-                  "type": {
-                    "text": "Element"
-                  }
-                }
-              ]
-            },
-            {
               "kind": "field",
               "name": "size",
               "type": {
@@ -253,23 +236,6 @@
           "tagName": "sl-avatar",
           "customElement": true,
           "methods": [
-            {
-              "kind": "method",
-              "name": "renderBadgeText",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "svgtxt",
-                  "type": {
-                    "text": "Element"
-                  }
-                }
-              ]
-            },
             {
               "kind": "method",
               "name": "#setBaseValues",

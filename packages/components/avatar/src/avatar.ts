@@ -284,48 +284,15 @@ export class Avatar extends LitElement {
         }
       }
     }
-    if (changes.has('size')) {
+    if (changes.has('size') || changes.has('badgeText')) {
       await this.#setBaseValues();
-    }
-
-    if (changes.has('badgeText')) {
-      const svgtxt = await this.#waitForElm('text.badge-text');
-      if (svgtxt) {
-        console.log('-----before timeout-----');
-        this.renderBadgeText(svgtxt);
-      }
-      setTimeout(() => {
-        if (svgtxt) {
-          console.log('-----after timeout-----');
-          this.renderBadgeText(svgtxt);
-        }
-      }, 1000);
-    }
-  }
-
-  renderBadgeText(svgtxt: Element): void {
-    // 🐙🐙🐙🐙🐙🐙🐙🐙 ADD THIS TO SET BASE VALUES, SO IT WAITS FOR CORRECT BADGE VALUES
-    if (this.badge) {
-      if (!svgtxt || !this.badge) return;
-      const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
-
-      const textWidth = svgtxt.getBoundingClientRect().width;
-      const textPadding = (this.badge.height - fontSize) / 2;
-      const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
-      const width = Math.max(textWidth + textPadding * 2, this.badge.height);
-      console.log(fontSize, textPaddingVertical, this.badge.badgeY, this.size);
-      this.badge = {
-        ...this.badge,
-        width,
-        badgeX: this.badge.badgeBaseX - width,
-        textX: this.imageSizes[this.size] - width / 2 - this.offset[this.size],
-        textY: fontSize + textPaddingVertical + this.badge.badgeY
-      };
     }
   }
 
   async #setBaseValues(): Promise<void> {
     const cssQuery = await this.#waitForElm('picture');
+    // const svgtxt = await this.#waitForElm('text.badge-text');
+    console.log('setBaseValues');
 
     const radius: number = cssQuery
       ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
@@ -359,6 +326,30 @@ export class Avatar extends LitElement {
       badgeX: badgeBaseX - this.badgeSizes[this.size],
       badgeBaseX
     };
+
+    await this.updateComplete;
+
+    const svgtxt = await this.#waitForElm('text.badge-text');
+    if (svgtxt) {
+      setTimeout(() => {
+        // timeout because we need to wait for the render to have finished
+        if (!svgtxt || !this.badge) return;
+        const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
+
+        const textWidth = svgtxt.getBoundingClientRect().width;
+        const textPadding = (this.badge.height - fontSize) / 2;
+        const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
+        const width = Math.max(textWidth + textPadding * 2, this.badge.height);
+        console.log(fontSize, textPaddingVertical, this.badge.badgeY, this.size);
+        this.badge = {
+          ...this.badge,
+          width,
+          badgeX: this.badge.badgeBaseX - width,
+          textX: this.imageSizes[this.size] - width / 2 - this.offset[this.size],
+          textY: fontSize + textPaddingVertical + this.badge.badgeY
+        };
+      }, 100);
+    }
   }
 
   async #waitForElm(selector: string): Promise<Element | null> {

@@ -3033,8 +3033,8 @@
           },
           {
             "x": 0,
-            "y": 2,
-            "blur": 4,
+            "y": "2px",
+            "blur": "4px",
             "spread": 0,
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
             "type": "dropShadow"

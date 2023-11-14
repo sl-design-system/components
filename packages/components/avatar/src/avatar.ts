@@ -250,10 +250,12 @@ export class Avatar extends LitElement {
 
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
-    this.avatarConfig = await Config.getConfigSetting<AvatarConfig>('avatar');
-    this.borderWidth = this.avatarConfig?.badgeGapWidth * 2;
-    this.setAttribute('shape', this.avatarConfig.shape);
-    this.#setBaseValues();
+    await Config.getConfigSetting<AvatarConfig>('avatar').then(async config => {
+      this.avatarConfig = config;
+      this.borderWidth = this.avatarConfig?.badgeGapWidth * 2;
+      this.setAttribute('shape', this.avatarConfig.shape);
+      await this.#setBaseValues();
+    });
   }
 
   override render(): TemplateResult {
@@ -268,7 +270,7 @@ export class Avatar extends LitElement {
     `;
   }
 
-  override updated(changes: PropertyValues<this>): void {
+  override async updated(changes: PropertyValues<this>): Promise<void> {
     super.updated(changes);
 
     if (changes.has('orientation')) {
@@ -283,37 +285,47 @@ export class Avatar extends LitElement {
       }
     }
     if (changes.has('size')) {
-      setTimeout(() => {
-        this.#setBaseValues();
-      }, 200);
+      await this.#setBaseValues();
     }
 
     if (changes.has('badgeText')) {
+      const svgtxt = await this.#waitForElm('text.badge-text');
+      if (svgtxt) {
+        console.log('-----before timeout-----');
+        this.renderBadgeText(svgtxt);
+      }
       setTimeout(() => {
-        if (this.badge) {
-          const svgtxt = this.renderRoot.querySelector('text.badge-text');
-
-          if (!svgtxt || !this.badge) return;
-          const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
-          const textWidth = svgtxt.getBoundingClientRect().width;
-          const textPadding = (this.badge.height - fontSize) / 2;
-          const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
-          const width = Math.max(textWidth + textPadding * 2, this.badge.height);
-
-          this.badge = {
-            ...this.badge,
-            width,
-            badgeX: this.badge.badgeBaseX - width,
-            textX: this.imageSizes[this.size] - width / 2 - this.offset[this.size],
-            textY: fontSize + textPaddingVertical + this.badge.badgeY
-          };
+        if (svgtxt) {
+          console.log('-----after timeout-----');
+          this.renderBadgeText(svgtxt);
         }
       }, 1000);
     }
   }
 
-  #setBaseValues(): void {
-    const cssQuery = this.renderRoot.querySelector('picture');
+  renderBadgeText(svgtxt: Element): void {
+    // 🐙🐙🐙🐙🐙🐙🐙🐙 ADD THIS TO SET BASE VALUES, SO IT WAITS FOR CORRECT BADGE VALUES
+    if (this.badge) {
+      if (!svgtxt || !this.badge) return;
+      const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
+
+      const textWidth = svgtxt.getBoundingClientRect().width;
+      const textPadding = (this.badge.height - fontSize) / 2;
+      const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
+      const width = Math.max(textWidth + textPadding * 2, this.badge.height);
+      console.log(fontSize, textPaddingVertical, this.badge.badgeY, this.size);
+      this.badge = {
+        ...this.badge,
+        width,
+        badgeX: this.badge.badgeBaseX - width,
+        textX: this.imageSizes[this.size] - width / 2 - this.offset[this.size],
+        textY: fontSize + textPaddingVertical + this.badge.badgeY
+      };
+    }
+  }
+
+  async #setBaseValues(): Promise<void> {
+    const cssQuery = await this.#waitForElm('picture');
 
     const radius: number = cssQuery
       ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
@@ -347,5 +359,25 @@ export class Avatar extends LitElement {
       badgeX: badgeBaseX - this.badgeSizes[this.size],
       badgeBaseX
     };
+  }
+
+  async #waitForElm(selector: string): Promise<Element | null> {
+    return new Promise(resolve => {
+      if (this.renderRoot.querySelector(selector)) {
+        return resolve(this.renderRoot.querySelector(selector));
+      }
+
+      const observer = new MutationObserver(() => {
+        if (this.renderRoot.querySelector(selector)) {
+          observer.disconnect();
+          resolve(this.renderRoot.querySelector(selector));
+        }
+      });
+
+      observer.observe(this.renderRoot, {
+        childList: true,
+        subtree: true
+      });
+    });
   }
 }

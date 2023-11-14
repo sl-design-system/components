@@ -16,6 +16,13 @@ export interface ConfigSettings {
   avatar: AvatarConfig;
 }
 
+const defaultConfig: ConfigSettings = {
+  avatar: {
+    shape: 'circle',
+    badgeGapWidth: 2
+  }
+};
+
 export class Config {
   static setConfig(settings: ConfigSettings): void {
     window.SLDSConfig = {
@@ -29,12 +36,17 @@ export class Config {
   }
 
   static async #waitForWindowProperty(): Promise<ConfigSettings> {
+    let tries = 0;
     return new Promise<ConfigSettings>(resolve => {
       const checkProperty = (): void => {
         if (window.SLDSConfig?.config && Object.keys(window.SLDSConfig.config).length > 0) {
           resolve(window.SLDSConfig.config);
+        } else if (tries > 10) {
+          console.warn('Could not find config, are you sure this is set in the setup?');
+          resolve(defaultConfig);
         } else {
           setTimeout(checkProperty, 100); // check again in 100ms
+          tries++;
         }
       };
       checkProperty();

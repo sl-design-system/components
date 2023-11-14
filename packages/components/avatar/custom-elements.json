@@ -148,6 +148,23 @@
               "readonly": true
             },
             {
+              "kind": "method",
+              "name": "renderBadgeText",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "svgtxt",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
               "kind": "field",
               "name": "size",
               "type": {
@@ -238,12 +255,46 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#setBaseValues",
+              "name": "renderBadgeText",
               "return": {
                 "type": {
                   "text": "void"
                 }
+              },
+              "parameters": [
+                {
+                  "name": "svgtxt",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#setBaseValues",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#waitForElm",
+              "return": {
+                "type": {
+                  "text": "Promise<Element | null>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
             }
           ],
           "fields": [

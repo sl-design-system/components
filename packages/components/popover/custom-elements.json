@@ -53,7 +53,7 @@
               "type": {
                 "text": "PopoverPosition | undefined"
               },
-              "default": "'top'",
+              "default": "'bottom'",
               "description": "The position of this popover relative to its anchor.",
               "attribute": "position"
             }
@@ -64,7 +64,7 @@
               "type": {
                 "text": "PopoverPosition | undefined"
               },
-              "default": "'top'",
+              "default": "'bottom'",
               "description": "The position of this popover relative to its anchor.",
               "fieldName": "position"
             }
@@ -91,7 +91,7 @@
               "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this, { arrow: '.arrow' })",
+              "default": "new AnchorController(this/*, { arrow: '.arrow' }*/)",
               "description": "Controller for managing anchoring."
             }
           ]

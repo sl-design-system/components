@@ -8,6 +8,8 @@
     --sl-elevation-shadow-md
   ); //0 0.75rem 1.5rem rgba(0, 0, 0, 0.2), 0 0 0.0625rem rgba(0, 0, 0, 0.11);
   --_padding: var(--sl-space-popover-block) var(--sl-space-popover-inline); //0.5rem;
+  --_color: var(--sl-color-popover-foreground);
+  --_font: var(--sl-text-popover-text-text);
 
   /* to position */ // TODO: change to popover tokens
   --_arrow-height: 6px;
@@ -24,6 +26,8 @@
   border: var(--_border);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
+  color: var(--_color);
+  font: var(--_font);
   overflow: visible;
   //padding: 0;
   padding: var(--_padding);
@@ -168,7 +172,7 @@
 }*/
 
 :host([actual-placement^='bottom']) .arrow {
-  inset-block-start: -11px; //calc(var(--_arrow-height) * -1);
+  inset-block-start: -11px;
 }
 
 :host([actual-placement='bottom']) .arrow {
@@ -176,11 +180,11 @@
 }
 
 :host([actual-placement='bottom-start']) .arrow {
-  inset-inline-start: var(--_arrow-start-end-offset);
+  inset-inline-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
 }
 
 :host([actual-placement='bottom-end']) .arrow {
-  inset-inline-end: var(--_arrow-start-end-offset);
+  inset-inline-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
 }
 
 :host([actual-placement^='left']) .arrow {
@@ -189,7 +193,7 @@
   svg {
     rotate: 90deg;
     transform-origin: top center;
-    translate: 13px 8px; //8px 8px;
+    translate: 13px 8px;
   }
 }
 
@@ -211,7 +215,7 @@
   svg {
     rotate: -90deg;
     transform-origin: top center;
-    translate: -13px 8px; // -8px 8px;
+    translate: -13px 8px;
   }
 }
 
@@ -228,20 +232,20 @@
 }
 
 :host([actual-placement^='top']) .arrow {
-  inset-block-end: -11px; //calc(var(--_arrow-height) * -1);
+  inset-block-end: -11px;
   scale: 1 -1;
 }
 
 :host([actual-placement='top']) .arrow {
-  inset-inline-start: calc(50% - var(--_arrow-width) / 2); // 0
+  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
 }
 
 :host([actual-placement='top-start']) .arrow {
-  inset-inline-start: var(--_arrow-start-end-offset);
+  inset-inline-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
 }
 
 :host([actual-placement='top-end']) .arrow {
-  inset-inline-end: var(--_arrow-start-end-offset);
+  inset-inline-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
 }
 
 .arrow {
@@ -252,9 +256,6 @@
   width: var(--_arrow-width);
 
   path {
-    //stroke: #646464;
-    //stroke-width:1px;
-    //stroke-linejoin: round;
     fill: var(--_background);
   }
 }

@@ -51,9 +51,9 @@ export const Basic: Story = {
     };
 
     return html`
-      <sl-button @click=${onClick} id="button">Toggle popover</sl-button>
+      <sl-button @click=${onClick} id="button" variant="primary">Toggle popover</sl-button>
       <sl-popover anchor="button" position=${ifDefined(position)}
-        >I'm a popover <br />
+        >I'm <br>a <br></br>popover <br />
         example</sl-popover
       >
       <button popovertarget="my-popover">Open Popover</button>
@@ -72,44 +72,71 @@ export const All: Story = {
 
     return html`
       <style>
-        /*sl-popover {*/
-        /*  --sl-popover-offset: 16px;*/
-        /*}*/
-
         div {
           margin: 88px;
         }
       </style>
       <div>
-      <sl-button id="anchor" fill="outline">This is a popover anchor element (sl-button component) </br> with all top and bottom popover allowed positions shown <br> all examples at once</sl-button>
-      <sl-popover anchor="anchor" popover="manual" position="top">Top</sl-popover>
-      <sl-popover anchor="anchor" popover="manual" position="top-start">Top start</sl-popover>
-      <sl-popover anchor="anchor" popover="manual" position="top-end">Top end</sl-popover>
-<!--      <sl-popover anchor="anchor" popover="manual" position="right">Right</sl-popover>-->
-<!--      <sl-popover anchor="anchor" popover="manual" position="right-start">Right start</sl-popover>-->
-<!--      <sl-popover anchor="anchor" popover="manual" position="right-end">Right end</sl-popover>-->
-      <sl-popover anchor="anchor" popover="manual" position="bottom">Bottom</sl-popover>
-      <sl-popover anchor="anchor" popover="manual" position="bottom-start">Bottom start</sl-popover>
-      <sl-popover anchor="anchor" popover="manual" position="bottom-end">Bottom end</sl-popover>
-<!--      <sl-popover anchor="anchor" popover="manual" position="left">Left</sl-popover>-->
-<!--      <sl-popover anchor="anchor" popover="manual" position="left-start">Left start</sl-popover>-->
-<!--      <sl-popover anchor="anchor" popover="manual" position="left-end">Left end</sl-popover>-->
+        <sl-button id="anchor" variant="primary">This is a popover anchor element (sl-button component) </br> with all top and bottom popover allowed positions shown <br> all examples at once</sl-button>
+        <sl-popover anchor="anchor" popover="manual" position="top">Top</sl-popover>
+        <sl-popover anchor="anchor" popover="manual" position="top-start">Top start</sl-popover>
+        <sl-popover anchor="anchor" popover="manual" position="top-end">Top end</sl-popover>
+        <sl-popover anchor="anchor" popover="manual" position="bottom">Bottom</sl-popover>
+        <sl-popover anchor="anchor" popover="manual" position="bottom-start">Bottom start</sl-popover>
+        <sl-popover anchor="anchor" popover="manual" position="bottom-end">Bottom end</sl-popover>
       </div>
 
       <div>
-      <sl-button id="anchor2" fill="outline" style="width: 72px">This is a popover anchor element (sl-button component) with all right and left popover allowed positions shown all examples at once</sl-button>
-<!--      <sl-popover anchor="anchor2" popover="manual" position="top">Top</sl-popover>-->
-<!--      <sl-popover anchor="anchor2" popover="manual" position="top-start">Top start</sl-popover>-->
-<!--      <sl-popover anchor="anchor2" popover="manual" position="top-end">Top end</sl-popover>-->
-      <sl-popover anchor="anchor2" popover="manual" position="right">Right</sl-popover>
-      <sl-popover anchor="anchor2" popover="manual" position="right-start">Right <br> start</sl-popover>
-      <sl-popover anchor="anchor2" popover="manual" position="right-end">Right <br> end</sl-popover>
-<!--      <sl-popover anchor="anchor2" popover="manual" position="bottom">Bottom</sl-popover>-->
-<!--      <sl-popover anchor="anchor2" popover="manual" position="bottom-start">Bottom start</sl-popover>-->
-<!--      <sl-popover anchor="anchor2" popover="manual" position="bottom-end">Bottom end</sl-popover>-->
-      <sl-popover anchor="anchor2" popover="manual" position="left">Left</sl-popover>
-      <sl-popover anchor="anchor2" popover="manual" position="left-start">Left <br> start</sl-popover>
-      <sl-popover anchor="anchor2" popover="manual" position="left-end">Left <br> end</sl-popover>
+        <sl-button id="anchor2" variant="primary" style="width: 72px">This is a popover anchor element (sl-button component) with all right and left popover allowed positions shown all examples at once</sl-button>
+        <sl-popover anchor="anchor2" popover="manual" position="right">Right <br> example</sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="right-start">Right <br> start <br> example</sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="right-end">Right <br> end <br> example</sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="left">Left <br> example</sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="left-start">Left <br> start <br> example</sl-popover>
+        <sl-popover anchor="anchor2" popover="manual" position="left-end">Left <br> end <br> example</sl-popover>
+      </div>
+    `;
+  }
+};
+
+export const MoreComplexContent: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: Button }): void => {
+      const popover = event.target.nextElementSibling as HTMLElement;
+
+      popover.togglePopover();
+    };
+
+    return html`
+      <style>
+        header {
+          font: var(--sl-text-popover-text-title);
+        }
+
+        hr {
+          margin: 8px 0;
+        }
+
+        footer {
+          display: flex;
+          gap: 8px;
+          justify-content: end;
+        }
+      </style>
+      <div>
+        <sl-button id="anchor" variant="primary" @click=${onClick}>Toggle popover</sl-button>
+        <sl-popover anchor="anchor">
+          <header>Please confirm</header>
+          <section>
+            <hr color="#D9D9D9" />
+            Are you sure you want to continue?
+            <hr color="#D9D9D9" />
+          </section>
+          <footer>
+            <sl-button size="sm">Cancel</sl-button>
+            <sl-button size="sm" variant="primary">Confirm</sl-button>
+          </footer>
+        </sl-popover>
       </div>
     `;
   }
@@ -239,13 +266,13 @@ export const Focus: Story = {
           grid-column: 1 / -1;
         }
       </style>
-      <sl-button @click=${onClick} id="button">Toggle popover</sl-button>
+      <sl-button @click=${onClick} id="button" variant="primary">Toggle popover</sl-button>
       <sl-popover anchor="button">
         <form>
           <label>Label</label>
           <sl-text-field placeholder="Input"></sl-text-field>
           <sl-button-bar align="end">
-            <sl-button size="sm">Save</sl-button>
+            <sl-button size="sm" variant="primary">Save</sl-button>
           </sl-button-bar>
         </form>
       </sl-popover>

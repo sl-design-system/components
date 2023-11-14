@@ -18,10 +18,10 @@ export class Popover extends LitElement {
   static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
 
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this, { arrow: '.arrow' });
+  #anchor = new AnchorController(this /*, { arrow: '.arrow' }*/);
 
   /** The position of this popover relative to its anchor. */
-  @property() position?: PopoverPosition = 'top';
+  @property() position?: PopoverPosition = 'bottom';
 
   constructor() {
     super();

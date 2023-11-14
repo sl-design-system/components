@@ -1,4 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { AvatarConfig } from '@sl-design-system/shared';
+import { Config } from '@sl-design-system/shared';
 import { LitElement, html, nothing, svg } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
@@ -43,11 +45,6 @@ export interface AvatarIcon {
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type AvatarFallbackType = 'initials' | 'image';
 export type AvatarOrientation = 'horizontal' | 'vertical';
-export type AvatarShape = 'circle' | 'square';
-export type AvatarConfig = {
-  shape: AvatarShape;
-  badgeGapWidth: number;
-};
 export type UserStatus = 'online' | 'offline' | 'away' | 'do-not-disturb';
 
 let nextUniqueId = 0;
@@ -65,11 +62,7 @@ export class Avatar extends LitElement {
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
 
   #avatarId = nextUniqueId++;
-  private avatarConfig: AvatarConfig = {
-    // shape: 'square',
-    shape: 'circle',
-    badgeGapWidth: 2
-  };
+  private avatarConfig?: AvatarConfig;
 
   private imageSizes = {
     sm: 24,
@@ -117,7 +110,7 @@ export class Avatar extends LitElement {
     '3xl': -10
   };
 
-  private borderWidth = this.avatarConfig.badgeGapWidth * 2; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
+  private borderWidth = 4; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
 
   @state() image?: AvatarImage;
   @state() badge?: AvatarBadge;
@@ -255,8 +248,10 @@ export class Avatar extends LitElement {
     `;
   }
 
-  override connectedCallback(): void {
+  override async connectedCallback(): Promise<void> {
     super.connectedCallback();
+    this.avatarConfig = await Config.getConfigSetting<AvatarConfig>('avatar');
+    this.borderWidth = this.avatarConfig?.badgeGapWidth * 2;
     this.setAttribute('shape', this.avatarConfig.shape);
     this.#setBaseValues();
   }
@@ -313,7 +308,7 @@ export class Avatar extends LitElement {
             textY: fontSize + textPaddingVertical + this.badge.badgeY
           };
         }
-      }, 200);
+      }, 1000);
     }
   }
 
@@ -324,7 +319,7 @@ export class Avatar extends LitElement {
       ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
       : 0;
 
-    this.offset = this.avatarConfig.shape === 'circle' ? this.offsetCircle : this.offsetSquare; //or offset for square
+    this.offset = this.avatarConfig?.shape === 'circle' ? this.offsetCircle : this.offsetSquare; //or offset for square
     const badgeOffset = this.offset[this.size] < 0 ? this.offset[this.size] * -1 : 0;
     const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
 
@@ -332,7 +327,7 @@ export class Avatar extends LitElement {
       ...this.image,
       containerSize: this.imageSizes[this.size] + badgeOffset,
       size: this.imageSizes[this.size],
-      radius: this.avatarConfig.shape === 'circle' ? this.imageSizes[this.size] / 2 : radius,
+      radius: this.avatarConfig?.shape === 'circle' ? this.imageSizes[this.size] / 2 : radius,
       y: badgeOffset
     };
 

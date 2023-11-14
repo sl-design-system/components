@@ -1400,11 +1400,11 @@
     },
     "select": {
       "listbox": {
-        "value": "{border.radius.2xs}",
+        "value": "{border.radius.sm}",
         "type": "borderRadius"
       },
       "item": {
-        "value": "{border.radius.3xs}",
+        "value": "{border.radius.xs}",
         "type": "borderRadius"
       }
     }

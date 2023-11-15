@@ -113,6 +113,10 @@ $variants: default, primary, success, warning, danger;
   pointer-events: none;
 }
 
+:host([fill='link']) {
+  text-decoration: underline;
+}
+
 ::slotted(sl-icon) {
   fill: var(--_color);
 }

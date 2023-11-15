@@ -462,7 +462,7 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Space Grotesk",
+          "value": "Space Grotesk Variable",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },

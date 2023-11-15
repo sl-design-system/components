@@ -1,4 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { AvatarConfig } from '@sl-design-system/shared';
+import { Config } from '@sl-design-system/shared';
 import { LitElement, html, nothing, svg } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
@@ -43,11 +45,6 @@ export interface AvatarIcon {
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type AvatarFallbackType = 'initials' | 'image';
 export type AvatarOrientation = 'horizontal' | 'vertical';
-export type AvatarShape = 'circle' | 'square';
-export type AvatarConfig = {
-  shape: AvatarShape;
-  badgeGapWidth: number;
-};
 export type UserStatus = 'online' | 'offline' | 'away' | 'do-not-disturb';
 
 let nextUniqueId = 0;
@@ -58,18 +55,17 @@ export class Avatar extends LitElement {
 
   @property() user?: UserProfile;
   @property({ reflect: true }) size: AvatarSize = 'md';
-  @property({ reflect: true, attribute: 'badge-text' }) badgeText?: string;
   @property() fallback?: AvatarFallbackType = 'initials';
   @property({ reflect: true }) orientation: AvatarOrientation = 'horizontal';
-  @property({ reflect: true }) status?: UserStatus;
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
+  @property({ reflect: true }) status?: UserStatus;
+  /**
+   * Experimental feature, use with great caution.
+   */
+  @property({ reflect: true, attribute: 'badge-text' }) badgeText?: string;
 
   #avatarId = nextUniqueId++;
-  private avatarConfig: AvatarConfig = {
-    // shape: 'square',
-    shape: 'circle',
-    badgeGapWidth: 2
-  };
+  private avatarConfig?: AvatarConfig;
 
   private imageSizes = {
     sm: 24,
@@ -117,7 +113,7 @@ export class Avatar extends LitElement {
     '3xl': -10
   };
 
-  private borderWidth = this.avatarConfig.badgeGapWidth * 2; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
+  private borderWidth = 4; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
 
   @state() image?: AvatarImage;
   @state() badge?: AvatarBadge;
@@ -126,7 +122,7 @@ export class Avatar extends LitElement {
   private offset = this.offsetCircle;
 
   get profileName(): string {
-    return `${this.user?.name?.first || 'John'} ${this.user?.name?.last || 'Doe'}`;
+    return this.user?.name ? `${this.user?.name?.first} ${this.user?.name?.last}` : '';
   }
 
   get initials(): string {
@@ -144,6 +140,7 @@ export class Avatar extends LitElement {
         x="0"
         y="${this.image.y}" 
         mask="url(#circle-${this.#avatarId})"
+        preserveAspectRatio="xMidYMid slice" 
         href=${this.user?.picture?.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
       ></image>`;
     } else if (this.user && this.fallback === 'initials') {
@@ -255,10 +252,14 @@ export class Avatar extends LitElement {
     `;
   }
 
-  override connectedCallback(): void {
+  override async connectedCallback(): Promise<void> {
     super.connectedCallback();
-    this.setAttribute('shape', this.avatarConfig.shape);
-    this.#setBaseValues();
+    await Config.getConfigSetting<AvatarConfig>('avatar').then(async config => {
+      this.avatarConfig = config;
+      this.borderWidth = this.avatarConfig?.badgeGapWidth * 2;
+      this.setAttribute('shape', this.avatarConfig.shape);
+      await this.#setBaseValues();
+    });
   }
 
   override render(): TemplateResult {
@@ -273,7 +274,7 @@ export class Avatar extends LitElement {
     `;
   }
 
-  override updated(changes: PropertyValues<this>): void {
+  override async updated(changes: PropertyValues<this>): Promise<void> {
     super.updated(changes);
 
     if (changes.has('orientation')) {
@@ -287,19 +288,59 @@ export class Avatar extends LitElement {
         }
       }
     }
-    if (changes.has('size')) {
-      setTimeout(() => {
-        this.#setBaseValues();
-      }, 200);
+    if (changes.has('size') || changes.has('badgeText')) {
+      await this.#setBaseValues();
+    }
+  }
+
+  async #setBaseValues(): Promise<void> {
+    const cssQuery = await this.#waitForElement('picture');
+
+    const radius: number = cssQuery
+      ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
+      : 0;
+
+    this.offset = this.avatarConfig?.shape === 'circle' ? this.offsetCircle : this.offsetSquare; //or offset for square
+    const badgeOffset = this.offset[this.size] < 0 ? this.offset[this.size] * -1 : 0;
+    const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
+
+    this.image = {
+      ...this.image,
+      containerSize: this.imageSizes[this.size] + badgeOffset,
+      size: this.imageSizes[this.size],
+      radius: this.avatarConfig?.shape === 'circle' ? this.imageSizes[this.size] / 2 : radius,
+      y: badgeOffset
+    };
+
+    this.icon = {
+      size: this.iconSizes[this.size],
+      x: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2,
+      y: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2 + this.image.y
+    };
+
+    if (this.status || this.badgeText) {
+      const badgeBaseX = this.imageSizes[this.size] - this.offset[this.size];
+      this.badge = {
+        ...this.badge,
+        height: this.badgeSizes[this.size],
+        width: this.badgeSizes[this.size],
+        radius: this.badgeSizes[this.size] / 2,
+        badgeY: calculatedOffset,
+        badgeX: badgeBaseX - this.badgeSizes[this.size],
+        badgeBaseX
+      };
     }
 
-    if (changes.has('badgeText')) {
-      setTimeout(() => {
-        if (this.badge) {
-          const svgtxt = this.renderRoot.querySelector('text.badge-text');
+    if (this.badgeText) {
+      await this.updateComplete;
 
+      const svgtxt = await this.#waitForElement('text.badge-text');
+      if (svgtxt) {
+        setTimeout(() => {
+          // timeout because we need to wait for the render to have finished
           if (!svgtxt || !this.badge) return;
           const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
+
           const textWidth = svgtxt.getBoundingClientRect().width;
           const textPadding = (this.badge.height - fontSize) / 2;
           const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
@@ -312,45 +353,28 @@ export class Avatar extends LitElement {
             textX: this.imageSizes[this.size] - width / 2 - this.offset[this.size],
             textY: fontSize + textPaddingVertical + this.badge.badgeY
           };
-        }
-      }, 200);
+        }, 100);
+      }
     }
   }
 
-  #setBaseValues(): void {
-    const cssQuery = this.renderRoot.querySelector('picture');
+  async #waitForElement(selector: string): Promise<Element | null> {
+    return new Promise(resolve => {
+      if (this.renderRoot.querySelector(selector)) {
+        return resolve(this.renderRoot.querySelector(selector));
+      }
 
-    const radius: number = cssQuery
-      ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
-      : 0;
+      const observer = new MutationObserver(() => {
+        if (this.renderRoot.querySelector(selector)) {
+          observer.disconnect();
+          resolve(this.renderRoot.querySelector(selector));
+        }
+      });
 
-    this.offset = this.avatarConfig.shape === 'circle' ? this.offsetCircle : this.offsetSquare; //or offset for square
-    const badgeOffset = this.offset[this.size] < 0 ? this.offset[this.size] * -1 : 0;
-    const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
-
-    this.image = {
-      ...this.image,
-      containerSize: this.imageSizes[this.size] + badgeOffset,
-      size: this.imageSizes[this.size],
-      radius: this.avatarConfig.shape === 'circle' ? this.imageSizes[this.size] / 2 : radius,
-      y: badgeOffset
-    };
-
-    this.icon = {
-      size: this.iconSizes[this.size],
-      x: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2,
-      y: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2 + this.image.y
-    };
-
-    const badgeBaseX = this.imageSizes[this.size] - this.offset[this.size];
-    this.badge = {
-      ...this.badge,
-      height: this.badgeSizes[this.size],
-      width: this.badgeSizes[this.size],
-      radius: this.badgeSizes[this.size] / 2,
-      badgeY: calculatedOffset,
-      badgeX: badgeBaseX - this.badgeSizes[this.size],
-      badgeBaseX
-    };
+      observer.observe(this.renderRoot, {
+        childList: true,
+        subtree: true
+      });
+    });
   }
 }

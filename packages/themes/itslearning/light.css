@@ -390,10 +390,10 @@
   --sl-color-button-default-link-disabled-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-link-focus-foreground: rgb(var(--sl-color-palette-primary-700));
   --sl-color-button-default-link-active-border: rgb(var(--sl-color-palette-transparent-base));
-  --sl-color-button-default-link-active-foreground: rgb(var(--sl-color-palette-primary-800));
+  --sl-color-button-default-link-active-foreground: rgb(var(--sl-color-palette-primary-900));
   --sl-color-button-default-link-active-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-link-hover-border: rgb(var(--sl-color-palette-transparent-base));
-  --sl-color-button-default-link-hover-foreground: rgb(var(--sl-color-palette-primary-700));
+  --sl-color-button-default-link-hover-foreground: rgb(var(--sl-color-palette-primary-800));
   --sl-color-button-default-link-hover-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-link-idle-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-link-idle-foreground: rgb(var(--sl-color-palette-primary-700));

@@ -1,17 +1,14 @@
 :host {
-  --_background: var(--sl-color-popover-background); //#fff;
+  --_background: var(--sl-color-popover-background);
   --_border: var(--_border-width) solid var(--_border-color);
-  --_border-color: var(--sl-color-popover-border); //rgba(0, 0, 0, 0.2);
+  --_border-color: var(--sl-color-popover-border);
   --_border-width: 1px;
-  --_border-radius: var(--sl-border-radius-popover-default); //3px;
-  --_box-shadow: var(
-    --sl-elevation-shadow-md
-  ); //0 0.75rem 1.5rem rgba(0, 0, 0, 0.2), 0 0 0.0625rem rgba(0, 0, 0, 0.11);
-  --_padding: var(--sl-space-popover-block) var(--sl-space-popover-inline); //0.5rem;
+  --_border-radius: var(--sl-border-radius-popover-default);
+  --_box-shadow: var(--sl-elevation-shadow-md);
+  --_padding: var(--sl-space-popover-block) var(--sl-space-popover-inline);
   --_color: var(--sl-color-popover-foreground);
   --_font: var(--sl-text-popover-text-text);
-
-  /* to position */ // TODO: change to popover tokens
+  /* to position */
   --_arrow-height: 6px;
   --_arrow-width: 16px;
   /* the distance from the edge when the arrow is positionend at start or end */ // TODO: change to popover tokens
@@ -20,7 +17,7 @@
 
 :host {
   // This has to be in pixels until we can use @property
-  --sl-popover-offset: var(--sl-space-popover-offset); //8px;
+  --sl-popover-offset: var(--sl-space-popover-offset);
 
   background: var(--_background);
   border: var(--_border);
@@ -29,147 +26,8 @@
   color: var(--_color);
   font: var(--_font);
   overflow: visible;
-  //padding: 0;
   padding: var(--_padding);
 }
-
-//:host([actual-placement='bottom']) .arrow {
-//  inset-block-start: -12px;
-//  inset-inline-start: 0;
-//  scale: 1 -1;
-//}
-
-/*:host([actual-placement^='bottom']) .arrow {
-  inset-block-start: calc(var(--_arrow-height) * -1);
-  //scale: 1 -1;
-
-  svg {
-    rotate: -90deg;
-    //transform-origin: top center;
-    translate: 0 4px; //-30px 4px; //8px -4px;
-  }
-}
-
-:host([actual-placement='bottom']) .arrow {
- // inset-inline-start: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='bottom-start']) .arrow {
-  inset-inline-start: var(--_arrow-start-end-offset);
-}
-
-:host([actual-placement='bottom-end']) .arrow {
-  inset-inline-end: var(--_arrow-start-end-offset);
-}
-
-//:host([actual-placement='left']) .arrow {
-//  inset-block-start: 0;
-//  inset-inline-end: -18px;
-//  rotate: -90deg;
-//}
-
-:host([actual-placement^='left']) .arrow {
-  inset-inline-end: -5px; //calc(var(--_arrow-height) * -1); // TODO: improve
-
-  svg {
-    //rotate: 90deg;
-    transform-origin: top center;
-    translate: 2px 8px; //3px -3px; //8px -8px;
-  }
-}
-
-:host([actual-placement='left']) .arrow {
-  inset-block: 0; //calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='left-start']) .arrow {
-  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
-:host([actual-placement='left-end']) .arrow {
-  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
-//:host([actual-placement='right']) .arrow {
-//  inset-block-start: 0;
-//  //inset-inline-start: -18px;
-//  //rotate: 90deg;
-//  inset-inline-start: calc(var(--_arrow-height) * -1);
-//
-//  svg {
-//    rotate: 90deg; //-90deg;
-//    transform-origin: top center;
-//    translate: -8px 8px;
-//  }
-//}
-
-:host([actual-placement^='right']) .arrow {
-  inset-inline-start: calc(var(--_arrow-height) * -1);
-
-  svg {
-    rotate: 180deg; //90deg;
-    //transform-origin: top center;
-    //translate: 9px -4px; //-8px -4px;
-    transform-origin: center bottom;
-    translate: 9px;
-  }
-}
-
-:host([actual-placement='right']) .arrow {
-  inset-block: 0; //-6px; //calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='right-start']) .arrow {
-  inset-block-start: calc(var(--_arrow-start-end-offset) * -1); //min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-
-  svg {
-   // transform-origin: center top;
-  }
-}
-
-:host([actual-placement='right-end']) .arrow {
-  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
-:host([actual-placement^='top']) .arrow {
-  inset-block-end: calc(var(--_arrow-height) * -1);
-  //scale: 1 -1;
-
-  svg {
-    rotate: 90deg;
-    //transform-origin: top center;
-    translate: 0 -4px; //-20px -4px
-  }
-}
-
-:host([actual-placement='top']) .arrow {
-  //inset-inline-start: calc(50% - var(--_arrow-width) / 2);
-}
-
-//:host([actual-placement='top']) .arrow {
-//  inset-block-end: -12px;
-//  inset-inline-start: 0;
-//}
-
-:host([actual-placement='top-start']) .arrow {
-  inset-inline-start: var(--_arrow-start-end-offset);
-}
-
-:host([actual-placement='top-end']) .arrow {
-  inset-inline-end: var(--_arrow-start-end-offset);
-}
-
-.container {
-  padding: var(--_padding);
-}
-
-.arrow {
-  display: flex;
-  fill: var(--_background);
-  position: absolute;
-  stroke: var(--_border-color);
-  stroke-width: var(--_border-width); //2px;
-}*/
 
 :host([actual-placement^='bottom']) .arrow {
   inset-block-start: -11px;
@@ -257,5 +115,12 @@
 
   path {
     fill: var(--_background);
+  }
+}
+
+@supports (width: -moz-fit-content) {
+  [popover],
+  :host(:where([popover])) {
+    overflow: visible;
   }
 }

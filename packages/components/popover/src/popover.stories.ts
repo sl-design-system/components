@@ -56,10 +56,10 @@ export const Basic: Story = {
         >I'm <br>a <br></br>popover <br />
         example</sl-popover
       >
-      <button popovertarget="my-popover">Open Popover</button>
-      <div id="my-popover" popover>
-        <p>I am a popover.</p>
-      </div>
+<!--      <button popovertarget="my-popover">Open Popover</button>-->
+<!--      <div id="my-popover" popover>-->
+<!--        <p>I am a popover.</p>-->
+<!--      </div>-->
     `;
   }
 };

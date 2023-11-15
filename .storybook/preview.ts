@@ -1,5 +1,5 @@
-import type { Preview } from '@storybook/web-components';
 import '@oddbird/popover-polyfill';
+import type { Preview } from '@storybook/web-components';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import 'element-internals-polyfill';
 import { configureLocalization } from '@lit/localize';
@@ -22,7 +22,7 @@ const preview: Preview = {
     },
     (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
       updateTheme(theme, mode);
-      
+
       return story();
     }
   ],
@@ -44,7 +44,7 @@ const preview: Preview = {
         dynamicTitle: true,
         icon: 'mirror',
         items: [
-          { value: 'light', left: '🌞', title: 'Light mode' }, 
+          { value: 'light', left: '🌞', title: 'Light mode' },
           { value: 'dark', left: '🌛', title: 'Dark mode' },
         ],
       }

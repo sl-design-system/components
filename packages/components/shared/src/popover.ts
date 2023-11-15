@@ -1,5 +1,5 @@
 import type { Middleware, MiddlewareState } from '@floating-ui/dom';
-import { arrow, flip, size } from '@floating-ui/core';
+import { arrow, flip, shift, size } from '@floating-ui/core';
 import { autoUpdate, computePosition, offset } from '@floating-ui/dom';
 import { getContainingBlock, getWindow, isContainingBlock } from '@floating-ui/utils/dom';
 import popoverPolyfillStyles from './popover.scss.js';
@@ -185,7 +185,8 @@ export const positionPopover = (
 
     const middleware = [
       // shift({ padding: viewportMargin }),
-      flip({ fallbackPlacements: [flipPlacement(position)] }),
+      shift(),
+      flip({ fallbackStrategy: 'bestFit' }), // , fallbackPlacements: [flipPlacement(position)]
       // flip({ flipAlignment: false }),
       // autoPlacement(),
       offset(getOffset(element)),

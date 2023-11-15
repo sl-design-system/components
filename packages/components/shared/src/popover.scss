@@ -2,16 +2,16 @@
 [popover],
 :host(:where([popover])) {
   background-color: canvas;
-  border-color: initial;
+  //border-color: initial;
   border-image: initial;
-  border-style: solid;
+  //border-style: solid;
   border-width: initial;
   color: canvastext;
   height: fit-content;
-  margin: auto;
-  overflow: auto;
+  margin: 0; //auto;
+  overflow: visible; //auto;
   padding: 0.25em;
-  position: fixed;
+  position: fixed; //absolute;
   width: fit-content;
   z-index: 2147483647;
 }
@@ -34,6 +34,11 @@
 }
 
 @supports selector([popover]:popover-open) {
+  [popover],
+  :host(:where([popover])) {
+    overflow: visible;
+  }
+
   [popover]:not(.\\:popover-open, dialog[open]),
   :host([popover]:not(.\\:popover-open, dialog[open])) {
     display: revert;
@@ -41,5 +46,12 @@
 
   [anchor]:is(:popover-open) {
     inset: auto;
+  }
+}
+
+@supports (width: -moz-fit-content) {
+  [popover],
+  :host(:where([popover])) {
+    overflow: visible;
   }
 }

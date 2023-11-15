@@ -55,11 +55,14 @@ export class Avatar extends LitElement {
 
   @property() user?: UserProfile;
   @property({ reflect: true }) size: AvatarSize = 'md';
-  @property({ reflect: true, attribute: 'badge-text' }) badgeText?: string;
   @property() fallback?: AvatarFallbackType = 'initials';
   @property({ reflect: true }) orientation: AvatarOrientation = 'horizontal';
-  @property({ reflect: true }) status?: UserStatus;
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
+  @property({ reflect: true }) status?: UserStatus;
+  /**
+   * Experimental feature, use with great caution.
+   */
+  @property({ reflect: true, attribute: 'badge-text' }) badgeText?: string;
 
   #avatarId = nextUniqueId++;
   private avatarConfig?: AvatarConfig;
@@ -119,7 +122,7 @@ export class Avatar extends LitElement {
   private offset = this.offsetCircle;
 
   get profileName(): string {
-    return `${this.user?.name?.first || 'John'} ${this.user?.name?.last || 'Doe'}`;
+    return this.user?.name ? `${this.user?.name?.first} ${this.user?.name?.last}` : '';
   }
 
   get initials(): string {
@@ -137,6 +140,7 @@ export class Avatar extends LitElement {
         x="0"
         y="${this.image.y}" 
         mask="url(#circle-${this.#avatarId})"
+        preserveAspectRatio="xMidYMid slice" 
         href=${this.user?.picture?.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
       ></image>`;
     } else if (this.user && this.fallback === 'initials') {
@@ -290,9 +294,7 @@ export class Avatar extends LitElement {
   }
 
   async #setBaseValues(): Promise<void> {
-    const cssQuery = await this.#waitForElm('picture');
-    // const svgtxt = await this.#waitForElm('text.badge-text');
-    console.log('setBaseValues');
+    const cssQuery = await this.#waitForElement('picture');
 
     const radius: number = cssQuery
       ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
@@ -316,43 +318,47 @@ export class Avatar extends LitElement {
       y: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2 + this.image.y
     };
 
-    const badgeBaseX = this.imageSizes[this.size] - this.offset[this.size];
-    this.badge = {
-      ...this.badge,
-      height: this.badgeSizes[this.size],
-      width: this.badgeSizes[this.size],
-      radius: this.badgeSizes[this.size] / 2,
-      badgeY: calculatedOffset,
-      badgeX: badgeBaseX - this.badgeSizes[this.size],
-      badgeBaseX
-    };
+    if (this.status || this.badgeText) {
+      const badgeBaseX = this.imageSizes[this.size] - this.offset[this.size];
+      this.badge = {
+        ...this.badge,
+        height: this.badgeSizes[this.size],
+        width: this.badgeSizes[this.size],
+        radius: this.badgeSizes[this.size] / 2,
+        badgeY: calculatedOffset,
+        badgeX: badgeBaseX - this.badgeSizes[this.size],
+        badgeBaseX
+      };
+    }
 
-    await this.updateComplete;
+    if (this.badgeText) {
+      await this.updateComplete;
 
-    const svgtxt = await this.#waitForElm('text.badge-text');
-    if (svgtxt) {
-      setTimeout(() => {
-        // timeout because we need to wait for the render to have finished
-        if (!svgtxt || !this.badge) return;
-        const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
+      const svgtxt = await this.#waitForElement('text.badge-text');
+      if (svgtxt) {
+        setTimeout(() => {
+          // timeout because we need to wait for the render to have finished
+          if (!svgtxt || !this.badge) return;
+          const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
 
-        const textWidth = svgtxt.getBoundingClientRect().width;
-        const textPadding = (this.badge.height - fontSize) / 2;
-        const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
-        const width = Math.max(textWidth + textPadding * 2, this.badge.height);
-        console.log(fontSize, textPaddingVertical, this.badge.badgeY, this.size);
-        this.badge = {
-          ...this.badge,
-          width,
-          badgeX: this.badge.badgeBaseX - width,
-          textX: this.imageSizes[this.size] - width / 2 - this.offset[this.size],
-          textY: fontSize + textPaddingVertical + this.badge.badgeY
-        };
-      }, 100);
+          const textWidth = svgtxt.getBoundingClientRect().width;
+          const textPadding = (this.badge.height - fontSize) / 2;
+          const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;
+          const width = Math.max(textWidth + textPadding * 2, this.badge.height);
+
+          this.badge = {
+            ...this.badge,
+            width,
+            badgeX: this.badge.badgeBaseX - width,
+            textX: this.imageSizes[this.size] - width / 2 - this.offset[this.size],
+            textY: fontSize + textPaddingVertical + this.badge.badgeY
+          };
+        }, 100);
+      }
     }
   }
 
-  async #waitForElm(selector: string): Promise<Element | null> {
+  async #waitForElement(selector: string): Promise<Element | null> {
     return new Promise(resolve => {
       if (this.renderRoot.querySelector(selector)) {
         return resolve(this.renderRoot.querySelector(selector));

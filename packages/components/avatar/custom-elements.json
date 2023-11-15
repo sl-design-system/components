@@ -70,6 +70,7 @@
               "type": {
                 "text": "string | undefined"
               },
+              "description": "Experimental feature, use with great caution.",
               "attribute": "badge-text",
               "reflects": true
             },
@@ -192,13 +193,6 @@
               "fieldName": "size"
             },
             {
-              "name": "badge-text",
-              "type": {
-                "text": "string | undefined"
-              },
-              "fieldName": "badgeText"
-            },
-            {
               "name": "fallback",
               "type": {
                 "text": "AvatarFallbackType | undefined"
@@ -215,6 +209,13 @@
               "fieldName": "orientation"
             },
             {
+              "name": "image-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "fieldName": "imageOnly"
+            },
+            {
               "name": "status",
               "type": {
                 "text": "UserStatus | undefined"
@@ -222,11 +223,12 @@
               "fieldName": "status"
             },
             {
-              "name": "image-only",
+              "name": "badge-text",
               "type": {
-                "text": "boolean | undefined"
+                "text": "string | undefined"
               },
-              "fieldName": "imageOnly"
+              "description": "Experimental feature, use with great caution.",
+              "fieldName": "badgeText"
             }
           ],
           "superclass": {
@@ -247,7 +249,7 @@
             },
             {
               "kind": "method",
-              "name": "#waitForElm",
+              "name": "#waitForElement",
               "return": {
                 "type": {
                   "text": "Promise<Element | null>"

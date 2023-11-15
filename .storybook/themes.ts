@@ -44,7 +44,10 @@ export const themes: Theme[] = [
   {
     id: 'clickedu',
     name: 'Clickedu',
-    fonts: ['https://use.typekit.net/xps8gfu.css'],
+    fonts: [
+      'https://use.typekit.net/xps8gfu.css',
+      '/themes/clickedu/fonts.css'
+    ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/clickedu');
 

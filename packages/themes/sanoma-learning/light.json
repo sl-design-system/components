@@ -4518,7 +4518,7 @@
         "failedToResolve": true
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.150}",
         "type": "color",
         "failedToResolve": true
       }

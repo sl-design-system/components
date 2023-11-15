@@ -19,7 +19,7 @@
   --sl-color-badge-background-yellow: rgb(var(--sl-color-palette-warning-base));
   --sl-color-badge-background-green: rgb(var(--sl-color-palette-success-base));
   --sl-color-badge-background-red: rgb(var(--sl-color-palette-danger-base));
-  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
   --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));

@@ -481,10 +481,10 @@
   "border": {
     "width": {
       "button": {
-        "default": {
+        "solid": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.button.solid"
         },
         "outline": {
           "value": "{border.width.xs}",
@@ -506,7 +506,7 @@
         "none": {
           "value": "{border.width.none}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.input.none"
         },
         "border": {
           "value": "{border.width.sm}",

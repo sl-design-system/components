@@ -55,18 +55,21 @@ const virtualTrigger = false;
 
 const MIN_OVERLAY_HEIGHT = 25;
 
-const flipPlacement = (position: PopoverPosition): PopoverPosition => {
+const flipPlacement = (position: PopoverPosition): PopoverPosition[] => {
   // Position can have a secondary part (-start, -end); we are only
   // interested in the first part.
   const [, pos] = /(\w+).*$/.exec(position) || [];
 
   let replace;
   if (pos === 'top' || pos === 'bottom') {
-    replace = pos === 'top' ? 'bottom' : 'top';
+    replace = pos === 'top' ? ['bottom', 'right', 'left'] : ['top', 'right', 'left'];
   } else {
-    replace = pos === 'left' ? 'right' : 'left';
+    replace = pos === 'left' ? ['right', 'top', 'bottom'] : ['left', 'top', 'bottom'];
   }
-  return position.replace(pos, replace) as PopoverPosition;
+  // /*return*/ position.replace(pos, replace) as PopoverPosition;
+  // const positions = [];
+  // positions.push();
+  return replace as PopoverPosition[];
 };
 
 /** This is a temporary workaround until @floating-ui fixes this issue.
@@ -182,11 +185,12 @@ export const positionPopover = (
 
   const cleanup = autoUpdate(anchor, element, () => {
     const { position = 'top', viewportMargin = 0 } = options;
-
     const middleware = [
-      // shift({ padding: viewportMargin }),
-      shift(),
-      flip({ fallbackStrategy: 'bestFit' }), // , fallbackPlacements: [flipPlacement(position)]
+      offset(8), // TODO: from token?
+      shift({ padding: viewportMargin }),
+      flip({ fallbackPlacements: flipPlacement(position) /*[flipPlacement(position)]*/ }),
+      // shift(),
+      // flip({ fallbackStrategy: 'bestFit' }), // , fallbackPlacements: [flipPlacement(position)]
       // flip({ flipAlignment: false }),
       // autoPlacement(),
       offset(getOffset(element)),
@@ -198,6 +202,7 @@ export const positionPopover = (
           const actualHeight = floating.height;
           initialHeight = !isConstrained && !virtualTrigger ? actualHeight : initialHeight || actualHeight;
           isConstrained = actualHeight < initialHeight || maxHeight <= actualHeight;
+          console.log('floating', floating, maxHeight, isConstrained, viewportMargin);
           const appliedHeight = isConstrained ? `${maxHeight}px` : '';
           Object.assign(element.style, {
             maxWidth: `${options.maxWidth ?? Math.floor(availableWidth)}px`,
@@ -209,6 +214,15 @@ export const positionPopover = (
     ];
 
     console.log('fallbackPlacements', flipPlacement(position));
+
+    // async fn(state) {
+    //   const overflow = await detectOverflow(state);
+    //   return {};
+    // },
+    //
+    // await detectOverflow(state, {
+    //   elementContext: 'reference', // 'floating' by default
+    // });
 
     let arrowElement: HTMLElement | undefined;
     if (options.arrow) {
@@ -228,7 +242,7 @@ export const positionPopover = (
       });
       element.setAttribute('actual-placement', actualPlacement);
 
-      console.log('middleware and actualPlacement', middleware, actualPlacement, position);
+      console.log('middleware and actualPlacement', middleware, actualPlacement, position, viewportMargin);
 
       if (arrow && arrowElement) {
         arrowElement.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`; // TODO: not necessary??

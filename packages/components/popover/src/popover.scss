@@ -1,3 +1,5 @@
+/* stylelint-disable selector-class-pattern */
+
 :host {
   --_background: var(--sl-color-popover-background);
   --_border: var(--_border-width) solid var(--_border-color);
@@ -11,7 +13,7 @@
   /* to position */
   --_arrow-height: 6px;
   --_arrow-width: 16px;
-  /* the distance from the edge when the arrow is positionend at start or end */ // TODO: change to popover tokens
+  /* the distance from the edge when the arrow is positionend at start or end */
   --_arrow-start-end-offset: var(--sl-space-popover-arrow-offset);
 }
 
@@ -118,9 +120,29 @@
   }
 }
 
-@supports (width: -moz-fit-content) {
-  [popover],
-  :host(:where([popover])) {
-    overflow: visible;
+//@supports (width: -moz-fit-content) {
+//  [popover],
+//  :host(:where([popover])) {
+//    overflow: visible;
+//  }
+//}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports selector([popover]:popover-open) {
+    [popover]:not(.\\:popover-open, dialog[open]),
+    :host([popover]:not(.\\:popover-open, dialog[open])) {
+      animation: fade-in 200ms ease-in-out;
+      display: revert;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

@@ -7,6 +7,11 @@ export interface AnchorControllerConfig {
   maxWidth?: number;
 }
 
+/**
+ * @attr popover-opened -  Can be used for styling anchor element, when popover is opened and the anchor is not a sl-button.
+ * For sl-button active state styling is used.
+ */
+
 export class AnchorController implements ReactiveController {
   #cleanup?: () => void;
   #config: AnchorControllerConfig;
@@ -40,15 +45,15 @@ export class AnchorController implements ReactiveController {
         });
         // host.getAttribute('sl-popover')
         if (host.matches('sl-popover')) {
-          /** popover-open can be used for styling anchor element, when popover is opened and the anchor is not a sl-button  */
-          (anchorElement as HTMLElement)?.setAttribute('popover-open', '');
+          /** popover-opened can be used for styling anchor element, when popover is opened and the anchor is not a sl-button  */
+          (anchorElement as HTMLElement)?.setAttribute('popover-opened', '');
         }
       }
     } else if (this.#cleanup) {
       this.#cleanup();
       this.#cleanup = undefined;
       if (host.matches('sl-popover')) {
-        (anchorElement as HTMLElement)?.removeAttribute('popover-open');
+        (anchorElement as HTMLElement)?.removeAttribute('popover-opened');
       }
     }
   };

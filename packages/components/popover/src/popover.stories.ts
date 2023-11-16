@@ -45,7 +45,6 @@ export const Basic: Story = {
   render: ({ position }) => {
     const onClick = (event: Event & { target: Button }): void => {
       const popover = event.target.nextElementSibling as HTMLElement;
-      // (event.target as Button).style.setProperty("background-color", "yellow");
 
       popover.togglePopover();
     };
@@ -241,41 +240,6 @@ export const Edges: Story = {
       <sl-popover anchor="anchor2" popover="manual" position="right">Right</sl-popover>
       <sl-popover anchor="anchor3" popover="manual" position="bottom">Bottom</sl-popover>
       <sl-popover anchor="anchor4" popover="manual" position="left">Left</sl-popover>
-    `;
-  }
-};
-
-export const Focus: Story = {
-  render: () => {
-    const onClick = (event: Event & { target: Button }): void => {
-      const popover = event.target.nextElementSibling as HTMLElement;
-
-      popover.togglePopover();
-    };
-
-    return html`
-      <style>
-        sl-popover form {
-          align-items: center;
-          display: grid;
-          gap: 0.5rem;
-          grid-template-columns: auto 1fr;
-          grid-template-rows: 1fr 1fr;
-        }
-        sl-button-bar {
-          grid-column: 1 / -1;
-        }
-      </style>
-      <sl-button @click=${onClick} id="button" variant="primary">Toggle popover</sl-button>
-      <sl-popover anchor="button">
-        <form>
-          <label>Label</label>
-          <sl-text-field placeholder="Input"></sl-text-field>
-          <sl-button-bar align="end">
-            <sl-button size="sm" variant="primary">Save</sl-button>
-          </sl-button-bar>
-        </form>
-      </sl-popover>
     `;
   }
 };

@@ -1098,7 +1098,7 @@
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.link"
-        } 
+        }
       },
       "input": {
         "none": {

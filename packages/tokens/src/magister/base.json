@@ -1116,6 +1116,11 @@
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },
+        "ghost": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
+        },
         "link": {
           "value": "{border.width.sm}",
           "type": "borderWidth",

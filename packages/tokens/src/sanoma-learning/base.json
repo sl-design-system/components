@@ -1625,6 +1625,11 @@
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },
+        "ghost": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
+        },
         "link": {
           "value": "{conceptual.border.width.default}",
           "type": "borderWidth",

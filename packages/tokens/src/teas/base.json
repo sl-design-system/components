@@ -1089,11 +1089,16 @@
           "type": "borderWidth",
           "description": "border.width.button.outline"
         },
+        "ghost": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
+        },
         "link": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.link"
-        }
+        } 
       },
       "input": {
         "none": {

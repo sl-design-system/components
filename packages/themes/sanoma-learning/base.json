@@ -1864,15 +1864,20 @@
   "border": {
     "width": {
       "button": {
-        "default": {
+        "solid": {
           "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.button.solid"
         },
         "outline": {
           "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        },
+        "ghost": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
         },
         "link": {
           "value": "{conceptual.border.width.default}",
@@ -2324,49 +2329,49 @@
       "solid": {
         "block": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.default}",
+            "value": "{space.xs} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.block.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.sm} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.sm} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "sm": {
-            "value": "{space.lg} - {border.width.button.default}",
+            "value": "{space.lg} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.xl} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.xl} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
         },
         "icon-only": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.default}",
+            "value": "{space.xs} - {border.width.button.solid}",
             "type": "spacing"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.sm} - {border.width.button.solid}",
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.sm} - {border.width.button.solid}",
             "type": "spacing"
           }
         }
@@ -2424,49 +2429,49 @@
       "ghost": {
         "block": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.link}",
+            "value": "{space.xs} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.block.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.link}",
+            "value": "{space.md} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
         },
         "icon-only": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.link}",
+            "value": "{space.xs} - {border.width.button.ghost}",
             "type": "spacing"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing"
           }
         }

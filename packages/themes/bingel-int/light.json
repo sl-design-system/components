@@ -229,7 +229,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.600}",
               "type": "color",
               "description": "color.button.default.outline.idle.foreground",
               "failedToResolve": true
@@ -249,7 +249,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.accent.base}",
+              "value": "{color.palette.accent.700}",
               "type": "color",
               "description": "color.button.default.outline.hover.foreground",
               "failedToResolve": true
@@ -269,7 +269,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.800}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground",
               "failedToResolve": true
@@ -289,7 +289,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.600}",
               "type": "color",
               "description": "color.button.default.focus.foreground",
               "failedToResolve": true
@@ -3981,7 +3981,7 @@
     },
     "focusring": {
       "default": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.primary.base}",
         "type": "color",
         "failedToResolve": true
       }

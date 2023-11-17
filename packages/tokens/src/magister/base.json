@@ -1106,15 +1106,20 @@
   "border": {
     "width": {
       "button": {
-        "default": {
+        "solid": {
           "value": "{border.width.sm}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.button.solid"
         },
         "outline": {
           "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        },
+        "ghost": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
         },
         "link": {
           "value": "{border.width.sm}",
@@ -1159,7 +1164,7 @@
       "default": {
         "inline": {
           "md": {
-            "value": "{space.lg} - {border.width.button.default}",
+            "value": "{space.lg} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           }

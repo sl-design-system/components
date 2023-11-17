@@ -3263,7 +3263,7 @@
     },
     "popover": {
       "background": {
-        "value": "{color.palette.white.base}",
+        "value": "{color.palette.black.base}",
         "type": "color"
       },
       "foreground": {
@@ -3271,7 +3271,7 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.700}",
         "type": "color"
       }
     }

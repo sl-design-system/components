@@ -47,6 +47,7 @@ export class AnchorController implements ReactiveController {
         if (host.matches('sl-popover')) {
           /** popover-opened can be used for styling anchor element, when popover is opened and the anchor is not a sl-button  */
           (anchorElement as HTMLElement)?.setAttribute('popover-opened', '');
+          anchorElement.setAttribute('aria-expanded', 'true');
         }
       }
     } else if (this.#cleanup) {
@@ -54,6 +55,7 @@ export class AnchorController implements ReactiveController {
       this.#cleanup = undefined;
       if (host.matches('sl-popover')) {
         (anchorElement as HTMLElement)?.removeAttribute('popover-opened');
+        anchorElement?.setAttribute('aria-expanded', 'false'); // TODO: not working?
       }
     }
   };

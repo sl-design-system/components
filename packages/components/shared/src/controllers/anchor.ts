@@ -24,6 +24,7 @@ export class AnchorController implements ReactiveController {
       anchorElement =
         (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
     }
+    anchorElement?.setAttribute('aria-expanded', 'false'); // TODO: if (host.matches('sl-popover')) {
     if ((event as ToggleEvent).newState === 'open') {
       // const host = this.#host as HTMLElement;
 
@@ -72,6 +73,7 @@ export class AnchorController implements ReactiveController {
 
   hostConnected(): void {
     this.#host?.addEventListener('beforetoggle', this.#onBeforeToggle);
+    this.#host.anchorElement?.setAttribute('aria-expanded', 'false'); // TODO: if (host.matches('sl-popover')) {
   }
 
   hostDisconnected(): void {

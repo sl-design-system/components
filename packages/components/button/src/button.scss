@@ -61,6 +61,9 @@ $variants: default, primary, success, warning, danger;
     --_font: var(--sl-text-button-text-#{$size});
     --_label-gap: var(--sl-space-button-gap-#{$size});
   }
+  :host([size='#{$size}'][fill='link']) {
+    --_font: var(--sl-text-button-link-#{$size});
+  }
 
   :host([size='#{$size}'][icon-only]) {
     --icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
@@ -113,6 +116,10 @@ $variants: default, primary, success, warning, danger;
 :host(:where(:disabled, [internals-disabled])) {
   cursor: default;
   pointer-events: none;
+}
+
+:host([fill='link']) {
+  text-decoration: underline;
 }
 
 ::slotted(sl-icon) {

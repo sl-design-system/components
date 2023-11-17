@@ -229,7 +229,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.600}",
               "type": "color",
               "description": "color.button.default.outline.idle.foreground",
               "failedToResolve": true
@@ -289,7 +289,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.600}",
               "type": "color",
               "description": "color.button.default.focus.foreground",
               "failedToResolve": true

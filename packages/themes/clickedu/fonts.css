@@ -1,0 +1,17 @@
+@font-face {
+  font-family: space-grotesk;
+  font-weight: 400;
+  src: url('./fonts/space-grotesk-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: space-grotesk;
+  font-weight: 500;
+  src: url('./fonts/space-grotesk-medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: space-grotesk;
+  font-weight: 700;
+  src: url('./fonts/space-grotesk-bold.woff2') format('woff2');
+}

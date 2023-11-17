@@ -1079,15 +1079,20 @@
   "border": {
     "width": {
       "button": {
-        "default": {
+        "solid": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.button.solid"
         },
         "outline": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        },
+        "ghost": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
         },
         "link": {
           "value": "{border.width.xs}",
@@ -1109,7 +1114,7 @@
       },
       "focusring": {
         "default": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth"
         }
       }

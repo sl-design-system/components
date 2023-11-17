@@ -3279,7 +3279,7 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.300}",
         "type": "color"
       }
     }

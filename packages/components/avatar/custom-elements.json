@@ -38,8 +38,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "An avatar component to show a picture, initials or icon, to provide a quickly recognisable representation of a user.\n\n```html\n  <sl-avatar user=\"{\n     name: {\n       first: 'Lynn',\n       last: 'Smith'\n     },\n     picture: {\n       thumbnail: 'http://sanomalearning.design/avatars/lynn.png'\n     }\n   }\"></sl-avatar>\n```",
           "name": "Avatar",
+          "cssProperties": [
+            {
+              "description": "Max width of the container in ;",
+              "name": "--max-width:"
+            }
+          ],
           "members": [
             {
               "kind": "field",

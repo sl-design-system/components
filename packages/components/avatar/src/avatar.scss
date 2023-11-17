@@ -3,19 +3,21 @@ $shapes: circle, square;
 $statuses: online, offline, away, do-not-disturb;
 
 :host {
-  --sl-avatar-status-color-online: rgb(var(--sl-color-palette-success-base));
-  --sl-avatar-status-color-offline: rgb(var(--sl-color-palette-neutral-base));
-  --sl-avatar-status-color-away: rgb(var(--sl-color-palette-warning-base));
-  --sl-avatar-status-color-do-not-disturb: rgb(var(--sl-color-palette-danger-base));
+  --sl-avatar-status-color-online: var(--sl-color-badge-background-green);
+  --sl-avatar-status-color-offline: var(--sl-color-badge-background-neutral);
+  --sl-avatar-status-color-away: var(--sl-color-badge-background-yellow);
+  --sl-avatar-status-color-do-not-disturb: var(--sl-color-badge-background-red);
 
   --_avatar-background: var(--sl-color-avatar-background);
   --_avatar-foreground: var(--sl-color-avatar-foreground);
   --_avatar_badge-background-color: var(--sl-color-badge-background-red);
   --_avatar_badge-text-color: var(--sl-color-badge-text);
+
+  --_max-width: var(--max-width, 20rem);
+
   align-items: center;
   display: inline-flex;
-  gap: 8px;
-  padding: 4px;
+  gap: var(--_gap);
 }
 
 @each $size in $sizes {
@@ -24,6 +26,7 @@ $statuses: online, offline, away, do-not-disturb;
     --_initials-font: var(--sl-text-avatar-initials-#{$size});
     --_header-font: var(--sl-text-avatar-header-#{$size});
     --_subheader-font: var(--sl-text-avatar-subheader-#{$size});
+    --_gap: var(--sl-space-avatar-block-#{$size}) var(--sl-space-avatar-inline-#{$size});
   }
 }
 
@@ -43,6 +46,8 @@ picture {
   display: grid;
   flex: 0 0 var(--_picture-size);
   height: var(--_picture-size);
+  margin-right: var(--_margin-right);
+  margin-top: var(--_margin-top);
   place-content: center;
   position: relative;
   width: var(--_picture-size);
@@ -77,20 +82,30 @@ div {
 
   span.header {
     font: var(--_header-font);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
 // this is VERY POC; the display gets removed when converting to css, the max-width should be a token
 :host([orientation='vertical']) {
   flex-direction: column;
-  gap: 0;
-  max-width: 100px;
+  max-width: var(--_max-width);
+  text-align: center;
 
-  div {
+  .header {
     -webkit-box-orient: vertical;
     display: box;
     -webkit-line-clamp: 2;
-    text-align: center;
-    white-space: normal;
+    max-width: var(--_max-width);
+    overflow: hidden;
+    white-space: initial;
+  }
+
+  slot {
+    display: block;
+    max-width: var(--_max-width);
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

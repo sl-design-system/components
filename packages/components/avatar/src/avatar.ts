@@ -12,6 +12,7 @@ export interface UserProfile {
 export interface UserProfileName {
   first: string;
   last: string;
+  prefix?: string;
   title: string;
 }
 export interface UserProfilePicture {
@@ -49,6 +50,23 @@ export type UserStatus = 'online' | 'offline' | 'away' | 'do-not-disturb';
 
 let nextUniqueId = 0;
 
+/**
+ * An avatar component to show a picture, initials or icon, to provide a quickly recognisable representation of a user.
+ *
+ * ```html
+ *   <sl-avatar user="{
+ *      name: {
+ *        first: 'Lynn',
+ *        last: 'Smith'
+ *      },
+ *      picture: {
+ *        thumbnail: 'http://sanomalearning.design/avatars/lynn.png'
+ *      }
+ *    }"></sl-avatar>
+ * ```
+ *
+ * @cssproperty --max-width: Max width of the container in ;
+ */
 export class Avatar extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
@@ -122,7 +140,9 @@ export class Avatar extends LitElement {
   private offset = this.offsetCircle;
 
   get profileName(): string {
-    return this.user?.name ? `${this.user?.name?.first} ${this.user?.name?.last}` : '';
+    return this.user?.name
+      ? `${this.user.name.first} ${this.user.name.prefix ? this.user.name.prefix + ' ' : ''}${this.user.name.last}`
+      : '';
   }
 
   get initials(): string {
@@ -132,7 +152,7 @@ export class Avatar extends LitElement {
   get imageContent(): TemplateResult {
     if (!this.image) return svg``;
 
-    if (this.user?.picture) {
+    if (this.user?.picture?.thumbnail) {
       return svg`<image
         alt="picture of ${this.profileName}"
         height="${this.image.size}"
@@ -141,7 +161,7 @@ export class Avatar extends LitElement {
         y="${this.image.y}" 
         mask="url(#circle-${this.#avatarId})"
         preserveAspectRatio="xMidYMid slice" 
-        href=${this.user?.picture?.thumbnail || 'https://ynnovate.it/wp-content/uploads/2015/06/default-avatar.png'}
+        href=${this.user?.picture?.thumbnail}
       ></image>`;
     } else if (this.user && this.fallback === 'initials') {
       return svg`
@@ -279,7 +299,7 @@ export class Avatar extends LitElement {
 
     if (changes.has('orientation')) {
       /** it appears that converting the scss files removes this style property in the css, so i'm adding it here in a hacky way. */
-      const textContainer = this.renderRoot.querySelector('div');
+      const textContainer = this.renderRoot.querySelector('span');
       if (textContainer) {
         if (this.orientation === 'vertical') {
           textContainer.style.display = '-webkit-box';
@@ -288,7 +308,9 @@ export class Avatar extends LitElement {
         }
       }
     }
+
     if (changes.has('size') || changes.has('badgeText')) {
+      this.style.setProperty('--_picture-size', `${this.imageSizes[this.size]}px`);
       await this.#setBaseValues();
     }
   }
@@ -303,6 +325,9 @@ export class Avatar extends LitElement {
     this.offset = this.avatarConfig?.shape === 'circle' ? this.offsetCircle : this.offsetSquare; //or offset for square
     const badgeOffset = this.offset[this.size] < 0 ? this.offset[this.size] * -1 : 0;
     const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
+
+    this.style.setProperty('--_margin-top', `${badgeOffset * -1}px`);
+    this.style.setProperty('--_margin-right', `${badgeOffset * -1}px`);
 
     this.image = {
       ...this.image,

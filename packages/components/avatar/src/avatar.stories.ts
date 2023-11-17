@@ -22,7 +22,8 @@ const users: UserProfile[] = [
     name: {
       title: 'Mr',
       first: 'Yousef',
-      last: 'Van der Schaaf'
+      prefix: 'van der',
+      last: 'Schaaf'
     },
     picture: {
       thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
@@ -42,7 +43,7 @@ const users: UserProfile[] = [
     name: {
       title: 'Ms',
       first: 'Emma',
-      last: 'Henderson'
+      last: 'Henderson - Van Deursen'
     },
     picture: {
       thumbnail: 'https://randomuser.me/api/portraits/thumb/women/19.jpg'
@@ -199,7 +200,8 @@ export const All: StoryObj = {
         th,
         td {
           padding: 4px 8px;
-          vertical-align: top
+          vertical-align: top;
+          --max-width: 100px;
         }
       </style>
       <table>
@@ -220,9 +222,11 @@ export const All: StoryObj = {
           ${sizes.map(
             size => html` <tr>
               <th>${sizeName(size)}</th>
-              <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>
+              <td><sl-avatar .user=${users[0]} .size=${size}></sl-avatar></td>
               <td><sl-avatar .user=${users[2]} .size=${size}>Subheader</sl-avatar></td>
-              <td><sl-avatar .user=${users[2]} .size=${size} orientation="vertical">Subheader</sl-avatar></td>
+              <td>
+                <sl-avatar .user=${users[2]} .size=${size} orientation="vertical">Subheader </sl-avatar>
+              </td>
               <td><sl-avatar .user=${users[4]} .size=${size} image-only fallback="image"></sl-avatar></td>
               <td><sl-avatar .user=${users[3]} .size=${size} image-only></sl-avatar></td>
               <td><sl-avatar .user=${users[2]} .size=${size} image-only></sl-avatar></td>

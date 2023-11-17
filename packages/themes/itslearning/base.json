@@ -1358,6 +1358,28 @@
           }
         }
       }
+    },
+    "popover": {
+      "text": {
+        "text": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        },
+        "title": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1399,6 +1421,13 @@
       "value": "{border.radius.2xs}",
       "type": "borderRadius",
       "description": "borderRadius.button"
+    },
+    "popover": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius",
+        "description": "borderRadius.button"
+      }
     },
     "circle": {
       "value": "{border.radius.full}",
@@ -1460,6 +1489,18 @@
         "default": {
           "value": "{border.width.sm}",
           "type": "borderWidth"
+        }
+      },
+      "popover": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
         }
       },
       "none": {
@@ -1561,285 +1602,55 @@
     }
   },
   "space": {
-    "input": {
-      "option": {
-        "block": {
-          "md": {
-            "value": "{space.button.outline.block.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
-          },
-          "lg": {
-            "value": "{space.button.outline.block.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
-          }
-        },
-        "inline": {
-          "md": {
-            "value": "{space.button.outline.block.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
-          },
-          "lg": {
-            "value": "{space.button.outline.block.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
-          }
-        },
-        "gap": {
-          "md": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          }
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
         }
       },
-      "textField": {
-        "block": {
-          "md": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
-          },
-          "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
-          }
-        },
-        "inline": {
-          "md": {
-            "value": "{space.md}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
-          },
-          "lg": {
-            "value": "{space.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
-          }
-        },
-        "gap": {
-          "md": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          }
-        }
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
       },
-      "helper": {
-        "gap": {
-          "sm": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "md": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          }
-        },
-        "paddingTop": {
-          "sm": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "md": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          },
-          "none": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          }
-        }
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
       },
-      "fieldLabel": {
-        "gap": {
-          "sm": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "md": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          }
-        },
-        "icon": {
-          "md": {
-            "value": "{space.2xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          }
-        },
-        "paddingBottom": {
-          "sm": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "md": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          },
-          "none": {
-            "value": "{space.none}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          }
-        }
-      },
-      "switch": {
-        "padding": {
-          "container": {
-            "value": "{space.xs}",
-            "type": "spacing",
-            "description": "space.switch.padding.outer"
-          },
-          "controller": {
-            "value": "{space.2xs}",
-            "type": "spacing",
-            "description": "space.switch.padding.outer"
-          },
-          "row": {
-            "sm": {
-              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.sm} + ({space.input.switch.padding.container} * 2)",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            },
-            "md": {
-              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.md} + ({space.input.switch.padding.container} * 2)",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            },
-            "lg": {
-              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.lg} + ({space.input.switch.padding.container} * 2)",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            },
-            "none": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            }
-          }
-        },
-        "gap": {
-          "value": "{space.none}",
-          "type": "spacing",
-          "description": "space.input.switch.padding.gap"
-        },
-        "margin": {
-          "top": {
-            "sm": {
-              "value": "{space.sm}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            },
-            "md": {
-              "value": "{space.sm}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            },
-            "lg": {
-              "value": "{space.sm}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            },
-            "none": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            }
-          },
-          "left": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.switch.padding.outer"
-          },
-          "bottom": {
-            "sm": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            },
-            "md": {
-              "value": "{space.xs}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            },
-            "lg": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            },
-            "none": {
-              "value": "{space.none}",
-              "type": "spacing",
-              "description": "space.switch.padding.outer"
-            }
-          }
-        }
-      }
-    },
-    "group": {
-      "sm": {
-        "value": "{space.2xs}",
-        "type": "spacing"
-      },
-      "md": {
+      "gap": {
         "value": "{space.xs}",
         "type": "spacing"
       },
-      "lg": {
+      "offset": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      }
+    },
+    "popover": {
+      "arrow": {
+        "offset": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "offset": {
         "value": "{space.sm}",
         "type": "spacing"
       },
-      "xl": {
+      "block": {
         "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
+      },
+      "gap": {
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },
@@ -2102,6 +1913,270 @@
         }
       }
     },
+    "input": {
+      "option": {
+        "block": {
+          "md": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "md": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      },
+      "textField": {
+        "block": {
+          "md": {
+            "value": "{space.xs} + {conceptual.border.width.default}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.sm} - {conceptual.border.width.default}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "md": {
+            "value": "{space.md} - {conceptual.border.width.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.lg} - {conceptual.border.width.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      },
+      "helper": {
+        "gap": {
+          "sm": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "md": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        },
+        "paddingTop": {
+          "sm": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "md": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          },
+          "none": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      },
+      "fieldLabel": {
+        "gap": {
+          "sm": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "md": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        },
+        "icon": {
+          "md": {
+            "value": "{space.2xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          }
+        },
+        "paddingBottom": {
+          "sm": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.md}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          },
+          "none": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      },
+      "switch": {
+        "padding": {
+          "container": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "space.switch.padding.outer"
+          },
+          "controller": {
+            "value": "{space.2xs}",
+            "type": "spacing",
+            "description": "space.switch.padding.outer"
+          },
+          "row": {
+            "sm": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.sm} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.md} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.input.switch.margin.left} + {size.input.switch.controller.width.lg} + ({space.input.switch.padding.container} * 2)",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
+          }
+        },
+        "gap": {
+          "value": "{space.none}",
+          "type": "spacing",
+          "description": "space.input.switch.padding.gap"
+        },
+        "margin": {
+          "top": {
+            "sm": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.sm}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
+          },
+          "left": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "space.switch.padding.outer"
+          },
+          "bottom": {
+            "sm": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "md": {
+              "value": "{space.xs}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "lg": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            },
+            "none": {
+              "value": "{space.none}",
+              "type": "spacing",
+              "description": "space.switch.padding.outer"
+            }
+          }
+        }
+      }
+    },
     "dialog": {
       "desktop": {
         "container": {
@@ -2198,6 +2273,24 @@
           "value": "{space.buttonBar.gap.block}",
           "type": "spacing"
         }
+      }
+    },
+    "group": {
+      "sm": {
+        "value": "{space.2xs}",
+        "type": "spacing"
+      },
+      "md": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      },
+      "lg": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "xl": {
+        "value": "{space.sm}",
+        "type": "spacing"
       }
     },
     "select": {
@@ -2350,26 +2443,6 @@
             "description": "{space.button.gap.lg}"
           }
         }
-      }
-    },
-    "tooltip": {
-      "block": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.solid.block.md"
-      },
-      "inline": {
-        "value": "{space.md}",
-        "type": "spacing",
-        "description": "space.button.solid.inline.md"
-      },
-      "gap": {
-        "value": "{space.xs}",
-        "type": "spacing"
-      },
-      "offset": {
-        "value": "{space.sm}",
-        "type": "spacing"
       }
     },
     "badge": {
@@ -2534,26 +2607,6 @@
           "value": "{space.sm}",
           "type": "spacing"
         }
-      }
-    },
-    "popover": {
-      "block": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.solid.block.md"
-      },
-      "inline": {
-        "value": "{space.md}",
-        "type": "spacing",
-        "description": "space.button.solid.inline.md"
-      },
-      "gap": {
-        "value": "{space.xs}",
-        "type": "spacing"
-      },
-      "offset": {
-        "value": "{space.sm}",
-        "type": "spacing"
       }
     }
   },

@@ -152,27 +152,6 @@ export const Dialog: Story = {
     return html`
       <!--added this to get the polyfill working in FF and Safari-->
       <style>
-        [popover],
-        :host(:where([popover])) {
-          background-color: canvas;
-          border-color: initial;
-          border-image: initial;
-          border-style: solid;
-          border-width: initial;
-          color: canvastext;
-          height: fit-content;
-          margin: auto;
-          overflow: auto;
-          padding: 0.25em;
-          position: fixed;
-          width: fit-content;
-          z-index: 2147483647;
-        }
-
-        [popover] {
-          inset: 0;
-        }
-
         [popover]:not(.\\:popover-open),
         :host([popover]:not(.\\:popover-open)) {
           display: none;

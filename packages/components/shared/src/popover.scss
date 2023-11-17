@@ -2,22 +2,17 @@
 [popover],
 :host(:where([popover])) {
   background-color: canvas;
-  //border-color: initial;
   border-image: initial;
-  //border-style: solid;
   border-width: initial;
   color: canvastext;
   height: fit-content;
-  margin: 0; //auto;
-  overflow: visible; //auto;
+  inset: 0;
+  margin: 0;
+  overflow: visible;
   padding: 0.25em;
-  position: fixed; //absolute;
+  position: fixed;
   width: fit-content;
   z-index: 2147483647;
-}
-
-[popover] {
-  inset: 0;
 }
 
 [popover]:not(.\\:popover-open),

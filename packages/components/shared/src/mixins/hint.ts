@@ -24,29 +24,29 @@ export const hintStyles: CSSResultGroup = css`
   }
 
   slot[hintsize='sm']::slotted(*) {
-    font: var(--sl-text-field-helper-text-sm);
+    font: var(--sl-text-input-helper-text-sm);
     padding-top: var(--sl-space-input-helper-padding-top-sm);
   }
   slot[hintsize='md']::slotted(*) {
-    font: var(--sl-text-field-helper-text-md);
+    font: var(--sl-text-input-helper-text-md);
     padding-top: var(--sl-space-input-helper-padding-top-md);
   }
 
   slot[hintsize='lg']::slotted(*) {
-    font: var(--sl-text-field-helper-text-lg);
+    font: var(--sl-text-input-helper-text-lg);
     padding-top: var(--sl-space-input-helper-padding-top-lg);
   }
 `;
 
 export function HintMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<HintInterface> {
   class Hint extends constructor {
-    /** The hint. If you need to display HTML, use the `hint` slot instead. */
+    /** The hint text. */
     @property() hint?: string;
 
     /** The hint size.
      *  @type {'sm' | 'md' | 'lg'}
      */
-    @property() hintSize: HintSize = 'md';
+    @property({ attribute: 'hint-size' }) hintSize: HintSize = 'md';
 
     /** The hint disabled state. */
     @property() disabled?: boolean;

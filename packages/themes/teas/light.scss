@@ -10,6 +10,8 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-select-listbox-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-select-selectbox-default-focus-border: rgb(var(--sl-color-palette-primary-base));
@@ -29,6 +31,9 @@
   --sl-color-select-item-default-indicator: rgb(var(--sl-color-palette-accent-base));
   --sl-color-select-item-default-foreground: rgb(var(--sl-color-palette-neutral-900));
   --sl-color-focusring-default: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-tooltip-background: rgb(var(--sl-color-palette-primary-600));
   --sl-color-input-field-label-select-panel-bacground-copy: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-input-field-label-select-disabled-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-input-field-label-select-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
@@ -375,6 +380,15 @@
   --sl-color-button-primary-link-idle-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-primary-link-idle-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-color-button-primary-link-idle-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-button-primary-ghost-disabled-border: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-button-primary-ghost-disabled-foreground: rgb(var(--sl-color-palette-neutral-500));
+  --sl-color-button-primary-ghost-disabled-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-button-primary-ghost-active-foreground: rgb(var(--sl-color-palette-primary-600));
+  --sl-color-button-primary-ghost-active-background: rgb(var(--sl-color-palette-primary-100));
+  --sl-color-button-primary-ghost-hover-foreground: rgb(var(--sl-color-palette-primary-500));
+  --sl-color-button-primary-ghost-hover-background: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-button-primary-ghost-idle-foreground: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-button-primary-ghost-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-primary-outline-disabled-border: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-primary-outline-disabled-foreground: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-primary-outline-disabled-background: rgb(var(--sl-color-palette-transparent-base));
@@ -463,6 +477,8 @@
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-accent-500));
   --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-neutral-100));
   --sl-box-shadow-select-listbox: [object Object];
+  --sl-box-shadow-tooltip: [object Object];
+  --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-placeholder: var(--sl-color-input-text-field-default-disabled-placeholder);
   --sl-color-select-selectbox-valid-active-background: var(--sl-color-input-text-field-valid-active-background);
   --sl-color-select-selectbox-valid-hover-background: var(--sl-color-input-text-field-valid-hover-background);
@@ -633,6 +649,12 @@
   --sl-color-button-warning-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-success-ghost-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-success-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+  --sl-color-button-primary-ghost-focus-border: var(--sl-color-button-primary-ghost-idle-background);
+  --sl-color-button-primary-ghost-focus-foreground: var(--sl-color-button-primary-ghost-idle-foreground);
+  --sl-color-button-primary-ghost-focus-background: var(--sl-color-button-primary-ghost-idle-background);
+  --sl-color-button-primary-ghost-active-border: var(--sl-color-button-primary-ghost-active-background);
+  --sl-color-button-primary-ghost-hover-border: var(--sl-color-button-primary-ghost-hover-background);
+  --sl-color-button-primary-ghost-idle-border: var(--sl-color-button-primary-ghost-idle-background);
   --sl-color-button-primary-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-default-ghost-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-default-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));

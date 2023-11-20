@@ -76,7 +76,7 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'focusin', this.#onShow);
     this.#events.listen(root, 'focusout', this.#onHide);
     this.#events.listen(root, 'pointerover', this.#onShow);
-    // this.#events.listen(root, 'pointerout', this.#onHide);
+    this.#events.listen(root, 'pointerout', this.#onHide);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

@@ -75,7 +75,25 @@
           },
           "tagName": "sl-popover",
           "customElement": true,
-          "methods": [],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            }
+          ],
           "fields": [
             {
               "kind": "field",
@@ -86,6 +104,12 @@
               "static": true,
               "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)"
             },
             {
               "kind": "field",

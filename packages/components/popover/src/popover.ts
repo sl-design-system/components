@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { PopoverPosition } from '@sl-design-system/shared';
-import { AnchorController, popoverPolyfillStyles } from '@sl-design-system/shared';
+import { AnchorController, EventsController, popoverPolyfillStyles } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
@@ -17,11 +17,21 @@ export class Popover extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
 
+  #events = new EventsController(this);
+
   /** Controller for managing anchoring. */
   #anchor = new AnchorController(this /*, { arrow: '.arrow' }*/);
 
   /** The position of this popover relative to its anchor. */
   @property() position?: PopoverPosition = 'bottom';
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#events.listen(this, 'keydown', this.#onKeydown);
+
+    this.shadowRoot?.delegatesFocus;
+  }
 
   constructor() {
     super();
@@ -33,6 +43,8 @@ export class Popover extends LitElement {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    console.log('changes', changes);
 
     if (changes.has('position')) {
       this.#anchor.position = this.position;
@@ -65,23 +77,10 @@ export class Popover extends LitElement {
     `;
   }
 
-  /*<svg xmlns="http://www.w3.org/svg/2000" width="24" height="12" viewBox="0 0 24 12">
-  <defs>
-    <clipPath id="modal-arrow-cut-stroke-top"><path d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path></clipPath>
-</defs>
-<path clip-path="url(#modal-arrow-cut-stroke-top)" d="m 24 0 l -10 10 q -2 2 -4 0 l -10 -10"></path>
-    </svg>
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" width="6" height="16" viewBox="0 0 6 16">
-  <path
-    fill="#FEFEFE"
-  d="M.5885 14.4806C.2155 14.8641.001 15.4178 0 16V0c.001.5822.2154 1.1359.5885 1.5193l4.823 4.9572c.7847.8065.7847 2.2405 0 3.047l-4.823 4.9571Z"
-    />
-    </svg>*/
-
-  /*<!--        <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="6" viewBox="0 0 16 6">-->
-  <!--          <path-->
-  <!--            fill="#FEFEFE"-->
-  <!--            d="M14.4806 5.4115c.3835.373.9372.5875 1.5194.5885H0c.5822-.001 1.1359-.2154 1.5193-.5885L6.4766.5885c.8065-.7847 2.2405-.7847 3.047 0l4.9571 4.823Z"-->
-    <!--          />-->
-<!--        </svg>-->*/
+  #onKeydown(event: KeyboardEvent): void {
+    console.log('onkeydown event', event);
+    if (event.code === 'Escape') {
+      this.togglePopover(); // hidePopover
+    }
+  }
 }

@@ -18,6 +18,7 @@ export class AnchorController implements ReactiveController {
   #host: ReactiveControllerHost & HTMLElement;
 
   #onBeforeToggle = (event: Event): void => {
+    console.log('event on beforeToggle', event);
     const host = this.#host as HTMLElement;
     let anchorElement = host.anchorElement;
     if (!anchorElement && host.hasAttribute('anchor')) {
@@ -61,6 +62,19 @@ export class AnchorController implements ReactiveController {
     }
   };
 
+  #onToggle = (event: Event): void => {
+    console.log('event', event, (event as ToggleEvent).newState, (event as ToggleEvent).oldState);
+    // event.preventDefault();
+    // event.stopPropagation();
+
+    if ((event as ToggleEvent).newState === (event as ToggleEvent).oldState) {
+      /** to make it working on clicking again on the anchor element*/
+      console.log('event old and new');
+      event.stopPropagation();
+      (event.target as HTMLElement).togglePopover();
+    }
+  };
+
   position?: PopoverPosition;
 
   maxWidth?: number;
@@ -73,10 +87,12 @@ export class AnchorController implements ReactiveController {
 
   hostConnected(): void {
     this.#host?.addEventListener('beforetoggle', this.#onBeforeToggle);
+    this.#host?.addEventListener('toggle', this.#onToggle);
     this.#host.anchorElement?.setAttribute('aria-expanded', 'false'); // TODO: if (host.matches('sl-popover')) {
   }
 
   hostDisconnected(): void {
     this.#host?.removeEventListener('beforetoggle', this.#onBeforeToggle);
+    this.#host?.removeEventListener('toggle', this.#onToggle);
   }
 }

@@ -44,14 +44,26 @@ export const Basic: Story = {
   },
   render: ({ position }) => {
     const onClick = (event: Event & { target: Button }): void => {
+      // event.stopPropagation();
+      // event.preventDefault();
       const popover = event.target.nextElementSibling as HTMLElement;
+      //
+      // popover.togglePopover();
+      // popover.showPopover();
 
-      popover.togglePopover();
+      const popupOpened = popover.togglePopover();
+
+      console.log('popoupopened11', popupOpened);
+
+      // Check if popover is opened or closed on supporting browsers
+      if (popupOpened !== undefined) {
+        console.log('popoupopened', popupOpened);
+      }
     };
 
     return html`
       <sl-button @click=${onClick} id="button" variant="primary">Toggle popover</sl-button>
-      <sl-popover anchor="button" position=${ifDefined(position)}
+      <sl-popover popover anchor="button" position=${ifDefined(position)}
         >I'm <br>a <br></br>popover <br />
         example</sl-popover
       >
@@ -132,7 +144,7 @@ export const MoreComplexContent: Story = {
             <hr color="#D9D9D9" />
           </section>
           <footer>
-            <sl-button size="sm">Cancel</sl-button>
+            <sl-button size="sm" autofocus>Cancel</sl-button>
             <sl-button size="sm" variant="primary">Confirm</sl-button>
           </footer>
         </sl-popover>

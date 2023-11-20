@@ -23,7 +23,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
     --_button-padding-inline: var(--sl-space-select-selectbox-inline-#{$size});
     --_font: var(--sl-text-select-selectbox-text-#{$size});
     --_border-radius: var(--sl-border-radius-default);
-    --_border-width: var(--sl-border-width-button-default);
+    --_border-width: var(--sl-border-width-button-solid);
   }
 }
 

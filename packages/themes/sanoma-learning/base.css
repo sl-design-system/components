@@ -651,7 +651,6 @@
   --sl-border-width-button-link: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-outline: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-default: var(--sl-conceptual-border-width-default);
-  --sl-border-radius-avatar-circle: var(--sl-border-radius-circle);
   --sl-border-radius-avatar-square: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);

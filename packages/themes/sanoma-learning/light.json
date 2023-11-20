@@ -4614,10 +4614,8 @@
     },
     "select": {
       "listbox": {
-        "value": {
-          "boxShadow": "{elevation.shadow.md}"
-        },
-        "type": "composition",
+        "value": "{elevation.shadow.md}",
+        "type": "dropShadow",
         "failedToResolve": true
       }
     },

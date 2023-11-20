@@ -13,7 +13,6 @@ export interface UserProfileName {
   first: string;
   last: string;
   prefix?: string;
-  title: string;
 }
 export interface UserProfilePicture {
   thumbnail: string;
@@ -71,7 +70,7 @@ export class Avatar extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  @property() user?: UserProfile;
+  @property({ type: Object }) user?: UserProfile;
   @property({ reflect: true }) size: AvatarSize = 'md';
   @property() fallback?: AvatarFallbackType = 'initials';
   @property({ reflect: true }) orientation: AvatarOrientation = 'horizontal';
@@ -145,6 +144,20 @@ export class Avatar extends LitElement {
       : '';
   }
 
+  get ariaLabelText(): string {
+    const labelParts: string[] = [];
+    if (this.imageOnly) {
+      labelParts.push(this.profileName);
+    }
+    if (this.status) {
+      labelParts.push(this.status);
+    }
+    if (this.badgeText) {
+      labelParts.push(this.badgeText);
+    }
+    return labelParts.join(' ');
+  }
+
   get initials(): string {
     return this.user ? this.user.name.first.substring(0, 1) + this.user.name.last.substring(0, 1) : '';
   }
@@ -154,7 +167,7 @@ export class Avatar extends LitElement {
 
     if (this.user?.picture?.thumbnail) {
       return svg`<image
-        alt="picture of ${this.profileName}"
+        aria-hidden="true"
         height="${this.image.size}"
         width="${this.image.size}"
         x="0"
@@ -209,10 +222,11 @@ export class Avatar extends LitElement {
           width="${this.badge.width}"
           rx="${this.badge.radius}"
           fill="var(--_avatar_badge-background-color)"
+          aria-hidden="true"
         />
         ${
           this.badgeText && this.size != 'sm'
-            ? svg`<text class="badge-text" y="${this.badge.textY}" x="${this.badge.textX}" fill="var(--_avatar_badge-text-color)">${this.badgeText}</text>`
+            ? svg`<text aria-hidden="true" class="badge-text" y="${this.badge.textY}" x="${this.badge.textX}" fill="var(--_avatar_badge-text-color)">${this.badgeText}</text>`
             : nothing
         }`;
   }
@@ -243,6 +257,7 @@ export class Avatar extends LitElement {
         viewBox=" 0 0 ${this.image.containerSize} ${this.image.containerSize}"
         width="${this.image.containerSize}"
         height="${this.image.containerSize}"
+        aria-label="${this.ariaLabelText}"
       >
         <defs>
           <symbol id="fallback-icon-${this.#avatarId}" viewBox="0 0 28 33">

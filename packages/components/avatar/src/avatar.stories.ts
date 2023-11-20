@@ -20,7 +20,6 @@ type Story = StoryObj<Props>;
 const users: UserProfile[] = [
   {
     name: {
-      title: 'Mr',
       first: 'Yousef',
       prefix: 'van der',
       last: 'Schaaf'
@@ -31,7 +30,6 @@ const users: UserProfile[] = [
   },
   {
     name: {
-      title: 'Mr',
       first: 'Chester',
       last: 'Reid'
     },
@@ -41,7 +39,6 @@ const users: UserProfile[] = [
   },
   {
     name: {
-      title: 'Ms',
       first: 'Emma',
       last: 'Henderson - Van Deursen'
     },
@@ -51,21 +48,18 @@ const users: UserProfile[] = [
   },
   {
     name: {
-      title: 'Mr',
       first: 'Johnni',
       last: 'Sullivan'
     }
   },
   {
     name: {
-      title: 'Mr',
       first: 'Gustav',
       last: 'Christensen'
     }
   },
   {
     name: {
-      title: 'Ms',
       first: 'Rose',
       last: 'Nylund'
     },
@@ -103,7 +97,6 @@ const sizeName = (size: string): string => {
 export default {
   title: 'Avatar',
   args: {
-    title: 'Ms',
     firstName: 'Rose',
     lastName: 'Nylund',
     // picture: 'https://randomuser.me/api/portraits/women/81.jpg',
@@ -143,22 +136,9 @@ export default {
       options: orientations
     }
   },
-  render: ({
-    title,
-    firstName,
-    lastName,
-    picture,
-    size,
-    fallback,
-    status,
-    imageOnly,
-    subheading,
-    orientation,
-    badgeText
-  }) => {
+  render: ({ firstName, lastName, picture, size, fallback, status, imageOnly, subheading, orientation, badgeText }) => {
     let user: UserProfile = {
       name: {
-        title,
         first: firstName,
         last: lastName
       }

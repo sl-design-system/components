@@ -49,6 +49,14 @@
           "members": [
             {
               "kind": "field",
+              "name": "ariaLabelText",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "badge",
               "type": {
                 "text": "AvatarBadge | undefined"
@@ -369,6 +377,14 @@
             {
               "kind": "field",
               "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "ariaLabelText",
               "type": {
                 "text": "string"
               },

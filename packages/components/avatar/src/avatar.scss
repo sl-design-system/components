@@ -87,7 +87,6 @@ div {
   }
 }
 
-// this is VERY POC; the display gets removed when converting to css, the max-width should be a token
 :host([orientation='vertical']) {
   flex-direction: column;
   max-width: var(--_max-width);

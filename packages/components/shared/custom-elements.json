@@ -709,747 +709,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/data-source/array-data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ArrayDataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-update",
-              "type": {
-                "text": "CustomEvent"
-              }
-            }
-          ],
-          "superclass": {
-            "name": "DataSource",
-            "module": "/src/data-source/data-source.js"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ],
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "#filteredItems",
-              "privacy": "private",
-              "type": {
-                "text": "T[]"
-              },
-              "default": "[...items]"
-            },
-            {
-              "kind": "field",
-              "name": "#items",
-              "privacy": "private",
-              "type": {
-                "text": "T[]"
-              },
-              "default": "[...items]"
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#filters",
-              "privacy": "private",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "default": "new Map()",
-              "description": "Map of all active filters.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#sort",
-              "privacy": "private",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "description": "The value and path/function to use for sorting. When setting this property,\nit will cause the data to be automatically sorted.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ArrayDataSource",
-          "declaration": {
-            "name": "ArrayDataSource",
-            "module": "src/data-source/array-data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/data-source/data-source.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSource",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items."
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items."
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source."
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true
-            }
-          ],
-          "superclass": {
-            "name": "EventTarget",
-            "module": "src/data-source/data-source.ts"
-          },
-          "methods": [
-            {
-              "kind": "method",
-              "name": "addFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrFilter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | string[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeFilter",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "setSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "id",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "pathOrSorter",
-                  "type": {
-                    "text": "U"
-                  }
-                },
-                {
-                  "name": "direction",
-                  "type": {
-                    "text": "DataSourceSortDirection"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeSort",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "#filters",
-              "privacy": "private",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "default": "new Map()",
-              "description": "Map of all active filters."
-            },
-            {
-              "kind": "field",
-              "name": "#sort",
-              "privacy": "private",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "description": "The value and path/function to use for sorting. When setting this property,\nit will cause the data to be automatically sorted."
-            },
-            {
-              "kind": "field",
-              "name": "filters",
-              "type": {
-                "text": "Map<string, DataSourceFilter<T>>"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "sort",
-              "type": {
-                "text": "DataSourceSort<T> | undefined"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "filteredItems",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The filtered & sorted array of items."
-            },
-            {
-              "kind": "field",
-              "name": "items",
-              "type": {
-                "text": "T[]"
-              },
-              "readonly": true,
-              "description": "The array of all items."
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "number"
-              },
-              "readonly": true,
-              "description": "Total number of items in this data source."
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "DataSource",
-          "declaration": {
-            "name": "DataSource",
-            "module": "src/data-source/data-source.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/controllers/anchor.ts",
       "declarations": [
         {
@@ -4363,6 +3622,747 @@
           "declaration": {
             "name": "ValidationController",
             "module": "src/controllers/validation.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/data-source/array-data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ArrayDataSource",
+          "members": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-update",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "DataSource",
+            "module": "/src/data-source/data-source.js"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#filteredItems",
+              "privacy": "private",
+              "type": {
+                "text": "T[]"
+              },
+              "default": "[...items]"
+            },
+            {
+              "kind": "field",
+              "name": "#items",
+              "privacy": "private",
+              "type": {
+                "text": "T[]"
+              },
+              "default": "[...items]"
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#filters",
+              "privacy": "private",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "default": "new Map()",
+              "description": "Map of all active filters.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#sort",
+              "privacy": "private",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "description": "The value and path/function to use for sorting. When setting this property,\nit will cause the data to be automatically sorted.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ArrayDataSource",
+          "declaration": {
+            "name": "ArrayDataSource",
+            "module": "src/data-source/array-data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/data-source/data-source.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSource",
+          "members": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items."
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
+            }
+          ],
+          "superclass": {
+            "name": "EventTarget",
+            "module": "src/data-source/data-source.ts"
+          },
+          "methods": [
+            {
+              "kind": "method",
+              "name": "addFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrFilter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string | string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeFilter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "pathOrSorter",
+                  "type": {
+                    "text": "U"
+                  }
+                },
+                {
+                  "name": "direction",
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "removeSort",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#filters",
+              "privacy": "private",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "default": "new Map()",
+              "description": "Map of all active filters."
+            },
+            {
+              "kind": "field",
+              "name": "#sort",
+              "privacy": "private",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "description": "The value and path/function to use for sorting. When setting this property,\nit will cause the data to be automatically sorted."
+            },
+            {
+              "kind": "field",
+              "name": "filters",
+              "type": {
+                "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "sort",
+              "type": {
+                "text": "DataSourceSort<T> | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "filteredItems",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The filtered & sorted array of items."
+            },
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true,
+              "description": "The array of all items."
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true,
+              "description": "Total number of items in this data source."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DataSource",
+          "declaration": {
+            "name": "DataSource",
+            "module": "src/data-source/data-source.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/data-source/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./array-data-source.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./data-source.js"
           }
         }
       ]

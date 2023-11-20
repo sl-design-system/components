@@ -1617,10 +1617,6 @@
       "square": {
         "value": "{borderRadius.default}",
         "type": "borderRadius"
-      },
-      "circle": {
-        "value": "{borderRadius.circle}",
-        "type": "borderRadius"
       }
     }
   },

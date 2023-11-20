@@ -3260,6 +3260,20 @@
         "value": "{color.palette.primary.300}",
         "type": "color"
       }
+    },
+    "popover": {
+      "background": {
+        "value": "{color.palette.black.base}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.neutral.700}",
+        "type": "color"
+      }
     }
   },
   "boxShadow": {

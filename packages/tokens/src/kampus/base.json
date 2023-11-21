@@ -1041,6 +1041,28 @@
           }
         }
       }
+    },
+    "popover": {
+      "text": {
+        "text": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        },
+        "title": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1083,6 +1105,13 @@
       "type": "borderRadius",
       "description": "borderRadius.button"
     },
+    "popover": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius",
+        "description": "borderRadius.button"
+      }
+    },
     "circle": {
       "value": "{border.radius.full}",
       "type": "borderRadius",
@@ -1106,15 +1135,20 @@
   "border": {
     "width": {
       "button": {
-        "default": {
+        "solid": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.button.solid"
         },
         "outline": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        },
+        "ghost": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
         },
         "link": {
           "value": "{border.width.xs}",
@@ -1136,67 +1170,41 @@
       },
       "focusring": {
         "default": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth"
+        }
+      },
+      "popover": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
         }
       }
     }
   },
   "space": {
-    "input": {
-      "textField": {
-        "block": {
-          "md": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
-          },
-          "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
-          }
-        },
-        "inline": {
-          "md": {
-            "value": "{space.md}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
-          },
-          "lg": {
-            "value": "{space.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
-          }
-        },
-        "gap": {
-          "md": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          }
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
         }
       }
     },
-    "group": {
-      "sm": {
-        "value": "{space.2xs}",
-        "type": "spacing"
+    "popover": {
+      "arrow": {
+        "offset": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
       },
-      "md": {
-        "value": "{space.xs}",
-        "type": "spacing"
-      },
-      "lg": {
-        "value": "{space.sm}",
-        "type": "spacing"
-      },
-      "xl": {
+      "offset": {
         "value": "{space.sm}",
         "type": "spacing"
       }

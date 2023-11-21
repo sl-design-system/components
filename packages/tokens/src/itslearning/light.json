@@ -196,7 +196,7 @@
               "description": "color.button.default.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.600}",
               "type": "color",
               "description": "color.button.default.outline.idle.foreground"
             },
@@ -247,7 +247,7 @@
               "description": "color.button.default.focus.background"
             },
             "foreground": {
-              "value": "{color.palette.primary.700}",
+              "value": "{color.palette.primary.600}",
               "type": "color",
               "description": "color.button.default.focus.foreground"
             },
@@ -3266,6 +3266,20 @@
     "focusring": {
       "default": {
         "value": "{color.palette.info.500}",
+        "type": "color"
+      }
+    },
+    "popover": {
+      "background": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.neutral.300}",
         "type": "color"
       }
     }

@@ -1014,6 +1014,28 @@
           }
         }
       }
+    },
+    "popover": {
+      "text": {
+        "text": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        },
+        "title": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1056,6 +1078,13 @@
       "type": "borderRadius",
       "description": "borderRadius.button"
     },
+    "popover": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius",
+        "description": "borderRadius.button"
+      }
+    },
     "circle": {
       "value": "{border.radius.full}",
       "type": "borderRadius",
@@ -1079,15 +1108,20 @@
   "border": {
     "width": {
       "button": {
-        "default": {
+        "solid": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.button.solid"
         },
         "outline": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        },
+        "ghost": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
         },
         "link": {
           "value": "{border.width.xs}",
@@ -1109,8 +1143,20 @@
       },
       "focusring": {
         "default": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth"
+        }
+      },
+      "popover": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
         }
       }
     }
@@ -1156,6 +1202,28 @@
       "solid": {
         "value": "{text.typeset.fontWeight.icon-solid}",
         "type": "fontWeights"
+      }
+    }
+  },
+  "space": {
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
+    },
+    "popover": {
+      "arrow": {
+        "offset": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "offset": {
+        "value": "{space.sm}",
+        "type": "spacing"
       }
     }
   },

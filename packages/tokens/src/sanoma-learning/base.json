@@ -1623,15 +1623,20 @@
   "border": {
     "width": {
       "button": {
-        "default": {
+        "solid": {
           "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.button.solid"
         },
         "outline": {
           "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        },
+        "ghost": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
         },
         "link": {
           "value": "{conceptual.border.width.default}",

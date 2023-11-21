@@ -13,6 +13,9 @@ $statuses: online, offline, away, do-not-disturb;
   --_avatar_badge-background-color: var(--sl-color-badge-background-red);
   --_avatar_badge-text-color: var(--sl-color-badge-text);
 
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: 1px;
+
   --_max-width: var(--max-width, 20rem);
 
   align-items: center;

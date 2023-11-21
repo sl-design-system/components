@@ -44,33 +44,18 @@ export const Basic: Story = {
   },
   render: ({ position }) => {
     const onClick = (event: Event & { target: Button }): void => {
-      // event.stopPropagation();
-      // event.preventDefault();
       const popover = event.target.nextElementSibling as HTMLElement;
-      //
-      // popover.togglePopover();
-      // popover.showPopover();
 
-      const popupOpened = popover.togglePopover();
-
-      console.log('popoupopened11', popupOpened);
-
-      // Check if popover is opened or closed on supporting browsers
-      if (popupOpened !== undefined) {
-        console.log('popoupopened', popupOpened);
-      }
+      popover.togglePopover();
     };
 
     return html`
       <sl-button @click=${onClick} id="button" variant="primary">Toggle popover</sl-button>
-      <sl-popover popover anchor="button" position=${ifDefined(position)}
-        >I'm <br>a <br></br>popover <br />
-        example</sl-popover
-      >
-<!--      <button popovertarget="my-popover">Open Popover</button>-->
-<!--      <div id="my-popover" popover>-->
-<!--        <p>I am a popover.</p>-->
-<!--      </div>-->
+      <sl-popover anchor="button" position=${ifDefined(position)}> I'm a popover example </sl-popover>
+      <!--      <button popovertarget="my-popover">Open Popover</button>-->
+      <!--      <div id="my-popover" popover>-->
+      <!--        <p>I am a popover.</p>-->
+      <!--      </div>-->
     `;
   }
 };
@@ -84,7 +69,10 @@ export const All: Story = {
     return html`
       <style>
         div {
-          margin: 88px;
+          margin: 52px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
       </style>
       <div>

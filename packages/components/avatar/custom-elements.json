@@ -151,6 +151,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "used for Aria-label; you can use `{{badgeText}}` in the string to have it replaced by the value set in the badgeText",
               "attribute": "label",
               "reflects": true
             },
@@ -252,6 +253,7 @@
                 "text": "string"
               },
               "default": "''",
+              "description": "used for Aria-label; you can use `{{badgeText}}` in the string to have it replaced by the value set in the badgeText",
               "fieldName": "label"
             },
             {

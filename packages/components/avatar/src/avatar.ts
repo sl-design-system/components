@@ -76,6 +76,7 @@ export class Avatar extends LitElement {
   @property({ reflect: true }) orientation: AvatarOrientation = 'horizontal';
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
   @property({ reflect: true }) status?: UserStatus;
+  /** used for Aria-label; you can use `{{badgeText}}` in the string to have it replaced by the value set in the badgeText */
   @property({ reflect: true }) label: string = '';
   /**
    * Experimental feature, use with great caution.
@@ -150,8 +151,11 @@ export class Avatar extends LitElement {
     if (this.imageOnly) {
       labelParts.push(this.profileName);
     }
-
-    labelParts.push(this.label.replaceAll('{{badgeText}}', this.badgeText || ''));
+    if (this.label) {
+      labelParts.push(this.label.replaceAll('{{badgeText}}', this.badgeText || ''));
+    } else if (this.badgeText) {
+      labelParts.push(`(${this.badgeText})`);
+    }
     return labelParts.join(' ');
   }
 
@@ -296,14 +300,13 @@ export class Avatar extends LitElement {
 
   override render(): TemplateResult {
     return html`
+      <picture> ${this.imageSVG} </picture>
       ${!this.imageOnly
         ? html`<div>
             <span class="header">${this.profileName}</span>
             <slot class="subheader"></slot>
-            ${this.ariaLabelText}
           </div>`
         : nothing}
-      <picture> ${this.imageSVG} </picture>
     `;
   }
 

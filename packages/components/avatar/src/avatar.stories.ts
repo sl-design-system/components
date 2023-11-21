@@ -107,7 +107,7 @@ export default {
     badgeText: '34',
     size: 'md',
     fallback: 'initials',
-    labelText: 'has {{badgeText}} unread messages'
+    labelText: '{{badgeText}} unread messages'
   },
   argTypes: {
     subheading: {

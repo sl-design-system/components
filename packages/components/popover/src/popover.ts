@@ -53,8 +53,6 @@ export class Popover extends LitElement {
   }
 
   override render(): TemplateResult {
-    // TODO: add popovertarget as well??
-    // console.log('anchor111', this.#anchor, this.#anchor.position?.anchor);
     return html`
       <div class="container" part="container">
         <slot></slot>

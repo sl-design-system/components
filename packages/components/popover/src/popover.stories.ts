@@ -21,7 +21,7 @@ export default {
 
 export const Basic: Story = {
   args: {
-    position: 'top'
+    position: 'bottom'
   },
   argTypes: {
     position: {
@@ -52,13 +52,14 @@ export const Basic: Story = {
     return html`
       <sl-button @click=${onClick} id="button" variant="primary">Toggle popover</sl-button>
       <sl-popover anchor="button" position=${ifDefined(position)}> I'm a popover example </sl-popover>
-      <!--      <button popovertarget="my-popover">Open Popover</button>-->
-      <!--      <div id="my-popover" popover>-->
-      <!--        <p>I am a popover.</p>-->
-      <!--      </div>-->
     `;
   }
 };
+
+/*<button popovertarget="my-popover">Open Popover</button>
+<div id="my-popover" popover>
+<p>I am a popover.</p>
+</div>*/
 
 export const All: Story = {
   render: () => {

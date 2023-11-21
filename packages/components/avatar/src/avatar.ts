@@ -23,6 +23,8 @@ export interface AvatarImage {
   size: number;
   radius: number;
   y: number;
+  x: number;
+  focusRingPosition: number;
 }
 
 export interface AvatarBadge {
@@ -94,6 +96,9 @@ export class Avatar extends LitElement {
     '2xl': 64,
     '3xl': 80
   };
+
+  private focusRingStrokeWidth = 2;
+  private focusRingStrokeOffset = 2;
 
   private badgeSizes = {
     sm: 8,
@@ -171,7 +176,7 @@ export class Avatar extends LitElement {
         aria-hidden="true"
         height="${this.image.size}"
         width="${this.image.size}"
-        x="0"
+        x="${this.image.x}"
         y="${this.image.y}" 
         mask="url(#circle-${this.#avatarId})"
         preserveAspectRatio="xMidYMid slice" 
@@ -181,7 +186,7 @@ export class Avatar extends LitElement {
       return svg`
       <rect
               y="${this.image.y}"
-              x="0"
+              x="${this.image.x}"
               height="${this.image.size}"
               width="${this.image.size}"
               fill="var(--_avatar-background)"
@@ -189,14 +194,14 @@ export class Avatar extends LitElement {
             />
             <text class="initials"
                dominant-baseline="central" 
-               x="${this.image.size / 2}" 
+               x="${this.image.size / 2 + this.image.x}" 
                y="${this.image.size / 2 + this.image.y}" 
                fill="var(--_avatar-foreground)">${this.initials}</text></g>`;
     } else if (this.icon) {
       return svg`
       <rect
         y="${this.image.y}"
-        x="0"
+        x="${this.image.x}"
         height="${this.image.size}"
         width="${this.image.size}"
         fill="var(--_avatar-background)"
@@ -274,7 +279,7 @@ export class Avatar extends LitElement {
           <mask id="circle-${this.#avatarId}">
             <rect
               y="${this.image.y}"
-              x="0"
+              x="${this.image.x}"
               height="${this.image.size}"
               width="${this.image.size}"
               rx="${this.image.radius}"
@@ -283,6 +288,16 @@ export class Avatar extends LitElement {
             />
           </mask>
         </defs>
+        <rect
+          y="${this.focusRingStrokeWidth / 2}"
+          x="${this.focusRingStrokeWidth / 2}"
+          height="${this.image.size + this.focusRingStrokeWidth + this.focusRingStrokeOffset * 2}"
+          width="${this.image.size + this.focusRingStrokeWidth + this.focusRingStrokeOffset * 2}"
+          rx="${this.image.radius + this.focusRingStrokeWidth / 2 + this.focusRingStrokeWidth}"
+          fill="transparent"
+          stroke-width="2"
+          stroke="var(--_focusring-color)"
+        />
         ${this.badgeContent} ${this.imageContent}
       </svg>
     `;
@@ -339,26 +354,33 @@ export class Avatar extends LitElement {
       : 0;
 
     this.offset = this.avatarConfig?.shape === 'circle' ? this.offsetCircle : this.offsetSquare; //or offset for square
-    const badgeOffset = this.offset[this.size] < 0 ? this.offset[this.size] * -1 : 0;
+    const focusRingPadding = this.focusRingStrokeWidth + this.focusRingStrokeOffset;
+    const badgeOffset =
+      this.offset[this.size] < 0 ? Math.max(focusRingPadding, this.offset[this.size] * -1) : focusRingPadding;
     const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
 
     this.style.setProperty('--_margin-top', `${badgeOffset * -1}px`);
     this.style.setProperty('--_margin-right', `${badgeOffset * -1}px`);
+    this.style.setProperty('--_margin-bottom', `${badgeOffset * -1}px`);
+    this.style.setProperty('--_margin-left', `${badgeOffset * -1}px`);
 
     this.image = {
       ...this.image,
-      containerSize: this.imageSizes[this.size] + badgeOffset,
+      containerSize: this.imageSizes[this.size] + focusRingPadding * 2,
       size: this.imageSizes[this.size],
       radius: this.avatarConfig?.shape === 'circle' ? this.imageSizes[this.size] / 2 : radius,
-      y: badgeOffset
+      y: badgeOffset,
+      x: focusRingPadding,
+      focusRingPosition: this.focusRingStrokeWidth / 2
     };
 
     this.icon = {
       size: this.iconSizes[this.size],
-      x: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2,
+      x: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2 + this.image.x,
       y: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2 + this.image.y
     };
 
+    console.log({ offset: this.offset[this.size], calculatedOffset, focusRingPadding });
     if (this.status || this.badgeText) {
       const badgeBaseX = this.imageSizes[this.size] - this.offset[this.size];
       this.badge = {
@@ -366,7 +388,7 @@ export class Avatar extends LitElement {
         height: this.badgeSizes[this.size],
         width: this.badgeSizes[this.size],
         radius: this.badgeSizes[this.size] / 2,
-        badgeY: calculatedOffset,
+        badgeY: focusRingPadding + this.offset[this.size],
         badgeX: badgeBaseX - this.badgeSizes[this.size],
         badgeBaseX
       };

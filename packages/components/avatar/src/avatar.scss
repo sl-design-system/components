@@ -13,14 +13,17 @@ $statuses: online, offline, away, do-not-disturb;
   --_avatar_badge-background-color: var(--sl-color-badge-background-red);
   --_avatar_badge-text-color: var(--sl-color-badge-text);
 
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
+  --_focusring-color: transparent;
 
   --_max-width: var(--max-width, 20rem);
 
   align-items: center;
   display: inline-flex;
   gap: var(--_gap);
+}
+
+:host(:where(:active, :focus-visible)) {
+  --_focusring-color: var(--sl-color-focusring-default);
 }
 
 @each $size in $sizes {
@@ -49,16 +52,18 @@ picture {
   display: grid;
   flex: 0 0 var(--_picture-size);
   height: var(--_picture-size);
-  margin-right: var(--_margin-right);
-  margin-top: var(--_margin-top);
   place-content: center;
   position: relative;
   width: var(--_picture-size);
 
   svg {
-    height: inherit;
-    object-fit: contain;
-    width: inherit;
+    margin-bottom: var(--_margin-bottom);
+    margin-left: var(--_margin-left);
+    margin-right: var(--_margin-right);
+    margin-top: var(--_margin-top);
+    // height: inherit;
+    // object-fit: contain;
+    // width: inherit;
   }
 
   text.badge-text {

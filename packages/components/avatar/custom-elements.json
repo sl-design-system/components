@@ -325,6 +325,24 @@
             },
             {
               "kind": "field",
+              "name": "focusRingStrokeWidth",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "2"
+            },
+            {
+              "kind": "field",
+              "name": "focusRingStrokeOffset",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "2"
+            },
+            {
+              "kind": "field",
               "name": "badgeSizes",
               "type": {
                 "text": "object"

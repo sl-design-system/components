@@ -3909,8 +3909,10 @@
     },
     "select": {
       "listbox": {
-        "value": "{elevation.shadow.md}",
-        "type": "dropShadow"
+        "value": {
+          "boxShadow": "{elevation.shadow.md}"
+        },
+        "type": "composition"
       }
     },
     "tooltip": {

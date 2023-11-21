@@ -1190,7 +1190,7 @@
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-tooltip: [object Object];
-    --sl-box-shadow-select-listbox: var(--sl-elevation-shadow-md);
+    --sl-box-shadow-select-listbox: [object Object];
     --sl-color-avatar-subheader: var(--sl-body-foreground);
     --sl-color-avatar-header: var(--sl-body-foreground);
     --sl-color-popover-foreground: var(--sl-body-foreground);

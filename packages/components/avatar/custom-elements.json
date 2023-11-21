@@ -146,6 +146,16 @@
             },
             {
               "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "orientation",
               "type": {
                 "text": "AvatarOrientation"
@@ -235,6 +245,14 @@
                 "text": "UserStatus | undefined"
               },
               "fieldName": "status"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "label"
             },
             {
               "name": "badge-text",

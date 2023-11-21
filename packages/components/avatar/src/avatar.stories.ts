@@ -13,6 +13,7 @@ interface Props
   orientation: AvatarOrientation;
   subheading: string;
   badgeText: string;
+  labelText: string;
 }
 
 type Story = StoryObj<Props>;
@@ -105,7 +106,8 @@ export default {
     imageOnly: false,
     badgeText: '34',
     size: 'md',
-    fallback: 'initials'
+    fallback: 'initials',
+    labelText: 'has {{badgeText}} unread messages'
   },
   argTypes: {
     subheading: {
@@ -136,7 +138,19 @@ export default {
       options: orientations
     }
   },
-  render: ({ firstName, lastName, picture, size, fallback, status, imageOnly, subheading, orientation, badgeText }) => {
+  render: ({
+    firstName,
+    lastName,
+    picture,
+    size,
+    fallback,
+    status,
+    imageOnly,
+    subheading,
+    orientation,
+    badgeText,
+    labelText
+  }) => {
     let user: UserProfile = {
       name: {
         first: firstName,
@@ -158,6 +172,7 @@ export default {
       .status=${status}
       ?image-only=${imageOnly}
       badge-text=${badgeText}
+      label=${labelText}
       .orientation=${orientation}
       >${subheading}</sl-avatar
     >`;
@@ -211,7 +226,9 @@ export const All: StoryObj = {
               <td><sl-avatar .user=${users[3]} .size=${size} image-only></sl-avatar></td>
               <td><sl-avatar .user=${users[2]} .size=${size} image-only></sl-avatar></td>
               <td><sl-avatar .user=${users[1]} .size=${size} image-only status="online"></sl-avatar></td>
-              <td><sl-avatar .user=${users[0]} .size=${size} image-only badge-text="${badgeText}"></sl-avatar></td>
+              <td>
+                <sl-avatar .user=${users[0]} .size=${size} image-only badge-text="${badgeText}"></sl-avatar>
+              </td>
             </tr>`
           )}
           </tr>

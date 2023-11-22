@@ -4592,7 +4592,7 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{body.foreground}",
+          "value": "{color.palette.info.600}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4614,7 +4614,7 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{body.foreground}",
+          "value": "{color.palette.success.700}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4636,7 +4636,7 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{body.foreground}",
+          "value": "{color.palette.warning.700}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4658,7 +4658,7 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{body.foreground}",
+          "value": "{color.palette.danger.600}",
           "type": "color",
           "failedToResolve": true
         },

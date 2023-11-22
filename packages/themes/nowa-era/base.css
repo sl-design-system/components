@@ -285,6 +285,10 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-inline-message-gap: var(--sl-space-lg);
+  --sl-space-inline-message-inline-end: var(--sl-space-2xl);
+  --sl-space-inline-message-inline-start: var(--sl-space-lg);
+  --sl-space-inline-message-block: var(--sl-space-lg);
   --sl-space-popover-offset: var(--sl-space-sm);
   --sl-space-popover-gap: var(--sl-space-xs);
   --sl-space-popover-inline: var(--sl-space-md);

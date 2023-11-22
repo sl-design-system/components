@@ -2687,6 +2687,29 @@
           "type": "spacing"
         }
       }
+    },
+    "inline-message": {
+      "block": {
+        "value": "{space.lg}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "start": {
+          "value": "{space.lg}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        },
+        "end": {
+          "value": "{space.2xl}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        }
+      },
+      "gap": {
+        "value": "{space.lg}",
+        "type": "spacing"
+      }
     }
   },
   "conceptual": {

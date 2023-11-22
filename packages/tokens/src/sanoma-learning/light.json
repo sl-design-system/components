@@ -3906,20 +3906,6 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.none"
-    },
-    "select": {
-      "listbox": {
-        "value": {
-          "boxShadow": "{elevation.shadow.md}"
-        },
-        "type": "composition"
-      }
-    },
-    "tooltip": {
-      "value": {
-        "boxShadow": "{elevation.shadow.none}"
-      },
-      "type": "composition"
     }
   }
 }

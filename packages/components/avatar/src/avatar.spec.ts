@@ -47,21 +47,22 @@ describe('sl-avatar', () => {
     let name: Element|null, svg:Element|null;
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-avatar .user=${users[0]}></sl-avatar>
+        <sl-avatar .user=${users[3]}></sl-avatar>
       `);
       name = el.renderRoot.querySelector('.header');
       svg = el.renderRoot.querySelector('svg');
     });
 
     it('should render the Avatar', () => {
-      expect(name).to.have.text("Yousef van der Schaaf");
+      expect(name).to.have.text("Johnni Sullivan");
       expect(svg).to.exist;
     });
 
-    // it('should render initials when no image is provided', () => {
-    //   const avatarText = svg?.querySelector('.initials');
-    //   console.log(svg);
-    //   expect(avatarText).to.have.text("YS");
-    // });
+    it('should render initials when no image is provided', () => {
+      const avatarText = svg?.querySelector('.initials');
+      expect(avatarText).to.have.text("JS");
+      expect(svg?.querySelector('image')).not.to.exist;
+      expect(svg?.querySelector('use')).not.to.exist;
+    });
   });
 });

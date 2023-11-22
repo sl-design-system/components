@@ -5,6 +5,8 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
 
+let nextUniqueId = 0;
+
 /**
  * Base popover web component.
  *
@@ -20,7 +22,9 @@ export class Popover extends LitElement {
   #events = new EventsController(this);
 
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this /*, { arrow: '.arrow' }*/);
+  #anchor = new AnchorController(this);
+
+  #popoverId = `sl-popover-${nextUniqueId++}`;
 
   /** The position of this popover relative to its anchor. */
   @property() position?: PopoverPosition = 'bottom';
@@ -30,8 +34,13 @@ export class Popover extends LitElement {
 
     this.#events.listen(this, 'keydown', this.#onKeydown);
 
-    this.shadowRoot?.delegatesFocus;
+    // this.shadowRoot?.delegatesFocus;
   }
+
+  // override firstUpdated(): void {
+  //   this.shadowRoot?.delegatesFocus === true;
+  //   console.log('shadowroot', this.shadowRoot);
+  // }
 
   constructor() {
     super();
@@ -39,10 +48,16 @@ export class Popover extends LitElement {
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
     }
+
+    if (!this.hasAttribute('id')) {
+      this.setAttribute('id', this.#popoverId);
+    }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    console.log('anchor11', this.#anchor);
 
     console.log('changes', changes);
 

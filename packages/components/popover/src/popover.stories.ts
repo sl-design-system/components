@@ -50,8 +50,8 @@ export const Basic: Story = {
     };
 
     return html`
-      <sl-button @click=${onClick} id="button" variant="primary">Toggle popover</sl-button>
-      <sl-popover anchor="button" position=${ifDefined(position)}> I'm a popover example </sl-popover>
+      <sl-button popovertarget="my-popover" @click=${onClick} id="button" variant="primary">Toggle popover</sl-button>
+      <sl-popover id="my-popover" anchor="button" position=${ifDefined(position)}> I'm a popover example </sl-popover>
     `;
   }
 };
@@ -124,8 +124,8 @@ export const MoreComplexContent: Story = {
         }
       </style>
       <div>
-        <sl-button id="anchor" variant="primary" @click=${onClick}>Toggle popover</sl-button>
-        <sl-popover anchor="anchor">
+        <sl-button popovertarget="popover-1" id="anchor" variant="primary" @click=${onClick}>Toggle popover</sl-button>
+        <sl-popover id="popover-1" anchor="anchor">
           <header>Please confirm</header>
           <section>
             <hr color="#D9D9D9" />
@@ -133,7 +133,7 @@ export const MoreComplexContent: Story = {
             <hr color="#D9D9D9" />
           </section>
           <footer>
-            <sl-button size="sm" autofocus>Cancel</sl-button>
+            <sl-button size="sm">Cancel</sl-button>
             <sl-button size="sm" variant="primary">Confirm</sl-button>
           </footer>
         </sl-popover>

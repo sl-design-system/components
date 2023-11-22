@@ -9,7 +9,7 @@ export interface AnchorControllerConfig {
 
 /**
  * @attr popover-opened -  Can be used for styling anchor element, when popover is opened and the anchor is not a sl-button.
- * For sl-button active state styling is used.
+ * For sl-button active state styling is used by default.
  */
 
 export class AnchorController implements ReactiveController {
@@ -18,34 +18,19 @@ export class AnchorController implements ReactiveController {
   #host: ReactiveControllerHost & HTMLElement;
 
   #onBeforeToggle = (event: Event): void => {
-    console.log('event on beforeToggle', event);
     const host = this.#host as HTMLElement;
     let anchorElement = host.anchorElement;
     if (!anchorElement && host.hasAttribute('anchor')) {
       anchorElement =
         (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
     }
-    anchorElement?.setAttribute('aria-expanded', 'false'); // TODO: if (host.matches('sl-popover')) {
     if ((event as ToggleEvent).newState === 'open') {
-      // const host = this.#host as HTMLElement;
-
-      // let anchorElement = host.anchorElement;
-      // if (!anchorElement && host.hasAttribute('anchor')) {
-      //   anchorElement =
-      //     (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
-      // }
-
-      console.log('anchor and host', anchorElement, host, host.matches('sl-popover'));
-
-      // (anchorElement as HTMLElement)?.toggleAttribute('popover-open');
-
       if (anchorElement) {
         this.#cleanup = positionPopover(host, anchorElement, {
           arrow: this.#config?.arrow,
           position: this.position ?? this.#config.position ?? 'top',
           maxWidth: this.maxWidth ?? this.#config.maxWidth
         });
-        // host.getAttribute('sl-popover')
         if (host.matches('sl-popover')) {
           /** popover-opened can be used for styling anchor element, when popover is opened and the anchor is not a sl-button  */
           (anchorElement as HTMLElement)?.setAttribute('popover-opened', '');
@@ -57,20 +42,16 @@ export class AnchorController implements ReactiveController {
       this.#cleanup = undefined;
       if (host.matches('sl-popover')) {
         (anchorElement as HTMLElement)?.removeAttribute('popover-opened');
-        anchorElement?.setAttribute('aria-expanded', 'false'); // TODO: not working?
+        anchorElement?.setAttribute('aria-expanded', 'false');
       }
     }
   };
 
   #onToggle = (event: Event): void => {
-    console.log('event', event, (event as ToggleEvent).newState, (event as ToggleEvent).oldState);
-    // event.preventDefault();
-    // event.stopPropagation();
-
     if ((event as ToggleEvent).newState === (event as ToggleEvent).oldState) {
       /** to make it working on clicking again on the anchor element*/
       console.log('event old and new');
-      event.stopPropagation();
+      event.stopPropagation(); // on escape safari necessary?
       (event.target as HTMLElement).togglePopover();
     }
   };
@@ -86,9 +67,19 @@ export class AnchorController implements ReactiveController {
   }
 
   hostConnected(): void {
+    const host = this.#host as HTMLElement;
+    let anchorElement = host.anchorElement;
+    if (!anchorElement && host.hasAttribute('anchor')) {
+      anchorElement =
+        (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
+    }
+    if (host.matches('sl-popover')) {
+      anchorElement?.setAttribute('aria-expanded', 'false');
+      anchorElement?.setAttribute('aria-controls', host.id);
+    }
+
     this.#host?.addEventListener('beforetoggle', this.#onBeforeToggle);
     this.#host?.addEventListener('toggle', this.#onToggle);
-    this.#host.anchorElement?.setAttribute('aria-expanded', 'false'); // TODO: if (host.matches('sl-popover')) {
   }
 
   hostDisconnected(): void {

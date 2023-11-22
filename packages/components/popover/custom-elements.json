@@ -115,8 +115,14 @@
               "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this /*, { arrow: '.arrow' }*/)",
+              "default": "new AnchorController(this)",
               "description": "Controller for managing anchoring."
+            },
+            {
+              "kind": "field",
+              "name": "#popoverId",
+              "privacy": "private",
+              "default": "`sl-popover-${nextUniqueId++}`"
             }
           ]
         }

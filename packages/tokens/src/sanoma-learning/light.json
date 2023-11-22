@@ -3775,7 +3775,7 @@
           "type": "color"
         },
         "background": {
-          "value": "{color.palette.primary.50}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         }
       }
@@ -3827,7 +3827,7 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.150}",
         "type": "color"
       }
     },
@@ -3906,56 +3906,6 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.none"
-    },
-    "select": {
-      "listbox": {
-        "value": {
-          "boxShadow": "{elevation.shadow.md}"
-        },
-        "type": "composition"
-      }
-    },
-    "tooltip": {
-      "value": {
-        "boxShadow": "{elevation.shadow.none}"
-      },
-      "type": "composition"
-    }
-  },
-  "border": {
-    "width": {
-      "select-copy": {
-        "listbox": {
-          "value": "{border.width.xs}",
-          "type": "borderWidth",
-          "description": "border.width.button.default"
-        }
-      }
-    }
-  },
-  "dropshadow": {
-    "select": {
-      "listbox": {
-        "value": [
-          {
-            "x": "0",
-            "y": "0",
-            "blur": "{size.3xs}",
-            "spread": "0",
-            "color": "rgba({color.palette.neutral.base},{opacity.100})",
-            "type": "dropShadow"
-          },
-          {
-            "x": "0",
-            "y": "{size.3xs}",
-            "blur": "{size.2xs}",
-            "spread": "0",
-            "color": "rgba({color.palette.neutral.base},{opacity.200})",
-            "type": "dropShadow"
-          }
-        ],
-        "type": "boxShadow"
-      }
     }
   }
 }

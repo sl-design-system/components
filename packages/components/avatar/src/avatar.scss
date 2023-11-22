@@ -22,7 +22,8 @@ $statuses: online, offline, away, do-not-disturb;
   gap: var(--_gap);
 }
 
-:host(:where(:active, :focus-visible)) {
+// TODO; get this working with right selectors
+:host(:where(:active, :focus-visible, [active])) {
   --_focusring-color: var(--sl-color-focusring-default);
 }
 

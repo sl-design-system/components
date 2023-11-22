@@ -357,7 +357,7 @@ export class Avatar extends LitElement {
     const focusRingPadding = this.focusRingStrokeWidth + this.focusRingStrokeOffset;
     const badgeOffset =
       this.offset[this.size] < 0 ? Math.max(focusRingPadding, this.offset[this.size] * -1) : focusRingPadding;
-    const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
+    // const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
 
     this.style.setProperty('--_margin-top', `${badgeOffset * -1}px`);
     this.style.setProperty('--_margin-right', `${badgeOffset * -1}px`);
@@ -380,9 +380,8 @@ export class Avatar extends LitElement {
       y: (this.imageSizes[this.size] - this.iconSizes[this.size]) / 2 + this.image.y
     };
 
-    console.log({ offset: this.offset[this.size], calculatedOffset, focusRingPadding });
     if (this.status || this.badgeText) {
-      const badgeBaseX = this.imageSizes[this.size] - this.offset[this.size];
+      const badgeBaseX = focusRingPadding + this.imageSizes[this.size] - this.offset[this.size];
       this.badge = {
         ...this.badge,
         height: this.badgeSizes[this.size],
@@ -413,7 +412,7 @@ export class Avatar extends LitElement {
             ...this.badge,
             width,
             badgeX: this.badge.badgeBaseX - width,
-            textX: this.imageSizes[this.size] - width / 2 - this.offset[this.size],
+            textX: focusRingPadding + this.imageSizes[this.size] - width / 2 - this.offset[this.size],
             textY: fontSize + textPaddingVertical + this.badge.badgeY
           };
         }, 100);

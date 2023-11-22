@@ -227,7 +227,7 @@ export const All: StoryObj = {
               <td><sl-avatar .user=${users[2]} .size=${size} image-only></sl-avatar></td>
               <td><sl-avatar .user=${users[1]} .size=${size} image-only status="online"></sl-avatar></td>
               <td>
-                <sl-avatar .user=${users[0]} .size=${size} image-only badge-text="${badgeText}"></sl-avatar>
+                <sl-avatar .user=${users[0]} .size=${size} image-only badge-text="${badgeText}" active></sl-avatar>
               </td>
             </tr>`
           )}

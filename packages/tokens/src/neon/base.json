@@ -1177,6 +1177,10 @@
         "default": {
           "value": "{border.width.sm}",
           "type": "borderWidth"
+        },
+        "offset": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth"
         }
       },
       "popover": {

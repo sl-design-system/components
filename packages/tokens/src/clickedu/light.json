@@ -3811,12 +3811,6 @@
       "type": "boxShadow",
       "description": "boxShadow.focus"
     },
-    "tooltip": {
-      "value": {
-        "boxShadow": "{elevation.shadow.none}"
-      },
-      "type": "composition"
-    },
     "none": {
       "value": {
         "x": "0",
@@ -3828,14 +3822,6 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.none"
-    },
-    "select": {
-      "listbox": {
-        "value": {
-          "boxShadow": "{elevation.shadow.md}"
-        },
-        "type": "composition"
-      }
     }
   }
 }

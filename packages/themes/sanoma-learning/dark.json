@@ -4610,22 +4610,6 @@
       "type": "boxShadow",
       "description": "boxShadow.none",
       "failedToResolve": true
-    },
-    "tooltip": {
-      "value": {
-        "boxShadow": "{elevation.shadow.none}"
-      },
-      "type": "composition",
-      "failedToResolve": true
-    },
-    "select": {
-      "listbox": {
-        "value": {
-          "boxShadow": "{elevation.shadow.md}"
-        },
-        "type": "composition",
-        "failedToResolve": true
-      }
     }
   }
 }

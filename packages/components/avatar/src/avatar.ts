@@ -381,6 +381,7 @@ export class Avatar extends LitElement {
     };
 
     if (this.status || this.badgeText) {
+      // base is the right edge of the badge, so we can easily detract the width of the badge to get the actual x value
       const badgeBaseX = focusRingPadding + this.imageSizes[this.size] - this.offset[this.size];
       this.badge = {
         ...this.badge,
@@ -392,7 +393,6 @@ export class Avatar extends LitElement {
         badgeBaseX
       };
     }
-
     if (this.badgeText) {
       await this.updateComplete;
 

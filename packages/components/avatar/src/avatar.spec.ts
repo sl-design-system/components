@@ -1,10 +1,20 @@
 import type { Avatar, UserProfile } from './avatar.js';
 import { expect, fixture } from '@open-wc/testing';
+import { Config, ConfigSettings } from '@sl-design-system/shared';
 import { html } from 'lit';
 import '../register.js';
 
 describe('sl-avatar', () => {
   let el: Avatar;
+
+  const config: ConfigSettings = {
+    avatar: {
+      shape: 'circle',
+      badgeGapWidth: 2
+    }
+  };
+
+  Config.setConfig(config);
 
   const users = [
     {
@@ -43,7 +53,7 @@ describe('sl-avatar', () => {
     }
   ];
 
-  describe('defaults', () => {
+  describe('no image', () => {
     let name: Element|null, svg:Element|null;
     beforeEach(async () => {
       el = await fixture(html`
@@ -63,6 +73,210 @@ describe('sl-avatar', () => {
       expect(avatarText).to.have.text("JS");
       expect(svg?.querySelector('image')).not.to.exist;
       expect(svg?.querySelector('use')).not.to.exist;
+    });
+
+    it('should not render initials but an icon when no image is provided and fallback is set to icon', async () => {
+      el.setAttribute('fallback','icon');
+      await el.updateComplete;
+      
+      const avatarIcon = svg?.querySelector('use');
+      expect(avatarIcon).to.exist;
+      expect(svg?.querySelector('image')).not.to.exist;
+      expect(svg?.querySelector('.initials')).not.to.exist;
+    });
+
+    it('should not render the name when the avatar is set to image only', async () => {
+      el.setAttribute('image-only','true');
+      await el.updateComplete;
+
+      name = el.renderRoot.querySelector('.header');
+      svg = el.renderRoot.querySelector('svg');
+      expect(name).not.to.exist;
+      expect(svg).to.exist;
+    });
+
+  });
+  
+  describe('with image', () => {
+    let svg:Element|null;
+    const user = users[0];
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-avatar .user=${user}></sl-avatar>
+      `);
+      svg = el.renderRoot.querySelector('svg');
+    });
+    
+    it('should render initials when no image is provided', () => {
+      const avatarText = svg?.querySelector('image');
+      expect(avatarText?.getAttribute('href')).to.equal(user.picture?.thumbnail);
+      expect(svg?.querySelector('.initials')).not.to.exist;
+      expect(svg?.querySelector('use')).not.to.exist;
+    });
+  });
+
+  describe('positioning of elements', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-avatar .user=${users[0]}></sl-avatar>
+      `);
+    })
+
+    const valuesPerSize = [
+      {
+        name:'sm',
+        image: {
+          containerSize: 32,
+          size: 24,
+          radius: 12,
+          y: 4,
+          x: 4,
+          focusRingPosition: 1
+        },
+        statusBadge: {
+          height: 8,
+          width: 8,
+          radius: 4,
+          badgeY: 2,
+          badgeX: 22,
+          badgeBaseX: 30
+        }
+      }, 
+      {
+        name:'md',
+        image: {
+          containerSize: 40,
+          size: 32,
+          radius: 16,
+          y: 4,
+          x: 4,
+          focusRingPosition: 1
+        },
+        statusBadge: {
+          height: 12,
+          width: 12,
+          radius: 6,
+          badgeY: 0,
+          badgeX: 28,
+          badgeBaseX: 40
+        },
+        textBadge: {
+          width:21,
+          badgeX:19,
+          textX:29,
+          textY:12
+        }
+      }, 
+      {
+        name:'lg',
+        image: {
+          containerSize: 48,
+          size: 40,
+          radius: 20,
+          y: 4,
+          x: 4,
+          focusRingPosition: 1
+        },
+        statusBadge: {
+          height: 14,
+          width: 14,
+          radius: 7,
+          badgeY: 0,
+          badgeX: 34,
+          badgeBaseX: 48
+        }
+      }, {
+        name:'xl',
+        image: {
+          containerSize: 60,
+          size: 52,
+          radius: 26,
+          y: 4,
+          x: 4,
+          focusRingPosition: 1
+        },
+        statusBadge: {
+          height: 16,
+          width: 16,
+          radius: 8,
+          badgeY: 2,
+          badgeX: 42,
+          badgeBaseX: 58
+        }
+      }, {
+        name:'2xl',
+        image: {
+          containerSize: 72,
+          size: 64,
+          radius: 32,
+          y: 4,
+          x: 4,
+          focusRingPosition: 1
+        },
+        statusBadge: {
+          height: 18,
+          width: 18,
+          radius: 9,
+          badgeY: 2,
+          badgeX: 52,
+          badgeBaseX: 70
+        }
+      }, {
+        name:'3xl',
+        image: {
+          containerSize: 88,
+          size: 80,
+          radius: 40,
+          y: 4,
+          x: 4,
+          focusRingPosition: 1
+        },
+        statusBadge: {
+          height: 20,
+          width: 20,
+          radius: 10,
+          badgeY: 6,
+          badgeX: 62,
+          badgeBaseX: 82
+        }
+      }
+    ]
+
+    valuesPerSize.forEach(sizeValues => {
+      it(`should calculate the right properties for the image in size ${sizeValues.name}`, async () => {
+        el.setAttribute('size', sizeValues.name);
+        el.setAttribute('status', 'online');
+        el.setAttribute('badge-text', '');
+        await el.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 500));
+  
+        expect(el.image).to.exist;
+        expect(el.image?.containerSize).to.equal(sizeValues.image.containerSize);
+        expect(el.image?.size).to.equal(sizeValues.image.size);
+        expect(el.image?.radius).to.equal(sizeValues.image.radius);
+        expect(el.image?.y).to.equal(sizeValues.image.y);
+        expect(el.image?.x).to.equal(sizeValues.image.x);
+        expect(el.image?.focusRingPosition).to.equal(sizeValues.image.focusRingPosition);
+        
+        expect(el.badge).to.exist;
+        expect(el.badge?.height).to.equal(sizeValues.statusBadge.height);
+        expect(el.badge?.width).to.equal(sizeValues.statusBadge.width);
+        expect(el.badge?.radius).to.equal(sizeValues.statusBadge.radius);
+        expect(el.badge?.badgeY).to.equal(sizeValues.statusBadge.badgeY);
+        expect(el.badge?.badgeX).to.equal(sizeValues.statusBadge.badgeX);
+        expect(el.badge?.badgeBaseX).to.equal(sizeValues.statusBadge.badgeBaseX);
+
+        el.setAttribute('badge-text', '99+');
+        if(sizeValues.textBadge){
+          await el.updateComplete;
+          await new Promise(resolve => setTimeout(resolve, 200));
+         
+          expect(Math.floor(el.badge?.width || 0)).to.equal(sizeValues.textBadge.width);
+          expect(Math.ceil(el.badge?.badgeX || 0)).to.equal(sizeValues.textBadge.badgeX);
+          expect(Math.floor(el.badge?.textX || 0)).to.equal(sizeValues.textBadge.textX);
+          expect(Math.floor(el.badge?.textY || 0)).to.equal(sizeValues.textBadge.textY);
+        }
+      });
     });
   });
 });

@@ -595,6 +595,8 @@
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
@@ -657,6 +659,7 @@
   --sl-border-width-button-ghost: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-outline: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-solid: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-avatar-circle: var(--sl-border-radius-circle);
   --sl-border-radius-avatar-square: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);

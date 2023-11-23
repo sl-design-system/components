@@ -36,6 +36,7 @@ export class AnchorController implements ReactiveController {
           (anchorElement as HTMLElement)?.setAttribute('popover-opened', '');
           anchorElement.setAttribute('aria-expanded', 'true');
         }
+        this.#host.attachShadow({ mode: 'open', delegatesFocus: true });
       }
     } else if (this.#cleanup) {
       this.#cleanup();
@@ -81,6 +82,11 @@ export class AnchorController implements ReactiveController {
     this.#host?.addEventListener('beforetoggle', this.#onBeforeToggle);
     this.#host?.addEventListener('toggle', this.#onToggle);
   }
+
+  // createRenderRoot(): ShadowRoot {
+  //   console.log('in createRenderRoot');
+  //   return this.#host.attachShadow({ mode: 'open', delegatesFocus: true});
+  // }
 
   hostDisconnected(): void {
     this.#host?.removeEventListener('beforetoggle', this.#onBeforeToggle);

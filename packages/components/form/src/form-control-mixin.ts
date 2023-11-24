@@ -54,7 +54,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
   class FormControl extends constructor {
     /**
      * This is necessary so we can check if an element implements this Mixin, since the
-     * `FormControl` class isn't a generic class we can export use in an `instanceof`.
+     * `FormControl` class isn't a generic class we can use in an `instanceof` comparison.
      */
     static readonly extendsFormControlMixin = true;
 
@@ -194,6 +194,14 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     updateValidity(): void {
       this.showValidity = this.report ? (this.valid ? 'valid' : 'invalid') : undefined;
       // this.#setErrorText(this.errorText ?? this.validationMessage);
+
+      this.dispatchEvent(
+        new CustomEvent('sl-update-validity', {
+          bubbles: true,
+          composed: true,
+          detail: { showValidity: this.showValidity, valid: this.valid, validationMessage: this.validationMessage }
+        })
+      );
     }
 
     /**

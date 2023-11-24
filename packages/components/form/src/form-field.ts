@@ -31,7 +31,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <slot @slotchange=${this.#onSlotchange}></slot>
+      <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity}></slot>
       <slot name="error">${this.errorText ? html`<sl-error>${this.errorText}</sl-error>` : nothing}</slot>
       <slot name="hint">${this.hintText ? html`<sl-hint>${this.hintText}</sl-hint>` : nothing}</slot>
     `;
@@ -46,6 +46,10 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     } else {
       this.#formControl = undefined;
     }
+  }
+
+  #onUpdateValidity(event: Event & { target: HTMLElement & FormControlInterface }): void {
+    console.log('onUpdateValidity', event.target);
   }
 
   // #setErrorText(text: string = ''): void {

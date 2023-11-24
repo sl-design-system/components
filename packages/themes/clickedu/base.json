@@ -1534,6 +1534,11 @@
           "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        },
+        "option": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
         }
       },
       "focusring": {

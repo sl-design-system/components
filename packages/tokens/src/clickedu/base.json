@@ -1263,6 +1263,16 @@
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
     },
+    "select": {
+      "listbox": {
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius"
+      },
+      "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
+      }
+    },
     "focusring": {
       "default": {
         "value": "{borderRadius.default} + 1",

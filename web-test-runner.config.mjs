@@ -7,7 +7,8 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 const config = {
   nodeResolve: true,
   rootDir: '.',
-  
+  coverage: true,
+
   files: [
     'packages/components/**/src/**/*.spec.ts',
   ],
@@ -20,7 +21,7 @@ const config = {
     include: ['**/*.ts'],
     exclude: ['**/index.ts', '**/register.ts', '**/*.scss.ts']
   },
-  
+
   testRunnerHtml: testFramework => `
     <html>
       <body>

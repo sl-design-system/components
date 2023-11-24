@@ -102,7 +102,7 @@
                 "text": "object"
               },
               "static": true,
-              "default": "{ ...LitElement.shadowRootOptions/*, delegatesFocus: true*/ }",
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
               "privacy": "private"
             },
             {

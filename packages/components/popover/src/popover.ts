@@ -14,7 +14,7 @@ let nextUniqueId = 0;
  */
 export class Popover extends LitElement {
   /** @private */
-  static override shadowRootOptions = { ...LitElement.shadowRootOptions /*, delegatesFocus: true*/ };
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @private */
   static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
@@ -37,39 +37,8 @@ export class Popover extends LitElement {
     // this.shadowRoot?.delegatesFocus;
   }
 
-  // override createRenderRoot() {
-  //   return this.attachShadow({ mode: 'open', delegatesFocus: true});
-  // }
-
-  // override firstUpdated(): void {
-  //   this.shadowRoot?.delegatesFocus === true;
-  //   console.log('shadowroot', this.shadowRoot);
-  // }
-
   constructor() {
     super();
-
-    // this.setAttribute('tabindex', '0');
-
-    // this.addEventListener('focusin', (event) => {
-    //   // Prevent the default focus behavior
-    //   event.preventDefault();
-    //
-    //   // Set focus to the desired element within your web component
-    //   (this.querySelector('[tabindex="0"]') as HTMLElement)?.focus();
-    // });
-
-    // this.addEventListener('focusin', (event) => {
-    //   // Check if the event target is the web component itself or one of its descendants
-    //   if (event.target === this || this.contains(event.target as (Node | null))) {
-    //     // Prevent the default focus behavior and set focus to the desired element
-    //     event.preventDefault();
-    //     (this.querySelector('[tabindex="0"]') as HTMLElement)?.focus();
-    //   } else {
-    //     // Allow the default focus behavior to propagate
-    //     event.stopPropagation();
-    //   }
-    // })
 
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');

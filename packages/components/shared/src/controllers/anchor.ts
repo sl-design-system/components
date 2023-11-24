@@ -36,7 +36,6 @@ export class AnchorController implements ReactiveController {
           (anchorElement as HTMLElement)?.setAttribute('popover-opened', '');
           anchorElement.setAttribute('aria-expanded', 'true');
         }
-        this.#host.attachShadow({ mode: 'open', delegatesFocus: true });
       }
     } else if (this.#cleanup) {
       this.#cleanup();

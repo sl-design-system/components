@@ -56,11 +56,6 @@ export const Basic: Story = {
   }
 };
 
-/*<button popovertarget="my-popover">Open Popover</button>
-<div id="my-popover" popover>
-<p>I am a popover.</p>
-</div>*/
-
 export const All: Story = {
   render: () => {
     setTimeout(() => {

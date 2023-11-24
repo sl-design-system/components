@@ -2266,7 +2266,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "failedToResolve": true
             },
@@ -2688,7 +2688,7 @@
           "failedToResolve": true
         },
         "background": {
-          "value": "{color.palette.primary.50}",
+          "value": "{color.palette.white.base}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4497,6 +4497,15 @@
       "type": "boxShadow",
       "description": "boxShadow.focus",
       "failedToResolve": true
+    },
+    "select": {
+      "listbox": {
+        "value": {
+          "boxShadow": "{elevation.shadow.md}"
+        },
+        "type": "composition",
+        "failedToResolve": true
+      }
     },
     "tooltip": {
       "value": {

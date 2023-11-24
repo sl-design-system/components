@@ -602,6 +602,7 @@
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
     (var(--sl-space-input-switch-padding-container) * 2)
   );
+  --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
@@ -758,10 +759,10 @@
     --sl-color-surface-solid-secondary-background: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-surface-solid-primary-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-select-listbox-background: rgb(var(--sl-color-palette-primary-50));
+    --sl-color-select-listbox-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-select-selectbox-default-focus-border: rgb(var(--sl-color-palette-primary-base));
-    --sl-color-select-selectbox-default-active-border: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-select-selectbox-default-active-border: rgb(var(--sl-color-palette-accent-base));
     --sl-color-select-item-group-title-foreground: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-select-item-divider-line: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-select-item-disabled-indicator: rgb(var(--sl-color-palette-neutral-300));
@@ -1018,6 +1019,7 @@
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-accent-500));
     --sl-box-shadow-tooltip: [object Object];
+    --sl-box-shadow-select-listbox: [object Object];
     --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
     --sl-color-input-field-label-icon-invalid: var(--sl-color-input-text-field-invalid-default-icon);
     --sl-color-input-field-label-text-invalid: var(--sl-color-input-text-field-invalid-default-icon);

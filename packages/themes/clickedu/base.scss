@@ -595,6 +595,7 @@
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
     (var(--sl-space-input-switch-padding-container) * 2)
   );
+  --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);

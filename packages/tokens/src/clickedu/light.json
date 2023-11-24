@@ -2754,7 +2754,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.input.textField.default.default.border}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2781,7 +2781,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.accent.50}",
+              "value": "{body.background}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },

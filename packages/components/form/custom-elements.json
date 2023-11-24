@@ -56,6 +56,14 @@
         },
         {
           "kind": "custom-element-definition",
+          "name": "sl-form-field",
+          "declaration": {
+            "name": "FormField",
+            "module": "/src/form-field.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
           "name": "sl-hint",
           "declaration": {
             "name": "Hint",
@@ -571,12 +579,70 @@
           "kind": "class",
           "description": "",
           "name": "FormField",
-          "members": [],
+          "members": [
+            {
+              "kind": "field",
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Hint text for helping the user fill out the form field.",
+              "attribute": "hint"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Hint text for helping the user fill out the form field.",
+              "fieldName": "hint"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
           },
-          "customElement": true
+          "tagName": "sl-form-field",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [

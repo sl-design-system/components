@@ -565,6 +565,33 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/form-field.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "FormField",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FormField",
+          "declaration": {
+            "name": "FormField",
+            "module": "src/form-field.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/hint.ts",
       "declarations": [
         {

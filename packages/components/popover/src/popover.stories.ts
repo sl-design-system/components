@@ -102,6 +102,10 @@ export const MoreComplexContent: Story = {
       popover.togglePopover();
     };
 
+    const onClose = (event: Event & { target: Button }): void => {
+      event.target.closest('sl-popover')?.hidePopover();
+    };
+
     return html`
       <style>
         header {
@@ -128,8 +132,8 @@ export const MoreComplexContent: Story = {
             <hr color="#D9D9D9" />
           </section>
           <footer>
-            <sl-button size="sm">Cancel</sl-button>
-            <sl-button size="sm" variant="primary">Confirm</sl-button>
+            <sl-button @click=${onClose} autofocus size="sm">Cancel</sl-button>
+            <sl-button @click=${onClose} size="sm" variant="primary">Confirm</sl-button>
           </footer>
         </sl-popover>
       </div>

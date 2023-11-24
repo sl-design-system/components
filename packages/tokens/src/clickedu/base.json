@@ -1335,6 +1335,13 @@
           "type": "borderWidth"
         }
       },
+      "select": {
+        "listbox": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        }
+      },
       "tooltip": {
         "none": {
           "value": "{border.width.none}",

@@ -1929,7 +1929,7 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.palette.accent.base}",
               "type": "color"
             },
             "label": {
@@ -2273,7 +2273,7 @@
           "type": "color"
         },
         "background": {
-          "value": "{color.palette.primary.50}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         }
       }
@@ -3810,6 +3810,14 @@
       },
       "type": "boxShadow",
       "description": "boxShadow.focus"
+    },
+    "select": {
+      "listbox": {
+        "value": {
+          "boxShadow": "{elevation.shadow.md}"
+        },
+        "type": "composition"
+      }
     },
     "tooltip": {
       "value": {

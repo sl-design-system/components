@@ -29,8 +29,6 @@ export interface FormControlInterface {
   readonly validationMessage: string;
   readonly validity: ValidityState;
 
-  errorText?: string;
-  hintText?: string;
   name?: string;
   report?: boolean;
 
@@ -40,8 +38,6 @@ export interface FormControlInterface {
   setCustomValidity(message: string): void;
   setFormControlElement(element: FormControlElement): void;
 }
-
-let nextUniqueId = 0;
 
 const isNative = (element: FormControlElement): element is NativeFormControlElement =>
   element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement;
@@ -56,17 +52,17 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
   constructor: T
 ): T & Constructor<FormControlInterface> {
   class FormControl extends constructor {
-    /** The element containing the error message that is slotted into the `error` slot. */
-    #errorElement?: HTMLElement;
+    /**
+     * This is necessary so we can check if an element implements this Mixin, since the
+     * `FormControl` class isn't a generic class we can export use in an `instanceof`.
+     */
+    static readonly extendsFormControlMixin = true;
 
     /**
      * The actual element that integrates with the form; either
      * a Form Associated Custom Element, an `<input>` or a `<textarea>`.
      */
     #formControlElement?: FormControlElement;
-
-    /** The element containing the hint text that is slotted into the `hint` slot. */
-    #hintElement?: HTMLElement;
 
     #onInvalid = (event: Event): void => {
       // Prevent the browser from showing the built-in validation UI
@@ -76,12 +72,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       // See https://github.com/whatwg/html/issues/9878
       this.report = true;
     };
-
-    /** An error text that will be shown over any other validation messages. */
-    @property({ attribute: 'error-text' }) errorText?: string;
-
-    /** A hint text that will be shown when there are no validation messages. */
-    @property({ attribute: 'hint-text' }) hintText?: string;
 
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
@@ -170,14 +160,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
-      if (changes.has('errorText')) {
-        this.#setErrorText(this.errorText || this.validationMessage);
-      }
-
-      if (changes.has('hintText')) {
-        this.#setHintText(this.hintText);
-      }
-
       if (changes.has('name') && isNative(this.formControlElement)) {
         this.formControlElement.name = this.name ?? '';
       }
@@ -211,7 +193,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      */
     updateValidity(): void {
       this.showValidity = this.report ? (this.valid ? 'valid' : 'invalid') : undefined;
-      this.#setErrorText(this.errorText ?? this.validationMessage);
+      // this.#setErrorText(this.errorText ?? this.validationMessage);
     }
 
     /**
@@ -246,50 +228,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);
-    }
-
-    #setErrorText(text: string = ''): void {
-      if (!text && !this.#errorElement) {
-        return;
-      }
-
-      this.#errorElement ??= document.createElement('div');
-      this.#errorElement.id ||= `sl-error-${nextUniqueId++}`;
-      this.#errorElement.innerText = text;
-      this.#errorElement.slot ||= 'error-text';
-
-      const ids = this.formControlElement.getAttribute('aria-describedby')?.split(' ') ?? [];
-      if (!ids.includes(this.#errorElement.id)) {
-        this.formControlElement.setAttribute('aria-describedby', [...ids, this.#errorElement.id].join(' '));
-      }
-
-      // The error is added to the light DOM so that it can be linked to by the aria-describedby
-      // attribute. This is necessary for accessibility.
-      if (!this.#errorElement.parentElement) {
-        this.append(this.#errorElement);
-      }
-    }
-
-    #setHintText(text: string = ''): void {
-      if (!text && !this.#hintElement) {
-        return;
-      }
-
-      this.#hintElement ??= document.createElement('div');
-      this.#hintElement.id ||= `sl-hint-${nextUniqueId++}`;
-      this.#hintElement.innerText = text;
-      this.#hintElement.slot ||= 'hint-text';
-
-      const ids = this.formControlElement.getAttribute('aria-describedby')?.split(' ') ?? [];
-      if (!ids.includes(this.#hintElement.id)) {
-        this.formControlElement.setAttribute('aria-describedby', [...ids, this.#hintElement.id].join(' '));
-      }
-
-      // The hint is added to the light DOM so that it can be linked to by the aria-describedby
-      // attribute. This is necessary for accessibility.
-      if (!this.#hintElement.parentElement) {
-        this.append(this.#hintElement);
-      }
     }
   }
 

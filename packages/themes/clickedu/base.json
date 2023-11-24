@@ -1556,6 +1556,10 @@
           "description": "border.width.button.link"
         }
       },
+      "divider": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
+      },
       "input": {
         "none": {
           "value": "{border.width.none}",

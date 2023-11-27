@@ -1,4 +1,4 @@
-import type { Avatar, UserProfile } from './avatar.js';
+import type { Avatar } from './avatar.js';
 import { expect, fixture } from '@open-wc/testing';
 import { Config, ConfigSettings } from '@sl-design-system/shared';
 import { html } from 'lit';
@@ -295,10 +295,11 @@ describe('sl-avatar', () => {
           await el.updateComplete;
           await new Promise(resolve => setTimeout(resolve, 200));
          
-          expect(Math.floor(el.badge?.width || 0)).to.equal(sizeValues.textBadge.width);
-          expect(Math.ceil(el.badge?.badgeX || 0)).to.equal(sizeValues.textBadge.badgeX);
-          expect(Math.floor(el.badge?.textX || 0)).to.equal(sizeValues.textBadge.textX);
-          expect(Math.floor(el.badge?.textY || 0)).to.equal(sizeValues.textBadge.textY);
+          // using "within" here because fonts/rendering, calculations can differ slighty between different browsers
+          expect(Math.floor(el.badge?.width || 0)).to.be.within(sizeValues.textBadge.width-1,sizeValues.textBadge.width+1);
+          expect(Math.floor(el.badge?.badgeX || 0)).to.be.within(sizeValues.textBadge.badgeX-1,sizeValues.textBadge.badgeX+1);
+          expect(Math.floor(el.badge?.textX || 0)).to.be.within(sizeValues.textBadge.textX-1,sizeValues.textBadge.textX+1);
+          expect(Math.floor(el.badge?.textY || 0)).to.be.within(sizeValues.textBadge.textY-1,sizeValues.textBadge.textY+1);
         }
       });
     });

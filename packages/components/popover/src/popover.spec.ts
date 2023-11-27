@@ -5,9 +5,10 @@ import '../register.js';
 import { Popover } from "./popover.js";
 import type { Button } from '@sl-design-system/button';
 import { SinonStub, stub } from 'sinon';
+import {Dialog} from "@sl-design-system/dialog";
 
 
-describe('sl-dialog', () => {
+describe('sl-popover', () => {
   let el: HTMLElement;
   let button: Button;
   let popover: Popover;
@@ -28,13 +29,13 @@ describe('sl-dialog', () => {
       el = await fixture(html`
         <div>
           <sl-button popovertarget="popover-1" id="anchor" variant="primary" @click=${onClick}>Toggle popover</sl-button>
-          <sl-popover anchor="anchor">
+          <sl-popover id="popover-1" anchor="anchor">
             <header>Please confirm</header>
             <section>
               Are you sure you want to continue?
             </section>
             <footer>
-              <sl-button size="sm">Cancel</sl-button>
+              <sl-button size="sm" autofocus>Cancel</sl-button>
               <sl-button size="sm" variant="primary">Confirm</sl-button>
             </footer>
           </sl-popover>
@@ -70,13 +71,33 @@ describe('sl-dialog', () => {
         expect(popover?.matches(':popover-open')).to.be.true;
       });
 
-    it('should close the popover after togglePopover was called', async () => {
+    it('should have popover-opened attribute when popover is opened', async () => {
       await showPopoverElement();
 
-      await showPopoverElement();
+      console.log('popov-----opened', popover);
 
-      expect(popover?.matches(':popover-open')).to.be.false;
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      expect(popover?.hasAttribute('popover-opened')).to.be.true;
     });
+
+    // it('should show the popover after togglePopover was called', async () => {
+    //   await showPopoverElement();
+    //
+    //   console.log('popover---2', popover);
+    //
+    //   expect(popover?.matches('position')).to.be.true;
+    // });
+
+    // TODO should have bottom placement by default
+
+    // it('should close the popover after togglePopover was called', async () => {
+    //   await showPopoverElement();
+    //
+    //   await showPopoverElement();
+    //
+    //   expect(popover?.matches(':popover-open')).to.be.false;
+    // });
 
 
     //
@@ -100,8 +121,95 @@ describe('sl-dialog', () => {
   // should close the popover on escape key
 
   describe('Closing popover', () => {
+    let popover: Popover;
+    let clickEvent: PointerEvent;
+    let popoverStub:  SinonStub<[], DOMRect>;
+    let divEl: HTMLDivElement;
     // TODO close on escape, close on hide, close on click outside, close on toggle clicked twice
-  }
+
+    beforeEach(async ()=>{
+      el = await fixture(html`
+        <div style="width: 500px; height: 500px;">
+          <sl-button popovertarget="popover-2" id="anchor2" variant="primary" @click=${onClick}>Toggle popover</sl-button>
+          <sl-popover id="popover-2" anchor="anchor2">
+            Popover content
+          </sl-popover>
+        </div>
+      `);
+
+      button = el.querySelector('sl-button') as Button;
+
+      popover = el.querySelector('sl-popover') as Popover;
+
+      divEl = el.querySelector('div') as HTMLDivElement;
+
+      await showPopoverElement();
+
+      clickEvent = new PointerEvent('click');
+
+      popoverStub = stub(popover,'getBoundingClientRect').returns({
+        top: 100,
+        right: 300,
+        bottom: 200,
+        left: 100
+      } as DOMRect);
+    });
+
+    it('should close the popover after togglePopover was called twice', async () => {
+      // await showPopoverElement();
+      //
+      // expect(popover?.matches(':popover-open')).to.be.true;
+
+      await showPopoverElement();
+
+      expect(popover?.matches(':popover-open')).to.be.false;
+    });
+
+    it('should close the popover after hidePopover was called', async () => {
+      // await showPopoverElement();
+
+      const hideOnClick = (event: Event & { target: HTMLElement }): void => {
+        (event.target.nextElementSibling as HTMLElement).hidePopover();
+      };
+
+      await fixture(html`<sl-button popovertarget="popover-2" id="anchor2" variant="primary" @click=${hideOnClick}>Toggle popover</sl-button>`)
+
+      // await showPopoverElement();
+
+      expect(popover?.matches(':popover-open')).to.be.false;
+    });
+
+    it('should close the popover on escape', async () => {
+      popover.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
+
+      expect(popover?.matches(':popover-open')).to.be.false;
+    });
+
+    it('should close the popover it is clicked outside the popover', async () => {
+      console.log('slPopover2222222222------', popover.getBoundingClientRect(), 'eeeeellll', el, el?.getBoundingClientRect());
+      // if (slPopover) {
+        stub(clickEvent, 'clientX').value(1);
+        stub(clickEvent, 'clientY').value(2);
+
+        el.dispatchEvent(clickEvent);
+
+        console.log('clickEvent--------', el, 'clickEvent.target----->' , clickEvent.target, 'bigger????', clickEvent.clientY < popover.getBoundingClientRect().top ||
+          clickEvent.clientY > popover.getBoundingClientRect().bottom ||
+          clickEvent.clientX < popover.getBoundingClientRect().left ||
+          clickEvent.clientX > popover.getBoundingClientRect().right, 'dimensions---', clickEvent.clientY, clickEvent.clientX, clickEvent.x, clickEvent.y);
+
+       // await new Promise(resolve => setTimeout(resolve, 500));
+
+        console.log('-----------slPopover---------', popover, '-------', popover?.matches(':popover-open'));
+
+        expect(popover?.matches(':popover-open')).to.be.false;
+      // }
+    });
+
+    // TODO: should not close the popover when clicked inside
+
+    // TODO not close when manual
+  });
 
 /*  describe('Closing dialog', () => {
     let slDialog: Dialog;

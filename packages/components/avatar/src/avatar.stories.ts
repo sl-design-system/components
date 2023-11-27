@@ -26,7 +26,7 @@ const users: UserProfile[] = [
       last: 'Schaaf'
     },
     picture: {
-      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
+      thumbnail: 'https://randomuser.me/api/portraits/thumb/mendfgdfgdfdfg/81.jpg'
     }
   },
   {
@@ -100,7 +100,6 @@ export default {
   args: {
     firstName: 'Rose',
     lastName: 'Nylund',
-    // picture: 'https://randomuser.me/api/portraits/women/81.jpg',
     picture:
       'https://images.unsplash.com/photo-1699412958387-2fe86d46d394?q=80&w=188&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     imageOnly: false,

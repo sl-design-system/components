@@ -142,6 +142,7 @@ export class Avatar extends LitElement {
   @state() image?: AvatarImage;
   @state() badge?: AvatarBadge;
   @state() icon?: AvatarIcon;
+  @state() errorLoadingImage?: boolean;
 
   private offset = this.offsetCircle;
 
@@ -171,7 +172,7 @@ export class Avatar extends LitElement {
   get imageContent(): TemplateResult {
     if (!this.image) return svg``;
 
-    if (this.user?.picture?.thumbnail) {
+    if (!this.errorLoadingImage && this.user?.picture?.thumbnail) {
       return svg`<image
         aria-hidden="true"
         height="${this.image.size}"
@@ -180,6 +181,7 @@ export class Avatar extends LitElement {
         y="${this.image.y}" 
         mask="url(#circle-${this.#avatarId})"
         preserveAspectRatio="xMidYMid slice" 
+        @error=${this.#imageLoadError}
         href=${this.user?.picture?.thumbnail}
       ></image>`;
     } else if (this.user && this.fallback === 'initials') {
@@ -328,6 +330,10 @@ export class Avatar extends LitElement {
   override async updated(changes: PropertyValues<this>): Promise<void> {
     super.updated(changes);
 
+    if (changes.has('user')) {
+      this.errorLoadingImage = false;
+    }
+
     if (changes.has('orientation')) {
       /** it appears that converting the scss files removes this style property in the css, so i'm adding it here in a hacky way. */
       const textContainer = this.renderRoot.querySelector('span');
@@ -418,6 +424,10 @@ export class Avatar extends LitElement {
         }, 100);
       }
     }
+  }
+
+  #imageLoadError(): void {
+    this.errorLoadingImage = true;
   }
 
   async #waitForElement(selector: string): Promise<Element | null> {

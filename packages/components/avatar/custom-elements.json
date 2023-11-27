@@ -90,6 +90,13 @@
             },
             {
               "kind": "field",
+              "name": "errorLoadingImage",
+              "type": {
+                "text": "boolean | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "fallback",
               "type": {
                 "text": "AvatarFallbackType | undefined"
@@ -283,6 +290,15 @@
             },
             {
               "kind": "method",
+              "name": "#imageLoadError",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#waitForElement",
               "return": {
                 "type": {
@@ -405,6 +421,13 @@
               "name": "icon",
               "type": {
                 "text": "AvatarIcon | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "errorLoadingImage",
+              "type": {
+                "text": "boolean | undefined"
               }
             },
             {

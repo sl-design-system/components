@@ -1448,7 +1448,7 @@
       },
       "inline": {
         "start": {
-          "value": "{space.lg}",
+          "value": "{space.lg}+{border.width.inline-message.start}",
           "type": "spacing",
           "description": "space.button.solid.inline.md"
         },

@@ -347,4 +347,22 @@ describe('sl-avatar', () => {
       expect(svg).to.have.attribute('aria-label','99+ unread messages');
     });
   });
+
+  describe('orientation', () => {
+    let text:Element|null;
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-avatar .user=${users[3]}></sl-avatar>
+      `);
+      text = el.renderRoot.querySelector('span');
+
+    });
+
+    it(`should set the right display on the text container in vertical mode`, async () => {
+      expect(text).to.have.style('display','flex');
+      el.setAttribute('orientation','vertical');
+      await el.updateComplete;
+      expect(text).to.have.style('display','-webkit-box');
+    });
+  });
 });

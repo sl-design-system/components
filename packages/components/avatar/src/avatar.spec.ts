@@ -184,6 +184,12 @@ describe('sl-avatar', () => {
           badgeY: 0,
           badgeX: 34,
           badgeBaseX: 48
+        },
+        textBadge: {
+          width:23,
+          badgeX:25,
+          textX:36,
+          textY:13
         }
       }, {
         name:'xl',
@@ -202,6 +208,12 @@ describe('sl-avatar', () => {
           badgeY: 2,
           badgeX: 42,
           badgeBaseX: 58
+        },
+        textBadge: {
+          width:25,
+          badgeX:33,
+          textX:45,
+          textY:16
         }
       }, {
         name:'2xl',
@@ -220,6 +232,12 @@ describe('sl-avatar', () => {
           badgeY: 2,
           badgeX: 52,
           badgeBaseX: 70
+        },
+        textBadge: {
+          width:27,
+          badgeX:43,
+          textX:56,
+          textY:17
         }
       }, {
         name:'3xl',
@@ -238,6 +256,12 @@ describe('sl-avatar', () => {
           badgeY: 6,
           badgeX: 62,
           badgeBaseX: 82
+        },
+        textBadge: {
+          width:29,
+          badgeX:53,
+          textX:67,
+          textY:22
         }
       }
     ]
@@ -277,6 +301,49 @@ describe('sl-avatar', () => {
           expect(Math.floor(el.badge?.textY || 0)).to.equal(sizeValues.textBadge.textY);
         }
       });
+    });
+  });
+
+  describe('label', () => {
+    let svg:Element|null;
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-avatar .user=${users[3]}></sl-avatar>
+      `);
+      svg = el.renderRoot.querySelector('svg');
+    });
+
+    it(`should not have an aria-label when it's just an image and a name`, () => {
+      expect(svg).to.have.attribute('aria-label','');
+    });
+
+    it(`should have an aria-label with the name when it's image only`, async () => {
+      el.setAttribute('image-only','true');
+      await el.updateComplete;
+      expect(svg).to.have.attribute('aria-label','Johnni Sullivan');
+    });
+
+    it(`should have an aria-label with the name and the value of the badge when it's image only`, async () => {
+      el.setAttribute('image-only','true');
+      el.setAttribute('badge-text','99+');
+      await el.updateComplete;
+      expect(svg).to.have.attribute('aria-label','Johnni Sullivan (99+)');
+    });
+
+    it(`should have an aria-label with the name and the value of the badge, applied in the given label when it's image only`, async () => {
+      el.setAttribute('image-only','true');
+      el.setAttribute('badge-text','99+');
+      el.setAttribute('label','{{badgeText}} unread messages');
+      await el.updateComplete;
+      expect(svg).to.have.attribute('aria-label','Johnni Sullivan 99+ unread messages');
+    });
+
+    it(`should have an aria-label with the value of the badge, applied in the given label when it's image only`, async () => {
+      el.removeAttribute('image-only');
+      el.setAttribute('badge-text','99+');
+      el.setAttribute('label','{{badgeText}} unread messages');
+      await el.updateComplete;
+      expect(svg).to.have.attribute('aria-label','99+ unread messages');
     });
   });
 });

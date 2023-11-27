@@ -3184,7 +3184,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.500}",
+            "value": "{body.foreground}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3201,7 +3201,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.500}",
+            "value": "{body.foreground}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },

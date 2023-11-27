@@ -50,6 +50,15 @@ describe('sl-avatar', () => {
         first: 'Johnni',
         last: 'Sullivan'
       }
+    },
+    {
+      name: {
+        first: 'Non',
+        last: 'Existing'
+      },
+      picture: {
+        thumbnail: 'https://sanomalearning.design/nonexistingavatar.jpg'
+      }
     }
   ];
 
@@ -93,6 +102,16 @@ describe('sl-avatar', () => {
       svg = el.renderRoot.querySelector('svg');
       expect(name).not.to.exist;
       expect(svg).to.exist;
+    });
+
+    it('should fall back to icon or initials when there is an error loading the image', async () => {
+      el.user = users[4];
+      el.setAttribute('fallback','initials');
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 500));
+      expect(svg?.querySelector('image')).not.to.exist;
+      const avatarText = svg?.querySelector('.initials');
+      expect(avatarText).to.have.text("NE");
     });
 
   });

@@ -1158,6 +1158,16 @@
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
+      },
+      "inline-message": {
+        "default": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth"
+        },
+        "start": {
+          "value": "{border.width.lg}",
+          "type": "borderWidth"
+        }
       }
     }
   },

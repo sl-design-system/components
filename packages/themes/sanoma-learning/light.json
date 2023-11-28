@@ -4524,42 +4524,77 @@
       }
     },
     "badge": {
-      "background": {
-        "red": {
+      "danger": {
+        "background": {
           "value": "{color.palette.danger.base}",
           "type": "color",
           "failedToResolve": true
         },
-        "green": {
-          "value": "{color.palette.success.base}",
-          "type": "color",
-          "failedToResolve": true
-        },
-        "yellow": {
-          "value": "{color.palette.warning.base}",
-          "type": "color",
-          "failedToResolve": true
-        },
-        "accent": {
-          "value": "{color.palette.accent.base}",
-          "type": "color",
-          "failedToResolve": true
-        },
-        "neutral": {
-          "value": "{color.palette.neutral.200}",
+        "foreground": {
+          "value": "{color.palette.white.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
-      "text": {
-        "value": "{color.palette.white.base}",
-        "type": "color",
-        "failedToResolve": true
+      "succes": {
+        "background": {
+          "value": "{color.palette.success.base}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
       },
-      "icon": {
-        "value": "{color.palette.white.base}",
-        "type": "color",
-        "failedToResolve": true
+      "warning": {
+        "background": {
+          "value": "{color.palette.warning.base}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      },
+      "accent": {
+        "background": {
+          "value": "{color.palette.accent.base}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      },
+      "neutral": {
+        "background": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      },
+      "primary": {
+        "background": {
+          "value": "{color.palette.primary.base}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
       }
     },
     "avatar": {

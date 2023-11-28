@@ -71,14 +71,10 @@ describe('sl-popover', () => {
         expect(popover?.matches(':popover-open')).to.be.true;
       });
 
-    it('should have popover-opened attribute when popover is opened', async () => {
+    it('should have a button with popover-opened attribute when popover is opened', async () => {
       await showPopoverElement();
 
-      console.log('popov-----opened', popover);
-
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      expect(popover?.hasAttribute('popover-opened')).to.be.true;
+      expect(button?.hasAttribute('popover-opened')).to.be.true;
     });
 
     // it('should show the popover after togglePopover was called', async () => {

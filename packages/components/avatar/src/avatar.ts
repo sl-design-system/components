@@ -1,53 +1,19 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type {
+  AvatarBadge,
+  AvatarFallbackType,
+  AvatarIcon,
+  AvatarImage,
+  AvatarOrientation,
+  AvatarSize,
+  UserProfile,
+  UserStatus
+} from './models.js';
 import type { AvatarConfig } from '@sl-design-system/shared';
 import { Config } from '@sl-design-system/shared';
 import { LitElement, html, nothing, svg } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
-
-export interface UserProfile {
-  name: UserProfileName;
-  picture?: UserProfilePicture;
-}
-export interface UserProfileName {
-  first: string;
-  last: string;
-  prefix?: string;
-}
-export interface UserProfilePicture {
-  thumbnail: string;
-}
-
-export interface AvatarImage {
-  containerSize: number;
-  size: number;
-  radius: number;
-  y: number;
-  x: number;
-  focusRingPosition: number;
-}
-
-export interface AvatarBadge {
-  height: number;
-  width: number;
-  radius: number;
-  badgeY: number;
-  badgeX: number;
-  badgeBaseX: number;
-  textY?: number;
-  textX?: number;
-}
-
-export interface AvatarIcon {
-  size: number;
-  y?: number;
-  x?: number;
-}
-
-export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-export type AvatarFallbackType = 'initials' | 'image';
-export type AvatarOrientation = 'horizontal' | 'vertical';
-export type UserStatus = 'online' | 'offline' | 'away' | 'do-not-disturb';
 
 let nextUniqueId = 0;
 
@@ -170,7 +136,9 @@ export class Avatar extends LitElement {
   }
 
   get imageContent(): TemplateResult {
-    if (!this.image) return svg``;
+    if (!this.image) {
+      return svg``;
+    }
 
     if (!this.errorLoadingImage && this.user?.picture?.thumbnail) {
       return svg`<image
@@ -229,12 +197,12 @@ export class Avatar extends LitElement {
           height="${this.badge.height}"
           width="${this.badge.width}"
           rx="${this.badge.radius}"
-          fill="var(--_avatar_badge-background-color)"
+          fill="var(--_avatar-badge-background-color)"
           aria-hidden="true"
         />
         ${
           this.badgeText && this.size != 'sm'
-            ? svg`<text aria-hidden="true" class="badge-text" y="${this.badge.textY}" x="${this.badge.textX}" fill="var(--_avatar_badge-text-color)">${this.badgeText}</text>`
+            ? svg`<text aria-hidden="true" class="badge-text" y="${this.badge.textY}" x="${this.badge.textX}" fill="var(--_avatar-badge-text-color)">${this.badgeText}</text>`
             : nothing
         }`;
   }
@@ -334,18 +302,6 @@ export class Avatar extends LitElement {
       this.errorLoadingImage = false;
     }
 
-    if (changes.has('orientation')) {
-      /** it appears that converting the scss files removes this style property in the css, so i'm adding it here in a hacky way. */
-      const textContainer = this.renderRoot.querySelector('span');
-      if (textContainer) {
-        if (this.orientation === 'vertical') {
-          textContainer.style.display = '-webkit-box';
-        } else {
-          textContainer.style.display = 'flex';
-        }
-      }
-    }
-
     if (changes.has('size') || changes.has('badgeText')) {
       this.style.setProperty('--_picture-size', `${this.imageSizes[this.size]}px`);
       await this.#setBaseValues();
@@ -363,7 +319,6 @@ export class Avatar extends LitElement {
     const focusRingPadding = this.focusRingStrokeWidth + this.focusRingStrokeOffset;
     const badgeOffset =
       this.offset[this.size] < 0 ? Math.max(focusRingPadding, this.offset[this.size] * -1) : focusRingPadding;
-    // const calculatedOffset = this.offset[this.size] < 0 ? 0 : this.offset[this.size];
 
     this.style.setProperty('--_margin-top', `${badgeOffset * -1}px`);
     this.style.setProperty('--_margin-right', `${badgeOffset * -1}px`);
@@ -406,9 +361,11 @@ export class Avatar extends LitElement {
       if (svgtxt) {
         setTimeout(() => {
           // timeout because we need to wait for the render to have finished
-          if (!svgtxt || !this.badge) return;
-          const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
+          if (!svgtxt || !this.badge) {
+            return;
+          }
 
+          const fontSize = parseFloat(window.getComputedStyle(svgtxt).fontSize) || 8;
           const textWidth = svgtxt.getBoundingClientRect().width;
           const textPadding = (this.badge.height - fontSize) / 2;
           const textPaddingVertical = (this.badge.height - svgtxt.getBoundingClientRect().height) / 2;

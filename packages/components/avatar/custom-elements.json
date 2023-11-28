@@ -14,6 +14,14 @@
             "name": "*",
             "package": "./src/avatar.js"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/models.js"
+          }
         }
       ]
     },
@@ -504,6 +512,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/models.ts",
+      "declarations": [],
+      "exports": []
     }
   ]
 }

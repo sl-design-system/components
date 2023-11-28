@@ -1,4 +1,5 @@
-import type { Avatar, AvatarFallbackType, AvatarOrientation, AvatarSize, UserProfile, UserStatus } from './avatar.js';
+import type { Avatar } from './avatar.js';
+import type { AvatarFallbackType, AvatarOrientation, AvatarSize, UserProfile, UserStatus } from './models.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
@@ -72,7 +73,15 @@ const users: UserProfile[] = [
 const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 const fallbacks: AvatarFallbackType[] = ['image', 'initials'];
 const orientations: AvatarOrientation[] = ['horizontal', 'vertical'];
-const statuses: Array<UserStatus | undefined> = [undefined, 'online', 'offline', 'away', 'do-not-disturb'];
+const statuses: Array<UserStatus | undefined> = [
+  undefined,
+  'danger',
+  'success',
+  'warning',
+  'accent',
+  'neutral',
+  'primary'
+];
 
 const sizeName = (size: string): string => {
   switch (size) {

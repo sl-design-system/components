@@ -4536,7 +4536,7 @@
           "failedToResolve": true
         }
       },
-      "succes": {
+      "success": {
         "background": {
           "value": "{color.palette.success.base}",
           "type": "color",

@@ -1,13 +1,14 @@
 /* stylelint-disable selector-class-pattern */
 [popover],
 :host(:where([popover])) {
+  /** !important used temporarily to make it working in Firefox and to overwrite polyfill styling, which have too high specificity */
   background-color: canvas;
   border-image: initial;
   border-width: initial;
   color: canvastext;
   height: fit-content;
   inset: 0;
-  margin: 0;
+  margin: 0 !important;
   overflow: visible;
   padding: 0.25em;
   position: fixed;

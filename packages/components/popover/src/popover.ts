@@ -33,8 +33,6 @@ export class Popover extends LitElement {
     super.connectedCallback();
 
     this.#events.listen(this, 'keydown', this.#onKeydown);
-
-    // this.shadowRoot?.delegatesFocus;
   }
 
   constructor() {

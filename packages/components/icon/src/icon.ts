@@ -55,10 +55,15 @@ export class Icon extends LitElement {
           icon: [width, height, , , path]
         } = icon,
         paths = Array.isArray(path) ? path : [path];
-      const svg = `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">${paths
-        .map((p: string, i) => `<path d="${p}" fill="var(--fill-${Icon.getColorToken(i, icon.prefix)})"></path>`)
-        .join('')}</svg>`;
-      window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] = { svg, type: 'RegisterdIcon' };
+      const svg = `
+        <svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          ${paths
+            .map((p: string, i) => `<path d="${p}" fill="var(--fill-${Icon.getColorToken(i, icon.prefix)})"></path>`)
+            .join('')}
+        </svg>
+      `;
+
+      window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] = { svg, type: 'RegisteredIcon' };
     });
   }
 
@@ -108,10 +113,6 @@ export class Icon extends LitElement {
 
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
-
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '-1');
-    }
 
     await this.#waitForWindowProperty().then(() => {
       this.sldsLibrary = window.SLDS;

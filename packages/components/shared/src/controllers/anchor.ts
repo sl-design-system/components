@@ -53,8 +53,7 @@ export class AnchorController implements ReactiveController {
   #onToggle = (event: Event): void => {
     if ((event as ToggleEvent).newState === (event as ToggleEvent).oldState) {
       /** to make it working on clicking again on the anchor element*/
-      console.log('event old and new');
-      event.stopPropagation(); // on escape safari necessary?
+      event.stopPropagation();
       (event.target as HTMLElement).togglePopover();
     }
   };
@@ -86,11 +85,6 @@ export class AnchorController implements ReactiveController {
     this.#host?.addEventListener('beforetoggle', this.#onBeforeToggle);
     this.#host?.addEventListener('toggle', this.#onToggle);
   }
-
-  // createRenderRoot(): ShadowRoot {
-  //   console.log('in createRenderRoot');
-  //   return this.#host.attachShadow({ mode: 'open', delegatesFocus: true});
-  // }
 
   hostDisconnected(): void {
     this.#host?.removeEventListener('beforetoggle', this.#onBeforeToggle);

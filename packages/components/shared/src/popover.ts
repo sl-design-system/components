@@ -175,8 +175,6 @@ export const positionPopover = (
   element.style.insetBlockStart = '0px';
   element.style.insetInlineStart = '0px';
 
-  console.log('element anchor', element, anchor);
-
   const cleanup = autoUpdate(anchor, element, () => {
     const { position = 'top', viewportMargin = 0 } = options;
     const middleware = [
@@ -187,11 +185,10 @@ export const positionPopover = (
         padding: viewportMargin,
         apply: ({ availableWidth, availableHeight, rects: { floating } }) => {
           // Make sure that the overlay is contained by the visible page.
-          const maxHeight = Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight)); // TODO: problems with maxHeight???
+          const maxHeight = Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight));
           const actualHeight = floating.height;
           initialHeight = !isConstrained && !virtualTrigger ? actualHeight : initialHeight || actualHeight;
           isConstrained = actualHeight < initialHeight || maxHeight <= actualHeight;
-          // console.log('floating', floating, maxHeight, isConstrained, viewportMargin);
           const appliedHeight = isConstrained ? `${maxHeight}px` : '';
           Object.assign(element.style, {
             maxWidth: `${options.maxWidth ?? Math.floor(availableWidth)}px`,
@@ -199,10 +196,8 @@ export const positionPopover = (
           });
         }
       }),
-      topLayerOverTransforms() // TODO: is it still necessary?
+      topLayerOverTransforms()
     ];
-
-    console.log('fallbackPlacements', flipPlacement(position));
 
     let arrowElement: HTMLElement | undefined;
     if (options.arrow) {
@@ -222,10 +217,8 @@ export const positionPopover = (
       });
       element.setAttribute('actual-placement', actualPlacement);
 
-      console.log('middleware and actualPlacement', middleware, actualPlacement, position, viewportMargin);
-
       if (arrow && arrowElement) {
-        arrowElement.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`; // TODO: not necessary??
+        arrowElement.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`;
       }
     });
   });

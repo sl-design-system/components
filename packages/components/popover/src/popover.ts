@@ -52,13 +52,8 @@ export class Popover extends LitElement {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    console.log('anchor11', this.#anchor);
-
-    console.log('changes', changes);
-
     if (changes.has('position')) {
       this.#anchor.position = this.position;
-      console.log('anchor', this.#anchor);
     }
   }
 
@@ -86,9 +81,8 @@ export class Popover extends LitElement {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('onkeydown event', event);
     if (event.code === 'Escape') {
-      this.togglePopover(); // hidePopover
+      this.hidePopover();
     }
   }
 }

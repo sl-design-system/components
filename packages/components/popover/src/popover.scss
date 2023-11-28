@@ -120,13 +120,6 @@
   }
 }
 
-//@supports (width: -moz-fit-content) {
-//  [popover],
-//  :host(:where([popover])) {
-//    overflow: visible;
-//  }
-//}
-
 @media (prefers-reduced-motion: no-preference) {
   @supports selector([popover]:popover-open) {
     [popover]:not(.\\:popover-open, dialog[open]),

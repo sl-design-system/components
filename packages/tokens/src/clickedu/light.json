@@ -14,11 +14,11 @@
   "color": {
     "avatar": {
       "background": {
-        "value": "{color.palette.accent.150}",
+        "value": "{color.palette.accent.500}",
         "type": "color"
       },
       "foreground": {
-        "value": "{color.palette.accent.300}",
+        "value": "{color.palette.white.base}",
         "type": "color"
       },
       "header": {
@@ -33,7 +33,7 @@
     "badge": {
       "danger": {
         "background": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.500}",
           "type": "color"
         },
         "foreground": {
@@ -43,7 +43,7 @@
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.base}",
+          "value": "{color.palette.success.700}",
           "type": "color"
         },
         "foreground": {
@@ -63,7 +63,7 @@
       },
       "accent": {
         "background": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.accent.500}",
           "type": "color"
         },
         "foreground": {

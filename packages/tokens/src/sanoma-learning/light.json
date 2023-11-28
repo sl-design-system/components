@@ -3832,35 +3832,65 @@
       }
     },
     "badge": {
-      "background": {
-        "red": {
+      "danger": {
+        "background": {
           "value": "{color.palette.danger.base}",
           "type": "color"
         },
-        "green": {
-          "value": "{color.palette.success.base}",
-          "type": "color"
-        },
-        "yellow": {
-          "value": "{color.palette.warning.base}",
-          "type": "color"
-        },
-        "accent": {
-          "value": "{color.palette.accent.base}",
-          "type": "color"
-        },
-        "neutral": {
-          "value": "{color.palette.neutral.200}",
+        "foreground": {
+          "value": "{color.palette.white.base}",
           "type": "color"
         }
       },
-      "text": {
-        "value": "{color.palette.white.base}",
-        "type": "color"
+      "succes": {
+        "background": {
+          "value": "{color.palette.success.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
       },
-      "icon": {
-        "value": "{color.palette.white.base}",
-        "type": "color"
+      "warning": {
+        "background": {
+          "value": "{color.palette.warning.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
+          "type": "color"
+        }
+      },
+      "accent": {
+        "background": {
+          "value": "{color.palette.accent.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
+      },
+      "neutral": {
+        "background": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
+          "type": "color"
+        }
+      },
+      "primary": {
+        "background": {
+          "value": "{color.palette.primary.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
       }
     },
     "avatar": {

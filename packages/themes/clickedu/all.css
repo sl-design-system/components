@@ -1063,7 +1063,7 @@
     --sl-color-button-default-outline-idle-foreground: rgb(var(--sl-color-palette-accent-500));
     --sl-color-button-default-outline-idle-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-default-solid-disabled-border: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-button-default-solid-disabled-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-button-default-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-button-default-solid-disabled-background: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-default-solid-focus-border: rgb(var(--sl-color-palette-accent-500));
     --sl-color-button-default-solid-focus-foreground: rgb(var(--sl-color-palette-white-base));
@@ -1078,9 +1078,9 @@
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-accent-500));
     --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
-    --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));
-    --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-500));
+    --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-500));
     --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));

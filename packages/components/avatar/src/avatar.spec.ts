@@ -104,11 +104,12 @@ describe('sl-avatar', () => {
       expect(svg).to.exist;
     });
 
-    it('should fall back to icon or initials when there is an error loading the image', async () => {
+    it('should fall back to initials when there is an error loading the image', async () => {
       el.user = users[4];
       el.setAttribute('fallback','initials');
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve, 500));
+      svg?.querySelector('image')?.dispatchEvent(new Event('error'))
+      await el.updateComplete;
       expect(svg?.querySelector('image')).not.to.exist;
       const avatarText = svg?.querySelector('.initials');
       expect(avatarText).to.have.text("NE");
@@ -365,5 +366,5 @@ describe('sl-avatar', () => {
       await el.updateComplete;
       expect(svg).to.have.attribute('aria-label','99+ unread messages');
     });
-  });
+  }); 
 });

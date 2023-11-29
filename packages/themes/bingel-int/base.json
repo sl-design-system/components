@@ -2590,6 +2590,11 @@
     },
     "typeset": {
       "fontSize": {
+        "2xs": {
+          "value": "10px",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.xs"
+        },
         "xs": {
           "value": "{size.xs}",
           "type": "fontSizes",
@@ -2854,6 +2859,10 @@
       }
     },
     "icon": {
+      "2xs": {
+        "value": "10px",
+        "type": "sizing"
+      },
       "xs": {
         "value": "{size.xs}",
         "type": "sizing"

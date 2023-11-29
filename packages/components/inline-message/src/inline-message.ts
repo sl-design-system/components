@@ -13,6 +13,10 @@ import styles from './inline-message.scss.js';
 /**
  * A dialog component for displaying modal UI.
  *
+ * @slot default - Title content for the inline message
+ * @slot description - slot for additional information and more content for the inline-message
+ * TODO: add more info
+ *
  * @slot actions - Area where action buttons are placed
  * @slot default - Body content for the dialog
  * @slot footer - Footer content for the dialog
@@ -69,9 +73,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
             `
           : nothing}
         <slot part="message"></slot>
-        <slot name="body" part="body" aria-live="polite">
+        <slot name="title" part="title" aria-live="polite">
           <slot></slot>
         </slot>
+        <slot name="description" part="description"> </slot>
       </div>
       <dialog
         @cancel=${this.#onCancel}

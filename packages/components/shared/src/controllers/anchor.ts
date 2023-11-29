@@ -54,7 +54,7 @@ export class AnchorController implements ReactiveController {
     if ((event as ToggleEvent).newState === (event as ToggleEvent).oldState) {
       /** to make it working on clicking again on the anchor element*/
       event.stopPropagation();
-      (event.target as HTMLElement).togglePopover();
+      (event.target as HTMLElement)?.togglePopover();
     }
   };
 

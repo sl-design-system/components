@@ -3,9 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
-  --sl-dropshadow-select-listbox: 0 0 var(--sl-size-3xs) 0
-    rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0 var(--sl-size-3xs) var(--sl-size-2xs) 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
   --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
   --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
   --sl-body-surface-overlay: rgba(var(--sl-color-palette-primary-base) / var(--sl-opacity-700));
@@ -13,7 +10,6 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
-  --sl-border-width-select-copy-listbox: var(--sl-border-width-xs);
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-accent-300));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-150));
   --sl-color-badge-icon: rgb(var(--sl-color-palette-white-base));
@@ -23,13 +19,13 @@
   --sl-color-badge-background-yellow: rgb(var(--sl-color-palette-warning-base));
   --sl-color-badge-background-green: rgb(var(--sl-color-palette-success-base));
   --sl-color-badge-background-red: rgb(var(--sl-color-palette-danger-base));
-  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
   --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-tooltip-background: rgb(var(--sl-color-palette-accent-600));
-  --sl-color-select-listbox-background: rgb(var(--sl-color-palette-primary-50));
+  --sl-color-select-listbox-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-select-selectbox-default-focus-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-select-selectbox-default-active-border: rgb(var(--sl-color-palette-primary-base));
@@ -502,8 +498,6 @@
   --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-transparent-base));
-  --sl-box-shadow-tooltip: [object Object];
-  --sl-box-shadow-select-listbox: [object Object];
   --sl-color-avatar-subheader: var(--sl-body-foreground);
   --sl-color-avatar-header: var(--sl-body-foreground);
   --sl-color-popover-foreground: var(--sl-body-foreground);

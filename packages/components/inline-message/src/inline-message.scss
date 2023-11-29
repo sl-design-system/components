@@ -1,7 +1,5 @@
-$md-breakpoint: 600px;
-
 :host {
-  --_background: var(--sl-color-dialog-background);
+  --_background: #c6c6c6; //var(--sl-color-dialog-background);
   --_border: var(--sl-border-width-dialog-default) solid var(--sl-color-dialog-border);
   --_border-radius: var(--sl-border-radius-dialog-mobile);
   --_header-gap: var(--sl-space-dialog-gap-header);
@@ -29,42 +27,26 @@ $md-breakpoint: 600px;
   text-align: inherit;
 }
 
-dialog {
+.inline-message-wrapper {
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
   color: var(--_color);
-  display: flex;
+  display: inline-flex; // or block?
   flex-direction: column;
-  inset: 0;
+  //inset: 0;
   margin: auto auto 0;
   max-block-size: min(
     100%,
     100vh - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
   );
   max-inline-size: var(--_max-inline-size);
-  opacity: 0;
+  // opacity: 0;
   overflow: hidden;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
-  position: fixed;
+  //position: fixed;
   width: auto;
-
-  &::backdrop {
-    --backdrop-background: var(
-      --sl-color-select-item-active-foreground
-    ); // TODO: should come from the token --sl-body-surface-overlay
-    opacity: 0;
-    transition: all 0.5s;
-  }
-}
-
-dialog[open] {
-  opacity: 1;
-
-  &::backdrop {
-    opacity: 1;
-  }
 }
 
 slot[name='header'] {
@@ -119,40 +101,6 @@ slot[name='footer'] {
     flex-direction: var(--_footer-direction);
     flex-grow: 1;
     flex-shrink: 0;
-  }
-}
-
-@media screen and (min-width: $md-breakpoint) {
-  :host {
-    --_border-radius: var(--sl-border-radius-dialog-desktop);
-    --_padding-block: var(--sl-space-dialog-desktop-body-block);
-    --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
-    --_margin-bottom-container: var(--sl-space-dialog-desktop-container-padding-bottom);
-    --_margin-top-container: var(--sl-space-dialog-desktop-container-padding-top);
-    --_max-inline-size: var(--sl-size-dialog-max);
-    --_margin-container-inline: var(--sl-space-dialog-desktop-container-inline);
-    --_body-gap: var(--sl-space-dialog-desktop-body-gap);
-    --_footer-direction: var(--sl-dialog-footer-flex-direction);
-  }
-
-  dialog {
-    margin: auto;
-    max-block-size: min(
-      100% - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
-    );
-    max-inline-size: min(
-      var(--_max-inline-size),
-      100% - 2 * var(--_margin-container-inline) - 2 * var(--_padding-inline)
-    );
-    min-inline-size: var(--_min-inline-size);
-    width: fit-content;
-  }
-
-  slot[name='footer'] {
-    sl-button-bar {
-      align-items: center;
-      justify-content: var(--_footer-align);
-    }
   }
 }
 

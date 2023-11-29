@@ -55,6 +55,24 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
+      <div class="inline-message-wrapper">
+        <slot>icon</slot>
+        <slot>message</slot>
+        <slot name="icon" part="icon"></slot>
+        ${this.closingButton
+          ? html`
+              <slot name="close-button" @click=${this.#onCloseClick}>
+                <sl-button fill="ghost" variant="default">
+                  <sl-icon name="xmark"></sl-icon>
+                </sl-button>
+              </slot>
+            `
+          : nothing}
+        <slot part="message"></slot>
+        <slot name="body" part="body" aria-live="polite">
+          <slot></slot>
+        </slot>
+      </div>
       <dialog
         @cancel=${this.#onCancel}
         @click=${this.#onClick}
@@ -137,6 +155,8 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
+
+    // TODO: emit sl-close
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {

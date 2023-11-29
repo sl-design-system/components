@@ -27,14 +27,14 @@ export const API: StoryObj = {
   },
   render: ({ title, subtitle, bodyContent, closingButton }) => {
     return html`
-      <sl-button fill="outline" size="md" @click=${onClick}>Show Dialog</sl-button>
-      <sl-dialog ?closing-button=${closingButton}>
+      <sl-button fill="outline" size="md" @click=${onClick}>Show inline message</sl-button>
+      <sl-inline-message ?closing-button=${closingButton}>
         <span slot="title">${title}</span>
         <span slot="subtitle">${subtitle}</span>
         ${bodyContent}
         <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
         <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
-      </sl-dialog>
+      </sl-inline-message>
     `;
   }
 };

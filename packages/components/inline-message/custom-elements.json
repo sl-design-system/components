@@ -1,0 +1,314 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/inline-message.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-inline-message",
+          "declaration": {
+            "name": "InlineMessage",
+            "module": "/src/inline-message.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/inline-message.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A dialog component for displaying modal UI.",
+          "name": "InlineMessage",
+          "slots": [
+            {
+              "description": "Area where action buttons are placed",
+              "name": "actions"
+            },
+            {
+              "description": "Body content for the dialog",
+              "name": "default"
+            },
+            {
+              "description": "Footer content for the dialog",
+              "name": "footer"
+            },
+            {
+              "description": "Header content for the dialog",
+              "name": "header"
+            },
+            {
+              "description": "Closing button (placed in header) for the dialog",
+              "name": "close-button"
+            },
+            {
+              "description": "More space for buttons for the dialog's header",
+              "name": "header-buttons"
+            },
+            {
+              "description": "The title of the dialog",
+              "name": "title"
+            },
+            {
+              "description": "The subtitle of the dialog",
+              "name": "subtitle"
+            }
+          ],
+          "members": [
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "closingButton",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "attribute": "closing-button"
+            },
+            {
+              "kind": "field",
+              "name": "disableClose",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "attribute": "disable-close"
+            },
+            {
+              "kind": "field",
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "attribute": "role"
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disable-close",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Disables the ability to close the dialog using the Escape key.",
+              "fieldName": "disableClose"
+            },
+            {
+              "name": "closing-button",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "fieldName": "closingButton"
+            },
+            {
+              "name": "role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The ARIA role of the dialog.",
+              "fieldName": "role"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-inline-message",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onCancel",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onCloseClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#closeDialogOnAnimationend",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClose",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "dialog",
+              "type": {
+                "text": "HTMLDialogElement | undefined"
+              },
+              "privacy": "private"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "InlineMessage",
+          "declaration": {
+            "name": "InlineMessage",
+            "module": "src/inline-message.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

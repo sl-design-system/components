@@ -73,11 +73,11 @@
       },
       "neutral": {
         "background": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.600}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.black.base}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         }
       },

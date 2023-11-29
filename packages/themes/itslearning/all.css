@@ -1137,8 +1137,8 @@
     --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-base));
     --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-base));
-    --sl-color-avatar-foreground: rgb(var(--sl-color-palette-accent-300));
-    --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-150));
+    --sl-color-avatar-foreground: rgb(var(--sl-color-palette-primary-100));
+    --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-base));
     --sl-color-popover-foreground: var(--sl-body-foreground);
     --sl-color-select-selectbox-valid-disabled-placeholder: var(
       --sl-color-input-text-field-default-disabled-placeholder

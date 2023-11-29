@@ -63,7 +63,14 @@ export class Popover extends LitElement {
       <div class="arrow">
         <svg viewBox="410.746 247 16 6" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient gradientUnits="userSpaceOnUse" x1="418.746" y1="247" x2="418.746" y2="253" id="gradient-1">
+            <linearGradient
+              gradientUnits="userSpaceOnUse"
+              x1="418.746"
+              y1="252.5"
+              x2="418.746"
+              y2="253"
+              id="gradient-1"
+            >
               <stop offset="0" style="stop-color: var(--_border-color);" />
               <stop offset="1" style="stop-color: var(--_background);" />
             </linearGradient>

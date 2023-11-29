@@ -59,7 +59,10 @@ export const Basic: Story = {
 export const All: Story = {
   render: () => {
     setTimeout(() => {
-      document.querySelectorAll('sl-popover').forEach(popover => popover.showPopover());
+      document.querySelectorAll('sl-popover').forEach(popover => {
+        popover.showPopover();
+        console.log('popover', popover);
+      });
     });
 
     return html`

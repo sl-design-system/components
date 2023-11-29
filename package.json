@@ -294,7 +294,7 @@
     "@changesets/get-github-info": "^0.5.2",
     "@custom-elements-manifest/analyzer": "^0.9.0",
     "@lit/localize-tools": "^0.7.1",
-    "@oddbird/popover-polyfill": "^0.3.2",
+    "@oddbird/popover-polyfill": "^0.3.4",
     "@open-wc/testing": "^3.2.2",
     "@storybook/addon-a11y": "^7.5.3",
     "@storybook/addon-essentials": "^7.5.3",

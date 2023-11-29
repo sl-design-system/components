@@ -23,7 +23,7 @@
   --sl-popover-offset: var(--sl-space-popover-offset);
   /** !important used temporarily to make it working in Firefox and to overwrite polyfill styling, which have too high specificity */
   background: var(--_background);
-  border: var(--_border) !important;
+  border: var(--_border);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
   color: var(--_color) !important;

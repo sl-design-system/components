@@ -1,36 +1,102 @@
+$sizes: sm, md, lg, xl, 2xl, 3xl;
+$variants: danger, success, warning, accent, neutral, primary;
+
+//temp tokens, the real ones are in the avatar branch
 :host {
-  --_align: flex-start;
-  --_direction: row;
-  --gap-h: var(--sl-space-badge-gap-inline);
-  --gap-v: var(--sl-space-badge-gap-block);
+  --sl-border-radius-badge-full: var(--sl-border-radius-full);
+  --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-base));
+  --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-base));
+  --sl-color-badge-success-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
+  --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-size-badge-2xl: 18px;
+  --sl-size-badge-3xl: var(--sl-size-lg);
+  --sl-size-badge-lg: var(--sl-size-sm);
+  --sl-size-badge-md: var(--sl-size-xs);
+  --sl-size-badge-sm: var(--sl-size-2xs);
+  --sl-size-badge-xl: var(--sl-size-md);
+  --sl-space-badge-block-2xl: var(--sl-space-2xs);
+  --sl-space-badge-block-3xl: var(--sl-space-2xs);
+  --sl-space-badge-block-lg: var(--sl-space-2xs);
+  --sl-space-badge-block-md: var(--sl-space-2xs);
+  --sl-space-badge-block-sm: var(--sl-space-2xs);
+  --sl-space-badge-block-xl: var(--sl-space-2xs);
+  --sl-space-badge-gap-2xl: calc(var(--sl-space-xs) + var(--sl-space-2xs));
+  --sl-space-badge-gap-3xl: calc(var(--sl-space-xs) + var(--sl-space-2xs));
+  --sl-space-badge-gap-lg: var(--sl-space-xs);
+  --sl-space-badge-gap-md: 3px;
+  --sl-space-badge-gap-sm: var(--sl-space-2xs);
+  --sl-space-badge-gap-xl: var(--sl-space-xs);
+  --sl-space-badge-icon-block-2xl: 1px;
+  --sl-space-badge-icon-block-3xl: var(--sl-space-2xs);
+  --sl-space-badge-icon-block-lg: var(--sl-space-none);
+  --sl-space-badge-icon-block-md: var(--sl-space-none);
+  --sl-space-badge-icon-block-sm: var(--sl-space-none);
+  --sl-space-badge-icon-block-xl: var(--sl-space-none);
+  --sl-space-badge-icon-inline-2xl: 1px;
+  --sl-space-badge-icon-inline-3xl: var(--sl-space-2xs);
+  --sl-space-badge-icon-inline-lg: var(--sl-space-none);
+  --sl-space-badge-icon-inline-md: var(--sl-space-none);
+  --sl-space-badge-icon-inline-sm: var(--sl-space-none);
+  --sl-space-badge-icon-inline-xl: var(--sl-space-none);
+  --sl-space-badge-inline-2xl: calc(var(--sl-space-xs) + var(--sl-space-2xs));
+  --sl-space-badge-inline-3xl: calc(var(--sl-space-xs) + var(--sl-space-2xs));
+  --sl-space-badge-inline-lg: var(--sl-space-xs);
+  --sl-space-badge-inline-md: 3px;
+  --sl-space-badge-inline-sm: var(--sl-space-2xs);
+  --sl-space-badge-inline-xl: var(--sl-space-xs);
+  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-bold) 8px/8px var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-sm: var(--sl-text-typeset-font-weight-bold) 6px/6px var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
 }
 
 :host {
   align-items: center;
-  display: flex;
-  flex-direction: var(--_direction);
-  flex-wrap: wrap;
-  gap: var(--gap-v) var(--gap-h);
-  justify-content: var(--_align);
+  background-color: var(--_badge-background-color);
+  block-size: var(--_badge-container-size);
+  border-radius: var(--sl-border-radius-badge-full);
+  box-sizing: border-box;
+  color: var(--_badge-text-color);
+  display: inline-flex;
+  font: var(--_badge-font);
+  gap: var(--_gap);
+  min-inline-size: var(--_badge-container-size);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+  vertical-align: middle;
 }
 
-:host([align='center']) {
-  --_align: center;
+::slotted(sl-icon) {
+  margin: -2px;
 }
 
-:host([align='end']) {
-  --_align: flex-end;
+@each $variant in $variants {
+  :host([variant='#{$variant}']) {
+    --_badge-background-color: var(--sl-color-badge-#{$variant}-background);
+    --_badge-text-color: var(--sl-color-badge-#{$variant}-foreground);
+  }
 }
 
-:host([align='space-between']) {
-  --_align: space-between;
-}
-
-:host([icon-only]) {
-  --gap-h: 0.5rem;
-  --gap-v: 0.25rem;
-}
-
-:host([reverse]) {
-  --_direction: row-reverse;
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_badge-font: var(--sl-text-badge-text-#{$size});
+    --_badge-container-size: var(--sl-size-badge-#{$size});
+    --_padding-inline: var(--sl-space-badge-text-inline-#{$size});
+    --_padding-block: var(--sl-space-badge-text-block-#{$size});
+    --_gap: var(--sl-space-badge-gap-#{$size});
+  }
 }

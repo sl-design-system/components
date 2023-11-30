@@ -300,8 +300,8 @@
   --sl-space-badge-text-block-lg: var(--sl-space-2xs);
   --sl-space-badge-text-block-md: var(--sl-space-2xs);
   --sl-space-badge-text-block-sm: var(--sl-space-2xs);
-  --sl-space-badge-text-inline-3xl: var(--sl-space-xs) + var(--sl-space-2xs);
-  --sl-space-badge-text-inline-2xl: var(--sl-space-xs) + var(--sl-space-2xs);
+  --sl-space-badge-text-inline-3xl: calc(var(--sl-space-xs) + var(--sl-space-2xs));
+  --sl-space-badge-text-inline-2xl: calc(var(--sl-space-xs) + var(--sl-space-2xs));
   --sl-space-badge-text-inline-xl: var(--sl-space-xs);
   --sl-space-badge-text-inline-lg: var(--sl-space-xs);
   --sl-space-badge-text-inline-sm: var(--sl-space-2xs);

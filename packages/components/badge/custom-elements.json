@@ -38,7 +38,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Show totals at a glance or group.\n\n```html\n<sl-badge> 99+ </sl-badge>\n```",
+          "description": "Show totals at a glance or labels contents with a tag.\n\n```html\n<sl-badge> 99+ </sl-badge>\n```",
           "name": "badge",
           "slots": [
             {
@@ -46,7 +46,46 @@
               "name": "default"
             }
           ],
-          "members": [],
+          "members": [
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "BadgeSize"
+              },
+              "default": "'md'",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "BadgeVariant"
+              },
+              "default": "'neutral'",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "BadgeSize"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "BadgeVariant"
+              },
+              "default": "'neutral'",
+              "fieldName": "variant"
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
@@ -64,7 +103,16 @@
               }
             }
           ],
-          "fields": []
+          "fields": [
+            {
+              "kind": "field",
+              "name": "icons",
+              "type": {
+                "text": "Icon[] | undefined"
+              },
+              "privacy": "private"
+            }
+          ]
         }
       ],
       "exports": [

@@ -3100,23 +3100,23 @@
           "type": "spacing"
         },
         "md": {
-          "value": 3,
+          "value": "1px",
           "type": "spacing"
         },
         "lg": {
-          "value": "{space.xs}",
+          "value": "{space.2xs}",
           "type": "spacing"
         },
         "xl": {
-          "value": "{space.xs}",
+          "value": "{space.2xs}",
           "type": "spacing"
         },
         "2xl": {
-          "value": "{space.xs}+ {space.2xs}",
+          "value": "{space.2xs}",
           "type": "spacing"
         },
         "3xl": {
-          "value": "{space.xs}+ {space.2xs}",
+          "value": "3px",
           "type": "spacing"
         }
       },
@@ -3222,6 +3222,34 @@
           },
           "3xl": {
             "value": "{space.2xs}",
+            "type": "spacing"
+          }
+        }
+      },
+      "label": {
+        "inline": {
+          "sm": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "3px",
+            "type": "spacing"
+          },
+          "2xl": {
+            "value": "3px",
+            "type": "spacing"
+          },
+          "3xl": {
+            "value": "3px",
             "type": "spacing"
           }
         }

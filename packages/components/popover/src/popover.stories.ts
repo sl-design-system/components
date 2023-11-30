@@ -43,9 +43,8 @@ export const Basic: Story = {
     }
   },
   render: ({ position }) => {
-    const onClick = (event: Event & { target: Button }): void => {
-      const popover = event.target.nextElementSibling as HTMLElement;
-
+    const onClick = (): void => {
+      const popover = document.querySelector('sl-popover') as HTMLElement;
       popover.togglePopover();
     };
 
@@ -61,7 +60,6 @@ export const All: Story = {
     setTimeout(() => {
       document.querySelectorAll('sl-popover').forEach(popover => {
         popover.showPopover();
-        console.log('popover', popover);
       });
     });
 

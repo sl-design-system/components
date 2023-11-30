@@ -26,7 +26,7 @@ export class AnchorController implements ReactiveController {
         (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
     }
 
-    if ((event as ToggleEvent).newState === 'open') {
+    if ((event as ToggleEvent).newState === 'open' && (event as ToggleEvent).oldState === 'closed') {
       if (anchorElement) {
         this.#cleanup = positionPopover(host, anchorElement, {
           arrow: this.#config?.arrow,
@@ -51,10 +51,15 @@ export class AnchorController implements ReactiveController {
   };
 
   #onToggle = (event: Event): void => {
-    if ((event as ToggleEvent).newState === (event as ToggleEvent).oldState) {
-      /** to make it working on clicking again on the anchor element*/
+    /** workaround to make it working on clicking again (togglePopover method) on the anchor element
+     * in Chrome and Safari there is the same state for new and old - open, when it's already opened and we want to close it
+     * in FF on click runs toggle event twice */
+    if (
+      ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
+      (event as ToggleEvent).newState === (event as ToggleEvent).oldState
+    ) {
       event.stopPropagation();
-      (event.target as HTMLElement)?.togglePopover();
+      (event.target as HTMLElement)?.hidePopover();
     }
   };
 

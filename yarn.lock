@@ -4258,10 +4258,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oddbird/popover-polyfill@npm:^0.3.4":
-  version: 0.3.4
-  resolution: "@oddbird/popover-polyfill@npm:0.3.4"
-  checksum: 32fb148db3032efdf58a3ce5bc72c8202b44edd58d501453d302b79fee4d95d2defc4153853ff550a151a4309a375b97c8cba34795caced2d27cf350246d9269
+"@oddbird/popover-polyfill@npm:^0.3.5":
+  version: 0.3.5
+  resolution: "@oddbird/popover-polyfill@npm:0.3.5"
+  checksum: 35399f3bc9befbbc5c3f73d68728c98682be241f6cd8f3340d4d7196bea9d4790c8a1ad9a720a77440dc7a67a6dd9cb25c1f9200c05603bd6053cd411ffa94ae
   languageName: node
   linkType: hard
 
@@ -5359,7 +5359,7 @@ __metadata:
     "@changesets/get-github-info": "npm:^0.5.2"
     "@custom-elements-manifest/analyzer": "npm:^0.9.0"
     "@lit/localize-tools": "npm:^0.7.1"
-    "@oddbird/popover-polyfill": "npm:^0.3.4"
+    "@oddbird/popover-polyfill": "npm:^0.3.5"
     "@open-wc/testing": "npm:^3.2.2"
     "@storybook/addon-a11y": "npm:^7.5.3"
     "@storybook/addon-essentials": "npm:^7.5.3"
@@ -5582,7 +5582,7 @@ __metadata:
     "@custom-elements-manifest/analyzer": "npm:^0.9.0"
     "@custom-elements-manifest/to-markdown": "npm:^0.1.0"
     "@luncheon/esbuild-plugin-gzip": "npm:^0.1.0"
-    "@oddbird/popover-polyfill": "npm:^0.3.4"
+    "@oddbird/popover-polyfill": "npm:^0.3.5"
     "@types/markdown-it": "npm:^13.0.6"
     "@web/dev-server": "npm:^0.3.7"
     cpx: "npm:^1.5.0"

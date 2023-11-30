@@ -941,6 +941,23 @@
         }
       }
     },
+    "list": {
+      "sm": {
+        "normal": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "textDecoration": "list"
+          },
+          "type": "typography"
+        }
+      }
+    },
     "button": {
       "text": {
         "sm": {
@@ -1859,6 +1876,13 @@
         "value": "{borderRadius.circle}",
         "type": "borderRadius"
       }
+    },
+    "inline-message": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius",
+        "description": "borderRadius.button"
+      }
     }
   },
   "border": {
@@ -1947,6 +1971,16 @@
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        }
+      },
+      "inline-message": {
+        "default": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth"
+        },
+        "start": {
+          "value": "{border.width.lg}",
+          "type": "borderWidth"
         }
       },
       "none": {
@@ -3238,6 +3272,29 @@
           "value": "{space.sm}",
           "type": "spacing"
         }
+      }
+    },
+    "inline-message": {
+      "block": {
+        "value": "{space.lg}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "start": {
+          "value": "{space.lg}+{border.width.inline-message.start}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        },
+        "end": {
+          "value": "{space.2xl}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        }
+      },
+      "gap": {
+        "value": "{space.lg}",
+        "type": "spacing"
       }
     }
   },

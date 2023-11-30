@@ -1153,6 +1153,16 @@
           "value": "{border.width.sm}",
           "type": "borderWidth"
         }
+      },
+      "inline-message": {
+        "default": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth"
+        },
+        "start": {
+          "value": "{border.width.lg}",
+          "type": "borderWidth"
+        }
       }
     }
   },
@@ -1295,6 +1305,17 @@
       "solid": {
         "value": "{text.typeset.fontWeight.icon-solid}",
         "type": "fontWeights"
+      }
+    }
+  },
+  "conceptual": {
+    "border": {
+      "width": {
+        "default": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "Conceptual Theme Border Token"
+        }
       }
     }
   }

@@ -278,6 +278,7 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
+  --sl-conceptual-border-width-default: var(--sl-border-width-xs);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
   --sl-icon-typeset-font-size-3xl: var(--sl-size-3xl);
   --sl-icon-typeset-font-size-2xl: var(--sl-size-2xl);
@@ -292,6 +293,10 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-inline-message-gap: var(--sl-space-lg);
+  --sl-space-inline-message-inline-end: var(--sl-space-2xl);
+  --sl-space-inline-message-inline-start: var(--sl-space-lg) + var(--sl-border-width-inline-message-start);
+  --sl-space-inline-message-block: var(--sl-space-lg);
   --sl-space-popover-offset: var(--sl-space-sm);
   --sl-space-popover-gap: var(--sl-space-xs);
   --sl-space-popover-inline: var(--sl-space-md);
@@ -445,6 +450,7 @@
   --sl-space-input-text-field-inline-md: var(--sl-space-md);
   --sl-space-input-text-field-block-lg: var(--sl-space-sm);
   --sl-space-input-text-field-block-md: var(--sl-space-sm);
+  --sl-border-width-inline-message-start: var(--sl-border-width-lg);
   --sl-border-width-focusring-offset: var(--sl-border-width-sm);
   --sl-border-width-focusring-default: var(--sl-border-width-xs);
   --sl-border-width-input-border: var(--sl-border-width-sm);
@@ -565,6 +571,7 @@
   --sl-space-input-option-inline-md: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-lg: var(--sl-space-button-outline-block-sm);
   --sl-space-input-option-block-md: var(--sl-space-button-outline-block-sm);
+  --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-text-icon-font-icon-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);

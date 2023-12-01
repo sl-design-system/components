@@ -1,5 +1,5 @@
-import '@oddbird/popover-polyfill';
 import type { Preview } from '@storybook/web-components';
+import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import 'element-internals-polyfill';
 import { configureLocalization } from '@lit/localize';

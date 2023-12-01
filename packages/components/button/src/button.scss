@@ -33,7 +33,6 @@ $variants: default, primary, success, warning, danger;
 
     :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):active),
     :host([fill='#{$fill}'][variant='#{$variant}'][popover-opened]) {
-      // TODO: needs to be improved ???
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);

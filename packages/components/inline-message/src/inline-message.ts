@@ -28,6 +28,7 @@ export type InlineMessageStatus = 'info' | 'success' | 'warning' | 'danger';
  * @slot subtitle - The subtitle of the dialog
  */
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
+  // TODO: extends lit element or scoped???
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -46,7 +47,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   // @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
 
   /** Determines whether closing button (default one) should be shown in the top right corner. */
-  @property({ type: Boolean, attribute: 'closing-button' }) closingButton = true;
+  @property({ type: Boolean, attribute: 'closing-button' }) closingButton = true; // TODO: or dismissable?
 
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
@@ -58,7 +59,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.inert = true;
+    // this.inert = true;
   }
 
   override render(): TemplateResult {
@@ -125,10 +126,12 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   // }
   //
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
-    event.preventDefault();
-    event.stopPropagation();
+    console.log('event on click', event);
+    // event.preventDefault();
+    // event.stopPropagation();
 
     this.remove();
+    // TODO: append to add/show?
 
     // this.#closeDialogOnAnimationend(event.target as HTMLElement);
 

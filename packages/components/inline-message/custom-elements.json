@@ -42,6 +42,14 @@
           "name": "InlineMessage",
           "slots": [
             {
+              "description": "Title content for the inline message",
+              "name": "default"
+            },
+            {
+              "description": "slot for additional information and more content for the inline-message TODO: add more info",
+              "name": "description"
+            },
+            {
               "description": "Area where action buttons are placed",
               "name": "actions"
             },
@@ -76,32 +84,14 @@
           ],
           "members": [
             {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
               "kind": "field",
               "name": "closingButton",
               "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
-              "attribute": "closing-button"
-            },
-            {
-              "kind": "field",
-              "name": "disableClose",
-              "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
+              "default": "true",
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "attribute": "closing-button"
             },
             {
               "kind": "field",
@@ -114,30 +104,24 @@
               "attribute": "role"
             },
             {
-              "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
+              "kind": "field",
+              "name": "status",
+              "type": {
+                "text": "'info' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'info'",
+              "description": "The status of the inline message.",
+              "attribute": "status",
+              "reflects": true
             }
           ],
           "attributes": [
             {
-              "name": "disable-close",
+              "name": "closing-button",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "closing-button",
-              "type": {
-                "text": "boolean | undefined"
-              },
+              "default": "true",
               "description": "Determines whether closing button (default one) should be shown in the top right corner.",
               "fieldName": "closingButton"
             },
@@ -149,6 +133,15 @@
               "default": "'dialog'",
               "description": "The ARIA role of the dialog.",
               "fieldName": "role"
+            },
+            {
+              "name": "status",
+              "type": {
+                "text": "'info' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'info'",
+              "description": "The status of the inline message.",
+              "fieldName": "status"
             }
           ],
           "mixins": [
@@ -166,41 +159,6 @@
           "methods": [
             {
               "kind": "method",
-              "name": "showModal",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "close",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onCancel",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "#onCloseClick",
               "return": {
                 "type": {
@@ -215,66 +173,6 @@
                   }
                 }
               ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onKeydown",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#closeDialogOnAnimationend",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClose",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
             }
           ],
           "fields": [
@@ -287,14 +185,6 @@
               "static": true,
               "privacy": "private",
               "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              },
-              "privacy": "private"
             }
           ]
         }

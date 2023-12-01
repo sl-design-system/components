@@ -1,7 +1,10 @@
+$statuses: info, success, warning, danger;
+
 :host {
-  --_background: #c6c6c6; //var(--sl-color-dialog-background);
-  --_border: var(--sl-border-width-dialog-default) solid var(--sl-color-dialog-border);
-  --_border-radius: var(--sl-border-radius-dialog-mobile);
+  --_background: var(--_background-color); //var(--sl-color-dialog-background);
+  --_border: var(--sl-border-width-inline-message-default) solid var(--_border-color);
+  --_border-left: var(--sl-border-width-inline-message-start) solid var(--_border-color);
+  --_border-radius: var(--sl-border-radius-inline-message-default);
   --_header-gap: var(--sl-space-dialog-gap-header);
   --_heading-direction: var(--sl-dialog-header-flex-direction);
   --_heading-gap: var(--sl-space-dialog-gap-header);
@@ -22,14 +25,59 @@
   --_body-font: var(--sl-text-body-lg-normal);
 }
 
+@each $status in $statuses {
+  :host([status='#{$status}']) {
+    //--_border-width: var(--sl-border-width-button-#{$status});
+    --_background-color: var(--sl-color-inline-message-#{$status}-background);
+    --_border-color: var(--sl-color-inline-message-#{$status}-border);
+    --_icon-fill: var(--sl-color-inline-message-#{$status}-icon);
+  }
+
+  //@each $variant in $variants {
+  //  :host([fill='#{$fill}'][variant='#{$variant}']) {
+  //    --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
+  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
+  //    --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
+  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
+  //  }
+  //
+  //  :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):hover) {
+  //    --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
+  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
+  //    --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);
+  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-hover);
+  //  }
+  //
+  //  :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):active) {
+  //    --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
+  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
+  //    --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);
+  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-active);
+  //  }
+  //
+  //  :host([fill='#{$fill}'][variant='#{$variant}']:where(:disabled, [internals-disabled])) {
+  //    --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
+  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
+  //    --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
+  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
+  //  }
+  //
+  //  :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):focus-visible) {
+  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
+  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
+  //  }
+  //}
+}
+
 :host {
   display: block;
   text-align: inherit;
 }
 
 .inline-message-wrapper {
-  background: var(--_background);
+  background: var(--_background-color);
   border: var(--_border);
+  border-left: var(--_border-left);
   border-radius: var(--_border-radius);
   color: var(--_color);
   display: inline-flex; // or block?
@@ -54,6 +102,19 @@ slot[name='header'] {
   justify-content: space-between;
   margin-bottom: var(--_header-gap);
 }
+
+slot[name='icon'] {
+  //display: inline-flex;
+  sl-icon {
+    --fill-default: var(--_icon-fill);
+  }
+}
+
+//slot[name='icon']::slotted(sl-icon) {
+//  align-self: center;
+//  fill: var(--_fill);
+//  margin-left: var(--sl-space-input-field-label-icon-md);
+//}
 
 .titles {
   align-items: flex-start;

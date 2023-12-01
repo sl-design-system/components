@@ -87,7 +87,9 @@ export class Popover extends LitElement {
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.code === 'Escape') {
-      this.hidePopover();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      (this as HTMLElement).hidePopover();
     }
   }
 }

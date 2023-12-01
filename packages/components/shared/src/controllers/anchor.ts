@@ -59,6 +59,8 @@ export class AnchorController implements ReactiveController {
       (event as ToggleEvent).newState === (event as ToggleEvent).oldState
     ) {
       event.stopPropagation();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       (event.target as HTMLElement)?.hidePopover();
     }
   };

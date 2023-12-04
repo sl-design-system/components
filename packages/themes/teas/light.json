@@ -30,12 +30,12 @@
   "color": {
     "avatar": {
       "background": {
-        "value": "{color.palette.accent.150}",
+        "value": "{color.palette.primary.base}",
         "type": "color",
         "failedToResolve": true
       },
       "foreground": {
-        "value": "{color.palette.accent.300}",
+        "value": "{color.palette.white.base}",
         "type": "color",
         "failedToResolve": true
       },
@@ -65,7 +65,7 @@
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.base}",
+          "value": "{color.palette.success.600}",
           "type": "color",
           "failedToResolve": true
         },

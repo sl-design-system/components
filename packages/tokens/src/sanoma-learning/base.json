@@ -985,6 +985,23 @@
         }
       }
     },
+    "list": {
+      "sm": {
+        "normal": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "textDecoration": "list"
+          },
+          "type": "typography"
+        }
+      }
+    },
     "button": {
       "text": {
         "sm": {
@@ -1618,6 +1635,29 @@
         "value": "{border.radius.3xs}",
         "type": "borderRadius"
       }
+    },
+    "badge": {
+      "full": {
+        "value": "{border.radius.full}",
+        "type": "borderRadius"
+      }
+    },
+    "avatar": {
+      "square": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      },
+      "circle": {
+        "value": "{borderRadius.circle}",
+        "type": "borderRadius"
+      }
+    },
+    "inline-message": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius",
+        "description": "borderRadius.button"
+      }
     }
   },
   "border": {
@@ -1710,6 +1750,16 @@
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        }
+      },
+      "inline-message": {
+        "default": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth"
+        },
+        "start": {
+          "value": "{border.width.lg}",
+          "type": "borderWidth"
         }
       }
     }

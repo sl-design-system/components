@@ -24,6 +24,86 @@
     }
   },
   "color": {
+    "avatar": {
+      "background": {
+        "value": "{color.palette.primary.base}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      },
+      "header": {
+        "value": "{body.foreground}",
+        "type": "color"
+      },
+      "subheader": {
+        "value": "{body.foreground}",
+        "type": "color"
+      }
+    },
+    "badge": {
+      "danger": {
+        "background": {
+          "value": "{color.palette.danger.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
+      },
+      "success": {
+        "background": {
+          "value": "{color.palette.success.600}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
+      },
+      "warning": {
+        "background": {
+          "value": "{color.palette.warning.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
+          "type": "color"
+        }
+      },
+      "accent": {
+        "background": {
+          "value": "{color.palette.accent.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
+      },
+      "neutral": {
+        "background": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
+          "type": "color"
+        }
+      },
+      "primary": {
+        "background": {
+          "value": "{color.palette.primary.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
+      }
+    },
     "button": {
       "default": {
         "solid": {

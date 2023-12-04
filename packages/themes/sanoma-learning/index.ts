@@ -1,5 +1,7 @@
 import type { IconLibrary } from '@sl-design-system/icon';
 import { Icon } from '@sl-design-system/icon';
+import type { ConfigSettings } from '@sl-design-system/shared';
+import { Config } from '@sl-design-system/shared';
 import { icons } from './icons.js';
 
 // export const setup = (): void => {
@@ -14,5 +16,13 @@ import { icons } from './icons.js';
  * like icons, ...
  */
 export const setup = (): void => {
+  const config: ConfigSettings = {
+    avatar: {
+      shape: 'circle',
+      badgeGapWidth: 2
+    }
+  };
+
   Icon.registerIcons(icons as IconLibrary);
+  Config.setConfig(config);
 };

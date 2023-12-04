@@ -1404,6 +1404,10 @@
         "default": {
           "value": "{border.width.sm}",
           "type": "borderWidth"
+        },
+        "offset": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth"
         }
       },
       "inline-message": {
@@ -2336,58 +2340,82 @@
       }
     },
     "badge": {
-      "text": {
-        "inline": {
-          "sm": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          },
-          "md": {
-            "value": 3,
-            "type": "spacing"
-          },
-          "lg": {
-            "value": "{space.xs}",
-            "type": "spacing"
-          },
-          "xl": {
-            "value": "{space.xs}",
-            "type": "spacing"
-          },
-          "2xl": {
-            "value": "{space.xs}+ {space.2xs}",
-            "type": "spacing"
-          },
-          "3xl": {
-            "value": "{space.xs}+ {space.2xs}",
-            "type": "spacing"
-          }
+      "inline": {
+        "sm": {
+          "value": "{space.2xs}",
+          "type": "spacing"
         },
-        "block": {
-          "sm": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          },
-          "md": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          },
-          "lg": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          },
-          "xl": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          },
-          "2xl": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          },
-          "3xl": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          }
+        "md": {
+          "value": 3,
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.xs}+ {space.2xs}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.xs}+ {space.2xs}",
+          "type": "spacing"
+        }
+      },
+      "block": {
+        "sm": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        }
+      },
+      "gap": {
+        "sm": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": 3,
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.xs}+ {space.2xs}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.xs}+ {space.2xs}",
+          "type": "spacing"
         }
       },
       "icon": {

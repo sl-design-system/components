@@ -31,11 +31,11 @@
   "color": {
     "avatar": {
       "background": {
-        "value": "{color.palette.accent.150}",
+        "value": "{color.palette.accent.base}",
         "type": "color"
       },
       "foreground": {
-        "value": "{color.palette.accent.300}",
+        "value": "{color.palette.white.base}",
         "type": "color"
       },
       "header": {
@@ -45,68 +45,6 @@
       "subheader": {
         "value": "{body.foreground}",
         "type": "color"
-      }
-    },
-    "badge": {
-      "danger": {
-        "background": {
-          "value": "{color.palette.danger.base}",
-          "type": "color"
-        },
-        "foreground": {
-          "value": "{color.palette.white.base}",
-          "type": "color"
-        }
-      },
-      "success": {
-        "background": {
-          "value": "{color.palette.success.base}",
-          "type": "color"
-        },
-        "foreground": {
-          "value": "{color.palette.white.base}",
-          "type": "color"
-        }
-      },
-      "warning": {
-        "background": {
-          "value": "{color.palette.warning.base}",
-          "type": "color"
-        },
-        "foreground": {
-          "value": "{color.palette.black.base}",
-          "type": "color"
-        }
-      },
-      "accent": {
-        "background": {
-          "value": "{color.palette.accent.base}",
-          "type": "color"
-        },
-        "foreground": {
-          "value": "{color.palette.white.base}",
-          "type": "color"
-        }
-      },
-      "neutral": {
-        "background": {
-          "value": "{color.palette.neutral.200}",
-          "type": "color"
-        },
-        "foreground": {
-          "value": "{color.palette.black.base}",
-          "type": "color"
-        }
-      },
-      "primary": {
-        "background": {
-          "value": "{color.palette.primary.base}",
-          "type": "color"
-        },
-        "foreground": {
-          "value": "{color.palette.white.base}",
-          "type": "color"
-        }
       }
     },
     "button": {
@@ -1858,6 +1796,68 @@
               "description": "color.button.danger.outline.disabled.border"
             }
           }
+        }
+      }
+    },
+    "badge": {
+      "danger": {
+        "background": {
+          "value": "{color.palette.danger.500}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
+      },
+      "success": {
+        "background": {
+          "value": "{color.palette.success.500}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
+      },
+      "warning": {
+        "background": {
+          "value": "{color.palette.warning.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
+          "type": "color"
+        }
+      },
+      "accent": {
+        "background": {
+          "value": "{color.palette.accent.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
+      },
+      "neutral": {
+        "background": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
+          "type": "color"
+        }
+      },
+      "primary": {
+        "background": {
+          "value": "{color.palette.primary.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
         }
       }
     },
@@ -3908,56 +3908,6 @@
       },
       "border": {
         "value": "{color.palette.neutral.150}",
-        "type": "color"
-      }
-    },
-    "badge": {
-      "background": {
-        "red": {
-          "value": "{color.palette.danger.base}",
-          "type": "color"
-        },
-        "green": {
-          "value": "{color.palette.success.base}",
-          "type": "color"
-        },
-        "yellow": {
-          "value": "{color.palette.warning.base}",
-          "type": "color"
-        },
-        "accent": {
-          "value": "{color.palette.accent.base}",
-          "type": "color"
-        },
-        "neutral": {
-          "value": "{color.palette.neutral.200}",
-          "type": "color"
-        }
-      },
-      "text": {
-        "value": "{color.palette.white.base}",
-        "type": "color"
-      },
-      "icon": {
-        "value": "{color.palette.white.base}",
-        "type": "color"
-      }
-    },
-    "avatar": {
-      "background": {
-        "value": "{color.palette.accent.150}",
-        "type": "color"
-      },
-      "foreground": {
-        "value": "{color.palette.accent.300}",
-        "type": "color"
-      },
-      "header": {
-        "value": "{body.foreground}",
-        "type": "color"
-      },
-      "subheader": {
-        "value": "{body.foreground}",
         "type": "color"
       }
     },

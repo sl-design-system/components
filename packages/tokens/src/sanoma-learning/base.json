@@ -1539,6 +1539,10 @@
       "square": {
         "value": "{borderRadius.default}",
         "type": "borderRadius"
+      },
+      "circle": {
+        "value": "{borderRadius.circle}",
+        "type": "borderRadius"
       }
     },
     "badge": {
@@ -1633,22 +1637,6 @@
       },
       "item": {
         "value": "{border.radius.3xs}",
-        "type": "borderRadius"
-      }
-    },
-    "badge": {
-      "full": {
-        "value": "{border.radius.full}",
-        "type": "borderRadius"
-      }
-    },
-    "avatar": {
-      "square": {
-        "value": "{borderRadius.default}",
-        "type": "borderRadius"
-      },
-      "circle": {
-        "value": "{borderRadius.circle}",
         "type": "borderRadius"
       }
     },

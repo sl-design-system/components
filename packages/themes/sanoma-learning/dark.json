@@ -41,7 +41,7 @@
         "failedToResolve": true
       },
       "foreground": {
-        "value": "{color.palette.accent.150}",
+        "value": "{color.palette.black.base}",
         "type": "color",
         "failedToResolve": true
       },
@@ -57,43 +57,6 @@
       }
     },
     "badge": {
-      "background": {
-        "red": {
-          "value": "{color.palette.danger.base}",
-          "type": "color",
-          "failedToResolve": true
-        },
-        "green": {
-          "value": "{color.palette.success.base}",
-          "type": "color",
-          "failedToResolve": true
-        },
-        "yellow": {
-          "value": "{color.palette.warning.base}",
-          "type": "color",
-          "failedToResolve": true
-        },
-        "accent": {
-          "value": "{color.palette.accent.base}",
-          "type": "color",
-          "failedToResolve": true
-        },
-        "neutral": {
-          "value": "{color.palette.neutral.200}",
-          "type": "color",
-          "failedToResolve": true
-        }
-      },
-      "text": {
-        "value": "{color.palette.white.base}",
-        "type": "color",
-        "failedToResolve": true
-      },
-      "icon": {
-        "value": "{color.palette.white.base}",
-        "type": "color",
-        "failedToResolve": true
-      },
       "danger": {
         "background": {
           "value": "{color.palette.danger.500}",

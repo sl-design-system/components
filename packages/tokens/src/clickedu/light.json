@@ -53,7 +53,7 @@
       },
       "warning": {
         "background": {
-          "value": "{color.palette.warning.base}",
+          "value": "{color.palette.warning.300}",
           "type": "color"
         },
         "foreground": {

@@ -66,25 +66,27 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     return html`
       <div class="inline-message-wrapper">
         <!--        <slot>icon</slot>-->
-        <slot name="icon" part="icon">
-          <sl-icon name="triangle-exclamation-solid" size="md"></sl-icon>
-        </slot>
-        <slot>message</slot>
-        <!--        <slot name="icon" part="icon"></slot>-->
+        <div class="content">
+          <slot name="icon" part="icon">
+            <sl-icon name="triangle-exclamation-solid" size="md"></sl-icon>
+          </slot>
+          <!--        <slot name="icon" part="icon"></slot>-->
+          <div class="content-details">
+            <slot name="title" part="title" aria-live="polite">
+              <slot></slot>
+            </slot>
+            <slot name="description" part="description"> </slot>
+          </div>
+        </div>
         ${this.closingButton
           ? html`
               <slot name="close-button" @click=${this.#onCloseClick}>
-                <sl-button fill="ghost" variant="default">
+                <sl-button fill="ghost" variant="default" size="sm">
                   <sl-icon name="xmark"></sl-icon>
                 </sl-button>
               </slot>
             `
           : nothing}
-        <slot part="message"></slot>
-        <slot name="title" part="title" aria-live="polite">
-          <slot></slot>
-        </slot>
-        <slot name="description" part="description"> </slot>
       </div>
     `;
   }
@@ -125,12 +127,14 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   //   }
   // }
   //
+  //TODO: show method
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
     console.log('event on click', event);
     // event.preventDefault();
     // event.stopPropagation();
 
     this.remove();
+    // this.emit('sl-removed');
     // TODO: append to add/show?
 
     // this.#closeDialogOnAnimationend(event.target as HTMLElement);

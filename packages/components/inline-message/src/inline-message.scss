@@ -13,16 +13,19 @@ $statuses: info, success, warning, danger;
   --_footer-align: var(--sl-dialog-footer-justify-content);
   --_min-inline-size: var(--sl-size-dialog-min);
   --_max-inline-size: var(--sl-size-dialog-full);
-  --_padding-block: var(--sl-space-dialog-mobile-body-block);
-  --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
+  --_padding-block: var(--sl-space-inline-message-block);
+  --_padding-inline-start: calc(var(--sl-space-inline-message-inline-start));
+  --_padding-inline-end: var(--sl-space-inline-message-inline-end);
   --_margin-container-inline: var(--sl-space-dialog-mobile-container-inline);
-  --_margin-top-container: var(--sl-space-dialog-mobile-container-padding-top);
+  //--_margin-top-container: var(--sl-space-dialog-mobile-container-padding-top);
   --_margin-bottom-container: var(--sl-space-dialog-mobile-container-padding-bottom);
-  --_color: var(--sl-color-dialog-foreground);
+  //--_color: var(--sl-color-inline-message-foreground);
   --_subtitle-font: var(--sl-text-dialog-subheading);
   --_subtitle-padding-bottom: var(--sl-space-dialog-subtitle-padding-bottom);
-  --_title-font: var(--sl-text-dialog-heading);
+  --_title-font: var(--sl-text-body-lg-demibold);
   --_body-font: var(--sl-text-body-lg-normal);
+  --_gap: var(--sl-space-inline-message-gap);
+  --_close-button-spacing: var(--sl-space-button-gap-sm);
 }
 
 @each $status in $statuses {
@@ -31,6 +34,7 @@ $statuses: info, success, warning, danger;
     --_background-color: var(--sl-color-inline-message-#{$status}-background);
     --_border-color: var(--sl-color-inline-message-#{$status}-border);
     --_icon-fill: var(--sl-color-inline-message-#{$status}-icon);
+    --_color: var(--sl-color-inline-message-#{$status}-foreground);
   }
 
   //@each $variant in $variants {
@@ -80,21 +84,33 @@ $statuses: info, success, warning, danger;
   border-left: var(--_border-left);
   border-radius: var(--_border-radius);
   color: var(--_color);
-  display: inline-flex; // or block?
+  display: flex; // or block?
   flex-direction: column;
   //inset: 0;
   margin: auto auto 0;
-  max-block-size: min(
-    100%,
-    100vh - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
-  );
-  max-inline-size: var(--_max-inline-size);
+  //max-block-size: min(
+  //  100%,
+  //  100vh - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
+  //);
+  //max-inline-size: var(--_max-inline-size);
   // opacity: 0;
   overflow: hidden;
   padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  padding-inline: var(--_padding-inline-start) var(--_padding-inline-end);
+  position: relative;
+  //padding: var(--_padding-block) var(--_padding-inline-end) var(--_padding-block) var(--_padding-inline-start);
   //position: fixed;
   width: auto;
+}
+
+.content {
+  display: flex;
+  gap: var(--_gap);
+}
+
+.content-details {
+  display: flex;
+  flex-direction: column;
 }
 
 slot[name='header'] {
@@ -116,24 +132,27 @@ slot[name='icon'] {
 //  margin-left: var(--sl-space-input-field-label-icon-md);
 //}
 
-.titles {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: var(--_heading-direction);
-  gap: var(--_heading-gap);
-}
+//.titles {
+//  align-items: flex-start;
+//  display: flex;
+//  flex-direction: var(--_heading-direction);
+//  gap: var(--_heading-gap);
+//}
 
-slot[name='header-actions'] {
-  display: inline-flex;
-}
-
-slot[name='header-buttons'],
-slot[name='header-buttons']::slotted(*) {
-  display: flex;
-}
+//slot[name='header-actions'] {
+//  display: inline-flex;
+//}
+//
+//slot[name='header-buttons'],
+//slot[name='header-buttons']::slotted(*) {
+//  display: flex;
+//}
 
 slot[name='close-button'] {
   display: block;
+  inset-block-start: var(--_close-button-spacing); //8px;
+  inset-inline-end: var(--_close-button-spacing); //8px;
+  position: absolute;
 }
 
 slot[name='close-button']::slotted(*),
@@ -141,12 +160,12 @@ slot[name='header-buttons']::slotted(*) {
   align-self: baseline;
 }
 
-slot[name='subtitle']::slotted(*) {
-  font: var(--_subtitle-font);
-  padding-bottom: var(--_subtitle-padding-bottom);
-}
+//slot[name='subtitle']::slotted(*) {
+//  font: var(--_subtitle-font);
+//  padding-bottom: var(--_subtitle-padding-bottom);
+//}
 
-slot[name='title']::slotted(*) {
+slot[name='title'] {
   font: var(--_title-font);
 }
 

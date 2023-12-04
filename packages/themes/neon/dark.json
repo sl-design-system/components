@@ -16,12 +16,12 @@
   "color": {
     "avatar": {
       "background": {
-        "value": "{color.palette.accent.150}",
+        "value": "{color.palette.primary.150}",
         "type": "color",
         "failedToResolve": true
       },
       "foreground": {
-        "value": "{color.palette.accent.300}",
+        "value": "{color.palette.primary.base}",
         "type": "color",
         "failedToResolve": true
       },
@@ -39,7 +39,7 @@
     "badge": {
       "danger": {
         "background": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.700}",
           "type": "color",
           "failedToResolve": true
         },

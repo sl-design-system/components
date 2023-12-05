@@ -34,6 +34,7 @@ $statuses: info, success, warning, danger;
     --_background-color: var(--sl-color-inline-message-#{$status}-background);
     --_border-color: var(--sl-color-inline-message-#{$status}-border);
     --_icon-fill: var(--sl-color-inline-message-#{$status}-icon);
+    --_fill: var(--sl-color-inline-message-#{$status}-icon);
     --_color: var(--sl-color-inline-message-#{$status}-foreground);
   }
 
@@ -76,6 +77,12 @@ $statuses: info, success, warning, danger;
 :host {
   display: block;
   text-align: inherit;
+
+  //&[open] {
+  //  .inline-message-wrapper {
+  //    opacity: 1;
+  //  }
+  //}
 }
 
 .inline-message-wrapper {
@@ -103,6 +110,22 @@ $statuses: info, success, warning, danger;
   width: auto;
 }
 
+//:host[close]:not([open]) {
+.inline-message-wrapper:not([open]) {
+  opacity: 0;
+}
+//}
+
+.inline-message-wrapper[open] {
+  opacity: 1;
+}
+
+//:host[open] {
+//  .inline-message-wrapper {
+//    opacity: 1;
+//  }
+//}
+
 .content {
   display: flex;
   gap: var(--_gap);
@@ -113,16 +136,17 @@ $statuses: info, success, warning, danger;
   flex-direction: column;
 }
 
-slot[name='header'] {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: var(--_header-gap);
-}
+//slot[name='header'] {
+//  display: flex;
+//  justify-content: space-between;
+//  margin-bottom: var(--_header-gap);
+//}
 
 slot[name='icon'] {
   //display: inline-flex;
   sl-icon {
     --fill-default: var(--_icon-fill);
+    fill: var(--_fill);
   }
 }
 
@@ -155,8 +179,7 @@ slot[name='close-button'] {
   position: absolute;
 }
 
-slot[name='close-button']::slotted(*),
-slot[name='header-buttons']::slotted(*) {
+slot[name='close-button']::slotted(*) {
   align-self: baseline;
 }
 
@@ -169,43 +192,32 @@ slot[name='title'] {
   font: var(--_title-font);
 }
 
-.body-content {
-  font: var(--_body-font);
-  margin: var(--_body-gap) 0;
-  overflow: auto;
-}
-
-slot[name='footer'] {
-  sl-button-bar {
-    align-items: stretch;
-    flex-direction: var(--_footer-direction);
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  dialog[closing] {
+  //:host[close]:not([open]) {
+  .inline-message-wrapper:not([open]) {
     animation: slide-down 400ms ease-out;
-
-    &::backdrop {
-      animation: backdrop-hide 400ms ease-out;
-    }
   }
 
-  dialog[open]:not([closing]) {
+  //&::backdrop {
+  //  animation: backdrop-hide 400ms ease-out;
+  //}
+  //}
+
+  //:host[open]:not([close]) {
+  .inline-message-wrapper[open] {
     animation: slide-in-up 600ms ease-out;
-
-    &::backdrop {
-      animation: backdrop-show 600ms ease-out;
-    }
   }
+
+  //&::backdrop {
+  //  animation: backdrop-show 600ms ease-out;
+  //}
+  //}
 }
 
 @keyframes slide-in-up {
   0% {
     opacity: 0;
-    transform: translateY(80px);
+    transform: translateY(50px);
   }
 
   50% {
@@ -235,35 +247,35 @@ slot[name='footer'] {
 
   50% {
     opacity: 0.5;
-    transform: translateY(80px);
+    transform: translateY(50px);
   }
 
   100% {
     opacity: 0;
-    transform: translateY(80px);
+    transform: translateY(50px);
   }
 }
 
-@keyframes backdrop-show {
-  0% {
-    opacity: 0;
-  }
-
-  50% {
-    opacity: 0.75;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes backdrop-hide {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
+//@keyframes backdrop-show {
+//  0% {
+//    opacity: 0;
+//  }
+//
+//  50% {
+//    opacity: 0.75;
+//  }
+//
+//  100% {
+//    opacity: 1;
+//  }
+//}
+//
+//@keyframes backdrop-hide {
+//  from {
+//    opacity: 1;
+//  }
+//
+//  to {
+//    opacity: 0;
+//  }
+//}

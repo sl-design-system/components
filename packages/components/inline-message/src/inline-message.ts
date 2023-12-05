@@ -6,10 +6,25 @@ import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { breakpoints } from '@sl-design-system/shared';
 import { LitElement, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
 
 export type InlineMessageStatus = 'info' | 'success' | 'warning' | 'danger';
+
+const iconName = (status: InlineMessageStatus): string => {
+  switch (status) {
+    case 'info':
+      return 'info';
+    case 'success':
+      return 'circle-check-solid';
+    case 'warning':
+      return 'triangle-exclamation-solid';
+    case 'danger':
+      return 'triangle-exclamation-solid';
+    default:
+      return 'info';
+  }
+};
 
 /**
  * A dialog component for displaying modal UI.
@@ -46,15 +61,30 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   // /** Disables the ability to close the dialog using the Escape key. */
   // @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
 
+  /** @private */
+  @query('div') wrapper?: HTMLDivElement;
+
   /** Determines whether closing button (default one) should be shown in the top right corner. */
   @property({ type: Boolean, attribute: 'closing-button' }) closingButton = true; // TODO: or dismissable?
 
-  /** The ARIA role of the dialog. */
-  @property() override role: 'dialog' | 'alertdialog' = 'dialog';
+  // /** The ARIA role of the dialog. */
+  // @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
   /** The status of the inline message.
    * @type {'info' | 'success' | 'warning' | 'danger'} */
   @property({ reflect: true }) status: InlineMessageStatus = 'info';
+
+  // /** Determines whether closing button (default one) should be shown in the top right corner. */
+  // @property({ type: Boolean, reflect: true }) open?: boolean;
+
+  constructor() {
+    super();
+
+    requestAnimationFrame(() => {
+      this.setAttribute('open', '');
+    });
+    // this.setAttribute('open', '');
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -64,11 +94,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div class="inline-message-wrapper">
+      <div class="inline-message-wrapper" open>
         <!--        <slot>icon</slot>-->
         <div class="content">
           <slot name="icon" part="icon">
-            <sl-icon name="triangle-exclamation-solid" size="md"></sl-icon>
+            <sl-icon name=${iconName(this.status)} size="md"></sl-icon>
           </slot>
           <!--        <slot name="icon" part="icon"></slot>-->
           <div class="content-details">
@@ -90,6 +120,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       </div>
     `;
   }
+
+  //   #renderIcon(status): string  {
+  //     switch
+  // }
 
   // showModal(): void {
   //   this.inert = false;
@@ -133,7 +167,18 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     // event.preventDefault();
     // event.stopPropagation();
 
-    this.remove();
+    const wrapper = this.querySelector<HTMLDivElement>('.inline-message-wrapper');
+    console.log('wrapper', wrapper, this.wrapper);
+
+    this.wrapper?.removeAttribute('open');
+
+    this.wrapper?.setAttribute('close', '');
+
+    requestAnimationFrame(() => {
+      this.remove();
+    });
+
+    // this.remove();
     // this.emit('sl-removed');
     // TODO: append to add/show?
 

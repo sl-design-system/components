@@ -7,6 +7,7 @@ import { faCircleXmark } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
+import { InlineMessage } from './inline-message';
 
 const onClick = (event: Event & { target: HTMLElement }): void => {
   console.log(event);
@@ -21,7 +22,7 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
   // const div = document.createElement('div');
   // div.innerText = this.hint;
 
-  const newInlMessage = document.createElement('sl-inline-message');
+  const newInlMessage = new InlineMessage(); //document.createElement('sl-inline-message');
   newInlMessage.innerHTML =
     'Title' + 'Text inside' + '\n    bla bla bla\n    <span slot="description">description</span>';
 
@@ -59,6 +60,11 @@ export const API: StoryObj = {
   },
   render: ({ description, bodyContent, closingButton, status }) => {
     return html`
+      <style>
+        sl-inline-message {
+          margin: 24px auto;
+        }
+      </style>
       <sl-button fill="outline" size="md" @click=${onClick}>Show inline message</sl-button>
       <sl-inline-message ?closing-button=${closingButton} status=${status}>
         ${bodyContent}

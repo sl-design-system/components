@@ -95,16 +95,6 @@
             },
             {
               "kind": "field",
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "attribute": "role"
-            },
-            {
-              "kind": "field",
               "name": "status",
               "type": {
                 "text": "'info' | 'success' | 'warning' | 'danger'"
@@ -124,15 +114,6 @@
               "default": "true",
               "description": "Determines whether closing button (default one) should be shown in the top right corner.",
               "fieldName": "closingButton"
-            },
-            {
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "fieldName": "role"
             },
             {
               "name": "status",
@@ -185,6 +166,14 @@
               "static": true,
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "wrapper",
+              "type": {
+                "text": "HTMLDivElement | undefined"
+              },
+              "privacy": "private"
             }
           ]
         }

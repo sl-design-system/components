@@ -77,8 +77,13 @@ export class Popover extends LitElement {
           </defs>
           <path
             d="M 425.226 252.411 C 425.322 252.505 425.429 252.588 425.543 252.661 C 425.658 252.733 425.782 252.795 425.911 252.845 C 426.041 252.896 426.177 252.934 426.317 252.96 C 426.457 252.987 426.601 253 426.746 253 L 422.746 253 L 418.746 253 L 414.746 253 L 410.746 253 C 410.891 253 411.035 252.987 411.175 252.96 C 411.315 252.934 411.45 252.896 411.58 252.845 C 411.709 252.795 411.833 252.733 411.948 252.661 C 412.062 252.588 412.169 252.505 412.265 252.411 L 413.504 251.206 L 414.744 250 L 415.983 248.795 L 417.222 247.589 C 417.424 247.393 417.665 247.246 417.925 247.148 C 418.186 247.049 418.466 247 418.746 247 C 419.026 247 419.306 247.049 419.566 247.148 C 419.827 247.246 420.067 247.393 420.269 247.589 L 421.508 248.795 L 422.747 250 L 423.986 251.206 L 425.226 252.411"
-            style="stroke-miterlimit: 5.4; isolation: isolate; filter: none; paint-order: stroke; stroke-opacity: 0.92; stroke: url('#gradient-1');"
+            style="isolation:isolate"
             transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, 0, 2.842170943040401e-14)"
+            stroke-miterlimit="5.4"
+            filter="none"
+            paint-order="stroke"
+            stroke-opacity=".92"
+            stroke="url(#gradient-1)"
           />
         </svg>
       </div>
@@ -87,9 +92,7 @@ export class Popover extends LitElement {
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.code === 'Escape') {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      (this as HTMLElement).hidePopover();
+      this.hidePopover();
     }
   }
 }

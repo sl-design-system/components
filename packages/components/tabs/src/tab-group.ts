@@ -1,7 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { EventEmitter } from '@sl-design-system/shared';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { RovingTabindexController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';

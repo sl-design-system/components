@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit-html';
 import type { CSSResult, CSSResultGroup } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';

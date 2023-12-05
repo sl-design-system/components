@@ -33,7 +33,7 @@ export class badge extends LitElement {
   async #onSlotchange(): Promise<void> {
     const sizeMapping = new Map<BadgeSize, IconSize>([
       ['md', '2xs'],
-      ['lg', 'xs'],
+      ['lg', '2xs'],
       ['xl', 'xs'],
       ['2xl', 'sm'],
       ['3xl', 'sm']

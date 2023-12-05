@@ -1219,8 +1219,6 @@
     --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-transparent-base));
-    --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-base));
     --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
     --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));
@@ -1229,12 +1227,12 @@
     --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-base));
     --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
-    --sl-color-badge-succes-foreground: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-succes-background: rgb(var(--sl-color-palette-success-base));
+    --sl-color-badge-success-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-500));
     --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-base));
-    --sl-color-avatar-foreground: rgb(var(--sl-color-palette-accent-300));
-    --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-150));
+    --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
+    --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
     --sl-color-popover-foreground: var(--sl-body-foreground);
     --sl-color-dialog-border: var(--sl-body-background);
     --sl-color-dialog-foreground: var(--sl-body-foreground);

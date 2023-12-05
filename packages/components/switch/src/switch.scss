@@ -11,7 +11,7 @@ $sizes: sm, md, lg;
   --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
   --_label-text-color: var(--sl-color-input-field-label-text-default);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 
   --handle-position: 0%;
   --isLTR: 1;

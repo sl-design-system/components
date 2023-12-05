@@ -60,6 +60,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/config.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/path.js"
           }
         },
@@ -93,6 +101,114 @@
           "declaration": {
             "name": "*",
             "package": "./src/validators.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/config.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Config",
+          "members": [
+            {
+              "kind": "method",
+              "name": "getConfigSetting",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<T>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "key",
+                  "type": {
+                    "text": "keyof ConfigSettings"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setConfig",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "settings",
+                  "type": {
+                    "text": "ConfigSettings"
+                  }
+                }
+              ]
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "setConfig",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "settings",
+                  "type": {
+                    "text": "ConfigSettings"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "getConfigSetting",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<T>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "key",
+                  "type": {
+                    "text": "keyof ConfigSettings"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#waitForWindowProperty",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<ConfigSettings>"
+                }
+              }
+            }
+          ],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Config",
+          "declaration": {
+            "name": "Config",
+            "module": "src/config.ts"
           }
         }
       ]

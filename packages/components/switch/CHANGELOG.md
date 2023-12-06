@@ -1,5 +1,14 @@
 # @sl-design-system/switch
 
+## 0.0.9
+
+### Patch Changes
+
+- [#724](https://github.com/sl-design-system/components/pull/724) [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d) - Added avatar + added token for focus ring offset
+
+- Updated dependencies [[`198c7c2`](https://github.com/sl-design-system/components/commit/198c7c277787d48276d402522f94f2d0d5132152), [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d)]:
+  - @sl-design-system/shared@0.2.0
+
 ## 0.0.8
 
 ### Patch Changes

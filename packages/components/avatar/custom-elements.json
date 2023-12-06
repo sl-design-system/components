@@ -14,6 +14,14 @@
             "name": "*",
             "package": "./src/avatar.js"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/models.js"
+          }
         }
       ]
     },
@@ -38,9 +46,63 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "An avatar component to show a picture, initials or icon, to provide a quickly recognisable representation of a user.\n\n```html\n  <sl-avatar user=\"{\n     name: {\n       first: 'Lynn',\n       last: 'Smith'\n     },\n     picture: {\n       thumbnail: 'http://sanomalearning.design/avatars/lynn.png'\n     }\n   }\"></sl-avatar>\n```",
           "name": "Avatar",
+          "cssProperties": [
+            {
+              "description": "Max width of the container in ;",
+              "name": "--max-width:"
+            }
+          ],
           "members": [
+            {
+              "kind": "field",
+              "name": "ariaLabelText",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "badge",
+              "type": {
+                "text": "AvatarBadge | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "badgeContent",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "badgeCutout",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "badgeText",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Experimental feature, use with great caution.",
+              "attribute": "badge-text",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "errorLoadingImage",
+              "type": {
+                "text": "boolean | undefined"
+              }
+            },
             {
               "kind": "field",
               "name": "fallback",
@@ -52,7 +114,21 @@
             },
             {
               "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "AvatarIcon | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "image",
+              "type": {
+                "text": "AvatarImage | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "imageContent",
               "type": {
                 "text": "TemplateResult"
               },
@@ -69,6 +145,14 @@
             },
             {
               "kind": "field",
+              "name": "imageSVG",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "initials",
               "type": {
                 "text": "string"
@@ -77,9 +161,20 @@
             },
             {
               "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "used for Aria-label; you can use `{{badgeText}}` in the string to have it replaced by the value set in the badgeText",
+              "attribute": "label",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "orientation",
               "type": {
-                "text": "AvatarOrientation | undefined"
+                "text": "AvatarOrientation"
               },
               "default": "'horizontal'",
               "attribute": "orientation",
@@ -97,7 +192,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "AvatarSize | undefined"
+                "text": "AvatarSize"
               },
               "default": "'md'",
               "attribute": "size",
@@ -111,14 +206,6 @@
               },
               "attribute": "status",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "statusBadge",
-              "type": {
-                "text": "TemplateResult | typeof nothing"
-              },
-              "readonly": true
             },
             {
               "kind": "field",
@@ -140,7 +227,7 @@
             {
               "name": "size",
               "type": {
-                "text": "AvatarSize | undefined"
+                "text": "AvatarSize"
               },
               "default": "'md'",
               "fieldName": "size"
@@ -156,10 +243,17 @@
             {
               "name": "orientation",
               "type": {
-                "text": "AvatarOrientation | undefined"
+                "text": "AvatarOrientation"
               },
               "default": "'horizontal'",
               "fieldName": "orientation"
+            },
+            {
+              "name": "image-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "fieldName": "imageOnly"
             },
             {
               "name": "status",
@@ -169,11 +263,21 @@
               "fieldName": "status"
             },
             {
-              "name": "image-only",
+              "name": "label",
               "type": {
-                "text": "boolean | undefined"
+                "text": "string"
               },
-              "fieldName": "imageOnly"
+              "default": "''",
+              "description": "used for Aria-label; you can use `{{badgeText}}` in the string to have it replaced by the value set in the badgeText",
+              "fieldName": "label"
+            },
+            {
+              "name": "badge-text",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Experimental feature, use with great caution.",
+              "fieldName": "badgeText"
             }
           ],
           "superclass": {
@@ -182,11 +286,174 @@
           },
           "tagName": "sl-avatar",
           "customElement": true,
-          "methods": [],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#setBaseValues",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#imageLoadError",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#waitForElement",
+              "return": {
+                "type": {
+                  "text": "Promise<Element | null>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "selector",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            }
+          ],
           "fields": [
             {
               "kind": "field",
+              "name": "#avatarId",
+              "privacy": "private",
+              "default": "nextUniqueId++"
+            },
+            {
+              "kind": "field",
+              "name": "avatarConfig",
+              "type": {
+                "text": "AvatarConfig | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "imageSizes",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: 24,\n    md: 32,\n    lg: 40,\n    xl: 52,\n    '2xl': 64,\n    '3xl': 80\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "focusRingStrokeWidth",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "2"
+            },
+            {
+              "kind": "field",
+              "name": "focusRingStrokeOffset",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "2"
+            },
+            {
+              "kind": "field",
+              "name": "badgeSizes",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: 8,\n    md: 12,\n    lg: 14,\n    xl: 16,\n    '2xl': 18,\n    '3xl': 20\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "iconSizes",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: 14,\n    md: 16,\n    lg: 18,\n    xl: 24,\n    '2xl': 32,\n    '3xl': 32\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "offsetCircle",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: -2,\n    md: -4,\n    lg: -4,\n    xl: -2,\n    '2xl': -2,\n    '3xl': 2\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "offsetSquare",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "private",
+              "default": "{\n    sm: -4,\n    md: -6,\n    lg: -7,\n    xl: -8,\n    '2xl': -9,\n    '3xl': -10\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "borderWidth",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "4"
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "type": {
+                "text": "AvatarImage | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "badge",
+              "type": {
+                "text": "AvatarBadge | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "AvatarIcon | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "errorLoadingImage",
+              "type": {
+                "text": "boolean | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "profileName",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "ariaLabelText",
               "type": {
                 "text": "string"
               },
@@ -202,7 +469,7 @@
             },
             {
               "kind": "field",
-              "name": "image",
+              "name": "imageContent",
               "type": {
                 "text": "TemplateResult"
               },
@@ -210,9 +477,25 @@
             },
             {
               "kind": "field",
-              "name": "statusBadge",
+              "name": "badgeContent",
               "type": {
-                "text": "TemplateResult | typeof nothing"
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "badgeCutout",
+              "type": {
+                "text": "TemplateResult"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "imageSVG",
+              "type": {
+                "text": "TemplateResult"
               },
               "readonly": true
             }
@@ -229,6 +512,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/models.ts",
+      "declarations": [],
+      "exports": []
     }
   ]
 }

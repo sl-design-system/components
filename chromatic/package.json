@@ -39,7 +39,7 @@
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-storysource": "^7.5.3",
     "@storybook/web-components-vite": "^7.5.3",
-    "lit": "^3.0.2",
+    "lit": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "storybook": "^7.5.3",

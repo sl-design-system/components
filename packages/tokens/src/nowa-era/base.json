@@ -1148,6 +1148,10 @@
         "default": {
           "value": "{border.width.xs}",
           "type": "borderWidth"
+        },
+        "offset": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth"
         }
       },
       "inline-message": {

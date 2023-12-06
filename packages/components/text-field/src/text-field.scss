@@ -9,7 +9,7 @@ $variant-selectors: ':where(:not([show-validity]), [show-validity]:not([show-val
   --_border-radius: var(--sl-border-radius-default);
   --_transition: 200ms ease-in-out;
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 }
 
 @each $size in $sizes {

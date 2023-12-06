@@ -59,8 +59,8 @@ export const CustomHint: Story = {
 export const CustomLabel: Story = {
   args: {
     slot: html`
-      <sl-label for="textField">This is a <strong>custom</strong> label</sl-label>
-      <sl-text-field id="textField"></sl-text-field>
+      <sl-label>This is a <em>custom</em> label</sl-label>
+      <sl-text-field></sl-text-field>
     `
   }
 };

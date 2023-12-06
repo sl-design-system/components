@@ -10,6 +10,13 @@ import { Label } from './label.js';
 import { Hint } from './hint.js';
 import { Error } from './error.js';
 
+// Workaround for missing type in polyfill
+declare global {
+  interface ShadowRoot {
+    createElement(tagName: string): HTMLElement;
+  }
+}
+
 let nextUniqueId = 0;
 
 export class FormField extends ScopedElementsMixin(LitElement) {
@@ -183,7 +190,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   }
 
   #onUpdateValidity(event: UpdateValidityEvent): void {
-    console.log('onUpdateValidity', event.target);
+    this.error = event.showValidity ? event.validationMessage : undefined;
   }
 
   // #setErrorText(text: string = ''): void {

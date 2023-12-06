@@ -1,12 +1,10 @@
 :host {
   --_font: var(--sl-text-input-helper-text-md);
-  --_padding-block: var(--sl-space-input-helper-padding-top-md) 0;
 }
 
 :host {
   display: block;
   font: var(--_font);
-  padding-block: var(--_padding-block);
 }
 
 :host([hidden]) {
@@ -15,10 +13,8 @@
 
 :host([size='sm']) {
   --_font: var(--sl-text-input-helper-text-sm);
-  --_padding-block: var(--sl-space-input-helper-padding-top-sm) 0;
 }
 
 :host([size='lg']) {
   --_font: var(--sl-text-input-helper-text-lg);
-  --_padding-block: var(--sl-space-input-helper-padding-top-lg) 0;
 }

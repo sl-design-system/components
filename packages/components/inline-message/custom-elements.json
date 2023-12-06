@@ -94,6 +94,23 @@
               "attribute": "closing-button"
             },
             {
+              "kind": "method",
+              "name": "onClose",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "event",
+              "name": "sl-close",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the inline message is closing."
+            },
+            {
               "kind": "field",
               "name": "status",
               "type": {
@@ -103,6 +120,16 @@
               "description": "The status of the inline message.",
               "attribute": "status",
               "reflects": true
+            }
+          ],
+          "events": [
+            {
+              "name": "closeEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the inline message is closing.",
+              "fieldName": "closeEvent"
             }
           ],
           "attributes": [
@@ -140,20 +167,21 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onCloseClick",
+              "name": "onClose",
               "return": {
                 "type": {
                   "text": "void"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
-                  }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#closeOnAnimationend",
+              "return": {
+                "type": {
+                  "text": "void"
                 }
-              ]
+              }
             }
           ],
           "fields": [

@@ -22,6 +22,8 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
   // const div = document.createElement('div');
   // div.innerText = this.hint;
 
+  // TODO: id and accessibility part
+
   const newInlMessage = new InlineMessage(); //document.createElement('sl-inline-message');
   newInlMessage.innerHTML =
     'Title' + 'Text inside' + '\n    bla bla bla\n    <span slot="description">description</span>';
@@ -35,10 +37,19 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
   // </sl-inline-message>` as Node;
   //document.documentElement.appendChild(newInlMessage);
   event.target.after(newInlMessage);
+
+  // newInlMessage?.addEventListener('sl-close', () => {
+  //   console.log('close event', event);
+  // });
+
   // event.target.append(newInlMessage);
   // document.documentElement.append(new InlineMessage);
   // (event.target.nextElementSibling as Dialog).showModal();
   // return newInlMessage;
+};
+
+const onClose = (): void => {
+  (document.querySelector('sl-inline-message') as InlineMessage)?.remove();
 };
 
 export default {
@@ -66,6 +77,7 @@ export const API: StoryObj = {
         }
       </style>
       <sl-button fill="outline" size="md" @click=${onClick}>Show inline message</sl-button>
+      <sl-button fill="outline" size="md" @click=${onClose}>Close inline message</sl-button>
       <sl-inline-message ?closing-button=${closingButton} status=${status}>
         ${bodyContent}
         <span slot="description">${description}</span>
@@ -74,7 +86,7 @@ export const API: StoryObj = {
   }
 };
 
-export const MoreFooterButtons: StoryObj = {
+export const ShowInlineMessage: StoryObj = {
   args: {
     reverse: false
   },

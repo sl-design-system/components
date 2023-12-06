@@ -4,7 +4,8 @@ import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
-import { breakpoints } from '@sl-design-system/shared';
+import type { EventEmitter } from '@sl-design-system/shared';
+import { breakpoints, event } from '@sl-design-system/shared';
 import { LitElement, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
@@ -61,6 +62,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   // /** Disables the ability to close the dialog using the Escape key. */
   // @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
 
+  /** Emits when the inline message is closing. */
+  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<void>;
+
   /** @private */
   @query('div') wrapper?: HTMLDivElement;
 
@@ -110,7 +114,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         </div>
         ${this.closingButton
           ? html`
-              <slot name="close-button" @click=${this.#onCloseClick}>
+              <slot name="close-button" @click=${this.onClose}>
                 <sl-button fill="ghost" variant="default" size="sm">
                   <sl-icon name="xmark"></sl-icon>
                 </sl-button>
@@ -162,21 +166,29 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   // }
   //
   //TODO: show method
-  #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
-    console.log('event on click', event);
+  onClose(/*event: PointerEvent & { target: HTMLElement }*/): void {
+    //console.log('event on click', event);
     // event.preventDefault();
     // event.stopPropagation();
 
     const wrapper = this.querySelector<HTMLDivElement>('.inline-message-wrapper');
     console.log('wrapper', wrapper, this.wrapper);
 
+    // this.wrapper?.removeAttribute('open');
+    //
+    // this.wrapper?.setAttribute('close', '');
+    //
+    // requestAnimationFrame(() => {
+    //   this.remove();
+    // });
+
+    // this.wrapper?.removeAttribute('close');
+
+    //this.closeEvent.emit();
+
     this.wrapper?.removeAttribute('open');
 
-    this.wrapper?.setAttribute('close', '');
-
-    requestAnimationFrame(() => {
-      this.remove();
-    });
+    this.#closeOnAnimationend();
 
     // this.remove();
     // this.emit('sl-removed');
@@ -236,4 +248,21 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   //
   //   this.inert = true;
   // }
+
+  #closeOnAnimationend(): void {
+    console.log('closeOnAnimationend', this.wrapper);
+    this.wrapper?.addEventListener(
+      'animationend',
+      () => {
+        this.wrapper?.removeAttribute('open');
+
+        this.remove(); // TODO: emit sl-close event or sth similar?
+      },
+      { once: true }
+    );
+
+    requestAnimationFrame(() => {
+      this.wrapper?.setAttribute('close', '');
+    });
+  }
 }

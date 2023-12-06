@@ -92,17 +92,7 @@
           },
           "tagName": "sl-badge",
           "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            }
-          ],
+          "methods": [],
           "fields": [
             {
               "kind": "field",

@@ -1,5 +1,14 @@
-$sizes: sm, md, lg, xl, 2xl, 3xl;
+@use 'sass:map';
+
+$sizes: 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
 $variants: danger, success, warning, accent, neutral, primary;
+$icons: (
+  'md': '2xs',
+  'lg': '2xs',
+  'xl': 'xs',
+  '2xl': 'sm',
+  '3xl': 'sm'
+);
 
 :host {
   align-items: center;
@@ -34,5 +43,7 @@ $variants: danger, success, warning, accent, neutral, primary;
     --_padding-badge-inline: calc(var(--sl-space-badge-inline-#{$size}) + var(--sl-space-badge-label-inline-#{$size}));
     --_icon-margin: calc(-1 * var(--sl-space-badge-label-inline-#{$size}));
     --_gap: calc(var(--sl-space-badge-inline-#{$size}) + var(--sl-space-badge-label-inline-#{$size}));
+
+    --icon-size: var(--sl-size-icon-#{map.get($icons, $size)});
   }
 }

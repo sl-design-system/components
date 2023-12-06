@@ -2,10 +2,15 @@ import type { BadgeSize, BadgeVariant } from './badge.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { Icon } from '@sl-design-system/icon';
 import { faCheck, faGear } from '@fortawesome/pro-regular-svg-icons';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import '../register.js';
 
-interface Props {}
+interface Props {
+  icon: boolean;
+  size: BadgeSize;
+  text: string;
+  variant: BadgeVariant;
+}
 
 type Story = StoryObj<Props>;
 
@@ -35,16 +40,34 @@ const sizeName = (size: string): string => {
 
 export default {
   title: 'Badge',
-  args: {},
-  argTypes: {},
-  render: () => html` <sl-badge> 99+ </sl-badge> `
+  args: {
+    text: '99+',
+    size: 'md',
+    variant: 'neutral',
+    icon: false
+  },
+  argTypes: {
+    size: {
+      control: 'inline-radio',
+      options: sizes
+    },
+    variant: {
+      control: 'radio',
+      options: variants
+    }
+  },
+  render: ({ size, text, variant, icon }) =>
+    html`
+      <sl-badge .size=${size} .variant=${variant}
+        >${icon ? html`<sl-icon name="check"></sl-icon>` : nothing}${text}</sl-badge
+      >
+    `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
 export const All: Story = {
   render: () => {
-    // load a single icon:
     Icon.registerIcon(faCheck, faGear);
 
     return html`

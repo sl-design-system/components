@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { Icon, IconSize } from '@sl-design-system/icon';
+import type { Icon } from '@sl-design-system/icon';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './badge.scss.js';
@@ -27,17 +27,6 @@ export class badge extends LitElement {
   @queryAssignedElements() icons?: Icon[];
 
   override render(): TemplateResult {
-    return this.size !== 'sm' ? html`<slot @slotchange=${this.#onSlotchange}></slot>` : html``;
-  }
-
-  async #onSlotchange(): Promise<void> {
-    const sizeMapping = new Map<BadgeSize, IconSize>([
-      ['md', '2xs'],
-      ['lg', '2xs'],
-      ['xl', 'xs'],
-      ['2xl', 'sm'],
-      ['3xl', 'sm']
-    ]);
-    this.icons?.forEach(icon => (icon.size = sizeMapping.get(this.size) || '2xs'));
+    return this.size !== 'sm' ? html`<slot></slot>` : html``;
   }
 }

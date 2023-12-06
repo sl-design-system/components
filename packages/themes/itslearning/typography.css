@@ -5,16 +5,16 @@
 
 .sl-text-popover-text-title {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
+  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: var(--sl-text-typeset-line-height-sm);
+  line-height: var(--sl-text-typeset-line-height-md);
 }
 
 .sl-text-popover-text-text {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
+  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-regular);
-  line-height: var(--sl-button-label-md);
+  line-height: var(--sl-text-typeset-line-height-md);
 }
 
 .sl-text-select-selectbox-title-lg {

@@ -1,4 +1,14 @@
 :host {
+  --_control-gap: 0.25rem;
+  --_label-gap: 0.5rem;
+
   display: flex;
   flex-direction: column;
+  gap: var(--_label-gap);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--_control-gap);
 }

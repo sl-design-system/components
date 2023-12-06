@@ -29,9 +29,6 @@ export class Label extends LitElement {
   /** @ignore The associated form control. */
   @state() formControl: (HTMLElement & FormControlInterface & { size?: string }) | null = null;
 
-  /** Whether this label should have no padding bottom. */
-  @property({ type: Boolean, attribute: 'no-padding' }) noPadding?: boolean;
-
   /** @ignore Whether this label should be marked as optional. */
   @state() optional?: boolean;
 
@@ -43,6 +40,15 @@ export class Label extends LitElement {
    * @type {'sm' | 'md' | 'lg'}
    */
   @property({ reflect: true }) size: LabelSize = 'md';
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    // Make sure the label doesn't end up in the default slot
+    if (this.parentElement?.tagName === 'SL-FORM-FIELD') {
+      this.slot = 'label';
+    }
+  }
 
   override disconnectedCallback(): void {
     this.#observer.disconnect();

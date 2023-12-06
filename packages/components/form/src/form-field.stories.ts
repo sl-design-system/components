@@ -36,6 +36,13 @@ export const Hint: Story = {
   }
 };
 
+export const BuiltInError: Story = {
+  args: {
+    ...Basic.args,
+    slot: html`<sl-text-field minlength="3" required></sl-text-field>`
+  }
+};
+
 export const CustomError: Story = {
   args: {
     ...Basic.args,

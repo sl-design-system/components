@@ -1,4 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { UpdateValidityEvent } from './update-validity-event.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { LitElement, html } from 'lit';
@@ -181,7 +182,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onUpdateValidity(event: Event & { target: HTMLElement & FormControlInterface }): void {
+  #onUpdateValidity(event: UpdateValidityEvent): void {
     console.log('onUpdateValidity', event.target);
   }
 

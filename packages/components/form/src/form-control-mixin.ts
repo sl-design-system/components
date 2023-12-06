@@ -2,6 +2,7 @@ import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from '@sl-design-system/shared';
 import { property, state } from 'lit/decorators.js';
 import styles from './form-control-mixin.scss.js';
+import { UpdateValidityEvent } from './update-validity-event.js';
 
 export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;
@@ -193,15 +194,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      */
     updateValidity(): void {
       this.showValidity = this.report ? (this.valid ? 'valid' : 'invalid') : undefined;
-      // this.#setErrorText(this.errorText ?? this.validationMessage);
 
-      this.dispatchEvent(
-        new CustomEvent('sl-update-validity', {
-          bubbles: true,
-          composed: true,
-          detail: { showValidity: this.showValidity, valid: this.valid, validationMessage: this.validationMessage }
-        })
-      );
+      this.dispatchEvent(new UpdateValidityEvent(this.valid, this.validationMessage, this.showValidity));
     }
 
     /**

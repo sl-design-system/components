@@ -28,6 +28,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/form-field.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/hint.js"
           }
         },
@@ -37,6 +45,14 @@
           "declaration": {
             "name": "*",
             "package": "./src/label.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/update-validity-event.js"
           }
         }
       ]
@@ -321,9 +337,8 @@
           ],
           "events": [
             {
-              "name": "sl-update-validity",
               "type": {
-                "text": "CustomEvent"
+                "text": "UpdateValidityEvent"
               }
             }
           ],
@@ -662,7 +677,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event & { target: HTMLElement & FormControlInterface }"
+                    "text": "UpdateValidityEvent"
                   }
                 }
               ]
@@ -955,6 +970,31 @@
           "declaration": {
             "name": "Label",
             "module": "src/label.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/update-validity-event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "UpdateValidityEvent",
+          "superclass": {
+            "name": "Event",
+            "module": "src/update-validity-event.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "UpdateValidityEvent",
+          "declaration": {
+            "name": "UpdateValidityEvent",
+            "module": "src/update-validity-event.ts"
           }
         }
       ]

@@ -5315,6 +5315,7 @@ __metadata:
   resolution: "@sl-design-system/inline-message@workspace:packages/components/inline-message"
   dependencies:
     "@open-wc/scoped-elements": "npm:2.2.4"
+    "@sl-design-system/button": "npm:0.0.14"
     "@sl-design-system/icon": "npm:0.0.4"
     lit: "npm:^3.0.2"
   languageName: unknown

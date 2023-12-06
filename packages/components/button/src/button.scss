@@ -24,7 +24,7 @@ $variants: default, primary, success, warning, danger;
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):hover, [popover-opened]) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):hover) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);

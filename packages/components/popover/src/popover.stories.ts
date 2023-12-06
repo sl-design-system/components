@@ -4,7 +4,6 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/text-field/register.js';
-import { anchor } from '@sl-design-system/shared';
 import { html } from 'lit';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import '../register.js';
@@ -138,47 +137,6 @@ export const MoreComplexContent: Story = {
           </footer>
         </sl-popover>
       </div>
-    `;
-  }
-};
-
-export const Dialog: Story = {
-  render: () => {
-    const onClick = (event: Event & { target: Button }): void => {
-      const popover = event.target.nextElementSibling as HTMLElement;
-
-      popover.togglePopover();
-    };
-
-    return html`
-      <!--added this to get the polyfill working in FF and Safari-->
-      <style>
-        [popover]:not(.\\:popover-open),
-        :host([popover]:not(.\\:popover-open)) {
-          display: none;
-        }
-
-        [popover]:is(dialog[open], .\\:popover-open) {
-          display: block;
-        }
-
-        [anchor].\\:popover-open {
-          inset: auto;
-        }
-
-        @supports selector([popover]:popover-open) {
-          [popover]:not(.\\:popover-open, dialog[open]),
-          :host([popover]:not(.\\:popover-open, dialog[open])) {
-            display: revert;
-          }
-
-          [anchor]:is(:popover-open) {
-            inset: auto;
-          }
-        }
-      </style>
-      <sl-button @click=${onClick} id="button">Toggle popover</sl-button>
-      <dialog anchor="button" popover ${anchor({ position: 'bottom' })}>I'm a popover</dialog>
     `;
   }
 };

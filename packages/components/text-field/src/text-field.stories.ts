@@ -15,7 +15,6 @@ const sizes: TextFieldSize[] = ['md', 'lg'];
 export const API: StoryObj = {
   args: {
     disabled: false,
-    hintText: '',
     placeholder: 'Type something here',
     prefix: '',
     required: false,
@@ -42,7 +41,6 @@ export const API: StoryObj = {
   },
   render: ({
     disabled,
-    hintText,
     maxLength,
     minLength,
     placeholder,
@@ -66,7 +64,6 @@ export const API: StoryObj = {
       ?disabled=${disabled}
       ?required=${required}
       ?readonly=${readonly}
-      .hintText=${hintText}
       .max=${max}
       .maxLength=${maxLength}
       .min=${min}
@@ -187,62 +184,6 @@ export const Size: StoryObj = {
       </form>
     `;
   }
-};
-
-export const Hint: StoryObj = {
-  render: () => {
-    return html`
-      <style>
-        form {
-          display: flex;
-          flex-direction: column;
-        }
-        sl-text-field {
-          margin-block-end: 1rem;
-        }
-      </style>
-      <form>
-        ${sizes.map((size, id) => {
-          return html`
-            <sl-label for="form-text-field-${id}">Nickname</sl-label>
-            <sl-text-field
-              .id=${`form-text-field-${id}`}
-              .size=${size}
-              hint-text="What would you like people to call you?"
-            ></sl-text-field>
-          `;
-        })}
-        <sl-label for="input4">Nickname</sl-label>
-        <sl-text-field
-          id="input4"
-          disabled
-          hint-text="What would you like people to call you?"
-          value="Disabled input"
-        ></sl-text-field>
-      </form>
-    `;
-  }
-};
-
-export const RichLabelHint: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-    <form>
-      <sl-label for="input">
-        <label slot="label">Custom <i>label</i></label>
-      </sl-label>
-      <sl-text-field id="input">
-        <div slot="hint-text">
-          Hint is an accessible way to provide <strong>additional information</strong> that might help the user
-        </div>
-      </sl-text-field>
-    </form>
-  `
 };
 
 export const ErrorMessageSizes: StoryObj = {
@@ -437,31 +378,6 @@ export const CustomValidation: StoryObj = {
         }
       </style>
       <sl-text-field @sl-input=${onInput} required></sl-text-field>
-      <sl-button @click=${onClick} fill="outline">Validate</sl-button>
-    `;
-  }
-};
-
-export const CustomValidationWithHint: StoryObj = {
-  render: () => {
-    const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.previousElementSibling as TextField)?.reportValidity();
-    };
-
-    const onInput = (event: Event & { target: TextField }): void => {
-      const value = event.target.value;
-
-      event.target.setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
-    };
-
-    return html`
-      <style>
-        sl-text-field {
-          width: 300px;
-          margin-block-end: 0.5rem;
-        }
-      </style>
-      <sl-text-field @sl-input=${onInput} hint-text="You need to enter 'SLDS'" required></sl-text-field>
       <sl-button @click=${onClick} fill="outline">Validate</sl-button>
     `;
   }

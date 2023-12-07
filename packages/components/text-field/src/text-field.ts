@@ -30,6 +30,9 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   /** @private */
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @private */
   static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
 
   /** Emits when the `blur` event is fired on the `<input>`. */
@@ -151,25 +154,17 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   override render(): TemplateResult {
     return html`
-      <div @click=${this.#onClick} class="wrapper" part="wrapper">
-        <slot name="prefix"></slot>
-        <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
-        <slot name="suffix">
-          ${this.showValidity === 'invalid'
-            ? html`<sl-icon class="invalid-icon" name="triangle-exclamation-solid" size="lg"></sl-icon>`
-            : nothing}
-          ${this.showValidity === 'valid' && this.showValid
-            ? html`<sl-icon class="valid-icon" name="circle-check-solid" size="lg"></sl-icon>`
-            : nothing}
-        </slot>
-      </div>
+      <slot name="prefix"></slot>
+      <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
+      <slot name="suffix">
+        ${this.showValidity === 'invalid'
+          ? html`<sl-icon class="invalid-icon" name="triangle-exclamation-solid" size="lg"></sl-icon>`
+          : nothing}
+        ${this.showValidity === 'valid' && this.showValid
+          ? html`<sl-icon class="valid-icon" name="circle-check-solid" size="lg"></sl-icon>`
+          : nothing}
+      </slot>
     `;
-  }
-
-  #onClick(event: Event): void {
-    event.preventDefault();
-
-    this.input.focus();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {

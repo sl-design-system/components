@@ -21,10 +21,24 @@ describe('sl-form-field', () => {
       expect(label).to.have.text('My label');
     });
 
+    it('should slot the label in the label slot', () => {
+      const label = el.querySelector('sl-label');
+
+      expect(label).to.have.attribute('slot', 'label');
+      expect(label?.assignedSlot?.name).to.equal('label');
+    });
+
     it('should render the hint in the light DOM', () => {
       const hint = el.querySelector('sl-hint');
 
       expect(hint).to.have.text('Hint');
+    });
+
+    it('should slot the hint in the hint slot', () => {
+      const hint = el.querySelector('sl-hint');
+
+      expect(hint).to.have.attribute('slot', 'hint');
+      expect(hint?.assignedSlot?.name).to.equal('hint');
     });
 
     it('should link the hint to the form control', () => {

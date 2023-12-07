@@ -1,5 +1,11 @@
 # @sl-design-system/avatar
 
+## 0.1.2
+
+### Patch Changes
+
+- [#724](https://github.com/sl-design-system/components/pull/724) [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d) - Added avatar + added token for focus ring offset
+
 ## 0.1.1
 
 ### Patch Changes

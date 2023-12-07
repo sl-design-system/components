@@ -154,7 +154,7 @@
           "mixins": [
             {
               "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {

@@ -1,8 +1,8 @@
 import type { TemplateResult } from 'lit-html';
 import type { CSSResultGroup } from 'lit';
 import type { ButtonSize } from '@sl-design-system/button';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { LitElement, html } from 'lit';

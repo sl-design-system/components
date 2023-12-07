@@ -8,7 +8,7 @@ $variants: default, primary, success, warning, danger;
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 }
 
 @each $fill in $fills {
@@ -17,7 +17,7 @@ $variants: default, primary, success, warning, danger;
   }
 
   @each $variant in $variants {
-    :host([fill='#{$fill}'][variant='#{$variant}']) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:not([popover-opened])) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
@@ -31,7 +31,8 @@ $variants: default, primary, success, warning, danger;
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-hover);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):active) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):active),
+    :host([fill='#{$fill}'][variant='#{$variant}'][popover-opened]) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);

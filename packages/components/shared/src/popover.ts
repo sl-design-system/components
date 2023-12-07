@@ -55,18 +55,22 @@ const virtualTrigger = false;
 
 const MIN_OVERLAY_HEIGHT = 25;
 
-const flipPlacement = (position: PopoverPosition): PopoverPosition => {
+const flipPlacement = (position: PopoverPosition): PopoverPosition[] => {
   // Position can have a secondary part (-start, -end); we are only
   // interested in the first part.
   const [, pos] = /(\w+).*$/.exec(position) || [];
 
-  let replace;
+  let replace = [];
   if (pos === 'top' || pos === 'bottom') {
-    replace = pos === 'top' ? 'bottom' : 'top';
+    replace = pos === 'top' ? ['bottom', 'right', 'left'] : ['top', 'right', 'left'];
   } else {
-    replace = pos === 'left' ? 'right' : 'left';
+    replace = pos === 'left' ? ['right', 'top', 'bottom'] : ['left', 'top', 'bottom'];
   }
-  return position.replace(pos, replace) as PopoverPosition;
+  const positions: PopoverPosition[] = [];
+  replace.forEach(replacePart => {
+    positions.push(position.replace(pos, replacePart) as PopoverPosition);
+  });
+  return positions;
 };
 
 /** This is a temporary workaround until @floating-ui fixes this issue.
@@ -161,13 +165,6 @@ const topLayerOverTransforms = (): Middleware => ({
   }
 });
 
-// const isWindow = (value: unknown): boolean => {
-//   if (typeof value === 'undefined' || value === null || !(value instanceof Object)) {
-//     return false;
-//   }
-//   return ['document', 'location', 'alert', 'setInterval'].every(p => Object.keys(value).includes(p));
-// };
-
 export const positionPopover = (
   element: HTMLElement,
   anchor: Element,
@@ -180,10 +177,9 @@ export const positionPopover = (
 
   const cleanup = autoUpdate(anchor, element, () => {
     const { position = 'top', viewportMargin = 0 } = options;
-
     const middleware = [
       shift({ padding: viewportMargin }),
-      flip({ fallbackPlacements: [flipPlacement(position)] }),
+      flip({ fallbackPlacements: flipPlacement(position) }),
       offset(getOffset(element)),
       size({
         padding: viewportMargin,

@@ -1,11 +1,11 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { DataSourceFilterFunction, EventEmitter } from '@sl-design-system/shared';
 import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
 import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';

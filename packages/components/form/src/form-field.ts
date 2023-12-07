@@ -3,8 +3,8 @@ import type { UpdateValidityEvent } from './update-validity-event.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { LitElement, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
-import { type FormControlInterface } from './form-control-mixin.js';
+import { property, state } from 'lit/decorators.js';
+import { type FormControl } from './form-control-mixin.js';
 import styles from './form-field.scss.js';
 import { Label } from './label.js';
 import { Hint } from './hint.js';
@@ -36,7 +36,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   #error?: Error;
 
   /** The form control element. */
-  #formControl?: HTMLElement & FormControlInterface;
+  #formControl?: HTMLElement & FormControl;
 
   /** The hint element. */
   #hint?: Hint;
@@ -45,10 +45,10 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   #label?: Label;
 
   /**
-   * An error that will be shown over any other validation messages.
-   * You can also slot an `<sl-error>` element.
+   * The validation message that will be displayed when the field is in an invalid state.
+   * @private
    */
-  @property() error?: string;
+  @state() error?: string;
 
   /**
    * A hint that will be shown when there are no validation messages.
@@ -173,8 +173,12 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       formControl = assignedElements.find(el => 'extendsFormControlMixin' in el.constructor);
 
     if (formControl) {
-      this.#formControl = formControl as HTMLElement & FormControlInterface;
+      this.#formControl = formControl as HTMLElement & FormControl;
       this.#formControl.id ||= `sl-form-field-control-${nextUniqueId++}`;
+
+      if (this.#formControl.showValidity) {
+        this.error = this.#formControl.validationMessage;
+      }
 
       if (this.#hint) {
         this.#formControl.formControlElement.setAttribute('aria-describedby', this.#hint.id);
@@ -193,50 +197,11 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   }
 
   #onUpdateValidity(event: UpdateValidityEvent): void {
+    if (this.#error && !this.error) {
+      // Do nothing if there is a custom error message slotted
+      return;
+    }
+
     this.error = event.showValidity ? event.validationMessage : undefined;
   }
-
-  // #setErrorText(text: string = ''): void {
-  //   if (!text && !this.#errorElement) {
-  //     return;
-  //   }
-
-  //   this.#errorElement ??= document.createElement('div');
-  //   this.#errorElement.id ||= `sl-error-${nextUniqueId++}`;
-  //   this.#errorElement.innerText = text;
-  //   this.#errorElement.slot ||= 'error-text';
-
-  //   const ids = this.formControlElement.getAttribute('aria-describedby')?.split(' ') ?? [];
-  //   if (!ids.includes(this.#errorElement.id)) {
-  //     this.formControlElement.setAttribute('aria-describedby', [...ids, this.#errorElement.id].join(' '));
-  //   }
-
-  //   // The error is added to the light DOM so that it can be linked to by the aria-describedby
-  //   // attribute. This is necessary for accessibility.
-  //   if (!this.#errorElement.parentElement) {
-  //     this.append(this.#errorElement);
-  //   }
-  // }
-
-  // #setHintText(text: string = ''): void {
-  //   if (!text && !this.#hintElement) {
-  //     return;
-  //   }
-
-  //   this.#hintElement ??= document.createElement('div');
-  //   this.#hintElement.id ||= `sl-hint-${nextUniqueId++}`;
-  //   this.#hintElement.innerText = text;
-  //   this.#hintElement.slot ||= 'hint-text';
-
-  //   const ids = this.formControlElement.getAttribute('aria-describedby')?.split(' ') ?? [];
-  //   if (!ids.includes(this.#hintElement.id)) {
-  //     this.formControlElement.setAttribute('aria-describedby', [...ids, this.#hintElement.id].join(' '));
-  //   }
-
-  //   // The hint is added to the light DOM so that it can be linked to by the aria-describedby
-  //   // attribute. This is necessary for accessibility.
-  //   if (!this.#hintElement.parentElement) {
-  //     this.append(this.#hintElement);
-  //   }
-  // }
 }

@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { FormControlInterface } from './form-control-mixin.js';
+import type { FormControl } from './form-control-mixin.js';
 import { msg } from '@lit/localize';
 import { property, state } from 'lit/decorators.js';
 import { LitElement, html, nothing } from 'lit';
@@ -27,7 +27,7 @@ export class Label extends LitElement {
   @property() for?: string;
 
   /** @ignore The associated form control. */
-  @state() formControl: (HTMLElement & FormControlInterface & { size?: string }) | null = null;
+  @state() formControl: (HTMLElement & FormControl & { size?: string }) | null = null;
 
   /** @ignore Whether this label should be marked as optional. */
   @state() optional?: boolean;
@@ -62,7 +62,7 @@ export class Label extends LitElement {
     if (changes.has('for')) {
       if (this.for) {
         this.formControl = (this.getRootNode() as Element)?.querySelector<
-          HTMLElement & FormControlInterface & { size?: string }
+          HTMLElement & FormControl & { size?: string }
         >(`#${this.for}`);
 
         if (this.formControl instanceof LitElement) {

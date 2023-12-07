@@ -21,15 +21,18 @@ export interface CustomFormControlElement extends HTMLElement {
 
 export type FormControlElement = NativeFormControlElement | CustomFormControlElement;
 
-export interface FormControlInterface {
+export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
+
+export interface FormControl {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
-  readonly showValidity?: 'valid' | 'invalid';
+  readonly showValidity: FormControlShowValidity;
   readonly valid: boolean;
   readonly validationMessage: string;
   readonly validity: ValidityState;
 
+  customValidity?: string;
   name?: string;
   report?: boolean;
 
@@ -49,10 +52,8 @@ const isNative = (element: FormControlElement): element is NativeFormControlElem
  * @slot error-text - The error text to display
  * @slot hint-text - The hint text to display
  */
-export function FormControlMixin<T extends Constructor<ReactiveElement>>(
-  constructor: T
-): T & Constructor<FormControlInterface> {
-  class FormControl extends constructor {
+export function FormControlMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<FormControl> {
+  class FormControlImpl extends constructor {
     /**
      * This is necessary so we can check if an element implements this Mixin, since the
      * `FormControl` class isn't a generic class we can use in an `instanceof` comparison.
@@ -74,6 +75,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       this.report = true;
     };
 
+    /** The error message to display when the control is invalid. */
+    @property({ attribute: 'custom-validity' }) customValidity?: string;
+
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
 
@@ -81,7 +85,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     @state() report?: boolean;
 
     /** Whether to show the validity state. */
-    @property({ attribute: 'show-validity', reflect: true }) showValidity?: 'valid' | 'invalid';
+    @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
     /** @ignore For internal use only */
     get formControlElement(): FormControlElement {
@@ -151,6 +155,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     /** @ignore */
     override willUpdate(changes: PropertyValues<this>): void {
       super.willUpdate(changes);
+
+      if (changes.has('customValidity')) {
+        this.setCustomValidity(this.customValidity ?? '');
+      }
 
       if (changes.has('report')) {
         this.updateValidity();
@@ -233,7 +241,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     }
   }
 
-  return FormControl;
+  return FormControlImpl;
 }
 
 FormControlMixin.styles = styles;

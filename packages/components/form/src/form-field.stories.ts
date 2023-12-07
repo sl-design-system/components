@@ -4,16 +4,31 @@ import '@sl-design-system/text-field/register.js';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 
-type Props = Pick<FormField, 'error' | 'hint' | 'label'> & { slot?: TemplateResult };
+type Props = Pick<FormField, 'hint' | 'label'> & {
+  customValidity?: string;
+  slot?: TemplateResult;
+};
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Form Field',
-  render: ({ error, hint, label, slot }) => html`
-    <sl-form-field .error=${error} .hint=${hint} .label=${label}>
-      ${slot ?? html`<sl-text-field></sl-text-field>`}
-    </sl-form-field>
-  `
+  argTypes: {
+    slot: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  render: ({ customValidity, hint, label, slot }) => {
+    // Force the text field to report its validity when the story is loaded
+    setTimeout(() => document.querySelector('sl-text-field')?.reportValidity());
+
+    return html`
+      <sl-form-field .hint=${hint} .label=${label}>
+        ${slot ?? html`<sl-text-field .customValidity=${customValidity}></sl-text-field>`}
+      </sl-form-field>
+    `;
+  }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
@@ -25,7 +40,7 @@ export const Basic: Story = {
 export const Error: Story = {
   args: {
     ...Basic.args,
-    error: 'This is an error'
+    slot: html`<sl-text-field required></sl-text-field>`
   }
 };
 
@@ -39,15 +54,8 @@ export const Hint: Story = {
 export const Both: Story = {
   args: {
     ...Basic.args,
-    error: 'This is an error',
+    customValidity: 'This is an error',
     hint: 'This is a hint'
-  }
-};
-
-export const BuiltInError: Story = {
-  args: {
-    ...Basic.args,
-    slot: html`<sl-text-field minlength="3" required></sl-text-field>`
   }
 };
 
@@ -55,7 +63,7 @@ export const CustomError: Story = {
   args: {
     ...Basic.args,
     slot: html`
-      <sl-text-field></sl-text-field>
+      <sl-text-field required></sl-text-field>
       <sl-error>This is a <strong>custom</strong> error</sl-error>
     `
   }

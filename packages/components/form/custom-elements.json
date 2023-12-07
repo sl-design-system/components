@@ -176,6 +176,15 @@
           "members": [
             {
               "kind": "field",
+              "name": "customValidity",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The error message to display when the control is invalid.",
+              "attribute": "custom-validity"
+            },
+            {
+              "kind": "field",
               "name": "extendsFormControlMixin",
               "type": {
                 "text": "boolean"
@@ -273,7 +282,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "'valid' | 'invalid' | undefined"
+                "text": "FormControlShowValidity"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -326,6 +335,14 @@
           ],
           "attributes": [
             {
+              "name": "custom-validity",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The error message to display when the control is invalid.",
+              "fieldName": "customValidity"
+            },
+            {
               "name": "name",
               "type": {
                 "text": "string | undefined"
@@ -336,7 +353,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "'valid' | 'invalid' | undefined"
+                "text": "FormControlShowValidity"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity"
@@ -514,15 +531,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "error",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "An error that will be shown over any other validation messages.\nYou can also slot an `<sl-error>` element.",
-              "attribute": "error"
-            },
-            {
-              "kind": "field",
               "name": "hint",
               "type": {
                 "text": "string | undefined"
@@ -541,14 +549,6 @@
             }
           ],
           "attributes": [
-            {
-              "name": "error",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "An error that will be shown over any other validation messages.\nYou can also slot an `<sl-error>` element.",
-              "fieldName": "error"
-            },
             {
               "name": "hint",
               "type": {
@@ -690,7 +690,7 @@
               "name": "#formControl",
               "privacy": "private",
               "type": {
-                "text": "HTMLElement & FormControlInterface | undefined"
+                "text": "HTMLElement & FormControl | undefined"
               },
               "description": "The form control element."
             },
@@ -711,6 +711,15 @@
                 "text": "Label | undefined"
               },
               "description": "The label element."
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The validation message that will be displayed when the field is in an invalid state.",
+              "privacy": "private"
             }
           ]
         }

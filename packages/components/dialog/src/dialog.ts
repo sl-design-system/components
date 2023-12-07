@@ -11,7 +11,6 @@ import { LitElement, adoptStyles, html, nothing, unsafeCSS } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
 
-@localized()
 /**
  * A dialog component for displaying modal UI.
  *
@@ -24,6 +23,8 @@ import styles from './dialog.scss.js';
  * @slot title - The title of the dialog
  * @slot subtitle - The subtitle of the dialog
  */
+
+@localized()
 export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {

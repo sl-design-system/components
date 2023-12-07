@@ -38,8 +38,42 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A dialog component for displaying modal UI.",
           "name": "Dialog",
+          "slots": [
+            {
+              "description": "Area where action buttons are placed",
+              "name": "actions"
+            },
+            {
+              "description": "Body content for the dialog",
+              "name": "default"
+            },
+            {
+              "description": "Footer content for the dialog",
+              "name": "footer"
+            },
+            {
+              "description": "Header content for the dialog",
+              "name": "header"
+            },
+            {
+              "description": "Closing button (placed in header) for the dialog",
+              "name": "close-button"
+            },
+            {
+              "description": "More space for buttons for the dialog's header",
+              "name": "header-buttons"
+            },
+            {
+              "description": "The title of the dialog",
+              "name": "title"
+            },
+            {
+              "description": "The subtitle of the dialog",
+              "name": "subtitle"
+            }
+          ],
           "members": [
             {
               "kind": "method",

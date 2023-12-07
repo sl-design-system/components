@@ -34,12 +34,6 @@ export class Error extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
-  }
-
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const assignedElements = event.target.assignedElements({ flatten: true });
-
-    this.toggleAttribute('hidden', assignedElements.length === 0);
+    return html`<slot></slot>`;
   }
 }

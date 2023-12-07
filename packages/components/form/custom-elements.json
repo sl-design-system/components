@@ -140,25 +140,7 @@
           },
           "tagName": "sl-error",
           "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            }
-          ],
+          "methods": [],
           "fields": [
             {
               "kind": "field",
@@ -788,25 +770,7 @@
           },
           "tagName": "sl-hint",
           "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            }
-          ],
+          "methods": [],
           "fields": [
             {
               "kind": "field",

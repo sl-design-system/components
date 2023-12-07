@@ -36,6 +36,14 @@ export const Hint: Story = {
   }
 };
 
+export const Both: Story = {
+  args: {
+    ...Basic.args,
+    error: 'This is an error',
+    hint: 'This is a hint'
+  }
+};
+
 export const BuiltInError: Story = {
   args: {
     ...Basic.args,

@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { UpdateValidityEvent } from './update-validity-event.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { LitElement, html } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type FormControlInterface } from './form-control-mixin.js';
 import styles from './form-field.scss.js';
@@ -113,7 +113,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       <div class="wrapper" part="wrapper">
         <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity}></slot>
         <slot name="error" @slotchange=${this.#onErrorSlotchange}></slot>
-        <slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>
+        ${this.#error ? nothing : html`<slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>`}
       </div>
     `;
   }
@@ -132,6 +132,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     } else {
       this.#label = undefined;
     }
+
+    // Trigger a re-render now that we've potentially added or removed the error message.
+    this.requestUpdate();
   }
 
   #onHintSlotchange(event: Event & { target: HTMLSlotElement }): void {

@@ -114,7 +114,7 @@
         "solid": {
           "idle": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.default.idle.background"
             },
@@ -124,7 +124,7 @@
               "description": "color.button.default.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.button.default.idle.border"
             }
@@ -165,7 +165,7 @@
           },
           "focus": {
             "background": {
-              "value": "rgba({body.background},{opacity.100})",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.default.focus.background"
             },
@@ -201,7 +201,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.default.outline.idle.background"
             },

@@ -255,6 +255,12 @@
               }
             }
           ],
+          "attributes": [
+            {
+              "description": " Can be used for styling anchor element, when popover is opened and the anchor is not a sl-button. For sl-button active state styling is used by default.",
+              "name": "popover-opened"
+            }
+          ],
           "methods": [
             {
               "kind": "method",
@@ -305,6 +311,11 @@
             {
               "kind": "field",
               "name": "#onBeforeToggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#onToggle",
               "privacy": "private"
             },
             {

@@ -71,6 +71,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** Determines whether closing button (default one) should be shown in the top right corner. */
   @property({ type: Boolean, attribute: 'closing-button' }) closingButton = true; // TODO: or dismissable?
 
+  /** Determines whether the icon should be shown on the left side of the component. */
+  @property({ type: Boolean, attribute: 'no-icon' }) noIcon?: boolean;
+
   // /** The ARIA role of the dialog. */
   // @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
@@ -99,23 +102,30 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div class="inline-message-wrapper" open>
-        <!--        <slot>icon</slot>-->
         <div class="content">
-          <slot name="icon" part="icon">
+          ${this.noIcon
+            ? nothing
+            : html`
+                <slot name="icon" part="icon">
+                  <sl-icon name=${iconName(this.status)} size="md"></sl-icon>
+                </slot>
+              `}
+          <!--<slot name="icon" part="icon">
             <sl-icon name=${iconName(this.status)} size="md"></sl-icon>
-          </slot>
+          </slot>-->
           <!--        <slot name="icon" part="icon"></slot>-->
           <div class="content-details">
             <slot name="title" part="title" aria-live="polite">
               <slot></slot>
             </slot>
             <slot name="description" part="description"> </slot>
+            <slot name="details" part="details"> </slot>
           </div>
         </div>
         ${this.closingButton
           ? html`
               <slot name="close-button" @click=${this.onClose}>
-                <sl-button fill="ghost" variant="default" size="sm">
+                <sl-button fill="ghost" variant="default" size="sm" aria-label="close the inline message">
                   <sl-icon name="xmark"></sl-icon>
                 </sl-button>
               </slot>
@@ -123,7 +133,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
           : nothing}
       </div>
     `;
-  }
+  } // TODO: aria label with translation (${msg('optional')})
 
   //   #renderIcon(status): string  {
   //     switch
@@ -216,12 +226,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   //   }
   // }
   //
-  // #onKeydown(event: KeyboardEvent): void {
-  //   if (event.code === 'Escape' && !this.disableClose) {
-  //     this.#closeDialogOnAnimationend(event.target as HTMLElement);
-  //   }
-  // }
-  //
   // #closeDialogOnAnimationend(target: HTMLElement): void {
   //   this.dialog?.addEventListener(
   //     'animationend',
@@ -242,12 +246,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   //   });
   // }
   //
-  // #onClose(): void {
-  //   // Reenable scrolling after the dialog has closed
-  //   document.documentElement.style.overflow = '';
-  //
-  //   this.inert = true;
-  // }
 
   #closeOnAnimationend(): void {
     console.log('closeOnAnimationend', this.wrapper);

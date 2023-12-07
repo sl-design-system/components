@@ -94,6 +94,15 @@
               "attribute": "closing-button"
             },
             {
+              "kind": "field",
+              "name": "noIcon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether the icon should be shown on the left side of the component.",
+              "attribute": "no-icon"
+            },
+            {
               "kind": "method",
               "name": "onClose",
               "return": {
@@ -141,6 +150,14 @@
               "default": "true",
               "description": "Determines whether closing button (default one) should be shown in the top right corner.",
               "fieldName": "closingButton"
+            },
+            {
+              "name": "no-icon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether the icon should be shown on the left side of the component.",
+              "fieldName": "noIcon"
             },
             {
               "name": "status",

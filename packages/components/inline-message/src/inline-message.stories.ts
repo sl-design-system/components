@@ -3,8 +3,6 @@ import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/icon/register.js';
-import { faCircleXmark } from '@fortawesome/pro-regular-svg-icons';
-import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
 import { InlineMessage } from './inline-message';
@@ -26,7 +24,7 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
 
   const newInlMessage = new InlineMessage(); //document.createElement('sl-inline-message');
   newInlMessage.innerHTML =
-    'Title' + 'Text inside' + '\n    bla bla bla\n    <span slot="description">description</span>';
+    'Inline message title' + '\n    bla bla bla\n    <span slot="description">Description text</span>';
 
   // const newInlMessage = `<sl-inline-message closing-button status="info">
   //   <span slot="title">Title</span>
@@ -49,7 +47,7 @@ const onClick = (event: Event & { target: HTMLElement }): void => {
 };
 
 const onClose = (): void => {
-  (document.querySelector('sl-inline-message') as InlineMessage)?.remove();
+  (document.querySelector('sl-inline-message') as InlineMessage)?.onClose();
 };
 
 export default {
@@ -60,6 +58,7 @@ export const API: StoryObj = {
   args: {
     closingButton: true,
     status: 'info',
+    noIcon: false,
     description: 'Description text',
     bodyContent: `Inline message title`
   },
@@ -69,7 +68,7 @@ export const API: StoryObj = {
       options: ['info', 'success', 'warning', 'danger']
     }
   },
-  render: ({ description, bodyContent, closingButton, status }) => {
+  render: ({ description, bodyContent, closingButton, status, noIcon }) => {
     return html`
       <style>
         sl-inline-message {
@@ -78,7 +77,7 @@ export const API: StoryObj = {
       </style>
       <sl-button fill="outline" size="md" @click=${onClick}>Show inline message</sl-button>
       <sl-button fill="outline" size="md" @click=${onClose}>Close inline message</sl-button>
-      <sl-inline-message ?closing-button=${closingButton} status=${status}>
+      <sl-inline-message ?closing-button=${closingButton} ?no-icon=${noIcon} status=${status}>
         ${bodyContent}
         <span slot="description">${description}</span>
       </sl-inline-message>
@@ -87,11 +86,12 @@ export const API: StoryObj = {
 };
 
 export const ShowInlineMessage: StoryObj = {
-  args: {
-    reverse: false
-  },
-  render: ({ reverse }) => html`
+  render: () => html`
     <style>
+      sl-inline-message {
+        margin: 24px auto;
+      }
+
       sl-button-bar[reverse] > sl-button:first-child {
         margin-left: auto;
       }
@@ -117,17 +117,8 @@ export const ShowInlineMessage: StoryObj = {
         }
       }
     </style>
-    <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
-    <sl-dialog closing-button>
-      <span slot="subtitle">Dialog subtitle</span>
-      <span slot="title">Dialog title</span>
-      <div>You cannot scroll the body once the dialog is open.</div>
-      <sl-button-bar slot="footer" align="space-between" .reverse=${reverse}>
-        <sl-button fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-        <sl-button fill="outline" variant="primary" sl-dialog-close>Action 2</sl-button>
-        <sl-button fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
-      </sl-button-bar>
-    </sl-dialog>
+    <sl-button fill="outline" @click=${onClick}>Show inline message</sl-button>
+    <sl-button fill="outline" size="md" @click=${onClose}>Close inline message</sl-button>
   `
 };
 
@@ -143,35 +134,15 @@ export const DisableClose: StoryObj = {
   `
 };
 
-export const ScrollingBody: StoryObj = {
+// TODO: with errors list example
+
+export const ErrorsList: StoryObj = {
   render: () => html`
-    <style>
-      sl-button {
-        margin: 50vh 0 100vh;
-      }
-    </style>
     <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
-    <sl-dialog closing-button>
-      <span slot="subtitle">Dialog subtitle example</span>
-      <span slot="title">Dialog title example</span>
-      <div>You cannot scroll the body once the dialog is open.</div>
-    </sl-dialog>
+    <sl-inline-message status="danger">
+      Status danger inline message
+      <span slot="description">A place for additional description</span>
+      <span slot="details">A place for details like errors list</span>
+    </sl-inline-message>
   `
-};
-
-export const CustomClosingIcon: StoryObj = {
-  render: () => {
-    Icon.registerIcon(faCircleXmark);
-
-    return html`
-      <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
-      <sl-dialog closing-button>
-        <span slot="title">Custom icon dialog</span>
-        <sl-button slot="close-button" fill="ghost" variant="default">
-          <sl-icon name="far-circle-xmark"></sl-icon>
-        </sl-button>
-        <div>Dialog with custom closing icon</div>
-      </sl-dialog>
-    `;
-  }
 };

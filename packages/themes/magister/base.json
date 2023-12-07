@@ -2568,6 +2568,12 @@
       "gap": {
         "value": "{space.lg}",
         "type": "spacing"
+      },
+      "content": {
+        "gap": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        }
       }
     }
   },

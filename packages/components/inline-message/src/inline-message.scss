@@ -27,6 +27,8 @@ $statuses: info, success, warning, danger;
   --_gap: var(--sl-space-inline-message-gap);
   --_close-button-spacing: var(--sl-space-button-gap-sm);
   --_icon-block-size: var(--sl-text-typeset-line-height-lg);
+  --_details-font: var(--sl-text-list-sm-normal);
+  --_content-gap: var(--sl-space-inline-message-content-gap);
 }
 
 @each $status in $statuses {
@@ -38,41 +40,6 @@ $statuses: info, success, warning, danger;
     --_fill: var(--sl-color-inline-message-#{$status}-icon);
     --_color: var(--sl-color-inline-message-#{$status}-foreground);
   }
-
-  //@each $variant in $variants {
-  //  :host([fill='#{$fill}'][variant='#{$variant}']) {
-  //    --_background: var(--sl-color-button-#{$variant}-#{$fill}-idle-background);
-  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-idle-border);
-  //    --_color: var(--sl-color-button-#{$variant}-#{$fill}-idle-foreground);
-  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
-  //  }
-  //
-  //  :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):hover) {
-  //    --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
-  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
-  //    --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);
-  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-hover);
-  //  }
-  //
-  //  :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):active) {
-  //    --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
-  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
-  //    --_color: var(--sl-color-button-#{$variant}-#{$fill}-active-foreground);
-  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-active);
-  //  }
-  //
-  //  :host([fill='#{$fill}'][variant='#{$variant}']:where(:disabled, [internals-disabled])) {
-  //    --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
-  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
-  //    --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
-  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
-  //  }
-  //
-  //  :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):focus-visible) {
-  //    --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
-  //    --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
-  //  }
-  //}
 }
 
 :host {
@@ -135,6 +102,7 @@ $statuses: info, success, warning, danger;
 .content-details {
   display: flex;
   flex-direction: column;
+  gap: var(--_content-gap);
 }
 
 slot[name='icon'] {
@@ -146,17 +114,14 @@ slot[name='icon'] {
   }
 }
 
+slot[name='details'] {
+  font: var(--_details-font);
+}
+
 //slot[name='icon']::slotted(sl-icon) {
 //  align-self: center;
 //  fill: var(--_fill);
 //  margin-left: var(--sl-space-input-field-label-icon-md);
-//}
-
-//.titles {
-//  align-items: flex-start;
-//  display: flex;
-//  flex-direction: var(--_heading-direction);
-//  gap: var(--_heading-gap);
 //}
 
 //slot[name='header-actions'] {

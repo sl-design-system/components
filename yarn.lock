@@ -4117,6 +4117,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@open-wc/scoped-elements@npm:2.2.4":
+  version: 2.2.4
+  resolution: "@open-wc/scoped-elements@npm:2.2.4"
+  dependencies:
+    "@lit/reactive-element": "npm:^1.0.0 || ^2.0.0"
+    "@open-wc/dedupe-mixin": "npm:^1.4.0"
+  checksum: 67c596f15cc59a04140bde77bfd852f49637113757be96c08e8a6bdf6c8df92737584e319cf25cda5d9ec8a51b1d959747391f44a10c6648df309bf0a57f82bb
+  languageName: node
+  linkType: hard
+
 "@open-wc/scoped-elements@npm:3.0.3, @open-wc/scoped-elements@npm:^3.0.2":
   version: 3.0.3
   resolution: "@open-wc/scoped-elements@npm:3.0.3"
@@ -5253,8 +5263,8 @@ __metadata:
   resolution: "@sl-design-system/inline-message@workspace:packages/components/inline-message"
   dependencies:
     "@open-wc/scoped-elements": "npm:2.2.4"
-    "@sl-design-system/button": "npm:0.0.14"
-    "@sl-design-system/icon": "npm:0.0.4"
+    "@sl-design-system/button": "npm:0.0.15"
+    "@sl-design-system/icon": "npm:0.0.5"
     lit: "npm:^3.0.2"
   languageName: unknown
   linkType: soft
@@ -16330,7 +16340,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit@npm:^2.0.0 || ^3.0.0, lit@npm:^3.0.0, lit@npm:^3.1.0":
+"lit@npm:^2.0.0 || ^3.0.0, lit@npm:^3.0.0, lit@npm:^3.0.2, lit@npm:^3.1.0":
   version: 3.1.0
   resolution: "lit@npm:3.1.0"
   dependencies:

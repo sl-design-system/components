@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/dialog",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Dialog component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -40,7 +40,7 @@
   "dependencies": {
     "@open-wc/scoped-elements": "3.0.3",
     "@sl-design-system/button-bar": "0.0.3",
-    "@sl-design-system/icon": "0.0.4",
+    "@sl-design-system/icon": "0.0.5",
     "lit": "^3.1.0"
   }
 }

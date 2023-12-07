@@ -45,5 +45,6 @@ $icons: (
     --_gap: calc(var(--sl-space-badge-inline-#{$size}) + var(--sl-space-badge-label-inline-#{$size}));
 
     --icon-size: var(--sl-size-icon-#{map.get($icons, $size)});
+    --icon-container-size: var(--icon-size);
   }
 }

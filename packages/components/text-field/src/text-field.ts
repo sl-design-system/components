@@ -2,7 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Error, FormControlMixin, Hint } from '@sl-design-system/form';
+import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { event } from '@sl-design-system/shared';
 import { LitElement, html, nothing } from 'lit';
@@ -25,8 +25,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-error': Error,
-      'sl-hint': Hint,
       'sl-icon': Icon
     };
   }
@@ -165,9 +163,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
             : nothing}
         </slot>
       </div>
-
-      <sl-error .size=${this.size}></sl-error>
-      <sl-hint .size=${this.size}></sl-hint>
     `;
   }
 

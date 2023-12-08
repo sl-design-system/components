@@ -1,4 +1,4 @@
-// import type { Dialog } from './dialog.js';
+import type { InlineMessageStatus } from './inline-message';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
@@ -7,43 +7,14 @@ import { html } from 'lit';
 import '../register.js';
 import { InlineMessage } from './inline-message';
 
-const onClick = (event: Event & { target: HTMLElement }): void => {
-  console.log(event);
-  /*const newInlMessage = html`<sl-inline-message closing-button status="info">
-    <span slot="title">Title</span>
-    <span slot="subtitle">Text inside</span>
-    bla bla bla
-    <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-    <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
-  </sl-inline-message>`;*/
-
-  // const div = document.createElement('div');
-  // div.innerText = this.hint;
-
+const onClick = (event: Event, status?: InlineMessageStatus): void => {
+  console.log(event, status);
   // TODO: id and accessibility part
 
-  const newInlMessage = new InlineMessage(); //document.createElement('sl-inline-message');
-  newInlMessage.innerHTML =
-    'Inline message title' + '\n    bla bla bla\n    <span slot="description">Description text</span>';
-
-  // const newInlMessage = `<sl-inline-message closing-button status="info">
-  //   <span slot="title">Title</span>
-  //   <span slot="subtitle">Text inside</span>
-  //   bla bla bla
-  //   <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
-  //   <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
-  // </sl-inline-message>` as Node;
-  //document.documentElement.appendChild(newInlMessage);
-  event.target.after(newInlMessage);
-
-  // newInlMessage?.addEventListener('sl-close', () => {
-  //   console.log('close event', event);
-  // });
-
-  // event.target.append(newInlMessage);
-  // document.documentElement.append(new InlineMessage);
-  // (event.target.nextElementSibling as Dialog).showModal();
-  // return newInlMessage;
+  const newInlMessage = new InlineMessage();
+  newInlMessage.status = status || 'info';
+  newInlMessage.innerHTML = 'Inline message title' + '<span slot="description">Description text</span>';
+  (event.target as HTMLElement).nextElementSibling?.after(newInlMessage);
 };
 
 const onClose = (): void => {
@@ -56,11 +27,12 @@ export default {
 
 export const API: StoryObj = {
   args: {
-    closingButton: true,
+    dismissible: true,
     status: 'info',
     noIcon: false,
-    description: 'Description text',
-    bodyContent: `Inline message title`
+    description: 'A place for additional description',
+    bodyContent: `Inline message title`,
+    details: 'A place for details like errors list'
   },
   argTypes: {
     status: {
@@ -68,18 +40,12 @@ export const API: StoryObj = {
       options: ['info', 'success', 'warning', 'danger']
     }
   },
-  render: ({ description, bodyContent, closingButton, status, noIcon }) => {
+  render: ({ description, bodyContent, dismissible, status, noIcon, details }) => {
     return html`
-      <style>
-        sl-inline-message {
-          margin: 24px auto;
-        }
-      </style>
-      <sl-button fill="outline" size="md" @click=${onClick}>Show inline message</sl-button>
-      <sl-button fill="outline" size="md" @click=${onClose}>Close inline message</sl-button>
-      <sl-inline-message ?closing-button=${closingButton} ?no-icon=${noIcon} status=${status}>
+      <sl-inline-message ?dismissible=${dismissible} ?no-icon=${noIcon} status=${status}>
         ${bodyContent}
         <span slot="description">${description}</span>
+        <span slot="details">${details}</span>
       </sl-inline-message>
     `;
   }
@@ -92,29 +58,8 @@ export const ShowInlineMessage: StoryObj = {
         margin: 24px auto;
       }
 
-      sl-button-bar[reverse] > sl-button:first-child {
-        margin-left: auto;
-      }
-
-      sl-button-bar:not([reverse]) > sl-button:first-child {
-        margin-right: auto;
-      }
-
-      @media screen and (max-width: 600px) {
-        sl-button-bar {
-          align-items: stretch;
-          flex-direction: column-reverse;
-          flex-grow: 1;
-          flex-shrink: 0;
-        }
-
-        sl-button-bar[reverse] > sl-button:first-child {
-          margin-left: inherit;
-        }
-
-        sl-button-bar:not([reverse]) > sl-button:first-child {
-          margin-right: inherit;
-        }
+      sl-button {
+        margin-right: 8px;
       }
     </style>
     <sl-button fill="outline" @click=${onClick}>Show inline message</sl-button>
@@ -122,27 +67,33 @@ export const ShowInlineMessage: StoryObj = {
   `
 };
 
-export const DisableClose: StoryObj = {
-  render: () => html`
-    <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
-    <sl-dialog disable-close closing-button align="space-between">
-      <span slot="title">Disable close</span>
-      <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>
-      <sl-button slot="actions" fill="solid" variant="default" sl-dialog-close autofocus>Action 2</sl-button>
-      <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
-    </sl-dialog>
-  `
-};
-
 // TODO: with errors list example
 
 export const ErrorsList: StoryObj = {
   render: () => html`
-    <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
+    <style>
+      sl-inline-message {
+        margin: 24px auto;
+      }
+    </style>
+    <sl-button
+      fill="outline"
+      @click=${(event: Event) => {
+        onClick(event, 'danger');
+      }}
+      >Show (error) inline message</sl-button
+    >
     <sl-inline-message status="danger">
       Status danger inline message
       <span slot="description">A place for additional description</span>
-      <span slot="details">A place for details like errors list</span>
+      <span slot="details">
+        <ul>
+          <li>Error 1</li>
+          <li>Error 2</li>
+          <li>Error 3</li>
+          <li>Error 4</li>
+        </ul>
+      </span>
     </sl-inline-message>
   `
 };

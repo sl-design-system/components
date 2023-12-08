@@ -85,13 +85,14 @@
           "members": [
             {
               "kind": "field",
-              "name": "closingButton",
+              "name": "dismissible",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
               "description": "Determines whether closing button (default one) should be shown in the top right corner.",
-              "attribute": "closing-button"
+              "attribute": "dismissible",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -112,14 +113,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-close",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the inline message is closing."
-            },
-            {
               "kind": "field",
               "name": "status",
               "type": {
@@ -131,25 +124,15 @@
               "reflects": true
             }
           ],
-          "events": [
-            {
-              "name": "closeEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the inline message is closing.",
-              "fieldName": "closeEvent"
-            }
-          ],
           "attributes": [
             {
-              "name": "closing-button",
+              "name": "dismissible",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
               "description": "Determines whether closing button (default one) should be shown in the top right corner.",
-              "fieldName": "closingButton"
+              "fieldName": "dismissible"
             },
             {
               "name": "no-icon",

@@ -4,8 +4,8 @@ import type { ScopedElementsMap } from '@open-wc/scoped-elements';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
-import type { EventEmitter } from '@sl-design-system/shared';
-import { breakpoints, event } from '@sl-design-system/shared';
+import { breakpoints } from '@sl-design-system/shared';
+import { localized, msg } from '@lit/localize';
 import { LitElement, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
@@ -43,6 +43,7 @@ const iconName = (status: InlineMessageStatus): string => {
  * @slot title - The title of the dialog
  * @slot subtitle - The subtitle of the dialog
  */
+@localized()
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
   // TODO: extends lit element or scoped???
   /** @private */
@@ -56,20 +57,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  // /** @private */
-  // @query('dialog') dialog?: HTMLDialogElement;
-
-  // /** Disables the ability to close the dialog using the Escape key. */
-  // @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
-
-  /** Emits when the inline message is closing. */
-  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<void>;
-
   /** @private */
-  @query('div') wrapper?: HTMLDivElement;
+  @query('.inline-message-wrapper') wrapper?: HTMLDivElement;
 
   /** Determines whether closing button (default one) should be shown in the top right corner. */
-  @property({ type: Boolean, attribute: 'closing-button' }) closingButton = true; // TODO: irremovable
+  @property({ type: Boolean, reflect: true }) dismissible = true; // TODO: irremovable
 
   /** Determines whether the icon should be shown on the left side of the component. */
   @property({ type: Boolean, attribute: 'no-icon' }) noIcon?: boolean;
@@ -78,22 +70,24 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
    * @type {'info' | 'success' | 'warning' | 'danger'} */
   @property({ reflect: true }) status: InlineMessageStatus = 'info';
 
-  // /** Determines whether closing button (default one) should be shown in the top right corner. */
-  // @property({ type: Boolean, reflect: true }) open?: boolean;
-
   constructor() {
     super();
 
-    requestAnimationFrame(() => {
-      this.setAttribute('open', '');
-    });
+    // requestAnimationFrame(() => {
+    //   this.setAttribute('open', '');
+    // });
     // this.setAttribute('open', '');
+    // if (this.status === 'danger') {
+    //   this.setAttribute('role', 'alert');
+    // }
   }
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    // this.inert = true;
+    if (this.status === 'danger') {
+      this.setAttribute('role', 'alert');
+    }
   }
 
   override render(): TemplateResult {
@@ -107,10 +101,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                   <sl-icon name=${iconName(this.status)} size="md"></sl-icon>
                 </slot>
               `}
-          <!--<slot name="icon" part="icon">
-            <sl-icon name=${iconName(this.status)} size="md"></sl-icon>
-          </slot>-->
-          <!--        <slot name="icon" part="icon"></slot>-->
           <div class="content-details">
             <slot name="title" part="title" aria-live="polite">
               <slot></slot>
@@ -119,10 +109,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
             <slot name="details" part="details"> </slot>
           </div>
         </div>
-        ${this.closingButton
+        ${this.dismissible
           ? html`
               <slot name="close-button" @click=${this.onClose}>
-                <sl-button fill="ghost" variant="default" size="sm" aria-label="close the inline message">
+                <sl-button fill="ghost" variant="default" size="sm" aria-label=${msg('Close')}>
                   <sl-icon name="xmark"></sl-icon>
                 </sl-button>
               </slot>
@@ -134,22 +124,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   //
   //TODO: show method
-  onClose(/*event: PointerEvent & { target: HTMLElement }*/): void {
-    // const wrapper = this.querySelector<HTMLDivElement>('.inline-message-wrapper');
-    //  console.log('wrapper', wrapper, this.wrapper);
-
-    // this.wrapper?.removeAttribute('open');
-    //
-    // this.wrapper?.setAttribute('close', '');
-    //
-    // requestAnimationFrame(() => {
-    //   this.remove();
-    // });
-
-    // this.wrapper?.removeAttribute('close');
-
-    //this.closeEvent.emit();
-
+  onClose(): void {
     this.wrapper?.removeAttribute('open');
 
     this.#closeOnAnimationend();

@@ -4,6 +4,7 @@ export * from './src/decorators/index.js';
 export * from './src/directives/index.js';
 export * from './src/mixins/index.js';
 export * from './src/css.js';
+export * from './src/config.js';
 export * from './src/path.js';
 export * from './src/popover.js';
 export * from './src/string.js';

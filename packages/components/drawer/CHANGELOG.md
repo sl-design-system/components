@@ -1,5 +1,22 @@
 # @sl-design-system/drawer
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [[`c15e60e`](https://github.com/sl-design-system/components/commit/c15e60eef61430b3a9b944c4f8438d19ce8bb3c1), [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d)]:
+  - @sl-design-system/button@0.0.15
+
+## 0.0.14
+
+### Patch Changes
+
+- [#688](https://github.com/sl-design-system/components/pull/688) [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0) - Upgrade to Lit 3.0
+
+- Updated dependencies [[`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0)]:
+  - @sl-design-system/button-bar@0.0.3
+  - @sl-design-system/button@0.0.14
+
 ## 0.0.13
 
 ### Patch Changes

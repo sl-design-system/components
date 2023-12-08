@@ -2,4 +2,4 @@
 '@sl-design-system/form': patch
 ---
 
-Move label component to form package
+New form-field component

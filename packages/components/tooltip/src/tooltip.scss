@@ -2,7 +2,6 @@
   --_background: var(--sl-color-tooltip-background);
   --_border: 0;
   --_border-radius: var(--sl-border-radius-default);
-  --_box-shadow: var(--sl-box-shadow-tooltip);
   --_color: var(--sl-color-tooltip-foreground);
   --_font: var(--sl-text-tooltip-text-tip);
   --_max-width: var(--sl-tooltip-max-width, auto);
@@ -125,5 +124,4 @@
   height: var(--_arrow-width);
   position: absolute;
   width: var(--_arrow-width);
-  // box-shadow: inset  0 0 0 1px red;
 }

@@ -2,4 +2,4 @@
 '@sl-design-system/dialog': patch
 ---
 
-Added dialog component
+Added aria-label to icon-only close button

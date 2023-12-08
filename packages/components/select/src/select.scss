@@ -5,7 +5,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 :host {
   --sl-popover-offset: 0px;
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 
   align-items: stretch;
   display: flex;
@@ -23,7 +23,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
     --_button-padding-inline: var(--sl-space-select-selectbox-inline-#{$size});
     --_font: var(--sl-text-select-selectbox-text-#{$size});
     --_border-radius: var(--sl-border-radius-default);
-    --_border-width: var(--sl-border-width-button-default);
+    --_border-width: var(--sl-border-width-button-solid);
   }
 }
 
@@ -143,7 +143,7 @@ button[aria-expanded='true'] sl-icon {
 
 :is(button[aria-expanded='true'] + dialog, dialog:popover-open) {
   border: 0;
-  box-shadow: var(--sl-dropshadow-select-listbox);
+  box-shadow: var(--sl-elevation-shadow-md);
   display: flex;
   opacity: 1;
   z-index: 1;

@@ -1,5 +1,33 @@
 # @sl-design-system/grid
 
+## 0.0.31
+
+### Patch Changes
+
+- [#790](https://github.com/sl-design-system/components/pull/790) [`9b8e371`](https://github.com/sl-design-system/components/commit/9b8e371932fbe979f3250e07c605ad39239d4f82) - Upgrade to latest `@open-wc/scoped-elements` to track the standards spec
+
+- Updated dependencies [[`4ca7b20`](https://github.com/sl-design-system/components/commit/4ca7b20ee7d09ee2ccfcf2743fd48f00a8207e39), [`198c7c2`](https://github.com/sl-design-system/components/commit/198c7c277787d48276d402522f94f2d0d5132152), [`4ca7b20`](https://github.com/sl-design-system/components/commit/4ca7b20ee7d09ee2ccfcf2743fd48f00a8207e39), [`9b8e371`](https://github.com/sl-design-system/components/commit/9b8e371932fbe979f3250e07c605ad39239d4f82), [`9b8e371`](https://github.com/sl-design-system/components/commit/9b8e371932fbe979f3250e07c605ad39239d4f82), [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d)]:
+  - @sl-design-system/icon@0.0.5
+  - @sl-design-system/popover@0.1.0
+  - @sl-design-system/shared@0.2.0
+  - @sl-design-system/text-field@0.1.10
+  - @sl-design-system/checkbox@0.0.15
+
+## 0.0.30
+
+### Patch Changes
+
+- [#688](https://github.com/sl-design-system/components/pull/688) [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0) - Upgrade to Lit 3.0
+
+- [#736](https://github.com/sl-design-system/components/pull/736) [`83d016c`](https://github.com/sl-design-system/components/commit/83d016c5dee5918046aff29519b9356da51f8abc) - Add workaround for virtualizer scrolling bug https://github.com/lit/lit/issues/4232
+
+- Updated dependencies [[`5883fee`](https://github.com/sl-design-system/components/commit/5883fee3bb584130e5cd0009b7a2ed9b45d124af), [`45bff4d`](https://github.com/sl-design-system/components/commit/45bff4d60a32f4d46d8c9c99200efeaa1be6a2f0), [`199a2fc`](https://github.com/sl-design-system/components/commit/199a2fc0b3f0efb54c06429fd91fa09071b337de), [`f3993f3`](https://github.com/sl-design-system/components/commit/f3993f394e17fe14c8a1fccb9d79e33d8aac4163), [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0), [`1be481a`](https://github.com/sl-design-system/components/commit/1be481aa6b300d50ddcf9a36b7e2d14942baaef7)]:
+  - @sl-design-system/text-field@0.1.9
+  - @sl-design-system/shared@0.1.9
+  - @sl-design-system/checkbox@0.0.14
+  - @sl-design-system/popover@0.0.13
+  - @sl-design-system/icon@0.0.4
+
 ## 0.0.29
 
 ### Patch Changes

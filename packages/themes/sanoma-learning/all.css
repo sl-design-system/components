@@ -52,7 +52,8 @@
   --sl-opacity-50: 0.02;
   --sl-space-badge-icon-block-2xl: 1px;
   --sl-space-badge-icon-inline-2xl: 1px;
-  --sl-space-badge-text-inline-md: 3px;
+  --sl-space-badge-gap-md: 3px;
+  --sl-space-badge-inline-md: 3px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -235,19 +236,13 @@
   --sl-color-palette-primary-150: 213 213 213;
   --sl-color-palette-primary-100: 234 234 234;
   --sl-color-palette-primary-50: 254 254 254;
-  --sl-elevation-shadow-none: calc(0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0));
-  --sl-elevation-shadow-lg: calc(
-    0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0 8 16 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
-  );
-  --sl-elevation-shadow-md: calc(
-    0 0 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-    0 4 8 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150))
-  );
-  --sl-elevation-shadow-sm: calc(
-    0 0 6 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
-    0 2 4 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200))
-  );
+  --sl-elevation-shadow-none: 0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0);
+  --sl-elevation-shadow-lg: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 8px 16px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
+  --sl-elevation-shadow-md: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+    0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150));
+  --sl-elevation-shadow-sm: 0 0 6px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
+    0 2px 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
@@ -287,6 +282,10 @@
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
+  --sl-space-inline-message-gap: var(--sl-space-lg);
+  --sl-space-inline-message-inline-end: var(--sl-space-2xl);
+  --sl-space-inline-message-inline-start: var(--sl-space-lg) + var(--sl-border-width-inline-message-start);
+  --sl-space-inline-message-block: var(--sl-space-lg);
   --sl-space-avatar-block-3xl: var(--sl-space-sm);
   --sl-space-avatar-block-2xl: var(--sl-space-sm);
   --sl-space-avatar-block-xl: var(--sl-space-sm);
@@ -309,17 +308,22 @@
   --sl-space-badge-icon-inline-lg: var(--sl-space-none);
   --sl-space-badge-icon-inline-md: var(--sl-space-none);
   --sl-space-badge-icon-inline-sm: var(--sl-space-none);
-  --sl-space-badge-text-block-3xl: var(--sl-space-2xs);
-  --sl-space-badge-text-block-2xl: var(--sl-space-2xs);
-  --sl-space-badge-text-block-xl: var(--sl-space-2xs);
-  --sl-space-badge-text-block-lg: var(--sl-space-2xs);
-  --sl-space-badge-text-block-md: var(--sl-space-2xs);
-  --sl-space-badge-text-block-sm: var(--sl-space-2xs);
-  --sl-space-badge-text-inline-3xl: var(--sl-space-xs) + var(--sl-space-2xs);
-  --sl-space-badge-text-inline-2xl: var(--sl-space-xs) + var(--sl-space-2xs);
-  --sl-space-badge-text-inline-xl: var(--sl-space-xs);
-  --sl-space-badge-text-inline-lg: var(--sl-space-xs);
-  --sl-space-badge-text-inline-sm: var(--sl-space-2xs);
+  --sl-space-badge-gap-3xl: var(--sl-space-xs) + var(--sl-space-2xs);
+  --sl-space-badge-gap-2xl: var(--sl-space-xs) + var(--sl-space-2xs);
+  --sl-space-badge-gap-xl: var(--sl-space-xs);
+  --sl-space-badge-gap-lg: var(--sl-space-xs);
+  --sl-space-badge-gap-sm: var(--sl-space-2xs);
+  --sl-space-badge-block-3xl: var(--sl-space-2xs);
+  --sl-space-badge-block-2xl: var(--sl-space-2xs);
+  --sl-space-badge-block-xl: var(--sl-space-2xs);
+  --sl-space-badge-block-lg: var(--sl-space-2xs);
+  --sl-space-badge-block-md: var(--sl-space-2xs);
+  --sl-space-badge-block-sm: var(--sl-space-2xs);
+  --sl-space-badge-inline-3xl: var(--sl-space-xs) + var(--sl-space-2xs);
+  --sl-space-badge-inline-2xl: var(--sl-space-xs) + var(--sl-space-2xs);
+  --sl-space-badge-inline-xl: var(--sl-space-xs);
+  --sl-space-badge-inline-lg: var(--sl-space-xs);
+  --sl-space-badge-inline-sm: var(--sl-space-2xs);
   --sl-space-select-divider-line-md: var(--sl-space-sm);
   --sl-space-select-divider-line-lg: var(--sl-space-sm);
   --sl-space-select-divider-gap-md: var(--sl-space-sm);
@@ -406,15 +410,15 @@
   --sl-space-button-gap-lg: var(--sl-space-sm);
   --sl-space-button-gap-md: var(--sl-space-xs);
   --sl-space-button-gap-sm: var(--sl-space-xs);
-  --sl-space-button-ghost-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
-  --sl-space-button-ghost-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
-  --sl-space-button-ghost-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-link));
-  --sl-space-button-ghost-inline-lg: calc(var(--sl-space-md) - var(--sl-border-width-button-link));
-  --sl-space-button-ghost-inline-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
-  --sl-space-button-ghost-inline-sm: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
-  --sl-space-button-ghost-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
-  --sl-space-button-ghost-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
-  --sl-space-button-ghost-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-link));
+  --sl-space-button-ghost-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-ghost));
+  --sl-space-button-ghost-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-ghost));
+  --sl-space-button-ghost-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-ghost));
+  --sl-space-button-ghost-inline-lg: calc(var(--sl-space-md) - var(--sl-border-width-button-ghost));
+  --sl-space-button-ghost-inline-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-ghost));
+  --sl-space-button-ghost-inline-sm: calc(var(--sl-space-sm) - var(--sl-border-width-button-ghost));
+  --sl-space-button-ghost-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-ghost));
+  --sl-space-button-ghost-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-ghost));
+  --sl-space-button-ghost-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-ghost));
   --sl-space-button-outline-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-outline));
   --sl-space-button-outline-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-outline));
   --sl-space-button-outline-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-outline));
@@ -424,15 +428,15 @@
   --sl-space-button-outline-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-outline));
   --sl-space-button-outline-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-outline));
   --sl-space-button-outline-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-outline));
-  --sl-space-button-solid-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
-  --sl-space-button-solid-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
-  --sl-space-button-solid-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-default));
-  --sl-space-button-solid-inline-lg: calc(var(--sl-space-xl) - var(--sl-border-width-button-default));
-  --sl-space-button-solid-inline-md: calc(var(--sl-space-xl) - var(--sl-border-width-button-default));
-  --sl-space-button-solid-inline-sm: calc(var(--sl-space-lg) - var(--sl-border-width-button-default));
-  --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
-  --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-default));
-  --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-default));
+  --sl-space-button-solid-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
+  --sl-space-button-solid-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
+  --sl-space-button-solid-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
+  --sl-space-button-solid-inline-lg: calc(var(--sl-space-xl) - var(--sl-border-width-button-solid));
+  --sl-space-button-solid-inline-md: calc(var(--sl-space-xl) - var(--sl-border-width-button-solid));
+  --sl-space-button-solid-inline-sm: calc(var(--sl-space-lg) - var(--sl-border-width-button-solid));
+  --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
+  --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
+  --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
   --sl-space-popover-gap: var(--sl-space-xs);
   --sl-space-popover-inline: var(--sl-space-md);
   --sl-space-popover-block: var(--sl-space-sm);
@@ -458,16 +462,17 @@
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
   --sl-conceptual-border-width-default: var(--sl-border-width-xs);
+  --sl-border-width-inline-message-start: var(--sl-border-width-lg);
   --sl-border-width-popover-border: var(--sl-border-width-xs);
   --sl-border-width-popover-none: var(--sl-border-width-none);
   --sl-border-width-tooltip-border: var(--sl-border-width-xs);
   --sl-border-width-tooltip-none: var(--sl-border-width-none);
   --sl-border-width-divider: var(--sl-border-width-xs);
   --sl-border-width-dialog-default: var(--sl-border-width-none);
+  --sl-border-width-focusring-offset: var(--sl-border-width-sm);
   --sl-border-width-focusring-default: var(--sl-border-width-sm);
   --sl-border-width-input-option: var(--sl-border-width-xs);
   --sl-border-width-input-none: var(--sl-border-width-none);
-  --sl-border-radius-badge-full: var(--sl-border-radius-full);
   --sl-border-radius-select-item: var(--sl-border-radius-3xs);
   --sl-border-radius-select-listbox: var(--sl-border-radius-2xs);
   --sl-border-radius-dialog-mobile: var(--sl-border-radius-none);
@@ -481,56 +486,11 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-3xs);
   --sl-border-radius-button-md: var(--sl-border-radius-3xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-3xs);
-  --sl-text-avatar-subheader-3xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-subheader-2xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-subheader-xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-subheader-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-subheader-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-subheader-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xs) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-header-3xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+  --sl-border-radius-badge-full: var(--sl-border-radius-full);
+  --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-header-2xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+  --sl-text-popover-text-text: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-header-xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-header-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-header-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-header-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-2xl) /
-    undefined var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-2xl) /
-    undefined var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-2xl) / undefined
-    var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl) / undefined
-    var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) / undefined
-    var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) / undefined
-    var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) / undefined
-    var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) / undefined
-    var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) / undefined
-    var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) / undefined
-    var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-bold) 8 / undefined var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-sm: var(--sl-text-typeset-font-weight-bold) 6 / undefined var(--sl-text-typeset-font-family-body);
-  --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-popover-text-text: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
   --sl-text-select-selectbox-title-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-select-selectbox-title-md: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-xs) /
@@ -604,6 +564,8 @@
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
@@ -633,6 +595,52 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
+  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-bold) 8px/8px var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-sm: var(--sl-text-typeset-font-weight-bold) 6px/6px var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-subheader-3xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-subheader-2xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-subheader-xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-subheader-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-subheader-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-subheader-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-header-3xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-header-2xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-header-xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-header-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-header-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-header-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-2xl) /
+    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-2xl) /
+    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-2xl) /
+    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
@@ -660,29 +668,20 @@
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
     (var(--sl-space-input-switch-padding-container) * 2)
   );
+  --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-input-border: var(--sl-conceptual-border-width-default);
   --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-link: var(--sl-conceptual-border-width-default);
+  --sl-border-width-button-ghost: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-outline: var(--sl-conceptual-border-width-default);
-  --sl-border-width-button-default: var(--sl-conceptual-border-width-default);
-  --sl-border-radius-avatar-circle: var(--sl-border-radius-circle);
-  --sl-border-radius-avatar-square: var(--sl-border-radius-default);
+  --sl-border-width-button-solid: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
-  --sl-text-avatar-icon-3xl: var(--sl-icon-style-outline) var(--sl-icon-typeset-font-size-2xl) / undefined
-    var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-2xl: var(--sl-icon-style-outline) var(--sl-icon-typeset-font-size-2xl) / undefined
-    var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-xl: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-2xl) / undefined
-    var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-lg: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-xl) / undefined
-    var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-md: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-lg) / undefined
-    var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-sm: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-md) / undefined
-    var(--sl-text-typeset-font-family-icon);
+  --sl-border-radius-avatar-circle: var(--sl-border-radius-circle);
+  --sl-border-radius-avatar-square: var(--sl-border-radius-default);
   --sl-text-icon-font-icon-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
   --sl-text-icon-font-icon-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
@@ -695,13 +694,22 @@
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
   --sl-text-input-text-field-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-icon);
+  --sl-text-avatar-icon-3xl: var(--sl-icon-style-outline) var(--sl-icon-typeset-font-size-2xl) / undefined
+    var(--sl-text-typeset-font-family-icon);
+  --sl-text-avatar-icon-2xl: var(--sl-icon-style-outline) var(--sl-icon-typeset-font-size-2xl) / undefined
+    var(--sl-text-typeset-font-family-icon);
+  --sl-text-avatar-icon-xl: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-2xl) / undefined
+    var(--sl-text-typeset-font-family-icon);
+  --sl-text-avatar-icon-lg: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-xl) / undefined
+    var(--sl-text-typeset-font-family-icon);
+  --sl-text-avatar-icon-md: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-lg) / undefined
+    var(--sl-text-typeset-font-family-icon);
+  --sl-text-avatar-icon-sm: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-md) / undefined
+    var(--sl-text-typeset-font-family-icon);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --sl-dropshadow-select-listbox: 0 0 var(--sl-size-3xs) 0
-      rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
-      0 var(--sl-size-3xs) var(--sl-size-2xs) 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
     --sl-body-surface-overlay: rgba(var(--sl-color-palette-primary-base) / var(--sl-opacity-700));
@@ -709,23 +717,29 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
-    --sl-border-width-select-copy-listbox: var(--sl-border-width-xs);
-    --sl-color-avatar-foreground: rgb(var(--sl-color-palette-accent-300));
-    --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-150));
-    --sl-color-badge-icon: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-text: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-background-neutral: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-badge-background-accent: rgb(var(--sl-color-palette-accent-base));
-    --sl-color-badge-background-yellow: rgb(var(--sl-color-palette-warning-base));
-    --sl-color-badge-background-green: rgb(var(--sl-color-palette-success-base));
-    --sl-color-badge-background-red: rgb(var(--sl-color-palette-danger-base));
-    --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-100));
+    --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
+    --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
+    --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-600));
+    --sl-color-inline-message-danger-background: rgb(var(--sl-color-palette-danger-50));
+    --sl-color-inline-message-warning-icon: rgb(var(--sl-color-palette-warning-400));
+    --sl-color-inline-message-warning-border: rgb(var(--sl-color-palette-warning-base));
+    --sl-color-inline-message-warning-foreground: rgb(var(--sl-color-palette-warning-700));
+    --sl-color-inline-message-warning-background: rgb(var(--sl-color-palette-warning-50));
+    --sl-color-inline-message-success-icon: rgb(var(--sl-color-palette-success-base));
+    --sl-color-inline-message-success-border: rgb(var(--sl-color-palette-success-base));
+    --sl-color-inline-message-success-foreground: rgb(var(--sl-color-palette-success-700));
+    --sl-color-inline-message-success-background: rgb(var(--sl-color-palette-success-50));
+    --sl-color-inline-message-info-icon: rgb(var(--sl-color-palette-info-base));
+    --sl-color-inline-message-info-border: rgb(var(--sl-color-palette-info-base));
+    --sl-color-inline-message-info-foreground: rgb(var(--sl-color-palette-info-600));
+    --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-50));
+    --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
     --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-tooltip-background: rgb(var(--sl-color-palette-accent-600));
-    --sl-color-select-listbox-background: rgb(var(--sl-color-palette-primary-50));
+    --sl-color-select-listbox-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-select-selectbox-default-focus-border: rgb(var(--sl-color-palette-primary-base));
     --sl-color-select-selectbox-default-active-border: rgb(var(--sl-color-palette-primary-base));
@@ -1183,25 +1197,36 @@
     --sl-color-button-default-outline-hover-background: rgb(var(--sl-color-palette-accent-50));
     --sl-color-button-default-outline-idle-border: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-button-default-outline-idle-foreground: rgb(var(--sl-color-palette-neutral-500));
-    --sl-color-button-default-outline-idle-background: rgb(var(--sl-color-palette-transparent-base));
+    --sl-color-button-default-outline-idle-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-button-default-solid-disabled-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-default-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-default-solid-disabled-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-default-solid-focus-border: rgb(var(--sl-color-palette-info-base));
     --sl-color-button-default-solid-focus-foreground: rgb(var(--sl-color-palette-neutral-500));
+    --sl-color-button-default-solid-focus-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-button-default-solid-active-border: rgb(var(--sl-color-palette-accent-600));
     --sl-color-button-default-solid-active-foreground: rgb(var(--sl-color-palette-accent-900));
     --sl-color-button-default-solid-active-background: rgb(var(--sl-color-palette-accent-150));
     --sl-color-button-default-solid-hover-border: rgb(var(--sl-color-palette-accent-base));
     --sl-color-button-default-solid-hover-foreground: rgb(var(--sl-color-palette-accent-base));
     --sl-color-button-default-solid-hover-background: rgb(var(--sl-color-palette-accent-50));
-    --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-400));
+    --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-500));
-    --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-tooltip: [object Object];
-    --sl-box-shadow-select-listbox: [object Object];
-    --sl-color-avatar-subheader: var(--sl-body-foreground);
-    --sl-color-avatar-header: var(--sl-body-foreground);
+    --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));
+    --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
+    --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
+    --sl-color-badge-success-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-500));
+    --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
+    --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
     --sl-color-popover-foreground: var(--sl-body-foreground);
     --sl-color-dialog-border: var(--sl-body-background);
     --sl-color-dialog-foreground: var(--sl-body-foreground);
@@ -1403,7 +1428,8 @@
     --sl-color-button-primary-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
     --sl-color-button-default-ghost-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
     --sl-color-button-default-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
-    --sl-color-button-default-solid-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+    --sl-color-avatar-subheader: var(--sl-body-foreground);
+    --sl-color-avatar-header: var(--sl-body-foreground);
     --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);
     --sl-color-select-selectbox-valid-disabled-border: var(--sl-color-input-text-field-valid-disabled-border);
     --sl-color-select-selectbox-valid-focus-placeholder: var(--sl-color-input-text-field-invalid-default-placeholder);
@@ -1489,17 +1515,40 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
     --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-body-background: rgb(var(--sl-color-palette-black-base));
+    --sl-color-select-listbox-background: rgb(var(--sl-color-palette-neutral-900));
+    --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-600));
+    --sl-color-select-selectbox-default-focus-border: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-select-selectbox-default-active-border: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-select-item-group-title-foreground: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-select-item-divider-line: rgb(var(--sl-color-palette-neutral-600));
+    --sl-color-select-item-disabled-indicator: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-select-item-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-select-item-focus-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-select-item-focus-foreground: rgb(var(--sl-color-palette-neutral-600))
+      var(--sl-color-input-text-field-default-default-input-text);
+    --sl-color-select-item-active-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-select-item-active-background: rgba(var(--sl-color-palette-accent-base) / var(--sl-opacity-700));
+    --sl-color-select-item-hover-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-select-item-hover-background: rgba(var(--sl-color-palette-accent-base) / var(--sl-opacity-500));
+    --sl-color-select-item-default-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
+    --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
+    --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-150));
+    --sl-color-inline-message-danger-background: rgb(var(--sl-color-palette-danger-800));
+    --sl-color-inline-message-warning-icon: rgb(var(--sl-color-palette-warning-base));
+    --sl-color-inline-message-warning-border: rgb(var(--sl-color-palette-warning-base));
+    --sl-color-inline-message-warning-foreground: rgb(var(--sl-color-palette-warning-150));
+    --sl-color-inline-message-warning-background: rgb(var(--sl-color-palette-warning-800));
+    --sl-color-inline-message-success-icon: rgb(var(--sl-color-palette-success-base));
+    --sl-color-inline-message-success-border: rgb(var(--sl-color-palette-success-base));
+    --sl-color-inline-message-success-foreground: rgb(var(--sl-color-palette-success-150));
+    --sl-color-inline-message-success-background: rgb(var(--sl-color-palette-success-800));
+    --sl-color-inline-message-info-icon: rgb(var(--sl-color-palette-info-base));
+    --sl-color-inline-message-info-border: rgb(var(--sl-color-palette-info-base));
+    --sl-color-inline-message-info-foreground: rgb(var(--sl-color-palette-info-150));
+    --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-900));
     --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-700));
     --sl-color-popover-background: rgb(var(--sl-color-palette-neutral-900));
-    --sl-color-avatar-foreground: rgb(var(--sl-color-palette-accent-150));
-    --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-300));
-    --sl-color-badge-icon: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-text: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-background-neutral: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-badge-background-accent: rgb(var(--sl-color-palette-accent-base));
-    --sl-color-badge-background-yellow: rgb(var(--sl-color-palette-warning-base));
-    --sl-color-badge-background-green: rgb(var(--sl-color-palette-success-base));
-    --sl-color-badge-background-red: rgb(var(--sl-color-palette-danger-base));
     --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-300));
     --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-black-base));
@@ -1923,10 +1972,69 @@
     --sl-color-button-default-solid-hover-background: rgb(var(--sl-color-palette-accent-900));
     --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-neutral-150));
-    --sl-box-shadow-tooltip: [object Object];
+    --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));
+    --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
+    --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
+    --sl-color-badge-success-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-500));
+    --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
+    --sl-color-avatar-foreground: rgb(var(--sl-color-palette-black-base));
+    --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-300));
+    --sl-color-select-selectbox-valid-disabled-placeholder: var(
+      --sl-color-input-text-field-default-disabled-placeholder
+    );
+    --sl-color-select-selectbox-valid-disabled-icon: var(--sl-color-input-text-field-valid-disabled-icon);
+    --sl-color-select-selectbox-valid-disabled-background: var(--sl-color-input-text-field-valid-disabled-background);
+    --sl-color-select-selectbox-valid-active-border: var(--sl-color-input-text-field-valid-active-border);
+    --sl-color-select-selectbox-valid-active-background: var(--sl-color-input-text-field-valid-active-background);
+    --sl-color-select-selectbox-valid-hover-icon: var(--sl-color-input-text-field-valid-hover-icon);
+    --sl-color-select-selectbox-valid-hover-background: var(--sl-color-input-text-field-valid-hover-background);
+    --sl-color-select-selectbox-valid-default-icon: var(--sl-color-input-text-field-valid-default-icon);
+    --sl-color-select-selectbox-valid-default-background: var(--sl-color-input-text-field-valid-default-background);
+    --sl-color-select-selectbox-invalid-disabled-border: var(--sl-color-input-text-field-invalid-disabled-border);
+    --sl-color-select-selectbox-invalid-disabled-background: var(
+      --sl-color-input-text-field-invalid-disabled-background
+    );
+    --sl-color-select-selectbox-invalid-active-background: var(--sl-color-input-text-field-invalid-active-background);
+    --sl-color-select-selectbox-invalid-hover-icon: var(--sl-color-input-text-field-invalid-hover-icon);
+    --sl-color-select-selectbox-invalid-hover-border: var(--sl-color-input-text-field-invalid-hover-border);
+    --sl-color-select-selectbox-invalid-hover-background: var(--sl-color-input-text-field-invalid-hover-background);
+    --sl-color-select-selectbox-invalid-default-border: var(--sl-color-input-text-field-invalid-default-border);
+    --sl-color-select-selectbox-invalid-default-background: var(--sl-color-input-text-field-invalid-default-background);
+    --sl-color-select-selectbox-default-disabled-placeholder: var(
+      --sl-color-input-text-field-default-disabled-placeholder
+    );
+    --sl-color-select-selectbox-default-disabled-input-text: var(
+      --sl-color-input-text-field-default-disabled-input-text
+    );
+    --sl-color-select-selectbox-default-disabled-icon: var(--sl-color-input-text-field-default-disabled-icon);
+    --sl-color-select-selectbox-default-disabled-label: var(--sl-color-input-text-field-default-disabled-label);
+    --sl-color-select-selectbox-default-disabled-border: var(--sl-color-input-text-field-default-disabled-border);
+    --sl-color-select-selectbox-default-active-background: var(--sl-color-input-text-field-default-active-background);
+    --sl-color-select-selectbox-default-hover-icon: var(--sl-color-input-text-field-default-hover-icon);
+    --sl-color-select-selectbox-default-hover-border: var(--sl-color-input-text-field-default-hover-border);
+    --sl-color-select-selectbox-default-hover-background: var(--sl-color-input-text-field-default-hover-background);
+    --sl-color-select-selectbox-default-default-placeholder: var(
+      --sl-color-input-text-field-default-default-placeholder
+    );
+    --sl-color-select-selectbox-default-default-icon: var(--sl-color-input-text-field-default-default-icon);
+    --sl-color-select-selectbox-default-default-border: var(--sl-color-input-text-field-default-default-border);
+    --sl-color-select-selectbox-default-default-background: var(--sl-color-input-text-field-default-default-background);
+    --sl-color-select-item-disabled-border: rgba(var(--sl-body-background) / 0);
+    --sl-color-select-item-disabled-background: rgba(var(--sl-body-background) / 0);
+    --sl-color-select-item-focus-border: rgba(var(--sl-body-background) / 0);
+    --sl-color-select-item-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
+    --sl-color-select-item-active-border: rgba(var(--sl-body-background) / 0);
+    --sl-color-select-item-hover-border: rgba(var(--sl-body-background) / 0);
+    --sl-color-select-item-default-border: rgba(var(--sl-body-background) / 0);
+    --sl-color-select-item-default-background: rgba(var(--sl-body-background) / 0);
     --sl-color-popover-foreground: var(--sl-body-foreground);
-    --sl-color-avatar-subheader: var(--sl-body-foreground);
-    --sl-color-avatar-header: var(--sl-body-foreground);
     --sl-color-dialog-border: var(--sl-body-background);
     --sl-color-dialog-foreground: var(--sl-body-foreground);
     --sl-color-dialog-background: var(--sl-body-background);
@@ -2098,6 +2206,53 @@
     --sl-color-button-default-outline-idle-background: var(--sl-body-background);
     --sl-color-button-default-solid-focus-background: var(--sl-body-background);
     --sl-color-button-default-solid-idle-background: var(--sl-body-background);
+    --sl-color-avatar-subheader: var(--sl-body-foreground);
+    --sl-color-avatar-header: var(--sl-body-foreground);
+    --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);
+    --sl-color-select-selectbox-valid-disabled-label: var(--sl-color-input-text-field-valid-disabled-label);
+    --sl-color-select-selectbox-valid-disabled-border: var(--sl-color-input-text-field-valid-disabled-border);
+    --sl-color-select-selectbox-valid-focus-placeholder: var(--sl-color-input-text-field-invalid-default-placeholder);
+    --sl-color-select-selectbox-valid-focus-icon: var(--sl-color-input-text-field-valid-focus-icon);
+    --sl-color-select-selectbox-valid-focus-border: var(--sl-color-input-text-field-valid-focus-border);
+    --sl-color-select-selectbox-valid-focus-background: var(--sl-color-input-text-field-valid-focus-background);
+    --sl-color-select-selectbox-valid-active-placeholder: var(--sl-color-input-text-field-invalid-default-placeholder);
+    --sl-color-select-selectbox-valid-active-icon: var(--sl-color-input-text-field-valid-active-icon);
+    --sl-color-select-selectbox-valid-hover-placeholder: var(--sl-color-input-text-field-invalid-default-placeholder);
+    --sl-color-select-selectbox-valid-hover-border: var(--sl-color-input-text-field-valid-hover-border);
+    --sl-color-select-selectbox-valid-default-placeholder: var(--sl-color-input-text-field-invalid-default-placeholder);
+    --sl-color-select-selectbox-valid-default-border: var(--sl-color-input-text-field-valid-default-border);
+    --sl-color-select-selectbox-invalid-disabled-placeholder: var(
+      --sl-color-input-text-field-invalid-disabled-placeholder
+    );
+    --sl-color-select-selectbox-invalid-disabled-input-text: var(
+      --sl-color-input-text-field-invalid-disabled-input-text
+    );
+    --sl-color-select-selectbox-invalid-disabled-icon: var(--sl-color-input-text-field-invalid-disabled-icon);
+    --sl-color-select-selectbox-invalid-disabled-label: var(--sl-color-input-text-field-invalid-disabled-label);
+    --sl-color-select-selectbox-invalid-focus-placeholder: var(--sl-color-input-text-field-invalid-focus-placeholder);
+    --sl-color-select-selectbox-invalid-focus-border: var(--sl-color-input-text-field-invalid-focus-border);
+    --sl-color-select-selectbox-invalid-focus-background: var(--sl-color-input-text-field-invalid-focus-background);
+    --sl-color-select-selectbox-invalid-active-placeholder: var(--sl-color-input-text-field-invalid-active-placeholder);
+    --sl-color-select-selectbox-invalid-active-border: var(--sl-color-input-text-field-invalid-active-border);
+    --sl-color-select-selectbox-invalid-hover-placeholder: var(--sl-color-input-text-field-invalid-hover-placeholder);
+    --sl-color-select-selectbox-invalid-default-placeholder: var(
+      --sl-color-input-text-field-invalid-default-placeholder
+    );
+    --sl-color-select-selectbox-invalid-default-icon: var(--sl-color-input-text-field-invalid-default-icon);
+    --sl-color-select-selectbox-default-disabled-background: var(
+      --sl-color-input-text-field-default-disabled-background
+    );
+    --sl-color-select-selectbox-default-focus-placeholder: var(--sl-color-input-text-field-default-focus-placeholder);
+    --sl-color-select-selectbox-default-focus-icon: var(--sl-color-input-text-field-default-focus-icon);
+    --sl-color-select-selectbox-default-focus-background: var(--sl-color-input-text-field-default-focus-background);
+    --sl-color-select-selectbox-default-active-placeholder: var(--sl-color-input-text-field-default-active-placeholder);
+    --sl-color-select-selectbox-default-active-icon: var(--sl-color-input-text-field-default-active-icon);
+    --sl-color-select-selectbox-default-hover-placeholder: var(--sl-color-input-text-field-default-hover-placeholder);
+    --sl-color-select-selectbox-default-default-input-text: var(--sl-color-input-text-field-default-default-input-text);
+    --sl-color-select-selectbox-default-default-label: var(--sl-color-input-text-field-default-default-label);
+    --sl-color-select-item-active-foreground: var(--sl-color-input-text-field-default-default-input-text);
+    --sl-color-select-item-hover-foreground: var(--sl-color-input-text-field-default-default-input-text);
+    --sl-color-select-item-default-foreground: var(--sl-color-input-text-field-default-default-input-text);
     --sl-color-input-field-label-icon-invalid: var(--sl-color-input-text-field-invalid-default-icon);
     --sl-color-input-field-label-text-invalid: var(--sl-color-input-text-field-invalid-default-icon);
     --sl-color-input-helper-icon-invalid: var(--sl-color-input-text-field-invalid-default-icon);
@@ -2126,5 +2281,29 @@
     --sl-color-input-text-field-default-active-label: var(--sl-color-input-text-field-default-default-label);
     --sl-color-input-text-field-default-hover-input-text: var(--sl-color-input-text-field-default-default-input-text);
     --sl-color-input-text-field-default-hover-label: var(--sl-color-input-text-field-default-default-label);
+    --sl-color-select-selectbox-valid-focus-input-text: var(--sl-color-input-text-field-valid-focus-input-text);
+    --sl-color-select-selectbox-valid-focus-label: var(--sl-color-input-text-field-valid-focus-label);
+    --sl-color-select-selectbox-valid-active-input-text: var(--sl-color-input-text-field-valid-active-input-text);
+    --sl-color-select-selectbox-valid-active-label: var(--sl-color-input-text-field-valid-active-label);
+    --sl-color-select-selectbox-valid-hover-input-text: var(--sl-color-input-text-field-valid-hover-input-text);
+    --sl-color-select-selectbox-valid-hover-label: var(--sl-color-input-text-field-valid-hover-label);
+    --sl-color-select-selectbox-valid-default-input-text: var(--sl-color-input-text-field-valid-default-input-text);
+    --sl-color-select-selectbox-valid-default-label: var(--sl-color-input-text-field-valid-default-label);
+    --sl-color-select-selectbox-invalid-focus-input-text: var(--sl-color-input-text-field-invalid-focus-input-text);
+    --sl-color-select-selectbox-invalid-focus-icon: var(--sl-color-input-text-field-invalid-focus-icon);
+    --sl-color-select-selectbox-invalid-focus-label: var(--sl-color-input-text-field-invalid-focus-label);
+    --sl-color-select-selectbox-invalid-active-input-text: var(--sl-color-input-text-field-invalid-active-input-text);
+    --sl-color-select-selectbox-invalid-active-icon: var(--sl-color-input-text-field-invalid-active-icon);
+    --sl-color-select-selectbox-invalid-active-label: var(--sl-color-input-text-field-invalid-active-label);
+    --sl-color-select-selectbox-invalid-hover-input-text: var(--sl-color-input-text-field-invalid-hover-input-text);
+    --sl-color-select-selectbox-invalid-hover-label: var(--sl-color-input-text-field-invalid-hover-label);
+    --sl-color-select-selectbox-invalid-default-input-text: var(--sl-color-input-text-field-invalid-default-input-text);
+    --sl-color-select-selectbox-invalid-default-label: var(--sl-color-input-text-field-invalid-default-label);
+    --sl-color-select-selectbox-default-focus-input-text: var(--sl-color-input-text-field-default-focus-input-text);
+    --sl-color-select-selectbox-default-focus-label: var(--sl-color-input-text-field-default-focus-label);
+    --sl-color-select-selectbox-default-active-input-text: var(--sl-color-input-text-field-default-active-input-text);
+    --sl-color-select-selectbox-default-active-label: var(--sl-color-input-text-field-default-active-label);
+    --sl-color-select-selectbox-default-hover-input-text: var(--sl-color-input-text-field-default-hover-input-text);
+    --sl-color-select-selectbox-default-hover-label: var(--sl-color-input-text-field-default-hover-label);
   }
 }

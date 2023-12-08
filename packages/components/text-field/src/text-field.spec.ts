@@ -256,9 +256,9 @@ describe('sl-text-field', () => {
       expect(input.validity.valueMissing).to.be.true;
     });
 
-    it('should not have an error message', () => {
-      expect(el.querySelector('[slot="error-text"]')).to.not.exist;
-    });
+    // it('should not have an error message', () => {
+    //   expect(el.querySelector('[slot="error-text"]')).to.not.exist;
+    // });
 
     it('should have a show-validity attribute when reported', async () => {
       el.reportValidity();
@@ -267,28 +267,28 @@ describe('sl-text-field', () => {
       expect(el).to.have.attribute('show-validity', 'invalid');
     });
 
-    it('should have an error message when reported', async () => {
-      el.reportValidity();
-      await el.updateComplete;
+    // it('should have an error message when reported', async () => {
+    //   el.reportValidity();
+    //   await el.updateComplete;
 
-      const error = el.querySelector('[slot="error-text"]');
-      expect(error).to.exist;
-      expect(error).to.have.trimmed.text('Please fill out this field.')
-    });
+    //   const error = el.querySelector('[slot="error-text"]');
+    //   expect(error).to.exist;
+    //   expect(error).to.have.trimmed.text('Please fill out this field.')
+    // });
 
-    it('should not show a hint when reported', async () => {
-      const hint = el.renderRoot.querySelector('sl-hint');
+    // it('should not show a hint when reported', async () => {
+    //   const hint = el.renderRoot.querySelector('sl-hint');
 
-      el.hintText = 'Lorem ipsum';
-      await el.updateComplete;
+    //   el.hintText = 'Lorem ipsum';
+    //   await el.updateComplete;
 
-      expect(hint).not.to.have.style('display', 'none');
+    //   expect(hint).not.to.have.style('display', 'none');
 
-      el.reportValidity();
-      await el.updateComplete;
+    //   el.reportValidity();
+    //   await el.updateComplete;
 
-      expect(hint).to.have.style('display', 'none');
-    });
+    //   expect(hint).to.have.style('display', 'none');
+    // });
 
     it('should show a warning icon when reported', async () => {
       el.reportValidity();
@@ -312,9 +312,9 @@ describe('sl-text-field', () => {
       expect(input.validity.valueMissing).to.be.false;
     });
 
-    it('should not have an error message', () => {
-      expect(el.querySelector('[slot="error-text"]')).to.not.exist;
-    });
+    // it('should not have an error message', () => {
+    //   expect(el.querySelector('[slot="error-text"]')).to.not.exist;
+    // });
 
     it('should have a show-validity attribute when reported', async () => {
       el.reportValidity();

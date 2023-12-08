@@ -1,8 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import { Icon } from '@sl-design-system/icon';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './error.scss.js';
 
@@ -13,45 +10,30 @@ export type ErrorSize = 'sm' | 'md' | 'lg';
  *
  * @slot error-text - The error message to display.
  */
-export class Error extends ScopedElementsMixin(LitElement) {
-  /** @private */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-icon': Icon
-    };
-  }
-
+export class Error extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /**
-   * If true, the error icon won't be displayed. Useful for form controls that show
-   * the icon inline, like text-field.
-   */
-  @property({ type: Boolean, attribute: 'no-icon' }) noIcon?: boolean;
+  /** The light DOM slot. */
+  #slot?: HTMLSlotElement;
 
   /** The size at which the error is displayed. */
   @property({ reflect: true }) size: ErrorSize = 'md';
 
-  constructor() {
-    super();
+  override connectedCallback(): void {
+    super.connectedCallback();
 
-    const slot = document.createElement('slot');
-    slot.name = 'error-text';
+    this.#slot ??= document.createElement('slot');
+    this.#slot.name = 'error-text';
+    this.append(this.#slot);
 
-    this.append(slot);
+    // Make sure the error doesn't end up in the default slot
+    if (this.parentElement?.tagName === 'SL-FORM-FIELD') {
+      this.slot = 'error';
+    }
   }
 
   override render(): TemplateResult {
-    return html`
-      ${this.noIcon ? nothing : html`<sl-icon .size=${this.size} name="triangle-exclamation-solid"></sl-icon>`}
-      <slot @slotchange=${this.#onSlotchange}></slot>
-    `;
-  }
-
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const assignedElements = event.target.assignedElements({ flatten: true });
-
-    this.toggleAttribute('hidden', assignedElements.length === 0);
+    return html`<slot></slot>`;
   }
 }

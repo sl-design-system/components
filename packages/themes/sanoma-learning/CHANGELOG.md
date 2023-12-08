@@ -1,5 +1,39 @@
 # @sanomalearning/slds-sanoma-learning
 
+## 0.1.0
+
+### Minor Changes
+
+- [#784](https://github.com/sl-design-system/components/pull/784) [`dbf4862`](https://github.com/sl-design-system/components/commit/dbf48627bf8463ac75e2b46ab63dd9257481b9ce) - Added tokens for inline-message
+
+### Patch Changes
+
+- [#795](https://github.com/sl-design-system/components/pull/795) [`c15e60e`](https://github.com/sl-design-system/components/commit/c15e60eef61430b3a9b944c4f8438d19ce8bb3c1) - Fix background for default buttons + fix hover state for all buttons
+
+- [#755](https://github.com/sl-design-system/components/pull/755) [`b657079`](https://github.com/sl-design-system/components/commit/b657079044ed53a9b49d4374a08bdc3a32179eeb) - Added tokens for popover
+
+- [#748](https://github.com/sl-design-system/components/pull/748) [`3961d01`](https://github.com/sl-design-system/components/commit/3961d017961898dd5a2a951d31d4730d01e06bb9) - Added tokens for selectbox
+
+- [#796](https://github.com/sl-design-system/components/pull/796) [`338f362`](https://github.com/sl-design-system/components/commit/338f3629828a9d9d833f510eb35e549257a0dabe) - popover font size changes
+
+- [#724](https://github.com/sl-design-system/components/pull/724) [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d) - Added avatar + added token for focus ring offset
+
+- Updated dependencies [[`4ca7b20`](https://github.com/sl-design-system/components/commit/4ca7b20ee7d09ee2ccfcf2743fd48f00a8207e39), [`4ca7b20`](https://github.com/sl-design-system/components/commit/4ca7b20ee7d09ee2ccfcf2743fd48f00a8207e39), [`9b8e371`](https://github.com/sl-design-system/components/commit/9b8e371932fbe979f3250e07c605ad39239d4f82)]:
+  - @sl-design-system/icon@0.0.5
+
+## 0.0.9
+
+### Patch Changes
+
+- [#739](https://github.com/sl-design-system/components/pull/739) [`45bff4d`](https://github.com/sl-design-system/components/commit/45bff4d60a32f4d46d8c9c99200efeaa1be6a2f0) - Fix for incorrect box shadow values
+
+- [#723](https://github.com/sl-design-system/components/pull/723) [`dae8cd3`](https://github.com/sl-design-system/components/commit/dae8cd300a29df1f52eb0560bfc79574424e2b72) - Added tokens for Avatar component
+
+- [#722](https://github.com/sl-design-system/components/pull/722) [`fbb1bad`](https://github.com/sl-design-system/components/commit/fbb1bade7acdeb97919a765b38531de2e44d848d) - Added tokens for Popover component
+
+- Updated dependencies [[`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0)]:
+  - @sl-design-system/icon@0.0.4
+
 ## 0.0.8
 
 ### Patch Changes

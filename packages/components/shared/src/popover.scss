@@ -1,23 +1,19 @@
 /* stylelint-disable selector-class-pattern */
 [popover],
 :host(:where([popover])) {
+  /** !important used temporarily to make it working in Firefox and to overwrite polyfill styling, which have too high specificity */
   background-color: canvas;
-  border-color: initial;
   border-image: initial;
-  border-style: solid;
   border-width: initial;
   color: canvastext;
   height: fit-content;
-  margin: auto;
-  overflow: auto;
+  inset: 0;
+  margin: 0 !important;
+  overflow: visible;
   padding: 0.25em;
   position: fixed;
   width: fit-content;
   z-index: 2147483647;
-}
-
-[popover] {
-  inset: 0;
 }
 
 [popover]:not(.\\:popover-open),
@@ -34,6 +30,11 @@
 }
 
 @supports selector([popover]:popover-open) {
+  [popover],
+  :host(:where([popover])) {
+    overflow: visible;
+  }
+
   [popover]:not(.\\:popover-open, dialog[open]),
   :host([popover]:not(.\\:popover-open, dialog[open])) {
     display: revert;
@@ -41,5 +42,12 @@
 
   [anchor]:is(:popover-open) {
     inset: auto;
+  }
+}
+
+@supports (width: -moz-fit-content) {
+  [popover],
+  :host(:where([popover])) {
+    overflow: visible;
   }
 }

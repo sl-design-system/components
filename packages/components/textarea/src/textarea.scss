@@ -5,13 +5,13 @@ $resize-types: none, both, horizontal, vertical, auto;
 
 :host {
   --sl-textarea-rows: 3;
-  --_border-size: var(--sl-border-width-button-default);
+  --_border-size: var(--sl-border-width-button-solid);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
   --_transition: 200ms ease-in-out;
   --_min-height: calc(var(--sl-textarea-rows) * 1lh);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 }
 
 @each $size in $sizes {

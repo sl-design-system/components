@@ -40,7 +40,7 @@ export const Basic: Story = {
 export const Error: Story = {
   args: {
     ...Basic.args,
-    slot: html`<sl-text-field required></sl-text-field>`
+    slot: html`<sl-text-field required show-valid></sl-text-field>`
   }
 };
 

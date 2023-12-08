@@ -195,8 +195,8 @@ describe('sl-text-field', () => {
       expect(input).to.have.attribute('step', '3');
     });
 
-    it('should focus the input when clicking the element', async () => {
-      el.click();
+    it('should focus the input when focusing the element', () => {
+      el.focus();
 
       expect(document.activeElement).to.equal(input);
     });

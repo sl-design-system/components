@@ -189,15 +189,15 @@
               "type": {
                 "text": "EventEmitter<void>"
               },
-              "description": "Emits when the `blur` event is fired on the `<input>`."
+              "description": "Emits when the focus leaves the component."
             },
             {
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<string>"
               },
-              "description": "Emits when the `change` event is fired on the `<input>`."
+              "description": "Emits when the value changes."
             },
             {
               "kind": "event",
@@ -205,15 +205,7 @@
               "type": {
                 "text": "EventEmitter<void>"
               },
-              "description": "Emits when the `focus` event is fired on the `<input>`."
-            },
-            {
-              "kind": "event",
-              "name": "sl-input",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the `input` event is fired on the `<input>`."
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",
@@ -251,15 +243,15 @@
               "type": {
                 "text": "EventEmitter<void>"
               },
-              "description": "Emits when the `blur` event is fired on the `<input>`.",
+              "description": "Emits when the focus leaves the component.",
               "fieldName": "blurEvent"
             },
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<string>"
               },
-              "description": "Emits when the `change` event is fired on the `<input>`.",
+              "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
             },
             {
@@ -267,16 +259,8 @@
               "type": {
                 "text": "EventEmitter<void>"
               },
-              "description": "Emits when the `focus` event is fired on the `<input>`.",
+              "description": "Emits when the component gains focus.",
               "fieldName": "focusEvent"
-            },
-            {
-              "name": "inputEvent",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the `input` event is fired on the `<input>`.",
-              "fieldName": "inputEvent"
             }
           ],
           "attributes": [

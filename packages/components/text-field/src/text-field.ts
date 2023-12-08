@@ -103,6 +103,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** The value for the input, to be used in forms. */
   @property() value: string | null = null;
 
+  /** @ignore */
   override connectedCallback(): void {
     super.connectedCallback();
 

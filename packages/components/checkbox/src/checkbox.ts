@@ -1,10 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EventEmitter } from '@sl-design-system/shared';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { msg } from '@lit/localize';
-import { Error, FormControlMixin, Hint } from '@sl-design-system/form';
-import { event } from '@sl-design-system/shared';
+import { localized, msg } from '@lit/localize';
+import { FormControlMixin } from '@sl-design-system/form';
+import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -15,23 +13,26 @@ export type CheckboxSize = 'md' | 'lg';
 /**
  * A checkbox with 3 states; unchecked, checked and intermediate.
  *
- * @csspart wrapper - The checkbox's wrapper
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
-export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+@localized()
+export class Checkbox extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-error': Error,
-      'sl-hint': Hint
-    };
-  }
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @private */
   static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
+
+  /** Events controller. */
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    focusin: this.#onFocusin,
+    focusout: this.#onFocusout,
+    keydown: this.#onKeydown
+  });
 
   /** The initial state when the form was associated with the checkbox. Used to reset the checkbox. */
   #initialState = false;
@@ -39,31 +40,33 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   /** @private */
   readonly internals = this.attachInternals();
 
+  /** Emits when the component loses focus. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+
   /** Emits when the checked state changes. */
-  @event() change!: EventEmitter<boolean>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<boolean>;
+
+  /** Emits when the component receives focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
 
   /** Whether the checkbox is checked. */
-  @property({ type: Boolean, reflect: true }) checked = false;
+  @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** Whether the checkbox is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Whether the checkbox has the indeterminate state. */
-  @property({ type: Boolean, reflect: true }) indeterminate = false;
+  @property({ type: Boolean, reflect: true }) indeterminate?: boolean;
 
   /** Whether the checkbox is required. */
-  @property({ type: Boolean, reflect: true }) required = false;
+  @property({ type: Boolean, reflect: true }) required?: boolean;
 
-  /**
-   * The size of the checkbox
-   * @type {'md' | 'lg'}
-   */
+  /** The size of the checkbox. */
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
   /** The value for the checkbox, to be used in forms. */
   @property() value: string | null = null;
 
-  /** @ignore */
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -72,18 +75,17 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     this.#updateNoLabel();
   }
 
-  /** @ignore Stores the initial state of the checkbox */
+  /** Stores the initial state of the checkbox */
   formAssociatedCallback(): void {
     this.#initialState = this.hasAttribute('checked');
   }
 
-  /** @ignore Resets the checkbox to the initial state */
+  /** Resets the checkbox to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
-    this.change.emit(this.checked);
+    this.changeEvent.emit(this.checked);
   }
 
-  /** @ignore */
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -94,7 +96,6 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     }
   }
 
-  /** @ignore */
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -107,33 +108,26 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     }
   }
 
-  /** @ignore */
   override render(): TemplateResult {
     return html`
-      <div @click=${this.#onClick} @keydown=${this.#onKeydown} class="wrapper" part="wrapper">
-        <div class="outer">
-          <div class="inner" .tabIndex=${this.disabled ? -1 : 0}>
-            <svg
-              aria-hidden="true"
-              class=${classMap({ checked: this.checked, indeterminate: this.indeterminate })}
-              focusable="false"
-              part="svg"
-              version="1.1"
-              viewBox="0 0 24 24"
-            >
-              ${this.indeterminate
-                ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
-                : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
-            </svg>
-          </div>
+      <div class="outer">
+        <div class="inner" .tabIndex=${this.disabled ? -1 : 0}>
+          <svg
+            aria-hidden="true"
+            class=${classMap({ checked: !!this.checked, indeterminate: !!this.indeterminate })}
+            part="svg"
+            version="1.1"
+            viewBox="0 0 24 24"
+          >
+            ${this.indeterminate
+              ? svg`<path d="M4.1,12 9,12 20.3,12"></path>`
+              : svg`<path d="M4.1,12.7 9,17.6 20.3,6.3"></path>`}
+          </svg>
         </div>
-        <span class="label">
-          <slot @slotchange=${() => this.#updateNoLabel()}></slot>
-        </span>
       </div>
-
-      <sl-error .size=${this.size}></sl-error>
-      <sl-hint .size=${this.size}></sl-hint>
+      <span class="label">
+        <slot @slotchange=${() => this.#updateNoLabel()}></slot>
+      </span>
     `;
   }
 
@@ -146,7 +140,15 @@ export class Checkbox extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     event.stopPropagation();
 
     this.checked = !this.checked;
-    this.change.emit(this.checked);
+    this.changeEvent.emit(this.checked);
+  }
+
+  #onFocusin(): void {
+    this.focusEvent.emit();
+  }
+
+  #onFocusout(): void {
+    this.blurEvent.emit();
   }
 
   #onKeydown(event: KeyboardEvent): void {

@@ -243,12 +243,6 @@
           "kind": "class",
           "description": "A checkbox with 3 states; unchecked, checked and intermediate.",
           "name": "Checkbox",
-          "cssParts": [
-            {
-              "description": "The checkbox's wrapper",
-              "name": "wrapper"
-            }
-          ],
           "slots": [
             {
               "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
@@ -257,20 +251,11 @@
           ],
           "members": [
             {
-              "kind": "event",
-              "name": "change",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the checked state changes."
-            },
-            {
               "kind": "field",
               "name": "checked",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox is checked.",
               "attribute": "checked",
               "reflects": true
@@ -279,20 +264,38 @@
               "kind": "field",
               "name": "disabled",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
             },
             {
+              "kind": "method",
+              "name": "formAssociatedCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Stores the initial state of the checkbox"
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Resets the checkbox to the initial state"
+            },
+            {
               "kind": "field",
               "name": "indeterminate",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox has the indeterminate state.",
               "attribute": "indeterminate",
               "reflects": true
@@ -301,9 +304,8 @@
               "kind": "field",
               "name": "required",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox is required.",
               "attribute": "required",
               "reflects": true
@@ -312,12 +314,36 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "CheckboxSize"
               },
               "default": "'md'",
-              "description": "The size of the checkbox",
+              "description": "The size of the checkbox.",
               "attribute": "size",
               "reflects": true
+            },
+            {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",
@@ -332,58 +358,70 @@
           ],
           "events": [
             {
-              "name": "change",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
               "type": {
                 "text": "EventEmitter<boolean>"
               },
               "description": "Emits when the checked state changes.",
-              "fieldName": "change"
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus.",
+              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
             {
               "name": "checked",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox is checked.",
               "fieldName": "checked"
             },
             {
               "name": "disabled",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox is disabled; when set no interaction is possible.",
               "fieldName": "disabled"
             },
             {
               "name": "indeterminate",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox has the indeterminate state.",
               "fieldName": "indeterminate"
             },
             {
               "name": "required",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox is required.",
               "fieldName": "required"
             },
             {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "CheckboxSize"
               },
               "default": "'md'",
-              "description": "The size of the checkbox",
+              "description": "The size of the checkbox.",
               "fieldName": "size"
             },
             {
@@ -400,10 +438,6 @@
             {
               "name": "FormControlMixin",
               "package": "@sl-design-system/form"
-            },
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -413,6 +447,26 @@
           "tagName": "sl-checkbox",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "formAssociatedCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Stores the initial state of the checkbox"
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Resets the checkbox to the initial state"
+            },
             {
               "kind": "method",
               "name": "#onClick",
@@ -429,6 +483,24 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusin",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusout",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             },
             {
               "kind": "method",
@@ -470,13 +542,20 @@
             },
             {
               "kind": "field",
-              "name": "scopedElements",
+              "name": "shadowRootOptions",
               "type": {
-                "text": "ScopedElementsMap"
+                "text": "ShadowRootInit"
               },
               "static": true,
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
               "privacy": "private",
-              "readonly": true
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    focusin: this.#onFocusin,\n    focusout: this.#onFocusout,\n    keydown: this.#onKeydown\n  })",
+              "description": "Events controller."
             },
             {
               "kind": "field",

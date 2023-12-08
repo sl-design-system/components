@@ -5139,7 +5139,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/components/checkbox"
   dependencies:
-    "@lit-labs/observers": "npm:^2.0.2"
     "@sl-design-system/form": "npm:0.0.2"
     "@sl-design-system/shared": "npm:0.2.0"
     lit: "npm:^3.1.0"
@@ -16312,21 +16311,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lit-html@npm:^2.0.0 || ^3.0.0, lit-html@npm:^3.1.0":
+"lit-html@npm:^2.0.0 || ^3.0.0, lit-html@npm:^3.0.0, lit-html@npm:^3.1.0":
   version: 3.1.0
   resolution: "lit-html@npm:3.1.0"
   dependencies:
     "@types/trusted-types": "npm:^2.0.2"
   checksum: ecd6d0c97715cc92092d14f329acd04eea37886a947a07f32bd96dd89d44253689a9e4e9c787412e184657c2af5547332ba07f2cfcabda8d4c0db36863a93cc0
-  languageName: node
-  linkType: hard
-
-"lit-html@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "lit-html@npm:3.0.0"
-  dependencies:
-    "@types/trusted-types": "npm:^2.0.2"
-  checksum: 0c23e937137e397f23f33586a323f0ca47b98d4cb8e2b0bc699a818968f10126caba44408f66a33edad84f7a4d8476c68eb9f87f7c84c6340ac1d9315170e08b
   languageName: node
   linkType: hard
 

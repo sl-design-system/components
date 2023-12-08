@@ -81,8 +81,7 @@ export default {
     indeterminate: false,
     text: 'Toggle me',
     value: '12345',
-    size: 'md',
-    hint: 'Something to help the user out'
+    size: 'md'
   },
   argTypes: {
     size: {
@@ -93,14 +92,13 @@ export default {
 };
 
 export const API: StoryObj = {
-  render: ({ checked, disabled, indeterminate, text, value, size, hint }) => html`
+  render: ({ checked, disabled, indeterminate, text, value, size }) => html`
     <sl-checkbox
       ?checked=${checked}
       ?disabled=${disabled}
       .indeterminate=${indeterminate}
       .value=${value}
       .size=${size}
-      .hint=${hint}
       aria-label="checkbox to toggle"
       >${text}</sl-checkbox
     >
@@ -116,7 +114,6 @@ export const All: StoryObj = {
           border-collapse: collapse;
           margin-bottom: 24px;
         }
-
         th {
           text-transform: capitalize;
         }
@@ -127,7 +124,6 @@ export const All: StoryObj = {
         thead td {
           text-align: center;
         }
-
         tbody td:nth-of-type(4n + 5) {
           border-right: 2px solid #dedede;
           padding-right: 24px;
@@ -137,10 +133,6 @@ export const All: StoryObj = {
         }
         tbody td:last-of-type {
           border: none;
-        }
-
-        sl-error {
-          display: none;
         }
       </style>
       <form>
@@ -317,7 +309,7 @@ export const WithLabel: StoryObj = {
 export const Group: StoryObj = {
   render: () => html`
     <sl-label for="group">Checkbox group</sl-label>
-    <sl-checkbox-group id="group" hint="Pick one of these options.">
+    <sl-checkbox-group id="group">
       <sl-checkbox>Check me</sl-checkbox>
       <sl-checkbox>No me</sl-checkbox>
       <sl-checkbox>I was here first!</sl-checkbox>

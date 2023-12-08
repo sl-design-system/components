@@ -1,11 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Checkbox, CheckboxSize } from './checkbox.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { msg } from '@lit/localize';
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import { Error, FormControlMixin, Hint } from '@sl-design-system/form';
-import { RovingTabindexController } from '@sl-design-system/shared';
+import { FormControlMixin } from '@sl-design-system/form';
+import { EventsController, RovingTabindexController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
@@ -15,31 +12,18 @@ import styles from './checkbox-group.scss.js';
  *
  * @slot default - A list of `sl-checkbox` elements.
  */
-export class CheckboxGroup extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class CheckboxGroup extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-error': Error,
-      'sl-hint': Hint
-    };
-  }
-
-  /** @private */
   static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
 
-  /** Observe changes to the checkboxes. */
-  #mutation = new MutationController(this, {
-    callback: async () => {
-      // Workaround for https://github.com/lit/lit/issues/3597
-      await this.updateComplete;
+  /** Events controller. */
+  #events = new EventsController(this, { click: this.#onClick });
 
-      this.value = this.boxes?.map(box => !!box.checked);
-    },
-    config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }
-  });
+  /** Observe changes to the checkboxes. */
+  #observer = new MutationObserver(() => (this.value = this.boxes?.map(box => !!box.checked)));
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
@@ -60,8 +44,7 @@ export class CheckboxGroup extends FormControlMixin(ScopedElementsMixin(LitEleme
   /** At least one checkbox in the group must be checked if true. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
-  /** The size of the checkboxes in the group.
-   * @type {'md' | 'lg'} */
+  /** The size of the checkboxes in the group. */
   @property() size?: CheckboxSize;
 
   /**
@@ -73,9 +56,16 @@ export class CheckboxGroup extends FormControlMixin(ScopedElementsMixin(LitEleme
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'group';
+    this.#observer.observe(this, { attributeFilter: ['checked'], attributeOldValue: true, subtree: true });
 
+    this.internals.role = 'group';
     this.setFormControlElement(this);
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override willUpdate(changes: PropertyValues): void {
@@ -94,7 +84,7 @@ export class CheckboxGroup extends FormControlMixin(ScopedElementsMixin(LitEleme
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('disabled')) {
+    if (changes.has('disabled') && typeof this.disabled === 'boolean') {
       this.boxes?.forEach(box => (box.disabled = !!this.disabled));
     }
 
@@ -116,14 +106,7 @@ export class CheckboxGroup extends FormControlMixin(ScopedElementsMixin(LitEleme
   }
 
   override render(): TemplateResult {
-    return html`
-      <div @click=${this.#onClick} class="wrapper" part="wrapper">
-        <slot @slotchange=${this.#onSlotchange}></slot>
-      </div>
-
-      <sl-error></sl-error>
-      <sl-hint></sl-hint>
-    `;
+    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
   #onClick(event: Event): void {
@@ -136,8 +119,11 @@ export class CheckboxGroup extends FormControlMixin(ScopedElementsMixin(LitEleme
     this.#rovingTabindexController.clearElementCache();
 
     this.boxes?.forEach(box => {
-      box.disabled = !!this.disabled;
       box.name = this.name;
+
+      if (typeof this.disabled === 'boolean') {
+        box.disabled = !!this.disabled;
+      }
 
       if (this.size) {
         box.size = this.size;

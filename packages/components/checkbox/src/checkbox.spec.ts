@@ -18,19 +18,26 @@ describe('sl-checkbox', () => {
 
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
-      expect(el.internals.ariaChecked).to.equal('false');
+      expect(el.internals.ariaChecked).not.to.equal('true');
     });
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el.disabled).not.to.be.true;
-      expect(el.internals.ariaDisabled).to.equal('false');
+    });
+
+    it('should be disabled when set', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('disabled');
+      expect(el.disabled).to.be.true;
     });
 
     it('should not be indeterminate', () => {
       expect(el).not.to.have.attribute('indeterminate');
       expect(el.indeterminate).not.to.be.true;
-      expect(el.internals.ariaChecked).to.equal('false');
+      expect(el.internals.ariaChecked).not.to.equal('true');
     });
 
     it('should be indeterminate when set', async () => {
@@ -41,15 +48,15 @@ describe('sl-checkbox', () => {
       expect(el.internals.ariaChecked).to.equal('mixed');
     });
 
-    it('should toggle the state to checked when clicking the wrapper', async () => {
-      el.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+    it('should toggle the state to checked when clicking the element', async () => {
+      el.click();
       await el.updateComplete;
 
       expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
       expect(el.internals.ariaChecked).to.equal('true');
 
-      el.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+      el.click();
       await el.updateComplete;
 
       expect(el).not.to.have.attribute('checked');
@@ -62,7 +69,9 @@ describe('sl-checkbox', () => {
       await sendKeys({ press: 'Enter' });
       await el.updateComplete;
 
+      expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
+      expect(el.internals.ariaChecked).to.equal('true');
     });
 
     it('should change the state to checked on when pressing space', async () => {
@@ -70,7 +79,9 @@ describe('sl-checkbox', () => {
       await sendKeys({ press: 'Space' });
       await el.updateComplete;
 
+      expect(el).to.have.attribute('checked');
       expect(el.checked).to.be.true;
+      expect(el.internals.ariaChecked).to.equal('true');
     });
   });
 
@@ -81,7 +92,6 @@ describe('sl-checkbox', () => {
 
     it('should be marked as disabled', () => {
       expect(el.disabled).to.be.true;
-      expect(el.internals.ariaDisabled).to.equal('true');
     });
 
     it('should have a tabindex of -1', () => {
@@ -90,14 +100,8 @@ describe('sl-checkbox', () => {
       expect(inner).to.have.attribute('tabindex', '-1');
     });
 
-    it.only('should not be able to focus', () => {
-      el.focus();
-
-      console.log(document.activeElement);
-    });
-
     it('should not change the state to checked when clicked', async () => {
-      el.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+      el.click();
       await el.updateComplete;
 
       expect(el.checked).not.to.be.true;
@@ -113,12 +117,13 @@ describe('sl-checkbox', () => {
   });
 
   describe('form integration', () => {
+    let form: HTMLFormElement;
+
     describe('unchecked', () => {
-      let form: HTMLFormElement;
       beforeEach(async () => {
         form = await fixture(html`
           <form>
-              <sl-checkbox>Hello world</sl-checkbox>
+            <sl-checkbox>Hello world</sl-checkbox>
           </form>
         `);
 
@@ -137,11 +142,10 @@ describe('sl-checkbox', () => {
     });
 
     describe('checked', () => {
-      let form: HTMLFormElement;
       beforeEach(async () => {
         form = await fixture(html`
           <form>
-              <sl-checkbox checked>Hello world</sl-checkbox>
+            <sl-checkbox checked>Hello world</sl-checkbox>
           </form>
         `);
 

@@ -87,7 +87,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "CheckboxSize | undefined"
               },
               "description": "The size of the checkboxes in the group.",
               "attribute": "size"
@@ -113,7 +113,7 @@
             {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "CheckboxSize | undefined"
               },
               "description": "The size of the checkboxes in the group.",
               "fieldName": "size"
@@ -123,10 +123,6 @@
             {
               "name": "FormControlMixin",
               "package": "@sl-design-system/form"
-            },
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -176,19 +172,16 @@
             },
             {
               "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
+              "name": "#events",
               "privacy": "private",
-              "readonly": true
+              "default": "new EventsController(this, { click: this.#onClick })",
+              "description": "Events controller."
             },
             {
               "kind": "field",
-              "name": "#mutation",
+              "name": "#observer",
               "privacy": "private",
-              "default": "new MutationController(this, {\n    callback: async () => {\n      // Workaround for https://github.com/lit/lit/issues/3597\n      await this.updateComplete;\n\n      this.value = this.boxes?.map(box => !!box.checked);\n    },\n    config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }\n  })",
+              "default": "new MutationObserver(() => (this.value = this.boxes?.map(box => !!box.checked)))",
               "description": "Observe changes to the checkboxes."
             },
             {

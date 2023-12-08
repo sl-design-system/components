@@ -17,7 +17,7 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
+  static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
   #events = new EventsController(this, { click: this.#onClick });

@@ -1,7 +1,6 @@
 import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from '@sl-design-system/shared';
 import { property, state } from 'lit/decorators.js';
-import styles from './form-control-mixin.scss.js';
 import { UpdateValidityEvent } from './update-validity-event.js';
 
 export interface NativeFormControlElement extends HTMLElement {
@@ -255,5 +254,3 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
   return FormControlImpl;
 }
-
-FormControlMixin.styles = styles;

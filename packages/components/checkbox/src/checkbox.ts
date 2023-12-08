@@ -24,7 +24,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @private */
-  static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
+  static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
   #events = new EventsController(this, {

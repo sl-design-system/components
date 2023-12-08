@@ -30,7 +30,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   /** @private */
-  static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
+  static override styles: CSSResultGroup = styles;
 
   /** Emits when the `blur` event is fired on the `<input>`. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;

@@ -35,17 +35,14 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @private */
   static override styles: CSSResultGroup = [FormControlMixin.styles, styles];
 
-  /** Emits when the `blur` event is fired on the `<input>`. */
+  /** Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
-  /** Emits when the `change` event is fired on the `<input>`. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<void>;
+  /** Emits when the value changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
 
-  /** Emits when the `focus` event is fired on the `<input>`. */
+  /** Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
-
-  /** Emits when the `input` event is fired on the `<input>`. */
-  @event({ name: 'sl-input' }) inputEvent!: EventEmitter<string>;
 
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
@@ -112,7 +109,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.addEventListener('blur', () => this.blurEvent.emit());
-      this.input.addEventListener('change', () => this.changeEvent.emit());
       this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.input.slot ||= 'input';
       this.#syncInput(this.input);
@@ -170,7 +166,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
     this.updateValidity();
-    this.inputEvent.emit(this.value);
+    this.changeEvent.emit(this.value);
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -187,7 +183,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (inputs.length) {
       this.input = inputs[0];
       this.input.addEventListener('blur', () => this.blurEvent.emit());
-      this.input.addEventListener('change', () => this.changeEvent.emit());
       this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncInput(this.input);
 

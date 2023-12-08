@@ -195,8 +195,8 @@ describe('sl-text-field', () => {
       expect(input).to.have.attribute('step', '3');
     });
 
-    it('should focus the input when clicking the wrapper', async () => {
-      el.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+    it('should focus the input when clicking the element', async () => {
+      el.click();
 
       expect(document.activeElement).to.equal(input);
     });
@@ -220,24 +220,10 @@ describe('sl-text-field', () => {
       expect(onBlur).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-change event when leaving the input after typing', async () => {
-      const onChange = spy();
-
-      el.addEventListener('sl-change', onChange);
-      input.focus();
-      await sendKeys({ type: 'Lorem' });
-
-      expect(onChange).not.to.have.been.called;
-
-      await sendKeys({ press: 'Tab' });
-
-      expect(onChange).to.have.been.calledOnce;
-    });
-
-    it('should emit an sl-input event when typing in the input', async () => {
+    it('should emit an sl-change event when typing in the input', async () => {
       const onInput = spy();
 
-      el.addEventListener('sl-input', onInput);
+      el.addEventListener('sl-change', onInput);
       input.focus();
       await sendKeys({ type: 'Lorem' });
 

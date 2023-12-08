@@ -69,13 +69,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   @query('div') wrapper?: HTMLDivElement;
 
   /** Determines whether closing button (default one) should be shown in the top right corner. */
-  @property({ type: Boolean, attribute: 'closing-button' }) closingButton = true; // TODO: or dismissable?
+  @property({ type: Boolean, attribute: 'closing-button' }) closingButton = true; // TODO: irremovable
 
   /** Determines whether the icon should be shown on the left side of the component. */
   @property({ type: Boolean, attribute: 'no-icon' }) noIcon?: boolean;
-
-  // /** The ARIA role of the dialog. */
-  // @property() override role: 'dialog' | 'alertdialog' = 'dialog';
 
   /** The status of the inline message.
    * @type {'info' | 'success' | 'warning' | 'danger'} */
@@ -135,54 +132,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     `;
   } // TODO: aria label with translation (${msg('optional')})
 
-  //   #renderIcon(status): string  {
-  //     switch
-  // }
-
-  // showModal(): void {
-  //   this.inert = false;
-  //   this.dialog?.showModal();
-  //
-  //   // Disable scrolling while the dialog is open
-  //   document.documentElement.style.overflow = 'hidden';
-  //
-  //   /** Workaround for the backdrop background,
-  //    *  the backdrop doesn't inherit from the :root, so we cannot use tokens for the background-color,
-  //    *  needs to be removed in the future,
-  //    * the bug should be fixed: https://drafts.csswg.org/css-position-4/#backdrop */
-  //   const backdrop: CSSResult = unsafeCSS(
-  //     `::backdrop {
-  //       background-color: ${window.getComputedStyle(document.body).getPropertyValue('--sl-body-surface-overlay')};
-  //     }
-  //   `
-  //   );
-  //
-  //   if (this.shadowRoot) {
-  //     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  //     adoptStyles(this.shadowRoot, [breakpoints, styles, backdrop]);
-  //   }
-  // }
-  //
-  // close(): void {
-  //   if (this.dialog?.open) {
-  //     this.dialog?.close();
-  //   }
-  // }
-  //
-  // #onCancel(event: Event): void {
-  //   if (this.disableClose) {
-  //     event.preventDefault();
-  //   }
-  // }
   //
   //TODO: show method
   onClose(/*event: PointerEvent & { target: HTMLElement }*/): void {
-    //console.log('event on click', event);
-    // event.preventDefault();
-    // event.stopPropagation();
-
-    const wrapper = this.querySelector<HTMLDivElement>('.inline-message-wrapper');
-    console.log('wrapper', wrapper, this.wrapper);
+    // const wrapper = this.querySelector<HTMLDivElement>('.inline-message-wrapper');
+    //  console.log('wrapper', wrapper, this.wrapper);
 
     // this.wrapper?.removeAttribute('open');
     //
@@ -208,44 +162,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
     // TODO: emit sl-close
   }
-  //
-  // #onClick(event: PointerEvent & { target: HTMLElement }): void {
-  //   if (event.target && this.dialog) {
-  //     const rect = this.dialog.getBoundingClientRect();
-  //     // Check if the user clicked on the sl-dialog-close button or on the backdrop
-  //     if (
-  //       event.target.matches('sl-button[sl-dialog-close]') ||
-  //       (!this.disableClose &&
-  //         (event.clientY < rect.top ||
-  //           event.clientY > rect.bottom ||
-  //           event.clientX < rect.left ||
-  //           event.clientX > rect.right))
-  //     ) {
-  //       this.#closeDialogOnAnimationend(event.target as HTMLElement);
-  //     }
-  //   }
-  // }
-  //
-  // #closeDialogOnAnimationend(target: HTMLElement): void {
-  //   this.dialog?.addEventListener(
-  //     'animationend',
-  //     () => {
-  //       this.dialog?.removeAttribute('closing');
-  //
-  //       if (target?.matches('sl-button[sl-dialog-close]')) {
-  //         this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
-  //       } else {
-  //         this.dialog?.close();
-  //       }
-  //     },
-  //     { once: true }
-  //   );
-  //
-  //   requestAnimationFrame(() => {
-  //     this.dialog?.setAttribute('closing', '');
-  //   });
-  // }
-  //
 
   #closeOnAnimationend(): void {
     console.log('closeOnAnimationend', this.wrapper);

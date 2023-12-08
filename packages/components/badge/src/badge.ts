@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { Icon } from '@sl-design-system/icon';
-import { LitElement, html } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './badge.scss.js';
 
@@ -27,6 +27,6 @@ export class badge extends LitElement {
   @queryAssignedElements() icons?: Icon[];
 
   override render(): TemplateResult {
-    return this.size !== 'sm' ? html`<slot></slot>` : html``;
+    return html`${this.size !== 'sm' ? html`<slot></slot>` : nothing}`;
   }
 }

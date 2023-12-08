@@ -1,6 +1,6 @@
 :host {
-  --_control-gap: 0.25rem;
-  --_label-gap: 0.5rem;
+  --_control-gap: var(--sl-space-input-helper-gap-md);
+  --_label-gap: var(--sl-space-input-field-label-padding-bottom-md);
 
   display: flex;
   flex-direction: column;

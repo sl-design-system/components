@@ -1,6 +1,8 @@
 import type { FormField } from './form-field.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/icon/register.js';
 import '@sl-design-system/text-field/register.js';
+import '@sl-design-system/tooltip/register.js';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 
@@ -40,7 +42,7 @@ export const Basic: Story = {
 export const Error: Story = {
   args: {
     ...Basic.args,
-    slot: html`<sl-text-field required></sl-text-field>`
+    slot: html`<sl-text-field required show-valid></sl-text-field>`
   }
 };
 
@@ -82,7 +84,13 @@ export const CustomHint: Story = {
 export const CustomLabel: Story = {
   args: {
     slot: html`
-      <sl-label>This is a <em>custom</em> label</sl-label>
+      <sl-label>
+        This is a <em>custom</em> label
+        <span aria-describedby="tooltip" tabindex="-1">
+          <sl-icon name="info"></sl-icon>
+        </span>
+        <sl-tooltip id="tooltip">Some information about this field</sl-tooltip>
+      </sl-label>
       <sl-text-field></sl-text-field>
     `
   }

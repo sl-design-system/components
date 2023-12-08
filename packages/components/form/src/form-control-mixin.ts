@@ -172,6 +172,18 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       if (changes.has('name') && isNative(this.formControlElement)) {
         this.formControlElement.name = this.name ?? '';
       }
+
+      if (changes.has('showValidity')) {
+        if (isNative(this.formControlElement)) {
+          if (this.showValidity === 'invalid') {
+            this.formControlElement.setAttribute('aria-invalid', 'true');
+          } else {
+            this.formControlElement.removeAttribute('aria-invalid');
+          }
+        } else {
+          this.formControlElement.internals.ariaInvalid = this.showValidity === 'invalid' ? 'true' : null;
+        }
+      }
     }
 
     /**

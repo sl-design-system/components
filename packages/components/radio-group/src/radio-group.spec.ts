@@ -32,92 +32,126 @@ describe('sl-radio-group', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('should be valid when no option is chosen but the group is not required', () =>{
-      expect(el.internals.validity.valid).to.equal(true);
+    it('should have a role of radiogroup', () => {
+      expect(el.internals.role).to.equal('radiogroup');
+    });
+
+    it('should not be disabled', () => {
+      const allDisabled = Array.from(el.querySelectorAll('sl-radio')).every(radio => radio.disabled);
+
+      expect(el).not.to.have.attribute('disabled');
+      expect(el.disabled).not.to.be.true;
+      expect(allDisabled).to.be.false;
+    });
+
+    it('should be disabled when set', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('disabled');
+      expect(el.radios?.every(radio => radio.disabled)).to.be.true;
+    });
+
+    it('should not be required', () => {
+      expect(el).not.to.have.attribute('required');
+      expect(el.required).not.to.be.true;
+    });
+
+    it('should be required when set', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('required');
+    });
+
+    it('should be valid', () =>{
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be invalid when required', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+    });
+
+    it('should be valid when required and an option is selected', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.valid).to.be.true;
     });
 
     it('should handle the navigating between options correctly', async () => {
-      expect(el.buttons?.[0].checked).to.equal(false);
-      expect(el.buttons?.[0].tabIndex).to.equal(0);
-      expect(el.buttons?.[1].checked).to.equal(false);
-      expect(el.buttons?.[1].tabIndex).to.equal(-1);
+      const radios = Array.from(el.querySelectorAll('sl-radio'));
 
-      el.buttons?.[0]?.focus();
+      expect(radios.at(0)?.checked).to.be.false;
+      expect(radios.at(0)?.tabIndex).to.equal(0);
+      expect(radios.at(1)?.checked).to.be.false;
+      expect(radios.at(1)?.tabIndex).to.equal(-1);
+
+      radios.at(0)?.focus();
       await sendKeys({ press: 'Space' });
 
-      expect(el.buttons?.[0].checked).to.equal(true);
-      expect(el.buttons?.[1].checked).to.equal(false);
+      expect(radios.at(0)?.checked).to.be.true;
+      expect(radios.at(1)?.checked).to.be.false;
 
       await sendKeys({ press: 'ArrowRight' });
       await sendKeys({ press: 'Enter' });
 
-      expect(el.buttons?.[0].checked).to.equal(false);
-      expect(el.buttons?.[1].checked).to.equal(true);
+      expect(radios.at(0)?.checked).to.be.false;
+      expect(radios.at(1)?.checked).to.be.true;
     });
   });
 
 
   describe('selected option', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-radio-group value="2">
-      <sl-radio value="1">Option 1</sl-radio>
-      <sl-radio value="2">Option 2</sl-radio>
-      <sl-radio value="3">Option 3</sl-radio>
-    </sl-radio-group>`);
-    });
-
-    it('should have the right option selected to match the value', () => {
-      expect(el.value).to.equal("2");
-
-      expect(el.buttons?.[0].checked).to.equal(false);
-      expect(el.buttons?.[1].checked).to.equal(true);
-      expect(el.buttons?.[2].checked).to.equal(false);
-    });
-
-    it('should not break when the value doesn\'t match any of the options', async () => {
-      el.setAttribute('value', 'non-existend');
-      await el.updateComplete;
-
-      expect(el.value).to.equal("non-existend");
-
-      expect(el.buttons?.[0].checked).to.equal(false);
-      expect(el.buttons?.[1].checked).to.equal(false);
-      expect(el.buttons?.[2].checked).to.equal(false);
-    });
-  });
-
-  describe('validation', () => {
-    beforeEach(async () => {
       el = await fixture(html`
-          <sl-radio-group required>
-            <sl-radio value="1">Option 1</sl-radio>
-            <sl-radio value="2">Option 2</sl-radio>
-            <sl-radio value="3">Option 3</sl-radio>
-          </sl-radio-group>
+        <sl-radio-group value="2">
+          <sl-radio value="1">Option 1</sl-radio>
+          <sl-radio value="2">Option 2</sl-radio>
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
       `);
     });
 
-    it('should not be valid when no option is chosen when it is a required group', async () => {
-      expect(el.internals.validity.valid).to.equal(false);
+    it('should have the right option selected to match the value', () => {
+      const radios = Array.from(el.querySelectorAll('sl-radio'));
+
+      expect(el.value).to.equal('2');
+
+      expect(radios.at(0)?.checked).to.be.false;
+      expect(radios.at(1)?.checked).to.be.true;
+      expect(radios.at(2)?.checked).to.be.false;
     });
 
-    it('should be valid when an option is chosen when it is a required group', async () => {
-      expect(el.internals.validity.valid).to.equal(false);
+    it('should not break when the value does not match any of the options', async () => {
+      const radios = Array.from(el.querySelectorAll('sl-radio'));
 
-      el.buttons?.[0]?.focus();
-      await sendKeys({ press: 'Space' });
-      await el.form?.checkValidity();
+      el.setAttribute('value', 'dummy');
+      await el.updateComplete;
 
-      expect(el.internals.validity.valid).to.equal(true);
+      expect(el.value).to.equal('dummy');
+
+      expect(radios.at(0)?.checked).to.be.false;
+      expect(radios.at(1)?.checked).to.be.false;
+      expect(radios.at(2)?.checked).to.be.false;
     });
   });
 
   describe('form integration', () => {
     let form: HTMLFormElement;
+
     beforeEach(async () => {
       form = await fixture(html`
         <form>
-        <sl-radio-group required>
+          <sl-radio-group required>
             <sl-radio value="1">Option 1</sl-radio>
             <sl-radio value="2">Option 2</sl-radio>
             <sl-radio value="3">Option 3</sl-radio>
@@ -129,14 +163,14 @@ describe('sl-radio-group', () => {
     });
 
     it('should change the value back to the initial state when the form is reset', async () => {
-      el.buttons?.[0]?.focus();
+      el.querySelector('sl-radio')?.focus();
       await sendKeys({ press: 'Space' });
 
       expect(el.value).to.equal('1');
 
       el.formResetCallback();
 
-      expect(el.value).to.equal(undefined);
+      expect(el.value).to.be.null;
     });
   });
 });

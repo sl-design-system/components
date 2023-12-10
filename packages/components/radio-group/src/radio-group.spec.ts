@@ -87,6 +87,18 @@ describe('sl-radio-group', () => {
       expect(el.valid).to.be.true;
     });
 
+    it('should not have a horizontal orientation', () => {
+      expect(el.horizontal).not.to.be.true;
+      expect(el).not.to.have.attribute('horizontal');
+    });
+
+    it('should be horizontal when set', async () => {
+      el.horizontal = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('horizontal');
+    });
+
     it('should handle the navigating between options correctly', async () => {
       const radios = Array.from(el.querySelectorAll('sl-radio'));
 

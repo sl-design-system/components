@@ -1,5 +1,5 @@
-import type { ResizeType, Textarea, TextareaSize } from './textarea.js';
-import type { HintSize, LabelSize } from '@sl-design-system/form';
+import type { Textarea, TextareaSize } from './textarea.js';
+import type { LabelSize } from '@sl-design-system/form';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/form/register.js';
 import { html } from 'lit';
@@ -9,9 +9,7 @@ export default {
   title: 'Textarea'
 };
 
-const resizeTypes: ResizeType[] = ['none', 'vertical', 'auto'],
-  sizes: TextareaSize[] = ['md', 'lg'],
-  hintSizes: HintSize[] = ['sm', 'md', 'lg'],
+const sizes: TextareaSize[] = ['md', 'lg'],
   labelSizes: LabelSize[] = ['sm', 'md', 'lg'];
 
 export const API: StoryObj = {
@@ -22,8 +20,7 @@ export const API: StoryObj = {
     size: 'md',
     value: '',
     resize: 'none',
-    readonly: false,
-    hint: ''
+    readonly: false
   },
   argTypes: {
     size: {
@@ -32,20 +29,19 @@ export const API: StoryObj = {
     },
     resize: {
       control: 'inline-radio',
-      options: resizeTypes
+      options: ['none', 'vertical', 'auto']
     }
   },
-  render: ({ disabled, placeholder, required, size, value, resize, readonly, hint }) =>
+  render: ({ disabled, placeholder, required, size, value, resize, readonly }) =>
     html`
       <sl-textarea
         ?readonly=${readonly}
         .disabled=${disabled}
         .placeholder=${placeholder}
         .required=${required}
+        .resize=${resize}
         .size=${size}
         .value=${value}
-        .resize=${resize}
-        .hint=${hint}
       ></sl-textarea>
     `
 };
@@ -98,7 +94,7 @@ export const All: StoryObj = {
           </div>
           <div class="wrapper">
             <sl-textarea showValid valid size=${size} value="I am md valid"></sl-textarea>
-            <sl-textarea disabled showValid valid size=${size} value="${size} valid disabled"></sl-textarea>
+            <sl-textarea disabled show-valid valid size=${size} value="${size} valid disabled"></sl-textarea>
           </div>
         </div>
       `
@@ -134,68 +130,6 @@ export const Label: StoryObj = {
   }
 };
 
-export const Hint: StoryObj = {
-  render: () => {
-    return html`
-      <style>
-        form {
-          display: flex;
-          flex-direction: column;
-        }
-
-        sl-textarea {
-          margin-bottom: 1rem;
-        }
-      </style>
-      <form>
-        ${hintSizes.map((hintSize, id) => {
-          return html`
-            <sl-label for="form-textarea-${id}">Nickname</sl-label>
-            <sl-textarea
-              id="form-textarea-${id}"
-              hint="What would you like people to call you?"
-              hintSize=${hintSize}
-            ></sl-textarea>
-          `;
-        })}
-        <sl-label for="textarea4">Nickname</sl-label>
-        <sl-textarea
-          id="textarea4"
-          disabled
-          hint="What would you like people to call you?"
-          hintSize="lg"
-          value="Disabled textarea"
-        ></sl-textarea>
-      </form>
-    `;
-  }
-};
-
-export const RichLabelHint: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-
-      div {
-        gap: 0.25rem;
-      }
-    </style>
-    <form>
-      <sl-label for="textarea">
-        <label slot="label">Custom <i>label</i></label>
-      </sl-label>
-      <sl-textarea id="textarea">
-        <div slot="hint">
-          Hint is an accessible way to provide <strong>additional information</strong> that might help the user
-        </div>
-      </sl-textarea>
-    </form>
-  `
-};
-
 export const MinMaxLength: StoryObj = {
   render: () => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
@@ -228,7 +162,7 @@ export const CustomValidation: StoryObj = {
           margin-bottom: 8px;
         }
       </style>
-      <sl-textarea minlength="3" maxlength="5" required="true">
+      <sl-textarea minlength="3" maxlength="5" required>
         <div slot="too-short">You need to enter at least 3 characters here; this is a custom message.</div>
         <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
       </sl-textarea>

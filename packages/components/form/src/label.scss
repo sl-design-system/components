@@ -9,7 +9,6 @@ $sizes: sm, md, lg;
   align-items: center;
   color: var(--_color);
   display: inline-flex;
-  margin-block-end: var(--_margin-block-end);
 }
 
 :host([disabled]) {
@@ -19,8 +18,6 @@ $sizes: sm, md, lg;
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_margin-block-end: var(--sl-space-input-field-label-padding-bottom-#{$size});
-
     slot[name='label']::slotted(label) {
       font: var(--sl-text-input-field-label-label-#{$size});
     }

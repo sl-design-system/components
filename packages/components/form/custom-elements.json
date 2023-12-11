@@ -28,6 +28,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/form-field.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/hint.js"
           }
         },
@@ -37,6 +45,14 @@
           "declaration": {
             "name": "*",
             "package": "./src/label.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/update-validity-event.js"
           }
         }
       ]
@@ -52,6 +68,14 @@
           "declaration": {
             "name": "Error",
             "module": "/src/error.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-form-field",
+          "declaration": {
+            "name": "FormField",
+            "module": "/src/form-field.js"
           }
         },
         {
@@ -89,14 +113,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "'error-text'"
-            },
-            {
-              "kind": "field",
               "name": "size",
               "type": {
                 "text": "ErrorSize"
@@ -124,33 +140,16 @@
           },
           "tagName": "sl-error",
           "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            }
-          ],
+          "methods": [],
           "fields": [
             {
               "kind": "field",
-              "name": "name",
+              "name": "#slot",
+              "privacy": "private",
               "type": {
-                "text": "string"
+                "text": "HTMLSlotElement | undefined"
               },
-              "default": "'error-text'"
+              "description": "The light DOM slot."
             }
           ]
         }
@@ -177,12 +176,23 @@
           "members": [
             {
               "kind": "field",
-              "name": "errorText",
+              "name": "customValidity",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "An error text that will be shown over any other validation messages.",
-              "attribute": "error-text"
+              "description": "The error message to display when the control is invalid.",
+              "attribute": "custom-validity"
+            },
+            {
+              "kind": "field",
+              "name": "extendsFormControlMixin",
+              "type": {
+                "text": "boolean"
+              },
+              "static": true,
+              "readonly": true,
+              "default": "true",
+              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison."
             },
             {
               "kind": "field",
@@ -192,15 +202,6 @@
               },
               "description": "The form associated with the control.",
               "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hintText",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "A hint text that will be shown when there are no validation messages.",
-              "attribute": "hint-text"
             },
             {
               "kind": "field",
@@ -281,7 +282,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "'valid' | 'invalid' | undefined"
+                "text": "FormControlShowValidity"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -325,22 +326,21 @@
               "readonly": true
             }
           ],
+          "events": [
+            {
+              "type": {
+                "text": "UpdateValidityEvent"
+              }
+            }
+          ],
           "attributes": [
             {
-              "name": "error-text",
+              "name": "custom-validity",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "An error text that will be shown over any other validation messages.",
-              "fieldName": "errorText"
-            },
-            {
-              "name": "hint-text",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "A hint text that will be shown when there are no validation messages.",
-              "fieldName": "hintText"
+              "description": "The error message to display when the control is invalid.",
+              "fieldName": "customValidity"
             },
             {
               "name": "name",
@@ -353,7 +353,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "'valid' | 'invalid' | undefined"
+                "text": "FormControlShowValidity"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity"
@@ -425,53 +425,19 @@
                 }
               ],
               "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility."
-            },
-            {
-              "kind": "method",
-              "name": "#setErrorText",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "text",
-                  "default": "''",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#setHintText",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "text",
-                  "default": "''",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
             }
           ],
           "fields": [
             {
               "kind": "field",
-              "name": "#errorElement",
-              "privacy": "private",
+              "name": "extendsFormControlMixin",
               "type": {
-                "text": "HTMLElement | undefined"
+                "text": "boolean"
               },
-              "description": "The element containing the error message that is slotted into the `error` slot."
+              "static": true,
+              "readonly": true,
+              "default": "true",
+              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison."
             },
             {
               "kind": "field",
@@ -481,15 +447,6 @@
                 "text": "FormControlElement | undefined"
               },
               "description": "The actual element that integrates with the form; either\na Form Associated Custom Element, an `<input>` or a `<textarea>`."
-            },
-            {
-              "kind": "field",
-              "name": "#hintElement",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLElement | undefined"
-              },
-              "description": "The element containing the hint text that is slotted into the `hint` slot."
             },
             {
               "kind": "field",
@@ -565,6 +522,221 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/form-field.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "FormField",
+          "members": [
+            {
+              "kind": "field",
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A hint that will be shown when there are no validation messages.\nYou can also slot an `<sl-hint>` element.",
+              "attribute": "hint"
+            },
+            {
+              "kind": "field",
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The text for the label. You can also slot an `<sl-label>` element.",
+              "attribute": "label"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "hint",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A hint that will be shown when there are no validation messages.\nYou can also slot an `<sl-hint>` element.",
+              "fieldName": "hint"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The text for the label. You can also slot an `<sl-label>` element.",
+              "fieldName": "label"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-form-field",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onErrorSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onHintSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onLabelSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onUpdateValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "UpdateValidityEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#error",
+              "privacy": "private",
+              "type": {
+                "text": "Error | undefined"
+              },
+              "description": "The error element."
+            },
+            {
+              "kind": "field",
+              "name": "#formControl",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLElement & FormControl | undefined"
+              },
+              "description": "The form control element."
+            },
+            {
+              "kind": "field",
+              "name": "#hint",
+              "privacy": "private",
+              "type": {
+                "text": "Hint | undefined"
+              },
+              "description": "The hint element."
+            },
+            {
+              "kind": "field",
+              "name": "#label",
+              "privacy": "private",
+              "type": {
+                "text": "Label | undefined"
+              },
+              "description": "The label element."
+            },
+            {
+              "kind": "field",
+              "name": "error",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The validation message that will be displayed when the field is in an invalid state.",
+              "privacy": "private"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FormField",
+          "declaration": {
+            "name": "FormField",
+            "module": "src/form-field.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/hint.ts",
       "declarations": [
         {
@@ -578,14 +750,6 @@
             }
           ],
           "members": [
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string"
-              },
-              "default": "'hint-text'"
-            },
             {
               "kind": "field",
               "name": "size",
@@ -615,33 +779,16 @@
           },
           "tagName": "sl-hint",
           "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            }
-          ],
+          "methods": [],
           "fields": [
             {
               "kind": "field",
-              "name": "name",
+              "name": "#slot",
+              "privacy": "private",
               "type": {
-                "text": "string"
+                "text": "HTMLSlotElement | undefined"
               },
-              "default": "'hint-text'"
+              "description": "The light DOM slot."
             }
           ]
         }
@@ -688,15 +835,6 @@
             },
             {
               "kind": "field",
-              "name": "noPadding",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should have no padding bottom.",
-              "attribute": "no-padding"
-            },
-            {
-              "kind": "field",
               "name": "size",
               "type": {
                 "text": "'sm' | 'md' | 'lg'"
@@ -724,14 +862,6 @@
               },
               "description": "The DOM id of the form control this is linked to.",
               "fieldName": "for"
-            },
-            {
-              "name": "no-padding",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this label should have no padding bottom.",
-              "fieldName": "noPadding"
             },
             {
               "name": "size",
@@ -813,6 +943,31 @@
           "declaration": {
             "name": "Label",
             "module": "src/label.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/update-validity-event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "UpdateValidityEvent",
+          "superclass": {
+            "name": "Event",
+            "module": "src/update-validity-event.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "UpdateValidityEvent",
+          "declaration": {
+            "name": "UpdateValidityEvent",
+            "module": "src/update-validity-event.ts"
           }
         }
       ]

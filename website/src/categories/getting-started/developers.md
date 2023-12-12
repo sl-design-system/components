@@ -20,6 +20,22 @@ eleventyNavigation:
 
 <section>
 
+## Make sure you have access
+
+Even though the SL Design System is open source, the packages are not. That is why you need to get access to the npm packages in order to install them locally. First the SL Design System need to add you to the list of users who can access the packages. To be added to that list you can <a href="mailto:designsystem@sanoma.com">send us an email</a> or reach out to us in our Slack channel.
+
+Once you are added you need to [create up a personal access token (classic) on Github](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic). This newly created token needs to be added to your .npmrc file, along with a reference to where the `@sl-design-system` packages can be found:
+<div class="ds-code">
+
+  ```bash
+  //npm.pkg.github.com/:_authToken=<token you just generated>
+  @sl-design-system:registry=https://npm.pkg.github.com
+  ```
+
+</div>
+</section>
+<section>
+
 ## Installing the SL Design System package(s)
 
 To get started using the SL Design System, you can install it via npm. Each component and theme has its own package. So if you want to use a `button` component with the Sanoma Learning theme, you do:
@@ -31,10 +47,6 @@ To get started using the SL Design System, you can install it via npm. Each comp
   ```
 
 </div>
-
-Before you can do this though, you first need to get access to the private GitHub NPM repository. To get access, you need to be added to the team in GitHub. Please <a href="mailto:designsystem@sanoma.com">contact a team member</a> to be added.
-
-Once you have been added, you can follow the instructions [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#authenticating-to-github-packages) to authenticate with the GitHub NPM registry.
 </section>
 <section>
 
@@ -50,12 +62,12 @@ To start using the SL Design System, you need to setup a theme for your applicat
 
 </div>
 
-After installing the theme, you need to import the theme in your application. You can do this by loading the theme in your application:
+After installing the theme, you need to import the theme in your application. You can do this by loading the theme in your application in your angular.json, in all the places where you include your other css files:
 
 <div class="ds-code">
 
-  ```html
-  <link href="@sl-design-system/sanoma-learning/all.css" rel="stylesheet">
+  ```json
+   './node_modules/@sl-design-system/sanoma-learning/all.css'
   ```
 
 </div>

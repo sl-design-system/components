@@ -20,14 +20,14 @@ describe('dna-badge', () => {
   });
 
   it('should render the slotted content', () => {
-    expect(el).to.have.text('99+');
+    expect(el).shadowDom.to.have.text('99+');
+    expect(el).shadowDom.to.equal(`<slot></slot>`);
   });
 
   it('should not render the slotted content for small size', async () => {
-    el.size = "sm";
-    await el.updateComplete;
+    el.setAttribute('size','sm');
+    await el.updateComplete; 
 
-    console.log(el.outerHTML);
-    expect(el).to.have.text('');
+    expect(el).shadowDom.to.equal(``);
   });
 });

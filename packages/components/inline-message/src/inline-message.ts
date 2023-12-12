@@ -35,17 +35,14 @@ const iconName = (status: InlineMessageStatus): string => {
  * TODO: add more info
  *
  * @slot actions - Area where action buttons are placed
- * @slot default - Body content for the dialog
- * @slot footer - Footer content for the dialog
+ * @slot default - Body content for the dialog - title????
  * @slot header - Header content for the dialog
  * @slot close-button - Closing button (placed in header) for the dialog
  * @slot header-buttons - More space for buttons for the dialog's header
  * @slot title - The title of the dialog
- * @slot subtitle - The subtitle of the dialog
  */
 @localized()
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
-  // TODO: extends lit element or scoped???
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -122,20 +119,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     `;
   } // TODO: aria label with translation (${msg('optional')})
 
-  //
-  //TODO: show method
   onClose(): void {
     this.wrapper?.removeAttribute('open');
 
     this.#closeOnAnimationend();
-
-    // this.remove();
-    // this.emit('sl-removed');
-    // TODO: append to add/show?
-
-    // this.#closeDialogOnAnimationend(event.target as HTMLElement);
-
-    // TODO: emit sl-close
   }
 
   #closeOnAnimationend(): void {

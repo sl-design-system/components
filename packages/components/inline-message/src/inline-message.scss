@@ -1,29 +1,14 @@
 $statuses: info, success, warning, danger;
 
 :host {
-  --_background: var(--_background-color); //var(--sl-color-dialog-background);
+  --_background: var(--_background-color);
   --_border: var(--sl-border-width-inline-message-default) solid var(--_border-color);
   --_border-left: var(--sl-border-width-inline-message-start) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-inline-message-default);
-  --_header-gap: var(--sl-space-dialog-gap-header);
-  --_heading-direction: var(--sl-dialog-header-flex-direction);
-  --_heading-gap: var(--sl-space-dialog-gap-header);
-  --_body-gap: var(--sl-space-dialog-mobile-body-gap);
-  --_footer-direction: column-reverse;
-  --_footer-align: var(--sl-dialog-footer-justify-content);
-  --_min-inline-size: var(--sl-size-dialog-min);
-  --_max-inline-size: var(--sl-size-dialog-full);
   --_padding-block: var(--sl-space-inline-message-block);
   --_padding-inline-start: calc(var(--sl-space-inline-message-inline-start));
   --_padding-inline-end: var(--sl-space-inline-message-inline-end);
-  --_margin-container-inline: var(--sl-space-dialog-mobile-container-inline);
-  //--_margin-top-container: var(--sl-space-dialog-mobile-container-padding-top);
-  --_margin-bottom-container: var(--sl-space-dialog-mobile-container-padding-bottom);
-  //--_color: var(--sl-color-inline-message-foreground);
-  --_subtitle-font: var(--sl-text-dialog-subheading);
-  --_subtitle-padding-bottom: var(--sl-space-dialog-subtitle-padding-bottom);
   --_title-font: var(--sl-text-body-lg-demibold);
-  --_body-font: var(--sl-text-body-lg-normal);
   --_gap: var(--sl-space-inline-message-gap);
   --_close-button-spacing: var(--sl-space-button-gap-sm);
   --_icon-block-size: var(--sl-text-typeset-line-height-lg);
@@ -33,7 +18,6 @@ $statuses: info, success, warning, danger;
 
 @each $status in $statuses {
   :host([status='#{$status}']) {
-    //--_border-width: var(--sl-border-width-button-#{$status});
     --_background-color: var(--sl-color-inline-message-#{$status}-background);
     --_border-color: var(--sl-color-inline-message-#{$status}-border);
     --_icon-fill: var(--sl-color-inline-message-#{$status}-icon);
@@ -45,12 +29,6 @@ $statuses: info, success, warning, danger;
 :host {
   display: block;
   text-align: inherit;
-
-  //&[open] {
-  //  .inline-message-wrapper {
-  //    opacity: 1;
-  //  }
-  //}
 }
 
 .inline-message-wrapper {
@@ -61,38 +39,21 @@ $statuses: info, success, warning, danger;
   color: var(--_color);
   display: flex; // or block?
   flex-direction: column;
-  //inset: 0;
   margin: auto auto 0;
-  //max-block-size: min(
-  //  100%,
-  //  100vh - var(--_margin-top-container) - var(--_margin-bottom-container) - 2 * var(--_padding-block)
-  //);
-  //max-inline-size: var(--_max-inline-size);
-  // opacity: 0;
   overflow: hidden;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline-start) var(--_padding-inline-end);
   position: relative;
-  //padding: var(--_padding-block) var(--_padding-inline-end) var(--_padding-block) var(--_padding-inline-start);
-  //position: fixed;
   width: auto;
 }
 
-//:host[close]:not([open]) {
 .inline-message-wrapper[close]:not([open]) {
   opacity: 0;
 }
-//}
 
 .inline-message-wrapper[open]:not([close]) {
   opacity: 1;
 }
-
-//:host[open] {
-//  .inline-message-wrapper {
-//    opacity: 1;
-//  }
-//}
 
 .content {
   display: flex;
@@ -106,7 +67,6 @@ $statuses: info, success, warning, danger;
 }
 
 slot[name='icon'] {
-  //display: inline-flex;
   sl-icon {
     --fill-default: var(--_icon-fill);
     block-size: var(--_icon-block-size);
@@ -118,25 +78,10 @@ slot[name='details'] {
   font: var(--_details-font);
 }
 
-//slot[name='icon']::slotted(sl-icon) {
-//  align-self: center;
-//  fill: var(--_fill);
-//  margin-left: var(--sl-space-input-field-label-icon-md);
-//}
-
-//slot[name='header-actions'] {
-//  display: inline-flex;
-//}
-//
-//slot[name='header-buttons'],
-//slot[name='header-buttons']::slotted(*) {
-//  display: flex;
-//}
-
 slot[name='close-button'] {
   display: block;
-  inset-block-start: var(--_close-button-spacing); //8px;
-  inset-inline-end: var(--_close-button-spacing); //8px;
+  inset-block-start: var(--_close-button-spacing);
+  inset-inline-end: var(--_close-button-spacing);
   position: absolute;
 }
 
@@ -144,22 +89,15 @@ slot[name='close-button']::slotted(*) {
   align-self: baseline;
 }
 
-//slot[name='subtitle']::slotted(*) {
-//  font: var(--_subtitle-font);
-//  padding-bottom: var(--_subtitle-padding-bottom);
-//}
-
 slot[name='title'] {
   font: var(--_title-font);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  //:host[close]:not([open]) {
   .inline-message-wrapper[close]:not([open]) {
     animation: slide-down 400ms ease-out;
   }
 
-  //:host[open]:not([close]) {
   .inline-message-wrapper[open]:not([close]) {
     animation: slide-in-up 600ms ease-out;
   }

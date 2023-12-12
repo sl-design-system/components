@@ -26,6 +26,7 @@ export interface FormControl {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
+  readonly showExternalValidityIcon: boolean;
   readonly showValidity: FormControlShowValidity;
   readonly valid: boolean;
   readonly validationMessage: string;
@@ -73,6 +74,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       // See https://github.com/whatwg/html/issues/9878
       this.report = true;
     };
+
+    /** This determines whether the `<sl-error>` component displays an icon or not. */
+    showExternalValidityIcon = true;
 
     /** The error message to display when the control is invalid. */
     @property({ attribute: 'custom-validity' }) customValidity?: string;

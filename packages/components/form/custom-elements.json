@@ -113,6 +113,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "noIcon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the icon should be hidden. This can be useful when the form control\nalready shows an icon inside the component itself.",
+              "attribute": "no-icon",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "ErrorSize"
@@ -125,6 +135,14 @@
           ],
           "attributes": [
             {
+              "name": "no-icon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the icon should be hidden. This can be useful when the form control\nalready shows an icon inside the component itself.",
+              "fieldName": "noIcon"
+            },
+            {
               "name": "size",
               "type": {
                 "text": "ErrorSize"
@@ -132,6 +150,12 @@
               "default": "'md'",
               "description": "The size at which the error is displayed.",
               "fieldName": "size"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -142,6 +166,16 @@
           "customElement": true,
           "methods": [],
           "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
             {
               "kind": "field",
               "name": "#slot",
@@ -277,6 +311,15 @@
                 }
               ],
               "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility."
+            },
+            {
+              "kind": "field",
+              "name": "showExternalValidityIcon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "This determines whether the `<sl-error>` component displays an icon or not."
             },
             {
               "kind": "field",
@@ -452,6 +495,15 @@
               "kind": "field",
               "name": "#onInvalid",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "showExternalValidityIcon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "This determines whether the `<sl-error>` component displays an icon or not."
             },
             {
               "kind": "field",

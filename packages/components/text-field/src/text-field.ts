@@ -32,6 +32,9 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** @private Hides the external validity icon. */
+  override showExternalValidityIcon = false;
+
   /** Emits when the `blur` event is fired on the `<input>`. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 

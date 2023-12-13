@@ -37,7 +37,7 @@ $statuses: info, success, warning, danger;
   border-left: var(--_border-left);
   border-radius: var(--_border-radius);
   color: var(--_color);
-  display: flex; // or block?
+  display: flex;
   flex-direction: column;
   margin: auto auto 0;
   overflow: hidden;

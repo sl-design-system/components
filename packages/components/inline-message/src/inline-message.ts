@@ -6,9 +6,12 @@ import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { breakpoints } from '@sl-design-system/shared';
 import { localized, msg } from '@lit/localize';
+import { faOctagonExclamation } from '@fortawesome/pro-solid-svg-icons';
 import { LitElement, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
+
+Icon.registerIcon(faOctagonExclamation);
 
 export type InlineMessageStatus = 'info' | 'success' | 'warning' | 'danger';
 
@@ -19,7 +22,7 @@ const iconName = (status: InlineMessageStatus): string => {
     case 'success':
       return 'circle-check-solid';
     case 'warning':
-      return 'triangle-exclamation-solid';
+      return 'fas-octagon-exclamation';
     case 'danger':
       return 'triangle-exclamation-solid';
     default:
@@ -28,18 +31,13 @@ const iconName = (status: InlineMessageStatus): string => {
 };
 
 /**
- * A dialog component for displaying modal UI.
+ * An inline message component for displaying additional information/errors.
  *
- * @slot default - Title content for the inline message
+ * @slot default - title content for the inline message
  * @slot description - slot for additional information and more content for the inline-message
- * TODO: add more info
- *
- * @slot actions - Area where action buttons are placed
- * @slot default - Body content for the dialog - title????
- * @slot header - Header content for the dialog
- * @slot close-button - Closing button (placed in header) for the dialog
- * @slot header-buttons - More space for buttons for the dialog's header
- * @slot title - The title of the dialog
+ * @slot details - slot for more details of the inline-message like list of errors
+ * @slot icon - icon shown on the left side of the component
+ * @slot close-button - Closing button for the inline message
  */
 @localized()
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
@@ -58,7 +56,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   @query('.inline-message-wrapper') wrapper?: HTMLDivElement;
 
   /** Determines whether closing button (default one) should be shown in the top right corner. */
-  @property({ type: Boolean, reflect: true }) dismissible = true; // TODO: irremovable
+  @property({ type: Boolean, reflect: true }) dismissible = true;
 
   /** Determines whether the icon should be shown on the left side of the component. */
   @property({ type: Boolean, attribute: 'no-icon' }) noIcon?: boolean;
@@ -67,23 +65,13 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
    * @type {'info' | 'success' | 'warning' | 'danger'} */
   @property({ reflect: true }) status: InlineMessageStatus = 'info';
 
-  constructor() {
-    super();
-
-    // requestAnimationFrame(() => {
-    //   this.setAttribute('open', '');
-    // });
-    // this.setAttribute('open', '');
-    // if (this.status === 'danger') {
-    //   this.setAttribute('role', 'alert');
-    // }
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
 
-    if (this.status === 'danger') {
+    if (this.status === 'danger' || this.status === 'warning') {
       this.setAttribute('role', 'alert');
+    } else {
+      this.setAttribute('role', 'status');
     }
   }
 
@@ -99,11 +87,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                 </slot>
               `}
           <div class="content-details">
-            <slot name="title" part="title" aria-live="polite">
+            <slot name="title" part="title">
               <slot></slot>
             </slot>
-            <slot name="description" part="description"> </slot>
-            <slot name="details" part="details"> </slot>
+            <slot name="description" part="description"></slot>
+            <slot name="details" part="details"></slot>
           </div>
         </div>
         ${this.dismissible
@@ -117,7 +105,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
           : nothing}
       </div>
     `;
-  } // TODO: aria label with translation (${msg('optional')})
+  }
 
   onClose(): void {
     this.wrapper?.removeAttribute('open');
@@ -131,8 +119,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       'animationend',
       () => {
         this.wrapper?.removeAttribute('open');
-
-        this.remove(); // TODO: emit sl-close event or sth similar?
+        this.remove();
       },
       { once: true }
     );

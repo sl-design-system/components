@@ -3,14 +3,12 @@ import '@sl-design-system/button/register.js';
 import { html } from 'lit';
 import '../register.js';
 import { InlineMessage } from "./inline-message.js";
-import type { Button } from '@sl-design-system/button';
-import { SinonStub, stub } from 'sinon';
 
 
-// describe('sl-inline-message', () => {
-//   let el: HTMLElement;
-//   let button: Button;
-//   let dialog: Dialog;
+describe('sl-inline-message', () => {
+  let el: InlineMessage;
+  // let button: Button;
+  // let inl: Dialog;
 //
 //   const onClick = (event: Event & { target: HTMLElement }): void => {
 //     (event.target.nextElementSibling as Dialog).showModal();
@@ -23,25 +21,49 @@ import { SinonStub, stub } from 'sinon';
 //     return new Promise(resolve => setTimeout(resolve));
 //   }
 //
-//   describe('defaults', () => {
-//     beforeEach(async () => {
-//       el = await fixture(html`
-//         <div>
-//           <sl-button aria-describedby="dialog" fill="outline" @click=${onClick}>Button element</sl-button>
-//           <sl-dialog id="dialog" closing-button>
-//             <span slot="title">Dialog title</span>
-//             <p>The dialog content</p>
-//             <sl-button slot="actions" sl-dialog-close>Close</sl-button>
-//           </sl-dialog>
-//         </div>
-//       `);
-//       button = el.querySelector('sl-button') as Button;
-//       dialog = el.querySelector('sl-dialog') as Dialog;
-//     });
-//
-//     it('should render correctly', () => {
-//       expect(dialog).shadowDom.to.equalSnapshot();
-//     });
+  describe('defaults', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+          <sl-inline-message id="dialog" closing-button>
+            <span slot="title">Dialog title</span>
+            <p>The dialog content</p>
+          </sl-inline-message>
+      `);
+      // button = el.querySelector('sl-button') as Button;
+      // dialog = el.querySelector('sl-dialog') as Dialog;
+    });
+
+    it('should render correctly', () => {
+      expect(el).shadowDom.to.equalSnapshot();
+    });
+
+    it('should have the info status by default', () => {
+      // expect(el.hasAttribute('status')).to.be.false;
+      expect(el).to.have.attribute('status', 'info');
+    }); // TODO: noicon, dismissible
+
+    it('should be dismissible by default', () => {
+      expect(el.hasAttribute('dismissible')).to.be.true;
+    });
+
+    it('should not have the no-icon by default', () => {
+      expect(el.hasAttribute('no-icon')).to.be.false;
+    });
+
+    it('should have success status when set', async () => {
+      el.status = 'success';
+      await el.updateComplete;
+      console.log('el222', el);
+
+      // expect(el).to.have.attribute('status', 'success');
+    });
+
+    // it('should remove the element when close-button is clicked', () => {
+    //   expect(el.hasAttribute('no-icon')).to.be.false;
+    // });
+
+    // TODO described closing when dismissible and no dismissible, closing from outside
+
 //
 //     it('should not show the dialog by default', () => {
 //       expect(dialog?.shadowRoot?.firstElementChild?.hasAttribute('open')).to.be.false;
@@ -173,5 +195,5 @@ import { SinonStub, stub } from 'sinon';
 //
 //       expect(dialog.hasAttribute('open')).to.be.false;
 //     });
-//   });
-// });
+  });
+});

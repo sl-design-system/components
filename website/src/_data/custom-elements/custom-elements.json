@@ -757,7 +757,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Checkbox group; treat a group of checkboxes as one form input with valitation, hints and errors\n\n```html\n  <sl-checkbox-group>\n    <sl-checkbox>Option 1</sl-checkbox>\n    <sl-checkbox>Option 2</sl-checkbox>\n    <sl-checkbox>Option 3</sl-checkbox>\n  </sl-checkbox-group>\n```",
+          "description": "Checkbox group; treat a group of checkboxes as one form input with validation, hints and errors",
           "name": "CheckboxGroup",
           "slots": [
             {
@@ -766,229 +766,6 @@
             }
           ],
           "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "attribute": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hint-size",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Name of the form control",
-              "attribute": "name"
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "description": "The size of the checkboxes in the group.",
-              "attribute": "size"
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators."
-            }
-          ],
-          "attributes": [
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Name of the form control",
-              "fieldName": "name"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "description": "The size of the checkboxes in the group.",
-              "fieldName": "size"
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hint-size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "sl-checkbox-group",
-          "customElement": true,
-          "methods": [],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators."
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "CheckboxGroup",
-          "declaration": {
-            "name": "CheckboxGroup",
-            "module": "../packages/components/checkbox/src/checkbox-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/checkbox/src/checkbox.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/checkbox/src/checkbox.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/checkbox/src/checkbox.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "A checkbox with 3 states; unchecked, checked and intermediate.\n\n```html\n  <sl-checkbox>Foo</sl-checkbox>\n```",
-          "name": "Checkbox",
-          "slots": [
-            {
-              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
-              "name": "default"
-            }
-          ],
-          "members": [
-            {
-              "kind": "event",
-              "name": "change",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the checked state changes."
-            },
-            {
-              "kind": "field",
-              "name": "checked",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the checkbox is checked.",
-              "attribute": "checked",
-              "reflects": true
-            },
             {
               "kind": "field",
               "name": "customValidity",
@@ -1008,27 +785,9 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "The hint disabled state.",
+              "description": "Whether the group is disabled; when set no interaction is possible.",
               "attribute": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
+              "reflects": true
             },
             {
               "kind": "field",
@@ -1042,53 +801,6 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hint-size",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "indeterminate",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the checkbox has the indeterminate state.",
-              "attribute": "indeterminate"
-            },
-            {
-              "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the checkbox is invalid.",
-              "attribute": "invalid",
-              "reflects": true
             },
             {
               "kind": "field",
@@ -1118,17 +830,202 @@
               }
             },
             {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
               },
-              "description": "Whether the form control should report the validity of the control.",
+              "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
             },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "At least one checkbox in the group must be checked if true.",
+              "attribute": "required",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "setCustomValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "The validation message."
+                }
+              ],
+              "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Whether to show the validity state.",
+              "attribute": "show-validity",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "CheckboxSize | undefined"
+              },
+              "description": "The size of the checkboxes in the group.",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Returns whether the form control is valid or not.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validationMessage",
+              "type": {
+                "text": "string"
+              },
+              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validity",
+              "type": {
+                "text": "ValidityState"
+              },
+              "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "At least one checkbox in the group must be checked if true.",
+              "fieldName": "required"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "CheckboxSize | undefined"
+              },
+              "description": "The size of the checkboxes in the group.",
+              "fieldName": "size"
+            },
+            {
+              "name": "custom-validity",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The error message to display when the control is invalid.",
+              "fieldName": "customValidity",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "fieldName": "name",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "name": "show-validity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Whether to show the validity state.",
+              "fieldName": "showValidity",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormControlMixin",
+              "package": "@sl-design-system/form"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-checkbox-group",
+          "customElement": true,
+          "events": [
+            {
+              "type": {
+                "text": "UpdateValidityEvent"
+              },
+              "description": "Emits when the validity of the form control changes.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ],
+          "methods": [
             {
               "kind": "method",
               "name": "reportValidity",
@@ -1165,10 +1062,227 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "The form associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Returns whether the form control is valid or not.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validationMessage",
+              "type": {
+                "text": "string"
+              },
+              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validity",
+              "type": {
+                "text": "ValidityState"
+              },
+              "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CheckboxGroup",
+          "declaration": {
+            "name": "CheckboxGroup",
+            "module": "../packages/components/checkbox/src/checkbox-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/checkbox/src/checkbox.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/checkbox/src/checkbox.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/checkbox/src/checkbox.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A checkbox with 3 states; unchecked, checked and intermediate.",
+          "name": "Checkbox",
+          "slots": [
+            {
+              "description": "Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "checked",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is checked.",
+              "attribute": "checked",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "customValidity",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The error message to display when the control is invalid.",
+              "attribute": "custom-validity",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "form",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "description": "The form associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "indeterminate",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox has the indeterminate state.",
+              "attribute": "indeterminate",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "labels",
+              "type": {
+                "text": "`NodeListOf<HTMLLabelElement>` | null"
+              },
+              "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name of the form control.",
+              "attribute": "name",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
             },
             {
               "kind": "method",
-              "name": "setFormControlElement",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is required.",
+              "attribute": "required",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "setCustomValidity",
               "return": {
                 "type": {
                   "text": "void"
@@ -1176,14 +1290,14 @@
               },
               "parameters": [
                 {
-                  "name": "element",
+                  "name": "message",
                   "type": {
-                    "text": "FormControlElement"
+                    "text": "string"
                   },
-                  "description": "The form control element."
+                  "description": "The validation message."
                 }
               ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
+              "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1207,26 +1321,36 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "CheckboxSize"
               },
               "default": "'md'",
-              "description": "The size of the checkbox",
+              "description": "The size of the checkbox.",
               "attribute": "size",
               "reflects": true
             },
             {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
               },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",
@@ -1271,25 +1395,43 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the checkbox, to be used in forms.",
               "attribute": "value"
             }
           ],
           "events": [
             {
-              "name": "change",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
               "type": {
                 "text": "EventEmitter<boolean>"
               },
               "description": "Emits when the checked state changes.",
-              "fieldName": "change"
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus.",
+              "fieldName": "focusEvent"
             },
             {
               "type": {
                 "text": "UpdateValidityEvent"
               },
+              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1306,36 +1448,44 @@
               "fieldName": "checked"
             },
             {
-              "name": "invalid",
+              "name": "disabled",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the checkbox is invalid.",
-              "fieldName": "invalid"
+              "description": "Whether the checkbox is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
             },
             {
               "name": "indeterminate",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the checkbox has the indeterminate state.",
               "fieldName": "indeterminate"
             },
             {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the checkbox is required.",
+              "fieldName": "required"
+            },
+            {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "CheckboxSize"
               },
               "default": "'md'",
-              "description": "The size of the checkbox",
+              "description": "The size of the checkbox.",
               "fieldName": "size"
             },
             {
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the checkbox, to be used in forms.",
               "fieldName": "value"
             },
@@ -1374,53 +1524,12 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hint-size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
             }
           ],
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             }
           ],
           "superclass": {
@@ -1439,20 +1548,6 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -1480,59 +1575,9 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
             {
               "kind": "field",
               "name": "form",
@@ -2169,21 +2214,6 @@
             },
             {
               "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -2258,18 +2288,6 @@
               "description": "Additional plugins."
             },
             {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -2307,29 +2325,6 @@
               }
             },
             {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "showValidity",
               "type": {
@@ -2338,20 +2333,6 @@
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
               "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2508,6 +2489,7 @@
               "type": {
                 "text": "UpdateValidityEvent"
               },
+              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -2558,20 +2540,6 @@
             },
             {
               "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
               "name": "setCustomValidity",
               "return": {
                 "type": {
@@ -2592,29 +2560,6 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             }
           ],
           "fields": [
@@ -2625,33 +2570,6 @@
                 "text": "Plugin[] | undefined"
               },
               "description": "Additional plugins."
-            },
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             },
             {
               "kind": "field",
@@ -3580,6 +3498,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "noIcon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the icon should be hidden. This can be useful when the form control\nalready shows an icon inside the component itself.",
+              "attribute": "no-icon",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "ErrorSize"
@@ -3592,6 +3520,14 @@
           ],
           "attributes": [
             {
+              "name": "no-icon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the icon should be hidden. This can be useful when the form control\nalready shows an icon inside the component itself.",
+              "fieldName": "noIcon"
+            },
+            {
               "name": "size",
               "type": {
                 "text": "ErrorSize"
@@ -3599,6 +3535,12 @@
               "default": "'md'",
               "description": "The size at which the error is displayed.",
               "fieldName": "size"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -3624,20 +3566,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/form/src/form-control-mixin.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/form/src/form-control-mixin.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/form/src/form-control-mixin.ts",
       "declarations": [
         {
@@ -3653,17 +3581,6 @@
               },
               "description": "The error message to display when the control is invalid.",
               "attribute": "custom-validity"
-            },
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison."
             },
             {
               "kind": "field",
@@ -3692,14 +3609,6 @@
               "description": "The name of the form control.",
               "attribute": "name",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control."
             },
             {
               "kind": "method",
@@ -3731,25 +3640,6 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again."
             },
             {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility."
-            },
-            {
               "kind": "field",
               "name": "showValidity",
               "type": {
@@ -3758,16 +3648,6 @@
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
               "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update."
             },
             {
               "kind": "field",
@@ -3801,7 +3681,8 @@
             {
               "type": {
                 "text": "UpdateValidityEvent"
-              }
+              },
+              "description": "Emits when the validity of the form control changes."
             }
           ],
           "attributes": [
@@ -3851,16 +3732,6 @@
             },
             {
               "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update."
-            },
-            {
-              "kind": "method",
               "name": "setCustomValidity",
               "return": {
                 "type": {
@@ -3877,47 +3748,9 @@
                 }
               ],
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again."
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility."
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison."
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control."
-            },
             {
               "kind": "field",
               "name": "form",
@@ -4247,12 +4080,52 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Emits when the validity of the form control changes.",
           "name": "UpdateValidityEvent",
+          "members": [
+            {
+              "description": "What kind of validity should be shown to the user",
+              "name": "showValidity",
+              "kind": "field"
+            },
+            {
+              "description": "The validity state of the element",
+              "name": "valid",
+              "kind": "field"
+            },
+            {
+              "description": "The validation message of the element",
+              "name": "validationMessage",
+              "kind": "field"
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-update-validity"
+            }
+          ],
           "superclass": {
             "name": "Event",
             "module": "../packages/components/form/src/update-validity-event.ts"
-          }
+          },
+          "methods": [],
+          "fields": [
+            {
+              "description": "The validity state of the element",
+              "name": "valid",
+              "kind": "field"
+            },
+            {
+              "description": "The validation message of the element",
+              "name": "validationMessage",
+              "kind": "field"
+            },
+            {
+              "description": "What kind of validity should be shown to the user",
+              "name": "showValidity",
+              "kind": "field"
+            }
+          ]
         }
       ],
       "exports": [
@@ -8386,21 +8259,6 @@
             },
             {
               "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -8477,18 +8335,6 @@
               }
             },
             {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -8526,29 +8372,6 @@
               }
             },
             {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "showValidity",
               "type": {
@@ -8557,20 +8380,6 @@
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
               "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -8746,6 +8555,7 @@
               "type": {
                 "text": "UpdateValidityEvent"
               },
+              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -8762,20 +8572,6 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -8803,29 +8599,6 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             }
           ],
           "fields": [
@@ -8836,33 +8609,6 @@
                 "text": "Validator[] | undefined"
               },
               "description": "Custom validators."
-            },
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             },
             {
               "kind": "field",
@@ -8991,21 +8737,6 @@
             },
             {
               "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -9039,18 +8770,6 @@
               "description": "The name of the form control.",
               "attribute": "name",
               "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9094,29 +8813,6 @@
               }
             },
             {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "showValidity",
               "type": {
@@ -9140,20 +8836,6 @@
               "description": "The size of the radio button.",
               "attribute": "size",
               "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             },
             {
               "kind": "field",
@@ -9286,6 +8968,7 @@
               "type": {
                 "text": "UpdateValidityEvent"
               },
+              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9302,20 +8985,6 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -9343,59 +9012,9 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
             {
               "kind": "field",
               "name": "form",
@@ -9749,21 +9368,6 @@
             },
             {
               "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -9833,18 +9437,6 @@
               "reflects": true
             },
             {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -9882,29 +9474,6 @@
               }
             },
             {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "showValidity",
               "type": {
@@ -9928,20 +9497,6 @@
               "description": "The size of the select.",
               "attribute": "size",
               "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             },
             {
               "kind": "field",
@@ -10071,6 +9626,7 @@
               "type": {
                 "text": "UpdateValidityEvent"
               },
+              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -10087,20 +9643,6 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -10128,59 +9670,9 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
             {
               "kind": "field",
               "name": "form",
@@ -10583,6 +10075,15 @@
           "members": [
             {
               "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "hostDisconnected",
               "return": {
                 "type": {
@@ -10664,6 +10165,15 @@
             }
           ],
           "methods": [
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
             {
               "kind": "method",
               "name": "hostDisconnected",
@@ -14920,21 +14430,6 @@
             },
             {
               "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -15042,18 +14537,6 @@
               "reflects": true
             },
             {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -15091,29 +14574,6 @@
               }
             },
             {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "showValidity",
               "type": {
@@ -15137,20 +14597,6 @@
               "description": "The size of the switch.",
               "attribute": "size",
               "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             },
             {
               "kind": "field",
@@ -15214,6 +14660,7 @@
               "type": {
                 "text": "UpdateValidityEvent"
               },
+              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -15386,20 +14833,6 @@
             },
             {
               "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
               "name": "setCustomValidity",
               "return": {
                 "type": {
@@ -15420,59 +14853,9 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
             {
               "kind": "field",
               "name": "form",
@@ -15979,21 +15362,6 @@
             },
             {
               "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -16105,18 +15473,6 @@
               "reflects": true
             },
             {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -16158,29 +15514,6 @@
                 }
               ],
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -16273,20 +15606,6 @@
               "attribute": "type"
             },
             {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "valid",
               "type": {
@@ -16373,6 +15692,7 @@
               "type": {
                 "text": "UpdateValidityEvent"
               },
+              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -16573,20 +15893,6 @@
             },
             {
               "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
               "name": "setCustomValidity",
               "return": {
                 "type": {
@@ -16607,29 +15913,6 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             }
           ],
           "fields": [
@@ -16640,33 +15923,6 @@
                 "text": "HTMLInputElement"
               },
               "description": "The input element in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             },
             {
               "kind": "field",
@@ -16843,21 +16099,6 @@
             },
             {
               "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -16961,18 +16202,6 @@
               "reflects": true
             },
             {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -17021,29 +16250,6 @@
               }
             },
             {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "showValid",
               "type": {
@@ -17086,20 +16292,6 @@
                 "text": "HTMLTextAreaElement"
               },
               "description": "The textarea in the light DOM."
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             },
             {
               "kind": "field",
@@ -17359,6 +16551,7 @@
               "type": {
                 "text": "UpdateValidityEvent"
               },
+              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -17375,20 +16568,6 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -17416,29 +16595,6 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             }
           ],
           "fields": [
@@ -17457,33 +16613,6 @@
                 "text": "Validator[] | undefined"
               },
               "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
             },
             {
               "kind": "field",

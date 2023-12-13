@@ -15,11 +15,11 @@ eleventyNavigation:
 <div class="ds-example">
 
 <form id="checkboxes-example" class="ds-example__code-wrapper">
-    <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox" value="yes">Checkbox</sl-checkbox>
-    <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox disabled" value="yes" disabled>Disabled</sl-checkbox>
-    <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox disabled checked" value="yes" checked disabled>Disabled checked</sl-checkbox>
-    <sl-checkbox id="checkbox-valid" name="checkbox" aria-label="checkbox valid" value="yes" valid>Valid</sl-checkbox>
-    <sl-checkbox id="checkbox-invalid" name="checkbox" aria-label="checkbox invalid" value="yes" required invalid>Label</sl-checkbox>
+  <sl-checkbox value="yes">Checkbox</sl-checkbox>
+  <sl-checkbox disabled value="yes">Disabled</sl-checkbox>
+  <sl-checkbox checked disabled value="yes" >Disabled checked</sl-checkbox>
+  <sl-checkbox checked valid value="yes">Valid</sl-checkbox>
+  <sl-checkbox checked invalid required value="yes">Invalid</sl-checkbox>
 </form>
 
 </div>
@@ -28,19 +28,19 @@ eleventyNavigation:
 
   ```html
   <form>
-    <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox" value="yes">
-        Checkbox
+    <sl-checkbox value="yes">
+      Checkbox
     </sl-checkbox>
-    <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox disabled" value="yes" disabled>
+    <sl-checkbox disabled value="yes" >
       Disabled
     </sl-checkbox>
-    <sl-checkbox id="checkbox" name="checkbox" aria-label="checkbox disabled checked" value="yes" checked disabled>
+    <sl-checkbox checked disabled value="yes">
       Disabled checked
     </sl-checkbox>
-    <sl-checkbox id="checkbox-valid" name="checkbox" aria-label="checkbox valid" value="yes" valid>
+    <sl-checkbox checked valid value="yes">
       Valid
     </sl-checkbox>
-    <sl-checkbox id="checkbox-invalid" name="checkbox" aria-label="checkbox invalid" value="yes" required invalid>
+    <sl-checkbox checked invalid required value="yes">
       Invalid
     </sl-checkbox>
   </form>

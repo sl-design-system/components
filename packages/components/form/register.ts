@@ -1,4 +1,3 @@
-import type { UpdateValidityEvent } from './src/update-validity-event.js';
 import { Error } from './src/error.js';
 import { FormField } from './src/form-field.js';
 import { Hint } from './src/hint.js';
@@ -10,10 +9,6 @@ customElements.define('sl-hint', Hint);
 customElements.define('sl-label', Label);
 
 declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-update-validity': UpdateValidityEvent;
-  }
-
   interface HTMLElementTagNameMap {
     'sl-error': Error;
     'sl-form-field': FormField;

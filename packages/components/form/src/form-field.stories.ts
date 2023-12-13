@@ -1,5 +1,6 @@
 import type { FormField } from './form-field.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/tooltip/register.js';
@@ -14,6 +15,10 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Form Field',
+  args: {
+    hint: 'This is a hint',
+    label: 'Label'
+  },
   argTypes: {
     slot: {
       table: {
@@ -22,48 +27,60 @@ export default {
     }
   },
   render: ({ customValidity, hint, label, slot }) => {
-    // Force the text field to report its validity when the story is loaded
-    setTimeout(() => document.querySelector('sl-text-field')?.reportValidity());
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('form')?.reportValidity();
+    };
 
     return html`
-      <sl-form-field .hint=${hint} .label=${label}>
-        ${slot ?? html`<sl-text-field .customValidity=${customValidity}></sl-text-field>`}
-      </sl-form-field>
+      <style>
+        sl-button-bar {
+          margin-block-start: 1rem;
+        }
+      </style>
+      <form>
+        <sl-form-field .hint=${hint} .label=${label}>
+          ${slot ?? html`<sl-text-field .customValidity=${customValidity}></sl-text-field>`}
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </form>
     `;
   }
 } satisfies Meta<Props>;
 
-export const Basic: Story = {
+export const Checkbox: Story = {
   args: {
-    label: 'Label'
+    slot: html`<sl-checkbox required>Checkbox</sl-checkbox>`
   }
 };
 
-export const Error: Story = {
+export const CheckboxGroup: Story = {
   args: {
-    ...Basic.args,
-    slot: html`<sl-text-field required show-valid></sl-text-field>`
+    slot: html`
+      <sl-checkbox-group required>
+        <sl-checkbox>Checkbox 1</sl-checkbox>
+        <sl-checkbox>Checkbox 2</sl-checkbox>
+        <sl-checkbox>Checkbox 3</sl-checkbox>
+      </sl-checkbox-group>
+    `
   }
 };
 
-export const Hint: Story = {
+export const Textfield: Story = {
   args: {
-    ...Basic.args,
-    hint: 'This is a hint'
+    slot: html`<sl-text-field required></sl-text-field>`
   }
 };
 
-export const Both: Story = {
+export const TextfieldShowValid: Story = {
   args: {
-    ...Basic.args,
-    customValidity: 'This is an error',
-    hint: 'This is a hint'
+    slot: html`<sl-text-field show-valid></sl-text-field>`
   }
 };
 
 export const CustomError: Story = {
   args: {
-    ...Basic.args,
     slot: html`
       <sl-text-field required></sl-text-field>
       <sl-error>This is a <strong>custom</strong> error</sl-error>
@@ -73,7 +90,7 @@ export const CustomError: Story = {
 
 export const CustomHint: Story = {
   args: {
-    ...Basic.args,
+    hint: undefined,
     slot: html`
       <sl-text-field></sl-text-field>
       <sl-hint>This is a <strong>custom</strong> hint</sl-hint>
@@ -83,6 +100,7 @@ export const CustomHint: Story = {
 
 export const CustomLabel: Story = {
   args: {
+    label: undefined,
     slot: html`
       <sl-label>
         This is a <em>custom</em> label

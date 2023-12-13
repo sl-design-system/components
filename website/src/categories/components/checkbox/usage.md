@@ -11,11 +11,11 @@ eleventyNavigation:
 <div class="ds-example">
 
 <sl-label for="group">Subjects</sl-label>
-<sl-checkbox-group id="group" hint="Pick one or more.">
-<sl-checkbox checked>Mathematics</sl-checkbox>
-<sl-checkbox>Geography</sl-checkbox>
-<sl-checkbox>Physics</sl-checkbox>
-<sl-checkbox disabled>History</sl-checkbox>
+<sl-checkbox-group id="group">
+  <sl-checkbox checked>Mathematics</sl-checkbox>
+  <sl-checkbox>Geography</sl-checkbox>
+  <sl-checkbox>Physics</sl-checkbox>
+  <sl-checkbox disabled>History</sl-checkbox>
 </sl-checkbox-group>
 
 </div>
@@ -24,7 +24,7 @@ eleventyNavigation:
 
   ```html
   <sl-label for="group">Subjects</sl-label>
-  <sl-checkbox-group id="group" hint="Pick one or more.">
+  <sl-checkbox-group id="group">
     <sl-checkbox checked>Mathematics</sl-checkbox>
     <sl-checkbox>Geography</sl-checkbox>
     <sl-checkbox>Physics</sl-checkbox>
@@ -56,7 +56,7 @@ Checkboxes simplify making yes-or-no decisions. Users can independently toggle o
 <figure class="ds-cards__do">
   {{'components/checkbox/sl-checkbox-when-use-multiple.svg' | svgImage}}
   <figcaption>
-  
+
   ### Multiple Selections
   When users need to pick multiple items from a list, checkboxes are a go-to. They offer flexibility, helping users select multiple choices or refine their search results.
   </figcaption>
@@ -65,7 +65,7 @@ Checkboxes simplify making yes-or-no decisions. Users can independently toggle o
 <figure class="ds-cards__do">
   {{'components/checkbox/sl-checkbox-when-use-filter.svg' | svgImage}}
   <figcaption>
-  
+
   ### Filtering and Sorting
   Checkboxes are handy for users dealing with lots of options. They can fine-tune what they see by selecting specific attributes.
   </figcaption>
@@ -74,7 +74,7 @@ Checkboxes simplify making yes-or-no decisions. Users can independently toggle o
 <figure class="ds-cards__do">
   {{'components/checkbox/sl-checkbox-when-use-only.svg' | svgImage}}
   <figcaption>
-  
+
   ### Only checkbox
   When it becomes necessary to indicate to the user that certain elements have been selected. A practical instance would be the selection of a table’s row or a series of cards.
   </figcaption>
@@ -95,7 +95,7 @@ The following guidance describes when not to use the Checkbox component.
 <figure class="ds-cards__dont">
   {{'components/checkbox/sl-checkbox-when-not-use-exclusive.svg' | svgImage}}
   <figcaption>
-  
+
   ### Exclusive choices
   While checkboxes work well in forms and filters, they're not suitable for exclusive selections. Instead, use radio buttons for single choices.
   </figcaption>
@@ -104,7 +104,7 @@ The following guidance describes when not to use the Checkbox component.
 <figure class="ds-cards__dont">
   {{'components/checkbox/sl-checkbox-when-not-use-toggle.svg' | svgImage}}
   <figcaption>
-  
+
   ### Toggle preferences
   For actions that affect preferences or application behavior, opt for a switch for a better user experience.
   </figcaption>

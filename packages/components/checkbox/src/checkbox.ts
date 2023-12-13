@@ -75,12 +75,12 @@ export class Checkbox extends FormControlMixin(LitElement) {
     this.#updateNoLabel();
   }
 
-  /** Stores the initial state of the checkbox */
+  /** @ignore Stores the initial state of the checkbox */
   formAssociatedCallback(): void {
     this.#initialState = this.hasAttribute('checked');
   }
 
-  /** Resets the checkbox to the initial state */
+  /** @ignore Resets the checkbox to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.changeEvent.emit(this.checked);

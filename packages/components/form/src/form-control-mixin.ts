@@ -57,6 +57,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /**
      * This is necessary so we can check if an element implements this Mixin, since the
      * `FormControl` class isn't a generic class we can use in an `instanceof` comparison.
+     * @ignore
      */
     static readonly extendsFormControlMixin = true;
 
@@ -75,7 +76,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       this.report = true;
     };
 
-    /** This determines whether the `<sl-error>` component displays an icon or not. */
+    /** @ignore This determines whether the `<sl-error>` component displays an icon or not. */
     showExternalValidityIcon = true;
 
     /** The error message to display when the control is invalid. */
@@ -84,7 +85,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
 
-    /** Whether the form control should report the validity of the control. */
+    /** @ignore Whether the form control should report the validity of the control. */
     @state() report?: boolean;
 
     /** Whether to show the validity state. */
@@ -214,10 +215,12 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      *
      * NOTE: This method updates the `showValidity` property and therefore should be called from
      * `willUpdate`, never from `updated` or you will trigger a new lifecycle update.
+     * @ignore
      */
     updateValidity(): void {
       this.showValidity = this.report ? (this.valid ? 'valid' : 'invalid') : undefined;
 
+      /** Emits when the validity of the form control changes. */
       this.dispatchEvent(new UpdateValidityEvent(this.valid, this.validationMessage, this.showValidity));
     }
 
@@ -249,6 +252,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * a FACE), or a child of it. Otherwise we can't link the validation message to the form control
      * element, which is necessary for accessibility.
      * @param element The form control element.
+     * @ignore
      */
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;

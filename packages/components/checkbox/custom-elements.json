@@ -264,26 +264,6 @@
               "reflects": true
             },
             {
-              "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Stores the initial state of the checkbox"
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Resets the checkbox to the initial state"
-            },
-            {
               "kind": "field",
               "name": "indeterminate",
               "type": {
@@ -440,26 +420,6 @@
           "tagName": "sl-checkbox",
           "customElement": true,
           "methods": [
-            {
-              "kind": "method",
-              "name": "formAssociatedCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Stores the initial state of the checkbox"
-            },
-            {
-              "kind": "method",
-              "name": "formResetCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Resets the checkbox to the initial state"
-            },
             {
               "kind": "method",
               "name": "#onClick",

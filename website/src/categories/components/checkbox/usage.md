@@ -12,10 +12,10 @@ eleventyNavigation:
 
 <sl-label for="group">Subjects</sl-label>
 <sl-checkbox-group id="group">
-<sl-checkbox checked>Mathematics</sl-checkbox>
-<sl-checkbox>Geography</sl-checkbox>
-<sl-checkbox>Physics</sl-checkbox>
-<sl-checkbox disabled>History</sl-checkbox>
+  <sl-checkbox checked>Mathematics</sl-checkbox>
+  <sl-checkbox>Geography</sl-checkbox>
+  <sl-checkbox>Physics</sl-checkbox>
+  <sl-checkbox disabled>History</sl-checkbox>
 </sl-checkbox-group>
 
 </div>

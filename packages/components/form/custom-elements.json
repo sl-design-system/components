@@ -113,6 +113,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "noIcon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the icon should be hidden. This can be useful when the form control\nalready shows an icon inside the component itself.",
+              "attribute": "no-icon",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "ErrorSize"
@@ -125,6 +135,14 @@
           ],
           "attributes": [
             {
+              "name": "no-icon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the icon should be hidden. This can be useful when the form control\nalready shows an icon inside the component itself.",
+              "fieldName": "noIcon"
+            },
+            {
               "name": "size",
               "type": {
                 "text": "ErrorSize"
@@ -132,6 +150,12 @@
               "default": "'md'",
               "description": "The size at which the error is displayed.",
               "fieldName": "size"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -142,6 +166,16 @@
           "customElement": true,
           "methods": [],
           "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
             {
               "kind": "field",
               "name": "#slot",
@@ -185,17 +219,6 @@
             },
             {
               "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison."
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -221,14 +244,6 @@
               "description": "The name of the form control.",
               "attribute": "name",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control."
             },
             {
               "kind": "method",
@@ -260,25 +275,6 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again."
             },
             {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility."
-            },
-            {
               "kind": "field",
               "name": "showValidity",
               "type": {
@@ -287,16 +283,6 @@
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
               "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update."
             },
             {
               "kind": "field",
@@ -330,7 +316,8 @@
             {
               "type": {
                 "text": "UpdateValidityEvent"
-              }
+              },
+              "description": "Emits when the validity of the form control changes."
             }
           ],
           "attributes": [
@@ -380,16 +367,6 @@
             },
             {
               "kind": "method",
-              "name": "updateValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Updates the validity of the form control. This does not *change* the `validity` of the\nform control, it just updates the display of any validation message. Changing the validity\nis up to the form control itself.\n\nNOTE: This method updates the `showValidity` property and therefore should be called from\n`willUpdate`, never from `updated` or you will trigger a new lifecycle update."
-            },
-            {
-              "kind": "method",
               "name": "setCustomValidity",
               "return": {
                 "type": {
@@ -406,39 +383,9 @@
                 }
               ],
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again."
-            },
-            {
-              "kind": "method",
-              "name": "setFormControlElement",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "FormControlElement"
-                  },
-                  "description": "The form control element."
-                }
-              ],
-              "description": "This tells the mixin what the form control element is. This can either be a native input\nor textarea element, or a Form Associated Custom Element (FACE) with an internals property.\n\nThe form control element must be either the same as the FormControlMixin host (in the case of\na FACE), or a child of it. Otherwise we can't link the validation message to the form control\nelement, which is necessary for accessibility."
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "extendsFormControlMixin",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "readonly": true,
-              "default": "true",
-              "description": "This is necessary so we can check if an element implements this Mixin, since the\n`FormControl` class isn't a generic class we can use in an `instanceof` comparison."
-            },
             {
               "kind": "field",
               "name": "#formControlElement",
@@ -452,14 +399,6 @@
               "kind": "field",
               "name": "#onInvalid",
               "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "report",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control should report the validity of the control."
             },
             {
               "kind": "field",
@@ -953,12 +892,52 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Emits when the validity of the form control changes.",
           "name": "UpdateValidityEvent",
+          "members": [
+            {
+              "description": "What kind of validity should be shown to the user",
+              "name": "showValidity",
+              "kind": "field"
+            },
+            {
+              "description": "The validity state of the element",
+              "name": "valid",
+              "kind": "field"
+            },
+            {
+              "description": "The validation message of the element",
+              "name": "validationMessage",
+              "kind": "field"
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-update-validity"
+            }
+          ],
           "superclass": {
             "name": "Event",
             "module": "src/update-validity-event.ts"
-          }
+          },
+          "methods": [],
+          "fields": [
+            {
+              "description": "The validity state of the element",
+              "name": "valid",
+              "kind": "field"
+            },
+            {
+              "description": "The validation message of the element",
+              "name": "validationMessage",
+              "kind": "field"
+            },
+            {
+              "description": "What kind of validity should be shown to the user",
+              "name": "showValidity",
+              "kind": "field"
+            }
+          ]
         }
       ],
       "exports": [

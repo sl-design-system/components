@@ -520,6 +520,15 @@
             },
             {
               "kind": "field",
+              "name": "showExternalValidityIcon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "input",
               "type": {
                 "text": "HTMLInputElement"

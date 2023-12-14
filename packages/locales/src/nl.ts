@@ -19,10 +19,11 @@ export const templates = {
   s5e8250fb85d64c23: `Sluiten`,
   s629576c6b305d539: `optioneel`,
   sa37ee0d223f8a860: `Vink deze aan`,
+  sa52ceea92a7a3f34: `Kies een optie.`,
+  saa017431d2e4695d: `Tenminste 1 optie moet aangevinkt zijn.`,
   sca81470958a97fc4: `Filter op`,
   sd0b6082239185272: `Selecteer alles`,
   sd6f67602bb05032b: str`Gebruik niet meer dan ${0} karakters (je gebruikt nu ${1} karakters).`,
   sd7cc2f6441ad9a1c: `Verkeerde invoer`,
-  se4627bc6dce5cbbf: `Tenminste 1 optie moet aangevinkt zijn.`,
   sf274d65b5f738f24: `De waarde is buiten de toegestane reeks.`
 };

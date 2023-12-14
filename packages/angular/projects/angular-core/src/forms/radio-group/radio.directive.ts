@@ -31,16 +31,14 @@ import type { Radio } from '@sl-design-system/radio-group';
   ]
 })
 export class RadioDirective extends FormControlElementDirective {
+  #initialValue: string | null = null;
+  #value: string | null = null;
 
-  #initialValue?: string;
-
-  #value = '';
-
-  get value(): string {
+  get value(): string | null {
     return this.#value;
   }
 
-  set value(val: string) {
+  set value(val: string | null) {
     this.#value = val;
     this.onChange(this.#value);
     this.elementRef.nativeElement.internals.value = this.#value;

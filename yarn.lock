@@ -5376,7 +5376,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/radio-group@workspace:packages/components/radio-group"
   dependencies:
-    "@lit-labs/observers": "npm:^2.0.2"
+    "@sl-design-system/form": "npm:0.0.2"
     "@sl-design-system/shared": "npm:0.2.0"
     lit: "npm:^3.1.0"
   languageName: unknown

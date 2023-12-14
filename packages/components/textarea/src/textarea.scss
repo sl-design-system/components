@@ -112,7 +112,7 @@ $resize-types: none, both, horizontal, vertical, auto;
   vertical-align: top;
 }
 
-:host(:focus-visible) {
+:host(:focus-within) {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 }

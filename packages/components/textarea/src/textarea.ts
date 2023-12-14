@@ -39,6 +39,9 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   /** Observe the textarea width. */
   #observer = new ResizeObserver(() => this.#setSize());
 
+  /** @private Hides the external validity icon. */
+  override showExternalValidityIcon = false;
+
   /** Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
@@ -57,7 +60,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
    * NOTE: Declare the type this way so it is backwards compatible with 4.9.5,
    * which we still use in `@sl-design-system/angular`.
    */
-  @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
+  @property() autocomplete?: typeof HTMLTextAreaElement.prototype.autocomplete;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -80,7 +83,10 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   /** The way the textarea can be resized. */
   @property({ reflect: true }) resize: ResizeType = 'vertical';
 
-  /** The number of rows the textarea should initially have. */
+  /**
+   * The number of rows the textarea should initially have.
+   * If not set, the browser defaults to 2 rows.
+   */
   @property({ type: Number }) rows?: number;
 
   /** Whether the textarea should get valid styles when is valid. */

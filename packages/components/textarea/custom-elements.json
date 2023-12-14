@@ -51,7 +51,7 @@
               "kind": "field",
               "name": "autocomplete",
               "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+                "text": "typeof HTMLTextAreaElement.prototype.autocomplete | undefined"
               },
               "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
               "attribute": "autocomplete"
@@ -128,7 +128,7 @@
               "type": {
                 "text": "number | undefined"
               },
-              "description": "The number of rows the textarea should initially have.",
+              "description": "The number of rows the textarea should initially have.\nIf not set, the browser defaults to 2 rows.",
               "attribute": "rows"
             },
             {
@@ -235,7 +235,7 @@
             {
               "name": "autocomplete",
               "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+                "text": "typeof HTMLTextAreaElement.prototype.autocomplete | undefined"
               },
               "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
               "fieldName": "autocomplete"
@@ -302,7 +302,7 @@
               "type": {
                 "text": "number | undefined"
               },
-              "description": "The number of rows the textarea should initially have.",
+              "description": "The number of rows the textarea should initially have.\nIf not set, the browser defaults to 2 rows.",
               "fieldName": "rows"
             },
             {
@@ -446,6 +446,15 @@
               "privacy": "private",
               "default": "new ResizeObserver(() => this.#setSize())",
               "description": "Observe the textarea width."
+            },
+            {
+              "kind": "field",
+              "name": "showExternalValidityIcon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "privacy": "private"
             },
             {
               "kind": "field",

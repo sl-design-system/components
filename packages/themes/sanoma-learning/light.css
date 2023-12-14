@@ -10,6 +10,12 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
+  --sl-color-tab-inactive-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-600));
@@ -519,6 +525,13 @@
   --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-tab-disabled-foreground: var(--sl-body-foreground);
+  --sl-color-tab-disabled-background: var(--sl-body-background);
+  --sl-color-tab-hover-foreground: var(--sl-body-foreground);
+  --sl-color-tab-inactive-foreground: var(--sl-body-foreground);
+  --sl-color-tab-inactive-background: var(--sl-body-background);
+  --sl-color-tab-active-foreground: var(--sl-body-foreground);
+  --sl-color-tab-active-background: var(--sl-body-background);
   --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);

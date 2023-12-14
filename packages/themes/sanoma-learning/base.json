@@ -3336,6 +3336,30 @@
         "value": "{space.lg}",
         "type": "spacing"
       }
+    },
+    "tab": {
+      "inline": {
+        "value": "{space.xl}",
+        "type": "spacing"
+      },
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "gap": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "more": {
+        "inline": {
+          "value": "{space.md}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
     }
   },
   "dialog": {

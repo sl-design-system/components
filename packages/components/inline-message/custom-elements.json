@@ -76,6 +76,13 @@
             },
             {
               "kind": "field",
+              "name": "iconName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "kind": "field",
               "name": "noIcon",
               "type": {
                 "text": "boolean | undefined"
@@ -135,7 +142,7 @@
           "mixins": [
             {
               "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -177,11 +184,26 @@
             },
             {
               "kind": "field",
+              "name": "#iconName",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "kind": "field",
               "name": "wrapper",
               "type": {
                 "text": "HTMLDivElement | undefined"
               },
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "iconName",
+              "type": {
+                "text": "string"
+              }
             }
           ]
         }

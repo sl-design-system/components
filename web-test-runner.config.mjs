@@ -8,6 +8,7 @@ import { env } from 'node:process';
 const config = {
   nodeResolve: true,
   rootDir: '.',
+  coverage: true,
 
   files: [
     'packages/components/**/src/**/*.spec.ts',

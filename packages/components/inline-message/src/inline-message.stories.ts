@@ -7,10 +7,11 @@ import { html } from 'lit';
 import '../register.js';
 import { InlineMessage } from './inline-message';
 
-const onClick = (event: Event, status?: InlineMessageStatus): void => {
-  console.log(event, status);
-  // TODO: id and accessibility part
+const statuses: InlineMessageStatus[] = ['info', 'success', 'warning', 'danger'];
+const dismissible: string[] = ['true', 'false'];
+const noIcon: string[] = ['', 'true'];
 
+const onClick = (event: Event, status?: InlineMessageStatus): void => {
   const newInlMessage = new InlineMessage();
   newInlMessage.status = status || 'info';
   newInlMessage.innerHTML = 'Inline message title' + '<span slot="description">Description text</span>';
@@ -49,6 +50,58 @@ export const API: StoryObj = {
       </sl-inline-message>
     `;
   }
+};
+
+export const All: StoryObj = {
+  render: () => html`
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 24px;
+      }
+
+      th {
+        text-transform: capitalize;
+      }
+
+      td {
+        padding: 16px;
+      }
+
+      td:first-of-type {
+        font-size: 16px;
+      }
+
+      strong {
+        text-transform: uppercase;
+      }
+
+      tbody td:last-of-type {
+        border: none;
+      }
+    </style>
+    <table>
+      <tbody>
+        ${statuses.map(
+          status => html`<tr>
+            <td>Status: <strong>${status}</strong></td>
+            ${noIcon.map(
+              noIconEl =>
+                html`
+                  <td>
+                    <sl-inline-message ?no-icon=${noIconEl} ?dismissible=${dismissible} status=${status}>
+                      Status ${status} inline message
+                      <span slot="description">A place for additional description of the inline message</span>
+                      <span slot="details">A place fore more details like errors list</span>
+                    </sl-inline-message>
+                  </td>
+                `
+            )}
+          </tr>`
+        )}
+      </tbody>
+    </table>
+  `
 };
 
 export const ShowInlineMessage: StoryObj = {

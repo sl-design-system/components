@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit-html';
 import type { CSSResultGroup } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { breakpoints } from '@sl-design-system/shared';
@@ -15,20 +15,20 @@ Icon.registerIcon(faOctagonExclamation);
 
 export type InlineMessageStatus = 'info' | 'success' | 'warning' | 'danger';
 
-const iconName = (status: InlineMessageStatus): string => {
-  switch (status) {
-    case 'info':
-      return 'info';
-    case 'success':
-      return 'circle-check-solid';
-    case 'warning':
-      return 'fas-octagon-exclamation';
-    case 'danger':
-      return 'triangle-exclamation-solid';
-    default:
-      return 'info';
-  }
-};
+// const iconName2 = (status: InlineMessageStatus): string => {
+//   switch (status) {
+//     case 'info':
+//       return 'info';
+//     case 'success':
+//       return 'circle-check-solid';
+//     case 'warning':
+//       return 'fas-octagon-exclamation';
+//     case 'danger':
+//       return 'triangle-exclamation-solid';
+//     default:
+//       return 'info';
+//   }
+// };
 
 /**
  * An inline message component for displaying additional information/errors.
@@ -50,6 +50,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   /** @private */
+  #iconName!: string;
+
+  /** @private */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
   /** @private */
@@ -65,7 +68,27 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
    * @type {'info' | 'success' | 'warning' | 'danger'} */
   @property({ reflect: true }) status: InlineMessageStatus = 'info';
 
-  override connectedCallback(): void {
+  set iconName(name: string) {
+    this.#iconName = name;
+    this.requestUpdate('iconName');
+  }
+
+  get iconName(): string {
+    switch (this.status) {
+      case 'info':
+        return 'info';
+      case 'success':
+        return 'circle-check-solid';
+      case 'warning':
+        return 'fas-octagon-exclamation';
+      case 'danger':
+        return 'triangle-exclamation-solid';
+      default:
+        return 'info';
+    }
+  }
+
+  override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
     if (this.status === 'danger' || this.status === 'warning') {
@@ -79,13 +102,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     return html`
       <div class="inline-message-wrapper" open>
         <div class="content">
-          ${this.noIcon
-            ? nothing
-            : html`
-                <slot name="icon" part="icon">
-                  <sl-icon name=${iconName(this.status)} size="md"></sl-icon>
-                </slot>
-              `}
+          ${!this.noIcon
+            ? html`<slot name="icon" part="icon">
+                <sl-icon name=${this.iconName} size="md"></sl-icon>
+              </slot>`
+            : nothing}
           <div class="content-details">
             <slot name="title" part="title">
               <slot></slot>
@@ -109,7 +130,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   onClose(): void {
     this.wrapper?.removeAttribute('open');
-
     this.#closeOnAnimationend();
   }
 

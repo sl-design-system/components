@@ -40,15 +40,7 @@ export class EventsController implements ReactiveController {
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions
   ): void {
-    if (host !== document) {
-      console.log('listen', host, type, listener, options);
-    }
-
     const callback = (event: Event): void => {
-      if (host !== document) {
-        console.log('callback', host, this.#host, type, event);
-      }
-
       if (typeof listener === 'function') {
         listener.call(this.#host, event);
       } else {

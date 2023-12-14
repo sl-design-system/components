@@ -30,22 +30,22 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   /** @private */
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @private */
   static override styles: CSSResultGroup = styles;
 
   /** @private Hides the external validity icon. */
   override showExternalValidityIcon = false;
 
-  /** Emits when the `blur` event is fired on the `<input>`. */
+  /** Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
-  /** Emits when the `change` event is fired on the `<input>`. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<void>;
+  /** Emits when the value changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
 
-  /** Emits when the `focus` event is fired on the `<input>`. */
+  /** Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
-
-  /** Emits when the `input` event is fired on the `<input>`. */
-  @event({ name: 'sl-input' }) inputEvent!: EventEmitter<string>;
 
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
@@ -61,19 +61,13 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** Maximum value. Only applies to number input type. */
-  @property({ type: Number }) max?: number;
-
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
-
-  /** Minimum value. Only applies to number input type.	*/
-  @property({ type: Number }) min?: number;
 
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
-  /** Validation using pattern. Native HTML input functionality. */
+  /** This will validate the value of the input using the given pattern. */
   @property() pattern?: string;
 
   /** Placeholder text in the input. */
@@ -88,14 +82,8 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Indicates whether the control should indicate it is valid. */
   @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
 
-  /**
-   * The size of the input.
-   * @type {'md' | 'lg'}
-   */
+  /** The size of the input. */
   @property({ reflect: true }) size: TextFieldSize = 'md';
-
-  /** Specifies the interval between legal numbers for a text field. Only applies to number input type */
-  @property({ type: Number }) step?: number;
 
   /**
    * The input type. Only text types are valid here. For other types,
@@ -112,7 +100,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.addEventListener('blur', () => this.blurEvent.emit());
-      this.input.addEventListener('change', () => this.changeEvent.emit());
       this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.input.slot ||= 'input';
       this.#syncInput(this.input);
@@ -131,15 +118,12 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     const props: Array<keyof TextField> = [
       'autocomplete',
       'disabled',
-      'max',
       'maxLength',
-      'min',
       'minLength',
       'pattern',
       'placeholder',
       'readonly',
       'required',
-      'step',
       'type'
     ];
 
@@ -154,31 +138,23 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   override render(): TemplateResult {
     return html`
-      <div @click=${this.#onClick} class="wrapper" part="wrapper">
-        <slot name="prefix"></slot>
-        <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
-        <slot name="suffix">
-          ${this.showValidity === 'invalid'
-            ? html`<sl-icon .size=${this.size} class="invalid-icon" name="triangle-exclamation-solid"></sl-icon>`
-            : nothing}
-          ${this.showValidity === 'valid' && this.showValid
-            ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
-            : nothing}
-        </slot>
-      </div>
+      <slot name="prefix"></slot>
+      <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
+      <slot name="suffix">
+        ${this.showValidity === 'invalid'
+          ? html`<sl-icon .size=${this.size} class="invalid-icon" name="triangle-exclamation-solid"></sl-icon>`
+          : nothing}
+        ${this.showValidity === 'valid' && this.showValid
+          ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
+          : nothing}
+      </slot>
     `;
-  }
-
-  #onClick(event: Event): void {
-    event.preventDefault();
-
-    this.input.focus();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
     this.updateValidity();
-    this.inputEvent.emit(this.value);
+    this.changeEvent.emit(this.value);
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -195,7 +171,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (inputs.length) {
       this.input = inputs[0];
       this.input.addEventListener('blur', () => this.blurEvent.emit());
-      this.input.addEventListener('change', () => this.changeEvent.emit());
       this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncInput(this.input);
 
@@ -217,22 +192,10 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       input.type = this.type;
     }
 
-    if (typeof this.max === 'number') {
-      input.setAttribute('max', this.max.toString());
-    } else {
-      input.removeAttribute('max');
-    }
-
     if (typeof this.maxLength === 'number') {
       input.setAttribute('maxlength', this.maxLength.toString());
     } else {
       input.removeAttribute('maxlength');
-    }
-
-    if (typeof this.min === 'number') {
-      input.setAttribute('min', this.min.toString());
-    } else {
-      input.removeAttribute('min');
     }
 
     if (typeof this.minLength === 'number') {
@@ -245,12 +208,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       input.setAttribute('pattern', this.pattern);
     } else {
       input.removeAttribute('pattern');
-    }
-
-    if (typeof this.step === 'number') {
-      input.setAttribute('step', this.step.toString());
-    } else {
-      input.removeAttribute('step');
     }
   }
 }

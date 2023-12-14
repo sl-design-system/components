@@ -154,10 +154,10 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
       <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
       <slot name="suffix">
         ${this.showValidity === 'invalid'
-          ? html`<sl-icon class="invalid-icon" name="triangle-exclamation-solid" size="lg"></sl-icon>`
+          ? html`<sl-icon .size=${this.size} class="invalid-icon" name="triangle-exclamation-solid"></sl-icon>`
           : nothing}
         ${this.showValidity === 'valid' && this.showValid
-          ? html`<sl-icon class="valid-icon" name="circle-check-solid" size="lg"></sl-icon>`
+          ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}
       </slot>
     `;

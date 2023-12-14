@@ -197,14 +197,25 @@ export const All: StoryObj = {
             <sl-textarea disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-textarea>
           </div>
           <div class="wrapper">
-            <sl-textarea invalid size=${size} value="${size} invalid"></sl-textarea>
-            <sl-textarea invalid size=${size} placeholder="Placeholder ${size} invalid"></sl-textarea>
-            <sl-textarea disabled invalid size=${size} value="${size} invalid disabled"></sl-textarea>
-            <sl-textarea disabled invalid size=${size} placeholder="Placeholder ${size} disabled invalid"></sl-textarea>
+            <sl-textarea show-validity="invalid" size=${size} value="${size} invalid"></sl-textarea>
+            <sl-textarea placeholder="Placeholder ${size} invalid" show-validity="invalid" size=${size}></sl-textarea>
+            <sl-textarea disabled show-validity="invalid" size=${size} value="${size} invalid disabled"></sl-textarea>
+            <sl-textarea
+              disabled
+              placeholder="Placeholder ${size} disabled invalid"
+              size=${size}
+              show-validity="invalid"
+            ></sl-textarea>
           </div>
           <div class="wrapper">
-            <sl-textarea showValid valid size=${size} value="I am md valid"></sl-textarea>
-            <sl-textarea disabled show-valid valid size=${size} value="${size} valid disabled"></sl-textarea>
+            <sl-textarea show-valid show-validity="valid" size=${size} value="I am md valid"></sl-textarea>
+            <sl-textarea
+              disabled
+              show-valid
+              show-validity="valid"
+              size=${size}
+              value="${size} valid disabled"
+            ></sl-textarea>
           </div>
         </div>
       `

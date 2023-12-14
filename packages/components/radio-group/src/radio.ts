@@ -55,11 +55,11 @@ export class Radio extends LitElement {
       <div class="box">
         ${this.checked
           ? html`
-              <svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24">
+              <svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="6"></circle>
               </svg>
             `
-          : html`<svg version="1.1" aria-hidden="true" focusable="false" part="svg" viewBox="0 0 24 24"></svg>`}
+          : html`<svg version="1.1" aria-hidden="true" part="svg" viewBox="0 0 24 24"></svg>`}
       </div>
       <span class="label">
         <slot></slot>
@@ -80,9 +80,6 @@ export class Radio extends LitElement {
 
   #onKeydown(event: KeyboardEvent): void {
     if (['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-      event.stopPropagation();
-
       this.#onClick(event);
     }
   }

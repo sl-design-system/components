@@ -129,7 +129,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
       this.internals.setFormValue(this.value);
       this.internals.setValidity(
         { valueMissing: this.required && this.value === null },
-        msg('An item must be selected.')
+        msg('An option must be selected.')
       );
 
       this.updateValidity();

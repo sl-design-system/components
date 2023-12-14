@@ -2,6 +2,7 @@ import type { FormField } from './form-field.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/tooltip/register.js';
 import { type TemplateResult, html } from 'lit';
@@ -63,6 +64,18 @@ export const CheckboxGroup: Story = {
         <sl-checkbox>Checkbox 2</sl-checkbox>
         <sl-checkbox>Checkbox 3</sl-checkbox>
       </sl-checkbox-group>
+    `
+  }
+};
+
+export const RadioGroup: Story = {
+  args: {
+    slot: html`
+      <sl-radio-group required>
+        <sl-radio value="1">Radio 1</sl-radio>
+        <sl-radio value="2">Radio 2</sl-radio>
+        <sl-radio value="3">Radio 3</sl-radio>
+      </sl-radio-group>
     `
   }
 };

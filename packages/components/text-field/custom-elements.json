@@ -90,30 +90,12 @@
             },
             {
               "kind": "field",
-              "name": "max",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum value. Only applies to number input type.",
-              "attribute": "max"
-            },
-            {
-              "kind": "field",
               "name": "maxLength",
               "type": {
                 "text": "number | undefined"
               },
               "description": "Maximum length (number of characters).",
               "attribute": "maxlength"
-            },
-            {
-              "kind": "field",
-              "name": "min",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum value. Only applies to number input type.",
-              "attribute": "min"
             },
             {
               "kind": "field",
@@ -130,7 +112,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Validation using pattern. Native HTML input functionality.",
+              "description": "This will validate the value of the input using the given pattern.",
               "attribute": "pattern"
             },
             {
@@ -176,7 +158,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "TextFieldSize"
               },
               "default": "'md'",
               "description": "The size of the input.",
@@ -206,15 +188,6 @@
                 "text": "EventEmitter<void>"
               },
               "description": "Emits when the component gains focus."
-            },
-            {
-              "kind": "field",
-              "name": "step",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Specifies the interval between legal numbers for a text field. Only applies to number input type",
-              "attribute": "step"
             },
             {
               "kind": "field",
@@ -281,28 +254,12 @@
               "fieldName": "disabled"
             },
             {
-              "name": "max",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum value. Only applies to number input type.",
-              "fieldName": "max"
-            },
-            {
               "name": "maxlength",
               "type": {
                 "text": "number | undefined"
               },
               "description": "Maximum length (number of characters).",
               "fieldName": "maxLength"
-            },
-            {
-              "name": "min",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum value. Only applies to number input type.",
-              "fieldName": "min"
             },
             {
               "name": "minlength",
@@ -317,7 +274,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Validation using pattern. Native HTML input functionality.",
+              "description": "This will validate the value of the input using the given pattern.",
               "fieldName": "pattern"
             },
             {
@@ -355,19 +312,11 @@
             {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "TextFieldSize"
               },
               "default": "'md'",
               "description": "The size of the input.",
               "fieldName": "size"
-            },
-            {
-              "name": "step",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Specifies the interval between legal numbers for a text field. Only applies to number input type",
-              "fieldName": "step"
             },
             {
               "name": "type",

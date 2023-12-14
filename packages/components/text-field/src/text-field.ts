@@ -61,19 +61,13 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** Maximum value. Only applies to number input type. */
-  @property({ type: Number }) max?: number;
-
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
-
-  /** Minimum value. Only applies to number input type.	*/
-  @property({ type: Number }) min?: number;
 
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
-  /** Validation using pattern. Native HTML input functionality. */
+  /** This will validate the value of the input using the given pattern. */
   @property() pattern?: string;
 
   /** Placeholder text in the input. */
@@ -88,14 +82,8 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Indicates whether the control should indicate it is valid. */
   @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
 
-  /**
-   * The size of the input.
-   * @type {'md' | 'lg'}
-   */
+  /** The size of the input. */
   @property({ reflect: true }) size: TextFieldSize = 'md';
-
-  /** Specifies the interval between legal numbers for a text field. Only applies to number input type */
-  @property({ type: Number }) step?: number;
 
   /**
    * The input type. Only text types are valid here. For other types,
@@ -130,15 +118,12 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     const props: Array<keyof TextField> = [
       'autocomplete',
       'disabled',
-      'max',
       'maxLength',
-      'min',
       'minLength',
       'pattern',
       'placeholder',
       'readonly',
       'required',
-      'step',
       'type'
     ];
 
@@ -207,22 +192,10 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       input.type = this.type;
     }
 
-    if (typeof this.max === 'number') {
-      input.setAttribute('max', this.max.toString());
-    } else {
-      input.removeAttribute('max');
-    }
-
     if (typeof this.maxLength === 'number') {
       input.setAttribute('maxlength', this.maxLength.toString());
     } else {
       input.removeAttribute('maxlength');
-    }
-
-    if (typeof this.min === 'number') {
-      input.setAttribute('min', this.min.toString());
-    } else {
-      input.removeAttribute('min');
     }
 
     if (typeof this.minLength === 'number') {
@@ -235,12 +208,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       input.setAttribute('pattern', this.pattern);
     } else {
       input.removeAttribute('pattern');
-    }
-
-    if (typeof this.step === 'number') {
-      input.setAttribute('step', this.step.toString());
-    } else {
-      input.removeAttribute('step');
     }
   }
 }

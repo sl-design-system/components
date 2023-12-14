@@ -123,30 +123,6 @@ describe('sl-text-field', () => {
       expect(input).to.have.attribute('pattern', '.{3,5}');
     });
 
-    it('should not have a max', () => {
-      expect(el.max).to.be.undefined;
-      expect(input).not.to.have.attribute('max');
-    });
-
-    it('should have a max when set', async () => {
-      el.max = 3;
-      await el.updateComplete;
-
-      expect(input).to.have.attribute('max', '3');
-    });
-
-    it('should not have a min', () => {
-      expect(el.min).to.be.undefined;
-      expect(input).not.to.have.attribute('min');
-    });
-
-    it('should have a min when set', async () => {
-      el.min = 3;
-      await el.updateComplete;
-
-      expect(input).to.have.attribute('min', '3');
-    });
-
     it('should not have a maxlength', () => {
       expect(el.maxLength).to.be.undefined;
       expect(el).not.to.have.attribute('maxlength');
@@ -181,18 +157,6 @@ describe('sl-text-field', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('show-valid');
-    });
-
-    it('should not have a step', () => {
-      expect(el.step).to.be.undefined;
-      expect(el).not.to.have.attribute('step');
-    });
-
-    it('should have a step when set', async () => {
-      el.step = 3;
-      await el.updateComplete;
-
-      expect(input).to.have.attribute('step', '3');
     });
 
     it('should focus the input when focusing the element', () => {

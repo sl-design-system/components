@@ -357,6 +357,15 @@
           "members": [
             {
               "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "hostDisconnected",
               "return": {
                 "type": {
@@ -440,6 +449,15 @@
           "methods": [
             {
               "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "hostDisconnected",
               "return": {
                 "type": {
@@ -521,6 +539,15 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "type": {
+                "text": "EventRegistration | undefined"
+              },
+              "default": "events"
+            },
             {
               "kind": "field",
               "name": "#host",

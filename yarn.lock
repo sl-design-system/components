@@ -5139,7 +5139,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/components/checkbox"
   dependencies:
-    "@lit-labs/observers": "npm:^2.0.2"
+    "@sl-design-system/form": "npm:0.0.2"
     "@sl-design-system/shared": "npm:0.2.0"
     lit: "npm:^3.1.0"
   languageName: unknown
@@ -5376,7 +5376,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/radio-group@workspace:packages/components/radio-group"
   dependencies:
-    "@lit-labs/observers": "npm:^2.0.2"
+    "@sl-design-system/form": "npm:0.0.2"
     "@sl-design-system/shared": "npm:0.2.0"
     lit: "npm:^3.1.0"
   languageName: unknown
@@ -5524,8 +5524,10 @@ __metadata:
     "@oddbird/popover-polyfill": "npm:^0.3.6"
     "@types/markdown-it": "npm:^13.0.7"
     "@web/dev-server": "npm:^0.4.1"
+    "@webcomponents/scoped-custom-element-registry": "npm:^0.0.9"
     cpx: "npm:^1.5.0"
     elasticlunr: "npm:^0.9.5"
+    element-internals-polyfill: "npm:^1.3.9"
     esbuild: "npm:^0.19.8"
     esbuild-plugin-minify-html-literals: "npm:^1.0.6"
     html-minifier: "npm:^4.0.0"
@@ -11616,7 +11618,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"element-internals-polyfill@npm:1.3.9":
+"element-internals-polyfill@npm:1.3.9, element-internals-polyfill@npm:^1.3.9":
   version: 1.3.9
   resolution: "element-internals-polyfill@npm:1.3.9"
   checksum: 29888edd1ecfd2d42d208ae5936789f8635155b74b4e857eb737d337d43f4dae1eeebe22f68f230c483cf1a40598d3eaac2b47d117cd14f049c67b7ca2a2db1b

@@ -66,6 +66,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       if (this.error) {
         this.#error ??= this.shadowRoot?.createElement('sl-error') as Error;
         this.#error.innerText = this.error;
+        this.#error.noIcon = !this.#formControl?.showExternalValidityIcon;
 
         if (!this.#error.parentElement) {
           this.append(this.#error);
@@ -112,7 +113,11 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       <slot name="label" @slotchange=${this.#onLabelSlotchange}></slot>
       <div class="wrapper" part="wrapper">
         <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity}></slot>
-        <slot name="error" @slotchange=${this.#onErrorSlotchange}></slot>
+        <slot
+          @slotchange=${this.#onErrorSlotchange}
+          .noIcon=${!this.#formControl?.showExternalValidityIcon}
+          name="error"
+        ></slot>
         ${this.#error ? nothing : html`<slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>`}
       </div>
     `;
@@ -125,6 +130,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     if (error) {
       this.#error = error;
       this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
+      this.#error.noIcon = !this.#formControl?.showExternalValidityIcon;
 
       if (this.#formControl) {
         this.#formControl.formControlElement.setAttribute('aria-describedby', this.#error.id);

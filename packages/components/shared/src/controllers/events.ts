@@ -5,20 +5,21 @@ export type EventRegistration = Partial<{
 }>;
 
 export class EventsController implements ReactiveController {
+  #events?: EventRegistration;
   #host: ReactiveControllerHost & HTMLElement;
-
   #listeners: Array<() => void> = [];
 
   constructor(host: ReactiveControllerHost & HTMLElement, events?: EventRegistration) {
     this.#host = host;
     this.#host.addController(this);
+    this.#events = events;
+  }
 
-    if (events) {
-      Object.entries(events).forEach(([name, listener]) => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.listen<any>(host, name, listener);
-      });
-    }
+  hostConnected(): void {
+    Object.entries(this.#events ?? {}).forEach(([name, listener]) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.listen<any>(this.#host, name, listener);
+    });
   }
 
   hostDisconnected(): void {

@@ -4284,6 +4284,23 @@
           "type": "color"
         }
       }
+    },
+    "dialog": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      },
+      "border": {
+        "value": "{body.background}",
+        "type": "color",
+        "description": "color.surface.solid.primary.background"
+      }
     }
   },
   "boxShadow": {

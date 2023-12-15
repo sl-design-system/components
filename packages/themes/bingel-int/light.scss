@@ -53,8 +53,6 @@
   --sl-color-input-field-label-select-hover-background: rgb(var(--sl-color-palette-accent-100));
   --sl-color-input-field-label-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-field-label-text-disabled: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-400));
-  --sl-color-input-helper-text-disabled: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-input-text-field-valid-active-background: rgb(var(--sl-color-palette-success-100));
   --sl-color-input-text-field-valid-hover-background: rgb(var(--sl-color-palette-success-50));
   --sl-color-input-text-field-valid-default-icon: rgb(var(--sl-color-palette-success-base));
@@ -84,13 +82,11 @@
   --sl-color-input-switch-default-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-input-switch-default-checked-disabled-background: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-input-switch-default-checked-focus-handle: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-switch-default-checked-focus-background: rgb(var(--sl-color-palette-success-400));
   --sl-color-input-switch-default-checked-active-handle: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-switch-default-checked-active-background: rgb(var(--sl-color-palette-success-600));
   --sl-color-input-switch-default-checked-hover-handle: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-switch-default-checked-hover-background: rgb(var(--sl-color-palette-success-500));
   --sl-color-input-switch-default-checked-default-handle: rgb(var(--sl-color-palette-white-base));
-  --sl-color-input-switch-default-checked-default-background: rgb(var(--sl-color-palette-success-400));
   --sl-color-input-switch-default-unchecked-disabled-handle: rgb(var(--sl-color-palette-neutral-50));
   --sl-color-input-switch-default-unchecked-disabled-icon: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-input-switch-default-unchecked-disabled-background: rgb(var(--sl-color-palette-neutral-150));
@@ -152,7 +148,6 @@
   --sl-color-input-option-invalid-unchecked-hover-icon: rgb(var(--sl-color-palette-danger-500));
   --sl-color-input-option-invalid-unchecked-hover-border: rgb(var(--sl-color-palette-danger-base));
   --sl-color-input-option-invalid-unchecked-hover-background: rgb(var(--sl-color-palette-danger-50));
-  --sl-color-input-option-invalid-unchecked-default-icon: rgb(var(--sl-color-palette-danger-400));
   --sl-color-input-option-invalid-unchecked-default-border: rgb(var(--sl-color-palette-danger-base));
   --sl-color-input-option-invalid-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-option-default-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
@@ -179,8 +174,6 @@
   --sl-color-input-option-default-unchecked-hover-icon: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-option-default-unchecked-hover-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-option-default-unchecked-hover-background: rgb(var(--sl-color-palette-accent-50));
-  --sl-color-input-option-default-unchecked-default-icon: rgb(var(--sl-color-palette-neutral-400));
-  --sl-color-input-option-default-unchecked-default-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-input-option-default-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-surface-solid-accent-foreground: rgb(var(--sl-color-palette-accent-50));
   --sl-color-surface-solid-accent-background: rgb(var(--sl-color-palette-accent-base));
@@ -233,7 +226,6 @@
   --sl-color-button-danger-solid-disabled-background: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-button-danger-solid-focus-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-button-danger-solid-focus-foreground: rgb(var(--sl-color-palette-white-base));
-  --sl-color-button-danger-solid-focus-background: rgb(var(--sl-color-palette-danger-400));
   --sl-color-button-danger-solid-active-border: rgb(var(--sl-color-palette-danger-600));
   --sl-color-button-danger-solid-active-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-danger-solid-active-background: rgb(var(--sl-color-palette-danger-600));
@@ -420,7 +412,6 @@
   --sl-color-button-default-link-active-foreground: rgb(var(--sl-color-palette-primary-800));
   --sl-color-button-default-link-active-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-link-hover-border: rgb(var(--sl-color-palette-transparent-base));
-  --sl-color-button-default-link-hover-foreground: rgb(var(--sl-color-palette-accent-700));
   --sl-color-button-default-link-hover-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-link-idle-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-link-idle-foreground: rgb(var(--sl-color-palette-primary-600));
@@ -508,7 +499,9 @@
   --sl-color-input-field-label-icon-invalid: var(--sl-color-input-text-field-invalid-default-icon);
   --sl-color-input-field-label-text-invalid: var(--sl-color-input-text-field-invalid-default-icon);
   --sl-color-input-helper-icon-invalid: var(--sl-color-input-text-field-invalid-default-icon);
+  --sl-color-input-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-input-helper-text-invalid: var(--sl-color-input-text-field-invalid-default-icon);
+  --sl-color-input-helper-text-disabled: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-input-text-field-valid-disabled-input-text: var(--sl-color-input-text-field-default-disabled-input-text);
   --sl-color-input-text-field-valid-disabled-icon: var(--sl-color-input-text-field-default-disabled-icon);
   --sl-color-input-text-field-valid-disabled-label: var(--sl-color-input-text-field-default-disabled-label);
@@ -548,14 +541,14 @@
   --sl-color-input-text-field-default-hover-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-input-text-field-default-hover-icon: var(--sl-color-input-text-field-default-default-icon);
   --sl-color-input-switch-default-checked-disabled-text: var(--sl-body-background);
-  --sl-color-input-switch-default-checked-focus-icon: var(--sl-color-input-switch-default-checked-focus-background);
   --sl-color-input-switch-default-checked-focus-text: var(--sl-body-background);
+  --sl-color-input-switch-default-checked-focus-background: rgb(var(--sl-color-palette-success-400));
   --sl-color-input-switch-default-checked-active-icon: var(--sl-color-input-switch-default-checked-active-background);
   --sl-color-input-switch-default-checked-active-text: var(--sl-body-background);
   --sl-color-input-switch-default-checked-hover-icon: var(--sl-color-input-switch-default-checked-hover-background);
   --sl-color-input-switch-default-checked-hover-text: var(--sl-body-background);
-  --sl-color-input-switch-default-checked-default-icon: var(--sl-color-input-switch-default-checked-default-background);
   --sl-color-input-switch-default-checked-default-text: var(--sl-body-background);
+  --sl-color-input-switch-default-checked-default-background: rgb(var(--sl-color-palette-success-400));
   --sl-color-input-switch-default-unchecked-disabled-text: var(--sl-body-background);
   --sl-color-input-switch-default-unchecked-focus-text: var(--sl-body-background);
   --sl-color-input-switch-default-unchecked-focus-background: var(
@@ -578,6 +571,7 @@
   --sl-color-input-option-invalid-checked-default-border: var(
     --sl-color-input-option-invalid-checked-default-background
   );
+  --sl-color-input-option-invalid-unchecked-default-icon: rgb(var(--sl-color-palette-danger-400));
   --sl-color-input-option-default-checked-disabled-border: var(
     --sl-color-input-option-default-checked-disabled-background
   );
@@ -587,11 +581,14 @@
   --sl-color-input-option-default-checked-default-border: var(
     --sl-color-input-option-default-checked-default-background
   );
+  --sl-color-input-option-default-unchecked-default-icon: rgb(var(--sl-color-palette-neutral-400));
+  --sl-color-input-option-default-unchecked-default-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-button-danger-ghost-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-danger-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-danger-outline-disabled-background: var(--sl-body-background);
   --sl-color-button-danger-outline-focus-background: var(--sl-body-background);
+  --sl-color-button-danger-solid-focus-background: rgb(var(--sl-color-palette-danger-400));
   --sl-color-button-warning-ghost-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-warning-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-warning-outline-disabled-background: var(--sl-body-background);
@@ -620,6 +617,7 @@
   --sl-color-button-primary-outline-focus-background: var(--sl-body-background);
   --sl-color-button-primary-outline-idle-background: var(--sl-body-background);
   --sl-color-button-default-ghost-focus-background: var(--sl-body-background);
+  --sl-color-button-default-link-hover-foreground: rgb(var(--sl-color-palette-accent-700));
   --sl-color-button-default-outline-focus-background: var(--sl-body-background);
   --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
@@ -681,6 +679,8 @@
   --sl-color-input-text-field-invalid-default-label: var(--sl-body-foreground);
   --sl-color-input-text-field-default-default-input-text: var(--sl-body-foreground);
   --sl-color-input-text-field-default-default-label: var(--sl-body-foreground);
+  --sl-color-input-switch-default-checked-focus-icon: var(--sl-color-input-switch-default-checked-focus-background);
+  --sl-color-input-switch-default-checked-default-icon: var(--sl-color-input-switch-default-checked-default-background);
   --sl-color-input-switch-default-unchecked-focus-icon: var(--sl-body-foreground);
   --sl-color-input-switch-default-unchecked-active-icon: var(--sl-body-foreground);
   --sl-color-input-switch-default-unchecked-hover-icon: var(--sl-body-foreground);

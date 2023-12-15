@@ -157,7 +157,6 @@
   --sl-color-palette-danger-900: 40 10 12;
   --sl-color-palette-danger-800: 82 20 24;
   --sl-color-palette-danger-700: 125 30 37;
-  --sl-color-palette-danger-600: 167 40 49;
   --sl-color-palette-danger-500: 210 51 62;
   --sl-color-palette-danger-400: 252 61 74;
   --sl-color-palette-danger-300: 253 94 105;
@@ -172,7 +171,6 @@
   --sl-color-palette-warning-600: 168 87 17;
   --sl-color-palette-warning-500: 211 109 21;
   --sl-color-palette-warning-400: 254 131 25;
-  --sl-color-palette-warning-300: 254 152 64;
   --sl-color-palette-warning-200: 254 173 103;
   --sl-color-palette-warning-150: 255 194 141;
   --sl-color-palette-warning-100: 255 215 180;
@@ -183,7 +181,6 @@
   --sl-color-palette-success-700: 22 109 73;
   --sl-color-palette-success-600: 30 146 97;
   --sl-color-palette-success-500: 37 183 122;
-  --sl-color-palette-success-400: 45 220 147;
   --sl-color-palette-success-300: 80 226 165;
   --sl-color-palette-success-200: 116 232 183;
   --sl-color-palette-success-150: 151 238 202;
@@ -195,14 +192,12 @@
   --sl-color-palette-info-700: 13 75 126;
   --sl-color-palette-info-600: 17 101 169;
   --sl-color-palette-info-500: 22 126 212;
-  --sl-color-palette-info-400: 26 152 255;
   --sl-color-palette-info-300: 65 169 255;
   --sl-color-palette-info-200: 103 187 255;
   --sl-color-palette-info-150: 142 204 255;
   --sl-color-palette-info-100: 180 221 255;
   --sl-color-palette-info-50: 219 239 255;
   --sl-color-palette-neutral-base: 58 58 58;
-  --sl-color-palette-neutral-900: 58 58 58;
   --sl-color-palette-neutral-800: 76 76 76;
   --sl-color-palette-neutral-700: 94 94 94;
   --sl-color-palette-neutral-600: 112 112 112;
@@ -219,7 +214,6 @@
   --sl-color-palette-accent-700: 82 52 124;
   --sl-color-palette-accent-600: 110 70 166;
   --sl-color-palette-accent-500: 138 87 209;
-  --sl-color-palette-accent-400: 166 105 251;
   --sl-color-palette-accent-300: 181 130 252;
   --sl-color-palette-accent-200: 196 156 252;
   --sl-color-palette-accent-150: 211 181 253;
@@ -231,7 +225,6 @@
   --sl-color-palette-primary-700: 125 30 37;
   --sl-color-palette-primary-600: 167 40 49;
   --sl-color-palette-primary-500: 210 51 62;
-  --sl-color-palette-primary-400: 252 61 74;
   --sl-color-palette-primary-300: 253 94 105;
   --sl-color-palette-primary-200: 253 126 135;
   --sl-color-palette-primary-150: 254 159 166;
@@ -636,6 +629,13 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
+  --sl-color-palette-danger-600: 167 40 49;
+  --sl-color-palette-warning-300: 254 131 25;
+  --sl-color-palette-success-400: 45 220 147;
+  --sl-color-palette-info-400: 26 152 255;
+  --sl-color-palette-neutral-900: 58 58 58;
+  --sl-color-palette-accent-400: 166 105 251;
+  --sl-color-palette-primary-400: 252 61 74;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
@@ -749,7 +749,6 @@
     --sl-color-input-text-field-default-default-icon: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-input-text-field-default-default-border: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-input-switch-default-checked-focus-handle: rgb(var(--sl-color-palette-white-base));
-    --sl-color-input-switch-default-checked-focus-background: rgb(var(--sl-color-palette-success-400));
     --sl-color-input-switch-default-checked-active-handle: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-switch-default-checked-active-background: rgb(var(--sl-color-palette-success-800));
     --sl-color-input-switch-default-checked-hover-handle: rgb(var(--sl-color-palette-white-base));
@@ -853,10 +852,8 @@
     --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-surface-solid-primary-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-button-danger-link-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-button-danger-link-focus-foreground: rgb(var(--sl-color-palette-danger-600));
     --sl-color-button-danger-link-active-foreground: rgb(var(--sl-color-palette-danger-800));
     --sl-color-button-danger-link-hover-foreground: rgb(var(--sl-color-palette-danger-700));
-    --sl-color-button-danger-link-idle-foreground: rgb(var(--sl-color-palette-danger-600));
     --sl-color-button-danger-ghost-disabled-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-danger-ghost-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-danger-ghost-disabled-background: rgb(var(--sl-color-palette-transparent-base));
@@ -936,18 +933,14 @@
     --sl-color-button-warning-solid-disabled-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-warning-solid-disabled-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-button-warning-solid-disabled-background: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-button-warning-solid-focus-border: rgb(var(--sl-color-palette-warning-300));
     --sl-color-button-warning-solid-focus-foreground: rgb(var(--sl-color-palette-warning-900));
-    --sl-color-button-warning-solid-focus-background: rgb(var(--sl-color-palette-warning-300));
     --sl-color-button-warning-solid-active-border: rgb(var(--sl-color-palette-warning-500));
     --sl-color-button-warning-solid-active-foreground: rgb(var(--sl-color-palette-warning-900));
     --sl-color-button-warning-solid-active-background: rgb(var(--sl-color-palette-warning-500));
     --sl-color-button-warning-solid-hover-border: rgb(var(--sl-color-palette-warning-400));
     --sl-color-button-warning-solid-hover-foreground: rgb(var(--sl-color-palette-warning-900));
     --sl-color-button-warning-solid-hover-background: rgb(var(--sl-color-palette-warning-400));
-    --sl-color-button-warning-solid-idle-border: rgb(var(--sl-color-palette-warning-300));
     --sl-color-button-warning-solid-idle-foreground: rgb(var(--sl-color-palette-warning-900));
-    --sl-color-button-warning-solid-idle-background: rgb(var(--sl-color-palette-warning-300));
     --sl-color-button-success-link-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-success-link-focus-foreground: rgb(var(--sl-color-palette-success-700));
     --sl-color-button-success-link-active-foreground: rgb(var(--sl-color-palette-success-900));
@@ -1100,7 +1093,6 @@
     --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-500));
     --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
-    --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-300));
     --sl-color-badge-success-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-700));
     --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
@@ -1203,8 +1195,8 @@
     --sl-color-input-switch-default-checked-disabled-background: var(
       --sl-color-input-switch-default-unchecked-disabled-background
     );
-    --sl-color-input-switch-default-checked-focus-icon: var(--sl-color-input-switch-default-checked-focus-background);
     --sl-color-input-switch-default-checked-focus-text: var(--sl-body-background);
+    --sl-color-input-switch-default-checked-focus-background: rgb(var(--sl-color-palette-success-400));
     --sl-color-input-switch-default-checked-active-icon: var(--sl-color-input-switch-default-checked-active-background);
     --sl-color-input-switch-default-checked-active-text: var(--sl-body-background);
     --sl-color-input-switch-default-checked-hover-icon: var(--sl-color-input-switch-default-checked-hover-background);
@@ -1265,12 +1257,14 @@
     --sl-color-button-danger-link-disabled-border: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-danger-link-disabled-background: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-danger-link-focus-border: var(--sl-color-button-default-link-idle-background);
+    --sl-color-button-danger-link-focus-foreground: rgb(var(--sl-color-palette-danger-600));
     --sl-color-button-danger-link-focus-background: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-danger-link-active-border: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-danger-link-active-background: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-danger-link-hover-border: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-danger-link-hover-background: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-danger-link-idle-border: var(--sl-color-button-default-link-idle-background);
+    --sl-color-button-danger-link-idle-foreground: rgb(var(--sl-color-palette-danger-600));
     --sl-color-button-danger-link-idle-background: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-danger-ghost-focus-background: var(--sl-body-background);
     --sl-color-button-danger-outline-focus-background: var(--sl-body-background);
@@ -1286,6 +1280,10 @@
     --sl-color-button-warning-link-idle-background: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-warning-ghost-focus-background: var(--sl-body-background);
     --sl-color-button-warning-outline-focus-background: var(--sl-body-background);
+    --sl-color-button-warning-solid-focus-border: rgb(var(--sl-color-palette-warning-300));
+    --sl-color-button-warning-solid-focus-background: rgb(var(--sl-color-palette-warning-300));
+    --sl-color-button-warning-solid-idle-border: rgb(var(--sl-color-palette-warning-300));
+    --sl-color-button-warning-solid-idle-background: rgb(var(--sl-color-palette-warning-300));
     --sl-color-button-success-link-disabled-border: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-success-link-disabled-background: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-success-link-focus-border: var(--sl-color-button-default-link-idle-background);
@@ -1321,6 +1319,7 @@
     --sl-color-button-default-link-idle-border: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-default-ghost-focus-background: var(--sl-body-background);
     --sl-color-button-default-outline-focus-background: var(--sl-body-background);
+    --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-300));
     --sl-color-dialog-foreground: var(--sl-body-foreground);
     --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);
     --sl-color-select-selectbox-valid-disabled-icon: var(--sl-color-input-text-field-valid-disabled-icon);
@@ -1392,6 +1391,7 @@
     --sl-color-input-text-field-default-default-label: var(--sl-body-foreground);
     --sl-color-input-switch-default-checked-disabled-icon: var(--sl-color-input-switch-default-unchecked-disabled-icon);
     --sl-color-input-switch-default-checked-disabled-text: var(--sl-color-input-switch-default-unchecked-disabled-text);
+    --sl-color-input-switch-default-checked-focus-icon: var(--sl-color-input-switch-default-checked-focus-background);
     --sl-color-input-switch-default-unchecked-focus-icon: var(
       --sl-color-input-switch-default-unchecked-focus-background
     );

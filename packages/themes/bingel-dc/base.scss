@@ -150,7 +150,6 @@
   --sl-color-palette-danger-700: 112 5 19;
   --sl-color-palette-danger-600: 150 7 26;
   --sl-color-palette-danger-500: 189 8 32;
-  --sl-color-palette-danger-400: 227 10 39;
   --sl-color-palette-danger-300: 232 51 75;
   --sl-color-palette-danger-200: 236 93 112;
   --sl-color-palette-danger-150: 241 134 148;
@@ -162,7 +161,6 @@
   --sl-color-palette-warning-700: 126 78 0;
   --sl-color-palette-warning-600: 169 104 0;
   --sl-color-palette-warning-500: 212 131 0;
-  --sl-color-palette-warning-400: 255 157 0;
   --sl-color-palette-warning-300: 255 174 43;
   --sl-color-palette-warning-200: 255 190 86;
   --sl-color-palette-warning-150: 255 207 129;
@@ -174,7 +172,6 @@
   --sl-color-palette-success-700: 35 85 0;
   --sl-color-palette-success-600: 46 114 0;
   --sl-color-palette-success-500: 58 143 0;
-  --sl-color-palette-success-400: 70 172 0;
   --sl-color-palette-success-300: 101 186 43;
   --sl-color-palette-success-200: 132 200 86;
   --sl-color-palette-success-150: 164 214 129;
@@ -191,14 +188,12 @@
   --sl-color-palette-info-200: 86 163 234;
   --sl-color-palette-info-150: 129 186 239;
   --sl-color-palette-info-100: 172 210 245;
-  --sl-color-palette-info-50: 230 241 251;
   --sl-color-palette-neutral-base: 170 179 189;
   --sl-color-palette-neutral-900: 27 28 30;
   --sl-color-palette-neutral-800: 55 58 62;
   --sl-color-palette-neutral-700: 84 88 93;
   --sl-color-palette-neutral-600: 113 119 125;
   --sl-color-palette-neutral-500: 141 149 157;
-  --sl-color-palette-neutral-400: 170 179 189;
   --sl-color-palette-neutral-300: 184 192 200;
   --sl-color-palette-neutral-200: 199 205 211;
   --sl-color-palette-neutral-150: 213 217 222;
@@ -207,7 +202,6 @@
   --sl-color-palette-accent-base: 0 47 98;
   --sl-color-palette-accent-900: 0 18 35;
   --sl-color-palette-accent-800: 0 38 73;
-  --sl-color-palette-accent-700: 0 47 98;
   --sl-color-palette-accent-600: 0 77 148;
   --sl-color-palette-accent-500: 0 96 185;
   --sl-color-palette-accent-400: 0 116 223;
@@ -222,7 +216,6 @@
   --sl-color-palette-primary-700: 0 47 98;
   --sl-color-palette-primary-600: 0 77 148;
   --sl-color-palette-primary-500: 0 96 185;
-  --sl-color-palette-primary-400: 0 116 223;
   --sl-color-palette-primary-300: 43 139 228;
   --sl-color-palette-primary-200: 86 163 234;
   --sl-color-palette-primary-150: 129 186 239;
@@ -615,6 +608,13 @@
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
   --sl-color-palette-black-base: 0 38 73;
+  --sl-color-palette-danger-400: 227 10 39;
+  --sl-color-palette-warning-400: 255 157 0;
+  --sl-color-palette-success-400: 70 172 0;
+  --sl-color-palette-info-50: 230 241 251;
+  --sl-color-palette-neutral-400: 170 179 189;
+  --sl-color-palette-accent-700: 0 47 98;
+  --sl-color-palette-primary-400: 0 116 223;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);

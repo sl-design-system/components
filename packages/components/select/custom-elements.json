@@ -70,33 +70,33 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A way to group together options, with or without heading.\n\n```html\n <sl-select>\n   <sl-select-option-group group-heading=\"Europ\">\n   <sl-select-option>Netherlands</sl-select-option>\n   <sl-select-option>Spain</sl-select-option>\n     <sl-select-option>Poland</sl-select-option>\n   </sl-select-option-group>\n </sl-select>\n```",
+          "description": "A way to group options together, with or without a heading.\n\n```html\n <sl-select>\n   <sl-select-option-group heading=\"Europe\">\n     <sl-select-option>Netherlands</sl-select-option>\n     <sl-select-option>Spain</sl-select-option>\n     <sl-select-option>Poland</sl-select-option>\n   </sl-select-option-group>\n   ...\n </sl-select>\n```",
           "name": "SelectOptionGroup",
           "slots": [
             {
-              "description": "List of `sl-option` elements",
+              "description": "List of `sl-select-option` elements",
               "name": "default"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "groupHeading",
+              "name": "heading",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The heading of the option group",
-              "attribute": "group-heading"
+              "description": "The heading for the group.",
+              "attribute": "heading"
             }
           ],
           "attributes": [
             {
-              "name": "group-heading",
+              "name": "heading",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The heading of the option group",
-              "fieldName": "groupHeading"
+              "description": "The heading for the group.",
+              "fieldName": "heading"
             }
           ],
           "superclass": {

@@ -4,7 +4,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import type { EventEmitter } from '@sl-design-system/shared';
-import { EventsController, anchor, event, popoverPolyfillStyles } from '@sl-design-system/shared';
+import { EventsController, anchor, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectOption } from './select-option.js';
@@ -41,7 +41,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @private */
-  static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
+  static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
   #events = new EventsController(this, {

@@ -19,7 +19,7 @@ const onClick = (event: Event, status?: InlineMessageStatus): void => {
 };
 
 const onClose = (): void => {
-  (document.querySelector('sl-inline-message') as InlineMessage)?.onClose();
+  (document.querySelector('sl-inline-message') as InlineMessage)?.remove();
 };
 
 export default {

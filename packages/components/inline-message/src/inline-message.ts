@@ -1,5 +1,5 @@
 import type { TemplateResult } from 'lit-html';
-import type { CSSResultGroup } from 'lit';
+import type { CSSResultGroup, PropertyValues } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
@@ -38,7 +38,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = [breakpoints, styles];
 
   /** @private */
-  @query('.inline-message-wrapper') wrapper?: HTMLDivElement;
+  @query('.wrapper') wrapper?: HTMLDivElement;
 
   /** Determines whether closing button (default one) should be shown in the top right corner. */
   @property({ type: Boolean, reflect: true }) dismissible = true;
@@ -66,36 +66,32 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  override async connectedCallback(): Promise<void> {
-    super.connectedCallback();
+  override async updated(changes: PropertyValues<this>): Promise<void> {
+    super.updated(changes);
 
-    if (this.status === 'danger' || this.status === 'warning') {
-      this.setAttribute('role', 'alert');
-    } else {
-      this.setAttribute('role', 'status');
+    if (changes.has('status')) {
+      this.setAttribute('role', ['danger', 'warning'].includes(this.status) ? 'alert' : 'status');
     }
   }
 
   override render(): TemplateResult {
     return html`
-      <div class="inline-message-wrapper" open>
+      <div class="wrapper" open @animationend=${this.#closeOnAnimationend}>
         <div class="content">
-          ${!this.noIcon
-            ? html`<slot name="icon" part="icon">
+          ${this.noIcon
+            ? nothing
+            : html`<slot name="icon" part="icon">
                 <sl-icon name=${this.iconName} size="md"></sl-icon>
-              </slot>`
-            : nothing}
+              </slot>`}
           <div class="content-details">
-            <slot name="title" part="title">
-              <slot></slot>
-            </slot>
+            <slot></slot>
             <slot name="description" part="description"></slot>
             <slot name="details" part="details"></slot>
           </div>
         </div>
         ${this.dismissible
           ? html`
-              <slot name="close-button" @click=${this.onClose}>
+              <slot name="close-button" @click=${this.#closeOnAnimationend}>
                 <sl-button fill="ghost" variant="default" size="sm" aria-label=${msg('Close')}>
                   <sl-icon name="xmark"></sl-icon>
                 </sl-button>
@@ -106,24 +102,21 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  onClose(): void {
-    this.wrapper?.removeAttribute('open');
-    this.#closeOnAnimationend();
-  }
+  #closeOnAnimationend(event: AnimationEvent): void {
+    if (event.animationName !== 'slide-in-up') {
+      this.wrapper?.removeAttribute('open');
+      this.wrapper?.addEventListener(
+        'animationend',
+        () => {
+          this.wrapper?.removeAttribute('open');
+          this.remove();
+        },
+        { once: true }
+      );
 
-  #closeOnAnimationend(): void {
-    console.log('closeOnAnimationend', this.wrapper);
-    this.wrapper?.addEventListener(
-      'animationend',
-      () => {
-        this.wrapper?.removeAttribute('open');
-        this.remove();
-      },
-      { once: true }
-    );
-
-    requestAnimationFrame(() => {
-      this.wrapper?.setAttribute('close', '');
-    });
+      requestAnimationFrame(() => {
+        this.wrapper?.setAttribute('close', '');
+      });
+    }
   }
 }

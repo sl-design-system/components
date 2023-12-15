@@ -71,7 +71,7 @@ describe('sl-inline-message', () => {
           <span slot="description">A place for additional description</span>
         </sl-inline-message> `);
 
-      elMsg.onClose();
+      elMsg.remove();
 
       await new Promise(resolve => setTimeout(resolve, 1000));
 

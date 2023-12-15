@@ -84,15 +84,6 @@
               "attribute": "no-icon"
             },
             {
-              "kind": "method",
-              "name": "onClose",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
               "kind": "field",
               "name": "status",
               "type": {
@@ -147,21 +138,20 @@
           "methods": [
             {
               "kind": "method",
-              "name": "onClose",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
               "name": "#closeOnAnimationend",
               "return": {
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "AnimationEvent"
+                  }
+                }
+              ]
             }
           ],
           "fields": [

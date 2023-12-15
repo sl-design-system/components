@@ -12,6 +12,7 @@ $statuses: info, success, warning, danger;
   --_gap: var(--sl-space-inline-message-gap);
   --_close-button-spacing: var(--sl-space-button-gap-sm);
   --_icon-block-size: var(--sl-text-typeset-line-height-lg);
+  --_description-font: var(--sl-text-body-md-normal);
   --_details-font: var(--sl-text-list-sm-normal);
   --_content-gap: var(--sl-space-inline-message-content-gap);
 }
@@ -28,10 +29,11 @@ $statuses: info, success, warning, danger;
 
 :host {
   display: block;
+  outline: none;
   text-align: inherit;
 }
 
-.inline-message-wrapper {
+.wrapper {
   background: var(--_background-color);
   border: var(--_border);
   border-left: var(--_border-left);
@@ -39,7 +41,9 @@ $statuses: info, success, warning, danger;
   color: var(--_color);
   display: flex;
   flex-direction: column;
+  font: var(--_title-font);
   margin: auto auto 0;
+  outline: none;
   overflow: hidden;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline-start) var(--_padding-inline-end);
@@ -47,11 +51,11 @@ $statuses: info, success, warning, danger;
   width: auto;
 }
 
-.inline-message-wrapper[close]:not([open]) {
+.wrapper[close]:not([open]) {
   opacity: 0;
 }
 
-.inline-message-wrapper[open]:not([close]) {
+.wrapper[open]:not([close]) {
   opacity: 1;
 }
 
@@ -74,6 +78,10 @@ slot[name='icon'] {
   }
 }
 
+slot[name='description'] {
+  font: var(--_description-font);
+}
+
 slot[name='details'] {
   font: var(--_details-font);
 }
@@ -89,24 +97,20 @@ slot[name='close-button']::slotted(*) {
   align-self: baseline;
 }
 
-slot[name='title'] {
-  font: var(--_title-font);
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  .inline-message-wrapper[close]:not([open]) {
-    animation: slide-down 400ms ease-out;
+  .wrapper[close]:not([open]) {
+    animation: slide-down 300ms ease-out;
   }
 
-  .inline-message-wrapper[open]:not([close]) {
-    animation: slide-in-up 600ms ease-out;
+  .wrapper[open]:not([close]) {
+    animation: slide-in-up 400ms ease-out;
   }
 }
 
 @keyframes slide-in-up {
   0% {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(2px);
   }
 
   50% {
@@ -114,12 +118,12 @@ slot[name='title'] {
   }
 
   80% {
-    transform: translateY(-8px);
+    transform: translateY(-2px);
   }
 
   90% {
     opacity: 1;
-    transform: translateY(-4px);
+    transform: translateY(-1px);
   }
 
   100% {
@@ -136,11 +140,11 @@ slot[name='title'] {
 
   50% {
     opacity: 0.5;
-    transform: translateY(10px);
+    transform: translateY(1px);
   }
 
   100% {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(2px);
   }
 }

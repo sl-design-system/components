@@ -1,14 +1,15 @@
 :host {
   --_color: var(--sl-color-input-helper-text-invalid);
   --_font: var(--sl-text-input-helper-text-md);
-  --_padding-block: var(--sl-space-input-helper-padding-top-md) 0;
+  --_gap: var(--sl-space-input-helper-gap-md);
 }
 
 :host {
+  align-items: center;
   color: var(--_color);
-  display: block;
+  display: flex;
   font: var(--_font);
-  padding-block: var(--_padding-block);
+  gap: var(--_gap);
 }
 
 :host([hidden]) {
@@ -17,10 +18,10 @@
 
 :host([size='sm']) {
   --_font: var(--sl-text-input-helper-text-sm);
-  --_padding-block: var(--sl-space-input-helper-padding-top-sm) 0;
+  --_gap: var(--sl-space-input-helper-gap-sm);
 }
 
 :host([size='lg']) {
   --_font: var(--sl-text-input-helper-text-lg);
-  --_padding-block: var(--sl-space-input-helper-padding-top-lg) 0;
+  --_gap: var(--sl-space-input-helper-gap-lg);
 }

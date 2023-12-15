@@ -1,7 +1,8 @@
 import type { TemplateResult } from 'lit-html';
 import type { CSSResult, CSSResultGroup } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { localized, msg } from '@lit/localize';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
@@ -22,6 +23,8 @@ import styles from './dialog.scss.js';
  * @slot title - The title of the dialog
  * @slot subtitle - The subtitle of the dialog
  */
+
+@localized()
 export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -74,7 +77,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
             ${this.closingButton
               ? html`
                   <slot name="close-button" @click=${this.#onCloseClick}>
-                    <sl-button fill="ghost" variant="default">
+                    <sl-button fill="ghost" variant="default" aria-label=${msg('Close')}>
                       <sl-icon name="xmark"></sl-icon>
                     </sl-button>
                   </slot>

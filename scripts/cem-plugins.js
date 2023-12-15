@@ -140,25 +140,30 @@ export function noPrivateFieldsPlugin() {
 }
 
 export function sortMembersPlugin() {
+  function sortBy(fieldName) {
+    return (a, b) => {
+      const valueA = a[fieldName], valueB = b[fieldName];
+
+      if (valueA < valueB) {
+        return -1;
+      } else if (valueA > valueB) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  }
+
   return {
     name: 'sort-members-plugin',
-    packageLinkPhase({ customElementsManifest, context }) {
-      customElementsManifest.modules.forEach(module => {
-        module.declarations.forEach(declaration => {
-          declaration.members?.sort((a, b) => {
-            const nameA = a.name,
-              nameB = b.name;
-
-            if (nameA < nameB) {
-              return -1;
-            } else if (nameA > nameB) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
+    packageLinkPhase({ customElementsManifest }) {
+      customElementsManifest.modules.sort(sortBy('path'));
+      customElementsManifest.modules.forEach(mod => {
+        mod.declarations.sort(sortBy('name'));
+        mod.declarations.forEach(declaration => {
+          declaration.members?.sort(sortBy('name'));
         });
       });
     }
-  };
+  }
 }

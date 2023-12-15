@@ -1,11 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
 import type { GridFilter, GridFilterChange } from './filter.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import type { Virtualizer } from '@lit-labs/virtualizer/Virtualizer.js';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { DataSource, EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
-import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, SelectionController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
@@ -114,7 +115,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#resizeObserver.observe(this);
   }
 
-  override firstUpdated(): void {
+  override async firstUpdated(): Promise<void> {
     this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
 
     this.tbody.addEventListener(
@@ -124,6 +125,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       },
       { passive: true }
     );
+
+    // Workaround for https://github.com/lit/lit/issues/4232
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    const virtualizer = this.tbody[
+      virtualizerRef as unknown as keyof HTMLTableSectionElement
+    ] as unknown as Virtualizer;
+    virtualizer.disconnected();
+    virtualizer.connected();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -384,8 +393,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #addScopedElements(col: GridColumn<T>): void {
     if (col.scopedElements) {
       for (const [tagName, klass] of Object.entries(col.scopedElements)) {
-        if (!this.registry.get(tagName)) {
-          this.defineScopedElement(tagName, klass);
+        if (!this.registry?.get(tagName)) {
+          this.registry?.define(tagName, klass);
         }
       }
     }

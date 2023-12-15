@@ -14,25 +14,26 @@ export class Hint extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** The light DOM slot. */
+  #slot?: HTMLSlotElement;
+
   /** The size at which the hint is displayed. */
   @property({ reflect: true }) size: HintSize = 'md';
 
-  constructor() {
-    super();
+  override connectedCallback(): void {
+    super.connectedCallback();
 
-    const slot = document.createElement('slot');
-    slot.name = 'hint-text';
+    this.#slot ??= document.createElement('slot');
+    this.#slot.name = 'hint-text';
+    this.append(this.#slot);
 
-    this.append(slot);
+    // Make sure the hint doesn't end up in the default slot
+    if (this.parentElement?.tagName === 'SL-FORM-FIELD') {
+      this.slot = 'hint';
+    }
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
-  }
-
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const assignedElements = event.target.assignedElements({ flatten: true });
-
-    this.toggleAttribute('hidden', assignedElements.length === 0);
+    return html`<slot></slot>`;
   }
 }

@@ -44,7 +44,10 @@ export const themes: Theme[] = [
   {
     id: 'clickedu',
     name: 'Clickedu',
-    fonts: ['https://use.typekit.net/xps8gfu.css'],
+    fonts: [
+      'https://use.typekit.net/xps8gfu.css',
+      '/themes/clickedu/fonts.css'
+    ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/clickedu');
 
@@ -141,8 +144,7 @@ export const themes: Theme[] = [
     id: 'teas',
     name: 'TEAS',
     fonts: [
-      'https://use.typekit.net/kes1hoh.css',
-      '/themes/teas/fonts.css'
+      'https://use.typekit.net/xrr8gdw.css',
     ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/teas');

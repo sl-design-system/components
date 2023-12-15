@@ -182,16 +182,6 @@ $transition-timing: 300ms;
   margin-top: 0.8rem;
 }
 
-.ds-component__buttons-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  margin: 2.4rem 0;
-  @media screen and (min-width: $md-breakpoint) {
-    flex-direction: row;
-  }
-}
-
 .ds-success {
   color: var(--helper-text);
   font-size: 1.4rem;

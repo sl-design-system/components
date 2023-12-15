@@ -1,54 +1,141 @@
+/* stylelint-disable selector-class-pattern */
+
 :host {
-  --_background: #fff;
-  --_border: 1px solid var(--_border-color);
-  --_border-color: rgba(0, 0, 0, 0.2);
-  --_border-radius: 3px;
-  --_box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2), 0 0 0.0625rem rgba(0, 0, 0, 0.11);
-  --_padding: 0.5rem;
+  --_background: var(--sl-color-popover-background);
+  --_border: var(--_border-width) solid var(--_border-color);
+  --_border-color: var(--sl-color-popover-border);
+  --_border-width: 1px;
+  --_border-radius: var(--sl-border-radius-popover-default);
+  --_box-shadow: var(--sl-elevation-shadow-md);
+  --_padding: var(--sl-space-popover-block) var(--sl-space-popover-inline);
+  --_color: var(--sl-color-popover-foreground);
+  --_font: var(--sl-text-popover-text-text);
+  /* to position */
+  --_arrow-height: 6px;
+  --_arrow-width: 16px;
+  /* the distance from the edge when the arrow is positionend at start or end */
+  --_arrow-start-end-offset: var(--sl-space-popover-arrow-offset);
 }
 
 :host {
   // This has to be in pixels until we can use @property
-  --sl-popover-offset: 8px;
-
+  --sl-popover-offset: var(--sl-space-popover-offset);
+  /** !important used temporarily to make it working in Firefox and to overwrite polyfill styling, which have too high specificity */
   background: var(--_background);
-  border: var(--_border);
+  border: var(--_border) !important;
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
-  overflow: visible;
+  color: var(--_color) !important;
+  font: var(--_font);
+  overflow: visible !important;
+  padding: var(--_padding) !important;
+}
+
+:host([actual-placement^='bottom']) .arrow {
+  inset-block-start: -11px;
 }
 
 :host([actual-placement='bottom']) .arrow {
-  inset-block-start: -12px;
-  inset-inline-start: 0;
-  scale: 1 -1;
+  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
+}
+
+:host([actual-placement='bottom-start']) .arrow {
+  inset-inline-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
+}
+
+:host([actual-placement='bottom-end']) .arrow {
+  inset-inline-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
+}
+
+:host([actual-placement^='left']) .arrow {
+  inset-inline-end: calc(var(--_arrow-height) * -1);
+
+  svg {
+    rotate: 90deg;
+    transform-origin: top center;
+    translate: 13px 8px;
+  }
 }
 
 :host([actual-placement='left']) .arrow {
-  inset-block-start: 0;
-  inset-inline-end: -18px;
-  rotate: -90deg;
+  inset-block: calc(50% - var(--_arrow-width) / 2);
+}
+
+:host([actual-placement='left-start']) .arrow {
+  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
+}
+
+:host([actual-placement='left-end']) .arrow {
+  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
+}
+
+:host([actual-placement^='right']) .arrow {
+  inset-inline-start: calc(var(--_arrow-height) * -1);
+
+  svg {
+    rotate: -90deg;
+    transform-origin: top center;
+    translate: -13px 8px;
+  }
 }
 
 :host([actual-placement='right']) .arrow {
-  inset-block-start: 0;
-  inset-inline-start: -18px;
-  rotate: 90deg;
+  inset-block: calc(50% - var(--_arrow-width) / 2);
+}
+
+:host([actual-placement='right-start']) .arrow {
+  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
+}
+
+:host([actual-placement='right-end']) .arrow {
+  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
+}
+
+:host([actual-placement^='top']) .arrow {
+  inset-block-end: -11px;
+  scale: 1 -1;
 }
 
 :host([actual-placement='top']) .arrow {
-  inset-block-end: -12px;
-  inset-inline-start: 0;
+  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
 }
 
-.container {
-  padding: var(--_padding);
+:host([actual-placement='top-start']) .arrow {
+  inset-inline-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
+}
+
+:host([actual-placement='top-end']) .arrow {
+  inset-inline-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
 }
 
 .arrow {
   display: flex;
   fill: var(--_background);
+  height: var(--_arrow-width);
   position: absolute;
-  stroke: var(--_border-color);
-  stroke-width: 2px;
+  width: var(--_arrow-width);
+
+  path {
+    fill: var(--_background);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports selector([popover]:popover-open) {
+    [popover]:not(.\\:popover-open, dialog[open]),
+    :host([popover]:not(.\\:popover-open, dialog[open])) {
+      animation: fade-in 200ms ease-in-out;
+      display: revert;
+    }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

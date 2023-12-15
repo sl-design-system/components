@@ -12,9 +12,9 @@ export interface CustomIconDefinition {
   description?: string;
 }
 
-// Copied from FontAwesome so we don't rely on it as a depencency
+// Copied from FontAwesome so we don't rely on it as a dependency
 export type IconStyle = 'solid' | 'regular' | 'light' | 'thin' | 'duotone' | 'brands';
-export type IconPrefix = 'fas' | 'far' | 'fal' | 'fat' | 'fad' | 'fab' | 'fak' | 'fass' | 'fasr' | 'fasl';
+export type IconPrefix = 'fas' | 'far' | 'fal' | 'fat' | 'fad' | 'fab' | 'fak' | 'fass' | 'fasr' | 'fasl' | 'fast';
 export type IconPathData = string | string[];
 
 export interface IconLookup {

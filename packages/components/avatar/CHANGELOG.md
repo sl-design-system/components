@@ -1,5 +1,17 @@
 # @sl-design-system/avatar
 
+## 0.1.2
+
+### Patch Changes
+
+- [#724](https://github.com/sl-design-system/components/pull/724) [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d) - Added avatar + added token for focus ring offset
+
+## 0.1.1
+
+### Patch Changes
+
+- [#688](https://github.com/sl-design-system/components/pull/688) [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0) - Upgrade to Lit 3.0
+
 ## 0.1.0
 
 ### Minor Changes

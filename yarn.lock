@@ -5421,6 +5421,7 @@ __metadata:
   resolution: "@sl-design-system/select@workspace:packages/components/select"
   dependencies:
     "@floating-ui/dom": "npm:^1.5.3"
+    "@sl-design-system/form": "npm:0.0.2"
     "@sl-design-system/popover": "npm:0.1.0"
     "@sl-design-system/shared": "npm:0.2.0"
     lit: "npm:^3.1.0"

@@ -133,9 +133,8 @@
               "kind": "field",
               "name": "disabled",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the option item is disabled.",
               "attribute": "disabled",
               "reflects": true
@@ -144,9 +143,8 @@
               "kind": "field",
               "name": "selected",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the option item is selected.",
               "attribute": "selected",
               "reflects": true
@@ -163,30 +161,28 @@
           ],
           "attributes": [
             {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the option item is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the option item is selected.",
+              "fieldName": "selected"
+            },
+            {
               "name": "value",
               "type": {
                 "text": "FormControlValue | undefined"
               },
               "description": "The value for the option item, to be used in forms.",
               "fieldName": "value"
-            },
-            {
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the option item is selected.",
-              "fieldName": "selected"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the option item is disabled.",
-              "fieldName": "disabled"
             }
           ],
           "superclass": {
@@ -239,6 +235,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "invalid",
               "type": {
                 "text": "boolean | undefined"
@@ -264,22 +270,99 @@
                 "text": "string | undefined"
               },
               "description": "The placeholder text to show when no option is chosen.",
-              "attribute": "placeholder",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is a required field.",
+              "attribute": "required",
               "reflects": true
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "SelectSize"
               },
               "default": "'md'",
               "description": "The size of the select.",
               "attribute": "size",
               "reflects": true
+            },
+            {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component gains focus."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null",
+              "description": "The value for the select, to be used in forms.",
+              "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the focus leaves the component.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the value changes.",
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component gains focus.",
+              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
+            },
             {
               "name": "max-overlay-height",
               "type": {
@@ -287,15 +370,6 @@
               },
               "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
               "fieldName": "maxOverlayHeight"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the select.",
-              "fieldName": "size"
             },
             {
               "name": "placeholder",
@@ -306,18 +380,48 @@
               "fieldName": "placeholder"
             },
             {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is a required field.",
+              "fieldName": "required"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "The size of the select.",
+              "fieldName": "size"
+            },
+            {
               "name": "invalid",
               "type": {
                 "text": "boolean | undefined"
               },
               "description": "Whether the select is invalid.",
               "fieldName": "invalid"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null",
+              "description": "The value for the select, to be used in forms.",
+              "fieldName": "value"
             }
           ],
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
+            },
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -329,25 +433,7 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#closeSelect",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#handleOptionsSlotChange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#handleMutation",
+              "name": "#onBeforetoggle",
               "return": {
                 "type": {
                   "text": "void"
@@ -355,17 +441,16 @@
               },
               "parameters": [
                 {
-                  "name": "mutations",
+                  "name": "{ newState }",
                   "type": {
-                    "text": "MutationRecord[]"
+                    "text": "ToggleEvent"
                   }
                 }
-              ],
-              "description": "If an option is selected programmatically update all the options or the size of the select itself"
+              ]
             },
             {
               "kind": "method",
-              "name": "#handleOptionChange",
+              "name": "#onClick",
               "return": {
                 "type": {
                   "text": "void"
@@ -375,21 +460,54 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
-              ],
-              "description": "One of the options in the select has been clicked, get the right target and update the selection"
+              ]
             },
             {
               "kind": "method",
-              "name": "#handleOptionFocus",
+              "name": "#onFocusin",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusout",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onKeydown",
               "return": {
                 "type": {
                   "text": "void"
                 }
               },
-              "description": "Make sure the focus is on the currently selected option"
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             },
             {
               "kind": "method",
@@ -411,6 +529,24 @@
             },
             {
               "kind": "method",
+              "name": "#getAllOptions",
+              "return": {
+                "type": {
+                  "text": "SelectOption[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "root",
+                  "type": {
+                    "text": "Element"
+                  }
+                }
+              ],
+              "description": "Returns a flattened array of all options (also the options in groups)."
+            },
+            {
+              "kind": "method",
               "name": "#setSelectedOptionVisible",
               "return": {
                 "type": {
@@ -426,41 +562,6 @@
                 }
               ],
               "description": "Copy the value/represenation of the selected option to the placeholder"
-            },
-            {
-              "kind": "method",
-              "name": "#handleOverlayKeydown",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ],
-              "description": "Handle keyboard accessible controls."
-            },
-            {
-              "kind": "method",
-              "name": "#setPopoverWidth",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "ToggleEvent"
-                  }
-                }
-              ]
             }
           ],
           "fields": [
@@ -476,13 +577,43 @@
             },
             {
               "kind": "field",
-              "name": "#observerOptions",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
               "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "shadowRootOptions",
               "type": {
                 "text": "object"
               },
               "static": true,
-              "default": "{\n    attributes: true,\n    subtree: true,\n    attributeFilter: ['selected', 'size'],\n    attributeOldValue: true\n  }"
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    focusin: this.#onFocusin,\n    focusout: this.#onFocusout\n  })",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "default": "new MutationObserver(mutations => {\n    mutations.forEach(mutation => {\n      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {\n        const selectedOption = <SelectOption>mutation.target;\n\n        this.#observer.disconnect();\n        this.#updateSelectedOption(selectedOption);\n        this.#observer.observe(this, OBSERVER_OPTIONS);\n      }\n    });\n  })",
+              "description": "If an option is selected programmatically update all the options or the size of the select itself."
+            },
+            {
+              "kind": "field",
+              "name": "internals",
+              "readonly": true,
+              "privacy": "private"
             },
             {
               "kind": "field",
@@ -504,48 +635,34 @@
               "kind": "field",
               "name": "button",
               "type": {
-                "text": "HTMLButtonElement | undefined"
+                "text": "HTMLButtonElement"
               },
               "privacy": "private"
             },
             {
               "kind": "field",
-              "name": "dialog",
+              "name": "listbox",
               "type": {
-                "text": "HTMLDialogElement | undefined"
+                "text": "HTMLElement"
               },
               "privacy": "private"
             },
             {
               "kind": "field",
-              "name": "#rovingTabindexController",
-              "privacy": "private",
-              "default": "new RovingTabindexController<SelectOption>(this, {\n    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && isPopoverOpen(this.dialog)),\n    elements: () => this.allOptions || [],\n    isFocusableElement: (el: SelectOption) => !el.disabled\n  })"
-            },
-            {
-              "kind": "field",
-              "name": "#validation",
-              "privacy": "private",
-              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
-            },
-            {
-              "kind": "field",
-              "name": "#observer",
-              "privacy": "private",
+              "name": "options",
               "type": {
-                "text": "MutationObserver | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#selectId",
+                "text": "SelectOption[]"
+              },
               "privacy": "private",
-              "default": "`sl-select-${nextUniqueId++}`"
+              "readonly": true
             },
             {
               "kind": "field",
-              "name": "internals",
-              "readonly": true,
+              "name": "currentOption",
+              "type": {
+                "text": "SelectOption | undefined"
+              },
+              "description": "The current option in the listbox. This is the option that will become the\nselected option if the user presses Enter/Space.",
               "privacy": "private"
             },
             {
@@ -554,8 +671,7 @@
               "type": {
                 "text": "SelectOption | null | undefined"
               },
-              "privacy": "private",
-              "description": "The current node selected in the list of options."
+              "privacy": "private"
             },
             {
               "kind": "field",

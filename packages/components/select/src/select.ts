@@ -1,41 +1,78 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { SelectOptionGroup } from './select-option-group.js';
-import {
-  FormControlMixin,
-  RovingTabindexController,
-  ValidationController,
-  anchor,
-  hintStyles,
-  isPopoverOpen,
-  popoverPolyfillStyles,
-  requiredValidator,
-  validationStyles
-} from '@sl-design-system/shared';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { FormControlMixin } from '@sl-design-system/form';
+import { Icon } from '@sl-design-system/icon';
+import type { EventEmitter } from '@sl-design-system/shared';
+import { EventsController, anchor, event, popoverPolyfillStyles } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectOption } from './select-option.js';
+import { SelectOptionGroup } from './select-option-group.js';
 import styles from './select.scss.js';
 
-let nextUniqueId = 0;
-interface ToggleEvent extends Event {
-  oldState: string;
-  newState: string;
+declare global {
+  interface ARIAMixin {
+    ariaActiveDescendantElement: HTMLElement | null;
+  }
 }
+
+const OBSERVER_OPTIONS: MutationObserverInit = {
+  attributes: true,
+  attributeFilter: ['selected', 'size'],
+  attributeOldValue: true,
+  subtree: true
+};
 
 export type SelectSize = 'md' | 'lg';
 
-export class Select extends FormControlMixin(LitElement) {
-  static override styles: CSSResultGroup = [popoverPolyfillStyles, validationStyles, hintStyles, styles];
-
+export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
 
-  static #observerOptions = {
-    attributes: true,
-    subtree: true,
-    attributeFilter: ['selected', 'size'],
-    attributeOldValue: true
-  };
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-icon': Icon
+    };
+  }
+
+  /** @private */
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @private */
+  static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
+
+  /** Events controller. */
+  #events = new EventsController(this, {
+    focusin: this.#onFocusin,
+    focusout: this.#onFocusout
+  });
+
+  /** If an option is selected programmatically update all the options or the size of the select itself. */
+  #observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {
+        const selectedOption = <SelectOption>mutation.target;
+
+        this.#observer.disconnect();
+        this.#updateSelectedOption(selectedOption);
+        this.#observer.observe(this, OBSERVER_OPTIONS);
+      }
+    });
+  });
+
+  /** @private Element internals. */
+  readonly internals = this.attachInternals();
+
+  /** Emits when the focus leaves the component. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+
+  /** Emits when the value changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
+
+  /** Emits when the component gains focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
 
   /** @private */
   @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
@@ -44,43 +81,48 @@ export class Select extends FormControlMixin(LitElement) {
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
   /** @private */
-  @query('button') button?: HTMLButtonElement;
+  @query('button') button!: HTMLButtonElement;
+
   /** @private */
-  @query('dialog') dialog?: HTMLDialogElement;
+  @query('#popover') listbox!: HTMLElement;
+
+  /** @private A flattened array of all options (even grouped ones). */
+  get options(): SelectOption[] {
+    const elements = this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
+
+    return elements.flatMap(element => this.#getAllOptions(element));
+  }
+
+  /**
+   * The current option in the listbox. This is the option that will become the
+   * selected option if the user presses Enter/Space.
+   * @private
+   */
+  @state() currentOption?: SelectOption;
+
+  /** Whether the select is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen. */
   @property({ attribute: 'max-overlay-height', reflect: true }) maxOverlayHeight?: string;
 
-  /** The size of the select.
-   *  @type {'md' | 'lg'}
-   */
-  @property({ reflect: true }) size: SelectSize = 'md';
-
   /** The placeholder text to show when no option is chosen. */
-  @property({ reflect: true }) placeholder?: string;
+  @property() placeholder?: string;
+
+  /** Whether the select is a required field. */
+  @property({ type: Boolean, reflect: true }) required?: boolean;
+
+  /** @private The selected option in the listbox. */
+  @state() selectedOption?: SelectOption | null;
+
+  /** The size of the select. */
+  @property({ reflect: true }) size: SelectSize = 'md';
 
   /** Whether the select is invalid. */
   @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
-  #rovingTabindexController = new RovingTabindexController<SelectOption>(this, {
-    focusInIndex: (elements: SelectOption[]) => elements.findIndex(el => el.selected && isPopoverOpen(this.dialog)),
-    elements: () => this.allOptions || [],
-    isFocusableElement: (el: SelectOption) => !el.disabled
-  });
-
-  #validation = new ValidationController(this, {
-    validators: [requiredValidator]
-  });
-
-  #observer?: MutationObserver;
-
-  #selectId = `sl-select-${nextUniqueId++}`;
-
-  /** @private Element internals. */
-  readonly internals = this.attachInternals();
-
-  /** The current node selected in the list of options. */
-  @state() private selectedOption?: SelectOption | null;
+  /** The value for the select, to be used in forms. */
+  @property() value: string | null = null;
 
   /** @private */
   get allOptions(): SelectOption[] {
@@ -101,55 +143,21 @@ export class Select extends FormControlMixin(LitElement) {
     return (this.selectedOption?.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
   }
 
-  override render(): TemplateResult {
-    return html`
-      <button
-        ?disabled=${this.disabled}
-        class="select-toggle"
-        id=${this.#selectId}
-        popovertarget="dialog-${this.#selectId}"
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-controls="dialog-${this.#selectId}"
-        aria-expanded=${isPopoverOpen(this.dialog)}
-        aria-activedescendant=${this.selectedOption || false}
-        tabindex="0"
-      >
-        <span aria-hidden=${!this.selectedOption} contenttype=${this.#optionContentType}
-          >${this.#renderSelectedOption}</span
-        >
-        <sl-icon name="chevron-down"></sl-icon>
-      </button>
-      <dialog
-        @beforetoggle=${this.#setPopoverWidth}
-        @click=${this.#handleOptionChange}
-        @keydown=${this.#handleOverlayKeydown}
-        @toggle=${this.#handleOptionFocus}
-        id="dialog-${this.#selectId}"
-        anchor=${this.#selectId}
-        popover
-        ${anchor({ position: 'bottom' })}
-        aria-labelledby=${this.#selectId}
-        role="listbox"
-      >
-        <slot @slotchange=${this.#handleOptionsSlotChange}></slot>
-      </dialog>
-      ${this.#validation.render()}
-    `;
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
-    this.setFormControlElement(this);
 
-    this.#validation.validate(
-      this.selectedOption ? this.selectedOption.value || this.selectedOption.innerHTML : undefined
-    );
+    this.#observer.observe(this, OBSERVER_OPTIONS);
+
+    this.setFormControlElement(this);
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override firstUpdated(): void {
-    this.#observer = new MutationObserver(m => this.#handleMutation(m));
-    this.#observer?.observe(this, Select.#observerOptions);
     this.selectedOption ||= this.allOptions.find(option => option.selected);
 
     if (this.selectedOption) {
@@ -160,31 +168,133 @@ export class Select extends FormControlMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('size')) {
-      this.allOptions?.forEach(option => (option.size = this.size));
-      this.optionGroups?.forEach(group => (group.size = this.size));
+    if (changes.has('currentOption')) {
+      this.options.forEach(option => option.classList.toggle('sl-current', option === this.currentOption));
+      this.currentOption?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      this.button.ariaActiveDescendantElement = this.currentOption ?? null;
+    }
+
+    if (changes.has('maxOverlayHeight') && this.maxOverlayHeight && this.listbox) {
+      this.listbox.style.setProperty('--max-overlay-height', `${this.maxOverlayHeight}`);
     }
 
     if (changes.has('placeholder')) {
       if (this.placeholder) {
         this.setAttribute('aria-placeholder', this.placeholder);
-        this.button?.classList.add('placeholder');
       } else {
         this.removeAttribute('aria-placeholder');
-        this.button?.classList.remove('placeholder');
       }
     }
-    if (changes.has('maxOverlayHeight') && this.maxOverlayHeight && this.dialog) {
-      this.dialog.style.setProperty('--max-overlay-height', `${this.maxOverlayHeight}`);
+
+    if (changes.has('size')) {
+      this.allOptions?.forEach(option => (option.size = this.size));
+      this.optionGroups?.forEach(group => (group.size = this.size));
     }
   }
 
-  #closeSelect(): void {
-    this.dialog?.hidePopover?.();
-    this.renderRoot.querySelector<HTMLElement>('.select-toggle')?.focus();
+  override render(): TemplateResult {
+    return html`
+      <button
+        @keydown=${this.#onKeydown}
+        ?disabled=${this.disabled}
+        id="button"
+        popovertarget="popover"
+        role="combobox"
+      >
+        <span aria-hidden=${!this.selectedOption} contenttype=${this.#optionContentType}>
+          ${this.#renderSelectedOption}
+        </span>
+        <sl-icon name="chevron-down"></sl-icon>
+      </button>
+
+      <div
+        ${anchor({ position: 'bottom' })}
+        @beforetoggle=${this.#onBeforetoggle}
+        @click=${this.#onClick}
+        anchor="button"
+        id="popover"
+        popover
+        role="listbox"
+      >
+        <slot @slotchange=${this.#onSlotchange}></slot>
+      </div>
+    `;
   }
 
-  #handleOptionsSlotChange(): void {
+  #onBeforetoggle({ newState }: ToggleEvent): void {
+    if (newState === 'open') {
+      this.listbox.style.width = `${this.button.getBoundingClientRect().width}px`;
+
+      this.currentOption = this.selectedOption ?? this.allOptions[0];
+    }
+  }
+
+  #onClick(event: Event & { target: HTMLElement }): void {
+    console.log('click', event);
+
+    const option = event.target?.closest('sl-select-option');
+
+    console.log({ option });
+
+    if (option) {
+      this.#updateSelectedOption(option);
+
+      this.listbox.hidePopover();
+    }
+  }
+
+  #onFocusin(): void {
+    this.focusEvent.emit();
+  }
+
+  #onFocusout(): void {
+    this.blurEvent.emit();
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    const size = this.options.length;
+
+    let delta = 0,
+      index = this.options.indexOf(this.currentOption ?? this.selectedOption ?? this.options[0]);
+
+    switch (event.key) {
+      case 'ArrowDown':
+        if (this.listbox.matches(':popover-open')) {
+          delta = 1;
+        } else {
+          this.button.click();
+        }
+        break;
+      case 'ArrowUp':
+        delta = -1;
+        break;
+      case 'Home':
+        index = 0;
+        break;
+      case 'End':
+        index = size - 1;
+        break;
+      case 'Enter':
+      case 'Space':
+        if (this.listbox.matches(':popover-open')) {
+          this.selectedOption = this.currentOption;
+          this.button.click();
+        } else {
+          this.button.click();
+        }
+        break;
+      default:
+        return;
+    }
+
+    index = (index + delta + size) % size;
+    this.currentOption = this.options[index];
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  #onSlotchange(): void {
     if (this.optionGroups) {
       this.optionGroups.forEach(group => {
         group.size = this.size;
@@ -198,43 +308,6 @@ export class Select extends FormControlMixin(LitElement) {
     if (this.allOptions.length > 0) {
       this.allOptions.forEach(option => (option.size = this.size));
     }
-
-    this.#rovingTabindexController.clearElementCache();
-  }
-
-  /**
-   * If an option is selected programmatically update all the options or the size of the select itself
-   */
-  #handleMutation(mutations: MutationRecord[]): void {
-    mutations.forEach(mutation => {
-      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {
-        const selectedOption = <SelectOption>mutation.target;
-        this.#observer?.disconnect();
-        this.#updateSelectedOption(selectedOption);
-        this.#observer?.observe(this, Select.#observerOptions);
-      }
-    });
-  }
-
-  /**
-   * One of the options in the select has been clicked, get the right target and update the selection
-   * */
-  #handleOptionChange(event: Event): void {
-    const selectOption = (event.target as HTMLElement)?.closest('sl-select-option');
-    if (!event.target || !(selectOption instanceof SelectOption)) return;
-
-    this.#updateSelectedOption(selectOption);
-
-    if (!this.dialog?.hidePopover) return; // we can remove this check when Typescript knows the PopoverApi
-    this.dialog.hidePopover();
-  }
-
-  /**
-   * Make sure the focus is on the currently selected option
-   * */
-  #handleOptionFocus(): void {
-    this.button?.setAttribute('aria-expanded', isPopoverOpen(this.dialog) ? 'true' : 'false');
-    this.#rovingTabindexController.focusToElement(this.allOptions.findIndex(el => el.selected));
   }
 
   /**
@@ -247,7 +320,7 @@ export class Select extends FormControlMixin(LitElement) {
     /**
      * Return handler if it's not an option or if it's already selected
      */
-    if (selectedOption === this.selectedOption || selectedOption.disabled || !this.dialog) return;
+    if (selectedOption === this.selectedOption || selectedOption.disabled || !this.listbox) return;
 
     // Reset all the selected state of the tabs, and select the clicked tab
     this.allOptions.forEach((option: SelectOption) => {
@@ -258,18 +331,29 @@ export class Select extends FormControlMixin(LitElement) {
         option.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 
         this.selectedOption = option;
-        const selectedValue = option.value || option.innerHTML;
-        this.#validation.validate(this.selectedOption ? selectedValue : undefined);
+        // const selectedValue = option.value || option.innerHTML;
+        // this.#validation.validate(this.selectedOption ? selectedValue : undefined);
         this.#setSelectedOptionVisible(option);
       }
     });
+  }
+
+  /** Returns a flattened array of all options (also the options in groups). */
+  #getAllOptions(root: Element): SelectOption[] {
+    if (root instanceof SelectOption) {
+      return [root];
+    } else if (root instanceof SelectOptionGroup) {
+      return Array.from(root.children).flatMap(child => this.#getAllOptions(child));
+    } else {
+      return [];
+    }
   }
 
   /**
    * Copy the value/represenation of the selected option to the placeholder
    */
   #setSelectedOptionVisible(option: SelectOption): void {
-    this.setFormValue(option.value || option.innerHTML);
+    this.internals.setFormValue(option.value || option.innerHTML);
 
     const clonedOption = (option.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
     const contentType = (option.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
@@ -277,31 +361,5 @@ export class Select extends FormControlMixin(LitElement) {
     this.selectedOptionPlaceholder?.childNodes.forEach(cn => cn.remove());
     this.selectedOptionPlaceholder?.append(clonedOption);
     this.selectedOptionPlaceholder?.setAttribute('contentType', contentType);
-  }
-
-  /**
-   * Handle keyboard accessible controls.
-   */
-  #handleOverlayKeydown(event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'Enter':
-      case ' ':
-        event.preventDefault();
-        event.stopPropagation();
-        this.#updateSelectedOption(<SelectOption>event.target);
-        this.#closeSelect();
-        break;
-      case 'Escape':
-        this.#closeSelect();
-        break;
-      default:
-        break;
-    }
-  }
-
-  #setPopoverWidth(event: ToggleEvent): void {
-    if (event.newState === 'open' && this.button && this.dialog) {
-      this.dialog.style.width = `${this.button.getBoundingClientRect().width}px`;
-    }
   }
 }

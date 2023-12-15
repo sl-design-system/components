@@ -1,5 +1,6 @@
-import type { SelectSize } from './select.js';
-import type { StoryObj } from '@storybook/web-components';
+import type { Select, SelectSize } from './select.js';
+import type { TemplateResult } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
@@ -8,54 +9,78 @@ import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../register.js';
 
-const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
-  const data = new FormData(event.target),
-    output = (event.target.nextElementSibling || document.createElement('pre')) as HTMLOutputElement;
-
-  event.preventDefault();
-  event.target.after(output);
-
-  output.textContent = '';
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string
-  data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
+type Props = Pick<Select, 'disabled' | 'placeholder' | 'required' | 'size' | 'value'> & {
+  hint?: string;
+  label?: string;
+  options?: TemplateResult;
+  slot?: () => TemplateResult;
 };
+type Story = StoryObj<Props>;
 
-const states: string[] = ['', 'valid', 'invalid'];
-const disabledStates = [false, true];
 const sizes: SelectSize[] = ['md', 'lg'];
 
 export default {
   title: 'Select',
+  args: {
+    disabled: false,
+    label: 'Label',
+    placeholder: 'Select an option',
+    required: false,
+    size: 'md',
+    value: null
+  },
   argTypes: {
-    maxOverlayHeight: {
-      control: 'text'
-    },
     size: {
       control: 'inline-radio',
       options: sizes
     },
-    placeholder: {
+    value: {
       control: 'text'
     }
+  },
+  render: ({ disabled, hint, label, options, placeholder, required, size, slot }) => {
+    return html`
+      <sl-form-field .hint=${hint} .label=${label}>
+        ${slot?.() ??
+        html`
+          <sl-select ?disabled=${disabled} ?required=${required} .placeholder=${placeholder} .size=${size}>
+            ${options ??
+            html`
+              <sl-select-option value="1">Option 1</sl-select-option>
+              <sl-select-option value="2">Option 2</sl-select-option>
+              <sl-select-option value="3">Option 3</sl-select-option>
+            `}
+          </sl-select>
+        `}
+      </sl-form-field>
+    `;
+  }
+} satisfies Meta<Props>;
+
+export const Basic: Story = {};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true
   }
 };
 
-export const Basic: StoryObj = {
+export const EmbeddedComponents: Story = {
   args: {
-    size: 'md',
-    maxOverlayHeight: '200px',
-    placeholder: 'Placeholder'
-  },
-  render: ({ maxOverlayHeight, size, placeholder }) => html`
-    <style>
-      sl-select {
-        width: 400px;
-        max-width: 90vw;
-        display: inline-flex;
-      }
-    </style>
-    <sl-button>To focus</sl-button>
-    <sl-select .maxOverlayHeight=${maxOverlayHeight} .size=${size} .placeholder=${placeholder}>
+    options: html`
+      <sl-select-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
+      <sl-select-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
+      <sl-select-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
+      <sl-select-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
+      <sl-select-option disabled><sl-avatar uniqueProfileId="4"></sl-avatar></sl-select-option>
+      <sl-select-option><sl-avatar uniqueProfileId="5"></sl-avatar></sl-select-option>
+    `
+  }
+};
+
+export const Groups: Story = {
+  args: {
+    options: html`
       <sl-select-option-group group-heading="Happy">
         <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
         <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
@@ -78,24 +103,56 @@ export const Basic: StoryObj = {
         <sl-select-option>🦊 Fox</sl-select-option>
       </sl-select-option-group>
       <sl-select-option>🤖 Robot</sl-select-option>
-    </sl-select>
-    <sl-button>To focus</sl-button>
-  `
+    `
+  }
 };
 
-const options = html`
-  <sl-select-option>🐷 Pig</sl-select-option>
-  <sl-select-option selected>🐨 Koala</sl-select-option>
-  <sl-select-option>🐼 Panda</sl-select-option>
-  <sl-select-option>🦊 Fox</sl-select-option>
-`;
+export const Overflow: Story = {
+  args: {
+    placeholder:
+      'Cupidatat adipisicing adipisicing dolore in ea ea magna culpa Lorem aute veniam in. Laboris ea pariatur velit adipisicing pariatur aliqua Lorem est aliqua Lorem minim excepteur.',
+    options: html`
+      <sl-select-option value="1">
+        Voluptate sint ullamco proident cillum sint nostrud laborum labore et ad minim veniam eiusmod.
+      </sl-select-option>
+      <sl-select-option value="2">Consequat cupidatat amet sunt laborum laborum quis.</sl-select-option>
+      <sl-select-option value="3">
+        Culpa cillum nulla aute non quis deserunt minim sit magna. Consectetur in laborum mollit ea cillum dolor est ut
+        deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
+      </sl-select-option>
+    `
+  }
+};
+
+export const Required: Story = {
+  args: {
+    hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
+    required: true
+  }
+};
+
+export const Valid: Story = {
+  args: {
+    hint: 'After clicking the button, this field will show it is valid.'
+  }
+};
+
 export const All: StoryObj = {
   render: () => {
+    const states: string[] = ['', 'valid', 'invalid'];
+    const disabledStates = [false, true];
+
+    const options = html`
+      <sl-select-option>🐷 Pig</sl-select-option>
+      <sl-select-option selected>🐨 Koala</sl-select-option>
+      <sl-select-option>🐼 Panda</sl-select-option>
+      <sl-select-option>🦊 Fox</sl-select-option>
+    `;
+
     return html` <style>
         table {
           border-collapse: collapse;
         }
-
         th {
           text-transform: capitalize;
         }
@@ -185,91 +242,4 @@ export const All: StoryObj = {
           </table>`
       )}`;
   }
-};
-
-export const CustomComponents: StoryObj = {
-  render: () => html`
-    <style>
-      sl-avatar {
-        margin: 0 4px;
-      }
-    </style>
-    <sl-button>To focus</sl-button>
-    <sl-select>
-      <sl-select-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
-      <sl-select-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
-      <sl-select-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
-      <sl-select-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
-      <sl-select-option disabled><sl-avatar uniqueProfileId="4"></sl-avatar></sl-select-option>
-      <sl-select-option><sl-avatar uniqueProfileId="5"></sl-avatar></sl-select-option>
-    </sl-select>
-    <sl-button>To focus</sl-button>
-  `
-};
-
-export const InForm: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-
-      sl-label {
-        margin-block-start: 0.5rem;
-      }
-      sl-button-bar {
-        margin-block-start: 1rem;
-      }
-
-      sl-avatar {
-        margin: 0 4px;
-      }
-    </style>
-    <form @submit=${onSubmit}>
-      <sl-label for="smiley">Smiley</sl-label>
-      <sl-select id="smiley" name="smiley" required>
-        <sl-select-option>😍 Option 1 </sl-select-option>
-        <sl-select-option>🥸 Option 2 </sl-select-option>
-        <sl-select-option>🤔 Option 3 </sl-select-option>
-        <sl-select-option>😅 Option 4 </sl-select-option>
-        <sl-select-option disabled>🤪 Option 5 </sl-select-option>
-        <sl-select-option>🫣 Option 6 </sl-select-option>
-      </sl-select>
-
-      <sl-label for="avatar">Avatar</sl-label>
-      <sl-select id="avatar" name="avatar">
-        <sl-select-option value="0"><sl-avatar uniqueProfileId="0"></sl-avatar></sl-select-option>
-        <sl-select-option value="1"><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
-        <sl-select-option value="2" selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
-        <sl-select-option value="3"><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
-        <sl-select-option value="4" disabled><sl-avatar uniqueProfileId="4"></sl-avatar></sl-select-option>
-        <sl-select-option value="14"><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
-      </sl-select>
-
-      <sl-label for="mood">Your mood</sl-label>
-      <sl-select id="mood" name="mood" placeholder="How are you feeling today?">
-        <sl-select-option-group group-heading="Happy">
-          <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
-          <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
-          <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>
-          <sl-select-option>🤩 Star-Struck</sl-select-option>
-          <sl-select-option disabled>🙂 Slightly Smiling Face</sl-select-option>
-          <sl-select-option>🥳 Partying Face</sl-select-option>
-        </sl-select-option-group>
-        <sl-select-option-group group-heading="Sad">
-          <sl-select-option>😒 Unamused Face</sl-select-option>
-          <sl-select-option>🤧 Sneezing Face</sl-select-option>
-          <sl-select-option>😓 Downcast Face with Sweat</sl-select-option>
-          <sl-select-option>😡 Enraged Face</sl-select-option>
-        </sl-select-option-group>
-        <sl-select-option>🤖 Robot</sl-select-option>
-      </sl-select>
-
-      <sl-button-bar align="end">
-        <sl-button type="reset">Reset</sl-button>
-        <sl-button type="submit">Submit</sl-button>
-      </sl-button-bar>
-    </form>
-  `
 };

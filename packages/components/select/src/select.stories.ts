@@ -116,7 +116,26 @@ export const Groups: Story = {
   }
 };
 
-export const Overflow: Story = {
+export const OptionOverflow: Story = {
+  args: {
+    hint: 'This field has a lot of options, try scrolling through them.',
+    options: html`
+      ${Array.from(
+        { length: 100 },
+        (_, i) => html`<sl-select-option value="${i + 1}">Option ${i + 1}</sl-select-option>`
+      )}
+    `
+  }
+};
+
+export const Required: Story = {
+  args: {
+    hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
+    required: true
+  }
+};
+
+export const TextOverflow: Story = {
   args: {
     placeholder:
       'Cupidatat adipisicing adipisicing dolore in ea ea magna culpa Lorem aute veniam in. Laboris ea pariatur velit adipisicing pariatur aliqua Lorem est aliqua Lorem minim excepteur.',
@@ -130,13 +149,6 @@ export const Overflow: Story = {
         deserunt qui nostrud deserunt. Labore adipisicing anim non sint.
       </sl-select-option>
     `
-  }
-};
-
-export const Required: Story = {
-  args: {
-    hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
-    required: true
   }
 };
 

@@ -231,15 +231,10 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onClick(event: Event & { target: HTMLElement }): void {
-    console.log('click', event);
-
     const option = event.target?.closest('sl-select-option');
-
-    console.log({ option });
 
     if (option) {
       this.#updateSelectedOption(option);
-
       this.listbox.hidePopover();
     }
   }
@@ -281,6 +276,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
           this.selectedOption = this.currentOption;
         }
 
+        // Return and let the button handle the toggling of the popover
         return;
       default:
         return;

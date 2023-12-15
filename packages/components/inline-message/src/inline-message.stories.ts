@@ -120,8 +120,6 @@ export const ShowInlineMessage: StoryObj = {
   `
 };
 
-// TODO: with errors list example
-
 export const ErrorsList: StoryObj = {
   render: () => html`
     <style>

@@ -15,21 +15,6 @@ Icon.registerIcon(faOctagonExclamation);
 
 export type InlineMessageStatus = 'info' | 'success' | 'warning' | 'danger';
 
-// const iconName2 = (status: InlineMessageStatus): string => {
-//   switch (status) {
-//     case 'info':
-//       return 'info';
-//     case 'success':
-//       return 'circle-check-solid';
-//     case 'warning':
-//       return 'fas-octagon-exclamation';
-//     case 'danger':
-//       return 'triangle-exclamation-solid';
-//     default:
-//       return 'info';
-//   }
-// };
-
 /**
  * An inline message component for displaying additional information/errors.
  *
@@ -50,9 +35,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   }
 
   /** @private */
-  #iconName!: string;
-
-  /** @private */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
   /** @private */
@@ -68,11 +50,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
    * @type {'info' | 'success' | 'warning' | 'danger'} */
   @property({ reflect: true }) status: InlineMessageStatus = 'info';
 
-  set iconName(name: string) {
-    this.#iconName = name;
-    this.requestUpdate('iconName');
-  }
-
+  /** @private The name of the icon, depending on the status of the inline message. */
   get iconName(): string {
     switch (this.status) {
       case 'info':

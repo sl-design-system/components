@@ -4117,7 +4117,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@open-wc/scoped-elements@npm:3.0.3, @open-wc/scoped-elements@npm:^3.0.2, @open-wc/scoped-elements@npm:^3.0.3":
+"@open-wc/scoped-elements@npm:3.0.3, @open-wc/scoped-elements@npm:^3.0.2":
   version: 3.0.3
   resolution: "@open-wc/scoped-elements@npm:3.0.3"
   dependencies:
@@ -5310,7 +5310,6 @@ __metadata:
     "@custom-elements-manifest/analyzer": "npm:^0.9.0"
     "@lit/localize-tools": "npm:^0.7.1"
     "@oddbird/popover-polyfill": "npm:^0.3.6"
-    "@open-wc/scoped-elements": "npm:^3.0.3"
     "@open-wc/testing": "npm:^4.0.0"
     "@storybook/addon-a11y": "npm:^7.5.3"
     "@storybook/addon-essentials": "npm:^7.5.3"

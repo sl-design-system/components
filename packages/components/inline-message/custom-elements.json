@@ -76,13 +76,6 @@
             },
             {
               "kind": "field",
-              "name": "iconName",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "kind": "field",
               "name": "noIcon",
               "type": {
                 "text": "boolean | undefined"
@@ -184,14 +177,6 @@
             },
             {
               "kind": "field",
-              "name": "#iconName",
-              "privacy": "private",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "kind": "field",
               "name": "wrapper",
               "type": {
                 "text": "HTMLDivElement | undefined"
@@ -203,7 +188,9 @@
               "name": "iconName",
               "type": {
                 "text": "string"
-              }
+              },
+              "privacy": "private",
+              "readonly": true
             }
           ]
         }

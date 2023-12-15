@@ -33,12 +33,12 @@ export class SelectOption extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('selected')) {
-      this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
-    }
-
     if (changes.has('disabled')) {
       this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    }
+
+    if (changes.has('selected')) {
+      this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
     }
   }
 

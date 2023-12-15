@@ -2,10 +2,7 @@ import type { Select, SelectSize } from './select.js';
 import type { TemplateResult } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/avatar/register.js';
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/icon/register.js';
 import '@sl-design-system/form/register.js';
-import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../register.js';
 
@@ -68,12 +65,24 @@ export const Disabled: Story = {
 export const EmbeddedComponents: Story = {
   args: {
     options: html`
-      <sl-select-option><sl-avatar uniqueProfileId="1"></sl-avatar></sl-select-option>
-      <sl-select-option selected><sl-avatar uniqueProfileId="2"></sl-avatar></sl-select-option>
-      <sl-select-option><sl-avatar uniqueProfileId="3"></sl-avatar></sl-select-option>
-      <sl-select-option><sl-avatar uniqueProfileId="14"></sl-avatar></sl-select-option>
-      <sl-select-option disabled><sl-avatar uniqueProfileId="4"></sl-avatar></sl-select-option>
-      <sl-select-option><sl-avatar uniqueProfileId="5"></sl-avatar></sl-select-option>
+      <sl-select-option>
+        <sl-avatar uniqueProfileId="1"></sl-avatar>
+      </sl-select-option>
+      <sl-select-option selected>
+        <sl-avatar uniqueProfileId="2"></sl-avatar>
+      </sl-select-option>
+      <sl-select-option>
+        <sl-avatar uniqueProfileId="3"></sl-avatar>
+      </sl-select-option>
+      <sl-select-option>
+        <sl-avatar uniqueProfileId="14"></sl-avatar>
+      </sl-select-option>
+      <sl-select-option disabled>
+        <sl-avatar uniqueProfileId="4"></sl-avatar>
+      </sl-select-option>
+      <sl-select-option>
+        <sl-avatar uniqueProfileId="5"></sl-avatar>
+      </sl-select-option>
     `
   }
 };

@@ -1,6 +1,7 @@
 $sizes: md, lg;
 $variants: default, valid, invalid;
-$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$variant-selectors: ':where(:not([show-validity]), [show-validity]:not([show-valid]))',
+  ':where([show-validity="valid"][show-valid])', ':where([show-validity="invalid"])';
 $resize-types: none, both, horizontal, vertical, auto;
 
 :host {
@@ -99,13 +100,24 @@ $resize-types: none, both, horizontal, vertical, auto;
 
 :host {
   align-items: start;
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
   display: flex;
-  flex-direction: column;
   gap: var(--_gap);
+  outline-color: transparent;
+  position: relative;
+  transition: var(--_transition);
+  transition-property: background, border, color, filter, outline-color;
   vertical-align: top;
 }
 
-:host(:disabled) {
+:host(:focus-within) {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+}
+
+:host([disabled]) {
   cursor: default;
   pointer-events: none;
 }
@@ -119,7 +131,7 @@ slot[name='textarea']::slotted(textarea) {
   flex: 1;
   font: var(--_font);
   margin: 0;
-  min-height: var(--_min-height);
+  min-block-size: var(--_min-height);
   outline: none;
   padding: var(--_padding);
 
@@ -133,40 +145,9 @@ slot[name='textarea']::slotted(textarea) {
   }
 }
 
-.wrapper {
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  display: flex;
-  outline-color: transparent;
-  position: relative;
-  transition: var(--_transition);
-  transition-property: background, border, color, filter, outline-color;
-  width: 100%;
-}
-
-:host(:where(:focus-visible, :focus-within)) .wrapper {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
-}
-
 slot[name='suffix'] sl-icon {
   --fill-default: inherit;
   position: absolute;
   right: var(--_right);
   top: var(--_top);
-}
-
-.invalid-icon {
-  display: none;
-}
-
-:host(:where([invalid])) {
-  .invalid-icon {
-    display: block;
-  }
-
-  slot[name='hint']::slotted(*) {
-    display: none;
-  }
 }

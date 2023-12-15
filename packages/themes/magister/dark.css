@@ -532,6 +532,9 @@
   --sl-color-button-default-solid-focus-border: rgb(var(--sl-color-palette-info-base));
   --sl-color-button-default-solid-active-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-button-default-solid-hover-border: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-dialog-border: var(--sl-body-background);
+  --sl-color-dialog-foreground: var(--sl-body-foreground);
+  --sl-color-dialog-background: var(--sl-body-background);
   --sl-color-input-field-label-icon-default: var(--sl-body-foreground);
   --sl-color-input-field-label-text-default: var(--sl-body-foreground);
   --sl-color-input-helper-icon-default: var(--sl-body-foreground);

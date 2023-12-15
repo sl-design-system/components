@@ -516,6 +516,9 @@
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-150));
   --sl-box-shadow-tooltip: [object Object];
+  --sl-color-dialog-border: var(--sl-body-background);
+  --sl-color-dialog-foreground: var(--sl-body-foreground);
+  --sl-color-dialog-background: var(--sl-body-background);
   --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-placeholder: var(--sl-color-input-text-field-default-disabled-placeholder);
   --sl-color-select-selectbox-valid-active-background: var(--sl-color-input-text-field-valid-active-background);

@@ -60,10 +60,6 @@ export const All: StoryObj = {
         margin-bottom: 24px;
       }
 
-      th {
-        text-transform: capitalize;
-      }
-
       td {
         padding: 16px;
       }

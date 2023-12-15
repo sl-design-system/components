@@ -8,7 +8,6 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 
   display: flex;
-  gap: var(--_gap);
   outline: none;
 }
 
@@ -125,33 +124,36 @@ sl-icon {
   transition: transform 0.2s ease-in-out;
 }
 
-// :is(button[aria-expanded='true'] + [popover], :popover-open) {
-//   border: 0;
-//   box-shadow: var(--sl-elevation-shadow-md);
-//   display: flex;
-//   opacity: 1;
-//   z-index: 1;
-// }
-
-[popover] {
+.listbox {
   --_max-overlay-height: var(--max-overlay-height, 80vh);
   background-color: #fff;
   border: 0;
   box-shadow: var(--sl-elevation-shadow-md);
   box-sizing: border-box;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: var(--_gap);
   margin: 0;
   max-height: var(--_max-overlay-height);
-  opacity: 0;
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;
   padding-block: var(--_listbox-padding-block);
   padding-inline: var(--_listbox-padding-inline);
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 
-  &:popover-open {
+  @supports not selector(:popover-open) {
+    position: fixed;
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  &:where(:popover-open, .\\:popover-open) {
+    /* stylelint-disable-next-line max-nesting-depth, scss/at-rule-no-unknown */
+    @starting-style {
+      display: flex;
+      opacity: 0;
+    }
+
+    display: flex;
     opacity: 1;
   }
 }

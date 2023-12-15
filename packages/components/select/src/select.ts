@@ -4,7 +4,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import type { EventEmitter } from '@sl-design-system/shared';
-import { EventsController, anchor, event } from '@sl-design-system/shared';
+import { EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectOption } from './select-option.js';
@@ -212,6 +212,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onClick}
         anchor="button"
+        class="listbox"
         id="popover"
         popover
         role="listbox"
@@ -259,7 +260,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
     switch (event.key) {
       case 'ArrowDown':
-        if (this.listbox.matches(':popover-open')) {
+        if (isPopoverOpen(this.listbox)) {
           delta = 1;
         } else {
           this.button.click();
@@ -274,15 +275,13 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       case 'End':
         index = size - 1;
         break;
+      case ' ':
       case 'Enter':
-      case 'Space':
-        if (this.listbox.matches(':popover-open')) {
+        if (isPopoverOpen(this.listbox)) {
           this.selectedOption = this.currentOption;
-          this.button.click();
-        } else {
-          this.button.click();
         }
-        break;
+
+        return;
       default:
         return;
     }

@@ -1120,15 +1120,6 @@
         {
           "kind": "class",
           "description": "",
-          "name": "GridEvent",
-          "superclass": {
-            "name": "Event",
-            "module": "src/events.ts"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
           "name": "GridActiveItemChangeEvent",
           "superclass": {
             "name": "GridEvent",
@@ -1141,6 +1132,15 @@
           "name": "GridColumnEvent",
           "superclass": {
             "name": "GridEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridEvent",
+          "superclass": {
+            "name": "Event",
             "module": "src/events.ts"
           }
         },
@@ -1965,7 +1965,7 @@
           "mixins": [
             {
               "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -2351,7 +2351,7 @@
           "mixins": [
             {
               "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -4116,7 +4116,7 @@
           "mixins": [
             {
               "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {

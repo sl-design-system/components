@@ -1,8 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { DataSourceSortDirection, DataSourceSortFunction, EventEmitter } from '@sl-design-system/shared';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';

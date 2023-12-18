@@ -7,6 +7,8 @@
   --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-700));
   --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-select-listbox-background: rgb(var(--sl-color-palette-primary-50));
   --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-select-selectbox-default-focus-border: rgb(var(--sl-color-palette-primary-base));
@@ -25,8 +27,6 @@
   --sl-color-select-item-hover-background: rgb(var(--sl-color-palette-accent-100));
   --sl-color-select-item-default-indicator: rgb(var(--sl-color-palette-accent-base));
   --sl-color-select-item-default-foreground: rgb(var(--sl-color-palette-neutral-600));
-  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-focusring-default: rgb(var(--sl-color-palette-info-500));
   --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
@@ -445,7 +445,21 @@
   --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-primary-700));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-primary-700));
-  --sl-box-shadow-tooltip: [object Object];
+  --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
+  --sl-color-badge-success-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-base));
+  --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-base));
+  --sl-color-avatar-foreground: rgb(var(--sl-color-palette-primary-100));
+  --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-placeholder: var(--sl-color-input-text-field-default-disabled-placeholder);
   --sl-color-select-selectbox-valid-disabled-label: var(--sl-color-input-text-field-valid-disabled-label);
   --sl-color-select-selectbox-valid-focus-border: var(--sl-color-input-text-field-valid-focus-border);
@@ -489,7 +503,6 @@
   --sl-color-select-item-hover-border: rgba(var(--sl-body-background) / 0);
   --sl-color-select-item-default-border: rgba(var(--sl-body-background) / 0);
   --sl-color-select-item-default-background: rgba(var(--sl-body-background) / 0);
-  --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-input-field-label-icon-invalid: var(--sl-color-input-text-field-invalid-default-icon);
   --sl-color-input-field-label-icon-disabled: var(--sl-body-foreground);
   --sl-color-input-field-label-icon-default: var(--sl-body-foreground);
@@ -641,6 +654,8 @@
   --sl-color-button-default-link-focus-border: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-default-link-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-default-outline-focus-background: var(--sl-body-background);
+  --sl-color-avatar-subheader: var(--sl-body-foreground);
+  --sl-color-avatar-header: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);
   --sl-color-select-selectbox-valid-disabled-icon: var(--sl-color-input-text-field-valid-disabled-icon);
   --sl-color-select-selectbox-valid-disabled-border: var(--sl-color-input-text-field-valid-disabled-border);

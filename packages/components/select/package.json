@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/select",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Select component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^1.5.3",
-    "@sl-design-system/popover": "0.0.13",
-    "@sl-design-system/shared": "0.1.9",
-    "lit": "^3.0.2"
+    "@sl-design-system/popover": "0.1.0",
+    "@sl-design-system/shared": "0.2.0",
+    "lit": "^3.1.0"
   }
 }

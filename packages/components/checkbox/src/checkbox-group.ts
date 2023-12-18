@@ -1,59 +1,29 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Checkbox, CheckboxSize } from './checkbox.js';
-import type { Validator } from '@sl-design-system/shared';
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import {
-  EventsController,
-  HintMixin,
-  RovingTabindexController,
-  ValidationController,
-  hintStyles,
-  requiredValidator,
-  validationStyles
-} from '@sl-design-system/shared';
+import { msg } from '@lit/localize';
+import { FormControlMixin } from '@sl-design-system/form';
+import { EventsController, RovingTabindexController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
+import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
 
 /**
- * Checkbox group; treat a group of checkboxes as one form input with valitation, hints and errors
- *
- * ```html
- *   <sl-checkbox-group>
- *     <sl-checkbox>Option 1</sl-checkbox>
- *     <sl-checkbox>Option 2</sl-checkbox>
- *     <sl-checkbox>Option 3</sl-checkbox>
- *   </sl-checkbox-group>
- * ```
+ * Checkbox group; treat a group of checkboxes as one form input with validation, hints and errors
  *
  * @slot default - A list of `sl-checkbox` elements.
  */
-export class CheckboxGroup extends HintMixin(LitElement) {
+export class CheckboxGroup extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
+  static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
   #events = new EventsController(this, { click: this.#onClick });
 
-  /**
-   * Observe changes to the checkboxes.
-   *
-   * FIXME: This causes a warning in the console: https://github.com/lit/lit/issues/3597
-   */
-  #mutation = new MutationController(this, {
-    callback: () => {
-      const value = this.boxes
-        ?.map(box => (box.checked ? box.value : null))
-        .filter(Boolean)
-        .join(', ');
-
-      this.#validation.validate(value);
-    },
-    config: { attributeFilter: ['checked'], attributeOldValue: true, subtree: true }
-  });
+  /** Observe changes to the checkboxes. */
+  #observer = new MutationObserver(() => (this.value = this.boxes?.map(box => !!box.checked)));
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
@@ -62,34 +32,73 @@ export class CheckboxGroup extends HintMixin(LitElement) {
     isFocusableElement: (el: Checkbox) => !el.disabled
   });
 
-  /** Support validation that at least 1 checkbox is required in the group. */
-  #validation = new ValidationController(this, {
-    validators: [requiredValidator]
-  });
-
-  /** @private Element internals. */
+  /** @private */
   readonly internals = this.attachInternals();
 
   /** @private The slotted checkboxes. */
   @queryAssignedElements() boxes?: Checkbox[];
 
-  /** Custom validators. */
-  @property({ attribute: false }) validators?: Validator[];
+  /** Whether the group is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** Name of the form control */
-  @property() name?: string;
+  /** At least one checkbox in the group must be checked if true. */
+  @property({ type: Boolean, reflect: true }) required?: boolean;
 
-  /** The size of the checkboxes in the group.
-   * @type {'md' | 'lg'} */
+  /** The size of the checkboxes in the group. */
   @property() size?: CheckboxSize;
 
-  /**  Native form property */
-  get form(): HTMLFormElement | null {
-    return this.internals.form;
+  /**
+   * The value for the checkbox group, for internal use.
+   * @private
+   */
+  @state() value?: boolean[];
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#observer.observe(this, { attributeFilter: ['checked'], attributeOldValue: true, subtree: true });
+
+    this.internals.role = 'group';
+    this.setFormControlElement(this);
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
+  }
+
+  override willUpdate(changes: PropertyValues): void {
+    super.willUpdate(changes);
+
+    if (changes.has('required') || changes.has('value')) {
+      this.internals.setValidity(
+        { valueMissing: this.required && !this.value?.some(v => v) },
+        msg('At least one option must be checked.')
+      );
+
+      this.updateValidity();
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    if (changes.has('disabled') && typeof this.disabled === 'boolean') {
+      this.boxes?.forEach(box => (box.disabled = !!this.disabled));
+    }
+
+    if (changes.has('name')) {
+      if (this.name) {
+        this.boxes?.forEach(box => box.setAttribute('name', this.name!));
+      } else {
+        this.boxes?.forEach(box => box.removeAttribute('name'));
+      }
+    }
+
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
+    }
 
     if (changes.has('size')) {
       this.boxes?.forEach(box => (box.size = this.size || 'md'));
@@ -97,12 +106,7 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html`
-      <div class="wrapper">
-        <slot @slotchange=${this.#onSlotchange}></slot>
-      </div>
-      ${this.renderHint()} ${this.#validation.render()}
-    `;
+    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
   #onClick(event: Event): void {
@@ -114,16 +118,16 @@ export class CheckboxGroup extends HintMixin(LitElement) {
   #onSlotchange(): void {
     this.#rovingTabindexController.clearElementCache();
 
-    if (typeof this.name === 'string') {
-      const name = this.name;
+    this.boxes?.forEach(box => {
+      box.name = this.name;
 
-      this.boxes?.forEach(box => {
-        box.name = name;
+      if (typeof this.disabled === 'boolean') {
+        box.disabled = !!this.disabled;
+      }
 
-        if (this.size) {
-          box.size = this.size;
-        }
-      });
-    }
+      if (this.size) {
+        box.size = this.size;
+      }
+    });
   }
 }

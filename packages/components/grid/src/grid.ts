@@ -2,11 +2,11 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
 import type { GridFilter, GridFilterChange } from './filter.js';
 import type { Virtualizer } from '@lit-labs/virtualizer/Virtualizer.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { DataSource, EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
 import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, SelectionController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
@@ -393,8 +393,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #addScopedElements(col: GridColumn<T>): void {
     if (col.scopedElements) {
       for (const [tagName, klass] of Object.entries(col.scopedElements)) {
-        if (!this.registry.get(tagName)) {
-          this.defineScopedElement(tagName, klass);
+        if (!this.registry?.get(tagName)) {
+          this.registry?.define(tagName, klass);
         }
       }
     }

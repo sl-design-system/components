@@ -1,7 +1,7 @@
 import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from '@sl-design-system/shared';
 import { property, state } from 'lit/decorators.js';
-import styles from './form-control-mixin.scss.js';
+import { UpdateValidityEvent } from './update-validity-event.js';
 
 export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;
@@ -20,17 +20,19 @@ export interface CustomFormControlElement extends HTMLElement {
 
 export type FormControlElement = NativeFormControlElement | CustomFormControlElement;
 
-export interface FormControlInterface {
+export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
+
+export interface FormControl {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
-  readonly showValidity?: 'valid' | 'invalid';
+  readonly showExternalValidityIcon: boolean;
+  readonly showValidity: FormControlShowValidity;
   readonly valid: boolean;
   readonly validationMessage: string;
   readonly validity: ValidityState;
 
-  errorText?: string;
-  hintText?: string;
+  customValidity?: string;
   name?: string;
   report?: boolean;
 
@@ -41,8 +43,6 @@ export interface FormControlInterface {
   setFormControlElement(element: FormControlElement): void;
 }
 
-let nextUniqueId = 0;
-
 const isNative = (element: FormControlElement): element is NativeFormControlElement =>
   element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement;
 
@@ -52,21 +52,20 @@ const isNative = (element: FormControlElement): element is NativeFormControlElem
  * @slot error-text - The error text to display
  * @slot hint-text - The hint text to display
  */
-export function FormControlMixin<T extends Constructor<ReactiveElement>>(
-  constructor: T
-): T & Constructor<FormControlInterface> {
-  class FormControl extends constructor {
-    /** The element containing the error message that is slotted into the `error` slot. */
-    #errorElement?: HTMLElement;
+export function FormControlMixin<T extends Constructor<ReactiveElement>>(constructor: T): T & Constructor<FormControl> {
+  class FormControlImpl extends constructor {
+    /**
+     * This is necessary so we can check if an element implements this Mixin, since the
+     * `FormControl` class isn't a generic class we can use in an `instanceof` comparison.
+     * @ignore
+     */
+    static readonly extendsFormControlMixin = true;
 
     /**
      * The actual element that integrates with the form; either
      * a Form Associated Custom Element, an `<input>` or a `<textarea>`.
      */
     #formControlElement?: FormControlElement;
-
-    /** The element containing the hint text that is slotted into the `hint` slot. */
-    #hintElement?: HTMLElement;
 
     #onInvalid = (event: Event): void => {
       // Prevent the browser from showing the built-in validation UI
@@ -77,20 +76,20 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
       this.report = true;
     };
 
-    /** An error text that will be shown over any other validation messages. */
-    @property({ attribute: 'error-text' }) errorText?: string;
+    /** @ignore This determines whether the `<sl-error>` component displays an icon or not. */
+    showExternalValidityIcon = true;
 
-    /** A hint text that will be shown when there are no validation messages. */
-    @property({ attribute: 'hint-text' }) hintText?: string;
+    /** The error message to display when the control is invalid. */
+    @property({ attribute: 'custom-validity' }) customValidity?: string;
 
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
 
-    /** Whether the form control should report the validity of the control. */
+    /** @ignore Whether the form control should report the validity of the control. */
     @state() report?: boolean;
 
     /** Whether to show the validity state. */
-    @property({ attribute: 'show-validity', reflect: true }) showValidity?: 'valid' | 'invalid';
+    @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
     /** @ignore For internal use only */
     get formControlElement(): FormControlElement {
@@ -161,6 +160,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     override willUpdate(changes: PropertyValues<this>): void {
       super.willUpdate(changes);
 
+      if (changes.has('customValidity')) {
+        this.setCustomValidity(this.customValidity ?? '');
+      }
+
       if (changes.has('report')) {
         this.updateValidity();
       }
@@ -170,16 +173,20 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
-      if (changes.has('errorText')) {
-        this.#setErrorText(this.errorText || this.validationMessage);
-      }
-
-      if (changes.has('hintText')) {
-        this.#setHintText(this.hintText);
-      }
-
       if (changes.has('name') && isNative(this.formControlElement)) {
         this.formControlElement.name = this.name ?? '';
+      }
+
+      if (changes.has('showValidity')) {
+        if (isNative(this.formControlElement)) {
+          if (this.showValidity === 'invalid') {
+            this.formControlElement.setAttribute('aria-invalid', 'true');
+          } else {
+            this.formControlElement.removeAttribute('aria-invalid');
+          }
+        } else {
+          this.formControlElement.internals.ariaInvalid = this.showValidity === 'invalid' ? 'true' : null;
+        }
       }
     }
 
@@ -208,10 +215,13 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      *
      * NOTE: This method updates the `showValidity` property and therefore should be called from
      * `willUpdate`, never from `updated` or you will trigger a new lifecycle update.
+     * @ignore
      */
     updateValidity(): void {
       this.showValidity = this.report ? (this.valid ? 'valid' : 'invalid') : undefined;
-      this.#setErrorText(this.errorText ?? this.validationMessage);
+
+      /** Emits when the validity of the form control changes. */
+      this.dispatchEvent(new UpdateValidityEvent(this.valid, this.validationMessage, this.showValidity));
     }
 
     /**
@@ -242,58 +252,13 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(
      * a FACE), or a child of it. Otherwise we can't link the validation message to the form control
      * element, which is necessary for accessibility.
      * @param element The form control element.
+     * @ignore
      */
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);
     }
-
-    #setErrorText(text: string = ''): void {
-      if (!text && !this.#errorElement) {
-        return;
-      }
-
-      this.#errorElement ??= document.createElement('div');
-      this.#errorElement.id ||= `sl-error-${nextUniqueId++}`;
-      this.#errorElement.innerText = text;
-      this.#errorElement.slot ||= 'error-text';
-
-      const ids = this.formControlElement.getAttribute('aria-describedby')?.split(' ') ?? [];
-      if (!ids.includes(this.#errorElement.id)) {
-        this.formControlElement.setAttribute('aria-describedby', [...ids, this.#errorElement.id].join(' '));
-      }
-
-      // The error is added to the light DOM so that it can be linked to by the aria-describedby
-      // attribute. This is necessary for accessibility.
-      if (!this.#errorElement.parentElement) {
-        this.append(this.#errorElement);
-      }
-    }
-
-    #setHintText(text: string = ''): void {
-      if (!text && !this.#hintElement) {
-        return;
-      }
-
-      this.#hintElement ??= document.createElement('div');
-      this.#hintElement.id ||= `sl-hint-${nextUniqueId++}`;
-      this.#hintElement.innerText = text;
-      this.#hintElement.slot ||= 'hint-text';
-
-      const ids = this.formControlElement.getAttribute('aria-describedby')?.split(' ') ?? [];
-      if (!ids.includes(this.#hintElement.id)) {
-        this.formControlElement.setAttribute('aria-describedby', [...ids, this.#hintElement.id].join(' '));
-      }
-
-      // The hint is added to the light DOM so that it can be linked to by the aria-describedby
-      // attribute. This is necessary for accessibility.
-      if (!this.#hintElement.parentElement) {
-        this.append(this.#hintElement);
-      }
-    }
   }
 
-  return FormControl;
+  return FormControlImpl;
 }
-
-FormControlMixin.styles = styles;

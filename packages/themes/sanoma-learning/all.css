@@ -604,16 +604,16 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
-  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-bold) 8px/8px var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-sm: var(--sl-text-typeset-font-weight-bold) 6px/6px var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-demibold) 8px/8px var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-sm: var(--sl-text-typeset-font-weight-demibold) 6px/6px var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-subheader-3xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-subheader-2xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /

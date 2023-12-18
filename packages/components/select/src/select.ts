@@ -88,7 +88,8 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   /** @private A flattened array of all options (even grouped ones). */
   get options(): SelectOption[] {
-    const elements = this.renderRoot.querySelector('slot')?.assignedElements({ flatten: true }) ?? [];
+    const elements =
+      this.renderRoot.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements({ flatten: true }) ?? [];
 
     return elements.flatMap(element => this.#getAllOptions(element));
   }
@@ -146,6 +147,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    // This is a workaround because `ariaActiveDescendantElement` is only supported in
+    // Safari at the time of writing. By putting the button in the light DOM, we can use
+    // the aria-activedescendant attribute on the button itself.
     if (!this.button) {
       this.button = this.shadowRoot?.createElement('sl-select-button') as SelectButton;
       this.button.addEventListener('click', () => this.#onButtonClick());
@@ -154,6 +158,16 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.button.placeholder = this.placeholder;
       this.button.size = this.size;
       this.append(this.button);
+
+      // This is a workaround because `::slotted` does not allow you to select children
+      // of the slotted elements. For example grouped options.
+      const style = document.createElement('style');
+      style.innerHTML = `
+        sl-select:has(sl-select-button:focus-visible) .sl-current {
+          background-color: var(--sl-color-select-item-hover-background);
+        }
+      `;
+      this.append(style);
     }
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
@@ -187,7 +201,12 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     if (changes.has('currentOption')) {
       this.options.forEach(option => option.classList.toggle('sl-current', option === this.currentOption));
       this.currentOption?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-      this.button.ariaActiveDescendantElement = this.currentOption ?? null;
+
+      if (this.currentOption) {
+        this.button.setAttribute('aria-activedescendant', this.currentOption.id);
+      } else {
+        this.button.removeAttribute('aria-activedescendant');
+      }
     }
 
     if (changes.has('disabled')) {
@@ -279,9 +298,11 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       case 'Enter':
         if (isPopoverOpen(this.listbox)) {
           this.selectedOption = this.currentOption;
+          this.listbox.hidePopover();
+        } else {
+          this.listbox.showPopover();
         }
 
-        // Return and let the button handle the toggling of the popover
         return;
       default:
         return;

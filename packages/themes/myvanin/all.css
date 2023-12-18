@@ -417,6 +417,7 @@
   --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
+  --sl-size-skeleton-min-height: var(--sl-size-2xs);
   --sl-size-avatar-2xl: var(--sl-size-4xl);
   --sl-size-avatar-md: var(--sl-size-2xl);
   --sl-size-avatar-sm: var(--sl-size-xl);

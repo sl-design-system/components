@@ -10,6 +10,9 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
+  --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-600));
@@ -520,6 +523,15 @@
   --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-skeleton-shimmer: linear-gradient
+    (
+      90deg,
+      var(--sl-color-skeleton-base) 0%,
+      var(--sl-color-skeleton-base) 10%,
+      var(--sl-color-skeleton-effect) 50%,
+      var(--sl-color-skeleton-base) 90%,
+      var(--sl-color-skeleton-base) 100%
+    );
   --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);

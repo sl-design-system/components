@@ -2055,6 +2055,12 @@
         "value": 80,
         "type": "sizing"
       }
+    },
+    "skeleton": {
+      "minHeight": {
+        "value": "{size.2xs}",
+        "type": "sizing"
+      }
     }
   },
   "space": {

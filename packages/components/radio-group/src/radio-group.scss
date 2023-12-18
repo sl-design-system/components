@@ -12,19 +12,6 @@
 }
 
 :host([horizontal]) {
-  --_direction: row;
-  --_gap: 1rem;
-}
-
-.wrapper {
-  align-items: start;
-  display: flex;
-  flex-direction: var(--_direction);
-  gap: var(--_gap);
-}
-
-:host(:where([invalid])) {
-  slot[name='hint']::slotted(*) {
-    display: none;
-  }
+  --_gap: var(--sl-space-group-lg);
+  flex-direction: row;
 }

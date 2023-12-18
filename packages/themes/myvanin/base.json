@@ -1636,7 +1636,7 @@
         "description": "icon.core.triangle-exclamation-solid"
       },
       "octagon-exclamation-solid": {
-        "value": "triangle-exclamation",
+        "value": "octagon-exclamation",
         "type": "Icons",
         "description": "icon.core.octagon-exclamation-solid"
       },

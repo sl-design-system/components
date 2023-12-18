@@ -112,23 +112,9 @@ export const All: Story = {
   args: {
     width: '80%',
     height: '0.75rem',
-    radius: '0.5rem',
-    background: '#d5d5d5',
-    shineColor: '#bcbcbc'
+    radius: '0.5rem'
   },
-  argTypes: {
-    background: {
-      control: {
-        type: 'color'
-      }
-    },
-    shineColor: {
-      control: {
-        type: 'color'
-      }
-    }
-  },
-  render: ({ width, height, radius, background, shineColor }) =>
+  render: ({ width, height, radius }) =>
     html`
       <style>
         section {
@@ -141,24 +127,24 @@ export const All: Story = {
         <h2>No effect</h2>
         <sl-skeleton
           effect="none"
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}"
+          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius};"
           aria-label="loading element"
         ></sl-skeleton>
         <h2>Shimmer effect (default)</h2>
         <sl-skeleton
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}"
+          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius};"
           aria-label="loading element"
         ></sl-skeleton>
         <h2>Sheen effect</h2>
         <sl-skeleton
           effect="sheen"
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}"
+          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius};"
           aria-label="loading element"
         ></sl-skeleton>
         <h2>Pulse effect</h2>
         <sl-skeleton
           effect="pulse"
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}"
+          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius};"
           aria-label="loading element"
         ></sl-skeleton>
       </section>
@@ -167,28 +153,15 @@ export const All: Story = {
 
 export const LoadingImage: Story = {
   args: {
-    effect: 'shimmer',
-    background: '#d5d5d5',
-    shineColor: '#bcbcbc',
-    animationDuration: '2000ms'
+    effect: 'shimmer'
   },
   argTypes: {
     effect: {
       control: 'inline-radio',
       options: ['none', 'shimmer', 'sheen', 'pulse']
-    },
-    background: {
-      control: {
-        type: 'color'
-      }
-    },
-    shineColor: {
-      control: {
-        type: 'color'
-      }
     }
   },
-  render: ({ animationDuration, background, effect, shineColor }) => {
+  render: ({ effect }) => {
     setTimeout(() => {
       const image = document.querySelector('img');
       if (image) {
@@ -232,11 +205,7 @@ export const LoadingImage: Story = {
             src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
             alt="city"
           />
-          <sl-skeleton
-            .effect=${effect}
-            style="--sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}; --sl-skeleton-animation-duration: ${animationDuration}"
-            aria-label="loading picture with New York buildings"
-          ></sl-skeleton>
+          <sl-skeleton .effect=${effect} aria-label="loading picture with New York buildings"></sl-skeleton>
         </div>
       </section>
     `;

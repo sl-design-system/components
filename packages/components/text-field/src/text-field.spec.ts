@@ -21,11 +21,12 @@ describe('sl-text-field', () => {
     it('should have an input slot', () => {
       const slot = el.renderRoot.querySelector('slot[name="input"]');
 
-      expect(slot).not.to.be.null;
+      expect(slot).to.exist;
     });
 
     it('should not be disabled', () => {
-      expect(el.disabled).to.be.undefined;
+      expect(el).not.to.have.attribute('disabled');
+      expect(el.disabled).not.to.be.true;
       expect(input.disabled).to.be.false;
     });
 
@@ -50,8 +51,8 @@ describe('sl-text-field', () => {
     });
 
     it('should have a medium size', () => {
-      expect(el.size).to.equal('md');
       expect(el).to.have.attribute('size', 'md');
+      expect(el.size).to.equal('md');
     });
 
     it('should have a large size when set', async () => {
@@ -62,7 +63,7 @@ describe('sl-text-field', () => {
     });
 
     it('should not be readonly', () => {
-      expect(el.readonly).to.be.undefined;
+      expect(el.readonly).not.to.be.true;
       expect(input.readOnly).to.be.false;
     });
 
@@ -122,30 +123,6 @@ describe('sl-text-field', () => {
       expect(input).to.have.attribute('pattern', '.{3,5}');
     });
 
-    it('should not have a max', () => {
-      expect(el.max).to.be.undefined;
-      expect(input).not.to.have.attribute('max');
-    });
-
-    it('should have a max when set', async () => {
-      el.max = 3;
-      await el.updateComplete;
-
-      expect(input).to.have.attribute('max', '3');
-    });
-
-    it('should not have a min', () => {
-      expect(el.min).to.be.undefined;
-      expect(input).not.to.have.attribute('min');
-    });
-
-    it('should have a min when set', async () => {
-      el.min = 3;
-      await el.updateComplete;
-
-      expect(input).to.have.attribute('min', '3');
-    });
-
     it('should not have a maxlength', () => {
       expect(el.maxLength).to.be.undefined;
       expect(el).not.to.have.attribute('maxlength');
@@ -182,20 +159,8 @@ describe('sl-text-field', () => {
       expect(el).to.have.attribute('show-valid');
     });
 
-    it('should not have a step', () => {
-      expect(el.step).to.be.undefined;
-      expect(el).not.to.have.attribute('step');
-    });
-
-    it('should have a step when set', async () => {
-      el.step = 3;
-      await el.updateComplete;
-
-      expect(input).to.have.attribute('step', '3');
-    });
-
-    it('should focus the input when clicking the wrapper', async () => {
-      el.renderRoot.querySelector<HTMLElement>('.wrapper')?.click();
+    it('should focus the input when focusing the element', () => {
+      el.focus();
 
       expect(document.activeElement).to.equal(input);
     });
@@ -219,24 +184,10 @@ describe('sl-text-field', () => {
       expect(onBlur).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-change event when leaving the input after typing', async () => {
-      const onChange = spy();
-
-      el.addEventListener('sl-change', onChange);
-      input.focus();
-      await sendKeys({ type: 'Lorem' });
-
-      expect(onChange).not.to.have.been.called;
-
-      await sendKeys({ press: 'Tab' });
-
-      expect(onChange).to.have.been.calledOnce;
-    });
-
-    it('should emit an sl-input event when typing in the input', async () => {
+    it('should emit an sl-change event when typing in the input', async () => {
       const onInput = spy();
 
-      el.addEventListener('sl-input', onInput);
+      el.addEventListener('sl-change', onInput);
       input.focus();
       await sendKeys({ type: 'Lorem' });
 
@@ -256,8 +207,8 @@ describe('sl-text-field', () => {
       expect(input.validity.valueMissing).to.be.true;
     });
 
-    it('should not have an error message', () => {
-      expect(el.querySelector('[slot="error-text"]')).to.not.exist;
+    it('should have a validation message', () => {
+      expect(el.validationMessage).to.equal('Please fill out this field.');
     });
 
     it('should have a show-validity attribute when reported', async () => {
@@ -267,27 +218,14 @@ describe('sl-text-field', () => {
       expect(el).to.have.attribute('show-validity', 'invalid');
     });
 
-    it('should have an error message when reported', async () => {
+    it('should emit an update-validity event when reported', async () => {
+      const onUpdateValidity = spy();
+
+      el.addEventListener('sl-update-validity', onUpdateValidity);
       el.reportValidity();
       await el.updateComplete;
 
-      const error = el.querySelector('[slot="error-text"]');
-      expect(error).to.exist;
-      expect(error).to.have.trimmed.text('Please fill out this field.')
-    });
-
-    it('should not show a hint when reported', async () => {
-      const hint = el.renderRoot.querySelector('sl-hint');
-
-      el.hintText = 'Lorem ipsum';
-      await el.updateComplete;
-
-      expect(hint).not.to.have.style('display', 'none');
-
-      el.reportValidity();
-      await el.updateComplete;
-
-      expect(hint).to.have.style('display', 'none');
+      expect(onUpdateValidity).to.have.been.calledOnce;
     });
 
     it('should show a warning icon when reported', async () => {
@@ -312,8 +250,8 @@ describe('sl-text-field', () => {
       expect(input.validity.valueMissing).to.be.false;
     });
 
-    it('should not have an error message', () => {
-      expect(el.querySelector('[slot="error-text"]')).to.not.exist;
+    it('should not have a validation message', () => {
+      expect(el.validationMessage).to.equal('');
     });
 
     it('should have a show-validity attribute when reported', async () => {

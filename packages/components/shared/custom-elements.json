@@ -255,6 +255,12 @@
               }
             }
           ],
+          "attributes": [
+            {
+              "description": " Can be used for styling anchor element, when popover is opened and the anchor is not a sl-button. For sl-button active state styling is used by default.",
+              "name": "popover-opened"
+            }
+          ],
           "methods": [
             {
               "kind": "method",
@@ -309,6 +315,11 @@
             },
             {
               "kind": "field",
+              "name": "#onToggle",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
@@ -344,6 +355,15 @@
           "description": "",
           "name": "EventsController",
           "members": [
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
             {
               "kind": "method",
               "name": "hostDisconnected",
@@ -429,6 +449,15 @@
           "methods": [
             {
               "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "hostDisconnected",
               "return": {
                 "type": {
@@ -510,6 +539,15 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "type": {
+                "text": "EventRegistration | undefined"
+              },
+              "default": "events"
+            },
             {
               "kind": "field",
               "name": "#host",

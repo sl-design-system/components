@@ -237,6 +237,7 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-size-skeleton-min-height: var(--sl-size-2xs);
   --sl-size-avatar-2xl: var(--sl-size-4xl);
   --sl-size-avatar-md: var(--sl-size-2xl);
   --sl-size-avatar-sm: var(--sl-size-xl);
@@ -487,10 +488,10 @@
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-select-selectbox-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-popover-text-text: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-popover-text-text: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-input-helper-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-helper-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /

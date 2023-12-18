@@ -135,7 +135,7 @@
         "solid": {
           "idle": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.default.idle.background",
               "failedToResolve": true
@@ -147,7 +147,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.neutral.400}",
+              "value": "{color.palette.neutral.500}",
               "type": "color",
               "description": "color.button.default.idle.border",
               "failedToResolve": true
@@ -195,7 +195,7 @@
           },
           "focus": {
             "background": {
-              "value": "rgba({body.background},{opacity.100})",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.default.focus.background",
               "failedToResolve": true
@@ -237,7 +237,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.default.outline.idle.background",
               "failedToResolve": true
@@ -4782,6 +4782,41 @@
           "type": "color",
           "failedToResolve": true
         }
+      }
+    },
+    "skeleton": {
+      "base": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "description": "body.surface.100",
+        "failedToResolve": true
+      },
+      "effect": {
+        "value": "{color.palette.neutral.150}",
+        "type": "color",
+        "description": "body.surface.100",
+        "failedToResolve": true
+      },
+      "pulse": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "alpha",
+              "value": "0.4",
+              "space": "hsl"
+            }
+          }
+        },
+        "description": "body.surface.100",
+        "failedToResolve": true
+      },
+      "shimmer": {
+        "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.effect} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",
+        "type": "color",
+        "description": "body.surface.100",
+        "failedToResolve": true
       }
     }
   },

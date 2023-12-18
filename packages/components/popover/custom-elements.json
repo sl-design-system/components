@@ -53,7 +53,7 @@
               "type": {
                 "text": "PopoverPosition | undefined"
               },
-              "default": "'top'",
+              "default": "'bottom'",
               "description": "The position of this popover relative to its anchor.",
               "attribute": "position"
             }
@@ -64,7 +64,7 @@
               "type": {
                 "text": "PopoverPosition | undefined"
               },
-              "default": "'top'",
+              "default": "'bottom'",
               "description": "The position of this popover relative to its anchor.",
               "fieldName": "position"
             }
@@ -75,7 +75,25 @@
           },
           "tagName": "sl-popover",
           "customElement": true,
-          "methods": [],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            }
+          ],
           "fields": [
             {
               "kind": "field",
@@ -89,10 +107,22 @@
             },
             {
               "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this)"
+            },
+            {
+              "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this, { arrow: '.arrow' })",
+              "default": "new AnchorController(this)",
               "description": "Controller for managing anchoring."
+            },
+            {
+              "kind": "field",
+              "name": "#popoverId",
+              "privacy": "private",
+              "default": "`sl-popover-${nextUniqueId++}`"
             }
           ]
         }

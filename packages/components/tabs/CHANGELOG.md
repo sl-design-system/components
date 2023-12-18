@@ -1,5 +1,14 @@
 # @sl-design-system/tabs
 
+## 0.0.14
+
+### Patch Changes
+
+- [#790](https://github.com/sl-design-system/components/pull/790) [`9b8e371`](https://github.com/sl-design-system/components/commit/9b8e371932fbe979f3250e07c605ad39239d4f82) - Upgrade to latest `@open-wc/scoped-elements` to track the standards spec
+
+- Updated dependencies [[`198c7c2`](https://github.com/sl-design-system/components/commit/198c7c277787d48276d402522f94f2d0d5132152), [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d)]:
+  - @sl-design-system/shared@0.2.0
+
 ## 0.0.13
 
 ### Patch Changes

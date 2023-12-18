@@ -4732,23 +4732,6 @@
         "type": "color",
         "failedToResolve": true
       },
-      "inactive": {
-        "background": {
-          "value": "{body.background}",
-          "type": "color",
-          "failedToResolve": true
-        },
-        "foreground": {
-          "value": "{body.foreground}",
-          "type": "color",
-          "failedToResolve": true
-        },
-        "border": {
-          "value": "{color.palette.neutral.200}",
-          "type": "color",
-          "failedToResolve": true
-        }
-      },
       "hover": {
         "background": {
           "value": "{color.palette.accent.100}",
@@ -4767,6 +4750,23 @@
         }
       },
       "disabled": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      },
+      "tabbar": {
         "background": {
           "value": "{body.background}",
           "type": "color",

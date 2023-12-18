@@ -2,7 +2,9 @@
   --_background: var(--sl-skeleton-background, rgb(var(--sl-color-palette-neutral-150)));
   --_border-radius: var(--sl-skeleton-border-radius, 0.25rem);
   --_min-height: var(--sl-skeleton-min-height, 0.5rem);
-  --_shine-color: var(--sl-skeleton-shine-color, rgb(var(--sl-color-palette-neutral-200)));
+  --_shine-color: var(
+    --sl-color-skeleton-shimmer
+  ); //var(--sl-skeleton-shine-color, rgb(var(--sl-color-palette-neutral-200)));
   --_animation-duration: var(--sl-skeleton-animation-duration, 3000ms);
 }
 
@@ -15,7 +17,9 @@
 
 :host([effect='shimmer']) {
   animation: shimmer-effect var(--_animation-duration) linear infinite;
-  background: linear-gradient(to right, var(--_background) 4%, var(--_shine-color) 25%, var(--_background) 36%);
+  background: var(
+    --sl-color-skeleton-shimmer
+  ); //linear-gradient(to right, var(--_background) 4%, var(--_shine-color) 25%, var(--_background) 36%);
   background-size: 2000px 100%;
 }
 

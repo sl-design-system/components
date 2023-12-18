@@ -6,9 +6,11 @@ import { Select } from './select.js';
 
 describe('sl-select', () => {
   let el: Select;
+
   afterEach(async () => {
     el.listbox?.hidePopover();
   });
+
   describe('string options', () => {
     const options = [
       `Won't say`,
@@ -16,6 +18,7 @@ describe('sl-select', () => {
       `The Netherlands`,
       `Somewhere else`,
     ];
+
     describe('nothing selected', () => {
       beforeEach(async () => {
         el = await fixture(html`
@@ -28,8 +31,9 @@ describe('sl-select', () => {
             <sl-select-option>Somewhere else</sl-select-option>
           </sl-select>`);
       });
+
       afterEach(() => {
-        el.allOptions.forEach(option => option.removeAttribute('selected'));
+        el.options.forEach(option => option.removeAttribute('selected'));
       });
 
       it('should render correctly', () => {
@@ -37,8 +41,8 @@ describe('sl-select', () => {
       });
 
       it('should list all options in the correct order', () => {
-        expect(el.allOptions).to.have.length(4);
-        el.allOptions.forEach((option, index) =>
+        expect(el.options).to.have.length(4);
+        el.options.forEach((option, index) =>
             expect(option.textContent).to.equal(options[index])
         );
       });
@@ -73,7 +77,7 @@ describe('sl-select', () => {
       it('should select the clicked option and close the dialog', async () => {
         el.listbox?.showPopover();
         const clickEvent = new Event('click',{bubbles:true});
-        el.allOptions[1].dispatchEvent(clickEvent);
+        el.options[1].dispatchEvent(clickEvent);
 
         await new Promise(resolve => setTimeout(resolve));
         expect(el.renderRoot.querySelector('button span')?.textContent?.trim()).to.equal(options[1]);
@@ -153,8 +157,8 @@ describe('sl-select', () => {
           `narwhal`,
           `pinata`,
         ];
-        expect(el.allOptions).to.have.length(4);
-        el.allOptions.forEach((option, index) =>
+        expect(el.options).to.have.length(4);
+        el.options.forEach((option, index) =>
             expect(option.querySelector('sl-icon')?.getAttribute('name')).to.equal(options[index])
         );
       });

@@ -5,7 +5,7 @@ import { FormControlMixin } from '@sl-design-system/form';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
-import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
+import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectOption } from './select-option.js';
 import { SelectOptionGroup } from './select-option-group.js';
 import styles from './select.scss.js';
@@ -53,10 +53,10 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   #observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
       if (mutation.attributeName === 'selected' && mutation.oldValue === null) {
-        const selectedOption = <SelectOption>mutation.target;
+        const option = <SelectOption>mutation.target;
 
         this.#observer.disconnect();
-        this.#updateSelectedOption(selectedOption);
+        this.#setSelectedOption(option);
         this.#observer.observe(this, OBSERVER_OPTIONS);
       }
     });
@@ -78,13 +78,10 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string | null>;
 
   /** Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
-
-  /** @private */
-  @query('#selectedOption') selectedOptionPlaceholder?: HTMLElement;
 
   /** @private */
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
@@ -127,25 +124,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   /** The value for the select, to be used in forms. */
   @property() value: string | null = null;
-
-  /** @private */
-  get allOptions(): SelectOption[] {
-    return Array.from(this.querySelectorAll('sl-select-option'));
-  }
-
-  get #renderSelectedOption(): HTMLElement | TemplateResult {
-    if (!this.selectedOption) {
-      return this.placeholder ? html`${this.placeholder}` : html`&nbsp;`;
-    }
-    return (this.selectedOption.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
-  }
-
-  get #optionContentType(): string {
-    if (!this.selectedOption) {
-      return `string`;
-    }
-    return (this.selectedOption?.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
-  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -190,16 +168,11 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   override firstUpdated(): void {
     this.listbox = this.renderRoot.querySelector('[popover]') as HTMLElement;
-
-    this.selectedOption ||= this.allOptions.find(option => option.selected);
-
-    if (this.selectedOption) {
-      this.#setSelectedOptionVisible(this.selectedOption);
-    }
+    this.selectedOption = this.options.find(option => option.selected);
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('currentOption')) {
       this.options.forEach(option => option.classList.toggle('sl-current', option === this.currentOption));
@@ -210,6 +183,12 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       } else {
         this.button.removeAttribute('aria-activedescendant');
       }
+    }
+
+    if (changes.has('selectedOption')) {
+      this.value = this.selectedOption?.value ?? null;
+      this.button.selected = this.selectedOption;
+      this.internals.setFormValue(this.value);
     }
 
     if (changes.has('disabled')) {
@@ -227,7 +206,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
     if (changes.has('size')) {
       this.button.size = this.size;
-      this.allOptions?.forEach(option => (option.size = this.size));
+      this.options?.forEach(option => (option.size = this.size));
       this.optionGroups?.forEach(group => (group.size = this.size));
     }
   }
@@ -253,7 +232,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.button.setAttribute('aria-expanded', 'true');
       this.listbox.style.width = `${this.button.getBoundingClientRect().width}px`;
 
-      this.currentOption = this.selectedOption ?? this.allOptions[0];
+      this.currentOption = this.selectedOption ?? this.options[0];
     } else {
       this.#popoverClosing = true;
       this.button.removeAttribute('aria-expanded');
@@ -302,7 +281,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       case ' ':
       case 'Enter':
         if (isPopoverOpen(this.listbox)) {
-          this.selectedOption = this.currentOption;
+          this.#setSelectedOption(this.currentOption);
           this.listbox.hidePopover();
         } else {
           this.listbox.showPopover();
@@ -324,7 +303,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     const option = event.target?.closest('sl-select-option');
 
     if (option) {
-      this.#updateSelectedOption(option);
+      this.#setSelectedOption(option);
       this.listbox.hidePopover();
     }
   }
@@ -340,8 +319,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
         }
       });
     }
-    if (this.allOptions.length > 0) {
-      this.allOptions.forEach(option => (option.size = this.size));
+
+    if (this.options.length > 0) {
+      this.options.forEach(option => (option.size = this.size));
     }
   }
 
@@ -349,34 +329,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     if (event.newState === 'closed') {
       this.#popoverClosing = false;
     }
-  }
-
-  /**
-   * Update the selected option with attributes and values.
-   */
-  #updateSelectedOption(selectedOption: SelectOption): void {
-    // Always reset the scroll when an option is selected.
-    this.scrollTo({ top: 0 });
-
-    /**
-     * Return handler if it's not an option or if it's already selected
-     */
-    if (selectedOption === this.selectedOption || selectedOption.disabled || !this.listbox) return;
-
-    // Reset all the selected state of the tabs, and select the clicked tab
-    this.allOptions.forEach((option: SelectOption) => {
-      option.removeAttribute('selected');
-      if (option === selectedOption) {
-        option.setAttribute('selected', '');
-        option.focus();
-        option.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-
-        this.selectedOption = option;
-        // const selectedValue = option.value || option.innerHTML;
-        // this.#validation.validate(this.selectedOption ? selectedValue : undefined);
-        this.#setSelectedOptionVisible(option);
-      }
-    });
   }
 
   /** Returns a flattened array of all options (also the options in groups). */
@@ -390,17 +342,16 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     }
   }
 
-  /**
-   * Copy the value/represenation of the selected option to the placeholder
-   */
-  #setSelectedOptionVisible(option: SelectOption): void {
-    this.internals.setFormValue(option.value || option.innerHTML);
+  #setSelectedOption(option?: SelectOption): void {
+    if (this.selectedOption) {
+      this.selectedOption.selected = false;
+    }
 
-    const clonedOption = (option.firstChild as HTMLElement).cloneNode(true) as HTMLElement;
-    const contentType = (option.firstChild as HTMLElement).nodeType === 1 ? 'element' : 'string';
+    this.selectedOption = option;
+    if (this.selectedOption) {
+      this.selectedOption.selected = true;
+    }
 
-    this.selectedOptionPlaceholder?.childNodes.forEach(cn => cn.remove());
-    this.selectedOptionPlaceholder?.append(clonedOption);
-    this.selectedOptionPlaceholder?.setAttribute('contentType', contentType);
+    this.changeEvent.emit(option?.value || null);
   }
 }

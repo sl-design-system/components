@@ -20,7 +20,7 @@ $sizes: md, lg;
     --_font: var(--sl-text-select-selectbox-text-#{$size});
   }
 
-  :host([size='#{$size}'][contenttype='string']) {
+  :host([size='#{$size}']) {
     --_padding-block: var(--sl-space-select-item-block-#{$size});
     --_padding-inline: var(--sl-space-select-item-inline-#{$size});
   }
@@ -32,11 +32,6 @@ $sizes: md, lg;
 
 :host(:active) {
   background-color: var(--sl-color-select-item-active-background);
-}
-
-:host([contenttype='element']) {
-  --_padding-block: 0;
-  --_padding-inline: 0;
 }
 
 :host([disabled]) {

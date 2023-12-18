@@ -1,5 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { SelectSize } from './select.js';
+import type { SelectOption } from './select-option.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
@@ -23,6 +24,9 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   /** The placeholder for when there is no selected option.s */
   @property() placeholder?: string;
+
+  /** The selected option. */
+  @property({ attribute: false }) selected?: SelectOption | null;
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize = 'md';
@@ -55,8 +59,17 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    let selected: string | HTMLElement | undefined = undefined;
+
+    if (this.selected?.childElementCount) {
+      selected = this.selected.cloneNode(true) as HTMLElement;
+      selected.part.add('selected');
+    } else {
+      selected = this.selected?.textContent?.trim();
+    }
+
     return html`
-      <div>${this.placeholder ?? 'asdf'}</div>
+      <div>${selected ?? this.placeholder ?? ''}</div>
       <sl-icon name="chevron-down"></sl-icon>
     `;
   }

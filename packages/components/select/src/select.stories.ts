@@ -64,25 +64,35 @@ export const Disabled: Story = {
 
 export const EmbeddedComponents: Story = {
   args: {
-    options: html`
-      <sl-select-option>
-        <sl-avatar uniqueProfileId="1"></sl-avatar>
-      </sl-select-option>
-      <sl-select-option selected>
-        <sl-avatar uniqueProfileId="2"></sl-avatar>
-      </sl-select-option>
-      <sl-select-option>
-        <sl-avatar uniqueProfileId="3"></sl-avatar>
-      </sl-select-option>
-      <sl-select-option>
-        <sl-avatar uniqueProfileId="14"></sl-avatar>
-      </sl-select-option>
-      <sl-select-option disabled>
-        <sl-avatar uniqueProfileId="4"></sl-avatar>
-      </sl-select-option>
-      <sl-select-option>
-        <sl-avatar uniqueProfileId="5"></sl-avatar>
-      </sl-select-option>
+    placeholder: 'Select a student',
+    slot: () => html`
+      <style>
+        sl-select-button::part(selected),
+        sl-select-option {
+          align-items: center;
+          display: flex;
+        }
+      </style>
+      <sl-select>
+        <sl-select-option>
+          <sl-avatar size="sm" user='{"name":{"first":"Ashley","last":"Howard"}}' value="1"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option selected>
+          <sl-avatar size="sm" user='{"name":{"first":"Aria","last":"Bailey"}}' value="2"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option>
+          <sl-avatar size="sm" user='{"name":{"first":"Cooper","last":"Philips"}}' value="3"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option>
+          <sl-avatar size="sm" user='{"name":{"first":"Abigail","last":"Lewis"}}' value="4"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option disabled>
+          <sl-avatar size="sm" user='{"name":{"first":"Ryder","last":"Turner"}}' value="5"></sl-avatar>
+        </sl-select-option>
+        <sl-select-option>
+          <sl-avatar size="sm" user='{"name":{"first":"Zoe","last":"Robinson"}}' value="6"></sl-avatar>
+        </sl-select-option>
+      </sl-select>
     `
   }
 };

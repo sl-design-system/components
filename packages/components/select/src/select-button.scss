@@ -62,7 +62,7 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   font: var(--_font);
   gap: var(--_gap);
   inline-size: 100%;
-  max-inline-size: 100%;
+  max-inline-size: calc(100% - 24px); // FIXME
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transition: 0.2s ease-in-out;

@@ -94,6 +94,14 @@
             },
             {
               "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "SelectOption | null | undefined"
+              },
+              "description": "The selected option."
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "SelectSize | undefined"
@@ -153,6 +161,14 @@
               "static": true,
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "SelectOption | null | undefined"
+              },
+              "description": "The selected option."
             }
           ]
         }
@@ -257,8 +273,9 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "FormControlValue | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the option item, to be used in forms.",
               "attribute": "value"
             }
@@ -283,8 +300,9 @@
             {
               "name": "value",
               "type": {
-                "text": "FormControlValue | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the option item, to be used in forms.",
               "fieldName": "value"
             }
@@ -295,25 +313,7 @@
           },
           "tagName": "sl-select-option",
           "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            }
-          ],
+          "methods": [],
           "fields": []
         }
       ],
@@ -425,7 +425,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<string | null>"
               },
               "description": "Emits when the value changes."
             },
@@ -460,7 +460,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<string | null>"
               },
               "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
@@ -657,24 +657,6 @@
             },
             {
               "kind": "method",
-              "name": "#updateSelectedOption",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "selectedOption",
-                  "type": {
-                    "text": "SelectOption"
-                  }
-                }
-              ],
-              "description": "Update the selected option with attributes and values."
-            },
-            {
-              "kind": "method",
               "name": "#getAllOptions",
               "return": {
                 "type": {
@@ -693,7 +675,7 @@
             },
             {
               "kind": "method",
-              "name": "#setSelectedOptionVisible",
+              "name": "#setSelectedOption",
               "return": {
                 "type": {
                   "text": "void"
@@ -702,12 +684,12 @@
               "parameters": [
                 {
                   "name": "option",
+                  "optional": true,
                   "type": {
                     "text": "SelectOption"
                   }
                 }
-              ],
-              "description": "Copy the value/represenation of the selected option to the placeholder"
+              ]
             }
           ],
           "fields": [
@@ -752,7 +734,7 @@
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(mutations => {\n    mutations.forEach(mutation => {\n      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {\n        const selectedOption = <SelectOption>mutation.target;\n\n        this.#observer.disconnect();\n        this.#updateSelectedOption(selectedOption);\n        this.#observer.observe(this, OBSERVER_OPTIONS);\n      }\n    });\n  })",
+              "default": "new MutationObserver(mutations => {\n    mutations.forEach(mutation => {\n      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {\n        const option = <SelectOption>mutation.target;\n\n        this.#observer.disconnect();\n        this.#setSelectedOption(option);\n        this.#observer.observe(this, OBSERVER_OPTIONS);\n      }\n    });\n  })",
               "description": "If an option is selected programmatically update all the options or the size of the select itself."
             },
             {
@@ -789,14 +771,6 @@
             },
             {
               "kind": "field",
-              "name": "selectedOptionPlaceholder",
-              "type": {
-                "text": "HTMLElement | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
               "name": "optionGroups",
               "type": {
                 "text": "SelectOptionGroup[] | undefined"
@@ -828,33 +802,6 @@
                 "text": "SelectOption | null | undefined"
               },
               "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "allOptions",
-              "type": {
-                "text": "SelectOption[]"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "#renderSelectedOption",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLElement | TemplateResult"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "#optionContentType",
-              "privacy": "private",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
             }
           ]
         }

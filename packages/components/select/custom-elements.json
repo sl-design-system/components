@@ -640,6 +640,23 @@
             },
             {
               "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "ToggleEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#updateSelectedOption",
               "return": {
                 "type": {
@@ -737,6 +754,16 @@
               "privacy": "private",
               "default": "new MutationObserver(mutations => {\n    mutations.forEach(mutation => {\n      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {\n        const selectedOption = <SelectOption>mutation.target;\n\n        this.#observer.disconnect();\n        this.#updateSelectedOption(selectedOption);\n        this.#observer.observe(this, OBSERVER_OPTIONS);\n      }\n    });\n  })",
               "description": "If an option is selected programmatically update all the options or the size of the select itself."
+            },
+            {
+              "kind": "field",
+              "name": "#popoverClosing",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Since we can't use `popovertarget`, we need to monitor the closing state manually."
             },
             {
               "kind": "field",

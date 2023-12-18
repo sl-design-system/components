@@ -5,6 +5,8 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-option.scss.js';
 
+let nextUniqueId = 0;
+
 export class SelectOption extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
@@ -27,6 +29,7 @@ export class SelectOption extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.id ||= `sl-select-option-${nextUniqueId++}`;
     this.setAttribute('role', 'option');
   }
 

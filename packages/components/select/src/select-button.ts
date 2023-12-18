@@ -30,8 +30,8 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.role = 'combobox';
     this.slot = 'button';
+    this.setAttribute('role', 'combobox');
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = this.disabled ? -1 : 0;

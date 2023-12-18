@@ -62,6 +62,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     });
   });
 
+  /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
+  #popoverClosing = false;
+
   /** @private Element internals. */
   readonly internals = this.attachInternals();
 
@@ -236,6 +239,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
         ${anchor({ element: this.button, position: 'bottom' })}
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
+        @toggle=${this.#onToggle}
         popover
         role="listbox"
       >
@@ -251,16 +255,17 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
       this.currentOption = this.selectedOption ?? this.allOptions[0];
     } else {
+      this.#popoverClosing = true;
       this.button.removeAttribute('aria-expanded');
     }
   }
 
   #onButtonClick(): void {
-    if (isPopoverOpen(this.listbox)) {
-      this.listbox.hidePopover();
-    } else {
+    if (!isPopoverOpen(this.listbox) && !this.#popoverClosing) {
       this.listbox.showPopover();
     }
+
+    this.#popoverClosing = false;
   }
 
   #onFocusin(): void {
@@ -337,6 +342,12 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     }
     if (this.allOptions.length > 0) {
       this.allOptions.forEach(option => (option.size = this.size));
+    }
+  }
+
+  #onToggle(event: ToggleEvent): void {
+    if (event.newState === 'closed') {
+      this.#popoverClosing = false;
     }
   }
 

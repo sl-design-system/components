@@ -6,12 +6,9 @@ import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { breakpoints } from '@sl-design-system/shared';
 import { localized, msg } from '@lit/localize';
-import { faOctagonExclamation } from '@fortawesome/pro-solid-svg-icons';
 import { LitElement, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
-
-Icon.registerIcon(faOctagonExclamation);
 
 export type InlineMessageStatus = 'info' | 'success' | 'warning' | 'danger';
 
@@ -58,7 +55,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
-        return 'fas-octagon-exclamation';
+        return 'octagon-exclamation-solid';
       case 'danger':
         return 'triangle-exclamation-solid';
       default:

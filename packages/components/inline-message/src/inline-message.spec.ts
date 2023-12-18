@@ -64,7 +64,7 @@ describe('sl-inline-message', () => {
       expect(document.querySelectorAll('sl-inline-message')).not.to.exist;
     });
 
-    it('should close the inline message when onClose is called', async () => {
+    it('should close the inline message when remove is called', async () => {
       const elMsg = await fixture<InlineMessage>(html`
         <sl-inline-message status="info">
           inline message

@@ -6,8 +6,7 @@ $statuses: info, success, warning, danger;
   --_border-left: var(--sl-border-width-inline-message-start) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-inline-message-default);
   --_padding-block: var(--sl-space-inline-message-block);
-  --_padding-inline-start: calc(var(--sl-space-inline-message-inline-start));
-  --_padding-inline-end: var(--sl-space-inline-message-inline-end);
+  --_padding-inline: calc(var(--sl-space-inline-message-inline-start)) var(--sl-space-inline-message-inline-end);
   --_title-font: var(--sl-text-body-lg-demibold);
   --_gap: var(--sl-space-inline-message-gap);
   --_close-button-spacing: var(--sl-space-button-gap-sm);
@@ -46,12 +45,12 @@ $statuses: info, success, warning, danger;
   outline: none;
   overflow: hidden;
   padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline-start) var(--_padding-inline-end);
+  padding-inline: var(--_padding-inline);
   position: relative;
   width: auto;
 }
 
-.wrapper[close]:not([open]) {
+.wrapper[close] {
   opacity: 0;
 }
 

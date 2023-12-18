@@ -89,7 +89,12 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         ${this.dismissible
           ? html`
               <slot name="close-button" @click=${this.#closeOnAnimationend}>
-                <sl-button fill="ghost" variant="default" size="sm" aria-label=${msg('Close')}>
+                <sl-button
+                  fill="ghost"
+                  variant=${this.status === 'info' ? 'primary' : this.status}
+                  size="sm"
+                  aria-label=${msg('Close')}
+                >
                   <sl-icon name="xmark"></sl-icon>
                 </sl-button>
               </slot>
@@ -105,7 +110,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       this.wrapper?.addEventListener(
         'animationend',
         () => {
-          this.wrapper?.removeAttribute('open');
           this.remove();
         },
         { once: true }

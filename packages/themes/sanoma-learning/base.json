@@ -1895,6 +1895,12 @@
         "type": "borderRadius",
         "description": "borderRadius.button"
       }
+    },
+    "skeleton": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -3703,6 +3709,12 @@
       },
       "3xl": {
         "value": 80,
+        "type": "sizing"
+      }
+    },
+    "skeleton": {
+      "minHeight": {
+        "value": "{size.2xs}",
         "type": "sizing"
       }
     }

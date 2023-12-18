@@ -45,7 +45,7 @@ export class AnchorDirective extends Directive {
     if (event.newState === 'open') {
       const host = event.target;
 
-      let anchorElement = host.anchorElement;
+      let anchorElement = this.#config?.element || host.anchorElement;
       if (!anchorElement && host.hasAttribute('anchor')) {
         anchorElement =
           (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;

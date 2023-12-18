@@ -2,7 +2,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
-import { Icon } from '@sl-design-system/icon';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
@@ -10,6 +9,7 @@ import { property, query, queryAssignedElements, state } from 'lit/decorators.js
 import { SelectOption } from './select-option.js';
 import { SelectOptionGroup } from './select-option-group.js';
 import styles from './select.scss.js';
+import { SelectButton } from './select-button.js';
 
 declare global {
   interface ARIAMixin {
@@ -33,7 +33,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-icon': Icon
+      'sl-select-button': SelectButton
     };
   }
 
@@ -65,6 +65,12 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private Element internals. */
   readonly internals = this.attachInternals();
 
+  /** The button in the light DOM. */
+  button!: SelectButton;
+
+  /** The listbox popover. */
+  listbox!: HTMLElement;
+
   /** Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
@@ -79,12 +85,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   /** @private */
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
-
-  /** @private */
-  @query('button') button!: HTMLButtonElement;
-
-  /** @private */
-  @query('#popover') listbox!: HTMLElement;
 
   /** @private A flattened array of all options (even grouped ones). */
   get options(): SelectOption[] {
@@ -146,9 +146,23 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    if (!this.button) {
+      this.button = this.shadowRoot?.createElement('sl-select-button') as SelectButton;
+      this.button.addEventListener('click', () => this.#onButtonClick());
+      this.button.addEventListener('keydown', (event: KeyboardEvent) => this.#onKeydown(event));
+      this.button.disabled = !!this.disabled;
+      this.button.placeholder = this.placeholder;
+      this.button.size = this.size;
+      this.append(this.button);
+    }
+
     this.#observer.observe(this, OBSERVER_OPTIONS);
 
     this.setFormControlElement(this);
+
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
   }
 
   override disconnectedCallback(): void {
@@ -158,6 +172,8 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   override firstUpdated(): void {
+    this.listbox = this.renderRoot.querySelector('[popover]') as HTMLElement;
+
     this.selectedOption ||= this.allOptions.find(option => option.selected);
 
     if (this.selectedOption) {
@@ -174,19 +190,21 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.button.ariaActiveDescendantElement = this.currentOption ?? null;
     }
 
+    if (changes.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
+      this.button.disabled = this.disabled;
+    }
+
     if (changes.has('maxOverlayHeight') && this.maxOverlayHeight && this.listbox) {
       this.listbox.style.setProperty('--max-overlay-height', `${this.maxOverlayHeight}`);
     }
 
     if (changes.has('placeholder')) {
-      if (this.placeholder) {
-        this.setAttribute('aria-placeholder', this.placeholder);
-      } else {
-        this.removeAttribute('aria-placeholder');
-      }
+      this.button.placeholder = this.placeholder;
     }
 
     if (changes.has('size')) {
+      this.button.size = this.size;
       this.allOptions?.forEach(option => (option.size = this.size));
       this.optionGroups?.forEach(group => (group.size = this.size));
     }
@@ -194,26 +212,11 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   override render(): TemplateResult {
     return html`
-      <button
-        @keydown=${this.#onKeydown}
-        ?disabled=${this.disabled}
-        id="button"
-        popovertarget="popover"
-        role="combobox"
-      >
-        <span aria-hidden=${!this.selectedOption} contenttype=${this.#optionContentType}>
-          ${this.#renderSelectedOption}
-        </span>
-        <sl-icon name="chevron-down"></sl-icon>
-      </button>
-
+      <slot name="button"></slot>
       <div
-        ${anchor({ position: 'bottom' })}
+        ${anchor({ element: this.button, position: 'bottom' })}
         @beforetoggle=${this.#onBeforetoggle}
-        @click=${this.#onClick}
-        anchor="button"
-        class="listbox"
-        id="popover"
+        @click=${this.#onListboxClick}
         popover
         role="listbox"
       >
@@ -224,18 +227,20 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   #onBeforetoggle({ newState }: ToggleEvent): void {
     if (newState === 'open') {
+      this.button.setAttribute('aria-expanded', 'true');
       this.listbox.style.width = `${this.button.getBoundingClientRect().width}px`;
 
       this.currentOption = this.selectedOption ?? this.allOptions[0];
+    } else {
+      this.button.removeAttribute('aria-expanded');
     }
   }
 
-  #onClick(event: Event & { target: HTMLElement }): void {
-    const option = event.target?.closest('sl-select-option');
-
-    if (option) {
-      this.#updateSelectedOption(option);
+  #onButtonClick(): void {
+    if (isPopoverOpen(this.listbox)) {
       this.listbox.hidePopover();
+    } else {
+      this.listbox.showPopover();
     }
   }
 
@@ -258,7 +263,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
         if (isPopoverOpen(this.listbox)) {
           delta = 1;
         } else {
-          this.button.click();
+          this.listbox.showPopover();
         }
         break;
       case 'ArrowUp':
@@ -287,6 +292,15 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  #onListboxClick(event: Event & { target: HTMLElement }): void {
+    const option = event.target?.closest('sl-select-option');
+
+    if (option) {
+      this.#updateSelectedOption(option);
+      this.listbox.hidePopover();
+    }
   }
 
   #onSlotchange(): void {

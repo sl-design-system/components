@@ -66,6 +66,110 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/select-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SelectButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The placeholder for when there is no selected option.s",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "SelectSize | undefined"
+              },
+              "default": "'md'",
+              "description": "The size of the parent select.",
+              "attribute": "size",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The placeholder for when there is no selected option.s",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "SelectSize | undefined"
+              },
+              "default": "'md'",
+              "description": "The size of the parent select.",
+              "fieldName": "size"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SelectButton",
+          "declaration": {
+            "name": "SelectButton",
+            "module": "src/select-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/select-option-group.ts",
       "declarations": [
         {
@@ -235,6 +339,14 @@
           "members": [
             {
               "kind": "field",
+              "name": "button",
+              "type": {
+                "text": "SelectButton"
+              },
+              "description": "The button in the light DOM."
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean | undefined"
@@ -252,6 +364,14 @@
               "description": "Whether the select is invalid.",
               "attribute": "invalid",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox popover."
             },
             {
               "kind": "field",
@@ -450,20 +570,12 @@
             },
             {
               "kind": "method",
-              "name": "#onClick",
+              "name": "#onButtonClick",
               "return": {
                 "type": {
                   "text": "void"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLElement }"
-                  }
-                }
-              ]
+              }
             },
             {
               "kind": "method",
@@ -496,6 +608,23 @@
                   "name": "event",
                   "type": {
                     "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onListboxClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
               ]
@@ -617,6 +746,22 @@
             },
             {
               "kind": "field",
+              "name": "button",
+              "type": {
+                "text": "SelectButton"
+              },
+              "description": "The button in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox popover."
+            },
+            {
+              "kind": "field",
               "name": "selectedOptionPlaceholder",
               "type": {
                 "text": "HTMLElement | undefined"
@@ -628,22 +773,6 @@
               "name": "optionGroups",
               "type": {
                 "text": "SelectOptionGroup[] | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "button",
-              "type": {
-                "text": "HTMLButtonElement"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "listbox",
-              "type": {
-                "text": "HTMLElement"
               },
               "privacy": "private"
             },

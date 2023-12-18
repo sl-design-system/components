@@ -1,0 +1,63 @@
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { SelectSize } from './select.js';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Icon } from '@sl-design-system/icon';
+import { LitElement, html } from 'lit';
+import { property } from 'lit/decorators.js';
+import styles from './select-button.scss.js';
+
+export class SelectButton extends ScopedElementsMixin(LitElement) {
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-icon': Icon
+    };
+  }
+
+  /** @private */
+  static override styles: CSSResultGroup = styles;
+
+  /** Whether the button is disabled. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** The placeholder for when there is no selected option.s */
+  @property() placeholder?: string;
+
+  /** The size of the parent select. */
+  @property({ reflect: true }) size?: SelectSize = 'md';
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.role = 'combobox';
+    this.slot = 'button';
+
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = this.disabled ? -1 : 0;
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('disabled')) {
+      this.tabIndex = this.disabled ? -1 : 0;
+    }
+
+    if (changes.has('placeholder')) {
+      if (this.placeholder) {
+        this.setAttribute('aria-placeholder', this.placeholder);
+      } else {
+        this.removeAttribute('aria-placeholder');
+      }
+    }
+  }
+
+  override render(): TemplateResult {
+    return html`
+      <div>${this.placeholder ?? 'asdf'}</div>
+      <sl-icon name="chevron-down"></sl-icon>
+    `;
+  }
+}

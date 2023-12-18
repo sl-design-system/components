@@ -3357,7 +3357,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.info.100}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -3834,7 +3834,7 @@
             "failedToResolve": true
           },
           "disabled": {
-            "value": "{color.palette.neutral.500}",
+            "value": "{body.foreground}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground",
             "failedToResolve": true
@@ -3854,7 +3854,7 @@
             "failedToResolve": true
           },
           "disabled": {
-            "value": "{color.palette.neutral.500}",
+            "value": "{body.foreground}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground",
             "failedToResolve": true
@@ -3912,7 +3912,7 @@
     },
     "tooltip": {
       "background": {
-        "value": "{color.palette.accent.800}",
+        "value": "{color.palette.primary.900}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4556,7 +4556,7 @@
           "failedToResolve": true
         },
         "background": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.primary.50}",
           "type": "color",
           "failedToResolve": true
         }

@@ -1,7 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { Icon } from '@sl-design-system/icon';
-import { LitElement, html } from 'lit';
-import { property, queryAssignedElements } from 'lit/decorators.js';
+import { LitElement, html, nothing } from 'lit';
+import { property } from 'lit/decorators.js';
 import styles from './badge.scss.js';
 
 export type BadgeSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
@@ -16,17 +15,14 @@ export type BadgeVariant = 'neutral' | 'primary' | 'danger' | 'success' | 'warni
  *
  * @slot default - Contents of the badge
  */
-export class badge extends LitElement {
+export class Badge extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
   @property({ reflect: true }) size: BadgeSize = 'md';
   @property({ reflect: true }) variant: BadgeVariant = 'neutral';
 
-  /** @private The slotted icons. */
-  @queryAssignedElements() icons?: Icon[];
-
-  override render(): TemplateResult {
-    return this.size !== 'sm' ? html`<slot></slot>` : html``;
+  override render(): TemplateResult | typeof nothing {
+    return this.size !== 'sm' ? html`<slot></slot>` : nothing;
   }
 }

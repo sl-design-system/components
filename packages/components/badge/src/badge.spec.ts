@@ -1,10 +1,10 @@
-import type { badge } from './badge.js';
+import type { Badge } from './badge.js';
 import { expect, fixture, should } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
 
 describe('dna-badge', () => {
-  let el: badge;
+  let el: Badge;
 
   beforeEach(async () => {
     el = await fixture(html`<sl-badge>99+</sl-badge>`);

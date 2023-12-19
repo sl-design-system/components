@@ -1,9 +1,9 @@
-import { badge } from './src/badge.js';
+import { Badge } from './src/badge.js';
 
-customElements.define('sl-badge', badge);
+customElements.define('sl-badge', Badge);
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-badge': badge;
+    'sl-badge': Badge;
   }
 }

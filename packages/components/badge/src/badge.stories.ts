@@ -1,16 +1,11 @@
-import type { BadgeSize, BadgeVariant } from './badge.js';
+import type { Badge, BadgeSize, BadgeVariant } from './badge.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { Icon } from '@sl-design-system/icon';
 import { faCheck, faGear } from '@fortawesome/pro-regular-svg-icons';
 import { html, nothing } from 'lit';
 import '../register.js';
 
-interface Props {
-  icon: boolean;
-  size: BadgeSize;
-  text: string;
-  variant: BadgeVariant;
-}
+type Props = Pick<Badge, 'size' | 'variant'> & { icon?: boolean; text?: string };
 
 type Story = StoryObj<Props>;
 

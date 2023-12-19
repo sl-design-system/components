@@ -26,7 +26,7 @@
           "kind": "custom-element-definition",
           "name": "sl-badge",
           "declaration": {
-            "name": "badge",
+            "name": "Badge",
             "module": "/src/badge.js"
           }
         }
@@ -39,7 +39,7 @@
         {
           "kind": "class",
           "description": "Show totals at a glance or labels contents with a tag.\n\n```html\n<sl-badge> 99+ </sl-badge>\n```",
-          "name": "badge",
+          "name": "Badge",
           "slots": [
             {
               "description": "Contents of the badge",
@@ -93,24 +93,15 @@
           "tagName": "sl-badge",
           "customElement": true,
           "methods": [],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "icons",
-              "type": {
-                "text": "Icon[] | undefined"
-              },
-              "privacy": "private"
-            }
-          ]
+          "fields": []
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "badge",
+          "name": "Badge",
           "declaration": {
-            "name": "badge",
+            "name": "Badge",
             "module": "src/badge.ts"
           }
         }

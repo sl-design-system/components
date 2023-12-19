@@ -1,3 +1,5 @@
+$variants: default, circle;
+
 :host {
   --_background: var(
     --sl-color-skeleton-base
@@ -10,6 +12,16 @@
   ); //var(--sl-skeleton-shine-color, rgb(var(--sl-color-palette-neutral-200)));
   --_animation-duration: var(--sl-skeleton-animation-duration, 3000ms);
 }
+
+//@each $variant in $variants {
+//  :host([status='#{$variant}']) {
+//    --_background-color: var(--sl-color-inline-message-#{$status}-background);
+//    --_border-color: var(--sl-color-inline-message-#{$status}-border);
+//    --_icon-fill: var(--sl-color-inline-message-#{$status}-icon);
+//    --_fill: var(--sl-color-inline-message-#{$status}-icon);
+//    --_color: var(--sl-color-inline-message-#{$status}-foreground);
+//  }
+//}
 
 :host {
   background: var(--_background);

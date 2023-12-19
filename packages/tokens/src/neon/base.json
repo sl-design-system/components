@@ -1501,16 +1501,6 @@
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
     },
-    "focusring": {
-      "default": {
-        "value": "{borderRadius.default} + 1",
-        "type": "borderRadius"
-      },
-      "full": {
-        "value": "{border.radius.full}",
-        "type": "borderRadius"
-      }
-    },
     "select": {
       "listbox": {
         "value": "{border.radius.sm}",
@@ -1528,6 +1518,20 @@
       },
       "mobile": {
         "value": "{border.radius.none}",
+        "type": "borderRadius"
+      }
+    },
+    "focusring": {
+      "default": {
+        "value": "{borderRadius.default} + 1",
+        "type": "borderRadius"
+      },
+      "checkbox": {
+        "value": "{borderRadius.checkbox} + 1",
+        "type": "borderRadius"
+      },
+      "full": {
+        "value": "{border.radius.full}",
         "type": "borderRadius"
       }
     }
@@ -1563,6 +1567,11 @@
           "description": "border.width.button.default"
         },
         "border": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        },
+        "option": {
           "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"

@@ -445,7 +445,6 @@
   font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-sm);
-  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 .sl-text-badge-text-2xl {
@@ -453,7 +452,6 @@
   font-size: var(--sl-text-typeset-font-size-xs);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xxs);
-  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 .sl-text-badge-text-xl {
@@ -461,7 +459,6 @@
   font-size: var(--sl-text-typeset-font-size-xs);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xxs);
-  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 .sl-text-badge-text-lg {
@@ -469,7 +466,6 @@
   font-size: var(--sl-text-typeset-font-size-xs);
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xs);
-  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 .sl-text-badge-text-md {
@@ -477,7 +473,6 @@
   font-size: 8px;
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: 8px;
-  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 .sl-text-badge-text-sm {
@@ -485,7 +480,6 @@
   font-size: 6px;
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: 6px;
-  text-transform: var(--sl-text-typeset-text-case-uppercase);
 }
 
 .sl-text-avatar-subheader-3xl {

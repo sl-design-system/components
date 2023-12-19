@@ -1675,6 +1675,28 @@
         },
         "type": "typography"
       }
+    },
+    "tooltip": {
+      "text": {
+        "tip": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        },
+        "title": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        }
+      }
     }
   },
   "borderRadius": {
@@ -3620,7 +3642,7 @@
             "y": 0,
             "blur": 4,
             "spread": 0,
-            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.300})",
             "type": "dropShadow"
           },
           {
@@ -3628,7 +3650,7 @@
             "y": 4,
             "blur": 8,
             "spread": 0,
-            "color": "rgba({color.palette.neutral.base} , {opacity.150})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.400})",
             "type": "dropShadow"
           }
         ],

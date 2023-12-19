@@ -3,6 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+@mixin sl-text-tooltip-text-title {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-tooltip-text-tip {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-button-label-md);
+}
+
 @mixin sl-text-dialog-subheading {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-icon-typeset-font-size-md);

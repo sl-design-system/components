@@ -45,6 +45,12 @@ export const icons = {
     description: 'icon.core.menu',
     svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M0 88C0 74.7 10.7 64 24 64H424c13.3 0 24 10.7 24 24s-10.7 24-24 24H24C10.7 112 0 101.3 0 88zM0 248c0-13.3 10.7-24 24-24H424c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.3 0-24-10.7-24-24zM448 408c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24s10.7-24 24-24H424c13.3 0 24 10.7 24 24z" fill="var(--fill-default)"></path></svg>'
   },
+  'octagon-exclamation-solid': {
+    value: 'octagon-exclamation',
+    type: 'Icons',
+    description: 'icon.core.octagon-exclamation-solid',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M140.6 21.2C154.1 7.7 172.4 .1 191.5 .1h129c19.1 0 37.4 7.6 50.9 21.1L490.8 140.6c13.5 13.5 21.1 31.8 21.1 50.9v129c0 19.1-7.6 37.4-21.1 50.9L371.4 490.8c-13.5 13.5-31.8 21.1-50.9 21.1h-129c-19.1 0-37.4-7.6-50.9-21.1L21.2 371.4C7.7 357.9 .1 339.6 .1 320.5v-129c0-19.1 7.6-37.4 21.1-50.9L140.6 21.2zM256 128c-13.3 0-24 10.7-24 24V264c0 13.3 10.7 24 24 24s24-10.7 24-24V152c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" fill="var(--fill-default)"></path></svg>'
+  },
   pinata: {
     value: 'pinata',
     type: 'Icons',

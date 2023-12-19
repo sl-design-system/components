@@ -85,13 +85,13 @@
             },
             {
               "kind": "field",
-              "name": "status",
+              "name": "variant",
               "type": {
                 "text": "'info' | 'success' | 'warning' | 'danger'"
               },
               "default": "'info'",
-              "description": "The status of the inline message.",
-              "attribute": "status",
+              "description": "The variant of the inline message.",
+              "attribute": "variant",
               "reflects": true
             }
           ],
@@ -114,13 +114,13 @@
               "fieldName": "noIcon"
             },
             {
-              "name": "status",
+              "name": "variant",
               "type": {
                 "text": "'info' | 'success' | 'warning' | 'danger'"
               },
               "default": "'info'",
-              "description": "The status of the inline message.",
-              "fieldName": "status"
+              "description": "The variant of the inline message.",
+              "fieldName": "variant"
             }
           ],
           "mixins": [

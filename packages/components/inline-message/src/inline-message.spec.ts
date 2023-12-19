@@ -22,8 +22,8 @@ describe('sl-inline-message', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('should have the info status by default', () => {
-      expect(el).to.have.attribute('status', 'info');
+    it('should have the info variant by default', () => {
+      expect(el).to.have.attribute('variant', 'info');
     });
 
     it('should be dismissible by default', () => {
@@ -34,11 +34,11 @@ describe('sl-inline-message', () => {
       expect(el.hasAttribute('no-icon')).to.be.false;
     });
 
-    it('should have success status when set', async () => {
-      el.status = 'success';
+    it('should have success variant when set', async () => {
+      el.variant = 'success';
       await el.updateComplete;
 
-      expect(el).to.have.attribute('status', 'success');
+      expect(el).to.have.attribute('variant', 'success');
     });
 
     it('should not be dismissible when set', async () => {
@@ -52,8 +52,8 @@ describe('sl-inline-message', () => {
   describe('Closing inline message', () => {
       it('should close the inline message when the close button is clicked', async () => {
       const msg = await fixture<InlineMessage>(html`
-        <sl-inline-message status="danger">
-        Status danger inline message
+        <sl-inline-message variant="danger">
+        Variant danger inline message
         <span slot="description">A place for additional description</span>
       </sl-inline-message> `);
       const closeButton = msg.shadowRoot?.querySelector('slot[name="close-button"] sl-button') as Button;
@@ -66,7 +66,7 @@ describe('sl-inline-message', () => {
 
     it('should close the inline message when remove is called', async () => {
       const elMsg = await fixture<InlineMessage>(html`
-        <sl-inline-message status="info">
+        <sl-inline-message variant="info">
           inline message
           <span slot="description">A place for additional description</span>
         </sl-inline-message> `);

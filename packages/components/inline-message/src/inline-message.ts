@@ -10,7 +10,7 @@ import { LitElement, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
 
-export type InlineMessageStatus = 'info' | 'success' | 'warning' | 'danger';
+export type InlineMessageVariant = 'info' | 'success' | 'warning' | 'danger';
 
 /**
  * An inline message component for displaying additional information/errors.
@@ -43,13 +43,13 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** Determines whether the icon should be shown on the left side of the component. */
   @property({ type: Boolean, attribute: 'no-icon' }) noIcon?: boolean;
 
-  /** The status of the inline message.
+  /** The variant of the inline message.
    * @type {'info' | 'success' | 'warning' | 'danger'} */
-  @property({ reflect: true }) status: InlineMessageStatus = 'info';
+  @property({ reflect: true }) variant: InlineMessageVariant = 'info';
 
-  /** @private The name of the icon, depending on the status of the inline message. */
+  /** @private The name of the icon, depending on the variant of the inline message. */
   get iconName(): string {
-    switch (this.status) {
+    switch (this.variant) {
       case 'info':
         return 'info';
       case 'success':
@@ -66,8 +66,8 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   override async updated(changes: PropertyValues<this>): Promise<void> {
     super.updated(changes);
 
-    if (changes.has('status')) {
-      this.setAttribute('role', ['danger', 'warning'].includes(this.status) ? 'alert' : 'status');
+    if (changes.has('variant')) {
+      this.setAttribute('role', ['danger', 'warning'].includes(this.variant) ? 'alert' : 'status');
     }
   }
 
@@ -91,7 +91,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
               <slot name="close-button" @click=${this.#closeOnAnimationend}>
                 <sl-button
                   fill="ghost"
-                  variant=${this.status === 'info' ? 'primary' : this.status}
+                  variant=${this.variant === 'info' ? 'primary' : this.variant}
                   size="sm"
                   aria-label=${msg('Close')}
                 >

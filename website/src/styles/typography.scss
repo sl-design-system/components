@@ -54,6 +54,10 @@ h3,
   margin-bottom: var(--scale-100-scale);
 }
 
+p + h3 {
+  margin-top: var(--scale-400-scale);
+}
+
 h4,
 .ds-heading-4 {
   font-size: 1.6rem;

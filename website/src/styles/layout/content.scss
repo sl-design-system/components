@@ -37,6 +37,10 @@ $transition-timing: 300ms;
   min-width: 100%;
 }
 
+.ds-subpage-section__wrapper {
+  overflow: hidden;
+}
+
 *:where(.ds-subpage-section, .ds-tabs__tab-container) {
   a {
     color: var(--link-color);

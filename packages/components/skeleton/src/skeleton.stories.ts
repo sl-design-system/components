@@ -35,7 +35,6 @@ export const API: Story = {
 
         .container sl-skeleton {
           block-size: 1.25rem;
-          border-radius: 0.5rem;
         }
 
         .title {
@@ -48,7 +47,7 @@ export const API: Story = {
         .title sl-skeleton:first-of-type {
           aspect-ratio: 1;
           block-size: 2.5rem;
-          border-radius: 50%;
+          /*border-radius: 50%;*/
         }
 
         .body {
@@ -80,13 +79,13 @@ export const API: Story = {
 
         .container-images sl-skeleton {
           block-size: 8rem;
-          border-radius: 0.5rem;
+          /* border-radius: 0.5rem; */
         }
       </style>
       <section>
         <div class="container">
           <div class="title">
-            <sl-skeleton .effect=${effect} aria-label="loading avatar"></sl-skeleton>
+            <sl-skeleton variant="circle" .effect=${effect} aria-label="loading avatar"></sl-skeleton>
             <sl-skeleton .effect=${effect} aria-label="loading header"></sl-skeleton>
           </div>
           <div class="body">
@@ -111,10 +110,9 @@ export const API: Story = {
 export const All: Story = {
   args: {
     width: '80%',
-    height: '0.75rem',
-    radius: '0.5rem'
+    height: '0.75rem'
   },
-  render: ({ width, height, radius }) =>
+  render: ({ width, height }) =>
     html`
       <style>
         section {
@@ -127,24 +125,21 @@ export const All: Story = {
         <h2>No effect</h2>
         <sl-skeleton
           effect="none"
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius};"
+          style="width: ${width}; height: ${height};"
           aria-label="loading element"
         ></sl-skeleton>
         <h2>Shimmer effect (default)</h2>
-        <sl-skeleton
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius};"
-          aria-label="loading element"
-        ></sl-skeleton>
+        <sl-skeleton style="width: ${width}; height: ${height};" aria-label="loading element"></sl-skeleton>
         <h2>Sheen effect</h2>
         <sl-skeleton
           effect="sheen"
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius};"
+          style="width: ${width}; height: ${height};"
           aria-label="loading element"
         ></sl-skeleton>
         <h2>Pulse effect</h2>
         <sl-skeleton
           effect="pulse"
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius};"
+          style="width: ${width}; height: ${height};"
           aria-label="loading element"
         ></sl-skeleton>
       </section>
@@ -187,13 +182,12 @@ export const LoadingImage: Story = {
           position: absolute;
           width: 100%;
           height: 100%;
-          border-radius: 0.5rem;
         }
 
         img {
           width: 100%;
           aspect-ratio: 1 / 1;
-          border-radius: 0.5rem;
+          border-radius: var(--sl-border-radius-skeleton-default); //0.5rem;
           opacity: 0;
           transition: opacity 2s;
           z-index: 1;

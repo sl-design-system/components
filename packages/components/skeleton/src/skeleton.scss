@@ -1,33 +1,30 @@
-$variants: default, circle;
-
 :host {
   --_background: var(
     --sl-color-skeleton-base
   ); //var(--sl-skeleton-background, rgb(var(--sl-color-palette-neutral-150)));
   --_border-radius: var(--sl-border-radius-skeleton-default); //var(--sl-skeleton-border-radius, 0.25rem);
   --_border-radius-circle: var(--sl-border-radius-circle);
-  --_min-height: var(--sl-skeleton-min-height, 0.5rem);
+  --_min-height: var(--sl-size-skeleton-min-height); //var(--sl-skeleton-min-height, 0.5rem);
   --_shine-color: var(
     --sl-color-skeleton-effect
   ); //var(--sl-skeleton-shine-color, rgb(var(--sl-color-palette-neutral-200)));
   --_animation-duration: var(--sl-skeleton-animation-duration, 3000ms);
 }
 
-//@each $variant in $variants {
-//  :host([status='#{$variant}']) {
-//    --_background-color: var(--sl-color-inline-message-#{$status}-background);
-//    --_border-color: var(--sl-color-inline-message-#{$status}-border);
-//    --_icon-fill: var(--sl-color-inline-message-#{$status}-icon);
-//    --_fill: var(--sl-color-inline-message-#{$status}-icon);
-//    --_color: var(--sl-color-inline-message-#{$status}-foreground);
-//  }
-//}
+// TODO: min-height
 
 :host {
   background: var(--_background);
-  border-radius: var(--_border-radius);
   display: block;
   min-height: var(--_min-height);
+}
+
+:host([variant='default']) {
+  border-radius: var(--_border-radius);
+}
+
+:host([variant='circle']) {
+  border-radius: var(--_border-radius-circle);
 }
 
 :host([effect='shimmer']) {
@@ -42,7 +39,7 @@ $variants: default, circle;
 }
 
 :host([effect='sheen']) {
-  animation: sheen-effect var(--_animation-duration) linear infinite;
+  //animation: sheen-effect var(--_animation-duration) linear infinite;
   background-image: linear-gradient(
     100deg,
     var(--_shine-color),
@@ -53,8 +50,20 @@ $variants: default, circle;
   background-size: 200% 100%;
 }
 
-:host([effect='pulse']) {
-  animation: pulse-effect var(--_animation-duration) ease-in-out 0.5s infinite;
+//:host([effect='pulse']) {
+//  // animation: pulse-effect var(--_animation-duration) ease-in-out 0.5s infinite;
+//}
+
+@media (prefers-reduced-motion: no-preference) {
+  // TODO reduced motion only without effect?
+
+  :host([effect='sheen']) {
+    animation: sheen-effect var(--_animation-duration) linear infinite;
+  }
+
+  :host([effect='pulse']) {
+    animation: pulse-effect var(--_animation-duration) ease-in-out 0.5s infinite;
+  }
 }
 
 @keyframes shimmer-effect {

@@ -45,6 +45,7 @@
   --sl-opacity-50: 0.02;
   --sl-icon-typeset-font-size-2xs: 10px;
   --sl-icon-core-circle-check-solid: circle-check;
+  --sl-icon-core-octagon-exclamation-solid: octagon-exclamation;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
   --sl-icon-core-xmark: xmark;
   --sl-icon-core-check: check;
@@ -293,6 +294,7 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-inline-message-content-gap: var(--sl-space-xs);
   --sl-space-inline-message-gap: var(--sl-space-lg);
   --sl-space-inline-message-inline-end: var(--sl-space-2xl);
   --sl-space-inline-message-inline-start: var(--sl-space-lg) + var(--sl-border-width-inline-message-start);
@@ -465,7 +467,7 @@
   --sl-border-width-popover-none: var(--sl-border-width-none);
   --sl-border-width-focusring-offset: var(--sl-border-width-sm);
   --sl-border-width-focusring-default: var(--sl-border-width-sm);
-  --sl-border-width-input-border: var(--sl-border-width-sm);
+  --sl-border-width-input-option: var(--sl-border-width-xs);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-button-link: var(--sl-border-width-sm);
   --sl-border-width-button-ghost: var(--sl-border-width-sm);
@@ -484,6 +486,10 @@
   --sl-border-radius-button-md: var(--sl-border-radius-2xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
   --sl-border-radius-badge-full: var(--sl-border-radius-full);
+  --sl-text-tooltip-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-tooltip-text-tip: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-text: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
@@ -655,6 +661,8 @@
   );
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
+  --sl-border-width-input-border: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
   --sl-border-radius-avatar-square: var(--sl-border-radius-default);

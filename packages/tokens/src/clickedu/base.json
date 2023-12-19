@@ -1077,6 +1077,28 @@
         }
       }
     },
+    "tooltip": {
+      "text": {
+        "tip": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{button.label.md}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        },
+        "title": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}"
+          },
+          "type": "typography"
+        }
+      }
+    },
     "input": {
       "textField": {
         "fontIcon": {
@@ -1549,9 +1571,23 @@
       "value": "{border.radius.2xs}",
       "type": "borderRadius"
     },
+    "select": {
+      "listbox": {
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius"
+      },
+      "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
+      }
+    },
     "focusring": {
       "default": {
         "value": "{borderRadius.default} + 1",
+        "type": "borderRadius"
+      },
+      "checkbox": {
+        "value": "{borderRadius.checkbox} + 1",
         "type": "borderRadius"
       },
       "full": {
@@ -1594,6 +1630,10 @@
           "description": "border.width.button.link"
         }
       },
+      "divider": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
+      },
       "input": {
         "none": {
           "value": "{border.width.none}",
@@ -1601,6 +1641,11 @@
           "description": "border.width.button.default"
         },
         "border": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        },
+        "option": {
           "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
@@ -1621,6 +1666,25 @@
           "value": "{conceptual.border.width.default}",
           "type": "borderWidth",
           "description": "border.width.button.default"
+        }
+      },
+      "select": {
+        "listbox": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        }
+      },
+      "tooltip": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
         }
       },
       "popover": {

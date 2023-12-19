@@ -1523,6 +1523,12 @@
       "gap": {
         "value": "{space.lg}",
         "type": "spacing"
+      },
+      "content": {
+        "gap": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        }
       }
     }
   },
@@ -1852,6 +1858,11 @@
         "value": "triangle-exclamation",
         "type": "Icons",
         "description": "icon.core.triangle-exclamation-solid"
+      },
+      "octagon-exclamation-solid": {
+        "value": "octagon-exclamation",
+        "type": "Icons",
+        "description": "icon.core.octagon-exclamation-solid"
       },
       "circle-check-solid": {
         "value": "circle-check",

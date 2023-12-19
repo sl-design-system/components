@@ -5257,6 +5257,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/inline-message@workspace:packages/components/inline-message":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/inline-message@workspace:packages/components/inline-message"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:3.0.3"
+    "@sl-design-system/button": "npm:0.0.15"
+    "@sl-design-system/icon": "npm:0.0.5"
+    lit: "npm:^3.0.2"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/itslearning@workspace:packages/themes/itslearning":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/itslearning@workspace:packages/themes/itslearning"

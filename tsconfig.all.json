@@ -22,6 +22,7 @@
     { "path": "./packages/components/form" },
     { "path": "./packages/components/grid" },
     { "path": "./packages/components/icon" },
+    { "path": "./packages/components/inline-message" },
     { "path": "./packages/components/popover" },
     { "path": "./packages/components/radio-group" },
     { "path": "./packages/components/select" },

@@ -1879,14 +1879,15 @@
         "type": "borderRadius"
       }
     },
-    "badge": {
-      "full": {
-        "value": "{border.radius.full}",
-        "type": "borderRadius"
+    "inline-message": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius",
+        "description": "borderRadius.button"
       }
     },
-    "avatar": {
-      "square": {
+    "skeleton": {
+      "default": {
         "value": "{borderRadius.default}",
         "type": "borderRadius"
       }

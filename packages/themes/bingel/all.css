@@ -53,6 +53,7 @@
   --sl-opacity-50: 0.02;
   --sl-icon-typeset-font-size-2xs: 10px;
   --sl-icon-core-circle-check-solid: circle-check;
+  --sl-icon-core-octagon-exclamation-solid: octagon-exclamation;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
   --sl-icon-core-xmark: xmark;
   --sl-icon-core-check: check;
@@ -215,6 +216,7 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-inline-message-content-gap: var(--sl-space-xs);
   --sl-space-inline-message-gap: var(--sl-space-lg);
   --sl-space-inline-message-inline-end: var(--sl-space-2xl);
   --sl-space-inline-message-inline-start: var(--sl-space-lg) + var(--sl-border-width-inline-message-start);

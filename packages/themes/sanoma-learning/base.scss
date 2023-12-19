@@ -62,6 +62,7 @@
   --sl-space-none: 0px;
   --sl-icon-typeset-font-size-2xs: 10px;
   --sl-icon-core-circle-check-solid: circle-check;
+  --sl-icon-core-octagon-exclamation-solid: octagon-exclamation;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
   --sl-icon-core-xmark: xmark;
   --sl-icon-core-check: check;
@@ -282,6 +283,7 @@
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
+  --sl-space-inline-message-content-gap: var(--sl-space-xs);
   --sl-space-inline-message-gap: var(--sl-space-lg);
   --sl-space-inline-message-inline-end: var(--sl-space-2xl);
   --sl-space-inline-message-inline-start: var(--sl-space-lg) + var(--sl-border-width-inline-message-start);

@@ -256,10 +256,11 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    const size = this.options.length;
+    const options = this.options.filter(o => !o.disabled),
+      size = options.length;
 
     let delta = 0,
-      index = this.options.indexOf(this.currentOption ?? this.selectedOption ?? this.options[0]);
+      index = options.indexOf(this.currentOption ?? this.selectedOption ?? this.options[0]);
 
     switch (event.key) {
       case 'ArrowDown':
@@ -293,7 +294,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     }
 
     index = (index + delta + size) % size;
-    this.currentOption = this.options[index];
+    this.currentOption = options[index];
 
     event.preventDefault();
     event.stopPropagation();

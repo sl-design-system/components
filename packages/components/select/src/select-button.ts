@@ -63,6 +63,7 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
     if (this.selected?.childElementCount) {
       selected = this.selected.cloneNode(true) as HTMLElement;
+      selected.removeAttribute('selected');
       selected.part.add('selected');
     } else {
       selected = this.selected?.textContent?.trim();

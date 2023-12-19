@@ -59,12 +59,12 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
   display: flex;
+  flex: 1;
   font: var(--_font);
   gap: var(--_gap);
-  inline-size: 100%;
-  max-inline-size: calc(100% - 24px); // FIXME
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  padding-inline-end: var(--_padding-inline);
   transition: 0.2s ease-in-out;
   transition-property: background, border, color, filter, outline-color;
 }
@@ -85,9 +85,16 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 div {
   flex: 1;
   overflow: hidden;
+  padding-block: var(--_padding-block);
+  padding-inline-start: var(--_padding-inline);
   pointer-events: none;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  &:has(sl-select-option) {
+    padding-block: 0;
+    padding-inline-start: 0;
+  }
 }
 
 sl-icon {

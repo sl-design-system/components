@@ -72,6 +72,12 @@ export const EmbeddedComponents: Story = {
           align-items: center;
           display: flex;
         }
+        sl-select-button::part(selected) {
+          padding-block: 3px;
+        }
+        sl-select-option {
+          padding-block: 4px;
+        }
       </style>
       <sl-select>
         <sl-select-option>

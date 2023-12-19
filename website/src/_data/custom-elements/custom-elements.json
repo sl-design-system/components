@@ -8222,7 +8222,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Radio group; treat a group of radio button as one form input with valitation, hints and errors\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
+          "description": "A group of radio buttons.\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
           "name": "RadioGroup",
           "slots": [
             {
@@ -8250,12 +8250,9 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "The hint disabled state.",
+              "description": "Whether the group is disabled; when set no interaction is possible.",
               "attribute": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
+              "reflects": true
             },
             {
               "kind": "field",
@@ -8268,33 +8265,6 @@
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hint-size",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
               }
             },
             {
@@ -8349,6 +8319,16 @@
               }
             },
             {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the user is required to select an option in the group.",
+              "attribute": "required",
+              "reflects": true
+            },
+            {
               "kind": "method",
               "name": "setCustomValidity",
               "return": {
@@ -8387,6 +8367,39 @@
             },
             {
               "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "RadioButtonSize | undefined"
+              },
+              "description": "The size of the radio buttons in the group.",
+              "attribute": "size"
+            },
+            {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<string | null>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus."
+            },
+            {
+              "kind": "field",
               "name": "valid",
               "type": {
                 "text": "boolean"
@@ -8413,14 +8426,6 @@
             },
             {
               "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators."
-            },
-            {
-              "kind": "field",
               "name": "validity",
               "type": {
                 "text": "ValidityState"
@@ -8436,14 +8441,58 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the radio group, to be used in forms.",
-              "attribute": "value",
-              "reflects": true
+              "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<string | null>"
+              },
+              "description": "Emits when the value changes.",
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus.",
+              "fieldName": "focusEvent"
+            },
+            {
+              "type": {
+                "text": "UpdateValidityEvent"
+              },
+              "description": "Emits when the validity of the form control changes.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
             }
           ],
           "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
+            },
             {
               "name": "horizontal",
               "type": {
@@ -8453,10 +8502,27 @@
               "fieldName": "horizontal"
             },
             {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the user is required to select an option in the group.",
+              "fieldName": "required"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "RadioButtonSize | undefined"
+              },
+              "description": "The size of the radio buttons in the group.",
+              "fieldName": "size"
+            },
+            {
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the radio group, to be used in forms.",
               "fieldName": "value"
             },
@@ -8495,53 +8561,12 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hint-size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
             }
           ],
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             }
           ],
           "superclass": {
@@ -8550,18 +8575,6 @@
           },
           "tagName": "sl-radio-group",
           "customElement": true,
-          "events": [
-            {
-              "type": {
-                "text": "UpdateValidityEvent"
-              },
-              "description": "Emits when the validity of the form control changes.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -8602,14 +8615,6 @@
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators."
-            },
             {
               "kind": "field",
               "name": "form",
@@ -8724,113 +8729,19 @@
             },
             {
               "kind": "field",
-              "name": "customValidity",
+              "name": "disabled",
               "type": {
-                "text": "string | undefined"
+                "text": "boolean | undefined"
               },
-              "description": "The error message to display when the control is invalid.",
-              "attribute": "custom-validity",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "The form associated with the control.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "The labels associated with the control.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setCustomValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "message",
-                  "type": {
-                    "text": "string"
-                  },
-                  "description": "The validation message."
-                }
-              ],
-              "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "showValidity",
-              "type": {
-                "text": "FormControlShowValidity"
-              },
-              "description": "Whether to show the validity state.",
-              "attribute": "show-validity",
-              "reflects": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
+              "description": "Whether this radio button is disabled.",
+              "attribute": "disabled",
+              "reflects": true
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "RadioButtonSize"
               },
               "default": "'md'",
               "description": "The size of the radio button.",
@@ -8839,50 +8750,11 @@
             },
             {
               "kind": "field",
-              "name": "valid",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Returns whether the form control is valid or not.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "validationMessage",
-              "type": {
-                "text": "string"
-              },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "validity",
-              "type": {
-                "text": "ValidityState"
-              },
-              "description": "Returns the validity state the control is in.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string"
+                "text": "string | null"
               },
-              "default": "''",
+              "default": "null",
               "description": "The value for this radio button.",
               "attribute": "value"
             }
@@ -8897,64 +8769,30 @@
               "fieldName": "checked"
             },
             {
-              "name": "value",
+              "name": "disabled",
               "type": {
-                "text": "string"
+                "text": "boolean | undefined"
               },
-              "default": "''",
-              "description": "The value for this radio button.",
-              "fieldName": "value"
+              "description": "Whether this radio button is disabled.",
+              "fieldName": "disabled"
             },
             {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "RadioButtonSize"
               },
               "default": "'md'",
               "description": "The size of the radio button.",
               "fieldName": "size"
             },
             {
-              "name": "custom-validity",
+              "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
-              "description": "The error message to display when the control is invalid.",
-              "fieldName": "customValidity",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "show-validity",
-              "type": {
-                "text": "FormControlShowValidity"
-              },
-              "description": "Whether to show the validity state.",
-              "fieldName": "showValidity",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "mixins": [
-            {
-              "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
+              "default": "null",
+              "description": "The value for this radio button.",
+              "fieldName": "value"
             }
           ],
           "superclass": {
@@ -8963,124 +8801,8 @@
           },
           "tagName": "sl-radio",
           "customElement": true,
-          "events": [
-            {
-              "type": {
-                "text": "UpdateValidityEvent"
-              },
-              "description": "Emits when the validity of the form control changes.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "methods": [
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setCustomValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "message",
-                  "type": {
-                    "text": "string"
-                  },
-                  "description": "The validation message."
-                }
-              ],
-              "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "The form associated with the control.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "The labels associated with the control.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "valid",
-              "type": {
-                "text": "boolean"
-              },
-              "description": "Returns whether the form control is valid or not.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "validationMessage",
-              "type": {
-                "text": "string"
-              },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "validity",
-              "type": {
-                "text": "ValidityState"
-              },
-              "description": "Returns the validity state the control is in.",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ]
+          "methods": [],
+          "fields": []
         }
       ],
       "exports": [
@@ -15396,30 +15118,12 @@
             },
             {
               "kind": "field",
-              "name": "max",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum value. Only applies to number input type.",
-              "attribute": "max"
-            },
-            {
-              "kind": "field",
               "name": "maxLength",
               "type": {
                 "text": "number | undefined"
               },
               "description": "Maximum length (number of characters).",
               "attribute": "maxlength"
-            },
-            {
-              "kind": "field",
-              "name": "min",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum value. Only applies to number input type.",
-              "attribute": "min"
             },
             {
               "kind": "field",
@@ -15450,7 +15154,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Validation using pattern. Native HTML input functionality.",
+              "description": "This will validate the value of the input using the given pattern.",
               "attribute": "pattern"
             },
             {
@@ -15547,7 +15251,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "TextFieldSize"
               },
               "default": "'md'",
               "description": "The size of the input.",
@@ -15560,15 +15264,15 @@
               "type": {
                 "text": "EventEmitter<void>"
               },
-              "description": "Emits when the `blur` event is fired on the `<input>`."
+              "description": "Emits when the focus leaves the component."
             },
             {
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<string>"
               },
-              "description": "Emits when the `change` event is fired on the `<input>`."
+              "description": "Emits when the value changes."
             },
             {
               "kind": "event",
@@ -15576,24 +15280,7 @@
               "type": {
                 "text": "EventEmitter<void>"
               },
-              "description": "Emits when the `focus` event is fired on the `<input>`."
-            },
-            {
-              "kind": "event",
-              "name": "sl-input",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the `input` event is fired on the `<input>`."
-            },
-            {
-              "kind": "field",
-              "name": "step",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Specifies the interval between legal numbers for a text field. Only applies to number input type",
-              "attribute": "step"
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",
@@ -15661,15 +15348,15 @@
               "type": {
                 "text": "EventEmitter<void>"
               },
-              "description": "Emits when the `blur` event is fired on the `<input>`.",
+              "description": "Emits when the focus leaves the component.",
               "fieldName": "blurEvent"
             },
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<string>"
               },
-              "description": "Emits when the `change` event is fired on the `<input>`.",
+              "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
             },
             {
@@ -15677,16 +15364,8 @@
               "type": {
                 "text": "EventEmitter<void>"
               },
-              "description": "Emits when the `focus` event is fired on the `<input>`.",
+              "description": "Emits when the component gains focus.",
               "fieldName": "focusEvent"
-            },
-            {
-              "name": "inputEvent",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the `input` event is fired on the `<input>`.",
-              "fieldName": "inputEvent"
             },
             {
               "type": {
@@ -15717,28 +15396,12 @@
               "fieldName": "disabled"
             },
             {
-              "name": "max",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Maximum value. Only applies to number input type.",
-              "fieldName": "max"
-            },
-            {
               "name": "maxlength",
               "type": {
                 "text": "number | undefined"
               },
               "description": "Maximum length (number of characters).",
               "fieldName": "maxLength"
-            },
-            {
-              "name": "min",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Minimum value. Only applies to number input type.",
-              "fieldName": "min"
             },
             {
               "name": "minlength",
@@ -15753,7 +15416,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Validation using pattern. Native HTML input functionality.",
+              "description": "This will validate the value of the input using the given pattern.",
               "fieldName": "pattern"
             },
             {
@@ -15791,19 +15454,11 @@
             {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "TextFieldSize"
               },
               "default": "'md'",
               "description": "The size of the input.",
               "fieldName": "size"
-            },
-            {
-              "name": "step",
-              "type": {
-                "text": "number | undefined"
-              },
-              "description": "Specifies the interval between legal numbers for a text field. Only applies to number input type",
-              "fieldName": "step"
             },
             {
               "name": "type",
@@ -16066,7 +15721,7 @@
               "kind": "field",
               "name": "autocomplete",
               "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+                "text": "typeof HTMLTextAreaElement.prototype.autocomplete | undefined"
               },
               "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
               "attribute": "autocomplete"
@@ -16090,12 +15745,9 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "The hint disabled state.",
+              "description": "Whether the text field is disabled; when set no interaction is possible.",
               "attribute": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
+              "reflects": true
             },
             {
               "kind": "field",
@@ -16108,33 +15760,6 @@
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hint-size",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
               }
             },
             {
@@ -16198,8 +15823,7 @@
                 "text": "boolean | undefined"
               },
               "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
-              "attribute": "readonly",
-              "reflects": true
+              "attribute": "readonly"
             },
             {
               "kind": "method",
@@ -16217,14 +15841,32 @@
             },
             {
               "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the text field is a required field.",
+              "attribute": "required"
+            },
+            {
+              "kind": "field",
               "name": "resize",
               "type": {
-                "text": "'none' | 'vertical' | 'auto'"
+                "text": "ResizeType"
               },
               "default": "'vertical'",
               "description": "The way the textarea can be resized.",
               "attribute": "resize",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The number of rows the textarea should initially have.\nIf not set, the browser defaults to 2 rows.",
+              "attribute": "rows"
             },
             {
               "kind": "method",
@@ -16253,11 +15895,10 @@
               "kind": "field",
               "name": "showValid",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the textarea should get valid styles when is valid.",
-              "attribute": "showValid",
+              "attribute": "show-valid",
               "reflects": true
             },
             {
@@ -16278,12 +15919,36 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "TextareaSize"
               },
               "default": "'md'",
               "description": "The size of the textarea.",
               "attribute": "size",
               "reflects": true
+            },
+            {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",
@@ -16299,10 +15964,8 @@
               "type": {
                 "text": "boolean"
               },
-              "description": "Whether the textarea is valid.",
+              "description": "Returns whether the form control is valid or not.",
               "readonly": true,
-              "attribute": "valid",
-              "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
@@ -16323,14 +15986,6 @@
             },
             {
               "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
               "name": "validity",
               "type": {
                 "text": "ValidityState"
@@ -16346,8 +16001,9 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the textarea.",
               "attribute": "value"
             },
@@ -16355,22 +16011,65 @@
               "kind": "field",
               "name": "wrap",
               "type": {
-                "text": "'soft' | 'hard'"
+                "text": "WrapType"
               },
               "default": "'soft'",
-              "description": "The text way should be wrapped during form submission.",
-              "attribute": "wrap",
-              "reflects": true
+              "description": "The way text should be wrapped during form submission.",
+              "attribute": "wrap"
+            }
+          ],
+          "events": [
+            {
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the focus leaves the component.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the value changes.",
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component gains focus.",
+              "fieldName": "focusEvent"
+            },
+            {
+              "type": {
+                "text": "UpdateValidityEvent"
+              },
+              "description": "Emits when the validity of the form control changes.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
             }
           ],
           "attributes": [
             {
               "name": "autocomplete",
               "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+                "text": "typeof HTMLTextAreaElement.prototype.autocomplete | undefined"
               },
               "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
               "fieldName": "autocomplete"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the text field is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
             },
             {
               "name": "maxlength",
@@ -16405,55 +16104,63 @@
               "fieldName": "readonly"
             },
             {
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the textarea.",
-              "fieldName": "value"
-            },
-            {
-              "name": "valid",
+              "name": "required",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the textarea is valid.",
-              "fieldName": "valid"
-            },
-            {
-              "name": "showValid",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the textarea should get valid styles when is valid.",
-              "fieldName": "showValid"
+              "description": "Whether the text field is a required field.",
+              "fieldName": "required"
             },
             {
               "name": "resize",
               "type": {
-                "text": "'none' | 'vertical' | 'auto'"
+                "text": "ResizeType"
               },
               "default": "'vertical'",
               "description": "The way the textarea can be resized.",
               "fieldName": "resize"
             },
             {
+              "name": "rows",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The number of rows the textarea should initially have.\nIf not set, the browser defaults to 2 rows.",
+              "fieldName": "rows"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea should get valid styles when is valid.",
+              "fieldName": "showValid"
+            },
+            {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "TextareaSize"
               },
               "default": "'md'",
               "description": "The size of the textarea.",
               "fieldName": "size"
             },
             {
+              "name": "value",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null",
+              "description": "The value for the textarea.",
+              "fieldName": "value"
+            },
+            {
               "name": "wrap",
               "type": {
-                "text": "'soft' | 'hard'"
+                "text": "WrapType"
               },
               "default": "'soft'",
-              "description": "The text way should be wrapped during form submission.",
+              "description": "The way text should be wrapped during form submission.",
               "fieldName": "wrap"
             },
             {
@@ -16491,53 +16198,16 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/shared/src/mixins/form-control.ts"
               }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hint-size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
             }
           ],
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             },
             {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -16546,18 +16216,6 @@
           },
           "tagName": "sl-textarea",
           "customElement": true,
-          "events": [
-            {
-              "type": {
-                "text": "UpdateValidityEvent"
-              },
-              "description": "Emits when the validity of the form control changes.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -16608,14 +16266,6 @@
             },
             {
               "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -16634,6 +16284,19 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/shared/src/mixins/form-control.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Returns whether the form control is valid or not.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",

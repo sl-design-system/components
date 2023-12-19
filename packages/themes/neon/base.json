@@ -1956,6 +1956,18 @@
           "type": "borderWidth"
         }
       },
+      "tooltip": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        }
+      },
       "none": {
         "value": 0,
         "type": "borderWidth",
@@ -3288,7 +3300,7 @@
     "border": {
       "width": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "Conceptual Theme Border Token"
         }
@@ -3710,7 +3722,7 @@
             "y": 0,
             "blur": 4,
             "spread": 0,
-            "color": "rgba({color.palette.neutral.base} , {opacity.300})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.50})",
             "type": "dropShadow"
           },
           {
@@ -3718,7 +3730,7 @@
             "y": 4,
             "blur": 8,
             "spread": 0,
-            "color": "rgba({color.palette.neutral.base} , {opacity.400})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.150})",
             "type": "dropShadow"
           }
         ],

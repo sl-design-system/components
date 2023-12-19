@@ -1944,7 +1944,7 @@
             "y": "0",
             "blur": "4",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.300})",
             "type": "dropShadow"
           },
           {
@@ -1952,7 +1952,7 @@
             "y": "4",
             "blur": "8",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.150})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.400})",
             "type": "dropShadow"
           }
         ],

@@ -103,9 +103,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** The listbox element. */
   @query('[popover]') listbox!: HTMLElement;
 
-  /** The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen. */
-  @property({ attribute: 'max-overlay-height', reflect: true }) maxOverlayHeight?: string;
-
   /** The placeholder text to show when no option is chosen. */
   @property() placeholder?: string;
 
@@ -198,10 +195,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     if (changes.has('disabled')) {
       this.tabIndex = this.disabled ? -1 : 0;
       this.button.disabled = this.disabled;
-    }
-
-    if (changes.has('maxOverlayHeight') && this.maxOverlayHeight && this.listbox) {
-      this.listbox.style.setProperty('--max-overlay-height', `${this.maxOverlayHeight}`);
     }
 
     if (changes.has('placeholder')) {

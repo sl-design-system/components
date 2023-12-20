@@ -49,10 +49,6 @@ export const isPopoverOpen = (element?: HTMLElement): boolean => {
   }
 };
 
-let initialHeight: number;
-let isConstrained: boolean;
-const virtualTrigger = false;
-
 const MIN_OVERLAY_HEIGHT = 25;
 
 const flipPlacement = (position: PopoverPosition): PopoverPosition[] => {
@@ -177,22 +173,20 @@ export const positionPopover = (
 
   const cleanup = autoUpdate(anchor, element, () => {
     const { position = 'top', viewportMargin = 0 } = options;
+
     const middleware = [
       shift({ padding: viewportMargin }),
       flip({ fallbackPlacements: flipPlacement(position) }),
       offset(getOffset(element)),
       size({
         padding: viewportMargin,
-        apply: ({ availableWidth, availableHeight, rects: { floating } }) => {
+        apply: ({ availableWidth, availableHeight }) => {
           // Make sure that the overlay is contained by the visible page.
           const maxHeight = Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight));
-          const actualHeight = floating.height;
-          initialHeight = !isConstrained && !virtualTrigger ? actualHeight : initialHeight || actualHeight;
-          isConstrained = actualHeight < initialHeight || maxHeight <= actualHeight;
-          const appliedHeight = isConstrained ? `${maxHeight}px` : '';
+
           Object.assign(element.style, {
             maxWidth: `${options.maxWidth ?? Math.floor(availableWidth)}px`,
-            maxHeight: appliedHeight
+            maxHeight: `${maxHeight - viewportMargin}px`
           });
         }
       }),

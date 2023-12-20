@@ -16,9 +16,9 @@ export interface AnchorDirectiveConfig {
 }
 
 export class AnchorDirective extends Directive {
+  #cleanup?: () => void;
   #config?: AnchorDirectiveConfig;
   #host?: HTMLElement;
-  #cleanup?: () => void;
 
   constructor(partInfo: PartInfo) {
     super(partInfo);
@@ -35,7 +35,6 @@ export class AnchorDirective extends Directive {
   override update(part: ElementPart, [config = {}]: DirectiveParameters<this>): void {
     this.#config = { position: 'top', ...config };
     this.#host = part.element as HTMLElement;
-    // FIXME: This could be cause a memory leak if the host is removed from the DOM
     this.#host.addEventListener('beforetoggle', (event: Event) =>
       this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
     );

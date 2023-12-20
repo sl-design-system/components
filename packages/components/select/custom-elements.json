@@ -375,16 +375,6 @@
             },
             {
               "kind": "field",
-              "name": "maxOverlayHeight",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
-              "attribute": "max-overlay-height",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "placeholder",
               "type": {
                 "text": "string | undefined"
@@ -482,14 +472,6 @@
               },
               "description": "Whether the select is disabled; when set no interaction is possible.",
               "fieldName": "disabled"
-            },
-            {
-              "name": "max-overlay-height",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
-              "fieldName": "maxOverlayHeight"
             },
             {
               "name": "placeholder",

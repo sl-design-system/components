@@ -279,6 +279,7 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
+  --sl-text-case-badge-text-transform: var(--sl-text-typeset-text-case-uppercase);
   --sl-conceptual-border-width-default: var(--sl-border-width-xs);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
   --sl-icon-typeset-font-size-3xl: var(--sl-size-3xl);
@@ -519,15 +520,15 @@
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-bold) 8px/8px var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-demibold) 9px/9px var(--sl-text-typeset-font-family-body);
   --sl-text-badge-text-sm: var(--sl-text-typeset-font-weight-bold) 6px/6px var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-subheader-3xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);

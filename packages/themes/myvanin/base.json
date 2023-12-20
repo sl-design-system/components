@@ -1713,6 +1713,14 @@
       }
     }
   },
+  "textCase": {
+    "badge": {
+      "textTransform": {
+        "value": "{text.typeset.textCase.uppercase}",
+        "type": "textCase"
+      }
+    }
+  },
   "opacity": {
     "50": {
       "value": 0.02,

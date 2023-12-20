@@ -1194,16 +1194,16 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
-            "fontSize": "8px",
-            "lineHeight": "8px"
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontSize": "9px",
+            "lineHeight": "9px"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xs}"
           },
@@ -1212,7 +1212,7 @@
         "xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
@@ -1221,7 +1221,7 @@
         "2xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
@@ -1230,7 +1230,7 @@
         "3xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "lineHeight": "{text.typeset.lineHeight.sm}"
           },
@@ -3201,6 +3201,14 @@
           "type": "borderWidth",
           "description": "Conceptual Theme Border Token"
         }
+      }
+    }
+  },
+  "textCase": {
+    "badge": {
+      "textTransform": {
+        "value": "{text.typeset.textCase.uppercase}",
+        "type": "textCase"
       }
     }
   },

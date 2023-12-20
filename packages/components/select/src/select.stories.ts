@@ -79,27 +79,33 @@ export const EmbeddedComponents: Story = {
           padding-block: 4px;
         }
       </style>
-      <sl-select>
-        <sl-select-option>
-          <sl-avatar size="sm" user='{"name":{"first":"Ashley","last":"Howard"}}' value="1"></sl-avatar>
+      <sl-select value="2">
+        <sl-select-option value="1">
+          <sl-avatar size="sm" user='{"name":{"first":"Ashley","last":"Howard"}}'></sl-avatar>
         </sl-select-option>
-        <sl-select-option selected>
-          <sl-avatar size="sm" user='{"name":{"first":"Aria","last":"Bailey"}}' value="2"></sl-avatar>
+        <sl-select-option value="2">
+          <sl-avatar size="sm" user='{"name":{"first":"Aria","last":"Bailey"}}'></sl-avatar>
         </sl-select-option>
-        <sl-select-option>
-          <sl-avatar size="sm" user='{"name":{"first":"Cooper","last":"Philips"}}' value="3"></sl-avatar>
+        <sl-select-option value="3">
+          <sl-avatar size="sm" user='{"name":{"first":"Cooper","last":"Philips"}}'></sl-avatar>
         </sl-select-option>
-        <sl-select-option>
-          <sl-avatar size="sm" user='{"name":{"first":"Abigail","last":"Lewis"}}' value="4"></sl-avatar>
+        <sl-select-option value="4">
+          <sl-avatar size="sm" user='{"name":{"first":"Abigail","last":"Lewis"}}'></sl-avatar>
         </sl-select-option>
-        <sl-select-option disabled>
-          <sl-avatar size="sm" user='{"name":{"first":"Ryder","last":"Turner"}}' value="5"></sl-avatar>
+        <sl-select-option disabled value="5">
+          <sl-avatar size="sm" user='{"name":{"first":"Ryder","last":"Turner"}}'></sl-avatar>
         </sl-select-option>
-        <sl-select-option>
-          <sl-avatar size="sm" user='{"name":{"first":"Zoe","last":"Robinson"}}' value="6"></sl-avatar>
+        <sl-select-option value="6">
+          <sl-avatar size="sm" user='{"name":{"first":"Zoe","last":"Robinson"}}'></sl-avatar>
         </sl-select-option>
       </sl-select>
     `
+  }
+};
+
+export const Empty: Story = {
+  args: {
+    options: html``
   }
 };
 

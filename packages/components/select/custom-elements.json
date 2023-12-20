@@ -371,7 +371,7 @@
               "type": {
                 "text": "HTMLElement"
               },
-              "description": "The listbox popover."
+              "description": "The listbox element."
             },
             {
               "kind": "field",
@@ -732,6 +732,16 @@
             },
             {
               "kind": "field",
+              "name": "#initialState",
+              "privacy": "private",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null",
+              "description": "The initial state when the form was associated with the select. Used to reset the select."
+            },
+            {
+              "kind": "field",
               "name": "#observer",
               "privacy": "private",
               "default": "new MutationObserver(mutations => {\n    mutations.forEach(mutation => {\n      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {\n        const option = <SelectOption>mutation.target;\n\n        this.#observer.disconnect();\n        this.#setSelectedOption(option);\n        this.#observer.observe(this, OBSERVER_OPTIONS);\n      }\n    });\n  })",
@@ -763,14 +773,6 @@
             },
             {
               "kind": "field",
-              "name": "listbox",
-              "type": {
-                "text": "HTMLElement"
-              },
-              "description": "The listbox popover."
-            },
-            {
-              "kind": "field",
               "name": "optionGroups",
               "type": {
                 "text": "SelectOptionGroup[] | undefined"
@@ -794,6 +796,14 @@
               },
               "description": "The current option in the listbox. This is the option that will become the\nselected option if the user presses Enter/Space.",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox element."
             },
             {
               "kind": "field",

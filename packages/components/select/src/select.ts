@@ -4,8 +4,9 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import { localized, msg } from '@lit/localize';
 import { LitElement, html } from 'lit';
-import { property, queryAssignedElements, state } from 'lit/decorators.js';
+import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectOption } from './select-option.js';
 import { SelectOptionGroup } from './select-option-group.js';
 import styles from './select.scss.js';
@@ -26,6 +27,7 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
 
 export type SelectSize = 'md' | 'lg';
 
+@localized()
 export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
@@ -49,6 +51,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     focusout: this.#onFocusout
   });
 
+  /** The initial state when the form was associated with the select. Used to reset the select. */
+  #initialState: string | null = null;
+
   /** If an option is selected programmatically update all the options or the size of the select itself. */
   #observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
@@ -70,9 +75,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   /** The button in the light DOM. */
   button!: SelectButton;
-
-  /** The listbox popover. */
-  listbox!: HTMLElement;
 
   /** Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
@@ -103,6 +105,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   /** Whether the select is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** The listbox element. */
+  @query('[popover]') listbox!: HTMLElement;
 
   /** The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen. */
   @property({ attribute: 'max-overlay-height', reflect: true }) maxOverlayHeight?: string;
@@ -166,9 +171,15 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     super.disconnectedCallback();
   }
 
-  override firstUpdated(): void {
-    this.listbox = this.renderRoot.querySelector('[popover]') as HTMLElement;
-    this.selectedOption = this.options.find(option => option.selected);
+  /** @ignore Stores the initial state of the select */
+  formAssociatedCallback(): void {
+    this.#initialState = this.value;
+  }
+
+  /** @ignore Resets the select to the initial state */
+  formResetCallback(): void {
+    this.value = this.#initialState;
+    this.changeEvent.emit(this.value);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -188,7 +199,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     if (changes.has('selectedOption')) {
       this.value = this.selectedOption?.value ?? null;
       this.button.selected = this.selectedOption;
-      this.internals.setFormValue(this.value);
     }
 
     if (changes.has('disabled')) {
@@ -204,10 +214,29 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.button.placeholder = this.placeholder;
     }
 
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
+    }
+
     if (changes.has('size')) {
       this.button.size = this.size;
       this.options?.forEach(option => (option.size = this.size));
       this.optionGroups?.forEach(group => (group.size = this.size));
+    }
+
+    if (changes.has('value')) {
+      this.#setSelectedOption(this.options.find(option => option.value === this.value));
+
+      this.internals.setFormValue(this.value);
+    }
+
+    if (changes.has('required') || changes.has('value')) {
+      this.internals.setValidity(
+        { valueMissing: this.required && this.value === null },
+        msg('An option must be selected.')
+      );
+
+      this.updateValidity();
     }
   }
 
@@ -219,6 +248,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @toggle=${this.#onToggle}
+        part="listbox"
         popover
         role="listbox"
       >
@@ -310,20 +340,18 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onSlotchange(): void {
-    if (this.optionGroups) {
-      this.optionGroups.forEach(group => {
-        group.size = this.size;
-        group.classList.remove('bottom-divider');
+    this.#setSelectedOption(this.options.find(option => option.value === this.value));
 
-        if (group.nextElementSibling?.nodeName === 'SL-SELECT-OPTION') {
-          group.classList.add('bottom-divider');
-        }
-      });
-    }
+    this.optionGroups?.forEach(group => {
+      group.size = this.size;
+      group.classList.remove('bottom-divider');
 
-    if (this.options.length > 0) {
-      this.options.forEach(option => (option.size = this.size));
-    }
+      if (group.nextElementSibling?.nodeName === 'SL-SELECT-OPTION') {
+        group.classList.add('bottom-divider');
+      }
+    });
+
+    this.options?.forEach(option => (option.size = this.size));
   }
 
   #onToggle(event: ToggleEvent): void {
@@ -344,6 +372,10 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #setSelectedOption(option?: SelectOption): void {
+    if (this.selectedOption === option) {
+      return;
+    }
+
     if (this.selectedOption) {
       this.selectedOption.selected = false;
     }

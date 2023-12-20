@@ -1659,7 +1659,7 @@
   "textCase": {
     "badge": {
       "textTransform": {
-        "value": "{text.typeset.textCase.uppercase}",
+        "value": "{text.typeset.textCase.none}",
         "type": "textCase"
       }
     }

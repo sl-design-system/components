@@ -5094,6 +5094,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/badge@workspace:packages/components/badge":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/badge@workspace:packages/components/badge"
+  dependencies:
+    lit: "npm:^3.0.2"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/bingel-dc@workspace:packages/themes/bingel-dc":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/bingel-dc@workspace:packages/themes/bingel-dc"

@@ -315,7 +315,7 @@ export class Avatar extends LitElement {
       ? parseFloat(window.getComputedStyle(cssQuery).getPropertyValue('--_avatar_border-radius'))
       : 0;
 
-    this.offset = this.avatarConfig?.shape === 'circle' ? this.offsetCircle : this.offsetSquare; //or offset for square
+    this.offset = this.avatarConfig?.shape === 'square' ? this.offsetSquare : this.offsetCircle; //or offset for square
     const focusRingPadding = this.focusRingStrokeWidth + this.focusRingStrokeOffset;
     const badgeOffset =
       this.offset[this.size] < 0 ? Math.max(focusRingPadding, this.offset[this.size] * -1) : focusRingPadding;
@@ -329,7 +329,7 @@ export class Avatar extends LitElement {
       ...this.image,
       containerSize: this.imageSizes[this.size] + focusRingPadding * 2,
       size: this.imageSizes[this.size],
-      radius: this.avatarConfig?.shape === 'circle' ? this.imageSizes[this.size] / 2 : radius,
+      radius: this.avatarConfig?.shape === 'square' ? radius : this.imageSizes[this.size] / 2,
       y: badgeOffset,
       x: focusRingPadding,
       focusRingPosition: this.focusRingStrokeWidth / 2

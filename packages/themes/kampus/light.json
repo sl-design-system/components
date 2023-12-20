@@ -1535,7 +1535,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.warning.900}",
               "type": "color",
               "description": "color.button.default.outline.idle.foreground",
               "failedToResolve": true

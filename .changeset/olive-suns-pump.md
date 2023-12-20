@@ -17,4 +17,4 @@
 '@sl-design-system/max': patch
 ---
 
-Added badge component, added smaller icon
+Added badge component, added smaller icon.

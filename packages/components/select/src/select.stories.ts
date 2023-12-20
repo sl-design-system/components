@@ -56,6 +56,17 @@ export default {
 
 export const Basic: Story = {};
 
+export const Clear: Story = {
+  args: {
+    options: html`
+      <sl-select-option>&nbsp;</sl-select-option>
+      <sl-select-option value="1">Option 1</sl-select-option>
+      <sl-select-option value="2">Option 2</sl-select-option>
+      <sl-select-option value="3">Option 3</sl-select-option>
+    `
+  }
+};
+
 export const Disabled: Story = {
   args: {
     disabled: true
@@ -105,7 +116,8 @@ export const EmbeddedComponents: Story = {
 
 export const Empty: Story = {
   args: {
-    options: html``
+    options: html``,
+    placeholder: undefined
   }
 };
 

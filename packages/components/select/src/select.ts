@@ -12,12 +12,6 @@ import { SelectOptionGroup } from './select-option-group.js';
 import styles from './select.scss.js';
 import { SelectButton } from './select-button.js';
 
-declare global {
-  interface ARIAMixin {
-    ariaActiveDescendantElement: HTMLElement | null;
-  }
-}
-
 const OBSERVER_OPTIONS: MutationObserverInit = {
   attributes: true,
   attributeFilter: ['selected', 'size'],

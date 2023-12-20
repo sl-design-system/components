@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/radio-group/register.js';
+import '@sl-design-system/select/register.js';
 import '@sl-design-system/textarea/register.js';
 import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/tooltip/register.js';
@@ -77,6 +78,18 @@ export const RadioGroup: Story = {
         <sl-radio value="2">Radio 2</sl-radio>
         <sl-radio value="3">Radio 3</sl-radio>
       </sl-radio-group>
+    `
+  }
+};
+
+export const Select: Story = {
+  args: {
+    slot: html`
+      <sl-select required>
+        <sl-select-option value="1">Option 1</sl-select-option>
+        <sl-select-option value="2">Option 2</sl-select-option>
+        <sl-select-option value="3">Option 3</sl-select-option>
+      </sl-select>
     `
   }
 };

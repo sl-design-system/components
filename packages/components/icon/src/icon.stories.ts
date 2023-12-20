@@ -17,6 +17,8 @@ interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
 
 const sizeName = (size: string): string => {
   switch (size) {
+    case 'xs':
+      return 'Extra Small';
     case 'sm':
       return 'Small';
     case 'md':
@@ -32,11 +34,11 @@ const sizeName = (size: string): string => {
     case '4xl':
       return '4 Extra Large';
     default:
-      return 'Extra Small';
+      return '2 Extra Small';
   }
 };
 
-const sizes: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
+const sizes: IconSize[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl', '4xl'];
 let storyId: string;
 
 const copyIconName = async (name: string): Promise<void> => {

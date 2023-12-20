@@ -15,6 +15,14 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-avatar` | Avatar      | /packages/components/avatar/src/avatar.js |         |
 
+# `../packages/components/avatar/src/avatar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/avatar/src/avatar.scss.ts |         |
+
 # `../packages/components/avatar/src/avatar.ts`:
 
 ## class: `Avatar`, `sl-avatar`
@@ -76,6 +84,68 @@
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Avatar` | Avatar      | ../packages/components/avatar/src/avatar.ts |         |
 
+# `../packages/components/badge/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package        |
+| ---- | ---- | ----------- | ------ | -------------- |
+| `js` | `*`  | *           |        | ./src/badge.js |
+
+# `../packages/components/badge/register.ts`:
+
+## Exports
+
+| Kind                        | Name       | Declaration | Module                                  | Package |
+| --------------------------- | ---------- | ----------- | --------------------------------------- | ------- |
+| `custom-element-definition` | `sl-badge` | badge       | /packages/components/badge/src/badge.js |         |
+
+# `../packages/components/badge/src/badge.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/badge/src/badge.scss.ts |         |
+
+# `../packages/components/badge/src/badge.ts`:
+
+## class: `badge`, `sl-badge`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name      | Privacy | Type           | Default     | Description | Inherited From |
+| --------- | ------- | -------------- | ----------- | ----------- | -------------- |
+| `size`    |         | `BadgeSize`    | `'md'`      |             |                |
+| `variant` |         | `BadgeVariant` | `'neutral'` |             |                |
+
+### Attributes
+
+| Name      | Field   | Inherited From |
+| --------- | ------- | -------------- |
+| `size`    | size    |                |
+| `variant` | variant |                |
+
+### Slots
+
+| Name      | Description           |
+| --------- | --------------------- |
+| `default` | Contents of the badge |
+
+<hr/>
+
+## Exports
+
+| Kind | Name    | Declaration | Module                                    | Package |
+| ---- | ------- | ----------- | ----------------------------------------- | ------- |
+| `js` | `badge` | badge       | ../packages/components/badge/src/badge.ts |         |
+
 # `../packages/components/button-bar/index.ts`:
 
 ## Exports
@@ -91,6 +161,14 @@
 | Kind                        | Name            | Declaration | Module                                            | Package |
 | --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
+
+# `../packages/components/button-bar/src/button-bar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
 
 # `../packages/components/button-bar/src/button-bar.ts`:
 
@@ -145,6 +223,14 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
+
+# `../packages/components/button/src/button.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/button/src/button.scss.ts |         |
 
 # `../packages/components/button/src/button.ts`:
 
@@ -205,6 +291,14 @@
 | --------------------------- | ------------------- | ------------- | --------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/components/checkbox/src/checkbox.js       |         |
 | `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/components/checkbox/src/checkbox-group.js |         |
+
+# `../packages/components/checkbox/src/checkbox-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/checkbox/src/checkbox-group.scss.ts |         |
 
 # `../packages/components/checkbox/src/checkbox-group.ts`:
 
@@ -275,6 +369,14 @@
 | Kind | Name            | Declaration   | Module                                                | Package |
 | ---- | --------------- | ------------- | ----------------------------------------------------- | ------- |
 | `js` | `CheckboxGroup` | CheckboxGroup | ../packages/components/checkbox/src/checkbox-group.ts |         |
+
+# `../packages/components/checkbox/src/checkbox.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/checkbox/src/checkbox.scss.ts |         |
 
 # `../packages/components/checkbox/src/checkbox.ts`:
 
@@ -371,6 +473,14 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
 
+# `../packages/components/dialog/src/dialog.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
+
 # `../packages/components/dialog/src/dialog.ts`:
 
 ## class: `Dialog`, `sl-dialog`
@@ -446,6 +556,14 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
+
+# `../packages/components/drawer/src/drawer.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
 
 # `../packages/components/drawer/src/drawer.ts`:
 
@@ -534,6 +652,14 @@
 | Kind | Name      | Declaration | Module                                        | Package |
 | ---- | --------- | ----------- | --------------------------------------------- | ------- |
 | `js` | `setHTML` | setHTML     | ../packages/components/editor/src/commands.ts |         |
+
+# `../packages/components/editor/src/editor.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/editor/src/editor.scss.ts |         |
 
 # `../packages/components/editor/src/editor.ts`:
 
@@ -741,6 +867,14 @@
 | `custom-element-definition` | `sl-hint`       | Hint        | /packages/components/form/src/hint.js       |         |
 | `custom-element-definition` | `sl-label`      | Label       | /packages/components/form/src/label.js      |         |
 
+# `../packages/components/form/src/error.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/form/src/error.scss.ts |         |
+
 # `../packages/components/form/src/error.ts`:
 
 ## class: `Error`, `sl-error`
@@ -837,6 +971,14 @@
 | ---- | ------------------ | ---------------- | ----------------------------------------------------- | ------- |
 | `js` | `FormControlMixin` | FormControlMixin | ../packages/components/form/src/form-control-mixin.ts |         |
 
+# `../packages/components/form/src/form-field.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/form/src/form-field.scss.ts |         |
+
 # `../packages/components/form/src/form-field.ts`:
 
 ## class: `FormField`, `sl-form-field`
@@ -875,6 +1017,14 @@
 | ---- | ----------- | ----------- | --------------------------------------------- | ------- |
 | `js` | `FormField` | FormField   | ../packages/components/form/src/form-field.ts |         |
 
+# `../packages/components/form/src/hint.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/form/src/hint.scss.ts |         |
+
 # `../packages/components/form/src/hint.ts`:
 
 ## class: `Hint`, `sl-hint`
@@ -910,6 +1060,14 @@
 | Kind | Name   | Declaration | Module                                  | Package |
 | ---- | ------ | ----------- | --------------------------------------- | ------- |
 | `js` | `Hint` | Hint        | ../packages/components/form/src/hint.ts |         |
+
+# `../packages/components/form/src/label.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                        | Package |
+| ---- | --------- | ----------- | --------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/form/src/label.scss.ts |         |
 
 # `../packages/components/form/src/label.ts`:
 
@@ -1266,6 +1424,14 @@
 | ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
 | `js` | `GridFilterColumn` | GridFilterColumn | ../packages/components/grid/src/filter-column.ts |         |
 
+# `../packages/components/grid/src/filter.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/filter.scss.ts |         |
+
 # `../packages/components/grid/src/filter.ts`:
 
 ## class: `GridFilter`
@@ -1315,6 +1481,14 @@
 | Kind | Name         | Declaration | Module                                    | Package |
 | ---- | ------------ | ----------- | ----------------------------------------- | ------- |
 | `js` | `GridFilter` | GridFilter  | ../packages/components/grid/src/filter.ts |         |
+
+# `../packages/components/grid/src/grid.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/grid.scss.ts |         |
 
 # `../packages/components/grid/src/grid.ts`:
 
@@ -1519,6 +1693,14 @@
 | ---- | ---------------- | -------------- | ---------------------------------------------- | ------- |
 | `js` | `GridSortColumn` | GridSortColumn | ../packages/components/grid/src/sort-column.ts |         |
 
+# `../packages/components/grid/src/sorter.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/sorter.scss.ts |         |
+
 # `../packages/components/grid/src/sorter.ts`:
 
 ## class: `GridSorter`
@@ -1589,6 +1771,14 @@
 | --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
 | `custom-element-definition` | `sl-icon` | Icon        | /packages/components/icon/src/icon.js |         |
 
+# `../packages/components/icon/src/icon.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
+
 # `../packages/components/icon/src/icon.ts`:
 
 ## class: `Icon`, `sl-icon`
@@ -1654,6 +1844,14 @@
 | --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-popover` | Popover     | /packages/components/popover/src/popover.js |         |
 
+# `../packages/components/popover/src/popover.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/popover/src/popover.scss.ts |         |
+
 # `../packages/components/popover/src/popover.ts`:
 
 ## class: `Popover`, `sl-popover`
@@ -1707,6 +1905,14 @@
 | --------------------------- | ---------------- | ----------- | --------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
 | `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
+
+# `../packages/components/radio-group/src/radio-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/radio-group/src/radio-group.scss.ts |         |
 
 # `../packages/components/radio-group/src/radio-group.ts`:
 
@@ -1785,6 +1991,14 @@
 | ---- | ------------ | ----------- | ----------------------------------------------------- | ------- |
 | `js` | `RadioGroup` | RadioGroup  | ../packages/components/radio-group/src/radio-group.ts |         |
 
+# `../packages/components/radio-group/src/radio.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/radio-group/src/radio.scss.ts |         |
+
 # `../packages/components/radio-group/src/radio.ts`:
 
 ## class: `Radio`, `sl-radio`
@@ -1841,6 +2055,14 @@
 | `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
 | `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
 
+# `../packages/components/select/src/select-option-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                        | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-option-group.scss.ts |         |
+
 # `../packages/components/select/src/select-option-group.ts`:
 
 ## class: `SelectOptionGroup`, `sl-select-option-group`
@@ -1877,6 +2099,14 @@
 | ---- | ------------------- | ----------------- | -------------------------------------------------------- | ------- |
 | `js` | `SelectOptionGroup` | SelectOptionGroup | ../packages/components/select/src/select-option-group.ts |         |
 
+# `../packages/components/select/src/select-option.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select-option.scss.ts |         |
+
 # `../packages/components/select/src/select-option.ts`:
 
 ## class: `SelectOption`, `sl-select-option`
@@ -1910,6 +2140,14 @@
 | Kind | Name           | Declaration  | Module                                             | Package |
 | ---- | -------------- | ------------ | -------------------------------------------------- | ------- |
 | `js` | `SelectOption` | SelectOption | ../packages/components/select/src/select-option.ts |         |
+
+# `../packages/components/select/src/select.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/select/src/select.scss.ts |         |
 
 # `../packages/components/select/src/select.ts`:
 
@@ -1995,6 +2233,14 @@
 | `js` | `*`  | *           |        | ./src/string.js            |
 | `js` | `*`  | *           |        | ./src/types.js             |
 | `js` | `*`  | *           |        | ./src/validators.js        |
+
+# `../packages/components/shared/src/breakpoints.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/shared/src/breakpoints.scss.ts |         |
 
 # `../packages/components/shared/src/config.ts`:
 
@@ -2609,6 +2855,14 @@
 | `js` | `getStringByPath` | getStringByPath | ../packages/components/shared/src/path.ts |         |
 | `js` | `getValueByPath`  | getValueByPath  | ../packages/components/shared/src/path.ts |         |
 
+# `../packages/components/shared/src/popover.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/shared/src/popover.scss.ts |         |
+
 # `../packages/components/shared/src/popover.ts`:
 
 ## Functions
@@ -2696,6 +2950,14 @@
 | --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-skeleton` | Skeleton    | /packages/components/skeleton/src/skeleton.js |         |
 
+# `../packages/components/skeleton/src/skeleton.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/skeleton/src/skeleton.scss.ts |         |
+
 # `../packages/components/skeleton/src/skeleton.ts`:
 
 ## class: `Skeleton`, `sl-skeleton`
@@ -2741,6 +3003,14 @@
 | Kind                        | Name        | Declaration | Module                                    | Package |
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-switch` | Switch      | /packages/components/switch/src/switch.js |         |
+
+# `../packages/components/switch/src/switch.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                           | Package |
+| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
+| `js` | `default` |             | ../packages/components/switch/src/switch.scss.ts |         |
 
 # `../packages/components/switch/src/switch.ts`:
 
@@ -2848,6 +3118,14 @@
 | `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/components/tabs/src/tab-group.js |         |
 | `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/components/tabs/src/tab-panel.js |         |
 
+# `../packages/components/tabs/src/tab-group.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tabs/src/tab-group.scss.ts |         |
+
 # `../packages/components/tabs/src/tab-group.ts`:
 
 ## class: `TabGroup`, `sl-tab-group`
@@ -2891,6 +3169,14 @@
 | ---- | ---------- | ----------- | -------------------------------------------- | ------- |
 | `js` | `TabGroup` | TabGroup    | ../packages/components/tabs/src/tab-group.ts |         |
 
+# `../packages/components/tabs/src/tab-panel.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tabs/src/tab-panel.scss.ts |         |
+
 # `../packages/components/tabs/src/tab-panel.ts`:
 
 ## class: `TabPanel`, `sl-tab-panel`
@@ -2908,6 +3194,14 @@
 | Kind | Name       | Declaration | Module                                       | Package |
 | ---- | ---------- | ----------- | -------------------------------------------- | ------- |
 | `js` | `TabPanel` | TabPanel    | ../packages/components/tabs/src/tab-panel.ts |         |
+
+# `../packages/components/tabs/src/tab.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tabs/src/tab.scss.ts |         |
 
 # `../packages/components/tabs/src/tab.ts`:
 
@@ -2962,6 +3256,14 @@
 | Kind                        | Name            | Declaration | Module                                            | Package |
 | --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-text-field` | TextField   | /packages/components/text-field/src/text-field.js |         |
+
+# `../packages/components/text-field/src/text-field.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                   | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/text-field/src/text-field.scss.ts |         |
 
 # `../packages/components/text-field/src/text-field.ts`:
 
@@ -3079,6 +3381,14 @@
 | Kind                        | Name          | Declaration | Module                                        | Package |
 | --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
 | `custom-element-definition` | `sl-textarea` | Textarea    | /packages/components/textarea/src/textarea.js |         |
+
+# `../packages/components/textarea/src/textarea.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/textarea/src/textarea.scss.ts |         |
 
 # `../packages/components/textarea/src/textarea.ts`:
 
@@ -3234,6 +3544,14 @@
 | ---- | ------------------ | ---------------- | ------------------------------------------------------- | ------- |
 | `js` | `TooltipDirective` | TooltipDirective | ../packages/components/tooltip/src/tooltip-directive.ts |         |
 | `js` | `tooltip`          | tooltip          | ../packages/components/tooltip/src/tooltip-directive.ts |         |
+
+# `../packages/components/tooltip/src/tooltip.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/tooltip/src/tooltip.scss.ts |         |
 
 # `../packages/components/tooltip/src/tooltip.ts`:
 

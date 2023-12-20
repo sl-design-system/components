@@ -363,7 +363,7 @@
           "description": "color.palette.warning.800"
         },
         "900": {
-          "value": "#957D00",
+          "value": "#8C7501",
           "type": "color",
           "description": "color.palette.warning.900"
         },

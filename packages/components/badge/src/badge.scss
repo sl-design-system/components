@@ -43,7 +43,7 @@ $icons: (
     --_badge-container-size: var(--sl-size-badge-#{$size});
     --_padding-badge-inline: calc(var(--sl-space-badge-inline-#{$size}) + var(--sl-space-badge-label-inline-#{$size}));
     --_icon-margin: calc(-1 * var(--sl-space-badge-label-inline-#{$size}));
-    --_gap: calc(var(--sl-space-badge-inline-#{$size}) + var(--sl-space-badge-label-inline-#{$size}));
+    --_gap: calc(2 * var(--sl-space-badge-label-inline-#{$size}));
 
     --icon-size: var(--sl-size-icon-#{map.get($icons, $size)});
     --icon-container-size: var(--icon-size);

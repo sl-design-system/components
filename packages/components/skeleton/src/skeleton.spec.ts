@@ -22,24 +22,24 @@ describe('sl-skeleton', () => {
     expect(el).to.have.attribute('effect', 'shimmer');
   });
 
-  it('should have a shimmer effect when set', async () => {
-    el.setAttribute('effect', 'shimmer');
-    await el.updateComplete;
-
-    const effect = el.getAttribute('effect');
-    expect(effect).to.equal('shimmer');
-  });
-
   it('should have a pulse effect when set', async () => {
-    el.setAttribute('effect', 'pulse');
+    el.effect = 'pulse';
     await el.updateComplete;
 
     const effect = el.getAttribute('effect');
     expect(effect).to.equal('pulse');
   });
 
+  it('should have a shimmer effect when set', async () => {
+    el.effect = 'shimmer';
+    await el.updateComplete;
+
+    const effect = el.getAttribute('effect');
+    expect(effect).to.equal('shimmer');
+  });
+
   it('should have a sheen effect when set', async () => {
-    el.setAttribute('effect', 'sheen');
+    el.effect = 'sheen';
     await el.updateComplete;
 
     const effect = el.getAttribute('effect');
@@ -47,7 +47,7 @@ describe('sl-skeleton', () => {
   });
 
   it('should have no effect when set to none', async () => {
-    el.setAttribute('effect', 'none');
+    el.effect = 'none';
     await el.updateComplete;
 
     const effect = el.getAttribute('effect');

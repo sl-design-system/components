@@ -2,7 +2,7 @@
   --_background: var(--sl-color-skeleton-base);
   --_border-radius: var(--sl-border-radius-skeleton-default);
   --_border-radius-circle: var(--sl-border-radius-circle);
-  --_min-height: var(--sl-size-skeleton-min-height);
+  --_min-block-size: var(--sl-size-skeleton-min-height);
   --_shine-color: var(--sl-color-skeleton-effect);
   --_animation-duration: var(--sl-skeleton-animation-duration, 3000ms);
 }
@@ -10,7 +10,7 @@
 :host {
   background: var(--_background);
   display: block;
-  min-height: var(--_min-height);
+  min-block-size: var(--_min-block-size);
 }
 
 :host([variant='default']) {

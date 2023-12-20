@@ -56,9 +56,8 @@ export const API: Story = {
         }
 
         .body sl-skeleton {
-          block-size: 0.5rem;
+          block-size: 1rem;
           inline-size: 80%;
-          height: 1rem;
         }
 
         .body sl-skeleton:first-of-type {

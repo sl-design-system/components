@@ -24,6 +24,6 @@ export class Skeleton extends LitElement {
   constructor() {
     super();
 
-    this.setAttribute('aria-busy', 'true'); // TODO: improve accessibility part + tests
+    this.setAttribute('aria-busy', 'true');
   }
 }

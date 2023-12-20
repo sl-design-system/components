@@ -1519,7 +1519,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.warning.900}",
               "type": "color",
               "failedToResolve": true,
               "description": "color.button.default.outline.idle.foreground"

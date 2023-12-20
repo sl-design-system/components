@@ -247,6 +247,14 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-size-spinner-4xl: var(--sl-size-4xl);
+  --sl-size-spinner-3xl: var(--sl-size-3xl);
+  --sl-size-spinner-2xl: var(--sl-size-2xl);
+  --sl-size-spinner-xl: var(--sl-size-xl);
+  --sl-size-spinner-lg: var(--sl-size-lg);
+  --sl-size-spinner-md: var(--sl-size-md);
+  --sl-size-spinner-sm: var(--sl-size-sm);
+  --sl-size-spinner-xs: var(--sl-size-xs);
   --sl-size-skeleton-min-height: var(--sl-size-2xs);
   --sl-size-avatar-2xl: var(--sl-size-4xl);
   --sl-size-avatar-md: var(--sl-size-2xl);
@@ -281,6 +289,7 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
+  --sl-opacity-spinner-shadow: 0.32;
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
@@ -721,6 +730,13 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-base));
+    --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-base));
+    --sl-color-spinner-success: rgb(var(--sl-color-palette-success-base));
+    --sl-color-spinner-info: rgb(var(--sl-color-palette-info-base));
+    --sl-color-spinner-accent: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-spinner-white: rgb(var(--sl-color-palette-white-base));
+    --sl-color-spinner-default: rgb(var(--sl-color-palette-primary-500));
     --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));

@@ -37,21 +37,28 @@ export class Button extends LitElement {
   /** The original tabIndex before disabled. */
   private originalTabIndex = 0;
 
-  /** The fill of the button.
-   * @type {'solid' | 'outline' | 'link' | 'ghost'} */
+  /**
+   * The fill of the button.
+   * @type {'solid' | 'outline' | 'link' | 'ghost'}
+   */
   @property({ reflect: true }) fill: ButtonFill = 'solid';
 
-  /** The size of the button.
-   * @type {'sm' | 'md' | 'lg'} */
+  /**
+   * The size of the button.
+   * @type {'sm' | 'md' | 'lg'}
+   */
   @property({ reflect: true }) size: ButtonSize = 'md';
 
   /**
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.
-   * @type {'button' | 'reset' | 'submit'} */
+   * @type {'button' | 'reset' | 'submit'}
+   */
   @property() type: ButtonType = 'button';
 
-  /** The variant of the button.
-   * @type {'default' | 'primary' | 'success' | 'warning' | 'danger'} */
+  /**
+   * The variant of the button.
+   * @type {'default' | 'primary' | 'success' | 'warning' | 'danger'}
+   */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
 
   override connectedCallback(): void {

@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/skeleton"
+    "directory": "packages/components/skeleton"
   },
   "homepage": "https://sanomalearning.design/components/skeleton",
   "bugs": {

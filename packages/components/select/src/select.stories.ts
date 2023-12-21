@@ -236,10 +236,10 @@ export const All: StoryObj = {
       states: FormControlShowValidity[] = [undefined, 'valid', 'invalid'];
 
     const options = html`
-      <sl-select-option>🐷 Pig</sl-select-option>
-      <sl-select-option selected>🐨 Koala</sl-select-option>
-      <sl-select-option>🐼 Panda</sl-select-option>
-      <sl-select-option>🦊 Fox</sl-select-option>
+      <sl-select-option value="1">🐷 Pig</sl-select-option>
+      <sl-select-option value="2">🐨 Koala</sl-select-option>
+      <sl-select-option value="3">🐼 Panda</sl-select-option>
+      <sl-select-option value="4">🦊 Fox</sl-select-option>
     `;
 
     return html` <style>
@@ -284,6 +284,7 @@ export const All: StoryObj = {
                             .showValidity=${state}
                             .size=${size}
                             data-mock-state
+                            value="1"
                             >${options}
                           </sl-select>
                         </td>

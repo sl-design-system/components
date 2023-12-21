@@ -4199,6 +4199,14 @@
           "fields": [
             {
               "kind": "field",
+              "name": "#cleanup",
+              "privacy": "private",
+              "type": {
+                "text": "() => void | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "#config",
               "privacy": "private",
               "type": {
@@ -4211,14 +4219,6 @@
               "privacy": "private",
               "type": {
                 "text": "HTMLElement | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "#cleanup",
-              "privacy": "private",
-              "type": {
-                "text": "() => void | undefined"
               }
             }
           ]

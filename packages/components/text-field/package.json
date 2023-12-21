@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/text-field"
+    "directory": "packages/components/text-field"
   },
   "homepage": "https://sanomalearning.design/components/text-field",
   "bugs": {

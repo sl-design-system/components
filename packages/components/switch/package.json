@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/switch"
+    "directory": "packages/components/switch"
   },
   "homepage": "https://sanomalearning.design/components/switch",
   "bugs": {
@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@sl-design-system/form": "0.0.2",
+    "@sl-design-system/icon": "0.0.5",
     "@sl-design-system/shared": "0.2.0",
     "lit": "^3.1.0"
   }

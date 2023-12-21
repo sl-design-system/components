@@ -1,14 +1,8 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EditorMarks, EditorNodes } from './schema.js';
 import type { Plugin } from 'prosemirror-state';
-import {
-  EventsController,
-  FormControlMixin,
-  HintMixin,
-  ValidationController,
-  requiredValidator,
-  validationStyles
-} from '@sl-design-system/shared';
+import { FormControlMixin } from '@sl-design-system/form';
+import { EventsController } from '@sl-design-system/shared';
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
@@ -23,19 +17,15 @@ import { marks, nodes } from './schema.js';
 import { setHTML } from './commands.js';
 import { buildKeymap, buildListKeymap } from './keymap.js';
 
-export class Editor extends FormControlMixin(HintMixin(LitElement)) {
+export class Editor extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, styles];
+  static override styles: CSSResultGroup = styles;
 
   /** Manage events. */
   #events = new EventsController(this);
-
-  #validation = new ValidationController(this, {
-    validators: [requiredValidator]
-  });
 
   /** The value of the content in the editor. */
   #value?: string;

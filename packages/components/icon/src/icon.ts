@@ -114,7 +114,7 @@ export class Icon extends LitElement {
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    await this.#waitForWindowProperty().then(() => {
+    await this.#waitForWindowProperty(this.name).then(() => {
       this.sldsLibrary = window.SLDS;
       this.iconHTML = this.#getIconHTML();
     });
@@ -148,12 +148,22 @@ export class Icon extends LitElement {
    * we need to wait a bit and then check again, so we can (re)render the icon when the library is set.
    */
 
-  async #waitForWindowProperty(): Promise<void> {
+  async #waitForWindowProperty(name: string | undefined): Promise<void> {
+    let tries = 0;
     return new Promise<void>(resolve => {
       const checkProperty = (): void => {
         if (window.SLDS?.icons && Object.keys(window.SLDS.icons).length > 0) {
-          resolve();
+          if (name && window.SLDS?.icons[name]) {
+            resolve();
+          } else if (tries > 10) {
+            resolve();
+          } else {
+            // wait for a bit and see if the wanted icon has been added in the mean time
+            setTimeout(checkProperty, 100); // check again in 100ms
+            tries++;
+          }
         } else {
+          // wait for init of component library, this should be quick
           setTimeout(checkProperty, 100); // check again in 100ms
         }
       };

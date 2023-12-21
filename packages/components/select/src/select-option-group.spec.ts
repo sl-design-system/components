@@ -20,7 +20,7 @@ describe('sl-select-option-group', () => {
   });
 
   it('should have a group role', () => {
-    expect(el).to.have.attribute('role');
+    expect(el).to.have.attribute('role', 'group');
   });
 
   it('should show the group title when there is one', async () => {

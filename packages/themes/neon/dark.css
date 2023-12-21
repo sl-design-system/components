@@ -69,7 +69,7 @@
   --sl-color-input-text-field-invalid-hover-background: rgba(
     var(--sl-color-palette-danger-600) / var(--sl-opacity-200)
   );
-  --sl-color-input-text-field-invalid-default-icon: rgb(var(--sl-color-palette-danger-600));
+  --sl-color-input-text-field-invalid-default-icon: rgb(var(--sl-color-palette-danger-base));
   --sl-color-input-text-field-invalid-default-border: rgb(var(--sl-color-palette-danger-600));
   --sl-color-input-text-field-default-disabled-placeholder: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-input-text-field-default-disabled-input-text: rgb(var(--sl-color-palette-neutral-500));

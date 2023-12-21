@@ -38,7 +38,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Atoggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
+          "description": "A toggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
           "name": "Switch",
           "slots": [
             {
@@ -47,14 +47,6 @@
             }
           ],
           "members": [
-            {
-              "kind": "event",
-              "name": "change",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the checked state changes."
-            },
             {
               "kind": "field",
               "name": "checked",
@@ -67,12 +59,22 @@
             },
             {
               "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the switch is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "iconOff",
               "type": {
                 "text": "string | undefined"
               },
               "description": "Custom icon in \"off\" state.",
-              "attribute": "iconOff",
+              "attribute": "icon-off",
               "reflects": true
             },
             {
@@ -82,28 +84,17 @@
                 "text": "string | undefined"
               },
               "description": "Custom icon in \"on\" state.",
-              "attribute": "iconOn",
+              "attribute": "icon-on",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "invalid",
+              "name": "reverse",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the switch is invalid.",
-              "attribute": "invalid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the switch.",
-              "attribute": "orientation",
+              "description": "Whether the toggle should be shown *after* the text.",
+              "attribute": "reverse",
               "reflects": true
             },
             {
@@ -118,23 +109,64 @@
               "reflects": true
             },
             {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus."
+            },
+            {
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the switch, to be used in forms.",
               "attribute": "value"
             }
           ],
           "events": [
             {
-              "name": "change",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
               "type": {
                 "text": "EventEmitter<boolean>"
               },
               "description": "Emits when the checked state changes.",
-              "fieldName": "change"
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus.",
+              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
@@ -147,15 +179,15 @@
               "fieldName": "checked"
             },
             {
-              "name": "invalid",
+              "name": "disabled",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the switch is invalid.",
-              "fieldName": "invalid"
+              "description": "Whether the switch is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
             },
             {
-              "name": "iconOff",
+              "name": "icon-off",
               "type": {
                 "text": "string | undefined"
               },
@@ -163,12 +195,20 @@
               "fieldName": "iconOff"
             },
             {
-              "name": "iconOn",
+              "name": "icon-on",
               "type": {
                 "text": "string | undefined"
               },
               "description": "Custom icon in \"on\" state.",
               "fieldName": "iconOn"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the toggle should be shown *after* the text.",
+              "fieldName": "reverse"
             },
             {
               "name": "size",
@@ -180,19 +220,11 @@
               "fieldName": "size"
             },
             {
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the switch.",
-              "fieldName": "orientation"
-            },
-            {
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the switch, to be used in forms.",
               "fieldName": "value"
             }
@@ -200,11 +232,7 @@
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             }
           ],
           "superclass": {
@@ -233,6 +261,24 @@
             },
             {
               "kind": "method",
+              "name": "#onFocusin",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusout",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#onKeydown",
               "return": {
                 "type": {
@@ -244,40 +290,6 @@
                   "name": "event",
                   "type": {
                     "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onToggle",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
                   }
                 }
               ]
@@ -296,15 +308,20 @@
             },
             {
               "kind": "field",
-              "name": "#events",
-              "privacy": "private",
-              "default": "new EventsController(this)"
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "ShadowRootInit"
+              },
+              "static": true,
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
             },
             {
               "kind": "field",
-              "name": "#validation",
+              "name": "#events",
               "privacy": "private",
-              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    focusin: this.#onFocusin,\n    focusout: this.#onFocusout,\n    keydown: this.#onKeydown\n  })",
+              "description": "Events controller."
             },
             {
               "kind": "field",
@@ -313,32 +330,14 @@
               "type": {
                 "text": "boolean"
               },
-              "default": "false"
+              "default": "false",
+              "description": "The initial state of the switch."
             },
             {
               "kind": "field",
               "name": "internals",
               "readonly": true,
-              "default": "this.attachInternals()",
               "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "iconSize",
-              "type": {
-                "text": "IconSize"
-              },
-              "privacy": "private",
-              "readonly": true
             }
           ]
         }

@@ -3462,15 +3462,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit-labs/observers@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@lit-labs/observers@npm:2.0.2"
-  dependencies:
-    "@lit/reactive-element": "npm:^1.0.0 || ^2.0.0"
-  checksum: 77099b1596bf053a3378abbd9ab0e0edb2ab2602de9aa86ed8e7238ea64803cc9c5c8fdd61f100d06ae11a187dbd5b8df4dafec7cbbd4066e4f6afb335a7c816
-  languageName: node
-  linkType: hard
-
 "@lit-labs/ssr-dom-shim@npm:^1.1.2, @lit-labs/ssr-dom-shim@npm:^1.1.2-pre.0":
   version: 1.1.2
   resolution: "@lit-labs/ssr-dom-shim@npm:1.1.2"
@@ -3518,7 +3509,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lit/reactive-element@npm:^1.0.0 || ^2.0.0, @lit/reactive-element@npm:^2.0.0":
+"@lit/reactive-element@npm:^2.0.0":
   version: 2.0.1
   resolution: "@lit/reactive-element@npm:2.0.1"
   dependencies:
@@ -5468,7 +5459,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/switch@workspace:packages/components/switch"
   dependencies:
-    "@lit-labs/observers": "npm:^2.0.2"
+    "@sl-design-system/form": "npm:0.0.2"
     "@sl-design-system/shared": "npm:0.2.0"
     lit: "npm:^3.1.0"
   languageName: unknown

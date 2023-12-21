@@ -4,6 +4,7 @@ import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
+import '@sl-design-system/switch/register.js';
 import '@sl-design-system/textarea/register.js';
 import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/tooltip/register.js';
@@ -91,6 +92,12 @@ export const Select: Story = {
         <sl-select-option value="3">Option 3</sl-select-option>
       </sl-select>
     `
+  }
+};
+
+export const Switch: Story = {
+  args: {
+    slot: html`<sl-switch reverse>Toggle me</sl-switch>`
   }
 };
 

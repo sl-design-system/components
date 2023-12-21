@@ -2,6 +2,8 @@ import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { EventEmitter } from '@sl-design-system/shared';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Icon } from '@sl-design-system/icon';
+import { Button } from '@sl-design-system/button';
 import { RovingTabindexController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
@@ -11,10 +13,13 @@ import styles from './tab-group.scss.js';
 
 let nextUniqueId = 0;
 
+// @localized()
 export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
+      'sl-icon': Icon,
       'sl-tab': Tab,
       'sl-tab-panel': TabPanel
     };
@@ -64,10 +69,20 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
         <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
+        <sl-button fill="ghost" variant="primary" size="sm">
+          <sl-icon name="xmark"></sl-icon>
+        </sl-button>
+        <slot name="all-tabs" open>
+          <ul>
+            ${this.tabs?.map(tab => html` <li>${tab.selected} ${tab.innerHTML}</li> `)} Render all tabs here and set as
+            selected the exact one
+          </ul>
+        </slot>
       </div>
       <slot></slot>
     `;
-  }
+  } // TODO: aria-label=${msg('Close')} -> msg 'open' or 'more'
+  // TODO: use dialog for all tabs slot? /// foreach
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -78,6 +93,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, TabGroup.#observerOptions);
     setTimeout(() => this.#updateSelectionIndicator(), 100);
+    console.log('this.tabs', this.tabs, this.#rovingTabindexController.elements);
   }
 
   #updateSlots(): void {
@@ -215,6 +231,15 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     } else {
       start = this.selectedTab.offsetTop - wrapper.offsetTop;
     }
+
+    console.log(
+      'this.selectedTab.offsetLeft - wrapper.offsetLeft',
+      this.selectedTab.offsetLeft,
+      wrapper.offsetLeft,
+      this.selectedTab.offsetParent,
+      wrapper.offsetWidth,
+      wrapper.scrollWidth
+    );
 
     // Somehow on Chromium, the offsetParent is different than on FF and Safari
     // If on Chromium, take the `wrapper.offsetLeft` into account as well

@@ -1,6 +1,6 @@
 :host {
-  --_tab-group-indicator-color: var(--sl-color-button-primary-default-idle-background);
-  --indicator-color: var(--dna-primary);
+  --_tab-group-indicator-color: var(--sl-color-button-primary-solid-idle-background);
+  // --indicator-color: var(--dna-primary);
   --indicator-size: 4px;
   --indicator-transition: var(--dna-transition-normal, 0.2s ease-in-out);
 }
@@ -95,6 +95,14 @@
     transform-origin: center left;
     width: 1px;
   }
+}
+
+sl-button {
+  align-self: center;
+  background: #9ebaff;
+  //position: absolute;
+  inset-inline-end: 0;
+  position: sticky;
 }
 
 .indicator {

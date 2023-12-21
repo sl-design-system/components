@@ -3,6 +3,7 @@ import type { SelectSize } from './select.js';
 import type { SelectOption } from './select-option.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import type { FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -30,6 +31,12 @@ export class SelectButton extends ScopedElementsMixin(LitElement) {
 
   /** The size of the parent select. */
   @property({ reflect: true }) size?: SelectSize = 'md';
+
+  /** Indicates whether the control should indicate it is valid. */
+  @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
+
+  /** Mirrors the same property on the sl-select parent. */
+  @property({ reflect: true, attribute: 'show-validity' }) showValidity: FormControlShowValidity;
 
   override connectedCallback(): void {
     super.connectedCallback();

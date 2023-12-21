@@ -1,6 +1,5 @@
 $sizes: md, lg;
 $variants: default, valid, invalid;
-$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 
 :host {
   --sl-popover-offset: 4px;
@@ -22,7 +21,6 @@ $variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([inval
 }
 
 div {
-  --_max-overlay-height: var(--max-overlay-height, 80vh);
   background-color: #fff;
   border: 0;
   box-shadow: var(--sl-elevation-shadow-md);
@@ -31,7 +29,6 @@ div {
   flex-direction: column;
   gap: var(--_gap);
   margin: 0;
-  max-height: var(--_max-overlay-height);
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;
   padding-block: var(--_padding-block);

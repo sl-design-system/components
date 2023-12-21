@@ -102,6 +102,26 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Indicates whether the control should indicate it is valid.",
+              "attribute": "show-valid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Mirrors the same property on the sl-select parent.",
+              "attribute": "show-validity",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "SelectSize | undefined"
@@ -137,6 +157,22 @@
               "default": "'md'",
               "description": "The size of the parent select.",
               "fieldName": "size"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Indicates whether the control should indicate it is valid.",
+              "fieldName": "showValid"
+            },
+            {
+              "name": "show-validity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Mirrors the same property on the sl-select parent.",
+              "fieldName": "showValidity"
             }
           ],
           "mixins": [
@@ -357,16 +393,6 @@
             },
             {
               "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the select is invalid.",
-              "attribute": "invalid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "listbox",
               "type": {
                 "text": "HTMLElement"
@@ -391,6 +417,15 @@
               "description": "Whether the select is a required field.",
               "attribute": "required",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Indicates whether the control should indicate it is valid.",
+              "attribute": "show-valid"
             },
             {
               "kind": "field",
@@ -490,6 +525,14 @@
               "fieldName": "required"
             },
             {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Indicates whether the control should indicate it is valid.",
+              "fieldName": "showValid"
+            },
+            {
               "name": "size",
               "type": {
                 "text": "SelectSize"
@@ -497,14 +540,6 @@
               "default": "'md'",
               "description": "The size of the select.",
               "fieldName": "size"
-            },
-            {
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the select is invalid.",
-              "fieldName": "invalid"
             },
             {
               "name": "value",

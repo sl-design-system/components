@@ -89,22 +89,18 @@ export class Checkbox extends FormControlMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('checked') || changes.has('required') || changes.has('value')) {
-      this.internals.setFormValue(this.checked ? this.value : null);
-      this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box'));
-      this.updateValidity();
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
     if (changes.has('checked') || changes.has('indeterminate')) {
       this.internals.ariaChecked = this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false';
     }
 
     if (changes.has('required')) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
+    }
+
+    if (changes.has('checked') || changes.has('required') || changes.has('value')) {
+      this.internals.setFormValue(this.checked ? this.value : null);
+      this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box'));
+      this.updateValidity();
     }
   }
 

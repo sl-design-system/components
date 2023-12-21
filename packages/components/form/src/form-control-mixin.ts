@@ -218,6 +218,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @ignore
      */
     updateValidity(): void {
+      console.log('updateValidity');
+
       this.showValidity = this.report ? (this.valid ? 'valid' : 'invalid') : undefined;
 
       /** Emits when the validity of the form control changes. */

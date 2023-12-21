@@ -1,6 +1,7 @@
 $sizes: md, lg;
 $variants: default, valid, invalid;
-$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$variant-selectors: ':where(:not([show-validity]), [show-validity]:not([show-valid]))',
+  ':where([show-validity="valid"][show-valid])', ':where([show-validity="invalid"])';
 
 @each $size in $sizes {
   :host([size='#{$size}']) {

@@ -2,7 +2,10 @@ import type { Select, SelectSize } from './select.js';
 import type { TemplateResult } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/avatar/register.js';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
+import type { FormControlShowValidity } from '@sl-design-system/form';
 import { html } from 'lit';
 import '../register.js';
 
@@ -36,20 +39,34 @@ export default {
     }
   },
   render: ({ disabled, hint, label, options, placeholder, required, size, slot }) => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('form')?.reportValidity();
+    };
+
     return html`
-      <sl-form-field .hint=${hint} .label=${label}>
-        ${slot?.() ??
-        html`
-          <sl-select ?disabled=${disabled} ?required=${required} .placeholder=${placeholder} .size=${size}>
-            ${options ??
-            html`
-              <sl-select-option value="1">Option 1</sl-select-option>
-              <sl-select-option value="2">Option 2</sl-select-option>
-              <sl-select-option value="3">Option 3</sl-select-option>
-            `}
-          </sl-select>
-        `}
-      </sl-form-field>
+      <style>
+        sl-button-bar {
+          margin-block-start: 1rem;
+        }
+      </style>
+      <form>
+        <sl-form-field .hint=${hint} .label=${label}>
+          ${slot?.() ??
+          html`
+            <sl-select ?disabled=${disabled} ?required=${required} .placeholder=${placeholder} .size=${size}>
+              ${options ??
+              html`
+                <sl-select-option value="1">Option 1</sl-select-option>
+                <sl-select-option value="2">Option 2</sl-select-option>
+                <sl-select-option value="3">Option 3</sl-select-option>
+              `}
+            </sl-select>
+          `}
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </form>
     `;
   }
 } satisfies Meta<Props>;
@@ -192,10 +209,31 @@ export const Valid: Story = {
   }
 };
 
+export const CustomValidity: Story = {
+  args: {
+    hint: 'Select the second option to make the field valid.',
+    slot: () => {
+      const onChange = (event: Event & { target: Select }): void => {
+        const value = event.target.value;
+
+        event.target.setCustomValidity(value === '2' ? '' : 'Select the second option');
+      };
+
+      return html`
+        <sl-select @sl-change=${onChange}>
+          <sl-select-option value="1">Option 1</sl-select-option>
+          <sl-select-option value="2">Option 2</sl-select-option>
+          <sl-select-option value="3">Option 3</sl-select-option>
+        </sl-select>
+      `;
+    }
+  }
+};
+
 export const All: StoryObj = {
   render: () => {
-    const states: string[] = ['', 'valid', 'invalid'];
-    const disabledStates = [false, true];
+    const disabledStates = [false, true],
+      states: FormControlShowValidity[] = [undefined, 'valid', 'invalid'];
 
     const options = html`
       <sl-select-option>🐷 Pig</sl-select-option>
@@ -220,37 +258,39 @@ export const All: StoryObj = {
         }
       </style>
       ${sizes.map(
-        size => html`<h2>Size: ${size}</h2>
+        size => html`
+          <h2>Size: ${size}</h2>
           <table>
             <thead>
               <tr>
                 <td></td>
                 ${disabledStates.map(
-                  disabledState =>
-                    html` <td class="${disabledState ? 'sb-disabled' : ''}">
-                      ${disabledState ? 'Disabled' : 'Enabled'}
-                    </td>`
+                  state => html`<td class="${state ? 'sb-disabled' : ''}">${state ? 'Disabled' : 'Enabled'}</td>`
                 )}
               </tr>
             </thead>
             <tbody>
               ${states.map(
-                state => html` <tr>
-                  <th>${state}</th>
-                  ${disabledStates.map(
-                    disabledState => html` <td class="${disabledState ? 'sb-disabled' : ''}">
-                      <sl-select
-                        ?valid=${state === 'valid'}
-                        ?invalid=${state === 'invalid'}
-                        ?required=${state === 'invalid'}
-                        .size=${size}
-                        ?disabled=${disabledState}
-                        data-mock-state
-                        >${options}
-                      </sl-select>
-                    </td>`
-                  )}
-                </tr>`
+                state => html`
+                  <tr>
+                    <th>${state}</th>
+                    ${disabledStates.map(
+                      disabledState => html`
+                        <td class="${disabledState ? 'sb-disabled' : ''}">
+                          <sl-select
+                            ?disabled=${disabledState}
+                            ?required=${state === 'invalid'}
+                            .showValid=${state === 'valid'}
+                            .showValidity=${state}
+                            .size=${size}
+                            data-mock-state
+                            >${options}
+                          </sl-select>
+                        </td>
+                      `
+                    )}
+                  </tr>
+                `
               )}
               ${states.map(
                 state => html`<tr>
@@ -259,11 +299,11 @@ export const All: StoryObj = {
                     disabledState => html`
                       <td class="${disabledState ? 'sb-disabled' : ''}">
                         <sl-select
-                          ?valid=${state === 'valid'}
-                          ?invalid=${state === 'invalid'}
-                          ?required=${state === 'invalid'}
-                          .size=${size}
                           ?disabled=${disabledState}
+                          ?required=${state === 'invalid'}
+                          .showValid=${state === 'valid'}
+                          .showValidity=${state}
+                          .size=${size}
                           data-mock-state
                           placeholder="Placeholder"
                           ><sl-select-option .size=${size} ?disabled=${disabledState}>Hamster</sl-select-option>
@@ -276,9 +316,9 @@ export const All: StoryObj = {
               <tr>
                 <th>Unselected Option</th>
                 ${disabledStates.map(
-                  disabledState => html`
-                    <td class="${disabledState ? 'sb-disabled' : ''}">
-                      <sl-select-option .size=${size} ?disabled=${disabledState}>🐹 Hamster</sl-select-option>
+                  state => html`
+                    <td class="${state ? 'sb-disabled' : ''}">
+                      <sl-select-option .size=${size} ?disabled=${state}>🐹 Hamster</sl-select-option>
                     </td>
                   `
                 )}
@@ -286,15 +326,16 @@ export const All: StoryObj = {
               <tr>
                 <th>Selected Option</th>
                 ${disabledStates.map(
-                  disabledState => html`
-                    <td class="${disabledState ? 'sb-disabled' : ''}">
-                      <sl-select-option .size=${size} ?disabled=${disabledState} selected>🐹 Hamster</sl-select-option>
+                  state => html`
+                    <td class="${state ? 'sb-disabled' : ''}">
+                      <sl-select-option .size=${size} ?disabled=${state} selected>🐹 Hamster</sl-select-option>
                     </td>
                   `
                 )}
               </tr>
             </tbody>
-          </table>`
+          </table>
+        `
       )}`;
   }
 };

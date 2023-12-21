@@ -112,11 +112,11 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private The selected option in the listbox. */
   @state() selectedOption?: SelectOption | null;
 
+  /** Indicates whether the control should indicate it is valid. */
+  @property({ type: Boolean, attribute: 'show-valid' }) showValid?: boolean;
+
   /** The size of the select. */
   @property({ reflect: true }) size: SelectSize = 'md';
-
-  /** Whether the select is invalid. */
-  @property({ type: Boolean, reflect: true }) invalid?: boolean;
 
   /** The value for the select, to be used in forms. */
   @property() value: string | null = null;
@@ -152,7 +152,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     this.setFormControlElement(this);
 
     if (!this.hasAttribute('tabindex')) {
-      this.tabIndex = 0;
+      this.tabIndex = this.disabled ? -1 : 0;
     }
   }
 
@@ -187,11 +187,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       }
     }
 
-    if (changes.has('selectedOption')) {
-      this.value = this.selectedOption?.value ?? null;
-      this.button.selected = this.selectedOption;
-    }
-
     if (changes.has('disabled')) {
       this.tabIndex = this.disabled ? -1 : 0;
       this.button.disabled = this.disabled;
@@ -205,6 +200,14 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
     }
 
+    if (changes.has('showValid')) {
+      this.button.showValid = this.showValid;
+    }
+
+    if (changes.has('showValidity')) {
+      this.button.showValidity = this.showValidity;
+    }
+
     if (changes.has('size')) {
       this.button.size = this.size;
       this.options?.forEach(option => (option.size = this.size));
@@ -212,7 +215,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     }
 
     if (changes.has('value')) {
-      this.#setSelectedOption(this.options.find(option => option.value === this.value));
+      if (this.selectedOption?.value !== this.value) {
+        this.#setSelectedOption(this.options.find(option => option.value === this.value));
+      }
 
       this.internals.setFormValue(this.value);
     }
@@ -372,6 +377,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.selectedOption.selected = true;
     }
 
-    this.changeEvent.emit(option?.value || null);
+    this.button.selected = this.selectedOption;
+
+    this.value = this.selectedOption?.value ?? null;
+    this.changeEvent.emit(this.value);
   }
 }

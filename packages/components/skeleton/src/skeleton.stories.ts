@@ -122,7 +122,7 @@ export const All: Story = {
           height: 1rem;
         }
       </style>
-      <section aria-label="Loading">
+      <section>
         <h2>No effect</h2>
         <sl-skeleton effect="none" style="width: ${width};"></sl-skeleton>
         <h2>Shimmer effect (default)</h2>
@@ -176,7 +176,7 @@ export const LoadingImage: Story = {
         img {
           width: 100%;
           aspect-ratio: 1 / 1;
-          border-radius: var(--sl-border-radius-skeleton-default); //0.5rem;
+          border-radius: var(--sl-border-radius-skeleton-default);
           opacity: 0;
           transition: opacity 2s;
           z-index: 1;

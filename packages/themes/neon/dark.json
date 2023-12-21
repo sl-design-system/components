@@ -3967,14 +3967,14 @@
             "failedToResolve": true
           },
           "indicator": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.palette.primary.400}",
             "type": "color",
             "failedToResolve": true
           }
         },
         "hover": {
           "background": {
-            "value": "rgba({color.palette.accent.500} , {opacity.200})",
+            "value": "rgba( {color.palette.primary.100} , {opacity.200})",
             "type": "color",
             "failedToResolve": true
           },
@@ -3989,14 +3989,14 @@
             "failedToResolve": true
           },
           "indicator": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.select.item.default.indicator}",
             "type": "color",
             "failedToResolve": true
           }
         },
         "active": {
           "background": {
-            "value": "rgba({color.palette.accent.500} , {opacity.400})",
+            "value": "rgba( {color.palette.primary.100} , {opacity.400})",
             "type": "color",
             "failedToResolve": true
           },
@@ -4011,7 +4011,7 @@
             "failedToResolve": true
           },
           "indicator": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.select.item.default.indicator}",
             "type": "color",
             "failedToResolve": true
           }
@@ -4033,7 +4033,7 @@
             "failedToResolve": true
           },
           "indicator": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.select.item.default.indicator}",
             "type": "color",
             "failedToResolve": true
           }
@@ -4148,7 +4148,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.input.textField.default.active.border}",
               "type": "color",
               "failedToResolve": true
             },

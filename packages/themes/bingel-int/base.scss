@@ -624,7 +624,8 @@
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
-  --sl-border-radius-focusring-default: var(--sl-border-radius-default);
+  --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
+  --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
   --sl-border-radius-avatar-square: var(--sl-border-radius-default);
   --sl-text-input-opiton-font-icon-lg: var(--sl-text-typeset-font-weight-icon-solid) 18 /

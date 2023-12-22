@@ -1521,6 +1521,23 @@
         },
         "type": "typography"
       }
+    },
+    "list": {
+      "sm": {
+        "normal": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "lineHeight": "{text.typeset.lineHeight.sm}",
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "letterSpacing": "{text.typeset.letterSpacing.md}",
+            "paragraphSpacing": "{text.typeset.paragraphSpacing.sm}",
+            "textCase": "{text.typeset.textCase.none}",
+            "textDecoration": "list"
+          },
+          "type": "typography"
+        }
+      }
     }
   },
   "borderRadius": {
@@ -1623,6 +1640,13 @@
       "mobile": {
         "value": "{border.radius.none}",
         "type": "borderRadius"
+      }
+    },
+    "inline-message": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius",
+        "description": "borderRadius.button"
       }
     }
   },

@@ -90,6 +90,9 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** Whether the user is required to select an option in the group. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
+  /** When set will cause the control to show it is valid after reportValidity is called. */
+  @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
+
   /** The size of the radio buttons in the group. */
   @property() size?: RadioButtonSize;
 
@@ -124,6 +127,13 @@ export class RadioGroup extends FormControlMixin(LitElement) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('showValidity')) {
+      const radio = this.radios?.find(radio => radio.value === this.value);
+      if (radio) {
+        radio.showValidity = this.showValidity;
+      }
+    }
 
     if (changes.has('required') || changes.has('value')) {
       this.radios?.forEach(radio => (radio.checked = radio.value === this.value));

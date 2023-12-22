@@ -4612,6 +4612,96 @@
         "description": "color.surface.solid.primary.background",
         "failedToResolve": true
       }
+    },
+    "inline-message": {
+      "info": {
+        "background": {
+          "value": "rgba( {color.palette.info.base} ,{opacity.200})",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.info.base}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "border": {
+          "value": "{color.palette.info.base}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "icon": {
+          "value": "{color.palette.info.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      },
+      "success": {
+        "background": {
+          "value": "rgba( {color.palette.success.base} ,{opacity.200})",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.success.400}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "border": {
+          "value": "{color.palette.success.400}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "icon": {
+          "value": "{color.palette.success.400}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      },
+      "warning": {
+        "background": {
+          "value": "rgba( {color.palette.warning.base} ,{opacity.200})",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.warning.base}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "border": {
+          "value": "{color.palette.warning.base}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "icon": {
+          "value": "{color.palette.warning.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      },
+      "danger": {
+        "background": {
+          "value": "rgba( {color.palette.danger.base} ,{opacity.200})",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.danger.500}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "border": {
+          "value": "{color.palette.danger.500}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "icon": {
+          "value": "{color.palette.danger.500}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      }
     }
   },
   "boxShadow": {

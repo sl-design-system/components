@@ -1634,6 +1634,10 @@
           "value": "{border.width.none}",
           "type": "borderWidth"
         }
+      },
+      "divider": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
       }
     }
   },

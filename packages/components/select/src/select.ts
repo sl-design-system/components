@@ -112,8 +112,8 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private The selected option in the listbox. */
   @state() selectedOption?: SelectOption | null;
 
-  /** Indicates whether the control should indicate it is valid. */
-  @property({ type: Boolean, attribute: 'show-valid' }) showValid?: boolean;
+  /** When set will cause the control to show it is valid after reportValidity is called. */
+  @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /** The size of the select. */
   @property({ reflect: true }) size: SelectSize = 'md';
@@ -200,10 +200,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
     }
 
-    if (changes.has('showValid')) {
-      this.button.showValid = this.showValid;
-    }
-
     if (changes.has('showValidity')) {
       this.button.showValidity = this.showValidity;
     }
@@ -229,6 +225,11 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       );
 
       this.updateValidity();
+
+      // NOTE: for some reason setting `showValidity` to `undefined` in the
+      // `updateValidity()` method doesn't trigger a `willUpdate` call. So we
+      // work around that by updating it here.
+      this.button.showValidity = this.showValidity;
     }
   }
 

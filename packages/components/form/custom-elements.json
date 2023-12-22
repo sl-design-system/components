@@ -28,7 +28,23 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/form-field-event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/form-field.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/form.js"
           }
         },
         {
@@ -68,6 +84,14 @@
           "declaration": {
             "name": "Error",
             "module": "/src/error.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-form",
+          "declaration": {
+            "name": "Form",
+            "module": "/src/form.js"
           }
         },
         {
@@ -276,6 +300,15 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown."
+            },
+            {
+              "kind": "field",
               "name": "showValidity",
               "type": {
                 "text": "FormControlShowValidity"
@@ -402,6 +435,15 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown."
+            },
+            {
+              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -461,6 +503,51 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/form-field-event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Emits when a form field is added or removed to/from a form.",
+          "name": "FormFieldEvent",
+          "members": [
+            {
+              "description": "The state of the form field (add or remove)",
+              "name": "state",
+              "kind": "field"
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-form-field"
+            }
+          ],
+          "superclass": {
+            "name": "Event",
+            "module": "src/form-field-event.ts"
+          },
+          "methods": [],
+          "fields": [
+            {
+              "description": "The state of the form field (add or remove)",
+              "name": "state",
+              "kind": "field"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FormFieldEvent",
+          "declaration": {
+            "name": "FormFieldEvent",
+            "module": "src/form-field-event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/form-field.ts",
       "declarations": [
         {
@@ -468,6 +555,22 @@
           "description": "",
           "name": "FormField",
           "members": [
+            {
+              "kind": "field",
+              "name": "formControl",
+              "type": {
+                "text": "HTMLElement & FormControl | undefined"
+              },
+              "description": "The form control element."
+            },
+            {
+              "kind": "event",
+              "name": "formFieldEvent",
+              "type": {
+                "text": "EventEmitter<FormFieldEvent>"
+              },
+              "description": "Emits when the field is added/removed to/from a form."
+            },
             {
               "kind": "field",
               "name": "hint",
@@ -485,6 +588,16 @@
               },
               "description": "The text for the label. You can also slot an `<sl-label>` element.",
               "attribute": "label"
+            }
+          ],
+          "events": [
+            {
+              "name": "formFieldEvent",
+              "type": {
+                "text": "EventEmitter<FormFieldEvent>"
+              },
+              "description": "Emits when the field is added/removed to/from a form.",
+              "fieldName": "formFieldEvent"
             }
           ],
           "attributes": [
@@ -626,15 +739,6 @@
             },
             {
               "kind": "field",
-              "name": "#formControl",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLElement & FormControl | undefined"
-              },
-              "description": "The form control element."
-            },
-            {
-              "kind": "field",
               "name": "#hint",
               "privacy": "private",
               "type": {
@@ -650,6 +754,14 @@
                 "text": "Label | undefined"
               },
               "description": "The label element."
+            },
+            {
+              "kind": "field",
+              "name": "formControl",
+              "type": {
+                "text": "HTMLElement & FormControl | undefined"
+              },
+              "description": "The form control element."
             },
             {
               "kind": "field",
@@ -670,6 +782,99 @@
           "declaration": {
             "name": "FormField",
             "module": "src/form-field.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/form.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "This component is a wrapper for a `<form>` element. It will wrap all the elements\ninside it in a `<form>` element that is then slotted. By having both the form controls\nand the `<form>` in the same scope, the form controls will automatically register\nthemselves with the `<form>`.\n\nIt is used to provide the ability to report the validity of all the form controls,\nnot just the invalid ones. By calling the `reportValidity()` method, it in turn will\ncall the `reportValidity()` methods of all the form controls.\n\nThis wrapper is necessary because the native form lacks this behavior.\nSee https://github.com/whatwg/html/issues/9878",
+          "name": "Form",
+          "members": [
+            {
+              "kind": "field",
+              "name": "fields",
+              "type": {
+                "text": "FormField[]"
+              },
+              "default": "[]",
+              "description": "The fields in the form."
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-form",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onFormField",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "FormFieldEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    'sl-form-field': this.#onFormField\n  })",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
+              "name": "fields",
+              "type": {
+                "text": "FormField[]"
+              },
+              "default": "[]",
+              "description": "The fields in the form."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Form",
+          "declaration": {
+            "name": "Form",
+            "module": "src/form.ts"
           }
         }
       ]

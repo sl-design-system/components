@@ -119,6 +119,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** @ignore  Resets the radio group to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
+    this.changeEvent.emit(this.value);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

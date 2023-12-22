@@ -17,6 +17,7 @@ type Props = Pick<
   | 'placeholder'
   | 'readonly'
   | 'required'
+  | 'showValid'
   | 'size'
   | 'type'
   | 'value'
@@ -36,7 +37,8 @@ export default {
     label: 'Label',
     placeholder: 'Type something here',
     required: false,
-    readonly: false
+    readonly: false,
+    showValid: false
   },
   argTypes: {
     maxLength: { type: 'number' },
@@ -60,22 +62,18 @@ export default {
     placeholder,
     readonly,
     required,
+    showValid,
     size,
     slot,
     type,
     value
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      event.target.closest('form')?.reportValidity();
+      event.target.closest('sl-form')?.reportValidity();
     };
 
     return html`
-      <style>
-        sl-button-bar {
-          margin-block-start: 1rem;
-        }
-      </style>
-      <form>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
           html`
@@ -87,6 +85,7 @@ export default {
               .minLength=${minLength}
               .pattern=${pattern}
               .placeholder=${placeholder ?? ''}
+              .showValid=${showValid}
               .size=${size ?? 'md'}
               .type=${type ?? 'text'}
               .value=${value}
@@ -96,7 +95,7 @@ export default {
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
         </sl-button-bar>
-      </form>
+      </sl-form>
     `;
   }
 } satisfies Meta<Props>;
@@ -152,7 +151,8 @@ export const Required: Story = {
 
 export const Valid: Story = {
   args: {
-    hint: 'After clicking the button, this field will show it is valid.'
+    hint: 'After clicking the button, this field will show it is valid.',
+    showValid: true
   }
 };
 
@@ -218,42 +218,28 @@ export const All: StoryObj = {
             <sl-text-field disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-text-field>
           </div>
           <div class="wrapper">
+            <sl-text-field .size=${size} show-validity="invalid" value="I am ${size} invalid"></sl-text-field>
             <sl-text-field
-              minlength="30"
-              show-validity="invalid"
-              size=${size}
-              value="I am ${size} invalid"
-            ></sl-text-field>
-            <sl-text-field
-              minlength="3"
+              .size=${size}
               placeholder="Placeholder ${size} invalid"
               show-validity="invalid"
-              size=${size}
             ></sl-text-field>
             <sl-text-field
+              .size=${size}
               disabled
-              minlength="30"
               show-validity="invalid"
-              size=${size}
               value="${size} invalid disabled"
             ></sl-text-field>
             <sl-text-field
+              .size=${size}
               disabled
-              minlength="3"
               placeholder="Placeholder ${size} disabled invalid"
               show-validity="invalid"
-              size=${size}
             ></sl-text-field>
           </div>
           <div class="wrapper">
-            <sl-text-field show-valid show-validity="valid" size=${size} value="I am ${size} valid"></sl-text-field>
-            <sl-text-field
-              disabled
-              show-valid
-              show-validity="valid"
-              size=${size}
-              value="${size} valid disabled"
-            ></sl-text-field>
+            <sl-text-field show-validity="valid" .size=${size} value="I am ${size} valid"></sl-text-field>
+            <sl-text-field .size=${size} disabled show-validity="valid" value="${size} valid disabled"></sl-text-field>
           </div>
         </div>
       `

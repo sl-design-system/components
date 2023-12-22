@@ -1,6 +1,6 @@
 import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from '@sl-design-system/shared';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { UpdateValidityEvent } from './update-validity-event.js';
 
 export interface NativeFormControlElement extends HTMLElement {
@@ -34,7 +34,7 @@ export interface FormControl {
 
   customValidity?: string;
   name?: string;
-  report?: boolean;
+  showValid?: boolean;
 
   reportValidity(): boolean;
   updateValidity(): void;
@@ -74,19 +74,23 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       // Due to not knowing when to show the validation message, we'll just show it now
       // See https://github.com/whatwg/html/issues/9878
       this.report = true;
+      this.updateValidity();
     };
+
+    /** @ignore Whether the form control should report the validity of the control. */
+    report?: boolean;
 
     /** @ignore This determines whether the `<sl-error>` component displays an icon or not. */
     showExternalValidityIcon = true;
+
+    /** Optional property to indicate the valid state should be shown. */
+    showValid = false;
 
     /** The error message to display when the control is invalid. */
     @property({ attribute: 'custom-validity' }) customValidity?: string;
 
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
-
-    /** @ignore Whether the form control should report the validity of the control. */
-    @state() report?: boolean;
 
     /** Whether to show the validity state. */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
@@ -163,10 +167,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       if (changes.has('customValidity')) {
         this.setCustomValidity(this.customValidity ?? '');
       }
-
-      if (changes.has('report')) {
-        this.updateValidity();
-      }
     }
 
     /** @ignore */
@@ -201,9 +201,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         : this.formControlElement.internals.reportValidity();
 
       // Workaround for https://github.com/whatwg/html/issues/9878
-      if (valid) {
-        this.report = true;
-      }
+      this.report = true;
+      this.updateValidity();
 
       return valid;
     }
@@ -218,7 +217,15 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @ignore
      */
     updateValidity(): void {
-      this.showValidity = this.report ? (this.valid ? 'valid' : 'invalid') : undefined;
+      if (this.report) {
+        if (this.valid) {
+          this.showValidity = this.showValid ? 'valid' : undefined;
+        } else {
+          this.showValidity = 'invalid';
+        }
+      } else {
+        this.showValidity = undefined;
+      }
 
       /** Emits when the validity of the form control changes. */
       this.dispatchEvent(new UpdateValidityEvent(this.valid, this.validationMessage, this.showValidity));

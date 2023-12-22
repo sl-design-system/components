@@ -1726,7 +1726,7 @@
           "type": "borderWidth"
         },
         "start": {
-          "value": "{border.width.lg}",
+          "value": "{border.width.2xl}",
           "type": "borderWidth"
         }
       },

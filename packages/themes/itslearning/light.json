@@ -4602,12 +4602,12 @@
     "inline-message": {
       "info": {
         "background": {
-          "value": "{color.palette.info.50}",
+          "value": "{color.palette.info.100}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.info.600}",
+          "value": "{color.palette.info.base}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4624,7 +4624,7 @@
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.50}",
+          "value": "{color.palette.success.100}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4646,7 +4646,7 @@
       },
       "warning": {
         "background": {
-          "value": "{color.palette.warning.50}",
+          "value": "{color.palette.warning.100}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4656,7 +4656,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.warning.base}",
+          "value": "{color.palette.warning.600}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4668,12 +4668,12 @@
       },
       "danger": {
         "background": {
-          "value": "{color.palette.danger.50}",
+          "value": "{color.palette.danger.100}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.danger.600}",
+          "value": "{color.palette.danger.700}",
           "type": "color",
           "failedToResolve": true
         },

@@ -6,10 +6,7 @@ import { LitElement, html } from 'lit';
 import styles from './form.scss.js';
 
 /**
- * This component is a wrapper for a `<form>` element. It will wrap all the elements
- * inside it in a `<form>` element that is then slotted. By having both the form controls
- * and the `<form>` in the same scope, the form controls will automatically register
- * themselves with the `<form>`.
+ * This component is a wrapper for the form controls.
  *
  * It is used to provide the ability to report the validity of all the form controls,
  * not just the invalid ones. By calling the `reportValidity()` method, it in turn will

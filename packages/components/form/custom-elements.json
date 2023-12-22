@@ -792,7 +792,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "This component is a wrapper for a `<form>` element. It will wrap all the elements\ninside it in a `<form>` element that is then slotted. By having both the form controls\nand the `<form>` in the same scope, the form controls will automatically register\nthemselves with the `<form>`.\n\nIt is used to provide the ability to report the validity of all the form controls,\nnot just the invalid ones. By calling the `reportValidity()` method, it in turn will\ncall the `reportValidity()` methods of all the form controls.\n\nThis wrapper is necessary because the native form lacks this behavior.\nSee https://github.com/whatwg/html/issues/9878",
+          "description": "This component is a wrapper for the form controls.\n\nIt is used to provide the ability to report the validity of all the form controls,\nnot just the invalid ones. By calling the `reportValidity()` method, it in turn will\ncall the `reportValidity()` methods of all the form controls.\n\nThis wrapper is necessary because the native form lacks this behavior.\nSee https://github.com/whatwg/html/issues/9878",
           "name": "Form",
           "members": [
             {

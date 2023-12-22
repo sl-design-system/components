@@ -3885,6 +3885,80 @@
         "type": "color",
         "description": "color.surface.solid.primary.background"
       }
+    },
+    "inline-message": {
+      "info": {
+        "background": {
+          "value": "rgba( {color.palette.info.base} ,{opacity.200})",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.info.base}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.info.base}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.info.base}",
+          "type": "color"
+        }
+      },
+      "success": {
+        "background": {
+          "value": "rgba( {color.palette.success.base} ,{opacity.200})",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.success.400}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.success.400}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.success.400}",
+          "type": "color"
+        }
+      },
+      "warning": {
+        "background": {
+          "value": "rgba( {color.palette.warning.base} ,{opacity.200})",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.warning.base}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.warning.base}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.warning.base}",
+          "type": "color"
+        }
+      },
+      "danger": {
+        "background": {
+          "value": "rgba( {color.palette.danger.base} ,{opacity.200})",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.danger.500}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.danger.500}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.danger.500}",
+          "type": "color"
+        }
+      }
     }
   },
   "boxShadow": {

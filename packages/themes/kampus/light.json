@@ -39,7 +39,7 @@
     "badge": {
       "danger": {
         "background": {
-          "value": "{color.palette.danger.500}",
+          "value": "{color.palette.danger.base}",
           "type": "color",
           "failedToResolve": true
         },
@@ -51,7 +51,7 @@
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.500}",
+          "value": "{color.palette.success.600}",
           "type": "color",
           "failedToResolve": true
         },
@@ -63,19 +63,19 @@
       },
       "warning": {
         "background": {
-          "value": "{color.palette.warning.base}",
+          "value": "{color.palette.warning.900}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.black.base}",
+          "value": "{color.palette.white.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "accent": {
         "background": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.accent.600}",
           "type": "color",
           "failedToResolve": true
         },
@@ -87,12 +87,12 @@
       },
       "neutral": {
         "background": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.600}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.black.base}",
+          "value": "{color.palette.white.base}",
           "type": "color",
           "failedToResolve": true
         }

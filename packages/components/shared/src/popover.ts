@@ -42,9 +42,11 @@ function roundByDPR(num: number): number {
 }
 
 export const isPopoverOpen = (element?: HTMLElement): boolean => {
+  console.log('element', element);
   if (!element) {
     return false;
   } else {
+    console.log('in element else', element.matches(':popover-open'), element.matches('.\\:popover-open'));
     return element.matches(':popover-open') || element.matches('.\\:popover-open');
   }
 };

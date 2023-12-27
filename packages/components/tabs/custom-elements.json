@@ -82,6 +82,14 @@
           "name": "TabGroup",
           "members": [
             {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox element with all tabs list."
+            },
+            {
               "kind": "event",
               "name": "tabChange",
               "type": {
@@ -144,6 +152,15 @@
             {
               "kind": "method",
               "name": "#updateSlots",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
               "return": {
                 "type": {
                   "text": "void"
@@ -291,6 +308,14 @@
               },
               "privacy": "private",
               "description": "The current tab node selected in the tab group."
+            },
+            {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox element with all tabs list."
             },
             {
               "kind": "field",

@@ -116,3 +116,36 @@ sl-button {
     transition: transform 0.5s ease-in-out;
   }
 }
+
+div[popover] {
+  background-color: #fff;
+  border: 0;
+  box-shadow: var(--sl-elevation-shadow-md);
+  box-sizing: border-box;
+  display: none;
+  flex-direction: column;
+  gap: var(--_gap);
+  margin: 0;
+  overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
+  overflow-y: auto;
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+  transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+
+  @supports not selector(:popover-open) {
+    position: fixed;
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  &:where(:popover-open, .\\:popover-open) {
+    /* stylelint-disable-next-line max-nesting-depth, scss/at-rule-no-unknown */
+    @starting-style {
+      display: flex;
+      opacity: 0;
+    }
+
+    background: #00e0e0;
+    display: flex;
+    opacity: 1;
+  }
+}

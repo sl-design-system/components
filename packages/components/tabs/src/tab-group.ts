@@ -4,12 +4,15 @@ import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js'
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
-import { RovingTabindexController, event } from '@sl-design-system/shared';
+import { RovingTabindexController, event, isPopoverOpen } from '@sl-design-system/shared';
+import { faEllipsis } from '@fortawesome/pro-regular-svg-icons';
 import { LitElement, html } from 'lit';
-import { property, queryAssignedElements, state } from 'lit/decorators.js';
+import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { Tab } from './tab.js';
 import { TabPanel } from './tab-panel.js';
 import styles from './tab-group.scss.js';
+
+Icon.registerIcon(faEllipsis); // TODO: needs to be changed - icon from tokens
 
 let nextUniqueId = 0;
 
@@ -59,6 +62,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
 
+  /** Controller for managing anchoring. */
+  // #anchor = new AnchorController(this.listbox as ReactiveController & HTMLElement); // TODO: anchor
+
+  /** The listbox element with all tabs list. */
+  @query('[popover]') listbox!: HTMLElement;
+
   /** Get the selected tab button, or the first tab button. */
   get #initialSelectedTab(): Tab | null {
     return this.querySelector('sl-tab[selected]') || this.querySelector('sl-tab:not([disabled])');
@@ -69,15 +78,21 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
         <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
-        <sl-button fill="ghost" variant="primary" size="sm">
-          <sl-icon name="xmark"></sl-icon>
+        <sl-button
+          id="more-btn"
+          @click=${this.#onClick}
+          popovertarget="tabs-popover"
+          fill="ghost"
+          variant="primary"
+          size="sm"
+        >
+          <sl-icon name="far-ellipsis"></sl-icon>
         </sl-button>
-        <slot name="all-tabs" open>
-          <ul>
-            ${this.tabs?.map(tab => html` <li>${tab.selected} ${tab.innerHTML}</li> `)} Render all tabs here and set as
-            selected the exact one
-          </ul>
-        </slot>
+        <div id="tabs-popover" anchor="more-btn" popover role="listbox" position="bottom">
+          ${this.tabs?.map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)} Render all tabs here and set
+          as as selected the exact one popover
+        </div>
+        <slot name="all-tabs" open></slot>
       </div>
       <slot></slot>
     `;
@@ -99,6 +114,30 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #updateSlots(): void {
     this.#setupTabs();
     this.#setupPanels();
+  }
+
+  #onClick(): void {
+    // document.querySelectorAll('div[popover]').forEach(popover => {
+    //   (popover as HTMLElement).togglePopover();
+    // });
+    const popover = this.shadowRoot?.querySelector('[popover]') as HTMLElement;
+    console.log(
+      'onclick',
+      this,
+      popover,
+      isPopoverOpen(popover),
+      this.listbox,
+      isPopoverOpen(this.listbox),
+      this.listbox.matches(':popover-open'),
+      this.listbox.matches('.\\:popover-open')
+    );
+    // popover.togglePopover();
+    if (isPopoverOpen(this.listbox)) {
+      // this.#setSelectedOption(this.currentOption);
+      this.listbox.hidePopover();
+    } else {
+      this.listbox.showPopover();
+    }
   }
 
   /**

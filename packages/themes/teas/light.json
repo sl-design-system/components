@@ -53,7 +53,7 @@
     "badge": {
       "danger": {
         "background": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.500}",
           "type": "color",
           "failedToResolve": true
         },
@@ -65,7 +65,7 @@
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.600}",
+          "value": "{color.palette.success.500}",
           "type": "color",
           "failedToResolve": true
         },

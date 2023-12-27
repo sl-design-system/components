@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/badge"
+    "directory": "packages/components/badge"
   },
   "homepage": "https://sanomalearning.design/components/badge",
   "bugs": {
@@ -38,6 +38,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "lit": "^3.0.2"
+    "lit": "^3.1.0"
   }
 }

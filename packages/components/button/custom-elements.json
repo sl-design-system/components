@@ -49,6 +49,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "fill",
               "type": {
                 "text": "'solid' | 'outline' | 'link' | 'ghost'"
@@ -92,6 +102,14 @@
             }
           ],
           "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
+            },
             {
               "name": "fill",
               "type": {
@@ -255,7 +273,7 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this)",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })",
               "description": "Event controller."
             },
             {

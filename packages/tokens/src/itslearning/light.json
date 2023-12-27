@@ -3945,7 +3945,7 @@
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.warning.400}",
+          "value": "{color.palette.warning.600}",
           "type": "color"
         }
       },

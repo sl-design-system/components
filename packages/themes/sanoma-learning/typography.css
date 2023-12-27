@@ -277,7 +277,7 @@
 
 .sl-text-list-sm-normal {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: var(--sl-text-typeset-font-size-sm);
+  font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-sm);

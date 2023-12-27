@@ -44,19 +44,19 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.500}",
+          "value": "{color.palette.success.400}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
@@ -80,14 +80,14 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "neutral": {
         "background": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.base}",
           "type": "color",
           "failedToResolve": true
         },
@@ -99,12 +99,12 @@
       },
       "primary": {
         "background": {
-          "value": "{color.palette.primary.base}",
+          "value": "{color.palette.primary.300}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }

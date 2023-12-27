@@ -33,7 +33,7 @@
     "badge": {
       "danger": {
         "background": {
-          "value": "{color.palette.danger.700}",
+          "value": "{color.palette.danger.500}",
           "type": "color"
         },
         "foreground": {
@@ -43,7 +43,7 @@
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.base}",
+          "value": "{color.palette.success.500}",
           "type": "color"
         },
         "foreground": {
@@ -67,7 +67,7 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.black.base}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         }
       },

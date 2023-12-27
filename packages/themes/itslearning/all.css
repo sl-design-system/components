@@ -717,7 +717,7 @@
     --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
     --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-700));
     --sl-color-inline-message-danger-background: rgb(var(--sl-color-palette-danger-100));
-    --sl-color-inline-message-warning-icon: rgb(var(--sl-color-palette-warning-400));
+    --sl-color-inline-message-warning-icon: rgb(var(--sl-color-palette-warning-600));
     --sl-color-inline-message-warning-border: rgb(var(--sl-color-palette-warning-600));
     --sl-color-inline-message-warning-foreground: rgb(var(--sl-color-palette-warning-700));
     --sl-color-inline-message-warning-background: rgb(var(--sl-color-palette-warning-100));

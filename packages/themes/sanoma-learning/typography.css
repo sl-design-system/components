@@ -280,7 +280,7 @@
   font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-regular);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
-  line-height: var(--sl-text-typeset-line-height-sm);
+  line-height: var(--sl-text-typeset-line-height-md);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
   text-decoration: list;
   text-transform: var(--sl-text-typeset-text-case-none);

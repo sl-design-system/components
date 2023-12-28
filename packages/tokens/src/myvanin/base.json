@@ -1288,6 +1288,14 @@
       }
     }
   },
+  "textCase": {
+    "badge": {
+      "textTransform": {
+        "value": "{text.typeset.textCase.uppercase}",
+        "type": "textCase"
+      }
+    }
+  },
   "dialog": {
     "header": {
       "flexDirection": {

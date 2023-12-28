@@ -303,36 +303,36 @@
 .sl-text-badge-text-3xl {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-sm);
 }
 
 .sl-text-badge-text-2xl {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-xs);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xxs);
 }
 
 .sl-text-badge-text-xl {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-xs);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xxs);
 }
 
 .sl-text-badge-text-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-xs);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-xs);
 }
 
 .sl-text-badge-text-md {
   font-family: var(--sl-text-typeset-font-family-body);
-  font-size: 8px;
-  font-weight: var(--sl-text-typeset-font-weight-bold);
-  line-height: 8px;
+  font-size: 9px;
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: 9px;
 }
 
 .sl-text-badge-text-sm {

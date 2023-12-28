@@ -99,15 +99,18 @@ describe('sl-icon', () => {
       await el.updateComplete;
       consoleStub = stub(console, 'warn');
     });
-
-    it('should not render anything when no icon name is given', () => {
+    
+    it('should not render anything when no icon name is given', async () => {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
       expect(el.shadowRoot?.firstElementChild).to.match('.icon-not-def');
     });
-  
+    
     it('should be able to show a registered icon.', async () => {
       el.name = 'menu';
       await el.updateComplete;
       await elementUpdated(el);
+      await new Promise(resolve => setTimeout(resolve, 1500));
 
       const icon = el.shadowRoot?.querySelector('svg');
       expect(icon?.outerHTML).to.equal(systemIcons.menu.svg);

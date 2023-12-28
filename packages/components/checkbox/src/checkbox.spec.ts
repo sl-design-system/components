@@ -48,6 +48,20 @@ describe('sl-checkbox', () => {
       expect(el.internals.ariaChecked).to.equal('mixed');
     });
 
+    it('should not be required', () => {
+      expect(el).not.to.have.attribute('required');
+      expect(el.required).not.to.be.true;
+      expect(el.internals.ariaRequired).not.to.equal('true');
+    });
+
+    it('should be required when set', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('required');
+      expect(el.internals.ariaRequired).to.equal('true');
+    });
+
     it('should toggle the state to checked when clicking the element', async () => {
       el.click();
       await el.updateComplete;

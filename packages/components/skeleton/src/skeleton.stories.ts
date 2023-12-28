@@ -35,7 +35,6 @@ export const API: Story = {
 
         .container sl-skeleton {
           block-size: 1.25rem;
-          border-radius: 0.5rem;
         }
 
         .title {
@@ -48,7 +47,6 @@ export const API: Story = {
         .title sl-skeleton:first-of-type {
           aspect-ratio: 1;
           block-size: 2.5rem;
-          border-radius: 50%;
         }
 
         .body {
@@ -58,7 +56,7 @@ export const API: Story = {
         }
 
         .body sl-skeleton {
-          block-size: 0.5rem;
+          block-size: 1rem;
           inline-size: 80%;
         }
 
@@ -80,29 +78,28 @@ export const API: Story = {
 
         .container-images sl-skeleton {
           block-size: 8rem;
-          border-radius: 0.5rem;
         }
       </style>
-      <section>
+      <section aria-label="Loading">
         <div class="container">
           <div class="title">
-            <sl-skeleton .effect=${effect} aria-label="loading avatar"></sl-skeleton>
-            <sl-skeleton .effect=${effect} aria-label="loading header"></sl-skeleton>
+            <sl-skeleton variant="circle" .effect=${effect}></sl-skeleton>
+            <sl-skeleton .effect=${effect}></sl-skeleton>
           </div>
           <div class="body">
-            <sl-skeleton .effect=${effect} aria-label="loading paragraph"></sl-skeleton>
-            <sl-skeleton .effect=${effect} aria-label="loading paragraph"></sl-skeleton>
-            <sl-skeleton .effect=${effect} aria-label="loading paragraph"></sl-skeleton>
+            <sl-skeleton .effect=${effect}></sl-skeleton>
+            <sl-skeleton .effect=${effect}></sl-skeleton>
+            <sl-skeleton .effect=${effect}></sl-skeleton>
           </div>
         </div>
       </section>
-      <section>
+      <section aria-label="Loading pictures">
         <div class="container-images">
-          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
-          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
-          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
-          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
-          <sl-skeleton .effect=${effect} aria-label="loading picture"></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
         </div>
       </section>
     `
@@ -110,25 +107,9 @@ export const API: Story = {
 
 export const All: Story = {
   args: {
-    width: '80%',
-    height: '0.75rem',
-    radius: '0.5rem',
-    background: '#d5d5d5',
-    shineColor: '#bcbcbc'
+    width: '80%'
   },
-  argTypes: {
-    background: {
-      control: {
-        type: 'color'
-      }
-    },
-    shineColor: {
-      control: {
-        type: 'color'
-      }
-    }
-  },
-  render: ({ width, height, radius, background, shineColor }) =>
+  render: ({ width }) =>
     html`
       <style>
         section {
@@ -136,59 +117,35 @@ export const All: Story = {
           flex-direction: column;
           gap: 0.5rem;
         }
+
+        sl-skeleton {
+          height: 1rem;
+        }
       </style>
       <section>
         <h2>No effect</h2>
-        <sl-skeleton
-          effect="none"
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}"
-          aria-label="loading element"
-        ></sl-skeleton>
+        <sl-skeleton effect="none" style="width: ${width};"></sl-skeleton>
         <h2>Shimmer effect (default)</h2>
-        <sl-skeleton
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}"
-          aria-label="loading element"
-        ></sl-skeleton>
+        <sl-skeleton style="width: ${width};"></sl-skeleton>
         <h2>Sheen effect</h2>
-        <sl-skeleton
-          effect="sheen"
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}"
-          aria-label="loading element"
-        ></sl-skeleton>
+        <sl-skeleton effect="sheen" style="width: ${width};"></sl-skeleton>
         <h2>Pulse effect</h2>
-        <sl-skeleton
-          effect="pulse"
-          style="width: ${width}; height: ${height}; --sl-skeleton-border-radius: ${radius}; --sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}"
-          aria-label="loading element"
-        ></sl-skeleton>
+        <sl-skeleton effect="pulse" style="width: ${width};"></sl-skeleton>
       </section>
     `
 };
 
 export const LoadingImage: Story = {
   args: {
-    effect: 'shimmer',
-    background: '#d5d5d5',
-    shineColor: '#bcbcbc',
-    animationDuration: '2000ms'
+    effect: 'shimmer'
   },
   argTypes: {
     effect: {
       control: 'inline-radio',
       options: ['none', 'shimmer', 'sheen', 'pulse']
-    },
-    background: {
-      control: {
-        type: 'color'
-      }
-    },
-    shineColor: {
-      control: {
-        type: 'color'
-      }
     }
   },
-  render: ({ animationDuration, background, effect, shineColor }) => {
+  render: ({ effect }) => {
     setTimeout(() => {
       const image = document.querySelector('img');
       if (image) {
@@ -214,29 +171,24 @@ export const LoadingImage: Story = {
           position: absolute;
           width: 100%;
           height: 100%;
-          border-radius: 0.5rem;
         }
 
         img {
           width: 100%;
           aspect-ratio: 1 / 1;
-          border-radius: 0.5rem;
+          border-radius: var(--sl-border-radius-skeleton-default);
           opacity: 0;
           transition: opacity 2s;
           z-index: 1;
         }
       </style>
       <section>
-        <div class="picture">
+        <div class="picture" aria-label="Loading picture with New York buildings">
           <img
             src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
             alt="city"
           />
-          <sl-skeleton
-            .effect=${effect}
-            style="--sl-skeleton-background: ${background}; --sl-skeleton-shine-color: ${shineColor}; --sl-skeleton-animation-duration: ${animationDuration}"
-            aria-label="loading picture with New York buildings"
-          ></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
         </div>
       </section>
     `;

@@ -25,6 +25,7 @@
   --sl-size-dialog-full: 100%;
   --sl-size-dialog-max: 960px;
   --sl-size-dialog-min: 400px;
+  --sl-size-icon-2xs: 10px;
   --sl-size-4xl: 64px;
   --sl-size-3xl: 48px;
   --sl-size-2xl: 32px;
@@ -50,7 +51,9 @@
   --sl-opacity-150: 0.06;
   --sl-opacity-100: 0.04;
   --sl-opacity-50: 0.02;
+  --sl-icon-typeset-font-size-2xs: 10px;
   --sl-icon-core-circle-check-solid: circle-check;
+  --sl-icon-core-octagon-exclamation-solid: octagon-exclamation;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
   --sl-icon-core-xmark: xmark;
   --sl-icon-core-check: check;
@@ -66,10 +69,14 @@
   --sl-animation-duration-slow: 500ms;
   --sl-animation-duration-normal: 200ms;
   --sl-animation-duration-fast: 90ms;
+  --sl-space-badge-label-inline-3xl: 3px;
+  --sl-space-badge-label-inline-2xl: 3px;
+  --sl-space-badge-label-inline-xl: 3px;
   --sl-space-badge-icon-block-2xl: 1px;
   --sl-space-badge-icon-inline-2xl: 1px;
   --sl-space-badge-gap-md: 3px;
-  --sl-space-badge-inline-md: 3px;
+  --sl-space-badge-inline-3xl: 3px;
+  --sl-space-badge-inline-md: 1px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -283,6 +290,7 @@
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
+  --sl-text-case-badge-text-transform: var(--sl-text-typeset-text-case-uppercase);
   --sl-conceptual-border-width-default: var(--sl-border-width-xs);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
   --sl-icon-typeset-font-size-3xl: var(--sl-size-3xl);
@@ -298,6 +306,7 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-inline-message-content-gap: var(--sl-space-xs);
   --sl-space-inline-message-gap: var(--sl-space-lg);
   --sl-space-inline-message-inline-end: var(--sl-space-2xl);
   --sl-space-inline-message-inline-start: var(--sl-space-lg) + var(--sl-border-width-inline-message-start);
@@ -314,6 +323,9 @@
   --sl-space-avatar-inline-lg: var(--sl-space-lg);
   --sl-space-avatar-inline-md: var(--sl-space-sm);
   --sl-space-avatar-inline-sm: var(--sl-space-sm);
+  --sl-space-badge-label-inline-lg: var(--sl-space-2xs);
+  --sl-space-badge-label-inline-md: var(--sl-space-2xs);
+  --sl-space-badge-label-inline-sm: var(--sl-space-2xs);
   --sl-space-badge-icon-block-3xl: var(--sl-space-2xs);
   --sl-space-badge-icon-block-xl: var(--sl-space-none);
   --sl-space-badge-icon-block-lg: var(--sl-space-none);
@@ -335,10 +347,9 @@
   --sl-space-badge-block-lg: var(--sl-space-2xs);
   --sl-space-badge-block-md: var(--sl-space-2xs);
   --sl-space-badge-block-sm: var(--sl-space-2xs);
-  --sl-space-badge-inline-3xl: var(--sl-space-xs) + var(--sl-space-2xs);
-  --sl-space-badge-inline-2xl: var(--sl-space-xs) + var(--sl-space-2xs);
-  --sl-space-badge-inline-xl: var(--sl-space-xs);
-  --sl-space-badge-inline-lg: var(--sl-space-xs);
+  --sl-space-badge-inline-2xl: var(--sl-space-2xs);
+  --sl-space-badge-inline-xl: var(--sl-space-2xs);
+  --sl-space-badge-inline-lg: var(--sl-space-2xs);
   --sl-space-badge-inline-sm: var(--sl-space-2xs);
   --sl-space-select-divider-line-md: var(--sl-space-sm);
   --sl-space-select-divider-line-lg: var(--sl-space-sm);
@@ -568,15 +579,15 @@
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+  --sl-text-badge-text-3xl: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+  --sl-text-badge-text-2xl: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+  --sl-text-badge-text-xl: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+  --sl-text-badge-text-lg: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xs) /
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
-  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-bold) 8px/8px var(--sl-text-typeset-font-family-body);
+  --sl-text-badge-text-md: var(--sl-text-typeset-font-weight-demibold) 9px/9px var(--sl-text-typeset-font-family-body);
   --sl-text-badge-text-sm: var(--sl-text-typeset-font-weight-bold) 6px/6px var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-subheader-3xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);

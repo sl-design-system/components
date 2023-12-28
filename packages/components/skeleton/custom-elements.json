@@ -45,11 +45,22 @@
               "kind": "field",
               "name": "effect",
               "type": {
-                "text": "SkeletonEffect"
+                "text": "'none' | 'shimmer' | 'pulse' | 'sheen'"
               },
               "default": "'shimmer'",
               "description": "Skeleton's effect.",
               "attribute": "effect",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'circle' | 'default'"
+              },
+              "default": "'default'",
+              "description": "Skeleton's variant.",
+              "attribute": "variant",
               "reflects": true
             }
           ],
@@ -57,11 +68,20 @@
             {
               "name": "effect",
               "type": {
-                "text": "SkeletonEffect"
+                "text": "'none' | 'shimmer' | 'pulse' | 'sheen'"
               },
               "default": "'shimmer'",
               "description": "Skeleton's effect.",
               "fieldName": "effect"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'circle' | 'default'"
+              },
+              "default": "'default'",
+              "description": "Skeleton's variant.",
+              "fieldName": "variant"
             }
           ],
           "superclass": {

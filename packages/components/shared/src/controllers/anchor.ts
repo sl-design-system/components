@@ -79,6 +79,7 @@ export class AnchorController implements ReactiveController {
   }
 
   hostConnected(): void {
+    console.log('in anchor', this.#host, this, this.#config);
     const host = this.#host as HTMLElement;
 
     let anchorElement = host.anchorElement;

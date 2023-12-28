@@ -311,6 +311,24 @@
             },
             {
               "kind": "field",
+              "name": "#allTabs",
+              "privacy": "private",
+              "type": {
+                "text": "Tab[] | undefined"
+              },
+              "description": "The slotted tabs."
+            },
+            {
+              "kind": "field",
+              "name": "moreButton",
+              "type": {
+                "text": "HTMLButtonElement"
+              },
+              "description": "Controller for managing anchoring.",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "listbox",
               "type": {
                 "text": "HTMLElement"
@@ -326,6 +344,11 @@
               },
               "description": "Get the selected tab button, or the first tab button.",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#onToggle",
+              "privacy": "private"
             },
             {
               "kind": "field",

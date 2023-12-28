@@ -4,7 +4,7 @@ import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js'
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
-import { RovingTabindexController, event, isPopoverOpen } from '@sl-design-system/shared';
+import { RovingTabindexController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
 import { faEllipsis } from '@fortawesome/pro-regular-svg-icons';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
@@ -59,11 +59,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   @event() tabChange!: EventEmitter<number>;
 
+  /** The slotted tabs. */
+  #allTabs?: Tab[];
+
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
 
   /** Controller for managing anchoring. */
   // #anchor = new AnchorController(this.listbox as ReactiveController & HTMLElement); // TODO: anchor
+
+  /** @private */
+  @query('#more-btn') moreButton!: HTMLButtonElement;
 
   /** The listbox element with all tabs list. */
   @query('[popover]') listbox!: HTMLElement;
@@ -74,6 +80,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    console.log('before connected - render');
     return html`
       <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
@@ -84,36 +91,47 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           popovertarget="tabs-popover"
           fill="ghost"
           variant="primary"
-          size="sm"
+          size="md"
         >
           <sl-icon name="far-ellipsis"></sl-icon>
         </sl-button>
-        <div id="tabs-popover" anchor="more-btn" popover role="listbox" position="bottom">
-          ${this.tabs?.map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)} Render all tabs here and set
-          as as selected the exact one popover
+        <div
+          id="tabs-popover"
+          ${anchor({ element: this.moreButton, position: 'bottom-end' })}
+          @toggle=${this.#onToggle}
+          popover
+          role="listbox"
+        >
+          ${this.#allTabs} ${(this.tabs as Tab[]).map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)}
+          Render all tabs here and set as selected the exact one ${this.tabs?.length}
         </div>
         <slot name="all-tabs" open></slot>
       </div>
       <slot></slot>
     `;
   } // TODO: aria-label=${msg('Close')} -> msg 'open' or 'more'
-  // TODO: use dialog for all tabs slot? /// foreach
 
   override connectedCallback(): void {
     super.connectedCallback();
     this.#updateSlots();
+    this.#allTabs = [...this.#rovingTabindexController.elements];
+    console.log('connected', this.tabs, this.#allTabs);
   }
 
   override firstUpdated(): void {
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, TabGroup.#observerOptions);
+    this.#allTabs = [...this.#rovingTabindexController.elements]; // TODO: not working yet
     setTimeout(() => this.#updateSelectionIndicator(), 100);
-    console.log('this.tabs', this.tabs, this.#rovingTabindexController.elements);
+    console.log('this.tabs', this.tabs, this.#allTabs);
+    console.log('this.#rovingTabindexController.element', this.#rovingTabindexController.elements);
+    console.log('morebutton', this.moreButton);
   }
 
   #updateSlots(): void {
     this.#setupTabs();
     this.#setupPanels();
+    // this.#updateSelectedTab(this.selectedTab as Tab);
   }
 
   #onClick(): void {
@@ -132,13 +150,31 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.listbox.matches('.\\:popover-open')
     );
     // popover.togglePopover();
-    if (isPopoverOpen(this.listbox)) {
-      // this.#setSelectedOption(this.currentOption);
-      this.listbox.hidePopover();
-    } else {
-      this.listbox.showPopover();
-    }
+    // if (isPopoverOpen(this.listbox)) {
+    //   // this.#setSelectedOption(this.currentOption);
+    //   this.listbox.hidePopover();
+    // } else {
+    //   this.listbox.showPopover();
+    // }
+    // this.#updateSelectedTab(this.selectedTab as Tab);
+    this.listbox.togglePopover();
   }
+
+  #onToggle = (event: Event): void => {
+    /** workaround to make it working on clicking again (togglePopover method) on the anchor element
+     * in Chrome and Safari there is the same state for new and old - open, when it's already opened and we want to close it
+     * in FF on click runs toggle event twice */
+    console.log('onToggle event in anchor', event);
+    if (
+      ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
+      (event as ToggleEvent).newState === (event as ToggleEvent).oldState
+    ) {
+      event.stopPropagation();
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      (event.target as HTMLElement)?.hidePopover();
+    }
+  };
 
   /**
    * If the selected tab is selected programmatically update all the tabs.

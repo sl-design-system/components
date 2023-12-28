@@ -158,7 +158,6 @@
   --sl-color-palette-danger-600: 153 34 36;
   --sl-color-palette-danger-500: 199 52 52;
   --sl-color-palette-danger-400: 229 69 74;
-  --sl-color-palette-danger-300: 255 87 92;
   --sl-color-palette-danger-200: 255 142 138;
   --sl-color-palette-danger-150: 255 188 184;
   --sl-color-palette-danger-100: 255 214 209;
@@ -170,7 +169,6 @@
   --sl-color-palette-warning-600: 121 89 13;
   --sl-color-palette-warning-500: 174 131 14;
   --sl-color-palette-warning-400: 225 176 15;
-  --sl-color-palette-warning-300: 255 207 13;
   --sl-color-palette-warning-200: 254 218 66;
   --sl-color-palette-warning-150: 253 227 118;
   --sl-color-palette-warning-100: 252 236 170;
@@ -182,7 +180,6 @@
   --sl-color-palette-success-600: 27 97 55;
   --sl-color-palette-success-500: 40 133 78;
   --sl-color-palette-success-400: 57 178 108;
-  --sl-color-palette-success-300: 69 204 128;
   --sl-color-palette-success-200: 112 224 157;
   --sl-color-palette-success-150: 174 235 196;
   --sl-color-palette-success-100: 215 245 225;
@@ -193,7 +190,6 @@
   --sl-color-palette-info-700: 9 41 142;
   --sl-color-palette-info-600: 17 56 173;
   --sl-color-palette-info-500: 35 81 219;
-  --sl-color-palette-info-400: 51 102 255;
   --sl-color-palette-info-300: 89 133 255;
   --sl-color-palette-info-200: 158 186 255;
   --sl-color-palette-info-150: 204 219 255;
@@ -217,7 +213,6 @@
   --sl-color-palette-accent-700: 9 41 142;
   --sl-color-palette-accent-600: 17 56 173;
   --sl-color-palette-accent-500: 35 81 219;
-  --sl-color-palette-accent-400: 51 102 255;
   --sl-color-palette-accent-300: 89 133 255;
   --sl-color-palette-accent-200: 158 186 255;
   --sl-color-palette-accent-150: 204 219 255;
@@ -238,7 +233,7 @@
   --sl-elevation-shadow-none: 0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0);
   --sl-elevation-shadow-lg: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
     0 8px 16px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
-  --sl-elevation-shadow-md: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
+  --sl-elevation-shadow-md: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
     0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150));
   --sl-elevation-shadow-sm: 0 0 6px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
     0 2px 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
@@ -472,6 +467,7 @@
   --sl-border-width-tooltip-border: var(--sl-border-width-xs);
   --sl-border-width-tooltip-none: var(--sl-border-width-none);
   --sl-border-width-divider: var(--sl-border-width-xs);
+  --sl-border-width-divider: var(--sl-border-width-xs);
   --sl-border-width-dialog-default: var(--sl-border-width-none);
   --sl-border-width-focusring-offset: var(--sl-border-width-sm);
   --sl-border-width-focusring-default: var(--sl-border-width-sm);
@@ -568,8 +564,8 @@
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-text-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
@@ -645,6 +641,11 @@
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-initials-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-color-palette-danger-300: 255 87 92;
+  --sl-color-palette-warning-300: 255 207 13;
+  --sl-color-palette-success-300: 69 204 128;
+  --sl-color-palette-info-400: 51 102 255;
+  --sl-color-palette-accent-400: 51 102 255;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);

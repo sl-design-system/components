@@ -224,7 +224,7 @@
   font-size: var(--sl-text-typeset-font-size-lg);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-button-label-lg);
-  text-decoration: var(--sl-text-typeset-text-decoration-underline);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
 
 .sl-text-button-link-disabled-md {
@@ -232,7 +232,7 @@
   font-size: var(--sl-text-typeset-font-size-md);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-button-label-md);
-  text-decoration: var(--sl-text-typeset-text-decoration-underline);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
 
 .sl-text-button-link-disabled-sm {
@@ -240,7 +240,7 @@
   font-size: var(--sl-text-typeset-font-size-sm);
   font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-button-label-sm);
-  text-decoration: var(--sl-text-typeset-text-decoration-underline);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
 
 .sl-text-button-link-active-lg {

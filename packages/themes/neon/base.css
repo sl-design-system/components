@@ -554,6 +554,12 @@
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-text-field-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-link-disabled-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-link-disabled-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-button-link-disabled-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-button-link-active-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-button-link-active-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /

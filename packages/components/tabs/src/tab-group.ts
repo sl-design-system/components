@@ -60,7 +60,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   @event() tabChange!: EventEmitter<number>;
 
   /** The slotted tabs. */
-  #allTabs?: Tab[];
+  #allTabs: Tab[] = [];
 
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
@@ -114,14 +114,22 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
     this.#updateSlots();
-    this.#allTabs = [...this.#rovingTabindexController.elements];
+    // this.#allTabs = [...this.#rovingTabindexController.elements];
     console.log('connected', this.tabs, this.#allTabs);
   }
 
   override firstUpdated(): void {
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, TabGroup.#observerOptions);
-    this.#allTabs = [...this.#rovingTabindexController.elements]; // TODO: not working yet
+    // if (this.tabs) {
+    //    this.#allTabs = this.tabs.slice();
+    //  }//JSON.parse(JSON.stringify(this.#rovingTabindexController.elements)); //this.tabs; //[...this.#rovingTabindexController.elements]; // TODO: not working yet
+    //  if (this.tabs) {
+    //    this.#allTabs = Array.from(this.tabs);
+    //  }
+    this.#allTabs = Array.from(this.querySelectorAll('sl-tab'));
+    // const tabs2 = this.querySelectorAll('sl-tab');
+    // console.log('tabs2', tabs2);
     setTimeout(() => this.#updateSelectionIndicator(), 100);
     console.log('this.tabs', this.tabs, this.#allTabs);
     console.log('this.#rovingTabindexController.element', this.#rovingTabindexController.elements);

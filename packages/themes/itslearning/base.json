@@ -1387,6 +1387,38 @@
             },
             "type": "typography"
           }
+        },
+        "disabled": {
+          "sm": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{button.label.sm}",
+              "fontSize": "{text.typeset.fontSize.sm}",
+              "textDecoration": "{text.typeset.textDecoration.underline}"
+            },
+            "type": "typography"
+          },
+          "md": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{button.label.md}",
+              "fontSize": "{text.typeset.fontSize.md}",
+              "textDecoration": "{text.typeset.textDecoration.underline}"
+            },
+            "type": "typography"
+          },
+          "lg": {
+            "value": {
+              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "lineHeight": "{button.label.lg}",
+              "fontSize": "{text.typeset.fontSize.lg}",
+              "textDecoration": "{text.typeset.textDecoration.underline}"
+            },
+            "type": "typography"
+          }
         }
       }
     },
@@ -2003,7 +2035,7 @@
       },
       "focusring": {
         "default": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.md}",
           "type": "borderWidth"
         },
         "offset": {

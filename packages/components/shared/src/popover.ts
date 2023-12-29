@@ -173,6 +173,8 @@ export const positionPopover = (
   element.style.insetBlockStart = '0px';
   element.style.insetInlineStart = '0px';
 
+  console.log('element and anchor in popover', element, anchor);
+
   const cleanup = autoUpdate(anchor, element, () => {
     const { position = 'top', viewportMargin = 0 } = options;
 

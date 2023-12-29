@@ -314,7 +314,7 @@
               "name": "#allTabs",
               "privacy": "private",
               "type": {
-                "text": "Tab[]"
+                "text": "Node[] | undefined"
               },
               "default": "[]",
               "description": "The slotted tabs."

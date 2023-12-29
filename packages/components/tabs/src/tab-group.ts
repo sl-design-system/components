@@ -60,7 +60,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   @event() tabChange!: EventEmitter<number>;
 
   /** The slotted tabs. */
-  #allTabs: Tab[] = [];
+  #allTabs: Node[] | undefined = [];
 
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
@@ -80,7 +80,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    console.log('before connected - render');
+    // const tabs = Array.from(this.querySelectorAll('sl-tab'));
+    // this.#allTabs = tabs;
+    // const clonedTabs = this.tabs?.map(tab => tab.cloneNode(true)); // Clones the slotted tabs
+    const clonedTabs = Array.from(this.querySelectorAll('sl-tab'))?.map(tab => tab.cloneNode(true));
+    this.#allTabs = clonedTabs;
+    console.log('before connected - render', this.#allTabs);
     return html`
       <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
@@ -101,8 +106,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           @toggle=${this.#onToggle}
           popover
           role="listbox"
+          @click=${this.#handleTabChange}
         >
-          ${this.#allTabs} ${(this.tabs as Tab[]).map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)}
+          ${this.#allTabs} ${(this.#allTabs as Tab[]).map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)}
           Render all tabs here and set as selected the exact one ${this.tabs?.length}
         </div>
         <slot name="all-tabs" open></slot>
@@ -169,9 +175,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onToggle = (event: Event): void => {
-    /** workaround to make it working on clicking again (togglePopover method) on the anchor element
-     * in Chrome and Safari there is the same state for new and old - open, when it's already opened and we want to close it
-     * in FF on click runs toggle event twice */
     console.log('onToggle event in anchor', event);
     if (
       ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
@@ -233,6 +236,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #handleTabChange(event: Event): void {
+    console.log('handleTabChange', event, event.target);
     // Always reset the scroll when a tab is selected.
     this.scrollTo({ top: 0 });
 
@@ -241,6 +245,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
      */
     if (!(event.target instanceof Tab)) return;
     this.#updateSelectedTab(event.target);
+    this.listbox.hidePopover();
   }
 
   /**
@@ -248,6 +253,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Update the tab group state.
    */
   #updateSelectedTab(selectedTab: Tab): void {
+    console.log('updateSelectedTab', selectedTab);
     const controls = selectedTab.getAttribute('aria-controls');
 
     if (selectedTab === this.selectedTab || !controls || selectedTab.disabled) return;
@@ -260,7 +266,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
      */
     this.querySelectorAll<Tab>('sl-tab').forEach((tab: Tab) => {
       tab.removeAttribute('selected');
-      if (tab === selectedTab) {
+      console.log('tab === selectedTab', tab === selectedTab, tab, selectedTab);
+      if (tab.id === selectedTab.id) {
         tab.setAttribute('selected', '');
         tab.focus();
         tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });

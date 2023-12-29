@@ -41,14 +41,7 @@ Buttons should be used in user interfaces when you want to provide users with a 
 Buttons are used to trigger specific actions or functions. For example, you can use a "Submit" button in a form to send user input to a server, or a "Save" button to save changes in an application.
 </figcaption>
 </figure>
-<figure class="ds-cards__do">
-    {{'components/button/sl-button-when-use-navigation.svg' | svgImage}}
-<figcaption>
 
-  ### To Provide Navigation
-  Buttons can be used as links or navigation elements. For instance, a "Learn More" button can take users to a detailed page about a product or service.
-    </figcaption>
-  </figure>
 </section>
 </section>
 

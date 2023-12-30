@@ -4461,7 +4461,6 @@
       "color.input.switch.default.unchecked.disabled.text": "S:d8d4fef1e8840a4ff60ceca6ca21bea9b571a93a,",
       "color.dialog.background": "S:da6b73f10bd0bea303fa570c61a0eea645e7ab2c,",
       "color.dialog.foreground": "S:ddcb44793bb87f5f6f219d47f7f6c72e0206dd6f,",
-      "text.button.link.sm": "S:d5efbcc6f27edfef4b58376475a8ca732b792de4,",
       "text.button.link.md": "S:066ae9d554b6b1b28e585df27604f38af075b9dc,",
       "text.button.link.lg": "S:6d67b196a11fb3a7b7729107cbbd1cd4cd05c1c4,",
       "text.dialog.heading": "S:1e3e19c6b8bd734a2d8892fe27793a0f514290c9,",
@@ -4496,7 +4495,8 @@
       "text.select.selectbox.text.lg": "S:996af97cc1e39198cfa3844dd65d8152ea8dba01,",
       "text.select.selectbox.title.md": "S:99ed4f33fce4ee5c1b79977279c3c7274f6af28c,",
       "text.select.selectbox.title.lg": "S:f5e9237e97a73e4c4ee7b382ed6a4feeb9af2480,",
-      "elevation.shadow.md": "S:a0765cb0cb738c72d069b48e6414dd1083a1d78d,"
+      "elevation.shadow.md": "S:a0765cb0cb738c72d069b48e6414dd1083a1d78d,",
+      "text.button.link.idle.sm": "S:d5efbcc6f27edfef4b58376475a8ca732b792de4,"
     }
   },
   {
@@ -7171,7 +7171,6 @@
       "text.button.fontIcon.sm": "S:58c4b108d6858ad94eedab8a9f4254d6ba343b73,",
       "text.button.fontIcon.md": "S:5cf28347f0391545dfbdf9b173043408d1d5d46d,",
       "text.button.fontIcon.lg": "S:cbe62ba77ed5577eefae4a60a0cdea4a47b64148,",
-      "text.button.link.sm": "S:c184acdceb07f840ad071dbeb012b996dc15394e,",
       "text.button.link.md": "S:db2d2e5153f40f6416e8d9a0bd419f4abd9819d0,",
       "text.button.link.lg": "S:26e23d21f071fd4ded16313c1429b679e156610c,",
       "text.input.textField.fontIcon.md": "S:e0628cb5fa26e222d802f565d15c911229a9d264,",
@@ -7195,7 +7194,8 @@
       "text.icon.font.icon.md": "S:c9d14fb9e509945db45b6f5df3a3cd4ad5e042cc,",
       "text.icon.font.icon.lg": "S:dd2925c559eb4ffd8bc30eed9ef37708774b15f1,",
       "boxShadow.focus": "S:679e6440d47b1dc4968ef9eed474e4b806508179,",
-      "boxShadow.none": "S:b0dc60bc317e1c8c7e4c752f97d520ea371cf5c2,"
+      "boxShadow.none": "S:b0dc60bc317e1c8c7e4c752f97d520ea371cf5c2,",
+      "text.button.link.idle.sm": "S:c184acdceb07f840ad071dbeb012b996dc15394e,"
     },
     "selectedTokenSets": {
       "core": "source",

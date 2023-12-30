@@ -1992,7 +1992,7 @@
             "y": "0",
             "blur": "4",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.50})",
             "type": "dropShadow"
           },
           {

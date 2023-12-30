@@ -61,8 +61,21 @@ $variants: default, primary, success, warning, danger;
     --_label-gap: var(--sl-space-button-gap-#{$size});
   }
 
-  :host([size='#{$size}'][fill='link']) {
-    --_font: var(--sl-text-button-link-#{$size});
+  :host([size='#{$size}'][fill='link']:not([popover-opened])) {
+    --_font: var(--sl-text-button-link-idle-#{$size});
+  }
+
+  :host([size='#{$size}'][fill='link']:not([disabled]):hover) {
+    --_font: var(--sl-text-button-link-hover-#{$size});
+  }
+
+  :host([size='#{$size}'][fill='link']:not([disabled]):active),
+  :host([size='#{$size}'][fill='link'][popover-opened]) {
+    --_font: var(--sl-text-button-link-active-#{$size});
+  }
+
+  :host([size='#{$size}'][fill='link'][disabled]) {
+    --_font: var(--sl-text-button-link-disabled-#{$size});
   }
 
   :host([size='#{$size}'][icon-only]) {
@@ -117,7 +130,8 @@ $variants: default, primary, success, warning, danger;
   pointer-events: none;
 }
 
-:host([fill='link']) {
+:host([fill='link']:not([disabled]):hover),
+:host([fill='link']:not([disabled]):active) {
   text-decoration: underline;
 }
 

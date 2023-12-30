@@ -1,3 +1,5 @@
+import type { FormControlShowValidity } from './form-control-mixin.js';
+
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-update-validity': UpdateValidityEvent;
@@ -17,7 +19,7 @@ export class UpdateValidityEvent extends Event {
   constructor(
     public valid: boolean,
     public validationMessage: string,
-    public readonly showValidity: 'valid' | 'invalid' | undefined
+    public readonly showValidity: FormControlShowValidity
   ) {
     super('sl-update-validity', { bubbles: true, composed: true });
   }

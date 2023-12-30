@@ -89,8 +89,8 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
    */
   @property({ type: Number }) rows?: number;
 
-  /** Whether the textarea should get valid styles when is valid. */
-  @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
+  /** When set will cause the control to show it is valid after reportValidity is called. */
+  @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /** The size of the textarea. */
   @property({ reflect: true }) size: TextareaSize = 'md';
@@ -156,7 +156,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
         ${this.showValidity === 'invalid'
           ? html`<sl-icon .size=${this.size} class="invalid-icon" name="triangle-exclamation-solid"></sl-icon>`
           : nothing}
-        ${this.showValidity === 'valid' && this.showValid
+        ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}
       </slot>

@@ -109,6 +109,12 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
+  override reportValidity(): boolean {
+    this.boxes?.forEach(box => box.reportValidity());
+
+    return super.reportValidity();
+  }
+
   #onClick(event: Event): void {
     if (event.target === this) {
       this.#rovingTabindexController.focus();
@@ -117,6 +123,8 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
 
   #onSlotchange(): void {
     this.#rovingTabindexController.clearElementCache();
+
+    this.value = this.boxes?.map(box => !!box.checked);
 
     this.boxes?.forEach(box => {
       box.name = this.name;

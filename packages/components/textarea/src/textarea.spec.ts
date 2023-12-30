@@ -161,23 +161,12 @@ describe('sl-textarea', () => {
       expect(el.resize).to.equal('vertical');
     });
 
-    // it('should resize automatically when set', async () => {
-    //   el.resize = 'auto';
-    //   await el.updateComplete;
-
-    //   expect(el).to.have.attribute('resize', 'auto');
-    // });
-
-    it('should not show the valid state', () => {
-      expect(el).not.to.have.attribute('show-valid');
-      expect(el.showValid).to.be.undefined;
-    });
-
-    it('should show the valid state when set', async () => {
-      el.showValid = true;
+    // FIXME: this causes a ResizeObserver loop error
+    it.skip('should resize automatically when set', async () => {
+      el.resize = 'auto';
       await el.updateComplete;
 
-      expect(el).to.have.attribute('show-valid');
+      expect(el).to.have.attribute('resize', 'auto');
     });
   });
 

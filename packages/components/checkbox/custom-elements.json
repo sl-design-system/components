@@ -74,6 +74,15 @@
               "reflects": true
             },
             {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "required",
               "type": {
@@ -132,6 +141,15 @@
           "tagName": "sl-checkbox-group",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            },
             {
               "kind": "method",
               "name": "#onClick",
@@ -285,6 +303,15 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "attribute": "show-valid"
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "CheckboxSize"
@@ -387,6 +414,14 @@
               },
               "description": "Whether the checkbox is required.",
               "fieldName": "required"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "fieldName": "showValid"
             },
             {
               "name": "size",

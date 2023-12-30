@@ -137,9 +137,8 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the textarea should get valid styles when is valid.",
-              "attribute": "show-valid",
-              "reflects": true
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "attribute": "show-valid"
             },
             {
               "kind": "field",
@@ -310,7 +309,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the textarea should get valid styles when is valid.",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
               "fieldName": "showValid"
             },
             {

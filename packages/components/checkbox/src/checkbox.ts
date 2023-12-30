@@ -61,6 +61,9 @@ export class Checkbox extends FormControlMixin(LitElement) {
   /** Whether the checkbox is required. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
+  /** When set will cause the control to show it is valid after reportValidity is called. */
+  @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
+
   /** The size of the checkbox. */
   @property({ reflect: true }) size: CheckboxSize = 'md';
 

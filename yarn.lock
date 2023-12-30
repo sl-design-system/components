@@ -5449,6 +5449,7 @@ __metadata:
   resolution: "@sl-design-system/select@workspace:packages/components/select"
   dependencies:
     "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:3.0.3"
     "@sl-design-system/form": "npm:0.0.2"
     "@sl-design-system/icon": "npm:0.0.5"
     "@sl-design-system/shared": "npm:0.2.0"
@@ -5505,10 +5506,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:
+    "@open-wc/scoped-elements": "npm:3.0.3"
     "@sl-design-system/form": "npm:0.0.2"
     "@sl-design-system/icon": "npm:0.0.5"
     "@sl-design-system/shared": "npm:0.2.0"
-    lit: "npm:^3.1.0"
   languageName: unknown
   linkType: soft
 
@@ -5516,10 +5517,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/textarea@workspace:packages/components/textarea"
   dependencies:
+    "@open-wc/scoped-elements": "npm:3.0.3"
     "@sl-design-system/form": "npm:0.0.2"
     "@sl-design-system/icon": "npm:0.0.5"
     "@sl-design-system/shared": "npm:0.2.0"
-    lit: "npm:^3.1.0"
   languageName: unknown
   linkType: soft
 

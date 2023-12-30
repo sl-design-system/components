@@ -210,26 +210,13 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.optionGroups?.forEach(group => (group.size = this.size));
     }
 
-    if (changes.has('value')) {
-      if (this.selectedOption?.value !== this.value) {
-        this.#setSelectedOption(this.options.find(option => option.value === this.value));
-      }
-
-      this.internals.setFormValue(this.value);
-    }
-
     if (changes.has('required') || changes.has('value')) {
-      this.internals.setValidity(
-        { valueMissing: this.required && this.value === null },
-        msg('An option must be selected.')
+      this.#setSelectedOption(
+        this.options.find(option => option.value === this.value),
+        false
       );
 
-      this.updateValidity();
-
-      // NOTE: for some reason setting `showValidity` to `undefined` in the
-      // `updateValidity()` method doesn't trigger a `willUpdate` call. So we
-      // work around that by updating it here.
-      this.button.showValidity = this.showValidity;
+      this.internals.setFormValue(this.value);
     }
   }
 
@@ -364,11 +351,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     }
   }
 
-  #setSelectedOption(option?: SelectOption): void {
-    if (this.selectedOption === option) {
-      return;
-    }
-
+  #setSelectedOption(option?: SelectOption, emitEvent = true): void {
     if (this.selectedOption) {
       this.selectedOption.selected = false;
     }
@@ -379,8 +362,22 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     }
 
     this.button.selected = this.selectedOption;
-
     this.value = this.selectedOption?.value ?? null;
-    this.changeEvent.emit(this.value);
+
+    this.internals.setValidity(
+      { valueMissing: this.required && this.value === null },
+      msg('An option must be selected.')
+    );
+
+    if (emitEvent) {
+      this.changeEvent.emit(this.value);
+    }
+
+    this.updateValidity();
+
+    // NOTE: for some reason setting `showValidity` to `undefined` in the
+    // `updateValidity()` method doesn't trigger a `willUpdate` call. So we
+    // work around that by updating it here.
+    this.button.showValidity = this.showValidity;
   }
 }

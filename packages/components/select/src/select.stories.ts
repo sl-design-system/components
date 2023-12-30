@@ -40,16 +40,11 @@ export default {
   },
   render: ({ disabled, hint, label, options, placeholder, required, size, slot }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      event.target.closest('form')?.reportValidity();
+      event.target.closest('sl-form')?.reportValidity();
     };
 
     return html`
-      <style>
-        sl-button-bar {
-          margin-block-start: 1rem;
-        }
-      </style>
-      <form>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
           html`
@@ -66,7 +61,7 @@ export default {
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
         </sl-button-bar>
-      </form>
+      </sl-form>
     `;
   }
 } satisfies Meta<Props>;
@@ -220,7 +215,7 @@ export const CustomValidity: Story = {
       };
 
       return html`
-        <sl-select @sl-change=${onChange}>
+        <sl-select @sl-change=${onChange} required>
           <sl-select-option value="1">Option 1</sl-select-option>
           <sl-select-option value="2">Option 2</sl-select-option>
           <sl-select-option value="3">Option 3</sl-select-option>

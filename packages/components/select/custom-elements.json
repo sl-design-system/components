@@ -705,6 +705,10 @@
                   "type": {
                     "text": "SelectOption"
                   }
+                },
+                {
+                  "name": "emitEvent",
+                  "default": "true"
                 }
               ]
             }

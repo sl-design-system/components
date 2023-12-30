@@ -73,8 +73,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
       // Due to not knowing when to show the validation message, we'll just show it now
       // See https://github.com/whatwg/html/issues/9878
-      this.report = true;
-      this.updateValidity();
+      if (!this.report) {
+        this.report = true;
+        this.updateValidity();
+      }
     };
 
     /** @ignore Whether the form control should report the validity of the control. */
@@ -196,12 +198,13 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * will also report the validity to the user.
      */
     reportValidity(): boolean {
+      // Workaround for https://github.com/whatwg/html/issues/9878
+      this.report = true;
+
       const valid = isNative(this.formControlElement)
         ? this.formControlElement.reportValidity()
         : this.formControlElement.internals.reportValidity();
 
-      // Workaround for https://github.com/whatwg/html/issues/9878
-      this.report = true;
       this.updateValidity();
 
       return valid;

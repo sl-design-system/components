@@ -206,12 +206,12 @@ export const Valid: Story = {
 
 export const CustomValidity: Story = {
   args: {
-    hint: 'Select the second option to make the field valid.',
+    hint: 'This story has both builtin validation (required) and custom validation. The second option should be selected to make the field valid. In this example, you should never see the builtin validation message.',
     slot: () => {
       const onChange = (event: Event & { target: Select }): void => {
         const value = event.target.value;
 
-        event.target.setCustomValidity(value === '2' ? '' : 'Select the second option');
+        event.target.setCustomValidity(value === '2' ? '' : 'Select the second option.');
       };
 
       return html`

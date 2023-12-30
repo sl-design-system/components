@@ -153,8 +153,8 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
-    this.updateValidity();
     this.changeEvent.emit(this.value);
+    this.updateValidity();
   }
 
   #onKeydown(event: KeyboardEvent): void {

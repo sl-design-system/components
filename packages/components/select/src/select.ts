@@ -13,8 +13,7 @@ import styles from './select.scss.js';
 import { SelectButton } from './select-button.js';
 
 const OBSERVER_OPTIONS: MutationObserverInit = {
-  attributes: true,
-  attributeFilter: ['selected', 'size'],
+  attributeFilter: ['selected'],
   attributeOldValue: true,
   subtree: true
 };
@@ -48,17 +47,13 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** The initial state when the form was associated with the select. Used to reset the select. */
   #initialState: string | null = null;
 
-  /** If an option is selected programmatically update all the options or the size of the select itself. */
+  /** If an option is selected programmatically, update the state. */
   #observer = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
-      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {
-        const option = <SelectOption>mutation.target;
+    const { target } = mutations.find(m => m.attributeName === 'selected' && m.oldValue === null) || {};
 
-        this.#observer.disconnect();
-        this.#setSelectedOption(option);
-        this.#observer.observe(this, OBSERVER_OPTIONS);
-      }
-    });
+    this.#observer.disconnect();
+    this.#setSelectedOption(target as SelectOption);
+    this.#observer.observe(this, OBSERVER_OPTIONS);
   });
 
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */

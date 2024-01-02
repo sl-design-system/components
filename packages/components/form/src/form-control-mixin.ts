@@ -2,6 +2,7 @@ import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from '@sl-design-system/shared';
 import { property } from 'lit/decorators.js';
 import { UpdateValidityEvent } from './update-validity-event.js';
+import { ValidateEvent } from './validate-event.js';
 
 export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;
@@ -220,6 +221,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @ignore
      */
     updateValidity(): void {
+      // Emit the validate event so custom validation can be run at the right time
+      this.dispatchEvent(new ValidateEvent());
+
       if (this.report) {
         if (this.valid) {
           this.showValidity = this.showValid ? 'valid' : undefined;

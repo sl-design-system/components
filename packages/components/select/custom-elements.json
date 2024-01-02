@@ -765,8 +765,8 @@
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(mutations => {\n    mutations.forEach(mutation => {\n      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {\n        const option = <SelectOption>mutation.target;\n\n        this.#observer.disconnect();\n        this.#setSelectedOption(option);\n        this.#observer.observe(this, OBSERVER_OPTIONS);\n      }\n    });\n  })",
-              "description": "If an option is selected programmatically update all the options or the size of the select itself."
+              "default": "new MutationObserver(mutations => {\n    const { target } = mutations.find(m => m.attributeName === 'selected' && m.oldValue === null) || {};\n\n    this.#observer.disconnect();\n    this.#setSelectedOption(target as SelectOption);\n    this.#observer.observe(this, OBSERVER_OPTIONS);\n  })",
+              "description": "If an option is selected programmatically, update the state."
             },
             {
               "kind": "field",

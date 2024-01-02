@@ -1,7 +1,6 @@
 $sizes: md, lg;
 $variants: default, valid, invalid;
-$variant-selectors: ':where(:not([show-validity]), [show-validity]:not([show-valid]))',
-  ':where([show-validity="valid"][show-valid])', ':where([show-validity="invalid"])';
+$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 $resize-types: none, both, horizontal, vertical, auto;
 
 :host {

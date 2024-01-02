@@ -1,9 +1,12 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { UpdateValidityEvent } from './update-validity-event.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import type { EventEmitter } from '@sl-design-system/shared';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { event } from '@sl-design-system/shared';
 import { LitElement, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { FormFieldEvent } from './form-field-event.js';
 import { type FormControl } from './form-control-mixin.js';
 import styles from './form-field.scss.js';
 import { Label } from './label.js';
@@ -35,20 +38,23 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** The error element. */
   #error?: Error;
 
-  /** The form control element. */
-  #formControl?: HTMLElement & FormControl;
-
   /** The hint element. */
   #hint?: Hint;
 
   /** The label element. */
   #label?: Label;
 
+  /** The form control element. */
+  formControl?: HTMLElement & FormControl;
+
   /**
    * The validation message that will be displayed when the field is in an invalid state.
    * @private
    */
   @state() error?: string;
+
+  /** Emits when the field is added/removed to/from a form. */
+  @event() formFieldEvent!: EventEmitter<FormFieldEvent>;
 
   /**
    * A hint that will be shown when there are no validation messages.
@@ -59,6 +65,18 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** The text for the label. You can also slot an `<sl-label>` element. */
   @property() label?: string;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.formFieldEvent.emit(new FormFieldEvent('add'));
+  }
+
+  override disconnectedCallback(): void {
+    this.formFieldEvent.emit(new FormFieldEvent('remove'));
+
+    super.disconnectedCallback();
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
@@ -66,7 +84,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       if (this.error) {
         this.#error ??= this.shadowRoot?.createElement('sl-error') as Error;
         this.#error.innerText = this.error;
-        this.#error.noIcon = !this.#formControl?.showExternalValidityIcon;
+        this.#error.noIcon = !this.formControl?.showExternalValidityIcon;
 
         if (!this.#error.parentElement) {
           this.append(this.#error);
@@ -74,7 +92,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       } else {
         this.#error?.remove();
         this.#error = undefined;
-        this.#formControl?.formControlElement.removeAttribute('aria-describedby');
+        this.formControl?.formControlElement.removeAttribute('aria-describedby');
       }
     }
 
@@ -89,7 +107,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       } else {
         this.#hint?.remove();
         this.#hint = undefined;
-        this.#formControl?.formControlElement.removeAttribute('aria-describedby');
+        this.formControl?.formControlElement.removeAttribute('aria-describedby');
       }
     }
 
@@ -115,7 +133,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity}></slot>
         <slot
           @slotchange=${this.#onErrorSlotchange}
-          .noIcon=${!this.#formControl?.showExternalValidityIcon}
+          .noIcon=${!this.formControl?.showExternalValidityIcon}
           name="error"
         ></slot>
         ${this.#error ? nothing : html`<slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>`}
@@ -130,10 +148,10 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     if (error) {
       this.#error = error;
       this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
-      this.#error.noIcon = !this.#formControl?.showExternalValidityIcon;
+      this.#error.noIcon = !this.formControl?.showExternalValidityIcon;
 
-      if (this.#formControl) {
-        this.#formControl.formControlElement.setAttribute('aria-describedby', this.#error.id);
+      if (this.formControl) {
+        this.formControl.formControlElement.setAttribute('aria-describedby', this.#error.id);
       }
     } else {
       this.#label = undefined;
@@ -151,8 +169,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       this.#hint = hint;
       this.#hint.id ||= `sl-form-field-hint-${nextUniqueId++}`;
 
-      if (this.#formControl) {
-        this.#formControl.formControlElement.setAttribute('aria-describedby', this.#hint.id);
+      if (this.formControl) {
+        this.formControl.formControlElement.setAttribute('aria-describedby', this.#hint.id);
       }
     } else {
       this.#label = undefined;
@@ -166,8 +184,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     if (label) {
       this.#label = label;
 
-      if (this.#formControl) {
-        this.#label.for = this.#formControl.id;
+      if (this.formControl) {
+        this.#label.for = this.formControl.id;
       }
     } else {
       this.#label = undefined;
@@ -179,22 +197,22 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       formControl = assignedElements.find(el => 'extendsFormControlMixin' in el.constructor);
 
     if (formControl) {
-      this.#formControl = formControl as HTMLElement & FormControl;
-      this.#formControl.id ||= `sl-form-field-control-${nextUniqueId++}`;
+      this.formControl = formControl as HTMLElement & FormControl;
+      this.formControl.id ||= `sl-form-field-control-${nextUniqueId++}`;
 
-      if (this.#formControl.showValidity) {
-        this.error = this.#formControl.validationMessage;
+      if (this.formControl.showValidity) {
+        this.error = this.formControl.validationMessage;
       }
 
       if (this.#hint) {
-        this.#formControl.formControlElement.setAttribute('aria-describedby', this.#hint.id);
+        this.formControl.formControlElement.setAttribute('aria-describedby', this.#hint.id);
       }
 
       if (this.#label) {
-        this.#label.for = this.#formControl.id;
+        this.#label.for = this.formControl.id;
       }
     } else {
-      this.#formControl = undefined;
+      this.formControl = undefined;
 
       if (this.#label) {
         this.#label.for = undefined;

@@ -147,18 +147,6 @@ describe('sl-text-field', () => {
       expect(input).to.have.attribute('minlength', '3');
     })
 
-    it('should not have show-valid', () => {
-      expect(el.showValid).to.be.undefined;
-      expect(el).not.to.have.attribute('show-valid');
-    });
-
-    it('should have show-valid when set', async () => {
-      el.showValid = true;
-      await el.updateComplete;
-
-      expect(el).to.have.attribute('show-valid');
-    });
-
     it('should focus the input when focusing the element', () => {
       el.focus();
 
@@ -255,6 +243,7 @@ describe('sl-text-field', () => {
     });
 
     it('should have a show-validity attribute when reported', async () => {
+      el.showValid = true;
       el.reportValidity();
       await el.updateComplete;
 

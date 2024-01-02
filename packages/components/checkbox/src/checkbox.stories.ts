@@ -1,12 +1,24 @@
 import type { Checkbox, CheckboxSize } from './checkbox.js';
-import type { StoryObj } from '@storybook/web-components';
+import type { TemplateResult } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { html } from 'lit';
 import '../register.js';
 
+type Props = Pick<
+  Checkbox,
+  'checked' | 'disabled' | 'indeterminate' | 'required' | 'showValid' | 'showValidity' | 'size' | 'value'
+> & {
+  hint?: string;
+  label?: string;
+  slot?: () => TemplateResult;
+  text?: string;
+};
+type Story = StoryObj<Props>;
+
 const sizes: CheckboxSize[] = ['md', 'lg'];
-const states: string[] = ['', 'valid', 'invalid'];
-const checked: string[] = ['', 'checked', 'indeterminate'];
 
 export default {
   title: 'Checkbox',
@@ -14,6 +26,7 @@ export default {
     checked: false,
     disabled: false,
     indeterminate: false,
+    label: 'Label',
     text: 'Toggle me',
     value: '12345',
     size: 'md'
@@ -21,112 +34,79 @@ export default {
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: ['md', 'lg']
+      options: sizes
     }
+  },
+  render: ({ checked, disabled, hint, indeterminate, label, required, showValid, size, slot, text, value }) => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <sl-form>
+        <sl-form-field .hint=${hint} .label=${label}>
+          ${slot?.() ??
+          html`
+            <sl-checkbox
+              ?checked=${checked}
+              ?disabled=${disabled}
+              ?indeterminate=${indeterminate}
+              ?required=${required}
+              .showValid=${showValid}
+              .size=${size ?? 'md'}
+              .value=${value}
+              >${text}</sl-checkbox
+            >
+          `}
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+} satisfies Meta<Props>;
+
+export const Basic: Story = {};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true
   }
 };
 
-export const API: StoryObj = {
-  render: ({ checked, disabled, indeterminate, text, value, size }) => html`
-    <sl-checkbox
-      ?checked=${checked}
-      ?disabled=${disabled}
-      .indeterminate=${indeterminate}
-      .value=${value}
-      .size=${size}
-      aria-label="checkbox to toggle"
-      >${text}</sl-checkbox
-    >
-  `
+export const Empty: Story = {
+  args: {
+    hint: 'This checkbox has no text and is only as wide as the checkbox itself',
+    text: ''
+  }
 };
 
-export const All: StoryObj = {
-  render: () => {
-    setTimeout(() => document.querySelector('form')?.reportValidity());
+export const Required: Story = {
+  args: {
+    hint: 'This checkbox is required and should display an error after reporting the validity',
+    required: true
+  }
+};
 
-    return html`
-      <style>
-        table {
-          border-collapse: collapse;
-          margin-bottom: 24px;
-        }
-        th {
-          text-transform: capitalize;
-        }
-        th,
-        td {
-          padding: 4px 8px;
-        }
-        thead td {
-          text-align: center;
-        }
-        tbody td:nth-of-type(4n + 5) {
-          border-right: 2px solid #dedede;
-          padding-right: 24px;
-        }
-        tbody td:nth-of-type(4n + 2):not(:first-of-type) {
-          padding-left: 24px;
-        }
-        tbody td:last-of-type {
-          border: none;
-        }
-      </style>
-      <form>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              ${sizes.map(size => html` <th colspan=${states.length + 1}>Size: ${size}</th> `)}
-            </tr>
-          </thead>
-          <tbody>
-            ${checked.map(
-              c =>
-                html` <tr>
-                  <td>${c}</td>
-                  ${sizes.map(
-                    size =>
-                      html`${states.map(
-                          state =>
-                            html`
-                              <td>
-                                <sl-checkbox
-                                  ?checked=${c === 'checked'}
-                                  ?indeterminate=${c === 'indeterminate'}
-                                  ?invalid=${state === 'invalid'}
-                                  ?required=${state === 'invalid'}
-                                  ?valid=${state === 'valid'}
-                                  size=${size}
-                                  data-mock-state
-                                  >Label
-                                </sl-checkbox>
-                              </td>
-                            `
-                        )}
-                        <td>
-                          <sl-checkbox
-                            ?checked=${c === 'checked'}
-                            ?indeterminate=${c === 'indeterminate'}
-                            size=${size}
-                            disabled
-                            data-mock-state
-                            >Label
-                          </sl-checkbox>
-                        </td>`
-                  )}
-                </tr>`
-            )}
-          </tbody>
-        </table>
-      </form>
-    `;
+export const Group: Story = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group>
+        <sl-checkbox>Check me</sl-checkbox>
+        <sl-checkbox>No me</sl-checkbox>
+        <sl-checkbox>I was here first!</sl-checkbox>
+        <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
+      </sl-checkbox-group>
+    `
   }
 };
 
 export const Indeterminate: StoryObj = {
   render: () => {
-    const onChange = (event: Event): void => {
-      let check: Checkbox = event.target as Checkbox;
+    const onChange = (event: Event & { target: Checkbox }): void => {
+      let check = event.target;
+
       if (check.indeterminate) {
         check.checked = true;
         check.indeterminate = false;
@@ -223,82 +203,92 @@ export const Indeterminate: StoryObj = {
   }
 };
 
-export const NoText: StoryObj = {
-  render: () => html`
-    <style>
-      div {
-        align-items: start;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      sl-checkbox {
-        background: hotpink;
-      }
-    </style>
-    <div>
-      <sl-checkbox aria-label="Hello world"> </sl-checkbox>
-      <sl-checkbox>Hello world</sl-checkbox>
-      <sl-checkbox aria-label="Hello world" size="lg"></sl-checkbox>
-      <sl-checkbox size="lg">Hello world</sl-checkbox>
-    </div>
-  `
+export const Overflow: Story = {
+  args: {
+    hint: 'The checkbox should be aligned with the first row of text',
+    text: 'Nostrud exercitation irure sint sint aliquip quis nostrud adipisicing. Amet qui proident aliqua est. Voluptate dolore est et nisi adipisicing minim magna excepteur officia sit ullamco aute dolor. Sit velit enim labore ullamco aute. Est ea officia velit aliquip anim non irure in occaecat ipsum est aliquip dolore. Excepteur magna aute duis sint enim exercitation aliqua dolor enim ullamco sit ex. Sit ea ex ut aute veniam laboris consectetur Lorem fugiat laboris.'
+  }
 };
 
-export const Overflow: StoryObj = {
-  render: () => html`
-    <style>
-      div {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-      .wrapper {
-        border: 2px solid rgb(var(--sl-color-palette-accent-base));
-      }
-    </style>
-    <em>Borders are added to show the alignment in the container</em>
-    <div class="wrapper">
-      <sl-checkbox
-        >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla
-        consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident
-        enim.
-      </sl-checkbox>
-    </div>
-    <div class="wrapper">
-      <sl-checkbox>Elit consectetur.</sl-checkbox>
-    </div>
-  `
+export const Valid: Story = {
+  args: {
+    checked: true,
+    hint: 'This checkbox is marked as valid after reporting the validity',
+    showValid: true
+  }
 };
 
-export const WithLabel: StoryObj = {
-  render: () => html`
-    <style>
-      .wrapper {
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-    ${sizes.map(
-      size => html`
-        <h2>Size: ${size}</h2>
-        <div class="wrapper">
-          <sl-label for="checkbox" size=${size}>Label</sl-label>
-          <sl-checkbox id="checkbox" size=${size}>Checkbox</sl-checkbox>
-        </div>
-      `
-    )}
-  `
-};
+export const All: StoryObj = {
+  render: () => {
+    const checked: string[] = ['', 'checked', 'indeterminate'];
 
-export const Group: StoryObj = {
-  render: () => html`
-    <sl-label for="group">Checkbox group</sl-label>
-    <sl-checkbox-group id="group">
-      <sl-checkbox>Check me</sl-checkbox>
-      <sl-checkbox>No me</sl-checkbox>
-      <sl-checkbox>I was here first!</sl-checkbox>
-      <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
-    </sl-checkbox-group>
-  `
+    return html`
+      <style>
+        table {
+          border-collapse: collapse;
+          border-spacing: 0;
+        }
+        td[colspan] {
+          font-weight: bold;
+          padding-block-start: 1rem;
+          text-align: center;
+        }
+        td {
+          padding: 0.25rem 0.5rem;
+        }
+      </style>
+      <table>
+        <tbody>
+          ${sizes.map(
+            size => html`
+              <tr>
+                <td colspan="4">${size}</td>
+              </tr>
+              ${checked.map(
+                check => html`
+                  <tr>
+                    <td>
+                      <sl-checkbox
+                        ?checked=${check === 'checked'}
+                        ?indeterminate=${check === 'indeterminate'}
+                        size=${size}
+                        >Label
+                      </sl-checkbox>
+                    </td>
+                    <td>
+                      <sl-checkbox
+                        ?checked=${check === 'checked'}
+                        ?indeterminate=${check === 'indeterminate'}
+                        show-validity="valid"
+                        size=${size}
+                        >Label
+                      </sl-checkbox>
+                    </td>
+                    <td>
+                      <sl-checkbox
+                        ?checked=${check === 'checked'}
+                        ?indeterminate=${check === 'indeterminate'}
+                        show-validity="invalid"
+                        size=${size}
+                        >Label
+                      </sl-checkbox>
+                    </td>
+                    <td>
+                      <sl-checkbox
+                        ?checked=${check === 'checked'}
+                        ?indeterminate=${check === 'indeterminate'}
+                        size=${size}
+                        disabled
+                        >Label
+                      </sl-checkbox>
+                    </td>
+                  </tr>
+                `
+              )}
+            `
+          )}
+        </tbody>
+      </table>
+    `;
+  }
 };

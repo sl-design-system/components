@@ -1,5 +1,5 @@
 $variants: default, valid, invalid;
-$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 $states: unchecked, checked;
 $state-selectors: '', '[checked]';
 $sizes: md, lg;

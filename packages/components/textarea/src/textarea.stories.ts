@@ -14,6 +14,7 @@ type Props = Pick<
   | 'readonly'
   | 'required'
   | 'rows'
+  | 'showValid'
   | 'size'
   | 'resize'
   | 'value'
@@ -31,10 +32,12 @@ export default {
   title: 'Textarea',
   args: {
     disabled: false,
+    label: 'Label',
     placeholder: 'Type something here',
     readonly: false,
     required: false,
     resize: 'vertical',
+    showValid: false,
     size: 'md',
     value: null,
     wrap: 'soft'
@@ -64,6 +67,7 @@ export default {
     minLength,
     placeholder,
     required,
+    showValid,
     size,
     resize,
     readonly,
@@ -73,16 +77,11 @@ export default {
     wrap
   }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      event.target.closest('form')?.reportValidity();
+      event.target.closest('sl-form')?.reportValidity();
     };
 
     return html`
-      <style>
-        sl-button-bar {
-          margin-block-start: 1rem;
-        }
-      </style>
-      <form>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
           html`
@@ -95,6 +94,7 @@ export default {
               .placeholder=${placeholder ?? ''}
               .resize=${resize}
               .rows=${rows}
+              .showValid=${showValid}
               .size=${size}
               .value=${value}
               .wrap=${wrap}
@@ -104,7 +104,7 @@ export default {
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
         </sl-button-bar>
-      </form>
+      </sl-form>
     `;
   }
 } satisfies Meta<Props>;
@@ -141,7 +141,8 @@ export const Required: Story = {
 
 export const Valid: Story = {
   args: {
-    hint: 'After clicking the button, this field will show it is valid.'
+    hint: 'After clicking the button, this field will show it is valid.',
+    showValid: true
   }
 };
 
@@ -208,14 +209,8 @@ export const All: StoryObj = {
             ></sl-textarea>
           </div>
           <div class="wrapper">
-            <sl-textarea show-valid show-validity="valid" size=${size} value="I am md valid"></sl-textarea>
-            <sl-textarea
-              disabled
-              show-valid
-              show-validity="valid"
-              size=${size}
-              value="${size} valid disabled"
-            ></sl-textarea>
+            <sl-textarea show-validity="valid" size=${size} value="I am md valid"></sl-textarea>
+            <sl-textarea disabled show-validity="valid" size=${size} value="${size} valid disabled"></sl-textarea>
           </div>
         </div>
       `

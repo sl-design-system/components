@@ -247,6 +247,14 @@
                   "text": "Promise<void>"
                 }
               },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string | undefined"
+                  }
+                }
+              ],
               "description": "sometimes the icon tries to render before any icons are registered,\nthat's why we need to check if the icons have been registered, and if not\nwe need to wait a bit and then check again, so we can (re)render the icon when the library is set."
             }
           ],

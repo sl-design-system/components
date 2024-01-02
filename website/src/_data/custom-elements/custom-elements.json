@@ -42,6 +42,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/avatar/src/avatar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/avatar/src/avatar.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/avatar/src/avatar.ts",
       "declarations": [
         {
@@ -394,6 +408,125 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/badge/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/badge.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/badge/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-badge",
+          "declaration": {
+            "name": "Badge",
+            "module": "/packages/components/badge/src/badge.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/badge/src/badge.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/badge/src/badge.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/badge/src/badge.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Show totals at a glance or labels contents with a tag.\n\n```html\n<sl-badge> 99+ </sl-badge>\n```",
+          "name": "Badge",
+          "slots": [
+            {
+              "description": "Contents of the badge",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "BadgeSize"
+              },
+              "default": "'md'",
+              "attribute": "size",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "BadgeVariant"
+              },
+              "default": "'neutral'",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "BadgeSize"
+              },
+              "default": "'md'",
+              "fieldName": "size"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "BadgeVariant"
+              },
+              "default": "'neutral'",
+              "fieldName": "variant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-badge",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Badge",
+          "declaration": {
+            "name": "Badge",
+            "module": "../packages/components/badge/src/badge.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/button-bar/index.ts",
       "declarations": [],
       "exports": [
@@ -418,6 +551,20 @@
           "declaration": {
             "name": "ButtonBar",
             "module": "/packages/components/button-bar/src/button-bar.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
           }
         }
       ]
@@ -533,6 +680,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/button/src/button.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/button/src/button.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/button/src/button.ts",
       "declarations": [
         {
@@ -546,6 +707,16 @@
             }
           ],
           "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
             {
               "kind": "field",
               "name": "fill",
@@ -591,6 +762,14 @@
             }
           ],
           "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
+            },
             {
               "name": "fill",
               "type": {
@@ -697,6 +876,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/checkbox/src/checkbox-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/checkbox/src/checkbox-group.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/checkbox/src/checkbox-group.ts",
       "declarations": [
         {
@@ -720,7 +913,7 @@
               "attribute": "custom-validity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -743,7 +936,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -756,7 +949,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -770,7 +963,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -784,7 +977,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -817,7 +1010,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -831,7 +1024,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -853,7 +1046,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -866,7 +1059,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -879,7 +1072,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -917,7 +1110,7 @@
               "fieldName": "customValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -929,7 +1122,7 @@
               "fieldName": "name",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -941,7 +1134,7 @@
               "fieldName": "showValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -965,7 +1158,7 @@
               "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -981,7 +1174,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1004,7 +1197,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -1019,7 +1212,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1032,7 +1225,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1045,7 +1238,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1058,7 +1251,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1071,7 +1264,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ]
@@ -1084,6 +1277,20 @@
           "declaration": {
             "name": "CheckboxGroup",
             "module": "../packages/components/checkbox/src/checkbox-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/checkbox/src/checkbox.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/checkbox/src/checkbox.scss.ts"
           }
         }
       ]
@@ -1123,7 +1330,7 @@
               "attribute": "custom-validity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1146,7 +1353,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1169,7 +1376,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1183,7 +1390,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1197,7 +1404,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1230,7 +1437,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1244,7 +1451,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1292,7 +1499,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1305,7 +1512,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1318,7 +1525,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1364,7 +1571,7 @@
               "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -1428,7 +1635,7 @@
               "fieldName": "customValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1440,7 +1647,7 @@
               "fieldName": "name",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1452,7 +1659,7 @@
               "fieldName": "showValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -1480,7 +1687,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1503,7 +1710,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -1518,7 +1725,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1531,7 +1738,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1544,7 +1751,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1557,7 +1764,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -1570,7 +1777,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ]
@@ -1613,6 +1820,20 @@
           "declaration": {
             "name": "Dialog",
             "module": "/packages/components/dialog/src/dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/dialog/src/dialog.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/dialog/src/dialog.scss.ts"
           }
         }
       ]
@@ -1808,6 +2029,20 @@
           "declaration": {
             "name": "Drawer",
             "module": "/packages/components/drawer/src/drawer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/drawer/src/drawer.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/drawer/src/drawer.scss.ts"
           }
         }
       ]
@@ -2040,6 +2275,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/editor/src/editor.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/editor/src/editor.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/editor/src/editor.ts",
       "declarations": [
         {
@@ -2084,20 +2333,7 @@
               "attribute": "custom-validity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "attribute": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2110,34 +2346,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hint-size",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2150,7 +2359,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2164,7 +2373,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2186,7 +2395,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2209,7 +2418,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2223,7 +2432,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2236,7 +2445,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2249,7 +2458,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2262,7 +2471,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2291,7 +2500,7 @@
               "fieldName": "customValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2303,7 +2512,7 @@
               "fieldName": "name",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2315,55 +2524,14 @@
               "fieldName": "showValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hint-size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             }
           ],
           "superclass": {
@@ -2380,7 +2548,7 @@
               "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -2423,7 +2591,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2446,7 +2614,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -2469,7 +2637,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2482,7 +2650,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2495,7 +2663,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2508,7 +2676,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -2521,7 +2689,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ]
@@ -3357,6 +3525,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/form/src/error.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/form/src/error.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/form/src/error.ts",
       "declarations": [
         {
@@ -3686,6 +3868,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/form/src/form-field.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/form/src/form-field.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/form/src/form-field.ts",
       "declarations": [
         {
@@ -3759,6 +3955,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/form/src/hint.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/form/src/hint.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/form/src/hint.ts",
       "declarations": [
         {
@@ -3812,6 +4022,20 @@
           "declaration": {
             "name": "Hint",
             "module": "../packages/components/form/src/hint.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/form/src/label.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/form/src/label.scss.ts"
           }
         }
       ]
@@ -5736,6 +5960,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/grid/src/filter.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/grid/src/filter.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/grid/src/filter.ts",
       "declarations": [
         {
@@ -5900,6 +6138,20 @@
           "declaration": {
             "name": "GridFilter",
             "module": "../packages/components/grid/src/filter.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/grid/src/grid.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/grid/src/grid.scss.ts"
           }
         }
       ]
@@ -7449,6 +7701,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/grid/src/sorter.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/grid/src/sorter.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/grid/src/sorter.ts",
       "declarations": [
         {
@@ -7646,6 +7912,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/icon/src/icon.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/icon/src/icon.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/icon/src/icon.ts",
       "declarations": [
         {
@@ -7832,6 +8112,168 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/inline-message/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/inline-message.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/inline-message/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-inline-message",
+          "declaration": {
+            "name": "InlineMessage",
+            "module": "/packages/components/inline-message/src/inline-message.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/inline-message/src/inline-message.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/inline-message/src/inline-message.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/inline-message/src/inline-message.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An inline message component for displaying additional information/errors.",
+          "name": "InlineMessage",
+          "slots": [
+            {
+              "description": "title content for the inline message",
+              "name": "default"
+            },
+            {
+              "description": "slot for additional information and more content for the inline-message",
+              "name": "description"
+            },
+            {
+              "description": "slot for more details of the inline-message like list of errors",
+              "name": "details"
+            },
+            {
+              "description": "icon shown on the left side of the component",
+              "name": "icon"
+            },
+            {
+              "description": "Closing button for the inline message",
+              "name": "close-button"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "dismissible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "attribute": "dismissible",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "noIcon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether the icon should be shown on the left side of the component.",
+              "attribute": "no-icon"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'info' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'info'",
+              "description": "The variant of the inline message.",
+              "attribute": "variant",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "dismissible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "fieldName": "dismissible"
+            },
+            {
+              "name": "no-icon",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Determines whether the icon should be shown on the left side of the component.",
+              "fieldName": "noIcon"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'info' | 'success' | 'warning' | 'danger'"
+              },
+              "default": "'info'",
+              "description": "The variant of the inline message.",
+              "fieldName": "variant"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-inline-message",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "InlineMessage",
+          "declaration": {
+            "name": "InlineMessage",
+            "module": "../packages/components/inline-message/src/inline-message.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/popover/index.ts",
       "declarations": [],
       "exports": [
@@ -7856,6 +8298,20 @@
           "declaration": {
             "name": "Popover",
             "module": "/packages/components/popover/src/popover.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/popover/src/popover.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/popover/src/popover.scss.ts"
           }
         }
       ]
@@ -7966,6 +8422,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/radio-group/src/radio-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/radio-group/src/radio-group.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/radio-group/src/radio-group.ts",
       "declarations": [
         {
@@ -7989,7 +8459,7 @@
               "attribute": "custom-validity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8012,7 +8482,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8035,7 +8505,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8049,7 +8519,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8063,7 +8533,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8096,7 +8566,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8110,7 +8580,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8156,7 +8626,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8169,7 +8639,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8182,7 +8652,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8228,7 +8698,7 @@
               "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -8283,7 +8753,7 @@
               "fieldName": "customValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8295,7 +8765,7 @@
               "fieldName": "name",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8307,7 +8777,7 @@
               "fieldName": "showValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -8335,7 +8805,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8358,7 +8828,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -8373,7 +8843,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8386,7 +8856,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8399,7 +8869,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8412,7 +8882,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8425,7 +8895,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ]
@@ -8438,6 +8908,20 @@
           "declaration": {
             "name": "RadioGroup",
             "module": "../packages/components/radio-group/src/radio-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/radio-group/src/radio.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/radio-group/src/radio.scss.ts"
           }
         }
       ]
@@ -8614,37 +9098,211 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/select/src/select-button.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/select/src/select-button.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/select/src/select-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "SelectButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The placeholder for when there is no selected option.s",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "SelectOption | null | undefined"
+              },
+              "description": "The selected option."
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Indicates whether the control should indicate it is valid.",
+              "attribute": "show-valid",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Mirrors the same property on the sl-select parent.",
+              "attribute": "show-validity",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "SelectSize | undefined"
+              },
+              "default": "'md'",
+              "description": "The size of the parent select.",
+              "attribute": "size",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The placeholder for when there is no selected option.s",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "SelectSize | undefined"
+              },
+              "default": "'md'",
+              "description": "The size of the parent select.",
+              "fieldName": "size"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Indicates whether the control should indicate it is valid.",
+              "fieldName": "showValid"
+            },
+            {
+              "name": "show-validity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Mirrors the same property on the sl-select parent.",
+              "fieldName": "showValidity"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true,
+          "methods": [],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "SelectOption | null | undefined"
+              },
+              "description": "The selected option."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SelectButton",
+          "declaration": {
+            "name": "SelectButton",
+            "module": "../packages/components/select/src/select-button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/select/src/select-option-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/select/src/select-option-group.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/select/src/select-option-group.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "A way to group together options, with or without heading.\n\n```html\n <sl-select>\n   <sl-select-option-group group-heading=\"Europ\">\n   <sl-select-option>Netherlands</sl-select-option>\n   <sl-select-option>Spain</sl-select-option>\n     <sl-select-option>Poland</sl-select-option>\n   </sl-select-option-group>\n </sl-select>\n```",
+          "description": "A way to group options together, with or without a heading.\n\n```html\n <sl-select>\n   <sl-select-option-group heading=\"Europe\">\n     <sl-select-option>Netherlands</sl-select-option>\n     <sl-select-option>Spain</sl-select-option>\n     <sl-select-option>Poland</sl-select-option>\n   </sl-select-option-group>\n   ...\n </sl-select>\n```",
           "name": "SelectOptionGroup",
           "slots": [
             {
-              "description": "List of `sl-option` elements",
+              "description": "List of `sl-select-option` elements",
               "name": "default"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "groupHeading",
+              "name": "heading",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The heading of the option group",
-              "attribute": "group-heading"
+              "description": "The heading for the group.",
+              "attribute": "heading"
             }
           ],
           "attributes": [
             {
-              "name": "group-heading",
+              "name": "heading",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The heading of the option group",
-              "fieldName": "groupHeading"
+              "description": "The heading for the group.",
+              "fieldName": "heading"
             }
           ],
           "superclass": {
@@ -8670,6 +9328,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/select/src/select-option.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/select/src/select-option.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/select/src/select-option.ts",
       "declarations": [
         {
@@ -8681,9 +9353,8 @@
               "kind": "field",
               "name": "disabled",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the option item is disabled.",
               "attribute": "disabled",
               "reflects": true
@@ -8692,9 +9363,8 @@
               "kind": "field",
               "name": "selected",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the option item is selected.",
               "attribute": "selected",
               "reflects": true
@@ -8703,38 +9373,38 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "FormControlValue | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the option item, to be used in forms.",
               "attribute": "value"
             }
           ],
           "attributes": [
             {
-              "name": "value",
+              "name": "disabled",
               "type": {
-                "text": "FormControlValue | undefined"
+                "text": "boolean | undefined"
               },
-              "description": "The value for the option item, to be used in forms.",
-              "fieldName": "value"
+              "description": "Whether the option item is disabled.",
+              "fieldName": "disabled"
             },
             {
               "name": "selected",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the option item is selected.",
               "fieldName": "selected"
             },
             {
-              "name": "disabled",
+              "name": "value",
               "type": {
-                "text": "boolean"
+                "text": "string | null"
               },
-              "default": "false",
-              "description": "Whether the option item is disabled.",
-              "fieldName": "disabled"
+              "default": "null",
+              "description": "The value for the option item, to be used in forms.",
+              "fieldName": "value"
             }
           ],
           "superclass": {
@@ -8760,6 +9430,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/select/src/select.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/select/src/select.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/select/src/select.ts",
       "declarations": [
         {
@@ -8767,6 +9451,14 @@
           "description": "",
           "name": "Select",
           "members": [
+            {
+              "kind": "field",
+              "name": "button",
+              "type": {
+                "text": "SelectButton"
+              },
+              "description": "The button in the light DOM."
+            },
             {
               "kind": "field",
               "name": "customValidity",
@@ -8777,8 +9469,18 @@
               "attribute": "custom-validity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -8790,18 +9492,8 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
-            },
-            {
-              "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the select is invalid.",
-              "attribute": "invalid",
-              "reflects": true
             },
             {
               "kind": "field",
@@ -8813,18 +9505,16 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
               "kind": "field",
-              "name": "maxOverlayHeight",
+              "name": "listbox",
               "type": {
-                "text": "string | undefined"
+                "text": "HTMLElement"
               },
-              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
-              "attribute": "max-overlay-height",
-              "reflects": true
+              "description": "The listbox element."
             },
             {
               "kind": "field",
@@ -8837,7 +9527,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8847,8 +9537,7 @@
                 "text": "string | undefined"
               },
               "description": "The placeholder text to show when no option is chosen.",
-              "attribute": "placeholder",
-              "reflects": true
+              "attribute": "placeholder"
             },
             {
               "kind": "method",
@@ -8861,8 +9550,18 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the select is a required field.",
+              "attribute": "required",
+              "reflects": true
             },
             {
               "kind": "method",
@@ -8884,8 +9583,17 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Indicates whether the control should indicate it is valid.",
+              "attribute": "show-valid"
             },
             {
               "kind": "field",
@@ -8898,19 +9606,43 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "SelectSize"
               },
               "default": "'md'",
               "description": "The size of the select.",
               "attribute": "size",
               "reflects": true
+            },
+            {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<string | null>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",
@@ -8922,7 +9654,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8935,7 +9667,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -8948,27 +9680,64 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null",
+              "description": "The value for the select, to be used in forms.",
+              "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the focus leaves the component.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<string | null>"
+              },
+              "description": "Emits when the value changes.",
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component gains focus.",
+              "fieldName": "focusEvent"
+            },
+            {
+              "type": {
+                "text": "UpdateValidityEvent"
+              },
+              "description": "Emits when the validity of the form control changes.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
           "attributes": [
             {
-              "name": "max-overlay-height",
+              "name": "disabled",
               "type": {
-                "text": "string | undefined"
+                "text": "boolean | undefined"
               },
-              "description": "The maximum size the dropdown can have; only used when there are  enough options and enough space on the screen.",
-              "fieldName": "maxOverlayHeight"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The size of the select.",
-              "fieldName": "size"
+              "description": "Whether the select is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
             },
             {
               "name": "placeholder",
@@ -8979,12 +9748,38 @@
               "fieldName": "placeholder"
             },
             {
-              "name": "invalid",
+              "name": "required",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the select is invalid.",
-              "fieldName": "invalid"
+              "description": "Whether the select is a required field.",
+              "fieldName": "required"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Indicates whether the control should indicate it is valid.",
+              "fieldName": "showValid"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "SelectSize"
+              },
+              "default": "'md'",
+              "description": "The size of the select.",
+              "fieldName": "size"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "string | null"
+              },
+              "default": "null",
+              "description": "The value for the select, to be used in forms.",
+              "fieldName": "value"
             },
             {
               "name": "custom-validity",
@@ -8995,7 +9790,7 @@
               "fieldName": "customValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -9007,7 +9802,7 @@
               "fieldName": "name",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -9019,14 +9814,18 @@
               "fieldName": "showValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
+            },
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -9035,18 +9834,6 @@
           },
           "tagName": "sl-select",
           "customElement": true,
-          "events": [
-            {
-              "type": {
-                "text": "UpdateValidityEvent"
-              },
-              "description": "Emits when the validity of the form control changes.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -9059,7 +9846,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -9082,11 +9869,27 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "button",
+              "type": {
+                "text": "SelectButton"
+              },
+              "description": "The button in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox element."
+            },
             {
               "kind": "field",
               "name": "form",
@@ -9097,7 +9900,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -9110,7 +9913,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -9123,7 +9926,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -9136,7 +9939,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -9149,7 +9952,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ]
@@ -9208,14 +10011,6 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/mixins/index.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
             "package": "./src/css.js"
           }
         },
@@ -9258,13 +10053,19 @@
             "name": "*",
             "package": "./src/types.js"
           }
-        },
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/breakpoints.scss.ts",
+      "declarations": [],
+      "exports": [
         {
           "kind": "js",
-          "name": "*",
+          "name": "default",
           "declaration": {
-            "name": "*",
-            "package": "./src/validators.js"
+            "module": "../packages/components/shared/src/breakpoints.scss.ts"
           }
         }
       ]
@@ -10318,14 +11119,6 @@
           "declaration": {
             "name": "*",
             "package": "./selection.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./validation.js"
           }
         }
       ]
@@ -11556,289 +12349,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/controllers/validation.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "ValidationController",
-          "members": [
-            {
-              "kind": "method",
-              "name": "addValidator",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "validator",
-                  "type": {
-                    "text": "Validator"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "hostConnected",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "hostDisconnected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "hostUpdated",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "removeValidator",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "validator",
-                  "type": {
-                    "text": "Validator"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "setCustomValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "message",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "target",
-              "type": {
-                "text": "ValidationTarget"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "validate",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidationValue"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "validationMessage",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "validity",
-              "type": {
-                "text": "ValidityState"
-              },
-              "readonly": true
-            }
-          ],
-          "methods": [
-            {
-              "kind": "method",
-              "name": "hostConnected",
-              "return": {
-                "type": {
-                  "text": "Promise<void>"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "hostDisconnected",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "hostUpdated",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "addValidator",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "validator",
-                  "type": {
-                    "text": "Validator"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "removeValidator",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "validator",
-                  "type": {
-                    "text": "Validator"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "setCustomValidity",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "message",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "validate",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "ValidationValue"
-                  }
-                }
-              ]
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "target",
-              "type": {
-                "text": "ValidationTarget"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "validationMessage",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "validity",
-              "type": {
-                "text": "ValidityState"
-              },
-              "readonly": true
-            }
-          ]
-        },
-        {
-          "kind": "variable",
-          "name": "validationStyles",
-          "type": {
-            "text": "CSSResultGroup"
-          },
-          "default": "css`\n  slot[part='error']::slotted(*) {\n    color: var(--sl-color-input-helper-text-invalid);\n    display: inline-flex;\n    align-items: center;\n    fill: var(--sl-color-input-helper-icon-invalid);\n  }\n\n  slot[part='error'][error-size='sm']::slotted(*) {\n    font: var(--sl-text-input-helper-text-sm);\n    padding-top: var(--sl-space-input-helper-padding-top-sm);\n    gap: var(--sl-space-input-helper-gap-sm);\n  }\n\n  slot[part='error'][error-size='md']::slotted(*) {\n    font: var(--sl-text-input-helper-text-md);\n    padding-top: var(--sl-space-input-helper-padding-top-md);\n    gap: var(--sl-space-input-helper-gap-md);\n  }\n\n  slot[part='error'][error-size='lg']::slotted(*) {\n    font: var(--sl-text-input-helper-text-lg);\n    padding-top: var(--sl-space-input-helper-padding-top-lg);\n    gap: var(--sl-space-input-helper-gap-lg);\n  }\n`"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "validationStyles",
-          "declaration": {
-            "name": "validationStyles",
-            "module": "../packages/components/shared/src/controllers/validation.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ValidationController",
-          "declaration": {
-            "name": "ValidationController",
-            "module": "../packages/components/shared/src/controllers/validation.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/shared/src/css.ts",
       "declarations": [
         {
@@ -12822,338 +13332,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/mixins/form-control.ts",
-      "declarations": [
-        {
-          "kind": "mixin",
-          "description": "",
-          "name": "FormControlMixin",
-          "members": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native checkValidity function."
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property. Form associated with the element.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property. Labels associated with the element.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "attribute": "name",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native reportValidity function."
-            },
-            {
-              "kind": "field",
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "attribute": "required",
-              "reflects": true
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "File | FormData | string | undefined"
-                  }
-                }
-              ],
-              "description": "Used to set the value of the element."
-            }
-          ],
-          "attributes": [
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the form control is disabled; when set no interaction is possible.",
-              "fieldName": "disabled"
-            },
-            {
-              "name": "name",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The name of the form control.",
-              "fieldName": "name"
-            },
-            {
-              "name": "required",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether this form control is a required field.",
-              "fieldName": "required"
-            }
-          ],
-          "parameters": [
-            {
-              "name": "constructor",
-              "type": {
-                "text": "T"
-              }
-            }
-          ],
-          "methods": [
-            {
-              "kind": "method",
-              "name": "checkValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native checkValidity function."
-            },
-            {
-              "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Native reportValidity function."
-            },
-            {
-              "kind": "method",
-              "name": "setFormValue",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "File | FormData | string | undefined"
-                  }
-                }
-              ],
-              "description": "Used to set the value of the element."
-            }
-          ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "form",
-              "type": {
-                "text": "HTMLFormElement | null"
-              },
-              "description": "Native form property. Form associated with the element.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "labels",
-              "type": {
-                "text": "`NodeListOf<HTMLLabelElement>` | null"
-              },
-              "description": "Native labels property. Labels associated with the element.",
-              "readonly": true
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FormControlMixin",
-          "declaration": {
-            "name": "FormControlMixin",
-            "module": "../packages/components/shared/src/mixins/form-control.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/mixins/hint.ts",
-      "declarations": [
-        {
-          "kind": "mixin",
-          "description": "",
-          "name": "HintMixin",
-          "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "attribute": "disabled"
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "attribute": "hint"
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hint-size"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "fieldName": "hint"
-            },
-            {
-              "name": "hint-size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "fieldName": "disabled"
-            }
-          ],
-          "parameters": [
-            {
-              "name": "constructor",
-              "type": {
-                "text": "T"
-              }
-            }
-          ],
-          "methods": [],
-          "fields": []
-        },
-        {
-          "kind": "variable",
-          "name": "hintStyles",
-          "type": {
-            "text": "CSSResultGroup"
-          },
-          "default": "css`\n  slot[name='hint']::slotted(*) {\n    color: var(--sl-color-input-helper-text-default);\n    display: inline-flex;\n  }\n\n  slot[name='hint'][disabled]::slotted(*) {\n    color: var(--sl-color-input-helper-text-disabled);\n  }\n\n  slot[hintsize='sm']::slotted(*) {\n    font: var(--sl-text-input-helper-text-sm);\n    padding-top: var(--sl-space-input-helper-padding-top-sm);\n  }\n  slot[hintsize='md']::slotted(*) {\n    font: var(--sl-text-input-helper-text-md);\n    padding-top: var(--sl-space-input-helper-padding-top-md);\n  }\n\n  slot[hintsize='lg']::slotted(*) {\n    font: var(--sl-text-input-helper-text-lg);\n    padding-top: var(--sl-space-input-helper-padding-top-lg);\n  }\n`"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "hintStyles",
-          "declaration": {
-            "name": "hintStyles",
-            "module": "../packages/components/shared/src/mixins/hint.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "HintMixin",
-          "declaration": {
-            "name": "HintMixin",
-            "module": "../packages/components/shared/src/mixins/hint.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/mixins/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./form-control.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./hint.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/shared/src/path.ts",
       "declarations": [
         {
@@ -13240,6 +13418,20 @@
           "declaration": {
             "name": "getValueByPath",
             "module": "../packages/components/shared/src/path.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/popover.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/shared/src/popover.scss.ts"
           }
         }
       ]
@@ -13528,94 +13720,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/shared/src/validators.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "maxLengthValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'maxlength',\n  key: 'rangeOverflow',\n  message(instance: { maxLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use no more than ${instance.maxLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { maxLength: number }, value: string): boolean {\n    /** If maxLength isn't set, this is valid */\n    if (!instance.maxLength) {\n      return true;\n    }\n\n    if (!!value && instance.maxLength < value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "minLengthValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'minlength',\n  key: 'rangeUnderflow',\n  message(instance: { minLength: number }, value: ValidationValue): string {\n    const _value = (value as string) || '';\n    return `Please use at least ${instance.minLength} characters (you are currently using ${_value.length} characters).`;\n  },\n  isValid(instance: HTMLElement & { minLength: number }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value) {\n      return true;\n    }\n\n    if (value && instance.minLength > value.length) {\n      return false;\n    }\n\n    return true;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "patternValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'pattern',\n  key: 'patternMismatch',\n  message: 'Please match the requested format',\n  isValid(instance: HTMLElement & { pattern: string }, value: string): boolean {\n    /** If no value is provided, this validator should return true */\n    if (!value || !instance.pattern) {\n      return true;\n    }\n\n    const regExp = new RegExp(instance.pattern);\n    return !!regExp.exec(value);\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "programmaticValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'error',\n  message(instance: HTMLElement & { error: string }): string {\n    return instance.error;\n  },\n  isValid(instance: HTMLElement & { error: string }): boolean {\n    return !instance.error;\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "requiredValidator",
-          "type": {
-            "text": "Validator"
-          },
-          "default": "{\n  attribute: 'required',\n  key: 'valueMissing',\n  message: 'Please fill out this field',\n  isValid(instance: HTMLElement & { required: boolean }, value: ValidationValue): boolean {\n    let valid = true;\n\n    if ((instance.hasAttribute('required') || instance.required) && !value) {\n      valid = false;\n    }\n\n    return valid;\n  }\n}"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "requiredValidator",
-          "declaration": {
-            "name": "requiredValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "programmaticValidator",
-          "declaration": {
-            "name": "programmaticValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "minLengthValidator",
-          "declaration": {
-            "name": "minLengthValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "maxLengthValidator",
-          "declaration": {
-            "name": "maxLengthValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "patternValidator",
-          "declaration": {
-            "name": "patternValidator",
-            "module": "../packages/components/shared/src/validators.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/skeleton/index.ts",
       "declarations": [],
       "exports": [
@@ -13646,6 +13750,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/skeleton/src/skeleton.ts",
       "declarations": [
         {
@@ -13657,11 +13775,22 @@
               "kind": "field",
               "name": "effect",
               "type": {
-                "text": "SkeletonEffect"
+                "text": "'none' | 'shimmer' | 'pulse' | 'sheen'"
               },
               "default": "'shimmer'",
               "description": "Skeleton's effect.",
               "attribute": "effect",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "'circle' | 'default'"
+              },
+              "default": "'default'",
+              "description": "Skeleton's variant.",
+              "attribute": "variant",
               "reflects": true
             }
           ],
@@ -13669,11 +13798,20 @@
             {
               "name": "effect",
               "type": {
-                "text": "SkeletonEffect"
+                "text": "'none' | 'shimmer' | 'pulse' | 'sheen'"
               },
               "default": "'shimmer'",
               "description": "Skeleton's effect.",
               "fieldName": "effect"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "'circle' | 'default'"
+              },
+              "default": "'default'",
+              "description": "Skeleton's variant.",
+              "fieldName": "variant"
             }
           ],
           "superclass": {
@@ -13729,11 +13867,25 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/switch/src/switch.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/switch/src/switch.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/switch/src/switch.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Atoggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
+          "description": "A toggle switch.\n\n```html\n  <sl-switch>Foo</sl-switch>\n```",
           "name": "Switch",
           "slots": [
             {
@@ -13742,14 +13894,6 @@
             }
           ],
           "members": [
-            {
-              "kind": "event",
-              "name": "change",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the checked state changes."
-            },
             {
               "kind": "field",
               "name": "checked",
@@ -13770,7 +13914,7 @@
               "attribute": "custom-validity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -13779,12 +13923,9 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "The hint disabled state.",
+              "description": "Whether the switch is disabled; when set no interaction is possible.",
               "attribute": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
+              "reflects": true
             },
             {
               "kind": "field",
@@ -13796,34 +13937,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "attribute": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "hintSize",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "attribute": "hint-size",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -13833,7 +13947,7 @@
                 "text": "string | undefined"
               },
               "description": "Custom icon in \"off\" state.",
-              "attribute": "iconOff",
+              "attribute": "icon-off",
               "reflects": true
             },
             {
@@ -13843,17 +13957,7 @@
                 "text": "string | undefined"
               },
               "description": "Custom icon in \"on\" state.",
-              "attribute": "iconOn",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "invalid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the switch is invalid.",
-              "attribute": "invalid",
+              "attribute": "icon-on",
               "reflects": true
             },
             {
@@ -13866,7 +13970,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -13880,19 +13984,8 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
-            },
-            {
-              "kind": "field",
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the switch.",
-              "attribute": "orientation",
-              "reflects": true
             },
             {
               "kind": "method",
@@ -13905,8 +13998,18 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
+            },
+            {
+              "kind": "field",
+              "name": "reverse",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the toggle should be shown *after* the text.",
+              "attribute": "reverse",
+              "reflects": true
             },
             {
               "kind": "method",
@@ -13928,7 +14031,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -13942,7 +14045,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -13957,6 +14060,30 @@
               "reflects": true
             },
             {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus."
+            },
+            {
               "kind": "field",
               "name": "valid",
               "type": {
@@ -13966,7 +14093,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -13979,7 +14106,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -13992,27 +14119,44 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the switch, to be used in forms.",
               "attribute": "value"
             }
           ],
           "events": [
             {
-              "name": "change",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
               "type": {
                 "text": "EventEmitter<boolean>"
               },
               "description": "Emits when the checked state changes.",
-              "fieldName": "change"
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus.",
+              "fieldName": "focusEvent"
             },
             {
               "type": {
@@ -14021,7 +14165,7 @@
               "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -14035,15 +14179,15 @@
               "fieldName": "checked"
             },
             {
-              "name": "invalid",
+              "name": "disabled",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the switch is invalid.",
-              "fieldName": "invalid"
+              "description": "Whether the switch is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
             },
             {
-              "name": "iconOff",
+              "name": "icon-off",
               "type": {
                 "text": "string | undefined"
               },
@@ -14051,12 +14195,20 @@
               "fieldName": "iconOff"
             },
             {
-              "name": "iconOn",
+              "name": "icon-on",
               "type": {
                 "text": "string | undefined"
               },
               "description": "Custom icon in \"on\" state.",
               "fieldName": "iconOn"
+            },
+            {
+              "name": "reverse",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the toggle should be shown *after* the text.",
+              "fieldName": "reverse"
             },
             {
               "name": "size",
@@ -14068,19 +14220,11 @@
               "fieldName": "size"
             },
             {
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the switch.",
-              "fieldName": "orientation"
-            },
-            {
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string | null"
               },
+              "default": "null",
               "description": "The value for the switch, to be used in forms.",
               "fieldName": "value"
             },
@@ -14093,7 +14237,7 @@
               "fieldName": "customValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14105,7 +14249,7 @@
               "fieldName": "name",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14117,55 +14261,18 @@
               "fieldName": "showValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
-              }
-            },
-            {
-              "name": "hint",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The hint text.",
-              "fieldName": "hint",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "hint-size",
-              "type": {
-                "text": "'sm' | 'md' | 'lg'"
-              },
-              "default": "'md'",
-              "description": "The hint size.",
-              "fieldName": "hintSize",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
-              }
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "The hint disabled state.",
-              "fieldName": "disabled",
-              "inheritedFrom": {
-                "name": "HintMixin",
-                "module": "../packages/components/shared/src/mixins/hint.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             },
             {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -14186,7 +14293,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14209,7 +14316,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -14224,7 +14331,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14237,7 +14344,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14250,7 +14357,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14263,7 +14370,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14276,7 +14383,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ]
@@ -14351,6 +14458,20 @@
           "declaration": {
             "name": "TabPanel",
             "module": "/packages/components/tabs/src/tab-panel.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab-group.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tabs/src/tab-group.scss.ts"
           }
         }
       ]
@@ -14449,6 +14570,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab-panel.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tabs/src/tab-panel.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/tabs/src/tab-panel.ts",
       "declarations": [
         {
@@ -14471,6 +14606,20 @@
           "declaration": {
             "name": "TabPanel",
             "module": "../packages/components/tabs/src/tab-panel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tabs/src/tab.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tabs/src/tab.scss.ts"
           }
         }
       ]
@@ -14603,6 +14752,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/text-field/src/text-field.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/text-field/src/text-field.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/text-field/src/text-field.ts",
       "declarations": [
         {
@@ -14649,7 +14812,7 @@
               "attribute": "custom-validity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14672,7 +14835,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14693,7 +14856,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14725,7 +14888,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14767,7 +14930,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14800,7 +14963,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14824,7 +14987,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14882,7 +15045,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14895,7 +15058,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14908,7 +15071,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -14954,7 +15117,7 @@
               "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -15067,7 +15230,7 @@
               "fieldName": "customValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15079,7 +15242,7 @@
               "fieldName": "name",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15091,7 +15254,7 @@
               "fieldName": "showValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -15123,7 +15286,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15146,7 +15309,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -15169,7 +15332,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15182,7 +15345,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15195,7 +15358,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15208,7 +15371,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15221,7 +15384,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ]
@@ -15270,6 +15433,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/textarea/src/textarea.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/textarea/src/textarea.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/textarea/src/textarea.ts",
       "declarations": [
         {
@@ -15302,7 +15479,7 @@
               "attribute": "custom-validity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15325,7 +15502,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15338,7 +15515,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15370,7 +15547,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15402,7 +15579,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15454,7 +15631,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15478,7 +15655,7 @@
               "reflects": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15534,7 +15711,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15547,7 +15724,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15560,7 +15737,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15616,7 +15793,7 @@
               "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -15738,7 +15915,7 @@
               "fieldName": "customValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15750,7 +15927,7 @@
               "fieldName": "name",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15762,7 +15939,7 @@
               "fieldName": "showValidity",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -15794,7 +15971,7 @@
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15817,7 +15994,7 @@
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -15840,7 +16017,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15853,7 +16030,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15866,7 +16043,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15879,7 +16056,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             },
             {
@@ -15892,7 +16069,7 @@
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
-                "module": "../packages/components/shared/src/mixins/form-control.ts"
+                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ]
@@ -16080,6 +16257,20 @@
           "declaration": {
             "name": "tooltip",
             "module": "../packages/components/tooltip/src/tooltip-directive.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/tooltip/src/tooltip.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/tooltip/src/tooltip.scss.ts"
           }
         }
       ]

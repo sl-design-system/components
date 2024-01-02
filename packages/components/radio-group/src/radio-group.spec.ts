@@ -206,6 +206,33 @@ describe('sl-radio-group', () => {
       expect(el.valid).to.be.true;
     });
 
+    it('should not have a show-validity attribute when reported', async () => {
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('show-validity');
+    });
+
+    it('should have an invalid show-validity attribute when required and reported', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should emit an update-validity event when reported', async () => {
+      const onUpdateValidity = spy();
+
+      el.addEventListener('sl-update-validity', onUpdateValidity);
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(onUpdateValidity).to.have.been.calledOnce;
+    });
+
     it('should have a validation message when required and no option is selected', async () => {
       el.required = true;
       await el.updateComplete;

@@ -68,8 +68,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** Controller for managing anchoring. */
   // #anchor = new AnchorController(this.listbox as ReactiveController & HTMLElement); // TODO: anchor
 
+  // /** @private */
+  // @query('#more-btn') moreButton!: HTMLButtonElement;
   /** @private */
-  @query('#more-btn') moreButton!: HTMLButtonElement;
+  moreButton!: HTMLButtonElement;
 
   /** The listbox element with all tabs list. */
   @query('[popover]') listbox!: HTMLElement;
@@ -79,14 +81,24 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     return this.querySelector('sl-tab[selected]') || this.querySelector('sl-tab:not([disabled])');
   }
 
+  constructor() {
+    super();
+
+    // if (this.renderRoot.querySelector('#more-btn') as HTMLButtonElement) {
+    this.moreButton = this.renderRoot?.querySelector('#more-btn') as HTMLButtonElement;
+    // }
+    console.log('before connected - constructor', this.#allTabs, this.moreButton, this.listbox, this.renderRoot);
+  }
+
   override render(): TemplateResult {
     // const tabs = Array.from(this.querySelectorAll('sl-tab'));
     // this.#allTabs = tabs;
     // const clonedTabs = this.tabs?.map(tab => tab.cloneNode(true)); // Clones the slotted tabs
     // TODO: no moreButton??
+    this.moreButton = this.renderRoot.querySelector('#more-btn') as HTMLButtonElement;
     const clonedTabs = Array.from(this.querySelectorAll('sl-tab'))?.map(tab => tab.cloneNode(true));
     this.#allTabs = clonedTabs;
-    console.log('before connected - render', this.#allTabs, this.moreButton);
+    console.log('before connected - render', this.#allTabs, this.moreButton, this.listbox, this.renderRoot);
     return html`
       <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
@@ -123,10 +135,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
     this.#updateSlots();
     // this.#allTabs = [...this.#rovingTabindexController.elements];
-    console.log('connected', this.tabs, this.#allTabs, this.moreButton);
+    console.log('connected', this.tabs, this.#allTabs, this.moreButton, this.listbox);
   }
 
   override firstUpdated(): void {
+    // TODO: maybe morebutton here in the first updated and anchor element?
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, TabGroup.#observerOptions);
     // if (this.tabs) {

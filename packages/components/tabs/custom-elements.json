@@ -326,7 +326,8 @@
                 "text": "HTMLButtonElement"
               },
               "description": "Controller for managing anchoring.",
-              "privacy": "private"
+              "privacy": "private",
+              "default": "this.renderRoot?.querySelector('#more-btn')"
             },
             {
               "kind": "field",

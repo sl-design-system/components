@@ -137,7 +137,7 @@
             "foreground": {
               "value": "{color.palette.accent.500}",
               "type": "color",
-              "description": "color.button.default.idle.foreground",
+              "description": "color.button.solid.idle.foreground",
               "failedToResolve": true
             },
             "border": {

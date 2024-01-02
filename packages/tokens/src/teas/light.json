@@ -116,7 +116,7 @@
             "foreground": {
               "value": "{color.palette.accent.500}",
               "type": "color",
-              "description": "color.button.default.idle.foreground"
+              "description": "color.button.solid.idle.foreground"
             },
             "border": {
               "value": "{color.palette.neutral.100}",

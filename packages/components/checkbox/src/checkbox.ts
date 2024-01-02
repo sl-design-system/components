@@ -101,9 +101,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('checked') || changes.has('required') || changes.has('value')) {
-      this.internals.setFormValue(this.checked ? this.value : null);
-      this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box'));
-      this.updateValidity();
+      this.#updateValueAndValidity();
     }
   }
 
@@ -166,5 +164,12 @@ export class Checkbox extends FormControlMixin(LitElement) {
       .every(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim() === '');
 
     this.toggleAttribute('no-label', empty);
+  }
+
+  #updateValueAndValidity(): void {
+    this.internals.setFormValue(this.checked ? this.value : null);
+    this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box.'));
+
+    this.updateValidity();
   }
 }

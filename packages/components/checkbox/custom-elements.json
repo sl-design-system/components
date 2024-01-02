@@ -515,6 +515,15 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#updateValueAndValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [

@@ -325,7 +325,7 @@ describe('sl-radio-group', () => {
 
       expect(el.value).to.equal('1');
 
-      el.formResetCallback();
+      form.reset();
 
       expect(el.value).to.be.null;
     });
@@ -334,7 +334,7 @@ describe('sl-radio-group', () => {
       const radio = el.querySelector('sl-radio');
 
       radio?.click();
-      el.formResetCallback();
+      form.reset();
 
       expect(radio).not.to.have.attribute('checked');
     });
@@ -346,7 +346,7 @@ describe('sl-radio-group', () => {
       await new Promise(resolve => setTimeout(resolve));
 
       el.addEventListener('sl-change', onChange);
-      el.formResetCallback();
+      form.reset();
 
       expect(onChange).to.have.been.calledOnce;
     });

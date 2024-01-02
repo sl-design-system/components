@@ -443,7 +443,7 @@
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new ResizeObserver(() => this.#setSize())",
+              "default": "new ResizeObserver(() => {\n    // Workaround for \"ResizeObserver loop completed with undelivered notifications.\"\n    requestAnimationFrame(() => this.#setSize());\n  })",
               "description": "Observe the textarea width."
             },
             {

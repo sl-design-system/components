@@ -139,6 +139,13 @@ export const Required: Story = {
   }
 };
 
+export const Resize: Story = {
+  args: {
+    hint: 'This field will resize automatically as you type.',
+    resize: 'auto'
+  }
+};
+
 export const Valid: Story = {
   args: {
     hint: 'After clicking the button, this field will show it is valid.',

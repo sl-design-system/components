@@ -37,7 +37,10 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   static override styles: CSSResultGroup = styles;
 
   /** Observe the textarea width. */
-  #observer = new ResizeObserver(() => this.#setSize());
+  #observer = new ResizeObserver(() => {
+    // Workaround for "ResizeObserver loop completed with undelivered notifications."
+    requestAnimationFrame(() => this.#setSize());
+  });
 
   /** @private Hides the external validity icon. */
   override showExternalValidityIcon = false;

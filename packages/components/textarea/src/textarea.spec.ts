@@ -163,8 +163,7 @@ describe('sl-textarea', () => {
       expect(el.resize).to.equal('vertical');
     });
 
-    // FIXME: this causes a ResizeObserver loop error
-    it.skip('should resize automatically when set', async () => {
+    it('should resize automatically when set', async () => {
       el.resize = 'auto';
       await el.updateComplete;
 

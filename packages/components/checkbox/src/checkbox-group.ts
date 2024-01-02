@@ -47,10 +47,7 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   /** The size of the checkboxes in the group. */
   @property() size?: CheckboxSize;
 
-  /**
-   * The value for the checkbox group, for internal use.
-   * @private
-   */
+  /** @private The value for the checkbox group, for internal use. */
   @state() value?: boolean[];
 
   override connectedCallback(): void {
@@ -106,7 +103,7 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
+    return html`<slot @slotchange=${this.#onSlotchange} @sl-validate=${this.#onValidate}></slot>`;
   }
 
   override reportValidity(): boolean {
@@ -137,5 +134,11 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
         box.size = this.size;
       }
     });
+  }
+
+  #onValidate(event: Event): void {
+    // Stop the validate events from the checkboxes in the group from bubbling up any further
+    event.preventDefault();
+    event.stopPropagation();
   }
 }

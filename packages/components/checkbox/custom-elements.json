@@ -175,6 +175,23 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#onValidate",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
             }
           ],
           "fields": [
@@ -229,7 +246,6 @@
               "type": {
                 "text": "boolean[] | undefined"
               },
-              "description": "The value for the checkbox group, for internal use.",
               "privacy": "private"
             }
           ]

@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import { Checkbox } from './checkbox.js';
 import '../register.js';
-import { spy } from 'sinon';
 
 describe('sl-checkbox', () => {
   let el: Checkbox;
@@ -218,6 +218,7 @@ describe('sl-checkbox', () => {
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
+      expect(el.validity.valueMissing).to.be.true;
     });
 
     it('should have no validation message when valid', () => {

@@ -172,13 +172,11 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      textareas = elements.filter(
-        (el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement && el !== this.textarea
-      );
+      textarea = elements.find((el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement);
 
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
-    if (textareas.length) {
-      this.textarea = textareas[0];
+    if (textarea) {
+      this.textarea = textarea;
       this.textarea.addEventListener('blur', () => this.blurEvent.emit());
       this.textarea.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncTextarea(this.textarea);

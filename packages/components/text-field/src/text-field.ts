@@ -99,9 +99,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
-      this.input.addEventListener('blur', () => this.blurEvent.emit());
-      this.input.addEventListener('focus', () => this.focusEvent.emit());
-      this.input.slot ||= 'input';
+      this.input.slot = 'input';
       this.#syncInput(this.input);
 
       if (!this.input.parentElement) {
@@ -166,11 +164,11 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
+      input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
-    if (inputs.length) {
-      this.input = inputs[0];
+    if (input) {
+      this.input = input;
       this.input.addEventListener('blur', () => this.blurEvent.emit());
       this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncInput(this.input);

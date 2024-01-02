@@ -3,13 +3,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import '../register.js';
 import { Textarea } from './textarea.js';
+import { spy } from 'sinon';
 
 describe('sl-textarea', () => {
-  let el: Textarea;
+  let el: Textarea, textarea: HTMLTextAreaElement;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-textarea></sl-textarea>`);
+      textarea = el.querySelector('textarea')!;
     });
 
     it('should render correctly', () => {
@@ -52,7 +54,7 @@ describe('sl-textarea', () => {
       expect(el.querySelector('textarea')?.required).to.be.true;
     });
 
-    it('should be blank', () => {
+    it('should not have a value', () => {
       expect(el.value).to.be.null;
       expect(el.querySelector('textarea')?.value).to.equal('');
     });
@@ -168,6 +170,60 @@ describe('sl-textarea', () => {
 
       expect(el).to.have.attribute('resize', 'auto');
     });
+
+    it('should focus the input when focusing the element', () => {
+      el.focus();
+
+      expect(document.activeElement).to.equal(textarea);
+    });
+
+    it('should emit an sl-focus event when focusing the input', () => {
+      const onFocus = spy();
+
+      el.addEventListener('sl-focus', onFocus);
+      textarea.focus();
+
+      expect(onFocus).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-blur event when blurring the input', async () => {
+      const onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+      textarea.focus();
+      await sendKeys({ press: 'Tab' });
+
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when typing in the input', async () => {
+      const onInput = spy();
+
+      el.addEventListener('sl-change', onInput);
+      textarea.focus();
+      await sendKeys({ type: 'Lorem' });
+
+      expect(onInput.callCount).to.equal(5);
+    });
+
+    it('should emit an sl-validate event when calling reportValidity', () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.reportValidity();
+
+      expect(onValidate).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when typing text', async () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.focus();
+      await sendKeys({ type: 'Lorem' });
+
+      expect(onValidate).to.have.been.callCount(5);
+    });
   });
 
   describe('required', () => {
@@ -181,6 +237,38 @@ describe('sl-textarea', () => {
 
     it('should have a validation message', () => {
       expect(el.validationMessage).to.equal('Please fill out this field.');
+    });
+
+    it('should have a custom validation message after calling setCustomValidity', async () => {
+      el.setCustomValidity('Custom validation message');
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a custom validation message if calling setCustomValidity in the sl-validate handler', async () => {
+      el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
+
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a show-validity attribute when reported', async () => {
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should emit an update-validity event when reported', async () => {
+      const onUpdateValidity = spy();
+
+      el.addEventListener('sl-update-validity', onUpdateValidity);
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(onUpdateValidity).to.have.been.calledOnce;
     });
 
     it('should have an invalid icon after reporting', async () => {

@@ -3986,7 +3986,7 @@
       }
     },
     "tab": {
-      "active": {
+      "default": {
         "background": {
           "value": "{body.background}",
           "type": "color"

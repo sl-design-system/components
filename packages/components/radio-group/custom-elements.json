@@ -95,6 +95,15 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "attribute": "show-valid"
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "RadioButtonSize | undefined"
@@ -187,6 +196,14 @@
               },
               "description": "Whether the user is required to select an option in the group.",
               "fieldName": "required"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "fieldName": "showValid"
             },
             {
               "name": "size",
@@ -358,6 +375,16 @@
             },
             {
               "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Indicates if the radio button shows it is (in)valid.",
+              "attribute": "show-validity",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "RadioButtonSize"
@@ -394,6 +421,14 @@
               },
               "description": "Whether this radio button is disabled.",
               "fieldName": "disabled"
+            },
+            {
+              "name": "show-validity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Indicates if the radio button shows it is (in)valid.",
+              "fieldName": "showValidity"
             },
             {
               "name": "size",

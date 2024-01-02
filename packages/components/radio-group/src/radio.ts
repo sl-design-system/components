@@ -1,4 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { FormControlShowValidity } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -21,6 +22,9 @@ export class Radio extends LitElement {
 
   /** Whether this radio button is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** Indicates if the radio button shows it is (in)valid. */
+  @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
   /** The size of the radio button. */
   @property({ reflect: true }) size: RadioButtonSize = 'md';

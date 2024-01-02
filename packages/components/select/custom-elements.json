@@ -424,7 +424,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Indicates whether the control should indicate it is valid.",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
               "attribute": "show-valid"
             },
             {
@@ -529,7 +529,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Indicates whether the control should indicate it is valid.",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
               "fieldName": "showValid"
             },
             {

@@ -22,6 +22,14 @@ export class Spinner extends LitElement {
   @property({ reflect: true }) size: SpinnerSize = 'md';
   @property({ reflect: true }) variant: SpinnerVariant = 'default';
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'alert');
+    }
+  }
+
   override render(): TemplateResult | typeof nothing {
     return html`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48 48">
       <path

@@ -1988,5 +1988,13 @@
         "type": "textCase"
       }
     }
+  },
+  "opacity": {
+    "spinner": {
+      "shadow": {
+        "value": "{opacity.600}",
+        "type": "opacity"
+      }
+    }
   }
 }

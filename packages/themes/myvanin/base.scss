@@ -412,6 +412,14 @@
   --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
+  --sl-size-spinner-4xl: var(--sl-size-4xl);
+  --sl-size-spinner-3xl: var(--sl-size-3xl);
+  --sl-size-spinner-2xl: var(--sl-size-2xl);
+  --sl-size-spinner-xl: var(--sl-size-xl);
+  --sl-size-spinner-lg: var(--sl-size-lg);
+  --sl-size-spinner-md: var(--sl-size-md);
+  --sl-size-spinner-sm: var(--sl-size-sm);
+  --sl-size-spinner-xs: var(--sl-size-xs);
   --sl-size-skeleton-min-height: var(--sl-size-2xs);
   --sl-size-avatar-2xl: var(--sl-size-4xl);
   --sl-size-avatar-md: var(--sl-size-2xl);

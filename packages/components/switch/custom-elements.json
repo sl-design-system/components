@@ -233,6 +233,10 @@
             {
               "name": "FormControlMixin",
               "package": "@sl-design-system/form"
+            },
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -305,6 +309,16 @@
               "static": true,
               "default": "true",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
             },
             {
               "kind": "field",

@@ -1,6 +1,9 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { FormControlMixin } from '@sl-design-system/form';
+import { Icon } from '@sl-design-system/icon';
 import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -17,9 +20,16 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
-export class Switch extends FormControlMixin(LitElement) {
+export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
+
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-icon': Icon
+    };
+  }
 
   /** @private */
   static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };

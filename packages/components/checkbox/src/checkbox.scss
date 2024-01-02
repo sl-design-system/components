@@ -1,5 +1,5 @@
 $variants: default, valid, invalid;
-$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 $states: unchecked, checked;
 $state-selectors: '', ':where([checked], [indeterminate])';
 $sizes: md, lg;
@@ -81,6 +81,7 @@ $sizes: md, lg;
 
 :host {
   align-items: start;
+  align-self: start;
   color: var(--_label-color);
   cursor: var(--_cursor);
   display: flex;

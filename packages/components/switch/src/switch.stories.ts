@@ -82,17 +82,6 @@ export const CustomIcons: Story = {
 
 export const All: StoryObj = {
   render: () => {
-    const sizeName = (size: SwitchSize): string => {
-      switch (size) {
-        case 'sm':
-          return 'Small';
-        case 'md':
-          return 'Medium';
-        case 'lg':
-          return 'Large';
-      }
-    };
-
     return html`
       <style>
         table {
@@ -113,7 +102,7 @@ export const All: StoryObj = {
           ${sizes.map(
             size => html`
               <tr>
-                <td colspan="2">${sizeName(size)}</td>
+                <td colspan="2">${size}</td>
               </tr>
               <tr>
                 <td>

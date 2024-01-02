@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/radio-group"
+    "directory": "packages/components/radio-group"
   },
   "homepage": "https://sanomalearning.design/components/radio-group",
   "bugs": {
@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@lit/localize": "^0.12.1",
     "@sl-design-system/form": "0.0.2",
-    "@sl-design-system/shared": "0.2.0",
-    "lit": "^3.1.0"
+    "@sl-design-system/shared": "0.2.0"
   }
 }

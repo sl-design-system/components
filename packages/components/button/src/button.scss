@@ -24,14 +24,14 @@ $variants: default, primary, success, warning, danger;
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-idle);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):hover) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:not([disabled]):hover) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-hover-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-hover-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-hover-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-hover);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):active),
+    :host([fill='#{$fill}'][variant='#{$variant}']:not([disabled]):active),
     :host([fill='#{$fill}'][variant='#{$variant}'][popover-opened]) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-active-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-active-border);
@@ -39,14 +39,14 @@ $variants: default, primary, success, warning, danger;
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-active);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:where(:disabled, [internals-disabled])) {
+    :host([fill='#{$fill}'][variant='#{$variant}'][disabled]) {
       --_background: var(--sl-color-button-#{$variant}-#{$fill}-disabled-background);
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-border);
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
     }
 
-    :host([fill='#{$fill}'][variant='#{$variant}']:not(:disabled, [internals-disabled]):focus-visible) {
+    :host([fill='#{$fill}'][variant='#{$variant}']:not([disabled]):focus-visible) {
       --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
     }
@@ -60,8 +60,22 @@ $variants: default, primary, success, warning, danger;
     --_font: var(--sl-text-button-text-#{$size});
     --_label-gap: var(--sl-space-button-gap-#{$size});
   }
-  :host([size='#{$size}'][fill='link']) {
-    --_font: var(--sl-text-button-link-#{$size});
+
+  :host([size='#{$size}'][fill='link']:not([popover-opened])) {
+    --_font: var(--sl-text-button-link-idle-#{$size});
+  }
+
+  :host([size='#{$size}'][fill='link']:not([disabled]):hover) {
+    --_font: var(--sl-text-button-link-hover-#{$size});
+  }
+
+  :host([size='#{$size}'][fill='link']:not([disabled]):active),
+  :host([size='#{$size}'][fill='link'][popover-opened]) {
+    --_font: var(--sl-text-button-link-active-#{$size});
+  }
+
+  :host([size='#{$size}'][fill='link'][disabled]) {
+    --_font: var(--sl-text-button-link-disabled-#{$size});
   }
 
   :host([size='#{$size}'][icon-only]) {
@@ -100,7 +114,6 @@ $variants: default, primary, success, warning, danger;
   vertical-align: top;
 }
 
-:host(:focus),
 :host(:focus-visible) {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
@@ -112,12 +125,13 @@ $variants: default, primary, success, warning, danger;
   transition-timing-function: var(--_transition-easing);
 }
 
-:host(:where(:disabled, [internals-disabled])) {
+:host([disabled]) {
   cursor: default;
   pointer-events: none;
 }
 
-:host([fill='link']) {
+:host([fill='link']:not([disabled]):hover),
+:host([fill='link']:not([disabled]):active) {
   text-decoration: underline;
 }
 

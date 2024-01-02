@@ -79,8 +79,8 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Whether the text field is a required field. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
-  /** Indicates whether the control should indicate it is valid. */
-  @property({ type: Boolean, attribute: 'show-valid', reflect: true }) showValid?: boolean;
+  /** When set will cause the control to show it is valid after reportValidity is called. */
+  @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /** The size of the input. */
   @property({ reflect: true }) size: TextFieldSize = 'md';
@@ -144,7 +144,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
         ${this.showValidity === 'invalid'
           ? html`<sl-icon .size=${this.size} class="invalid-icon" name="triangle-exclamation-solid"></sl-icon>`
           : nothing}
-        ${this.showValidity === 'valid' && this.showValid
+        ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}
       </slot>

@@ -83,9 +83,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // const tabs = Array.from(this.querySelectorAll('sl-tab'));
     // this.#allTabs = tabs;
     // const clonedTabs = this.tabs?.map(tab => tab.cloneNode(true)); // Clones the slotted tabs
+    // TODO: no moreButton??
     const clonedTabs = Array.from(this.querySelectorAll('sl-tab'))?.map(tab => tab.cloneNode(true));
     this.#allTabs = clonedTabs;
-    console.log('before connected - render', this.#allTabs);
+    console.log('before connected - render', this.#allTabs, this.moreButton);
     return html`
       <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
@@ -108,20 +109,21 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           role="listbox"
           @click=${this.#handleTabChange}
         >
-          ${this.#allTabs} ${(this.#allTabs as Tab[]).map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)}
-          Render all tabs here and set as selected the exact one ${this.tabs?.length}
+          ${this.#allTabs}
         </div>
         <slot name="all-tabs" open></slot>
       </div>
       <slot></slot>
     `;
   } // TODO: aria-label=${msg('Close')} -> msg 'open' or 'more'
+  // ${(this.#allTabs as Tab[]).map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)}
+  // Render all tabs here and set as selected the exact one ${this.tabs?.length}
 
   override connectedCallback(): void {
     super.connectedCallback();
     this.#updateSlots();
     // this.#allTabs = [...this.#rovingTabindexController.elements];
-    console.log('connected', this.tabs, this.#allTabs);
+    console.log('connected', this.tabs, this.#allTabs, this.moreButton);
   }
 
   override firstUpdated(): void {

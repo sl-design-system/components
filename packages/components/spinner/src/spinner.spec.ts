@@ -14,8 +14,8 @@ describe('sl-spinner', () => {
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('should have size medium and variant default by default', () => {
+  it('should have size medium and no variant by default', () => {
     expect(el).to.have.attribute('size','md');
-    expect(el).to.have.attribute('variant','default');
+    expect(el).not.to.have.attribute('variant');
   });
 });

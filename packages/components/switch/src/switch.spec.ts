@@ -4,6 +4,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import '../register.js';
 import { Switch } from './switch.js';
+import { spy } from 'sinon';
 
 describe('sl-switch', () => {
   let el: Switch;
@@ -73,6 +74,86 @@ describe('sl-switch', () => {
       await el.updateComplete;
 
       expect(icon?.size).to.equal('md');
+    });
+
+    it('should emit an sl-change event when clicking an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.click();
+      await el.updateComplete;
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when pressing the space key on an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.focus();
+      await sendKeys({ press: 'Space' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when pressing the enter key on an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-focus event when focusing the group', async () => {
+      const onFocus = spy();
+
+      el.addEventListener('sl-focus', onFocus);
+      el.focus();
+      await el.updateComplete;
+
+      expect(onFocus).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-blur event when blurring the group', () => {
+      const onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+      el.focus();
+      el.blur();
+
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when calling reportValidity', () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.reportValidity();
+
+      expect(onValidate).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when selecting an option', async () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.click();
+      await el.updateComplete;
+
+      expect(onValidate).to.have.been.calledOnce;
+    });
+
+    it('should have a blank validation message', () => {
+      expect(el.validationMessage).to.equal('');
+    });
+
+    it('should have a validation message after custom validation', async () => {
+      el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
+      el.click();
+
+      expect(el.validationMessage).to.equal('Custom validation message');
     });
 
     it('should toggle the state when clicked', async () => {
@@ -166,7 +247,7 @@ describe('sl-switch', () => {
     });
   });
 
-  describe('form integration', () => {
+  describe('form reset', () => {
     let form: HTMLFormElement;
 
     describe('unchecked', () => {
@@ -180,14 +261,26 @@ describe('sl-switch', () => {
         el = form.firstElementChild as Switch;
       });
 
-      it('should revert back to the correct initial state (off) when the form is reset', () => {
+      it('should revert back to the initial state', () => {
         el.click();
 
         expect(el.checked).to.equal(true);
 
-        el.formResetCallback();
+        form.reset();
 
         expect(el.checked).to.equal(false);
+      });
+
+      it('should emit an sl-change event', async () => {
+        const onChange = spy();
+
+        el.click();
+        await el.updateComplete;
+
+        el.addEventListener('sl-change', onChange);
+        form.reset();
+
+        expect(onChange).to.have.been.calledOnce;
       });
     });
 
@@ -202,14 +295,26 @@ describe('sl-switch', () => {
         el = form.firstElementChild as Switch;
       });
 
-      it('should revert back to the correct initial state (on) when the form is reset', () => {
+      it('should revert back to the initial states', () => {
         el.click();
 
         expect(el.checked).to.equal(false);
 
-        el.formResetCallback();
+        form.reset();
 
         expect(el.checked).to.equal(true);
+      });
+
+      it('should emit an sl-change event', async () => {
+        const onChange = spy();
+
+        el.click();
+        await el.updateComplete;
+
+        el.addEventListener('sl-change', onChange);
+        form.reset();
+
+        expect(onChange).to.have.been.calledOnce;
       });
     });
   });

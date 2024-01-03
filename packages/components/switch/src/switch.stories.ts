@@ -1,6 +1,7 @@
 import type { Switch, SwitchSize } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/form/register.js';
 import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
@@ -77,6 +78,32 @@ export const CustomIcons: Story = {
     return html`${sizes.map(
       size => html`<sl-switch .size=${size} icon-off="far-turtle" icon-on="far-rabbit-running"></sl-switch>`
     )}`;
+  }
+};
+
+export const CustomValidity: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    const onValidate = (event: Event & { target: Switch }): void => {
+      event.target.setCustomValidity(event.target.checked ? '' : 'Toggle the switch.');
+    };
+
+    return html`
+      <sl-form>
+        <sl-form-field
+          hint="This story has custom validation. If you do not toggle the switch, you will see a validation message. NOTE: This is a technical story; this is NOT meant as a functional example. The switch component should never be used in this way."
+          label="Do not do this in real code!"
+        >
+          <sl-switch @sl-validate=${onValidate} reverse>You must toggle me</sl-switch>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
   }
 };
 

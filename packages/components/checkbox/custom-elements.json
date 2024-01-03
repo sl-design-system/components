@@ -100,6 +100,14 @@
               },
               "description": "The size of the checkboxes in the group.",
               "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "boolean[] | undefined"
+              },
+              "description": "The readonly checked state for the checkbox group."
             }
           ],
           "attributes": [
@@ -175,6 +183,32 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#onValidate",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [
@@ -229,8 +263,7 @@
               "type": {
                 "text": "boolean[] | undefined"
               },
-              "description": "The value for the checkbox group, for internal use.",
-              "privacy": "private"
+              "description": "The readonly checked state for the checkbox group."
             }
           ]
         }
@@ -510,6 +543,15 @@
             {
               "kind": "method",
               "name": "#updateNoLabel",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#updateValueAndValidity",
               "return": {
                 "type": {
                   "text": "void"

@@ -3,6 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { CheckboxGroup } from './checkbox-group.js';
 import '../register.js';
+import { spy } from 'sinon';
 
 describe('sl-checkbox-group', () => {
   let el: CheckboxGroup;
@@ -64,6 +65,89 @@ describe('sl-checkbox-group', () => {
 
     expect(el.valid).to.equal(true);
     expect(el.validity.valueMissing).to.equal(false);
+  });
+
+  it('should not have a show-validity attribute when reported', async () => {
+    el.reportValidity();
+    await el.updateComplete;
+
+    expect(el).not.to.have.attribute('show-validity');
+  });
+
+  it('should have an invalid show-validity attribute when required and reported', async () => {
+    el.required = true;
+    await el.updateComplete;
+
+    el.reportValidity();
+    await el.updateComplete;
+
+    expect(el).to.have.attribute('show-validity', 'invalid');
+  });
+
+  it('should emit an sl-update-validity event when calling reportValidity', async () => {
+    const onUpdateValidity = spy();
+
+    el.addEventListener('sl-update-validity', onUpdateValidity);
+    el.reportValidity();
+    await el.updateComplete;
+
+    expect(onUpdateValidity).to.have.been.callCount(4);
+  });
+
+  it('should emit an sl-validate event when calling reportValidity', () => {
+    const onValidate = spy();
+
+    el.addEventListener('sl-validate', onValidate);
+    el.reportValidity();
+
+    expect(onValidate).to.have.been.calledOnce;
+  });
+
+  it('should emit an sl-validate event when selecting an option', async () => {
+    const onValidate = spy();
+
+    el.addEventListener('sl-validate', onValidate);
+    el.querySelector('sl-checkbox')?.click();
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(onValidate).to.have.been.calledOnce;
+  });
+
+it('should not have a validation message', () => {
+    expect(el.validationMessage).to.equal('');
+  });
+
+  it('should have a validation message when required and no option is checked', async () => {
+    el.required = true;
+    await el.updateComplete;
+
+    expect(el.validationMessage).to.equal('Please check at least one option.');
+  });
+
+  it('should have a custom validation message when it has a custom-validity attribute', async () => {
+    el.setAttribute('custom-validity', 'Custom validation message');
+    await el.updateComplete;
+
+    expect(el.validationMessage).to.equal('Custom validation message');
+  });
+
+  it('should have a custom validation message after calling setCustomValidity', async () => {
+    el.setCustomValidity('Custom validation message');
+    await el.updateComplete;
+
+    expect(el.validationMessage).to.equal('Custom validation message');
+  });
+
+  it('should have a custom validation message when calling setCustomValidity on validate', async () => {
+    el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
+
+    el.required = true;
+    await el.updateComplete;
+
+    el.querySelector('sl-checkbox')?.click();
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(el.validationMessage).to.equal('Custom validation message');
   });
 
   it('should propagate the group size to the checkboxes', async () => {

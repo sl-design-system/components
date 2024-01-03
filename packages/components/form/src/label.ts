@@ -1,12 +1,13 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { FormControl } from './form-control-mixin.js';
-import { msg } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { property, state } from 'lit/decorators.js';
 import { LitElement, html, nothing } from 'lit';
 import styles from './label.scss.js';
 
 export type LabelSize = 'sm' | 'md' | 'lg';
 
+@localized()
 export class Label extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;

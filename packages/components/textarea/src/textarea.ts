@@ -1,5 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { localized } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
@@ -22,6 +23,7 @@ let nextUniqueId = 0;
  *
  * @slot textarea - The slot for the textarea element
  */
+@localized()
 export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {

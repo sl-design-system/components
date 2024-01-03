@@ -367,9 +367,9 @@
               },
               "parameters": [
                 {
-                  "name": "host",
+                  "name": "window",
                   "type": {
-                    "text": "Node"
+                    "text": "Window"
                   }
                 },
                 {
@@ -381,7 +381,7 @@
                 {
                   "name": "listener",
                   "type": {
-                    "text": "(this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => void"
+                    "text": "(this: Window, ev: WindowEventMap[K]) => any"
                   }
                 },
                 {
@@ -403,9 +403,153 @@
               },
               "parameters": [
                 {
-                  "name": "host",
+                  "name": "document",
                   "type": {
-                    "text": "EventTarget"
+                    "text": "Document"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: Document, ev: DocumentEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: HTMLElement, ev: HTMLElementEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "ShadowRoot"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: ShadowRoot, ev: ShadowRootEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "MediaQueryList"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: ShadowRoot, ev: MediaQueryListEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Window | Document | HTMLElement | ShadowRoot | MediaQueryList"
                   }
                 },
                 {
@@ -459,9 +603,9 @@
               },
               "parameters": [
                 {
-                  "name": "host",
+                  "name": "window",
                   "type": {
-                    "text": "Node"
+                    "text": "Window"
                   }
                 },
                 {
@@ -473,7 +617,7 @@
                 {
                   "name": "listener",
                   "type": {
-                    "text": "(this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => void"
+                    "text": "(this: Window, ev: WindowEventMap[K]) => any"
                   }
                 },
                 {
@@ -495,9 +639,153 @@
               },
               "parameters": [
                 {
-                  "name": "host",
+                  "name": "document",
                   "type": {
-                    "text": "EventTarget"
+                    "text": "Document"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: Document, ev: DocumentEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: HTMLElement, ev: HTMLElementEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "ShadowRoot"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: ShadowRoot, ev: ShadowRootEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "MediaQueryList"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: ShadowRoot, ev: MediaQueryListEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Window | Document | HTMLElement | ShadowRoot | MediaQueryList"
                   }
                 },
                 {

@@ -121,7 +121,7 @@ it('should not have a validation message', () => {
     el.required = true;
     await el.updateComplete;
 
-    expect(el.validationMessage).to.equal('At least one option must be checked.');
+    expect(el.validationMessage).to.equal('Please check at least one option.');
   });
 
   it('should have a custom validation message when it has a custom-validity attribute', async () => {

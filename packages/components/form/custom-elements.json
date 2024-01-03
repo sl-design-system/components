@@ -259,6 +259,16 @@
               "readonly": true
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control."
+            },
+            {
               "kind": "field",
               "name": "labels",
               "type": {
@@ -340,7 +350,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true
             },
             {
@@ -404,6 +414,16 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user."
+            },
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control."
             },
             {
               "kind": "method",
@@ -482,7 +502,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true
             },
             {

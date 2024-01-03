@@ -35,6 +35,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** Whether a custom error has been slotted. */
+  #customError?: boolean;
+
   /** The error element. */
   #error?: Error;
 
@@ -69,6 +72,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.formFieldEvent.emit(new FormFieldEvent('add'));
+
+    this.#customError = !!this.querySelector('sl-error');
   }
 
   override disconnectedCallback(): void {
@@ -80,19 +85,21 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('error')) {
-      if (this.error) {
-        this.#error ??= this.shadowRoot?.createElement('sl-error') as Error;
-        this.#error.innerText = this.error;
-        this.#error.noIcon = !this.formControl?.showExternalValidityIcon;
+    if (!this.#customError) {
+      if (changes.has('error')) {
+        if (this.error) {
+          this.#error ??= this.shadowRoot?.createElement('sl-error') as Error;
+          this.#error.innerText = this.error;
+          this.#error.noIcon = !this.formControl?.showExternalValidityIcon;
 
-        if (!this.#error.parentElement) {
-          this.append(this.#error);
+          if (!this.#error.parentElement) {
+            this.append(this.#error);
+          }
+        } else {
+          this.#error?.remove();
+          this.#error = undefined;
+          this.formControl?.formControlElement.removeAttribute('aria-describedby');
         }
-      } else {
-        this.#error?.remove();
-        this.#error = undefined;
-        this.formControl?.formControlElement.removeAttribute('aria-describedby');
       }
     }
 
@@ -136,7 +143,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
           .noIcon=${!this.formControl?.showExternalValidityIcon}
           name="error"
         ></slot>
-        ${this.#error ? nothing : html`<slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>`}
+        ${this.#customError || this.#error
+          ? nothing
+          : html`<slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>`}
       </div>
     `;
   }
@@ -145,7 +154,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     const assignedElements = event.target.assignedElements({ flatten: true }),
       error = assignedElements.find((el): el is Error => el instanceof Error);
 
-    if (error) {
+    if (error && !this.error) {
+      this.#customError = true;
+    } else if (error) {
       this.#error = error;
       this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
       this.#error.noIcon = !this.formControl?.showExternalValidityIcon;

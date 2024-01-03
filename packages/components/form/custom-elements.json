@@ -757,6 +757,15 @@
             },
             {
               "kind": "field",
+              "name": "#customError",
+              "privacy": "private",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether a custom error has been slotted."
+            },
+            {
+              "kind": "field",
               "name": "#error",
               "privacy": "private",
               "type": {

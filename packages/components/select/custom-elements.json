@@ -711,6 +711,15 @@
                   "default": "true"
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateValueAndValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [
@@ -760,13 +769,6 @@
               },
               "default": "null",
               "description": "The initial state when the form was associated with the select. Used to reset the select."
-            },
-            {
-              "kind": "field",
-              "name": "#observer",
-              "privacy": "private",
-              "default": "new MutationObserver(mutations => {\n    const { target } = mutations.find(m => m.attributeName === 'selected' && m.oldValue === null) || {};\n\n    this.#observer.disconnect();\n    this.#setSelectedOption(target as SelectOption);\n    this.#observer.observe(this, OBSERVER_OPTIONS);\n  })",
-              "description": "If an option is selected programmatically, update the state."
             },
             {
               "kind": "field",

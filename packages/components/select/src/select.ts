@@ -12,12 +12,6 @@ import { SelectOptionGroup } from './select-option-group.js';
 import styles from './select.scss.js';
 import { SelectButton } from './select-button.js';
 
-const OBSERVER_OPTIONS: MutationObserverInit = {
-  attributeFilter: ['selected'],
-  attributeOldValue: true,
-  subtree: true
-};
-
 export type SelectSize = 'md' | 'lg';
 
 @localized()
@@ -46,15 +40,6 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
   /** The initial state when the form was associated with the select. Used to reset the select. */
   #initialState: string | null = null;
-
-  /** If an option is selected programmatically, update the state. */
-  #observer = new MutationObserver(mutations => {
-    const { target } = mutations.find(m => m.attributeName === 'selected' && m.oldValue === null) || {};
-
-    this.#observer.disconnect();
-    this.#setSelectedOption(target as SelectOption);
-    this.#observer.observe(this, OBSERVER_OPTIONS);
-  });
 
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
@@ -142,19 +127,11 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.append(style);
     }
 
-    this.#observer.observe(this, OBSERVER_OPTIONS);
-
     this.setFormControlElement(this);
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = this.disabled ? -1 : 0;
     }
-  }
-
-  override disconnectedCallback(): void {
-    this.#observer.disconnect();
-
-    super.disconnectedCallback();
   }
 
   /** @ignore Stores the initial state of the select */
@@ -193,6 +170,8 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
     if (changes.has('required')) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
+
+      this.#updateValueAndValidity();
     }
 
     if (changes.has('showValidity')) {
@@ -205,13 +184,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
       this.optionGroups?.forEach(group => (group.size = this.size));
     }
 
-    if (changes.has('required') || changes.has('value')) {
-      this.#setSelectedOption(
-        this.options.find(option => option.value === this.value),
-        false
-      );
-
-      this.internals.setFormValue(this.value);
+    if (changes.has('value')) {
+      this.options.forEach(option => (option.selected = option.value === this.value));
+      this.button.selected = this.options.find(option => option.selected);
     }
   }
 
@@ -359,14 +334,19 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     this.button.selected = this.selectedOption;
     this.value = this.selectedOption?.value ?? null;
 
+    if (emitEvent) {
+      this.changeEvent.emit(this.value);
+    }
+
+    this.#updateValueAndValidity();
+  }
+
+  #updateValueAndValidity(): void {
+    this.internals.setFormValue(this.value);
     this.internals.setValidity(
       { valueMissing: this.required && this.value === null },
       msg('An option must be selected.')
     );
-
-    if (emitEvent) {
-      this.changeEvent.emit(this.value);
-    }
 
     this.updateValidity();
 

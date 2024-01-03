@@ -39,7 +39,7 @@ describe('sl-select', () => {
     });
 
     it('should have a tabindex of 0', () => {
-      expect(el).to.have.attribute('tabindex','0');
+      expect(el).to.have.attribute('tabindex', '0');
     });
 
     it('should not be disabled', () => {
@@ -89,6 +89,7 @@ describe('sl-select', () => {
       await el.updateComplete;
 
       expect(el.valid).to.be.false;
+      expect(el.validity.valueMissing).to.be.true;
     });
 
     it('should have a listbox part', () => {
@@ -111,7 +112,7 @@ describe('sl-select', () => {
       expect(el.value).to.equal('1');
     });
 
-    it('should fire an sl-change event when selecting an option', async () => {
+    it('should emit an sl-change event when selecting an option', async () => {
       const onChange = spy();
 
       el.addEventListener('sl-change', onChange);
@@ -123,6 +124,51 @@ describe('sl-select', () => {
       await el.updateComplete;
 
       expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should delegate focus to the button when focusing the select', async () => {
+      el.focus();
+
+      expect(document.activeElement).to.equal(el.querySelector('sl-select-button'));
+    });
+
+    it('should emit an sl-focus event when focusing the select', async () => {
+      const onFocus = spy();
+
+      el.addEventListener('sl-focus', onFocus);
+      el.focus();
+      await el.updateComplete;
+
+      expect(onFocus).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-blur event when blurring the select', () => {
+      const onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+      el.focus();
+      el.querySelector<HTMLElement>('sl-select-button')?.blur();
+
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when calling reportValidity', () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.reportValidity();
+
+      expect(onValidate).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when selecting an option', async () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.querySelector('sl-select-option')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onValidate).to.have.been.calledOnce;
     });
 
     it('should mark an option as selected if it has the same value', async () => {
@@ -182,11 +228,21 @@ describe('sl-select', () => {
       expect(el.valid).to.be.false;
     });
 
+    it('should be valid when an option is selected', async () => {
+      el.querySelector<SelectButton>('sl-select-button')?.click();
+      await el.updateComplete;
+
+      el.querySelector('sl-select-option')?.click();
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
     it('should have a validation message', () => {
       expect(el.validationMessage).to.equal('An option must be selected.');
     });
 
-    it('should have a show-validity attribute when reported', async () => {
+    it('should have an invalid show-validity attribute when reported', async () => {
       el.reportValidity();
       await el.updateComplete;
 
@@ -203,18 +259,37 @@ describe('sl-select', () => {
       expect(onUpdateValidity).to.have.been.calledOnce;
     });
 
-    it('should be valid when an option is selected', async () => {
+    it('should have a custom validation message when it has a custom-validity attribute', async () => {
+      el.setAttribute('custom-validity', 'Custom validation message');
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a custom validation message after calling setCustomValidity', async () => {
+      el.setCustomValidity('Custom validation message');
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a custom validation message when calling setCustomValidity on validate', async () => {
+      el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
+
+      el.required = true;
+      await el.updateComplete;
+
       el.querySelector<SelectButton>('sl-select-button')?.click();
       await el.updateComplete;
 
       el.querySelector('sl-select-option')?.click();
       await el.updateComplete;
 
-      expect(el.valid).to.be.true;
+      expect(el.validationMessage).to.equal('Custom validation message');
     });
   });
 
-  describe('form integration', () => {
+  describe('form reset', () => {
     let form: HTMLFormElement;
 
     describe('selected', () => {
@@ -232,7 +307,7 @@ describe('sl-select', () => {
         el = form.firstElementChild as Select;
       });
 
-      it('should revert back to the correct initial state when the form is reset', async () => {
+      it('should revert back to the initial state', async () => {
         el.querySelector<SelectButton>('sl-select-button')?.click();
         await el.updateComplete;
 
@@ -241,9 +316,24 @@ describe('sl-select', () => {
 
         expect(el.value).to.equal('1');
 
-        el.formResetCallback();
+        form.reset();
 
         expect(el.value).to.equal('2');
+      });
+
+      it('should emit an sl-change event', async () => {
+        const onChange = spy();
+
+        el.querySelector<SelectButton>('sl-select-button')?.click();
+        await el.updateComplete;
+
+        el.querySelector('sl-select-option')?.click();
+        await el.updateComplete;
+
+        el.addEventListener('sl-change', onChange);
+        form.reset();
+
+        expect(onChange).to.have.been.calledOnce;
       });
     });
 
@@ -271,9 +361,24 @@ describe('sl-select', () => {
 
         expect(el.value).to.equal('1');
 
-        el.formResetCallback();
+        form.reset();
 
         expect(el.value).to.be.null
+      });
+
+      it('should emit an sl-change event', async () => {
+        const onChange = spy();
+
+        el.querySelector<SelectButton>('sl-select-button')?.click();
+        await el.updateComplete;
+
+        el.querySelector('sl-select-option')?.click();
+        await el.updateComplete;
+
+        el.addEventListener('sl-change', onChange);
+        form.reset();
+
+        expect(onChange).to.have.been.calledOnce;
       });
     });
   });

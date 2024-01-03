@@ -38,7 +38,7 @@ export default {
       control: 'text'
     }
   },
-  render: ({ disabled, hint, label, options, placeholder, required, size, slot }) => {
+  render: ({ disabled, hint, label, options, placeholder, required, size, slot, value }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -48,7 +48,13 @@ export default {
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
           html`
-            <sl-select ?disabled=${disabled} ?required=${required} .placeholder=${placeholder} .size=${size}>
+            <sl-select
+              ?disabled=${disabled}
+              ?required=${required}
+              .placeholder=${placeholder}
+              .size=${size}
+              .value=${value}
+            >
               ${options ??
               html`
                 <sl-select-option value="1">Option 1</sl-select-option>
@@ -178,6 +184,12 @@ export const Required: Story = {
   args: {
     hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
     required: true
+  }
+};
+
+export const Selected: Story = {
+  args: {
+    value: '2'
   }
 };
 

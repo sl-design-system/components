@@ -1,4 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { PropertyValues } from 'lit/development';
 import type { EventEmitter } from '@sl-design-system/shared';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
@@ -65,7 +66,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
 
+  // private anchorDirective = new AnchorDirective();
+
   /** Controller for managing anchoring. */
+  // #anchor: AnchorDirectiveDirective;
   // #anchor = new AnchorController(this.listbox as ReactiveController & HTMLElement); // TODO: anchor
 
   // /** @private */
@@ -90,15 +94,31 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     console.log('before connected - constructor', this.#allTabs, this.moreButton, this.listbox, this.renderRoot);
   }
 
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    console.log('changes', changes);
+    this.moreButton = this.shadowRoot?.querySelector('sl-button') as HTMLButtonElement;
+  }
+
   override render(): TemplateResult {
     // const tabs = Array.from(this.querySelectorAll('sl-tab'));
     // this.#allTabs = tabs;
     // const clonedTabs = this.tabs?.map(tab => tab.cloneNode(true)); // Clones the slotted tabs
     // TODO: no moreButton??
-    this.moreButton = this.renderRoot.querySelector('#more-btn') as HTMLButtonElement;
+    // this.moreButton = this.renderRoot.querySelector('#more-btn') as HTMLButtonElement;
+    this.moreButton = this.shadowRoot?.querySelector('sl-button') as HTMLButtonElement;
+    // this.listbox = this.renderRoot.querySelector('[popover]') as HTMLElement;
     const clonedTabs = Array.from(this.querySelectorAll('sl-tab'))?.map(tab => tab.cloneNode(true));
     this.#allTabs = clonedTabs;
-    console.log('before connected - render', this.#allTabs, this.moreButton, this.listbox, this.renderRoot);
+    console.log(
+      'before connected - render',
+      this.#allTabs,
+      this.moreButton,
+      this.listbox,
+      this.renderRoot,
+      this.shadowRoot
+    );
     return html`
       <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
@@ -122,8 +142,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           @click=${this.#handleTabChange}
         >
           ${this.#allTabs}
+          <span class="indicator-listbox" role="presentation"></span>
         </div>
-        <slot name="all-tabs" open></slot>
       </div>
       <slot></slot>
     `;
@@ -131,11 +151,22 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   // ${(this.#allTabs as Tab[]).map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)}
   // Render all tabs here and set as selected the exact one ${this.tabs?.length}
 
+  // <slot name="all-tabs" open></slot>
+
+  //${anchor({ element: this.moreButton, position: 'bottom-end' })}
+
   override connectedCallback(): void {
     super.connectedCallback();
     this.#updateSlots();
     // this.#allTabs = [...this.#rovingTabindexController.elements];
-    console.log('connected', this.tabs, this.#allTabs, this.moreButton, this.listbox);
+    console.log(
+      'connected',
+      this.tabs,
+      this.#allTabs,
+      this.moreButton,
+      this.listbox,
+      this.shadowRoot?.querySelector('sl-button') as HTMLButtonElement
+    );
   }
 
   override firstUpdated(): void {
@@ -148,13 +179,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     //  if (this.tabs) {
     //    this.#allTabs = Array.from(this.tabs);
     //  }
+    // anchor({ element: this.moreButton, position: 'bottom-end'});
+    // this.listbox.anchor({ element: this.moreButton, position: 'bottom-end'});
     this.#allTabs = Array.from(this.querySelectorAll('sl-tab'));
+    this.listbox.classList.add('anchor');
+    // this.anchorDirective.render({ element: this.moreButton, position: 'bottom-end' });
     // const tabs2 = this.querySelectorAll('sl-tab');
     // console.log('tabs2', tabs2);
     setTimeout(() => this.#updateSelectionIndicator(), 100);
     console.log('this.tabs', this.tabs, this.#allTabs);
     console.log('this.#rovingTabindexController.element', this.#rovingTabindexController.elements);
-    console.log('morebutton', this.moreButton);
+    console.log('morebutton', this.moreButton, this.shadowRoot?.querySelector('sl-button') as HTMLButtonElement);
   }
 
   #updateSlots(): void {

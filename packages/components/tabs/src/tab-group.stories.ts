@@ -52,10 +52,16 @@ export const API: StoryObj = {
       }
     </style>
     <sl-tab-group .vertical=${vertical}>
-      <sl-tab disabled>🧁 Tab 1</sl-tab>
+      <sl-tab disabled>
+        🧁 Tab 1
+        <span slot="subtitle">Tab 1 subtitle</span>
+      </sl-tab>
       <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
 
-      <sl-tab>🍰 Tab 2</sl-tab>
+      <sl-tab>
+        🍰 Tab 2
+        <span slot="subtitle">Tab 1 subtitle</span>
+      </sl-tab>
       <sl-tab-panel>
         <p>Contents tab 2</p>
         <sl-avatar></sl-avatar>

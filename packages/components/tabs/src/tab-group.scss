@@ -32,6 +32,13 @@
   }
 }
 
+.indicator-listbox {
+  height: 1px;
+  inset: 0 auto auto 0;
+  transform-origin: center top;
+  width: var(--indicator-size);
+}
+
 :host([vertical='false']) [role='tablist'] {
   --_sl-tab-group-list-background: #fff;
   --_sl-tab-list-background: #fff;

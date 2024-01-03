@@ -1,13 +1,17 @@
 :host {
+  align-items: flex-start;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  //justify-content: center;
+  flex-direction: column;
+  //display: inline-block;
   line-height: 36px;
   padding: 0 3px;
 }
 
-:host([selected]) {
-  font-weight: bold;
-}
+//:host([selected]) {
+//  font-weight: bold;
+//}
 
 :host([disabled]) {
   opacity: 0.6;

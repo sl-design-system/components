@@ -1246,6 +1246,8 @@
     --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-500));
     --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
+    --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-base));
     --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
     --sl-color-skeleton-shimmer: linear-gradient
@@ -2026,6 +2028,8 @@
     --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-500));
     --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
+    --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-500));
     --sl-color-avatar-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-300));
     --sl-color-skeleton-shimmer: linear-gradient

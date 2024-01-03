@@ -100,6 +100,14 @@
               },
               "description": "The size of the checkboxes in the group.",
               "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "boolean[] | undefined"
+              },
+              "description": "The readonly checked state for the checkbox group."
             }
           ],
           "attributes": [
@@ -246,7 +254,7 @@
               "type": {
                 "text": "boolean[] | undefined"
               },
-              "privacy": "private"
+              "description": "The readonly checked state for the checkbox group."
             }
           ]
         }

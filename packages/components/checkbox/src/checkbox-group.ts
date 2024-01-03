@@ -47,7 +47,7 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   /** The size of the checkboxes in the group. */
   @property() size?: CheckboxSize;
 
-  /** @private The value for the checkbox group, for internal use. */
+  /** The readonly checked state for the checkbox group. */
   @state() value?: boolean[];
 
   override connectedCallback(): void {

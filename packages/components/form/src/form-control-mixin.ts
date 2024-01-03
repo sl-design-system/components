@@ -252,8 +252,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
           this.formControlElement.internals.setValidity({ customError: true }, message);
         }
       }
-
-      this.updateValidity();
     }
 
     /**

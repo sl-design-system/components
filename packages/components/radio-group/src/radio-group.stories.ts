@@ -124,12 +124,12 @@ export const CustomValidity: Story = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. You need to the middle option to make the field valid. The custom validation is done by listening to the sl-change event and setting the custom validity on the radio group. If you never select any option, then only the builtin validation applies.',
     slot: () => {
-      const onChange = (event: Event & { target: RadioGroup }): void => {
+      const onValidate = (event: Event & { target: RadioGroup }): void => {
         event.target.setCustomValidity(event.target.value === '2' ? '' : 'Pick the middle option');
       };
 
       return html`
-        <sl-radio-group @sl-change=${onChange} required>
+        <sl-radio-group @sl-validate=${onValidate} required>
           <sl-radio value="1">One</sl-radio>
           <sl-radio value="2">Two</sl-radio>
           <sl-radio value="3">Three</sl-radio>

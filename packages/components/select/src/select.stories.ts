@@ -220,14 +220,14 @@ export const CustomValidity: Story = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. The second option should be selected to make the field valid. In this example, you should never see the builtin validation message.',
     slot: () => {
-      const onChange = (event: Event & { target: Select }): void => {
+      const onValidate = (event: Event & { target: Select }): void => {
         const value = event.target.value;
 
         event.target.setCustomValidity(value === '2' ? '' : 'Select the second option.');
       };
 
       return html`
-        <sl-select @sl-change=${onChange} required>
+        <sl-select @sl-validate=${onValidate} required>
           <sl-select-option value="1">Option 1</sl-select-option>
           <sl-select-option value="2">Option 2</sl-select-option>
           <sl-select-option value="3">Option 3</sl-select-option>

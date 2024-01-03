@@ -1,4 +1,5 @@
 import type { Checkbox, CheckboxSize } from './checkbox.js';
+import type { CheckboxGroup } from './checkbox-group.js';
 import type { TemplateResult } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
@@ -215,6 +216,25 @@ export const Valid: Story = {
     checked: true,
     hint: 'This checkbox is marked as valid after reporting the validity',
     showValid: true
+  }
+};
+
+export const CustomValidity: Story = {
+  args: {
+    hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',
+    slot: () => {
+      const onValidate = (event: Event & { target: CheckboxGroup }): void => {
+        event.target.setCustomValidity(event.target.value?.at(1) ? '' : 'Pick the middle option');
+      };
+
+      return html`
+        <sl-checkbox-group @sl-validate=${onValidate} required>
+          <sl-checkbox value="1">One</sl-checkbox>
+          <sl-checkbox value="2">Two</sl-checkbox>
+          <sl-checkbox value="3">Three</sl-checkbox>
+        </sl-checkbox-group>
+      `;
+    }
   }
 };
 

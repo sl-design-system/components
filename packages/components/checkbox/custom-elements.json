@@ -200,6 +200,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [

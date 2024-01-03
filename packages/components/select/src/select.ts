@@ -4,7 +4,7 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
-import { localized, msg } from '@lit/localize';
+import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { LitElement, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { SelectOption } from './select-option.js';
@@ -128,6 +128,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     }
 
     this.setFormControlElement(this);
+
+    // Listen for i18n updates and update the validation message
+    this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
 
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = this.disabled ? -1 : 0;

@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Checkbox, CheckboxSize } from './checkbox.js';
-import { msg } from '@lit/localize';
+import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController, RovingTabindexController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
@@ -12,6 +12,7 @@ import styles from './checkbox-group.scss.js';
  *
  * @slot default - A list of `sl-checkbox` elements.
  */
+@localized()
 export class CheckboxGroup extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
@@ -57,6 +58,9 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
 
     this.internals.role = 'group';
     this.setFormControlElement(this);
+
+    // Listen for i18n updates and update the validation message
+    this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValidity);
   }
 
   override disconnectedCallback(): void {
@@ -69,12 +73,7 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
     super.willUpdate(changes);
 
     if (changes.has('required') || changes.has('value')) {
-      this.internals.setValidity(
-        { valueMissing: this.required && !this.value?.some(v => v) },
-        msg('Please check at least one option.')
-      );
-
-      this.updateValidity();
+      this.#updateValidity();
     }
   }
 
@@ -140,5 +139,14 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
     // Stop the validate events from the checkboxes in the group from bubbling up any further
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  #updateValidity(): void {
+    this.internals.setValidity(
+      { valueMissing: this.required && !this.value?.some(v => v) },
+      msg('Please check at least one option.')
+    );
+
+    this.updateValidity();
   }
 }

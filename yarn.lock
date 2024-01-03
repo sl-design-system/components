@@ -5399,6 +5399,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/form@workspace:packages/components/form"
   dependencies:
+    "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:3.0.3"
     "@sl-design-system/shared": "npm:0.2.0"
   languageName: unknown

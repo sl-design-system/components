@@ -201,7 +201,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       this.formControl.id ||= `sl-form-field-control-${nextUniqueId++}`;
 
       if (this.formControl.showValidity) {
-        this.error = this.formControl.validationMessage;
+        this.error = this.formControl.getLocalizedValidationMessage();
       }
 
       if (this.#hint) {

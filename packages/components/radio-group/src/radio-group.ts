@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Radio, RadioButtonSize } from './radio.js';
-import { localized, msg } from '@lit/localize';
+import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
@@ -110,6 +110,9 @@ export class RadioGroup extends FormControlMixin(LitElement) {
 
     this.internals.role = 'radiogroup';
     this.setFormControlElement(this);
+
+    // Listen for i18n updates and update the validation message
+    this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
   }
 
   override disconnectedCallback(): void {
@@ -209,6 +212,8 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   }
 
   #updateValueAndValidity(): void {
+    console.log('updateValueAndValidity', msg('Please select an option.'));
+
     this.internals.setFormValue(this.value);
     this.internals.setValidity({ valueMissing: this.required && this.value === null }, msg('Please select an option.'));
 

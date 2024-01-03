@@ -3,18 +3,19 @@ import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import 'element-internals-polyfill';
 import { configureLocalization } from '@lit/localize';
+import * as locales from '@sl-design-system/locales';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { updateTheme, themes } from './themes.js';
 
 const { setLocale } = configureLocalization({
-  sourceLocale: 'en',
-  targetLocales: ['nl'],
-  loadLocale: locale => import(`../packages/locales/src/${locale}.ts`)
+  sourceLocale: locales.sourceLocale,
+  targetLocales: locales.targetLocales,
+  loadLocale: locale => Promise.resolve(locales[locale])
 });
 
 const preview: Preview = {
   decorators: [
-    (story, { globals: { locale = 'en' } }) => {
+    (story, { globals: { locale = locales.sourceLocale } }) => {
       document.documentElement.lang = locale;
       setLocale(locale);
 

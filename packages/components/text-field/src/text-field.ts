@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { EventEmitter } from '@sl-design-system/shared';
+import { localized } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
@@ -21,6 +22,7 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
  */
+@localized()
 export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {

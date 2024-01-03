@@ -50,6 +50,18 @@
   <source>Please select an option.</source>
   <target>Kies een optie.</target>
 </trans-unit>
+<trans-unit id="sc95c7150ab686f99">
+  <source>Please enter a valid value.</source>
+  <target>Voer een correcte waarde in.</target>
+</trans-unit>
+<trans-unit id="sd244b51f6d7de8e2">
+  <source>Please match the format requested.</source>
+  <target>Voer een waarde in volgens het gevraagde patroon.</target>
+</trans-unit>
+<trans-unit id="s8079b71872346425">
+  <source>Please fill in this field.</source>
+  <target>Voer een waarde in.</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

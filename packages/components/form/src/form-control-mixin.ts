@@ -1,5 +1,6 @@
 import type { PropertyValues, ReactiveElement } from 'lit';
 import type { Constructor } from '@sl-design-system/shared';
+import { msg } from '@lit/localize';
 import { property } from 'lit/decorators.js';
 import { UpdateValidityEvent } from './update-validity-event.js';
 import { ValidateEvent } from './validate-event.js';
@@ -40,6 +41,7 @@ export interface FormControl {
   reportValidity(): boolean;
   updateValidity(): void;
 
+  getLocalizedValidationMessage(): string;
   setCustomValidity(message: string): void;
   setFormControlElement(element: FormControlElement): void;
 }
@@ -134,9 +136,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     }
 
     /**
-     * String representing a localized message that describes the validation constraints
-     * that the control does not satisfy (if any). The string is empty if the control is
-     * not a candidate for constraint validation, or it satisfies its constraints.
+     * String representing a localized (by the browser) message that describes the validation
+     * constraints that the control does not satisfy (if any). The string is empty if the control
+     * is not a candidate for constraint validation, or it satisfies its constraints.
+     *
+     * For true localization, see `getLocalizedValidationMessage()` instead.
      */
     get validationMessage(): string {
       if (isNative(this.formControlElement)) {
@@ -233,7 +237,32 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
 
       /** Emits when the validity of the form control changes. */
-      this.dispatchEvent(new UpdateValidityEvent(this.valid, this.validationMessage, this.showValidity));
+      this.dispatchEvent(new UpdateValidityEvent(this.valid, this.getLocalizedValidationMessage(), this.showValidity));
+    }
+
+    /**
+     * This returns a localized validation message. It does not support all `ValidityState` properties,
+     * since some require more context than we have here. If you need to support more, you can override
+     * this method in your own form control.
+     */
+    getLocalizedValidationMessage(): string {
+      if (!isNative(this.formControlElement) || this.validity.valid || this.validity.customError) {
+        return this.validationMessage;
+      } else if (this.validity.badInput || this.validity.typeMismatch) {
+        return msg('Please enter a valid value.');
+      } else if (this.validity.patternMismatch) {
+        return msg('Please match the format requested.');
+      } else if (this.validity.valueMissing) {
+        return msg('Please fill in this field.');
+      } else {
+        const validityState = Object.keys(this.validity).find(key => this.validity[key as keyof ValidityState]);
+
+        console.warn(
+          `Missing localized validation message for validity state ${validityState}. Provide your own getLocalizedValidationMessage() method in your form control.`
+        );
+
+        return this.validationMessage;
+      }
     }
 
     /**

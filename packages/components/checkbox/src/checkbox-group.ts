@@ -71,7 +71,7 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
     if (changes.has('required') || changes.has('value')) {
       this.internals.setValidity(
         { valueMissing: this.required && !this.value?.some(v => v) },
-        msg('At least one option must be checked.')
+        msg('Please check at least one option.')
       );
 
       this.updateValidity();

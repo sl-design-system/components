@@ -237,7 +237,7 @@ describe('sl-radio-group', () => {
       el.required = true;
       await el.updateComplete;
 
-      expect(el.validationMessage).to.equal('An option must be selected.');
+      expect(el.validationMessage).to.equal('Please select an option.');
     });
 
     it('should have a custom validation message when it has a custom-validity attribute', async () => {

@@ -239,7 +239,7 @@ describe('sl-select', () => {
     });
 
     it('should have a validation message', () => {
-      expect(el.validationMessage).to.equal('An option must be selected.');
+      expect(el.validationMessage).to.equal('Please choose an option from the list.');
     });
 
     it('should have an invalid show-validity attribute when reported', async () => {

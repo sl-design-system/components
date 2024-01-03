@@ -345,7 +345,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     this.internals.setFormValue(this.value);
     this.internals.setValidity(
       { valueMissing: this.required && this.value === null },
-      msg('An option must be selected.')
+      msg('Please choose an option from the list.')
     );
 
     this.updateValidity();

@@ -5,13 +5,10 @@ import { mergeConfig } from 'vite';
 const devMode = !argv.includes('build');
 
 const config: StorybookConfig = {
-  stories: [
-    './stories/**/*.stories.ts',
-    '../packages/components/**/*.stories.ts'
-  ],
+  stories: ['../packages/components/**/*.stories.ts'],
   addons: [
-    '@storybook/addon-a11y', 
-    '@storybook/addon-actions', 
+    '@storybook/addon-a11y',
+    '@storybook/addon-actions',
     '@storybook/addon-storysource',
     {
       name: '@storybook/addon-essentials',

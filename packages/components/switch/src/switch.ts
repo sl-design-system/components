@@ -101,10 +101,16 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     this.#initialState = this.hasAttribute('checked');
   }
 
-  /** @ignore  Resets the switch to the initial state */
+  /** @ignore Resets the switch to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
     this.changeEvent.emit(this.checked);
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.#updateValue();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -116,10 +122,6 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
     if (changes.has('disabled')) {
       this.tabIndex = this.disabled ? -1 : 0;
-    }
-
-    if (changes.has('checked') || changes.has('value')) {
-      this.internals.setFormValue(this.checked ? this.value : null);
     }
   }
 
@@ -147,6 +149,8 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
 
     this.checked = !this.checked;
     this.changeEvent.emit(this.checked);
+
+    this.#updateValue();
   }
 
   #onFocusin(): void {
@@ -161,5 +165,11 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     if (['Enter', ' '].includes(event.key)) {
       this.#onClick(event);
     }
+  }
+
+  #updateValue(): void {
+    this.internals.setFormValue(this.checked ? this.value : null);
+
+    this.updateValidity();
   }
 }

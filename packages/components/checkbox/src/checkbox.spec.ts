@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import { Checkbox } from './checkbox.js';
 import '../register.js';
 
@@ -19,6 +20,14 @@ describe('sl-checkbox', () => {
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
       expect(el.internals.ariaChecked).not.to.equal('true');
+    });
+
+    it('should be checked when set', async () => {
+      el.checked = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('checked');
+      expect(el.internals.ariaChecked).to.equal('true');
     });
 
     it('should not be disabled', () => {
@@ -97,6 +106,75 @@ describe('sl-checkbox', () => {
       expect(el.checked).to.be.true;
       expect(el.internals.ariaChecked).to.equal('true');
     });
+
+    it('should emit an sl-change event when clicking an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when pressing the space key on an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.focus();
+      await sendKeys({ press: 'Space' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when pressing the enter key on an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-focus event when focusing the group', async () => {
+      const onFocus = spy();
+
+      el.addEventListener('sl-focus', onFocus);
+      el.focus();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onFocus).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-blur event when blurring the group', () => {
+      const onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+      el.focus();
+      el.blur();
+
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when calling reportValidity', () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.reportValidity();
+
+      expect(onValidate).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event after click', async () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onValidate).to.have.been.calledOnce;
+    });
   });
 
   describe('disabled', () => {
@@ -130,7 +208,97 @@ describe('sl-checkbox', () => {
     });
   });
 
-  describe('form integration', () => {
+  describe('validation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-checkbox>Hello world</sl-checkbox>`);
+    });
+
+    it('should be invalid when required and no option is selected', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+      expect(el.validity.valueMissing).to.be.true;
+    });
+
+    it('should have no validation message when valid', () => {
+      expect(el.validationMessage).to.equal('');
+    });
+
+    it('should be valid when checked and required', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should not have a show-validity attribute when reported', async () => {
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('show-validity');
+    });
+
+    it('should have an invalid show-validity attribute when required and reported', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should emit an update-validity event when reported', async () => {
+      const onUpdateValidity = spy();
+
+      el.addEventListener('sl-update-validity', onUpdateValidity);
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(onUpdateValidity).to.have.been.calledOnce;
+    });
+
+    it('should have a validation message when unchecked and required', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Please check this box.');
+    });
+
+    it('should have a custom validation message when it has a custom-validity attribute', async () => {
+      el.setAttribute('custom-validity', 'Custom validation message');
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a custom validation message after calling setCustomValidity', async () => {
+      el.setCustomValidity('Custom validation message');
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a custom validation message when calling setCustomValidity on validate', async () => {
+      el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
+
+      el.required = true;
+      await el.updateComplete;
+
+      el.click();
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+  });
+
+  describe('form reset', () => {
     let form: HTMLFormElement;
 
     describe('unchecked', () => {
@@ -144,14 +312,26 @@ describe('sl-checkbox', () => {
         el = form.firstElementChild as Checkbox;
       });
 
-      it('should revert back to the correct initial state (unchecked) when the form is reset', () => {
+      it('should revert back to the initial state', () => {
         el.click();
 
         expect(el.checked).to.be.true;
 
-        el.formResetCallback();
+        form.reset();
 
         expect(el.checked).to.equal(false);
+      });
+
+      it('should emit an sl-change event', async () => {
+        const onChange = spy();
+
+        el.click();
+        await el.updateComplete;
+
+        el.addEventListener('sl-change', onChange);
+        form.reset();
+
+        expect(onChange).to.have.been.calledOnce;
       });
     });
 
@@ -166,14 +346,26 @@ describe('sl-checkbox', () => {
         el = form.firstElementChild as Checkbox;
       });
 
-      it('should revert back to the correct initial state (checked) when the form is reset', () => {
+      it('should revert back to the initial state', () => {
         el.click();
 
         expect(el.checked).to.equal(false);
 
-        el.formResetCallback();
+        form.reset();
 
         expect(el.checked).to.be.true;
+      });
+
+      it('should emit an sl-change event', async () => {
+        const onChange = spy();
+
+        el.click();
+        await el.updateComplete;
+
+        el.addEventListener('sl-change', onChange);
+        form.reset();
+
+        expect(onChange).to.have.been.calledOnce;
       });
     });
   });

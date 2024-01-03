@@ -1883,6 +1883,16 @@
           "value": "{border.width.lg}",
           "type": "borderWidth"
         }
+      },
+      "border": {
+        "tab": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        },
+        "tabbar": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
       }
     }
   },

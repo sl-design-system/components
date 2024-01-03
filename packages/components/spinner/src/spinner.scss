@@ -4,8 +4,11 @@ $sizes: 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
 $variants: default, 'white', accent, info, danger, success, warning;
 
 :host {
+  --_color: currentColor;
   --_shadow-opacity: var(--sl-opacity-spinner-shadow);
   --_spin-duration: 20s;
+  --_rotate-duration: calc(var(--_spin-duration) * 12);
+  animation: spin var(--_rotate-duration) linear infinite;
   block-size: var(--_spinner-size);
   display: inline-block;
   inline-size: var(--_spinner-size);
@@ -13,12 +16,12 @@ $variants: default, 'white', accent, info, danger, success, warning;
 }
 
 svg {
-  animation: spin var(--_spin-duration) linear infinite;
+  animation: spin var(--_spin-duration) ease-in-out infinite;
 }
 
 @each $variant in $variants {
   :host([variant='#{$variant}']) {
-    --_default-color: var(--sl-color-spinner-#{$variant});
+    --_color: var(--sl-color-spinner-#{$variant});
   }
 }
 

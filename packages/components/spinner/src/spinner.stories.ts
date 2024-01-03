@@ -10,7 +10,7 @@ type Props = Pick<Spinner, 'size' | 'variant'>;
 type Story = StoryObj<Props>;
 
 const sizes: SpinnerSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
-const variants: SpinnerVariant[] = ['default', 'white', 'accent', 'info', 'danger', 'success', 'warning'];
+const variants: SpinnerVariant[] = ['accent', 'info', 'danger', 'success', 'warning'];
 
 const sizeName = (size: string): string => {
   switch (size) {
@@ -36,8 +36,7 @@ const sizeName = (size: string): string => {
 export default {
   title: 'Spinner',
   args: {
-    size: 'md',
-    variant: 'default'
+    size: 'md'
   },
   argTypes: {
     size: {
@@ -72,14 +71,12 @@ export const All: Story = {
         td {
           padding: 4px 8px;
         }
-        .dark {
-          background-color: var(--sl-body-foreground);
-        }
       </style>
       <table>
         <thead>
           <tr>
             <th>Size</th>
+            <th>Default<sup>*</sup></th>
             ${variants.map(variant => html`<th>${variant}</th>`)}
           </tr>
         </thead>
@@ -87,8 +84,11 @@ export const All: Story = {
           ${sizes.map(
             size => html` <tr>
               <th>${sizeName(size)}</th>
+              <td>
+                <sl-spinner .size=${size}></sl-spinner>
+              </td>
               ${variants.map(
-                variant => html`<td class="${variant === 'white' ? 'dark' : ''}">
+                variant => html`<td>
                   <sl-spinner .variant=${variant} .size=${size}></sl-spinner>
                 </td>`
               )}
@@ -96,6 +96,8 @@ export const All: Story = {
           )}
         </tbody>
       </table>
+      * When no variant is set the color will be set to CurrentColor; so the color of the text in the container wrapping
+      the spinner.
     `;
   }
 };

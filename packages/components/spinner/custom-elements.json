@@ -61,9 +61,8 @@
               "kind": "field",
               "name": "variant",
               "type": {
-                "text": "SpinnerVariant"
+                "text": "SpinnerVariant | undefined"
               },
-              "default": "'default'",
               "attribute": "variant",
               "reflects": true
             }
@@ -80,9 +79,8 @@
             {
               "name": "variant",
               "type": {
-                "text": "SpinnerVariant"
+                "text": "SpinnerVariant | undefined"
               },
-              "default": "'default'",
               "fieldName": "variant"
             }
           ],

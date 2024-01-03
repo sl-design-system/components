@@ -300,6 +300,11 @@
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
   --sl-text-case-badge-text-transform: var(--sl-text-typeset-text-case-uppercase);
   --sl-conceptual-border-width-default: var(--sl-border-width-xs);
+  --sl-space-tab-more-block: var(--sl-space-sm);
+  --sl-space-tab-more-inline: var(--sl-space-md);
+  --sl-space-tab-gap: var(--sl-space-sm);
+  --sl-space-tab-block: var(--sl-space-sm);
+  --sl-space-tab-inline: var(--sl-space-xl);
   --sl-space-inline-message-content-gap: var(--sl-space-xs);
   --sl-space-inline-message-gap: var(--sl-space-lg);
   --sl-space-inline-message-inline-end: var(--sl-space-2xl);

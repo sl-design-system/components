@@ -2133,6 +2133,16 @@
           "type": "borderWidth"
         }
       },
+      "border": {
+        "tab": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        },
+        "tabbar": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
+      },
       "none": {
         "value": 0,
         "type": "borderWidth",
@@ -3511,6 +3521,30 @@
       "content": {
         "gap": {
           "value": "{space.xs}",
+          "type": "spacing"
+        }
+      }
+    },
+    "tab": {
+      "inline": {
+        "value": "{space.xl}",
+        "type": "spacing"
+      },
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "gap": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "more": {
+        "inline": {
+          "value": "{space.md}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.sm}",
           "type": "spacing"
         }
       }

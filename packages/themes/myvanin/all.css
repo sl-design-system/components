@@ -253,6 +253,11 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-space-tab-more-block: var(--sl-space-sm);
+  --sl-space-tab-more-inline: var(--sl-space-md);
+  --sl-space-tab-gap: var(--sl-space-sm);
+  --sl-space-tab-block: var(--sl-space-sm);
+  --sl-space-tab-inline: var(--sl-space-xl);
   --sl-space-inline-message-content-gap: var(--sl-space-xs);
   --sl-space-inline-message-gap: var(--sl-space-lg);
   --sl-space-inline-message-inline-end: var(--sl-space-2xl);

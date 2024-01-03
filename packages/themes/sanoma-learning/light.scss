@@ -21,6 +21,13 @@
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
+  --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-600));
@@ -521,6 +528,12 @@
       var(--sl-color-skeleton-base) 90%,
       var(--sl-color-skeleton-base) 100%
     );
+  --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);
+  --sl-color-tab-tabbar-background: var(--sl-body-background);
+  --sl-color-tab-disabled-background: var(--sl-body-background);
+  --sl-color-tab-hover-foreground: var(--sl-body-foreground);
+  --sl-color-tab-default-foreground: var(--sl-body-foreground);
+  --sl-color-tab-default-background: var(--sl-body-background);
   --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);

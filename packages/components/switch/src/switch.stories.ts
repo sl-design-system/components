@@ -94,8 +94,8 @@ export const CustomValidity: Story = {
     return html`
       <sl-form>
         <sl-form-field
-          hint="This story has custom validation. If you do not toggle the switch, you will see a validation message."
-          label="Label"
+          hint="This story has custom validation. If you do not toggle the switch, you will see a validation message. NOTE: This is a technical story; this is NOT meant as a functional example. The switch component should never be used in this way."
+          label="Do not do this in real code!"
         >
           <sl-switch @sl-validate=${onValidate} reverse>You must toggle me</sl-switch>
         </sl-form-field>

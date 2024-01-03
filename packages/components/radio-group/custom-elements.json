@@ -262,6 +262,37 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#setSelectedOption",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "option",
+                  "optional": true,
+                  "type": {
+                    "text": "Radio"
+                  }
+                },
+                {
+                  "name": "emitEvent",
+                  "default": "true"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateValueAndValidity",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [
@@ -306,8 +337,8 @@
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(mutations => {\n    const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n    if (target instanceof Radio && target.value) {\n      this.radios?.forEach(radio => (radio.checked = radio.value === target.value));\n      this.value = target.value;\n    }\n  })",
-              "description": "Observe the state of the radios."
+              "default": "new MutationObserver(mutations => {\n    const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n    this.#observer.disconnect();\n    this.#setSelectedOption(target as Radio);\n    this.#observer.observe(this, OBSERVER_OPTIONS);\n  })",
+              "description": "When an option is checked, update the state."
             },
             {
               "kind": "field",

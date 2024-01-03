@@ -70,6 +70,14 @@
             "name": "*",
             "package": "./src/update-validity-event.js"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/validate-event.js"
+          }
         }
       ]
     },
@@ -348,9 +356,8 @@
           "events": [
             {
               "type": {
-                "text": "UpdateValidityEvent"
-              },
-              "description": "Emits when the validity of the form control changes."
+                "text": "ValidateEvent"
+              }
             }
           ],
           "attributes": [
@@ -727,6 +734,15 @@
               "static": true,
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#customError",
+              "privacy": "private",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether a custom error has been slotted."
             },
             {
               "kind": "field",
@@ -1152,6 +1168,36 @@
           "declaration": {
             "name": "UpdateValidityEvent",
             "module": "src/update-validity-event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/validate-event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Emits when the form control can be validated.",
+          "name": "ValidateEvent",
+          "events": [
+            {
+              "name": "sl-validate"
+            }
+          ],
+          "superclass": {
+            "name": "Event",
+            "module": "src/validate-event.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ValidateEvent",
+          "declaration": {
+            "name": "ValidateEvent",
+            "module": "src/validate-event.ts"
           }
         }
       ]

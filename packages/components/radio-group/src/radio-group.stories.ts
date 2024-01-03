@@ -4,6 +4,7 @@ import type { TemplateResult } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/checkbox/register.js';
+import '@sl-design-system/form/register.js';
 import { html } from 'lit';
 import '../register.js';
 
@@ -38,16 +39,11 @@ export default {
   },
   render: ({ disabled, hint, horizontal, label, options, required, slot, value, size }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      event.target.closest('form')?.reportValidity();
+      event.target.closest('sl-form')?.reportValidity();
     };
 
     return html`
-      <style>
-        sl-button-bar {
-          margin-block-start: 1rem;
-        }
-      </style>
-      <form>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
           html`
@@ -70,7 +66,7 @@ export default {
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
         </sl-button-bar>
-      </form>
+      </sl-form>
     `;
   }
 } satisfies Meta<Props>;
@@ -126,16 +122,14 @@ export const Value: Story = {
 
 export const CustomValidity: Story = {
   args: {
-    hint: 'Select the middle option to see a custom error message.',
+    hint: 'This story has both builtin validation (required) and custom validation. You need to the middle option to make the field valid. The custom validation is done by listening to the sl-change event and setting the custom validity on the radio group. If you never select any option, then only the builtin validation applies.',
     slot: () => {
-      const onChange = (event: Event & { target: RadioGroup }): void => {
-        const value = event.target.value;
-
-        event.target.setCustomValidity(!value || value === '2' ? '' : 'Pick the middle option');
+      const onValidate = (event: Event & { target: RadioGroup }): void => {
+        event.target.setCustomValidity(event.target.value === '2' ? '' : 'Pick the middle option');
       };
 
       return html`
-        <sl-radio-group @sl-change=${onChange}>
+        <sl-radio-group @sl-validate=${onValidate} required>
           <sl-radio value="1">One</sl-radio>
           <sl-radio value="2">Two</sl-radio>
           <sl-radio value="3">Three</sl-radio>

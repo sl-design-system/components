@@ -190,6 +190,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     console.log('this.tabs', this.tabs, this.#allTabs);
     console.log('this.#rovingTabindexController.element', this.#rovingTabindexController.elements);
     console.log('morebutton', this.moreButton, this.shadowRoot?.querySelector('sl-button') as HTMLButtonElement);
+    // const listElement = html`<div
+    //   id="tabs-popover"
+    //   ${anchor({ element: this.moreButton, position: 'bottom-end' })}
+    //   @toggle=${this.#onToggle}
+    //   popover
+    //   role="listbox"
+    //   @click=${this.#handleTabChange}
+    // >
+    //   ${this.#allTabs}
+    //   <span class="indicator-listbox" role="presentation"></span>
+    // </div>`;
+    // this.moreButton.append(listElement);
   }
 
   #updateSlots(): void {
@@ -363,6 +375,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     const axis = this.vertical ? 'Y' : 'X',
       indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
+      indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement,
       wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement;
 
     let start = 0;
@@ -390,6 +403,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     indicator.style.transform = `translate${axis}(${start}px) scale${axis}(${
       axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight
     })`;
+
+    indicatorListbox.style.transform = `translateY(${wrapper.offsetTop}px) scaleY(${this.selectedTab.offsetHeight})`;
 
     if (axis === 'X') {
       const scrollLeft = Math.max(

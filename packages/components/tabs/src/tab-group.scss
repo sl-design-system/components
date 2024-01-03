@@ -112,14 +112,16 @@ sl-button {
   position: sticky;
 }
 
-.indicator {
+.indicator,
+.indicator-listbox {
   background: var(--_tab-group-indicator-color);
   position: absolute;
   z-index: 1;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .indicator {
+  .indicator,
+  .indicator-listbox {
     transition: transform 0.5s ease-in-out;
   }
 }

@@ -7,16 +7,21 @@ $variants: default, 'white', accent, info, danger, success, warning;
   --_color: currentColor;
   --_shadow-opacity: var(--sl-opacity-spinner-shadow);
   --_spin-duration: 20s;
-  --_rotate-duration: calc(var(--_spin-duration) * 12);
-  animation: spin var(--_rotate-duration) linear infinite;
+  --_rotate-duration: calc(var(--_spin-duration) * 4);
   block-size: var(--_spinner-size);
   display: inline-block;
   inline-size: var(--_spinner-size);
   vertical-align: middle;
 }
 
-svg {
-  animation: spin var(--_spin-duration) ease-in-out infinite;
+svg g {
+  animation: spin var(--_rotate-duration) linear infinite;
+  transform-origin: center center;
+}
+
+svg path {
+  animation: spin var(--_spin-duration) cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
+  transform-origin: center center;
 }
 
 @each $variant in $variants {

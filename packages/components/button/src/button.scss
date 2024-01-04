@@ -84,6 +84,10 @@ $variants: default, primary, success, warning, danger;
     line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
   }
 
+  :host([size='#{$size}']) ::slotted(sl-spinner) {
+    --spinner-size: var(--sl-size-spinner-#{$size});
+  }
+
   @each $fill in $fills {
     :host([size='#{$size}'][fill='#{$fill}']) {
       --_padding-block: var(--sl-space-button-#{$fill}-block-#{$size});

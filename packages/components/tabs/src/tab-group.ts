@@ -17,6 +17,8 @@ Icon.registerIcon(faEllipsis); // TODO: needs to be changed - icon from tokens
 
 let nextUniqueId = 0;
 
+// TODO: add docs here like with default slots etc.
+
 // @localized()
 export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -58,10 +60,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** The current tab node selected in the tab group. */
   @state() private selectedTab: Tab | null = this.#initialSelectedTab;
 
+  /** The current tab node selected in the tab group. */
+  @state() private selectedTabInListbox: Tab | null = this.#initialSelectedTab;
+
   @event() tabChange!: EventEmitter<number>;
 
   /** The slotted tabs. */
-  #allTabs: Node[] | undefined = [];
+  #allTabs: Node[] | null = [];
 
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
@@ -136,6 +141,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         <div
           id="tabs-popover"
           ${anchor({ element: this.moreButton, position: 'bottom-end' })}
+          @beforetoggle=${this.#onBeforetoggle}
           @toggle=${this.#onToggle}
           popover
           role="listbox"
@@ -236,8 +242,61 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.listbox.togglePopover();
   }
 
+  #onBeforetoggle = (event: Event): void => {
+    // TODO: this method is not necessary??
+    console.log('onToggle event in anchor', event, this.selectedTabInListbox, this.listbox);
+
+    const indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement;
+
+    if (!this.listbox || !this.selectedTab) {
+      return;
+    }
+
+    this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
+
+    // this.selectedTabInListbox.offsetTop
+
+    indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
+
+    // if (
+    //   ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
+    //   (event as ToggleEvent).newState === (event as ToggleEvent).oldState
+    // ) {
+    //   event.stopPropagation();
+    //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //   // @ts-ignore
+    //   (event.target as HTMLElement)?.hidePopover();
+    // }
+
+    console.log(
+      'in TOGGLE this.selectedTab.offsetLeft - wrapper.offsetLeft',
+      this.selectedTab?.offsetLeft,
+      this.selectedTabInListbox,
+      this.selectedTabInListbox?.offsetHeight,
+      this.selectedTabInListbox?.offsetTop,
+      this.listbox,
+      this.listbox.offsetTop,
+      this.listbox.offsetWidth,
+      this.listbox.offsetHeight,
+      this.selectedTab?.offsetParent
+    );
+  };
+
   #onToggle = (event: Event): void => {
-    console.log('onToggle event in anchor', event);
+    console.log('onToggle event in anchor', event, this.selectedTabInListbox, this.listbox);
+
+    const indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement;
+
+    if (!this.listbox || !this.selectedTab) {
+      return;
+    }
+
+    this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
+
+    // this.selectedTabInListbox.offsetTop
+
+    indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
+
     if (
       ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
       (event as ToggleEvent).newState === (event as ToggleEvent).oldState
@@ -247,6 +306,19 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       // @ts-ignore
       (event.target as HTMLElement)?.hidePopover();
     }
+
+    console.log(
+      'in TOGGLE this.selectedTab.offsetLeft - wrapper.offsetLeft',
+      this.selectedTab?.offsetLeft,
+      this.selectedTabInListbox,
+      this.selectedTabInListbox?.offsetHeight,
+      this.selectedTabInListbox?.offsetTop,
+      this.listbox,
+      this.listbox.offsetTop,
+      this.listbox.offsetWidth,
+      this.listbox.offsetHeight,
+      this.selectedTab?.offsetParent
+    );
   };
 
   /**
@@ -334,8 +406,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         tab.focus();
         tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         this.selectedTab = tab;
+        // this.selectedTabInListbox = (this.#allTabs as Tab[])?.find(tabEl => tabEl.id === selectedTab.id);
       }
     });
+
+    // this.selectedTabInListbox = (this.#allTabs as Tab[])?.find(tabEl => tabEl.id === selectedTab.id);
+
+    this.selectedTabInListbox = this.listbox?.querySelector(`#${selectedTab.id}`);
 
     /**
      * Reset all the visibility of the panels,
@@ -369,7 +446,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #updateSelectionIndicator(): void {
-    if (!this.selectedTab) {
+    if (!this.selectedTab || !this.selectedTabInListbox) {
       return;
     }
 
@@ -388,6 +465,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     console.log(
       'this.selectedTab.offsetLeft - wrapper.offsetLeft',
       this.selectedTab.offsetLeft,
+      this.selectedTabInListbox,
+      this.selectedTabInListbox?.offsetHeight,
+      this.listbox,
+      this.listbox.offsetTop,
       wrapper.offsetLeft,
       this.selectedTab.offsetParent,
       wrapper.offsetWidth,
@@ -404,7 +485,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight
     })`;
 
-    indicatorListbox.style.transform = `translateY(${wrapper.offsetTop}px) scaleY(${this.selectedTab.offsetHeight})`;
+    indicatorListbox.style.transform = `translateY(${
+      this.selectedTabInListbox.offsetTop + this.listbox.offsetHeight
+    }px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
 
     if (axis === 'X') {
       const scrollLeft = Math.max(
@@ -414,6 +497,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
       if (scrollLeft !== wrapper.scrollLeft) {
         wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        // this.listbox.scrollTo({ left: scrollLeft, behavior: 'smooth' });
       }
     }
   }

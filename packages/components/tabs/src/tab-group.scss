@@ -3,6 +3,9 @@
   // --indicator-color: var(--dna-primary);
   --indicator-size: 4px;
   --indicator-transition: var(--dna-transition-normal, 0.2s ease-in-out);
+  --listbox-background: var(--sl-color-select-listbox-background);
+  --listbox-border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
+  // TODO: listbox-padding etc.
 }
 
 :host {
@@ -127,8 +130,8 @@ sl-button {
 }
 
 div[popover] {
-  background-color: #fff;
-  border: 0;
+  background-color: var(--listbox-background); //#fff;
+  border: var(--listbox-border); //0;
   box-shadow: var(--sl-elevation-shadow-md);
   box-sizing: border-box;
   display: none;
@@ -140,6 +143,11 @@ div[popover] {
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+
+  sl-tab::part(subtitle) {
+    //color: yellow;
+    display: none;
+  }
 
   @supports not selector(:popover-open) {
     position: fixed;
@@ -153,7 +161,7 @@ div[popover] {
       opacity: 0;
     }
 
-    background: #00e0e0;
+    //background: #00e0e0;
     display: flex;
     opacity: 1;
   }

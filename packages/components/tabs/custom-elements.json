@@ -311,10 +311,19 @@
             },
             {
               "kind": "field",
+              "name": "selectedTabInListbox",
+              "type": {
+                "text": "Tab | null"
+              },
+              "privacy": "private",
+              "description": "The current tab node selected in the tab group."
+            },
+            {
+              "kind": "field",
               "name": "#allTabs",
               "privacy": "private",
               "type": {
-                "text": "Node[] | undefined"
+                "text": "Node[] | null"
               },
               "default": "[]",
               "description": "The slotted tabs."
@@ -346,6 +355,11 @@
               },
               "description": "Get the selected tab button, or the first tab button.",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#onBeforetoggle",
+              "privacy": "private"
             },
             {
               "kind": "field",

@@ -7,13 +7,12 @@ export type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type SpinnerVariant = 'accent' | 'info' | 'danger' | 'success' | 'warning';
 
 /**
- * Show totals at a glance or labels contents with a tag.
+ * Let the user know you are processing their data or that the (part of the) page is loading.
  *
  * ```html
- * <sl-spinner> 99+ </sl-spinner>
+ * <sl-spinner></sl-spinner>
  * ```
- *
- * @slot default - Contents of the spinner
+
  */
 export class Spinner extends LitElement {
   /** @private */

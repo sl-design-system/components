@@ -5635,6 +5635,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/spinner@workspace:packages/components/spinner":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/spinner@workspace:packages/components/spinner"
+  dependencies:
+    lit: "npm:^3.1.0"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/switch@workspace:packages/components/switch":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/switch@workspace:packages/components/switch"

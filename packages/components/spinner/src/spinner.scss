@@ -1,16 +1,15 @@
-@use 'sass:map';
-
 $sizes: 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
 $variants: default, 'white', accent, info, danger, success, warning;
 
 :host {
+  --spinner-size: unset;
   --_color: currentColor;
   --_shadow-opacity: var(--sl-opacity-spinner-shadow);
   --_spin-duration: 20s;
   --_rotate-duration: calc(var(--_spin-duration) * 4);
-  block-size: var(--_spinner-size);
+  block-size: var(--spinner-size, var(--_spinner-size));
   display: inline-block;
-  inline-size: var(--_spinner-size);
+  inline-size: var(--spinner-size, var(--_spinner-size));
   vertical-align: middle;
 }
 

@@ -1,7 +1,6 @@
 import type { Spinner, SpinnerSize, SpinnerVariant } from './spinner.js';
+import type { ButtonSize, ButtonVariant } from '@sl-design-system/button';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import { Icon } from '@sl-design-system/icon';
-import { faCheck, faGear } from '@fortawesome/pro-regular-svg-icons';
 import { html } from 'lit';
 import '../register.js';
 
@@ -11,6 +10,8 @@ type Story = StoryObj<Props>;
 
 const sizes: SpinnerSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 const variants: SpinnerVariant[] = ['accent', 'info', 'danger', 'success', 'warning'];
+const buttonVariants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
+const buttonSizes: ButtonSize[] = ['sm', 'md', 'lg'];
 
 const sizeName = (size: string): string => {
   switch (size) {
@@ -53,10 +54,58 @@ export default {
 
 export const Basic: Story = {};
 
+export const InButton: Story = {
+  render: () => {
+    return html`
+      <style>
+        table {
+          border-collapse: collapse;
+          margin-bottom: 24px;
+        }
+
+        th {
+          text-transform: capitalize;
+        }
+        th,
+        td {
+          padding: 4px 8px;
+        }
+      </style>
+      <table>
+        <thead>
+          <tr>
+            <th>Size</th>
+            ${variants.map(variant => html`<th>${variant}</th>`)}
+          </tr>
+        </thead>
+        <tbody>
+          ${buttonSizes.map(
+            buttonSize => html` <tr>
+              <th>${sizeName(buttonSize)}</th>
+              ${buttonVariants.map(
+                buttonVariant => html`<td>
+                  <sl-button .variant=${buttonVariant} size="${buttonSize}">
+                    <sl-spinner></sl-spinner>
+                    Sending
+                  </sl-button>
+                  <sl-button .variant=${buttonVariant} fill="outline" size="${buttonSize}">
+                    <sl-spinner></sl-spinner>
+                    Sending
+                  </sl-button>
+                </td>`
+              )}
+            </tr>`
+          )}
+        </tbody>
+      </table>
+      * When no variant is set the color will be set to CurrentColor; so the color of the text in the container wrapping
+      the spinner.
+    `;
+  }
+};
+
 export const All: Story = {
   render: () => {
-    Icon.registerIcon(faCheck, faGear);
-
     return html`
       <style>
         table {

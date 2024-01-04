@@ -70,7 +70,7 @@ export class Tooltip extends LitElement {
     this.setAttribute('popover', 'manual');
     this.setAttribute('role', 'tooltip');
 
-    const root = this.getRootNode();
+    const root = this.getRootNode() as HTMLElement;
 
     this.#events.listen(root, 'click', this.#onHide, { capture: true });
     this.#events.listen(root, 'focusin', this.#onShow);

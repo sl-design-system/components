@@ -116,7 +116,7 @@ export const TextField: Story = {
 export const CustomError: Story = {
   args: {
     slot: html`
-      <sl-text-field required></sl-text-field>
+      <sl-text-field required show-validity="invalid"></sl-text-field>
       <sl-error>This is a <strong>custom</strong> error</sl-error>
     `
   }

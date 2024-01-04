@@ -1,13 +1,18 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { RadioButtonSize } from './radio.js';
-import { localized, msg } from '@lit/localize';
+import type { Radio, RadioButtonSize } from './radio.js';
+import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import { Radio } from './radio.js';
 import styles from './radio-group.scss.js';
+
+const OBSERVER_OPTIONS: MutationObserverInit = {
+  attributeFilter: ['checked'],
+  attributeOldValue: true,
+  subtree: true
+};
 
 /**
  * A group of radio buttons.
@@ -42,14 +47,13 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   /** The initial state when the form was associated with the radio group. Used to reset the group. */
   #initialState: string | null = null;
 
-  /** Observe the state of the radios. */
+  /** When an option is checked, update the state. */
   #observer = new MutationObserver(mutations => {
     const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
 
-    if (target instanceof Radio && target.value) {
-      this.radios?.forEach(radio => (radio.checked = radio.value === target.value));
-      this.value = target.value;
-    }
+    this.#observer.disconnect();
+    this.#setSelectedOption(target as Radio);
+    this.#observer.observe(this, OBSERVER_OPTIONS);
   });
 
   /** Manage the keyboard navigation. */
@@ -102,10 +106,13 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#observer.observe(this, { attributeFilter: ['checked'], attributeOldValue: true, subtree: true });
+    this.#observer.observe(this, OBSERVER_OPTIONS);
 
     this.internals.role = 'radiogroup';
     this.setFormControlElement(this);
+
+    // Listen for i18n updates and update the validation message
+    this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
   }
 
   override disconnectedCallback(): void {
@@ -119,14 +126,33 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     this.#initialState = this.value;
   }
 
-  /** @ignore  Resets the radio group to the initial state */
+  /** @ignore Resets the radio group to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
-    this.changeEvent.emit(this.value);
+
+    this.#observer.disconnect();
+    this.#setSelectedOption(this.radios?.find(radio => radio.value === this.value));
+    this.#observer.observe(this, OBSERVER_OPTIONS);
+  }
+
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.#updateValueAndValidity();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
+
+    if (changes.has('disabled') && typeof this.disabled === 'boolean') {
+      this.radios?.forEach(radio => (radio.disabled = !!this.disabled));
+    }
+
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
+
+      this.#updateValueAndValidity();
+    }
 
     if (changes.has('showValidity')) {
       const radio = this.radios?.find(radio => radio.value === this.value);
@@ -135,31 +161,14 @@ export class RadioGroup extends FormControlMixin(LitElement) {
       }
     }
 
-    if (changes.has('required') || changes.has('value')) {
-      this.radios?.forEach(radio => (radio.checked = radio.value === this.value));
-      this.internals.setFormValue(this.value);
-      this.internals.setValidity(
-        { valueMissing: this.required && this.value === null },
-        msg('An option must be selected.')
-      );
-
-      this.updateValidity();
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('disabled') && typeof this.disabled === 'boolean') {
-      this.radios?.forEach(radio => (radio.disabled = !!this.disabled));
-    }
-
-    if (changes.has('required')) {
-      this.internals.ariaRequired = this.required ? 'true' : 'false';
-    }
-
     if (changes.has('size')) {
       this.radios?.forEach(radio => (radio.size = this.size || 'md'));
+    }
+
+    if (changes.has('value')) {
+      this.#observer.disconnect();
+      this.radios?.forEach(radio => (radio.checked = radio.value === this.value));
+      this.#observer.observe(this, OBSERVER_OPTIONS);
     }
   }
 
@@ -189,5 +198,23 @@ export class RadioGroup extends FormControlMixin(LitElement) {
         radio.size = this.size;
       }
     });
+  }
+
+  #setSelectedOption(option?: Radio, emitEvent = true): void {
+    this.radios?.forEach(radio => (radio.checked = radio.value === option?.value));
+    this.value = option?.value ?? null;
+
+    if (emitEvent) {
+      this.changeEvent.emit(this.value);
+    }
+
+    this.#updateValueAndValidity();
+  }
+
+  #updateValueAndValidity(): void {
+    this.internals.setFormValue(this.value);
+    this.internals.setValidity({ valueMissing: this.required && this.value === null }, msg('Please select an option.'));
+
+    this.updateValidity();
   }
 }

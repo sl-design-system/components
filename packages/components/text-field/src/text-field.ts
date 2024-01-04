@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { EventEmitter } from '@sl-design-system/shared';
+import { localized } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
@@ -21,6 +22,7 @@ let nextUniqueId = 0;
  * @slot input - The slot for the input element
  * @slot suffix - Content shown after the input
  */
+@localized()
 export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -99,9 +101,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
-      this.input.addEventListener('blur', () => this.blurEvent.emit());
-      this.input.addEventListener('focus', () => this.focusEvent.emit());
-      this.input.slot ||= 'input';
+      this.input.slot = 'input';
       this.#syncInput(this.input);
 
       if (!this.input.parentElement) {
@@ -153,11 +153,12 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
-    this.updateValidity();
     this.changeEvent.emit(this.value);
+    this.updateValidity();
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && event.key === 'Enter') {
       this.form?.requestSubmit(this.input);
     }
@@ -165,11 +166,11 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      inputs = elements.filter((el): el is HTMLInputElement => el instanceof HTMLInputElement && el !== this.input);
+      input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
-    if (inputs.length) {
-      this.input = inputs[0];
+    if (input) {
+      this.input = input;
       this.input.addEventListener('blur', () => this.blurEvent.emit());
       this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncInput(this.input);

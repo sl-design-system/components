@@ -297,6 +297,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateValue",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [

@@ -26,11 +26,6 @@ export const Basic: Story = {
     };
 
     return html`
-      <style>
-        sl-form-field {
-          margin-block-end: 1rem;
-        }
-      </style>
       <sl-form @submit=${onSubmit}>
         <sl-form-field label="Username">
           <sl-text-field placeholder="Enter your username or email address here" required></sl-text-field>

@@ -38,6 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@lit/localize": "^0.12.1",
     "@open-wc/scoped-elements": "3.0.3",
     "@sl-design-system/shared": "0.2.0"
   }

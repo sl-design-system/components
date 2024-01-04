@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EventEmitter } from '@sl-design-system/shared';
-import { localized, msg } from '@lit/localize';
+import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html, svg } from 'lit';
@@ -76,6 +76,9 @@ export class Checkbox extends FormControlMixin(LitElement) {
     this.internals.role = 'checkbox';
     this.setFormControlElement(this);
     this.#updateNoLabel();
+
+    // Listen for i18n updates and update the validation message
+    this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
   }
 
   /** @ignore Stores the initial state of the checkbox */
@@ -101,9 +104,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('checked') || changes.has('required') || changes.has('value')) {
-      this.internals.setFormValue(this.checked ? this.value : null);
-      this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box'));
-      this.updateValidity();
+      this.#updateValueAndValidity();
     }
   }
 
@@ -166,5 +167,12 @@ export class Checkbox extends FormControlMixin(LitElement) {
       .every(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim() === '');
 
     this.toggleAttribute('no-label', empty);
+  }
+
+  #updateValueAndValidity(): void {
+    this.internals.setFormValue(this.checked ? this.value : null);
+    this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box.'));
+
+    this.updateValidity();
   }
 }

@@ -38,22 +38,23 @@ export default {
       control: 'text'
     }
   },
-  render: ({ disabled, hint, label, options, placeholder, required, size, slot }) => {
+  render: ({ disabled, hint, label, options, placeholder, required, size, slot, value }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
-      event.target.closest('form')?.reportValidity();
+      event.target.closest('sl-form')?.reportValidity();
     };
 
     return html`
-      <style>
-        sl-button-bar {
-          margin-block-start: 1rem;
-        }
-      </style>
-      <form>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
           html`
-            <sl-select ?disabled=${disabled} ?required=${required} .placeholder=${placeholder} .size=${size}>
+            <sl-select
+              ?disabled=${disabled}
+              ?required=${required}
+              .placeholder=${placeholder}
+              .size=${size}
+              .value=${value}
+            >
               ${options ??
               html`
                 <sl-select-option value="1">Option 1</sl-select-option>
@@ -66,7 +67,7 @@ export default {
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
         </sl-button-bar>
-      </form>
+      </sl-form>
     `;
   }
 } satisfies Meta<Props>;
@@ -186,6 +187,12 @@ export const Required: Story = {
   }
 };
 
+export const Selected: Story = {
+  args: {
+    value: '2'
+  }
+};
+
 export const TextOverflow: Story = {
   args: {
     placeholder:
@@ -211,16 +218,16 @@ export const Valid: Story = {
 
 export const CustomValidity: Story = {
   args: {
-    hint: 'Select the second option to make the field valid.',
+    hint: 'This story has both builtin validation (required) and custom validation. The second option should be selected to make the field valid. In this example, you should never see the builtin validation message.',
     slot: () => {
-      const onChange = (event: Event & { target: Select }): void => {
+      const onValidate = (event: Event & { target: Select }): void => {
         const value = event.target.value;
 
-        event.target.setCustomValidity(value === '2' ? '' : 'Select the second option');
+        event.target.setCustomValidity(value === '2' ? '' : 'Select the second option.');
       };
 
       return html`
-        <sl-select @sl-change=${onChange}>
+        <sl-select @sl-validate=${onValidate} required>
           <sl-select-option value="1">Option 1</sl-select-option>
           <sl-select-option value="2">Option 2</sl-select-option>
           <sl-select-option value="3">Option 3</sl-select-option>

@@ -1,5 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { localized } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
@@ -22,6 +23,7 @@ let nextUniqueId = 0;
  *
  * @slot textarea - The slot for the textarea element
  */
+@localized()
 export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -37,7 +39,10 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   static override styles: CSSResultGroup = styles;
 
   /** Observe the textarea width. */
-  #observer = new ResizeObserver(() => this.#setSize());
+  #observer = new ResizeObserver(() => {
+    // Workaround for "ResizeObserver loop completed with undelivered notifications."
+    requestAnimationFrame(() => this.#setSize());
+  });
 
   /** @private Hides the external validity icon. */
   override showExternalValidityIcon = false;
@@ -172,13 +177,11 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
-      textareas = elements.filter(
-        (el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement && el !== this.textarea
-      );
+      textarea = elements.find((el): el is HTMLTextAreaElement => el instanceof HTMLTextAreaElement);
 
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
-    if (textareas.length) {
-      this.textarea = textareas[0];
+    if (textarea) {
+      this.textarea = textarea;
       this.textarea.addEventListener('blur', () => this.blurEvent.emit());
       this.textarea.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncTextarea(this.textarea);

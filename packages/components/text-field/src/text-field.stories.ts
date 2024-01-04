@@ -169,15 +169,13 @@ export const CustomInput: Story = {
 
 export const CustomValidity: Story = {
   args: {
-    hint: 'Type "SLDS" to make the field valid.',
+    hint: 'This story has both builtin validation (required) and custom validation. You need to enter "SLDS" to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the input element.',
     slot: () => {
-      const onChange = (event: Event & { target: TextField }): void => {
-        const value = event.target.value;
-
-        event.target.setCustomValidity(!value || value === 'SLDS' ? '' : 'Enter "SLDS"');
+      const onValidate = (event: Event & { target: TextField }): void => {
+        event.target.setCustomValidity(event.target.value === 'SLDS' ? '' : 'Enter "SLDS"');
       };
 
-      return html`<sl-text-field @sl-change=${onChange}></sl-text-field>`;
+      return html`<sl-text-field @sl-validate=${onValidate} required></sl-text-field>`;
     }
   }
 };

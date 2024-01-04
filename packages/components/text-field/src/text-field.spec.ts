@@ -181,6 +181,25 @@ describe('sl-text-field', () => {
 
       expect(onInput.callCount).to.equal(5);
     });
+
+    it('should emit an sl-validate event when calling reportValidity', () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.reportValidity();
+
+      expect(onValidate).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when typing text', async () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.focus();
+      await sendKeys({ type: 'Lorem' });
+
+      expect(onValidate).to.have.been.callCount(5);
+    });
   });
 
   describe('invalid', () => {
@@ -197,6 +216,21 @@ describe('sl-text-field', () => {
 
     it('should have a validation message', () => {
       expect(el.validationMessage).to.equal('Please fill out this field.');
+    });
+
+    it('should have a custom validation message after calling setCustomValidity', async () => {
+      el.setCustomValidity('Custom validation message');
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a custom validation message if calling setCustomValidity in the sl-validate handler', async () => {
+      el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
+
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(el.validationMessage).to.equal('Custom validation message');
     });
 
     it('should have a show-validity attribute when reported', async () => {
@@ -242,7 +276,7 @@ describe('sl-text-field', () => {
       expect(el.validationMessage).to.equal('');
     });
 
-    it('should have a show-validity attribute when reported', async () => {
+    it('should have a valid show-validity attribute when reported and showValid is set', async () => {
       el.showValid = true;
       el.reportValidity();
       await el.updateComplete;

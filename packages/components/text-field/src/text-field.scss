@@ -109,6 +109,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   display: flex;
   gap: var(--_gap);
   outline-color: transparent;
+  overflow: hidden;
   padding: var(--_padding);
   transition: var(--_transition);
   transition-property: background, border, color, filter, outline-color;
@@ -132,6 +133,7 @@ slot[name='input']::slotted(input) {
   flex: 1;
   font: var(--_font);
   margin: 0;
+  min-inline-size: 0;
   outline: none;
   padding: 0;
 

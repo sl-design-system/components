@@ -141,7 +141,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         <div
           id="tabs-popover"
           ${anchor({ element: this.moreButton, position: 'bottom-end' })}
-          @beforetoggle=${this.#onBeforetoggle}
           @toggle=${this.#onToggle}
           popover
           role="listbox"
@@ -160,6 +159,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   // <slot name="all-tabs" open></slot>
 
   //${anchor({ element: this.moreButton, position: 'bottom-end' })}
+
+  // @beforetoggle=${this.#onBeforetoggle}
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -242,7 +243,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.listbox.togglePopover();
   }
 
-  #onBeforetoggle = (event: Event): void => {
+  /*  #onBeforetoggle = (event: Event): void => {
     // TODO: this method is not necessary??
     console.log('onToggle event in anchor', event, this.selectedTabInListbox, this.listbox);
 
@@ -280,7 +281,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.listbox.offsetHeight,
       this.selectedTab?.offsetParent
     );
-  };
+  };*/
 
   #onToggle = (event: Event): void => {
     console.log('onToggle event in anchor', event, this.selectedTabInListbox, this.listbox);
@@ -291,11 +292,21 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
+    // this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
 
     // this.selectedTabInListbox.offsetTop
 
-    indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
+    requestAnimationFrame(() => {
+      if (!this.listbox || !this.selectedTab) {
+        return;
+      }
+      this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
+      // indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
+      indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px)`;
+      indicatorListbox.style.height = `${this.selectedTabInListbox.offsetHeight}px`;
+    });
+
+    // indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
 
     if (
       ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
@@ -334,6 +345,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       }
     });
   };
+
+  // TODO: add keyboard navigation to the dropdown menu
 
   /**
    * Apply accessible attributes and values to the tab buttons.

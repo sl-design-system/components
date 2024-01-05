@@ -1,10 +1,18 @@
 :host {
+  --_tab-group-background: var(--sl-color-tab-default-background);
+  --_border-bottom: var(--sl-border-width-border-tab) solid var(--sl-color-tab-default-border);
   --_tab-group-indicator-color: var(--sl-color-button-primary-solid-idle-background);
   // --indicator-color: var(--dna-primary);
-  --indicator-size: 4px;
-  --indicator-transition: var(--dna-transition-normal, 0.2s ease-in-out);
-  --listbox-background: var(--sl-color-select-listbox-background);
-  --listbox-border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
+  --indicator-size: 4px; // TODO: needs to come from token
+  // --indicator-transition: var(--dna-transition-normal, 100ms ease-in-out);
+  --_listbox-background: var(--sl-color-select-listbox-background);
+  --_listbox-border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
+  --_listbox-border-radius: var(--sl-border-radius-select-listbox);
+  --_listbox-padding: var(--sl-space-select-listbox-block-lg) var(--sl-space-select-listbox-inline-lg);
+  --_listbox-item-padding: var(--sl-space-select-item-block-lg) var(--sl-space-select-item-inline-lg);
+  --_listbox-font: var(--sl-text-select-selectbox-text-lg);
+  --_listbox-color: var(--sl-color-select-item-default-foreground);
+  --_listbox-item-border-radius: var(--sl-border-radius-select-item);
   // TODO: listbox-padding etc.
 }
 
@@ -15,6 +23,8 @@
 }
 
 [role='tablist'] {
+  background-color: var(--_tab-group-background);
+  border-bottom: var(--_border-bottom);
   display: flex;
   position: relative;
 }
@@ -37,31 +47,31 @@
 
 .indicator-listbox {
   height: 1px;
-  inset: 0 auto auto 0;
+  inset: 0 auto auto var(--sl-space-select-listbox-inline-lg);
   transform-origin: center top;
   width: var(--indicator-size);
 }
 
 :host([vertical='false']) [role='tablist'] {
   --_sl-tab-group-list-background: #fff;
-  --_sl-tab-list-background: #fff;
+  //--_sl-tab-list-background: #fff;
   --sl-color-border-strong: rgb(188, 197, 204);
   --sl-space-s: 8px;
   --sl-space-l: 24px;
   --sl-space-xl: 36px;
   --sl-tab-group-padding: 24px;
 
-  background-color: var(--_sl-tab-group-list-background);
-  background-image: radial-gradient(
-    ellipse farthest-side at 0 50%,
-    var(--sl-color-border-strong) 0,
-    var(--_sl-tab-group-list-background)
-  ),
-    radial-gradient(
-    ellipse farthest-side at 100% 50%,
-    var(--sl-color-border-strong) 0,
-    var(--_sl-tab-group-list-background)
-  );
+  //background-color: var(--_sl-tab-group-list-background);
+  //background-image: radial-gradient(
+  //  ellipse farthest-side at 0 50%,
+  //  var(--sl-color-border-strong) 0,
+  //  var(--_sl-tab-group-list-background)
+  //),
+  //  radial-gradient(
+  //  ellipse farthest-side at 100% 50%,
+  //  var(--sl-color-border-strong) 0,
+  //  var(--_sl-tab-group-list-background)
+  //);
   background-position: 0 calc(var(--sl-space-s) / 2), 100% calc(var(--sl-space-s) / 2);
   background-repeat: no-repeat;
   background-size: var(--sl-space-s) var(--sl-space-xl), var(--sl-space-s) var(--sl-space-xl);
@@ -118,20 +128,29 @@ sl-button {
 .indicator,
 .indicator-listbox {
   background: var(--_tab-group-indicator-color);
+  border-radius: 2px; // TODO: needs to come from the token?
   position: absolute;
   z-index: 1;
 }
 
+//.indicator-listbox:has(sl-tab[disabled]) {
+//  background: #c6c6c6;
+//}
+
 @media (prefers-reduced-motion: no-preference) {
-  .indicator,
+  .indicator {
+    transition: transform 400ms ease-in-out;
+  }
+
   .indicator-listbox {
-    transition: transform 0.5s ease-in-out;
+    transition: transform 50ms ease-in-out;
   }
 }
 
 div[popover] {
-  background-color: var(--listbox-background); //#fff;
-  border: var(--listbox-border); //0;
+  background-color: var(--_listbox-background); //#fff;
+  border: var(--_listbox-border); //0;
+  border-radius: var(--_listbox-border-radius);
   box-shadow: var(--sl-elevation-shadow-md);
   box-sizing: border-box;
   display: none;
@@ -140,9 +159,32 @@ div[popover] {
   margin: 0;
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  padding: var(--_listbox-padding);
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+
+  sl-tab {
+    border-radius: var(--_listbox-item-border-radius);
+    color: var(--_listbox-color);
+    font: var(--_listbox-font);
+    padding: var(--_listbox-item-padding);
+    transition: background 300ms;
+
+    //&:hover {
+    //  background-color: var(--sl-color-select-item-hover-background);
+    //}
+    //
+    //&:active {
+    //  background-color: var(--sl-color-select-item-active-background);
+    //}
+  }
+
+  sl-tab:hover {
+    background-color: var(--sl-color-select-item-hover-background);
+  }
+
+  sl-tab:active {
+    background-color: var(--sl-color-select-item-active-background);
+  }
 
   sl-tab::part(subtitle) {
     //color: yellow;

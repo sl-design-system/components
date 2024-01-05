@@ -117,7 +117,7 @@ export const ExternalInteraction: StoryObj = {
   render: ({ vertical }) => html`
     <sl-tab-group .vertical=${vertical} id="externalInteraction" @sl-tab-change=${tabChange}>
       <sl-tab selected>Tab 1</sl-tab>
-      <sl-tab>Tab 2</sl-tab>
+      <sl-tab disabled>Tab 2</sl-tab>
       <sl-tab>Tab 3</sl-tab>
       <sl-tab>Tab 4</sl-tab>
       <sl-tab>Tab 5</sl-tab>

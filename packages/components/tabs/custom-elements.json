@@ -358,11 +358,6 @@
             },
             {
               "kind": "field",
-              "name": "#onBeforetoggle",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
               "name": "#onToggle",
               "privacy": "private"
             },

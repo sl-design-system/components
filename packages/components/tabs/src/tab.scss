@@ -1,12 +1,22 @@
 :host {
+  //--_font: var(--sl-text-badge-text-lg);
+  --_padding: var(--sl-space-tab-block) var(--sl-space-tab-inline);
+  --_gap: var(--sl-space-tab-gap);
+  --_color: var(--sl-color-tab-default-foreground);
+}
+
+:host {
   align-items: flex-start;
+  //font: var(--_font);
+  color: var(--_color);
   cursor: pointer;
   display: flex;
   //justify-content: center;
   flex-direction: column;
+  gap: var(--_gap);
   //display: inline-block;
   line-height: 36px;
-  padding: 0 3px;
+  padding: var(--_padding); //0 3px;
 }
 
 //:host([selected]) {

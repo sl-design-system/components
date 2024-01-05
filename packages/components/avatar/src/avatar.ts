@@ -105,6 +105,9 @@ export class Avatar extends LitElement {
 
   private borderWidth = 4; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
 
+  /** Observe the grid width. */
+  #resizeObserver?: ResizeObserver;
+
   @state() image?: AvatarImage;
   @state() badge?: AvatarBadge;
   @state() icon?: AvatarIcon;
@@ -273,6 +276,8 @@ export class Avatar extends LitElement {
     `;
   }
 
+  #hasOverflow = false;
+
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
     await Config.getConfigSetting<AvatarConfig>('avatar').then(async config => {
@@ -281,11 +286,30 @@ export class Avatar extends LitElement {
       this.setAttribute('shape', this.avatarConfig.shape);
       await this.#setBaseValues();
     });
+
+    this.#resizeObserver = new ResizeObserver(() => {
+      this.#checkOverflow();
+      return;
+    });
+
+    this.#resizeObserver.observe(this);
+  }
+
+  #checkOverflow(): void {
+    const element = this.renderRoot.querySelector('.header') as HTMLElement;
+    if (!element) return;
+    this.#hasOverflow = element.offsetWidth < element.scrollWidth || element.offsetHeight + 4 < element.scrollHeight;
+    if (this.#hasOverflow) {
+      element.setAttribute('aria-describedby', `avatar-tooltip-${this.#avatarId}`);
+    } else {
+      element.removeAttribute('aria-describedby');
+    }
   }
 
   override render(): TemplateResult {
     return html`
       <picture> ${this.imageSVG} </picture>
+      <sl-tooltip id="avatar-tooltip-${this.#avatarId}">${this.profileName}</sl-tooltip>
       ${!this.imageOnly
         ? html`<div>
             <span class="header">${this.profileName}</span>
@@ -300,6 +324,7 @@ export class Avatar extends LitElement {
 
     if (changes.has('user')) {
       this.errorLoadingImage = false;
+      this.#checkOverflow();
     }
 
     if (changes.has('size') || changes.has('badgeText')) {

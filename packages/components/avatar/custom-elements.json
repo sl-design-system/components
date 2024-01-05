@@ -289,6 +289,15 @@
           "methods": [
             {
               "kind": "method",
+              "name": "#checkOverflow",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#setBaseValues",
               "return": {
                 "type": {
@@ -412,6 +421,15 @@
             },
             {
               "kind": "field",
+              "name": "#resizeObserver",
+              "privacy": "private",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "description": "Observe the grid width."
+            },
+            {
+              "kind": "field",
               "name": "image",
               "type": {
                 "text": "AvatarImage | undefined"
@@ -498,6 +516,15 @@
                 "text": "TemplateResult"
               },
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#hasOverflow",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
             }
           ]
         }

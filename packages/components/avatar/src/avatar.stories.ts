@@ -1,6 +1,7 @@
 import type { Avatar } from './avatar.js';
 import type { AvatarFallbackType, AvatarOrientation, AvatarSize, UserProfile, UserStatus } from './models.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/tooltip/register.js';
 import { html } from 'lit';
 import '../register.js';
 
@@ -173,17 +174,19 @@ export default {
         }
       };
     }
-    return html`<sl-avatar
-      .user=${user}
-      .size=${size}
-      .fallback=${fallback}
-      .status=${status}
-      ?image-only=${imageOnly}
-      badge-text=${badgeText}
-      label=${labelText}
-      .orientation=${orientation}
-      >${subheading}</sl-avatar
-    >`;
+    return html`<div style="max-width:175px;">
+      <sl-avatar
+        .user=${user}
+        .size=${size}
+        .fallback=${fallback}
+        .status=${status}
+        ?image-only=${imageOnly}
+        badge-text=${badgeText}
+        label=${labelText}
+        .orientation=${orientation}
+        >${subheading}</sl-avatar
+      >
+    </div>`;
   }
 } satisfies Meta<Props>;
 

@@ -65,7 +65,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Emits when the items in the grid have changed. */
   @event() gridItemsChange!: EventEmitter<GridEvent<T>>;
 
-  /** Emits when the state in the grid have changed. */
+  /** Emits when the state in the grid has changed. */
   @event() gridStateChange!: EventEmitter<GridEvent<T>>;
 
   /** An array of items to be displayed in the grid. */

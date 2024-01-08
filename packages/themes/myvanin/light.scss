@@ -13,11 +13,13 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-base));
   --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
-  --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));
-  --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-500));
+  --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
@@ -41,7 +43,7 @@
   --sl-color-inline-message-info-border: rgb(var(--sl-color-palette-info-base));
   --sl-color-inline-message-info-foreground: rgb(var(--sl-color-palette-info-600));
   --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-50));
-  --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-focusring-default: rgb(var(--sl-color-palette-info-base));
   --sl-color-select-panel-bacground-copy: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-select-disabled-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-select-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
@@ -560,6 +562,8 @@
   --sl-button-default-default-active: [object Object];
   --sl-button-default-default-hover: [object Object];
   --sl-button-default-default-idle: [object Object];
+  --sl-color-avatar-subheader: var(--sl-body-foreground);
+  --sl-color-avatar-header: var(--sl-body-foreground);
   --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);
   --sl-color-dialog-background: var(--sl-body-background);

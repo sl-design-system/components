@@ -24,6 +24,12 @@
         "type": "color",
         "description": "body.surface.100",
         "failedToResolve": true
+      },
+      "overlay": {
+        "value": "rgba({color.palette.neutral.base} , {opacity.700})",
+        "type": "color",
+        "description": "body.surface.200",
+        "failedToResolve": true
       }
     }
   },

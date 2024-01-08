@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { FormControlShowValidity } from '@sl-design-system/form';
+import type { FormControlShowValidity, FormValue } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -30,7 +30,7 @@ export class Radio extends LitElement {
   @property({ reflect: true }) size: RadioButtonSize = 'md';
 
   /** The value for this radio button. */
-  @property() value: string | null = null;
+  @property() value: FormValue = null;
 
   override connectedCallback(): void {
     super.connectedCallback();

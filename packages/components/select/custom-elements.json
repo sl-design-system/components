@@ -450,7 +450,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<string | null>"
+                "text": "EventEmitter<FormValue>"
               },
               "description": "Emits when the value changes."
             },
@@ -466,7 +466,7 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "FormValue"
               },
               "default": "null",
               "description": "The value for the select, to be used in forms.",
@@ -485,7 +485,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<string | null>"
+                "text": "EventEmitter<FormValue>"
               },
               "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
@@ -544,7 +544,7 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "FormValue"
               },
               "default": "null",
               "description": "The value for the select, to be used in forms.",
@@ -765,7 +765,7 @@
               "name": "#initialState",
               "privacy": "private",
               "type": {
-                "text": "string | null"
+                "text": "FormValue"
               },
               "default": "null",
               "description": "The initial state when the form was associated with the select. Used to reset the select."

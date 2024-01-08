@@ -382,7 +382,7 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "FormValue"
               },
               "default": "null",
               "description": "The value for the checkbox, to be used in forms.",
@@ -468,7 +468,7 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "FormValue"
               },
               "default": "null",
               "description": "The value for the checkbox, to be used in forms.",

@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import type { FormValue } from '@sl-design-system/form';
 import { FormControlMixin } from '@sl-design-system/form';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
@@ -39,7 +40,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   });
 
   /** The initial state when the form was associated with the select. Used to reset the select. */
-  #initialState: string | null = null;
+  #initialState: FormValue = null;
 
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
@@ -54,7 +55,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string | null>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<FormValue>;
 
   /** Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
@@ -99,7 +100,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @property({ reflect: true }) size: SelectSize = 'md';
 
   /** The value for the select, to be used in forms. */
-  @property() value: string | null = null;
+  @property() value: FormValue = null;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -345,7 +346,15 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.value);
+    let value = null;
+
+    if (typeof this.value === 'string' || this.value instanceof File || this.value instanceof FormData) {
+      value = this.value;
+    } else if (this.value && 'toString' in this.value) {
+      value = this.value.toString();
+    }
+
+    this.internals.setFormValue(value);
     this.internals.setValidity(
       { valueMissing: this.required && this.value === null },
       msg('Please choose an option from the list.')

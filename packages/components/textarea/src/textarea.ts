@@ -2,6 +2,7 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { localized } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import type { FormValue } from '@sl-design-system/form';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import type { EventEmitter } from '@sl-design-system/shared';
@@ -51,7 +52,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<FormValue>;
 
   /** Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
@@ -101,7 +102,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @property({ reflect: true }) size: TextareaSize = 'md';
 
   /** The value for the textarea. */
-  @property() value: string | null = null;
+  @property() value: FormValue = null;
 
   /** The way text should be wrapped during form submission. */
   @property() wrap: WrapType = 'soft';
@@ -150,7 +151,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     }
 
     if (changes.has('value') && this.value !== this.textarea.value) {
-      this.textarea.value = this.value || '';
+      this.textarea.value = this.value?.toString() || '';
     }
   }
 

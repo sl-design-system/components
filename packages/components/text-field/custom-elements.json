@@ -176,7 +176,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<FormValue>"
               },
               "description": "Emits when the value changes."
             },
@@ -202,9 +202,9 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "FormValue"
               },
-              "default": "null",
+              "default": "''",
               "description": "The value for the input, to be used in forms.",
               "attribute": "value"
             }
@@ -221,7 +221,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<FormValue>"
               },
               "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
@@ -329,9 +329,9 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "FormValue"
               },
-              "default": "null",
+              "default": "''",
               "description": "The value for the input, to be used in forms.",
               "fieldName": "value"
             }

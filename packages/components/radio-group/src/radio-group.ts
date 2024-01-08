@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Radio, RadioButtonSize } from './radio.js';
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
+import type { FormValue } from '@sl-design-system/form';
 import { FormControlMixin } from '@sl-design-system/form';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
@@ -45,7 +46,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   });
 
   /** The initial state when the form was associated with the radio group. Used to reset the group. */
-  #initialState: string | null = null;
+  #initialState: FormValue = null;
 
   /** When an option is checked, update the state. */
   #observer = new MutationObserver(mutations => {
@@ -80,7 +81,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string | null>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<FormValue>;
 
   /** Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
@@ -101,7 +102,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   @property() size?: RadioButtonSize;
 
   /** The value for the radio group, to be used in forms. */
-  @property() value: string | null = null;
+  @property() value: FormValue = null;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -212,7 +213,15 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.value);
+    let value = null;
+
+    if (typeof this.value === 'string' || this.value instanceof File || this.value instanceof FormData) {
+      value = this.value;
+    } else if (this.value && 'toString' in this.value) {
+      value = this.value.toString();
+    }
+
+    this.internals.setFormValue(value);
     this.internals.setValidity({ valueMissing: this.required && this.value === null }, msg('Please select an option.'));
 
     this.updateValidity();

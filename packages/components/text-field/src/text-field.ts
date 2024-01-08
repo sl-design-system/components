@@ -3,6 +3,7 @@ import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js'
 import type { EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import type { FormValue } from '@sl-design-system/form';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { event } from '@sl-design-system/shared';
@@ -44,7 +45,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<FormValue>;
 
   /** Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
@@ -94,7 +95,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
   /** The value for the input, to be used in forms. */
-  @property() value: string | null = null;
+  @property() value: FormValue = '';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -132,7 +133,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     }
 
     if (changes.has('value') && this.value !== this.input.value) {
-      this.input.value = this.value || '';
+      this.input.value = this.value?.toString() || '';
     }
   }
 

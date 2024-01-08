@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
+import type { FormValue } from '@sl-design-system/form';
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController, event } from '@sl-design-system/shared';
 import { LitElement, html, svg } from 'lit';
@@ -68,7 +69,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
   /** The value for the checkbox, to be used in forms. */
-  @property() value: string | null = null;
+  @property() value: FormValue = null;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -170,7 +171,17 @@ export class Checkbox extends FormControlMixin(LitElement) {
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.checked ? this.value : null);
+    let value = null;
+
+    if (this.checked) {
+      if (typeof this.value === 'string' || this.value instanceof File || this.value instanceof FormData) {
+        value = this.value;
+      } else if (this.value && 'toString' in this.value) {
+        value = this.value.toString();
+      }
+    }
+
+    this.internals.setFormValue(value);
     this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box.'));
 
     this.updateValidity();

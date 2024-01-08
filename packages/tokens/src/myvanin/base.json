@@ -132,7 +132,7 @@
           "description": "color.palette.neutral.50"
         },
         "100": {
-          "value": "#E0E2E2",
+          "value": "#EEEEEE",
           "type": "color",
           "description": "color.palette.neutral.100"
         },
@@ -142,7 +142,7 @@
           "description": "color.palette.neutral.150"
         },
         "200": {
-          "value": "#B3B5B5",
+          "value": "#BFBFBF",
           "type": "color",
           "description": "color.palette.neutral.200"
         },
@@ -152,7 +152,7 @@
           "description": "color.palette.neutral.300"
         },
         "400": {
-          "value": "#878888",
+          "value": "#8D8D8D",
           "type": "color",
           "description": "color.palette.neutral.400"
         },
@@ -162,7 +162,7 @@
           "description": "color.palette.neutral.500"
         },
         "600": {
-          "value": "#5B5B5B",
+          "value": "#5D5D5D",
           "type": "color",
           "description": "color.palette.neutral.600"
         },

@@ -20,6 +20,11 @@
         "value": "{color.palette.neutral.150}",
         "type": "color",
         "description": "body.surface.100"
+      },
+      "overlay": {
+        "value": "rgba({color.palette.neutral.base} , {opacity.700})",
+        "type": "color",
+        "description": "body.surface.200"
       }
     }
   },

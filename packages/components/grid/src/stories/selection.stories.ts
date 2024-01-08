@@ -4,6 +4,7 @@ import type { StoryObj } from '@storybook/web-components';
 import type { Person } from '@sl-design-system/example-data';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import type { SelectionController } from '@sl-design-system/shared';
 import { getPeople } from '@sl-design-system/example-data';
 import { html } from 'lit';
 import '../../register.js';
@@ -50,8 +51,21 @@ export const Multiple: Story = {
   },
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: ({ selectAll }, { loaded: { people } }) => {
+    const onSelectionChange = ({ detail: selection }: CustomEvent<SelectionController>): void => {
+      const p = document.querySelector<HTMLParagraphElement>('.selection')!;
+
+      if (selection.areAllSelected()) {
+        p.innerText = `${selection.size} of ${selection.size} selected`;
+      } else if (selection.areSomeSelected()) {
+        p.innerText = `${selection.selection.size} of ${selection.size} selected`;
+      } else {
+        p.innerText = 'No selection';
+      }
+    };
+
     return html`
-      <sl-grid .items=${people}>
+      <p class="selection" style="margin-block: 0 8px">No selection</p>
+      <sl-grid @sl-selection-change=${onSelectionChange} .items=${people}>
         <sl-grid-selection-column .selectAll=${selectAll}></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

@@ -1,4 +1,5 @@
 import type { Tab } from './tab.js';
+import '@sl-design-system/badge/register.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
@@ -46,34 +47,35 @@ const createLipsumParagraphs = (paragraphs: number): string => {
 
 export const API: StoryObj = {
   render: ({ vertical }) => html`
-    <style>
-      sl-tab-panel {
-        padding: 8px;
-      }
-    </style>
     <sl-tab-group .vertical=${vertical}>
       <sl-tab disabled>
-        🧁 Tab 1
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        Tab 1
         <span slot="subtitle">Tab 1 subtitle</span>
       </sl-tab>
       <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
 
       <sl-tab>
-        🍰 Tab 2
-        <span slot="subtitle">Tab 1 subtitle</span>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        Tab 2
+        <span slot="subtitle">Tab 2 subtitle</span>
+        <sl-badge slot="badge" size="lg" variant="danger">4</sl-badge>
       </sl-tab>
       <sl-tab-panel>
         <p>Contents tab 2</p>
         <sl-avatar></sl-avatar>
       </sl-tab-panel>
 
-      <sl-tab>🍡 Tab 3</sl-tab>
+      <sl-tab>
+        Tab 3
+        <span slot="subtitle">Tab 3 subtitle</span>
+      </sl-tab>
       <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>
 
-      <sl-tab>🥞 Tab 4</sl-tab>
+      <sl-tab>Tab 4</sl-tab>
       <sl-tab-panel>Contents tab 4</sl-tab-panel>
 
-      <sl-tab>🍪 Tab 5</sl-tab>
+      <sl-tab>Tab 5</sl-tab>
       <sl-tab-panel>Contents tab 5</sl-tab-panel>
     </sl-tab-group>
   `
@@ -131,11 +133,6 @@ export const ExternalInteraction: StoryObj = {
 
 export const SingleTab: StoryObj = {
   render: ({ vertical }) => html`
-    <style>
-      sl-tab-panel {
-        padding: 8px;
-      }
-    </style>
     <sl-tab-group .vertical=${vertical} id="singleTab" @sl-tab-change=${tabChange}>
       <sl-tab>Tab 1</sl-tab>
       <sl-tab>Tab 2</sl-tab>

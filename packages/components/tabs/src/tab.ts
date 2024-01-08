@@ -15,7 +15,12 @@ export class Tab extends LitElement {
   @property({ reflect: true, type: Boolean }) disabled = false;
 
   override render(): TemplateResult {
-    return html`<slot></slot> <slot name="subtitle" part="subtitle"></slot>`;
+    return html` <slot name="icon" part="icon"></slot>
+      <div class="content">
+        <slot></slot>
+        <slot name="subtitle" part="subtitle"></slot>
+      </div>
+      <slot name="badge" part="badge"></slot>`;
   }
 
   /**

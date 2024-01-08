@@ -1,5 +1,9 @@
 :host {
-  box-shadow: #e2e2e2 0 5px 10px 0;
+  --_padding: var(--sl-space-tab-content-block) var(--sl-space-tab-content-inline);
+}
+
+:host {
+  padding: var(--_padding);
 }
 
 :host([aria-hidden='true']) {

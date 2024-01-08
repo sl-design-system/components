@@ -315,6 +315,9 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-tab-content-gap: var(--sl-space-xl);
+  --sl-space-tab-content-block: var(--sl-space-xl);
+  --sl-space-tab-content-inline: var(--sl-space-xl);
   --sl-space-tab-more-block: var(--sl-space-sm);
   --sl-space-tab-more-inline: var(--sl-space-md);
   --sl-space-tab-gap: var(--sl-space-sm);

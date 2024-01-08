@@ -283,6 +283,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     );
   };*/
 
+  // TODO: add badge and icon slot
+
+  // TODO: on changed probably or will change set indicator, because there is a problem with indicator when switching between vertical and horizontal tabs
+
   #onToggle = (event: Event): void => {
     console.log('onToggle event in anchor', event, this.selectedTabInListbox, this.listbox);
 
@@ -383,15 +387,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #handleTabChange(event: Event): void {
-    console.log('handleTabChange', event, event.target);
+    console.log('handleTabChange', event, event.target, (event.target as HTMLElement).closest('sl-tab'));
+    event.preventDefault();
+    event.stopPropagation();
     // Always reset the scroll when a tab is selected.
     this.scrollTo({ top: 0 });
 
     /**
      * Return handler if it's not a tab or if it's already selected
      */
-    if (!(event.target instanceof Tab)) return;
-    this.#updateSelectedTab(event.target);
+    if (!(event.target as HTMLElement).closest('sl-tab') /*(event.target instanceof Tab)*/) return;
+    this.#updateSelectedTab((event.target as HTMLElement).closest('sl-tab') as Tab /*event.target*/);
     this.listbox.hidePopover();
   }
 

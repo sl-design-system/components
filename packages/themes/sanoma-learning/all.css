@@ -295,6 +295,9 @@
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
+  --sl-space-tab-content-gap: var(--sl-space-xl);
+  --sl-space-tab-content-block: var(--sl-space-xl);
+  --sl-space-tab-content-inline: var(--sl-space-xl);
   --sl-space-tab-more-block: var(--sl-space-sm);
   --sl-space-tab-more-inline: var(--sl-space-md);
   --sl-space-tab-gap: var(--sl-space-sm);
@@ -614,6 +617,10 @@
     var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-bold: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-body-lg-demibold: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
@@ -780,6 +787,8 @@
     --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
+    --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-150));
     --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
@@ -1287,6 +1296,9 @@
         var(--sl-color-skeleton-base) 90%,
         var(--sl-color-skeleton-base) 100%
       );
+    --sl-color-tab-content-foreground: var(--sl-body-foreground);
+    --sl-color-tab-content-background: var(--sl-body-background);
+    --sl-color-tab-active-foreground: var(--sl-body-foreground);
     --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);
     --sl-color-tab-tabbar-background: var(--sl-body-background);
     --sl-color-tab-disabled-background: var(--sl-body-background);

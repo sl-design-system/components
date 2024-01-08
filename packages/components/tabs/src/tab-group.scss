@@ -19,13 +19,14 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  // gap: 8px;
 }
 
 [role='tablist'] {
   background-color: var(--_tab-group-background);
   border-bottom: var(--_border-bottom);
   display: flex;
+  overflow: hidden;
   position: relative;
 }
 
@@ -77,7 +78,7 @@
   background-size: var(--sl-space-s) var(--sl-space-xl), var(--sl-space-s) var(--sl-space-xl);
   flex-wrap: nowrap;
   gap: 8px;
-  overflow: auto;
+  //overflow: auto;
 
   &::before,
   &::after {
@@ -118,11 +119,15 @@
 }
 
 sl-button {
-  align-self: center;
-  background: #9ebaff;
+  //align-self: center;
+  // background: #9ebaff;
   //position: absolute;
   inset-inline-end: 0;
   position: sticky;
+
+  &:hover {
+    background-color: var(--sl-color-select-item-hover-background);
+  }
 }
 
 .indicator,

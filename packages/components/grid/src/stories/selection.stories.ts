@@ -64,7 +64,9 @@ export const Multiple: Story = {
     };
 
     return html`
-      <p class="selection" style="margin-block: 0 8px">No selection</p>
+      <p class="selection" style="margin-block: 0 1rem">
+        This is updated outside the component by listening to the <code>sl-selection-change</code> event.
+      </p>
       <sl-grid @sl-selection-change=${onSelectionChange} .items=${people}>
         <sl-grid-selection-column .selectAll=${selectAll}></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>

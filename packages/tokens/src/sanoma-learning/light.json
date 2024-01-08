@@ -4059,6 +4059,16 @@
           "value": "{color.palette.neutral.200}",
           "type": "color"
         }
+      },
+      "content": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        }
       }
     },
     "skeleton": {

@@ -1587,6 +1587,20 @@
           "value": "{space.sm}",
           "type": "spacing"
         }
+      },
+      "content": {
+        "inline": {
+          "value": "{space.xl}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.xl}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.xl}",
+          "type": "spacing"
+        }
       }
     }
   },

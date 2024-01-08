@@ -1,6 +1,7 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { FormFieldEvent } from './form-field-event.js';
 import type { FormField } from './form-field.js';
+import type { FormValue } from './form-control-mixin.js';
 import { EventsController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import styles from './form.scss.js';
@@ -27,12 +28,20 @@ export class Form extends LitElement {
   /** The fields in the form. */
   fields: FormField[] = [];
 
+  get value(): Record<string, FormValue> {
+    return Object.fromEntries(
+      this.fields
+        .map(f => (f.control ? [f.control.name, f.control.value] : null))
+        .filter((entry): entry is [string, FormValue] => entry != null)
+    );
+  }
+
   override render(): TemplateResult {
     return html`<slot></slot>`;
   }
 
   reportValidity(): boolean {
-    return this.fields.map(f => f.formControl?.reportValidity()).every(Boolean);
+    return this.fields.map(f => f.control?.reportValidity()).every(Boolean);
   }
 
   #onFormField(event: FormFieldEvent): void {

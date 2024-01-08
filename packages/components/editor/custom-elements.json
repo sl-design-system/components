@@ -113,7 +113,7 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "FormValue"
               },
               "attribute": "value"
             }
@@ -122,7 +122,7 @@
             {
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "FormValue"
               },
               "fieldName": "value"
             }
@@ -200,8 +200,9 @@
               "name": "#value",
               "privacy": "private",
               "type": {
-                "text": "string | undefined"
+                "text": "FormValue"
               },
+              "default": "null",
               "description": "The value of the content in the editor."
             },
             {

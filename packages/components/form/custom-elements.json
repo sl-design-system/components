@@ -361,6 +361,15 @@
               },
               "description": "Returns the validity state the control is in.",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "FormValue"
+              },
+              "default": "null",
+              "description": "The value for this form control."
             }
           ],
           "events": [
@@ -468,6 +477,15 @@
               },
               "default": "false",
               "description": "Optional property to indicate the valid state should be shown."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "FormValue"
+              },
+              "default": "null",
+              "description": "The value for this form control."
             },
             {
               "kind": "field",
@@ -584,7 +602,7 @@
           "members": [
             {
               "kind": "field",
-              "name": "formControl",
+              "name": "control",
               "type": {
                 "text": "HTMLElement & FormControl | undefined"
               },
@@ -793,7 +811,7 @@
             },
             {
               "kind": "field",
-              "name": "formControl",
+              "name": "control",
               "type": {
                 "text": "HTMLElement & FormControl | undefined"
               },
@@ -848,6 +866,14 @@
                   "text": "boolean"
                 }
               }
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "Record<string, FormValue>"
+              },
+              "readonly": true
             }
           ],
           "superclass": {
@@ -900,6 +926,14 @@
               },
               "default": "[]",
               "description": "The fields in the form."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "Record<string, FormValue>"
+              },
+              "readonly": true
             }
           ]
         }

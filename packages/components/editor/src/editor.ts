@@ -1,6 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EditorMarks, EditorNodes } from './schema.js';
 import type { Plugin } from 'prosemirror-state';
+import type { FormValue } from '@sl-design-system/form';
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
 import { baseKeymap } from 'prosemirror-commands';
@@ -28,7 +29,7 @@ export class Editor extends FormControlMixin(LitElement) {
   #events = new EventsController(this);
 
   /** The value of the content in the editor. */
-  #value?: string;
+  #value: FormValue = null;
 
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
@@ -40,16 +41,16 @@ export class Editor extends FormControlMixin(LitElement) {
   @property({ attribute: false }) plugins?: Plugin[];
 
   @property()
-  get value(): string | undefined {
+  override get value(): FormValue {
     return this.#value;
   }
 
-  set value(value: string | undefined) {
+  override set value(value: FormValue) {
     const oldValue = this.#value;
     this.#value = value;
 
     if (this.#view) {
-      setHTML(value || '')(this.#view.state, this.#view.dispatch, this.#view);
+      setHTML(value?.toString() || '')(this.#view.state, this.#view.dispatch, this.#view);
     }
 
     this.requestUpdate('value', oldValue);

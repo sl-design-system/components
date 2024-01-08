@@ -69,7 +69,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
   /** The value for the checkbox, to be used in forms. */
-  @property() value: FormValue = null;
+  @property() override value: FormValue = null;
 
   override connectedCallback(): void {
     super.connectedCallback();

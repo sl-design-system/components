@@ -102,7 +102,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   @property() size?: RadioButtonSize;
 
   /** The value for the radio group, to be used in forms. */
-  @property() value: FormValue = null;
+  @property() override value: FormValue = null;
 
   override connectedCallback(): void {
     super.connectedCallback();

@@ -100,7 +100,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @property({ reflect: true }) size: SelectSize = 'md';
 
   /** The value for the select, to be used in forms. */
-  @property() value: FormValue = null;
+  @property() override value: FormValue = null;
 
   override connectedCallback(): void {
     super.connectedCallback();

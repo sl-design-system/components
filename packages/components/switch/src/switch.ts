@@ -83,7 +83,7 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @property({ reflect: true }) size: SwitchSize = 'md';
 
   /** The value for the switch, to be used in forms. */
-  @property() value: FormValue = null;
+  @property() override value: FormValue = null;
 
   override connectedCallback(): void {
     super.connectedCallback();

@@ -35,6 +35,7 @@ export interface FormControl {
   readonly valid: boolean;
   readonly validationMessage: string;
   readonly validity: ValidityState;
+  readonly value: FormValue;
 
   customValidity?: string;
   name?: string;
@@ -92,6 +93,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /** Optional property to indicate the valid state should be shown. */
     showValid = false;
+
+    /** The value for this form control. */
+    value: FormValue = null;
 
     /** The error message to display when the control is invalid. */
     @property({ attribute: 'custom-validity' }) customValidity?: string;

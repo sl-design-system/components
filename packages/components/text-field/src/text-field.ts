@@ -95,7 +95,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
   /** The value for the input, to be used in forms. */
-  @property() value: FormValue = '';
+  @property() override value: FormValue = '';
 
   override connectedCallback(): void {
     super.connectedCallback();

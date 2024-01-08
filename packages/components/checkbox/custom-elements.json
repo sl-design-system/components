@@ -103,7 +103,7 @@
             },
             {
               "kind": "field",
-              "name": "value",
+              "name": "state",
               "type": {
                 "text": "boolean[] | undefined"
               },
@@ -233,7 +233,7 @@
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(() => (this.value = this.boxes?.map(box => !!box.checked)))",
+              "default": "new MutationObserver(() => (this.state = this.boxes?.map(box => !!box.checked)))",
               "description": "Observe changes to the checkboxes."
             },
             {
@@ -259,7 +259,7 @@
             },
             {
               "kind": "field",
-              "name": "value",
+              "name": "state",
               "type": {
                 "text": "boolean[] | undefined"
               },

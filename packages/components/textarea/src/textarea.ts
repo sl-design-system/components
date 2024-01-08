@@ -102,7 +102,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @property({ reflect: true }) size: TextareaSize = 'md';
 
   /** The value for the textarea. */
-  @property() value: FormValue = null;
+  @property() override value: FormValue = null;
 
   /** The way text should be wrapped during form submission. */
   @property() wrap: WrapType = 'soft';

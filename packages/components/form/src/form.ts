@@ -31,7 +31,7 @@ export class Form extends LitElement {
   get value(): Record<string, FormValue> {
     return Object.fromEntries(
       this.fields
-        .map(f => (f.control ? [f.control.name, f.control.value] : null))
+        .map(f => (f.control ? [f.control.name, f.control.formValue] : null))
         .filter((entry): entry is [string, FormValue] => entry != null)
     );
   }

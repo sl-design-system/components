@@ -1,3 +1,4 @@
+import type { Form } from './form.js';
 import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
@@ -19,29 +20,33 @@ export default {
 
 export const Basic: Story = {
   render: () => {
-    const onSubmit = (event: Event): void => {
-      event.preventDefault();
+    const onSubmit = (event: Event & { target: HTMLElement }): void => {
+      const form = event.target.closest('sl-form') as Form;
 
-      console.log('onSubmit', event);
+      console.log(form.reportValidity(), form.value);
     };
 
     return html`
-      <sl-form @submit=${onSubmit}>
+      <sl-form>
         <sl-form-field label="Username">
-          <sl-text-field placeholder="Enter your username or email address here" required></sl-text-field>
+          <sl-text-field
+            name="username"
+            placeholder="Enter your username or email address here"
+            required
+          ></sl-text-field>
         </sl-form-field>
 
         <sl-form-field label="Password">
-          <sl-text-field type="password" required></sl-text-field>
+          <sl-text-field name="password" type="password" required></sl-text-field>
         </sl-form-field>
 
         <sl-form-field>
-          <sl-checkbox required>Remember me</sl-checkbox>
+          <sl-checkbox name="remember" required>Remember me</sl-checkbox>
         </sl-form-field>
 
         <sl-button-bar align="space-between">
           <sl-button fill="link">Forgot password?</sl-button>
-          <sl-button type="submit" variant="primary">Log in</sl-button>
+          <sl-button @click=${onSubmit} variant="primary">Log in</sl-button>
         </sl-button-bar>
       </sl-form>
     `;

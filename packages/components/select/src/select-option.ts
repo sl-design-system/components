@@ -6,7 +6,7 @@ import styles from './select-option.scss.js';
 
 let nextUniqueId = 0;
 
-export class SelectOption extends LitElement {
+export class SelectOption<T = unknown> extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -19,8 +19,8 @@ export class SelectOption extends LitElement {
   /** @ignore The size of the select, is set by the select component. */
   @property({ reflect: true }) size: SelectSize = 'md';
 
-  /** The value for the option item, to be used in forms.*/
-  @property() value: string | null = null;
+  /** The value for the option item, to be used in forms. */
+  @property({ type: String }) value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();

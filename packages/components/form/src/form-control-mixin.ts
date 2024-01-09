@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
 import { UpdateValidityEvent } from './update-validity-event.js';
 import { ValidateEvent } from './validate-event.js';
 
-export type FormValue = null | string | File | FormData | { toString(): string };
+export type FormValue = null | string | File | FormData;
 
 export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;
@@ -29,13 +29,15 @@ export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
 export interface FormControl {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
+  readonly formValue: unknown;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
+  readonly nativeFormValue: FormValue;
   readonly showExternalValidityIcon: boolean;
   readonly showValidity: FormControlShowValidity;
   readonly valid: boolean;
   readonly validationMessage: string;
   readonly validity: ValidityState;
-  readonly value: FormValue;
+  readonly value?: unknown;
 
   customValidity?: string;
   name?: string;
@@ -124,6 +126,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
     }
 
+    /** The value used when submitting the form. */
+    get formValue(): unknown {
+      return this.value;
+    }
+
     /**
      * The labels associated with the control.
      * @type {`NodeListOf<HTMLLabelElement>` | null}
@@ -133,6 +140,27 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         return this.formControlElement.labels;
       } else {
         return this.formControlElement.internals.labels as NodeListOf<HTMLLabelElement>;
+      }
+    }
+
+    get nativeFormValue(): FormValue {
+      if (
+        this.formValue === null ||
+        this.formValue instanceof File ||
+        this.formValue instanceof FormData ||
+        typeof this.formValue === 'string'
+      ) {
+        return this.formValue;
+      } else if (typeof this.formValue === 'boolean') {
+        return Boolean(this.formValue).toString();
+      } else if (typeof this.formValue === 'number') {
+        return Number(this.formValue).toString();
+      } else if (typeof this.formValue === 'object' && 'toString' in this.formValue) {
+        return (this.formValue as { toString(): string }).toString();
+      } else {
+        console.warn('Unknown form value type', this.formValue);
+
+        return null;
       }
     }
 

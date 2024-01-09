@@ -2,7 +2,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import type { EventEmitter } from '@sl-design-system/shared';
-import type { FormValue } from '@sl-design-system/form';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { EventsController, event } from '@sl-design-system/shared';
@@ -21,7 +20,7 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
-export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
 
@@ -83,7 +82,11 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @property({ reflect: true }) size: SwitchSize = 'md';
 
   /** The value for the switch, to be used in forms. */
-  @property() override value: FormValue = null;
+  @property() override value?: T;
+
+  override get formValue(): T | boolean | null {
+    return this.checked ? this.value ?? true : null;
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -169,17 +172,7 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #updateValue(): void {
-    let value = null;
-
-    if (this.checked) {
-      if (typeof this.value === 'string' || this.value instanceof File || this.value instanceof FormData) {
-        value = this.value;
-      } else if (this.value && 'toString' in this.value) {
-        value = this.value.toString();
-      }
-    }
-
-    this.internals.setFormValue(value);
+    this.internals.setFormValue(this.nativeFormValue);
 
     this.updateValidity();
   }

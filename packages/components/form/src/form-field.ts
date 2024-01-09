@@ -6,7 +6,6 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { event } from '@sl-design-system/shared';
 import { LitElement, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { FormFieldEvent } from './form-field-event.js';
 import { type FormControl } from './form-control-mixin.js';
 import styles from './form-field.scss.js';
 import { Label } from './label.js';
@@ -56,8 +55,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
    */
   @state() error?: string;
 
-  /** Emits when the field is added/removed to/from a form. */
-  @event() formFieldEvent!: EventEmitter<FormFieldEvent>;
+  /** Emits when the field is added to a form. */
+  @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<void>;
 
   /**
    * A hint that will be shown when there are no validation messages.
@@ -71,15 +70,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.formFieldEvent.emit(new FormFieldEvent('add'));
+    this.formFieldEvent.emit();
 
     this.#customError = !!this.querySelector('sl-error');
-  }
-
-  override disconnectedCallback(): void {
-    this.formFieldEvent.emit(new FormFieldEvent('remove'));
-
-    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {

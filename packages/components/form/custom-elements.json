@@ -28,14 +28,6 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/form-field-event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
             "package": "./src/form-field.js"
           }
         },
@@ -580,51 +572,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/form-field-event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Emits when a form field is added or removed to/from a form.",
-          "name": "FormFieldEvent",
-          "members": [
-            {
-              "description": "The state of the form field (add or remove)",
-              "name": "state",
-              "kind": "field"
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-form-field"
-            }
-          ],
-          "superclass": {
-            "name": "Event",
-            "module": "src/form-field-event.ts"
-          },
-          "methods": [],
-          "fields": [
-            {
-              "description": "The state of the form field (add or remove)",
-              "name": "state",
-              "kind": "field"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FormFieldEvent",
-          "declaration": {
-            "name": "FormFieldEvent",
-            "module": "src/form-field-event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/form-field.ts",
       "declarations": [
         {
@@ -639,14 +586,6 @@
                 "text": "HTMLElement & FormControl | undefined"
               },
               "description": "The form control element."
-            },
-            {
-              "kind": "event",
-              "name": "formFieldEvent",
-              "type": {
-                "text": "EventEmitter<FormFieldEvent>"
-              },
-              "description": "Emits when the field is added/removed to/from a form."
             },
             {
               "kind": "field",
@@ -665,15 +604,23 @@
               },
               "description": "The text for the label. You can also slot an `<sl-label>` element.",
               "attribute": "label"
+            },
+            {
+              "kind": "event",
+              "name": "sl-form-field",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the field is added to a form."
             }
           ],
           "events": [
             {
               "name": "formFieldEvent",
               "type": {
-                "text": "EventEmitter<FormFieldEvent>"
+                "text": "EventEmitter<void>"
               },
-              "description": "Emits when the field is added/removed to/from a form.",
+              "description": "Emits when the field is added to a form.",
               "fieldName": "formFieldEvent"
             }
           ],
@@ -936,10 +883,19 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "FormFieldEvent"
+                    "text": "Event"
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [

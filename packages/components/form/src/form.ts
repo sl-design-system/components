@@ -1,9 +1,14 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { FormFieldEvent } from './form-field-event.js';
 import type { FormField } from './form-field.js';
 import { EventsController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import styles from './form.scss.js';
+
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-form-field': CustomEvent;
+  }
+}
 
 /**
  * This component is a wrapper for the form controls.
@@ -39,21 +44,21 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
   reportValidity(): boolean {
     return this.fields.map(f => f.control?.reportValidity()).every(Boolean);
   }
 
-  #onFormField(event: FormFieldEvent): void {
+  #onFormField(event: Event): void {
     event.preventDefault();
     event.stopPropagation();
 
-    if (event.state === 'add') {
-      this.fields = [...this.fields, event.target as FormField];
-    } else {
-      this.fields = this.fields.filter(f => f !== event.target);
-    }
+    this.fields = [...this.fields, event.target as FormField];
+  }
+
+  #onSlotchange(): void {
+    this.fields = this.fields.filter(f => !!f.parentElement);
   }
 }

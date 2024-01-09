@@ -1,7 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { EditorMarks, EditorNodes } from './schema.js';
 import type { Plugin } from 'prosemirror-state';
-import type { FormValue } from '@sl-design-system/form';
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
 import { baseKeymap } from 'prosemirror-commands';
@@ -26,10 +25,10 @@ export class Editor extends FormControlMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Manage events. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, { focusout: this.#onFocusout });
 
   /** The value of the content in the editor. */
-  #value: FormValue = null;
+  #value: string = '';
 
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
@@ -41,16 +40,16 @@ export class Editor extends FormControlMixin(LitElement) {
   @property({ attribute: false }) plugins?: Plugin[];
 
   @property()
-  override get value(): FormValue {
+  override get value(): string {
     return this.#value;
   }
 
-  override set value(value: FormValue) {
+  override set value(value: string = '') {
     const oldValue = this.#value;
     this.#value = value;
 
     if (this.#view) {
-      setHTML(value?.toString() || '')(this.#view.state, this.#view.dispatch, this.#view);
+      setHTML(value)(this.#view.state, this.#view.dispatch, this.#view);
     }
 
     this.requestUpdate('value', oldValue);
@@ -61,8 +60,6 @@ export class Editor extends FormControlMixin(LitElement) {
 
     this.internals.role = 'textbox';
     this.internals.ariaMultiLine = 'true';
-
-    this.#events.listen(this, 'focusout', this.#onFocusout);
   }
 
   override firstUpdated(): void {

@@ -113,7 +113,7 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "string"
               },
               "attribute": "value"
             }
@@ -122,7 +122,7 @@
             {
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "string"
               },
               "fieldName": "value"
             }
@@ -192,7 +192,7 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this)",
+              "default": "new EventsController(this, { focusout: this.#onFocusout })",
               "description": "Manage events."
             },
             {
@@ -200,9 +200,9 @@
               "name": "#value",
               "privacy": "private",
               "type": {
-                "text": "FormValue"
+                "text": "string"
               },
-              "default": "null",
+              "default": "''",
               "description": "The value of the content in the editor."
             },
             {

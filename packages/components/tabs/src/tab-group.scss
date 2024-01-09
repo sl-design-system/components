@@ -17,6 +17,7 @@
 }
 
 :host {
+  --sl-popover-offset: 4px;
   display: flex;
   flex-direction: column;
   // gap: 8px;
@@ -77,7 +78,7 @@
   background-repeat: no-repeat;
   background-size: var(--sl-space-s) var(--sl-space-xl), var(--sl-space-s) var(--sl-space-xl);
   flex-wrap: nowrap;
-  gap: 8px;
+  //gap: 8px;
   //overflow: auto;
 
   &::before,
@@ -86,27 +87,27 @@
     box-sizing: content-box; /* Content box to use padding for spacing. */
     content: '';
     margin-block-end: 1px; /* Prevent overlapping the key line. */
-    min-inline-size: var(--sl-space-l);
+    // min-inline-size: var(--sl-space-l);
     pointer-events: none;
   }
 
   /* Cancel out the masks own width with margin, use padding for tab list padding */
   &::before {
     box-shadow: inset var(--sl-space-l) 0 var(--sl-space-s) calc(-1 * var(--sl-space-s)) var(--_sl-tab-list-background);
-    margin-inline-end: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
-    padding-inline-start: var(--sl-tab-group-padding);
+    //  margin-inline-end: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
+    //  padding-inline-start: var(--sl-tab-group-padding);
   }
 
   &::after {
     box-shadow: inset calc(-1 * var(--sl-space-l)) 0 var(--sl-space-s) calc(-1 * var(--sl-space-s))
       var(--_sl-tab-list-background);
     flex: 1; /* Stretch the last mask to make sure the shadow is always masked */
-    margin-inline-start: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
-    padding-inline-end: var(--sl-tab-group-padding);
+    //  margin-inline-start: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
+    //  padding-inline-end: var(--sl-tab-group-padding);
   }
 
   ::slotted(sl-tab) {
-    flex: 1;
+    // flex: 1;
     white-space: nowrap;
   }
 
@@ -115,6 +116,14 @@
     inset: auto auto 0 0;
     transform-origin: center left;
     width: 1px;
+  }
+}
+
+:host([vertical='false'][alignment='filled']) [role='tablist'] {
+  ::slotted(sl-tab) {
+    flex-grow: 1;
+    // flex: 1;
+    // white-space: nowrap;
   }
 }
 

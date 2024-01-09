@@ -15,6 +15,8 @@ import styles from './tab-group.scss.js';
 
 Icon.registerIcon(faEllipsis); // TODO: needs to be changed - icon from tokens
 
+export type TabsAlignment = 'left' | 'filled';
+
 let nextUniqueId = 0;
 
 // TODO: add docs here like with default slots etc.
@@ -70,6 +72,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
+
+  /** The alignemnt of tabs inside sl-tab-group  */
+  @property({ reflect: true }) alignment: TabsAlignment = 'left';
 
   // private anchorDirective = new AnchorDirective();
 
@@ -472,7 +477,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const axis = this.vertical ? 'Y' : 'X',
       indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
       indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement,
-      wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement;
+      wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
+      wrapper2 = this.shadowRoot?.querySelectorAll('[slot="tabs"]');
+
+    // let totalWidth;
+    //
+    // for (const tabElement of wrapper2) {
+    //   totalWidth += tabElement.offsetWidth;
+    // }
 
     let start = 0;
     if (axis === 'X') {
@@ -483,6 +495,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     console.log(
       'this.selectedTab.offsetLeft - wrapper.offsetLeft',
+      axis,
       this.selectedTab.offsetLeft,
       this.selectedTabInListbox,
       this.selectedTabInListbox?.offsetHeight,
@@ -491,7 +504,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       wrapper.offsetLeft,
       this.selectedTab.offsetParent,
       wrapper.offsetWidth,
-      wrapper.scrollWidth
+      wrapper.scrollWidth,
+      wrapper2,
+      // wrapper2.offsetWidth,
+      // wrapper2.scrollWidth,
+      this.#allTabs //,
+      // totalWidth
     );
 
     // Somehow on Chromium, the offsetParent is different than on FF and Safari
@@ -500,15 +518,21 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       start += axis === 'X' ? wrapper.offsetLeft : wrapper.offsetTop;
     }
 
-    indicator.style.transform = `translate${axis}(${start}px) scale${axis}(${
-      axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight
-    })`;
+    indicator.style.transform = `translate${axis}(${start}px)`;
+
+    // scale${axis}(${
+    //   axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight
+    // })`
+
+    // const styleType = (axis === 'X' ? 'height' : 'width') as unknown as CSSStyleDeclaration;
+    // indicator.style.styleType = `${axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight}px`;
 
     indicatorListbox.style.transform = `translateY(${
       this.selectedTabInListbox.offsetTop + this.listbox.offsetHeight
     }px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
 
     if (axis === 'X') {
+      indicator.style.width = `${this.selectedTab.offsetWidth}px`;
       const scrollLeft = Math.max(
         this.selectedTab.offsetLeft + this.selectedTab.offsetWidth / 2 - wrapper.clientWidth / 2,
         0
@@ -518,6 +542,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
         // this.listbox.scrollTo({ left: scrollLeft, behavior: 'smooth' });
       }
+    } else {
+      indicator.style.height = `${this.selectedTab.offsetHeight}px`;
+      // TODO: restart idicator when vertical/horizontal changed, remove width or height
     }
   }
 }

@@ -23,7 +23,7 @@
   //display: inline-block;
   // line-height: 36px;
   padding: var(--_padding); //0 3px;
-  position: relative;
+  //position: relative;
   transition: background 300ms;
 }
 
@@ -54,8 +54,14 @@ slot[name='subtitle'] {
 }
 
 .content {
+  //position: relative;
   display: flex;
   flex-direction: column;
+}
+
+.title {
+  position: relative;
+  width: fit-content;
 }
 
 slot[name='icon']::slotted(sl-icon) {
@@ -63,7 +69,8 @@ slot[name='icon']::slotted(sl-icon) {
 }
 
 slot[name='badge']::slotted(sl-badge) {
-  inset-block-start: 6px; //var(--_badge-spacing);
-  inset-inline-end: 6px; //var(--_badge-spacing);
-  position: absolute;
+  // inset-block-start: 6px; //var(--_badge-spacing);
+  //inset-inline-end: -4px; //var(--_badge-spacing);
+  //position: absolute;
+  transform: translate(4px, -6px);
 }

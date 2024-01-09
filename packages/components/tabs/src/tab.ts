@@ -17,10 +17,12 @@ export class Tab extends LitElement {
   override render(): TemplateResult {
     return html` <slot name="icon" part="icon"></slot>
       <div class="content">
-        <slot></slot>
+        <span class="title">
+          <slot></slot>
+          <slot name="badge" part="badge"></slot>
+        </span>
         <slot name="subtitle" part="subtitle"></slot>
-      </div>
-      <slot name="badge" part="badge"></slot>`;
+      </div>`;
   }
 
   /**

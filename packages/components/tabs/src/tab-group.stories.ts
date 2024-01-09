@@ -7,7 +7,14 @@ import '../register.js';
 export default {
   title: 'Tab Group',
   args: {
-    vertical: false
+    vertical: false,
+    alignment: 'left'
+  },
+  argTypes: {
+    alignment: {
+      control: 'inline-radio',
+      options: ['left', 'filled']
+    }
   }
 };
 
@@ -46,8 +53,8 @@ const createLipsumParagraphs = (paragraphs: number): string => {
 };
 
 export const API: StoryObj = {
-  render: ({ vertical }) => html`
-    <sl-tab-group .vertical=${vertical}>
+  render: ({ vertical, alignment }) => html`
+    <sl-tab-group .vertical=${vertical} .alignment=${alignment}>
       <sl-tab disabled>
         <sl-icon slot="icon" name="star" size="md"></sl-icon>
         Tab 1
@@ -69,6 +76,7 @@ export const API: StoryObj = {
       <sl-tab>
         Tab 3
         <span slot="subtitle">Tab 3 subtitle</span>
+        <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
       </sl-tab>
       <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>
 
@@ -82,7 +90,7 @@ export const API: StoryObj = {
 };
 
 export const LongTitles: StoryObj = {
-  render: ({ vertical }) => html`<sl-tab-group .vertical=${vertical}>
+  render: ({ vertical, alignment }) => html`<sl-tab-group .vertical=${vertical} .alignment=${alignment}>
     <sl-tab selected>This is the first tab</sl-tab>
     <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(4)}</sl-tab-panel>
 

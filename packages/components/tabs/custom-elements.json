@@ -83,6 +83,17 @@
           "members": [
             {
               "kind": "field",
+              "name": "alignment",
+              "type": {
+                "text": "TabsAlignment"
+              },
+              "default": "'left'",
+              "description": "The alignemnt of tabs inside sl-tab-group",
+              "attribute": "alignment",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "listbox",
               "type": {
                 "text": "HTMLElement"
@@ -134,6 +145,15 @@
               "default": "false",
               "description": "Renders the tabs vertically instead of the default horizontal",
               "fieldName": "vertical"
+            },
+            {
+              "name": "alignment",
+              "type": {
+                "text": "TabsAlignment"
+              },
+              "default": "'left'",
+              "description": "The alignemnt of tabs inside sl-tab-group",
+              "fieldName": "alignment"
             }
           ],
           "mixins": [

@@ -55,8 +55,8 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   /** The readonly checked state for the checkbox group. */
   @state() state?: boolean[];
 
-  override get formValue(): unknown[T] {
-    return this.boxes.map(box => box.formValue).filter(Boolean);
+  override get formValue(): unknown[] | undefined {
+    return this.boxes?.map(box => box.formValue).filter(Boolean);
   }
 
   override connectedCallback(): void {

@@ -44,12 +44,12 @@ export class Editor extends FormControlMixin(LitElement) {
     return this.#value;
   }
 
-  override set value(value: string = '') {
+  override set value(value: string | undefined) {
     const oldValue = this.#value;
-    this.#value = value;
+    this.#value = value ?? '';
 
     if (this.#view) {
-      setHTML(value)(this.#view.state, this.#view.dispatch, this.#view);
+      setHTML(this.#value)(this.#view.state, this.#view.dispatch, this.#view);
     }
 
     this.requestUpdate('value', oldValue);

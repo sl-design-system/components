@@ -123,7 +123,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<FormValue>"
+                "text": "EventEmitter<T | undefined>"
               },
               "description": "Emits when the value changes."
             },
@@ -139,9 +139,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the radio group, to be used in forms.",
               "attribute": "value"
             }
@@ -158,7 +157,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<FormValue>"
+                "text": "EventEmitter<T | undefined>"
               },
               "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
@@ -216,9 +215,8 @@
             {
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the radio group, to be used in forms.",
               "fieldName": "value"
             }
@@ -276,7 +274,7 @@
                   "name": "option",
                   "optional": true,
                   "type": {
-                    "text": "Radio"
+                    "text": "Radio<T>"
                   }
                 },
                 {
@@ -328,23 +326,22 @@
               "name": "#initialState",
               "privacy": "private",
               "type": {
-                "text": "FormValue"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The initial state when the form was associated with the radio group. Used to reset the group."
             },
             {
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(mutations => {\n    const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n    this.#observer.disconnect();\n    this.#setSelectedOption(target as Radio);\n    this.#observer.observe(this, OBSERVER_OPTIONS);\n  })",
+              "default": "new MutationObserver(mutations => {\n    const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n    this.#observer.disconnect();\n    this.#setSelectedOption(target as Radio<T>);\n    this.#observer.observe(this, OBSERVER_OPTIONS);\n  })",
               "description": "When an option is checked, update the state."
             },
             {
               "kind": "field",
               "name": "#rovingTabindexController",
               "privacy": "private",
-              "default": "new RovingTabindexController<Radio>(this, {\n    focusInIndex: (elements: Radio[]) => {\n      return elements.findIndex(el => {\n        return this.value ? !el.disabled && el.value === this.value : !el.disabled;\n      });\n    },\n    elementEnterAction: (el: Radio) => {\n      this.value = el.value;\n    },\n    elements: () => this.radios ?? [],\n    isFocusableElement: (el: Radio) => !el.disabled\n  })",
+              "default": "new RovingTabindexController<Radio<T>>(this, {\n    focusInIndex: (elements: Array<Radio<T>>) => {\n      return elements.findIndex(el => {\n        return this.value ? !el.disabled && el.value === this.value : !el.disabled;\n      });\n    },\n    elementEnterAction: (el: Radio<T>) => {\n      this.value = el.value;\n    },\n    elements: () => this.radios ?? [],\n    isFocusableElement: (el: Radio) => !el.disabled\n  })",
               "description": "Manage the keyboard navigation."
             },
             {
@@ -357,7 +354,7 @@
               "kind": "field",
               "name": "radios",
               "type": {
-                "text": "Radio[] | undefined"
+                "text": "Array<Radio<T>> | undefined"
               },
               "privacy": "private"
             }
@@ -429,9 +426,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for this radio button.",
               "attribute": "value"
             }
@@ -473,9 +469,8 @@
             {
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for this radio button.",
               "fieldName": "value"
             }

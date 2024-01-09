@@ -316,6 +316,14 @@
             },
             {
               "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "T | boolean | null"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "indeterminate",
               "type": {
                 "text": "boolean | undefined"
@@ -382,9 +390,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the checkbox, to be used in forms.",
               "attribute": "value"
             }
@@ -468,9 +475,8 @@
             {
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the checkbox, to be used in forms.",
               "fieldName": "value"
             }
@@ -602,6 +608,14 @@
               "name": "internals",
               "readonly": true,
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "T | boolean | null"
+              },
+              "readonly": true
             }
           ]
         }

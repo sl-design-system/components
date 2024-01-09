@@ -259,6 +259,15 @@
               "readonly": true
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "readonly": true
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -286,6 +295,14 @@
               "description": "The name of the form control.",
               "attribute": "name",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true
             },
             {
               "kind": "method",
@@ -498,11 +515,28 @@
             },
             {
               "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "labels",
               "type": {
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true
             },
             {
@@ -871,7 +905,7 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "Record<string, FormValue>"
+                "text": "T"
               },
               "readonly": true
             }
@@ -931,7 +965,7 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "Record<string, FormValue>"
+                "text": "T"
               },
               "readonly": true
             }

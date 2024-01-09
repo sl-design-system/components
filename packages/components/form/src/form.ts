@@ -1,7 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { FormFieldEvent } from './form-field-event.js';
 import type { FormField } from './form-field.js';
-import type { FormValue } from './form-control-mixin.js';
 import { EventsController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import styles from './form.scss.js';
@@ -16,7 +15,7 @@ import styles from './form.scss.js';
  * This wrapper is necessary because the native form lacks this behavior.
  * See https://github.com/whatwg/html/issues/9878
  */
-export class Form extends LitElement {
+export class Form<T extends Record<string, unknown> = Record<string, unknown>> extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -28,12 +27,15 @@ export class Form extends LitElement {
   /** The fields in the form. */
   fields: FormField[] = [];
 
-  get value(): Record<string, FormValue> {
+  get value(): T {
     return Object.fromEntries(
       this.fields
         .map(f => (f.control ? [f.control.name, f.control.formValue] : null))
-        .filter((entry): entry is [string, FormValue] => entry != null)
-    );
+        .filter(
+          (entry): entry is [keyof T, T[keyof T]] =>
+            entry != null && !!entry[0] && entry[1] != null && entry[1] !== undefined
+        )
+    ) as T;
   }
 
   override render(): TemplateResult {

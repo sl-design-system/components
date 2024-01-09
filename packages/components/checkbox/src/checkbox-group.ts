@@ -24,7 +24,11 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   #events = new EventsController(this, { click: this.#onClick });
 
   /** Observe changes to the checkboxes. */
-  #observer = new MutationObserver(() => (this.state = this.boxes?.map(box => !!box.checked)));
+  #observer = new MutationObserver(() => {
+    this.state = this.boxes?.map(box => !!box.checked);
+
+    this.#updateValidity();
+  });
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<Checkbox>(this, {
@@ -50,6 +54,10 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
 
   /** The readonly checked state for the checkbox group. */
   @state() state?: boolean[];
+
+  override get formValue(): unknown[T] {
+    return this.boxes.map(box => box.formValue).filter(Boolean);
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -121,6 +129,7 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
     this.#rovingTabindexController.clearElementCache();
 
     this.state = this.boxes?.map(box => !!box.checked);
+    this.#updateValidity();
 
     this.boxes?.forEach(box => {
       box.name = this.name;

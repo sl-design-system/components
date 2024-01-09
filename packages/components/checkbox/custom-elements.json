@@ -74,6 +74,14 @@
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown[T]"
+              },
+              "readonly": true
+            },
+            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -233,7 +241,7 @@
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(() => (this.state = this.boxes?.map(box => !!box.checked)))",
+              "default": "new MutationObserver(() => {\n    this.state = this.boxes?.map(box => !!box.checked);\n\n    this.#updateValidity();\n  })",
               "description": "Observe changes to the checkboxes."
             },
             {
@@ -264,6 +272,14 @@
                 "text": "boolean[] | undefined"
               },
               "description": "The readonly checked state for the checkbox group."
+            },
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown[T]"
+              },
+              "readonly": true
             }
           ]
         }

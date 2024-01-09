@@ -131,7 +131,9 @@ export const Complex: Story = {
 export const All: Story = {
   render: () => {
     const onClick = (): void => {
-      document.querySelector('sl-form')?.reportValidity();
+      const form = document.querySelector('sl-form');
+
+      console.log(form?.reportValidity(), form?.value);
     };
 
     return html`

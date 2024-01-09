@@ -81,6 +81,15 @@
               "reflects": true
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "input",
               "type": {
@@ -176,7 +185,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<FormValue>"
+                "text": "EventEmitter<string>"
               },
               "description": "Emits when the value changes."
             },
@@ -202,7 +211,7 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "string"
               },
               "default": "''",
               "description": "The value for the input, to be used in forms.",
@@ -221,7 +230,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<FormValue>"
+                "text": "EventEmitter<string>"
               },
               "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
@@ -329,7 +338,7 @@
             {
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "string"
               },
               "default": "''",
               "description": "The value for the input, to be used in forms.",
@@ -353,6 +362,15 @@
           "tagName": "sl-text-field",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
             {
               "kind": "method",
               "name": "#onInput",

@@ -39,7 +39,7 @@ export default {
     resize: 'vertical',
     showValid: false,
     size: 'md',
-    value: null,
+    value: '',
     wrap: 'soft'
   },
   argTypes: {

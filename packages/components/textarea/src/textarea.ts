@@ -1,8 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { localized } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import type { FormValue } from '@sl-design-system/form';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import type { EventEmitter } from '@sl-design-system/shared';
@@ -52,7 +51,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<FormValue>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
 
   /** Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
@@ -102,7 +101,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @property({ reflect: true }) size: TextareaSize = 'md';
 
   /** The value for the textarea. */
-  @property() override value: FormValue = null;
+  @property() override value: string = '';
 
   /** The way text should be wrapped during form submission. */
   @property() wrap: WrapType = 'soft';
@@ -167,6 +166,20 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
           : nothing}
       </slot>
     `;
+  }
+
+  override getLocalizedValidationMessage(): string {
+    if (this.validity.tooShort) {
+      const length = this.value.length;
+
+      return msg(
+        str`Please enter at least ${this.minLength} characters (you currently have ${length} character${
+          length > 1 ? 's' : ''
+        }).`
+      );
+    }
+
+    return super.getLocalizedValidationMessage();
   }
 
   #onInput({ target }: Event & { target: HTMLTextAreaElement }): void {

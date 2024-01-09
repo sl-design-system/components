@@ -146,11 +146,12 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     get nativeFormValue(): FormValue {
       if (
         this.formValue === null ||
+        this.formValue === undefined ||
         this.formValue instanceof File ||
         this.formValue instanceof FormData ||
         typeof this.formValue === 'string'
       ) {
-        return this.formValue;
+        return this.formValue ?? null;
       } else if (typeof this.formValue === 'boolean') {
         return Boolean(this.formValue).toString();
       } else if (typeof this.formValue === 'number') {
@@ -289,10 +290,16 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       } else if (this.validity.valueMissing) {
         return msg('Please fill in this field.');
       } else {
-        const validityState = Object.keys(this.validity).find(key => this.validity[key as keyof ValidityState]);
+        let missingKey = '';
+        for (const key in this.validity) {
+          if (this.validity[key as keyof ValidityState] === true) {
+            missingKey = key;
+            break;
+          }
+        }
 
         console.warn(
-          `Missing localized validation message for validity state ${validityState}. Provide your own getLocalizedValidationMessage() method in your form control.`
+          `Missing localized validation message for validity state "${missingKey}". Provide your own getLocalizedValidationMessage() method in your form control.`
         );
 
         return this.validationMessage;

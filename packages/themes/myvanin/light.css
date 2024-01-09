@@ -179,7 +179,7 @@
   --sl-color-input-option-valid-unchecked-hover-background: rgb(var(--sl-color-palette-success-50));
   --sl-color-input-option-valid-unchecked-default-icon: rgb(var(--sl-color-palette-success-base));
   --sl-color-input-option-valid-unchecked-default-border: rgb(var(--sl-color-palette-success-base));
-  --sl-color-input-option-valid-unchecked-default-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-input-option-valid-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-option-invalid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-option-invalid-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-option-invalid-checked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
@@ -205,7 +205,7 @@
   --sl-color-input-option-invalid-unchecked-hover-background: rgb(var(--sl-color-palette-danger-50));
   --sl-color-input-option-invalid-unchecked-default-icon: rgb(var(--sl-color-palette-danger-400));
   --sl-color-input-option-invalid-unchecked-default-border: rgb(var(--sl-color-palette-danger-base));
-  --sl-color-input-option-invalid-unchecked-default-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-input-option-invalid-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-option-default-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-option-default-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-option-default-checked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
@@ -233,7 +233,7 @@
   --sl-color-input-option-default-unchecked-hover-background: rgb(var(--sl-color-palette-primary-50));
   --sl-color-input-option-default-unchecked-default-icon: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-input-option-default-unchecked-default-border: rgb(var(--sl-color-palette-neutral-400));
-  --sl-color-input-option-default-unchecked-default-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-input-option-default-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-surface-solid-accent-foreground: rgb(var(--sl-color-palette-accent-50));
   --sl-color-surface-solid-accent-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-surface-solid-secondary-foreground: rgb(var(--sl-color-palette-white-base));

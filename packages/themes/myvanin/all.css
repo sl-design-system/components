@@ -487,6 +487,7 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-border-width-divider: var(--sl-border-width-xs);
   --sl-border-width-popover-border: var(--sl-border-width-xs);
   --sl-border-width-popover-none: var(--sl-border-width-none);
   --sl-border-width-dialog-default: var(--sl-border-width-none);
@@ -515,6 +516,14 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-full);
   --sl-border-radius-button-md: var(--sl-border-radius-full);
   --sl-border-radius-button-sm: var(--sl-border-radius-full);
+  --sl-text-select-selectbox-title-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
+  --sl-text-select-selectbox-title-md: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-select-selectbox-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-select-selectbox-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-text: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
@@ -694,6 +703,7 @@
   );
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-input-border: var(--sl-conceptual-border-width-default);
+  --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
@@ -904,7 +914,7 @@
     --sl-color-input-option-valid-unchecked-hover-background: rgb(var(--sl-color-palette-success-50));
     --sl-color-input-option-valid-unchecked-default-icon: rgb(var(--sl-color-palette-success-base));
     --sl-color-input-option-valid-unchecked-default-border: rgb(var(--sl-color-palette-success-base));
-    --sl-color-input-option-valid-unchecked-default-background: rgb(var(--sl-color-palette-transparent-base));
+    --sl-color-input-option-valid-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-option-invalid-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-option-invalid-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-input-option-invalid-checked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
@@ -930,7 +940,7 @@
     --sl-color-input-option-invalid-unchecked-hover-background: rgb(var(--sl-color-palette-danger-50));
     --sl-color-input-option-invalid-unchecked-default-icon: rgb(var(--sl-color-palette-danger-400));
     --sl-color-input-option-invalid-unchecked-default-border: rgb(var(--sl-color-palette-danger-base));
-    --sl-color-input-option-invalid-unchecked-default-background: rgb(var(--sl-color-palette-transparent-base));
+    --sl-color-input-option-invalid-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-option-default-checked-disabled-icon: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-option-default-checked-disabled-label: rgb(var(--sl-color-palette-neutral-300));
     --sl-color-input-option-default-checked-disabled-background: rgb(var(--sl-color-palette-neutral-200));
@@ -958,7 +968,7 @@
     --sl-color-input-option-default-unchecked-hover-background: rgb(var(--sl-color-palette-primary-50));
     --sl-color-input-option-default-unchecked-default-icon: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-input-option-default-unchecked-default-border: rgb(var(--sl-color-palette-neutral-400));
-    --sl-color-input-option-default-unchecked-default-background: rgb(var(--sl-color-palette-transparent-base));
+    --sl-color-input-option-default-unchecked-default-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-surface-solid-accent-foreground: rgb(var(--sl-color-palette-accent-50));
     --sl-color-surface-solid-accent-background: rgb(var(--sl-color-palette-accent-base));
     --sl-color-surface-solid-secondary-foreground: rgb(var(--sl-color-palette-white-base));

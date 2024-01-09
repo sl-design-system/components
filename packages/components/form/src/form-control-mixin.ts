@@ -97,7 +97,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     showValid = false;
 
     /** The value for this form control. */
-    value: FormValue = null;
+    value?: unknown;
 
     /** The error message to display when the control is invalid. */
     @property({ attribute: 'custom-validity' }) customValidity?: string;

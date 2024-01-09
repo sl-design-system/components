@@ -383,9 +383,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "unknown | undefined"
               },
-              "default": "null",
               "description": "The value for this form control."
             }
           ],
@@ -499,9 +498,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "FormValue"
+                "text": "unknown | undefined"
               },
-              "default": "null",
               "description": "The value for this form control."
             },
             {

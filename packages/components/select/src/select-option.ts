@@ -20,7 +20,7 @@ export class SelectOption<T = unknown> extends LitElement {
   @property({ reflect: true }) size: SelectSize = 'md';
 
   /** The value for the option item, to be used in forms. */
-  @property({ type: String }) value?: T;
+  @property() value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();

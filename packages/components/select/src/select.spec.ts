@@ -97,7 +97,7 @@ describe('sl-select', () => {
     });
 
     it('should not have a value', () => {
-      expect(el.value).to.be.null;
+      expect(el.value).to.be.undefined;
     });
 
     it('should have a value after selection', async () => {
@@ -363,7 +363,7 @@ describe('sl-select', () => {
 
         form.reset();
 
-        expect(el.value).to.be.null
+        expect(el.value).to.be.undefined;
       });
 
       it('should emit an sl-change event', async () => {

@@ -99,7 +99,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   @property({ reflect: true }) size: SelectSize = 'md';
 
   /** The value for the select, to be used in forms. */
-  @property({ attribute: false }) override value?: T;
+  @property() override value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -347,7 +347,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   #updateValueAndValidity(): void {
     this.internals.setFormValue(this.nativeFormValue);
     this.internals.setValidity(
-      { valueMissing: this.required && this.value === null },
+      { valueMissing: this.required && this.value === undefined },
       msg('Please choose an option from the list.')
     );
 

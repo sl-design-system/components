@@ -213,7 +213,10 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   #updateValueAndValidity(): void {
     this.internals.setFormValue(this.nativeFormValue);
-    this.internals.setValidity({ valueMissing: this.required && this.value === null }, msg('Please select an option.'));
+    this.internals.setValidity(
+      { valueMissing: this.required && this.value === undefined },
+      msg('Please select an option.')
+    );
 
     this.updateValidity();
   }

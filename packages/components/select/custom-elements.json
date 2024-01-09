@@ -466,7 +466,8 @@
               "type": {
                 "text": "T | undefined"
               },
-              "description": "The value for the select, to be used in forms."
+              "description": "The value for the select, to be used in forms.",
+              "attribute": "value"
             }
           ],
           "events": [
@@ -536,6 +537,14 @@
               "default": "'md'",
               "description": "The size of the select.",
               "fieldName": "size"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "T | undefined"
+              },
+              "description": "The value for the select, to be used in forms.",
+              "fieldName": "value"
             }
           ],
           "mixins": [
@@ -821,14 +830,6 @@
                 "text": "SelectOption<T> | undefined"
               },
               "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "T | undefined"
-              },
-              "description": "The value for the select, to be used in forms."
             }
           ]
         }

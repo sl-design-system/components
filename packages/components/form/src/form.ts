@@ -32,6 +32,10 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   /** The fields in the form. */
   fields: FormField[] = [];
 
+  get valid(): boolean {
+    return this.fields.map(f => f.control?.valid).every(Boolean);
+  }
+
   get value(): T {
     return Object.fromEntries(
       this.fields

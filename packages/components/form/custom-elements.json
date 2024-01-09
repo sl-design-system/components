@@ -848,6 +848,14 @@
             },
             {
               "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
                 "text": "T"
@@ -914,6 +922,14 @@
               },
               "default": "[]",
               "description": "The fields in the form."
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
             },
             {
               "kind": "field",

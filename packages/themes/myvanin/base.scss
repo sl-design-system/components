@@ -492,10 +492,11 @@
   --sl-border-width-button-solid: var(--sl-border-width-xs);
   --sl-border-radius-badge-full: var(--sl-border-radius-full);
   --sl-border-radius-dialog-mobile: var(--sl-border-radius-none);
+  --sl-border-radius-dialog-desktop: var(--sl-border-radius-3xl);
   --sl-border-radius-focusring-full: var(--sl-border-radius-full);
   --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
-  --sl-border-radius-default: var(--sl-border-radius-3xs);
+  --sl-border-radius-default: var(--sl-border-radius-2xs);
   --sl-border-radius-button-icon-only-lg: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-md: var(--sl-border-radius-full);
   --sl-border-radius-button-icon-only-sm: var(--sl-border-radius-full);
@@ -674,7 +675,6 @@
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-input-border: var(--sl-conceptual-border-width-default);
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
-  --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-text-avatar-icon-3xl: var(--sl-icon-style-outline) var(--sl-icon-typeset-font-size-2xl) / undefined

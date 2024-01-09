@@ -5,7 +5,8 @@ import { property } from 'lit/decorators.js';
 import { UpdateValidityEvent } from './update-validity-event.js';
 import { ValidateEvent } from './validate-event.js';
 
-export type FormValue = null | string | File | FormData;
+// Handle differences in the first argument of setFormValue between typescript versions
+export type FormValue = Parameters<ElementInternals['setFormValue']>[0];
 
 export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;

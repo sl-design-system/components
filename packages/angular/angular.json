@@ -62,6 +62,14 @@
             ]
           }
         }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "prefix": "sl"
+        },
+        "@schematics/angular:directive": {
+          "prefix": "sl"
+        }
       }
     }
   }

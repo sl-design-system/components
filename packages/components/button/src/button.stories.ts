@@ -201,7 +201,7 @@ export const AlignmentIssues: Story = {
     }
   },
   render: ({ fill, variant }) => {
-    Icon.registerIcon(faPinata);
+    Icon.register(faPinata);
     return html`
       <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button>
       <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button><br />

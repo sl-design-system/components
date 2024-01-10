@@ -7202,5 +7202,15 @@
       "nowa-era/base": "enabled",
       "nowa-era/light": "enabled"
     }
+  },
+  {
+    "id": "2238cc554f2c51d124ae0b38928da5dc55a0327d",
+    "name": "editorialsuite/light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "core": "source",
+      "editorial-suite/base": "enabled",
+      "editorial-suite/light": "enabled"
+    }
   }
 ]

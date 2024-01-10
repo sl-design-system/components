@@ -28,7 +28,7 @@
           "description": "color.palette.primary.300"
         },
         "400": {
-          "value": "#898989",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "description": "color.palette.primary.400"
         },
@@ -58,7 +58,7 @@
           "description": "color.palette.primary.900"
         },
         "base": {
-          "value": "#222222",
+          "value": "#18A19B",
           "type": "color",
           "description": "color.palette.primary.base"
         }
@@ -120,7 +120,7 @@
           "description": "color.palette.accent.900"
         },
         "base": {
-          "value": "#3366FF",
+          "value": "#53A5E5",
           "type": "color",
           "description": "color.palette.accent.base"
         }
@@ -162,7 +162,7 @@
           "description": "color.palette.neutral.500"
         },
         "600": {
-          "value": "#605F5F",
+          "value": "{color.palette.neutral.base}",
           "type": "color",
           "description": "color.palette.neutral.600"
         },
@@ -182,7 +182,7 @@
           "description": "color.palette.neutral.900"
         },
         "base": {
-          "value": "#222222",
+          "value": "#7A818E",
           "type": "color",
           "description": "color.palette.neutral.base"
         }
@@ -443,7 +443,7 @@
       },
       "white": {
         "base": {
-          "value": "#FEFEFE",
+          "value": "#FFFFFF",
           "type": "color",
           "description": "color.palette.white.base"
         }

@@ -113,7 +113,7 @@ export const ScrollingBody: StoryObj = {
 
 export const CustomClosingIcon: StoryObj = {
   render: () => {
-    Icon.registerIcon(faCircleXmark);
+    Icon.register(faCircleXmark);
 
     return html`
       <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>

@@ -23,6 +23,6 @@ export const setup = (): void => {
     }
   };
 
-  Icon.registerIcons(icons as IconLibrary);
+  Icon.register(icons as IconLibrary);
   Config.setConfig(config);
 };

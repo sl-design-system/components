@@ -2164,7 +2164,7 @@
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
               },
-              "description": "Emits when the state in the grid have changed."
+              "description": "Emits when the state in the grid has changed."
             },
             {
               "kind": "field",
@@ -2310,7 +2310,7 @@
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
               },
-              "description": "Emits when the state in the grid have changed.",
+              "description": "Emits when the state in the grid has changed.",
               "fieldName": "gridStateChange"
             }
           ],

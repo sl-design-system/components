@@ -72,5 +72,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "packageManager": "yarn"
   }
 }

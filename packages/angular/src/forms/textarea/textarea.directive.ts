@@ -1,20 +1,9 @@
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  HostListener,
-  Inject,
-  Injector,
-  Renderer2
-} from '@angular/core';
-import {
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR
-} from '@angular/forms';
+import { Directive, ElementRef, HostListener, Inject, Injector, forwardRef } from '@angular/core';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { type Textarea } from '@sl-design-system/textarea';
 import { FormControlElementDirective } from '../form-control/form-control-element.directive';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'sl-textarea',
   providers: [
     {
@@ -29,9 +18,7 @@ import { FormControlElementDirective } from '../form-control/form-control-elemen
     }
   ]
 })
-
-export class TextareaDirective extends FormControlElementDirective {
-
+export class TextareaDirective extends FormControlElementDirective<Textarea> {
   #value?: string;
 
   get value(): string {
@@ -39,22 +26,26 @@ export class TextareaDirective extends FormControlElementDirective {
   }
 
   set value(val: string) {
-     if (val !== this.#value) {
+    if (val !== this.#value) {
       this.#value = val;
       this.onChange(this.#value);
-      this.validatorOnChange();
-     }
+      this.onValidatorChange();
+    }
   }
 
   writeValue(value: string): void {
     if (value) {
       this.value = value;
-      this.elementRef.nativeElement.textarea.value = value;
+      this.elementRef.nativeElement.value = value;
     }
   }
 
-  constructor(public override elementRef: ElementRef, private renderer: Renderer2, @Inject(Injector) injector: Injector) {
+  constructor(@Inject(ElementRef) elementRef: ElementRef<Textarea>, @Inject(Injector) injector: Injector) {
     super(elementRef, injector);
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this.elementRef.nativeElement.disabled = disabled;
   }
 
   @HostListener('input', ['$event.target.value'])

@@ -1,21 +1,9 @@
-import {
-  Directive,
-  ElementRef,
-  forwardRef,
-  HostListener,
-  Inject,
-  Injector,
-  Renderer2
-} from '@angular/core';
-import {
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR
-} from '@angular/forms';
-import { FormControlElementDirective } from '../form-control/form-control-element.directive';
+import { Directive, ElementRef, HostListener, Inject, Injector, forwardRef } from '@angular/core';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import type { Radio } from '@sl-design-system/radio-group';
+import { FormControlElementDirective } from '../form-control/form-control-element.directive';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'sl-radio',
   providers: [
     {
@@ -30,32 +18,36 @@ import type { Radio } from '@sl-design-system/radio-group';
     }
   ]
 })
-export class RadioDirective extends FormControlElementDirective {
+export class RadioDirective extends FormControlElementDirective<Radio> {
   #initialValue: string | null = null;
-  #value: string | null = null;
+  #value?: unknown;
 
-  get value(): string | null {
+  get value(): unknown {
     return this.#value;
   }
 
-  set value(val: string | null) {
+  set value(val: unknown) {
     this.#value = val;
     this.onChange(this.#value);
-    this.elementRef.nativeElement.internals.value = this.#value;
-    this.validatorOnChange();
+    // this.elementRef.nativeElement.internals.value = this.#value;
+    this.onValidatorChange();
   }
 
   writeValue(value: string): void {
     this.#initialValue = value;
     if (value) {
       this.elementRef.nativeElement.value = this.#initialValue;
-      this.elementRef.nativeElement.setFormValue(value);
+      // this.elementRef.nativeElement.setFormValue(value);
       this.value = value;
     }
   }
 
-  constructor(public override elementRef: ElementRef, private renderer: Renderer2, @Inject(Injector) injector: Injector) {
+  constructor(@Inject(ElementRef) elementRef: ElementRef<Radio>, @Inject(Injector) injector: Injector) {
     super(elementRef, injector);
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this.elementRef.nativeElement.disabled = disabled;
   }
 
   @HostListener('click', ['$event'])

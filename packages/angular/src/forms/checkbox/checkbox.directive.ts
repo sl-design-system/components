@@ -1,10 +1,9 @@
-import { Directive, ElementRef, forwardRef, HostListener, Inject, Injector } from '@angular/core';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { Directive, ElementRef, HostListener, Inject, Injector, forwardRef } from '@angular/core';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { type Checkbox } from '@sl-design-system/checkbox';
 import { FormControlElementDirective } from '../form-control/form-control-element.directive';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'sl-checkbox',
   providers: [
     {
@@ -19,19 +18,19 @@ import { FormControlElementDirective } from '../form-control/form-control-elemen
     }
   ]
 })
-export class CheckboxDirective extends FormControlElementDirective {
-  #initialValue?: string;
-  #value?: string;
+export class CheckboxDirective extends FormControlElementDirective<Checkbox> {
+  #initialValue?: unknown;
+  #value?: unknown;
 
-  get value(): string | undefined {
+  get value(): unknown {
     return this.#value;
   }
 
-  set value(val: string | undefined) {
+  set value(val: unknown) {
     this.#value = val;
     this.onChange(this.#value);
     this.elementRef.nativeElement.value = this.#value;
-    this.validatorOnChange();
+    this.onValidatorChange();
   }
 
   writeValue(value: string): void {
@@ -44,8 +43,12 @@ export class CheckboxDirective extends FormControlElementDirective {
     }
   }
 
-  constructor(public override elementRef: ElementRef<Checkbox>, @Inject(Injector) injector: Injector) {
+  constructor(@Inject(ElementRef) elementRef: ElementRef<Checkbox>, @Inject(Injector) injector: Injector) {
     super(elementRef, injector);
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this.elementRef.nativeElement.disabled = disabled;
   }
 
   @HostListener('sl-change', ['$event.target.checked'])

@@ -1,8 +1,8 @@
-import { Preview } from '@storybook/angular';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
 import 'element-internals-polyfill';
-import {configureLocalization} from '@lit/localize';
+import { configureLocalization } from '@lit/localize';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { Preview } from '@storybook/angular';
 import { updateTheme, themes } from '../../../.storybook/themes';
 
 const { setLocale } = configureLocalization({

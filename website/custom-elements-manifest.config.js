@@ -22,7 +22,7 @@ export default {
   
   /** Overrides default module creation: */
   overrideModuleCreation: ({ts, globs}) => {
-    const program = getTsProgram(ts, globs, "../tsconfig.all.json");
+    const program = getTsProgram(ts, globs, "tsconfig.cem.json");
     return program.getSourceFiles().filter(sf => globs.find(glob => sf.fileName.includes(glob.replace('../',''))));
   },
 }

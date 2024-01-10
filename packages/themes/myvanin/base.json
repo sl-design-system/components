@@ -2080,6 +2080,18 @@
         "value": "{border.width.xs}",
         "type": "borderWidth"
       },
+      "tooltip": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        }
+      },
       "none": {
         "value": 0,
         "type": "borderWidth",
@@ -2429,6 +2441,32 @@
       },
       "gap": {
         "value": "{space.xs}",
+        "type": "spacing"
+      }
+    },
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      },
+      "offset": {
+        "value": "{space.sm}",
         "type": "spacing"
       }
     },
@@ -3221,26 +3259,6 @@
             "description": "{space.button.gap.lg}"
           }
         }
-      }
-    },
-    "tooltip": {
-      "block": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.solid.block.md"
-      },
-      "inline": {
-        "value": "{space.md}",
-        "type": "spacing",
-        "description": "space.button.solid.inline.md"
-      },
-      "gap": {
-        "value": "{space.xs}",
-        "type": "spacing"
-      },
-      "offset": {
-        "value": "{space.sm}",
-        "type": "spacing"
       }
     },
     "badge": {

@@ -13,6 +13,9 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-tooltip-background: rgb(var(--sl-color-palette-info-700));
   --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));

@@ -577,6 +577,18 @@
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-dialog-heading: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-xl) /
     var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-heading);
+  --sl-text-input-switch-input-field-bold-lg: var(--sl-text-typeset-font-weight-bold)
+    var(--sl-text-typeset-font-size-xl) / var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-bold-md: var(--sl-text-typeset-font-weight-bold)
+    var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-bold-sm: var(--sl-text-typeset-font-weight-bold)
+    var(--sl-text-typeset-font-size-md) / var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-regular-lg: var(--sl-text-typeset-font-weight-regular)
+    var(--sl-text-typeset-font-size-xl) / var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-regular-md: var(--sl-text-typeset-font-weight-regular)
+    var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-input-switch-input-field-regular-sm: var(--sl-text-typeset-font-weight-regular)
+    var(--sl-text-typeset-font-size-md) / var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-input-helper-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-input-helper-text-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /

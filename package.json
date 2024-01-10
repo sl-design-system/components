@@ -171,8 +171,7 @@
     },
     "lint": {
       "dependencies": [
-        "lint:components",
-        "./packages/angular:lint"
+        "lint:components"
       ]
     },
     "lint:components": {
@@ -229,7 +228,7 @@
       ]
     },
     "storybook": {
-      "command": "yarn workspace @sl-design-system/angular-root storybook",
+      "command": "yarn workspace @sl-design-system/angular storybook",
       "dependencies": [
         "storybook:build"
       ]

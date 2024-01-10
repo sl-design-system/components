@@ -40,6 +40,6 @@
   "dependencies": {
     "@sl-design-system/popover": "0.1.0",
     "@sl-design-system/shared": "0.2.0",
-    "lit": "^3.1.0"
+    "lit": "^3.1.1"
   }
 }

@@ -1,8 +1,11 @@
 {
-  "name": "@sl-design-system/angular-root",
-  "description": "Angular module for the SL Design System",
+  "name": "@sl-design-system/angular",
+  "description": "Angular support for the SL Design System",
   "version": "0.1.0",
-  "private": true,
+  "publishConfig": {
+    "directory": "dist",
+    "registry": "https://npm.pkg.github.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
@@ -50,27 +53,22 @@
       "command": "ng run angular-core:build-storybook"
     }
   },
-  "dependencies": {
-    "@angular/animations": "^16.2.12",
-    "@angular/common": "^16.2.12",
-    "@angular/compiler": "^16.2.12",
-    "@angular/core": "^16.2.12",
-    "@angular/forms": "^16.2.12",
-    "@angular/platform-browser": "^16.2.12",
-    "@angular/platform-browser-dynamic": "^16.2.12",
-    "rxjs": "~7.8.1",
-    "tslib": "^2.6.2",
-    "zone.js": "~0.13.3"
-  },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.2.11",
+    "@angular-devkit/build-angular": "^17.0.9",
     "@angular-eslint/builder": "16.3.1",
     "@angular-eslint/eslint-plugin": "16.3.1",
     "@angular-eslint/eslint-plugin-template": "16.3.1",
     "@angular-eslint/schematics": "16.3.1",
     "@angular-eslint/template-parser": "16.3.1",
+    "@angular/animations": "^17.0.8",
     "@angular/cli": "~17.0.9",
-    "@angular/compiler-cli": "^16.2.12",
+    "@angular/common": "^17.0.8",
+    "@angular/compiler": "^17.0.8",
+    "@angular/compiler-cli": "^17.0.8",
+    "@angular/core": "^17.0.8",
+    "@angular/forms": "^17.0.8",
+    "@angular/platform-browser": "^17.0.8",
+    "@angular/platform-browser-dynamic": "^17.0.8",
     "@storybook/addon-essentials": "^7.6.7",
     "@storybook/addon-links": "^7.6.7",
     "@storybook/angular": "^7.6.7",
@@ -85,12 +83,15 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "ng-packagr": "^16.2.3",
+    "ng-packagr": "^17.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rxjs": "~7.8.1",
     "storybook": "^7.6.7",
-    "typescript": "5.2.2",
-    "wireit": "^0.14.1"
+    "tslib": "^2.6.2",
+    "typescript": "~5.2.2",
+    "wireit": "^0.14.1",
+    "zone.js": "~0.14.3"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"

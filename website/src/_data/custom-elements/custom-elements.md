@@ -15,15 +15,405 @@
 | --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
 | `custom-element-definition` | `sl-avatar` | Avatar      | /packages/components/avatar/src/avatar.js |         |
 
-# `../packages/components/avatar/src/avatar.scss.ts`:
+# `../packages/components/badge/index.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/avatar/src/avatar.scss.ts |         |
+| Kind | Name | Declaration | Module | Package        |
+| ---- | ---- | ----------- | ------ | -------------- |
+| `js` | `*`  | *           |        | ./src/badge.js |
 
-# `../packages/components/avatar/src/avatar.ts`:
+# `../packages/components/badge/register.ts`:
+
+## Exports
+
+| Kind                        | Name       | Declaration | Module                                  | Package |
+| --------------------------- | ---------- | ----------- | --------------------------------------- | ------- |
+| `custom-element-definition` | `sl-badge` | Badge       | /packages/components/badge/src/badge.js |         |
+
+# `../packages/components/button-bar/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package             |
+| ---- | ---- | ----------- | ------ | ------------------- |
+| `js` | `*`  | *           |        | ./src/button-bar.js |
+
+# `../packages/components/button-bar/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                            | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
+
+# `../packages/components/button/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/button.js |
+
+# `../packages/components/button/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
+
+# `../packages/components/checkbox/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                 |
+| ---- | ---- | ----------- | ------ | ----------------------- |
+| `js` | `*`  | *           |        | ./src/checkbox.js       |
+| `js` | `*`  | *           |        | ./src/checkbox-group.js |
+
+# `../packages/components/checkbox/register.ts`:
+
+## Exports
+
+| Kind                        | Name                | Declaration   | Module                                              | Package |
+| --------------------------- | ------------------- | ------------- | --------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/components/checkbox/src/checkbox.js       |         |
+| `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/components/checkbox/src/checkbox-group.js |         |
+
+# `../packages/components/dialog/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/dialog.js |
+
+# `../packages/components/dialog/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
+
+# `../packages/components/drawer/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/drawer.js |
+
+# `../packages/components/drawer/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
+
+# `../packages/components/editor/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/editor.js |
+
+# `../packages/components/editor/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
+
+# `../packages/components/form/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                        |
+| ---- | ---- | ----------- | ------ | ------------------------------ |
+| `js` | `*`  | *           |        | ./src/error.js                 |
+| `js` | `*`  | *           |        | ./src/form-control-mixin.js    |
+| `js` | `*`  | *           |        | ./src/form-field-event.js      |
+| `js` | `*`  | *           |        | ./src/form-field.js            |
+| `js` | `*`  | *           |        | ./src/form.js                  |
+| `js` | `*`  | *           |        | ./src/hint.js                  |
+| `js` | `*`  | *           |        | ./src/label.js                 |
+| `js` | `*`  | *           |        | ./src/update-validity-event.js |
+| `js` | `*`  | *           |        | ./src/validate-event.js        |
+
+# `../packages/components/form/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                      | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-error`      | Error       | /packages/components/form/src/error.js      |         |
+| `custom-element-definition` | `sl-form`       | Form        | /packages/components/form/src/form.js       |         |
+| `custom-element-definition` | `sl-form-field` | FormField   | /packages/components/form/src/form-field.js |         |
+| `custom-element-definition` | `sl-hint`       | Hint        | /packages/components/form/src/hint.js       |         |
+| `custom-element-definition` | `sl-label`      | Label       | /packages/components/form/src/label.js      |         |
+
+# `../packages/components/grid/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                   |
+| ---- | ---- | ----------- | ------ | ------------------------- |
+| `js` | `*`  | *           |        | ./src/column.js           |
+| `js` | `*`  | *           |        | ./src/column-group.js     |
+| `js` | `*`  | *           |        | ./src/events.js           |
+| `js` | `*`  | *           |        | ./src/filter-column.js    |
+| `js` | `*`  | *           |        | ./src/grid.js             |
+| `js` | `*`  | *           |        | ./src/selection-column.js |
+| `js` | `*`  | *           |        | ./src/sort-column.js      |
+
+# `../packages/components/grid/register.ts`:
+
+## Exports
+
+| Kind                        | Name                       | Declaration         | Module                                            | Package |
+| --------------------------- | -------------------------- | ------------------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-grid`                  | Grid                | /packages/components/grid/src/grid.js             |         |
+| `custom-element-definition` | `sl-grid-column`           | GridColumn          | /packages/components/grid/src/column.js           |         |
+| `custom-element-definition` | `sl-grid-column-group`     | GridColumnGroup     | /packages/components/grid/src/column-group.js     |         |
+| `custom-element-definition` | `sl-grid-filter-column`    | GridFilterColumn    | /packages/components/grid/src/filter-column.js    |         |
+| `custom-element-definition` | `sl-grid-selection-column` | GridSelectionColumn | /packages/components/grid/src/selection-column.js |         |
+| `custom-element-definition` | `sl-grid-sort-column`      | GridSortColumn      | /packages/components/grid/src/sort-column.js      |         |
+
+# `../packages/components/icon/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/icon.js   |
+| `js` | `*`  | *           |        | ./src/models.js |
+
+# `../packages/components/icon/register.ts`:
+
+## Exports
+
+| Kind                        | Name      | Declaration | Module                                | Package |
+| --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
+| `custom-element-definition` | `sl-icon` | Icon        | /packages/components/icon/src/icon.js |         |
+
+# `../packages/components/inline-message/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                 |
+| ---- | ---- | ----------- | ------ | ----------------------- |
+| `js` | `*`  | *           |        | ./src/inline-message.js |
+
+# `../packages/components/inline-message/register.ts`:
+
+## Exports
+
+| Kind                        | Name                | Declaration   | Module                                                    | Package |
+| --------------------------- | ------------------- | ------------- | --------------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-inline-message` | InlineMessage | /packages/components/inline-message/src/inline-message.js |         |
+
+# `../packages/components/popover/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package          |
+| ---- | ---- | ----------- | ------ | ---------------- |
+| `js` | `*`  | *           |        | ./src/popover.js |
+
+# `../packages/components/popover/register.ts`:
+
+## Exports
+
+| Kind                        | Name         | Declaration | Module                                      | Package |
+| --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-popover` | Popover     | /packages/components/popover/src/popover.js |         |
+
+# `../packages/components/radio-group/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package              |
+| ---- | ---- | ----------- | ------ | -------------------- |
+| `js` | `*`  | *           |        | ./src/radio.js       |
+| `js` | `*`  | *           |        | ./src/radio-group.js |
+
+# `../packages/components/radio-group/register.ts`:
+
+## Exports
+
+| Kind                        | Name             | Declaration | Module                                              | Package |
+| --------------------------- | ---------------- | ----------- | --------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
+| `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
+
+# `../packages/components/select/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                      |
+| ---- | ---- | ----------- | ------ | ---------------------------- |
+| `js` | `*`  | *           |        | ./src/select.js              |
+| `js` | `*`  | *           |        | ./src/select-option.js       |
+| `js` | `*`  | *           |        | ./src/select-option-group.js |
+
+# `../packages/components/select/register.ts`:
+
+## Exports
+
+| Kind                        | Name                     | Declaration       | Module                                                 | Package |
+| --------------------------- | ------------------------ | ----------------- | ------------------------------------------------------ | ------- |
+| `custom-element-definition` | `sl-select`              | Select            | /packages/components/select/src/select.js              |         |
+| `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
+| `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
+
+# `../packages/components/shared/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                    |
+| ---- | ---- | ----------- | ------ | -------------------------- |
+| `js` | `*`  | *           |        | ./src/controllers/index.js |
+| `js` | `*`  | *           |        | ./src/data-source/index.js |
+| `js` | `*`  | *           |        | ./src/decorators/index.js  |
+| `js` | `*`  | *           |        | ./src/directives/index.js  |
+| `js` | `*`  | *           |        | ./src/css.js               |
+| `js` | `*`  | *           |        | ./src/config.js            |
+| `js` | `*`  | *           |        | ./src/path.js              |
+| `js` | `*`  | *           |        | ./src/popover.js           |
+| `js` | `*`  | *           |        | ./src/string.js            |
+| `js` | `*`  | *           |        | ./src/types.js             |
+
+# `../packages/components/skeleton/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package           |
+| ---- | ---- | ----------- | ------ | ----------------- |
+| `js` | `*`  | *           |        | ./src/skeleton.js |
+
+# `../packages/components/skeleton/register.ts`:
+
+## Exports
+
+| Kind                        | Name          | Declaration | Module                                        | Package |
+| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-skeleton` | Skeleton    | /packages/components/skeleton/src/skeleton.js |         |
+
+# `../packages/components/spinner/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package          |
+| ---- | ---- | ----------- | ------ | ---------------- |
+| `js` | `*`  | *           |        | ./src/spinner.js |
+
+# `../packages/components/spinner/register.ts`:
+
+## Exports
+
+| Kind                        | Name         | Declaration | Module                                      | Package |
+| --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-spinner` | Spinner     | /packages/components/spinner/src/spinner.js |         |
+
+# `../packages/components/switch/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package         |
+| ---- | ---- | ----------- | ------ | --------------- |
+| `js` | `*`  | *           |        | ./src/switch.js |
+
+# `../packages/components/switch/register.ts`:
+
+## Exports
+
+| Kind                        | Name        | Declaration | Module                                    | Package |
+| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
+| `custom-element-definition` | `sl-switch` | Switch      | /packages/components/switch/src/switch.js |         |
+
+# `../packages/components/tabs/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package            |
+| ---- | ---- | ----------- | ------ | ------------------ |
+| `js` | `*`  | *           |        | ./src/tab-group.js |
+| `js` | `*`  | *           |        | ./src/tab-panel.js |
+| `js` | `*`  | *           |        | ./src/tab.js       |
+
+# `../packages/components/tabs/register.ts`:
+
+## Exports
+
+| Kind                        | Name           | Declaration | Module                                     | Package |
+| --------------------------- | -------------- | ----------- | ------------------------------------------ | ------- |
+| `custom-element-definition` | `sl-tab`       | Tab         | /packages/components/tabs/src/tab.js       |         |
+| `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/components/tabs/src/tab-group.js |         |
+| `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/components/tabs/src/tab-panel.js |         |
+
+# `../packages/components/text-field/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package             |
+| ---- | ---- | ----------- | ------ | ------------------- |
+| `js` | `*`  | *           |        | ./src/text-field.js |
+
+# `../packages/components/text-field/register.ts`:
+
+## Exports
+
+| Kind                        | Name            | Declaration | Module                                            | Package |
+| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-text-field` | TextField   | /packages/components/text-field/src/text-field.js |         |
+
+# `../packages/components/textarea/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package           |
+| ---- | ---- | ----------- | ------ | ----------------- |
+| `js` | `*`  | *           |        | ./src/textarea.js |
+
+# `../packages/components/textarea/register.ts`:
+
+## Exports
+
+| Kind                        | Name          | Declaration | Module                                        | Package |
+| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-textarea` | Textarea    | /packages/components/textarea/src/textarea.js |         |
+
+# `../packages/components/tooltip/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                    |
+| ---- | ---- | ----------- | ------ | -------------------------- |
+| `js` | `*`  | *           |        | ./src/tooltip.js           |
+| `js` | `*`  | *           |        | ./src/tooltip-directive.js |
+
+# `../packages/components/tooltip/register.ts`:
+
+## Exports
+
+| Kind                        | Name         | Declaration | Module                                      | Package |
+| --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/components/tooltip/src/tooltip.js |         |
+
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/avatar/src/avatar.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/avatar/src/avatar.scss.ts |         |
+
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/avatar/src/avatar.ts`:
 
 ## class: `Avatar`, `sl-avatar`
 
@@ -80,35 +470,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Avatar` | Avatar      | ../packages/components/avatar/src/avatar.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Avatar` | Avatar      | /Users/Diana.Broeders/Projects/design-system/packages/components/avatar/src/avatar.ts |         |
 
-# `../packages/components/badge/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package        |
-| ---- | ---- | ----------- | ------ | -------------- |
-| `js` | `*`  | *           |        | ./src/badge.js |
-
-# `../packages/components/badge/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/badge/src/badge.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name       | Declaration | Module                                  | Package |
-| --------------------------- | ---------- | ----------- | --------------------------------------- | ------- |
-| `custom-element-definition` | `sl-badge` | Badge       | /packages/components/badge/src/badge.js |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/badge/src/badge.scss.ts |         |
 
-# `../packages/components/badge/src/badge.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/badge/src/badge.scss.ts |         |
-
-# `../packages/components/badge/src/badge.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/badge/src/badge.ts`:
 
 ## class: `Badge`, `sl-badge`
 
@@ -142,35 +516,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                    | Package |
-| ---- | ------- | ----------- | ----------------------------------------- | ------- |
-| `js` | `Badge` | Badge       | ../packages/components/badge/src/badge.ts |         |
+| Kind | Name    | Declaration | Module                                                                              | Package |
+| ---- | ------- | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `Badge` | Badge       | /Users/Diana.Broeders/Projects/design-system/packages/components/badge/src/badge.ts |         |
 
-# `../packages/components/button-bar/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./src/button-bar.js |
-
-# `../packages/components/button-bar/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/button-bar/src/button-bar.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name            | Declaration | Module                                            | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button-bar` | ButtonBar   | /packages/components/button-bar/src/button-bar.js |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/button-bar/src/button-bar.scss.ts |         |
 
-# `../packages/components/button-bar/src/button-bar.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/button-bar/src/button-bar.scss.ts |         |
-
-# `../packages/components/button-bar/src/button-bar.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/button-bar/src/button-bar.ts`:
 
 ## class: `ButtonBar`, `sl-button-bar`
 
@@ -204,35 +562,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `ButtonBar` | ButtonBar   | ../packages/components/button-bar/src/button-bar.ts |         |
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ButtonBar` | ButtonBar   | /Users/Diana.Broeders/Projects/design-system/packages/components/button-bar/src/button-bar.ts |         |
 
-# `../packages/components/button/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/button.js |
-
-# `../packages/components/button/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/button/src/button.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-button` | Button      | /packages/components/button/src/button.js |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/button/src/button.scss.ts |         |
 
-# `../packages/components/button/src/button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/button/src/button.scss.ts |         |
-
-# `../packages/components/button/src/button.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/button/src/button.ts`:
 
 ## class: `Button`, `sl-button`
 
@@ -244,13 +586,13 @@
 
 ### Fields
 
-| Name       | Privacy | Type                                                           | Default     | Description                                                                                                        | Inherited From |
-| ---------- | ------- | -------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ | -------------- |
-| `disabled` |         | `boolean \| undefined`                                         |             | Whether the button is disabled; when set no interaction is possible.                                               |                |
-| `fill`     |         | `'solid' \| 'outline' \| 'link' \| 'ghost'`                    | `'solid'`   | The fill of the button.                                                                                            |                |
-| `size`     |         | `'sm' \| 'md' \| 'lg'`                                         | `'md'`      | The size of the button.                                                                                            |                |
-| `type`     |         | `'button' \| 'reset' \| 'submit'`                              | `'button'`  | The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons. |                |
-| `variant`  |         | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'default'` | The variant of the button.                                                                                         |                |
+| Name       | Privacy | Type                   | Default     | Description                                                                                                        | Inherited From |
+| ---------- | ------- | ---------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `disabled` |         | `boolean \| undefined` |             | Whether the button is disabled; when set no interaction is possible.                                               |                |
+| `fill`     |         | `ButtonFill`           | `'solid'`   | The fill of the button.                                                                                            |                |
+| `size`     |         | `ButtonSize`           | `'md'`      | The size of the button.                                                                                            |                |
+| `type`     |         | `ButtonType`           | `'button'`  | The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons. |                |
+| `variant`  |         | `ButtonVariant`        | `'default'` | The variant of the button.                                                                                         |                |
 
 ### Attributes
 
@@ -272,37 +614,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Button` | Button      | ../packages/components/button/src/button.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Button` | Button      | /Users/Diana.Broeders/Projects/design-system/packages/components/button/src/button.ts |         |
 
-# `../packages/components/checkbox/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                 |
-| ---- | ---- | ----------- | ------ | ----------------------- |
-| `js` | `*`  | *           |        | ./src/checkbox.js       |
-| `js` | `*`  | *           |        | ./src/checkbox-group.js |
-
-# `../packages/components/checkbox/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name                | Declaration   | Module                                              | Package |
-| --------------------------- | ------------------- | ------------- | --------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-checkbox`       | Checkbox      | /packages/components/checkbox/src/checkbox.js       |         |
-| `custom-element-definition` | `sl-checkbox-group` | CheckboxGroup | /packages/components/checkbox/src/checkbox-group.js |         |
+| Kind | Name      | Declaration | Module                                                                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.scss.ts |         |
 
-# `../packages/components/checkbox/src/checkbox-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/checkbox/src/checkbox-group.scss.ts |         |
-
-# `../packages/components/checkbox/src/checkbox-group.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.ts`:
 
 ## class: `CheckboxGroup`, `sl-checkbox-group`
 
@@ -320,32 +644,35 @@
 
 ### Fields
 
-| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                             | Inherited From   |
-| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                               | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                       |         | Whether the group is disabled; when set no interaction is possible.                                                                                                                                                                                     |                  |
-| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                   | FormControlMixin |
-| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                 | FormControlMixin |
-| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                           | FormControlMixin |
-| `required`          |         | `boolean \| undefined`                       |         | At least one checkbox in the group must be checked if true.                                                                                                                                                                                             |                  |
-| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `CheckboxSize \| undefined`                  |         | The size of the checkboxes in the group.                                                                                                                                                                                                                |                  |
-| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                       | FormControlMixin |
-| `validationMessage` |         | `string`                                     |         | String representing a localized message that describes the validation constraints&#xA;that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints. | FormControlMixin |
-| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                           | FormControlMixin |
+| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `disabled`          |         | `boolean \| undefined`                       |         | Whether the group is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                     |                  |
+| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `required`          |         | `boolean \| undefined`                       |         | At least one checkbox in the group must be checked if true.                                                                                                                                                                                                                                                                                             |                  |
+| `showValid`         |         | `boolean`                                    | `false` | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                          | FormControlMixin |
+| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `size`              |         | `CheckboxSize \| undefined`                  |         | The size of the checkboxes in the group.                                                                                                                                                                                                                                                                                                                |                  |
+| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `value`             |         | `boolean[] \| undefined`                     |         | The readonly checked state for the checkbox group.                                                                                                                                                                                                                                                                                                      |                  |
 
 ### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                                             | Parameters        | Return    | Inherited From   |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
-| `reportValidity`    |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.   |                   | `boolean` | FormControlMixin |
-| `setCustomValidity` |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again. | `message: string` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters        | Return    | Inherited From   |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                   | `string`  | FormControlMixin |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                   | `boolean` | FormControlMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string` | `void`    | FormControlMixin |
 
 ### Events
 
-| Name | Type                  | Description                                          | Inherited From   |
-| ---- | --------------------- | ---------------------------------------------------- | ---------------- |
-|      | `UpdateValidityEvent` | Emits when the validity of the form control changes. | FormControlMixin |
+| Name | Type            | Description | Inherited From   |
+| ---- | --------------- | ----------- | ---------------- |
+|      | `ValidateEvent` |             | FormControlMixin |
 
 ### Attributes
 
@@ -368,19 +695,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------- | ------- |
-| `js` | `CheckboxGroup` | CheckboxGroup | ../packages/components/checkbox/src/checkbox-group.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                          | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `CheckboxGroup` | CheckboxGroup | /Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox-group.ts |         |
 
-# `../packages/components/checkbox/src/checkbox.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/checkbox/src/checkbox.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox.scss.ts |         |
 
-# `../packages/components/checkbox/src/checkbox.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts`:
 
 ## class: `Checkbox`, `sl-checkbox`
 
@@ -398,38 +725,40 @@
 
 ### Fields
 
-| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                             | Inherited From   |
-| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `checked`           |         | `boolean \| undefined`                       |         | Whether the checkbox is checked.                                                                                                                                                                                                                        |                  |
-| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                               | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                       |         | Whether the checkbox is disabled; when set no interaction is possible.                                                                                                                                                                                  |                  |
-| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                   | FormControlMixin |
-| `indeterminate`     |         | `boolean \| undefined`                       |         | Whether the checkbox has the indeterminate state.                                                                                                                                                                                                       |                  |
-| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                 | FormControlMixin |
-| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                           | FormControlMixin |
-| `required`          |         | `boolean \| undefined`                       |         | Whether the checkbox is required.                                                                                                                                                                                                                       |                  |
-| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `CheckboxSize`                               | `'md'`  | The size of the checkbox.                                                                                                                                                                                                                               |                  |
-| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                       | FormControlMixin |
-| `validationMessage` |         | `string`                                     |         | String representing a localized message that describes the validation constraints&#xA;that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints. | FormControlMixin |
-| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                           | FormControlMixin |
-| `value`             |         | `string \| null`                             | `null`  | The value for the checkbox, to be used in forms.                                                                                                                                                                                                        |                  |
+| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `checked`           |         | `boolean \| undefined`                       |         | Whether the checkbox is checked.                                                                                                                                                                                                                                                                                                                        |                  |
+| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `disabled`          |         | `boolean \| undefined`                       |         | Whether the checkbox is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                  |                  |
+| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `indeterminate`     |         | `boolean \| undefined`                       |         | Whether the checkbox has the indeterminate state.                                                                                                                                                                                                                                                                                                       |                  |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `required`          |         | `boolean \| undefined`                       |         | Whether the checkbox is required.                                                                                                                                                                                                                                                                                                                       |                  |
+| `showValid`         |         | `boolean`                                    | `false` | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `size`              |         | `CheckboxSize`                               | `'md'`  | The size of the checkbox.                                                                                                                                                                                                                                                                                                                               |                  |
+| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `value`             |         | `string \| null`                             | `null`  | The value for the checkbox, to be used in forms.                                                                                                                                                                                                                                                                                                        |                  |
 
 ### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                                             | Parameters        | Return    | Inherited From   |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
-| `reportValidity`    |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.   |                   | `boolean` | FormControlMixin |
-| `setCustomValidity` |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again. | `message: string` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters        | Return    | Inherited From   |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                   | `string`  | FormControlMixin |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                   | `boolean` | FormControlMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string` | `void`    | FormControlMixin |
 
 ### Events
 
-| Name          | Type                    | Description                                          | Inherited From   |
-| ------------- | ----------------------- | ---------------------------------------------------- | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`    | Emits when the component loses focus.                |                  |
-| `changeEvent` | `EventEmitter<boolean>` | Emits when the checked state changes.                |                  |
-| `focusEvent`  | `EventEmitter<void>`    | Emits when the component receives focus.             |                  |
-|               | `UpdateValidityEvent`   | Emits when the validity of the form control changes. | FormControlMixin |
+| Name          | Type                    | Description                              | Inherited From   |
+| ------------- | ----------------------- | ---------------------------------------- | ---------------- |
+| `blurEvent`   | `EventEmitter<void>`    | Emits when the component loses focus.    |                  |
+| `changeEvent` | `EventEmitter<boolean>` | Emits when the checked state changes.    |                  |
+| `focusEvent`  | `EventEmitter<void>`    | Emits when the component receives focus. |                  |
+|               | `ValidateEvent`         |                                          | FormControlMixin |
 
 ### Attributes
 
@@ -439,6 +768,7 @@
 | `disabled`        | disabled       |                  |
 | `indeterminate`   | indeterminate  |                  |
 | `required`        | required       |                  |
+| `show-valid`      | showValid      |                  |
 | `size`            | size           |                  |
 | `value`           | value          |                  |
 | `custom-validity` | customValidity | FormControlMixin |
@@ -455,35 +785,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                          | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Checkbox` | Checkbox    | ../packages/components/checkbox/src/checkbox.ts |         |
+| Kind | Name       | Declaration | Module                                                                                    | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Checkbox` | Checkbox    | /Users/Diana.Broeders/Projects/design-system/packages/components/checkbox/src/checkbox.ts |         |
 
-# `../packages/components/dialog/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/dialog.js |
-
-# `../packages/components/dialog/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-dialog` | Dialog      | /packages/components/dialog/src/dialog.js |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.scss.ts |         |
 
-# `../packages/components/dialog/src/dialog.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/dialog/src/dialog.scss.ts |         |
-
-# `../packages/components/dialog/src/dialog.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.ts`:
 
 ## class: `Dialog`, `sl-dialog`
 
@@ -539,35 +853,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Dialog` | Dialog      | ../packages/components/dialog/src/dialog.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Dialog` | Dialog      | /Users/Diana.Broeders/Projects/design-system/packages/components/dialog/src/dialog.ts |         |
 
-# `../packages/components/drawer/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/drawer.js |
-
-# `../packages/components/drawer/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/drawer/src/drawer.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-drawer` | Drawer      | /packages/components/drawer/src/drawer.js |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/drawer/src/drawer.scss.ts |         |
 
-# `../packages/components/drawer/src/drawer.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/drawer/src/drawer.scss.ts |         |
-
-# `../packages/components/drawer/src/drawer.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/drawer/src/drawer.ts`:
 
 ## class: `Drawer`, `sl-drawer`
 
@@ -619,27 +917,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Drawer` | Drawer      | ../packages/components/drawer/src/drawer.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Drawer` | Drawer      | /Users/Diana.Broeders/Projects/design-system/packages/components/drawer/src/drawer.ts |         |
 
-# `../packages/components/editor/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/editor.js |
-
-# `../packages/components/editor/register.ts`:
-
-## Exports
-
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-editor` | Editor      | /packages/components/editor/src/editor.js |         |
-
-# `../packages/components/editor/src/commands.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/commands.ts`:
 
 ## Functions
 
@@ -651,19 +933,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `setHTML` | setHTML     | ../packages/components/editor/src/commands.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `setHTML` | setHTML     | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/commands.ts |         |
 
-# `../packages/components/editor/src/editor.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/editor.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/editor/src/editor.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/editor.scss.ts |         |
 
-# `../packages/components/editor/src/editor.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/editor.ts`:
 
 ## class: `Editor`, `sl-editor`
 
@@ -681,34 +963,36 @@
 
 ### Fields
 
-| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                             | Inherited From   |
-| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                               | FormControlMixin |
-| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                   | FormControlMixin |
-| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                 | FormControlMixin |
-| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                           | FormControlMixin |
-| `plugins`           |         | `Plugin[] \| undefined`                      |         | Additional plugins.                                                                                                                                                                                                                                     |                  |
-| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                     | FormControlMixin |
-| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                       | FormControlMixin |
-| `validationMessage` |         | `string`                                     |         | String representing a localized message that describes the validation constraints&#xA;that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints. | FormControlMixin |
-| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                           | FormControlMixin |
-| `value`             |         | `string \| undefined`                        |         |                                                                                                                                                                                                                                                         |                  |
+| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `plugins`           |         | `Plugin[] \| undefined`                      |         | Additional plugins.                                                                                                                                                                                                                                                                                                                                     |                  |
+| `showValid`         |         | `boolean`                                    | `false` | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                          | FormControlMixin |
+| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `value`             |         | `string \| undefined`                        |         |                                                                                                                                                                                                                                                                                                                                                         |                  |
 
 ### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                                             | Parameters        | Return                             | Inherited From   |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------------------------------- | ---------------- |
-| `createEditor`      |         |                                                                                                                                                                                                                         |                   | `EditorView`                       |                  |
-| `createSchema`      |         |                                                                                                                                                                                                                         |                   | `Schema<EditorNodes, EditorMarks>` |                  |
-| `createState`       |         |                                                                                                                                                                                                                         |                   | `EditorState`                      |                  |
-| `reportValidity`    |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.   |                   | `boolean`                          | FormControlMixin |
-| `setCustomValidity` |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again. | `message: string` | `void`                             | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters        | Return                             | Inherited From   |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------------------------------- | ---------------- |
+| `createEditor`                  |         |                                                                                                                                                                                                                                                 |                   | `EditorView`                       |                  |
+| `createSchema`                  |         |                                                                                                                                                                                                                                                 |                   | `Schema<EditorNodes, EditorMarks>` |                  |
+| `createState`                   |         |                                                                                                                                                                                                                                                 |                   | `EditorState`                      |                  |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                   | `string`                           | FormControlMixin |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                   | `boolean`                          | FormControlMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string` | `void`                             | FormControlMixin |
 
 ### Events
 
-| Name | Type                  | Description                                          | Inherited From   |
-| ---- | --------------------- | ---------------------------------------------------- | ---------------- |
-|      | `UpdateValidityEvent` | Emits when the validity of the form control changes. | FormControlMixin |
+| Name | Type            | Description | Inherited From   |
+| ---- | --------------- | ----------- | ---------------- |
+|      | `ValidateEvent` |             | FormControlMixin |
 
 ### Attributes
 
@@ -723,11 +1007,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Editor` | Editor      | ../packages/components/editor/src/editor.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Editor` | Editor      | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/editor.ts |         |
 
-# `../packages/components/editor/src/keymap.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/keymap.ts`:
 
 ## Functions
 
@@ -740,12 +1024,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                      | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------- | ------- |
-| `js` | `buildKeymap`     | buildKeymap     | ../packages/components/editor/src/keymap.ts |         |
-| `js` | `buildListKeymap` | buildListKeymap | ../packages/components/editor/src/keymap.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `buildKeymap`     | buildKeymap     | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
+| `js` | `buildListKeymap` | buildListKeymap | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/keymap.ts |         |
 
-# `../packages/components/editor/src/list-utils.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts`:
 
 ## Functions
 
@@ -770,24 +1054,24 @@
 
 ## Exports
 
-| Kind | Name                      | Declaration             | Module                                          | Package |
-| ---- | ------------------------- | ----------------------- | ----------------------------------------------- | ------- |
-| `js` | `rootListDepth`           | rootListDepth           | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `getListLiftTarget`       | getListLiftTarget       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftSelectionList`       | liftSelectionList       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleList`              | toggleList              | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleListCommand`       | toggleListCommand       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftFollowingList`       | liftFollowingList       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `isRangeOfType`           | isRangeOfType           | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `findAncestorPosition`    | findAncestorPosition    | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `liftListItems`           | liftListItems           | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `wrapInList`              | wrapInList              | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleUnorderedList`     | toggleUnorderedList     | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `toggleOrderedList`       | toggleOrderedList       | ../packages/components/editor/src/list-utils.ts |         |
-| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | ../packages/components/editor/src/list-utils.ts |         |
+| Kind | Name                      | Declaration             | Module                                                                                    | Package |
+| ---- | ------------------------- | ----------------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `rootListDepth`           | rootListDepth           | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getListLiftTarget`       | getListLiftTarget       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftSelectionList`       | liftSelectionList       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleList`              | toggleList              | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleListCommand`       | toggleListCommand       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftFollowingList`       | liftFollowingList       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `isRangeOfType`           | isRangeOfType           | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `getAncestorNodesBetween` | getAncestorNodesBetween | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `findAncestorPosition`    | findAncestorPosition    | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `liftListItems`           | liftListItems           | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `wrapInList`              | wrapInList              | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleUnorderedList`     | toggleUnorderedList     | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `toggleOrderedList`       | toggleOrderedList       | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
+| `js` | `splitListItemKeepMarks`  | splitListItemKeepMarks  | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/list-utils.ts |         |
 
-# `../packages/components/editor/src/schema.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts`:
 
 ## Variables
 
@@ -811,16 +1095,16 @@
 
 ## Exports
 
-| Kind | Name                 | Declaration        | Module                                      | Package |
-| ---- | -------------------- | ------------------ | ------------------------------------------- | ------- |
-| `js` | `isEmpty`            | isEmpty            | ../packages/components/editor/src/schema.ts |         |
-| `js` | `removeEntries`      | removeEntries      | ../packages/components/editor/src/schema.ts |         |
-| `js` | `removeEmptyEntries` | removeEmptyEntries | ../packages/components/editor/src/schema.ts |         |
-| `js` | `commonAttributes`   | commonAttributes   | ../packages/components/editor/src/schema.ts |         |
-| `js` | `marks`              | marks              | ../packages/components/editor/src/schema.ts |         |
-| `js` | `nodes`              | nodes              | ../packages/components/editor/src/schema.ts |         |
+| Kind | Name                 | Declaration        | Module                                                                                | Package |
+| ---- | -------------------- | ------------------ | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `isEmpty`            | isEmpty            | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEntries`      | removeEntries      | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `removeEmptyEntries` | removeEmptyEntries | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `commonAttributes`   | commonAttributes   | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `marks`              | marks              | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
+| `js` | `nodes`              | nodes              | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/schema.ts |         |
 
-# `../packages/components/editor/src/utils.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/utils.ts`:
 
 ## Functions
 
@@ -833,44 +1117,20 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                     | Package |
-| ---- | ------------------- | ----------------- | ------------------------------------------ | ------- |
-| `js` | `createContentNode` | createContentNode | ../packages/components/editor/src/utils.ts |         |
-| `js` | `getHTML`           | getHTML           | ../packages/components/editor/src/utils.ts |         |
+| Kind | Name                | Declaration       | Module                                                                               | Package |
+| ---- | ------------------- | ----------------- | ------------------------------------------------------------------------------------ | ------- |
+| `js` | `createContentNode` | createContentNode | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
+| `js` | `getHTML`           | getHTML           | /Users/Diana.Broeders/Projects/design-system/packages/components/editor/src/utils.ts |         |
 
-# `../packages/components/form/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                        |
-| ---- | ---- | ----------- | ------ | ------------------------------ |
-| `js` | `*`  | *           |        | ./src/error.js                 |
-| `js` | `*`  | *           |        | ./src/form-control-mixin.js    |
-| `js` | `*`  | *           |        | ./src/form-field.js            |
-| `js` | `*`  | *           |        | ./src/hint.js                  |
-| `js` | `*`  | *           |        | ./src/label.js                 |
-| `js` | `*`  | *           |        | ./src/update-validity-event.js |
-
-# `../packages/components/form/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/error.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name            | Declaration | Module                                      | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-error`      | Error       | /packages/components/form/src/error.js      |         |
-| `custom-element-definition` | `sl-form-field` | FormField   | /packages/components/form/src/form-field.js |         |
-| `custom-element-definition` | `sl-hint`       | Hint        | /packages/components/form/src/hint.js       |         |
-| `custom-element-definition` | `sl-label`      | Label       | /packages/components/form/src/label.js      |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/error.scss.ts |         |
 
-# `../packages/components/form/src/error.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/error.scss.ts |         |
-
-# `../packages/components/form/src/error.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/error.ts`:
 
 ## class: `Error`, `sl-error`
 
@@ -910,11 +1170,11 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                   | Package |
-| ---- | ------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Error` | Error       | ../packages/components/form/src/error.ts |         |
+| Kind | Name    | Declaration | Module                                                                             | Package |
+| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `Error` | Error       | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/error.ts |         |
 
-# `../packages/components/form/src/form-control-mixin.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts`:
 
 ## mixin: `FormControlMixin`
 
@@ -926,29 +1186,31 @@
 
 ### Fields
 
-| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                             | Inherited From |
-| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                               |                |
-| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                   |                |
-| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                 |                |
-| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                           |                |
-| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                     |                |
-| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                       |                |
-| `validationMessage` |         | `string`                                     |         | String representing a localized message that describes the validation constraints&#xA;that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints. |                |
-| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                           |                |
+| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From |
+| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               |                |
+| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                                                                                                                   |                |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 |                |
+| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           |                |
+| `showValid`         |         | `boolean`                                    | `false` | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                          |                |
+| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     |                |
+| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       |                |
+| `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. |                |
+| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           |                |
 
 ### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                                             | Parameters        | Return    | Inherited From |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | -------------- |
-| `reportValidity`    |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.   |                   | `boolean` |                |
-| `setCustomValidity` |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again. | `message: string` | `void`    |                |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters        | Return    | Inherited From |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | -------------- |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                   | `string`  |                |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                   | `boolean` |                |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string` | `void`    |                |
 
 ### Events
 
-| Name | Type                  | Description                                          | Inherited From |
-| ---- | --------------------- | ---------------------------------------------------- | -------------- |
-|      | `UpdateValidityEvent` | Emits when the validity of the form control changes. |                |
+| Name | Type            | Description | Inherited From |
+| ---- | --------------- | ----------- | -------------- |
+|      | `ValidateEvent` |             |                |
 
 ### Attributes
 
@@ -962,19 +1224,49 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                | Package |
-| ---- | ------------------ | ---------------- | ----------------------------------------------------- | ------- |
-| `js` | `FormControlMixin` | FormControlMixin | ../packages/components/form/src/form-control-mixin.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                          | Package |
+| ---- | ------------------ | ---------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormControlMixin` | FormControlMixin | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-control-mixin.ts |         |
 
-# `../packages/components/form/src/form-field.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field-event.ts`:
+
+## class: `FormFieldEvent`
+
+### Superclass
+
+| Name    | Module                                                                                        | Package |
+| ------- | --------------------------------------------------------------------------------------------- | ------- |
+| `Event` | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field-event.ts |         |
+
+### Fields
+
+| Name    | Privacy | Type | Default | Description                                 | Inherited From |
+| ------- | ------- | ---- | ------- | ------------------------------------------- | -------------- |
+| `state` |         |      |         | The state of the form field (add or remove) |                |
+
+### Events
+
+| Name            | Type | Description | Inherited From |
+| --------------- | ---- | ----------- | -------------- |
+| `sl-form-field` |      |             |                |
+
+<hr/>
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/form-field.scss.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                        | Package |
+| ---- | ---------------- | -------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormFieldEvent` | FormFieldEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field-event.ts |         |
 
-# `../packages/components/form/src/form-field.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field.scss.ts |         |
+
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field.ts`:
 
 ## class: `FormField`, `sl-form-field`
 
@@ -992,10 +1284,17 @@
 
 ### Fields
 
-| Name    | Privacy | Type                  | Default | Description                                                                                                    | Inherited From |
-| ------- | ------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------- | -------------- |
-| `hint`  |         | `string \| undefined` |         | A hint that will be shown when there are no validation messages.&#xA;You can also slot an `<sl-hint>` element. |                |
-| `label` |         | `string \| undefined` |         | The text for the label. You can also slot an `<sl-label>` element.                                             |                |
+| Name          | Privacy | Type                                     | Default | Description                                                                                                    | Inherited From |
+| ------------- | ------- | ---------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------- | -------------- |
+| `formControl` |         | `HTMLElement & FormControl \| undefined` |         | The form control element.                                                                                      |                |
+| `hint`        |         | `string \| undefined`                    |         | A hint that will be shown when there are no validation messages.&#xA;You can also slot an `<sl-hint>` element. |                |
+| `label`       |         | `string \| undefined`                    |         | The text for the label. You can also slot an `<sl-label>` element.                                             |                |
+
+### Events
+
+| Name             | Type                           | Description                                           | Inherited From |
+| ---------------- | ------------------------------ | ----------------------------------------------------- | -------------- |
+| `formFieldEvent` | `EventEmitter<FormFieldEvent>` | Emits when the field is added/removed to/from a form. |                |
 
 ### Attributes
 
@@ -1008,19 +1307,57 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                        | Package |
-| ---- | ----------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `FormField` | FormField   | ../packages/components/form/src/form-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                  | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `FormField` | FormField   | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form-field.ts |         |
 
-# `../packages/components/form/src/hint.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/hint.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form.scss.ts |         |
 
-# `../packages/components/form/src/hint.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form.ts`:
+
+## class: `Form`, `sl-form`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name     | Privacy | Type          | Default | Description             | Inherited From |
+| -------- | ------- | ------------- | ------- | ----------------------- | -------------- |
+| `fields` |         | `FormField[]` | `[]`    | The fields in the form. |                |
+
+### Methods
+
+| Name             | Privacy | Description | Parameters | Return    | Inherited From |
+| ---------------- | ------- | ----------- | ---------- | --------- | -------------- |
+| `reportValidity` |         |             |            | `boolean` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name   | Declaration | Module                                                                            | Package |
+| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Form` | Form        | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/form.ts |         |
+
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/hint.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/hint.scss.ts |         |
+
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/hint.ts`:
 
 ## class: `Hint`, `sl-hint`
 
@@ -1052,19 +1389,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                  | Package |
-| ---- | ------ | ----------- | --------------------------------------- | ------- |
-| `js` | `Hint` | Hint        | ../packages/components/form/src/hint.ts |         |
+| Kind | Name   | Declaration | Module                                                                            | Package |
+| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Hint` | Hint        | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/hint.ts |         |
 
-# `../packages/components/form/src/label.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/label.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/form/src/label.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/label.scss.ts |         |
 
-# `../packages/components/form/src/label.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/label.ts`:
 
 ## class: `Label`, `sl-label`
 
@@ -1094,19 +1431,19 @@
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                   | Package |
-| ---- | ------- | ----------- | ---------------------------------------- | ------- |
-| `js` | `Label` | Label       | ../packages/components/form/src/label.ts |         |
+| Kind | Name    | Declaration | Module                                                                             | Package |
+| ---- | ------- | ----------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `Label` | Label       | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/label.ts |         |
 
-# `../packages/components/form/src/update-validity-event.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/update-validity-event.ts`:
 
 ## class: `UpdateValidityEvent`
 
 ### Superclass
 
-| Name    | Module                                                   | Package |
-| ------- | -------------------------------------------------------- | ------- |
-| `Event` | ../packages/components/form/src/update-validity-event.ts |         |
+| Name    | Module                                                                                             | Package |
+| ------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `Event` | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/update-validity-event.ts |         |
 
 ### Fields
 
@@ -1126,46 +1463,43 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                   | Package |
-| ---- | --------------------- | ------------------- | -------------------------------------------------------- | ------- |
-| `js` | `UpdateValidityEvent` | UpdateValidityEvent | ../packages/components/form/src/update-validity-event.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                             | Package |
+| ---- | --------------------- | ------------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `UpdateValidityEvent` | UpdateValidityEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/update-validity-event.ts |         |
 
-# `../packages/components/grid/index.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/form/src/validate-event.ts`:
+
+## class: `ValidateEvent`
+
+### Superclass
+
+| Name    | Module                                                                                      | Package |
+| ------- | ------------------------------------------------------------------------------------------- | ------- |
+| `Event` | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/validate-event.ts |         |
+
+### Events
+
+| Name          | Type | Description | Inherited From |
+| ------------- | ---- | ----------- | -------------- |
+| `sl-validate` |      |             |                |
+
+<hr/>
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package                   |
-| ---- | ---- | ----------- | ------ | ------------------------- |
-| `js` | `*`  | *           |        | ./src/column.js           |
-| `js` | `*`  | *           |        | ./src/column-group.js     |
-| `js` | `*`  | *           |        | ./src/events.js           |
-| `js` | `*`  | *           |        | ./src/filter-column.js    |
-| `js` | `*`  | *           |        | ./src/grid.js             |
-| `js` | `*`  | *           |        | ./src/selection-column.js |
-| `js` | `*`  | *           |        | ./src/sort-column.js      |
+| Kind | Name            | Declaration   | Module                                                                                      | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `ValidateEvent` | ValidateEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/form/src/validate-event.ts |         |
 
-# `../packages/components/grid/register.ts`:
-
-## Exports
-
-| Kind                        | Name                       | Declaration         | Module                                            | Package |
-| --------------------------- | -------------------------- | ------------------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-grid`                  | Grid                | /packages/components/grid/src/grid.js             |         |
-| `custom-element-definition` | `sl-grid-column`           | GridColumn          | /packages/components/grid/src/column.js           |         |
-| `custom-element-definition` | `sl-grid-column-group`     | GridColumnGroup     | /packages/components/grid/src/column-group.js     |         |
-| `custom-element-definition` | `sl-grid-filter-column`    | GridFilterColumn    | /packages/components/grid/src/filter-column.js    |         |
-| `custom-element-definition` | `sl-grid-selection-column` | GridSelectionColumn | /packages/components/grid/src/selection-column.js |         |
-| `custom-element-definition` | `sl-grid-sort-column`      | GridSortColumn      | /packages/components/grid/src/sort-column.js      |         |
-
-# `../packages/components/grid/src/column-group.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column-group.ts`:
 
 ## class: `GridColumnGroup`, `sl-grid-column-group`
 
 ### Superclass
 
-| Name         | Module                                  | Package |
-| ------------ | --------------------------------------- | ------- |
-| `GridColumn` | /packages/components/grid/src/column.js |         |
+| Name         | Module                                                                               | Package |
+| ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -1218,11 +1552,11 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                          | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------------- | ------- |
-| `js` | `GridColumnGroup` | GridColumnGroup | ../packages/components/grid/src/column-group.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                    | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridColumnGroup` | GridColumnGroup | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column-group.ts |         |
 
-# `../packages/components/grid/src/column.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.ts`:
 
 ## class: `GridColumn`, `sl-grid-column`
 
@@ -1282,19 +1616,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                    | Package |
-| ---- | ------------ | ----------- | ----------------------------------------- | ------- |
-| `js` | `GridColumn` | GridColumn  | ../packages/components/grid/src/column.ts |         |
+| Kind | Name         | Declaration | Module                                                                              | Package |
+| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `GridColumn` | GridColumn  | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.ts |         |
 
-# `../packages/components/grid/src/events.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts`:
 
 ## class: `GridActiveItemChangeEvent`
 
 ### Superclass
 
-| Name        | Module                                    | Package |
-| ----------- | ----------------------------------------- | ------- |
-| `GridEvent` | ../packages/components/grid/src/events.ts |         |
+| Name        | Module                                                                              | Package |
+| ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `GridEvent` | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
 
 <hr/>
 
@@ -1302,9 +1636,9 @@
 
 ### Superclass
 
-| Name        | Module                                    | Package |
-| ----------- | ----------------------------------------- | ------- |
-| `GridEvent` | ../packages/components/grid/src/events.ts |         |
+| Name        | Module                                                                              | Package |
+| ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `GridEvent` | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
 
 <hr/>
 
@@ -1312,9 +1646,9 @@
 
 ### Superclass
 
-| Name    | Module                                    | Package |
-| ------- | ----------------------------------------- | ------- |
-| `Event` | ../packages/components/grid/src/events.ts |         |
+| Name    | Module                                                                              | Package |
+| ------- | ----------------------------------------------------------------------------------- | ------- |
+| `Event` | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
 
 <hr/>
 
@@ -1322,9 +1656,9 @@
 
 ### Superclass
 
-| Name              | Module                                    | Package |
-| ----------------- | ----------------------------------------- | ------- |
-| `GridColumnEvent` | ../packages/components/grid/src/events.ts |         |
+| Name              | Module                                                                              | Package |
+| ----------------- | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumnEvent` | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
 
 <hr/>
 
@@ -1332,31 +1666,31 @@
 
 ### Superclass
 
-| Name              | Module                                    | Package |
-| ----------------- | ----------------------------------------- | ------- |
-| `GridColumnEvent` | ../packages/components/grid/src/events.ts |         |
+| Name              | Module                                                                              | Package |
+| ----------------- | ----------------------------------------------------------------------------------- | ------- |
+| `GridColumnEvent` | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name                           | Declaration                  | Module                                    | Package |
-| ---- | ------------------------------ | ---------------------------- | ----------------------------------------- | ------- |
-| `js` | `GridEvent`                    | GridEvent                    | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridActiveItemChangeEvent`    | GridActiveItemChangeEvent    | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridColumnEvent`              | GridColumnEvent              | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridFilterValueChangeEvent`   | GridFilterValueChangeEvent   | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridSortDirectionChangeEvent` | GridSortDirectionChangeEvent | ../packages/components/grid/src/events.ts |         |
+| Kind | Name                           | Declaration                  | Module                                                                              | Package |
+| ---- | ------------------------------ | ---------------------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `GridEvent`                    | GridEvent                    | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
+| `js` | `GridActiveItemChangeEvent`    | GridActiveItemChangeEvent    | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
+| `js` | `GridColumnEvent`              | GridColumnEvent              | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
+| `js` | `GridFilterValueChangeEvent`   | GridFilterValueChangeEvent   | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
+| `js` | `GridSortDirectionChangeEvent` | GridSortDirectionChangeEvent | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/events.ts |         |
 
-# `../packages/components/grid/src/filter-column.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter-column.ts`:
 
 ## class: `GridFilterColumn`, `sl-grid-filter-column`
 
 ### Superclass
 
-| Name         | Module                                  | Package |
-| ------------ | --------------------------------------- | ------- |
-| `GridColumn` | /packages/components/grid/src/column.js |         |
+| Name         | Module                                                                               | Package |
+| ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -1415,19 +1749,19 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                           | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------ | ------- |
-| `js` | `GridFilterColumn` | GridFilterColumn | ../packages/components/grid/src/filter-column.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                     | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `GridFilterColumn` | GridFilterColumn | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter-column.ts |         |
 
-# `../packages/components/grid/src/filter.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/grid/src/filter.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.scss.ts |         |
 
-# `../packages/components/grid/src/filter.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.ts`:
 
 ## class: `GridFilter`
 
@@ -1473,19 +1807,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                    | Package |
-| ---- | ------------ | ----------- | ----------------------------------------- | ------- |
-| `js` | `GridFilter` | GridFilter  | ../packages/components/grid/src/filter.ts |         |
+| Kind | Name         | Declaration | Module                                                                              | Package |
+| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `GridFilter` | GridFilter  | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/filter.ts |         |
 
-# `../packages/components/grid/src/grid.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/grid/src/grid.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.scss.ts |         |
 
-# `../packages/components/grid/src/grid.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.ts`:
 
 ## class: `Grid`, `sl-grid`
 
@@ -1547,19 +1881,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                  | Package |
-| ---- | ------ | ----------- | --------------------------------------- | ------- |
-| `js` | `Grid` | Grid        | ../packages/components/grid/src/grid.ts |         |
+| Kind | Name   | Declaration | Module                                                                            | Package |
+| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Grid` | Grid        | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/grid.ts |         |
 
-# `../packages/components/grid/src/selection-column.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/selection-column.ts`:
 
 ## class: `GridSelectionColumn`, `sl-grid-selection-column`
 
 ### Superclass
 
-| Name         | Module                                  | Package |
-| ------------ | --------------------------------------- | ------- |
-| `GridColumn` | /packages/components/grid/src/column.js |         |
+| Name         | Module                                                                               | Package |
+| ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -1617,19 +1951,19 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                              | Package |
-| ---- | --------------------- | ------------------- | --------------------------------------------------- | ------- |
-| `js` | `GridSelectionColumn` | GridSelectionColumn | ../packages/components/grid/src/selection-column.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                        | Package |
+| ---- | --------------------- | ------------------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSelectionColumn` | GridSelectionColumn | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/selection-column.ts |         |
 
-# `../packages/components/grid/src/sort-column.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sort-column.ts`:
 
 ## class: `GridSortColumn`, `sl-grid-sort-column`
 
 ### Superclass
 
-| Name         | Module                                  | Package |
-| ------------ | --------------------------------------- | ------- |
-| `GridColumn` | /packages/components/grid/src/column.js |         |
+| Name         | Module                                                                               | Package |
+| ------------ | ------------------------------------------------------------------------------------ | ------- |
+| `GridColumn` | //Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/column.js |         |
 
 ### Fields
 
@@ -1684,19 +2018,19 @@
 
 ## Exports
 
-| Kind | Name             | Declaration    | Module                                         | Package |
-| ---- | ---------------- | -------------- | ---------------------------------------------- | ------- |
-| `js` | `GridSortColumn` | GridSortColumn | ../packages/components/grid/src/sort-column.ts |         |
+| Kind | Name             | Declaration    | Module                                                                                   | Package |
+| ---- | ---------------- | -------------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSortColumn` | GridSortColumn | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sort-column.ts |         |
 
-# `../packages/components/grid/src/sorter.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                         | Package |
-| ---- | --------- | ----------- | ---------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/grid/src/sorter.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                   | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.scss.ts |         |
 
-# `../packages/components/grid/src/sorter.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.ts`:
 
 ## class: `GridSorter`
 
@@ -1745,36 +2079,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                    | Package |
-| ---- | ------------ | ----------- | ----------------------------------------- | ------- |
-| `js` | `GridSorter` | GridSorter  | ../packages/components/grid/src/sorter.ts |         |
+| Kind | Name         | Declaration | Module                                                                              | Package |
+| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `GridSorter` | GridSorter  | /Users/Diana.Broeders/Projects/design-system/packages/components/grid/src/sorter.ts |         |
 
-# `../packages/components/icon/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/icon.js   |
-| `js` | `*`  | *           |        | ./src/models.js |
-
-# `../packages/components/icon/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/icon/src/icon.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name      | Declaration | Module                                | Package |
-| --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
-| `custom-element-definition` | `sl-icon` | Icon        | /packages/components/icon/src/icon.js |         |
+| Kind | Name      | Declaration | Module                                                                                 | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/icon/src/icon.scss.ts |         |
 
-# `../packages/components/icon/src/icon.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/icon/src/icon.scss.ts |         |
-
-# `../packages/components/icon/src/icon.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/icon/src/icon.ts`:
 
 ## class: `Icon`, `sl-icon`
 
@@ -1819,35 +2136,19 @@
 
 ## Exports
 
-| Kind | Name   | Declaration | Module                                  | Package |
-| ---- | ------ | ----------- | --------------------------------------- | ------- |
-| `js` | `Icon` | Icon        | ../packages/components/icon/src/icon.ts |         |
+| Kind | Name   | Declaration | Module                                                                            | Package |
+| ---- | ------ | ----------- | --------------------------------------------------------------------------------- | ------- |
+| `js` | `Icon` | Icon        | /Users/Diana.Broeders/Projects/design-system/packages/components/icon/src/icon.ts |         |
 
-# `../packages/components/inline-message/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                 |
-| ---- | ---- | ----------- | ------ | ----------------------- |
-| `js` | `*`  | *           |        | ./src/inline-message.js |
-
-# `../packages/components/inline-message/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/inline-message/src/inline-message.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name                | Declaration   | Module                                                    | Package |
-| --------------------------- | ------------------- | ------------- | --------------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-inline-message` | InlineMessage | /packages/components/inline-message/src/inline-message.js |         |
+| Kind | Name      | Declaration | Module                                                                                                     | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/inline-message/src/inline-message.scss.ts |         |
 
-# `../packages/components/inline-message/src/inline-message.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                           | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/inline-message/src/inline-message.scss.ts |         |
-
-# `../packages/components/inline-message/src/inline-message.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts`:
 
 ## class: `InlineMessage`, `sl-inline-message`
 
@@ -1893,35 +2194,19 @@
 
 ## Exports
 
-| Kind | Name            | Declaration   | Module                                                      | Package |
-| ---- | --------------- | ------------- | ----------------------------------------------------------- | ------- |
-| `js` | `InlineMessage` | InlineMessage | ../packages/components/inline-message/src/inline-message.ts |         |
+| Kind | Name            | Declaration   | Module                                                                                                | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `InlineMessage` | InlineMessage | /Users/Diana.Broeders/Projects/design-system/packages/components/inline-message/src/inline-message.ts |         |
 
-# `../packages/components/popover/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package          |
-| ---- | ---- | ----------- | ------ | ---------------- |
-| `js` | `*`  | *           |        | ./src/popover.js |
-
-# `../packages/components/popover/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/popover/src/popover.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name         | Declaration | Module                                      | Package |
-| --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-popover` | Popover     | /packages/components/popover/src/popover.js |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/popover/src/popover.scss.ts |         |
 
-# `../packages/components/popover/src/popover.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/popover/src/popover.scss.ts |         |
-
-# `../packages/components/popover/src/popover.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/popover/src/popover.ts`:
 
 ## class: `Popover`, `sl-popover`
 
@@ -1953,37 +2238,19 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `Popover` | Popover     | ../packages/components/popover/src/popover.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Popover` | Popover     | /Users/Diana.Broeders/Projects/design-system/packages/components/popover/src/popover.ts |         |
 
-# `../packages/components/radio-group/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package              |
-| ---- | ---- | ----------- | ------ | -------------------- |
-| `js` | `*`  | *           |        | ./src/radio.js       |
-| `js` | `*`  | *           |        | ./src/radio-group.js |
-
-# `../packages/components/radio-group/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio-group.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name             | Declaration | Module                                              | Package |
-| --------------------------- | ---------------- | ----------- | --------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-radio`       | Radio       | /packages/components/radio-group/src/radio.js       |         |
-| `custom-element-definition` | `sl-radio-group` | RadioGroup  | /packages/components/radio-group/src/radio-group.js |         |
+| Kind | Name      | Declaration | Module                                                                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio-group.scss.ts |         |
 
-# `../packages/components/radio-group/src/radio-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/radio-group/src/radio-group.scss.ts |         |
-
-# `../packages/components/radio-group/src/radio-group.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts`:
 
 ## class: `RadioGroup`, `sl-radio-group`
 
@@ -2001,37 +2268,39 @@
 
 ### Fields
 
-| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                             | Inherited From   |
-| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                               | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                       |         | Whether the group is disabled; when set no interaction is possible.                                                                                                                                                                                     |                  |
-| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                   | FormControlMixin |
-| `horizontal`        |         | `boolean \| undefined`                       |         | The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.                                                                                                                        |                  |
-| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                 | FormControlMixin |
-| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                           | FormControlMixin |
-| `required`          |         | `boolean \| undefined`                       |         | Whether the user is required to select an option in the group.                                                                                                                                                                                          |                  |
-| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `RadioButtonSize \| undefined`               |         | The size of the radio buttons in the group.                                                                                                                                                                                                             |                  |
-| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                       | FormControlMixin |
-| `validationMessage` |         | `string`                                     |         | String representing a localized message that describes the validation constraints&#xA;that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints. | FormControlMixin |
-| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                           | FormControlMixin |
-| `value`             |         | `string \| null`                             | `null`  | The value for the radio group, to be used in forms.                                                                                                                                                                                                     |                  |
+| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `disabled`          |         | `boolean \| undefined`                       |         | Whether the group is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                     |                  |
+| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `horizontal`        |         | `boolean \| undefined`                       |         | The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other.                                                                                                                                                                                                                        |                  |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `required`          |         | `boolean \| undefined`                       |         | Whether the user is required to select an option in the group.                                                                                                                                                                                                                                                                                          |                  |
+| `showValid`         |         | `boolean`                                    | `false` | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `size`              |         | `RadioButtonSize \| undefined`               |         | The size of the radio buttons in the group.                                                                                                                                                                                                                                                                                                             |                  |
+| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `value`             |         | `string \| null`                             | `null`  | The value for the radio group, to be used in forms.                                                                                                                                                                                                                                                                                                     |                  |
 
 ### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                                             | Parameters        | Return    | Inherited From   |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
-| `reportValidity`    |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.   |                   | `boolean` | FormControlMixin |
-| `setCustomValidity` |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again. | `message: string` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters        | Return    | Inherited From   |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                   | `string`  | FormControlMixin |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                   | `boolean` | FormControlMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string` | `void`    | FormControlMixin |
 
 ### Events
 
-| Name          | Type                           | Description                                          | Inherited From   |
-| ------------- | ------------------------------ | ---------------------------------------------------- | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`           | Emits when the component loses focus.                |                  |
-| `changeEvent` | `EventEmitter<string \| null>` | Emits when the value changes.                        |                  |
-| `focusEvent`  | `EventEmitter<void>`           | Emits when the component receives focus.             |                  |
-|               | `UpdateValidityEvent`          | Emits when the validity of the form control changes. | FormControlMixin |
+| Name          | Type                           | Description                              | Inherited From   |
+| ------------- | ------------------------------ | ---------------------------------------- | ---------------- |
+| `blurEvent`   | `EventEmitter<void>`           | Emits when the component loses focus.    |                  |
+| `changeEvent` | `EventEmitter<string \| null>` | Emits when the value changes.            |                  |
+| `focusEvent`  | `EventEmitter<void>`           | Emits when the component receives focus. |                  |
+|               | `ValidateEvent`                |                                          | FormControlMixin |
 
 ### Attributes
 
@@ -2040,6 +2309,7 @@
 | `disabled`        | disabled       |                  |
 | `horizontal`      | horizontal     |                  |
 | `required`        | required       |                  |
+| `show-valid`      | showValid      |                  |
 | `size`            | size           |                  |
 | `value`           | value          |                  |
 | `custom-validity` | customValidity | FormControlMixin |
@@ -2056,19 +2326,19 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                | Package |
-| ---- | ------------ | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `RadioGroup` | RadioGroup  | ../packages/components/radio-group/src/radio-group.ts |         |
+| Kind | Name         | Declaration | Module                                                                                          | Package |
+| ---- | ------------ | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RadioGroup` | RadioGroup  | /Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio-group.ts |         |
 
-# `../packages/components/radio-group/src/radio.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/radio-group/src/radio.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio.scss.ts |         |
 
-# `../packages/components/radio-group/src/radio.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio.ts`:
 
 ## class: `Radio`, `sl-radio`
 
@@ -2080,59 +2350,41 @@
 
 ### Fields
 
-| Name       | Privacy | Type                   | Default | Description                            | Inherited From |
-| ---------- | ------- | ---------------------- | ------- | -------------------------------------- | -------------- |
-| `checked`  |         | `boolean \| undefined` |         | Whether the radio is checked.          |                |
-| `disabled` |         | `boolean \| undefined` |         | Whether this radio button is disabled. |                |
-| `size`     |         | `RadioButtonSize`      | `'md'`  | The size of the radio button.          |                |
-| `value`    |         | `string \| null`       | `null`  | The value for this radio button.       |                |
+| Name           | Privacy | Type                      | Default | Description                                          | Inherited From |
+| -------------- | ------- | ------------------------- | ------- | ---------------------------------------------------- | -------------- |
+| `checked`      |         | `boolean \| undefined`    |         | Whether the radio is checked.                        |                |
+| `disabled`     |         | `boolean \| undefined`    |         | Whether this radio button is disabled.               |                |
+| `showValidity` |         | `FormControlShowValidity` |         | Indicates if the radio button shows it is (in)valid. |                |
+| `size`         |         | `RadioButtonSize`         | `'md'`  | The size of the radio button.                        |                |
+| `value`        |         | `string \| null`          | `null`  | The value for this radio button.                     |                |
 
 ### Attributes
 
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `checked`  | checked  |                |
-| `disabled` | disabled |                |
-| `size`     | size     |                |
-| `value`    | value    |                |
+| Name            | Field        | Inherited From |
+| --------------- | ------------ | -------------- |
+| `checked`       | checked      |                |
+| `disabled`      | disabled     |                |
+| `show-validity` | showValidity |                |
+| `size`          | size         |                |
+| `value`         | value        |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name    | Declaration | Module                                          | Package |
-| ---- | ------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Radio` | Radio       | ../packages/components/radio-group/src/radio.ts |         |
+| Kind | Name    | Declaration | Module                                                                                    | Package |
+| ---- | ------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Radio` | Radio       | /Users/Diana.Broeders/Projects/design-system/packages/components/radio-group/src/radio.ts |         |
 
-# `../packages/components/select/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                      |
-| ---- | ---- | ----------- | ------ | ---------------------------- |
-| `js` | `*`  | *           |        | ./src/select.js              |
-| `js` | `*`  | *           |        | ./src/select-option.js       |
-| `js` | `*`  | *           |        | ./src/select-option-group.js |
-
-# `../packages/components/select/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-button.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name                     | Declaration       | Module                                                 | Package |
-| --------------------------- | ------------------------ | ----------------- | ------------------------------------------------------ | ------- |
-| `custom-element-definition` | `sl-select`              | Select            | /packages/components/select/src/select.js              |         |
-| `custom-element-definition` | `sl-select-option`       | SelectOption      | /packages/components/select/src/select-option.js       |         |
-| `custom-element-definition` | `sl-select-option-group` | SelectOptionGroup | /packages/components/select/src/select-option-group.js |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-button.scss.ts |         |
 
-# `../packages/components/select/src/select-button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select-button.scss.ts |         |
-
-# `../packages/components/select/src/select-button.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-button.ts`:
 
 ## class: `SelectButton`
 
@@ -2173,19 +2425,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                             | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------- | ------- |
-| `js` | `SelectButton` | SelectButton | ../packages/components/select/src/select-button.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                       | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectButton` | SelectButton | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-button.ts |         |
 
-# `../packages/components/select/src/select-option-group.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option-group.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                        | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select-option-group.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                                  | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option-group.scss.ts |         |
 
-# `../packages/components/select/src/select-option-group.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option-group.ts`:
 
 ## class: `SelectOptionGroup`, `sl-select-option-group`
 
@@ -2217,19 +2469,19 @@
 
 ## Exports
 
-| Kind | Name                | Declaration       | Module                                                   | Package |
-| ---- | ------------------- | ----------------- | -------------------------------------------------------- | ------- |
-| `js` | `SelectOptionGroup` | SelectOptionGroup | ../packages/components/select/src/select-option-group.ts |         |
+| Kind | Name                | Declaration       | Module                                                                                             | Package |
+| ---- | ------------------- | ----------------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectOptionGroup` | SelectOptionGroup | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option-group.ts |         |
 
-# `../packages/components/select/src/select-option.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select-option.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option.scss.ts |         |
 
-# `../packages/components/select/src/select-option.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option.ts`:
 
 ## class: `SelectOption`, `sl-select-option`
 
@@ -2259,19 +2511,19 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                             | Package |
-| ---- | -------------- | ------------ | -------------------------------------------------- | ------- |
-| `js` | `SelectOption` | SelectOption | ../packages/components/select/src/select-option.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                       | Package |
+| ---- | -------------- | ------------ | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectOption` | SelectOption | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select-option.ts |         |
 
-# `../packages/components/select/src/select.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/select/src/select.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select.scss.ts |         |
 
-# `../packages/components/select/src/select.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select.ts`:
 
 ## class: `Select`, `sl-select`
 
@@ -2290,40 +2542,41 @@
 
 ### Fields
 
-| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                             | Inherited From   |
-| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `button`            |         | `SelectButton`                               |         | The button in the light DOM.                                                                                                                                                                                                                            |                  |
-| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                               | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                       |         | Whether the select is disabled; when set no interaction is possible.                                                                                                                                                                                    |                  |
-| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                   | FormControlMixin |
-| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                 | FormControlMixin |
-| `listbox`           |         | `HTMLElement`                                |         | The listbox element.                                                                                                                                                                                                                                    |                  |
-| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                           | FormControlMixin |
-| `placeholder`       |         | `string \| undefined`                        |         | The placeholder text to show when no option is chosen.                                                                                                                                                                                                  |                  |
-| `required`          |         | `boolean \| undefined`                       |         | Whether the select is a required field.                                                                                                                                                                                                                 |                  |
-| `showValid`         |         | `boolean \| undefined`                       |         | Indicates whether the control should indicate it is valid.                                                                                                                                                                                              |                  |
-| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `SelectSize`                                 | `'md'`  | The size of the select.                                                                                                                                                                                                                                 |                  |
-| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                       | FormControlMixin |
-| `validationMessage` |         | `string`                                     |         | String representing a localized message that describes the validation constraints&#xA;that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints. | FormControlMixin |
-| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                           | FormControlMixin |
-| `value`             |         | `string \| null`                             | `null`  | The value for the select, to be used in forms.                                                                                                                                                                                                          |                  |
+| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `button`            |         | `SelectButton`                               |         | The button in the light DOM.                                                                                                                                                                                                                                                                                                                            |                  |
+| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `disabled`          |         | `boolean \| undefined`                       |         | Whether the select is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                    |                  |
+| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `listbox`           |         | `HTMLElement`                                |         | The listbox element.                                                                                                                                                                                                                                                                                                                                    |                  |
+| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `placeholder`       |         | `string \| undefined`                        |         | The placeholder text to show when no option is chosen.                                                                                                                                                                                                                                                                                                  |                  |
+| `required`          |         | `boolean \| undefined`                       |         | Whether the select is a required field.                                                                                                                                                                                                                                                                                                                 |                  |
+| `showValid`         |         | `boolean`                                    | `false` | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `size`              |         | `SelectSize`                                 | `'md'`  | The size of the select.                                                                                                                                                                                                                                                                                                                                 |                  |
+| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `value`             |         | `string \| null`                             | `null`  | The value for the select, to be used in forms.                                                                                                                                                                                                                                                                                                          |                  |
 
 ### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                                             | Parameters        | Return    | Inherited From   |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
-| `reportValidity`    |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.   |                   | `boolean` | FormControlMixin |
-| `setCustomValidity` |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again. | `message: string` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters        | Return    | Inherited From   |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                   | `string`  | FormControlMixin |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                   | `boolean` | FormControlMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string` | `void`    | FormControlMixin |
 
 ### Events
 
-| Name          | Type                           | Description                                          | Inherited From   |
-| ------------- | ------------------------------ | ---------------------------------------------------- | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`           | Emits when the focus leaves the component.           |                  |
-| `changeEvent` | `EventEmitter<string \| null>` | Emits when the value changes.                        |                  |
-| `focusEvent`  | `EventEmitter<void>`           | Emits when the component gains focus.                |                  |
-|               | `UpdateValidityEvent`          | Emits when the validity of the form control changes. | FormControlMixin |
+| Name          | Type                           | Description                                | Inherited From   |
+| ------------- | ------------------------------ | ------------------------------------------ | ---------------- |
+| `blurEvent`   | `EventEmitter<void>`           | Emits when the focus leaves the component. |                  |
+| `changeEvent` | `EventEmitter<string \| null>` | Emits when the value changes.              |                  |
+| `focusEvent`  | `EventEmitter<void>`           | Emits when the component gains focus.      |                  |
+|               | `ValidateEvent`                |                                            | FormControlMixin |
 
 ### Attributes
 
@@ -2343,36 +2596,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Select` | Select      | ../packages/components/select/src/select.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Select` | Select      | /Users/Diana.Broeders/Projects/design-system/packages/components/select/src/select.ts |         |
 
-# `../packages/components/shared/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                    |
-| ---- | ---- | ----------- | ------ | -------------------------- |
-| `js` | `*`  | *           |        | ./src/controllers/index.js |
-| `js` | `*`  | *           |        | ./src/data-source/index.js |
-| `js` | `*`  | *           |        | ./src/decorators/index.js  |
-| `js` | `*`  | *           |        | ./src/directives/index.js  |
-| `js` | `*`  | *           |        | ./src/css.js               |
-| `js` | `*`  | *           |        | ./src/config.js            |
-| `js` | `*`  | *           |        | ./src/path.js              |
-| `js` | `*`  | *           |        | ./src/popover.js           |
-| `js` | `*`  | *           |        | ./src/string.js            |
-| `js` | `*`  | *           |        | ./src/types.js             |
-
-# `../packages/components/shared/src/breakpoints.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/breakpoints.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                | Package |
-| ---- | --------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/shared/src/breakpoints.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                          | Package |
+| ---- | --------- | ----------- | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/breakpoints.scss.ts |         |
 
-# `../packages/components/shared/src/config.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/config.ts`:
 
 ## class: `Config`
 
@@ -2387,11 +2623,11 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Config` | Config      | ../packages/components/shared/src/config.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Config` | Config      | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/config.ts |         |
 
-# `../packages/components/shared/src/controllers/anchor.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts`:
 
 ## class: `AnchorController`
 
@@ -2419,32 +2655,36 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                  | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------- | ------- |
-| `js` | `AnchorController` | AnchorController | ../packages/components/shared/src/controllers/anchor.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                            | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `AnchorController` | AnchorController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/anchor.ts |         |
 
-# `../packages/components/shared/src/controllers/events.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts`:
 
 ## class: `EventsController`
 
 ### Methods
 
-| Name               | Privacy | Description | Parameters                                                                                                                                            | Return | Inherited From |
-| ------------------ | ------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------------- |
-| `hostConnected`    |         |             |                                                                                                                                                       | `void` |                |
-| `hostDisconnected` |         |             |                                                                                                                                                       | `void` |                |
-| `listen`           |         |             | `host: Node, type: K, listener: (this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => void, options: boolean \| AddEventListenerOptions` | `void` |                |
-| `listen`           |         |             | `host: EventTarget, type: string, listener: EventListenerOrEventListenerObject, options: boolean \| AddEventListenerOptions`                          | `void` |                |
+| Name               | Privacy | Description | Parameters                                                                                                                                                                            | Return | Inherited From |
+| ------------------ | ------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------------- |
+| `hostConnected`    |         |             |                                                                                                                                                                                       | `void` |                |
+| `hostDisconnected` |         |             |                                                                                                                                                                                       | `void` |                |
+| `listen`           |         |             | `window: Window, type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                                        | `void` |                |
+| `listen`           |         |             | `document: Document, type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                                | `void` |                |
+| `listen`           |         |             | `element: HTMLElement, type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                        | `void` |                |
+| `listen`           |         |             | `element: ShadowRoot, type: K, listener: (this: ShadowRoot, ev: ShadowRootEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                           | `void` |                |
+| `listen`           |         |             | `element: MediaQueryList, type: K, listener: (this: ShadowRoot, ev: MediaQueryListEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                   | `void` |                |
+| `listen`           |         |             | `element: Window \| Document \| HTMLElement \| ShadowRoot \| MediaQueryList, type: string, listener: EventListenerOrEventListenerObject, options: boolean \| AddEventListenerOptions` | `void` |                |
 
 <hr/>
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                  | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------- | ------- |
-| `js` | `EventsController` | EventsController | ../packages/components/shared/src/controllers/events.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                            | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventsController` | EventsController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/events.ts |         |
 
-# `../packages/components/shared/src/controllers/focus-group.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts`:
 
 ## class: `FocusGroupController`
 
@@ -2492,11 +2732,11 @@
 
 ## Exports
 
-| Kind | Name                   | Declaration          | Module                                                       | Package |
-| ---- | ---------------------- | -------------------- | ------------------------------------------------------------ | ------- |
-| `js` | `FocusGroupController` | FocusGroupController | ../packages/components/shared/src/controllers/focus-group.ts |         |
+| Kind | Name                   | Declaration          | Module                                                                                                 | Package |
+| ---- | ---------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `FocusGroupController` | FocusGroupController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.ts |         |
 
-# `../packages/components/shared/src/controllers/index.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/index.ts`:
 
 ## Exports
 
@@ -2508,15 +2748,15 @@
 | `js` | `*`  | *           |        | ./roving-tabindex.js |
 | `js` | `*`  | *           |        | ./selection.js       |
 
-# `../packages/components/shared/src/controllers/roving-tabindex.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts`:
 
 ## class: `RovingTabindexController`
 
 ### Superclass
 
-| Name                   | Module                                                     | Package |
-| ---------------------- | ---------------------------------------------------------- | ------- |
-| `FocusGroupController` | /packages/components/shared/src/controllers/focus-group.js |         |
+| Name                   | Module                                                                                                  | Package |
+| ---------------------- | ------------------------------------------------------------------------------------------------------- | ------- |
+| `FocusGroupController` | //Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/focus-group.js |         |
 
 ### Fields
 
@@ -2565,11 +2805,11 @@
 
 ## Exports
 
-| Kind | Name                       | Declaration              | Module                                                           | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------- | ------- |
-| `js` | `RovingTabindexController` | RovingTabindexController | ../packages/components/shared/src/controllers/roving-tabindex.ts |         |
+| Kind | Name                       | Declaration              | Module                                                                                                     | Package |
+| ---- | -------------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `RovingTabindexController` | RovingTabindexController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/roving-tabindex.ts |         |
 
-# `../packages/components/shared/src/controllers/selection.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/selection.ts`:
 
 ## class: `SelectionController`
 
@@ -2599,11 +2839,11 @@
 
 ## Exports
 
-| Kind | Name                  | Declaration         | Module                                                     | Package |
-| ---- | --------------------- | ------------------- | ---------------------------------------------------------- | ------- |
-| `js` | `SelectionController` | SelectionController | ../packages/components/shared/src/controllers/selection.ts |         |
+| Kind | Name                  | Declaration         | Module                                                                                               | Package |
+| ---- | --------------------- | ------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `SelectionController` | SelectionController | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/controllers/selection.ts |         |
 
-# `../packages/components/shared/src/css.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/css.ts`:
 
 ## Variables
 
@@ -2615,20 +2855,20 @@
 
 ## Exports
 
-| Kind | Name                     | Declaration            | Module                                   | Package |
-| ---- | ------------------------ | ---------------------- | ---------------------------------------- | ------- |
-| `js` | `breakpoints`            | breakpoints            | ../packages/components/shared/src/css.ts |         |
-| `js` | `firstFocusableSelector` | firstFocusableSelector | ../packages/components/shared/src/css.ts |         |
+| Kind | Name                     | Declaration            | Module                                                                             | Package |
+| ---- | ------------------------ | ---------------------- | ---------------------------------------------------------------------------------- | ------- |
+| `js` | `breakpoints`            | breakpoints            | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/css.ts |         |
+| `js` | `firstFocusableSelector` | firstFocusableSelector | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/css.ts |         |
 
-# `../packages/components/shared/src/data-source/array-data-source.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/array-data-source.ts`:
 
 ## class: `ArrayDataSource`
 
 ### Superclass
 
-| Name         | Module                                                     | Package |
-| ------------ | ---------------------------------------------------------- | ------- |
-| `DataSource` | /packages/components/shared/src/data-source/data-source.js |         |
+| Name         | Module                                                                                                  | Package |
+| ------------ | ------------------------------------------------------------------------------------------------------- | ------- |
+| `DataSource` | //Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/data-source.js |         |
 
 ### Fields
 
@@ -2659,19 +2899,19 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                             | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------------------ | ------- |
-| `js` | `ArrayDataSource` | ArrayDataSource | ../packages/components/shared/src/data-source/array-data-source.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                                       | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `ArrayDataSource` | ArrayDataSource | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/array-data-source.ts |         |
 
-# `../packages/components/shared/src/data-source/data-source.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/data-source.ts`:
 
 ## class: `DataSource`
 
 ### Superclass
 
-| Name          | Module                                                       | Package |
-| ------------- | ------------------------------------------------------------ | ------- |
-| `EventTarget` | ../packages/components/shared/src/data-source/data-source.ts |         |
+| Name          | Module                                                                                                 | Package |
+| ------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `EventTarget` | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/data-source.ts |         |
 
 ### Fields
 
@@ -2696,11 +2936,11 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                                       | Package |
-| ---- | ------------ | ----------- | ------------------------------------------------------------ | ------- |
-| `js` | `DataSource` | DataSource  | ../packages/components/shared/src/data-source/data-source.ts |         |
+| Kind | Name         | Declaration | Module                                                                                                 | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `DataSource` | DataSource  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/data-source.ts |         |
 
-# `../packages/components/shared/src/data-source/index.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/data-source/index.ts`:
 
 ## Exports
 
@@ -2709,7 +2949,7 @@
 | `js` | `*`  | *           |        | ./array-data-source.js |
 | `js` | `*`  | *           |        | ./data-source.js       |
 
-# `../packages/components/shared/src/decorators/base.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts`:
 
 ## Functions
 
@@ -2727,11 +2967,11 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                               | Package |
-| ---- | ------------------ | ---------------- | ---------------------------------------------------- | ------- |
-| `js` | `decorateProperty` | decorateProperty | ../packages/components/shared/src/decorators/base.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                         | Package |
+| ---- | ------------------ | ---------------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `decorateProperty` | decorateProperty | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/base.ts |         |
 
-# `../packages/components/shared/src/decorators/event.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts`:
 
 ## class: `EventEmitter`
 
@@ -2761,12 +3001,12 @@
 
 ## Exports
 
-| Kind | Name           | Declaration  | Module                                                | Package |
-| ---- | -------------- | ------------ | ----------------------------------------------------- | ------- |
-| `js` | `EventEmitter` | EventEmitter | ../packages/components/shared/src/decorators/event.ts |         |
-| `js` | `event`        | event        | ../packages/components/shared/src/decorators/event.ts |         |
+| Kind | Name           | Declaration  | Module                                                                                          | Package |
+| ---- | -------------- | ------------ | ----------------------------------------------------------------------------------------------- | ------- |
+| `js` | `EventEmitter` | EventEmitter | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
+| `js` | `event`        | event        | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/event.ts |         |
 
-# `../packages/components/shared/src/decorators/index.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/index.ts`:
 
 ## Exports
 
@@ -2776,7 +3016,7 @@
 | `js` | `*`  | *           |        | ./event.js   |
 | `js` | `*`  | *           |        | ./observe.js |
 
-# `../packages/components/shared/src/decorators/observe.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts`:
 
 ## Functions
 
@@ -2788,11 +3028,11 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `observe` | observe     | ../packages/components/shared/src/decorators/observe.ts |         |
+| Kind | Name      | Declaration | Module                                                                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `observe` | observe     | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/decorators/observe.ts |         |
 
-# `../packages/components/shared/src/directives/anchor.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts`:
 
 ## class: `AnchorDirective`
 
@@ -2814,12 +3054,12 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                                 | Package |
-| ---- | ----------------- | --------------- | ------------------------------------------------------ | ------- |
-| `js` | `AnchorDirective` | AnchorDirective | ../packages/components/shared/src/directives/anchor.ts |         |
-| `js` | `anchor`          | anchor          | ../packages/components/shared/src/directives/anchor.ts |         |
+| Kind | Name              | Declaration     | Module                                                                                           | Package |
+| ---- | ----------------- | --------------- | ------------------------------------------------------------------------------------------------ | ------- |
+| `js` | `AnchorDirective` | AnchorDirective | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
+| `js` | `anchor`          | anchor          | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/directives/anchor.ts |         |
 
-# `../packages/components/shared/src/directives/index.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/directives/index.ts`:
 
 ## Exports
 
@@ -2827,7 +3067,7 @@
 | ---- | ---- | ----------- | ------ | ----------- |
 | `js` | `*`  | *           |        | ./anchor.js |
 
-# `../packages/components/shared/src/path.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/path.ts`:
 
 ## Functions
 
@@ -2841,21 +3081,21 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                    | Package |
-| ---- | ----------------- | --------------- | ----------------------------------------- | ------- |
-| `js` | `getNameByPath`   | getNameByPath   | ../packages/components/shared/src/path.ts |         |
-| `js` | `getStringByPath` | getStringByPath | ../packages/components/shared/src/path.ts |         |
-| `js` | `getValueByPath`  | getValueByPath  | ../packages/components/shared/src/path.ts |         |
+| Kind | Name              | Declaration     | Module                                                                              | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------------------------------------------- | ------- |
+| `js` | `getNameByPath`   | getNameByPath   | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
+| `js` | `getStringByPath` | getStringByPath | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
+| `js` | `getValueByPath`  | getValueByPath  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/path.ts |         |
 
-# `../packages/components/shared/src/popover.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/shared/src/popover.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.scss.ts |         |
 
-# `../packages/components/shared/src/popover.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.ts`:
 
 ## Functions
 
@@ -2868,13 +3108,13 @@
 
 ## Exports
 
-| Kind | Name                    | Declaration           | Module                                       | Package |
-| ---- | ----------------------- | --------------------- | -------------------------------------------- | ------- |
-| `js` | `popoverPolyfillStyles` | popoverPolyfillStyles | ../packages/components/shared/src/popover.ts |         |
-| `js` | `isPopoverOpen`         | isPopoverOpen         | ../packages/components/shared/src/popover.ts |         |
-| `js` | `positionPopover`       | positionPopover       | ../packages/components/shared/src/popover.ts |         |
+| Kind | Name                    | Declaration           | Module                                                                                 | Package |
+| ---- | ----------------------- | --------------------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `popoverPolyfillStyles` | popoverPolyfillStyles | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
+| `js` | `isPopoverOpen`         | isPopoverOpen         | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
+| `js` | `positionPopover`       | positionPopover       | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/popover.ts |         |
 
-# `../packages/components/shared/src/string.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts`:
 
 ## Functions
 
@@ -2892,41 +3132,25 @@
 
 ## Exports
 
-| Kind | Name         | Declaration | Module                                      | Package |
-| ---- | ------------ | ----------- | ------------------------------------------- | ------- |
-| `js` | `camelize`   | camelize    | ../packages/components/shared/src/string.ts |         |
-| `js` | `capitalize` | capitalize  | ../packages/components/shared/src/string.ts |         |
-| `js` | `classify`   | classify    | ../packages/components/shared/src/string.ts |         |
-| `js` | `dasherize`  | dasherize   | ../packages/components/shared/src/string.ts |         |
-| `js` | `decamelize` | decamelize  | ../packages/components/shared/src/string.ts |         |
-| `js` | `humanize`   | humanize    | ../packages/components/shared/src/string.ts |         |
-| `js` | `underscore` | underscore  | ../packages/components/shared/src/string.ts |         |
+| Kind | Name         | Declaration | Module                                                                                | Package |
+| ---- | ------------ | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `camelize`   | camelize    | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `capitalize` | capitalize  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `classify`   | classify    | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `dasherize`  | dasherize   | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `decamelize` | decamelize  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `humanize`   | humanize    | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
+| `js` | `underscore` | underscore  | /Users/Diana.Broeders/Projects/design-system/packages/components/shared/src/string.ts |         |
 
-# `../packages/components/skeleton/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package           |
-| ---- | ---- | ----------- | ------ | ----------------- |
-| `js` | `*`  | *           |        | ./src/skeleton.js |
-
-# `../packages/components/skeleton/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/skeleton/src/skeleton.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name          | Declaration | Module                                        | Package |
-| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-skeleton` | Skeleton    | /packages/components/skeleton/src/skeleton.js |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/skeleton/src/skeleton.scss.ts |         |
 
-# `../packages/components/skeleton/src/skeleton.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/skeleton/src/skeleton.scss.ts |         |
-
-# `../packages/components/skeleton/src/skeleton.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts`:
 
 ## class: `Skeleton`, `sl-skeleton`
 
@@ -2954,35 +3178,59 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                          | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Skeleton` | Skeleton    | ../packages/components/skeleton/src/skeleton.ts |         |
+| Kind | Name       | Declaration | Module                                                                                    | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Skeleton` | Skeleton    | /Users/Diana.Broeders/Projects/design-system/packages/components/skeleton/src/skeleton.ts |         |
 
-# `../packages/components/switch/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package         |
-| ---- | ---- | ----------- | ------ | --------------- |
-| `js` | `*`  | *           |        | ./src/switch.js |
-
-# `../packages/components/switch/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/spinner/src/spinner.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name        | Declaration | Module                                    | Package |
-| --------------------------- | ----------- | ----------- | ----------------------------------------- | ------- |
-| `custom-element-definition` | `sl-switch` | Switch      | /packages/components/switch/src/switch.js |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/spinner/src/spinner.scss.ts |         |
 
-# `../packages/components/switch/src/switch.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/spinner/src/spinner.ts`:
+
+## class: `Spinner`, `sl-spinner`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Fields
+
+| Name      | Privacy | Type                          | Default | Description | Inherited From |
+| --------- | ------- | ----------------------------- | ------- | ----------- | -------------- |
+| `size`    |         | `SpinnerSize`                 | `'md'`  |             |                |
+| `variant` |         | `SpinnerVariant \| undefined` |         |             |                |
+
+### Attributes
+
+| Name      | Field   | Inherited From |
+| --------- | ------- | -------------- |
+| `size`    | size    |                |
+| `variant` | variant |                |
+
+<hr/>
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                           | Package |
-| ---- | --------- | ----------- | ------------------------------------------------ | ------- |
-| `js` | `default` |             | ../packages/components/switch/src/switch.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Spinner` | Spinner     | /Users/Diana.Broeders/Projects/design-system/packages/components/spinner/src/spinner.ts |         |
 
-# `../packages/components/switch/src/switch.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/switch/src/switch.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                                                     | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------ | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/switch/src/switch.scss.ts |         |
+
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/switch/src/switch.ts`:
 
 ## class: `Switch`, `sl-switch`
 
@@ -3001,39 +3249,41 @@
 
 ### Fields
 
-| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                             | Inherited From   |
-| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `checked`           |         | `boolean \| undefined`                       |         | Whether the switch is on or off.                                                                                                                                                                                                                        |                  |
-| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                               | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                       |         | Whether the switch is disabled; when set no interaction is possible.                                                                                                                                                                                    |                  |
-| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                   | FormControlMixin |
-| `iconOff`           |         | `string \| undefined`                        |         | Custom icon in "off" state.                                                                                                                                                                                                                             |                  |
-| `iconOn`            |         | `string \| undefined`                        |         | Custom icon in "on" state.                                                                                                                                                                                                                              |                  |
-| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                 | FormControlMixin |
-| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                           | FormControlMixin |
-| `reverse`           |         | `boolean \| undefined`                       |         | Whether the toggle should be shown *after* the text.                                                                                                                                                                                                    |                  |
-| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `'sm' \| 'md' \| 'lg'`                       | `'md'`  | The size of the switch.                                                                                                                                                                                                                                 |                  |
-| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                       | FormControlMixin |
-| `validationMessage` |         | `string`                                     |         | String representing a localized message that describes the validation constraints&#xA;that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints. | FormControlMixin |
-| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                           | FormControlMixin |
-| `value`             |         | `string \| null`                             | `null`  | The value for the switch, to be used in forms.                                                                                                                                                                                                          |                  |
+| Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| ------------------- | ------- | -------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `checked`           |         | `boolean \| undefined`                       |         | Whether the switch is on or off.                                                                                                                                                                                                                                                                                                                        |                  |
+| `customValidity`    |         | `string \| undefined`                        |         | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `disabled`          |         | `boolean \| undefined`                       |         | Whether the switch is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                    |                  |
+| `form`              |         | `HTMLFormElement \| null`                    |         | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `iconOff`           |         | `string \| undefined`                        |         | Custom icon in "off" state.                                                                                                                                                                                                                                                                                                                             |                  |
+| `iconOn`            |         | `string \| undefined`                        |         | Custom icon in "on" state.                                                                                                                                                                                                                                                                                                                              |                  |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null `` |         | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `name`              |         | `string \| undefined`                        |         | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `reverse`           |         | `boolean \| undefined`                       |         | Whether the toggle should be shown *after* the text.                                                                                                                                                                                                                                                                                                    |                  |
+| `showValid`         |         | `boolean`                                    | `false` | Optional property to indicate the valid state should be shown.                                                                                                                                                                                                                                                                                          | FormControlMixin |
+| `showValidity`      |         | `FormControlShowValidity`                    |         | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `size`              |         | `'sm' \| 'md' \| 'lg'`                       | `'md'`  | The size of the switch.                                                                                                                                                                                                                                                                                                                                 |                  |
+| `valid`             |         | `boolean`                                    |         | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage` |         | `string`                                     |         | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`          |         | `ValidityState`                              |         | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `value`             |         | `string \| null`                             | `null`  | The value for the switch, to be used in forms.                                                                                                                                                                                                                                                                                                          |                  |
 
 ### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                                             | Parameters        | Return    | Inherited From   |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
-| `reportValidity`    |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.   |                   | `boolean` | FormControlMixin |
-| `setCustomValidity` |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again. | `message: string` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters        | Return    | Inherited From   |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                   | `string`  | FormControlMixin |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                   | `boolean` | FormControlMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string` | `void`    | FormControlMixin |
 
 ### Events
 
-| Name          | Type                    | Description                                          | Inherited From   |
-| ------------- | ----------------------- | ---------------------------------------------------- | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`    | Emits when the component loses focus.                |                  |
-| `changeEvent` | `EventEmitter<boolean>` | Emits when the checked state changes.                |                  |
-| `focusEvent`  | `EventEmitter<void>`    | Emits when the component receives focus.             |                  |
-|               | `UpdateValidityEvent`   | Emits when the validity of the form control changes. | FormControlMixin |
+| Name          | Type                    | Description                              | Inherited From   |
+| ------------- | ----------------------- | ---------------------------------------- | ---------------- |
+| `blurEvent`   | `EventEmitter<void>`    | Emits when the component loses focus.    |                  |
+| `changeEvent` | `EventEmitter<boolean>` | Emits when the checked state changes.    |                  |
+| `focusEvent`  | `EventEmitter<void>`    | Emits when the component receives focus. |                  |
+|               | `ValidateEvent`         |                                          | FormControlMixin |
 
 ### Attributes
 
@@ -3060,39 +3310,19 @@
 
 ## Exports
 
-| Kind | Name     | Declaration | Module                                      | Package |
-| ---- | -------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `Switch` | Switch      | ../packages/components/switch/src/switch.ts |         |
+| Kind | Name     | Declaration | Module                                                                                | Package |
+| ---- | -------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `Switch` | Switch      | /Users/Diana.Broeders/Projects/design-system/packages/components/switch/src/switch.ts |         |
 
-# `../packages/components/tabs/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package            |
-| ---- | ---- | ----------- | ------ | ------------------ |
-| `js` | `*`  | *           |        | ./src/tab-group.js |
-| `js` | `*`  | *           |        | ./src/tab-panel.js |
-| `js` | `*`  | *           |        | ./src/tab.js       |
-
-# `../packages/components/tabs/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-group.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name           | Declaration | Module                                     | Package |
-| --------------------------- | -------------- | ----------- | ------------------------------------------ | ------- |
-| `custom-element-definition` | `sl-tab`       | Tab         | /packages/components/tabs/src/tab.js       |         |
-| `custom-element-definition` | `sl-tab-group` | TabGroup    | /packages/components/tabs/src/tab-group.js |         |
-| `custom-element-definition` | `sl-tab-panel` | TabPanel    | /packages/components/tabs/src/tab-panel.js |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-group.scss.ts |         |
 
-# `../packages/components/tabs/src/tab-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tabs/src/tab-group.scss.ts |         |
-
-# `../packages/components/tabs/src/tab-group.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts`:
 
 ## class: `TabGroup`, `sl-tab-group`
 
@@ -3131,19 +3361,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `TabGroup` | TabGroup    | ../packages/components/tabs/src/tab-group.ts |         |
+| Kind | Name       | Declaration | Module                                                                                 | Package |
+| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `TabGroup` | TabGroup    | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-group.ts |         |
 
-# `../packages/components/tabs/src/tab-panel.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-panel.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tabs/src/tab-panel.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                      | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-panel.scss.ts |         |
 
-# `../packages/components/tabs/src/tab-panel.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts`:
 
 ## class: `TabPanel`, `sl-tab-panel`
 
@@ -3157,19 +3387,19 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `TabPanel` | TabPanel    | ../packages/components/tabs/src/tab-panel.ts |         |
+| Kind | Name       | Declaration | Module                                                                                 | Package |
+| ---- | ---------- | ----------- | -------------------------------------------------------------------------------------- | ------- |
+| `js` | `TabPanel` | TabPanel    | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab-panel.ts |         |
 
-# `../packages/components/tabs/src/tab.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                      | Package |
-| ---- | --------- | ----------- | ------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tabs/src/tab.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                | Package |
+| ---- | --------- | ----------- | ------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab.scss.ts |         |
 
-# `../packages/components/tabs/src/tab.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab.ts`:
 
 ## class: `Tab`, `sl-tab`
 
@@ -3203,35 +3433,19 @@
 
 ## Exports
 
-| Kind | Name  | Declaration | Module                                 | Package |
-| ---- | ----- | ----------- | -------------------------------------- | ------- |
-| `js` | `Tab` | Tab         | ../packages/components/tabs/src/tab.ts |         |
+| Kind | Name  | Declaration | Module                                                                           | Package |
+| ---- | ----- | ----------- | -------------------------------------------------------------------------------- | ------- |
+| `js` | `Tab` | Tab         | /Users/Diana.Broeders/Projects/design-system/packages/components/tabs/src/tab.ts |         |
 
-# `../packages/components/text-field/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package             |
-| ---- | ---- | ----------- | ------ | ------------------- |
-| `js` | `*`  | *           |        | ./src/text-field.js |
-
-# `../packages/components/text-field/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/text-field/src/text-field.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name            | Declaration | Module                                            | Package |
-| --------------------------- | --------------- | ----------- | ------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-text-field` | TextField   | /packages/components/text-field/src/text-field.js |         |
+| Kind | Name      | Declaration | Module                                                                                             | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/text-field/src/text-field.scss.ts |         |
 
-# `../packages/components/text-field/src/text-field.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                   | Package |
-| ---- | --------- | ----------- | -------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/text-field/src/text-field.scss.ts |         |
-
-# `../packages/components/text-field/src/text-field.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/text-field/src/text-field.ts`:
 
 ## class: `TextField`, `sl-text-field`
 
@@ -3250,45 +3464,46 @@
 
 ### Fields
 
-| Name                | Privacy | Type                                                            | Default  | Description                                                                                                                                                                                                                                             | Inherited From   |
-| ------------------- | ------- | --------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `autocomplete`      |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |          | Specifies which type of data the browser can use to pre-fill the input.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`.                                       |                  |
-| `customValidity`    |         | `string \| undefined`                                           |          | The error message to display when the control is invalid.                                                                                                                                                                                               | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                                          |          | Whether the text field is disabled; when set no interaction is possible.                                                                                                                                                                                |                  |
-| `form`              |         | `HTMLFormElement \| null`                                       |          | The form associated with the control.                                                                                                                                                                                                                   | FormControlMixin |
-| `input`             |         | `HTMLInputElement`                                              |          | The input element in the light DOM.                                                                                                                                                                                                                     |                  |
-| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                    |          | The labels associated with the control.                                                                                                                                                                                                                 | FormControlMixin |
-| `maxLength`         |         | `number \| undefined`                                           |          | Maximum length (number of characters).                                                                                                                                                                                                                  |                  |
-| `minLength`         |         | `number \| undefined`                                           |          | Minimum length (number of characters).                                                                                                                                                                                                                  |                  |
-| `name`              |         | `string \| undefined`                                           |          | The name of the form control.                                                                                                                                                                                                                           | FormControlMixin |
-| `pattern`           |         | `string \| undefined`                                           |          | This will validate the value of the input using the given pattern.                                                                                                                                                                                      |                  |
-| `placeholder`       |         | `string \| undefined`                                           |          | Placeholder text in the input.                                                                                                                                                                                                                          |                  |
-| `readonly`          |         | `boolean \| undefined`                                          |          | Whether you can interact with the input or if it is just a static, readonly display.                                                                                                                                                                    |                  |
-| `required`          |         | `boolean \| undefined`                                          |          | Whether the text field is a required field.                                                                                                                                                                                                             |                  |
-| `showValid`         |         | `boolean \| undefined`                                          |          | Indicates whether the control should indicate it is valid.                                                                                                                                                                                              |                  |
-| `showValidity`      |         | `FormControlShowValidity`                                       |          | Whether to show the validity state.                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `TextFieldSize`                                                 | `'md'`   | The size of the input.                                                                                                                                                                                                                                  |                  |
-| `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                                                                   |                  |
-| `valid`             |         | `boolean`                                                       |          | Returns whether the form control is valid or not.                                                                                                                                                                                                       | FormControlMixin |
-| `validationMessage` |         | `string`                                                        |          | String representing a localized message that describes the validation constraints&#xA;that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints. | FormControlMixin |
-| `validity`          |         | `ValidityState`                                                 |          | Returns the validity state the control is in.                                                                                                                                                                                                           | FormControlMixin |
-| `value`             |         | `string \| null`                                                | `null`   | The value for the input, to be used in forms.                                                                                                                                                                                                           |                  |
+| Name                | Privacy | Type                                                            | Default  | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| ------------------- | ------- | --------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `autocomplete`      |         | `typeof HTMLInputElement.prototype.autocomplete \| undefined`   |          | Specifies which type of data the browser can use to pre-fill the input.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`.                                                                                                                                       |                  |
+| `customValidity`    |         | `string \| undefined`                                           |          | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `disabled`          |         | `boolean \| undefined`                                          |          | Whether the text field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                |                  |
+| `form`              |         | `HTMLFormElement \| null`                                       |          | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `input`             |         | `HTMLInputElement`                                              |          | The input element in the light DOM.                                                                                                                                                                                                                                                                                                                     |                  |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                    |          | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `maxLength`         |         | `number \| undefined`                                           |          | Maximum length (number of characters).                                                                                                                                                                                                                                                                                                                  |                  |
+| `minLength`         |         | `number \| undefined`                                           |          | Minimum length (number of characters).                                                                                                                                                                                                                                                                                                                  |                  |
+| `name`              |         | `string \| undefined`                                           |          | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `pattern`           |         | `string \| undefined`                                           |          | This will validate the value of the input using the given pattern.                                                                                                                                                                                                                                                                                      |                  |
+| `placeholder`       |         | `string \| undefined`                                           |          | Placeholder text in the input.                                                                                                                                                                                                                                                                                                                          |                  |
+| `readonly`          |         | `boolean \| undefined`                                          |          | Whether you can interact with the input or if it is just a static, readonly display.                                                                                                                                                                                                                                                                    |                  |
+| `required`          |         | `boolean \| undefined`                                          |          | Whether the text field is a required field.                                                                                                                                                                                                                                                                                                             |                  |
+| `showValid`         |         | `boolean`                                                       | `false`  | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `showValidity`      |         | `FormControlShowValidity`                                       |          | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `size`              |         | `TextFieldSize`                                                 | `'md'`   | The size of the input.                                                                                                                                                                                                                                                                                                                                  |                  |
+| `type`              |         | `'email' \| 'number' \| 'tel' \| 'text' \| 'url' \| 'password'` | `'text'` | The input type. Only text types are valid here. For other types,&#xA;see their respective components.                                                                                                                                                                                                                                                   |                  |
+| `valid`             |         | `boolean`                                                       |          | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage` |         | `string`                                                        |          | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`          |         | `ValidityState`                                                 |          | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `value`             |         | `string \| null`                                                | `null`   | The value for the input, to be used in forms.                                                                                                                                                                                                                                                                                                           |                  |
 
 ### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                                             | Parameters        | Return    | Inherited From   |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
-| `reportValidity`    |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.   |                   | `boolean` | FormControlMixin |
-| `setCustomValidity` |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again. | `message: string` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters        | Return    | Inherited From   |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                   | `string`  | FormControlMixin |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                   | `boolean` | FormControlMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string` | `void`    | FormControlMixin |
 
 ### Events
 
-| Name          | Type                   | Description                                          | Inherited From   |
-| ------------- | ---------------------- | ---------------------------------------------------- | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`   | Emits when the focus leaves the component.           |                  |
-| `changeEvent` | `EventEmitter<string>` | Emits when the value changes.                        |                  |
-| `focusEvent`  | `EventEmitter<void>`   | Emits when the component gains focus.                |                  |
-|               | `UpdateValidityEvent`  | Emits when the validity of the form control changes. | FormControlMixin |
+| Name          | Type                   | Description                                | Inherited From   |
+| ------------- | ---------------------- | ------------------------------------------ | ---------------- |
+| `blurEvent`   | `EventEmitter<void>`   | Emits when the focus leaves the component. |                  |
+| `changeEvent` | `EventEmitter<string>` | Emits when the value changes.              |                  |
+| `focusEvent`  | `EventEmitter<void>`   | Emits when the component gains focus.      |                  |
+|               | `ValidateEvent`        |                                            | FormControlMixin |
 
 ### Attributes
 
@@ -3328,35 +3543,19 @@
 
 ## Exports
 
-| Kind | Name        | Declaration | Module                                              | Package |
-| ---- | ----------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `TextField` | TextField   | ../packages/components/text-field/src/text-field.ts |         |
+| Kind | Name        | Declaration | Module                                                                                        | Package |
+| ---- | ----------- | ----------- | --------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TextField` | TextField   | /Users/Diana.Broeders/Projects/design-system/packages/components/text-field/src/text-field.ts |         |
 
-# `../packages/components/textarea/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package           |
-| ---- | ---- | ----------- | ------ | ----------------- |
-| `js` | `*`  | *           |        | ./src/textarea.js |
-
-# `../packages/components/textarea/register.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/textarea/src/textarea.scss.ts`:
 
 ## Exports
 
-| Kind                        | Name          | Declaration | Module                                        | Package |
-| --------------------------- | ------------- | ----------- | --------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-textarea` | Textarea    | /packages/components/textarea/src/textarea.js |         |
+| Kind | Name      | Declaration | Module                                                                                         | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/textarea/src/textarea.scss.ts |         |
 
-# `../packages/components/textarea/src/textarea.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                               | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/textarea/src/textarea.scss.ts |         |
-
-# `../packages/components/textarea/src/textarea.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/textarea/src/textarea.ts`:
 
 ## class: `Textarea`, `sl-textarea`
 
@@ -3375,46 +3574,47 @@
 
 ### Fields
 
-| Name                | Privacy | Type                                                             | Default      | Description                                                                                                                                                                                                                                             | Inherited From   |
-| ------------------- | ------- | ---------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `autocomplete`      |         | `typeof HTMLTextAreaElement.prototype.autocomplete \| undefined` |              | Specifies which type of data the browser can use to pre-fill the textarea.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`.                                    |                  |
-| `customValidity`    |         | `string \| undefined`                                            |              | The error message to display when the control is invalid.                                                                                                                                                                                               | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                                           |              | Whether the text field is disabled; when set no interaction is possible.                                                                                                                                                                                |                  |
-| `form`              |         | `HTMLFormElement \| null`                                        |              | The form associated with the control.                                                                                                                                                                                                                   | FormControlMixin |
-| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                     |              | The labels associated with the control.                                                                                                                                                                                                                 | FormControlMixin |
-| `maxLength`         |         | `number \| undefined`                                            |              | Maximum length (number of characters).                                                                                                                                                                                                                  |                  |
-| `minLength`         |         | `number \| undefined`                                            |              | Minimum length (number of characters).                                                                                                                                                                                                                  |                  |
-| `name`              |         | `string \| undefined`                                            |              | The name of the form control.                                                                                                                                                                                                                           | FormControlMixin |
-| `placeholder`       |         | `string \| undefined`                                            |              | Placeholder text in the input.                                                                                                                                                                                                                          |                  |
-| `readonly`          |         | `boolean \| undefined`                                           |              | Whether you can interact with the textarea or if it is just a static, readonly display.                                                                                                                                                                 |                  |
-| `required`          |         | `boolean \| undefined`                                           |              | Whether the text field is a required field.                                                                                                                                                                                                             |                  |
-| `resize`            |         | `ResizeType`                                                     | `'vertical'` | The way the textarea can be resized.                                                                                                                                                                                                                    |                  |
-| `rows`              |         | `number \| undefined`                                            |              | The number of rows the textarea should initially have.&#xA;If not set, the browser defaults to 2 rows.                                                                                                                                                  |                  |
-| `showValid`         |         | `boolean \| undefined`                                           |              | Whether the textarea should get valid styles when is valid.                                                                                                                                                                                             |                  |
-| `showValidity`      |         | `FormControlShowValidity`                                        |              | Whether to show the validity state.                                                                                                                                                                                                                     | FormControlMixin |
-| `size`              |         | `TextareaSize`                                                   | `'md'`       | The size of the textarea.                                                                                                                                                                                                                               |                  |
-| `textarea`          |         | `HTMLTextAreaElement`                                            |              | The textarea in the light DOM.                                                                                                                                                                                                                          |                  |
-| `valid`             |         | `boolean`                                                        |              | Returns whether the form control is valid or not.                                                                                                                                                                                                       | FormControlMixin |
-| `validationMessage` |         | `string`                                                         |              | String representing a localized message that describes the validation constraints&#xA;that the control does not satisfy (if any). The string is empty if the control is&#xA;not a candidate for constraint validation, or it satisfies its constraints. | FormControlMixin |
-| `validity`          |         | `ValidityState`                                                  |              | Returns the validity state the control is in.                                                                                                                                                                                                           | FormControlMixin |
-| `value`             |         | `string \| null`                                                 | `null`       | The value for the textarea.                                                                                                                                                                                                                             |                  |
-| `wrap`              |         | `WrapType`                                                       | `'soft'`     | The way text should be wrapped during form submission.                                                                                                                                                                                                  |                  |
+| Name                | Privacy | Type                                                             | Default      | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
+| ------------------- | ------- | ---------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `autocomplete`      |         | `typeof HTMLTextAreaElement.prototype.autocomplete \| undefined` |              | Specifies which type of data the browser can use to pre-fill the textarea.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`.                                                                                                                                    |                  |
+| `customValidity`    |         | `string \| undefined`                                            |              | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
+| `disabled`          |         | `boolean \| undefined`                                           |              | Whether the text field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                |                  |
+| `form`              |         | `HTMLFormElement \| null`                                        |              | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
+| `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                     |              | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
+| `maxLength`         |         | `number \| undefined`                                            |              | Maximum length (number of characters).                                                                                                                                                                                                                                                                                                                  |                  |
+| `minLength`         |         | `number \| undefined`                                            |              | Minimum length (number of characters).                                                                                                                                                                                                                                                                                                                  |                  |
+| `name`              |         | `string \| undefined`                                            |              | The name of the form control.                                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `placeholder`       |         | `string \| undefined`                                            |              | Placeholder text in the input.                                                                                                                                                                                                                                                                                                                          |                  |
+| `readonly`          |         | `boolean \| undefined`                                           |              | Whether you can interact with the textarea or if it is just a static, readonly display.                                                                                                                                                                                                                                                                 |                  |
+| `required`          |         | `boolean \| undefined`                                           |              | Whether the text field is a required field.                                                                                                                                                                                                                                                                                                             |                  |
+| `resize`            |         | `ResizeType`                                                     | `'vertical'` | The way the textarea can be resized.                                                                                                                                                                                                                                                                                                                    |                  |
+| `rows`              |         | `number \| undefined`                                            |              | The number of rows the textarea should initially have.&#xA;If not set, the browser defaults to 2 rows.                                                                                                                                                                                                                                                  |                  |
+| `showValid`         |         | `boolean`                                                        | `false`      | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `showValidity`      |         | `FormControlShowValidity`                                        |              | Whether to show the validity state.                                                                                                                                                                                                                                                                                                                     | FormControlMixin |
+| `size`              |         | `TextareaSize`                                                   | `'md'`       | The size of the textarea.                                                                                                                                                                                                                                                                                                                               |                  |
+| `textarea`          |         | `HTMLTextAreaElement`                                            |              | The textarea in the light DOM.                                                                                                                                                                                                                                                                                                                          |                  |
+| `valid`             |         | `boolean`                                                        |              | Returns whether the form control is valid or not.                                                                                                                                                                                                                                                                                                       | FormControlMixin |
+| `validationMessage` |         | `string`                                                         |              | String representing a localized (by the browser) message that describes the validation&#xA;constraints that the control does not satisfy (if any). The string is empty if the control&#xA;is not a candidate for constraint validation, or it satisfies its constraints.&#xA;&#xA;For true localization, see `getLocalizedValidationMessage()` instead. | FormControlMixin |
+| `validity`          |         | `ValidityState`                                                  |              | Returns the validity state the control is in.                                                                                                                                                                                                                                                                                                           | FormControlMixin |
+| `value`             |         | `string \| null`                                                 | `null`       | The value for the textarea.                                                                                                                                                                                                                                                                                                                             |                  |
+| `wrap`              |         | `WrapType`                                                       | `'soft'`     | The way text should be wrapped during form submission.                                                                                                                                                                                                                                                                                                  |                  |
 
 ### Methods
 
-| Name                | Privacy | Description                                                                                                                                                                                                             | Parameters        | Return    | Inherited From   |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
-| `reportValidity`    |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.   |                   | `boolean` | FormControlMixin |
-| `setCustomValidity` |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again. | `message: string` | `void`    | FormControlMixin |
+| Name                            | Privacy | Description                                                                                                                                                                                                                                     | Parameters        | Return    | Inherited From   |
+| ------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------- | ---------------- |
+| `getLocalizedValidationMessage` |         | This returns a localized validation message. It does not support all `ValidityState` properties,&#xA;since some require more context than we have here. If you need to support more, you can override&#xA;this method in your own form control. |                   | `string`  | FormControlMixin |
+| `reportValidity`                |         | Returns whether the control is valid. If the control is invalid, calling this will&#xA;also cause an `invalid` event to be dispatched. After calling this, the control&#xA;will also report the validity to the user.                           |                   | `boolean` | FormControlMixin |
+| `setCustomValidity`             |         | Sets a custom validation message for the form control. If the message&#xA;is not an empty string, that will make the control invalid. By setting it to&#xA;an empty string again, you can make the control valid again.                         | `message: string` | `void`    | FormControlMixin |
 
 ### Events
 
-| Name          | Type                   | Description                                          | Inherited From   |
-| ------------- | ---------------------- | ---------------------------------------------------- | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`   | Emits when the focus leaves the component.           |                  |
-| `changeEvent` | `EventEmitter<string>` | Emits when the value changes.                        |                  |
-| `focusEvent`  | `EventEmitter<void>`   | Emits when the component gains focus.                |                  |
-|               | `UpdateValidityEvent`  | Emits when the validity of the form control changes. | FormControlMixin |
+| Name          | Type                   | Description                                | Inherited From   |
+| ------------- | ---------------------- | ------------------------------------------ | ---------------- |
+| `blurEvent`   | `EventEmitter<void>`   | Emits when the focus leaves the component. |                  |
+| `changeEvent` | `EventEmitter<string>` | Emits when the value changes.              |                  |
+| `focusEvent`  | `EventEmitter<void>`   | Emits when the component gains focus.      |                  |
+|               | `ValidateEvent`        |                                            | FormControlMixin |
 
 ### Attributes
 
@@ -3447,28 +3647,11 @@
 
 ## Exports
 
-| Kind | Name       | Declaration | Module                                          | Package |
-| ---- | ---------- | ----------- | ----------------------------------------------- | ------- |
-| `js` | `Textarea` | Textarea    | ../packages/components/textarea/src/textarea.ts |         |
+| Kind | Name       | Declaration | Module                                                                                    | Package |
+| ---- | ---------- | ----------- | ----------------------------------------------------------------------------------------- | ------- |
+| `js` | `Textarea` | Textarea    | /Users/Diana.Broeders/Projects/design-system/packages/components/textarea/src/textarea.ts |         |
 
-# `../packages/components/tooltip/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                    |
-| ---- | ---- | ----------- | ------ | -------------------------- |
-| `js` | `*`  | *           |        | ./src/tooltip.js           |
-| `js` | `*`  | *           |        | ./src/tooltip-directive.js |
-
-# `../packages/components/tooltip/register.ts`:
-
-## Exports
-
-| Kind                        | Name         | Declaration | Module                                      | Package |
-| --------------------------- | ------------ | ----------- | ------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-tooltip` | Tooltip     | /packages/components/tooltip/src/tooltip.js |         |
-
-# `../packages/components/tooltip/src/tooltip-directive.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts`:
 
 ## class: `TooltipDirective`
 
@@ -3506,20 +3689,20 @@
 
 ## Exports
 
-| Kind | Name               | Declaration      | Module                                                  | Package |
-| ---- | ------------------ | ---------------- | ------------------------------------------------------- | ------- |
-| `js` | `TooltipDirective` | TooltipDirective | ../packages/components/tooltip/src/tooltip-directive.ts |         |
-| `js` | `tooltip`          | tooltip          | ../packages/components/tooltip/src/tooltip-directive.ts |         |
+| Kind | Name               | Declaration      | Module                                                                                            | Package |
+| ---- | ------------------ | ---------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| `js` | `TooltipDirective` | TooltipDirective | /Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts |         |
+| `js` | `tooltip`          | tooltip          | /Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip-directive.ts |         |
 
-# `../packages/components/tooltip/src/tooltip.scss.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip.scss.ts`:
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                             | Package |
-| ---- | --------- | ----------- | -------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/tooltip/src/tooltip.scss.ts |         |
+| Kind | Name      | Declaration | Module                                                                                       | Package |
+| ---- | --------- | ----------- | -------------------------------------------------------------------------------------------- | ------- |
+| `js` | `default` |             | /Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip.scss.ts |         |
 
-# `../packages/components/tooltip/src/tooltip.ts`:
+# `/Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts`:
 
 ## class: `Tooltip`, `sl-tooltip`
 
@@ -3553,6 +3736,6 @@
 
 ## Exports
 
-| Kind | Name      | Declaration | Module                                        | Package |
-| ---- | --------- | ----------- | --------------------------------------------- | ------- |
-| `js` | `Tooltip` | Tooltip     | ../packages/components/tooltip/src/tooltip.ts |         |
+| Kind | Name      | Declaration | Module                                                                                  | Package |
+| ---- | --------- | ----------- | --------------------------------------------------------------------------------------- | ------- |
+| `js` | `Tooltip` | Tooltip     | /Users/Diana.Broeders/Projects/design-system/packages/components/tooltip/src/tooltip.ts |         |

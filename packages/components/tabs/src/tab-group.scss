@@ -27,8 +27,11 @@
   background-color: var(--_tab-group-background);
   border-bottom: var(--_border-bottom);
   display: flex;
+  //top: 0;
+  inset-block-start: 0;
   overflow: hidden;
-  position: relative;
+  //position: relative;
+  position: sticky;
 }
 
 :host([vertical='true']) {
@@ -121,9 +124,10 @@
 
 :host([vertical='false'][alignment='filled']) [role='tablist'] {
   ::slotted(sl-tab) {
-    flex-grow: 1;
+    //flex-grow: 1;
     // flex: 1;
     // white-space: nowrap;
+    width: 100%;
   }
 }
 
@@ -153,7 +157,7 @@ sl-button {
 
 @media (prefers-reduced-motion: no-preference) {
   .indicator {
-    transition: transform 400ms ease-in-out;
+    transition: transform 500ms ease-in-out;
   }
 
   .indicator-listbox {
@@ -200,8 +204,9 @@ div[popover] {
     background-color: var(--sl-color-select-item-active-background);
   }
 
-  sl-tab::part(subtitle) {
-    //color: yellow;
+  sl-tab::part(subtitle),
+  sl-tab::part(icon),
+  sl-tab::part(badge) {
     display: none;
   }
 

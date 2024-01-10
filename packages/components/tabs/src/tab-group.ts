@@ -216,6 +216,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // this.moreButton.append(listElement);
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    console.log('changes in updated', changes);
+
+    if (changes.has('alignment') || changes.has('vertical')) {
+      // this.#updateSlots();
+      // this.#updateSelectedTab(this.selectedTab as Tab);
+      this.#updateSelectionIndicator();
+    }
+  }
+
   #updateSlots(): void {
     this.#setupTabs();
     this.#setupPanels();
@@ -411,10 +423,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Update the tab group state.
    */
   #updateSelectedTab(selectedTab: Tab): void {
-    console.log('updateSelectedTab', selectedTab);
     const controls = selectedTab.getAttribute('aria-controls');
+    console.log(
+      'updateSelectedTab',
+      selectedTab,
+      this.selectedTab,
+      selectedTab === this.selectedTab,
+      !controls,
+      selectedTab.disabled
+    );
 
-    if (selectedTab === this.selectedTab || !controls || selectedTab.disabled) return;
+    if (/*selectedTab === this.selectedTab ||*/ !controls || selectedTab.disabled) return;
 
     const selectedPanel = this.querySelector(`#${controls}`);
     const tabIndex = Array.from(this.querySelectorAll('sl-tab')).indexOf(selectedTab);
@@ -470,6 +489,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #updateSelectionIndicator(): void {
+    console.log('updateSelectedTab --> updateSelectionIndicator', this.selectedTab, this.selectedTabInListbox);
     if (!this.selectedTab || !this.selectedTabInListbox) {
       return;
     }
@@ -532,6 +552,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
 
     if (axis === 'X') {
+      indicator.style.removeProperty('height');
       indicator.style.width = `${this.selectedTab.offsetWidth}px`;
       const scrollLeft = Math.max(
         this.selectedTab.offsetLeft + this.selectedTab.offsetWidth / 2 - wrapper.clientWidth / 2,
@@ -543,6 +564,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         // this.listbox.scrollTo({ left: scrollLeft, behavior: 'smooth' });
       }
     } else {
+      indicator.style.removeProperty('width');
       indicator.style.height = `${this.selectedTab.offsetHeight}px`;
       // TODO: restart idicator when vertical/horizontal changed, remove width or height
     }

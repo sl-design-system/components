@@ -92,7 +92,7 @@ export const API: StoryObj = {
 export const LongTitles: StoryObj = {
   render: ({ vertical, alignment }) => html`<sl-tab-group .vertical=${vertical} .alignment=${alignment}>
     <sl-tab selected>This is the first tab</sl-tab>
-    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(4)}</sl-tab-panel>
+    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
 
     <sl-tab>This is the second tab</sl-tab>
     <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>

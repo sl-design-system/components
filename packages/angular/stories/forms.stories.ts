@@ -744,13 +744,13 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [
-        CheckboxComponent,
-        InputComponent,
-        ReactiveFormComponent,
-        ReactiveFormRequiredReportComponent,
-        TemplateFormComponent,
-        TemplateFormRequiredReportComponent,
-        TextareaComponent
+        // CheckboxComponent,
+        InputComponent
+        // ReactiveFormComponent,
+        // ReactiveFormRequiredReportComponent,
+        // TemplateFormComponent,
+        // TemplateFormRequiredReportComponent,
+        // TextareaComponent
       ],
       imports: [CoreFormsModule, FormsModule, ReactiveFormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]

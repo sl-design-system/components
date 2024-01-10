@@ -182,6 +182,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   override firstUpdated(): void {
+    console.log('firstUpdated', this.selectedTab);
     // TODO: maybe morebutton here in the first updated and anchor element?
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, TabGroup.#observerOptions);
@@ -198,7 +199,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // this.anchorDirective.render({ element: this.moreButton, position: 'bottom-end' });
     // const tabs2 = this.querySelectorAll('sl-tab');
     // console.log('tabs2', tabs2);
-    setTimeout(() => this.#updateSelectionIndicator(), 100);
+
+    // TODO: updateindicator after all slotted element rendered?
+    setTimeout(() => this.#updateSelectionIndicator(), 700);
+    // requestAnimationFrame(() => {
+    //   this.#updateSelectionIndicator();
+    // });
     console.log('this.tabs', this.tabs, this.#allTabs);
     console.log('this.#rovingTabindexController.element', this.#rovingTabindexController.elements);
     console.log('morebutton', this.moreButton, this.shadowRoot?.querySelector('sl-button') as HTMLButtonElement);
@@ -224,7 +230,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     if (changes.has('alignment') || changes.has('vertical')) {
       // this.#updateSlots();
       // this.#updateSelectedTab(this.selectedTab as Tab);
-      this.#updateSelectionIndicator();
+      requestAnimationFrame(() => {
+        this.#updateSelectionIndicator();
+      });
+      // this.#updateSelectionIndicator();
     }
   }
 
@@ -490,83 +499,89 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #updateSelectionIndicator(): void {
     console.log('updateSelectedTab --> updateSelectionIndicator', this.selectedTab, this.selectedTabInListbox);
-    if (!this.selectedTab || !this.selectedTabInListbox) {
-      return;
-    }
-
-    const axis = this.vertical ? 'Y' : 'X',
-      indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
-      indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement,
-      wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
-      wrapper2 = this.shadowRoot?.querySelectorAll('[slot="tabs"]');
-
-    // let totalWidth;
-    //
-    // for (const tabElement of wrapper2) {
-    //   totalWidth += tabElement.offsetWidth;
+    // if (!this.selectedTab || !this.selectedTabInListbox) {
+    //   return;
     // }
 
-    let start = 0;
-    if (axis === 'X') {
-      start = this.selectedTab.offsetLeft - wrapper.offsetLeft;
-    } else {
-      start = this.selectedTab.offsetTop - wrapper.offsetTop;
-    }
+    requestAnimationFrame(() => {
+      if (!this.selectedTab || !this.selectedTabInListbox) {
+        return;
+      }
 
-    console.log(
-      'this.selectedTab.offsetLeft - wrapper.offsetLeft',
-      axis,
-      this.selectedTab.offsetLeft,
-      this.selectedTabInListbox,
-      this.selectedTabInListbox?.offsetHeight,
-      this.listbox,
-      this.listbox.offsetTop,
-      wrapper.offsetLeft,
-      this.selectedTab.offsetParent,
-      wrapper.offsetWidth,
-      wrapper.scrollWidth,
-      wrapper2,
-      // wrapper2.offsetWidth,
-      // wrapper2.scrollWidth,
-      this.#allTabs //,
-      // totalWidth
-    );
+      const axis = this.vertical ? 'Y' : 'X',
+        indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
+        indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement,
+        wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
+        wrapper2 = this.shadowRoot?.querySelectorAll('[slot="tabs"]');
 
-    // Somehow on Chromium, the offsetParent is different than on FF and Safari
-    // If on Chromium, take the `wrapper.offsetLeft` into account as well
-    if (this.selectedTab.offsetParent === wrapper) {
-      start += axis === 'X' ? wrapper.offsetLeft : wrapper.offsetTop;
-    }
+      // let totalWidth;
+      //
+      // for (const tabElement of wrapper2) {
+      //   totalWidth += tabElement.offsetWidth;
+      // }
 
-    indicator.style.transform = `translate${axis}(${start}px)`;
+      let start = 0;
+      if (axis === 'X') {
+        start = this.selectedTab.offsetLeft - wrapper.offsetLeft;
+      } else {
+        start = this.selectedTab.offsetTop - wrapper.offsetTop;
+      }
 
-    // scale${axis}(${
-    //   axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight
-    // })`
-
-    // const styleType = (axis === 'X' ? 'height' : 'width') as unknown as CSSStyleDeclaration;
-    // indicator.style.styleType = `${axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight}px`;
-
-    indicatorListbox.style.transform = `translateY(${
-      this.selectedTabInListbox.offsetTop + this.listbox.offsetHeight
-    }px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
-
-    if (axis === 'X') {
-      indicator.style.removeProperty('height');
-      indicator.style.width = `${this.selectedTab.offsetWidth}px`;
-      const scrollLeft = Math.max(
-        this.selectedTab.offsetLeft + this.selectedTab.offsetWidth / 2 - wrapper.clientWidth / 2,
-        0
+      console.log(
+        'this.selectedTab.offsetLeft - wrapper.offsetLeft',
+        axis,
+        this.selectedTab.offsetLeft,
+        this.selectedTabInListbox,
+        this.selectedTabInListbox?.offsetHeight,
+        this.listbox,
+        this.listbox.offsetTop,
+        wrapper.offsetLeft,
+        this.selectedTab.offsetParent,
+        wrapper.offsetWidth,
+        wrapper.scrollWidth,
+        wrapper2,
+        // wrapper2.offsetWidth,
+        // wrapper2.scrollWidth,
+        this.#allTabs //,
+        // totalWidth
       );
 
-      if (scrollLeft !== wrapper.scrollLeft) {
-        wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-        // this.listbox.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+      // Somehow on Chromium, the offsetParent is different than on FF and Safari
+      // If on Chromium, take the `wrapper.offsetLeft` into account as well
+      if (this.selectedTab.offsetParent === wrapper) {
+        start += axis === 'X' ? wrapper.offsetLeft : wrapper.offsetTop;
       }
-    } else {
-      indicator.style.removeProperty('width');
-      indicator.style.height = `${this.selectedTab.offsetHeight}px`;
-      // TODO: restart idicator when vertical/horizontal changed, remove width or height
-    }
+
+      indicator.style.transform = `translate${axis}(${start}px)`;
+
+      // scale${axis}(${
+      //   axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight
+      // })`
+
+      // const styleType = (axis === 'X' ? 'height' : 'width') as unknown as CSSStyleDeclaration;
+      // indicator.style.styleType = `${axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight}px`;
+
+      indicatorListbox.style.transform = `translateY(${
+        this.selectedTabInListbox.offsetTop + this.listbox.offsetHeight
+      }px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
+
+      if (axis === 'X') {
+        indicator.style.removeProperty('height');
+        indicator.style.width = `${this.selectedTab.offsetWidth}px`;
+        const scrollLeft = Math.max(
+          this.selectedTab.offsetLeft + this.selectedTab.offsetWidth / 2 - wrapper.clientWidth / 2,
+          0
+        );
+
+        if (scrollLeft !== wrapper.scrollLeft) {
+          wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+          // this.listbox.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        }
+      } else {
+        indicator.style.removeProperty('width');
+        indicator.style.height = `${this.selectedTab.offsetHeight}px`;
+        // TODO: restart idicator when vertical/horizontal changed, remove width or height
+      }
+    });
   }
 }

@@ -63,7 +63,7 @@ export const Basic: Story = {};
 
 export const All: Story = {
   render: () => {
-    Icon.registerIcon(faCheck, faGear);
+    Icon.register(faCheck, faGear);
 
     return html`
       <style>

@@ -1092,7 +1092,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -1106,7 +1106,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "CheckboxSize | undefined"
+                "text": "'md' | 'lg'"
               },
               "description": "The size of the checkboxes in the group.",
               "attribute": "size"
@@ -1179,7 +1179,7 @@
             {
               "name": "size",
               "type": {
-                "text": "CheckboxSize | undefined"
+                "text": "'md' | 'lg'"
               },
               "description": "The size of the checkboxes in the group.",
               "fieldName": "size"
@@ -1211,7 +1211,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -1589,7 +1589,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -1811,7 +1811,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -2630,7 +2630,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -2723,7 +2723,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -3987,7 +3987,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -4048,7 +4048,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity"
@@ -9186,7 +9186,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -9391,7 +9391,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -10276,7 +10276,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -10490,7 +10490,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -15184,7 +15184,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -15400,7 +15400,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -16170,7 +16170,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -16443,7 +16443,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -16878,7 +16878,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -17177,7 +17177,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",

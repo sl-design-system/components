@@ -20,7 +20,7 @@ import { GridFilterValueChangeEvent } from './events.js';
 
 export type GridFilterChange = 'added' | 'removed';
 
-Icon.registerIcon(faFilter, faFilterSolid, faXmark);
+Icon.register(faFilter, faFilterSolid, faXmark);
 
 @localized()
 export class GridFilter<T> extends ScopedElementsMixin(LitElement) {

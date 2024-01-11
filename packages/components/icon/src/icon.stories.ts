@@ -118,14 +118,14 @@ export const Basic: Story = {};
 export const RegisterAdditionalIcons: Story = {
   render: () => {
     // load the entire FA library of a certain variant:
-    Icon.registerIcon(...Object.values(far));
+    Icon.register(...Object.values(far));
 
     // load a single icon:
-    Icon.registerIcon(fatPinata);
-    Icon.registerIcon(fatPinata);
+    Icon.register(fatPinata);
+    Icon.register(fatPinata);
 
     // load multiple icons at once:
-    Icon.registerIcon(falPinata, fasPinata, fadNarwhal);
+    Icon.register(falPinata, fasPinata, fadNarwhal);
 
     return html`
       <style>

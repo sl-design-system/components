@@ -13,7 +13,7 @@ import { Tab } from './tab.js';
 import { TabPanel } from './tab-panel.js';
 import styles from './tab-group.scss.js';
 
-Icon.registerIcon(faEllipsis); // TODO: needs to be changed - icon from tokens
+Icon.register(faEllipsis); // TODO: needs to be changed - icon from tokens
 
 export type TabsAlignment = 'left' | 'filled';
 

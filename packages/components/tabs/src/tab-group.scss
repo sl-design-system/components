@@ -133,7 +133,7 @@
 
 sl-button {
   //align-self: center;
-  // background: #9ebaff;
+  background: #9ebaff;
   //position: absolute;
   inset-inline-end: 0;
   position: sticky;
@@ -202,6 +202,10 @@ div[popover] {
 
   sl-tab:active {
     background-color: var(--sl-color-select-item-active-background);
+  }
+
+  sl-tab[disabled] {
+    background-color: #e2e2e2;
   }
 
   sl-tab::part(subtitle),

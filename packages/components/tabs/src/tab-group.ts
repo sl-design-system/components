@@ -7,7 +7,7 @@ import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { RovingTabindexController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
 import { faEllipsis } from '@fortawesome/pro-regular-svg-icons';
-import { LitElement, html } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { Tab } from './tab.js';
 import { TabPanel } from './tab-panel.js';
@@ -70,11 +70,20 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** The slotted tabs. */
   #allTabs: Node[] | null = [];
 
+  /** Whether more button needs to be shown */
+  #showMore = false;
+
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
 
   /** The alignemnt of tabs inside sl-tab-group  */
   @property({ reflect: true }) alignment: TabsAlignment = 'left';
+
+  /** Observe the tablist width. */
+  #sizeObserver = new ResizeObserver(() => {
+    // Workaround for "ResizeObserver loop completed with undelivered notifications."
+    requestAnimationFrame(() => this.#updateSelectionIndicator());
+  });
 
   // private anchorDirective = new AnchorDirective();
 
@@ -130,19 +139,22 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.shadowRoot
     );
     return html`
+      ${this.#showMore}
       <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
         <span class="indicator" role="presentation"></span>
         <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
-        <sl-button
-          id="more-btn"
-          @click=${this.#onClick}
-          popovertarget="tabs-popover"
-          fill="ghost"
-          variant="primary"
-          size="md"
-        >
-          <sl-icon name="far-ellipsis"></sl-icon>
-        </sl-button>
+        ${this.#showMore
+          ? html` <sl-button
+              id="more-btn"
+              @click=${this.#onClick}
+              popovertarget="tabs-popover"
+              fill="ghost"
+              variant="primary"
+              size="md"
+            >
+              <sl-icon name="far-ellipsis"></sl-icon>
+            </sl-button>`
+          : nothing}
         <div
           id="tabs-popover"
           ${anchor({ element: this.moreButton, position: 'bottom-end' })}
@@ -168,6 +180,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   // @beforetoggle=${this.#onBeforetoggle}
 
   override connectedCallback(): void {
+    this.#sizeObserver.observe(this);
+    // this.#sizeObserver.observe(this.tabs);
     super.connectedCallback();
     this.#updateSlots();
     // this.#allTabs = [...this.#rovingTabindexController.elements];
@@ -186,6 +200,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // TODO: maybe morebutton here in the first updated and anchor element?
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, TabGroup.#observerOptions);
+    // this.#sizeObserver.observe(this);
     // if (this.tabs) {
     //    this.#allTabs = this.tabs.slice();
     //  }//JSON.parse(JSON.stringify(this.#rovingTabindexController.elements)); //this.tabs; //[...this.#rovingTabindexController.elements]; // TODO: not working yet
@@ -220,6 +235,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     //   <span class="indicator-listbox" role="presentation"></span>
     // </div>`;
     // this.moreButton.append(listElement);
+  }
+
+  override disconnectedCallback(): void {
+    this.#sizeObserver.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -414,15 +435,15 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #handleTabChange(event: Event): void {
     console.log('handleTabChange', event, event.target, (event.target as HTMLElement).closest('sl-tab'));
-    event.preventDefault();
-    event.stopPropagation();
+    // event.preventDefault();
+    // event.stopPropagation();
     // Always reset the scroll when a tab is selected.
     this.scrollTo({ top: 0 });
 
     /**
      * Return handler if it's not a tab or if it's already selected
      */
-    if (!(event.target as HTMLElement).closest('sl-tab') /*(event.target instanceof Tab)*/) return;
+    // if (!(event.target as HTMLElement).closest('sl-tab') /*(event.target instanceof Tab)*/) return;
     this.#updateSelectedTab((event.target as HTMLElement).closest('sl-tab') as Tab /*event.target*/);
     this.listbox.hidePopover();
   }
@@ -443,6 +464,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     );
 
     if (/*selectedTab === this.selectedTab ||*/ !controls || selectedTab.disabled) return;
+
+    console.log('updateSelectedTab after return');
 
     const selectedPanel = this.querySelector(`#${controls}`);
     const tabIndex = Array.from(this.querySelectorAll('sl-tab')).indexOf(selectedTab);
@@ -512,12 +535,38 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
         indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement,
         wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
-        wrapper2 = this.shadowRoot?.querySelectorAll('[slot="tabs"]');
+        wrapper2 = this.shadowRoot?.querySelectorAll('[slot="tabs"]'),
+        wrapper3 = this.shadowRoot?.querySelectorAll('sl-tab'),
+        wrapper4 = this.querySelectorAll('sl-tab');
 
-      // let totalWidth;
+      wrapper2?.forEach(tab => console.log('wrapper2 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
+
+      wrapper3?.forEach(tab => console.log('wrapper3 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
+
+      wrapper4?.forEach(tab => console.log('wrapper4 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
+
+      wrapper4?.forEach(tab => console.log('wrapper4 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
+
+      let totalTabsWidth = 0;
+      wrapper4.forEach(tab => {
+        totalTabsWidth = totalTabsWidth + tab.offsetWidth;
+      });
+
+      this.#showMore = totalTabsWidth > wrapper.offsetWidth;
+
+      console.log('totalWidth', totalTabsWidth, wrapper4, wrapper.offsetWidth, this.#showMore);
+
+      this.requestUpdate(); // TODO: causes some problems? but necessary to render more button on resize
+
+      // if (wrapper4) {
       //
-      // for (const tabElement of wrapper2) {
-      //   totalWidth += tabElement.offsetWidth;
+      //   // let totalWidth;
+      //
+      //   for (const tabElement of wrapper4) {
+      //     totalWidth += tabElement.offsetWidth;
+      //   }
+      //
+      //   console.log('totalWidth', totalWidth, wrapper4);
       // }
 
       let start = 0;
@@ -542,8 +591,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         wrapper2,
         // wrapper2.offsetWidth,
         // wrapper2.scrollWidth,
-        this.#allTabs //,
-        // totalWidth
+        this.#allTabs, //,
+        // totalWidth,
+        wrapper3,
+        wrapper4
       );
 
       // Somehow on Chromium, the offsetParent is different than on FF and Safari

@@ -350,6 +350,23 @@
             },
             {
               "kind": "field",
+              "name": "#showMore",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether more button needs to be shown"
+            },
+            {
+              "kind": "field",
+              "name": "#sizeObserver",
+              "privacy": "private",
+              "default": "new ResizeObserver(() => {\n    // Workaround for \"ResizeObserver loop completed with undelivered notifications.\"\n    requestAnimationFrame(() => this.#updateSelectionIndicator());\n  })",
+              "description": "Observe the tablist width."
+            },
+            {
+              "kind": "field",
               "name": "moreButton",
               "type": {
                 "text": "HTMLButtonElement"

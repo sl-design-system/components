@@ -40,6 +40,10 @@ slot[name='subtitle'] {
   color: var(--_color-disabled);
   //opacity: 0.6;
   pointer-events: none;
+
+  slot[name='icon']::slotted(sl-icon) {
+    fill: var(--_color-disabled);
+  }
 }
 
 //&:hover {

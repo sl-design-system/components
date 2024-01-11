@@ -74,20 +74,29 @@ export const API: StoryObj = {
       </sl-tab-panel>
 
       <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
         Tab 3
         <span slot="subtitle">Tab 3 subtitle</span>
         <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
       </sl-tab>
       <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>
 
-      <sl-tab>Tab 4</sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        Tab 4
+      </sl-tab>
       <sl-tab-panel>Contents tab 4</sl-tab-panel>
 
-      <sl-tab>Tab 5</sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        Tab 5
+      </sl-tab>
       <sl-tab-panel>Contents tab 5</sl-tab-panel>
     </sl-tab-group>
   `
 };
+
+// TODO: add vertical tabs
 
 export const LongTitles: StoryObj = {
   render: ({ vertical, alignment }) => html`<sl-tab-group .vertical=${vertical} .alignment=${alignment}>

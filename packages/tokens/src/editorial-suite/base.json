@@ -757,12 +757,12 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "The Message",
+          "value": "Raleway",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },
         "body": {
-          "value": "Source Sans Pro",
+          "value": "Roboto",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.body"
         },
@@ -773,8 +773,24 @@
         }
       },
       "fontWeight": {
+        "light": {
+          "value": "Light",
+          "type": "fontWeights"
+        },
+        "regular": {
+          "value": "Regular",
+          "type": "fontWeights"
+        },
         "demibold": {
           "value": "SemiBold",
+          "type": "fontWeights"
+        },
+        "medium": {
+          "value": "Medium",
+          "type": "fontWeights"
+        },
+        "bold": {
+          "value": "Bold",
           "type": "fontWeights"
         }
       }

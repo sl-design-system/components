@@ -41,8 +41,7 @@
             "ci": true,
             "compodoc": false,
             "open": false,
-            "port": 6007,
-            "quiet": true
+            "port": 6007
           }
         },
         "build-storybook": {

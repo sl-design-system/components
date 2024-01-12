@@ -2,7 +2,8 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { Checkbox, CheckboxSize } from './checkbox.js';
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import { EventsController, RovingTabindexController } from '@sl-design-system/shared';
+import type { EventEmitter } from '@sl-design-system/shared';
+import { EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
@@ -13,7 +14,7 @@ import styles from './checkbox-group.scss.js';
  * @slot default - A list of `sl-checkbox` elements.
  */
 @localized()
-export class CheckboxGroup extends FormControlMixin(LitElement) {
+export class CheckboxGroup<T = boolean> extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
 
@@ -21,12 +22,16 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
-  #events = new EventsController(this, { click: this.#onClick });
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    focusin: this.#onFocusin,
+    focusout: this.#onFocusout
+  });
 
   /** Observe changes to the checkboxes. */
   #observer = new MutationObserver(() => {
     this.state = this.boxes?.map(box => !!box.checked);
-
+    this.changeEvent.emit(this.formValue);
     this.#updateValidity();
   });
 
@@ -41,10 +46,19 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   readonly internals = this.attachInternals();
 
   /** @private The slotted checkboxes. */
-  @queryAssignedElements() boxes?: Checkbox[];
+  @queryAssignedElements() boxes?: Array<Checkbox<T>>;
+
+  /** Emits when the component loses focus. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+
+  /** Emits when the value of the group changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T[]>;
+
+  /** Emits when the component receives focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
 
   /** Whether the group is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** At least one checkbox in the group must be checked if true. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
@@ -55,8 +69,12 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   /** The readonly checked state for the checkbox group. */
   @state() state?: boolean[];
 
-  override get formValue(): unknown[] | undefined {
-    return this.boxes?.map(box => box.formValue).filter(Boolean);
+  override get formValue(): T[] {
+    return this.boxes?.map(box => box.formValue).filter((v): v is T => v !== null) ?? [];
+  }
+
+  override set formValue(value: T[] | null) {
+    this.boxes?.forEach((box, i) => (box.formValue = value?.[i] ?? null));
   }
 
   override connectedCallback(): void {
@@ -110,7 +128,15 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotchange} @sl-validate=${this.#onValidate}></slot>`;
+    return html`
+      <slot
+        @slotchange=${this.#onSlotchange}
+        @sl-blur=${this.#stopEvent}
+        @sl-change=${this.#stopEvent}
+        @sl-focus=${this.#stopEvent}
+        @sl-validate=${this.#stopEvent}
+      ></slot>
+    `;
   }
 
   override reportValidity(): boolean {
@@ -123,6 +149,14 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
     if (event.target === this) {
       this.#rovingTabindexController.focus();
     }
+  }
+
+  #onFocusin(): void {
+    this.focusEvent.emit();
+  }
+
+  #onFocusout(): void {
+    this.blurEvent.emit();
   }
 
   #onSlotchange(): void {
@@ -144,8 +178,9 @@ export class CheckboxGroup extends FormControlMixin(LitElement) {
     });
   }
 
-  #onValidate(event: Event): void {
-    // Stop the validate events from the checkboxes in the group from bubbling up any further
+  #stopEvent(event: Event): void {
+    // Stop the sl-blur, sl-change, sl-focus and sl-validate events from propagating
+    // any further because we want to emit those events from the group itself.
     event.preventDefault();
     event.stopPropagation();
   }

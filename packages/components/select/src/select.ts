@@ -78,7 +78,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   @state() currentOption?: SelectOption<T>;
 
   /** Whether the select is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** The listbox element. */
   @query('[popover]') listbox!: HTMLElement;

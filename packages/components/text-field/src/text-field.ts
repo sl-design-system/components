@@ -61,7 +61,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;

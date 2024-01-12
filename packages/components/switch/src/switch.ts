@@ -64,7 +64,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** Whether the switch is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** Custom icon in "off" state. */
   @property({ reflect: true, attribute: 'icon-off' }) iconOff?: string;
@@ -81,11 +81,18 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
    */
   @property({ reflect: true }) size: SwitchSize = 'md';
 
-  /** The value for the switch, to be used in forms. */
+  /**
+   * The value of the switch when the switch is checked.
+   * See the formValue property for easy access.
+   */
   @property() override value?: T;
 
-  override get formValue(): T | boolean | null {
-    return this.checked ? this.value ?? true : null;
+  override get formValue(): T | null {
+    return this.checked ? ((this.value ?? true) as T) : null;
+  }
+
+  override set formValue(value: T | null) {
+    this.checked = value === true || value === this.value;
   }
 
   override connectedCallback(): void {

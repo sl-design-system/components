@@ -256,8 +256,7 @@
               "type": {
                 "text": "unknown"
               },
-              "description": "The value used when submitting the form.",
-              "readonly": true
+              "description": "The value used when submitting the form."
             },
             {
               "kind": "method",
@@ -460,6 +459,16 @@
                 }
               ],
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again."
+            },
+            {
+              "kind": "method",
+              "name": "#emitValidityUpdate",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Emits an event so the form-field can update itself."
             }
           ],
           "fields": [
@@ -496,20 +505,19 @@
             },
             {
               "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form."
+            },
+            {
+              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
               },
               "description": "The form associated with the control.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "formValue",
-              "type": {
-                "text": "unknown"
-              },
-              "description": "The value used when submitting the form.",
               "readonly": true
             },
             {
@@ -848,6 +856,14 @@
             },
             {
               "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "valid",
               "type": {
                 "text": "boolean"
@@ -916,12 +932,29 @@
             },
             {
               "kind": "field",
+              "name": "#showValidity",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
               "name": "fields",
               "type": {
                 "text": "FormField[]"
               },
               "default": "[]",
               "description": "The fields in the form."
+            },
+            {
+              "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
             },
             {
               "kind": "field",

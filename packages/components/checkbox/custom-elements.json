@@ -77,9 +77,8 @@
               "kind": "field",
               "name": "formValue",
               "type": {
-                "text": "unknown[] | undefined"
-              },
-              "readonly": true
+                "text": "T[]"
+              }
             },
             {
               "kind": "method",
@@ -110,12 +109,62 @@
               "attribute": "size"
             },
             {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<T[]>"
+              },
+              "description": "Emits when the value of the group changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus."
+            },
+            {
               "kind": "field",
               "name": "state",
               "type": {
                 "text": "boolean[] | undefined"
               },
               "description": "The readonly checked state for the checkbox group."
+            }
+          ],
+          "events": [
+            {
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<T[]>"
+              },
+              "description": "Emits when the value of the group changes.",
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus.",
+              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
@@ -185,6 +234,24 @@
             },
             {
               "kind": "method",
+              "name": "#onFocusin",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusout",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#onSlotchange",
               "return": {
                 "type": {
@@ -194,7 +261,7 @@
             },
             {
               "kind": "method",
-              "name": "#onValidate",
+              "name": "#stopEvent",
               "return": {
                 "type": {
                   "text": "void"
@@ -234,14 +301,14 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this, { click: this.#onClick })",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    focusin: this.#onFocusin,\n    focusout: this.#onFocusout\n  })",
               "description": "Events controller."
             },
             {
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(() => {\n    this.state = this.boxes?.map(box => !!box.checked);\n\n    this.#updateValidity();\n  })",
+              "default": "new MutationObserver(() => {\n    this.state = this.boxes?.map(box => !!box.checked);\n    this.changeEvent.emit(this.formValue);\n    this.#updateValidity();\n  })",
               "description": "Observe changes to the checkboxes."
             },
             {
@@ -261,7 +328,7 @@
               "kind": "field",
               "name": "boxes",
               "type": {
-                "text": "Checkbox[] | undefined"
+                "text": "Array<Checkbox<T>> | undefined"
               },
               "privacy": "private"
             },
@@ -277,9 +344,8 @@
               "kind": "field",
               "name": "formValue",
               "type": {
-                "text": "unknown[] | undefined"
-              },
-              "readonly": true
+                "text": "T[]"
+              }
             }
           ]
         }
@@ -334,9 +400,8 @@
               "kind": "field",
               "name": "formValue",
               "type": {
-                "text": "T | boolean | null"
-              },
-              "readonly": true
+                "text": "T | null"
+              }
             },
             {
               "kind": "field",
@@ -390,7 +455,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes."
             },
@@ -408,7 +473,7 @@
               "type": {
                 "text": "T | undefined"
               },
-              "description": "The value for the checkbox, to be used in forms.",
+              "description": "The value of the checkbox when the checkbox is checked.\nSee the formValue property for easy access.",
               "attribute": "value"
             }
           ],
@@ -424,7 +489,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes.",
               "fieldName": "changeEvent"
@@ -493,7 +558,7 @@
               "type": {
                 "text": "T | undefined"
               },
-              "description": "The value for the checkbox, to be used in forms.",
+              "description": "The value of the checkbox when the checkbox is checked.\nSee the formValue property for easy access.",
               "fieldName": "value"
             }
           ],
@@ -629,9 +694,8 @@
               "kind": "field",
               "name": "formValue",
               "type": {
-                "text": "T | boolean | null"
-              },
-              "readonly": true
+                "text": "T | null"
+              }
             }
           ]
         }

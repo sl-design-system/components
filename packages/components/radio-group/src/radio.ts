@@ -30,7 +30,7 @@ export class Radio<T = unknown> extends LitElement {
   @property({ reflect: true }) size: RadioButtonSize = 'md';
 
   /** The value for this radio button. */
-  @property({ type: String }) value?: T;
+  @property() value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();

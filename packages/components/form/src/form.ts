@@ -29,8 +29,14 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     'sl-form-field': this.#onFormField
   });
 
+  #showValidity = false;
+
   /** The fields in the form. */
   fields: FormField[] = [];
+
+  get showValidity(): boolean {
+    return this.#showValidity;
+  }
 
   get valid(): boolean {
     return this.fields.map(f => f.control?.valid).every(Boolean);
@@ -52,6 +58,8 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   reportValidity(): boolean {
+    this.#showValidity = true;
+
     return this.fields.map(f => f.control?.reportValidity()).every(Boolean);
   }
 

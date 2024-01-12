@@ -86,7 +86,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
 
   /** Whether the group is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other. */
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
@@ -101,7 +101,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
   @property() size?: RadioButtonSize;
 
   /** The value for the radio group, to be used in forms. */
-  @property({ type: String }) override value?: T;
+  @property() override value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();

@@ -30,7 +30,6 @@ export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
 export interface FormControl {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
-  readonly formValue: unknown;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
   readonly nativeFormValue: FormValue;
   readonly showExternalValidityIcon: boolean;
@@ -38,11 +37,13 @@ export interface FormControl {
   readonly valid: boolean;
   readonly validationMessage: string;
   readonly validity: ValidityState;
-  readonly value?: unknown;
 
   customValidity?: string;
+  disabled?: boolean;
+  formValue: unknown;
   name?: string;
   showValid?: boolean;
+  value?: unknown;
 
   reportValidity(): boolean;
   updateValidity(): void;
@@ -109,6 +110,16 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /** Whether to show the validity state. */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
+    /** The value used when submitting the form. */
+    get formValue(): unknown {
+      return this.value;
+    }
+
+    @property({ attribute: false })
+    set formValue(value: unknown) {
+      this.value = value;
+    }
+
     /** @ignore For internal use only */
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {
@@ -125,11 +136,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       } else {
         return this.formControlElement.internals.form;
       }
-    }
-
-    /** The value used when submitting the form. */
-    get formValue(): unknown {
-      return this.value;
     }
 
     /**
@@ -272,8 +278,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         }
       }
 
-      /** Emits when the validity of the form control changes. */
-      this.dispatchEvent(new UpdateValidityEvent(this.valid, this.getLocalizedValidationMessage(), this.showValidity));
+      this.#emitValidityUpdate();
     }
 
     /**
@@ -323,6 +328,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
           this.formControlElement.internals.setValidity({ customError: true }, message);
         }
       }
+
+      this.showValidity = message ? 'invalid' : undefined;
+      this.#emitValidityUpdate();
     }
 
     /**
@@ -338,6 +346,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);
+    }
+
+    /** Emits an event so the form-field can update itself. */
+    #emitValidityUpdate(): void {
+      this.dispatchEvent(new UpdateValidityEvent(this.valid, this.getLocalizedValidationMessage(), this.showValidity));
     }
   }
 

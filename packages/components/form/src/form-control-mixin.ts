@@ -97,7 +97,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
 
-    /** Whether to show the validity state. */
+    /** Whether to show the validity state.
+     * @type {'valid' | 'invalid' | undefined}
+     */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
     /** @ignore For internal use only */

@@ -329,7 +329,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -390,7 +390,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity"

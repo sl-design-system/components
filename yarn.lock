@@ -5726,6 +5726,7 @@ __metadata:
     "@types/markdown-it": "npm:^13.0.7"
     "@web/dev-server": "npm:^0.4.1"
     "@webcomponents/scoped-custom-element-registry": "npm:^0.0.9"
+    cem-plugin-expanded-types: "npm:^1.1.4"
     cpx: "npm:^1.5.0"
     elasticlunr: "npm:^0.9.5"
     element-internals-polyfill: "npm:^1.3.10"
@@ -9845,6 +9846,13 @@ __metadata:
   version: 2.0.1
   resolution: "ccount@npm:2.0.1"
   checksum: 3939b1664390174484322bc3f45b798462e6c07ee6384cb3d645e0aa2f318502d174845198c1561930e1d431087f74cf1fe291ae9a4722821a9f4ba67e574350
+  languageName: node
+  linkType: hard
+
+"cem-plugin-expanded-types@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "cem-plugin-expanded-types@npm:1.1.4"
+  checksum: 2c82f43049257267668a9286eaa4249bd35d5f4b534f211cfb67c6f89a66424b9b182acecca7741cd29a5d640e0a28b7644c9f9f34da233415a84b9f93a7d7b2
   languageName: node
   linkType: hard
 

@@ -4839,6 +4839,7 @@ __metadata:
     "@angular/platform-browser": "npm:^17.0.8"
     "@angular/platform-browser-dynamic": "npm:^17.0.8"
     "@babel/core": "npm:^7.23.7"
+    "@sl-design-system/locales": "npm:0.0.2"
     "@storybook/addon-essentials": "npm:^7.6.7"
     "@storybook/addon-links": "npm:^7.6.7"
     "@storybook/angular": "npm:^7.6.7"
@@ -5061,7 +5062,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/locales@workspace:packages/locales":
+"@sl-design-system/locales@npm:0.0.2, @sl-design-system/locales@workspace:packages/locales":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/locales@workspace:packages/locales"
   dependencies:

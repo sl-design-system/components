@@ -1074,8 +1074,8 @@
       "link": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
+            "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -1084,8 +1084,8 @@
         },
         "md": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "lineHeight": "{button.label.md}",
             "fontSize": "{text.typeset.fontSize.md}",
             "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -1094,8 +1094,8 @@
         },
         "lg": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
+            "fontWeight": "{text.typeset.fontWeight.medium}",
             "lineHeight": "{button.label.lg}",
             "fontSize": "{text.typeset.fontSize.lg}",
             "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -1105,7 +1105,7 @@
         "idle": {
           "sm": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.sm}",
               "fontSize": "{text.typeset.fontSize.sm}",
@@ -1115,8 +1115,8 @@
           },
           "md": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{button.label.md}",
               "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.none}"
@@ -1125,8 +1125,8 @@
           },
           "lg": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.medium}",
               "lineHeight": "{button.label.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
               "textDecoration": "{text.typeset.textDecoration.none}"
@@ -1137,7 +1137,7 @@
         "hover": {
           "sm": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.sm}",
               "fontSize": "{text.typeset.fontSize.sm}",
@@ -1147,8 +1147,8 @@
           },
           "md": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{button.label.md}",
               "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -1157,8 +1157,8 @@
           },
           "lg": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.medium}",
               "lineHeight": "{button.label.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -1169,7 +1169,7 @@
         "active": {
           "sm": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.sm}",
               "fontSize": "{text.typeset.fontSize.sm}",
@@ -1179,8 +1179,8 @@
           },
           "md": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{button.label.md}",
               "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -1189,8 +1189,8 @@
           },
           "lg": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.medium}",
               "lineHeight": "{button.label.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -1201,7 +1201,7 @@
         "disabled": {
           "sm": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.sm}",
               "fontSize": "{text.typeset.fontSize.sm}",
@@ -1211,8 +1211,8 @@
           },
           "md": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.demibold}",
               "lineHeight": "{button.label.md}",
               "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.none}"
@@ -1221,8 +1221,8 @@
           },
           "lg": {
             "value": {
-              "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontFamily": "{text.typeset.fontFamily.heading}",
+              "fontWeight": "{text.typeset.fontWeight.medium}",
               "lineHeight": "{button.label.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
               "textDecoration": "{text.typeset.textDecoration.none}"

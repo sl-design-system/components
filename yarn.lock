@@ -5330,6 +5330,7 @@ __metadata:
     "@types/markdown-it": "npm:^13.0.7"
     "@web/dev-server": "npm:^0.4.1"
     "@webcomponents/scoped-custom-element-registry": "npm:^0.0.9"
+    cem-plugin-expanded-types: "npm:^1.1.4"
     cpx: "npm:^1.5.0"
     elasticlunr: "npm:^0.9.5"
     esbuild: "npm:^0.19.11"
@@ -9344,6 +9345,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cem-plugin-expanded-types@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "cem-plugin-expanded-types@npm:1.1.4"
+  checksum: 2c82f43049257267668a9286eaa4249bd35d5f4b534f211cfb67c6f89a66424b9b182acecca7741cd29a5d640e0a28b7644c9f9f34da233415a84b9f93a7d7b2
+  languageName: node
+  linkType: hard
+
 "chai-a11y-axe@npm:^1.5.0":
   version: 1.5.0
   resolution: "chai-a11y-axe@npm:1.5.0"
@@ -12630,12 +12638,12 @@ __metadata:
   linkType: hard
 
 "follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.14.9":
-  version: 1.15.3
-  resolution: "follow-redirects@npm:1.15.3"
+  version: 1.15.4
+  resolution: "follow-redirects@npm:1.15.4"
   peerDependenciesMeta:
     debug:
       optional: true
-  checksum: 915a2cf22e667bdf47b1a43cc6b7dce14d95039e9bbf9a24d0e739abfbdfa00077dd43c86d4a7a19efefcc7a99af144920a175eedc3888d268af5df67c272ee5
+  checksum: 5f37ed9170c9eb19448c5418fdb0f2b73f644b5364834e70791a76ecc7db215246f9773bbef4852cfae4067764ffc852e047f744b661b0211532155b73556a6a
   languageName: node
   linkType: hard
 

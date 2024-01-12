@@ -73,7 +73,7 @@ export const Reverse: Story = {
 
 export const CustomIcons: Story = {
   render: () => {
-    Icon.registerIcon(faTurtle, faRabbitRunning);
+    Icon.register(faTurtle, faRabbitRunning);
 
     return html`${sizes.map(
       size => html`<sl-switch .size=${size} icon-off="far-turtle" icon-on="far-rabbit-running"></sl-switch>`

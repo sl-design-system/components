@@ -27,13 +27,4 @@ import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 
 setup();
 
-Icon.registerIcon(
-  faBug,
-  faCode,
-  faGithub,
-  faHandBackPointUp,
-  faMessagesQuestion,
-  faPenToSquare,
-  faPencilRuler,
-  faSlack
-);
+Icon.register(faBug, faCode, faGithub, faHandBackPointUp, faMessagesQuestion, faPenToSquare, faPencilRuler, faSlack);

@@ -224,7 +224,7 @@ export const CustomValidity: Story = {
     hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',
     slot: () => {
       const onValidate = (event: Event & { target: CheckboxGroup }): void => {
-        event.target.setCustomValidity(event.target.state?.at(1) ? '' : 'Pick the middle option');
+        event.target.setCustomValidity(event.target.value?.includes('1') ? '' : 'Pick the middle option');
       };
 
       return html`

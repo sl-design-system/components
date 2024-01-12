@@ -78,8 +78,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   }
 
   override set formValue(value: T | null) {
-    console.log('checkbox set formvalue', value);
-
     this.checked = value === true || value === this.value;
   }
 

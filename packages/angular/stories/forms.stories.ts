@@ -144,7 +144,7 @@ export class AllFormControlsEmptyReactiveComponent {
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
-        <sl-checkbox [(ngModel)]="formGroup.checkbox">Checkbox</sl-checkbox>
+        <sl-checkbox [(ngModel)]="formGroup.checkbox" value="checked">Checkbox</sl-checkbox>
       </sl-form-field>
 
       <sl-form-field label="Select">
@@ -156,7 +156,7 @@ export class AllFormControlsEmptyReactiveComponent {
       </sl-form-field>
 
       <sl-form-field label="Switch">
-        <sl-switch [(ngModel)]="formGroup.switch" reverse>Toggle me</sl-switch>
+        <sl-switch [(ngModel)]="formGroup.switch" reverse value="toggled">Toggle me</sl-switch>
       </sl-form-field>
 
       <sl-form-field label="Checkbox group">
@@ -181,13 +181,13 @@ export class AllFormControlsEmptyReactiveComponent {
 })
 export class AllFormControlsTemplateComponent {
   formGroup = {
-    textField: '',
-    textarea: '',
-    checkbox: false,
-    select: '',
-    switch: false,
-    checkboxGroup: [],
-    radioGroup: ''
+    textField: 'Text field',
+    textarea: 'Textarea',
+    checkbox: 'checked',
+    select: '1',
+    switch: 'toggled',
+    checkboxGroup: ['2', '1', '0'],
+    radioGroup: '1'
   };
 }
 

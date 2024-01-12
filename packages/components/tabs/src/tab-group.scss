@@ -134,6 +134,7 @@
 sl-button {
   //align-self: center;
   background: #9ebaff;
+  border-radius: 0;
   //position: absolute;
   inset-inline-end: 0;
   position: sticky;
@@ -142,6 +143,17 @@ sl-button {
     background-color: var(--sl-color-select-item-hover-background);
   }
 }
+
+//button {
+//  border: none;
+//  cursor: pointer;
+//  inset-inline-end: 0;
+//  position: sticky;
+//
+//  &:hover {
+//    background-color: var(--sl-color-select-item-hover-background);
+//  }
+//}
 
 .indicator,
 .indicator-listbox {

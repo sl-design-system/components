@@ -147,6 +147,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           ? html` <sl-button
               id="more-btn"
               @click=${this.#onClick}
+              @keydown=${this.#onKeydown}
               popovertarget="tabs-popover"
               fill="ghost"
               variant="primary"
@@ -448,11 +449,70 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.listbox.hidePopover();
   }
 
+  #onKeydown(event: KeyboardEvent): void {
+    console.log('event onKeyDown', event, event.key);
+    // if (!this.#allTabs) {
+    //   return;
+    // }
+
+    console.log(event.target);
+    const options = this.#allTabs as Node[], //.filter(o => !o.disabled),
+      size = options?.length;
+
+    let delta = 0,
+      index = options.indexOf(this.selectedTabInListbox ?? (this.#allTabs as Node[])[0]);
+
+    switch (event.key) {
+      case 'ArrowDown':
+        // if (isPopoverOpen(this.listbox)) {
+        delta = 1;
+        // } else {
+        this.listbox.showPopover();
+        // }
+        break;
+      case 'ArrowUp':
+        delta = -1;
+        break;
+      case 'Home':
+        index = 0;
+        break;
+      case 'End':
+        index = size - 1;
+        break;
+      case ' ':
+      case 'Enter':
+        // if (isPopoverOpen(this.listbox)) {
+        this.listbox.togglePopover();
+        // ((this.#allTabs as Node[])[0] as HTMLElement).focus();
+        // this.#handleTabChange(event as Event);
+        // this.listbox.hidePopover();
+        // } else {
+        //   this.listbox.showPopover();
+        // }
+        // this.listbox.togglePopover();
+
+        return;
+      default:
+        return;
+    }
+
+    index = (index + delta + size) % size;
+    console.log('index', index);
+    // this.currentOption = options[index];
+    const selected = this.#allTabs[index];
+    console.log('selected', selected);
+    this.selectedTabInListbox = this.listbox?.querySelector(`#${selected.id}`); //options[index];
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
   /**
    * Update the selected tab button with attributes and values.
    * Update the tab group state.
    */
   #updateSelectedTab(selectedTab: Tab): void {
+    console.log('selectedTab in updateSelectedTab', selectedTab);
     const controls = selectedTab.getAttribute('aria-controls');
     console.log(
       'updateSelectedTab',
@@ -513,6 +573,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Handle keyboard accessible controls.
    */
   #handleKeydown(event: KeyboardEvent): void {
+    console.log('event on handleKeydown', event, event.key);
     if (['Enter', ' '].includes(event.key)) {
       event.preventDefault();
       this.scrollTo({ top: 0 });

@@ -179,7 +179,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   #updateValidity(): void {
     this.internals.setValidity(
-      { valueMissing: this.required && !this.value?.some(v => v !== null) },
+      { valueMissing: this.required && !this.value?.length },
       msg('Please check at least one option.')
     );
 

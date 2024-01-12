@@ -147,7 +147,7 @@ export const All: Story = {
         </sl-form-field>
 
         <sl-form-field label="Checkbox">
-          <sl-checkbox name="checkbox" required value="checkbox">Checkbox</sl-checkbox>
+          <sl-checkbox name="checkbox" required value="checked">Checkbox</sl-checkbox>
         </sl-form-field>
 
         <sl-form-field label="Select">
@@ -159,7 +159,7 @@ export const All: Story = {
         </sl-form-field>
 
         <sl-form-field label="Switch">
-          <sl-switch name="switch" reverse value="toggle">Toggle me</sl-switch>
+          <sl-switch name="switch" reverse value="toggled">Toggle me</sl-switch>
         </sl-form-field>
 
         <sl-form-field label="Checkbox group">
@@ -204,7 +204,7 @@ export const AllInvalid: Story = {
         </sl-form-field>
 
         <sl-form-field label="Checkbox">
-          <sl-checkbox name="checkbox" required value="checkbox">Checkbox</sl-checkbox>
+          <sl-checkbox name="checkbox" required value="checked">Checkbox</sl-checkbox>
         </sl-form-field>
 
         <sl-form-field label="Select">
@@ -216,7 +216,7 @@ export const AllInvalid: Story = {
         </sl-form-field>
 
         <sl-form-field label="Switch">
-          <sl-switch name="switch" reverse value="toggle">Toggle me</sl-switch>
+          <sl-switch name="switch" reverse value="toggled">Toggle me</sl-switch>
         </sl-form-field>
 
         <sl-form-field label="Checkbox group">
@@ -260,7 +260,7 @@ export const AllValid: Story = {
         </sl-form-field>
 
         <sl-form-field label="Checkbox">
-          <sl-checkbox checked name="checkbox" required show-valid value="checkbox">Checkbox</sl-checkbox>
+          <sl-checkbox checked name="checkbox" required show-valid value="checked">Checkbox</sl-checkbox>
         </sl-form-field>
 
         <sl-form-field label="Select">
@@ -272,13 +272,13 @@ export const AllValid: Story = {
         </sl-form-field>
 
         <sl-form-field label="Switch">
-          <sl-switch checked name="switch" reverse value="toggle">Toggle me</sl-switch>
+          <sl-switch checked name="switch" reverse value="toggled">Toggle me</sl-switch>
         </sl-form-field>
 
         <sl-form-field label="Checkbox group">
-          <sl-checkbox-group name="checkboxGroup" required>
+          <sl-checkbox-group name="checkboxGroup" required value='["1"]'>
             <sl-checkbox value="0">Check me</sl-checkbox>
-            <sl-checkbox checked show-valid value="1">No me</sl-checkbox>
+            <sl-checkbox show-valid value="1">No me</sl-checkbox>
             <sl-checkbox value="2">I was here first</sl-checkbox>
           </sl-checkbox-group>
         </sl-form-field>

@@ -8,6 +8,8 @@ import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
 
+const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], attributeOldValue: true, subtree: true };
+
 /**
  * Checkbox group; treat a group of checkboxes as one form input with validation, hints and errors
  *
@@ -63,9 +65,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** At least one checkbox in the group must be checked if true. */
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
-  /** The size of the checkboxes in the group.
-   * @type { 'md' | 'lg'}
-   */
+  /** The size of the checkboxes in the group. */
   @property() size?: CheckboxSize;
 
   /** The value of the group. */
@@ -74,7 +74,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#observer.observe(this, { attributeFilter: ['checked'], attributeOldValue: true, subtree: true });
+    this.#observer.observe(this, OBSERVER_OPTIONS);
 
     this.internals.role = 'group';
     this.setFormControlElement(this);
@@ -92,7 +92,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   override willUpdate(changes: PropertyValues): void {
     super.willUpdate(changes);
 
-    if (changes.has('required') || changes.has('value')) {
+    if (changes.has('required')) {
       this.#updateValidity();
     }
   }
@@ -156,6 +156,8 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   #onSlotchange(): void {
     this.#rovingTabindexController.clearElementCache();
 
+    this.#observer.disconnect();
+
     this.boxes?.forEach(box => {
       box.name = this.name;
       box.checked = box.value !== undefined && this.value?.includes(box.value);
@@ -169,7 +171,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
       }
     });
 
-    this.#updateValidity();
+    this.#observer.observe(this, OBSERVER_OPTIONS);
   }
 
   #stopEvent(event: Event): void {

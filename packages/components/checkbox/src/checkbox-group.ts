@@ -5,7 +5,7 @@ import { FormControlMixin } from '@sl-design-system/form';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
-import { property, queryAssignedElements, state } from 'lit/decorators.js';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
 
 /**
@@ -14,7 +14,7 @@ import styles from './checkbox-group.scss.js';
  * @slot default - A list of `sl-checkbox` elements.
  */
 @localized()
-export class CheckboxGroup<T = boolean> extends FormControlMixin(LitElement) {
+export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
 
@@ -30,8 +30,8 @@ export class CheckboxGroup<T = boolean> extends FormControlMixin(LitElement) {
 
   /** Observe changes to the checkboxes. */
   #observer = new MutationObserver(() => {
-    this.state = this.boxes?.map(box => !!box.checked);
-    this.changeEvent.emit(this.formValue);
+    this.value = this.boxes?.map(box => box.formValue).filter((v): v is T => v !== null) ?? [];
+    this.changeEvent.emit(this.value);
     this.#updateValidity();
   });
 
@@ -66,16 +66,8 @@ export class CheckboxGroup<T = boolean> extends FormControlMixin(LitElement) {
   /** The size of the checkboxes in the group. */
   @property() size?: CheckboxSize;
 
-  /** The readonly checked state for the checkbox group. */
-  @state() state?: boolean[];
-
-  override get formValue(): T[] {
-    return this.boxes?.map(box => box.formValue).filter((v): v is T => v !== null) ?? [];
-  }
-
-  override set formValue(value: T[] | null) {
-    this.boxes?.forEach((box, i) => (box.formValue = value?.[i] ?? null));
-  }
+  /** The value of the group. */
+  @property({ type: Array }) override value?: T[];
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -162,11 +154,9 @@ export class CheckboxGroup<T = boolean> extends FormControlMixin(LitElement) {
   #onSlotchange(): void {
     this.#rovingTabindexController.clearElementCache();
 
-    this.state = this.boxes?.map(box => !!box.checked);
-    this.#updateValidity();
-
     this.boxes?.forEach(box => {
       box.name = this.name;
+      box.checked = box.value !== undefined && this.value?.includes(box.value);
 
       if (typeof this.disabled === 'boolean') {
         box.disabled = !!this.disabled;
@@ -176,6 +166,8 @@ export class CheckboxGroup<T = boolean> extends FormControlMixin(LitElement) {
         box.size = this.size;
       }
     });
+
+    this.#updateValidity();
   }
 
   #stopEvent(event: Event): void {
@@ -187,7 +179,7 @@ export class CheckboxGroup<T = boolean> extends FormControlMixin(LitElement) {
 
   #updateValidity(): void {
     this.internals.setValidity(
-      { valueMissing: this.required && !this.state?.some(v => v) },
+      { valueMissing: this.required && !this.value?.some(v => v !== null) },
       msg('Please check at least one option.')
     );
 

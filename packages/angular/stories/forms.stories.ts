@@ -24,6 +24,66 @@ import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
+        <sl-checkbox formControlName="checkbox" value="checked">Checkbox</sl-checkbox>
+      </sl-form-field>
+
+      <sl-form-field label="Select">
+        <sl-select formControlName="select">
+          <sl-select-option value="1">Option 1</sl-select-option>
+          <sl-select-option value="2">Option 2</sl-select-option>
+          <sl-select-option value="3">Option 3</sl-select-option>
+        </sl-select>
+      </sl-form-field>
+
+      <sl-form-field label="Switch">
+        <sl-switch formControlName="switch" reverse value="toggled">Toggle me</sl-switch>
+      </sl-form-field>
+
+      <sl-form-field label="Checkbox group">
+        <sl-checkbox-group formControlName="checkboxGroup">
+          <sl-checkbox value="0">One</sl-checkbox>
+          <sl-checkbox value="1">Two</sl-checkbox>
+          <sl-checkbox value="2">Three</sl-checkbox>
+        </sl-checkbox-group>
+      </sl-form-field>
+
+      <sl-form-field label="Radio group">
+        <sl-radio-group formControlName="radioGroup">
+          <sl-radio value="1">One</sl-radio>
+          <sl-radio value="2">Two</sl-radio>
+          <sl-radio value="3">Three</sl-radio>
+        </sl-radio-group>
+      </sl-form-field>
+    </sl-form>
+
+    <pre>{{ formGroup.value | json }}</pre>
+  `
+})
+export class AllFormControlsReactiveComponent {
+  formGroup = new FormGroup({
+    textField: new FormControl('Text field'),
+    textarea: new FormControl('Textarea'),
+    checkbox: new FormControl('checked'),
+    select: new FormControl('1'),
+    switch: new FormControl('toggled'),
+    checkboxGroup: new FormControl(['2', '1', '0']),
+    radioGroup: new FormControl('1')
+  });
+}
+
+@Component({
+  selector: 'sla-all-form-controls-empty-reactive',
+  template: `
+    <sl-form [formGroup]="formGroup">
+      <sl-form-field label="Text field">
+        <sl-text-field formControlName="textField"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Textarea">
+        <sl-textarea formControlName="textarea"></sl-textarea>
+      </sl-form-field>
+
+      <sl-form-field label="Checkbox">
         <sl-checkbox formControlName="checkbox">Checkbox</sl-checkbox>
       </sl-form-field>
 
@@ -59,7 +119,7 @@ import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
     <pre>{{ formGroup.value | json }}</pre>
   `
 })
-export class AllFormControlsReactiveComponent {
+export class AllFormControlsEmptyReactiveComponent {
   formGroup = new FormGroup({
     textField: new FormControl(''),
     textarea: new FormControl(''),
@@ -120,6 +180,66 @@ export class AllFormControlsReactiveComponent {
   `
 })
 export class AllFormControlsTemplateComponent {
+  formGroup = {
+    textField: '',
+    textarea: '',
+    checkbox: false,
+    select: '',
+    switch: false,
+    checkboxGroup: [],
+    radioGroup: ''
+  };
+}
+
+@Component({
+  selector: 'sla-all-form-controls-empyt-template',
+  template: `
+    <sl-form>
+      <sl-form-field label="Text field">
+        <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
+      </sl-form-field>
+
+      <sl-form-field label="Textarea">
+        <sl-textarea [(ngModel)]="formGroup.textarea"></sl-textarea>
+      </sl-form-field>
+
+      <sl-form-field label="Checkbox">
+        <sl-checkbox [(ngModel)]="formGroup.checkbox">Checkbox</sl-checkbox>
+      </sl-form-field>
+
+      <sl-form-field label="Select">
+        <sl-select [(ngModel)]="formGroup.select">
+          <sl-select-option value="1">Option 1</sl-select-option>
+          <sl-select-option value="2">Option 2</sl-select-option>
+          <sl-select-option value="3">Option 3</sl-select-option>
+        </sl-select>
+      </sl-form-field>
+
+      <sl-form-field label="Switch">
+        <sl-switch [(ngModel)]="formGroup.switch" reverse>Toggle me</sl-switch>
+      </sl-form-field>
+
+      <sl-form-field label="Checkbox group">
+        <sl-checkbox-group [(ngModel)]="formGroup.checkboxGroup">
+          <sl-checkbox value="0">Check me</sl-checkbox>
+          <sl-checkbox value="1">No me</sl-checkbox>
+          <sl-checkbox value="2">I was here first</sl-checkbox>
+        </sl-checkbox-group>
+      </sl-form-field>
+
+      <sl-form-field label="Radio group">
+        <sl-radio-group [(ngModel)]="formGroup.radioGroup">
+          <sl-radio value="1">One</sl-radio>
+          <sl-radio value="2">Two</sl-radio>
+          <sl-radio value="3">Three</sl-radio>
+        </sl-radio-group>
+      </sl-form-field>
+    </sl-form>
+
+    <pre>{{ formGroup | json }}</pre>
+  `
+})
+export class AllFormControlsEmptyTemplateComponent {
   formGroup = {
     textField: '',
     textarea: '',
@@ -208,7 +328,13 @@ export default {
   title: 'Forms/Examples',
   decorators: [
     moduleMetadata({
-      declarations: [AllFormControlsReactiveComponent, AllFormControlsTemplateComponent, LoginFormComponent],
+      declarations: [
+        AllFormControlsReactiveComponent,
+        AllFormControlsEmptyReactiveComponent,
+        AllFormControlsTemplateComponent,
+        AllFormControlsEmptyTemplateComponent,
+        LoginFormComponent
+      ],
       imports: [CoreFormsModule, FormsModule, ReactiveFormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
@@ -220,8 +346,16 @@ export const AllReactive: StoryFn = () => ({
   template: `<sla-all-form-controls-reactive></sla-all-form-controls-reactive>`
 });
 
+export const AllEmptyReactive: StoryFn = () => ({
+  template: `<sla-all-form-controls-empty-reactive></sla-all-form-controls-empty-reactive>`
+});
+
 export const AllTemplate: StoryFn = () => ({
   template: `<sla-all-form-controls-template></sla-all-form-controls-template>`
+});
+
+export const AllEmptyTemplate: StoryFn = () => ({
+  template: `<sla-all-form-controls-empty-template></sla-all-form-controls-empty-template>`
 });
 
 export const Login: StoryFn = () => ({

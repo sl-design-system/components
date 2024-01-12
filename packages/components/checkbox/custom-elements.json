@@ -74,13 +74,6 @@
               "reflects": true
             },
             {
-              "kind": "field",
-              "name": "formValue",
-              "type": {
-                "text": "T[]"
-              }
-            },
-            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -134,11 +127,12 @@
             },
             {
               "kind": "field",
-              "name": "state",
+              "name": "value",
               "type": {
-                "text": "boolean[] | undefined"
+                "text": "T[] | undefined"
               },
-              "description": "The readonly checked state for the checkbox group."
+              "description": "The value of the group.",
+              "attribute": "value"
             }
           ],
           "events": [
@@ -191,6 +185,14 @@
               },
               "description": "The size of the checkboxes in the group.",
               "fieldName": "size"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "T[] | undefined"
+              },
+              "description": "The value of the group.",
+              "fieldName": "value"
             }
           ],
           "mixins": [
@@ -308,7 +310,7 @@
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(() => {\n    this.state = this.boxes?.map(box => !!box.checked);\n    this.changeEvent.emit(this.formValue);\n    this.#updateValidity();\n  })",
+              "default": "new MutationObserver(() => {\n    this.value = this.boxes?.map(box => box.formValue).filter((v): v is T => v !== null) ?? [];\n    this.changeEvent.emit(this.value);\n    this.#updateValidity();\n  })",
               "description": "Observe changes to the checkboxes."
             },
             {
@@ -331,21 +333,6 @@
                 "text": "Array<Checkbox<T>> | undefined"
               },
               "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "state",
-              "type": {
-                "text": "boolean[] | undefined"
-              },
-              "description": "The readonly checked state for the checkbox group."
-            },
-            {
-              "kind": "field",
-              "name": "formValue",
-              "type": {
-                "text": "T[]"
-              }
             }
           ]
         }

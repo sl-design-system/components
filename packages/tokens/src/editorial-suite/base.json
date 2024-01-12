@@ -813,7 +813,7 @@
       "1": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "fontWeight": "{text.typeset.fontWeight.bold}",
           "lineHeight": "{text.typeset.lineHeight.3xl}",
           "fontSize": "{text.typeset.fontSize.3xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -827,7 +827,7 @@
       "2": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.bold}",
+          "fontWeight": "{text.typeset.fontWeight.medium}",
           "lineHeight": "{text.typeset.lineHeight.2xl}",
           "fontSize": "{text.typeset.fontSize.2xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -872,7 +872,7 @@
         "normal": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.light}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "letterSpacing": "{text.typeset.letterSpacing.md}",
@@ -916,7 +916,7 @@
         "normal": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.light}",
             "lineHeight": "{text.typeset.lineHeight.md}",
             "fontSize": "{text.typeset.fontSize.md}",
             "letterSpacing": "{text.typeset.letterSpacing.md}",
@@ -960,7 +960,7 @@
         "normal": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontWeight": "{text.typeset.fontWeight.light}",
             "lineHeight": "{text.typeset.lineHeight.lg}",
             "fontSize": "{text.typeset.fontSize.lg}",
             "letterSpacing": "{text.typeset.letterSpacing.md}",

@@ -192,7 +192,7 @@ export class AllFormControlsTemplateComponent {
 }
 
 @Component({
-  selector: 'sla-all-form-controls-empyt-template',
+  selector: 'sla-all-form-controls-empty-template',
   template: `
     <sl-form>
       <sl-form-field label="Text field">

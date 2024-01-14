@@ -55,7 +55,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the checked state changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<boolean>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | null>;
 
   /** Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
@@ -75,10 +75,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** Whether the toggle should be shown *after* the text. */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
 
-  /**
-   * The size of the switch.
-   * @type { 'sm' | 'md' | 'lg'}
-   */
+  /** The size of the switch. */
   @property({ reflect: true }) size: SwitchSize = 'md';
 
   /**
@@ -115,7 +112,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** @ignore Resets the switch to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
-    this.changeEvent.emit(this.checked);
+    this.changeEvent.emit(this.formValue);
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -159,7 +156,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     event.stopPropagation();
 
     this.checked = !this.checked;
-    this.changeEvent.emit(this.checked);
+    this.changeEvent.emit(this.formValue);
 
     this.#updateValue();
   }

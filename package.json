@@ -180,7 +180,8 @@
     "release": {
       "command": "yarn changeset publish",
       "dependencies": [
-        "build"
+        "build",
+        "./packages/angular:build"
       ]
     },
     "reset": {

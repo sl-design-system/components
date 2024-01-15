@@ -1,5 +1,29 @@
 # @sl-design-system/switch
 
+## 0.0.10
+
+### Patch Changes
+
+- [#861](https://github.com/sl-design-system/components/pull/861) [`416a4bd`](https://github.com/sl-design-system/components/commit/416a4bdc49dd334d4a3c89c4697e9f69f22bf84b) - Fix builtin vs custom validation behavior
+
+  This add a new `sl-validate` event that is fired when the validity of the form control is updated. It fires _after_ any builtin validation has been performed, so it can be used to override the validity of the control.
+
+- [#842](https://github.com/sl-design-system/components/pull/842) [`bde9afa`](https://github.com/sl-design-system/components/commit/bde9afa06833adf91122df3960d04db6cb34d536) - Improve and unify `show-validity` behavior
+
+- [#835](https://github.com/sl-design-system/components/pull/835) [`3cb1452`](https://github.com/sl-design-system/components/commit/3cb1452546a717f475c628077301ce218165cb9e) - Linked to the correct custom icons page in Figma so some new/changed icons are available.
+
+- [#834](https://github.com/sl-design-system/components/pull/834) [`5e1aa71`](https://github.com/sl-design-system/components/commit/5e1aa7142d3d5e48e4f21b05224e7ee95a4dad60) - Refactor `<sl-switch>` to
+
+  - use new `FormControlMixin` from the form package
+  - simplify the component by removing the `hint` and `orientation` properties
+
+- [#872](https://github.com/sl-design-system/components/pull/872) [`da5784c`](https://github.com/sl-design-system/components/commit/da5784ca4aec18bdd1b5326274e59e803d7859ec) - Unify form values for all controls
+
+- Updated dependencies [[`988e936`](https://github.com/sl-design-system/components/commit/988e936fabc65fb2b6cb83f5df7b6b7035280f2f), [`a05db1d`](https://github.com/sl-design-system/components/commit/a05db1dcc19153ce0c843782c6d5aff46a992acf), [`bbf18f7`](https://github.com/sl-design-system/components/commit/bbf18f7453debffe8f3bebf096a0552b8df60500), [`d881d5f`](https://github.com/sl-design-system/components/commit/d881d5fc5274be5275f910f445a16408d6bb2373), [`416a4bd`](https://github.com/sl-design-system/components/commit/416a4bdc49dd334d4a3c89c4697e9f69f22bf84b), [`bde9afa`](https://github.com/sl-design-system/components/commit/bde9afa06833adf91122df3960d04db6cb34d536), [`0b41208`](https://github.com/sl-design-system/components/commit/0b41208f390b27e3738e0d81258abeaa18e19a0f), [`b507ee0`](https://github.com/sl-design-system/components/commit/b507ee07e119733d285a348e74f34c4b2d172902), [`d881d5f`](https://github.com/sl-design-system/components/commit/d881d5fc5274be5275f910f445a16408d6bb2373), [`da5784c`](https://github.com/sl-design-system/components/commit/da5784ca4aec18bdd1b5326274e59e803d7859ec)]:
+  - @sl-design-system/form@0.0.3
+  - @sl-design-system/icon@0.0.6
+  - @sl-design-system/shared@0.2.1
+
 ## 0.0.9
 
 ### Patch Changes

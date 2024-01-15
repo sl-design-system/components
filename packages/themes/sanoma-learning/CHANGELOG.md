@@ -1,5 +1,30 @@
 # @sanomalearning/slds-sanoma-learning
 
+## 0.2.0
+
+### Minor Changes
+
+- [#823](https://github.com/sl-design-system/components/pull/823) [`af836fd`](https://github.com/sl-design-system/components/commit/af836fde02e7bfe028c2d053c497a9474235d02a) - New inline-message component
+
+- [#845](https://github.com/sl-design-system/components/pull/845) [`db815f7`](https://github.com/sl-design-system/components/commit/db815f7be2efe533d347c6508cc60a98dc459fd2) - Added dialog tokens, added inline message tokens, added badge tokens, theme fixing
+
+- [#829](https://github.com/sl-design-system/components/pull/829) [`413a781`](https://github.com/sl-design-system/components/commit/413a781dac32f0618535e50e443f53e5ed957410) - Added skeleton component
+
+- [#734](https://github.com/sl-design-system/components/pull/734) [`dd885e7`](https://github.com/sl-design-system/components/commit/dd885e7be09821cac9f66d60ef463017677703bc) - Added skeleton tokens
+
+- [#860](https://github.com/sl-design-system/components/pull/860) [`25064d3`](https://github.com/sl-design-system/components/commit/25064d3adbcc324851768f1fe91637b98f2a702e) - Added tabs tokens
+
+### Patch Changes
+
+- [#853](https://github.com/sl-design-system/components/pull/853) [`555c301`](https://github.com/sl-design-system/components/commit/555c301f416a7a35dad4f167b21b91f0c735ce51) - Link button styling changes, link button tokens changes, itsLearning color values of solid button and focus ring changes
+
+- [#792](https://github.com/sl-design-system/components/pull/792) [`0b41208`](https://github.com/sl-design-system/components/commit/0b41208f390b27e3738e0d81258abeaa18e19a0f) - Added badge component, added smaller icon.
+
+- [#857](https://github.com/sl-design-system/components/pull/857) [`f74c08c`](https://github.com/sl-design-system/components/commit/f74c08ce722574ec4b14b80f300340bc34fc3160) - Added spinner component
+
+- Updated dependencies [[`a05db1d`](https://github.com/sl-design-system/components/commit/a05db1dcc19153ce0c843782c6d5aff46a992acf), [`bbf18f7`](https://github.com/sl-design-system/components/commit/bbf18f7453debffe8f3bebf096a0552b8df60500), [`0b41208`](https://github.com/sl-design-system/components/commit/0b41208f390b27e3738e0d81258abeaa18e19a0f)]:
+  - @sl-design-system/icon@0.0.6
+
 ## 0.1.0
 
 ### Minor Changes

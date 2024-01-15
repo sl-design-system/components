@@ -171,8 +171,7 @@
     },
     "lint": {
       "dependencies": [
-        "lint:components",
-        "./packages/angular:lint"
+        "lint:components"
       ]
     },
     "lint:components": {
@@ -229,7 +228,7 @@
       ]
     },
     "storybook": {
-      "command": "yarn workspace @sl-design-system/angular-root storybook",
+      "command": "yarn workspace @sl-design-system/angular storybook",
       "dependencies": [
         "storybook:build"
       ]
@@ -282,6 +281,12 @@
     "version:changeset": {
       "command": "yarn changeset version"
     },
+    "version:sync-versions": {
+      "command": "yarn workspace @sl-design-system/angular exec node sync-versions.js",
+      "dependencies": [
+        "version:changeset"
+      ]
+    },
     "website": {
       "dependencies": [
         "./website:build"
@@ -309,7 +314,6 @@
     "@web/test-runner-playwright": "^0.11.0",
     "@webcomponents/scoped-custom-element-registry": "^0.0.9",
     "chromatic": "^7.6.0",
-    "element-internals-polyfill": "^1.3.10",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
@@ -318,7 +322,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
-    "lit": "^3.1.0",
+    "lit": "^3.1.1",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -330,7 +334,7 @@
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
     "typescript": "^5.2.2",
-    "vite": "^4.5.1",
+    "vite": "^5.0.11",
     "wireit": "^0.14.1"
   }
 }

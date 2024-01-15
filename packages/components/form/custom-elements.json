@@ -28,14 +28,6 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/form-field-event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
             "package": "./src/form-field.js"
           }
         },
@@ -259,6 +251,14 @@
               "readonly": true
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form."
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -286,6 +286,14 @@
               "description": "The name of the form control.",
               "attribute": "name",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true
             },
             {
               "kind": "method",
@@ -361,6 +369,14 @@
               },
               "description": "Returns the validity state the control is in.",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "unknown | undefined"
+              },
+              "description": "The value for this form control."
             }
           ],
           "events": [
@@ -443,6 +459,16 @@
                 }
               ],
               "description": "Sets a custom validation message for the form control. If the message\nis not an empty string, that will make the control invalid. By setting it to\nan empty string again, you can make the control valid again."
+            },
+            {
+              "kind": "method",
+              "name": "#emitValidityUpdate",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Emits an event so the form-field can update itself."
             }
           ],
           "fields": [
@@ -471,6 +497,22 @@
             },
             {
               "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "unknown | undefined"
+              },
+              "description": "The value for this form control."
+            },
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form."
+            },
+            {
+              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -485,6 +527,14 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true
             },
             {
@@ -530,51 +580,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/form-field-event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Emits when a form field is added or removed to/from a form.",
-          "name": "FormFieldEvent",
-          "members": [
-            {
-              "description": "The state of the form field (add or remove)",
-              "name": "state",
-              "kind": "field"
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-form-field"
-            }
-          ],
-          "superclass": {
-            "name": "Event",
-            "module": "src/form-field-event.ts"
-          },
-          "methods": [],
-          "fields": [
-            {
-              "description": "The state of the form field (add or remove)",
-              "name": "state",
-              "kind": "field"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FormFieldEvent",
-          "declaration": {
-            "name": "FormFieldEvent",
-            "module": "src/form-field-event.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/form-field.ts",
       "declarations": [
         {
@@ -584,19 +589,11 @@
           "members": [
             {
               "kind": "field",
-              "name": "formControl",
+              "name": "control",
               "type": {
                 "text": "HTMLElement & FormControl | undefined"
               },
               "description": "The form control element."
-            },
-            {
-              "kind": "event",
-              "name": "formFieldEvent",
-              "type": {
-                "text": "EventEmitter<FormFieldEvent>"
-              },
-              "description": "Emits when the field is added/removed to/from a form."
             },
             {
               "kind": "field",
@@ -615,15 +612,23 @@
               },
               "description": "The text for the label. You can also slot an `<sl-label>` element.",
               "attribute": "label"
+            },
+            {
+              "kind": "event",
+              "name": "sl-form-field",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the field is added to a form."
             }
           ],
           "events": [
             {
               "name": "formFieldEvent",
               "type": {
-                "text": "EventEmitter<FormFieldEvent>"
+                "text": "EventEmitter<void>"
               },
-              "description": "Emits when the field is added/removed to/from a form.",
+              "description": "Emits when the field is added to a form.",
               "fieldName": "formFieldEvent"
             }
           ],
@@ -793,7 +798,7 @@
             },
             {
               "kind": "field",
-              "name": "formControl",
+              "name": "control",
               "type": {
                 "text": "HTMLElement & FormControl | undefined"
               },
@@ -848,6 +853,30 @@
                   "text": "boolean"
                 }
               }
+            },
+            {
+              "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "T"
+              },
+              "readonly": true
             }
           ],
           "superclass": {
@@ -878,10 +907,19 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "FormFieldEvent"
+                    "text": "Event"
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [
@@ -894,12 +932,45 @@
             },
             {
               "kind": "field",
+              "name": "#showValidity",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
               "name": "fields",
               "type": {
                 "text": "FormField[]"
               },
               "default": "[]",
               "description": "The fields in the form."
+            },
+            {
+              "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "T"
+              },
+              "readonly": true
             }
           ]
         }

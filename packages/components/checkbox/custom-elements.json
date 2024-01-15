@@ -96,18 +96,69 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "CheckboxSize | undefined"
               },
               "description": "The size of the checkboxes in the group.",
               "attribute": "size"
             },
             {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<T[]>"
+              },
+              "description": "Emits when the value of the group changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus."
+            },
+            {
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "boolean[] | undefined"
+                "text": "T[] | undefined"
               },
-              "description": "The readonly checked state for the checkbox group."
+              "description": "The value of the group.",
+              "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<T[]>"
+              },
+              "description": "Emits when the value of the group changes.",
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus.",
+              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
@@ -130,10 +181,18 @@
             {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "CheckboxSize | undefined"
               },
               "description": "The size of the checkboxes in the group.",
               "fieldName": "size"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "T[] | undefined"
+              },
+              "description": "The value of the group.",
+              "fieldName": "value"
             }
           ],
           "mixins": [
@@ -177,6 +236,24 @@
             },
             {
               "kind": "method",
+              "name": "#onFocusin",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onFocusout",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#onSlotchange",
               "return": {
                 "type": {
@@ -186,7 +263,7 @@
             },
             {
               "kind": "method",
-              "name": "#onValidate",
+              "name": "#stopEvent",
               "return": {
                 "type": {
                   "text": "void"
@@ -226,14 +303,14 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this, { click: this.#onClick })",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    focusin: this.#onFocusin,\n    focusout: this.#onFocusout\n  })",
               "description": "Events controller."
             },
             {
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(() => (this.value = this.boxes?.map(box => !!box.checked)))",
+              "default": "new MutationObserver(() => {\n    this.value = this.boxes?.map(box => box.formValue).filter((v): v is T => v !== null) ?? [];\n    this.changeEvent.emit(this.value);\n    this.#updateValidity();\n  })",
               "description": "Observe changes to the checkboxes."
             },
             {
@@ -253,17 +330,9 @@
               "kind": "field",
               "name": "boxes",
               "type": {
-                "text": "Checkbox[] | undefined"
+                "text": "Array<Checkbox<T>> | undefined"
               },
               "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "boolean[] | undefined"
-              },
-              "description": "The readonly checked state for the checkbox group."
             }
           ]
         }
@@ -313,6 +382,13 @@
               "description": "Whether the checkbox is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "T | null"
+              }
             },
             {
               "kind": "field",
@@ -366,7 +442,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes."
             },
@@ -382,10 +458,9 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
-              "description": "The value for the checkbox, to be used in forms.",
+              "description": "The value of the checkbox when the checkbox is checked.\nSee the formValue property for easy access.",
               "attribute": "value"
             }
           ],
@@ -401,7 +476,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes.",
               "fieldName": "changeEvent"
@@ -468,10 +543,9 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
-              "description": "The value for the checkbox, to be used in forms.",
+              "description": "The value of the checkbox when the checkbox is checked.\nSee the formValue property for easy access.",
               "fieldName": "value"
             }
           ],
@@ -602,6 +676,13 @@
               "name": "internals",
               "readonly": true,
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "T | null"
+              }
             }
           ]
         }

@@ -19,16 +19,16 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  *
  * ```html
  *   <sl-radio-group>
- *     <sl-radio>Option 1</sl-radio>
- *     <sl-radio>Option 2</sl-radio>
- *     <sl-radio>Option 3</sl-radio>
+ *     <sl-radio value="1">Option 1</sl-radio>
+ *     <sl-radio value="2">Option 2</sl-radio>
+ *     <sl-radio value="3">Option 3</sl-radio>
  *   </sl-radio-group>
  * ```
  *
  * @slot default - A list of `sl-radio` elements.
  */
 @localized()
-export class RadioGroup extends FormControlMixin(LitElement) {
+export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
 
@@ -45,25 +45,25 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   });
 
   /** The initial state when the form was associated with the radio group. Used to reset the group. */
-  #initialState: string | null = null;
+  #initialState?: T;
 
   /** When an option is checked, update the state. */
   #observer = new MutationObserver(mutations => {
     const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
 
     this.#observer.disconnect();
-    this.#setSelectedOption(target as Radio);
+    this.#setSelectedOption(target as Radio<T>);
     this.#observer.observe(this, OBSERVER_OPTIONS);
   });
 
   /** Manage the keyboard navigation. */
-  #rovingTabindexController = new RovingTabindexController<Radio>(this, {
-    focusInIndex: (elements: Radio[]) => {
+  #rovingTabindexController = new RovingTabindexController<Radio<T>>(this, {
+    focusInIndex: (elements: Array<Radio<T>>) => {
       return elements.findIndex(el => {
         return this.value ? !el.disabled && el.value === this.value : !el.disabled;
       });
     },
-    elementEnterAction: (el: Radio) => {
+    elementEnterAction: (el: Radio<T>) => {
       this.value = el.value;
     },
     elements: () => this.radios ?? [],
@@ -74,19 +74,19 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   readonly internals = this.attachInternals();
 
   /** @private The slotted radios. */
-  @queryAssignedElements() radios?: Radio[];
+  @queryAssignedElements() radios?: Array<Radio<T>>;
 
   /** Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string | null>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | undefined>;
 
   /** Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
 
   /** Whether the group is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other. */
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
@@ -101,7 +101,7 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   @property() size?: RadioButtonSize;
 
   /** The value for the radio group, to be used in forms. */
-  @property() value: string | null = null;
+  @property() override value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -200,9 +200,9 @@ export class RadioGroup extends FormControlMixin(LitElement) {
     });
   }
 
-  #setSelectedOption(option?: Radio, emitEvent = true): void {
+  #setSelectedOption(option?: Radio<T>, emitEvent = true): void {
     this.radios?.forEach(radio => (radio.checked = radio.value === option?.value));
-    this.value = option?.value ?? null;
+    this.value = option?.value;
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);
@@ -212,8 +212,11 @@ export class RadioGroup extends FormControlMixin(LitElement) {
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.value);
-    this.internals.setValidity({ valueMissing: this.required && this.value === null }, msg('Please select an option.'));
+    this.internals.setFormValue(this.nativeFormValue);
+    this.internals.setValidity(
+      { valueMissing: this.required && !this.radios?.some(radio => radio.checked) },
+      msg('Please select an option.')
+    );
 
     this.updateValidity();
   }

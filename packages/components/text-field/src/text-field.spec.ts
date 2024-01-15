@@ -39,7 +39,7 @@ describe('sl-text-field', () => {
     });
 
     it('should not have a value', () => {
-      expect(el.value).to.be.null;
+      expect(el.value).to.equal('');
       expect(input.value).to.equal('');
     });
 

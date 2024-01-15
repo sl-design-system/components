@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/angular",
   "description": "Angular support for the SL Design System",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "directory": "dist",
     "registry": "https://npm.pkg.github.com"
@@ -63,7 +63,7 @@
     "@angular/platform-browser": "^17.0.8",
     "@angular/platform-browser-dynamic": "^17.0.8",
     "@babel/core": "^7.23.7",
-    "@sl-design-system/locales": "0.0.2",
+    "@sl-design-system/locales": "0.0.3",
     "@storybook/addon-essentials": "^7.6.7",
     "@storybook/addon-links": "^7.6.7",
     "@storybook/angular": "^7.6.7",

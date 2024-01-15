@@ -92,14 +92,6 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   override willUpdate(changes: PropertyValues): void {
     super.willUpdate(changes);
 
-    if (changes.has('required')) {
-      this.#updateValidity();
-    }
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
     if (changes.has('disabled') && typeof this.disabled === 'boolean') {
       this.boxes?.forEach(box => (box.disabled = !!this.disabled));
     }
@@ -114,6 +106,8 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
     if (changes.has('required')) {
       this.internals.ariaRequired = this.required ? 'true' : 'false';
+
+      this.#updateValidity();
     }
 
     if (changes.has('size')) {
@@ -183,7 +177,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   #updateValidity(): void {
     this.internals.setValidity(
-      { valueMissing: this.required && !this.value?.length },
+      { valueMissing: this.required && !this.boxes?.some(box => box.checked) },
       msg('Please check at least one option.')
     );
 

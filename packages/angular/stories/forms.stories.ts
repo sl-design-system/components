@@ -74,21 +74,21 @@ export class AllFormControlsReactiveComponent {
 @Component({
   selector: 'sla-all-form-controls-empty-reactive',
   template: `
-    <sl-form [formGroup]="formGroup">
+    <sl-form #form [formGroup]="formGroup">
       <sl-form-field label="Text field">
-        <sl-text-field formControlName="textField"></sl-text-field>
+        <sl-text-field formControlName="textField" required></sl-text-field>
       </sl-form-field>
 
       <sl-form-field label="Textarea">
-        <sl-textarea formControlName="textarea"></sl-textarea>
+        <sl-textarea formControlName="textarea" required></sl-textarea>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
-        <sl-checkbox formControlName="checkbox">Checkbox</sl-checkbox>
+        <sl-checkbox formControlName="checkbox" required>Checkbox</sl-checkbox>
       </sl-form-field>
 
       <sl-form-field label="Select">
-        <sl-select formControlName="select">
+        <sl-select formControlName="select" required>
           <sl-select-option value="1">Option 1</sl-select-option>
           <sl-select-option value="2">Option 2</sl-select-option>
           <sl-select-option value="3">Option 3</sl-select-option>
@@ -100,7 +100,7 @@ export class AllFormControlsReactiveComponent {
       </sl-form-field>
 
       <sl-form-field label="Checkbox group">
-        <sl-checkbox-group formControlName="checkboxGroup">
+        <sl-checkbox-group formControlName="checkboxGroup" required>
           <sl-checkbox value="0">One</sl-checkbox>
           <sl-checkbox value="1">Two</sl-checkbox>
           <sl-checkbox value="2">Three</sl-checkbox>
@@ -108,18 +108,24 @@ export class AllFormControlsReactiveComponent {
       </sl-form-field>
 
       <sl-form-field label="Radio group">
-        <sl-radio-group formControlName="radioGroup">
+        <sl-radio-group formControlName="radioGroup" required>
           <sl-radio value="1">One</sl-radio>
           <sl-radio value="2">Two</sl-radio>
           <sl-radio value="3">Three</sl-radio>
         </sl-radio-group>
       </sl-form-field>
+
+      <sl-button-bar align="end">
+        <sl-button (click)="onClick()" variant="primary">Report validity</sl-button>
+      </sl-button-bar>
     </sl-form>
 
     <pre>{{ formGroup.value | json }}</pre>
   `
 })
 export class AllFormControlsEmptyReactiveComponent {
+  @ViewChild('form') form!: ElementRef<Form>;
+
   formGroup = new FormGroup({
     textField: new FormControl(''),
     textarea: new FormControl(''),
@@ -129,6 +135,10 @@ export class AllFormControlsEmptyReactiveComponent {
     checkboxGroup: new FormControl([]),
     radioGroup: new FormControl('')
   });
+
+  onClick(): void {
+    this.form.nativeElement.reportValidity();
+  }
 }
 
 @Component({
@@ -194,21 +204,21 @@ export class AllFormControlsTemplateComponent {
 @Component({
   selector: 'sla-all-form-controls-empty-template',
   template: `
-    <sl-form>
+    <sl-form #form>
       <sl-form-field label="Text field">
-        <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
+        <sl-text-field [(ngModel)]="formGroup.textField" required></sl-text-field>
       </sl-form-field>
 
       <sl-form-field label="Textarea">
-        <sl-textarea [(ngModel)]="formGroup.textarea"></sl-textarea>
+        <sl-textarea [(ngModel)]="formGroup.textarea" required></sl-textarea>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
-        <sl-checkbox [(ngModel)]="formGroup.checkbox">Checkbox</sl-checkbox>
+        <sl-checkbox [(ngModel)]="formGroup.checkbox" required>Checkbox</sl-checkbox>
       </sl-form-field>
 
       <sl-form-field label="Select">
-        <sl-select [(ngModel)]="formGroup.select">
+        <sl-select [(ngModel)]="formGroup.select" required>
           <sl-select-option value="1">Option 1</sl-select-option>
           <sl-select-option value="2">Option 2</sl-select-option>
           <sl-select-option value="3">Option 3</sl-select-option>
@@ -220,7 +230,7 @@ export class AllFormControlsTemplateComponent {
       </sl-form-field>
 
       <sl-form-field label="Checkbox group">
-        <sl-checkbox-group [(ngModel)]="formGroup.checkboxGroup">
+        <sl-checkbox-group [(ngModel)]="formGroup.checkboxGroup" required>
           <sl-checkbox value="0">Check me</sl-checkbox>
           <sl-checkbox value="1">No me</sl-checkbox>
           <sl-checkbox value="2">I was here first</sl-checkbox>
@@ -228,18 +238,24 @@ export class AllFormControlsTemplateComponent {
       </sl-form-field>
 
       <sl-form-field label="Radio group">
-        <sl-radio-group [(ngModel)]="formGroup.radioGroup">
+        <sl-radio-group [(ngModel)]="formGroup.radioGroup" required>
           <sl-radio value="1">One</sl-radio>
           <sl-radio value="2">Two</sl-radio>
           <sl-radio value="3">Three</sl-radio>
         </sl-radio-group>
       </sl-form-field>
+
+      <sl-button-bar align="end">
+        <sl-button (click)="onClick()" variant="primary">Report validity</sl-button>
+      </sl-button-bar>
     </sl-form>
 
     <pre>{{ formGroup | json }}</pre>
   `
 })
 export class AllFormControlsEmptyTemplateComponent {
+  @ViewChild('form') form!: ElementRef<Form>;
+
   formGroup = {
     textField: '',
     textarea: '',
@@ -247,8 +263,12 @@ export class AllFormControlsEmptyTemplateComponent {
     select: '',
     switch: false,
     checkboxGroup: [],
-    radioGroup: ''
+    radioGroup: null
   };
+
+  onClick(): void {
+    this.form.nativeElement.reportValidity();
+  }
 }
 
 @Component({

@@ -347,7 +347,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   #updateValueAndValidity(): void {
     this.internals.setFormValue(this.nativeFormValue);
     this.internals.setValidity(
-      { valueMissing: this.required && this.value === undefined },
+      { valueMissing: this.required && !this.selectedOption },
       msg('Please choose an option from the list.')
     );
 

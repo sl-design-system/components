@@ -54,7 +54,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A group of radio buttons.\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
+          "description": "A group of radio buttons.\n\n```html\n  <sl-radio-group>\n    <sl-radio value=\"1\">Option 1</sl-radio>\n    <sl-radio value=\"2\">Option 2</sl-radio>\n    <sl-radio value=\"3\">Option 3</sl-radio>\n  </sl-radio-group>\n```",
           "name": "RadioGroup",
           "slots": [
             {

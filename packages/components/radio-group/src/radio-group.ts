@@ -19,9 +19,9 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
  *
  * ```html
  *   <sl-radio-group>
- *     <sl-radio>Option 1</sl-radio>
- *     <sl-radio>Option 2</sl-radio>
- *     <sl-radio>Option 3</sl-radio>
+ *     <sl-radio value="1">Option 1</sl-radio>
+ *     <sl-radio value="2">Option 2</sl-radio>
+ *     <sl-radio value="3">Option 3</sl-radio>
  *   </sl-radio-group>
  * ```
  *
@@ -214,7 +214,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
   #updateValueAndValidity(): void {
     this.internals.setFormValue(this.nativeFormValue);
     this.internals.setValidity(
-      { valueMissing: this.required && this.value === undefined },
+      { valueMissing: this.required && !this.radios?.some(radio => radio.checked) },
       msg('Please select an option.')
     );
 

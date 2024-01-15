@@ -8,11 +8,11 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
   implements ControlValueAccessor, OnDestroy, OnInit, Validator
 {
   #onChange = (event: Event): void => {
-    this.onChange((event as CustomEvent<T['value']>).detail);
+    this.onChange((event as CustomEvent<T['formValue']>).detail);
     this.onTouched();
   };
 
-  protected onChange: (value: T['value']) => void = () => {};
+  protected onChange: (value: T['formValue']) => void = () => {};
   protected onTouched: () => void = () => {};
   protected onValidatorChange = (): void => {};
 
@@ -60,7 +60,7 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
   }
 
   /** Implemented as part of ControlValueAccessor. */
-  writeValue(value: T['value']): void {
+  writeValue(value: T['formValue']): void {
     this.element.formValue = value;
   }
 }

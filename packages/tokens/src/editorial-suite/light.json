@@ -2587,7 +2587,7 @@
           "unchecked": {
             "default": {
               "background": {
-                "value": "{color.palette.neutral.700}",
+                "value": "{color.palette.neutral.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2597,7 +2597,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{color.input.switch.default.unchecked.default.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2609,7 +2609,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.neutral.800}",
+                "value": "{color.palette.neutral.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2619,7 +2619,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{color.input.switch.default.unchecked.hover.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2641,7 +2641,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{color.input.switch.default.unchecked.active.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2663,7 +2663,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{body.foreground}",
+                "value": "{color.input.switch.default.unchecked.focus.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2685,7 +2685,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{color.palette.neutral.200}",
+                "value": "{color.input.switch.default.unchecked.disabled.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2699,7 +2699,7 @@
           "checked": {
             "default": {
               "background": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.palette.success.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2721,7 +2721,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.success.600}",
+                "value": "{color.palette.success.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2743,7 +2743,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.success.700}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2765,7 +2765,7 @@
             },
             "focus": {
               "background": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.palette.success.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2797,7 +2797,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{color.palette.neutral.200}",
+                "value": "{color.palette.neutral.150}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },

@@ -327,7 +327,7 @@ describe('sl-radio-group', () => {
 
       form.reset();
 
-      expect(el.value).to.be.null;
+      expect(el.value).to.be.undefined;
     });
 
     it('should reset the checked state of the radios', async () => {

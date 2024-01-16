@@ -1,6 +1,5 @@
 import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
-import 'element-internals-polyfill';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
@@ -28,13 +27,4 @@ import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 
 setup();
 
-Icon.registerIcon(
-  faBug,
-  faCode,
-  faGithub,
-  faHandBackPointUp,
-  faMessagesQuestion,
-  faPenToSquare,
-  faPencilRuler,
-  faSlack
-);
+Icon.register(faBug, faCode, faGithub, faHandBackPointUp, faMessagesQuestion, faPenToSquare, faPencilRuler, faSlack);

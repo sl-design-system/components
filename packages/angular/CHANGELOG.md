@@ -1,11 +1,9 @@
-# @sanomalearning/slds-angular
+# @sl-design-system/angular
 
-## 0.1.0
-
-### Minor Changes
-
-- [#215](https://github.com/sl-design-system/components/pull/215) [`55a5d2d`](https://github.com/sl-design-system/components/commit/55a5d2d6d89f189fb896cac3a95965a91dc6a3ba) - Initial Angular integration setup
+## 0.1.1
 
 ### Patch Changes
 
-- [#243](https://github.com/sl-design-system/components/pull/243) [`787ac8e`](https://github.com/sl-design-system/components/commit/787ac8eb0294e960505bc813d726cdd55748ba2e) - Add Angular form control integration (POC)
+- [#872](https://github.com/sl-design-system/components/pull/872) [`da5784c`](https://github.com/sl-design-system/components/commit/da5784ca4aec18bdd1b5326274e59e803d7859ec) - Add form control directives for select and switch
+
+- [#872](https://github.com/sl-design-system/components/pull/872) [`da5784c`](https://github.com/sl-design-system/components/commit/da5784ca4aec18bdd1b5326274e59e803d7859ec) - Refactor project setup

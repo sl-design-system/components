@@ -55,7 +55,7 @@ describe('sl-textarea', () => {
     });
 
     it('should not have a value', () => {
-      expect(el.value).to.be.null;
+      expect(el.value).to.equal('');
       expect(el.querySelector('textarea')?.value).to.equal('');
     });
 

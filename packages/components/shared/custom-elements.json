@@ -2811,6 +2811,15 @@
                   "text": "boolean"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#updateHost",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [
@@ -2819,7 +2828,7 @@
               "name": "#host",
               "privacy": "private",
               "type": {
-                "text": "ReactiveControllerHost"
+                "text": "ReactiveControllerHost & Element"
               },
               "default": "host"
             },

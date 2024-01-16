@@ -1,5 +1,15 @@
 # @sl-design-system/icon
 
+## 0.0.6
+
+### Patch Changes
+
+- [#831](https://github.com/sl-design-system/components/pull/831) [`a05db1d`](https://github.com/sl-design-system/components/commit/a05db1dcc19153ce0c843782c6d5aff46a992acf) - Added retries when searching for icon to fix not loading of icon
+
+- [#871](https://github.com/sl-design-system/components/pull/871) [`bbf18f7`](https://github.com/sl-design-system/components/commit/bbf18f7453debffe8f3bebf096a0552b8df60500) - Rename `registerIcon` and `registerIcons` into a single overloaded `register` method
+
+- [#792](https://github.com/sl-design-system/components/pull/792) [`0b41208`](https://github.com/sl-design-system/components/commit/0b41208f390b27e3738e0d81258abeaa18e19a0f) - Added badge component, added smaller icon.
+
 ## 0.0.5
 
 ### Patch Changes

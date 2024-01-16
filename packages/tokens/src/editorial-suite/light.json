@@ -3657,7 +3657,7 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.input.textField.default.active.border}",
               "type": "color"
             },
             "label": {
@@ -3683,7 +3683,7 @@
               "type": "color"
             },
             "border": {
-              "value": "{color.palette.primary.base}",
+              "value": "{color.input.textField.default.focus.border}",
               "type": "color"
             },
             "label": {

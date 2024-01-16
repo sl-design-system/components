@@ -1,0 +1,55 @@
+:host {
+  border: 1px solid #ff7f50;
+  box-sizing: border-box;
+  container-type: inline-size;
+  display: block;
+  inline-size: 100%;
+  padding: 8px;
+  width: 100%;
+}
+
+div {
+  display: grid;
+  gap: 8px;
+  grid-template-areas:
+    'media'
+    'title'
+    'body';
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content max-content 1fr;
+}
+
+@mixin sl-card-horizontal-layout {
+  grid-template-areas:
+    'media title'
+    'media body';
+  grid-template-columns: minmax(30%, min-content) 1fr;
+  grid-template-rows: min-content 1fr;
+}
+
+:host([orientation='horizontal']:not([responsive])) div {
+  @include sl-card-horizontal-layout();
+}
+
+@container (min-width: 350px) {
+  :host([orientation='horizontal']) div {
+    @include sl-card-horizontal-layout();
+  }
+}
+
+slot {
+  grid-area: title;
+}
+
+slot[name='media']::slotted(*) {
+  grid-area: media;
+  max-width: 100%;
+}
+
+slot[name='body'] {
+  grid-area: body;
+}
+
+slot::slotted(*) {
+  margin: 0;
+}

@@ -20,7 +20,7 @@ export type SwitchSize = 'sm' | 'md' | 'lg';
  *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
-export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
 
@@ -55,7 +55,7 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the checked state changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<boolean>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | null>;
 
   /** Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
@@ -64,7 +64,7 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** Whether the switch is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** Custom icon in "off" state. */
   @property({ reflect: true, attribute: 'icon-off' }) iconOff?: string;
@@ -75,14 +75,22 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** Whether the toggle should be shown *after* the text. */
   @property({ type: Boolean, reflect: true }) reverse?: boolean;
 
-  /**
-   * The size of the switch.
-   * @type { 'sm' | 'md' | 'lg'}
-   */
+  /** The size of the switch. */
   @property({ reflect: true }) size: SwitchSize = 'md';
 
-  /** The value for the switch, to be used in forms. */
-  @property() value: string | null = null;
+  /**
+   * The value of the switch when the switch is checked.
+   * See the formValue property for easy access.
+   */
+  @property() override value?: T;
+
+  override get formValue(): T | null {
+    return this.checked ? ((this.value ?? true) as T) : null;
+  }
+
+  override set formValue(value: T | null) {
+    this.checked = value === true || value === this.value;
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -104,7 +112,7 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @ignore Resets the switch to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
-    this.changeEvent.emit(this.checked);
+    this.changeEvent.emit(this.formValue);
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -148,7 +156,7 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     event.stopPropagation();
 
     this.checked = !this.checked;
-    this.changeEvent.emit(this.checked);
+    this.changeEvent.emit(this.formValue);
 
     this.#updateValue();
   }
@@ -168,7 +176,7 @@ export class Switch extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #updateValue(): void {
-    this.internals.setFormValue(this.checked ? this.value : null);
+    this.internals.setFormValue(this.nativeFormValue);
 
     this.updateValidity();
   }

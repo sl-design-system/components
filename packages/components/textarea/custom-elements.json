@@ -67,6 +67,15 @@
               "reflects": true
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "maxLength",
               "type": {
@@ -187,9 +196,9 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "string"
               },
-              "default": "null",
+              "default": "''",
               "description": "The value for the textarea.",
               "attribute": "value"
             },
@@ -324,9 +333,9 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "string"
               },
-              "default": "null",
+              "default": "''",
               "description": "The value for the textarea.",
               "fieldName": "value"
             },
@@ -357,6 +366,15 @@
           "tagName": "sl-textarea",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            },
             {
               "kind": "method",
               "name": "#onInput",

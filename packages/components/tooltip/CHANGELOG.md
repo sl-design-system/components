@@ -1,5 +1,15 @@
 # @sl-design-system/tooltip
 
+## 0.0.15
+
+### Patch Changes
+
+- [#862](https://github.com/sl-design-system/components/pull/862) [`d881d5f`](https://github.com/sl-design-system/components/commit/d881d5fc5274be5275f910f445a16408d6bb2373) - Refactor the `EventsController` to accept more types
+
+- Updated dependencies [[`b507ee0`](https://github.com/sl-design-system/components/commit/b507ee07e119733d285a348e74f34c4b2d172902), [`d881d5f`](https://github.com/sl-design-system/components/commit/d881d5fc5274be5275f910f445a16408d6bb2373)]:
+  - @sl-design-system/shared@0.2.1
+  - @sl-design-system/popover@0.1.1
+
 ## 0.0.14
 
 ### Patch Changes

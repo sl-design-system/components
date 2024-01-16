@@ -7,7 +7,7 @@ import styles from './radio.scss.js';
 
 export type RadioButtonSize = 'md' | 'lg';
 
-export class Radio extends LitElement {
+export class Radio<T = unknown> extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -30,7 +30,7 @@ export class Radio extends LitElement {
   @property({ reflect: true }) size: RadioButtonSize = 'md';
 
   /** The value for this radio button. */
-  @property() value: string | null = null;
+  @property() value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();

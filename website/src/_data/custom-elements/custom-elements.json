@@ -192,7 +192,10 @@
               },
               "default": "'horizontal'",
               "attribute": "orientation",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'horizontal' | 'vertical'"
+              }
             },
             {
               "kind": "field",
@@ -210,7 +213,10 @@
               },
               "default": "'md'",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
+              }
             },
             {
               "kind": "field",
@@ -244,7 +250,10 @@
                 "text": "AvatarSize"
               },
               "default": "'md'",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
+              }
             },
             {
               "name": "fallback",
@@ -260,7 +269,10 @@
                 "text": "AvatarOrientation"
               },
               "default": "'horizontal'",
-              "fieldName": "orientation"
+              "fieldName": "orientation",
+              "expandedType": {
+                "text": "'horizontal' | 'vertical'"
+              }
             },
             {
               "name": "image-only",
@@ -473,7 +485,10 @@
               },
               "default": "'md'",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
+              }
             },
             {
               "kind": "field",
@@ -483,7 +498,10 @@
               },
               "default": "'neutral'",
               "attribute": "variant",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'neutral' | 'primary' | 'danger' | 'success' | 'warning' | 'accent'"
+              }
             }
           ],
           "attributes": [
@@ -493,7 +511,10 @@
                 "text": "BadgeSize"
               },
               "default": "'md'",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
+              }
             },
             {
               "name": "variant",
@@ -501,7 +522,10 @@
                 "text": "BadgeVariant"
               },
               "default": "'neutral'",
-              "fieldName": "variant"
+              "fieldName": "variant",
+              "expandedType": {
+                "text": "'neutral' | 'primary' | 'danger' | 'success' | 'warning' | 'accent'"
+              }
             }
           ],
           "superclass": {
@@ -721,44 +745,56 @@
               "kind": "field",
               "name": "fill",
               "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+                "text": "ButtonFill"
               },
               "default": "'solid'",
               "description": "The fill of the button.",
               "attribute": "fill",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              }
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "ButtonSize"
               },
               "default": "'md'",
               "description": "The size of the button.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             },
             {
               "kind": "field",
               "name": "type",
               "type": {
-                "text": "'button' | 'reset' | 'submit'"
+                "text": "ButtonType"
               },
               "default": "'button'",
               "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "attribute": "type"
+              "attribute": "type",
+              "expandedType": {
+                "text": "'button' | 'reset' | 'submit'"
+              }
             },
             {
               "kind": "field",
               "name": "variant",
               "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+                "text": "ButtonVariant"
               },
               "default": "'default'",
               "description": "The variant of the button.",
               "attribute": "variant",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              }
             }
           ],
           "attributes": [
@@ -773,38 +809,50 @@
             {
               "name": "fill",
               "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+                "text": "ButtonFill"
               },
               "default": "'solid'",
               "description": "The fill of the button.",
-              "fieldName": "fill"
+              "fieldName": "fill",
+              "expandedType": {
+                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+              }
             },
             {
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "ButtonSize"
               },
               "default": "'md'",
               "description": "The size of the button.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             },
             {
               "name": "type",
               "type": {
-                "text": "'button' | 'reset' | 'submit'"
+                "text": "ButtonType"
               },
               "default": "'button'",
               "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "fieldName": "type"
+              "fieldName": "type",
+              "expandedType": {
+                "text": "'button' | 'reset' | 'submit'"
+              }
             },
             {
               "name": "variant",
               "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+                "text": "ButtonVariant"
               },
               "default": "'default'",
               "description": "The variant of the button.",
-              "fieldName": "variant"
+              "fieldName": "variant",
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+              }
             }
           ],
           "superclass": {
@@ -940,6 +988,20 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "labels",
               "type": {
@@ -1015,9 +1077,22 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -1031,7 +1106,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "CheckboxSize | undefined"
+                "text": "'md' | 'lg'"
               },
               "description": "The size of the checkboxes in the group.",
               "attribute": "size"
@@ -1055,7 +1130,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1074,6 +1149,14 @@
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
               }
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "boolean[] | undefined"
+              },
+              "description": "The readonly checked state for the checkbox group."
             }
           ],
           "attributes": [
@@ -1096,7 +1179,7 @@
             {
               "name": "size",
               "type": {
-                "text": "CheckboxSize | undefined"
+                "text": "'md' | 'lg'"
               },
               "description": "The size of the checkboxes in the group.",
               "fieldName": "size"
@@ -1128,7 +1211,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -1153,9 +1236,8 @@
           "events": [
             {
               "type": {
-                "text": "UpdateValidityEvent"
+                "text": "ValidateEvent"
               },
-              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -1172,6 +1254,20 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -1202,6 +1298,27 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "boolean[] | undefined"
+              },
+              "description": "The readonly checked state for the checkbox group."
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
             {
               "kind": "field",
               "name": "form",
@@ -1247,7 +1364,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1357,6 +1474,20 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "indeterminate",
               "type": {
@@ -1442,9 +1573,23 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "attribute": "show-valid",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -1463,7 +1608,10 @@
               "default": "'md'",
               "description": "The size of the checkbox.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "kind": "event",
@@ -1508,7 +1656,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1566,9 +1714,8 @@
             },
             {
               "type": {
-                "text": "UpdateValidityEvent"
+                "text": "ValidateEvent"
               },
-              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -1609,13 +1756,24 @@
               "fieldName": "required"
             },
             {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "fieldName": "showValid"
+            },
+            {
               "name": "size",
               "type": {
                 "text": "CheckboxSize"
               },
               "default": "'md'",
               "description": "The size of the checkbox.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "name": "value",
@@ -1653,7 +1811,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -1685,6 +1843,20 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -1760,7 +1932,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -2079,7 +2251,10 @@
               "default": "'right'",
               "description": "The side of the screen where the drawer is attached",
               "attribute": "attachment",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'right' | 'left' | 'top' | 'bottom'"
+              }
             },
             {
               "kind": "method",
@@ -2144,7 +2319,10 @@
               },
               "default": "'right'",
               "description": "The side of the screen where the drawer is attached",
-              "fieldName": "attachment"
+              "fieldName": "attachment",
+              "expandedType": {
+                "text": "'right' | 'left' | 'top' | 'bottom'"
+              }
             },
             {
               "name": "closeButtonSize",
@@ -2350,6 +2528,20 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "labels",
               "type": {
@@ -2423,9 +2615,22 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -2454,7 +2659,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -2518,7 +2723,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -2543,9 +2748,8 @@
           "events": [
             {
               "type": {
-                "text": "UpdateValidityEvent"
+                "text": "ValidateEvent"
               },
-              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -2596,6 +2800,20 @@
             },
             {
               "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
               "name": "setCustomValidity",
               "return": {
                 "type": {
@@ -2626,6 +2844,19 @@
                 "text": "Plugin[] | undefined"
               },
               "description": "Additional plugins."
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             },
             {
               "kind": "field",
@@ -2672,7 +2903,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -3455,7 +3686,23 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/form-field-event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/form-field.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/form.js"
           }
         },
         {
@@ -3481,6 +3728,14 @@
             "name": "*",
             "package": "./src/update-validity-event.js"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/validate-event.js"
+          }
         }
       ]
     },
@@ -3495,6 +3750,14 @@
           "declaration": {
             "name": "Error",
             "module": "/packages/components/form/src/error.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-form",
+          "declaration": {
+            "name": "Form",
+            "module": "/packages/components/form/src/form.js"
           }
         },
         {
@@ -3571,7 +3834,10 @@
               "default": "'md'",
               "description": "The size at which the error is displayed.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             }
           ],
           "attributes": [
@@ -3590,7 +3856,10 @@
               },
               "default": "'md'",
               "description": "The size at which the error is displayed.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             }
           ],
           "mixins": [
@@ -3648,6 +3917,16 @@
               "readonly": true
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control."
+            },
+            {
               "kind": "field",
               "name": "labels",
               "type": {
@@ -3697,9 +3976,18 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown."
+            },
+            {
+              "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -3720,7 +4008,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true
             },
             {
@@ -3736,9 +4024,8 @@
           "events": [
             {
               "type": {
-                "text": "UpdateValidityEvent"
-              },
-              "description": "Emits when the validity of the form control changes."
+                "text": "ValidateEvent"
+              }
             }
           ],
           "attributes": [
@@ -3761,7 +4048,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity"
@@ -3788,6 +4075,16 @@
             },
             {
               "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control."
+            },
+            {
+              "kind": "method",
               "name": "setCustomValidity",
               "return": {
                 "type": {
@@ -3807,6 +4104,15 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown."
+            },
             {
               "kind": "field",
               "name": "form",
@@ -3840,7 +4146,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true
             },
             {
@@ -3862,6 +4168,51 @@
           "declaration": {
             "name": "FormControlMixin",
             "module": "../packages/components/form/src/form-control-mixin.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/form/src/form-field-event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Emits when a form field is added or removed to/from a form.",
+          "name": "FormFieldEvent",
+          "members": [
+            {
+              "description": "The state of the form field (add or remove)",
+              "name": "state",
+              "kind": "field"
+            }
+          ],
+          "events": [
+            {
+              "name": "sl-form-field"
+            }
+          ],
+          "superclass": {
+            "name": "Event",
+            "module": "../packages/components/form/src/form-field-event.ts"
+          },
+          "methods": [],
+          "fields": [
+            {
+              "description": "The state of the form field (add or remove)",
+              "name": "state",
+              "kind": "field"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FormFieldEvent",
+          "declaration": {
+            "name": "FormFieldEvent",
+            "module": "../packages/components/form/src/form-field-event.ts"
           }
         }
       ]
@@ -3891,6 +4242,22 @@
           "members": [
             {
               "kind": "field",
+              "name": "formControl",
+              "type": {
+                "text": "HTMLElement & FormControl | undefined"
+              },
+              "description": "The form control element."
+            },
+            {
+              "kind": "event",
+              "name": "formFieldEvent",
+              "type": {
+                "text": "EventEmitter<FormFieldEvent>"
+              },
+              "description": "Emits when the field is added/removed to/from a form."
+            },
+            {
+              "kind": "field",
               "name": "hint",
               "type": {
                 "text": "string | undefined"
@@ -3906,6 +4273,16 @@
               },
               "description": "The text for the label. You can also slot an `<sl-label>` element.",
               "attribute": "label"
+            }
+          ],
+          "events": [
+            {
+              "name": "formFieldEvent",
+              "type": {
+                "text": "EventEmitter<FormFieldEvent>"
+              },
+              "description": "Emits when the field is added/removed to/from a form.",
+              "fieldName": "formFieldEvent"
             }
           ],
           "attributes": [
@@ -3939,7 +4316,16 @@
           "tagName": "sl-form-field",
           "customElement": true,
           "methods": [],
-          "fields": []
+          "fields": [
+            {
+              "kind": "field",
+              "name": "formControl",
+              "type": {
+                "text": "HTMLElement & FormControl | undefined"
+              },
+              "description": "The form control element."
+            }
+          ]
         }
       ],
       "exports": [
@@ -3949,6 +4335,89 @@
           "declaration": {
             "name": "FormField",
             "module": "../packages/components/form/src/form-field.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/form/src/form.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/form/src/form.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/form/src/form.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "This component is a wrapper for the form controls.\n\nIt is used to provide the ability to report the validity of all the form controls,\nnot just the invalid ones. By calling the `reportValidity()` method, it in turn will\ncall the `reportValidity()` methods of all the form controls.\n\nThis wrapper is necessary because the native form lacks this behavior.\nSee https://github.com/whatwg/html/issues/9878",
+          "name": "Form",
+          "members": [
+            {
+              "kind": "field",
+              "name": "fields",
+              "type": {
+                "text": "FormField[]"
+              },
+              "default": "[]",
+              "description": "The fields in the form."
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-form",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "fields",
+              "type": {
+                "text": "FormField[]"
+              },
+              "default": "[]",
+              "description": "The fields in the form."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Form",
+          "declaration": {
+            "name": "Form",
+            "module": "../packages/components/form/src/form.ts"
           }
         }
       ]
@@ -3991,7 +4460,10 @@
               "default": "'md'",
               "description": "The size at which the hint is displayed.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             }
           ],
           "attributes": [
@@ -4002,7 +4474,10 @@
               },
               "default": "'md'",
               "description": "The size at which the hint is displayed.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             }
           ],
           "superclass": {
@@ -4197,6 +4672,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/form/src/validate-event.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Emits when the form control can be validated.",
+          "name": "ValidateEvent",
+          "events": [
+            {
+              "name": "sl-validate"
+            }
+          ],
+          "superclass": {
+            "name": "Event",
+            "module": "../packages/components/form/src/validate-event.ts"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ValidateEvent",
+          "declaration": {
+            "name": "ValidateEvent",
+            "module": "../packages/components/form/src/validate-event.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/grid/index.ts",
       "declarations": [],
       "exports": [
@@ -4331,6 +4836,9 @@
               "default": "'start'",
               "description": "The alignment of the content within the column.",
               "attribute": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
@@ -4599,6 +5107,9 @@
               "default": "'start'",
               "description": "The alignment of the content within the column.",
               "fieldName": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
@@ -4880,7 +5391,10 @@
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
-              "attribute": "align"
+              "attribute": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              }
             },
             {
               "kind": "field",
@@ -5071,7 +5585,10 @@
               },
               "default": "'start'",
               "description": "The alignment of the content within the column.",
-              "fieldName": "align"
+              "fieldName": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              }
             },
             {
               "name": "auto-width",
@@ -5362,6 +5879,9 @@
               "default": "'start'",
               "description": "The alignment of the content within the column.",
               "attribute": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
@@ -5673,6 +6193,9 @@
               "default": "'start'",
               "description": "The alignment of the content within the column.",
               "fieldName": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
@@ -6212,7 +6735,7 @@
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
               },
-              "description": "Emits when the state in the grid have changed."
+              "description": "Emits when the state in the grid has changed."
             },
             {
               "kind": "field",
@@ -6358,7 +6881,7 @@
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
               },
-              "description": "Emits when the state in the grid have changed.",
+              "description": "Emits when the state in the grid has changed.",
               "fieldName": "gridStateChange"
             }
           ],
@@ -6550,6 +7073,9 @@
               "default": "'start'",
               "description": "The alignment of the content within the column.",
               "attribute": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
@@ -6855,6 +7381,9 @@
               "default": "'start'",
               "description": "The alignment of the content within the column.",
               "fieldName": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
@@ -7152,6 +7681,9 @@
               "default": "'start'",
               "description": "The alignment of the content within the column.",
               "attribute": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
@@ -7430,6 +7962,9 @@
               "default": "'start'",
               "description": "The alignment of the content within the column.",
               "fieldName": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
@@ -7967,7 +8502,7 @@
             },
             {
               "kind": "method",
-              "name": "registerIcon",
+              "name": "register",
               "static": true,
               "return": {
                 "type": {
@@ -7976,7 +8511,7 @@
               },
               "parameters": [
                 {
-                  "name": "faIcons",
+                  "name": "icons",
                   "type": {
                     "text": "IconDefinition | IconDefinition[]"
                   },
@@ -7987,7 +8522,7 @@
             },
             {
               "kind": "method",
-              "name": "registerIcons",
+              "name": "register",
               "static": true,
               "return": {
                 "type": {
@@ -7999,10 +8534,35 @@
                   "name": "icons",
                   "type": {
                     "text": "IconLibrary"
-                  }
+                  },
+                  "description": "The IconLibrary of the theme"
                 }
               ],
               "description": "Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.\nIs run in the setup method of each theme."
+            },
+            {
+              "kind": "method",
+              "name": "register",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "icon",
+                  "type": {
+                    "text": "IconDefinition | IconLibrary"
+                  }
+                },
+                {
+                  "name": "icons",
+                  "type": {
+                    "text": "IconDefinition[]"
+                  }
+                }
+              ]
             },
             {
               "kind": "field",
@@ -8052,7 +8612,7 @@
           "methods": [
             {
               "kind": "method",
-              "name": "registerIcon",
+              "name": "register",
               "static": true,
               "return": {
                 "type": {
@@ -8061,7 +8621,7 @@
               },
               "parameters": [
                 {
-                  "name": "faIcons",
+                  "name": "icons",
                   "type": {
                     "text": "IconDefinition | IconDefinition[]"
                   },
@@ -8072,7 +8632,7 @@
             },
             {
               "kind": "method",
-              "name": "registerIcons",
+              "name": "register",
               "static": true,
               "return": {
                 "type": {
@@ -8084,10 +8644,35 @@
                   "name": "icons",
                   "type": {
                     "text": "IconLibrary"
-                  }
+                  },
+                  "description": "The IconLibrary of the theme"
                 }
               ],
               "description": "Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.\nIs run in the setup method of each theme."
+            },
+            {
+              "kind": "method",
+              "name": "register",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "icon",
+                  "type": {
+                    "text": "IconDefinition | IconLibrary"
+                  }
+                },
+                {
+                  "name": "icons",
+                  "type": {
+                    "text": "IconDefinition[]"
+                  }
+                }
+              ]
             }
           ],
           "fields": []
@@ -8486,6 +9071,20 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "horizontal",
               "type": {
@@ -8571,9 +9170,23 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "attribute": "show-valid",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -8635,7 +9248,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -8693,9 +9306,8 @@
             },
             {
               "type": {
-                "text": "UpdateValidityEvent"
+                "text": "ValidateEvent"
               },
-              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -8726,6 +9338,14 @@
               },
               "description": "Whether the user is required to select an option in the group.",
               "fieldName": "required"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "fieldName": "showValid"
             },
             {
               "name": "size",
@@ -8771,7 +9391,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -8803,6 +9423,20 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -8878,7 +9512,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -8957,6 +9591,16 @@
             },
             {
               "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Indicates if the radio button shows it is (in)valid.",
+              "attribute": "show-validity",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "RadioButtonSize"
@@ -8964,7 +9608,10 @@
               "default": "'md'",
               "description": "The size of the radio button.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "kind": "field",
@@ -8995,13 +9642,24 @@
               "fieldName": "disabled"
             },
             {
+              "name": "show-validity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Indicates if the radio button shows it is (in)valid.",
+              "fieldName": "showValidity"
+            },
+            {
               "name": "size",
               "type": {
                 "text": "RadioButtonSize"
               },
               "default": "'md'",
               "description": "The size of the radio button.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "name": "value",
@@ -9496,6 +10154,20 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "labels",
               "type": {
@@ -9590,16 +10262,21 @@
               "kind": "field",
               "name": "showValid",
               "type": {
-                "text": "boolean | undefined"
+                "text": "boolean"
               },
-              "description": "Indicates whether the control should indicate it is valid.",
-              "attribute": "show-valid"
+              "default": "false",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "attribute": "show-valid",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             },
             {
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -9618,7 +10295,10 @@
               "default": "'md'",
               "description": "The size of the select.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "kind": "event",
@@ -9663,7 +10343,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -9721,9 +10401,8 @@
             },
             {
               "type": {
-                "text": "UpdateValidityEvent"
+                "text": "ValidateEvent"
               },
-              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -9760,7 +10439,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Indicates whether the control should indicate it is valid.",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
               "fieldName": "showValid"
             },
             {
@@ -9770,7 +10449,10 @@
               },
               "default": "'md'",
               "description": "The size of the select.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "name": "value",
@@ -9808,7 +10490,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -9844,6 +10526,20 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -9935,7 +10631,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -10302,9 +10998,9 @@
               },
               "parameters": [
                 {
-                  "name": "host",
+                  "name": "window",
                   "type": {
-                    "text": "Node"
+                    "text": "Window"
                   }
                 },
                 {
@@ -10316,7 +11012,7 @@
                 {
                   "name": "listener",
                   "type": {
-                    "text": "(this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => void"
+                    "text": "(this: Window, ev: WindowEventMap[K]) => any"
                   }
                 },
                 {
@@ -10338,9 +11034,153 @@
               },
               "parameters": [
                 {
-                  "name": "host",
+                  "name": "document",
                   "type": {
-                    "text": "EventTarget"
+                    "text": "Document"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: Document, ev: DocumentEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: HTMLElement, ev: HTMLElementEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "ShadowRoot"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: ShadowRoot, ev: ShadowRootEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "MediaQueryList"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: ShadowRoot, ev: MediaQueryListEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Window | Document | HTMLElement | ShadowRoot | MediaQueryList"
                   }
                 },
                 {
@@ -10394,9 +11234,9 @@
               },
               "parameters": [
                 {
-                  "name": "host",
+                  "name": "window",
                   "type": {
-                    "text": "Node"
+                    "text": "Window"
                   }
                 },
                 {
@@ -10408,7 +11248,7 @@
                 {
                   "name": "listener",
                   "type": {
-                    "text": "(this: GlobalEventHandlers, ev: GlobalEventHandlersEventMap[K]) => void"
+                    "text": "(this: Window, ev: WindowEventMap[K]) => any"
                   }
                 },
                 {
@@ -10430,9 +11270,153 @@
               },
               "parameters": [
                 {
-                  "name": "host",
+                  "name": "document",
                   "type": {
-                    "text": "EventTarget"
+                    "text": "Document"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: Document, ev: DocumentEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: HTMLElement, ev: HTMLElementEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "ShadowRoot"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: ShadowRoot, ev: ShadowRootEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "MediaQueryList"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: ShadowRoot, ev: MediaQueryListEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Window | Document | HTMLElement | ShadowRoot | MediaQueryList"
                   }
                 },
                 {
@@ -10542,7 +11526,10 @@
               "type": {
                 "text": "DirectionTypes"
               },
-              "readonly": true
+              "readonly": true,
+              "expandedType": {
+                "text": "'horizontal' | 'vertical' | 'both' | 'grid'"
+              }
             },
             {
               "kind": "field",
@@ -10984,7 +11971,10 @@
               "type": {
                 "text": "DirectionTypes"
               },
-              "readonly": true
+              "readonly": true,
+              "expandedType": {
+                "text": "'horizontal' | 'vertical' | 'both' | 'grid'"
+              }
             },
             {
               "kind": "field",
@@ -11215,6 +12205,9 @@
                 "text": "DirectionTypes"
               },
               "readonly": true,
+              "expandedType": {
+                "text": "'horizontal' | 'vertical' | 'both' | 'grid'"
+              },
               "inheritedFrom": {
                 "name": "FocusGroupController",
                 "module": "../packages/components/shared/src/controllers/focus-group.ts"
@@ -11911,6 +12904,9 @@
                 "text": "DirectionTypes"
               },
               "readonly": true,
+              "expandedType": {
+                "text": "'horizontal' | 'vertical' | 'both' | 'grid'"
+              },
               "inheritedFrom": {
                 "name": "FocusGroupController",
                 "module": "../packages/components/shared/src/controllers/focus-group.ts"
@@ -13837,6 +14833,129 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/spinner/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/spinner.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/spinner/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-spinner",
+          "declaration": {
+            "name": "Spinner",
+            "module": "/packages/components/spinner/src/spinner.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/spinner/src/spinner.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/spinner/src/spinner.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/spinner/src/spinner.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Let the user know you are processing their data or that the (part of the) page is loading.\n\n```html\n<sl-spinner></sl-spinner>\n```",
+          "name": "Spinner",
+          "members": [
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "SpinnerSize"
+              },
+              "default": "'md'",
+              "attribute": "size",
+              "reflects": true,
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "SpinnerVariant | undefined"
+              },
+              "attribute": "variant",
+              "reflects": true,
+              "expandedType": {
+                "text": "'accent' | 'info' | 'danger' | 'success' | 'warning' | undefined"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "size",
+              "type": {
+                "text": "SpinnerSize"
+              },
+              "default": "'md'",
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
+              }
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "SpinnerVariant | undefined"
+              },
+              "fieldName": "variant",
+              "expandedType": {
+                "text": "'accent' | 'info' | 'danger' | 'success' | 'warning' | undefined"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-spinner",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Spinner",
+          "declaration": {
+            "name": "Spinner",
+            "module": "../packages/components/spinner/src/spinner.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/switch/index.ts",
       "declarations": [],
       "exports": [
@@ -13941,6 +15060,20 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "iconOff",
               "type": {
@@ -14036,9 +15169,22 @@
             },
             {
               "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -14102,7 +15248,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -14160,9 +15306,8 @@
             },
             {
               "type": {
-                "text": "UpdateValidityEvent"
+                "text": "ValidateEvent"
               },
-              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -14255,7 +15400,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -14298,6 +15443,20 @@
             },
             {
               "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
               "name": "setCustomValidity",
               "return": {
                 "type": {
@@ -14321,6 +15480,19 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Optional property to indicate the valid state should be shown.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
             {
               "kind": "field",
               "name": "form",
@@ -14366,7 +15538,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -14839,6 +16011,20 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "input",
               "type": {
@@ -14970,17 +16156,21 @@
               "kind": "field",
               "name": "showValid",
               "type": {
-                "text": "boolean | undefined"
+                "text": "boolean"
               },
-              "description": "Indicates whether the control should indicate it is valid.",
+              "default": "false",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
               "attribute": "show-valid",
-              "reflects": true
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             },
             {
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -14999,7 +16189,10 @@
               "default": "'md'",
               "description": "The size of the input.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "kind": "event",
@@ -15054,7 +16247,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -15112,9 +16305,8 @@
             },
             {
               "type": {
-                "text": "UpdateValidityEvent"
+                "text": "ValidateEvent"
               },
-              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -15191,7 +16383,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Indicates whether the control should indicate it is valid.",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
               "fieldName": "showValid"
             },
             {
@@ -15201,7 +16393,10 @@
               },
               "default": "'md'",
               "description": "The size of the input.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "name": "type",
@@ -15248,7 +16443,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -15284,6 +16479,20 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -15367,7 +16576,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -15506,6 +16715,20 @@
               }
             },
             {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "field",
               "name": "labels",
               "type": {
@@ -15600,7 +16823,10 @@
               "default": "'vertical'",
               "description": "The way the textarea can be resized.",
               "attribute": "resize",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'none' | 'vertical' | 'auto'"
+              }
             },
             {
               "kind": "field",
@@ -15638,17 +16864,21 @@
               "kind": "field",
               "name": "showValid",
               "type": {
-                "text": "boolean | undefined"
+                "text": "boolean"
               },
-              "description": "Whether the textarea should get valid styles when is valid.",
+              "default": "false",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
               "attribute": "show-valid",
-              "reflects": true
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             },
             {
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -15667,7 +16897,10 @@
               "default": "'md'",
               "description": "The size of the textarea.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "kind": "event",
@@ -15720,7 +16953,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -15758,7 +16991,10 @@
               },
               "default": "'soft'",
               "description": "The way text should be wrapped during form submission.",
-              "attribute": "wrap"
+              "attribute": "wrap",
+              "expandedType": {
+                "text": "'soft' | 'hard'"
+              }
             }
           ],
           "events": [
@@ -15788,9 +17024,8 @@
             },
             {
               "type": {
-                "text": "UpdateValidityEvent"
+                "text": "ValidateEvent"
               },
-              "description": "Emits when the validity of the form control changes.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -15861,7 +17096,10 @@
               },
               "default": "'vertical'",
               "description": "The way the textarea can be resized.",
-              "fieldName": "resize"
+              "fieldName": "resize",
+              "expandedType": {
+                "text": "'none' | 'vertical' | 'auto'"
+              }
             },
             {
               "name": "rows",
@@ -15876,7 +17114,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the textarea should get valid styles when is valid.",
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
               "fieldName": "showValid"
             },
             {
@@ -15886,7 +17124,10 @@
               },
               "default": "'md'",
               "description": "The size of the textarea.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'md' | 'lg'"
+              }
             },
             {
               "name": "value",
@@ -15904,7 +17145,10 @@
               },
               "default": "'soft'",
               "description": "The way text should be wrapped during form submission.",
-              "fieldName": "wrap"
+              "fieldName": "wrap",
+              "expandedType": {
+                "text": "'soft' | 'hard'"
+              }
             },
             {
               "name": "custom-validity",
@@ -15933,7 +17177,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "FormControlShowValidity"
+                "text": "'valid' | 'invalid' | undefined"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity",
@@ -15969,6 +17213,20 @@
                 }
               },
               "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -16052,7 +17310,7 @@
               "type": {
                 "text": "string"
               },
-              "description": "String representing a localized message that describes the validation constraints\nthat the control does not satisfy (if any). The string is empty if the control is\nnot a candidate for constraint validation, or it satisfies its constraints.",
+              "description": "String representing a localized (by the browser) message that describes the validation\nconstraints that the control does not satisfy (if any). The string is empty if the control\nis not a candidate for constraint validation, or it satisfies its constraints.\n\nFor true localization, see `getLocalizedValidationMessage()` instead.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",

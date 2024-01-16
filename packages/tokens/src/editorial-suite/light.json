@@ -80,21 +80,21 @@
       },
       "accent": {
         "background": {
-          "value": "{color.palette.accent.400}",
+          "value": "{color.palette.accent.600}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.black.base}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         }
       },
       "neutral": {
         "background": {
-          "value": "{color.palette.neutral.700}",
+          "value": "{color.palette.neutral.200}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },

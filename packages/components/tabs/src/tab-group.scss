@@ -198,14 +198,6 @@ div[popover] {
     font: var(--_listbox-font);
     padding: var(--_listbox-item-padding);
     transition: background 300ms;
-
-    //&:hover {
-    //  background-color: var(--sl-color-select-item-hover-background);
-    //}
-    //
-    //&:active {
-    //  background-color: var(--sl-color-select-item-active-background);
-    //}
   }
 
   sl-tab:hover {
@@ -214,6 +206,10 @@ div[popover] {
 
   sl-tab:active {
     background-color: var(--sl-color-select-item-active-background);
+  }
+
+  sl-tab:focus {
+    background-color: #ff0;
   }
 
   sl-tab[disabled] {

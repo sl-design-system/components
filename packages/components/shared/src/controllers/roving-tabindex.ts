@@ -75,6 +75,7 @@ export class RovingTabindexController<T extends HTMLElement> extends FocusGroupC
   }
 
   hostUpdated(): void {
+    console.log('this.host in roving tabindex', this.host);
     if (!this.host.hasUpdated) {
       this.manageTabindexes();
     }

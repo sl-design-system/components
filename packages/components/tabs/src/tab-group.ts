@@ -45,7 +45,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #rovingTabindexController = new RovingTabindexController<Tab>(this, {
     focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
-    elements: () => this.tabs || [],
+    elements: () =>
+      (isPopoverOpen(this.listbox) ? Array.from(this.listbox?.querySelectorAll(`sl-tab`)) : this.tabs) || [],
     isFocusableElement: (el: Tab) => !el.disabled
   });
 
@@ -146,14 +147,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     );
     return html`
       ${this.#showMore}
-      <div @click=${this.#handleTabChange} role="tablist" @keydown=${this.#handleKeydown} part="tab-list">
+      <div @click=${this.#handleTabChange} role="tablist" part="tab-list">
         <span class="indicator" role="presentation"></span>
-        <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
+        <slot
+          name="tabs"
+          @slotchange=${() => this.#rovingTabindexController.clearElementCache()}
+          @keydown=${this.#handleKeydown}
+        ></slot>
         ${this.#showMore
           ? html` <sl-button
               id="more-btn"
               @click=${this.#onClick}
-              @keydown=${this.#onKeydown}
               popovertarget="tabs-popover"
               fill="ghost"
               variant="primary"
@@ -177,6 +181,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       <slot></slot>
     `;
   } // TODO: aria-label=${msg('Close')} -> msg 'open' or 'more'
+  // @keydown=${this.#onKeydown} from button
+
   // ${(this.#allTabs as Tab[]).map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)}
   // Render all tabs here and set as selected the exact one ${this.tabs?.length}
 
@@ -338,8 +344,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     );
   };*/
 
-  // TODO: add badge and icon slot
-
   // TODO: on changed probably or will change set indicator, because there is a problem with indicator when switching between vertical and horizontal tabs
 
   #onToggle = (event: Event): void => {
@@ -356,6 +360,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // this.selectedTabInListbox.offsetTop
 
     requestAnimationFrame(() => {
+      this.#rovingTabindexController.clearElementCache();
+
       if (!this.listbox || !this.selectedTab) {
         return;
       }
@@ -463,7 +469,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       event.key,
       isPopoverOpen(this.listbox) /*, this.#rovingTabListboxindexController*/,
       (this.#allTabs as Tab[])[0],
-      this.listbox?.querySelectorAll(`sl-tab`)[0]
+      this.listbox?.querySelectorAll(`sl-tab`)[0],
+      this.listbox
     );
     // if (!this.#allTabs) {
     //   return;
@@ -474,14 +481,16 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // this.#rovingTabListboxindexController.focus();
 
     // (this.#allTabs as Tab[])[0].focus();
-    this.listbox?.querySelectorAll(`sl-tab`)[0].focus();
+    // this.listbox?.querySelectorAll(`sl-tab`)[0].focus();
 
     console.log(event.target);
     const options = this.#allTabs as Node[], //.filter(o => !o.disabled),
-      size = options?.length;
+      size = options.length;
 
     let delta = 0,
-      index = options.indexOf(this.selectedTabInListbox ?? (this.#allTabs as Node[])[0]);
+      index = 0; //options.indexOf(this.selectedTabInListbox ?? (this.#allTabs as Node[])[0]);
+
+    // debugger;
 
     switch (event.key) {
       case 'ArrowDown':
@@ -489,6 +498,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           delta = 1;
         } else {
           this.listbox.showPopover();
+          delta = 1;
         }
         break;
       case 'ArrowUp':
@@ -519,18 +529,39 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
 
     index = (index + delta + size) % size;
-    console.log('index - event onKeyDown', index, delta);
-    // this.currentOption = options[index];
-    const selected = (this.#allTabs as Tab[])[index];
-    console.log('selected - event onKeyDown', selected);
-    this.selectedTabInListbox = this.listbox?.querySelector(`#${selected.id}`); //options[index];
-    if (this.selectedTabInListbox) {
-      this.selectedTabInListbox.focus();
-    }
+    console.log(
+      'index - event onKeyDown',
+      index,
+      delta,
+      options,
+      size,
+      index + delta + size,
+      (index + delta + size) % size
+    );
+
+    this.listbox?.querySelectorAll(`sl-tab`)[(index + delta + size) % size].focus();
+
+    // index = (index + delta + size) % size;
+    // console.log('index - event onKeyDown', index, delta);
+    // // this.currentOption = options[index];
+    // const selected = (this.#allTabs as Tab[])[index];
+    // console.log('selected - event onKeyDown', selected);
+    // this.selectedTabInListbox = this.listbox?.querySelector(`#${selected.id}`); //options[index];
+    // if (this.selectedTabInListbox) {
+    //   this.selectedTabInListbox.focus();
+    // }
     // this.selectedTabInListbox.focus();
 
-    event.preventDefault();
-    event.stopPropagation();
+    // this.#updateSelectedTab((event.target as HTMLElement).closest('sl-tab') as Tab /*event.target*/);
+
+    console.log(
+      'index - event onKeyDown ---> activeElement',
+      document.activeElement,
+      this.listbox?.querySelectorAll(`sl-tab`)[index]
+    );
+
+    // event.preventDefault();
+    // event.stopPropagation();
   }
 
   /**
@@ -599,7 +630,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Handle keyboard accessible controls.
    */
   #handleKeydown(event: KeyboardEvent): void {
-    console.log('event on handleKeydown', event, event.key);
+    console.log('event on handleKeydown', event, event.key, isPopoverOpen(this.listbox));
+    if (isPopoverOpen(this.listbox)) {
+      return;
+    }
+
     if (['Enter', ' '].includes(event.key)) {
       event.preventDefault();
       this.scrollTo({ top: 0 });

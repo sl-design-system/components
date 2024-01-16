@@ -2699,7 +2699,7 @@
           "checked": {
             "default": {
               "background": {
-                "value": "{color.palette.success.400}",
+                "value": "{color.palette.accent.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2721,7 +2721,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.palette.accent.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2743,7 +2743,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.success.600}",
+                "value": "{color.palette.accent.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2765,7 +2765,7 @@
             },
             "focus": {
               "background": {
-                "value": "{color.palette.success.400}",
+                "value": "{color.palette.accent.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },

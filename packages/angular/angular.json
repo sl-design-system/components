@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-core": {
+    "angular": {
       "projectType": "library",
-      "root": "projects/angular-core",
-      "sourceRoot": "projects/angular-core/src",
-      "prefix": "lib",
+      "root": ".",
+      "sourceRoot": "src",
+      "prefix": "sl",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/angular-core/ng-package.json"
+            "project": "src/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/angular-core/tsconfig.lib.prod.json"
+              "tsConfig": "tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/angular-core/tsconfig.lib.json"
+              "tsConfig": "tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,7 +27,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/angular-core/tsconfig.spec.json",
+            "tsConfig": "tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -37,32 +37,34 @@
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
-            "browserTarget": "angular-core:build-storybook",
+            "browserTarget": "angular:build-storybook",
             "ci": true,
             "compodoc": false,
-            "port": 6007,
-            "quiet": true
+            "open": false,
+            "port": 6007
           }
         },
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
-            "browserTarget": "angular-core:build-storybook",
+            "browserTarget": "angular:build-storybook",
             "compodoc": false,
             "outputDir": "../../dist/angular",
             "quiet": true
           }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "prefix": "sl"
         },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/angular-core/src/**/*.ts",
-              "projects/angular-core/src/**/*.html"
-            ]
-          }
+        "@schematics/angular:directive": {
+          "prefix": "sl"
         }
       }
     }
+  },
+  "cli": {
+    "packageManager": "yarn"
   }
 }

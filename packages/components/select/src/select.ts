@@ -15,7 +15,7 @@ import { SelectButton } from './select-button.js';
 export type SelectSize = 'md' | 'lg';
 
 @localized()
-export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
 
@@ -39,7 +39,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   });
 
   /** The initial state when the form was associated with the select. Used to reset the select. */
-  #initialState: string | null = null;
+  #initialState?: T;
 
   /** Since we can't use `popovertarget`, we need to monitor the closing state manually. */
   #popoverClosing = false;
@@ -54,7 +54,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string | null>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | undefined>;
 
   /** Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
@@ -63,7 +63,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];
 
   /** @private A flattened array of all options (even grouped ones). */
-  get options(): SelectOption[] {
+  get options(): Array<SelectOption<T>> {
     const elements =
       this.renderRoot.querySelector<HTMLSlotElement>('slot:not([name])')?.assignedElements({ flatten: true }) ?? [];
 
@@ -75,10 +75,10 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
    * selected option if the user presses Enter/Space.
    * @private
    */
-  @state() currentOption?: SelectOption;
+  @state() currentOption?: SelectOption<T>;
 
   /** Whether the select is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** The listbox element. */
   @query('[popover]') listbox!: HTMLElement;
@@ -90,7 +90,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @property({ type: Boolean, reflect: true }) required?: boolean;
 
   /** @private The selected option in the listbox. */
-  @state() selectedOption?: SelectOption | null;
+  @state() selectedOption?: SelectOption<T>;
 
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
@@ -99,7 +99,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   @property({ reflect: true }) size: SelectSize = 'md';
 
   /** The value for the select, to be used in forms. */
-  @property() value: string | null = null;
+  @property() override value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -284,7 +284,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #onListboxClick(event: Event & { target: HTMLElement }): void {
-    const option = event.target?.closest('sl-select-option');
+    const option = event.target?.closest<SelectOption<T>>('sl-select-option');
 
     if (option) {
       this.#setSelectedOption(option);
@@ -314,7 +314,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   /** Returns a flattened array of all options (also the options in groups). */
-  #getAllOptions(root: Element): SelectOption[] {
+  #getAllOptions(root: Element): Array<SelectOption<T>> {
     if (root instanceof SelectOption) {
       return [root];
     } else if (root instanceof SelectOptionGroup) {
@@ -324,7 +324,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     }
   }
 
-  #setSelectedOption(option?: SelectOption, emitEvent = true): void {
+  #setSelectedOption(option?: SelectOption<T>, emitEvent = true): void {
     if (this.selectedOption) {
       this.selectedOption.selected = false;
     }
@@ -335,7 +335,7 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
     }
 
     this.button.selected = this.selectedOption;
-    this.value = this.selectedOption?.value ?? null;
+    this.value = this.selectedOption?.value;
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);
@@ -345,9 +345,9 @@ export class Select extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.value);
+    this.internals.setFormValue(this.nativeFormValue);
     this.internals.setValidity(
-      { valueMissing: this.required && this.value === null },
+      { valueMissing: this.required && !this.selectedOption },
       msg('Please choose an option from the list.')
     );
 

@@ -5,6 +5,9 @@ import { property } from 'lit/decorators.js';
 import { UpdateValidityEvent } from './update-validity-event.js';
 import { ValidateEvent } from './validate-event.js';
 
+// Handle differences in the first argument of setFormValue between typescript versions
+export type FormValue = Parameters<ElementInternals['setFormValue']>[0];
+
 export interface NativeFormControlElement extends HTMLElement {
   form: HTMLFormElement | null;
   labels: NodeListOf<HTMLLabelElement> | null;
@@ -28,6 +31,7 @@ export interface FormControl {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
+  readonly nativeFormValue: FormValue;
   readonly showExternalValidityIcon: boolean;
   readonly showValidity: FormControlShowValidity;
   readonly valid: boolean;
@@ -35,8 +39,11 @@ export interface FormControl {
   readonly validity: ValidityState;
 
   customValidity?: string;
+  disabled?: boolean;
+  formValue: unknown;
   name?: string;
   showValid?: boolean;
+  value?: unknown;
 
   reportValidity(): boolean;
   updateValidity(): void;
@@ -91,14 +98,29 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /** Optional property to indicate the valid state should be shown. */
     showValid = false;
 
+    /** The value for this form control. */
+    value?: unknown;
+
     /** The error message to display when the control is invalid. */
     @property({ attribute: 'custom-validity' }) customValidity?: string;
 
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
 
-    /** Whether to show the validity state. */
+    /** Whether to show the validity state.
+     * @type {'valid' | 'invalid' | undefined}
+     */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
+
+    /** The value used when submitting the form. */
+    get formValue(): unknown {
+      return this.value;
+    }
+
+    @property({ attribute: false })
+    set formValue(value: unknown) {
+      this.value = value;
+    }
 
     /** @ignore For internal use only */
     get formControlElement(): FormControlElement {
@@ -127,6 +149,28 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         return this.formControlElement.labels;
       } else {
         return this.formControlElement.internals.labels as NodeListOf<HTMLLabelElement>;
+      }
+    }
+
+    get nativeFormValue(): FormValue {
+      if (
+        this.formValue === null ||
+        this.formValue === undefined ||
+        this.formValue instanceof File ||
+        this.formValue instanceof FormData ||
+        typeof this.formValue === 'string'
+      ) {
+        return this.formValue ?? null;
+      } else if (typeof this.formValue === 'boolean') {
+        return Boolean(this.formValue).toString();
+      } else if (typeof this.formValue === 'number') {
+        return Number(this.formValue).toString();
+      } else if (typeof this.formValue === 'object' && 'toString' in this.formValue) {
+        return (this.formValue as { toString(): string }).toString();
+      } else {
+        console.warn('Unknown form value type', this.formValue);
+
+        return null;
       }
     }
 
@@ -236,8 +280,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         }
       }
 
-      /** Emits when the validity of the form control changes. */
-      this.dispatchEvent(new UpdateValidityEvent(this.valid, this.getLocalizedValidationMessage(), this.showValidity));
+      this.#emitValidityUpdate();
     }
 
     /**
@@ -255,10 +298,16 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       } else if (this.validity.valueMissing) {
         return msg('Please fill in this field.');
       } else {
-        const validityState = Object.keys(this.validity).find(key => this.validity[key as keyof ValidityState]);
+        let missingKey = '';
+        for (const key in this.validity) {
+          if (this.validity[key as keyof ValidityState] === true) {
+            missingKey = key;
+            break;
+          }
+        }
 
         console.warn(
-          `Missing localized validation message for validity state ${validityState}. Provide your own getLocalizedValidationMessage() method in your form control.`
+          `Missing localized validation message for validity state "${missingKey}". Provide your own getLocalizedValidationMessage() method in your form control.`
         );
 
         return this.validationMessage;
@@ -281,6 +330,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
           this.formControlElement.internals.setValidity({ customError: true }, message);
         }
       }
+
+      this.showValidity = message ? 'invalid' : undefined;
+      this.#emitValidityUpdate();
     }
 
     /**
@@ -296,6 +348,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);
+    }
+
+    /** Emits an event so the form-field can update itself. */
+    #emitValidityUpdate(): void {
+      this.dispatchEvent(new UpdateValidityEvent(this.valid, this.getLocalizedValidationMessage(), this.showValidity));
     }
   }
 

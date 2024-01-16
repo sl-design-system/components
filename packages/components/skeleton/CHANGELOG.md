@@ -1,5 +1,11 @@
 # @sl-design-system/skeleton
 
+## 0.2.0
+
+### Minor Changes
+
+- [#829](https://github.com/sl-design-system/components/pull/829) [`413a781`](https://github.com/sl-design-system/components/commit/413a781dac32f0618535e50e443f53e5ed957410) - Added skeleton component
+
 ## 0.1.1
 
 ### Patch Changes

@@ -69,6 +69,13 @@
             },
             {
               "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "T | null"
+              }
+            },
+            {
+              "kind": "field",
               "name": "iconOff",
               "type": {
                 "text": "string | undefined"
@@ -101,7 +108,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "SwitchSize"
               },
               "default": "'md'",
               "description": "The size of the switch.",
@@ -120,7 +127,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes."
             },
@@ -136,10 +143,9 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
-              "description": "The value for the switch, to be used in forms.",
+              "description": "The value of the switch when the switch is checked.\nSee the formValue property for easy access.",
               "attribute": "value"
             }
           ],
@@ -155,7 +161,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes.",
               "fieldName": "changeEvent"
@@ -213,7 +219,7 @@
             {
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "SwitchSize"
               },
               "default": "'md'",
               "description": "The size of the switch.",
@@ -222,10 +228,9 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
-              "description": "The value for the switch, to be used in forms.",
+              "description": "The value of the switch when the switch is checked.\nSee the formValue property for easy access.",
               "fieldName": "value"
             }
           ],
@@ -361,6 +366,13 @@
               "name": "internals",
               "readonly": true,
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "T | null"
+              }
             }
           ]
         }

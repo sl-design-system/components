@@ -25,10 +25,10 @@ export class Editor extends FormControlMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Manage events. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, { focusout: this.#onFocusout });
 
   /** The value of the content in the editor. */
-  #value?: string;
+  #value: string = '';
 
   /** The ProseMirror editor view instance. */
   #view?: EditorView;
@@ -40,16 +40,16 @@ export class Editor extends FormControlMixin(LitElement) {
   @property({ attribute: false }) plugins?: Plugin[];
 
   @property()
-  get value(): string | undefined {
+  override get value(): string {
     return this.#value;
   }
 
-  set value(value: string | undefined) {
+  override set value(value: string | undefined) {
     const oldValue = this.#value;
-    this.#value = value;
+    this.#value = value ?? '';
 
     if (this.#view) {
-      setHTML(value || '')(this.#view.state, this.#view.dispatch, this.#view);
+      setHTML(this.#value)(this.#view.state, this.#view.dispatch, this.#view);
     }
 
     this.requestUpdate('value', oldValue);
@@ -60,8 +60,6 @@ export class Editor extends FormControlMixin(LitElement) {
 
     this.internals.role = 'textbox';
     this.internals.ariaMultiLine = 'true';
-
-    this.#events.listen(this, 'focusout', this.#onFocusout);
   }
 
   override firstUpdated(): void {

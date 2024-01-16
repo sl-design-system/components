@@ -1,5 +1,18 @@
 # @sl-design-system/button
 
+## 0.0.16
+
+### Patch Changes
+
+- [#838](https://github.com/sl-design-system/components/pull/838) [`820171d`](https://github.com/sl-design-system/components/commit/820171dd3b507d92a4e885e2fb452d2984c0f27b) - Add missing `disabled` property
+
+- [#853](https://github.com/sl-design-system/components/pull/853) [`555c301`](https://github.com/sl-design-system/components/commit/555c301f416a7a35dad4f167b21b91f0c735ce51) - Link button styling changes, link button tokens changes, itsLearning color values of solid button and focus ring changes
+
+- [#838](https://github.com/sl-design-system/components/pull/838) [`820171d`](https://github.com/sl-design-system/components/commit/820171dd3b507d92a4e885e2fb452d2984c0f27b) - Fix incorrect focus indication for non-keyboard actions
+
+- Updated dependencies [[`b507ee0`](https://github.com/sl-design-system/components/commit/b507ee07e119733d285a348e74f34c4b2d172902), [`d881d5f`](https://github.com/sl-design-system/components/commit/d881d5fc5274be5275f910f445a16408d6bb2373)]:
+  - @sl-design-system/shared@0.2.1
+
 ## 0.0.15
 
 ### Patch Changes

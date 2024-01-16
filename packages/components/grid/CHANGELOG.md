@@ -1,5 +1,16 @@
 # @sl-design-system/grid
 
+## 0.0.32
+
+### Patch Changes
+
+- Updated dependencies [[`a05db1d`](https://github.com/sl-design-system/components/commit/a05db1dcc19153ce0c843782c6d5aff46a992acf), [`bbf18f7`](https://github.com/sl-design-system/components/commit/bbf18f7453debffe8f3bebf096a0552b8df60500), [`d881d5f`](https://github.com/sl-design-system/components/commit/d881d5fc5274be5275f910f445a16408d6bb2373), [`416a4bd`](https://github.com/sl-design-system/components/commit/416a4bdc49dd334d4a3c89c4697e9f69f22bf84b), [`85f57c8`](https://github.com/sl-design-system/components/commit/85f57c8ae5922a24edf1b6bdaef2554e5a057ed3), [`da5784c`](https://github.com/sl-design-system/components/commit/da5784ca4aec18bdd1b5326274e59e803d7859ec), [`bde9afa`](https://github.com/sl-design-system/components/commit/bde9afa06833adf91122df3960d04db6cb34d536), [`1b0c3e7`](https://github.com/sl-design-system/components/commit/1b0c3e7923300ea9c282398e5cc41669f441395a), [`0b41208`](https://github.com/sl-design-system/components/commit/0b41208f390b27e3738e0d81258abeaa18e19a0f), [`b507ee0`](https://github.com/sl-design-system/components/commit/b507ee07e119733d285a348e74f34c4b2d172902), [`d881d5f`](https://github.com/sl-design-system/components/commit/d881d5fc5274be5275f910f445a16408d6bb2373), [`c358c27`](https://github.com/sl-design-system/components/commit/c358c279fe022cc3935284e2dc7add6a57eda7c2), [`da5784c`](https://github.com/sl-design-system/components/commit/da5784ca4aec18bdd1b5326274e59e803d7859ec)]:
+  - @sl-design-system/icon@0.0.6
+  - @sl-design-system/text-field@0.1.11
+  - @sl-design-system/checkbox@0.0.16
+  - @sl-design-system/shared@0.2.1
+  - @sl-design-system/popover@0.1.1
+
 ## 0.0.31
 
 ### Patch Changes

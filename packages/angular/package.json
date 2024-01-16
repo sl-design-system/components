@@ -1,8 +1,11 @@
 {
-  "name": "@sl-design-system/angular-root",
-  "description": "Angular module for the SL Design System",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@sl-design-system/angular",
+  "description": "Angular support for the SL Design System",
+  "version": "0.1.1",
+  "publishConfig": {
+    "directory": "dist",
+    "registry": "https://npm.pkg.github.com"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
@@ -11,28 +14,24 @@
   "type": "module",
   "scripts": {
     "build": "wireit",
-    "lint": "wireit",
     "start": "wireit",
     "storybook": "wireit"
   },
   "wireit": {
     "build": {
-      "command": "ng build angular-core",
+      "command": "ng build",
       "dependencies": [
         "../..:build"
       ],
       "files": [
-        "projects/angular-core/**/*"
+        "src/**/*"
       ],
       "output": [
-        "dist/angular-core"
+        "dist"
       ]
     },
-    "lint": {
-      "command": "ng run angular-core:lint"
-    },
     "start": {
-      "command": "ng run angular-core:storybook",
+      "command": "ng run angular:storybook",
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*angular.* started"
@@ -47,50 +46,44 @@
       ]
     },
     "storybook": {
-      "command": "ng run angular-core:build-storybook"
+      "command": "ng run angular:build-storybook"
     }
   },
-  "dependencies": {
-    "@angular/animations": "^16.2.10",
-    "@angular/common": "^16.2.10",
-    "@angular/compiler": "^16.2.10",
-    "@angular/core": "^16.2.10",
-    "@angular/forms": "^16.2.10",
-    "@angular/platform-browser": "^16.2.10",
-    "@angular/platform-browser-dynamic": "^16.2.10",
-    "rxjs": "~7.8.1",
-    "tslib": "^2.6.2",
-    "zone.js": "~0.13.3"
-  },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.2.7",
-    "@angular-eslint/builder": "16.2.0",
-    "@angular-eslint/eslint-plugin": "16.2.0",
-    "@angular-eslint/eslint-plugin-template": "16.2.0",
-    "@angular-eslint/schematics": "16.2.0",
-    "@angular-eslint/template-parser": "16.2.0",
-    "@angular/cli": "~16.2.7",
-    "@angular/compiler-cli": "^16.2.10",
+    "@angular-devkit/architect": "^0.1700.9",
+    "@angular-devkit/build-angular": "^17.0.9",
+    "@angular-devkit/core": "^17.0.9",
+    "@angular/animations": "^17.0.8",
+    "@angular/cli": "~17.0.9",
+    "@angular/common": "^17.0.8",
+    "@angular/compiler": "^17.0.8",
+    "@angular/compiler-cli": "^17.0.8",
+    "@angular/core": "^17.0.8",
+    "@angular/forms": "^17.0.8",
+    "@angular/platform-browser": "^17.0.8",
+    "@angular/platform-browser-dynamic": "^17.0.8",
+    "@babel/core": "^7.23.7",
+    "@sl-design-system/locales": "0.0.3",
     "@storybook/addon-essentials": "^7.6.7",
     "@storybook/addon-links": "^7.6.7",
     "@storybook/angular": "^7.6.7",
     "@storybook/blocks": "^7.6.7",
     "@types/jasmine": "~5.1.4",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "eslint": "^8.51.0",
     "jasmine-core": "~5.1.1",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "ng-packagr": "^16.2.3",
+    "ng-packagr": "^17.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rxjs": "~7.8.1",
     "storybook": "^7.6.7",
-    "typescript": "~4.9.5",
-    "wireit": "^0.14.1"
+    "tslib": "^2.6.2",
+    "typescript": "~5.2.2",
+    "wireit": "^0.14.1",
+    "zone.js": "~0.14.3"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"

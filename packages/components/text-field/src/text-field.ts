@@ -1,7 +1,7 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { EventEmitter } from '@sl-design-system/shared';
-import { localized } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
@@ -61,7 +61,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -94,7 +94,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
   /** The value for the input, to be used in forms. */
-  @property() value: string | null = null;
+  @property() override value = '';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -132,7 +132,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     }
 
     if (changes.has('value') && this.value !== this.input.value) {
-      this.input.value = this.value || '';
+      this.input.value = this.value?.toString() || '';
     }
   }
 
@@ -149,6 +149,20 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
           : nothing}
       </slot>
     `;
+  }
+
+  override getLocalizedValidationMessage(): string {
+    if (this.validity.tooShort) {
+      const length = this.value.length;
+
+      return msg(
+        str`Please enter at least ${this.minLength} characters (you currently have ${length} character${
+          length > 1 ? 's' : ''
+        }).`
+      );
+    }
+
+    return super.getLocalizedValidationMessage();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {

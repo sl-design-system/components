@@ -49,6 +49,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     isFocusableElement: (el: Tab) => !el.disabled
   });
 
+  // #rovingTabListboxindexController = new RovingTabindexController<Tab>(this, {
+  //   focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
+  //   elements: () => (this.#allTabs as Tab[]) || [],
+  //   isFocusableElement: (el: Tab) => !el.disabled
+  // });
+
   static #observerOptions = {
     attributes: true,
     subtree: true,
@@ -223,6 +229,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // });
     console.log('this.tabs', this.tabs, this.#allTabs);
     console.log('this.#rovingTabindexController.element', this.#rovingTabindexController.elements);
+    // console.log('this.#rovingTabListboxindexController.element', this.#rovingTabListboxindexController.elements);
     console.log('morebutton', this.moreButton, this.shadowRoot?.querySelector('sl-button') as HTMLButtonElement);
     // const listElement = html`<div
     //   id="tabs-popover"
@@ -336,7 +343,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   // TODO: on changed probably or will change set indicator, because there is a problem with indicator when switching between vertical and horizontal tabs
 
   #onToggle = (event: Event): void => {
-    console.log('onToggle event in anchor', event, this.selectedTabInListbox, this.listbox);
+    console.log('onToggle event in anchor', event, this.selectedTabInListbox, this.listbox, event.type);
 
     const indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement;
 
@@ -450,10 +457,24 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('event onKeyDown', event, event.key);
+    console.log(
+      'event onKeyDown',
+      event,
+      event.key,
+      isPopoverOpen(this.listbox) /*, this.#rovingTabListboxindexController*/,
+      (this.#allTabs as Tab[])[0],
+      this.listbox?.querySelectorAll(`sl-tab`)[0]
+    );
     // if (!this.#allTabs) {
     //   return;
     // }
+
+    // this.listbox.showPopover();
+
+    // this.#rovingTabListboxindexController.focus();
+
+    // (this.#allTabs as Tab[])[0].focus();
+    this.listbox?.querySelectorAll(`sl-tab`)[0].focus();
 
     console.log(event.target);
     const options = this.#allTabs as Node[], //.filter(o => !o.disabled),
@@ -464,11 +485,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     switch (event.key) {
       case 'ArrowDown':
-        // if (isPopoverOpen(this.listbox)) {
-        delta = 1;
-        // } else {
-        this.listbox.showPopover();
-        // }
+        if (isPopoverOpen(this.listbox)) {
+          delta = 1;
+        } else {
+          this.listbox.showPopover();
+        }
         break;
       case 'ArrowUp':
         delta = -1;
@@ -481,8 +502,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         break;
       case ' ':
       case 'Enter':
+        // this.listbox.showPopover();
         // if (isPopoverOpen(this.listbox)) {
-        this.listbox.togglePopover();
+        // this.listbox.togglePopover();
         // ((this.#allTabs as Node[])[0] as HTMLElement).focus();
         // this.#handleTabChange(event as Event);
         // this.listbox.hidePopover();
@@ -497,11 +519,15 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
 
     index = (index + delta + size) % size;
-    console.log('index', index);
+    console.log('index - event onKeyDown', index, delta);
     // this.currentOption = options[index];
-    const selected = this.#allTabs[index];
-    console.log('selected', selected);
+    const selected = (this.#allTabs as Tab[])[index];
+    console.log('selected - event onKeyDown', selected);
     this.selectedTabInListbox = this.listbox?.querySelector(`#${selected.id}`); //options[index];
+    if (this.selectedTabInListbox) {
+      this.selectedTabInListbox.focus();
+    }
+    // this.selectedTabInListbox.focus();
 
     event.preventDefault();
     event.stopPropagation();

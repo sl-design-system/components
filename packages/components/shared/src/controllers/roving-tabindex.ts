@@ -32,6 +32,7 @@ export class RovingTabindexController<T extends HTMLElement> extends FocusGroupC
   }
 
   manageTabindexes(): void {
+    console.log('focused in roving-tabindex', this.focused);
     if (this.focused) {
       this.updateTabindexes(() => ({ tabIndex: -1 }));
     } else {
@@ -45,8 +46,10 @@ export class RovingTabindexController<T extends HTMLElement> extends FocusGroupC
   }
 
   updateTabindexes(getTabIndex: (el: HTMLElement) => UpdateTabIndexes): void {
+    console.log('el in roving-tabindex', getTabIndex, this.elements);
     this.elements.forEach(el => {
       const { tabIndex, removeTabIndex } = getTabIndex(el);
+      console.log('el in roving-tabindex---2222', tabIndex, removeTabIndex);
       if (!removeTabIndex) {
         el.tabIndex = tabIndex;
         return;

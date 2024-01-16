@@ -58,6 +58,10 @@ slot[name='subtitle'] {
   background-color: var(--_background-active);
 }
 
+:host(:focus) {
+  background-color: #ff0;
+}
+
 .content {
   //position: relative;
   display: flex;

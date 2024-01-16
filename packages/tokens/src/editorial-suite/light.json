@@ -2675,12 +2675,12 @@
             },
             "disabled": {
               "background": {
-                "value": "{color.palette.neutral.150}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{body.background}",
+                "value": "{color.palette.neutral.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2690,7 +2690,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.neutral.50}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2787,22 +2787,22 @@
             },
             "disabled": {
               "background": {
-                "value": "{color.palette.neutral.150}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
               "text": {
-                "value": "{body.background}",
+                "value": "{color.palette.neutral.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
               "icon": {
-                "value": "{color.palette.neutral.150}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
               "handle": {
-                "value": "{color.palette.neutral.50}",
+                "value": "{color.palette.neutral.100}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -3281,7 +3281,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.400}",
+            "value": "{color.palette.neutral.500}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3298,7 +3298,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.400}",
+            "value": "{color.palette.neutral.500}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3317,7 +3317,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.500}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3334,7 +3334,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.500}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },

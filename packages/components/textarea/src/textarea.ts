@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { localized } from '@lit/localize';
+import { localized, msg, str } from '@lit/localize';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
@@ -68,7 +68,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @property() autocomplete?: typeof HTMLTextAreaElement.prototype.autocomplete;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
@@ -101,7 +101,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @property({ reflect: true }) size: TextareaSize = 'md';
 
   /** The value for the textarea. */
-  @property() value: string | null = null;
+  @property() override value: string = '';
 
   /** The way text should be wrapped during form submission. */
   @property() wrap: WrapType = 'soft';
@@ -150,7 +150,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     }
 
     if (changes.has('value') && this.value !== this.textarea.value) {
-      this.textarea.value = this.value || '';
+      this.textarea.value = this.value?.toString() || '';
     }
   }
 
@@ -166,6 +166,20 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
           : nothing}
       </slot>
     `;
+  }
+
+  override getLocalizedValidationMessage(): string {
+    if (this.validity.tooShort) {
+      const length = this.value.length;
+
+      return msg(
+        str`Please enter at least ${this.minLength} characters (you currently have ${length} character${
+          length > 1 ? 's' : ''
+        }).`
+      );
+    }
+
+    return super.getLocalizedValidationMessage();
   }
 
   #onInput({ target }: Event & { target: HTMLTextAreaElement }): void {

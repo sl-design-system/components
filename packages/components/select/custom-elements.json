@@ -309,9 +309,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the option item, to be used in forms.",
               "attribute": "value"
             }
@@ -336,9 +335,8 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the option item, to be used in forms.",
               "fieldName": "value"
             }
@@ -450,7 +448,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<string | null>"
+                "text": "EventEmitter<T | undefined>"
               },
               "description": "Emits when the value changes."
             },
@@ -466,9 +464,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the select, to be used in forms.",
               "attribute": "value"
             }
@@ -485,7 +482,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<string | null>"
+                "text": "EventEmitter<T | undefined>"
               },
               "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
@@ -544,9 +541,8 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the select, to be used in forms.",
               "fieldName": "value"
             }
@@ -677,7 +673,7 @@
               "name": "#getAllOptions",
               "return": {
                 "type": {
-                  "text": "SelectOption[]"
+                  "text": "Array<SelectOption<T>>"
                 }
               },
               "parameters": [
@@ -703,7 +699,7 @@
                   "name": "option",
                   "optional": true,
                   "type": {
-                    "text": "SelectOption"
+                    "text": "SelectOption<T>"
                   }
                 },
                 {
@@ -765,9 +761,8 @@
               "name": "#initialState",
               "privacy": "private",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The initial state when the form was associated with the select. Used to reset the select."
             },
             {
@@ -806,7 +801,7 @@
               "kind": "field",
               "name": "options",
               "type": {
-                "text": "SelectOption[]"
+                "text": "Array<SelectOption<T>>"
               },
               "privacy": "private",
               "readonly": true
@@ -815,7 +810,7 @@
               "kind": "field",
               "name": "currentOption",
               "type": {
-                "text": "SelectOption | undefined"
+                "text": "SelectOption<T> | undefined"
               },
               "description": "The current option in the listbox. This is the option that will become the\nselected option if the user presses Enter/Space.",
               "privacy": "private"
@@ -832,7 +827,7 @@
               "kind": "field",
               "name": "selectedOption",
               "type": {
-                "text": "SelectOption | null | undefined"
+                "text": "SelectOption<T> | undefined"
               },
               "privacy": "private"
             }

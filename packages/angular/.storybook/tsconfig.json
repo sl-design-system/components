@@ -1,20 +1,10 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "types": [
-      "node"
-    ],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "types": ["node"]
   },
-  "exclude": [
-    "../src/test.ts",
-    "../src/**/*.spec.ts",
-    "../projects/**/*.spec.ts"
-  ],
-  "include": [
-    "preview.ts",
-    "../src/**/*",
-    "../projects/**/*",
-    "../../locales/**/*"
-  ]
+  "exclude": ["../src/**/*.spec.ts"],
+  "include": ["./preview.ts", "../src", "../stories"]
 }

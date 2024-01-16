@@ -16,7 +16,7 @@ export type CheckboxSize = 'md' | 'lg';
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
 @localized()
-export class Checkbox extends FormControlMixin(LitElement) {
+export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
 
@@ -44,7 +44,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
 
   /** Emits when the checked state changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<boolean>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | null>;
 
   /** Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
@@ -53,7 +53,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** Whether the checkbox is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** Whether the checkbox has the indeterminate state. */
   @property({ type: Boolean, reflect: true }) indeterminate?: boolean;
@@ -67,8 +67,19 @@ export class Checkbox extends FormControlMixin(LitElement) {
   /** The size of the checkbox. */
   @property({ reflect: true }) size: CheckboxSize = 'md';
 
-  /** The value for the checkbox, to be used in forms. */
-  @property() value: string | null = null;
+  /**
+   * The value of the checkbox when the checkbox is checked.
+   * See the formValue property for easy access.
+   */
+  @property() override value?: T;
+
+  override get formValue(): T | null {
+    return this.checked ? ((this.value ?? true) as T) : null;
+  }
+
+  override set formValue(value: T | null) {
+    this.checked = value === true || value === this.value;
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -89,7 +100,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
   /** @ignore Resets the checkbox to the initial state */
   formResetCallback(): void {
     this.checked = this.#initialState;
-    this.changeEvent.emit(this.checked);
+    this.changeEvent.emit(this.formValue);
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -140,7 +151,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
     event.stopPropagation();
 
     this.checked = !this.checked;
-    this.changeEvent.emit(this.checked);
+    this.changeEvent.emit(this.formValue);
   }
 
   #onFocusin(): void {
@@ -170,7 +181,7 @@ export class Checkbox extends FormControlMixin(LitElement) {
   }
 
   #updateValueAndValidity(): void {
-    this.internals.setFormValue(this.checked ? this.value : null);
+    this.internals.setFormValue(this.nativeFormValue);
     this.internals.setValidity({ valueMissing: !!this.required && !this.checked }, msg('Please check this box.'));
 
     this.updateValidity();

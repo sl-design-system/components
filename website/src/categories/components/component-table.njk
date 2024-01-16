@@ -42,7 +42,11 @@
                     {%- endif -%}
                     </td>
                     <td class="ds-table__type">
-                      {% if member.type %}
+                      {% if member.expandedType %}
+                        <code>{{member.expandedType.text}}</code>
+                      {% endif %}
+
+                      {% if member.type and not member.expandedType %}
                         <code>{{member.type.text}}</code>
                       {% endif %}</td>
                     <td>

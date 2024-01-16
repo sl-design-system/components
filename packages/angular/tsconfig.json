@@ -2,12 +2,16 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "declaration": false,
-    "downlevelIteration": true,
     "emitDeclarationOnly": false,
     "module": "ES2022",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noPropertyAccessFromIndexSignature": true,
-    "outDir": "./dist/out-tsc"
+    "outDir": "./out-tsc",
+    "paths": {
+      "@sl-design-system/angular": [
+        "./dist"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

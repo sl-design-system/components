@@ -22,6 +22,9 @@ $md-breakpoint: 600px;
   --_subtitle-padding-bottom: var(--sl-space-dialog-subtitle-padding-bottom);
   --_title-font: var(--sl-text-dialog-heading);
   --_body-font: var(--sl-text-body-lg-normal);
+
+  --_closing-duration: 0ms;
+  --_opening-duration: 0ms;
 }
 
 :host {
@@ -122,6 +125,22 @@ slot[name='footer'] {
   }
 }
 
+dialog[closing] {
+  animation: slide-down var(--_closing-duration) ease-out;
+
+  &::backdrop {
+    animation: backdrop-hide var(--_closing-duration) ease-out;
+  }
+}
+
+dialog[open]:not([closing]) {
+  animation: slide-in-up var(--_opening-duration) ease-out;
+
+  &::backdrop {
+    animation: backdrop-show var(--_opening-duration) ease-out;
+  }
+}
+
 @media screen and (min-width: $md-breakpoint) {
   :host {
     --_border-radius: var(--sl-border-radius-dialog-desktop);
@@ -157,20 +176,9 @@ slot[name='footer'] {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  dialog[closing] {
-    animation: slide-down 400ms ease-out;
-
-    &::backdrop {
-      animation: backdrop-hide 400ms ease-out;
-    }
-  }
-
-  dialog[open]:not([closing]) {
-    animation: slide-in-up 600ms ease-out;
-
-    &::backdrop {
-      animation: backdrop-show 600ms ease-out;
-    }
+  dialog {
+    --_closing-duration: 400ms;
+    --_opening-duration: 600ms;
   }
 }
 

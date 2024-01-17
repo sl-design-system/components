@@ -218,12 +218,13 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
       if (this.#label) {
         this.#label.for = this.control.id;
+        this.#label.mark = this.mark;
       }
     } else {
       this.control = undefined;
 
       if (this.#label) {
-        this.#label.for = undefined;
+        this.#label.for = this.#label.mark = undefined;
       }
     }
   }

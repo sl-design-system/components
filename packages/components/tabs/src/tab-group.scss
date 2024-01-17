@@ -213,7 +213,8 @@ div[popover] {
   }
 
   sl-tab[disabled] {
-    background-color: #e2e2e2;
+    //background-color: #e2e2e2;
+    color: var(--sl-color-select-item-disabled-foreground);
   }
 
   sl-tab::part(subtitle),

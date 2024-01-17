@@ -13,6 +13,6 @@ export class TabPanel extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
     this.setAttribute('role', 'tabpanel');
-    this.setAttribute('tabindex', '0');
+    // this.setAttribute('tabindex', '0');
   }
 }

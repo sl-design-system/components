@@ -9,6 +9,8 @@
   --_background-active: var(--sl-color-tab-active-background);
   --_icon-block-size: var(--sl-text-typeset-line-height-md);
   --_badge-spacing: var(--sl-space-badge-inline-lg);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 }
 
 :host {
@@ -26,6 +28,18 @@
   padding: var(--_padding); //0 3px;
   //position: relative;
   transition: background 300ms;
+
+  //&::after {
+  //  content: '';
+  //  position: absolute;
+  //  top: -4px;
+  //  right: -4px;
+  //  bottom: -4px;
+  //  left: -4px;
+  //  background-color: transparent;
+  //  outline: var(--_focus-outline);
+  //  outline-offset: var(--_focus-outline-offset);
+  //}
 }
 
 //:host([selected]) {
@@ -60,6 +74,21 @@ slot[name='subtitle'] {
 
 :host(:focus) {
   background-color: #ff0;
+}
+
+:host(:focus-visible) {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+
+  //&::before {
+  //  content: '';
+  //  position: absolute;
+  //  top: -4px;
+  //  right: -4px;
+  //  bottom: -4px;
+  //  left: -4px;
+  //  background-color: transparent;
+  //}
 }
 
 .content {

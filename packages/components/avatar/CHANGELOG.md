@@ -1,5 +1,14 @@
 # @sl-design-system/avatar
 
+## 0.1.3
+
+### Patch Changes
+
+- [#792](https://github.com/sl-design-system/components/pull/792) [`0b41208`](https://github.com/sl-design-system/components/commit/0b41208f390b27e3738e0d81258abeaa18e19a0f) - Added badge component, added smaller icon.
+
+- Updated dependencies [[`b507ee0`](https://github.com/sl-design-system/components/commit/b507ee07e119733d285a348e74f34c4b2d172902), [`d881d5f`](https://github.com/sl-design-system/components/commit/d881d5fc5274be5275f910f445a16408d6bb2373)]:
+  - @sl-design-system/shared@0.2.1
+
 ## 0.1.2
 
 ### Patch Changes

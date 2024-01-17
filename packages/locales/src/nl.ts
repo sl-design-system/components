@@ -21,5 +21,6 @@ export const templates = {
   sc95c7150ab686f99: `Voer een correcte waarde in.`,
   sca81470958a97fc4: `Filter op`,
   sd0b6082239185272: `Selecteer alles`,
-  sd244b51f6d7de8e2: `Voer een waarde in volgens het gevraagde patroon.`
+  sd244b51f6d7de8e2: `Voer een waarde in volgens het gevraagde patroon.`,
+  sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`
 };

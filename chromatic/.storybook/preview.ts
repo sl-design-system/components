@@ -1,6 +1,5 @@
 import type { Preview } from '@storybook/web-components';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
-import 'element-internals-polyfill';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { updateTheme, themes } from '../../.storybook/themes';
 import { html } from 'lit';
@@ -10,7 +9,7 @@ const preview: Preview = {
 
     (story, { globals: { mode = 'light', theme = 'sanoma-learning' } }) => {
       updateTheme(theme, mode);
-      
+
       return story();
     },
     (story, data) => {
@@ -56,7 +55,7 @@ export default preview;
 
 export const setTheme = (name: string, mode = 'light') => {
   const fonts = themes.find(theme => theme.id===name)?.fonts || [];
-  
+
   return html`
     <link href="/themes/${name}/base.css" rel="stylesheet">
     <link href="/themes/${name}/${mode}.css" rel="stylesheet">

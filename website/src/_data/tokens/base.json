@@ -2129,6 +2129,16 @@
           "type": "borderWidth"
         }
       },
+      "border": {
+        "tab": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        },
+        "tabbar": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
+      },
       "none": {
         "value": 0,
         "type": "borderWidth",
@@ -3510,6 +3520,30 @@
           "type": "spacing"
         }
       }
+    },
+    "tab": {
+      "inline": {
+        "value": "{space.xl}",
+        "type": "spacing"
+      },
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "gap": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "more": {
+        "inline": {
+          "value": "{space.md}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
     }
   },
   "dialog": {
@@ -3598,6 +3632,12 @@
       "value": 1,
       "type": "opacity",
       "description": "opacity.1000"
+    },
+    "spinner": {
+      "shadow": {
+        "value": "{opacity.600}",
+        "type": "opacity"
+      }
     },
     "transparent": {
       "value": 0,
@@ -3889,6 +3929,40 @@
     "skeleton": {
       "minHeight": {
         "value": "{size.2xs}",
+        "type": "sizing"
+      }
+    },
+    "spinner": {
+      "xs": {
+        "value": "{size.xs}",
+        "type": "sizing"
+      },
+      "sm": {
+        "value": "{size.sm}",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "{size.md}",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "{size.lg}",
+        "type": "sizing"
+      },
+      "xl": {
+        "value": "{size.xl}",
+        "type": "sizing"
+      },
+      "2xl": {
+        "value": "{size.2xl}",
+        "type": "sizing"
+      },
+      "3xl": {
+        "value": "{size.3xl}",
+        "type": "sizing"
+      },
+      "4xl": {
+        "value": "{size.4xl}",
         "type": "sizing"
       }
     }

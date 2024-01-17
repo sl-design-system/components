@@ -1862,10 +1862,6 @@
         "value": "{border.width.xs}",
         "type": "borderWidth"
       },
-      "divider-": {
-        "value": "{border.width.xs}",
-        "type": "borderWidth"
-      },
       "tooltip": {
         "none": {
           "value": "{border.width.none}",

@@ -1157,7 +1157,7 @@
               "description": "color.button.warning.solid.disabled.background"
             },
             "foreground": {
-              "value": "{color.button.default.solid.disabled.foreground}",
+              "value": "{color.button.default.solid.disabled.froeground}",
               "type": "color",
               "description": "color.button.warning.solid.disabled.foreground"
             },

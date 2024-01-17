@@ -1,5 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { UpdateValidityEvent } from './update-validity-event.js';
+import type { LabelMark } from './label.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { EventEmitter } from '@sl-design-system/shared';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
@@ -12,7 +13,7 @@ import { Label } from './label.js';
 import { Hint } from './hint.js';
 import { Error } from './error.js';
 
-// Workaround for missing type in polyfill
+// Workaround for missing type in @open-wc/scoped-elements
 declare global {
   interface ShadowRoot {
     createElement(tagName: string): HTMLElement;
@@ -66,6 +67,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
 
   /** The text for the label. You can also slot an `<sl-label>` element. */
   @property() label?: string;
+
+  /** How to mark this field depending if it is required or not. */
+  @property() mark?: LabelMark;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -124,6 +128,10 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         this.#label = undefined;
       }
     }
+
+    if (changes.has('mark') && this.#label) {
+      this.#label.mark = this.mark;
+    }
   }
 
   override render(): TemplateResult {
@@ -131,11 +139,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       <slot name="label" @slotchange=${this.#onLabelSlotchange}></slot>
       <div class="wrapper" part="wrapper">
         <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity}></slot>
-        <slot
-          @slotchange=${this.#onErrorSlotchange}
-          .noIcon=${!this.control?.showExternalValidityIcon}
-          name="error"
-        ></slot>
+        <slot @slotchange=${this.#onErrorSlotchange} name="error"></slot>
         ${this.#customError || this.#error
           ? nothing
           : html`<slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>`}

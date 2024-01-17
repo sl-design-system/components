@@ -43,7 +43,7 @@ describe('sl-label', () => {
     });
 
     it('should not mark the label as optional', () => {
-      expect(slLabel.optional).to.be.false;
+      expect(slLabel.required).not.to.be.true;
       expect(slLabel.renderRoot.querySelector('.optional')).not.to.exist;
     });
 

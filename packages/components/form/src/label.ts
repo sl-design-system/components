@@ -5,6 +5,8 @@ import { property, state } from 'lit/decorators.js';
 import { LitElement, html, nothing } from 'lit';
 import styles from './label.scss.js';
 
+export type LabelMark = 'optional' | 'required';
+
 export type LabelSize = 'sm' | 'md' | 'lg';
 
 @localized()
@@ -30,16 +32,13 @@ export class Label extends LitElement {
   /** @ignore The associated form control. */
   @state() formControl: (HTMLElement & FormControl & { size?: string }) | null = null;
 
-  /** @ignore Whether this label should be marked as optional. */
-  @state() optional?: boolean;
+  /** Indicates whether the label should indicate if the field is optional or required. */
+  @property() mark?: LabelMark;
 
   /** @ignore Whether this label should be marked as required. */
   @state() required?: boolean;
 
-  /**
-   * The size of the label.
-   * @type {'sm' | 'md' | 'lg'}
-   */
+  /** The size of the label. */
   @property({ reflect: true }) size: LabelSize = 'md';
 
   override connectedCallback(): void {
@@ -108,7 +107,7 @@ export class Label extends LitElement {
         void this.#update();
       } else {
         this.#observer.disconnect();
-        this.optional = this.required = undefined;
+        this.required = undefined;
       }
     }
   }
@@ -117,8 +116,8 @@ export class Label extends LitElement {
     return html`
       <slot @slotchange=${this.#onSlotchange} style="display: none"></slot>
       <slot name="label"></slot>
-      ${this.optional ? html`<span class="optional">(${msg('optional')})</span>` : nothing}
-      ${this.required ? html`<span class="required">(${msg('required')})</span>` : nothing}
+      ${this.mark === 'optional' && !this.required ? html`<span class="optional">(${msg('optional')})</span>` : nothing}
+      ${this.mark === 'required' && this.required ? html`<span class="required">(${msg('required')})</span>` : nothing}
     `;
   }
 
@@ -139,36 +138,7 @@ export class Label extends LitElement {
   }
 
   async #update(): Promise<void> {
-    // Give the component & siblings time to set the required attribute
-    await this.updateComplete;
-
-    const { form } = this.formControl || {},
-      required = this.formControl?.hasAttribute('required');
-
-    this.disabled = this.formControl?.hasAttribute('disabled') ?? false;
-
-    if (form) {
-      const controls = Array.from(form.elements).filter(el => el.tagName !== 'SL-BUTTON');
-
-      // Count the required form controls
-      const requiredCount = controls.reduce((count, control) => {
-        return count + (control.hasAttribute('required') ? 1 : 0);
-      }, 0);
-
-      /**
-       * If the required form controls outnumber the optional form controls,
-       * then mark the optional form controls. If the optional form controls
-       * outnumber the required form controls, mark the required form controls.
-       * If there is only a single form element, do nothing.
-       */
-      const optionalCount = controls.length - requiredCount,
-        showRequired = requiredCount <= optionalCount;
-
-      this.optional = !required && !showRequired;
-      this.required = required && showRequired;
-    } else {
-      this.optional = false;
-      this.required = required;
-    }
+    this.disabled = this.formControl?.disabled ?? false;
+    this.required = this.formControl?.required ?? false;
   }
 }

@@ -3727,15 +3727,15 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.warning.900}",
+          "value": "{color.palette.warning.600}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.warning.900}",
+          "value": "{color.palette.warning.600}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.warning.900}",
+          "value": "{color.palette.warning.600}",
           "type": "color"
         }
       },

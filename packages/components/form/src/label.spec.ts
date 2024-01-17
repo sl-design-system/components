@@ -1,4 +1,5 @@
 import type { TextField } from '@sl-design-system/text-field';
+import type { Form } from './form.js';
 import type { Label } from './label.js';
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/checkbox/register.js';
@@ -8,15 +9,17 @@ import { html } from 'lit';
 import '../register.js';
 
 describe('sl-label', () => {
-  let el: HTMLElement, slLabel: Label, slInput: TextField;
-
   describe('defaults', () => {
+    let el: Form, slLabel: Label, slInput: TextField;
+
     beforeEach(async () => {
       el = await fixture(html`
-        <form>
-          <sl-label for="input">My label</sl-label>
-          <sl-text-field id="input"></sl-text-field>
-        </form>
+        <sl-form>
+          <sl-form-field>
+            <sl-label for="input">My label</sl-label>
+            <sl-text-field id="input"></sl-text-field>
+          </sl-form-field>
+        </sl-form>
       `);
 
       slLabel = el.querySelector('sl-label') as Label;
@@ -42,16 +45,9 @@ describe('sl-label', () => {
       expect(el.querySelector('label')?.htmlFor).to.equal('')
     });
 
-    it('should not mark the label as optional', () => {
-      expect(slLabel.required).not.to.be.true;
+    it('should not mark the label', () => {
+      expect(slLabel.mark).to.equal('required');
       expect(slLabel.renderRoot.querySelector('.optional')).not.to.exist;
-    });
-
-    it('should not mark the label as required', async () => {
-      slInput.required = true;
-      await slInput.updateComplete;
-
-      expect(slLabel.required).to.be.false;
       expect(slLabel.renderRoot.querySelector('.required')).not.to.exist;
     });
 
@@ -80,100 +76,35 @@ describe('sl-label', () => {
   });
 
   describe('slotted label', () => {
+    let el: Label;
+
     beforeEach(async () => {
       el = await fixture(html`
-        <form>
+        <div>
           <sl-label for="input">
             <label slot="label">Slotted label</label>
           </sl-label>
           <sl-text-field id="input"></sl-text-field>
-        </form>
+        </div>
       `);
-
-      slLabel = el.querySelector('sl-label') as Label;
-      slInput = el.querySelector('sl-text-field') as TextField;
     });
 
     it('should use the slotted label', () => {
-      const label = slLabel.querySelector('label');
+      const label = el.querySelector('label');
 
       expect(label).to.have.trimmed.text('Slotted label');
     });
 
     it('should link the label to the input', () => {
-      const label = slLabel.querySelector('label');
+      const label = el.querySelector('label');
 
       expect(label?.htmlFor).to.match(/sl-text-field-\d+/);
     });
   });
 
-  describe('optional label', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <form>
-          <sl-label for="input">My label</sl-label>
-          <sl-text-field id="input"></sl-text-field>
-
-          <sl-label for="input2">Input 2</sl-label>
-          <sl-text-field id="input2" required></sl-text-field>
-
-          <sl-label for="input3">Input 3</sl-label>
-          <sl-text-field id="input3" required></sl-text-field>
-        </form>
-      `);
-    });
-
-    it('should mark it as optional', async () => {
-      const slLabel = el.querySelector('sl-label') as Label,
-        optional = slLabel.renderRoot.querySelector('.optional');
-
-      expect(optional).to.exist;
-      expect(optional).to.have.text('(optional)');
-    });
-
-    it('should not mark the required labels', () => {
-      el.querySelectorAll<Label>('sl-label:not(:first-of-type)').forEach((label: Label) => {
-        const requiredOrOptional = label.renderRoot.querySelector('.required, .optional');
-
-        expect(requiredOrOptional).to.be.null;
-      });
-    });
-  });
-
-  describe('required label', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <form>
-          <sl-label for="input">My label</sl-label>
-          <sl-text-field id="input" required></sl-text-field>
-
-          <sl-label for="input2">Input 2</sl-label>
-          <sl-text-field id="input2"></sl-text-field>
-
-          <sl-label for="input3">Input 3</sl-label>
-          <sl-text-field id="input3"></sl-text-field>
-        </form>
-      `);
-    });
-
-    it('should mark it as required', () => {
-      const label = el.querySelector('sl-label') as Label,
-        required = label.renderRoot.querySelector('.required');
-
-      expect(required).to.exist;
-      expect(required).to.have.text('(required)');
-    });
-
-    it('should not mark the optional labels', () => {
-      el.querySelectorAll<Label>('sl-label:not(:first-of-type)').forEach((label: Label) => {
-        const requiredOrOptional = label.renderRoot.querySelector('.required, .optional');
-
-        expect(requiredOrOptional).to.be.null;
-      });
-    });
-  });
-
   describe('size', () => {
+    let el: HTMLElement;
+
     it('should adopt the size of the switch', async () => {
       el = await fixture(html`
         <form>
@@ -220,6 +151,48 @@ describe('sl-label', () => {
       `);
 
       expect(el.querySelector('sl-label')).to.have.attribute('size', 'md');
+    });
+  });
+
+  describe('optional', () => {
+    let el: Label;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-label mark="optional">My label</sl-label>`);
+    });
+
+    it('should mark the label', () => {
+      expect(el.renderRoot.querySelector('.optional')).to.have.trimmed.text('(optional)');
+      expect(el.renderRoot.querySelector('.required')).not.to.exist;
+    });
+
+    it('should not mark the label if the control is required', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.optional')).not.to.exist;
+      expect(el.renderRoot.querySelector('.required')).not.to.exist;
+    });
+  });
+
+  describe('required', () => {
+    let el: Label;
+
+    beforeEach(async () => {
+      el = await fixture(html`<sl-label mark="required">My label</sl-label>`);
+    });
+
+    it('should not mark the label', () => {
+      expect(el.renderRoot.querySelector('.optional')).not.to.exist;
+      expect(el.renderRoot.querySelector('.required')).not.to.exist;
+    });
+
+    it('should mark the label if the control is required', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('.optional')).not.to.exist;
+      expect(el.renderRoot.querySelector('.required')).to.have.trimmed.text('(required)');
     });
   });
 });

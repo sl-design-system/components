@@ -137,7 +137,7 @@ export class Label extends LitElement {
     }
   }
 
-  async #update(): Promise<void> {
+  #update(): void {
     this.disabled = this.formControl?.disabled ?? false;
     this.required = this.formControl?.required ?? false;
   }

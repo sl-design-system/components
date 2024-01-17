@@ -1196,7 +1196,7 @@
               "name": "#update",
               "return": {
                 "type": {
-                  "text": "Promise<void>"
+                  "text": "void"
                 }
               }
             }

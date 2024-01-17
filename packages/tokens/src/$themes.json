@@ -7573,7 +7573,7 @@
   },
   {
     "id": "2238cc554f2c51d124ae0b38928da5dc55a0327d",
-    "name": "editorialsuite/light",
+    "name": "editorial-suite/light",
     "$figmaStyleReferences": {},
     "selectedTokenSets": {
       "core": "source",

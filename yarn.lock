@@ -4995,6 +4995,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/editorial-suite@workspace:packages/themes/editorial-suite":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/editorial-suite@workspace:packages/themes/editorial-suite"
+  dependencies:
+    "@sl-design-system/icon": "npm:0.0.6"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/example-data@workspace:tools/example-data":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/example-data@workspace:tools/example-data"

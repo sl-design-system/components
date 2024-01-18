@@ -147,32 +147,34 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     );
     return html`
       ${this.#showMore}
-      <div @click=${this.#handleTabChange} role="tablist" part="tab-list" @keydown=${this.#handleKeydown}>
-        <span class="indicator" role="presentation"></span>
-        <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
-        ${this.#showMore
-          ? html` <sl-button
-              id="more-btn"
-              @click=${this.#onClick}
-              popovertarget="tabs-popover"
-              fill="ghost"
-              variant="primary"
-              size="md"
-              @keydown=${this.#onKeydown}
-            >
-              <sl-icon name="far-ellipsis"></sl-icon>
-            </sl-button>`
-          : nothing}
-        <div
-          id="tabs-popover"
-          ${anchor({ element: this.moreButton, position: 'bottom-end' })}
-          @toggle=${this.#onToggle}
-          popover
-          role="listbox"
-          @click=${this.#handleTabChange}
-        >
-          ${this.#allTabs}
-          <span class="indicator-listbox" role="presentation"></span>
+      <div class="wrapper">
+        <div @click=${this.#handleTabChange} role="tablist" part="tab-list" @keydown=${this.#handleKeydown}>
+          <span class="indicator" role="presentation"></span>
+          <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
+          ${this.#showMore
+            ? html` <sl-button
+                id="more-btn"
+                @click=${this.#onClick}
+                popovertarget="tabs-popover"
+                fill="ghost"
+                variant="primary"
+                size="md"
+                @keydown=${this.#onKeydown}
+              >
+                <sl-icon name="far-ellipsis"></sl-icon>
+              </sl-button>`
+            : nothing}
+          <div
+            id="tabs-popover"
+            ${anchor({ element: this.moreButton, position: 'bottom-end' })}
+            @toggle=${this.#onToggle}
+            popover
+            role="listbox"
+            @click=${this.#handleTabChange}
+          >
+            ${this.#allTabs}
+            <span class="indicator-listbox" role="presentation"></span>
+          </div>
         </div>
       </div>
       <slot></slot>
@@ -684,9 +686,19 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         totalTabsWidth = totalTabsWidth + tab.offsetWidth;
       });
 
-      this.#showMore = totalTabsWidth > wrapper.offsetWidth;
+      this.#showMore =
+        totalTabsWidth >
+        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth /*wrapper.offsetWidth*/; // TODO: to refactor
 
-      console.log('totalWidth', totalTabsWidth, wrapper4, wrapper.offsetWidth, this.#showMore);
+      console.log(
+        'totalWidth',
+        totalTabsWidth,
+        wrapper4,
+        wrapper.offsetWidth,
+        wrapper.scrollWidth,
+        this.#showMore,
+        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth
+      );
 
       this.requestUpdate(); // TODO: causes some problems? but necessary to render more button on resize
 

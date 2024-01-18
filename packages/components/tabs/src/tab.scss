@@ -11,6 +11,7 @@
   --_badge-spacing: var(--sl-space-badge-inline-lg);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  // --sl-border-radius-focusring-default
 }
 
 :host {
@@ -25,8 +26,10 @@
   justify-content: center;
   //display: inline-block;
   // line-height: 36px;
-  padding: var(--_padding); //0 3px;
+  //padding: var(--_padding); //0 3px;
   //position: relative;
+  padding: var(--_padding);
+  position: relative;
   transition: background 300ms;
 
   //&::after {
@@ -77,6 +80,7 @@ slot[name='subtitle'] {
 }
 
 :host(:focus-visible) {
+  border-radius: 3px;
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 
@@ -90,6 +94,25 @@ slot[name='subtitle'] {
   //  background-color: transparent;
   //}
 }
+
+//.wrapper {
+//  //padding: 25px;
+//  padding: var(--_padding);
+//  //background: aqua;
+//  //border: 2px solid red;
+//  /* margin: 5px; */
+// // position: fixed;
+//
+//  &::before {
+//    content: '';
+//    position: absolute;
+//    top: -4px;
+//    right: -4px;
+//    bottom: -4px;
+//    left: -4px;
+//    background-color: transparent;
+//  }
+//}
 
 .content {
   //position: relative;

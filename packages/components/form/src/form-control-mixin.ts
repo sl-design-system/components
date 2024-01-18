@@ -27,6 +27,8 @@ export type FormControlElement = NativeFormControlElement | CustomFormControlEle
 
 export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
 
+export type FormControlValidityState = 'valid' | 'invalid' | 'pending';
+
 export interface FormControl {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
@@ -37,6 +39,7 @@ export interface FormControl {
   readonly valid: boolean;
   readonly validationMessage: string;
   readonly validity: ValidityState;
+  readonly validityState: FormControlValidityState;
 
   customValidity?: string;
   disabled?: boolean;
@@ -49,7 +52,7 @@ export interface FormControl {
   updateValidity(): void;
 
   getLocalizedValidationMessage(): string;
-  setCustomValidity(message: string): void;
+  setCustomValidity(message: string | Promise<string>): void;
   setFormControlElement(element: FormControlElement): void;
 }
 
@@ -70,6 +73,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @ignore
      */
     static readonly extendsFormControlMixin = true;
+
+    /** The promise that resolves into a custom validity message. */
+    #customValidityPromise?: Promise<string>;
 
     /**
      * The actual element that integrates with the form; either
@@ -107,9 +113,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
 
-    /** Whether to show the validity state.
-     * @type {'valid' | 'invalid' | undefined}
-     */
+    /** Whether to show the validity state. */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
     /** The value used when submitting the form. */
@@ -201,6 +205,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       } else {
         return this.formControlElement.internals.validity;
       }
+    }
+
+    /** Returns the current validity state. */
+    get validityState(): FormControlValidityState {
+      return this.#customValidityPromise ? 'pending' : this.valid ? 'valid' : 'invalid';
     }
 
     /** @ignore */
@@ -320,7 +329,20 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * an empty string again, you can make the control valid again.
      * @param message The validation message.
      */
-    setCustomValidity(message: string): void {
+    setCustomValidity(message: string | Promise<string>): void {
+      if (typeof message !== 'string') {
+        this.#customValidityPromise = message;
+
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        message
+          .then(result => this.setCustomValidity(result))
+          .finally(() => {
+            this.#customValidityPromise = undefined;
+          });
+
+        return;
+      }
+
       if (isNative(this.formControlElement)) {
         this.formControlElement.setCustomValidity(message);
       } else {

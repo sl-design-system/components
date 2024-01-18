@@ -30,9 +30,9 @@ Once you are added you need to [create a *classic* personal access token on GitH
 <div class="ds-code">
 
   ```txt
-  //npm.pkg.GitHub.com/:_authToken=<token you just generated>
+  //npm.pkg.github.com/:_authToken=<token you just generated>
 
-  @sl-design-system:registry=https://npm.pkg.GitHub.com
+  @sl-design-system:registry=https://npm.pkg.github.com
   ```
 
 </div>

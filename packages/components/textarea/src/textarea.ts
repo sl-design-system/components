@@ -83,7 +83,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @property({ type: Boolean }) readonly?: boolean;
 
   /** Whether the text field is a required field. */
-  @property({ type: Boolean }) required?: boolean;
+  @property({ type: Boolean }) override required?: boolean;
 
   /** The way the textarea can be resized. */
   @property({ reflect: true }) resize: ResizeType = 'vertical';

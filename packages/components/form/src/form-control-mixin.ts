@@ -34,6 +34,7 @@ export interface FormControl {
   readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
   readonly nativeFormValue: FormValue;
+  readonly required?: boolean;
   readonly showExternalValidityIcon: boolean;
   readonly showValidity: FormControlShowValidity;
   readonly valid: boolean;

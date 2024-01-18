@@ -641,6 +641,15 @@
               "attribute": "label"
             },
             {
+              "kind": "field",
+              "name": "mark",
+              "type": {
+                "text": "LabelMark | undefined"
+              },
+              "description": "How to mark this field depending if it is required or not.",
+              "attribute": "mark"
+            },
+            {
               "kind": "event",
               "name": "sl-form-field",
               "type": {
@@ -675,6 +684,14 @@
               },
               "description": "The text for the label. You can also slot an `<sl-label>` element.",
               "fieldName": "label"
+            },
+            {
+              "name": "mark",
+              "type": {
+                "text": "LabelMark | undefined"
+              },
+              "description": "How to mark this field depending if it is required or not.",
+              "fieldName": "mark"
             }
           ],
           "mixins": [
@@ -927,7 +944,7 @@
               "name": "#onFormField",
               "return": {
                 "type": {
-                  "text": "void"
+                  "text": "Promise<void>"
                 }
               },
               "parameters": [
@@ -942,6 +959,15 @@
             {
               "kind": "method",
               "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#updateMarkedFields",
               "return": {
                 "type": {
                   "text": "void"
@@ -1113,9 +1139,18 @@
             },
             {
               "kind": "field",
+              "name": "mark",
+              "type": {
+                "text": "LabelMark | undefined"
+              },
+              "description": "Indicates whether the label should indicate if the field is optional or required.",
+              "attribute": "mark"
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "LabelSize"
               },
               "default": "'md'",
               "description": "The size of the label.",
@@ -1142,9 +1177,17 @@
               "fieldName": "for"
             },
             {
+              "name": "mark",
+              "type": {
+                "text": "LabelMark | undefined"
+              },
+              "description": "Indicates whether the label should indicate if the field is optional or required.",
+              "fieldName": "mark"
+            },
+            {
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "LabelSize"
               },
               "default": "'md'",
               "description": "The size of the label.",
@@ -1180,7 +1223,7 @@
               "name": "#update",
               "return": {
                 "type": {
-                  "text": "Promise<void>"
+                  "text": "void"
                 }
               }
             }

@@ -834,7 +834,7 @@
               "name": "#listeners",
               "privacy": "private",
               "type": {
-                "text": "Array<() => void>"
+                "text": "Array<() => void | Promise<void>>"
               },
               "default": "[]"
             }

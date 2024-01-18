@@ -87,7 +87,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   @property() placeholder?: string;
 
   /** Whether the select is a required field. */
-  @property({ type: Boolean, reflect: true }) required?: boolean;
+  @property({ type: Boolean, reflect: true }) override required?: boolean;
 
   /** @private The selected option in the listbox. */
   @state() selectedOption?: SelectOption<T>;

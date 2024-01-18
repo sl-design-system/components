@@ -1197,7 +1197,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.button.default.solid.disabled.foreground}",
+              "value": "{color.button.default.solid.disabled.background}",
               "type": "color",
               "description": "color.button.warning.default.disabled.border",
               "failedToResolve": true

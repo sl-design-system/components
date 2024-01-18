@@ -23,8 +23,8 @@ $md-breakpoint: 600px;
   --_title-font: var(--sl-text-dialog-heading);
   --_body-font: var(--sl-text-body-lg-normal);
 
-  --_closing-duration: 0ms;
-  --_opening-duration: 0ms;
+  --_closing-duration: 0.001ms;
+  --_opening-duration: 0.001ms;
 }
 
 :host {

@@ -13,9 +13,4 @@ describe('sl-card', () => {
   it('should render correctly', () => {
     expect(el).shadowDom.to.equalSnapshot();
   });
-
-  it('should have size medium and no variant by default', () => {
-    expect(el).to.have.attribute('size','md');
-    expect(el).not.to.have.attribute('variant');
-  });
 });

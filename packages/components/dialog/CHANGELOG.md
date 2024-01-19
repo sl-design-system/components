@@ -1,5 +1,14 @@
 # @sl-design-system/dialog
 
+## 0.0.6
+
+### Patch Changes
+
+- [#887](https://github.com/sl-design-system/components/pull/887) [`316c87a`](https://github.com/sl-design-system/components/commit/316c87a2eca2b7a0c9c7b0f5225e63a5ecdb5b26) - Added an animation of 0.001 seconds on open and close when reduced motion is on, otherwise the 'animationend' event isn't triggerd and the dialog doesn't close. (0s causes it still not to work in older versions of safari)
+
+- Updated dependencies [[`c9c1395`](https://github.com/sl-design-system/components/commit/c9c1395c60eeb958dd25098e85c94818fac635bc)]:
+  - @sl-design-system/button@0.0.17
+
 ## 0.0.5
 
 ### Patch Changes

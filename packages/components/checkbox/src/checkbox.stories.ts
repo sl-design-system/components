@@ -224,7 +224,34 @@ export const CustomValidity: Story = {
     hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',
     slot: () => {
       const onValidate = (event: Event & { target: CheckboxGroup }): void => {
-        event.target.setCustomValidity(event.target.value?.includes('1') ? '' : 'Pick the middle option');
+        event.target.setCustomValidity(event.target.value?.includes('2') ? '' : 'Pick the middle option');
+      };
+
+      return html`
+        <sl-checkbox-group @sl-validate=${onValidate} required>
+          <sl-checkbox value="1">One</sl-checkbox>
+          <sl-checkbox value="2">Two</sl-checkbox>
+          <sl-checkbox value="3">Three</sl-checkbox>
+        </sl-checkbox-group>
+      `;
+    }
+  }
+};
+
+export const CustomAsyncValidity: Story = {
+  args: {
+    hint: 'This story has an async validator. You need to the middle option to make the field valid. It will wait 2 seconds before validating.',
+    slot: () => {
+      const onValidate = (event: Event & { target: CheckboxGroup }): void => {
+        if (!event.target.value?.length) {
+          return;
+        }
+
+        const promise = new Promise<string>(resolve =>
+          setTimeout(() => resolve(event.target.value?.includes('2') ? '' : 'Pick the middle option'), 2000)
+        );
+
+        event.target.setCustomValidity(promise);
       };
 
       return html`

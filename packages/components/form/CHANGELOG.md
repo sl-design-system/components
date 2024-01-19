@@ -1,5 +1,13 @@
 # @sl-design-system/form
 
+## 0.0.4
+
+### Patch Changes
+
+- [#894](https://github.com/sl-design-system/components/pull/894) [`a37667e`](https://github.com/sl-design-system/components/commit/a37667eb4478da696595fdda618b86d15262f60a) - Add support for async validation
+
+- [#888](https://github.com/sl-design-system/components/pull/888) [`b8e7589`](https://github.com/sl-design-system/components/commit/b8e7589f88f447b6e1ee05bbbd0847425f1fcef2) - Fix optional/required label mark
+
 ## 0.0.3
 
 ### Patch Changes

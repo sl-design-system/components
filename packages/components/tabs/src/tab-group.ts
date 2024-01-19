@@ -668,10 +668,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       const axis = this.vertical ? 'Y' : 'X',
         indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
         indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement,
-        wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
+        wrapper = this.shadowRoot?.querySelector('.wrapper') as HTMLElement,
         wrapper2 = this.shadowRoot?.querySelectorAll('[slot="tabs"]'),
         wrapper3 = this.shadowRoot?.querySelectorAll('sl-tab'),
         wrapper4 = this.querySelectorAll('sl-tab');
+
+      // wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
 
       wrapper2?.forEach(tab => console.log('wrapper2 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
 
@@ -682,13 +684,26 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       wrapper4?.forEach(tab => console.log('wrapper4 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
 
       let totalTabsWidth = 0;
+      let totalTabsHeight = 0;
       wrapper4.forEach(tab => {
+        console.log('tab.offsetWidth, tab.offsetHeight', tab.offsetWidth, tab.offsetHeight);
         totalTabsWidth = totalTabsWidth + tab.offsetWidth;
+        totalTabsHeight = totalTabsHeight + tab.offsetHeight;
       });
 
       this.#showMore =
         totalTabsWidth >
         (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth /*wrapper.offsetWidth*/; // TODO: to refactor
+
+      if (axis === 'X') {
+        this.#showMore =
+          totalTabsWidth >
+          (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth /*wrapper.offsetWidth*/;
+      } else {
+        this.#showMore =
+          totalTabsHeight >
+          (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight /*wrapper.offsetWidth*/;
+      }
 
       console.log(
         'totalWidth',
@@ -697,7 +712,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         wrapper.offsetWidth,
         wrapper.scrollWidth,
         this.#showMore,
-        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth
+        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth,
+        totalTabsHeight,
+        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight,
+        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).scrollHeight,
+        this.parentElement?.offsetHeight
       );
 
       this.requestUpdate(); // TODO: causes some problems? but necessary to render more button on resize
@@ -713,12 +732,24 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       //   console.log('totalWidth', totalWidth, wrapper4);
       // }
 
+      const wrapper5 = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement;
+
       let start = 0;
       if (axis === 'X') {
-        start = this.selectedTab.offsetLeft - wrapper.offsetLeft;
+        start = this.selectedTab.offsetLeft - wrapper.offsetLeft - wrapper5.offsetLeft;
       } else {
-        start = this.selectedTab.offsetTop - wrapper.offsetTop;
+        start = this.selectedTab.offsetTop - wrapper.offsetTop - wrapper5.offsetTop;
       }
+
+      console.log(
+        'wrapper offset',
+        wrapper.offsetLeft,
+        wrapper.scrollLeft,
+        this.selectedTab.offsetLeft,
+        this.selectedTab.scrollLeft,
+        wrapper5.offsetLeft,
+        wrapper5.scrollLeft
+      );
 
       console.log(
         'this.selectedTab.offsetLeft - wrapper.offsetLeft',

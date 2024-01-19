@@ -75,9 +75,9 @@ slot[name='subtitle'] {
   background-color: var(--_background-active);
 }
 
-:host(:focus) {
-  background-color: #ff0;
-}
+//:host(:focus) {
+//  background-color: #ff0;
+//}
 
 :host(:focus-visible) {
   border-radius: 3px;

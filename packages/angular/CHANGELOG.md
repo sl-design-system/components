@@ -1,5 +1,11 @@
 # @sl-design-system/angular
 
+## 0.1.3
+
+### Patch Changes
+
+- [#900](https://github.com/sl-design-system/components/pull/900) [`cf53c91`](https://github.com/sl-design-system/components/commit/cf53c91431aa014d9345a99a8c2a5f803d2c0f10) - Fix version not updating during release
+
 ## 0.1.2
 
 ### Patch Changes

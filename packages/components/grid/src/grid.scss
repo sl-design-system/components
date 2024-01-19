@@ -101,6 +101,11 @@ td {
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 }
 
+td[part~='drag-handle'] {
+  cursor: move;
+  justify-content: center;
+}
+
 tr:not(:first-of-type) td {
   border-top: var(--_cell-border);
 }

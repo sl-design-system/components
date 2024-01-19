@@ -8,13 +8,15 @@ import type {
 import { Grid } from './src/grid.js';
 import { GridColumn } from './src/column.js';
 import { GridColumnGroup } from './src/column-group.js';
+import { GridDragHandleColumn } from './src/drag-handle-column.js';
+import { GridFilterColumn } from './src/filter-column.js';
 import { GridSelectionColumn } from './src/selection-column.js';
 import { GridSortColumn } from './src/sort-column.js';
-import { GridFilterColumn } from './src/filter-column.js';
 
 customElements.define('sl-grid', Grid);
 customElements.define('sl-grid-column', GridColumn);
 customElements.define('sl-grid-column-group', GridColumnGroup);
+customElements.define('sl-grid-drag-handle-column', GridDragHandleColumn);
 customElements.define('sl-grid-filter-column', GridFilterColumn);
 customElements.define('sl-grid-selection-column', GridSelectionColumn);
 customElements.define('sl-grid-sort-column', GridSortColumn);

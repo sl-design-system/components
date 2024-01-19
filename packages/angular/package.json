@@ -30,6 +30,12 @@
         "dist"
       ]
     },
+    "release": {
+      "command": "yarn exec node sync-versions.js",
+      "dependencies": [
+        "build"
+      ]
+    },
     "start": {
       "command": "ng run angular:storybook",
       "service": {

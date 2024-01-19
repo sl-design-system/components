@@ -181,7 +181,7 @@
       "command": "yarn changeset publish",
       "dependencies": [
         "build",
-        "./packages/angular:build"
+        "./packages/angular:release"
       ]
     },
     "reset": {
@@ -281,12 +281,6 @@
     },
     "version:changeset": {
       "command": "yarn changeset version"
-    },
-    "version:sync-versions": {
-      "command": "yarn workspace @sl-design-system/angular exec node sync-versions.js",
-      "dependencies": [
-        "version:changeset"
-      ]
     },
     "website": {
       "dependencies": [

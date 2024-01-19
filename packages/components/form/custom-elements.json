@@ -317,7 +317,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -337,7 +337,7 @@
               "kind": "field",
               "name": "showValidity",
               "type": {
-                "text": "'valid' | 'invalid' | undefined"
+                "text": "FormControlShowValidity"
               },
               "description": "Whether to show the validity state.",
               "attribute": "show-validity",
@@ -368,6 +368,15 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true
             },
             {
@@ -406,7 +415,7 @@
             {
               "name": "show-validity",
               "type": {
-                "text": "'valid' | 'invalid' | undefined"
+                "text": "FormControlShowValidity"
               },
               "description": "Whether to show the validity state.",
               "fieldName": "showValidity"
@@ -453,7 +462,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -472,6 +481,15 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "#customValidityPromise",
+              "privacy": "private",
+              "type": {
+                "text": "Promise<string> | undefined"
+              },
+              "description": "The promise that resolves into a custom validity message."
+            },
             {
               "kind": "field",
               "name": "#formControlElement",
@@ -562,6 +580,15 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true
             }
           ]

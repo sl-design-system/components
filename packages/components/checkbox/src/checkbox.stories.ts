@@ -240,7 +240,7 @@ export const CustomValidity: Story = {
 
 export const CustomAsyncValidity: Story = {
   args: {
-    hint: 'This story has an async validator. You need to the middle option to make the field valid. It will wait 2 seconds before validating.',
+    hint: 'This story has an async validator. You need to select the middle option to make the field valid. It will wait 2 seconds before validating.',
     slot: () => {
       const onValidate = (event: Event & { target: CheckboxGroup }): void => {
         if (!event.target.value?.length) {

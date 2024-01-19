@@ -2,9 +2,10 @@ import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../register.js';
+import { FormField } from './form-field.js';
 
 describe('sl-form-field', () => {
-  let el: HTMLElement;
+  let el: FormField;
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -51,6 +52,64 @@ describe('sl-form-field', () => {
       const input = el.querySelector('input');
 
       expect(el.querySelector('label')?.htmlFor).to.equal(input?.id);
+    });
+  });
+
+  describe('validation', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form-field>
+          <sl-text-field required></sl-text-field>
+        </sl-form-field>
+      `);
+    });
+
+    it('should not show validation by default', () => {
+      expect(el.querySelector('sl-error')).not.to.exist;
+    });
+
+    it('should show validation after calling reportValidity', async () => {
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+    });
+
+    it('should not show validation after calling setCustomValidity', async () => {
+      el.querySelector('sl-text-field')?.setCustomValidity('Custom error');
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-error')).not.to.exist;
+    });
+
+    it('should not show validation after calling setCustomValidity with a promise', async () => {
+      el.querySelector('sl-text-field')?.setCustomValidity(Promise.resolve('Custom error'));
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.querySelector('sl-error')).not.to.exist;
+    });
+
+    it('should show custom validation after calling reportValidity', async () => {
+      el.querySelector('sl-text-field')?.setCustomValidity('Custom error');
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-error')).to.have.text('Custom error');
+    });
+
+    it('should show the builtin validation after resetting the custom validity', async () => {
+      const textField = el.querySelector('sl-text-field');
+
+      textField?.setCustomValidity('Custom error');
+      textField?.reportValidity();
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-error')).to.have.text('Custom error');
+
+      textField?.setCustomValidity('');
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
     });
   });
 });

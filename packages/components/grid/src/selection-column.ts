@@ -45,11 +45,11 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return html`
       <th part="header selection">
         <sl-checkbox
-          class="selection-toggle"
           @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelectAll(detail)}
-          ?checked=${checked}
-          ?indeterminate=${indeterminate}
+          .checked=${checked}
+          .indeterminate=${indeterminate}
           aria-label=${msg('Select all')}
+          class="selection-toggle"
         ></sl-checkbox>
       </th>
     `;
@@ -70,9 +70,9 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return html`
       <td part="data selection">
         <sl-checkbox
-          class="selection-toggle"
           @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
-          ?checked=${checked}
+          .checked=${checked}
+          class="selection-toggle"
         ></sl-checkbox>
       </td>
     `;

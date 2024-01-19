@@ -45,6 +45,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return html`
       <th part="header selection">
         <sl-checkbox
+          class="selection-toggle"
           @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelectAll(detail)}
           ?checked=${checked}
           ?indeterminate=${indeterminate}
@@ -69,6 +70,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return html`
       <td part="data selection">
         <sl-checkbox
+          class="selection-toggle"
           @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
           ?checked=${checked}
         ></sl-checkbox>

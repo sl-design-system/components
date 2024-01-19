@@ -1,5 +1,11 @@
 # @sl-design-system/angular
 
+## 0.1.2
+
+### Patch Changes
+
+- [#898](https://github.com/sl-design-system/components/pull/898) [`d572bb6`](https://github.com/sl-design-system/components/commit/d572bb663a2225608e435638b23047b6750fbd2f) - Bump version to fix release process
+
 ## 0.1.1
 
 ### Patch Changes

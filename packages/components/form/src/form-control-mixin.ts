@@ -278,9 +278,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * `willUpdate`, never from `updated` or you will trigger a new lifecycle update.
      * @ignore
      */
-    updateValidity(): void {
-      // Emit the validate event so custom validation can be run at the right time
-      this.dispatchEvent(new ValidateEvent());
+    updateValidity(emitValidateEvent = true): void {
+      if (emitValidateEvent) {
+        // Emit the validate event so custom validation can be run at the right time
+        this.dispatchEvent(new ValidateEvent());
+      }
 
       if (this.report) {
         if (this.valid) {
@@ -354,8 +356,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         }
       }
 
-      this.showValidity = message ? 'invalid' : undefined;
-      this.#emitValidityUpdate();
+      this.updateValidity(false);
     }
 
     /**

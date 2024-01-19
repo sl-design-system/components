@@ -7,6 +7,7 @@
   --_cell-border: 1px solid #eee;
   --_cell-padding-block: 0.5rem;
   --_cell-padding-inline: 1rem;
+  --_drop-target-background: rgba(255, 105, 180);
   --_font: var(--sl-text-body-md-normal);
   --_header-background: #f9f9f9;
   --_header-font-weight: 600;
@@ -73,6 +74,32 @@ tr {
 
   &[part~='selected'] {
     --_cell-background: var(--_selected-background);
+  }
+
+  &.dragging {
+    opacity: 0.5;
+  }
+
+  &.drop-target {
+    --_cell-background: var(--_drop-target-background);
+  }
+
+  &.drop-target-above::before {
+    background: var(--_drop-target-background);
+    block-size: 3px;
+    content: '';
+    inset: -2px 0 auto;
+    position: absolute;
+    z-index: 1;
+  }
+
+  &.drop-target-below::before {
+    background: var(--_drop-target-background);
+    block-size: 3px;
+    content: '';
+    inset: auto 0 -2px;
+    position: absolute;
+    z-index: 1;
   }
 }
 

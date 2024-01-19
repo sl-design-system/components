@@ -15,11 +15,22 @@ import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 import styles from './grid.scss.js';
 import { GridSelectionColumn } from './selection-column.js';
-import { GridActiveItemChangeEvent, GridEvent } from './events.js';
+import { GridActiveItemChangeEvent, GridEvent, GridItemEvent } from './events.js';
 import { GridFilterColumn } from './filter-column.js';
 import { GridSortColumn } from './sort-column.js';
 
 export type GridItemParts<T> = (model: T) => string | undefined;
+
+/**
+ * Indicates how rows can be dragged in the grid.
+ * - `between`: Rows can be dragged between other rows; useful for reordering
+ * - `on-top`: Rows can be dragged on top of other rows; useful for grouping
+ * - `between-or-on-top`: Rows can be dragged between or on top of other rows
+ * - `on-grid`: Rows can be dragged anywhere in the grid
+ */
+export type GridDraggableRows = 'between' | 'on-top' | 'between-or-on-top' | 'on-grid';
+
+export type GridDropFilter<T> = (item: T) => boolean | 'between' | 'on-top';
 
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,6 +42,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** The item being dragged. */
+  #dragItem?: T;
+
+  /** The mode if the drag item is dropped on the current target. */
+  #dropTargetMode?: 'between' | 'on-top';
 
   /** The filters for this grid. */
   #filters: Array<GridFilter<T>> = [];
@@ -61,6 +78,29 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Provide your own implementation for getting the data. */
   @property({ attribute: false }) dataSource?: DataSource<T>;
+
+  /**
+   * Whether you can drag rows in the grid. If you use the drag-handle column,
+   * then this property is automatically set by the column to 'between'.
+   */
+  @property({ attribute: 'draggable-rows' }) draggableRows?: GridDraggableRows;
+
+  /**
+   * Determines if or what kind of drop target the given item is:
+   * - boolean: the item is valid drop target based on the draggableRows value
+   * - 'between': the item is a valid drop target between
+   * - 'on-top': the item is a valid drop target to drop on top of
+   */
+  @property({ attribute: false }) dropFilter?: GridDropFilter<T>;
+
+  /** Emits when a drag operation is starting. */
+  @event() gridDragstart!: EventEmitter<GridEvent<T>>;
+
+  /** Emits when a drag operation has finished. */
+  @event() gridDragend!: EventEmitter<GridEvent<T>>;
+
+  /** Emits when an item has been dropped. */
+  @event() gridDrop!: EventEmitter<GridEvent<T>>;
 
   /** Emits when the items in the grid have changed. */
   @event() gridItemsChange!: EventEmitter<GridEvent<T>>;
@@ -273,6 +313,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     return html`
       <tr
         @click=${(event: Event) => this.#onClickRow(event, item)}
+        @dragstart=${(event: DragEvent) => this.#onDragstart(event, item)}
+        @dragenter=${(event: DragEvent) => this.#onDragenter(event, item)}
+        @dragover=${(event: DragEvent) => this.#onDragover(event, item)}
+        @dragend=${(event: DragEvent) => this.#onDragend(event, item)}
+        @drop=${(event: DragEvent) => this.#onDrop(event, item)}
         class=${classMap({ selected })}
         part=${parts.join(' ')}
       >
@@ -322,6 +367,88 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
     this.#addScopedElements(event.target);
+  }
+
+  #onDragstart(event: DragEvent, item: T): void {
+    event.dataTransfer!.effectAllowed = 'move';
+    event.dataTransfer!.setData('application/json', JSON.stringify(item));
+
+    const row = event.composedPath().at(0) as HTMLElement;
+    row.classList.add('dragging');
+
+    this.#dragItem = item;
+
+    this.gridDragstart.emit(new GridItemEvent('sl-grid-dragstart', this, item));
+  }
+
+  #onDragenter(event: DragEvent, item: T): void {
+    if (this.#dragItem === item) {
+      return;
+    }
+
+    if (this.draggableRows !== 'on-grid') {
+      const dropFilter = this.dropFilter?.(item) ?? true;
+      if (!dropFilter) {
+        // Prevent the item from being dropped here
+        event.preventDefault();
+      }
+
+      if (this.draggableRows === 'between-or-on-top') {
+        this.#dropTargetMode = typeof dropFilter === 'boolean' ? 'between' : dropFilter;
+      } else {
+        this.#dropTargetMode = this.draggableRows;
+      }
+    }
+  }
+
+  #onDragover(event: DragEvent, _item: T): void {
+    event.preventDefault();
+
+    if (this.draggableRows === 'on-grid') {
+      return;
+    }
+
+    // Remove any previous drop target
+    this.renderRoot
+      .querySelector('tr:where(.drop-target, .drop-target-above, .drop-target-below)')
+      ?.classList.remove('drop-target', 'drop-target-above', 'drop-target-below');
+
+    const row = event.composedPath().find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement);
+
+    if (
+      this.draggableRows === 'between' ||
+      (this.draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'between')
+    ) {
+      const { top, height } = row!.getBoundingClientRect(),
+        y = event.clientY;
+
+      // If the cursor is in the top half of the row, make this row the drop target
+      row?.classList.add(y < top + height / 2 ? 'drop-target-above' : 'drop-target-below');
+    } else if (
+      this.draggableRows === 'on-top' ||
+      (this.draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'on-top')
+    ) {
+      row?.classList.add('drop-target');
+    }
+  }
+
+  #onDragend(event: DragEvent, item: T): void {
+    const row = event.composedPath().at(0) as HTMLElement;
+
+    row?.classList.remove('dragging');
+    row?.removeAttribute('draggable');
+
+    this.renderRoot
+      .querySelector('tr:where(.drop-target, .drop-target-above, .drop-target-below)')
+      ?.classList.remove('drop-target', 'drop-target-above', 'drop-target-below');
+
+    this.#dragItem = undefined;
+
+    this.gridDragend.emit(new GridItemEvent('sl-grid-dragend', this, item));
+  }
+
+  #onDrop(_event: DragEvent, item: T): void {
+    this.gridDrop.emit(new GridItemEvent('sl-grid-drop', this, item));
   }
 
   #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter<T> }): void {

@@ -3,6 +3,7 @@ import type {
   GridActiveItemChangeEvent,
   GridEvent,
   GridFilterValueChangeEvent,
+  GridItemEvent,
   GridSortDirectionChangeEvent
 } from './src/events.js';
 import { Grid } from './src/grid.js';
@@ -25,6 +26,10 @@ declare global {
   interface GlobalEventHandlersEventMap {
     'sl-active-item-change': GridActiveItemChangeEvent<any>;
     'sl-filter-value-change': GridFilterValueChangeEvent<any>;
+    'sl-grid-dragstart': GridItemEvent<any>;
+    'sl-grid-dragenter': GridItemEvent<any>;
+    'sl-grid-dragend': GridItemEvent<any>;
+    'sl-grid-drop': GridItemEvent<any>;
     'sl-grid-items-change': GridEvent<any>;
     'sl-grid-state-change': GridEvent<any>;
     'sl-sort-direction-change': GridSortDirectionChangeEvent<any>;

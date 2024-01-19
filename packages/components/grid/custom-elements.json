@@ -1548,6 +1548,23 @@
             },
             {
               "kind": "method",
+              "name": "#onPointerdown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "itemsChanged",
               "return": {
                 "type": {
@@ -1727,6 +1744,15 @@
         {
           "kind": "class",
           "description": "",
+          "name": "GridItemEvent",
+          "superclass": {
+            "name": "GridEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
           "name": "GridSortDirectionChangeEvent",
           "superclass": {
             "name": "GridColumnEvent",
@@ -1740,6 +1766,14 @@
           "name": "GridEvent",
           "declaration": {
             "name": "GridEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridItemEvent",
+          "declaration": {
+            "name": "GridItemEvent",
             "module": "src/events.ts"
           }
         },
@@ -2722,6 +2756,47 @@
               "description": "Provide your own implementation for getting the data."
             },
             {
+              "kind": "field",
+              "name": "draggableRows",
+              "type": {
+                "text": "GridDraggableRows | undefined"
+              },
+              "description": "Whether you can drag rows in the grid. If you use the drag-handle column,\nthen this property is automatically set by the column to 'between'.",
+              "attribute": "draggable-rows"
+            },
+            {
+              "kind": "field",
+              "name": "dropFilter",
+              "type": {
+                "text": "GridDropFilter<T> | undefined"
+              },
+              "description": "Determines if or what kind of drop target the given item is:\n- boolean: the item is valid drop target based on the draggableRows value\n- 'between': the item is a valid drop target between\n- 'on-top': the item is a valid drop target to drop on top of"
+            },
+            {
+              "kind": "event",
+              "name": "gridDragend",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished."
+            },
+            {
+              "kind": "event",
+              "name": "gridDragstart",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting."
+            },
+            {
+              "kind": "event",
+              "name": "gridDrop",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped."
+            },
+            {
               "kind": "event",
               "name": "gridItemsChange",
               "type": {
@@ -2869,6 +2944,30 @@
               "fieldName": "activeItemChange"
             },
             {
+              "name": "gridDragstart",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting.",
+              "fieldName": "gridDragstart"
+            },
+            {
+              "name": "gridDragend",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished.",
+              "fieldName": "gridDragend"
+            },
+            {
+              "name": "gridDrop",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped.",
+              "fieldName": "gridDrop"
+            },
+            {
               "name": "gridItemsChange",
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
@@ -2886,6 +2985,14 @@
             }
           ],
           "attributes": [
+            {
+              "name": "draggable-rows",
+              "type": {
+                "text": "GridDraggableRows | undefined"
+              },
+              "description": "Whether you can drag rows in the grid. If you use the drag-handle column,\nthen this property is automatically set by the column to 'between'.",
+              "fieldName": "draggableRows"
+            },
             {
               "name": "items",
               "type": {
@@ -3019,6 +3126,121 @@
                   "name": "event",
                   "type": {
                     "text": "Event & { target: GridColumn<T> }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onDragstart",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onDragenter",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onDragover",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "_item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onDragend",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onDrop",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "_event",
+                  "type": {
+                    "text": "DragEvent"
+                  }
+                },
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
                   }
                 }
               ]
@@ -3192,6 +3414,24 @@
             },
             {
               "kind": "field",
+              "name": "#dragItem",
+              "privacy": "private",
+              "type": {
+                "text": "T | undefined"
+              },
+              "description": "The item being dragged."
+            },
+            {
+              "kind": "field",
+              "name": "#dropTargetMode",
+              "privacy": "private",
+              "type": {
+                "text": "'between' | 'on-top' | undefined"
+              },
+              "description": "The mode if the drag item is dropped on the current target."
+            },
+            {
+              "kind": "field",
               "name": "#filters",
               "privacy": "private",
               "type": {
@@ -3269,6 +3509,14 @@
                 "text": "DataSource<T> | undefined"
               },
               "description": "Provide your own implementation for getting the data."
+            },
+            {
+              "kind": "field",
+              "name": "dropFilter",
+              "type": {
+                "text": "GridDropFilter<T> | undefined"
+              },
+              "description": "Determines if or what kind of drop target the given item is:\n- boolean: the item is valid drop target based on the draggableRows value\n- 'between': the item is a valid drop target between\n- 'on-top': the item is a valid drop target to drop on top of"
             },
             {
               "kind": "field",

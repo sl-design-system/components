@@ -1088,7 +1088,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -1130,7 +1130,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "CheckboxSize | undefined"
+                "text": "'md' | 'lg'"
               },
               "description": "The size of the checkboxes in the group.",
               "attribute": "size"
@@ -1192,6 +1192,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1267,7 +1280,7 @@
             {
               "name": "size",
               "type": {
-                "text": "CheckboxSize | undefined"
+                "text": "'md' | 'lg'"
               },
               "description": "The size of the checkboxes in the group.",
               "fieldName": "size"
@@ -1370,7 +1383,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -1479,6 +1492,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1685,7 +1711,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -1795,6 +1821,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -2001,7 +2040,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -2097,6 +2136,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -2777,7 +2829,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -2848,6 +2900,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -3004,7 +3069,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -3121,6 +3186,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -4179,7 +4257,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -4230,6 +4308,15 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true
             },
             {
@@ -4315,7 +4402,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -4400,6 +4487,15 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true
             }
           ]
@@ -9474,7 +9570,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -9579,6 +9675,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -9773,7 +9882,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -9869,6 +9978,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -10610,7 +10732,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -10720,6 +10842,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -10922,7 +11057,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -11034,6 +11169,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -15569,7 +15717,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -15678,6 +15826,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -15888,7 +16049,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -15997,6 +16158,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -16610,7 +16784,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -16730,6 +16904,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -16983,7 +17170,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -17087,6 +17274,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -17370,7 +17570,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -17488,6 +17688,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -17769,7 +17982,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -17873,6 +18086,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "FormControlValidityState"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",

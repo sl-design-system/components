@@ -181,7 +181,7 @@
       "command": "yarn changeset publish",
       "dependencies": [
         "build",
-        "./packages/angular:build"
+        "./packages/angular:release"
       ]
     },
     "reset": {
@@ -282,12 +282,6 @@
     "version:changeset": {
       "command": "yarn changeset version"
     },
-    "version:sync-versions": {
-      "command": "yarn workspace @sl-design-system/angular exec node sync-versions.js",
-      "dependencies": [
-        "version:changeset"
-      ]
-    },
     "website": {
       "dependencies": [
         "./website:build"
@@ -335,7 +329,7 @@
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
     "typescript": "^5.2.2",
-    "vite": "^5.0.11",
+    "vite": "^5.0.12",
     "wireit": "^0.14.3"
   }
 }

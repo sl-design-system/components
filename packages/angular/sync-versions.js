@@ -4,7 +4,10 @@
 import { readFileSync, writeFileSync } from 'fs';
 
 const source = './dist/package.json',
-  packageJson = JSON.parse(readFileSync(source, 'utf8'));
+  packageJson = JSON.parse(readFileSync(source, 'utf8')),
+  version = JSON.parse(readFileSync('./package.json', 'utf8')).version;
+
+packageJson.version = version;
 
 Object.keys(packageJson.peerDependencies)
   .filter(name => name.startsWith('@sl-design-system/'))

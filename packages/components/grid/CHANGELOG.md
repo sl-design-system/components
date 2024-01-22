@@ -1,5 +1,17 @@
 # @sl-design-system/grid
 
+## 0.0.33
+
+### Patch Changes
+
+- [#895](https://github.com/sl-design-system/components/pull/895) [`4b8e714`](https://github.com/sl-design-system/components/commit/4b8e714a7bdbc16c5066a8ef7a14528e7922ad4a) - Added vertical alignment for checkbox in header and rows of selection-column
+
+- [#897](https://github.com/sl-design-system/components/pull/897) [`1623a24`](https://github.com/sl-design-system/components/commit/1623a247db8a6f5dd60b0c495061ed95c0e5b8f3) - Fix checked state not applying to selection column
+
+- Updated dependencies []:
+  - @sl-design-system/checkbox@0.0.17
+  - @sl-design-system/text-field@0.1.12
+
 ## 0.0.32
 
 ### Patch Changes

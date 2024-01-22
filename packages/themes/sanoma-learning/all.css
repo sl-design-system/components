@@ -739,8 +739,8 @@
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-avatar-square: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
-  --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
-  --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
+  --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1px);
+  --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1px);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
   --sl-text-icon-font-icon-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);

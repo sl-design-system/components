@@ -160,11 +160,11 @@
     "@custom-elements-manifest/analyzer": "^0.9.0",
     "@custom-elements-manifest/to-markdown": "^0.1.0",
     "@luncheon/esbuild-plugin-gzip": "^0.1.0",
-    "@oddbird/popover-polyfill": "^0.3.7",
+    "@oddbird/popover-polyfill": "^0.3.8",
     "@types/markdown-it": "^13.0.7",
     "@web/dev-server": "^0.4.1",
     "@webcomponents/scoped-custom-element-registry": "^0.0.9",
-    "cem-plugin-expanded-types": "^1.1.4",
+    "cem-plugin-expanded-types": "^1.1.5",
     "cpx": "^1.5.0",
     "elasticlunr": "^0.9.5",
     "esbuild": "^0.19.11",
@@ -174,10 +174,10 @@
     "markdown-it-anchor": "^8.6.7",
     "markdown-it-attrs": "^4.1.6",
     "octokit": "^3.1.2",
-    "sass": "^1.69.7",
+    "sass": "^1.70.0",
     "slugify": "^1.6.6",
     "tiny-glob": "^0.2.9",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.3",
     "wireit": "^0.14.3"
   }
 }

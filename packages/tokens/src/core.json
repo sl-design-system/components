@@ -1940,6 +1940,11 @@
         "value": "circle-check",
         "type": "Icons",
         "description": "icon.core.circle-check-solid"
+      },
+      "ellipsis": {
+        "value": "ellipsis",
+        "type": "Icons",
+        "description": "icon.core.ellipsis"
       }
     },
     "typeset": {

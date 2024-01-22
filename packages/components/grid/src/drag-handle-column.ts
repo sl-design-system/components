@@ -27,6 +27,8 @@ export class GridDragHandleColumn extends GridColumn {
   }
 
   override renderData(): TemplateResult {
+    // FIXME: Once `pointerdown` works properly in WebKit, use that instead
+    // of `mousedown` and `touchstart`. See https://bugs.webkit.org/show_bug.cgi?id=267852
     return html`
       <td @mousedown=${this.#onStartDrag} @touchstart=${this.#onStartDrag} part="data drag-handle">
         <sl-icon name="fas-grip-dots-vertical" class="drag-handle"></sl-icon>

@@ -77,7 +77,8 @@ tr {
   }
 
   &.dragging {
-    opacity: 0.5;
+    background: var(--_cell-background);
+    opacity: 0.4;
   }
 
   &.drop-target {

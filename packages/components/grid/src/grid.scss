@@ -76,12 +76,15 @@ tr {
     --_cell-background: var(--_selected-background);
   }
 
-  &.dragging {
-    background: var(--_cell-background);
+  &.drag-target {
     opacity: 0.4;
   }
 
   &.drop-target {
+    z-index: 1;
+  }
+
+  &.drop-target-on-top {
     --_cell-background: var(--_drop-target-background);
   }
 
@@ -89,18 +92,16 @@ tr {
     background: var(--_drop-target-background);
     block-size: 3px;
     content: '';
-    inset: -2px 0 auto;
+    inset: -1px 0 auto;
     position: absolute;
-    z-index: 1;
   }
 
-  &.drop-target-below::before {
+  &.drop-target-below::after {
     background: var(--_drop-target-background);
     block-size: 3px;
     content: '';
     inset: auto 0 -2px;
     position: absolute;
-    z-index: 1;
   }
 }
 

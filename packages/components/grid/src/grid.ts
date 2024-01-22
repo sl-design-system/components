@@ -7,7 +7,7 @@ import type { DataSource, EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
 import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { ArrayDataSource, SelectionController, event } from '@sl-design-system/shared';
+import { ArrayDataSource, SelectionController, event, isSafari } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -370,11 +370,28 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDragstart(event: DragEvent, item: T): void {
+    event.stopPropagation();
+
+    const row = event.composedPath().at(0) as HTMLElement,
+      rowRect = row.getBoundingClientRect();
+
+    if (isSafari) {
+      // Safari doesn't position drag images from transformed elements properly so we need to
+      // switch to use top temporarily
+      const transform = row.style.transform;
+      row.style.top = /translate\(0px, (.+)\)/.exec(transform)?.at(1) ?? '';
+      row.style.transform = 'none';
+      requestAnimationFrame(() => {
+        row.style.top = '';
+        row.style.transform = transform;
+      });
+    }
+
     event.dataTransfer!.effectAllowed = 'move';
     event.dataTransfer!.setData('application/json', JSON.stringify(item));
 
-    const row = event.composedPath().at(0) as HTMLElement;
-    row.classList.add('dragging');
+    // This is necessary for the dragged item to appear correctly in Safari
+    event.dataTransfer!.setDragImage(row, event.clientX - rowRect.left, event.clientY - rowRect.top);
 
     this.#dragItem = item;
 
@@ -401,19 +418,26 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onDragover(event: DragEvent, _item: T): void {
+  #onDragover(event: DragEvent, item: T): void {
     event.preventDefault();
 
     if (this.draggableRows === 'on-grid') {
       return;
     }
 
-    // Remove any previous drop target
-    this.renderRoot
-      .querySelector('tr:where(.drop-target, .drop-target-above, .drop-target-below)')
-      ?.classList.remove('drop-target', 'drop-target-above', 'drop-target-below');
-
     const row = event.composedPath().find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement);
+
+    if (this.#dragItem === item) {
+      row?.classList.add('drag-target');
+    }
+
+    if (!row?.classList.contains('drop-target')) {
+      this.renderRoot
+        .querySelector('tr:where(.drop-target, .drop-target-above, .drop-target-below, .drop-target-on-top)')
+        ?.classList.remove('drop-target', 'drop-target-above', 'drop-target-below', 'drop-target-on-top');
+
+      row?.classList.add('drop-target');
+    }
 
     if (
       this.draggableRows === 'between' ||
@@ -423,19 +447,25 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         y = event.clientY;
 
       // If the cursor is in the top half of the row, make this row the drop target
-      row?.classList.add(y < top + height / 2 ? 'drop-target-above' : 'drop-target-below');
+      if (y < top + height / 2) {
+        row?.classList.add('drop-target-above');
+        row?.classList.remove('drop-target-below');
+      } else {
+        row?.classList.remove('drop-target-above');
+        row?.classList.add('drop-target-below');
+      }
     } else if (
       this.draggableRows === 'on-top' ||
       (this.draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'on-top')
     ) {
-      row?.classList.add('drop-target');
+      row?.classList.add('drop-target-on-top');
     }
   }
 
   #onDragend(event: DragEvent, item: T): void {
     const row = event.composedPath().at(0) as HTMLElement;
 
-    row?.classList.remove('dragging');
+    row?.classList.remove('drag-target');
     row?.removeAttribute('draggable');
 
     this.renderRoot

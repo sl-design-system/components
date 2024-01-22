@@ -28,13 +28,13 @@ export class GridDragHandleColumn extends GridColumn {
 
   override renderData(): TemplateResult {
     return html`
-      <td @pointerdown=${this.#onPointerdown} part="data drag-handle">
+      <td @mousedown=${this.#onStartDrag} @touchstart=${this.#onStartDrag} part="data drag-handle">
         <sl-icon name="fas-grip-dots-vertical" class="drag-handle"></sl-icon>
       </td>
     `;
   }
 
-  #onPointerdown(event: PointerEvent & { target: HTMLElement }): void {
+  #onStartDrag(event: Event & { target: HTMLElement }): void {
     event.target.closest('tr')?.setAttribute('draggable', 'true');
   }
 }

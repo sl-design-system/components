@@ -1548,7 +1548,7 @@
             },
             {
               "kind": "method",
-              "name": "#onPointerdown",
+              "name": "#onStartDrag",
               "return": {
                 "type": {
                   "text": "void"
@@ -1558,7 +1558,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
               ]
@@ -3192,7 +3192,7 @@
                   }
                 },
                 {
-                  "name": "_item",
+                  "name": "item",
                   "type": {
                     "text": "T"
                   }

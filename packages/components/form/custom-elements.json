@@ -374,7 +374,7 @@
               "kind": "field",
               "name": "validityState",
               "type": {
-                "text": "FormControlValidityState"
+                "text": "'valid' | 'invalid' | 'pending'"
               },
               "description": "Returns the current validity state.",
               "readonly": true
@@ -586,7 +586,7 @@
               "kind": "field",
               "name": "validityState",
               "type": {
-                "text": "FormControlValidityState"
+                "text": "'valid' | 'invalid' | 'pending'"
               },
               "description": "Returns the current validity state.",
               "readonly": true

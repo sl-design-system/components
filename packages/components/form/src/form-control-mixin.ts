@@ -210,7 +210,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
     }
 
-    /** Returns the current validity state. */
+    /** Returns the current validity state.
+     * @type { 'valid' | 'invalid' | 'pending'}
+     */
     get validityState(): FormControlValidityState {
       return this.#customValidityPromise ? 'pending' : this.valid ? 'valid' : 'invalid';
     }

@@ -11,6 +11,7 @@
   --_badge-spacing: var(--sl-space-badge-inline-lg);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
   // --sl-border-radius-focusring-default
 }
 
@@ -80,9 +81,10 @@ slot[name='subtitle'] {
 //}
 
 :host(:focus-visible) {
-  border-radius: 3px;
+  border-radius: var(--_focus-radius); //3px;
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
+  z-index: 1;
 
   //&::before {
   //  content: '';

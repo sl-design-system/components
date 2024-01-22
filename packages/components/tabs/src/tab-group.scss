@@ -14,6 +14,10 @@
   --_listbox-color: var(--sl-color-select-item-default-foreground);
   --_listbox-item-border-radius: var(--sl-border-radius-select-item);
   --_wrapper-spacing: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
+  --_button-shadow: -2px 2px 4px 0px rgba(0, 0, 0, 0.12);
   // TODO: listbox-padding etc.
 }
 
@@ -203,16 +207,25 @@
 }
 
 sl-button {
-  //align-self: center;
-  background: #9ebaff;
+  background: var(--_tab-group-background);
   border-radius: 0;
+  //align-self: center;
+  //background: #9ebaff;
+  box-shadow: var(--_button-shadow);
   //position: absolute;
-  inset-inline-end: 0;
+  inset-inline-end: -4px; //calc(-1 * var(--_wrapper-spacing)); //0;
   position: sticky;
   z-index: 1;
 
   &:hover {
     background-color: var(--sl-color-select-item-hover-background);
+  }
+
+  &:focus-visible {
+    border-radius: var(--_focus-radius); //3px;
+    //outline: var(--_focus-outline);
+    //outline-offset: var(--_focus-outline-offset);
+    //inset-inline-end: 0;
   }
 }
 

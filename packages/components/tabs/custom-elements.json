@@ -317,7 +317,7 @@
               "kind": "field",
               "name": "#rovingTabindexController",
               "privacy": "private",
-              "default": "new RovingTabindexController<Tab>(this, {\n    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),\n    elements: () =>\n      (isPopoverOpen(this.listbox) ? Array.from(this.listbox?.querySelectorAll(`sl-tab`)) : this.tabs) || [],\n    isFocusableElement: (el: Tab) => !el.disabled\n  })"
+              "default": "new RovingTabindexController<Tab>(this, {\n    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),\n    elements: () =>\n      (isPopoverOpen(this.listbox) ? Array.from(this.listbox?.querySelectorAll(`sl-tab`)) as Tab[] : this.tabs) || [],\n    isFocusableElement: (el: Tab) => !el.disabled\n  })"
             },
             {
               "kind": "field",

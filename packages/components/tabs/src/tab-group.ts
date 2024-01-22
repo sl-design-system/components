@@ -146,7 +146,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.shadowRoot
     );
     return html`
-      ${this.#showMore}
       <div class="wrapper">
         <div @click=${this.#handleTabChange} role="tablist" part="tab-list" @keydown=${this.#handleKeydown}>
           <span class="indicator" role="presentation"></span>

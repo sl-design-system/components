@@ -1909,6 +1909,47 @@
           "type": "typography"
         }
       }
+    },
+    "card": {
+      "title": {
+        "value": {
+          "fontFamily": "The Message",
+          "fontWeight": "Regular",
+          "lineHeight": 28,
+          "fontSize": 18,
+          "textDecoration": "none",
+          "textCase": "none",
+          "paragraphSpacing": 0,
+          "letterSpacing": "0%"
+        },
+        "type": "typography"
+      },
+      "subtitle": {
+        "value": {
+          "fontFamily": "Source Sans Pro",
+          "fontWeight": "Regular",
+          "lineHeight": 24,
+          "fontSize": 16,
+          "letterSpacing": "0%",
+          "paragraphSpacing": 24,
+          "textDecoration": "none",
+          "textCase": "none"
+        },
+        "type": "typography"
+      },
+      "body": {
+        "value": {
+          "fontFamily": "Source Sans Pro",
+          "fontWeight": "Regular",
+          "lineHeight": 20,
+          "fontSize": 14,
+          "letterSpacing": "0%",
+          "paragraphSpacing": 22,
+          "textDecoration": "none",
+          "textCase": "none"
+        },
+        "type": "typography"
+      }
     }
   },
   "borderRadius": {

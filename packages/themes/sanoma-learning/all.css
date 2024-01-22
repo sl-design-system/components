@@ -104,6 +104,9 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
+  --sl-text-card-body: Regular 14/20 Source Sans Pro;
+  --sl-text-card-subtitle: Regular 16/24 Source Sans Pro;
+  --sl-text-card-title: Regular 18/28 The Message;
   --sl-text-text-field: [object Object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;

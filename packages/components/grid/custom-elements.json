@@ -1744,6 +1744,15 @@
         {
           "kind": "class",
           "description": "",
+          "name": "GridItemDropEvent",
+          "superclass": {
+            "name": "GridItemEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
           "name": "GridItemEvent",
           "superclass": {
             "name": "GridEvent",
@@ -1774,6 +1783,14 @@
           "name": "GridItemEvent",
           "declaration": {
             "name": "GridItemEvent",
+            "module": "src/events.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridItemDropEvent",
+          "declaration": {
+            "name": "GridItemDropEvent",
             "module": "src/events.ts"
           }
         },
@@ -3232,7 +3249,7 @@
               },
               "parameters": [
                 {
-                  "name": "_event",
+                  "name": "event",
                   "type": {
                     "text": "DragEvent"
                   }

@@ -15,7 +15,7 @@ import { GridColumn } from './column.js';
 import { GridColumnGroup } from './column-group.js';
 import styles from './grid.scss.js';
 import { GridSelectionColumn } from './selection-column.js';
-import { GridActiveItemChangeEvent, GridEvent, GridItemEvent } from './events.js';
+import { GridActiveItemChangeEvent, GridEvent, GridItemDropEvent, GridItemEvent } from './events.js';
 import { GridFilterColumn } from './filter-column.js';
 import { GridSortColumn } from './sort-column.js';
 
@@ -320,6 +320,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         @drop=${(event: DragEvent) => this.#onDrop(event, item)}
         class=${classMap({ selected })}
         part=${parts.join(' ')}
+        index=${index}
       >
         ${rows[rows.length - 1].map(col => col.renderData(item))}
       </tr>
@@ -463,7 +464,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDragend(event: DragEvent, item: T): void {
-    const row = event.composedPath().at(0) as HTMLElement;
+    const row = event.composedPath().find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement);
 
     row?.classList.remove('drag-target');
     row?.removeAttribute('draggable');
@@ -477,8 +478,28 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.gridDragend.emit(new GridItemEvent('sl-grid-dragend', this, item));
   }
 
-  #onDrop(_event: DragEvent, item: T): void {
-    this.gridDrop.emit(new GridItemEvent('sl-grid-drop', this, item));
+  #onDrop(event: DragEvent, item: T): void {
+    const row = event.composedPath().find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement),
+      oldIndex = this.dataSource!.filteredItems.indexOf(this.#dragItem!);
+
+    let newIndex = parseInt(row!.getAttribute('index')!);
+
+    if (
+      this.draggableRows === 'between' ||
+      (this.draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'between')
+    ) {
+      const { top, height } = row!.getBoundingClientRect(),
+        y = event.clientY;
+
+      // If the cursor is in the bottom half of the row, increase the index by 1
+      newIndex += y < top + height / 2 ? 0 : 1;
+    }
+
+    if (oldIndex < newIndex) {
+      newIndex--;
+    }
+
+    this.gridDrop.emit(new GridItemDropEvent(this, item, oldIndex, newIndex));
   }
 
   #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter<T> }): void {

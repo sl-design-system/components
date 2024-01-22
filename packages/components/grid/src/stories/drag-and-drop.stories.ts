@@ -1,4 +1,4 @@
-import type { GridItemEvent } from '../events.js';
+import type { GridItemDropEvent } from '../events.js';
 import type { StoryObj } from '@storybook/web-components';
 import type { Person } from '@sl-design-system/example-data';
 import { getPeople } from '@sl-design-system/example-data';
@@ -14,8 +14,13 @@ export default {
 export const Basic: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const onDrop = (event: GridItemEvent<Person>): void => {
-      console.log(event, event.item);
+    const onDrop = (event: GridItemDropEvent<Person>): void => {
+      // Reorder the person in the grid
+      const newPeople = [...(event.grid.items as Person[])],
+        person = newPeople.splice(event.oldIndex, 1)[0];
+      newPeople.splice(event.newIndex, 0, person);
+
+      event.grid.items = newPeople;
     };
 
     return html`

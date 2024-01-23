@@ -293,9 +293,12 @@
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
   --sl-text-case-badge-text-transform: var(--sl-text-typeset-text-case-uppercase);
   --sl-conceptual-border-width-default: var(--sl-border-width-xs);
-  --sl-space-tab-content-gap: var(--sl-space-xl);
-  --sl-space-tab-content-block: var(--sl-space-xl);
-  --sl-space-tab-content-inline: var(--sl-space-xl);
+  --sl-space-tab-content-vertical-gap: var(--sl-space-xl);
+  --sl-space-tab-content-vertical-block: var(--sl-space-sm);
+  --sl-space-tab-content-vertical-inline: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-gap: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-block: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-inline: var(--sl-space-xl);
   --sl-space-tab-more-block: var(--sl-space-sm);
   --sl-space-tab-more-inline: var(--sl-space-md);
   --sl-space-tab-gap: var(--sl-space-sm);

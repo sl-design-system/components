@@ -289,9 +289,12 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
-  --sl-space-tab-content-gap: var(--sl-space-xl);
-  --sl-space-tab-content-block: var(--sl-space-xl);
-  --sl-space-tab-content-inline: var(--sl-space-xl);
+  --sl-space-tab-content-vertical-gap: var(--sl-space-xl);
+  --sl-space-tab-content-vertical-block: var(--sl-space-sm);
+  --sl-space-tab-content-vertical-inline: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-gap: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-block: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-inline: var(--sl-space-xl);
   --sl-space-tab-more-block: var(--sl-space-sm);
   --sl-space-tab-more-inline: var(--sl-space-md);
   --sl-space-tab-gap: var(--sl-space-sm);

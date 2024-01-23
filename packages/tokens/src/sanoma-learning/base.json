@@ -1790,6 +1790,12 @@
         "value": "{borderRadius.default}",
         "type": "borderRadius"
       }
+    },
+    "card": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {

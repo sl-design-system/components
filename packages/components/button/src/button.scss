@@ -45,11 +45,6 @@ $variants: default, primary, success, warning, danger;
       --_color: var(--sl-color-button-#{$variant}-#{$fill}-disabled-foreground);
       --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-disabled);
     }
-
-    :host([fill='#{$fill}'][variant='#{$variant}']:not([disabled]):focus-visible) {
-      --_border-color: var(--sl-color-button-#{$variant}-#{$fill}-focus-border);
-      --_transform: var(--sl-transform-button-#{$variant}-#{$fill}-focus);
-    }
   }
 }
 

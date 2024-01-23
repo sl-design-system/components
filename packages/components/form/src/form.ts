@@ -63,14 +63,39 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return this.fields.map(f => f.control?.reportValidity()).every(Boolean);
   }
 
-  #onFormField(event: Event): void {
+  async #onFormField(event: Event): Promise<void> {
     event.preventDefault();
     event.stopPropagation();
 
-    this.fields = [...this.fields, event.target as FormField];
+    const formField = event.target as FormField;
+
+    this.fields = [...this.fields, formField];
+
+    // Give the form field time to set the control
+    await formField.updateComplete;
+    this.#updateMarkedFields();
   }
 
   #onSlotchange(): void {
     this.fields = this.fields.filter(f => !!f.parentElement);
+    this.#updateMarkedFields();
+  }
+
+  #updateMarkedFields(): void {
+    // Count the required form controls
+    const requiredCount = this.fields.reduce((count, field) => {
+      return count + (field.control?.required ? 1 : 0);
+    }, 0);
+
+    /**
+     * If the required form controls outnumber the optional form controls,
+     * then mark the optional form controls. If the optional form controls
+     * outnumber the required form controls, mark the required form controls.
+     * If there is only a single form element, do nothing.
+     */
+    const optionalCount = this.fields.length - requiredCount,
+      mark = requiredCount <= optionalCount ? 'required' : 'optional';
+
+    this.fields.forEach(field => (field.mark = mark));
   }
 }

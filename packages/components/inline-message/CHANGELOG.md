@@ -1,5 +1,12 @@
 # @sl-design-system/inline-message
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`c9c1395`](https://github.com/sl-design-system/components/commit/c9c1395c60eeb958dd25098e85c94818fac635bc)]:
+  - @sl-design-system/button@0.0.17
+
 ## 0.1.0
 
 ### Minor Changes

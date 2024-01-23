@@ -988,6 +988,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -1029,6 +1041,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -1064,7 +1088,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -1112,6 +1136,30 @@
               "attribute": "size"
             },
             {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<T[]>"
+              },
+              "description": "Emits when the value of the group changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus."
+            },
+            {
               "kind": "field",
               "name": "valid",
               "type": {
@@ -1152,11 +1200,64 @@
             },
             {
               "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
-                "text": "boolean[] | undefined"
+                "text": "unknown | undefined"
               },
-              "description": "The readonly checked state for the checkbox group."
+              "description": "The value of the group.",
+              "attribute": "value",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<T[]>"
+              },
+              "description": "Emits when the value of the group changes.",
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus.",
+              "fieldName": "focusEvent"
+            },
+            {
+              "type": {
+                "text": "ValidateEvent"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             }
           ],
           "attributes": [
@@ -1183,6 +1284,14 @@
               },
               "description": "The size of the checkboxes in the group.",
               "fieldName": "size"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "T[] | undefined"
+              },
+              "description": "The value of the group.",
+              "fieldName": "value"
             },
             {
               "name": "custom-validity",
@@ -1233,17 +1342,6 @@
           },
           "tagName": "sl-checkbox-group",
           "customElement": true,
-          "events": [
-            {
-              "type": {
-                "text": "ValidateEvent"
-              },
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -1285,7 +1383,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -1300,20 +1398,24 @@
           "fields": [
             {
               "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "boolean[] | undefined"
-              },
-              "description": "The readonly checked state for the checkbox group."
-            },
-            {
-              "kind": "field",
               "name": "showValid",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
               "description": "Optional property to indicate the valid state should be shown.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -1339,6 +1441,18 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1378,6 +1492,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1474,6 +1601,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -1525,6 +1664,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -1560,7 +1711,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -1625,7 +1776,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes."
             },
@@ -1678,13 +1829,29 @@
             },
             {
               "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "unknown | undefined"
               },
-              "default": "null",
-              "description": "The value for the checkbox, to be used in forms.",
-              "attribute": "value"
+              "description": "The value of the checkbox when the checkbox is checked.\nSee the formValue property for easy access.",
+              "attribute": "value",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             }
           ],
           "events": [
@@ -1699,7 +1866,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes.",
               "fieldName": "changeEvent"
@@ -1778,10 +1945,9 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
-              "description": "The value for the checkbox, to be used in forms.",
+              "description": "The value of the checkbox when the checkbox is checked.\nSee the formValue property for easy access.",
               "fieldName": "value"
             },
             {
@@ -1874,7 +2040,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -1887,6 +2053,18 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
             {
               "kind": "field",
               "name": "form",
@@ -1907,6 +2085,18 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -1946,6 +2136,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -2528,6 +2731,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -2570,6 +2785,18 @@
             },
             {
               "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "plugins",
               "type": {
                 "text": "Plugin[] | undefined"
@@ -2602,7 +2829,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -2681,18 +2908,36 @@
             },
             {
               "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "unknown | undefined"
               },
-              "attribute": "value"
+              "description": "The value for this form control.",
+              "attribute": "value",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             }
           ],
           "attributes": [
             {
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string"
               },
               "fieldName": "value"
             },
@@ -2824,7 +3069,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -2860,6 +3105,18 @@
             },
             {
               "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -2878,6 +3135,18 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -2917,6 +3186,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -3686,14 +3968,6 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/form-field-event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
             "package": "./src/form-field.js"
           }
         },
@@ -3917,6 +4191,14 @@
               "readonly": true
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form."
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -3946,6 +4228,14 @@
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true
+            },
+            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -3967,7 +4257,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -4019,6 +4309,23 @@
               },
               "description": "Returns the validity state the control is in.",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "unknown | undefined"
+              },
+              "description": "The value for this form control."
             }
           ],
           "events": [
@@ -4095,7 +4402,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -4115,6 +4422,22 @@
             },
             {
               "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "unknown | undefined"
+              },
+              "description": "The value for this form control."
+            },
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form."
+            },
+            {
+              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -4129,6 +4452,14 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true
             },
             {
@@ -4157,6 +4488,15 @@
               },
               "description": "Returns the validity state the control is in.",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true
             }
           ]
         }
@@ -4168,51 +4508,6 @@
           "declaration": {
             "name": "FormControlMixin",
             "module": "../packages/components/form/src/form-control-mixin.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/form/src/form-field-event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "Emits when a form field is added or removed to/from a form.",
-          "name": "FormFieldEvent",
-          "members": [
-            {
-              "description": "The state of the form field (add or remove)",
-              "name": "state",
-              "kind": "field"
-            }
-          ],
-          "events": [
-            {
-              "name": "sl-form-field"
-            }
-          ],
-          "superclass": {
-            "name": "Event",
-            "module": "../packages/components/form/src/form-field-event.ts"
-          },
-          "methods": [],
-          "fields": [
-            {
-              "description": "The state of the form field (add or remove)",
-              "name": "state",
-              "kind": "field"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "FormFieldEvent",
-          "declaration": {
-            "name": "FormFieldEvent",
-            "module": "../packages/components/form/src/form-field-event.ts"
           }
         }
       ]
@@ -4242,19 +4537,11 @@
           "members": [
             {
               "kind": "field",
-              "name": "formControl",
+              "name": "control",
               "type": {
                 "text": "HTMLElement & FormControl | undefined"
               },
               "description": "The form control element."
-            },
-            {
-              "kind": "event",
-              "name": "formFieldEvent",
-              "type": {
-                "text": "EventEmitter<FormFieldEvent>"
-              },
-              "description": "Emits when the field is added/removed to/from a form."
             },
             {
               "kind": "field",
@@ -4273,15 +4560,32 @@
               },
               "description": "The text for the label. You can also slot an `<sl-label>` element.",
               "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "mark",
+              "type": {
+                "text": "LabelMark | undefined"
+              },
+              "description": "How to mark this field depending if it is required or not.",
+              "attribute": "mark"
+            },
+            {
+              "kind": "event",
+              "name": "sl-form-field",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the field is added to a form."
             }
           ],
           "events": [
             {
               "name": "formFieldEvent",
               "type": {
-                "text": "EventEmitter<FormFieldEvent>"
+                "text": "EventEmitter<void>"
               },
-              "description": "Emits when the field is added/removed to/from a form.",
+              "description": "Emits when the field is added to a form.",
               "fieldName": "formFieldEvent"
             }
           ],
@@ -4301,6 +4605,14 @@
               },
               "description": "The text for the label. You can also slot an `<sl-label>` element.",
               "fieldName": "label"
+            },
+            {
+              "name": "mark",
+              "type": {
+                "text": "LabelMark | undefined"
+              },
+              "description": "How to mark this field depending if it is required or not.",
+              "fieldName": "mark"
             }
           ],
           "mixins": [
@@ -4319,7 +4631,7 @@
           "fields": [
             {
               "kind": "field",
-              "name": "formControl",
+              "name": "control",
               "type": {
                 "text": "HTMLElement & FormControl | undefined"
               },
@@ -4379,6 +4691,30 @@
                   "text": "boolean"
                 }
               }
+            },
+            {
+              "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "T"
+              },
+              "readonly": true
             }
           ],
           "superclass": {
@@ -4407,6 +4743,30 @@
               },
               "default": "[]",
               "description": "The fields in the form."
+            },
+            {
+              "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "valid",
+              "type": {
+                "text": "boolean"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "T"
+              },
+              "readonly": true
             }
           ]
         }
@@ -4546,14 +4906,29 @@
             },
             {
               "kind": "field",
+              "name": "mark",
+              "type": {
+                "text": "LabelMark | undefined"
+              },
+              "description": "Indicates whether the label should indicate if the field is optional or required.",
+              "attribute": "mark",
+              "expandedType": {
+                "text": "'optional' | 'required' | undefined"
+              }
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "LabelSize"
               },
               "default": "'md'",
               "description": "The size of the label.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             }
           ],
           "attributes": [
@@ -4575,13 +4950,27 @@
               "fieldName": "for"
             },
             {
+              "name": "mark",
+              "type": {
+                "text": "LabelMark | undefined"
+              },
+              "description": "Indicates whether the label should indicate if the field is optional or required.",
+              "fieldName": "mark",
+              "expandedType": {
+                "text": "'optional' | 'required' | undefined"
+              }
+            },
+            {
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "LabelSize"
               },
               "default": "'md'",
               "description": "The size of the label.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             }
           ],
           "superclass": {
@@ -9025,7 +9414,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A group of radio buttons.\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
+          "description": "A group of radio buttons.\n\n```html\n  <sl-radio-group>\n    <sl-radio value=\"1\">Option 1</sl-radio>\n    <sl-radio value=\"2\">Option 2</sl-radio>\n    <sl-radio value=\"3\">Option 3</sl-radio>\n  </sl-radio-group>\n```",
           "name": "RadioGroup",
           "slots": [
             {
@@ -9065,6 +9454,18 @@
               },
               "description": "The form associated with the control.",
               "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -9122,6 +9523,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -9157,7 +9570,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -9217,7 +9630,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<string | null>"
+                "text": "EventEmitter<T | undefined>"
               },
               "description": "Emits when the value changes."
             },
@@ -9270,13 +9683,29 @@
             },
             {
               "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "unknown | undefined"
               },
-              "default": "null",
               "description": "The value for the radio group, to be used in forms.",
-              "attribute": "value"
+              "attribute": "value",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             }
           ],
           "events": [
@@ -9291,7 +9720,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<string | null>"
+                "text": "EventEmitter<T | undefined>"
               },
               "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
@@ -9358,9 +9787,8 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the radio group, to be used in forms.",
               "fieldName": "value"
             },
@@ -9454,7 +9882,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -9467,6 +9895,18 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
             {
               "kind": "field",
               "name": "form",
@@ -9487,6 +9927,18 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -9526,6 +9978,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -9617,9 +10082,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for this radio button.",
               "attribute": "value"
             }
@@ -9664,9 +10128,8 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for this radio button.",
               "fieldName": "value"
             }
@@ -10031,9 +10494,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the option item, to be used in forms.",
               "attribute": "value"
             }
@@ -10058,9 +10520,8 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the option item, to be used in forms.",
               "fieldName": "value"
             }
@@ -10154,6 +10615,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -10204,6 +10677,18 @@
             },
             {
               "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "placeholder",
               "type": {
                 "text": "string | undefined"
@@ -10247,7 +10732,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -10312,7 +10797,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<string | null>"
+                "text": "EventEmitter<T | undefined>"
               },
               "description": "Emits when the value changes."
             },
@@ -10365,13 +10850,29 @@
             },
             {
               "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "unknown | undefined"
               },
-              "default": "null",
               "description": "The value for the select, to be used in forms.",
-              "attribute": "value"
+              "attribute": "value",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             }
           ],
           "events": [
@@ -10386,7 +10887,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<string | null>"
+                "text": "EventEmitter<T | undefined>"
               },
               "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
@@ -10457,9 +10958,8 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
               "description": "The value for the select, to be used in forms.",
               "fieldName": "value"
             },
@@ -10557,7 +11057,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -10588,6 +11088,18 @@
             },
             {
               "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -10606,6 +11118,18 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -10645,6 +11169,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -15060,6 +15597,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -15121,6 +15670,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "reportValidity",
               "return": {
@@ -15156,7 +15717,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -15198,12 +15759,15 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "SwitchSize"
               },
               "default": "'md'",
               "description": "The size of the switch.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             },
             {
               "kind": "event",
@@ -15217,7 +15781,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes."
             },
@@ -15270,13 +15834,29 @@
             },
             {
               "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "unknown | undefined"
               },
-              "default": "null",
-              "description": "The value for the switch, to be used in forms.",
-              "attribute": "value"
+              "description": "The value of the switch when the switch is checked.\nSee the formValue property for easy access.",
+              "attribute": "value",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             }
           ],
           "events": [
@@ -15291,7 +15871,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<T | null>"
               },
               "description": "Emits when the checked state changes.",
               "fieldName": "changeEvent"
@@ -15358,19 +15938,21 @@
             {
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "SwitchSize"
               },
               "default": "'md'",
               "description": "The size of the switch.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             },
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "T | undefined"
               },
-              "default": "null",
-              "description": "The value for the switch, to be used in forms.",
+              "description": "The value of the switch when the switch is checked.\nSee the formValue property for easy access.",
               "fieldName": "value"
             },
             {
@@ -15467,7 +16049,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -15480,6 +16062,18 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
             {
               "kind": "field",
               "name": "showValid",
@@ -15521,6 +16115,18 @@
             },
             {
               "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "valid",
               "type": {
                 "text": "boolean"
@@ -15552,6 +16158,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -16011,6 +16630,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -16072,6 +16703,18 @@
               "description": "The name of the form control.",
               "attribute": "name",
               "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -16141,7 +16784,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -16269,13 +16912,30 @@
             },
             {
               "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "unknown | undefined"
               },
-              "default": "null",
               "description": "The value for the input, to be used in forms.",
-              "attribute": "value"
+              "default": "''",
+              "attribute": "value",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             }
           ],
           "events": [
@@ -16410,9 +17070,9 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "string"
               },
-              "default": "null",
+              "default": "''",
               "description": "The value for the input, to be used in forms.",
               "fieldName": "value"
             },
@@ -16472,20 +17132,6 @@
           "methods": [
             {
               "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
-              }
-            },
-            {
-              "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
                 "type": {
@@ -16493,6 +17139,20 @@
                 }
               },
               "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -16510,7 +17170,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -16533,6 +17193,18 @@
             },
             {
               "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -16551,6 +17223,18 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -16590,6 +17274,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -16715,6 +17412,18 @@
               }
             },
             {
+              "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
               "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
@@ -16768,6 +17477,18 @@
               "description": "The name of the form control.",
               "attribute": "name",
               "reflects": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
+              "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -16849,7 +17570,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -16975,13 +17696,30 @@
             },
             {
               "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "unknown | undefined"
               },
-              "default": "null",
               "description": "The value for the textarea.",
-              "attribute": "value"
+              "default": "''",
+              "attribute": "value",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
             },
             {
               "kind": "field",
@@ -17132,9 +17870,9 @@
             {
               "name": "value",
               "type": {
-                "text": "string | null"
+                "text": "string"
               },
-              "default": "null",
+              "default": "''",
               "description": "The value for the textarea.",
               "fieldName": "value"
             },
@@ -17206,20 +17944,6 @@
           "methods": [
             {
               "kind": "method",
-              "name": "reportValidity",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
-              }
-            },
-            {
-              "kind": "method",
               "name": "getLocalizedValidationMessage",
               "return": {
                 "type": {
@@ -17227,6 +17951,20 @@
                 }
               },
               "description": "This returns a localized validation message. It does not support all `ValidityState` properties,\nsince some require more context than we have here. If you need to support more, you can override\nthis method in your own form control.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reportValidity",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "description": "Returns whether the control is valid. If the control is invalid, calling this will\nalso cause an `invalid` event to be dispatched. After calling this, the control\nwill also report the validity to the user.",
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -17244,7 +17982,7 @@
                 {
                   "name": "message",
                   "type": {
-                    "text": "string"
+                    "text": "string | Promise<string>"
                   },
                   "description": "The validation message."
                 }
@@ -17267,6 +18005,18 @@
             },
             {
               "kind": "field",
+              "name": "formValue",
+              "type": {
+                "text": "unknown"
+              },
+              "description": "The value used when submitting the form.",
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "form",
               "type": {
                 "text": "HTMLFormElement | null"
@@ -17285,6 +18035,18 @@
                 "text": "`NodeListOf<HTMLLabelElement>` | null"
               },
               "description": "The labels associated with the control.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "nativeFormValue",
+              "type": {
+                "text": "FormValue"
+              },
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",
@@ -17324,6 +18086,19 @@
                 "text": "ValidityState"
               },
               "description": "Returns the validity state the control is in.",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validityState",
+              "type": {
+                "text": "'valid' | 'invalid' | 'pending'"
+              },
+              "description": "Returns the current validity state.",
               "readonly": true,
               "inheritedFrom": {
                 "name": "FormControlMixin",

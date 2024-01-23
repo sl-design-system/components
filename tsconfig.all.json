@@ -37,6 +37,7 @@
     { "path": "./packages/themes/bingel-dc" },
     { "path": "./packages/themes/bingel-int" },
     { "path": "./packages/themes/clickedu" },
+    { "path": "./packages/themes/editorial-suite" },
     { "path": "./packages/themes/itslearning" },
     { "path": "./packages/themes/kampus" },
     { "path": "./packages/themes/magister" },

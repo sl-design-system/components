@@ -55,6 +55,18 @@ export const themes: Theme[] = [
     }
   },
   {
+    id: 'editorial-suite',
+    name: 'Editorial Suite',
+    fonts: [
+      'https://use.typekit.net/bws3iof.css'
+    ],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/editorial-suite');
+
+      setup();
+    }
+  },
+  {
     id: 'itslearning',
     name: 'itslearning',
     fonts: ['https://use.typekit.net/ucw7xel.css'],

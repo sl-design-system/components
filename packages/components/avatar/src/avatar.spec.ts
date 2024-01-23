@@ -63,7 +63,8 @@ describe('sl-avatar', () => {
   ];
 
   describe('no image', () => {
-    let name: Element|null, svg:Element|null;
+    let name: Element | null, svg: Element | null;
+
     beforeEach(async () => {
       el = await fixture(html`
         <sl-avatar .user=${users[3]}></sl-avatar>
@@ -87,7 +88,7 @@ describe('sl-avatar', () => {
     it('should not render initials but an icon when no image is provided and fallback is set to icon', async () => {
       el.setAttribute('fallback','icon');
       await el.updateComplete;
-      
+
       const avatarIcon = svg?.querySelector('use');
       expect(avatarIcon).to.exist;
       expect(svg?.querySelector('image')).not.to.exist;
@@ -106,17 +107,18 @@ describe('sl-avatar', () => {
 
     it('should fall back to initials when there is an error loading the image', async () => {
       el.user = users[4];
-      el.setAttribute('fallback','initials');
+      el.setAttribute('fallback', 'initials');
       await el.updateComplete;
+
       svg?.querySelector('image')?.dispatchEvent(new Event('error'))
       await el.updateComplete;
+
       expect(svg?.querySelector('image')).not.to.exist;
-      const avatarText = svg?.querySelector('.initials');
-      expect(avatarText).to.have.text("NE");
+      expect(svg?.querySelector('.initials')).to.have.text("NE");
     });
 
   });
-  
+
   describe('with image', () => {
     let svg:Element|null;
     const user = users[0];
@@ -126,7 +128,7 @@ describe('sl-avatar', () => {
       `);
       svg = el.renderRoot.querySelector('svg');
     });
-    
+
     it('should render initials when no image is provided', () => {
       const avatarText = svg?.querySelector('image');
       expect(avatarText?.getAttribute('href')).to.equal(user.picture?.thumbnail);
@@ -161,7 +163,7 @@ describe('sl-avatar', () => {
           badgeX: 22,
           badgeBaseX: 30
         }
-      }, 
+      },
       {
         name:'md',
         image: {
@@ -186,7 +188,7 @@ describe('sl-avatar', () => {
           textX:29,
           textY:12
         }
-      }, 
+      },
       {
         name:'lg',
         image: {
@@ -293,7 +295,7 @@ describe('sl-avatar', () => {
         el.setAttribute('badge-text', '');
         await el.updateComplete;
         await new Promise(resolve => setTimeout(resolve, 500));
-  
+
         expect(el.image).to.exist;
         expect(el.image?.containerSize).to.equal(sizeValues.image.containerSize);
         expect(el.image?.size).to.equal(sizeValues.image.size);
@@ -301,7 +303,7 @@ describe('sl-avatar', () => {
         expect(el.image?.y).to.equal(sizeValues.image.y);
         expect(el.image?.x).to.equal(sizeValues.image.x);
         expect(el.image?.focusRingPosition).to.equal(sizeValues.image.focusRingPosition);
-        
+
         expect(el.badge).to.exist;
         expect(el.badge?.height).to.equal(sizeValues.statusBadge.height);
         expect(el.badge?.width).to.equal(sizeValues.statusBadge.width);
@@ -314,7 +316,7 @@ describe('sl-avatar', () => {
         if(sizeValues.textBadge){
           await el.updateComplete;
           await new Promise(resolve => setTimeout(resolve, 200));
-         
+
           // using "within" here because fonts/rendering, calculations can differ slighty between different browsers
           expect(Math.floor(el.badge?.width || 0)).to.be.within(sizeValues.textBadge.width-1,sizeValues.textBadge.width+1);
           expect(Math.floor(el.badge?.badgeX || 0)).to.be.within(sizeValues.textBadge.badgeX-1,sizeValues.textBadge.badgeX+1);
@@ -366,5 +368,5 @@ describe('sl-avatar', () => {
       await el.updateComplete;
       expect(svg).to.have.attribute('aria-label','99+ unread messages');
     });
-  }); 
+  });
 });

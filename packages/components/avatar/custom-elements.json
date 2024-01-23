@@ -57,14 +57,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "ariaLabelText",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
-            },
-            {
-              "kind": "field",
               "name": "badge",
               "type": {
                 "text": "AvatarBadge | undefined"
@@ -93,7 +85,8 @@
               "name": "errorLoadingImage",
               "type": {
                 "text": "boolean | undefined"
-              }
+              },
+              "description": "State for when loading of the image has failed."
             },
             {
               "kind": "field",
@@ -349,6 +342,14 @@
             },
             {
               "kind": "field",
+              "name": "errorLoadingImage",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "State for when loading of the image has failed."
+            },
+            {
+              "kind": "field",
               "name": "icon",
               "type": {
                 "text": "AvatarIcon | undefined"
@@ -365,25 +366,10 @@
             },
             {
               "kind": "field",
-              "name": "ariaLabelText",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
-            },
-            {
-              "kind": "field",
               "name": "borderWidth",
               "default": "4",
               "type": {
                 "text": "number"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "errorLoadingImage",
-              "type": {
-                "text": "boolean | undefined"
               }
             },
             {

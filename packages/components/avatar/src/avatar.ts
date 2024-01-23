@@ -95,6 +95,9 @@ export class Avatar extends LitElement {
   /** Experimental feature, use with great caution. */
   @property({ attribute: 'badge-text' }) badgeText?: string;
 
+  /** State for when loading of the image has failed. */
+  @state() errorLoadingImage?: boolean;
+
   /** The fallback to use when there is no user image present. */
   @property() fallback?: AvatarFallbackType = 'initials';
 
@@ -125,9 +128,7 @@ export class Avatar extends LitElement {
   /** The user object. */
   @property({ type: Object }) user?: UserProfile;
 
-  ariaLabelText = '';
   borderWidth = BORDER_WIDTH;
-  errorLoadingImage?: boolean;
   initials = '';
   offset = OFFSET_CIRCLE;
   profileName = '';
@@ -161,22 +162,6 @@ export class Avatar extends LitElement {
         this.initials = this.profileName = '';
       }
     }
-
-    if (changes.has('badgeText') || changes.has('imageOnly') || changes.has('label')) {
-      const parts: string[] = [];
-
-      if (this.imageOnly) {
-        parts.push(this.profileName);
-      }
-
-      if (this.label) {
-        parts.push(this.label.replaceAll('{{badgeText}}', this.badgeText ?? ''));
-      } else if (this.badgeText) {
-        parts.push(`(${this.badgeText})`);
-      }
-
-      this.ariaLabelText = parts.join(' ');
-    }
   }
 
   override render(): TemplateResult {
@@ -194,12 +179,23 @@ export class Avatar extends LitElement {
   }
 
   #renderPicture(): TemplateResult {
-    const { x, y, containerSize, radius, size } = this.image!;
+    const { x, y, containerSize, radius, size } = this.image!,
+      parts: string[] = [];
+
+    if (this.imageOnly) {
+      parts.push(this.profileName);
+    }
+
+    if (this.label) {
+      parts.push(this.label.replaceAll('{{badgeText}}', this.badgeText ?? ''));
+    } else if (this.badgeText) {
+      parts.push(`(${this.badgeText})`);
+    }
 
     return html`
       <picture>
         <svg
-          aria-label=${this.ariaLabelText}
+          aria-label=${parts.join(' ')}
           width=${containerSize}
           height=${containerSize}
           viewBox=" 0 0 ${containerSize} ${containerSize}"

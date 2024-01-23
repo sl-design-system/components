@@ -100,9 +100,11 @@ export const API: StoryObj = {
 
 export const Vertical: StoryObj = {
   render: ({ alignment }) => html` <style>
-      /*.tab-wrapper {*/
-      /*  height: 200px;*/
-      /*}*/
+      sl-tab-group::part(wrapper) {
+        position: sticky;
+        inset-block-start: 16px;
+        align-self: flex-start;
+      }
     </style>
     <div class="tab-wrapper">
       <sl-tab-group vertical="true" .alignment=${alignment}>

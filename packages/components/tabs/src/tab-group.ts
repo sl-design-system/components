@@ -146,7 +146,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.shadowRoot
     );
     return html`
-      <div class="wrapper">
+      <div class="wrapper" part="wrapper">
         <div @click=${this.#handleTabChange} role="tablist" part="tab-list" @keydown=${this.#handleKeydown}>
           <span class="indicator" role="presentation"></span>
           <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
@@ -353,12 +353,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       return;
     }
 
+    console.log('this.#rovingTabindexController in onToggle - before', this.#rovingTabindexController);
+
+    this.#rovingTabindexController.clearElementCache(); // TODO: maybe sth with manageIndexesAnimationFrame ?????
+
+    console.log('this.#rovingTabindexController in onToggle - after clearCache', this.#rovingTabindexController);
+
     // this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
 
     // this.selectedTabInListbox.offsetTop
 
     requestAnimationFrame(() => {
-      this.#rovingTabindexController.clearElementCache();
+      // this.#rovingTabindexController.clearElementCache();
 
       if (!this.listbox || !this.selectedTab) {
         return;
@@ -715,7 +721,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         totalTabsHeight,
         (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight,
         (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).scrollHeight,
-        this.parentElement?.offsetHeight
+        this.parentElement?.offsetHeight,
+        totalTabsHeight > (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight
       );
 
       this.requestUpdate(); // TODO: causes some problems? but necessary to render more button on resize

@@ -1589,17 +1589,33 @@
         }
       },
       "content": {
-        "inline": {
-          "value": "{space.xl}",
-          "type": "spacing"
+        "horizontal": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
         },
-        "block": {
-          "value": "{space.xl}",
-          "type": "spacing"
-        },
-        "gap": {
-          "value": "{space.xl}",
-          "type": "spacing"
+        "vertical": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
         }
       }
     }

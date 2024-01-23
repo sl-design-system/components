@@ -180,22 +180,22 @@ export class Avatar extends LitElement {
 
   #renderPicture(): TemplateResult {
     const { x, y, containerSize, radius, size } = this.image!,
-      parts: string[] = [];
+      labelParts: string[] = [];
 
     if (this.imageOnly) {
-      parts.push(this.profileName);
+      labelParts.push(this.profileName);
     }
 
     if (this.label) {
-      parts.push(this.label.replaceAll('{{badgeText}}', this.badgeText ?? ''));
+      labelParts.push(this.label.replaceAll('{{badgeText}}', this.badgeText ?? ''));
     } else if (this.badgeText) {
-      parts.push(`(${this.badgeText})`);
+      labelParts.push(`(${this.badgeText})`);
     }
 
     return html`
       <picture>
         <svg
-          aria-label=${parts.join(' ')}
+          aria-label=${labelParts.join(' ')}
           width=${containerSize}
           height=${containerSize}
           viewBox=" 0 0 ${containerSize} ${containerSize}"

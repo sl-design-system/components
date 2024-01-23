@@ -2,11 +2,13 @@ export interface UserProfile {
   name: UserProfileName;
   picture?: UserProfilePicture;
 }
+
 export interface UserProfileName {
   first: string;
   last: string;
   prefix?: string;
 }
+
 export interface UserProfilePicture {
   thumbnail: string;
 }

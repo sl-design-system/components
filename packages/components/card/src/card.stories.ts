@@ -1,5 +1,7 @@
 import type { Card } from './card.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/badge/register.js';
+import '@sl-design-system/icon/register.js';
 import { html, nothing } from 'lit';
 import '../register.js';
 
@@ -92,6 +94,7 @@ export const All: Story = {
       <sl-card style="max-width: 300px" orientation="vertical">
         <img slot="media" src="${images[1]}" />
         <h2>${titles[1]}</h2>
+        <sl-badge slot="header">new</sl-badge>
         <p slot="body">vertical - max-width${bodyCopy[1]}</p>
       </sl-card>
     </div>

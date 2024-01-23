@@ -27,7 +27,10 @@ export class Card extends LitElement {
     return html`
       <div>
         <slot name="media"></slot>
-        <slot></slot>
+        <header>
+          <slot></slot>
+          <slot name="header"></slot>
+        </header>
         <slot name="body"></slot>
       </div>
     `;

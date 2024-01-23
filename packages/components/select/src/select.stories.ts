@@ -237,6 +237,29 @@ export const CustomValidity: Story = {
   }
 };
 
+export const CustomAsyncValidity: Story = {
+  args: {
+    hint: 'This story has an async validator. You need to the second option to make the field valid. It will wait 2 seconds before validating.',
+    slot: () => {
+      const onValidate = (event: Event & { target: Select }): void => {
+        const promise = new Promise<string>(resolve =>
+          setTimeout(() => resolve(event.target.value === '2' ? '' : 'Select the second option'), 2000)
+        );
+
+        event.target.setCustomValidity(promise);
+      };
+
+      return html`
+        <sl-select @sl-validate=${onValidate} required>
+          <sl-select-option value="1">Option 1</sl-select-option>
+          <sl-select-option value="2">Option 2</sl-select-option>
+          <sl-select-option value="3">Option 3</sl-select-option>
+        </sl-select>
+      `;
+    }
+  }
+};
+
 export const All: StoryObj = {
   render: () => {
     const disabledStates = [false, true],

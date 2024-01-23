@@ -27,16 +27,20 @@ export type FormControlElement = NativeFormControlElement | CustomFormControlEle
 
 export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
 
+export type FormControlValidityState = 'valid' | 'invalid' | 'pending';
+
 export interface FormControl {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
   readonly nativeFormValue: FormValue;
+  readonly required?: boolean;
   readonly showExternalValidityIcon: boolean;
   readonly showValidity: FormControlShowValidity;
   readonly valid: boolean;
   readonly validationMessage: string;
   readonly validity: ValidityState;
+  readonly validityState: FormControlValidityState;
 
   customValidity?: string;
   disabled?: boolean;
@@ -49,7 +53,7 @@ export interface FormControl {
   updateValidity(): void;
 
   getLocalizedValidationMessage(): string;
-  setCustomValidity(message: string): void;
+  setCustomValidity(message: string | Promise<string>): void;
   setFormControlElement(element: FormControlElement): void;
 }
 
@@ -70,6 +74,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @ignore
      */
     static readonly extendsFormControlMixin = true;
+
+    /** The promise that resolves into a custom validity message. */
+    #customValidityPromise?: Promise<string>;
 
     /**
      * The actual element that integrates with the form; either
@@ -108,7 +115,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     @property({ reflect: true }) name?: string;
 
     /** Whether to show the validity state.
-     * @type {'valid' | 'invalid' | undefined}
+     * @type {'valid' | 'invalid' | undefined }
      */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
@@ -203,6 +210,13 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
     }
 
+    /** Returns the current validity state.
+     * @type { 'valid' | 'invalid' | 'pending'}
+     */
+    get validityState(): FormControlValidityState {
+      return this.#customValidityPromise ? 'pending' : this.valid ? 'valid' : 'invalid';
+    }
+
     /** @ignore */
     override disconnectedCallback(): void {
       this.#formControlElement?.removeEventListener('invalid', this.#onInvalid);
@@ -268,9 +282,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * `willUpdate`, never from `updated` or you will trigger a new lifecycle update.
      * @ignore
      */
-    updateValidity(): void {
-      // Emit the validate event so custom validation can be run at the right time
-      this.dispatchEvent(new ValidateEvent());
+    updateValidity(emitValidateEvent = true): void {
+      if (emitValidateEvent) {
+        // Emit the validate event so custom validation can be run at the right time
+        this.dispatchEvent(new ValidateEvent());
+      }
 
       if (this.report) {
         if (this.valid) {
@@ -320,7 +336,20 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * an empty string again, you can make the control valid again.
      * @param message The validation message.
      */
-    setCustomValidity(message: string): void {
+    setCustomValidity(message: string | Promise<string>): void {
+      if (typeof message !== 'string') {
+        this.#customValidityPromise = message;
+
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        message
+          .then(result => this.setCustomValidity(result))
+          .finally(() => {
+            this.#customValidityPromise = undefined;
+          });
+
+        return;
+      }
+
       if (isNative(this.formControlElement)) {
         this.formControlElement.setCustomValidity(message);
       } else {
@@ -331,8 +360,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         }
       }
 
-      this.showValidity = message ? 'invalid' : undefined;
-      this.#emitValidityUpdate();
+      this.updateValidity(false);
     }
 
     /**

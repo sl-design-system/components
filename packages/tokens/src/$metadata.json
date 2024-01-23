@@ -36,6 +36,8 @@
     "teas/base",
     "teas/light",
     "nowa-era/base",
-    "nowa-era/light"
+    "nowa-era/light",
+    "editorial-suite/base",
+    "editorial-suite/light"
   ]
 }

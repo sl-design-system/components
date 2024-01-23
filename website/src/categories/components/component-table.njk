@@ -81,7 +81,7 @@
                     <td>
                       {% for parameter in member.parameters -%}
                         {% if parameter %}
-                          <code>{{parameter.name}}{% if parameter.optional%}?{% endif %}: {{ parameter.type.text }}</code>
+                          <code>{{parameter.name}}{% if parameter.optional%}?{% endif %}: {{ parameter.type.text | escape }}</code>
                         {% endif %}
                       {% endfor -%}
                     </td>
@@ -110,15 +110,17 @@
                   </thead>
                   <tbody>
                   {% for event in declaration.events -%}
-                    <tr>
-                      <td><code>{{event.name}}</code></td>
-                      <td>
-                        {% if event.type %}
-                          <code>{{ event.type.text }}</code>
-                        {% endif %}
-                      </td>
-                      <td>{{event.description}}</td>
-                    </tr>
+                    {% if event.name %}
+                      <tr>
+                        <td><code>{{event.name}}</code></td>
+                        <td>
+                          {% if event.type %}
+                            <code>{{ event.type.text }}</code>
+                          {% endif %}
+                        </td>
+                        <td>{{event.description}}</td>
+                      </tr>
+                    {% endif %}
                   {% endfor -%}
                   </tbody>
                 </table>

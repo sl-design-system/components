@@ -189,7 +189,7 @@ export class Avatar extends LitElement {
         : html`
             <div>
               <span class="header">${this.profileName}</span>
-              <slot class="subheader"></slot>
+              ${this.size === 'sm' ? nothing : html`<slot class="subheader"></slot>`}
             </div>
           `}
     `;

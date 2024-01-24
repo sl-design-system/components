@@ -62,6 +62,38 @@ describe('sl-avatar', () => {
     }
   ];
 
+  describe('header', async () => {
+    let name: Element | null, subheader: Element | null;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-avatar .user=${users[3]}>Straight A student</sl-avatar>
+      `);
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+      name = el.renderRoot.querySelector('.header');
+      subheader = el.renderRoot.querySelector('.subheader');
+    });
+
+
+    it('should render the name and subheader', () => {
+      expect(name).to.have.text("Johnni Sullivan");
+      expect(subheader).to.exist;
+      expect(el).to.have.text("Straight A student");
+    });
+
+    it('should render the name but not the subheader on small', async () => {
+      el.size = 'sm';
+      await el.updateComplete;
+      
+      name = el.renderRoot.querySelector('.header');
+      subheader = el.renderRoot.querySelector('.subheader');
+
+      expect(name).to.have.text("Johnni Sullivan");
+      expect(subheader).not.to.exist;
+    });
+  });
+
   describe('no image', () => {
     let name: Element | null, svg: Element | null;
 
@@ -71,11 +103,6 @@ describe('sl-avatar', () => {
       `);
       name = el.renderRoot.querySelector('.header');
       svg = el.renderRoot.querySelector('svg');
-    });
-
-    it('should render the Avatar', () => {
-      expect(name).to.have.text("Johnni Sullivan");
-      expect(svg).to.exist;
     });
 
     it('should render initials when no image is provided', () => {

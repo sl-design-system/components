@@ -356,6 +356,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     console.log('this.#rovingTabindexController in onToggle - before', this.#rovingTabindexController);
 
     this.#rovingTabindexController.clearElementCache(); // TODO: maybe sth with manageIndexesAnimationFrame ?????
+    //this.#rovingTabindexController.update({elements: Array.from(this.listbox?.querySelectorAll(`sl-tab`))});
 
     console.log('this.#rovingTabindexController in onToggle - after clearCache', this.#rovingTabindexController);
 
@@ -452,7 +453,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #handleTabChange(event: Event): void {
-    console.log('handleTabChange', event, event.target, (event.target as HTMLElement).closest('sl-tab'));
+    console.log(
+      'handleTabChange',
+      event,
+      event.target,
+      (event.target as HTMLElement).closest('sl-tab'),
+      (event.target as HTMLElement).closest('sl-tab') instanceof Tab
+    );
+
+    if (!((event.target as HTMLElement).closest('sl-tab') instanceof Tab)) {
+      return;
+    }
     // event.preventDefault();
     // event.stopPropagation();
     // Always reset the scroll when a tab is selected.
@@ -462,7 +473,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
      * Return handler if it's not a tab or if it's already selected
      */
     // if (!(event.target as HTMLElement).closest('sl-tab') /*(event.target instanceof Tab)*/) return;
-    this.#updateSelectedTab((event.target as HTMLElement).closest('sl-tab') as Tab /*event.target*/);
+    this.#updateSelectedTab((event.target as HTMLElement).closest('sl-tab') as Tab /*event.target*/); // TODO: this may cause a problem?
     this.listbox.hidePopover();
   }
 
@@ -470,18 +481,35 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     console.log(
       'event onKeyDown',
       isPopoverOpen(this.listbox),
+      event.target,
       event,
       event.key,
       isPopoverOpen(this.listbox) /*, this.#rovingTabListboxindexController*/,
       (this.#allTabs as Tab[])[0],
       this.listbox?.querySelectorAll(`sl-tab`)[0],
-      this.listbox
+      this.listbox,
+      this.#rovingTabindexController.focusInElement,
+      this.#rovingTabindexController.focusInElement
     );
     // TODO: if is opened then roving clear cache ??
 
-    if (isPopoverOpen(this.listbox)) {
-      this.#rovingTabindexController.clearElementCache();
-    }
+    // debugger;
+
+    // requestAnimationFrame(() => {
+    //   this.#rovingTabindexController.clearElementCache();
+    //   this.#rovingTabindexController.focus();
+    //   console.log(
+    //     'event onKeyDown in raf',
+    //     isPopoverOpen(this.listbox),
+    //     this.#rovingTabindexController.focusInElement,
+    //     this.#rovingTabindexController.focusInElement);
+    // });
+
+    // if (isPopoverOpen(this.listbox)) {
+    this.#rovingTabindexController.clearElementCache();
+    // this.#rovingTabindexController.manageTabindexes();
+    this.#rovingTabindexController.focus();
+    // }
 
     // // if (!this.#allTabs) {
     // //   return;

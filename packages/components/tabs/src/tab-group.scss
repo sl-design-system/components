@@ -22,6 +22,7 @@
   --_panel-horizontal-padding: calc(var(--sl-space-tab-content-horizontal-block) - var(--_wrapper-spacing))
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
+  --_button-inline-padding: var(--sl-space-tab-more-inline);
 }
 
 //--_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
@@ -39,9 +40,23 @@
 .wrapper {
   //display: flex;
   display: grid;
+  //position: relative;
+  inset-block-start: calc(-1 * var(--_wrapper-spacing)); //0;
   overflow: hidden;
   padding: var(--_wrapper-spacing); //4px;
-  position: relative;
+  position: sticky;
+
+  //&::after {
+  //  background-color: red;
+  //  bottom: 0px;
+  //  content: "";
+  //  display: block;
+  //  position: absolute;
+  //  right: 0px;
+  //  top: 0px;
+  //  width: 4px;
+  //  z-index: 2;
+  //}
 
   //&::before {
   //  content: '';
@@ -94,11 +109,12 @@
   border-bottom: var(--_border-bottom);
   display: flex;
   //top: 0;
-  inset-block-start: 0;
   //overflow: hidden;
-  //position: relative;
-  position: sticky;
+  position: relative;
   //width: fit-content;
+
+  //inset-block-start: 0;
+  //position: sticky;
 }
 
 ::slotted(sl-tab-panel) {
@@ -198,6 +214,15 @@
     flex: 1; /* Stretch the last mask to make sure the shadow is always masked */
     //  margin-inline-start: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
     //  padding-inline-end: var(--sl-tab-group-padding);
+
+    //background-color: red;
+    //bottom: 5px;
+    //content: "";
+    //display: block;
+    //position: absolute;
+    //right: 0px;
+    //top: 4px;
+    //width: 4px;
   }
 
   ::slotted(sl-tab) {
@@ -229,9 +254,23 @@ sl-button {
   //background: #9ebaff;
   box-shadow: var(--_button-shadow);
   //position: absolute;
-  inset-inline-end: -4px; //calc(-1 * var(--_wrapper-spacing)); //0;
+  inset-inline-end: 0; //calc(-1 * var(--_wrapper-spacing)); //0;
+  padding-inline: var(--_button-inline-padding);
   position: sticky;
   z-index: 1;
+
+  //&::after {
+  //  content: '';
+  //  display: block;
+  //  position: absolute;
+  //  width: 4px;
+  //  top: 0;
+  //  bottom: 0;
+  //  right: -2px;
+  //  background-color: var(--_tab-group-background); //red;
+  //  //outline: var(--_focus-outline);
+  //  //outline-offset: var(--_focus-outline-offset);
+  //}
 
   &:hover {
     background-color: var(--sl-color-select-item-hover-background);

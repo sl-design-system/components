@@ -24,6 +24,7 @@ export class RovingTabindexController<T extends HTMLElement> extends FocusGroupC
   private manageIndexesAnimationFrame = 0;
 
   override clearElementCache(offset = 0): void {
+    // TODO: sth wrong here on open? elementEnterAction?
     cancelAnimationFrame(this.manageIndexesAnimationFrame);
     super.clearElementCache(offset);
     if (!this.managed) return;
@@ -37,6 +38,13 @@ export class RovingTabindexController<T extends HTMLElement> extends FocusGroupC
       this.updateTabindexes(() => ({ tabIndex: -1 }));
     } else {
       this.updateTabindexes((el: HTMLElement): UpdateTabIndexes => {
+        console.log(
+          'focused in roving-tabindex -- updateTabindexes',
+          this.focusInElement,
+          el.contains(this.focusInElement),
+          el !== this.focusInElement,
+          el.contains(this.focusInElement) && el !== this.focusInElement
+        );
         return {
           removeTabIndex: el.contains(this.focusInElement) && el !== this.focusInElement,
           tabIndex: el === this.focusInElement ? 0 : -1

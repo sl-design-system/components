@@ -5,6 +5,7 @@ import type { Virtualizer } from '@lit-labs/virtualizer/Virtualizer.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { DataSource, EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
+import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, SelectionController, event, isSafari } from '@sl-design-system/shared';
@@ -46,6 +47,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The item being dragged. */
   #dragItem?: T;
 
+  /** The placeholder element where the drag item will be dropped. */
+  #dropPlaceholder = document.createElement('div');
+
   /** The mode if the drag item is dropped on the current target. */
   #dropTargetMode?: 'between' | 'on-top';
 
@@ -55,6 +59,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
 
+  /** The layout used by virtualizer. */
+  #layout = flow();
+
   /** Observe the tbody style changes. */
   #mutationObserver?: MutationObserver;
 
@@ -63,6 +70,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The sorters for this grid. */
   #sorters: Array<GridSorter<T>> = [];
+
+  /** The virtualizer instance. */
+  #virtualizer?: Virtualizer;
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
@@ -168,11 +178,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
-    const virtualizer = this.tbody[
+    this.#virtualizer = this.tbody[
       virtualizerRef as unknown as keyof HTMLTableSectionElement
     ] as unknown as Virtualizer;
-    virtualizer.disconnected();
-    virtualizer.connected();
+    this.#virtualizer.disconnected();
+    this.#virtualizer.connected();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -227,6 +237,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
             items: this.dataSource?.filteredItems,
+            layout: this.#layout,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
@@ -395,6 +406,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     event.dataTransfer!.setDragImage(row, event.clientX - rowRect.left, event.clientY - rowRect.top);
 
     this.#dragItem = item;
+    this.#dropPlaceholder.classList.add('drop-placeholder');
+    this.#dropPlaceholder.style.height = `${rowRect.height}px`;
 
     this.gridDragstart.emit(new GridItemEvent('sl-grid-dragstart', this, item));
   }
@@ -449,11 +462,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       // If the cursor is in the top half of the row, make this row the drop target
       if (y < top + height / 2) {
-        row?.classList.add('drop-target-above');
-        row?.classList.remove('drop-target-below');
+        row?.before(this.#dropPlaceholder);
+        // row?.classList.add('drop-target-above');
+        // row?.classList.remove('drop-target-below');
       } else {
-        row?.classList.remove('drop-target-above');
-        row?.classList.add('drop-target-below');
+        row?.after(this.#dropPlaceholder);
+        // row?.classList.remove('drop-target-above');
+        // row?.classList.add('drop-target-below');
       }
     } else if (
       this.draggableRows === 'on-top' ||
@@ -474,6 +489,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       ?.classList.remove('drop-target', 'drop-target-above', 'drop-target-below');
 
     this.#dragItem = undefined;
+    this.#dropPlaceholder.remove();
 
     this.gridDragend.emit(new GridItemEvent('sl-grid-dragend', this, item));
   }

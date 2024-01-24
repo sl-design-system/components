@@ -72,15 +72,21 @@ tr {
   inline-size: max(var(--sl-grid-row-width), 100%);
   margin: 0;
 
+  // &:hover td[part~='drag-handle'] sl-icon {
+  //   opacity: 1;
+  // }
+
   &[part~='selected'] {
     --_cell-background: var(--_selected-background);
   }
 
   &.drag-target {
-    opacity: 0.4;
+    height: 0;
+    opacity: 0;
   }
 
   &.drop-target {
+    // --_cell-background: hotpink;
     z-index: 1;
   }
 
@@ -88,21 +94,29 @@ tr {
     --_cell-background: var(--_drop-target-background);
   }
 
-  &.drop-target-above::before {
-    background: var(--_drop-target-background);
-    block-size: 3px;
-    content: '';
-    inset: -1px 0 auto;
-    position: absolute;
+  &.drop-target-above {
+    // padding-top: 32px;
   }
 
-  &.drop-target-below::after {
-    background: var(--_drop-target-background);
-    block-size: 3px;
-    content: '';
-    inset: auto 0 -2px;
-    position: absolute;
+  &.drop-target-below {
+    // padding-bottom: 32px;
   }
+
+  // &.drop-target-above::before {
+  //   background: var(--_drop-target-background);
+  //   block-size: 3px;
+  //   content: '';
+  //   inset: -1px 0 auto;
+  //   position: absolute;
+  // }
+
+  // &.drop-target-below::after {
+  //   background: var(--_drop-target-background);
+  //   block-size: 3px;
+  //   content: '';
+  //   inset: auto 0 -2px;
+  //   position: absolute;
+  // }
 }
 
 th,
@@ -133,6 +147,10 @@ td {
 td[part~='drag-handle'] {
   cursor: move;
   justify-content: center;
+
+  // sl-icon {
+  //   opacity: 0;
+  // }
 }
 
 tr:not(:first-of-type) td {
@@ -145,4 +163,12 @@ tr:not(:first-of-type) td {
 
 .selection-toggle {
   align-self: center;
+}
+
+.drop-placeholder {
+  background: #eee;
+  height: 32px;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }

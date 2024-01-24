@@ -3440,6 +3440,12 @@
             },
             {
               "kind": "field",
+              "name": "#dropPlaceholder",
+              "privacy": "private",
+              "description": "The placeholder element where the drag item will be dropped."
+            },
+            {
+              "kind": "field",
               "name": "#dropTargetMode",
               "privacy": "private",
               "type": {
@@ -3469,6 +3475,12 @@
             },
             {
               "kind": "field",
+              "name": "#layout",
+              "privacy": "private",
+              "description": "The layout used by virtualizer."
+            },
+            {
+              "kind": "field",
               "name": "#mutationObserver",
               "privacy": "private",
               "type": {
@@ -3494,6 +3506,15 @@
               },
               "default": "[]",
               "description": "The sorters for this grid."
+            },
+            {
+              "kind": "field",
+              "name": "#virtualizer",
+              "privacy": "private",
+              "type": {
+                "text": "Virtualizer | undefined"
+              },
+              "description": "The virtualizer instance."
             },
             {
               "kind": "field",

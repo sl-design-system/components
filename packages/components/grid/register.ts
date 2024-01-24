@@ -11,6 +11,7 @@ import { GridColumnGroup } from './src/column-group.js';
 import { GridSelectionColumn } from './src/selection-column.js';
 import { GridSortColumn } from './src/sort-column.js';
 import { GridFilterColumn } from './src/filter-column.js';
+import { GridTextFieldColumn } from './src/text-field-column.js';
 
 customElements.define('sl-grid', Grid);
 customElements.define('sl-grid-column', GridColumn);
@@ -18,6 +19,7 @@ customElements.define('sl-grid-column-group', GridColumnGroup);
 customElements.define('sl-grid-filter-column', GridFilterColumn);
 customElements.define('sl-grid-selection-column', GridSelectionColumn);
 customElements.define('sl-grid-sort-column', GridSortColumn);
+customElements.define('sl-grid-text-field-column', GridTextFieldColumn);
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -35,5 +37,6 @@ declare global {
     'sl-grid-filter-column': GridFilterColumn;
     'sl-grid-selection-column': GridSelectionColumn;
     'sl-grid-sort-column': GridSortColumn;
+    'sl-grid-text-field-column': GridTextFieldColumn;
   }
 }

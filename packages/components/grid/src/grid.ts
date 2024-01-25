@@ -48,7 +48,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #dragItem?: T;
 
   /** The placeholder element where the drag item will be dropped. */
-  #dropPlaceholder = document.createElement('div');
+  #dropPlaceholder?: HTMLElement;
 
   /** The mode if the drag item is dropped on the current target. */
   #dropTargetMode?: 'between' | 'on-top';
@@ -63,10 +63,26 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #layout = flow();
 
   /** Observe the tbody style changes. */
-  #mutationObserver?: MutationObserver;
+  #mutationObserver = new MutationObserver(() => {
+    this.#mutationObserver?.disconnect();
+
+    // This is a workaround for the virtualizer not taking the border width into account
+    // We convert the min-height to a CSS variable so we can use it in the styles and
+    // add the border-width to the eventual min-height value.
+    this.style.setProperty('--sl-grid-tbody-min-height', this.tbody.style.minHeight);
+    this.tbody.style.minHeight = '';
+
+    this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
+  });
 
   /** Observe the grid width. */
-  #resizeObserver?: ResizeObserver;
+  #resizeObserver = new ResizeObserver(entries => {
+    const {
+      contentBoxSize: [{ inlineSize }]
+    } = entries[0];
+
+    this.style.setProperty('--sl-grid-width', `${inlineSize}px`);
+  });
 
   /** The sorters for this grid. */
   #sorters: Array<GridSorter<T>> = [];
@@ -142,27 +158,21 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#mutationObserver = new MutationObserver(() => {
-      this.#mutationObserver?.disconnect();
-
-      // This is a workaround for the virtualizer not taking the border width into account
-      // We convert the min-height to a CSS variable so we can use it in the styles and
-      // add the border-width to the eventual min-height value.
-      this.style.setProperty('--sl-grid-tbody-min-height', this.tbody.style.minHeight);
-      this.tbody.style.minHeight = '';
-
-      this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });
-    });
-
-    this.#resizeObserver = new ResizeObserver(entries => {
-      const {
-        contentBoxSize: [{ inlineSize }]
-      } = entries[0];
-
-      this.style.setProperty('--sl-grid-width', `${inlineSize}px`);
-    });
+    if (!this.#dropPlaceholder) {
+      this.#dropPlaceholder = document.createElement('div');
+      this.#dropPlaceholder.classList.add('drop-placeholder');
+      this.#dropPlaceholder.addEventListener('dragover', event => event.preventDefault());
+      this.#dropPlaceholder.addEventListener('drop', () => this.#onDropOnPlaceholder());
+    }
 
     this.#resizeObserver.observe(this);
+  }
+
+  override disconnectedCallback(): void {
+    this.#resizeObserver?.disconnect();
+    this.#mutationObserver?.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override async firstUpdated(): Promise<void> {
@@ -209,13 +219,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.#applyFilters();
       this.#applySorters();
     }
-  }
-
-  override disconnectedCallback(): void {
-    this.#resizeObserver?.disconnect();
-    this.#resizeObserver = undefined;
-
-    super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
@@ -389,7 +392,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (isSafari) {
       // Safari doesn't position drag images from transformed elements properly so we need to
-      // switch to use top temporarily
+      // switch to use top temporarily. See https://bugs.webkit.org/show_bug.cgi?id=267811
       const transform = row.style.transform;
       row.style.top = /translate\(0px, (.+)\)/.exec(transform)?.at(1) ?? '';
       row.style.transform = 'none';
@@ -406,8 +409,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     event.dataTransfer!.setDragImage(row, event.clientX - rowRect.left, event.clientY - rowRect.top);
 
     this.#dragItem = item;
-    this.#dropPlaceholder.classList.add('drop-placeholder');
-    this.#dropPlaceholder.style.height = `${rowRect.height}px`;
+    this.#dropPlaceholder!.style.height = `${rowRect.height}px`;
 
     this.gridDragstart.emit(new GridItemEvent('sl-grid-dragstart', this, item));
   }
@@ -462,11 +464,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       // If the cursor is in the top half of the row, make this row the drop target
       if (y < top + height / 2) {
-        row?.before(this.#dropPlaceholder);
+        row?.before(this.#dropPlaceholder!);
         // row?.classList.add('drop-target-above');
         // row?.classList.remove('drop-target-below');
       } else {
-        row?.after(this.#dropPlaceholder);
+        row?.after(this.#dropPlaceholder!);
         // row?.classList.remove('drop-target-above');
         // row?.classList.add('drop-target-below');
       }
@@ -489,7 +491,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       ?.classList.remove('drop-target', 'drop-target-above', 'drop-target-below');
 
     this.#dragItem = undefined;
-    this.#dropPlaceholder.remove();
+    this.#dropPlaceholder?.remove();
 
     this.gridDragend.emit(new GridItemEvent('sl-grid-dragend', this, item));
   }
@@ -516,6 +518,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
 
     this.gridDrop.emit(new GridItemDropEvent(this, item, oldIndex, newIndex));
+  }
+
+  #onDropOnPlaceholder(): void {
+    const oldIndex = this.dataSource!.filteredItems.indexOf(this.#dragItem!);
+
+    let newIndex = -1;
+    if (this.#dropPlaceholder!.previousElementSibling) {
+      newIndex = parseInt(this.#dropPlaceholder!.previousElementSibling.getAttribute('index')!) + 1;
+    } else if (this.#dropPlaceholder!.nextElementSibling) {
+      newIndex = parseInt(this.#dropPlaceholder!.nextElementSibling.getAttribute('index')!);
+    }
+
+    this.gridDrop.emit(new GridItemDropEvent(this, this.#dragItem!, oldIndex, newIndex));
   }
 
   #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter<T> }): void {

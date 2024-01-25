@@ -153,7 +153,7 @@ td[part~='drag-handle'] {
   // }
 }
 
-tr:not(:first-of-type) td {
+tr:not(:first-child) td {
   border-top: var(--_cell-border);
 }
 
@@ -171,4 +171,5 @@ tr:not(:first-of-type) td {
   position: absolute;
   top: 0;
   width: 100%;
+  z-index: 1;
 }

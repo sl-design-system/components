@@ -96,6 +96,9 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
+  --sl-text-card-body: Regular 14/20 Source Sans Pro;
+  --sl-text-card-subtitle: Regular 16/24 Source Sans Pro;
+  --sl-text-card-title: Regular 18/28 The Message;
   --sl-text-text-field: [object Object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
@@ -287,6 +290,15 @@
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
+  --sl-space-card-horizontal-gap: var(--sl-space-none);
+  --sl-space-card-horizontal-block: var(--sl-space-xl);
+  --sl-space-card-horizontal-inline: var(--sl-space-none);
+  --sl-space-card-vertical-gap: var(--sl-space-none);
+  --sl-space-card-vertical-block: var(--sl-space-xl);
+  --sl-space-card-vertical-inline: var(--sl-space-none);
+  --sl-space-card-content-inline: var(--sl-space-xl);
+  --sl-space-card-media-margins: var(--sl-space-sm);
+  --sl-space-card-media-full: var(--sl-space-none);
   --sl-space-tab-more-block: var(--sl-space-sm);
   --sl-space-tab-more-inline: var(--sl-space-md);
   --sl-space-tab-gap: var(--sl-space-sm);
@@ -719,6 +731,7 @@
   --sl-border-width-button-ghost: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-outline: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-solid: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-card-default: var(--sl-border-radius-default);
   --sl-border-radius-skeleton-default: var(--sl-border-radius-default);
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-avatar-square: var(--sl-border-radius-default);

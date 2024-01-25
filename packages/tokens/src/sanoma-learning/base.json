@@ -1660,6 +1660,20 @@
           "type": "typography"
         }
       }
+    },
+    "card": {
+      "title": {
+        "value": "{text.heading.3}",
+        "type": "typography"
+      },
+      "subtitle": {
+        "value": "{text.body.lg.normal}",
+        "type": "typography"
+      },
+      "body": {
+        "value": "{text.body.md.normal}",
+        "type": "typography"
+      }
     }
   },
   "borderRadius": {
@@ -1772,6 +1786,12 @@
       }
     },
     "skeleton": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      }
+    },
+    "card": {
       "default": {
         "value": "{borderRadius.default}",
         "type": "borderRadius"

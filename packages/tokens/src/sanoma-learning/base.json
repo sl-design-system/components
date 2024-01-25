@@ -1770,6 +1770,10 @@
       "item": {
         "value": "{border.radius.3xs}",
         "type": "borderRadius"
+      },
+      "indicator": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
       }
     },
     "badge": {
@@ -2020,6 +2024,16 @@
       "shadow": {
         "value": "{opacity.600}",
         "type": "opacity"
+      }
+    }
+  },
+  "size": {
+    "tabbar": {
+      "vertical": {
+        "maxwidth": {
+          "value": "200px",
+          "type": "sizing"
+        }
       }
     }
   }

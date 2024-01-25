@@ -16,7 +16,8 @@ export class Tooltip extends LitElement {
 
   static lazy(target: Element, callback: (target: Tooltip) => void): void {
     const createTooltip = (): void => {
-      const tooltip = document.createElement('sl-tooltip');
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+      const tooltip = document.createElement('sl-tooltip') as Tooltip;
       tooltip.id = `sl-tooltip-${nextUniqueId++}`;
 
       callback(tooltip);

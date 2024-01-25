@@ -10,7 +10,10 @@ import type {
   UserStatus
 } from './models.js';
 import type { AvatarConfig } from '@sl-design-system/shared';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Config } from '@sl-design-system/shared';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { LitElement, html, nothing, svg } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
@@ -82,12 +85,27 @@ const OFFSET_SQUARE: Record<AvatarSize, number> = {
  *
  * @cssproperty --max-width: Max width of the container in ;
  */
-export class Avatar extends LitElement {
+export class Avatar extends ScopedElementsMixin(LitElement) {
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-tooltip': Tooltip
+    };
+  }
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
   /** The avatar configuration settings from the current theme. */
   #config?: AvatarConfig;
+
+  /** Observe the grid width. */
+  #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
+    this.#checkOverflow();
+    return;
+  });
+
+  #hasOverflow = false;
 
   /** The badge. */
   @state() badge?: AvatarBadge;
@@ -140,7 +158,16 @@ export class Avatar extends LitElement {
     this.borderWidth = this.#config?.badgeGapWidth * 2;
     this.setAttribute('shape', this.#config.shape);
 
+    this.#resizeObserver?.observe(this);
+
     await this.#setBaseValues();
+  }
+
+  override disconnectedCallback(): void {
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = undefined;
+
+    super.disconnectedCallback();
   }
 
   override async willUpdate(changes: PropertyValues<this>): Promise<void> {
@@ -161,18 +188,23 @@ export class Avatar extends LitElement {
       } else {
         this.initials = this.profileName = '';
       }
+
+      this.#checkOverflow();
     }
   }
 
   override render(): TemplateResult {
     return html`
       ${this.image ? this.#renderPicture() : nothing}
+      <sl-tooltip id="avatar-tooltip">${this.profileName}</sl-tooltip>
       ${this.imageOnly
         ? nothing
         : html`
             <div>
               <span class="header">${this.profileName}</span>
-              <slot class="subheader"></slot>
+              ${this.size === 'sm' && this.orientation === 'horizontal'
+                ? nothing
+                : html`<slot class="subheader"></slot>`}
             </div>
           `}
     `;
@@ -407,6 +439,17 @@ export class Avatar extends LitElement {
           };
         }, 100);
       }
+    }
+  }
+
+  #checkOverflow(): void {
+    const element = this.renderRoot.querySelector('.header') as HTMLElement;
+    if (!element) return;
+    this.#hasOverflow = element.offsetWidth < element.scrollWidth || element.offsetHeight + 4 < element.scrollHeight;
+    if (this.#hasOverflow) {
+      element.setAttribute('aria-describedby', `avatar-tooltip`);
+    } else {
+      element.removeAttribute('aria-describedby');
     }
   }
 

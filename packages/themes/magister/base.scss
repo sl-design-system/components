@@ -151,7 +151,6 @@
   --sl-text-typeset-font-family-heading: open-sans;
   --sl-color-palette-transparent-base: 0 0 0 / 0;
   --sl-color-palette-white-base: 254 254 254;
-  --sl-color-palette-black-base: 35 50 67;
   --sl-color-palette-danger-900: 37 4 6;
   --sl-color-palette-danger-800: 77 9 12;
   --sl-color-palette-danger-700: 117 14 18;
@@ -516,8 +515,8 @@
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-subheader-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-subheader-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xs) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-subheader-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-header-3xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-header-2xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
@@ -528,20 +527,20 @@
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-header-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-header-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-header-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-initials-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-2xl) /
     var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-2xl) /
-    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-2xl) /
-    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl) /
+  --sl-text-avatar-initials-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-xl) /
     var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+  --sl-text-avatar-initials-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+  --sl-text-avatar-initials-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-dialog-subheading: var(--sl-text-typeset-font-weight-demibold) var(--sl-icon-typeset-font-size-md) /
@@ -638,6 +637,7 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
+  --sl-color-palette-black-base: 34 34 34;
   --sl-color-palette-danger-base: 237 29 35;
   --sl-color-palette-warning-base: 255 209 15;
   --sl-color-palette-success-base: 19 196 163;
@@ -673,17 +673,17 @@
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
-  --sl-text-avatar-icon-3xl: var(--sl-icon-style-outline) var(--sl-icon-typeset-font-size-2xl) / undefined
+  --sl-text-avatar-icon-3xl: var(--sl-icon-style-solid) var(--sl-icon-typeset-font-size-2xl) / undefined
     var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-2xl: var(--sl-icon-style-outline) var(--sl-icon-typeset-font-size-2xl) / undefined
+  --sl-text-avatar-icon-2xl: var(--sl-icon-style-solid) var(--sl-icon-typeset-font-size-2xl) / undefined
     var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-xl: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-2xl) / undefined
+  --sl-text-avatar-icon-xl: var(--sl-icon-style-solid) var(--sl-text-typeset-font-size-2xl) / undefined
     var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-lg: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-xl) / undefined
+  --sl-text-avatar-icon-lg: var(--sl-icon-style-solid) var(--sl-text-typeset-font-size-lg) / undefined
     var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-md: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-lg) / undefined
+  --sl-text-avatar-icon-md: var(--sl-icon-style-solid) var(--sl-text-typeset-font-size-md) / undefined
     var(--sl-text-typeset-font-family-icon);
-  --sl-text-avatar-icon-sm: var(--sl-icon-style-outline) var(--sl-text-typeset-font-size-md) / undefined
+  --sl-text-avatar-icon-sm: var(--sl-icon-style-solid) var(--sl-text-typeset-font-size-xs) / undefined
     var(--sl-text-typeset-font-family-icon);
   --sl-text-icon-font-icon-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);

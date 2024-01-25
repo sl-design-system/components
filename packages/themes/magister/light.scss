@@ -6,15 +6,14 @@
 @mixin sl-theme-light {
   --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-avatar-subheader: rgb(var(--sl-color-palette-neutral-600));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-600));
   --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-600));
   --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-500));
-  --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-base));
-  --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-success-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-600));
   --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
@@ -173,7 +172,6 @@
   --sl-color-surface-solid-accent-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-surface-solid-secondary-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-surface-solid-secondary-background: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-surface-solid-primary-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-danger-link-disabled-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-danger-link-disabled-foreground: rgb(var(--sl-color-palette-danger-100));
@@ -456,7 +454,9 @@
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-primary-600));
   --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
-  --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
+  --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
   --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
@@ -597,6 +597,7 @@
   --sl-color-input-option-default-unchecked-active-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-option-default-unchecked-hover-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-option-default-unchecked-default-background: var(--sl-body-background);
+  --sl-color-surface-solid-primary-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-button-danger-ghost-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-danger-outline-focus-border: rgb(var(--sl-color-palette-info-base));
   --sl-color-button-danger-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
@@ -617,7 +618,6 @@
   --sl-color-button-default-ghost-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-default-outline-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-button-default-solid-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
-  --sl-color-avatar-subheader: var(--sl-body-foreground);
   --sl-color-avatar-header: var(--sl-body-foreground);
   --sl-color-dialog-foreground: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);

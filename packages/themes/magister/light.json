@@ -7,7 +7,7 @@
       "failedToResolve": true
     },
     "foreground": {
-      "value": "{color.surface.solid.primary.foreground}",
+      "value": "{color.palette.black.base}",
       "type": "color",
       "description": "color.body.foreground",
       "failedToResolve": true
@@ -4650,7 +4650,7 @@
         "failedToResolve": true
       },
       "subheader": {
-        "value": "{body.foreground}",
+        "value": "{color.palette.neutral.600}",
         "type": "color",
         "failedToResolve": true
       }

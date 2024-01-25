@@ -2019,6 +2019,10 @@
       "item": {
         "value": "{border.radius.3xs}",
         "type": "borderRadius"
+      },
+      "indicator": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
       }
     },
     "badge": {
@@ -3701,6 +3705,14 @@
     }
   },
   "size": {
+    "tabbar": {
+      "vertical": {
+        "maxwidth": {
+          "value": "200px",
+          "type": "sizing"
+        }
+      }
+    },
     "none": {
       "value": 0,
       "type": "sizing",

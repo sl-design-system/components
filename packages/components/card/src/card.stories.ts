@@ -88,7 +88,9 @@ export const All: Story = {
       <sl-card responsive style="flex:1 1 30%">
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
+        <h3 slot="header">Sub header</h3>
         <p slot="body">Responsive, flex-size - ${bodyCopy[0]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="pinata"></sl-icon></sl-button>
       </sl-card>
 
       <sl-card style="max-width: 300px" orientation="vertical">
@@ -96,15 +98,16 @@ export const All: Story = {
         <h2>${titles[1]}</h2>
         <sl-badge slot="header">new</sl-badge>
         <p slot="body">vertical - max-width${bodyCopy[1]}</p>
+        <sl-button icon-only slot="actions"><sl-icon name="pinata"></sl-icon></sl-button>
       </sl-card>
     </div>
 
-    <sl-card>
+    <sl-card padding>
       <img slot="media" src="${images[2]}" />
       <h2>${titles[2]}</h2>
       <p slot="body">${bodyCopy[2]}</p>
     </sl-card>
-    <sl-card responsive>
+    <sl-card responsive padding>
       <img slot="media" src="${images[3]}" />
       <h2>${titles[3]}</h2>
       <p slot="body">responsive - ${bodyCopy[3]}</p>

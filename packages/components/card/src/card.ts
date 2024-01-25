@@ -15,7 +15,7 @@ export class Card extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  @property() padding = true;
+  @property({ type: Boolean, reflect: true }) padding?: boolean;
   @property({ type: Boolean, reflect: true }) responsive?: boolean;
   @property({ reflect: true }) orientation = 'horizontal';
 
@@ -25,13 +25,16 @@ export class Card extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div>
+      <div class="container">
         <slot name="media"></slot>
-        <header>
-          <slot></slot>
-          <slot name="header"></slot>
-        </header>
-        <slot name="body"></slot>
+        <slot name="actions"></slot>
+        <div class="content">
+          <header>
+            <slot class="title"></slot>
+            <slot name="header"></slot>
+          </header>
+          <slot name="body"></slot>
+        </div>
       </div>
     `;
   }

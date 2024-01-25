@@ -1,30 +1,50 @@
 :host {
-  border: 1px solid #ff7f50;
+  --_box-shadow: var(--sl-elevation-shadow-lg);
+  --_card-border: 1px solid var(--sl-color-card-border);
+  --_card-background: var(--sl-color-card-background);
+  --_card-border-radius: var(--sl-border-radius-card-default);
+  --_font-title: var(--sl-text-card-title);
+  --_font-sub-title: var(--sl-text-card-subtitle);
+  --_font-body: var(--sl-text-card-body);
+  --_content-padding-inline: var(--sl-space-card-content-inline);
+  --_content-padding-block: 0 var(--sl-space-card-vertical-block);
+  --_image-padding: 8px;
+  --_image-padding-full: 0;
+
+  background-color: var(--_card-background);
+  border: var(--_card-border);
+  border-radius: var(--_card-border-radius);
+  box-shadow: var(--_box-shadow);
   box-sizing: border-box;
   container-type: inline-size;
   display: block;
   inline-size: 100%;
-  padding: 8px;
   width: 100%;
 }
 
-div {
+div.container {
   display: grid;
-  gap: 8px;
   grid-template-areas:
     'media'
-    'title'
-    'body';
+    'actions'
+    'content';
   grid-template-columns: 1fr;
   grid-template-rows: min-content max-content 1fr;
 }
 
+:host([padding]) {
+  --_image-padding-full: var(--_image-padding) var(--_image-padding) 0 var(--_image-padding);
+}
+
 @mixin sl-card-horizontal-layout {
-  grid-template-areas:
-    'media title'
-    'media body';
-  grid-template-columns: minmax(30%, min-content) 1fr;
+  --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
+  grid-template-areas: 'media content actions';
+  grid-template-columns: minmax(30%, min-content) 1fr max-content;
   grid-template-rows: min-content 1fr;
+}
+
+:host([orientation='horizontal'][padding]:not([responsive])) slot[name='media'] {
+  --_image-padding-full: var(--_image-padding) 0 var(--_image-padding) var(--_image-padding);
 }
 
 :host([orientation='horizontal']:not([responsive])) div {
@@ -35,19 +55,52 @@ div {
   :host([orientation='horizontal']) div {
     @include sl-card-horizontal-layout();
   }
+
+  :host([orientation='horizontal'][padding]) {
+    --_image-padding-full: var(--_image-padding) 0 var(--_image-padding) var(--_image-padding);
+  }
 }
 
-slot {
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  grid-area: content;
+  padding: var(--_content-padding-block) var(--_content-padding-inline);
+}
+
+slot.title {
   grid-area: title;
 }
 
-slot[name='media']::slotted(*) {
+slot[name='media'] {
+  display: grid;
   grid-area: media;
+  padding: var(--_image-padding-full);
+}
+
+slot.title::slotted(*) {
+  font: var(--_font-title);
+}
+
+slot[name='header']::slotted(*:not(sl-badge)) {
+  font: var(--_font-sub-title);
+}
+
+slot[name='media']::slotted(*) {
   max-width: 100%;
 }
 
 slot[name='body'] {
+  font: var(--_font-body);
   grid-area: body;
+}
+
+slot[name='actions'] {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  grid-area: actions;
 }
 
 slot::slotted(*) {

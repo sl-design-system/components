@@ -55,10 +55,10 @@
               "kind": "field",
               "name": "padding",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "true",
-              "attribute": "padding"
+              "attribute": "padding",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -74,9 +74,8 @@
             {
               "name": "padding",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "true",
               "fieldName": "padding"
             },
             {

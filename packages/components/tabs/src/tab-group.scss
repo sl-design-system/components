@@ -4,6 +4,7 @@
   --_tab-group-indicator-color: var(--sl-color-button-primary-solid-idle-background);
   // --indicator-color: var(--dna-primary);
   --indicator-size: 4px; // TODO: needs to come from token
+  --_indicator-listbox-border-radius: var(--sl-border-radius-select-indicator);
   // --indicator-transition: var(--dna-transition-normal, 100ms ease-in-out);
   --_listbox-background: var(--sl-color-select-listbox-background);
   --_listbox-border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
@@ -17,12 +18,13 @@
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-radius: var(--sl-border-radius-focusring-default);
-  --_button-shadow: -2px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  --_button-shadow: -2px 2px 4px 0 rgba(0, 0, 0, 0.12);
   // TODO: listbox-padding etc.
   --_panel-horizontal-padding: calc(var(--sl-space-tab-content-horizontal-block) - var(--_wrapper-spacing))
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
   --_button-inline-padding: var(--sl-space-tab-more-inline);
+  --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth);
 }
 
 //--_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
@@ -37,9 +39,21 @@
   width: inherit;
 }
 
+.container {
+  //display: flex;
+  display: grid;
+  //position: relative;
+  //inset-block-start: calc(-1 * var(--_wrapper-spacing)); //0;
+  //overflow: hidden;
+  //padding: var(--_wrapper-spacing); //4px;
+  //position: sticky;
+  grid-template-columns: 1fr auto;
+}
+
 .wrapper {
   //display: flex;
   display: grid;
+  grid-template-columns: 1fr auto;
   //position: relative;
   inset-block-start: calc(-1 * var(--_wrapper-spacing)); //0;
   overflow: hidden;
@@ -121,16 +135,78 @@
   padding: var(--_panel-horizontal-padding);
 }
 
+sl-button {
+  background: var(--_tab-group-background);
+  border-bottom-color: var(--sl-color-tab-default-border);
+  border-bottom-style: solid;
+  border-left-color: initial;
+  border-left-style: initial;
+  border-radius: 0;
+  border-right-color: initial;
+  border-right-style: initial;
+  border-top-color: initial;
+  //padding-inline: var(--_button-inline-padding);
+  //position: sticky;
+  //z-index: 1;
+  border-top-style: initial;
+  border-width: 0 0 1px;
+  //align-self: center;
+  //background: #9ebaff;
+  box-shadow: var(--_button-shadow);
+  //position: absolute;
+  inset-inline-end: 0; //calc(-1 * var(--_wrapper-spacing)); //0;
+  margin: 4px 0;
+  //border-radius: 0px;
+  //height: calc(100% - 5px);
+  //inset-inline-end: 0px;
+  padding-block: 0;
+  padding-inline: var(--_button-inline-padding);
+  position: sticky;
+  z-index: 1;
+
+  //&::after {
+  //  content: '';
+  //  display: block;
+  //  position: absolute;
+  //  width: 4px;
+  //  top: 0;
+  //  bottom: 0;
+  //  right: -2px;
+  //  background-color: var(--_tab-group-background); //red;
+  //  //outline: var(--_focus-outline);
+  //  //outline-offset: var(--_focus-outline-offset);
+  //}
+
+  &:hover {
+    background-color: var(--sl-color-select-item-hover-background);
+  }
+
+  &:focus-visible {
+    border-radius: var(--_focus-radius); //3px;
+    //outline: var(--_focus-outline);
+    //outline-offset: var(--_focus-outline-offset);
+    //inset-inline-end: 0;
+  }
+}
+
 //flex: 0 0 auto;
 //flex-direction: column;
 
 :host([vertical='true']) {
   flex-direction: row;
 
+  .container {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    max-width: var(--_tablist-vertical-max-width);
+  }
+
   .wrapper {
     display: flex;
     flex: 0 0 auto;
     flex-direction: column;
+    //max-width: var(--_tablist-vertical-max-width);
   }
 
   [role='tablist'] {
@@ -154,10 +230,40 @@
   ::slotted(sl-tab-panel) {
     padding: var(--_panel-vertical-padding); //4px;
   }
+
+  sl-button {
+    border-bottom-color: var(--sl-color-tab-default-border);
+    border-bottom-style: solid;
+    border-left-color: initial;
+    border-left-style: initial;
+    border-right-color: initial;
+    border-right-style: initial;
+    border-top-color: initial;
+    //padding-inline: var(--_button-inline-padding);
+    //position: sticky;
+    //z-index: 1;
+    border-top-style: initial;
+    border-width: 0 0 1px;
+    //background: var(--_tab-group-background);
+    //border-radius: 0;
+    //align-self: center;
+    //background: #9ebaff;
+    box-shadow: var(--_button-shadow);
+    //position: absolute;
+    inset-block-end: 0; //calc(-1 * var(--_wrapper-spacing)); //0;
+    margin: 0 4px;
+    padding-block: var(--_button-inline-padding);
+    //border-radius: 0px;
+    //height: calc(100% - 5px);
+    //inset-inline-end: 0px;
+    padding-inline: 0;
+    position: sticky;
+    z-index: 1;
+  }
 }
 
 .indicator-listbox {
-  border-radius: 2px; // TODO: needs to come from the token?
+  border-radius: var(--_indicator-listbox-border-radius); //2px; // TODO: needs to come from the token?
   height: 1px;
   inset: 0 auto auto var(--sl-space-select-listbox-inline-lg);
   transform-origin: center top;
@@ -247,43 +353,6 @@
   }
 }
 
-sl-button {
-  background: var(--_tab-group-background);
-  border-radius: 0;
-  //align-self: center;
-  //background: #9ebaff;
-  box-shadow: var(--_button-shadow);
-  //position: absolute;
-  inset-inline-end: 0; //calc(-1 * var(--_wrapper-spacing)); //0;
-  padding-inline: var(--_button-inline-padding);
-  position: sticky;
-  z-index: 1;
-
-  //&::after {
-  //  content: '';
-  //  display: block;
-  //  position: absolute;
-  //  width: 4px;
-  //  top: 0;
-  //  bottom: 0;
-  //  right: -2px;
-  //  background-color: var(--_tab-group-background); //red;
-  //  //outline: var(--_focus-outline);
-  //  //outline-offset: var(--_focus-outline-offset);
-  //}
-
-  &:hover {
-    background-color: var(--sl-color-select-item-hover-background);
-  }
-
-  &:focus-visible {
-    border-radius: var(--_focus-radius); //3px;
-    //outline: var(--_focus-outline);
-    //outline-offset: var(--_focus-outline-offset);
-    //inset-inline-end: 0;
-  }
-}
-
 //button {
 //  border: none;
 //  cursor: pointer;
@@ -300,7 +369,7 @@ sl-button {
   background: var(--_tab-group-indicator-color);
   //border-radius: 2px; // TODO: needs to come from the token?
   position: absolute;
-  z-index: 1;
+  z-index: 2; //1;
 }
 
 //.indicator-listbox:has(sl-tab[disabled]) {

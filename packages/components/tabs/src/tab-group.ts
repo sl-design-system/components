@@ -146,34 +146,36 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.shadowRoot
     );
     return html`
-      <div class="wrapper" part="wrapper">
-        <div @click=${this.#handleTabChange} role="tablist" part="tab-list" @keydown=${this.#handleKeydown}>
-          <span class="indicator" role="presentation"></span>
-          <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
-          ${this.#showMore
-            ? html` <sl-button
-                id="more-btn"
-                @click=${this.#onClick}
-                popovertarget="tabs-popover"
-                fill="ghost"
-                variant="primary"
-                size="md"
-              >
-                <sl-icon name="far-ellipsis"></sl-icon>
-              </sl-button>`
-            : nothing}
-          <div
-            id="tabs-popover"
-            ${anchor({ element: this.moreButton, position: 'bottom-end' })}
-            @toggle=${this.#onToggle}
-            popover
-            role="listbox"
-            @click=${this.#handleTabChange}
-          >
-            ${this.#allTabs}
-            <span class="indicator-listbox" role="presentation"></span>
+      <div class="container" part="container" @keydown=${this.#handleKeydown}>
+        <div class="wrapper" part="wrapper">
+          <div @click=${this.#handleTabChange} role="tablist" part="tab-list">
+            <span class="indicator" role="presentation"></span>
+            <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
+            <div
+              id="tabs-popover"
+              ${anchor({ element: this.moreButton, position: 'bottom-end' })}
+              @toggle=${this.#onToggle}
+              popover
+              role="listbox"
+              @click=${this.#handleTabChange}
+            >
+              ${this.#allTabs}
+              <span class="indicator-listbox" role="presentation"></span>
+            </div>
           </div>
         </div>
+        ${this.#showMore
+          ? html` <sl-button
+              id="more-btn"
+              @click=${this.#onClick}
+              popovertarget="tabs-popover"
+              fill="ghost"
+              variant="primary"
+              size="md"
+            >
+              <sl-icon name="far-ellipsis"></sl-icon>
+            </sl-button>`
+          : nothing}
       </div>
       <slot></slot>
     `;
@@ -300,46 +302,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // this.#updateSelectedTab(this.selectedTab as Tab);
     this.listbox.togglePopover();
   }
-
-  /*  #onBeforetoggle = (event: Event): void => {
-    // TODO: this method is not necessary??
-    console.log('onToggle event in anchor', event, this.selectedTabInListbox, this.listbox);
-
-    const indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement;
-
-    if (!this.listbox || !this.selectedTab) {
-      return;
-    }
-
-    this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
-
-    // this.selectedTabInListbox.offsetTop
-
-    indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
-
-    // if (
-    //   ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
-    //   (event as ToggleEvent).newState === (event as ToggleEvent).oldState
-    // ) {
-    //   event.stopPropagation();
-    //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //   // @ts-ignore
-    //   (event.target as HTMLElement)?.hidePopover();
-    // }
-
-    console.log(
-      'in TOGGLE this.selectedTab.offsetLeft - wrapper.offsetLeft',
-      this.selectedTab?.offsetLeft,
-      this.selectedTabInListbox,
-      this.selectedTabInListbox?.offsetHeight,
-      this.selectedTabInListbox?.offsetTop,
-      this.listbox,
-      this.listbox.offsetTop,
-      this.listbox.offsetWidth,
-      this.listbox.offsetHeight,
-      this.selectedTab?.offsetParent
-    );
-  };*/
 
   // TODO: on changed probably or will change set indicator, because there is a problem with indicator when switching between vertical and horizontal tabs
 
@@ -476,172 +438,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.listbox.hidePopover();
   }
 
-  #onKeydown(event: KeyboardEvent): void {
-    console.log(
-      'event onKeyDown',
-      isPopoverOpen(this.listbox),
-      this.#rovingTabindexController,
-      event.target,
-      event,
-      event.key,
-      isPopoverOpen(this.listbox) /*, this.#rovingTabListboxindexController*/,
-      (this.#allTabs as Tab[])[0],
-      this.listbox?.querySelectorAll(`sl-tab`)[0],
-      this.listbox //,
-      // this.#rovingTabindexController.focusInElement,
-      // this.#rovingTabindexController.focusInElement
-    );
-    // TODO: if is opened then roving clear cache ??
-
-    // requestAnimationFrame(() => {
-    //   this.#rovingTabindexController.clearElementCache();
-    //   this.#rovingTabindexController.focus();
-    //   console.log(
-    //     'event onKeyDown in raf',
-    //     isPopoverOpen(this.listbox),
-    //     this.#rovingTabindexController.focusInElement,
-    //     this.#rovingTabindexController.focusInElement);
-    // });
-
-    // if (isPopoverOpen(this.listbox)) {
-    // requestAnimationFrame(() => {
-    //   this.#rovingTabindexController.clearElementCache();
-    // });
-    // this.requestUpdate();
-    // this.#rovingTabindexController.manageTabindexes();
-    console.log('document.activeElement before', document.activeElement);
-    // requestAnimationFrame(() => {
-    //   this.#rovingTabindexController.focus();
-    // });
-    console.log('document.activeElement after', document.activeElement);
-    // }
-
-    // Array.from(this.listbox?.querySelectorAll(`sl-tab`));
-
-    this.#rovingTabindexController.clearElementCache();
-    this.#rovingTabindexController.manage();
-    // this.#rovingTabindexController.elements: () =>
-    //   Array.from(this.listbox?.querySelectorAll(`sl-tab`)) as Tab[];
-    // this.#rovingTabindexController.focus();
-    // this.#rovingTabindexController.focusToElement(0);
-
-    Array.from(this.listbox?.querySelectorAll(`sl-tab`))[0].focus();
-    this.#rovingTabindexController.clearElementCache();
-    this.#rovingTabindexController.manage();
-    this.#rovingTabindexController.focus();
-
-    console.log(
-      'event onKeyDown___2',
-      isPopoverOpen(this.listbox),
-      this.#rovingTabindexController,
-      event.target,
-      event,
-      event.key,
-      isPopoverOpen(this.listbox) /*, this.#rovingTabListboxindexController*/,
-      (this.#allTabs as Tab[])[0],
-      this.listbox?.querySelectorAll(`sl-tab`)[0],
-      this.listbox //,
-      // this.#rovingTabindexController.focusInElement,
-      // this.#rovingTabindexController.focusInElement
-    );
-
-    // setTimeout(() => {
-    //     this.#rovingTabindexController.clearElementCache();
-    //   },
-    //   700);
-
-    // // if (!this.#allTabs) {
-    // //   return;
-    // // }
-    //
-    // // this.listbox.showPopover();
-    //
-    // // this.#rovingTabListboxindexController.focus();
-    //
-    // // (this.#allTabs as Tab[])[0].focus();
-    // // this.listbox?.querySelectorAll(`sl-tab`)[0].focus();
-    //
-    // console.log(event.target);
-    // const options = this.#allTabs as Node[], //.filter(o => !o.disabled),
-    //   size = options.length;
-    //
-    // let delta = 0,
-    //   index = 0; //options.indexOf(this.selectedTabInListbox ?? (this.#allTabs as Node[])[0]);
-    //
-    // // debugger;
-    //
-    // switch (event.key) {
-    //   case 'ArrowDown':
-    //     if (isPopoverOpen(this.listbox)) {
-    //       delta = 1;
-    //     } else {
-    //       this.listbox.showPopover();
-    //       delta = 1;
-    //     }
-    //     break;
-    //   case 'ArrowUp':
-    //     delta = -1;
-    //     break;
-    //   case 'Home':
-    //     index = 0;
-    //     break;
-    //   case 'End':
-    //     index = size - 1;
-    //     break;
-    //   case ' ':
-    //   case 'Enter':
-    //     // this.listbox.showPopover();
-    //     // if (isPopoverOpen(this.listbox)) {
-    //     // this.listbox.togglePopover();
-    //     // ((this.#allTabs as Node[])[0] as HTMLElement).focus();
-    //     // this.#handleTabChange(event as Event);
-    //     // this.listbox.hidePopover();
-    //     // } else {
-    //     //   this.listbox.showPopover();
-    //     // }
-    //     // this.listbox.togglePopover();
-    //
-    //     return;
-    //   default:
-    //     return;
-    // }
-    //
-    // index = (index + delta + size) % size;
-    // console.log(
-    //   'index - event onKeyDown',
-    //   index,
-    //   delta,
-    //   options,
-    //   size,
-    //   index + delta + size,
-    //   (index + delta + size) % size
-    // );
-    //
-    // this.listbox?.querySelectorAll(`sl-tab`)[(index + delta + size) % size].focus();
-
-    // index = (index + delta + size) % size;
-    // console.log('index - event onKeyDown', index, delta);
-    // // this.currentOption = options[index];
-    // const selected = (this.#allTabs as Tab[])[index];
-    // console.log('selected - event onKeyDown', selected);
-    // this.selectedTabInListbox = this.listbox?.querySelector(`#${selected.id}`); //options[index];
-    // if (this.selectedTabInListbox) {
-    //   this.selectedTabInListbox.focus();
-    // }
-    // this.selectedTabInListbox.focus();
-
-    // this.#updateSelectedTab((event.target as HTMLElement).closest('sl-tab') as Tab /*event.target*/);
-
-    // console.log(
-    //   'index - event onKeyDown ---> activeElement',
-    //   document.activeElement,
-    //   this.listbox?.querySelectorAll(`sl-tab`)[index]
-    // );
-
-    // event.preventDefault();
-    // event.stopPropagation();
-  }
-
   /**
    * Update the selected tab button with attributes and values.
    * Update the tab group state.
@@ -774,18 +570,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         totalTabsHeight = totalTabsHeight + tab.offsetHeight;
       });
 
-      this.#showMore =
-        totalTabsWidth >
-        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth /*wrapper.offsetWidth*/; // TODO: to refactor
+      // this.#showMore =
+      //   totalTabsWidth >
+      //   (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth /*wrapper.offsetWidth*/; // TODO: to refactor
 
       if (axis === 'X') {
         this.#showMore =
           totalTabsWidth >
           (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth /*wrapper.offsetWidth*/;
       } else {
-        this.#showMore =
-          totalTabsHeight >
-          (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight /*wrapper.offsetWidth*/;
+        this.#showMore = totalTabsHeight > (this.shadowRoot?.querySelector('.container') as HTMLElement).offsetHeight;
+        // totalTabsHeight >
+        // (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight /*wrapper.offsetWidth*/;
       }
 
       console.log(
@@ -799,8 +595,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         totalTabsHeight,
         (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight,
         (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).scrollHeight,
+        this.parentElement,
         this.parentElement?.offsetHeight,
-        totalTabsHeight > (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight
+        totalTabsHeight > (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight,
+        totalTabsHeight > (this.shadowRoot?.querySelector('.container') as HTMLElement).offsetHeight
       );
 
       this.requestUpdate(); // TODO: causes some problems? but necessary to render more button on resize

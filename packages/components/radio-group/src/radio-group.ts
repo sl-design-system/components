@@ -92,7 +92,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
 
   /** Whether the user is required to select an option in the group. */
-  @property({ type: Boolean, reflect: true }) required?: boolean;
+  @property({ type: Boolean, reflect: true }) override required?: boolean;
 
   /** When set will cause the control to show it is valid after reportValidity is called. */
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;

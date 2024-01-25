@@ -63,9 +63,11 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** At least one checkbox in the group must be checked if true. */
-  @property({ type: Boolean, reflect: true }) required?: boolean;
+  @property({ type: Boolean, reflect: true }) override required?: boolean;
 
-  /** The size of the checkboxes in the group. */
+  /** The size of the checkboxes in the group.
+   * @type {'md' | 'lg'}
+   */
   @property() size?: CheckboxSize;
 
   /** The value of the group. */

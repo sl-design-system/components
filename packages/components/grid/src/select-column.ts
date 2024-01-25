@@ -1,4 +1,4 @@
-import { getValueByPath } from '@sl-design-system/shared';
+import { getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { Select, SelectOption } from '@sl-design-system/select';
 import { type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -18,7 +18,10 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
   override renderData(item: T): TemplateResult {
     return html`
       <td part="data select">
-        <sl-select .value=${getValueByPath(item, this.path)}>
+        <sl-select
+          @sl-change=${(event: CustomEvent<unknown>) => this.#onChange(event, item)}
+          .value=${getValueByPath(item, this.path)}
+        >
           ${this.options?.map(option =>
             typeof option === 'string'
               ? html`<sl-select-option .value=${option}>${option}</sl-select-option>`
@@ -27,5 +30,9 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
         </sl-select>
       </td>
     `;
+  }
+
+  #onChange(event: CustomEvent<unknown>, item: T): void {
+    setValueByPath(item, this.path, event.detail);
   }
 }

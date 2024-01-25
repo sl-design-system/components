@@ -3192,6 +3192,29 @@
             },
             {
               "kind": "method",
+              "name": "#onChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<unknown>"
+                  }
+                },
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "itemsChanged",
               "return": {
                 "type": {
@@ -5224,6 +5247,29 @@
                 "name": "GridColumn",
                 "module": "src/column.ts"
               }
+            },
+            {
+              "kind": "method",
+              "name": "#onChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<string>"
+                  }
+                },
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",

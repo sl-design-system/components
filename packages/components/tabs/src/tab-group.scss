@@ -336,6 +336,7 @@ div[popover] {
     border-radius: var(--_listbox-item-border-radius);
     color: var(--_listbox-color);
     font: var(--_listbox-font);
+    justify-content: flex-start;
     padding: var(--_listbox-item-padding);
     transition: background 300ms;
   }

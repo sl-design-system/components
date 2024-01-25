@@ -50,12 +50,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     isFocusableElement: (el: Tab) => !el.disabled
   });
 
-  // #rovingTabListboxindexController = new RovingTabindexController<Tab>(this, {
-  //   focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
-  //   elements: () => (this.#allTabs as Tab[]) || [],
-  //   isFocusableElement: (el: Tab) => !el.disabled
-  // });
-
   static #observerOptions = {
     attributes: true,
     subtree: true,
@@ -105,6 +99,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   /** The listbox element with all tabs list. */
   @query('[popover]') listbox!: HTMLElement;
+
+  // #rovingTabListboxindexController = new RovingTabindexController<Tab>(this.listbox, {
+  //   focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
+  //   elements: () => (this.#allTabs as Tab[]) || [],
+  //   isFocusableElement: (el: Tab) => !el.disabled
+  // });
 
   /** Get the selected tab button, or the first tab button. */
   get #initialSelectedTab(): Tab | null {
@@ -158,7 +158,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                 fill="ghost"
                 variant="primary"
                 size="md"
-                @keydown=${this.#onKeydown}
               >
                 <sl-icon name="far-ellipsis"></sl-icon>
               </sl-button>`
@@ -481,19 +480,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     console.log(
       'event onKeyDown',
       isPopoverOpen(this.listbox),
+      this.#rovingTabindexController,
       event.target,
       event,
       event.key,
       isPopoverOpen(this.listbox) /*, this.#rovingTabListboxindexController*/,
       (this.#allTabs as Tab[])[0],
       this.listbox?.querySelectorAll(`sl-tab`)[0],
-      this.listbox,
-      this.#rovingTabindexController.focusInElement,
-      this.#rovingTabindexController.focusInElement
+      this.listbox //,
+      // this.#rovingTabindexController.focusInElement,
+      // this.#rovingTabindexController.focusInElement
     );
     // TODO: if is opened then roving clear cache ??
-
-    // debugger;
 
     // requestAnimationFrame(() => {
     //   this.#rovingTabindexController.clearElementCache();
@@ -506,10 +504,51 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // });
 
     // if (isPopoverOpen(this.listbox)) {
-    this.#rovingTabindexController.clearElementCache();
+    // requestAnimationFrame(() => {
+    //   this.#rovingTabindexController.clearElementCache();
+    // });
+    // this.requestUpdate();
     // this.#rovingTabindexController.manageTabindexes();
-    this.#rovingTabindexController.focus();
+    console.log('document.activeElement before', document.activeElement);
+    // requestAnimationFrame(() => {
+    //   this.#rovingTabindexController.focus();
+    // });
+    console.log('document.activeElement after', document.activeElement);
     // }
+
+    // Array.from(this.listbox?.querySelectorAll(`sl-tab`));
+
+    this.#rovingTabindexController.clearElementCache();
+    this.#rovingTabindexController.manage();
+    // this.#rovingTabindexController.elements: () =>
+    //   Array.from(this.listbox?.querySelectorAll(`sl-tab`)) as Tab[];
+    // this.#rovingTabindexController.focus();
+    // this.#rovingTabindexController.focusToElement(0);
+
+    Array.from(this.listbox?.querySelectorAll(`sl-tab`))[0].focus();
+    this.#rovingTabindexController.clearElementCache();
+    this.#rovingTabindexController.manage();
+    this.#rovingTabindexController.focus();
+
+    console.log(
+      'event onKeyDown___2',
+      isPopoverOpen(this.listbox),
+      this.#rovingTabindexController,
+      event.target,
+      event,
+      event.key,
+      isPopoverOpen(this.listbox) /*, this.#rovingTabListboxindexController*/,
+      (this.#allTabs as Tab[])[0],
+      this.listbox?.querySelectorAll(`sl-tab`)[0],
+      this.listbox //,
+      // this.#rovingTabindexController.focusInElement,
+      // this.#rovingTabindexController.focusInElement
+    );
+
+    // setTimeout(() => {
+    //     this.#rovingTabindexController.clearElementCache();
+    //   },
+    //   700);
 
     // // if (!this.#allTabs) {
     // //   return;
@@ -669,10 +708,21 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Handle keyboard accessible controls.
    */
   #handleKeydown(event: KeyboardEvent): void {
-    console.log('event on handleKeydown', event, event.key, isPopoverOpen(this.listbox));
-    // if (isPopoverOpen(this.listbox)) {
-    //   return;
-    // }
+    console.log(
+      'event on handleKeydown',
+      event,
+      event.key,
+      isPopoverOpen(this.listbox),
+      this.#rovingTabindexController.focusInIndex
+    );
+    if (isPopoverOpen(this.listbox)) {
+      // return;
+      // (Array.from(this.listbox?.querySelectorAll(`sl-tab`)) as Tab[])[0].focus();
+      this.#rovingTabindexController.clearElementCache();
+      // this.#rovingTabindexController.manage();
+      this.#rovingTabindexController.hostContainsFocus();
+      // this.#rovingTabindexController.focus();
+    }
 
     // this.#rovingTabindexController.clearElementCache();
 

@@ -202,7 +202,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
         : html`
             <div>
               <span class="header">${this.profileName}</span>
-              ${this.size === 'sm' ? nothing : html`<slot class="subheader"></slot>`}
+              ${this.size === 'sm' && this.orientation === 'horizontal'
+                ? nothing
+                : html`<slot class="subheader"></slot>`}
             </div>
           `}
     `;

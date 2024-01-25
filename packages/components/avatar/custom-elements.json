@@ -270,6 +270,12 @@
               "fieldName": "user"
             }
           ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
@@ -334,9 +340,13 @@
           "fields": [
             {
               "kind": "field",
-              "name": "#avatarId",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
               "privacy": "private",
-              "default": "nextUniqueId++"
+              "readonly": true
             },
             {
               "kind": "field",
@@ -354,7 +364,17 @@
               "type": {
                 "text": "ResizeObserver | undefined"
               },
+              "default": "new ResizeObserver(() => {\n    this.#checkOverflow();\n    return;\n  })",
               "description": "Observe the grid width."
+            },
+            {
+              "kind": "field",
+              "name": "#hasOverflow",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
             },
             {
               "kind": "field",
@@ -419,15 +439,6 @@
                 "text": "string"
               },
               "default": "''"
-            },
-            {
-              "kind": "field",
-              "name": "#hasOverflow",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
             }
           ]
         }

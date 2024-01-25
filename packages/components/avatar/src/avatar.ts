@@ -10,7 +10,10 @@ import type {
   UserStatus
 } from './models.js';
 import type { AvatarConfig } from '@sl-design-system/shared';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Config } from '@sl-design-system/shared';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { LitElement, html, nothing, svg } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
@@ -65,8 +68,6 @@ const OFFSET_SQUARE: Record<AvatarSize, number> = {
   '3xl': -10
 };
 
-let nextUniqueId = 0;
-
 /**
  * An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.
  *
@@ -84,17 +85,27 @@ let nextUniqueId = 0;
  *
  * @cssproperty --max-width: Max width of the container in ;
  */
-export class Avatar extends LitElement {
+export class Avatar extends ScopedElementsMixin(LitElement) {
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-tooltip': Tooltip
+    };
+  }
+
   /** @private */
   static override styles: CSSResultGroup = styles;
-
-  #avatarId = nextUniqueId++;
 
   /** The avatar configuration settings from the current theme. */
   #config?: AvatarConfig;
 
   /** Observe the grid width. */
-  #resizeObserver?: ResizeObserver;
+  #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
+    this.#checkOverflow();
+    return;
+  });
+
+  #hasOverflow = false;
 
   /** The badge. */
   @state() badge?: AvatarBadge;
@@ -147,14 +158,16 @@ export class Avatar extends LitElement {
     this.borderWidth = this.#config?.badgeGapWidth * 2;
     this.setAttribute('shape', this.#config.shape);
 
-    this.#resizeObserver = new ResizeObserver(() => {
-      this.#checkOverflow();
-      return;
-    });
-
-    this.#resizeObserver.observe(this);
+    this.#resizeObserver?.observe(this);
 
     await this.#setBaseValues();
+  }
+
+  override disconnectedCallback(): void {
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = undefined;
+
+    super.disconnectedCallback();
   }
 
   override async willUpdate(changes: PropertyValues<this>): Promise<void> {
@@ -183,7 +196,7 @@ export class Avatar extends LitElement {
   override render(): TemplateResult {
     return html`
       ${this.image ? this.#renderPicture() : nothing}
-      <sl-tooltip id="avatar-tooltip-${this.#avatarId}">${this.profileName}</sl-tooltip>
+      <sl-tooltip id="avatar-tooltip">${this.profileName}</sl-tooltip>
       ${this.imageOnly
         ? nothing
         : html`
@@ -296,8 +309,6 @@ export class Avatar extends LitElement {
       </picture>
     `;
   }
-
-  #hasOverflow = false;
 
   #renderImage(): TemplateResult | void {
     const { x, y, size } = this.image!;
@@ -434,7 +445,7 @@ export class Avatar extends LitElement {
     if (!element) return;
     this.#hasOverflow = element.offsetWidth < element.scrollWidth || element.offsetHeight + 4 < element.scrollHeight;
     if (this.#hasOverflow) {
-      element.setAttribute('aria-describedby', `avatar-tooltip-${this.#avatarId}`);
+      element.setAttribute('aria-describedby', `avatar-tooltip`);
     } else {
       element.removeAttribute('aria-describedby');
     }

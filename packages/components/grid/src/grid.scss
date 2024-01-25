@@ -76,6 +76,10 @@ tr {
   }
 }
 
+tr:not(:first-of-type) td {
+  border-top: var(--_cell-border);
+}
+
 th,
 td {
   align-items: center;
@@ -90,10 +94,10 @@ th {
   font-weight: var(--_header-font-weight);
   padding: var(--_header-padding-block) var(--_header-padding-inline);
   text-align: start;
+}
 
-  &[part~='filter'] {
-    padding: 0;
-  }
+th[part~='filter'] {
+  padding: 0;
 }
 
 td {
@@ -101,8 +105,14 @@ td {
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 }
 
-tr:not(:first-of-type) td {
-  border-top: var(--_cell-border);
+td[part~='select'],
+td[part~='text-field'] {
+  padding-block: 6px;
+
+  sl-select,
+  sl-text-field {
+    flex-grow: 1;
+  }
 }
 
 .selection-count {

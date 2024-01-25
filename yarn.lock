@@ -4755,6 +4755,7 @@ __metadata:
   resolution: "@sl-design-system/avatar@workspace:packages/components/avatar"
   dependencies:
     "@sl-design-system/shared": "npm:0.2.1"
+    "@sl-design-system/tooltip": "npm:0.0.15"
   languageName: unknown
   linkType: soft
 
@@ -5208,7 +5209,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/tooltip@workspace:packages/components/tooltip":
+"@sl-design-system/tooltip@npm:0.0.15, @sl-design-system/tooltip@workspace:packages/components/tooltip":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tooltip@workspace:packages/components/tooltip"
   dependencies:

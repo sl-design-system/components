@@ -6,7 +6,7 @@
       "description": "color.body.background"
     },
     "foreground": {
-      "value": "{color.surface.solid.primary.foreground}",
+      "value": "{color.palette.black.base}",
       "type": "color",
       "description": "color.body.foreground"
     }
@@ -3936,7 +3936,7 @@
         "type": "color"
       },
       "subheader": {
-        "value": "{body.foreground}",
+        "value": "{color.palette.neutral.600}",
         "type": "color"
       }
     }

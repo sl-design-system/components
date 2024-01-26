@@ -4044,6 +4044,33 @@
               "default": "''"
             }
           ]
+        },
+        {
+          "kind": "function",
+          "name": "setValueByPath",
+          "return": {
+            "type": {
+              "text": "void"
+            }
+          },
+          "parameters": [
+            {
+              "name": "object",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "name": "path",
+              "default": "''"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -4068,6 +4095,14 @@
           "name": "getValueByPath",
           "declaration": {
             "name": "getValueByPath",
+            "module": "src/path.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "setValueByPath",
+          "declaration": {
+            "name": "setValueByPath",
             "module": "src/path.ts"
           }
         }

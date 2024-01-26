@@ -7,6 +7,7 @@
   --_cell-border: 1px solid #eee;
   --_cell-padding-block: 0.5rem;
   --_cell-padding-inline: 1rem;
+  --_drop-target-background: rgba(255, 105, 180);
   --_font: var(--sl-text-body-md-normal);
   --_header-background: #f9f9f9;
   --_header-font-weight: 600;
@@ -71,13 +72,22 @@ tr {
   inline-size: max(var(--sl-grid-row-width), 100%);
   margin: 0;
 
+  &:last-of-type {
+    --_cell-border: 0;
+  }
+
   &[part~='selected'] {
     --_cell-background: var(--_selected-background);
   }
-}
 
-tr:not(:first-of-type) td {
-  border-top: var(--_cell-border);
+  &.drop-target {
+    // --_cell-background: hotpink;
+    z-index: 1;
+  }
+
+  &.drop-target-on-top {
+    --_cell-background: var(--_drop-target-background);
+  }
 }
 
 th,
@@ -102,7 +112,13 @@ th[part~='filter'] {
 
 td {
   background: var(--_cell-background);
+  border-bottom: var(--_cell-border);
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
+}
+
+td[part~='drag-handle'] {
+  cursor: grab;
+  justify-content: center;
 }
 
 td[part~='select'],
@@ -121,4 +137,12 @@ td[part~='text-field'] {
 
 .selection-toggle {
   align-self: center;
+}
+
+.drop-placeholder {
+  background: #eee;
+  inline-size: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1;
 }

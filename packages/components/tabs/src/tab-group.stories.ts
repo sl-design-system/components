@@ -100,7 +100,7 @@ export const API: StoryObj = {
 
 export const Vertical: StoryObj = {
   render: ({ alignment }) => html` <style>
-      sl-tab-group::part(wrapper) {
+      sl-tab-group::part(container) {
         position: sticky;
         inset-block-start: 16px;
         align-self: flex-start;
@@ -177,16 +177,20 @@ export const LongTitles: StoryObj = {
 
 export const VerticalInSmallContainer: StoryObj = {
   render: ({ alignment }) => html` <style>
+      sl-tab-panel {
+        overflow: auto;
+      }
+
       sl-tab-group::part(wrapper) {
         position: sticky;
-        inset-block-start: 16px;
+        inset-block-start: 0;
         align-self: flex-start;
       }
 
       .tab-wrapper {
         height: 300px;
-        border: 4px solid #c4c4c4;
-        overflow: auto;
+        border: 4px dashed #c6c6c6;
+        padding: 20px;
       }
     </style>
     <div class="tab-wrapper">

@@ -18,7 +18,8 @@
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-radius: var(--sl-border-radius-focusring-default);
-  --_button-shadow: -2px 2px 4px 0 rgba(0, 0, 0, 0.12);
+  --_button-shadow: -4px 0px 4px -2px rgba(0, 0, 0, 0.12); //-2px 2px 4px 0 rgba(0, 0, 0, 0.12);
+  --_button-vertical-shadow: 0px -4px 4px -2px rgba(0, 0, 0, 0.12); //2px -2px 4px 0 rgba(0, 0, 0, 0.12);
   // TODO: listbox-padding etc.
   --_panel-horizontal-padding: calc(var(--sl-space-tab-content-horizontal-block) - var(--_wrapper-spacing))
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
@@ -48,6 +49,9 @@
   //padding: var(--_wrapper-spacing); //4px;
   //position: sticky;
   grid-template-columns: 1fr auto;
+  inset-block-start: calc(-1 * var(--_wrapper-spacing)); //0;
+  // padding: var(--_wrapper-spacing); //4px;
+  position: sticky;
 }
 
 .wrapper {
@@ -200,13 +204,15 @@ sl-button {
     flex: 0 0 auto;
     flex-direction: column;
     max-width: var(--_tablist-vertical-max-width);
+    //overflow: hidden;
   }
 
   .wrapper {
     display: flex;
-    flex: 0 0 auto;
+    flex: 1 1 auto; //0 0 auto;
     flex-direction: column;
     //max-width: var(--_tablist-vertical-max-width);
+    overflow: hidden;
   }
 
   [role='tablist'] {
@@ -232,23 +238,23 @@ sl-button {
   }
 
   sl-button {
-    border-bottom-color: var(--sl-color-tab-default-border);
-    border-bottom-style: solid;
+    border-bottom-color: initial;
+    border-bottom-style: initial;
     border-left-color: initial;
     border-left-style: initial;
-    border-right-color: initial;
-    border-right-style: initial;
+    border-right-color: var(--sl-color-tab-default-border);
+    border-right-style: solid;
     border-top-color: initial;
     //padding-inline: var(--_button-inline-padding);
     //position: sticky;
     //z-index: 1;
     border-top-style: initial;
-    border-width: 0 0 1px;
+    border-width: 0 1px 0 0;
     //background: var(--_tab-group-background);
     //border-radius: 0;
     //align-self: center;
     //background: #9ebaff;
-    box-shadow: var(--_button-shadow);
+    box-shadow: var(--_button-vertical-shadow);
     //position: absolute;
     inset-block-end: 0; //calc(-1 * var(--_wrapper-spacing)); //0;
     margin: 0 4px;

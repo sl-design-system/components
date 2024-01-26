@@ -78,8 +78,18 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A tab group component with tabs and tab panels.",
           "name": "TabGroup",
+          "slots": [
+            {
+              "description": "A place for the tab group content.",
+              "name": "default"
+            },
+            {
+              "description": "A place for tabs components.",
+              "name": "tabs"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -372,8 +382,7 @@
                 "text": "HTMLButtonElement"
               },
               "description": "Controller for managing anchoring.",
-              "privacy": "private",
-              "default": "this.renderRoot?.querySelector('#more-btn')"
+              "privacy": "private"
             },
             {
               "kind": "field",

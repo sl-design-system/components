@@ -6,14 +6,11 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { RovingTabindexController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
-import { faEllipsis } from '@fortawesome/pro-regular-svg-icons';
 import { LitElement, html, nothing } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { Tab } from './tab.js';
 import { TabPanel } from './tab-panel.js';
 import styles from './tab-group.scss.js';
-
-Icon.register(faEllipsis); // TODO: needs to be changed - icon from tokens
 
 export type TabsAlignment = 'left' | 'filled';
 
@@ -22,6 +19,12 @@ let nextUniqueId = 0;
 // TODO: add docs here like with default slots etc.
 
 // @localized()
+/**
+ * A tab group component with tabs and tab panels.
+ *
+ * @slot default - A place for the tab group content.
+ * @slot tabs - A place for tabs components.
+ */
 export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -111,14 +114,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     return this.querySelector('sl-tab[selected]') || this.querySelector('sl-tab:not([disabled])');
   }
 
-  constructor() {
-    super();
-
-    // if (this.renderRoot.querySelector('#more-btn') as HTMLButtonElement) {
-    this.moreButton = this.renderRoot?.querySelector('#more-btn') as HTMLButtonElement;
-    // }
-    console.log('before connected - constructor', this.#allTabs, this.moreButton, this.listbox, this.renderRoot);
-  }
+  // constructor() {
+  //   super();
+  //
+  //   // if (this.renderRoot.querySelector('#more-btn') as HTMLButtonElement) {
+  //   this.moreButton = this.renderRoot?.querySelector('#more-btn') as HTMLButtonElement;
+  //   // }
+  //   console.log('before connected - constructor', this.#allTabs, this.moreButton, this.listbox, this.renderRoot);
+  // }
 
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
@@ -153,7 +156,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
             <div
               id="tabs-popover"
-              ${anchor({ element: this.moreButton, position: 'bottom-end' })}
+              ${anchor({ element: this.moreButton, position: this.vertical ? 'bottom-start' : 'bottom-end' })}
               @toggle=${this.#onToggle}
               popover
               role="listbox"
@@ -173,13 +176,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
               variant="primary"
               size="md"
             >
-              <sl-icon name="far-ellipsis"></sl-icon>
+              <sl-icon name="ellipsis"></sl-icon>
             </sl-button>`
           : nothing}
       </div>
       <slot></slot>
     `;
   } // TODO: aria-label=${msg('Close')} -> msg 'open' or 'more'
+  // Show all tabs
   // @keydown=${this.#onKeydown} from button
 
   // ${(this.#allTabs as Tab[]).map(tab => html` <span>${tab.selected} ${tab.innerHTML}</span> `)}
@@ -547,10 +551,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       const axis = this.vertical ? 'Y' : 'X',
         indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
         indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement,
-        wrapper = this.shadowRoot?.querySelector('.wrapper') as HTMLElement,
+        wrapper = this.shadowRoot?.querySelector('.container') as HTMLElement,
         wrapper2 = this.shadowRoot?.querySelectorAll('[slot="tabs"]'),
         wrapper3 = this.shadowRoot?.querySelectorAll('sl-tab'),
         wrapper4 = this.querySelectorAll('sl-tab');
+
+      // wrapper = this.shadowRoot?.querySelector('.wrapper') as HTMLElement,
 
       // wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
 
@@ -623,36 +629,36 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         start = this.selectedTab.offsetTop - wrapper.offsetTop - wrapper5.offsetTop;
       }
 
-      console.log(
-        'wrapper offset',
-        wrapper.offsetLeft,
-        wrapper.scrollLeft,
-        this.selectedTab.offsetLeft,
-        this.selectedTab.scrollLeft,
-        wrapper5.offsetLeft,
-        wrapper5.scrollLeft
-      );
-
-      console.log(
-        'this.selectedTab.offsetLeft - wrapper.offsetLeft',
-        axis,
-        this.selectedTab.offsetLeft,
-        this.selectedTabInListbox,
-        this.selectedTabInListbox?.offsetHeight,
-        this.listbox,
-        this.listbox.offsetTop,
-        wrapper.offsetLeft,
-        this.selectedTab.offsetParent,
-        wrapper.offsetWidth,
-        wrapper.scrollWidth,
-        wrapper2,
-        // wrapper2.offsetWidth,
-        // wrapper2.scrollWidth,
-        this.#allTabs, //,
-        // totalWidth,
-        wrapper3,
-        wrapper4
-      );
+      // console.log(
+      //   'wrapper offset',
+      //   wrapper.offsetLeft,
+      //   wrapper.scrollLeft,
+      //   this.selectedTab.offsetLeft,
+      //   this.selectedTab.scrollLeft,
+      //   wrapper5.offsetLeft,
+      //   wrapper5.scrollLeft
+      // );
+      //
+      // console.log(
+      //   'this.selectedTab.offsetLeft - wrapper.offsetLeft',
+      //   axis,
+      //   this.selectedTab.offsetLeft,
+      //   this.selectedTabInListbox,
+      //   this.selectedTabInListbox?.offsetHeight,
+      //   this.listbox,
+      //   this.listbox.offsetTop,
+      //   wrapper.offsetLeft,
+      //   this.selectedTab.offsetParent,
+      //   wrapper.offsetWidth,
+      //   wrapper.scrollWidth,
+      //   wrapper2,
+      //   // wrapper2.offsetWidth,
+      //   // wrapper2.scrollWidth,
+      //   this.#allTabs, //,
+      //   // totalWidth,
+      //   wrapper3,
+      //   wrapper4
+      // );
 
       // Somehow on Chromium, the offsetParent is different than on FF and Safari
       // If on Chromium, take the `wrapper.offsetLeft` into account as well
@@ -661,13 +667,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       }
 
       indicator.style.transform = `translate${axis}(${start}px)`;
-
-      // scale${axis}(${
-      //   axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight
-      // })`
-
-      // const styleType = (axis === 'X' ? 'height' : 'width') as unknown as CSSStyleDeclaration;
-      // indicator.style.styleType = `${axis === 'X' ? this.selectedTab.offsetWidth : this.selectedTab.offsetHeight}px`;
 
       indicatorListbox.style.transform = `translateY(${
         this.selectedTabInListbox.offsetTop + this.listbox.offsetHeight

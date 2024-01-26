@@ -2544,7 +2544,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.danger.base}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2576,7 +2576,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.danger.base}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },

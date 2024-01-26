@@ -5,7 +5,6 @@ import type { Virtualizer } from '@lit-labs/virtualizer/Virtualizer.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { DataSource, EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
-import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { ArrayDataSource, SelectionController, event, isSafari } from '@sl-design-system/shared';
@@ -58,9 +57,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Flag for calculating the column widths only once. */
   #initialColumnWidthsCalculated = false;
-
-  /** The layout used by virtualizer. */
-  #layout = flow();
 
   /** Observe the tbody style changes. */
   #mutationObserver = new MutationObserver(() => {
@@ -240,7 +236,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
             items: this.dataSource?.filteredItems,
-            layout: this.#layout,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>

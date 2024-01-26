@@ -3519,12 +3519,6 @@
             },
             {
               "kind": "field",
-              "name": "#layout",
-              "privacy": "private",
-              "description": "The layout used by virtualizer."
-            },
-            {
-              "kind": "field",
               "name": "#mutationObserver",
               "privacy": "private",
               "default": "new MutationObserver(() => {\n    this.#mutationObserver?.disconnect();\n\n    // This is a workaround for the virtualizer not taking the border width into account\n    // We convert the min-height to a CSS variable so we can use it in the styles and\n    // add the border-width to the eventual min-height value.\n    this.style.setProperty('--sl-grid-tbody-min-height', this.tbody.style.minHeight);\n    this.tbody.style.minHeight = '';\n\n    this.#mutationObserver?.observe(this.tbody, { attributes: true, attributeFilter: ['style'] });\n  })",

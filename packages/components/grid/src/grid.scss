@@ -72,9 +72,9 @@ tr {
   inline-size: max(var(--sl-grid-row-width), 100%);
   margin: 0;
 
-  // &:hover td[part~='drag-handle'] sl-icon {
-  //   opacity: 1;
-  // }
+  &:last-of-type {
+    --_cell-border: 0;
+  }
 
   &[part~='selected'] {
     --_cell-background: var(--_selected-background);
@@ -88,10 +88,6 @@ tr {
   &.drop-target-on-top {
     --_cell-background: var(--_drop-target-background);
   }
-}
-
-tr:not(:first-of-type) td {
-  border-top: var(--_cell-border);
 }
 
 th,
@@ -116,16 +112,13 @@ th[part~='filter'] {
 
 td {
   background: var(--_cell-background);
+  border-bottom: var(--_cell-border);
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 }
 
 td[part~='drag-handle'] {
   cursor: grab;
   justify-content: center;
-
-  // sl-icon {
-  //   opacity: 0;
-  // }
 }
 
 td[part~='select'],

@@ -80,11 +80,6 @@ tr {
     --_cell-background: var(--_selected-background);
   }
 
-  &.drag-target {
-    height: 0;
-    opacity: 0;
-  }
-
   &.drop-target {
     // --_cell-background: hotpink;
     z-index: 1;
@@ -93,30 +88,6 @@ tr {
   &.drop-target-on-top {
     --_cell-background: var(--_drop-target-background);
   }
-
-  &.drop-target-above {
-    // padding-top: 32px;
-  }
-
-  &.drop-target-below {
-    // padding-bottom: 32px;
-  }
-
-  // &.drop-target-above::before {
-  //   background: var(--_drop-target-background);
-  //   block-size: 3px;
-  //   content: '';
-  //   inset: -1px 0 auto;
-  //   position: absolute;
-  // }
-
-  // &.drop-target-below::after {
-  //   background: var(--_drop-target-background);
-  //   block-size: 3px;
-  //   content: '';
-  //   inset: auto 0 -2px;
-  //   position: absolute;
-  // }
 }
 
 th,
@@ -145,7 +116,7 @@ td {
 }
 
 td[part~='drag-handle'] {
-  cursor: move;
+  cursor: grab;
   justify-content: center;
 
   // sl-icon {
@@ -167,9 +138,8 @@ tr:not(:first-child) td {
 
 .drop-placeholder {
   background: #eee;
-  height: 32px;
+  inline-size: 100%;
   position: absolute;
   top: 0;
-  width: 100%;
   z-index: 1;
 }

@@ -443,8 +443,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     const row = event.composedPath().find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement);
 
-    if (this.#dragItem === item) {
-      row?.classList.add('drag-target');
+    if (row && this.#dragItem === item) {
+      row.style.height = '0px';
+      row.style.opacity = '0';
     }
 
     if (!row?.classList.contains('drop-target')) {
@@ -465,12 +466,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       // If the cursor is in the top half of the row, make this row the drop target
       if (y < top + height / 2) {
         row?.before(this.#dropPlaceholder!);
-        // row?.classList.add('drop-target-above');
-        // row?.classList.remove('drop-target-below');
       } else {
         row?.after(this.#dropPlaceholder!);
-        // row?.classList.remove('drop-target-above');
-        // row?.classList.add('drop-target-below');
       }
     } else if (
       this.draggableRows === 'on-top' ||
@@ -483,8 +480,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   #onDragend(event: DragEvent, item: T): void {
     const row = event.composedPath().find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement);
 
-    row?.classList.remove('drag-target');
-    row?.removeAttribute('draggable');
+    row!.removeAttribute('draggable');
+    row!.style.height = '';
+    row!.style.opacity = '';
 
     this.renderRoot
       .querySelector('tr:where(.drop-target, .drop-target-above, .drop-target-below)')
@@ -528,6 +526,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       newIndex = parseInt(this.#dropPlaceholder!.previousElementSibling.getAttribute('index')!) + 1;
     } else if (this.#dropPlaceholder!.nextElementSibling) {
       newIndex = parseInt(this.#dropPlaceholder!.nextElementSibling.getAttribute('index')!);
+    }
+
+    if (oldIndex < newIndex) {
+      newIndex--;
     }
 
     this.gridDrop.emit(new GridItemDropEvent(this, this.#dragItem!, oldIndex, newIndex));

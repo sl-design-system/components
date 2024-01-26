@@ -1722,7 +1722,7 @@
   "borderRadius": {
     "button": {
       "sm": {
-        "value": "{border.radius.2xs}",
+        "value": "{border.radius.xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },

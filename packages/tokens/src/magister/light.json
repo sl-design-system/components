@@ -1194,36 +1194,19 @@
               "description": "color.button.danger.solid.active.border"
             }
           },
-          "focus": {
-            "background": {
-              "value": "{color.palette.danger.500}",
-              "type": "color",
-              "description": "color.button.default.focus.background"
-            },
-            "foreground": {
-              "value": "{color.palette.white.base}",
-              "type": "color",
-              "description": "color.button.default.focus.foreground"
-            },
-            "border": {
-              "value": "{color.palette.info.base}",
-              "type": "color",
-              "description": "color.button.default.focus.border"
-            }
-          },
           "disabled": {
             "background": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.button.default.solid.disabled.background}",
               "type": "color",
               "description": "color.button.danger.solid.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.200}",
+              "value": "{color.button.default.solid.disabled.foreground}",
               "type": "color",
               "description": "color.button.danger.solid.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.button.default.solid.disabled.border}",
               "type": "color",
               "description": "color.button.danger.default.disabled.border"
             }
@@ -1232,85 +1215,68 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.danger.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.button.danger.outline.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.danger.200}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.button.danger.outline.idle.border"
             }
           },
           "hover": {
             "background": {
-              "value": "{color.palette.danger.50}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.button.danger.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.700}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.danger.outline.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.danger.200}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.button.danger.outline.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.danger.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.danger.200}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.outline.active.border"
             }
           },
-          "focus": {
-            "background": {
-              "value": "rgba({body.background},{opacity.100})",
-              "type": "color",
-              "description": "color.button.default.focus.background"
-            },
-            "foreground": {
-              "value": "{color.palette.danger.300}",
-              "type": "color",
-              "description": "color.button.default.focus.foreground"
-            },
-            "border": {
-              "value": "{color.palette.info.base}",
-              "type": "color",
-              "description": "color.button.default.focus.border"
-            }
-          },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.outline.disabled.background}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.button.default.outline.disabled.foreground}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.button.default.outline.disabled.border}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.border"
             }
@@ -1324,7 +1290,7 @@
               "description": "color.button.danger.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.button.danger.outline.idle.foreground"
             },
@@ -1341,12 +1307,12 @@
               "description": "color.button.danger.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.700}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.outline.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.danger.50}",
               "type": "color",
               "description": "color.button.danger.outline.hover.border"
             }
@@ -1358,46 +1324,29 @@
               "description": "color.button.danger.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.danger.100}",
               "type": "color",
               "description": "color.button.danger.outline.active.border"
             }
           },
-          "focus": {
-            "background": {
-              "value": "rgba({body.background},{opacity.100})",
-              "type": "color",
-              "description": "color.button.default.focus.background"
-            },
-            "foreground": {
-              "value": "{color.palette.danger.300}",
-              "type": "color",
-              "description": "color.button.default.focus.foreground"
-            },
-            "border": {
-              "value": "{color.palette.transparent.base}",
-              "type": "color",
-              "description": "color.button.default.focus.border"
-            }
-          },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.ghost.disabled.background}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.button.default.ghost.disabled.foreground}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.ghost.disabled.border}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.border"
             }
@@ -1411,7 +1360,7 @@
               "description": "color.button.danger.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.button.danger.outline.idle.foreground"
             },
@@ -1428,7 +1377,7 @@
               "description": "color.button.danger.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.700}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.button.danger.outline.hover.foreground"
             },
@@ -1445,7 +1394,7 @@
               "description": "color.button.danger.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.800}",
+              "value": "{color.palette.danger.700}",
               "type": "color",
               "description": "color.button.danger.outline.active.foreground"
             },
@@ -1455,36 +1404,19 @@
               "description": "color.button.danger.outline.active.border"
             }
           },
-          "focus": {
-            "background": {
-              "value": "{color.palette.transparent.base}",
-              "type": "color",
-              "description": "color.button.default.focus.background"
-            },
-            "foreground": {
-              "value": "{color.palette.danger.300}",
-              "type": "color",
-              "description": "color.button.default.focus.foreground"
-            },
-            "border": {
-              "value": "{color.palette.transparent.base}",
-              "type": "color",
-              "description": "color.button.default.focus.border"
-            }
-          },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.link.disabled.background}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.button.default.link.disabled.foreground}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.link.disabled.border}",
               "type": "color",
               "description": "color.button.danger.outline.disabled.border"
             }

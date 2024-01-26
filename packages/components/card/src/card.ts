@@ -1,5 +1,5 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { LitElement, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './card.scss.js';
 
@@ -18,6 +18,7 @@ export class Card extends LitElement {
   @property({ type: Boolean, reflect: true }) padding?: boolean;
   @property({ type: Boolean, reflect: true }) responsive?: boolean;
   @property({ reflect: true }) orientation = 'horizontal';
+  @property({ reflect: true }) icon?: string;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -29,6 +30,7 @@ export class Card extends LitElement {
         <slot name="media"></slot>
         <slot name="actions"></slot>
         <div class="content">
+          ${this.icon ? html`<sl-icon .name=${this.icon}></sl-icon>` : nothing}
           <header>
             <slot class="title"></slot>
             <slot name="header"></slot>

@@ -2322,6 +2322,11 @@
         "value": "circle-check",
         "type": "Icons",
         "description": "icon.core.circle-check-solid"
+      },
+      "ellipsis-solid": {
+        "value": "ellipsis",
+        "type": "Icons",
+        "description": "icon.core.ellipsis-solid"
       }
     },
     "typeset": {

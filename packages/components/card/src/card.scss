@@ -29,7 +29,7 @@ div.container {
     'actions'
     'content';
   grid-template-columns: 1fr;
-  grid-template-rows: min-content max-content 1fr;
+  grid-template-rows: min-content minmax(16px, max-content) 1fr;
 }
 
 :host([padding]) {
@@ -39,24 +39,24 @@ div.container {
 @mixin sl-card-horizontal-layout {
   --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
   grid-template-areas: 'media content actions';
-  grid-template-columns: minmax(30%, min-content) 1fr max-content;
-  grid-template-rows: min-content 1fr;
+  grid-template-columns: max-content 1fr max-content;
+  grid-template-rows: 1fr;
 }
 
 :host([orientation='horizontal'][padding]:not([responsive])) slot[name='media'] {
   --_image-padding-full: var(--_image-padding) 0 var(--_image-padding) var(--_image-padding);
 }
 
-:host([orientation='horizontal']:not([responsive])) div {
+:host([orientation='horizontal']:not([responsive])) .container {
   @include sl-card-horizontal-layout();
 }
 
 @container (min-width: 350px) {
-  :host([orientation='horizontal']) div {
+  :host([orientation='horizontal']) .container {
     @include sl-card-horizontal-layout();
   }
 
-  :host([orientation='horizontal'][padding]) {
+  :host([orientation='horizontal'][padding]) slot[name='media'] {
     --_image-padding-full: var(--_image-padding) 0 var(--_image-padding) var(--_image-padding);
   }
 }
@@ -69,8 +69,21 @@ div.container {
   padding: var(--_content-padding-block) var(--_content-padding-inline);
 }
 
-slot.title {
-  grid-area: title;
+:host([icon]) .content {
+  display: grid;
+  grid-template-areas:
+    'icon header'
+    'icon body';
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: max-content 1fr;
+
+  sl-icon {
+    grid-area: icon;
+  }
+}
+
+header {
+  grid-area: header;
 }
 
 slot[name='media'] {
@@ -81,6 +94,10 @@ slot[name='media'] {
 
 slot.title::slotted(*) {
   font: var(--_font-title);
+}
+
+slot[name='header'] {
+  grid-area: subheader;
 }
 
 slot[name='header']::slotted(*:not(sl-badge)) {

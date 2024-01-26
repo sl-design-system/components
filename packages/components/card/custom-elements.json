@@ -43,6 +43,15 @@
           "members": [
             {
               "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "icon",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "orientation",
               "type": {
                 "text": "string"
@@ -92,6 +101,13 @@
               },
               "default": "'horizontal'",
               "fieldName": "orientation"
+            },
+            {
+              "name": "icon",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "icon"
             }
           ],
           "superclass": {

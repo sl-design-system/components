@@ -114,7 +114,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
 
-    /** Whether to show the validity state. */
+    /** Whether to show the validity state.
+     * @type {'valid' | 'invalid' | undefined }
+     */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
 
     /** The value used when submitting the form. */
@@ -208,7 +210,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
     }
 
-    /** Returns the current validity state. */
+    /** Returns the current validity state.
+     * @type { 'valid' | 'invalid' | 'pending'}
+     */
     get validityState(): FormControlValidityState {
       return this.#customValidityPromise ? 'pending' : this.valid ? 'valid' : 'invalid';
     }

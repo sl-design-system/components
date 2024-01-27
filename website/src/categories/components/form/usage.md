@@ -11,7 +11,7 @@ eleventyNavigation:
 <div class="ds-example">
 
   <sl-form>
-    <sl-form-field label="Course name">
+    <sl-form-field hint="Please enter a descriptive name for the course." label="Course name">
       <sl-text-field name="courseName"></sl-text-field>
     </sl-form-field>
     <sl-form-field label="Subjects">
@@ -34,7 +34,7 @@ eleventyNavigation:
 
   ```html
   <sl-form>
-    <sl-form-field label="Course name">
+    <sl-form-field hint="Please enter a descriptive name for the course." label="Course name">
       <sl-text-field name="courseName"></sl-text-field>
     </sl-form-field>
 

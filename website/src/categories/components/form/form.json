@@ -1,0 +1,14 @@
+{
+  "layout": "components/components.njk",
+  "tags": "form",
+  "componentTagName": [
+    {
+      "name": "Form",
+      "selector": "sl-form"
+    },
+    {
+      "name": "Form field",
+      "selector": "sl-form-field"
+    }
+  ]
+}

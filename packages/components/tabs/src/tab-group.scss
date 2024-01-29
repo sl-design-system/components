@@ -28,9 +28,6 @@
   --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth);
 }
 
-//--_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-//--_focus-outline-offset: var(--sl-border-width-focusring-offset);
-
 :host {
   --sl-popover-offset: 4px;
   display: flex;
@@ -41,98 +38,26 @@
 }
 
 .container {
-  //display: flex;
   display: grid;
-  //position: relative;
-  //inset-block-start: calc(-1 * var(--_wrapper-spacing)); //0;
-  //overflow: hidden;
-  //padding: var(--_wrapper-spacing); //4px;
-  //position: sticky;
   grid-template-columns: 1fr auto;
-  inset-block-start: calc(-1 * var(--_wrapper-spacing)); //0;
-  // padding: var(--_wrapper-spacing); //4px;
+  inset-block-start: calc(-1 * var(--_wrapper-spacing));
   position: sticky;
 }
 
 .wrapper {
-  //display: flex;
   display: grid;
   grid-template-columns: 1fr auto;
-  //position: relative;
-  inset-block-start: calc(-1 * var(--_wrapper-spacing)); //0;
+  inset-block-start: calc(-1 * var(--_wrapper-spacing));
   overflow: hidden;
-  padding: var(--_wrapper-spacing); //4px;
+  padding: var(--_wrapper-spacing);
   position: sticky;
-
-  //&::after {
-  //  background-color: red;
-  //  bottom: 0px;
-  //  content: "";
-  //  display: block;
-  //  position: absolute;
-  //  right: 0px;
-  //  top: 0px;
-  //  width: 4px;
-  //  z-index: 2;
-  //}
-
-  //&::before {
-  //  content: '';
-  //  position: absolute;
-  //  //top: -4px;
-  //  //right: -4px;
-  //  //bottom: -4px;
-  //  //left: -4px;
-  //  //background-color: red;
-  //
-  //  //background-color: red;
-  //  //content: "";
-  //  //position: absolute;
-  //  //height: 2px;
-  //  //width: 100%;
-  //  //left: 0px;
-  //  //display: flex;
-  //  //flex-grow: 1;
-  //  //min-inline-size: 0px;
-  //
-  //  background-color: red;
-  //  //inset-block-end: 2px;
-  //  ////content: "";
-  //  //height: 2px;
-  //  //min-inline-size: 0px;
-  //  //position: absolute;
-  //  //width: 100%;
-  //  //flex-grow: 1;
-  //  //inset-inline-end: 0px;
-  //  //left: 0px;
-  //  //scale: 3 1;
-  //  //z-index: 1;
-  //
-  //
-  //  content: "";
-  //  flex-grow: 1;
-  //  height: 2px;
-  //  inset-block-end: 2px;
-  //  inset-inline-start: 0px;
-  //  position: absolute;
-  //  width: 200%;
-  //  align-self: stretch;
-  //  //background: blue;
-  //  display: inline-flex;
-  //}
 }
 
 [role='tablist'] {
   background-color: var(--_tab-group-background);
   border-bottom: var(--_border-bottom);
   display: flex;
-  //top: 0;
-  //overflow: hidden;
   position: relative;
-  //width: fit-content;
-
-  //inset-block-start: 0;
-  //position: sticky;
 }
 
 ::slotted(sl-tab-panel) {
@@ -147,54 +72,26 @@ sl-button {
   border-left-style: initial;
   border-radius: 0;
   border-right-color: initial;
-  border-right-style: initial;
+  border-right-style: initial; // TODO: improve
   border-top-color: initial;
-  //padding-inline: var(--_button-inline-padding);
-  //position: sticky;
-  //z-index: 1;
   border-top-style: initial;
   border-width: 0 0 1px;
-  //align-self: center;
-  //background: #9ebaff;
   box-shadow: var(--_button-shadow);
-  //position: absolute;
-  inset-inline-end: 0; //calc(-1 * var(--_wrapper-spacing)); //0;
+  inset-inline-end: 0;
   margin: 4px 0;
-  //border-radius: 0px;
-  //height: calc(100% - 5px);
-  //inset-inline-end: 0px;
   padding-block: 0;
   padding-inline: var(--_button-inline-padding);
   position: sticky;
   z-index: 1;
-
-  //&::after {
-  //  content: '';
-  //  display: block;
-  //  position: absolute;
-  //  width: 4px;
-  //  top: 0;
-  //  bottom: 0;
-  //  right: -2px;
-  //  background-color: var(--_tab-group-background); //red;
-  //  //outline: var(--_focus-outline);
-  //  //outline-offset: var(--_focus-outline-offset);
-  //}
 
   &:hover {
     background-color: var(--sl-color-select-item-hover-background);
   }
 
   &:focus-visible {
-    border-radius: var(--_focus-radius); //3px;
-    //outline: var(--_focus-outline);
-    //outline-offset: var(--_focus-outline-offset);
-    //inset-inline-end: 0;
+    border-radius: var(--_focus-radius);
   }
 }
-
-//flex: 0 0 auto;
-//flex-direction: column;
 
 :host([vertical='true']) {
   flex-direction: row;
@@ -204,14 +101,12 @@ sl-button {
     flex: 0 0 auto;
     flex-direction: column;
     max-width: var(--_tablist-vertical-max-width);
-    //overflow: hidden;
   }
 
   .wrapper {
     display: flex;
-    flex: 1 1 auto; //0 0 auto;
+    flex: 1 1 auto;
     flex-direction: column;
-    //max-width: var(--_tablist-vertical-max-width);
     overflow: hidden;
   }
 
@@ -224,7 +119,7 @@ sl-button {
 
   .indicator {
     height: 1px;
-    inset: 0 0 auto auto; //0 auto auto 0;
+    inset: 0 0 auto auto;
     transform-origin: center top;
     width: var(--indicator-size);
   }
@@ -234,34 +129,23 @@ sl-button {
   }
 
   ::slotted(sl-tab-panel) {
-    padding: var(--_panel-vertical-padding); //4px;
+    padding: var(--_panel-vertical-padding);
   }
 
   sl-button {
     border-bottom-color: initial;
     border-bottom-style: initial;
-    border-left-color: initial;
+    border-left-color: initial; // TODO: improve
     border-left-style: initial;
     border-right-color: var(--sl-color-tab-default-border);
     border-right-style: solid;
     border-top-color: initial;
-    //padding-inline: var(--_button-inline-padding);
-    //position: sticky;
-    //z-index: 1;
     border-top-style: initial;
     border-width: 0 1px 0 0;
-    //background: var(--_tab-group-background);
-    //border-radius: 0;
-    //align-self: center;
-    //background: #9ebaff;
     box-shadow: var(--_button-vertical-shadow);
-    //position: absolute;
-    inset-block-end: 0; //calc(-1 * var(--_wrapper-spacing)); //0;
+    inset-block-end: 0;
     margin: 0 4px;
     padding-block: var(--_button-inline-padding);
-    //border-radius: 0px;
-    //height: calc(100% - 5px);
-    //inset-inline-end: 0px;
     padding-inline: 0;
     position: sticky;
     z-index: 1;
@@ -269,7 +153,7 @@ sl-button {
 }
 
 .indicator-listbox {
-  border-radius: var(--_indicator-listbox-border-radius); //2px; // TODO: needs to come from the token?
+  border-radius: var(--_indicator-listbox-border-radius);
   height: 1px;
   inset: 0 auto auto var(--sl-space-select-listbox-inline-lg);
   transform-origin: center top;
@@ -278,7 +162,6 @@ sl-button {
 
 :host([vertical='false']) [role='tablist'] {
   --_sl-tab-group-list-background: #fff;
-  //--_sl-tab-list-background: #fff;
   --sl-color-border-strong: rgb(188, 197, 204);
   --sl-space-s: 8px;
   --sl-space-l: 24px;
@@ -300,8 +183,6 @@ sl-button {
   background-repeat: no-repeat;
   background-size: var(--sl-space-s) var(--sl-space-xl), var(--sl-space-s) var(--sl-space-xl);
   flex-wrap: nowrap;
-  //gap: 8px;
-  //overflow: auto;
 
   &::before,
   &::after {
@@ -326,15 +207,6 @@ sl-button {
     flex: 1; /* Stretch the last mask to make sure the shadow is always masked */
     //  margin-inline-start: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
     //  padding-inline-end: var(--sl-tab-group-padding);
-
-    //background-color: red;
-    //bottom: 5px;
-    //content: "";
-    //display: block;
-    //position: absolute;
-    //right: 0px;
-    //top: 4px;
-    //width: 4px;
   }
 
   ::slotted(sl-tab) {
@@ -352,35 +224,16 @@ sl-button {
 
 :host([vertical='false'][alignment='filled']) [role='tablist'] {
   ::slotted(sl-tab) {
-    //flex-grow: 1;
-    // flex: 1;
-    // white-space: nowrap;
     width: 100%;
   }
 }
 
-//button {
-//  border: none;
-//  cursor: pointer;
-//  inset-inline-end: 0;
-//  position: sticky;
-//
-//  &:hover {
-//    background-color: var(--sl-color-select-item-hover-background);
-//  }
-//}
-
 .indicator,
 .indicator-listbox {
   background: var(--_tab-group-indicator-color);
-  //border-radius: 2px; // TODO: needs to come from the token?
   position: absolute;
-  z-index: 2; //1;
+  z-index: 2;
 }
-
-//.indicator-listbox:has(sl-tab[disabled]) {
-//  background: #c6c6c6;
-//}
 
 @media (prefers-reduced-motion: no-preference) {
   .indicator {
@@ -393,8 +246,8 @@ sl-button {
 }
 
 div[popover] {
-  background-color: var(--_listbox-background); //#fff;
-  border: var(--_listbox-border); //0;
+  background-color: var(--_listbox-background);
+  border: var(--_listbox-border);
   border-radius: var(--_listbox-border-radius);
   box-shadow: var(--sl-elevation-shadow-md);
   box-sizing: border-box;
@@ -424,12 +277,7 @@ div[popover] {
     background-color: var(--sl-color-select-item-active-background);
   }
 
-  //sl-tab:focus {
-  //  background-color: #ff0;
-  //}
-
   sl-tab[disabled] {
-    //background-color: #e2e2e2;
     color: var(--sl-color-select-item-disabled-foreground);
   }
 

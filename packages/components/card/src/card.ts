@@ -28,7 +28,6 @@ export class Card extends LitElement {
     return html`
       <div class="container">
         <slot name="media"></slot>
-        <slot name="actions"></slot>
         <div class="content">
           ${this.icon ? html`<sl-icon .name=${this.icon}></sl-icon>` : nothing}
           <header>
@@ -37,6 +36,7 @@ export class Card extends LitElement {
           </header>
           <slot name="body"></slot>
         </div>
+        <slot name="actions"></slot>
       </div>
     `;
   }

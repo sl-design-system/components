@@ -10,6 +10,7 @@
   --_content-padding-block: 0 var(--sl-space-card-vertical-block);
   --_image-padding: 8px;
   --_image-padding-full: 0;
+  --_aspect-ratio: var(--card-media-aspect-ratio, 4/3);
 
   background-color: var(--_card-background);
   border: var(--_card-border);
@@ -36,11 +37,19 @@ div.container {
   --_image-padding-full: var(--_image-padding) var(--_image-padding) 0 var(--_image-padding);
 }
 
+:host([orientation='horizontal']) {
+  container-type: size;
+}
+
 @mixin sl-card-horizontal-layout {
   --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
   grid-template-areas: 'media content actions';
-  grid-template-columns: max-content 1fr max-content;
-  grid-template-rows: 1fr;
+  grid-template-columns: minmax(0, max-content) 1fr max-content;
+  grid-template-rows: 100cqh;
+
+  slot[name='media'] {
+    max-width: calc(var(--_aspect-ratio) * 100cqh);
+  }
 }
 
 :host([orientation='horizontal'][padding]:not([responsive])) slot[name='media'] {
@@ -66,6 +75,7 @@ div.container {
   flex-direction: column;
   gap: 8px;
   grid-area: content;
+  overflow: hidden;
   padding: var(--_content-padding-block) var(--_content-padding-inline);
 }
 
@@ -89,15 +99,10 @@ header {
 slot[name='media'] {
   display: grid;
   grid-area: media;
-  padding: var(--_image-padding-full);
 }
 
 slot.title::slotted(*) {
   font: var(--_font-title);
-}
-
-slot[name='header'] {
-  grid-area: subheader;
 }
 
 slot[name='header']::slotted(*:not(sl-badge)) {
@@ -105,12 +110,24 @@ slot[name='header']::slotted(*:not(sl-badge)) {
 }
 
 slot[name='media']::slotted(*) {
+  aspect-ratio: var(--_aspect-ratio);
+  box-sizing: border-box;
+  max-height: 100%;
   max-width: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  padding: var(--_image-padding-full);
 }
 
 slot[name='body'] {
+  -webkit-box-orient: vertical;
+  display: box;
   font: var(--_font-body);
   grid-area: body;
+  -webkit-line-clamp: var(--line-clamp, 9999);
+  margin: 0;
+  outline: none;
+  overflow: hidden;
 }
 
 slot[name='actions'] {

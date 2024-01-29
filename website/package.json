@@ -36,6 +36,7 @@
     },
     "build:eleventy": {
       "command": "eleventy --config=.eleventy.cjs",
+      "clean": "if-file-deleted",
       "env": {
         "NODE_ENV": {
           "external": true

@@ -2035,6 +2035,12 @@
           "type": "sizing"
         }
       }
+    },
+    "select": {
+      "indicator": {
+        "value": "{size.3xs}",
+        "type": "sizing"
+      }
     }
   }
 }

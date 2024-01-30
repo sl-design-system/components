@@ -6,26 +6,14 @@ eleventyNavigation:
   key: FormAccessibility
 ---
 
-<section>
-
 ## Label
 
-The label element is used to associate a text label with a form control. This is important for accessibility because it allows screen readers to properly announce the label when the user is focused on the form control.
-
-</section>
-
-<section>
+The label is automatically associated with the form control using the `<label>` `for` attribute. The `for` attribute value is the same as the `id` attribute value of the form control.
 
 ## Hint
 
-The hint element is used to provide additional information about a form control. This is important for accessibility because it allows screen readers to properly announce the hint when the user is focused on the form control.
-
-</section>
-
-<section>
+The hint is associated with the form control using the `aria-describedby` attribute.
 
 ## Validation message
 
-The validation message element is used to provide feedback about a form control. This is important for accessibility because it allows screen readers to properly announce the validation message when the user is focused on the form control.
-
-</section>
+Any validation message is also associated with the form control using the `aria-describedby` attribute.

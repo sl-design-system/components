@@ -1,9 +1,9 @@
 ---
-title: Form usage
+title: Form field usage
 tags: usage
 eleventyNavigation:
-  parent: Form
-  key: FormUsage
+  parent: Form field
+  key: FormFieldUsage
 ---
 
 <section class="no-heading">
@@ -62,7 +62,7 @@ eleventyNavigation:
 
 ## When to use
 
-The form component should be used whenever you have a form that needs to be filled out by a user. The form component is a container for form fields.
+The form and form field components should be used wherever you have a form that needs to be filled out by a user. The form component is a container for form fields, and the form field component is a container for form controls.
 
 </section>
 
@@ -70,6 +70,6 @@ The form component should be used whenever you have a form that needs to be fill
 
 ## When not to use
 
-Do not use the form component if you only have one form field. Usually this indicates a specific usage of a form control, and should be used on its own.
+Do not use the form or form field components if you only have one form field. Usually this indicates a specific usage of a form control, and should be used on its own.
 
 </section>

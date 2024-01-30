@@ -2,10 +2,8 @@
   --_tab-group-background: var(--sl-color-tab-default-background);
   --_border-bottom: var(--sl-border-width-border-tab) solid var(--sl-color-tab-default-border);
   --_tab-group-indicator-color: var(--sl-color-button-primary-solid-idle-background);
-  // --indicator-color: var(--dna-primary);
-  --indicator-size: 4px; // TODO: needs to come from token
+  --_indicator-size: var(--sl-size-select-indicator);
   --_indicator-listbox-border-radius: var(--sl-border-radius-select-indicator);
-  // --indicator-transition: var(--dna-transition-normal, 100ms ease-in-out);
   --_listbox-background: var(--sl-color-select-listbox-background);
   --_listbox-border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
   --_listbox-border-radius: var(--sl-border-radius-select-listbox);
@@ -15,12 +13,9 @@
   --_listbox-color: var(--sl-color-select-item-default-foreground);
   --_listbox-item-border-radius: var(--sl-border-radius-select-item);
   --_wrapper-spacing: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-radius: var(--sl-border-radius-focusring-default);
-  --_button-shadow: -4px 0px 4px -2px rgba(0, 0, 0, 0.12); //-2px 2px 4px 0 rgba(0, 0, 0, 0.12);
-  --_button-vertical-shadow: 0px -4px 4px -2px rgba(0, 0, 0, 0.12); //2px -2px 4px 0 rgba(0, 0, 0, 0.12);
-  // TODO: listbox-padding etc.
+  --_button-shadow: -4px 0px 4px -2px rgba(0, 0, 0, 0.12);
+  --_button-vertical-shadow: 0px -4px 4px -2px rgba(0, 0, 0, 0.12);
   --_panel-horizontal-padding: calc(var(--sl-space-tab-content-horizontal-block) - var(--_wrapper-spacing))
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
@@ -32,7 +27,6 @@
   --sl-popover-offset: 4px;
   display: flex;
   flex-direction: column;
-  // gap: 8px;
   height: inherit;
   width: inherit;
 }
@@ -65,20 +59,13 @@
 }
 
 sl-button {
-  background: var(--_tab-group-background);
-  border-bottom-color: var(--sl-color-tab-default-border);
-  border-bottom-style: solid;
-  border-left-color: initial;
-  border-left-style: initial;
+  background-color: var(--_tab-group-background);
+  border-bottom: 1px solid var(--sl-color-tab-default-border);
   border-radius: 0;
-  border-right-color: initial;
-  border-right-style: initial; // TODO: improve
-  border-top-color: initial;
-  border-top-style: initial;
-  border-width: 0 0 1px;
+  border-right: 0;
   box-shadow: var(--_button-shadow);
   inset-inline-end: 0;
-  margin: 4px 0;
+  margin: var(--_wrapper-spacing) 0;
   padding-block: 0;
   padding-inline: var(--_button-inline-padding);
   position: sticky;
@@ -121,7 +108,7 @@ sl-button {
     height: 1px;
     inset: 0 0 auto auto;
     transform-origin: center top;
-    width: var(--indicator-size);
+    width: var(--_indicator-size);
   }
 
   ::slotted(sl-tab) {
@@ -133,18 +120,11 @@ sl-button {
   }
 
   sl-button {
-    border-bottom-color: initial;
-    border-bottom-style: initial;
-    border-left-color: initial; // TODO: improve
-    border-left-style: initial;
-    border-right-color: var(--sl-color-tab-default-border);
-    border-right-style: solid;
-    border-top-color: initial;
-    border-top-style: initial;
-    border-width: 0 1px 0 0;
+    border-bottom: 0;
+    border-right: 1px solid var(--sl-color-tab-default-border);
     box-shadow: var(--_button-vertical-shadow);
     inset-block-end: 0;
-    margin: 0 4px;
+    margin: 0 var(--_wrapper-spacing);
     padding-block: var(--_button-inline-padding);
     padding-inline: 0;
     position: sticky;
@@ -157,65 +137,16 @@ sl-button {
   height: 1px;
   inset: 0 auto auto var(--sl-space-select-listbox-inline-lg);
   transform-origin: center top;
-  width: var(--indicator-size);
+  width: var(--_indicator-size);
 }
 
 :host([vertical='false']) [role='tablist'] {
-  --_sl-tab-group-list-background: #fff;
-  --sl-color-border-strong: rgb(188, 197, 204);
-  --sl-space-s: 8px;
-  --sl-space-l: 24px;
-  --sl-space-xl: 36px;
-  --sl-tab-group-padding: 24px;
-
-  //background-color: var(--_sl-tab-group-list-background);
-  //background-image: radial-gradient(
-  //  ellipse farthest-side at 0 50%,
-  //  var(--sl-color-border-strong) 0,
-  //  var(--_sl-tab-group-list-background)
-  //),
-  //  radial-gradient(
-  //  ellipse farthest-side at 100% 50%,
-  //  var(--sl-color-border-strong) 0,
-  //  var(--_sl-tab-group-list-background)
-  //);
-  background-position: 0 calc(var(--sl-space-s) / 2), 100% calc(var(--sl-space-s) / 2);
-  background-repeat: no-repeat;
-  background-size: var(--sl-space-s) var(--sl-space-xl), var(--sl-space-s) var(--sl-space-xl);
-  flex-wrap: nowrap;
-
-  &::before,
-  &::after {
-    align-self: stretch; /* Match the height of the tabs. */
-    box-sizing: content-box; /* Content box to use padding for spacing. */
-    content: '';
-    margin-block-end: 1px; /* Prevent overlapping the key line. */
-    // min-inline-size: var(--sl-space-l);
-    pointer-events: none;
-  }
-
-  /* Cancel out the masks own width with margin, use padding for tab list padding */
-  &::before {
-    box-shadow: inset var(--sl-space-l) 0 var(--sl-space-s) calc(-1 * var(--sl-space-s)) var(--_sl-tab-list-background);
-    //  margin-inline-end: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
-    //  padding-inline-start: var(--sl-tab-group-padding);
-  }
-
-  &::after {
-    box-shadow: inset calc(-1 * var(--sl-space-l)) 0 var(--sl-space-s) calc(-1 * var(--sl-space-s))
-      var(--_sl-tab-list-background);
-    flex: 1; /* Stretch the last mask to make sure the shadow is always masked */
-    //  margin-inline-start: calc(-1 * (var(--sl-space-l) + var(--sl-space-s)));
-    //  padding-inline-end: var(--sl-tab-group-padding);
-  }
-
   ::slotted(sl-tab) {
-    // flex: 1;
     white-space: nowrap;
   }
 
   .indicator {
-    height: var(--indicator-size);
+    height: var(--_indicator-size);
     inset: auto auto 0 0;
     transform-origin: center left;
     width: 1px;
@@ -230,7 +161,7 @@ sl-button {
 
 .indicator,
 .indicator-listbox {
-  background: var(--_tab-group-indicator-color);
+  background-color: var(--_tab-group-indicator-color);
   position: absolute;
   z-index: 2;
 }
@@ -253,7 +184,7 @@ div[popover] {
   box-sizing: border-box;
   display: none;
   flex-direction: column;
-  gap: var(--_gap);
+  gap: var(--_gap); // TODO: need a token for this one
   margin: 0;
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;
@@ -299,7 +230,6 @@ div[popover] {
       opacity: 0;
     }
 
-    //background: #00e0e0;
     display: flex;
     opacity: 1;
   }

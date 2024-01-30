@@ -22,6 +22,16 @@ let nextUniqueId = 0;
 /**
  * A tab group component with tabs and tab panels.
  *
+ * ```html
+ *    <sl-tab-group>
+ *         <sl-tab selected>First tab</sl-tab>
+ *         <sl-tab-panel>Content of the tab 1</sl-tab-panel>
+ *
+ *         <sl-tab>Second tab</sl-tab>
+ *         <sl-tab-panel>Content of the tab 2</sl-tab-panel>
+ *    </sl-tab-group>
+ * ```
+ *
  * @slot default - A place for the tab group content.
  * @slot tabs - A place for tabs components.
  */
@@ -48,8 +58,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #rovingTabindexController = new RovingTabindexController<Tab>(this, {
     focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
-    elements: () =>
-      (isPopoverOpen(this.listbox) ? Array.from(this.listbox?.querySelectorAll(`sl-tab`)) : this.tabs) || [],
+    elements: () => (isPopoverOpen(this.listbox) ? this.#allTabs : this.tabs) || [],
     isFocusableElement: (el: Tab) => !el.disabled
   });
 
@@ -66,13 +75,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** The current tab node selected in the tab group. */
   @state() private selectedTab: Tab | null = this.#initialSelectedTab;
 
-  /** The current tab node selected in the tab group. */
+  /** The current tab node selected in the tab listbox (dropdown). */
   @state() private selectedTabInListbox: Tab | null = this.#initialSelectedTab;
 
   @event() tabChange!: EventEmitter<number>;
 
-  /** The slotted tabs. */
-  #allTabs: Tab[] | null = [];
+  /** All slotted tabs. */
+  #allTabs: Tab[] = [];
 
   /** Whether more button needs to be shown */
   #showMore = false;
@@ -80,17 +89,15 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
 
-  /** The alignemnt of tabs inside sl-tab-group  */
+  /** The alignment of tabs inside sl-tab-group  */
   @property({ reflect: true }) alignment: TabsAlignment = 'left';
 
   /** Observe the tablist width. */
   #sizeObserver = new ResizeObserver(() => {
-    // Workaround for "ResizeObserver loop completed with undelivered notifications."
     requestAnimationFrame(() => this.#updateSelectionIndicator());
   });
 
-  /** @private */
-  moreButton!: HTMLButtonElement;
+  #moreButton!: HTMLButtonElement;
 
   /** The listbox element with all tabs list. */
   @query('[popover]') listbox!: HTMLElement;
@@ -100,19 +107,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     return this.querySelector('sl-tab[selected]') || this.querySelector('sl-tab:not([disabled])');
   }
 
-  // override willUpdate(changes: PropertyValues<this>): void {
-  //   super.willUpdate(changes);
-  //
-  //   const clonedTabs = Array.from(this.querySelectorAll('sl-tab'))?.map(tab => tab.cloneNode(true));
-  //
-  //
-  //   console.log('changes', changes, clonedTabs);
-  //   this.moreButton = this.shadowRoot?.querySelector('sl-button') as HTMLButtonElement;
-  // }
-
   override render(): TemplateResult {
-    // TODO: no moreButton??
-    this.moreButton = this.shadowRoot?.querySelector('#more-btn') as HTMLButtonElement;
+    this.#moreButton = this.shadowRoot?.querySelector('#more-btn') as HTMLButtonElement;
     this.#allTabs = Array.from(this.querySelectorAll('sl-tab'))?.map(tab => tab.cloneNode(true)) as Tab[];
 
     return html`
@@ -123,7 +119,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
             <div
               id="tabs-popover"
-              ${anchor({ element: this.moreButton, position: this.vertical ? 'bottom-start' : 'bottom-end' })}
+              ${anchor({ element: this.#moreButton, position: this.vertical ? 'bottom-start' : 'bottom-end' })}
               @toggle=${this.#onToggle}
               popover
               role="listbox"
@@ -153,26 +149,22 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   // TODO: msg Show all tabs
 
   override connectedCallback(): void {
-    this.#sizeObserver.observe(this);
     super.connectedCallback();
-    this.#updateSlots();
-  }
 
-  override firstUpdated(): void {
-    console.log('firstUpdated', this.selectedTab);
-    // TODO: maybe morebutton here in the first updated and anchor element?
-    this.#observer = new MutationObserver(this.#handleMutation);
-    this.#observer?.observe(this, TabGroup.#observerOptions);
-    this.#allTabs = Array.from(this.querySelectorAll('sl-tab'));
-    this.listbox.classList.add('anchor');
-    // TODO: updateindicator after all slotted element rendered?
-    setTimeout(() => this.#updateSelectionIndicator(), 700);
+    this.#sizeObserver.observe(this);
+    this.#updateSlots();
   }
 
   override disconnectedCallback(): void {
     this.#sizeObserver.disconnect();
 
     super.disconnectedCallback();
+  }
+
+  override firstUpdated(): void {
+    this.#observer = new MutationObserver(this.#handleMutation);
+    this.#observer?.observe(this, TabGroup.#observerOptions);
+    setTimeout(() => this.#updateSelectionIndicator(), 700);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -194,30 +186,19 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.listbox.togglePopover();
   }
 
-  // TODO: on changed probably or will change set indicator, because there is a problem with indicator when switching between vertical and horizontal tabs
-
   #onToggle = (event: Event): void => {
     const indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement;
 
-    if (!this.listbox || !this.selectedTab) {
-      return;
-    }
-
-    this.#rovingTabindexController.clearElementCache(); // TODO: maybe sth with manageIndexesAnimationFrame ?????
+    this.#rovingTabindexController.clearElementCache();
 
     requestAnimationFrame(() => {
-      // this.#rovingTabindexController.clearElementCache();
-
       if (!this.listbox || !this.selectedTab) {
         return;
       }
       this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
-      // indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
       indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px)`;
       indicatorListbox.style.height = `${this.selectedTabInListbox.offsetHeight}px`;
     });
-
-    // indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
 
     if (
       ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
@@ -244,8 +225,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     });
   };
 
-  // TODO: add keyboard navigation to the dropdown menu
-
   /**
    * Apply accessible attributes and values to the tab buttons.
    */
@@ -270,7 +249,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     if (panels.length === 1) {
       panels[0].setAttribute('id', `${this.#tabGroupId}-panel-${tabIndex + 1}`);
       panels[0].setAttribute('aria-labelledby', `${this.#tabGroupId}-tab-${tabIndex + 1}`);
-      panels[0].setAttribute('aria-hidden', 'false');
+      panels[0].setAttribute('aria-hidden', 'false'); // TODO: add `hidden` attribute?
     } else {
       panels.forEach((panel, index) => {
         panel.setAttribute('id', `${this.#tabGroupId}-panel-${index + 1}`);
@@ -281,19 +260,16 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #handleTabChange(event: Event): void {
+    /**
+     * Return handler if it's not a tab
+     */
     if (!((event.target as HTMLElement).closest('sl-tab') instanceof Tab)) {
       return;
     }
-    // event.preventDefault();
-    // event.stopPropagation();
     // Always reset the scroll when a tab is selected.
     this.scrollTo({ top: 0 });
 
-    /**
-     * Return handler if it's not a tab or if it's already selected
-     */
-    // if (!(event.target as HTMLElement).closest('sl-tab') /*(event.target instanceof Tab)*/) return;
-    this.#updateSelectedTab((event.target as HTMLElement).closest('sl-tab') as Tab /*event.target*/); // TODO: this may cause a problem?
+    this.#updateSelectedTab((event.target as HTMLElement).closest('sl-tab') as Tab); // TODO: this may cause a problem?
     this.listbox.hidePopover();
   }
 
@@ -304,7 +280,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #updateSelectedTab(selectedTab: Tab): void {
     const controls = selectedTab.getAttribute('aria-controls');
 
-    if (/*selectedTab === this.selectedTab ||*/ !controls || selectedTab.disabled) return;
+    if (!controls || selectedTab.disabled) return;
 
     const selectedPanel = this.querySelector(`#${controls}`);
     const tabIndex = Array.from(this.querySelectorAll('sl-tab')).indexOf(selectedTab);
@@ -320,7 +296,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         tab.focus();
         tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         this.selectedTab = tab;
-        // this.selectedTabInListbox = (this.#allTabs as Tab[])?.find(tabEl => tabEl.id === selectedTab.id);
       }
     });
 
@@ -345,6 +320,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     this.#updateSelectionIndicator();
   }
+
+  // TODO: how to add aria-labelledby to tablist?
 
   /**
    * Handle keyboard accessible controls.
@@ -376,70 +353,26 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
         indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement,
         wrapper = this.shadowRoot?.querySelector('.container') as HTMLElement,
-        wrapper2 = this.shadowRoot?.querySelectorAll('[slot="tabs"]'),
-        wrapper3 = this.shadowRoot?.querySelectorAll('sl-tab'),
-        wrapper4 = this.querySelectorAll('sl-tab');
-
-      // wrapper = this.shadowRoot?.querySelector('.wrapper') as HTMLElement,
-
-      // wrapper = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
-
-      wrapper2?.forEach(tab => console.log('wrapper2 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
-
-      wrapper3?.forEach(tab => console.log('wrapper3 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
-
-      wrapper4?.forEach(tab => console.log('wrapper4 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
-
-      wrapper4?.forEach(tab => console.log('wrapper4 width', tab, (tab as HTMLElement).offsetWidth, tab.scrollWidth));
+        tabsWrapper = this.shadowRoot?.querySelector('.wrapper') as HTMLElement,
+        tablist = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
+        tabs = this.querySelectorAll('sl-tab');
 
       let totalTabsWidth = 0;
       let totalTabsHeight = 0;
-      wrapper4.forEach(tab => {
-        console.log('tab.offsetWidth, tab.offsetHeight', tab.offsetWidth, tab.offsetHeight);
+      tabs.forEach(tab => {
         totalTabsWidth = totalTabsWidth + tab.offsetWidth;
         totalTabsHeight = totalTabsHeight + tab.offsetHeight;
       });
 
-      // this.#showMore =
-      //   totalTabsWidth >
-      //   (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth /*wrapper.offsetWidth*/; // TODO: to refactor
+      this.#showMore = axis === 'X' ? totalTabsWidth > tabsWrapper.offsetWidth : totalTabsHeight > wrapper.offsetHeight;
 
-      if (axis === 'X') {
-        this.#showMore =
-          totalTabsWidth >
-          (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth /*wrapper.offsetWidth*/;
-      } else {
-        this.#showMore = totalTabsHeight > (this.shadowRoot?.querySelector('.container') as HTMLElement).offsetHeight;
-        // totalTabsHeight >
-        // (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight /*wrapper.offsetWidth*/;
-      }
-
-      console.log(
-        'totalWidth',
-        totalTabsWidth,
-        wrapper4,
-        wrapper.offsetWidth,
-        wrapper.scrollWidth,
-        this.#showMore,
-        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetWidth,
-        totalTabsHeight,
-        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight,
-        (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).scrollHeight,
-        this.parentElement,
-        this.parentElement?.offsetHeight,
-        totalTabsHeight > (this.shadowRoot?.querySelector('.wrapper') as HTMLElement).offsetHeight,
-        totalTabsHeight > (this.shadowRoot?.querySelector('.container') as HTMLElement).offsetHeight
-      );
-
-      this.requestUpdate(); // TODO: causes some problems? but necessary to render more button on resize
-
-      const wrapper5 = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement;
+      this.requestUpdate();
 
       let start = 0;
       if (axis === 'X') {
-        start = this.selectedTab.offsetLeft - wrapper.offsetLeft - wrapper5.offsetLeft;
+        start = this.selectedTab.offsetLeft - wrapper.offsetLeft - tablist.offsetLeft;
       } else {
-        start = this.selectedTab.offsetTop - wrapper.offsetTop - wrapper5.offsetTop;
+        start = this.selectedTab.offsetTop - wrapper.offsetTop - tablist.offsetTop;
       }
 
       // Somehow on Chromium, the offsetParent is different than on FF and Safari
@@ -464,12 +397,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
         if (scrollLeft !== wrapper.scrollLeft) {
           wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-          // this.listbox.scrollTo({ left: scrollLeft, behavior: 'smooth' });
         }
       } else {
         indicator.style.removeProperty('width');
         indicator.style.height = `${this.selectedTab.offsetHeight}px`;
-        // TODO: restart idicator when vertical/horizontal changed, remove width or height
       }
     });
   }

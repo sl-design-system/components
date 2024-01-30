@@ -4,7 +4,25 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tab.scss.js';
 
+/**
+ * A tab component - part of the tab group component.
+ *
+ * ```html
+ *      <sl-tab>
+ *         <sl-icon slot="icon" name="star" size="md"></sl-icon>
+ *         Tab label
+ *         <span slot="subtitle">Tab subtitle</span>
+ *         <sl-badge slot="badge" size="lg" variant="danger">4</sl-badge>
+ *      </sl-tab>
+ * ```
+ *
+ * @slot default - A place for the tab group content.
+ * @slot icon -
+ * @slot badge -
+ * @slot subtitle -
+ */
 export class Tab extends LitElement {
+  // TODO: improve des cription
   /** @private */
   static override styles: CSSResultGroup = styles;
 

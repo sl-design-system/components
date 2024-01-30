@@ -12,7 +12,6 @@
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-radius: var(--sl-border-radius-focusring-default);
-  // --sl-border-radius-focusring-default
 }
 
 :host {
@@ -21,34 +20,12 @@
   cursor: pointer;
   display: flex;
   font: var(--_font);
-  //justify-content: center;
-  //flex-direction: column;
   gap: var(--_gap);
   justify-content: center;
-  //display: inline-block;
-  // line-height: 36px;
-  //padding: var(--_padding); //0 3px;
-  //position: relative;
   padding: var(--_padding);
   position: relative;
   transition: background 300ms;
-
-  //&::after {
-  //  content: '';
-  //  position: absolute;
-  //  top: -4px;
-  //  right: -4px;
-  //  bottom: -4px;
-  //  left: -4px;
-  //  background-color: transparent;
-  //  outline: var(--_focus-outline);
-  //  outline-offset: var(--_focus-outline-offset);
-  //}
 }
-
-//:host([selected]) {
-//  font-weight: bold;
-//}
 
 slot[name='subtitle'] {
   font: var(--_font-subtitle);
@@ -56,17 +33,12 @@ slot[name='subtitle'] {
 
 :host([disabled]) {
   color: var(--_color-disabled);
-  //opacity: 0.6;
   pointer-events: none;
 
   slot[name='icon']::slotted(sl-icon) {
     fill: var(--_color-disabled);
   }
 }
-
-//&:hover {
-//  background-color: var(--sl-color-select-item-hover-background);
-//}
 
 :host(:hover) {
   background-color: var(--_background-hover);
@@ -76,48 +48,14 @@ slot[name='subtitle'] {
   background-color: var(--_background-active);
 }
 
-//:host(:focus) {
-//  background-color: #ff0;
-//}
-
 :host(:focus-visible) {
-  border-radius: var(--_focus-radius); //3px;
+  border-radius: var(--_focus-radius);
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
   z-index: 1;
-
-  //&::before {
-  //  content: '';
-  //  position: absolute;
-  //  top: -4px;
-  //  right: -4px;
-  //  bottom: -4px;
-  //  left: -4px;
-  //  background-color: transparent;
-  //}
 }
 
-//.wrapper {
-//  //padding: 25px;
-//  padding: var(--_padding);
-//  //background: aqua;
-//  //border: 2px solid red;
-//  /* margin: 5px; */
-// // position: fixed;
-//
-//  &::before {
-//    content: '';
-//    position: absolute;
-//    top: -4px;
-//    right: -4px;
-//    bottom: -4px;
-//    left: -4px;
-//    background-color: transparent;
-//  }
-//}
-
 .content {
-  //position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -132,8 +70,5 @@ slot[name='icon']::slotted(sl-icon) {
 }
 
 slot[name='badge']::slotted(sl-badge) {
-  // inset-block-start: 6px; //var(--_badge-spacing);
-  //inset-inline-end: -4px; //var(--_badge-spacing);
-  //position: absolute;
   transform: translate(4px, -6px);
 }

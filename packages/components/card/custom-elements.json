@@ -42,6 +42,15 @@
           "name": "Card",
           "members": [
             {
+              "kind": "method",
+              "name": "addMeasureStyles",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "icon",
               "type": {
@@ -49,6 +58,23 @@
               },
               "attribute": "icon",
               "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "lineCount",
+              "return": {
+                "type": {
+                  "text": "{ lineCount: number; linesFit: number } | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "elm",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
             },
             {
               "kind": "field",
@@ -68,6 +94,29 @@
               },
               "attribute": "padding",
               "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "removeStyleProp",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "elm",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "props",
+                  "type": {
+                    "text": "string[]"
+                  }
+                }
+              ]
             },
             {
               "kind": "field",
@@ -116,7 +165,57 @@
           },
           "tagName": "sl-card",
           "customElement": true,
-          "methods": [],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "removeStyleProp",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "elm",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "props",
+                  "type": {
+                    "text": "string[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "addMeasureStyles",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "lineCount",
+              "return": {
+                "type": {
+                  "text": "{ lineCount: number; linesFit: number } | undefined"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "elm",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            }
+          ],
           "fields": []
         }
       ],

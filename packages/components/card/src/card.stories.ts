@@ -87,7 +87,7 @@ export const All: Story = {
       }
       div.grid {
         display: grid;
-        grid-auto-rows: 240px;
+        grid-auto-rows: minmax(240px, max-content);
         grid-template-columns: 1fr 1fr;
       }
     </style>

@@ -1,4 +1,7 @@
 :host {
+  --_aspect-ratio: var(--card-media-aspect-ratio, 4/3);
+  --_orientation-breakpoint: var(--card-orientation-breakpoint, 350px);
+
   --_box-shadow: var(--sl-elevation-shadow-lg);
   --_card-border: 1px solid var(--sl-color-card-border);
   --_card-background: var(--sl-color-card-background);
@@ -10,14 +13,13 @@
   --_content-padding-block: 0 var(--sl-space-card-vertical-block);
   --_image-padding: 8px;
   --_image-padding-full: 0;
-  --_aspect-ratio: var(--card-media-aspect-ratio, 4/3);
 
   background-color: var(--_card-background);
   border: var(--_card-border);
   border-radius: var(--_card-border-radius);
   box-shadow: var(--_box-shadow);
   box-sizing: border-box;
-  container-type: inline-size;
+  container: card / inline-size;
   display: block;
   inline-size: 100%;
   width: 100%;
@@ -41,14 +43,34 @@ div.container {
   container-type: size;
 }
 
+/* TODO: rewrite this to use style-queries once supported:
+ https://developer.mozilla.org/en-US/docs/Web/CSS/@container#style_container_queries */
 @mixin sl-card-horizontal-layout {
-  --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
-  grid-template-areas: 'media content actions';
-  grid-template-columns: minmax(0, max-content) 1fr max-content;
-  grid-template-rows: 100cqh;
+  .container {
+    --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
+    grid-template-areas: 'media content actions';
+    grid-template-columns: minmax(0, max-content) 1fr max-content;
+    grid-template-rows: 100cqh;
+  }
 
   slot[name='media'] {
     max-width: calc(var(--_aspect-ratio) * 100cqh);
+  }
+
+  article {
+    container: body / size;
+    flex: 1 1 auto;
+    grid-area: body;
+  }
+
+  slot[name='body'] {
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-box-orient: vertical;
+    /* stylelint-disable-next-line value-no-vendor-prefix */
+    display: -webkit-box;
+    /* stylelint-disable-next-line property-no-vendor-prefix */
+    -webkit-line-clamp: var(--line-clamp, 9999);
+    overflow: hidden;
   }
 }
 
@@ -56,12 +78,12 @@ div.container {
   --_image-padding-full: var(--_image-padding) 0 var(--_image-padding) var(--_image-padding);
 }
 
-:host([orientation='horizontal']:not([responsive])) .container {
+:host([orientation='horizontal']:not([responsive])) {
   @include sl-card-horizontal-layout();
 }
 
-@container (min-width: 350px) {
-  :host([orientation='horizontal']) .container {
+@container card (inline-size > 350px) {
+  :host([orientation='horizontal']) {
     @include sl-card-horizontal-layout();
   }
 
@@ -120,14 +142,17 @@ slot[name='media']::slotted(*) {
 }
 
 slot[name='body'] {
-  -webkit-box-orient: vertical;
-  display: box;
   font: var(--_font-body);
-  grid-area: body;
-  -webkit-line-clamp: var(--line-clamp, 9999);
   margin: 0;
   outline: none;
-  overflow: hidden;
+}
+
+@for $i from 2 through 20 {
+  @container body (min-height: #{$i}lh) {
+    slot[name='body'] {
+      --line-clamp: #{$i};
+    }
+  }
 }
 
 slot[name='actions'] {

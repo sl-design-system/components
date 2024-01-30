@@ -1,8 +1,8 @@
 ---
-title: Top layer
+title: Overlays
 eleventyNavigation:
   parent: Guidelines
-  key: Top layer
+  key: Overlays
   order: 5
 ---
 
@@ -10,10 +10,14 @@ eleventyNavigation:
 <div class="ds-tokens__heading-wrapper">
   <h1 class="ds-heading-1">{{title}}</h1>
   <p class="ds-tokens__heading-description">
-  On top of all content and what that means
+  Overlays are elements that appear on top of all other content on the page. They are used for modal dialogs, popovers and tooltips.
   </p>
 </div>
 </header>
+
+<section class="ds-subpage-section">
+
+<div class="ds-subpage-section__wrapper">
 
 <section>
 
@@ -57,5 +61,8 @@ A possible approach to migrating from a system using the old technique to the de
 1. Start by migrating the "leaf" components that use the old technique. In the example above, that would be the `<dna-date-picker>`.
 2. Then migrate the components that use the leaf components.
 3. Once all components are migrated, you can remove the old technique from the system.
+
+</section>
+</div>
 
 </section>

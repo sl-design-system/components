@@ -12,7 +12,7 @@ eleventyNavigation:
 
   <sl-form>
     <sl-form-field hint="Please enter a descriptive name for the course." label="Course name">
-      <sl-text-field name="courseName"></sl-text-field>
+      <sl-text-field name="courseName" required></sl-text-field>
     </sl-form-field>
     <sl-form-field label="Subjects">
       <sl-checkbox-group name="subjects">
@@ -35,7 +35,7 @@ eleventyNavigation:
   ```html
   <sl-form>
     <sl-form-field hint="Please enter a descriptive name for the course." label="Course name">
-      <sl-text-field name="courseName"></sl-text-field>
+      <sl-text-field name="courseName" required></sl-text-field>
     </sl-form-field>
 
     <sl-form-field label="Subjects">
@@ -58,18 +58,17 @@ eleventyNavigation:
 
 </section>
 
-<section>
-
 ## When to use
 
 The form component should be used whenever you have a form that needs to be filled out by a user. The form component is a container for form fields.
-
-</section>
-
-<section>
 
 ## When not to use
 
 Do not use the form component if you only have one form field. Usually this indicates a specific usage of a form control, and should be used on its own.
 
-</section>
+## Required or optional
+
+The form itself manages a `mark` state. This determines how required or optional labels should be shown. If the required fields outnumber the optional fields, only the optional fields will be marked. If it is the other way around, then only the required fields will be marked.
+
+This behavior happens automatically, and the developer does not need to do anything to make it work.
+

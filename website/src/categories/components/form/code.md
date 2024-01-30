@@ -9,11 +9,11 @@ eleventyNavigation:
   key: FormCode
 ---
 
-<section>
-
-The `<sl-form>` component fulfills two functions:
+The `<sl-form>` component fulfills three functions:
 1. It provides a default layout for form fields.
+2. It manages the way required/optional fields should be marked.
 2. It provides a way to validate all form fields at once.
+3. It allow you to query the state of the form.
 
 ## Layout
 
@@ -47,6 +47,8 @@ submitButton.addEventListener('click', event => {
 });
 ```
 
-</section>
+## State
+
+You can query the state of the entire form by simply getting the `valid` property on the `<sl-form>`. This will return `false` if any form field within the form is not valid.
 
 {% include "../component-table.njk" %}

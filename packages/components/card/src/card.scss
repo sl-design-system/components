@@ -19,10 +19,9 @@
   border-radius: var(--_card-border-radius);
   box-shadow: var(--_box-shadow);
   box-sizing: border-box;
-  container: card / inline-size;
+  // container: card / inline-size;
   display: block;
   inline-size: 100%;
-  width: 100%;
 }
 
 div.container {
@@ -39,22 +38,25 @@ div.container {
   --_image-padding-full: var(--_image-padding) var(--_image-padding) 0 var(--_image-padding);
 }
 
-:host([orientation='horizontal']) {
-  container-type: size;
+:host([orientation='horizontal'][padding]:not([responsive])) slot[name='media'] {
+  --_image-padding-full: var(--_image-padding) 0 var(--_image-padding) var(--_image-padding);
 }
 
-/* TODO: rewrite this to use style-queries once supported:
- https://developer.mozilla.org/en-US/docs/Web/CSS/@container#style_container_queries */
-@mixin sl-card-horizontal-layout {
+// :host([orientation='horizontal']:not([responsive])) {
+:host([orientation='horizontal']) {
   .container {
     --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
     grid-template-areas: 'media content actions';
-    grid-template-columns: minmax(0, max-content) 1fr max-content;
-    grid-template-rows: 100cqh;
+    grid-template-columns: minmax(0, max-content) minmax(50%, 1fr) max-content;
+    // grid-template-rows: 100cqh;
+    grid-template-rows: 1fr;
+    height: 100%;
   }
 
   slot[name='media'] {
-    max-width: calc(var(--_aspect-ratio) * 100cqh);
+    aspect-ratio: var(--_aspect-ratio);
+    display: grid;
+    overflow: hidden;
   }
 
   article {
@@ -71,24 +73,6 @@ div.container {
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-line-clamp: var(--line-clamp, 9999);
     overflow: hidden;
-  }
-}
-
-:host([orientation='horizontal'][padding]:not([responsive])) slot[name='media'] {
-  --_image-padding-full: var(--_image-padding) 0 var(--_image-padding) var(--_image-padding);
-}
-
-:host([orientation='horizontal']:not([responsive])) {
-  @include sl-card-horizontal-layout();
-}
-
-@container card (inline-size > 350px) {
-  :host([orientation='horizontal']) {
-    @include sl-card-horizontal-layout();
-  }
-
-  :host([orientation='horizontal'][padding]) slot[name='media'] {
-    --_image-padding-full: var(--_image-padding) 0 var(--_image-padding) var(--_image-padding);
   }
 }
 
@@ -132,13 +116,12 @@ slot[name='header']::slotted(*:not(sl-badge)) {
 }
 
 slot[name='media']::slotted(*) {
-  aspect-ratio: var(--_aspect-ratio);
   box-sizing: border-box;
-  max-height: 100%;
-  max-width: 100%;
+  height: 100%;
   object-fit: cover;
   overflow: hidden;
   padding: var(--_image-padding-full);
+  width: 100%;
 }
 
 slot[name='body'] {

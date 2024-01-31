@@ -91,8 +91,8 @@ export const All: Story = {
         grid-template-columns: 1fr 1fr;
       }
     </style>
-    <div class="grid">
-      <sl-card responsive>
+    <div class="flex" style="flex-direction:column">
+      <sl-card responsive style="height:200px">
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
         <h3 slot="header">Sub header</h3>
@@ -100,20 +100,20 @@ export const All: Story = {
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis-solid"></sl-icon></sl-button>
       </sl-card>
 
-      <sl-card style="--card-media-aspect-ratio:1/1" padding>
+      <sl-card style="--card-media-aspect-ratio:1/1;" padding>
         <img slot="media" src="${images[1]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">vertical - max-width${bodyCopy[1]}</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
-      <sl-card style="flex: 1 1 45%">
+      <sl-card style="flex: 1 1 150px">
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">vertical - max-width${bodyCopy[1]}</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
-      <sl-card style="flex: 1 1 45%" icon="pinata">
+      <sl-card style="flex: 1 1 200px" icon="pinata">
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">vertical - max-width${bodyCopy[1]}</p>

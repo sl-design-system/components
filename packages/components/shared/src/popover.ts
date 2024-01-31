@@ -42,11 +42,9 @@ function roundByDPR(num: number): number {
 }
 
 export const isPopoverOpen = (element?: HTMLElement): boolean => {
-  console.log('element', element);
   if (!element) {
     return false;
   } else {
-    console.log('in element else', element.matches(':popover-open'), element.matches('.\\:popover-open'));
     return element.matches(':popover-open') || element.matches('.\\:popover-open');
   }
 };
@@ -172,8 +170,6 @@ export const positionPopover = (
   // See https://floating-ui.com/docs/computePosition#initial-layout
   element.style.insetBlockStart = '0px';
   element.style.insetInlineStart = '0px';
-
-  console.log('element and anchor in popover', element, anchor);
 
   const cleanup = autoUpdate(anchor, element, () => {
     const { position = 'top', viewportMargin = 0 } = options;

@@ -3,11 +3,17 @@ import { LitElement, html } from 'lit';
 import styles from './tab-panel.scss.js';
 
 /**
- * A tab panel component - part of the tab group component.
+ * A tab panel component - part of the tab group component, place for a tab content.
  *
+ * ```html
+ *      <sl-tab-panel>
+ *        Content of the tab
+ *      </sl-tab-panel>
+ * ```
+ *
+ * @slot default - a place for the tab panel content.
  *
  */
-// TODO: improve description
 export class TabPanel extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;

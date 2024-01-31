@@ -16,10 +16,10 @@ import styles from './tab.scss.js';
  *      </sl-tab>
  * ```
  *
- * @slot default - A place for the tab group content.
- * @slot icon -
- * @slot badge -
- * @slot subtitle -
+ * @slot default - a place for the tab group content.
+ * @slot icon - icon shown on the left side of the component.
+ * @slot badge - a place for badge component.
+ * @slot subtitle - subtitle of the tab, containing additional information
  */
 export class Tab extends LitElement {
   // TODO: improve description

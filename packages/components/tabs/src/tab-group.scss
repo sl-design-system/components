@@ -1,26 +1,31 @@
 :host {
-  --_tab-group-background: var(--sl-color-tab-default-background);
   --_border-bottom: var(--sl-border-width-border-tab) solid var(--sl-color-tab-default-border);
-  --_tab-group-indicator-color: var(--sl-color-button-primary-solid-idle-background);
+  --_button-color: var(--sl-color-tab-default-foreground);
+  --_button-color-active: var(--sl-color-tab-active-foreground);
+  --_button-color-hover: var(--sl-color-tab-hover-foreground);
+  --_button-inline-padding: var(--sl-space-tab-more-inline);
+  --_button-shadow: -4px 0px 4px -2px rgba(0, 0, 0, 0.12);
+  --_button-vertical-shadow: 0px -4px 4px -2px rgba(0, 0, 0, 0.12);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
   --_indicator-size: var(--sl-size-select-indicator);
   --_indicator-listbox-border-radius: var(--sl-border-radius-select-indicator);
   --_listbox-background: var(--sl-color-select-listbox-background);
   --_listbox-border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
   --_listbox-border-radius: var(--sl-border-radius-select-listbox);
-  --_listbox-padding: var(--sl-space-select-listbox-block-lg) var(--sl-space-select-listbox-inline-lg);
-  --_listbox-item-padding: var(--sl-space-select-item-block-lg) var(--sl-space-select-item-inline-lg);
-  --_listbox-font: var(--sl-text-select-selectbox-text-lg);
+  --_listbox-box-shadow: var(--sl-elevation-shadow-md);
   --_listbox-color: var(--sl-color-select-item-default-foreground);
+  --_listbox-font: var(--sl-text-select-selectbox-text-lg);
+  --_listbox-gap: var(--sl-space-select-listbox-gap-lg);
   --_listbox-item-border-radius: var(--sl-border-radius-select-item);
-  --_wrapper-spacing: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
-  --_focus-radius: var(--sl-border-radius-focusring-default);
-  --_button-shadow: -4px 0px 4px -2px rgba(0, 0, 0, 0.12);
-  --_button-vertical-shadow: 0px -4px 4px -2px rgba(0, 0, 0, 0.12);
+  --_listbox-item-padding: var(--sl-space-select-item-block-lg) var(--sl-space-select-item-inline-lg);
+  --_listbox-padding: var(--sl-space-select-listbox-block-lg) var(--sl-space-select-listbox-inline-lg);
   --_panel-horizontal-padding: calc(var(--sl-space-tab-content-horizontal-block) - var(--_wrapper-spacing))
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
-  --_button-inline-padding: var(--sl-space-tab-more-inline);
+  --_tab-group-background: var(--sl-color-tab-default-background);
+  --_tab-group-indicator-color: var(--sl-color-button-primary-solid-idle-background);
   --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth);
+  --_wrapper-spacing: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
 }
 
 :host {
@@ -61,6 +66,7 @@
 sl-button {
   background-color: var(--_tab-group-background);
   border-bottom: 1px solid var(--sl-color-tab-default-border);
+  border-left: 0;
   border-radius: 0;
   border-right: 0;
   box-shadow: var(--_button-shadow);
@@ -71,8 +77,24 @@ sl-button {
   position: sticky;
   z-index: 1;
 
+  sl-icon {
+    --fill-default: var(--_button-color);
+  }
+
   &:hover {
     background-color: var(--sl-color-select-item-hover-background);
+
+    sl-icon {
+      --fill-default: var(--_button-color-hover);
+    }
+  }
+
+  &:active {
+    background-color: var(--sl-color-select-item-active-background);
+
+    sl-icon {
+      --fill-default: var(--_button-color-active);
+    }
   }
 
   &:focus-visible {
@@ -122,6 +144,7 @@ sl-button {
   sl-button {
     border-bottom: 0;
     border-right: 1px solid var(--sl-color-tab-default-border);
+    border-top: 0;
     box-shadow: var(--_button-vertical-shadow);
     inset-block-end: 0;
     margin: 0 var(--_wrapper-spacing);
@@ -180,11 +203,11 @@ div[popover] {
   background-color: var(--_listbox-background);
   border: var(--_listbox-border);
   border-radius: var(--_listbox-border-radius);
-  box-shadow: var(--sl-elevation-shadow-md);
+  box-shadow: var(--_listbox-box-shadow);
   box-sizing: border-box;
   display: none;
   flex-direction: column;
-  gap: var(--_gap); // TODO: need a token for this one
+  gap: var(--_listbox-gap);
   margin: 0;
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;

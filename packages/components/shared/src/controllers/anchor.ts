@@ -20,8 +20,6 @@ export class AnchorController implements ReactiveController {
   #onBeforeToggle = (event: Event): void => {
     const host = this.#host as HTMLElement;
 
-    console.log('onBeforeToggle event in anchor', event);
-
     let anchorElement = host.anchorElement;
     if (!anchorElement && host.hasAttribute('anchor')) {
       anchorElement =
@@ -56,7 +54,6 @@ export class AnchorController implements ReactiveController {
     /** workaround to make it working on clicking again (togglePopover method) on the anchor element
      * in Chrome and Safari there is the same state for new and old - open, when it's already opened and we want to close it
      * in FF on click runs toggle event twice */
-    console.log('onToggle event in anchor', event);
     if (
       ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
       (event as ToggleEvent).newState === (event as ToggleEvent).oldState
@@ -79,7 +76,6 @@ export class AnchorController implements ReactiveController {
   }
 
   hostConnected(): void {
-    console.log('in anchor', this.#host, this, this.#config);
     const host = this.#host as HTMLElement;
 
     let anchorElement = host.anchorElement;

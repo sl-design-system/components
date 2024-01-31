@@ -103,8 +103,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     this.#elements = elements;
     this.elementEnterAction = elementEnterAction || this.elementEnterAction;
 
-    console.log('in focus-group', this.#elements, this.elementEnterAction);
-
     if (typeof focusInIndex === 'number') {
       this.#focusInIndex = () => focusInIndex;
     } else if (typeof focusInIndex === 'function') {
@@ -118,8 +116,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
     } else if (typeof listenerScope === 'function') {
       this.#listenerScope = listenerScope as () => HTMLElement;
     }
-
-    console.log('in focus-group listenerScope', this.#listenerScope);
   }
 
   hostConnected(): void {
@@ -131,7 +127,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
   }
 
   update({ elements }: FocusGroupConfig<T> = { elements: () => [] }): void {
-    console.log('element in focus-group', elements);
     this.unmanage();
     this.#elements = elements;
     this.clearElementCache();
@@ -281,7 +276,6 @@ export class FocusGroupController<T extends HTMLElement> implements ReactiveCont
   }
 
   addEventListeners(): void {
-    console.log('this.host in focus-group', this.host);
     this.host.addEventListener('focusin', this.handleFocusin);
   }
 

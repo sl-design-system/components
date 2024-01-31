@@ -3,6 +3,7 @@ import type { PropertyValues } from 'lit/development';
 import type { EventEmitter } from '@sl-design-system/shared';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { msg } from '@lit/localize';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { RovingTabindexController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
@@ -18,7 +19,6 @@ let nextUniqueId = 0;
 
 // TODO: add docs here like with default slots etc.
 
-// @localized()
 /**
  * A tab group component with tabs and tab panels.
  *
@@ -32,8 +32,8 @@ let nextUniqueId = 0;
  *    </sl-tab-group>
  * ```
  *
- * @slot default - A place for the tab group content.
- * @slot tabs - A place for tabs components.
+ * @slot default - a place for the tab group content.
+ * @slot tabs - a place for tabs components.
  */
 export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -69,6 +69,20 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     attributeOldValue: true
   };
 
+  /** All slotted tabs. */
+  #allTabs: Tab[] = [];
+
+  /** Whether more button needs to be shown */
+  #showMore = false;
+
+  /** Button used to show all tabs */
+  #moreButton!: HTMLButtonElement;
+
+  /** Observe the tablist width. */
+  #sizeObserver = new ResizeObserver(() => {
+    requestAnimationFrame(() => this.#updateSelectionIndicator());
+  });
+
   /** The slotted tabs. */
   @queryAssignedElements({ slot: 'tabs' }) tabs?: Tab[];
 
@@ -78,26 +92,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** The current tab node selected in the tab listbox (dropdown). */
   @state() private selectedTabInListbox: Tab | null = this.#initialSelectedTab;
 
+  /** Emits when the tab has been selected/changed. */
   @event() tabChange!: EventEmitter<number>;
-
-  /** All slotted tabs. */
-  #allTabs: Tab[] = [];
-
-  /** Whether more button needs to be shown */
-  #showMore = false;
 
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ reflect: true }) vertical = false;
 
   /** The alignment of tabs inside sl-tab-group  */
   @property({ reflect: true }) alignment: TabsAlignment = 'left';
-
-  /** Observe the tablist width. */
-  #sizeObserver = new ResizeObserver(() => {
-    requestAnimationFrame(() => this.#updateSelectionIndicator());
-  });
-
-  #moreButton!: HTMLButtonElement;
 
   /** The listbox element with all tabs list. */
   @query('[popover]') listbox!: HTMLElement;
@@ -124,6 +126,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
               popover
               role="listbox"
               @click=${this.#handleTabChange}
+              part="listbox"
             >
               ${this.#allTabs}
               <span class="indicator-listbox" role="presentation"></span>
@@ -138,6 +141,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
               fill="ghost"
               variant="primary"
               size="md"
+              aria-controls="tabs-popover"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-label=${msg('Show all')}
             >
               <sl-icon name="ellipsis"></sl-icon>
             </sl-button>`
@@ -145,8 +152,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       </div>
       <slot></slot>
     `;
-  } // TODO: aria-label=${msg('Close')} -> msg 'open' or 'more'
-  // TODO: msg Show all tabs
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -209,6 +215,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       // @ts-ignore
       (event.target as HTMLElement)?.hidePopover();
     }
+
+    this.#moreButton?.setAttribute('aria-expanded', `${isPopoverOpen(this.listbox)}`);
   };
 
   /**
@@ -249,7 +257,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     if (panels.length === 1) {
       panels[0].setAttribute('id', `${this.#tabGroupId}-panel-${tabIndex + 1}`);
       panels[0].setAttribute('aria-labelledby', `${this.#tabGroupId}-tab-${tabIndex + 1}`);
-      panels[0].setAttribute('aria-hidden', 'false'); // TODO: add `hidden` attribute?
+      panels[0].setAttribute('aria-hidden', 'false');
     } else {
       panels.forEach((panel, index) => {
         panel.setAttribute('id', `${this.#tabGroupId}-panel-${index + 1}`);
@@ -269,9 +277,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // Always reset the scroll when a tab is selected.
     this.scrollTo({ top: 0 });
 
-    this.#updateSelectedTab((event.target as HTMLElement).closest('sl-tab') as Tab); // TODO: this may cause a problem?
+    this.#updateSelectedTab((event.target as HTMLElement).closest<Tab>('sl-tab') as Tab); // TODO: this may cause a problem?
     this.listbox.hidePopover();
   }
+
+  // TODO: improve stories
 
   /**
    * Update the selected tab button with attributes and values.
@@ -290,7 +300,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
      */
     this.querySelectorAll<Tab>('sl-tab').forEach((tab: Tab) => {
       tab.removeAttribute('selected');
-      console.log('tab === selectedTab', tab === selectedTab, tab, selectedTab);
       if (tab.id === selectedTab.id) {
         tab.setAttribute('selected', '');
         tab.focus();

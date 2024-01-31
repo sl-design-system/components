@@ -5159,6 +5159,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/tabs@workspace:packages/components/tabs"
   dependencies:
+    "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:3.0.4"
     "@sl-design-system/button": "npm:0.0.17"
     "@sl-design-system/icon": "npm:0.0.6"

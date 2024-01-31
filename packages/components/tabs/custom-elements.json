@@ -70,15 +70,15 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A tab group component with tabs and tab panels.",
+          "description": "A tab group component with tabs and tab panels.\n\n```html\n   <sl-tab-group>\n        <sl-tab selected>First tab</sl-tab>\n        <sl-tab-panel>Content of the tab 1</sl-tab-panel>\n\n        <sl-tab>Second tab</sl-tab>\n        <sl-tab-panel>Content of the tab 2</sl-tab-panel>\n   </sl-tab-group>\n```",
           "name": "TabGroup",
           "slots": [
             {
-              "description": "A place for the tab group content.",
+              "description": "a place for the tab group content.",
               "name": "default"
             },
             {
-              "description": "A place for tabs components.",
+              "description": "a place for tabs components.",
               "name": "tabs"
             }
           ],
@@ -107,7 +107,8 @@
               "name": "tabChange",
               "type": {
                 "text": "EventEmitter<number>"
-              }
+              },
+              "description": "Emits when the tab has been selected/changed."
             },
             {
               "kind": "field",
@@ -135,6 +136,7 @@
               "type": {
                 "text": "EventEmitter<number>"
               },
+              "description": "Emits when the tab has been selected/changed.",
               "fieldName": "tabChange"
             }
           ],
@@ -316,6 +318,42 @@
             },
             {
               "kind": "field",
+              "name": "#allTabs",
+              "privacy": "private",
+              "type": {
+                "text": "Tab[]"
+              },
+              "default": "[]",
+              "description": "All slotted tabs."
+            },
+            {
+              "kind": "field",
+              "name": "#showMore",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether more button needs to be shown"
+            },
+            {
+              "kind": "field",
+              "name": "#moreButton",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLButtonElement"
+              },
+              "description": "Button used to show all tabs"
+            },
+            {
+              "kind": "field",
+              "name": "#sizeObserver",
+              "privacy": "private",
+              "default": "new ResizeObserver(() => {\n    requestAnimationFrame(() => this.#updateSelectionIndicator());\n  })",
+              "description": "Observe the tablist width."
+            },
+            {
+              "kind": "field",
               "name": "tabs",
               "type": {
                 "text": "Tab[] | undefined"
@@ -339,41 +377,6 @@
               },
               "privacy": "private",
               "description": "The current tab node selected in the tab listbox (dropdown)."
-            },
-            {
-              "kind": "field",
-              "name": "#allTabs",
-              "privacy": "private",
-              "type": {
-                "text": "Tab[]"
-              },
-              "default": "[]",
-              "description": "All slotted tabs."
-            },
-            {
-              "kind": "field",
-              "name": "#showMore",
-              "privacy": "private",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether more button needs to be shown"
-            },
-            {
-              "kind": "field",
-              "name": "#sizeObserver",
-              "privacy": "private",
-              "default": "new ResizeObserver(() => {\n    requestAnimationFrame(() => this.#updateSelectionIndicator());\n  })",
-              "description": "Observe the tablist width."
-            },
-            {
-              "kind": "field",
-              "name": "#moreButton",
-              "privacy": "private",
-              "type": {
-                "text": "HTMLButtonElement"
-              }
             },
             {
               "kind": "field",
@@ -424,8 +427,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A tab panel component - part of the tab group component, place for a tab content.\n\n```html\n     <sl-tab-panel>\n       Content of the tab\n     </sl-tab-panel>\n```",
           "name": "TabPanel",
+          "slots": [
+            {
+              "description": "a place for the tab panel content.",
+              "name": "default"
+            }
+          ],
           "members": [],
           "superclass": {
             "name": "LitElement",
@@ -452,8 +461,26 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A tab component - part of the tab group component.\n\n```html\n     <sl-tab>\n        <sl-icon slot=\"icon\" name=\"star\" size=\"md\"></sl-icon>\n        Tab label\n        <span slot=\"subtitle\">Tab subtitle</span>\n        <sl-badge slot=\"badge\" size=\"lg\" variant=\"danger\">4</sl-badge>\n     </sl-tab>\n```",
           "name": "Tab",
+          "slots": [
+            {
+              "description": "a place for the tab group content.",
+              "name": "default"
+            },
+            {
+              "description": "icon shown on the left side of the component.",
+              "name": "icon"
+            },
+            {
+              "description": "a place for badge component.",
+              "name": "badge"
+            },
+            {
+              "description": "subtitle of the tab, containing additional information",
+              "name": "subtitle"
+            }
+          ],
           "members": [
             {
               "kind": "field",

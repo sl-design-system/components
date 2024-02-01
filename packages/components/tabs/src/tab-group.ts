@@ -17,8 +17,6 @@ export type TabsAlignment = 'left' | 'filled';
 
 let nextUniqueId = 0;
 
-// TODO: add docs here like with default slots etc.
-
 /**
  * A tab group component with tabs and tab panels.
  *
@@ -277,11 +275,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     // Always reset the scroll when a tab is selected.
     this.scrollTo({ top: 0 });
 
-    this.#updateSelectedTab((event.target as HTMLElement).closest<Tab>('sl-tab') as Tab); // TODO: this may cause a problem?
+    this.#updateSelectedTab((event.target as HTMLElement).closest<Tab>('sl-tab') as Tab);
     this.listbox.hidePopover();
   }
-
-  // TODO: improve stories
 
   /**
    * Update the selected tab button with attributes and values.
@@ -329,8 +325,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     this.#updateSelectionIndicator();
   }
-
-  // TODO: how to add aria-labelledby to tablist?
 
   /**
    * Handle keyboard accessible controls.

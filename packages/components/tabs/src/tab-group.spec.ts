@@ -11,7 +11,7 @@ describe('sl-tab-group', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-tab-group></sl-tab-group>`);
     });
-  
+
     it('should not break', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
@@ -29,11 +29,11 @@ describe('sl-tab-group', () => {
           <sl-tab-panel>Panel 3</sl-tab-panel>
         </sl-tab-group>`);
       });
-    
+
       it('should render correctly', () => {
         expect(el).shadowDom.to.equalSnapshot();
       });
-  
+
       it('should select the first tab by default', () => {
         const tabs = el.querySelectorAll('sl-tab[selected]');
         const panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
@@ -78,10 +78,10 @@ describe('sl-tab-group', () => {
       });
 
       it('should select the right tab on click', async () => {
-        
+
         (el.querySelector('sl-tab:nth-of-type(2)') as HTMLElement).click();
         await el.updateComplete;
-        
+
         const tabs = el.querySelectorAll('sl-tab[selected]');
         const panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
         expect(tabs.length).to.equal(1);
@@ -102,11 +102,11 @@ describe('sl-tab-group', () => {
           <sl-tab-panel>Panel 3</sl-tab-panel>
         </sl-tab-group>`);
       });
-    
+
       it('should render correctly', () => {
         expect(el).shadowDom.to.equalSnapshot();
       });
-  
+
       it('should select the first tab by default', () => {
         const tabs = el.querySelectorAll('sl-tab[selected]')
         const panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]')
@@ -127,11 +127,11 @@ describe('sl-tab-group', () => {
           <sl-tab-panel>Panel 3</sl-tab-panel>
         </sl-tab-group>`);
       });
-    
+
       it('should render correctly', () => {
         expect(el).shadowDom.to.equalSnapshot();
       });
-  
+
       it('should select the first tab by default', () => {
         const tabs = el.querySelectorAll('sl-tab[selected]')
         const panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]')
@@ -153,7 +153,7 @@ describe('sl-tab-group', () => {
           <sl-tab-panel>Panel 1</sl-tab-panel>
         </sl-tab-group>`);
       });
-    
+
       it('should render correctly', () => {
         expect(el).shadowDom.to.equalSnapshot();
       });
@@ -170,10 +170,10 @@ describe('sl-tab-group', () => {
       });
 
       it('should select the right tab on click', async () => {
-        
+
         (el.querySelector('sl-tab:nth-of-type(2)') as HTMLElement).click();
         await el.updateComplete;
-        
+
         const tabs = el.querySelectorAll('sl-tab[selected]');
         const panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
         expect(tabs.length).to.equal(1);
@@ -183,4 +183,6 @@ describe('sl-tab-group', () => {
       });
     });
   });
+
+  // TODO: listbox version as well
 });

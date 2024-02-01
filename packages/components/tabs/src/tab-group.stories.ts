@@ -96,7 +96,39 @@ export const API: StoryObj = {
   `
 };
 
-// TODO: add vertical tabs
+export const LongTitles: StoryObj = {
+  render: ({ vertical, alignment }) => html`<sl-tab-group .vertical=${vertical} .alignment=${alignment}>
+    <sl-tab selected>This is the first tab a very looong example of the tab</sl-tab>
+    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
+
+    <sl-tab>This is the second tab</sl-tab>
+    <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
+
+    <sl-tab>This is the third tab</sl-tab>
+    <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
+
+    <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
+    <sl-tab-panel>Contents tab 4</sl-tab-panel>
+
+    <sl-tab>This is the fifth tab</sl-tab>
+    <sl-tab-panel>Contents tab 5</sl-tab-panel>
+
+    <sl-tab>This is the sixth tab</sl-tab>
+    <sl-tab-panel>Contents tab 6</sl-tab-panel>
+
+    <sl-tab>This is the seventh tab</sl-tab>
+    <sl-tab-panel>Contents tab 7</sl-tab-panel>
+
+    <sl-tab>This is the eighth tab</sl-tab>
+    <sl-tab-panel>Contents tab 8</sl-tab-panel>
+
+    <sl-tab>This is the nineth tab</sl-tab>
+    <sl-tab-panel>Contents tab 9</sl-tab-panel>
+
+    <sl-tab>This is the tenth tab</sl-tab>
+    <sl-tab-panel>Contents tab 10</sl-tab-panel>
+  </sl-tab-group>`
+};
 
 export const Vertical: StoryObj = {
   render: ({ alignment }) => html` <style>
@@ -139,40 +171,6 @@ export const Vertical: StoryObj = {
         <sl-tab-panel>Contents tab 10</sl-tab-panel>
       </sl-tab-group>
     </div>`
-};
-
-export const LongTitles: StoryObj = {
-  render: ({ vertical, alignment }) => html`<sl-tab-group .vertical=${vertical} .alignment=${alignment}>
-    <sl-tab selected>This is the first tab a very looong example of the tab</sl-tab>
-    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
-
-    <sl-tab>This is the second tab</sl-tab>
-    <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
-
-    <sl-tab>This is the third tab</sl-tab>
-    <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
-
-    <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
-    <sl-tab-panel>Contents tab 4</sl-tab-panel>
-
-    <sl-tab>This is the fifth tab</sl-tab>
-    <sl-tab-panel>Contents tab 5</sl-tab-panel>
-
-    <sl-tab>This is the sixth tab</sl-tab>
-    <sl-tab-panel>Contents tab 6</sl-tab-panel>
-
-    <sl-tab>This is the seventh tab</sl-tab>
-    <sl-tab-panel>Contents tab 7</sl-tab-panel>
-
-    <sl-tab>This is the eighth tab</sl-tab>
-    <sl-tab-panel>Contents tab 8</sl-tab-panel>
-
-    <sl-tab>This is the nineth tab</sl-tab>
-    <sl-tab-panel>Contents tab 9</sl-tab-panel>
-
-    <sl-tab>This is the tenth tab</sl-tab>
-    <sl-tab-panel>Contents tab 10</sl-tab-panel>
-  </sl-tab-group>`
 };
 
 export const VerticalInSmallContainer: StoryObj = {
@@ -232,8 +230,8 @@ export const ExternalInteraction: StoryObj = {
   render: ({ vertical }) => html`
     <sl-tab-group .vertical=${vertical} id="externalInteraction" @sl-tab-change=${tabChange}>
       <sl-tab selected>Tab 1</sl-tab>
-      <sl-tab disabled>Tab 2</sl-tab>
-      <sl-tab>Tab 3</sl-tab>
+      <sl-tab>Tab 2</sl-tab>
+      <sl-tab disabled>Tab 3</sl-tab>
       <sl-tab>Tab 4</sl-tab>
       <sl-tab>Tab 5</sl-tab>
     </sl-tab-group>

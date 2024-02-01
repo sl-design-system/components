@@ -22,7 +22,6 @@ import styles from './tab.scss.js';
  * @slot subtitle - subtitle of the tab, containing additional information
  */
 export class Tab extends LitElement {
-  // TODO: improve description
   /** @private */
   static override styles: CSSResultGroup = styles;
 

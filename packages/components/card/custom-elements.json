@@ -52,6 +52,16 @@
             },
             {
               "kind": "field",
+              "name": "mediaPosition",
+              "type": {
+                "text": "string"
+              },
+              "default": "'start'",
+              "attribute": "media-position",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "orientation",
               "type": {
                 "text": "string"
@@ -108,6 +118,14 @@
                 "text": "string | undefined"
               },
               "fieldName": "icon"
+            },
+            {
+              "name": "media-position",
+              "type": {
+                "text": "string"
+              },
+              "default": "'start'",
+              "fieldName": "mediaPosition"
             }
           ],
           "superclass": {

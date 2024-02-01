@@ -28,6 +28,7 @@ export class Card extends LitElement {
   @property({ type: Boolean, reflect: true }) responsive?: boolean;
   @property({ reflect: true }) orientation = 'horizontal';
   @property({ reflect: true }) icon?: string;
+  @property({ reflect: true, attribute: 'media-position' }) mediaPosition: string = 'start';
 
   override connectedCallback(): void {
     super.connectedCallback();

@@ -25,7 +25,7 @@
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
     "extract-i18n": "lit-localize extract",
     "lint": "wireit",
-    "prepare": "husky || true",
+    "postinstall": "husky || true",
     "release": "wireit",
     "reset": "wireit",
     "start": "wireit",

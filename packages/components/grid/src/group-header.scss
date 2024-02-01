@@ -1,0 +1,15 @@
+:host {
+  align-items: center;
+  display: flex;
+  font: var(--sl-text-body-md-normal);
+  inline-size: 100%;
+}
+
+sl-button {
+  margin-inline: 0.25rem;
+}
+
+.heading {
+  font-weight: 600;
+  margin-inline-start: 1.5rem;
+}

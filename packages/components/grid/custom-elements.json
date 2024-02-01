@@ -2863,6 +2863,14 @@
             },
             {
               "kind": "field",
+              "name": "groupedItems",
+              "type": {
+                "text": "T[] | undefined"
+              },
+              "description": "The items sorted by the `itemsGroupBy` path."
+            },
+            {
+              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
@@ -2877,6 +2885,16 @@
               },
               "description": "An array of items to be displayed in the grid.",
               "attribute": "items"
+            },
+            {
+              "kind": "field",
+              "name": "itemsGroupBy",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the attribute to group the items on.",
+              "attribute": "items-group-by",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -2910,6 +2928,35 @@
             },
             {
               "kind": "method",
+              "name": "renderGroup",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "items",
+                  "type": {
+                    "text": "T[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "renderHeader",
               "return": {
                 "type": {
@@ -2936,6 +2983,12 @@
                   "name": "index",
                   "type": {
                     "text": "number"
+                  }
+                },
+                {
+                  "name": "items",
+                  "type": {
+                    "text": "T[]"
                   }
                 }
               ]
@@ -3051,6 +3104,14 @@
               "fieldName": "items"
             },
             {
+              "name": "items-group-by",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the attribute to group the items on.",
+              "fieldName": "itemsGroupBy"
+            },
+            {
               "name": "no-border",
               "type": {
                 "text": "boolean | undefined"
@@ -3125,6 +3186,41 @@
                   "name": "index",
                   "type": {
                     "text": "number"
+                  }
+                },
+                {
+                  "name": "items",
+                  "type": {
+                    "text": "T[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderGroup",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "items",
+                  "type": {
+                    "text": "T[]"
                   }
                 }
               ]
@@ -3592,6 +3688,14 @@
             },
             {
               "kind": "field",
+              "name": "groupedItems",
+              "type": {
+                "text": "T[] | undefined"
+              },
+              "description": "The items sorted by the `itemsGroupBy` path."
+            },
+            {
+              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
@@ -3624,6 +3728,141 @@
           "declaration": {
             "name": "Grid",
             "module": "src/grid.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/group-header.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridGroupHeader",
+          "members": [
+            {
+              "kind": "field",
+              "name": "expanded",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is expanded or collapsed.",
+              "attribute": "expanded",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The group heading.",
+              "attribute": "heading"
+            },
+            {
+              "kind": "field",
+              "name": "selectable",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Wether you can select the entire group.",
+              "attribute": "selectable"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "attribute": "selected"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "expanded",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is expanded or collapsed.",
+              "fieldName": "expanded"
+            },
+            {
+              "name": "selectable",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Wether you can select the entire group.",
+              "fieldName": "selectable"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "fieldName": "selected"
+            },
+            {
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The group heading.",
+              "fieldName": "heading"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridGroupHeader",
+          "declaration": {
+            "name": "GridGroupHeader",
+            "module": "src/group-header.ts"
           }
         }
       ]
@@ -4438,7 +4677,7 @@
               "name": "renderStyles",
               "return": {
                 "type": {
-                  "text": "CSSResult"
+                  "text": "CSSResult | void"
                 }
               },
               "inheritedFrom": {
@@ -4703,19 +4942,6 @@
             },
             {
               "kind": "method",
-              "name": "renderStyles",
-              "return": {
-                "type": {
-                  "text": "CSSResult"
-                }
-              },
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
-              "kind": "method",
               "name": "getSelectedCount",
               "return": {
                 "type": {
@@ -4803,6 +5029,19 @@
                 }
               },
               "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"

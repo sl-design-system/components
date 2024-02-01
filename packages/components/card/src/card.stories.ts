@@ -91,8 +91,8 @@ export const All: Story = {
         grid-template-columns: 1fr 1fr;
       }
     </style>
-    <div class="flex" style="flex-direction:column">
-      <sl-card responsive style="height:200px">
+    <div class="grid" style="flex-direction:column">
+      <sl-card responsive>
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
         <h3 slot="header">Sub header</h3>
@@ -107,13 +107,42 @@ export const All: Story = {
         <p slot="body">vertical - max-width${bodyCopy[1]}</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
-      <sl-card style="flex: 1 1 150px">
+      <sl-card>
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">vertical - max-width${bodyCopy[1]}</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
-      <sl-card style="flex: 1 1 200px" icon="pinata">
+      <sl-card icon="pinata">
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">vertical - max-width${bodyCopy[1]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+      </sl-card>
+    </div>
+    <div class="flex" style="flex-direction:column; --card-horizontal-breakpoint:350px">
+      <sl-card responsive>
+        <img slot="media" src="${images[0]}" />
+        <h2>${titles[0]}</h2>
+        <h3 slot="header">Sub header</h3>
+        <p slot="body">Responsive, flex-size - ${bodyCopy[0]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis-solid"></sl-icon></sl-button>
+      </sl-card>
+
+      <sl-card style="--card-media-aspect-ratio:1/1;" padding>
+        <img slot="media" src="${images[1]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">vertical - max-width${bodyCopy[1]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+      </sl-card>
+      <sl-card>
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">vertical - max-width${bodyCopy[1]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+      </sl-card>
+      <sl-card icon="pinata">
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">vertical - max-width${bodyCopy[1]}</p>

@@ -1,6 +1,6 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
 
 /**
@@ -15,6 +15,15 @@ export class Card extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** Observe the grid width. */
+  #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
+    this.#setOrientation();
+    return;
+  });
+
+  /** @private The slotted media. */
+  @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
+
   @property({ type: Boolean, reflect: true }) padding?: boolean;
   @property({ type: Boolean, reflect: true }) responsive?: boolean;
   @property({ reflect: true }) orientation = 'horizontal';
@@ -22,12 +31,15 @@ export class Card extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
+    this.#setOrientation();
+
+    this.#resizeObserver?.observe(this);
   }
 
   override render(): TemplateResult {
     return html`
       <div class="container">
-        <slot name="media"></slot>
+        <slot name="media" @slotchange=${this.#setOrientation}></slot>
         <div class="content">
           ${this.icon ? html`<sl-icon .name=${this.icon}></sl-icon>` : nothing}
           <header>
@@ -39,5 +51,18 @@ export class Card extends LitElement {
         <slot name="actions"></slot>
       </div>
     `;
+  }
+
+  #setOrientation(): void {
+    const breakpoint = parseInt(window.getComputedStyle(this).getPropertyValue('--card-horizontal-breakpoint')) || 0;
+    const hasMedia = this.media ? this.media?.length > 0 : false;
+    this.classList.remove('horizontal');
+    if (
+      this.orientation === 'horizontal' &&
+      hasMedia &&
+      (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)
+    ) {
+      this.classList.add('horizontal');
+    }
   }
 }

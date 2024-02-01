@@ -14,12 +14,13 @@
   --_image-padding: 8px;
   --_image-padding-full: 0;
 
+  --line-clamp: 1;
+
   background-color: var(--_card-background);
   border: var(--_card-border);
   border-radius: var(--_card-border-radius);
   box-shadow: var(--_box-shadow);
   box-sizing: border-box;
-  // container: card / inline-size;
   display: block;
   inline-size: 100%;
 }
@@ -38,17 +39,15 @@ div.container {
   --_image-padding-full: var(--_image-padding) var(--_image-padding) 0 var(--_image-padding);
 }
 
-:host([orientation='horizontal'][padding]:not([responsive])) slot[name='media'] {
+:host(.horizontal[padding]:not([responsive])) slot[name='media'] {
   --_image-padding-full: var(--_image-padding) 0 var(--_image-padding) var(--_image-padding);
 }
 
-// :host([orientation='horizontal']:not([responsive])) {
-:host([orientation='horizontal']) {
+:host(.horizontal) {
   .container {
     --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
     grid-template-areas: 'media content actions';
     grid-template-columns: minmax(0, max-content) minmax(50%, 1fr) max-content;
-    // grid-template-rows: 100cqh;
     grid-template-rows: 1fr;
     height: 100%;
   }
@@ -102,7 +101,7 @@ header {
   grid-area: header;
 }
 
-slot[name='media'] {
+.has-media slot[name='media'] {
   display: grid;
   grid-area: media;
 }

@@ -116,8 +116,37 @@
           },
           "tagName": "sl-card",
           "customElement": true,
-          "methods": [],
-          "fields": []
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#setOrientation",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#resizeObserver",
+              "privacy": "private",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "default": "new ResizeObserver(() => {\n    this.#setOrientation();\n    return;\n  })",
+              "description": "Observe the grid width."
+            },
+            {
+              "kind": "field",
+              "name": "media",
+              "type": {
+                "text": "HTMLElement[] | undefined"
+              },
+              "privacy": "private"
+            }
+          ]
         }
       ],
       "exports": [

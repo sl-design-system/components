@@ -53,47 +53,50 @@ const createLipsumParagraphs = (paragraphs: number): string => {
 };
 
 export const API: StoryObj = {
-  render: ({ vertical, alignment }) => html`
-    <sl-tab-group .vertical=${vertical} .alignment=${alignment}>
-      <sl-tab disabled>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
-        Tab 1
-        <span slot="subtitle">Tab 1 subtitle</span>
-      </sl-tab>
-      <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
+  render: ({ vertical, alignment }) => {
+    return html`
+      <sl-tab-group .vertical=${vertical} .alignment=${alignment}>
+        <sl-tab disabled>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 1
+          <span slot="subtitle">Tab 1 subtitle</span>
+        </sl-tab>
+        <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
 
-      <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
-        Tab 2
-        <span slot="subtitle">Tab 2 subtitle</span>
-        <sl-badge slot="badge" size="lg" variant="danger">4</sl-badge>
-      </sl-tab>
-      <sl-tab-panel>
-        <p>Contents tab 2</p>
-        <sl-avatar></sl-avatar>
-      </sl-tab-panel>
+        <sl-tab>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 2
+          <span slot="subtitle">Tab 2 subtitle</span>
+          <sl-badge slot="badge" size="lg" variant="danger">4</sl-badge>
+        </sl-tab>
+        <sl-tab-panel>
+          <div>Contents tab 2</div>
+        </sl-tab-panel>
 
-      <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
-        Tab 3
-        <span slot="subtitle">Tab 3 subtitle</span>
-        <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
-      </sl-tab>
-      <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>
+        <sl-tab>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 3
+          <span slot="subtitle">Tab 3 subtitle</span>
+          <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
+        </sl-tab>
+        <sl-tab-panel>
+          <div>Contents tab 3</div>
+        </sl-tab-panel>
 
-      <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
-        Tab 4
-      </sl-tab>
-      <sl-tab-panel>Contents tab 4</sl-tab-panel>
+        <sl-tab>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 4
+        </sl-tab>
+        <sl-tab-panel> Contents tab 4 </sl-tab-panel>
 
-      <sl-tab>
-        <sl-icon slot="icon" name="star" size="md"></sl-icon>
-        Tab 5
-      </sl-tab>
-      <sl-tab-panel>Contents tab 5</sl-tab-panel>
-    </sl-tab-group>
-  `
+        <sl-tab>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 5
+        </sl-tab>
+        <sl-tab-panel>Contents tab 5</sl-tab-panel>
+      </sl-tab-group>
+    `;
+  }
 };
 
 export const LongTitles: StoryObj = {

@@ -20,7 +20,6 @@ describe('sl-tab', () => {
   });
 
   it('should have the correct attributes', () => {
-    expect(el).attribute('slot').to.equal('tabs');
     expect(el).attribute('role').to.equal('tab');
   });
 

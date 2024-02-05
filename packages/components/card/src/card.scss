@@ -48,7 +48,7 @@ div.container {
   --_media-padding-full: var(--_media-padding) 0 var(--_media-padding) var(--_media-padding);
 }
 
-:host(.horizontal[media-position='end']) {
+:host(.horizontal[padding][media-position='end']) {
   --_media-padding-full: var(--_media-padding) var(--_media-padding) var(--_media-padding) 0;
 }
 

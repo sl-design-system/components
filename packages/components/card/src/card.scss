@@ -1,23 +1,23 @@
 :host {
   --_aspect-ratio: var(--card-media-aspect-ratio, 4/3);
   --_orientation-breakpoint: var(--card-orientation-breakpoint, 350px);
-  --_text-width: 70fr; //var(--card-text-width, 60%);
-  --_media-width: 30fr; //calc(100% - var(--_text-width));
+  --_text-width: var(--card-text-width, 1fr);
+  --_media-width: var(--card-media-width, max-content);
 
   --_box-shadow: var(--sl-elevation-shadow-lg);
-  --_card-border: 1px solid var(--sl-color-card-border);
   --_card-background: var(--sl-color-card-background);
   --_card-border-radius: var(--sl-border-radius-card-default);
-  --_font-title: var(--sl-text-card-title);
-  --_font-sub-title: var(--sl-text-card-subtitle);
-  --_font-body: var(--sl-text-card-body);
-  --_content-padding-inline: var(--sl-space-card-content-inline);
+  --_card-border: 1px solid var(--sl-color-card-border);
   --_content-padding-block: 0 var(--sl-space-card-vertical-block);
-  --_media-padding: 8px;
+  --_content-padding-inline: var(--sl-space-card-content-inline);
+  --_font-body: var(--sl-text-card-body);
+  --_font-sub-title: var(--sl-text-card-subtitle);
+  --_font-title: var(--sl-text-card-title);
   --_media-padding-full: 0;
+  --_media-padding: 8px;
 
-  --_media-column: minmax(0, var(--_media-width)); //minmax(0, var(--_media-width))
-  --_text-column: var(--_text-width); //
+  --_media-column: var(--_media-width);
+  --_text-column: var(--_text-width);
 
   --line-clamp: 1;
 
@@ -28,6 +28,7 @@
   box-sizing: border-box;
   display: block;
   inline-size: 100%;
+  overflow: hidden;
 }
 
 div.container {
@@ -52,29 +53,33 @@ div.container {
   --_media-padding-full: var(--_media-padding) var(--_media-padding) var(--_media-padding) 0;
 }
 
-:host(.horizontal) {
+:host(:where(.horizontal)) {
   .container {
     --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
     grid-template-areas: 'media content actions';
     grid-template-columns: var(--_media-column) var(--_text-column) max-content;
     grid-template-rows: 1fr;
     height: 100%;
+    width: 100%;
   }
 
   slot[name='media'] {
     aspect-ratio: var(--_aspect-ratio);
     display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
     height: inherit;
     max-height: 100%;
     max-width: 100%;
     overflow: hidden;
+    place-content: stretch;
   }
 
   slot[name='media']::slotted(*) {
-    height: unset;
-    max-height: 100%;
-    max-width: 100%;
-    width: unset;
+    height: 100%;
+    max-height: unset;
+    max-width: unset;
+    width: 100%;
   }
 
   article {
@@ -94,7 +99,7 @@ div.container {
   }
 }
 
-:host(.horizontal[media-position='end']) .container {
+:host(:where(.horizontal[media-position='end'])) .container {
   grid-template-areas: 'content actions media';
   grid-template-columns: var(--_text-column) max-content var(--_media-column);
 }
@@ -125,8 +130,9 @@ header {
   grid-area: header;
 }
 
-.has-media slot[name='media'] {
-  display: grid;
+:host(.has-media) slot[name='media'] {
+  aspect-ratio: var(--_aspect-ratio);
+  display: flex;
   grid-area: media;
 }
 
@@ -141,7 +147,6 @@ slot[name='header']::slotted(*:not(sl-badge)) {
 slot[name='media']::slotted(*) {
   aspect-ratio: inherit;
   box-sizing: border-box;
-  height: 100%;
   object-fit: cover;
   overflow: hidden;
   padding: var(--_media-padding-full);
@@ -154,14 +159,6 @@ slot[name='body'] {
   outline: none;
 }
 
-@for $i from 2 through 20 {
-  @container body (min-height: #{$i}lh) {
-    slot[name='body'] {
-      --line-clamp: #{$i};
-    }
-  }
-}
-
 slot[name='actions'] {
   align-items: flex-end;
   display: flex;
@@ -171,4 +168,12 @@ slot[name='actions'] {
 
 slot::slotted(*) {
   margin: 0;
+}
+
+@for $i from 2 through 20 {
+  @container body (min-height: #{$i}lh) {
+    slot[name='body'] {
+      --line-clamp: #{$i};
+    }
+  }
 }

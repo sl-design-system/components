@@ -57,13 +57,13 @@ export class Card extends LitElement {
   #setOrientation(): void {
     const breakpoint = parseInt(window.getComputedStyle(this).getPropertyValue('--card-horizontal-breakpoint')) || 0;
     const hasMedia = this.media ? this.media?.length > 0 : false;
-    this.classList.remove('horizontal');
-    if (
-      this.orientation === 'horizontal' &&
-      hasMedia &&
-      (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)
-    ) {
+    this.classList.remove('horizontal', 'has-media');
+    if (!hasMedia) return;
+
+    if (this.orientation === 'horizontal' && (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)) {
       this.classList.add('horizontal');
+    } else {
+      this.classList.add('has-media');
     }
   }
 }

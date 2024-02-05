@@ -75,7 +75,6 @@ const bodyCopy = [
 export const All: Story = {
   render: () => html`<style>
       #root-inner > div {
-        /* border: 1px solid cornflowerblue; */
         gap: 16px;
         margin-bottom: 24px;
         width: 100%;
@@ -121,8 +120,11 @@ export const All: Story = {
       </sl-card>
     </div>
 
-    flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70%
-    <div class="flex" style="flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70%">
+    flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;
+    <div
+      class="flex"
+      style="flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;"
+    >
       <sl-card responsive style="--card-media-aspect-ratio:16/9;">
         <iframe
           width="560px"
@@ -156,7 +158,7 @@ export const All: Story = {
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
 
-      <sl-card icon="pinata" padding media-position="end" style="--card-media-aspect-ratio:2/1;">
+      <sl-card icon="pinata" padding media-position="end" style="--card-media-aspect-ratio:1/1;">
         <img slot="media" src="${images[3]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
@@ -165,7 +167,7 @@ export const All: Story = {
       </sl-card>
     </div>
 
-    <div class="flex">
+    <div class="flex" style="--card-media-aspect-ratio:1/1;">
       <sl-card style="max-width: 300px" orientation="vertical" padding>
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
@@ -174,7 +176,7 @@ export const All: Story = {
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis-solid"></sl-icon></sl-button>
       </sl-card>
 
-      <sl-card style="max-width: 300px; --card-media-aspect-ratio:16/9" orientation="vertical" icon="pinata">
+      <sl-card style="max-width: 300px;" orientation="vertical" icon="pinata">
         <img slot="media" src="${images[1]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>

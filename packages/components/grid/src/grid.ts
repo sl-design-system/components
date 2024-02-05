@@ -9,13 +9,13 @@ import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js'
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import {
   ArrayDataSource,
+  DataSourceGroup,
   SelectionController,
   event,
-  getStringByPath,
   getValueByPath,
   isSafari
 } from '@sl-design-system/shared';
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { GridColumn } from './column.js';
@@ -259,7 +259,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
             items,
-            renderItem: (item, index) => this.renderItem(item, index, items)
+            renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
       </table>
@@ -332,7 +332,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderItem(item: T, index: number, items: T[]): TemplateResult {
+  renderItem(item: T, index: number): TemplateResult {
+    return item instanceof DataSourceGroup ? this.renderGroupRow(item) : this.renderItemRow(item, index);
+  }
+
+  renderItemRow(item: T, index: number): TemplateResult {
     const rows = this.#getHeaderRows(this.columns),
       selected = this.selection.isSelected(item),
       parts = [
@@ -343,7 +347,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       ];
 
     return html`
-      ${this.renderGroups(item, index, items)}
       <tr
         @click=${(event: Event) => this.#onClickRow(event, item)}
         @dragstart=${(event: DragEvent) => this.#onDragstart(event, item)}
@@ -360,43 +363,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderGroups(item: T, index: number, items: T[]): TemplateResult[] | typeof nothing {
-    if (!this.itemsGroupBy) {
-      return nothing;
-    }
+  renderGroupRow(group: DataSourceGroup): TemplateResult {
+    const expanded = this.dataSource?.isGroupExpanded(group.value),
+      selectable = !!this.columns.find(col => col instanceof GridSelectionColumn);
 
-    const currentGroup = getStringByPath(item, this.itemsGroupBy),
-      previousGroup = index > 0 ? getStringByPath(items[index - 1], this.itemsGroupBy) : undefined,
-      groupsToRender: Array<{ group: string; expanded: boolean }> = [];
-
-    // If the current group is different from the previous group, render the header
-    if (currentGroup !== previousGroup) {
-      groupsToRender.push({ group: currentGroup, expanded: true });
-
-      // Check if any groups before the current group are collapsed
-      const groupsBeforeCurrent = this.dataSource?.groups.slice(0, this.dataSource.groups.indexOf(currentGroup)) ?? [];
-      for (const group of groupsBeforeCurrent.reverse()) {
-        if (!this.dataSource?.isGroupExpanded(group)) {
-          // If a group before the current one is collapsed, also render the header
-          groupsToRender.push({ group, expanded: false });
-        } else {
-          break;
-        }
-      }
-    }
-
-    if (groupsToRender.length) {
-      console.log(...groupsToRender);
-
-      const selectable = !!this.columns.find(col => col instanceof GridSelectionColumn);
-
-      return groupsToRender.reverse().map(({ group, expanded }) => this.renderGroupHeader(group, expanded, selectable));
-    } else {
-      return nothing;
-    }
-  }
-
-  renderGroupHeader(group: string, expanded: boolean, selectable: boolean): TemplateResult {
     return html`
       <tr part="group">
         <td part="group-header">
@@ -404,7 +374,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             @sl-select=${(event: CustomEvent<boolean>) => this.#onGroupSelect(event, group)}
             @sl-toggle=${(event: CustomEvent<boolean>) => this.#onGroupToggle(event, group)}
             .expanded=${expanded}
-            .heading=${group}
+            .heading=${group.value}
             .selectable=${selectable}
           ></sl-grid-group-header>
         </td>
@@ -620,19 +590,19 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applyFilters();
   }
 
-  #onGroupSelect(event: CustomEvent<boolean>, groupBy: unknown): void {
+  #onGroupSelect(event: CustomEvent<boolean>, group: DataSourceGroup): void {
     const items = this.dataSource?.filteredItems ?? [],
-      group = items.filter(item => getValueByPath(item, this.itemsGroupBy) === groupBy);
+      groupItems = items.filter(item => getValueByPath(item, this.itemsGroupBy) === group.value);
 
     if (event.detail) {
-      group.forEach(item => this.selection.select(item));
+      groupItems.forEach(item => this.selection.select(item));
     } else {
-      group.forEach(item => this.selection.deselect(item));
+      groupItems.forEach(item => this.selection.deselect(item));
     }
   }
 
-  #onGroupToggle(event: CustomEvent<boolean>, groupBy: string): void {
-    this.dataSource?.toggleGroup(groupBy, event.detail);
+  #onGroupToggle(event: CustomEvent<boolean>, group: DataSourceGroup): void {
+    this.dataSource?.toggleGroup(group.value, event.detail);
     this.dataSource?.update();
   }
 

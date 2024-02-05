@@ -4128,9 +4128,22 @@
               "description": "Total number of items in this data source."
             }
           ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DataSourceGroup"
         }
       ],
       "exports": [
+        {
+          "kind": "js",
+          "name": "DataSourceGroup",
+          "declaration": {
+            "name": "DataSourceGroup",
+            "module": "src/data-source/data-source.ts"
+          }
+        },
         {
           "kind": "js",
           "name": "DataSource",

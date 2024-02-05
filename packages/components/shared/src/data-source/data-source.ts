@@ -29,6 +29,10 @@ export type DataSourceSortByFunction<T = unknown> = {
 
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath;
 
+export class DataSourceGroup {
+  constructor(public path: string, public value: string) {}
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DataSource<T = any> extends EventTarget {
   /** Map of all active filters. */

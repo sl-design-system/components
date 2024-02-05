@@ -2920,7 +2920,7 @@
             },
             {
               "kind": "method",
-              "name": "renderGroupHeader",
+              "name": "renderGroupRow",
               "return": {
                 "type": {
                   "text": "TemplateResult"
@@ -2930,48 +2930,7 @@
                 {
                   "name": "group",
                   "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "expanded",
-                  "type": {
-                    "text": "boolean"
-                  }
-                },
-                {
-                  "name": "selectable",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "renderGroups",
-              "return": {
-                "type": {
-                  "text": "TemplateResult[] | typeof nothing"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "item",
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "items",
-                  "type": {
-                    "text": "T[]"
+                    "text": "DataSourceGroup"
                   }
                 }
               ]
@@ -3005,11 +2964,28 @@
                   "type": {
                     "text": "number"
                   }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderItemRow",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
                 },
                 {
-                  "name": "items",
+                  "name": "index",
                   "type": {
-                    "text": "T[]"
+                    "text": "number"
                   }
                 }
               ]
@@ -3208,21 +3184,15 @@
                   "type": {
                     "text": "number"
                   }
-                },
-                {
-                  "name": "items",
-                  "type": {
-                    "text": "T[]"
-                  }
                 }
               ]
             },
             {
               "kind": "method",
-              "name": "renderGroups",
+              "name": "renderItemRow",
               "return": {
                 "type": {
-                  "text": "TemplateResult[] | typeof nothing"
+                  "text": "TemplateResult"
                 }
               },
               "parameters": [
@@ -3237,18 +3207,12 @@
                   "type": {
                     "text": "number"
                   }
-                },
-                {
-                  "name": "items",
-                  "type": {
-                    "text": "T[]"
-                  }
                 }
               ]
             },
             {
               "kind": "method",
-              "name": "renderGroupHeader",
+              "name": "renderGroupRow",
               "return": {
                 "type": {
                   "text": "TemplateResult"
@@ -3258,19 +3222,7 @@
                 {
                   "name": "group",
                   "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "expanded",
-                  "type": {
-                    "text": "boolean"
-                  }
-                },
-                {
-                  "name": "selectable",
-                  "type": {
-                    "text": "boolean"
+                    "text": "DataSourceGroup"
                   }
                 }
               ]
@@ -3491,9 +3443,9 @@
                   }
                 },
                 {
-                  "name": "groupBy",
+                  "name": "group",
                   "type": {
-                    "text": "unknown"
+                    "text": "DataSourceGroup"
                   }
                 }
               ]
@@ -3514,9 +3466,9 @@
                   }
                 },
                 {
-                  "name": "groupBy",
+                  "name": "group",
                   "type": {
-                    "text": "string"
+                    "text": "DataSourceGroup"
                   }
                 }
               ]

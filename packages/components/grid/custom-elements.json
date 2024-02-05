@@ -2863,14 +2863,6 @@
             },
             {
               "kind": "field",
-              "name": "groupedItems",
-              "type": {
-                "text": "T[] | undefined"
-              },
-              "description": "The items sorted by the `itemsGroupBy` path."
-            },
-            {
-              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
@@ -2928,10 +2920,39 @@
             },
             {
               "kind": "method",
-              "name": "renderGroup",
+              "name": "renderGroupHeader",
               "return": {
                 "type": {
                   "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "group",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "expanded",
+                  "type": {
+                    "text": "boolean"
+                  }
+                },
+                {
+                  "name": "selectable",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderGroups",
+              "return": {
+                "type": {
+                  "text": "TemplateResult[] | typeof nothing"
                 }
               },
               "parameters": [
@@ -3198,10 +3219,10 @@
             },
             {
               "kind": "method",
-              "name": "renderGroup",
+              "name": "renderGroups",
               "return": {
                 "type": {
-                  "text": "TemplateResult"
+                  "text": "TemplateResult[] | typeof nothing"
                 }
               },
               "parameters": [
@@ -3221,6 +3242,35 @@
                   "name": "items",
                   "type": {
                     "text": "T[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderGroupHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "group",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "expanded",
+                  "type": {
+                    "text": "boolean"
+                  }
+                },
+                {
+                  "name": "selectable",
+                  "type": {
+                    "text": "boolean"
                   }
                 }
               ]
@@ -3424,6 +3474,52 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#onGroupSelect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<boolean>"
+                  }
+                },
+                {
+                  "name": "groupBy",
+                  "type": {
+                    "text": "unknown"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onGroupToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<boolean>"
+                  }
+                },
+                {
+                  "name": "groupBy",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
@@ -3688,14 +3784,6 @@
             },
             {
               "kind": "field",
-              "name": "groupedItems",
-              "type": {
-                "text": "T[] | undefined"
-              },
-              "description": "The items sorted by the `itemsGroupBy` path."
-            },
-            {
-              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
@@ -3773,9 +3861,45 @@
               "kind": "field",
               "name": "selected",
               "type": {
-                "text": "boolean | undefined"
+                "text": "'all' | 'some' | 'none'"
               },
+              "default": "'none'",
+              "description": "Whether the group is selected.",
               "attribute": "selected"
+            },
+            {
+              "kind": "event",
+              "name": "sl-select",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user changes the group selection."
+            },
+            {
+              "kind": "event",
+              "name": "sl-toggle",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user collapses/expands the group."
+            }
+          ],
+          "events": [
+            {
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user changes the group selection.",
+              "fieldName": "selectEvent"
+            },
+            {
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user collapses/expands the group.",
+              "fieldName": "toggleEvent"
             }
           ],
           "attributes": [
@@ -3788,6 +3912,14 @@
               "fieldName": "expanded"
             },
             {
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The group heading.",
+              "fieldName": "heading"
+            },
+            {
               "name": "selectable",
               "type": {
                 "text": "boolean | undefined"
@@ -3798,17 +3930,11 @@
             {
               "name": "selected",
               "type": {
-                "text": "boolean | undefined"
+                "text": "'all' | 'some' | 'none'"
               },
+              "default": "'none'",
+              "description": "Whether the group is selected.",
               "fieldName": "selected"
-            },
-            {
-              "name": "heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The group heading.",
-              "fieldName": "heading"
             }
           ],
           "mixins": [
@@ -3825,7 +3951,7 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onChange",
+              "name": "#onClick",
               "return": {
                 "type": {
                   "text": "void"
@@ -3834,12 +3960,20 @@
             },
             {
               "kind": "method",
-              "name": "#onClick",
+              "name": "#onToggle",
               "return": {
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<boolean>"
+                  }
+                }
+              ]
             }
           ],
           "fields": [

@@ -5,10 +5,15 @@ import { DataSource } from './data-source.js';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayDataSource<T = any> extends DataSource<T> {
   #filteredItems: T[] = [];
+  #groups = new Map<string, boolean>();
   #items: T[];
 
   get filteredItems(): T[] {
     return this.#filteredItems;
+  }
+
+  get groups(): string[] {
+    return Array.from(this.#groups.keys());
   }
 
   get items(): T[] {
@@ -25,9 +30,18 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     this.#items = [...items];
   }
 
+  toggleGroup(value: string, collapse = false): void {
+    this.#groups.set(value, collapse ?? !this.#groups.get(value));
+  }
+
+  isGroupExpanded(value?: string | undefined): boolean {
+    return value ? this.#groups.get(value) ?? true : true;
+  }
+
   update(): void {
     let items = [...this.#items];
 
+    // Filter the items
     for (const filter of this.filters.values()) {
       if ('filter' in filter && filter.filter) {
         items = items.filter(filter.filter);
@@ -46,6 +60,7 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       }
     }
 
+    // Sort the items
     if (this.sort) {
       const ascending = this.sort.direction === 'asc';
 
@@ -68,6 +83,43 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
         const result = sortFn(a, b);
 
         return ascending ? result : -result;
+      });
+    }
+
+    // Group the items by first filtering them and then sorting
+    if (this.groupBy) {
+      const ascending = this.groupBy.direction === 'asc';
+
+      let sortFn: DataSourceSortFunction<T>;
+
+      if ('sorter' in this.groupBy && this.groupBy.sorter) {
+        sortFn = this.groupBy.sorter;
+      } else {
+        const path = this.groupBy.path;
+
+        sortFn = (a: T, b: T): number => {
+          const valueA = getStringByPath(a, path),
+            valueB = getStringByPath(b, path);
+
+          return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
+        };
+      }
+
+      items.sort((a, b) => {
+        const result = sortFn(a, b);
+
+        return ascending ? result : -result;
+      });
+
+      const groups = this.groups;
+      items = items.filter(item => {
+        const value = getStringByPath(item, this.groupBy!.path);
+
+        if (!groups.includes(value)) {
+          this.#groups.set(value, true);
+        }
+
+        return this.isGroupExpanded(value);
       });
     }
 

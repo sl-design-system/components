@@ -9,6 +9,12 @@ export type DataSourceFilterByPath = { path: string; value: string | string[] };
 
 export type DataSourceFilter<T> = DataSourceFilterByFunction<T> | DataSourceFilterByPath;
 
+export type DataSourceGroupBy<T> = {
+  path: string;
+  sorter?: DataSourceSortFunction<T>;
+  direction: DataSourceSortDirection;
+};
+
 export type DataSourceSortDirection = 'asc' | 'desc';
 
 export type DataSourceSortFunction<T = unknown> = (a: T, b: T) => number;
@@ -28,6 +34,9 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Map of all active filters. */
   #filters: Map<string, DataSourceFilter<T>> = new Map();
 
+  /** Order the items by grouping them on the given attributes. */
+  #groupBy?: DataSourceGroupBy<T>;
+
   /**
    * The value and path/function to use for sorting. When setting this property,
    * it will cause the data to be automatically sorted.
@@ -38,6 +47,10 @@ export abstract class DataSource<T = any> extends EventTarget {
     return this.#filters;
   }
 
+  get groupBy(): DataSourceGroupBy<T> | undefined {
+    return this.#groupBy;
+  }
+
   get sort(): DataSourceSort<T> | undefined {
     return this.#sort;
   }
@@ -45,11 +58,20 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** The filtered & sorted array of items. */
   abstract readonly filteredItems: T[];
 
+  /** The groups. */
+  abstract readonly groups: string[];
+
   /** The array of all items. */
   abstract readonly items: T[];
 
   /** Total number of items in this data source. */
   abstract readonly size: number;
+
+  /** Toggles the visibility of the group. */
+  abstract toggleGroup(value: string, collapse?: boolean): void;
+
+  /** Returns true if the group is expanded, false if collapsed. */
+  abstract isGroupExpanded(value?: string): boolean;
 
   /** Updates the list of items using filter and sorting if available. */
   abstract update(): void;
@@ -68,6 +90,14 @@ export abstract class DataSource<T = any> extends EventTarget {
 
   removeFilter(id: string): void {
     this.#filters.delete(id);
+  }
+
+  setGroupBy(path: string, sorter?: DataSourceSortFunction<T>, direction?: DataSourceSortDirection): void {
+    this.#groupBy = { path, sorter, direction: direction ?? 'asc' };
+  }
+
+  removeGroupBy(): void {
+    this.#groupBy = undefined;
   }
 
   setSort<U extends string | DataSourceSortFunction<T>>(

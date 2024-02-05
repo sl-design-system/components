@@ -7,7 +7,14 @@ import type { DataSource, EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
 import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { ArrayDataSource, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
+import {
+  ArrayDataSource,
+  SelectionController,
+  event,
+  getStringByPath,
+  getValueByPath,
+  isSafari
+} from '@sl-design-system/shared';
 import { LitElement, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -133,9 +140,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Emits when the state in the grid has changed. */
   @event() gridStateChange!: EventEmitter<GridEvent<T>>;
 
-  /** The items sorted by the `itemsGroupBy` path. */
-  @state() groupedItems?: T[];
-
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
 
@@ -210,6 +214,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         this.selection.size = 0;
       }
     }
+
+    if (changes.has('itemsGroupBy')) {
+      if (this.itemsGroupBy) {
+        this.dataSource?.setGroupBy(this.itemsGroupBy);
+      } else {
+        this.dataSource?.removeGroupBy();
+      }
+    }
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -218,26 +230,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (changes.has('dataSource')) {
       this.dataSource?.addEventListener('sl-update', () => {
         this.selection.size = this.dataSource?.size ?? 0;
-
-        if (this.itemsGroupBy) {
-          this.groupedItems = this.dataSource?.filteredItems.sort((a, b) => {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
-            const aGroupBy = getValueByPath(a, this.itemsGroupBy) as any,
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
-              bGroupBy = getValueByPath(b, this.itemsGroupBy) as any;
-
-            if (aGroupBy < bGroupBy) {
-              return -1;
-            } else if (aGroupBy > bGroupBy) {
-              return 1;
-            } else {
-              return 0;
-            }
-          });
-        } else {
-          this.groupedItems = undefined;
-        }
-
         this.requestUpdate();
       });
 
@@ -247,7 +239,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const items = this.groupedItems ?? this.dataSource?.filteredItems ?? [];
+    const items = this.dataSource?.filteredItems ?? [];
 
     return html`
       <slot @sl-column-update=${this.#onColumnUpdate} @slotchange=${this.#onSlotchange} style="display:none"></slot>
@@ -351,7 +343,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       ];
 
     return html`
-      ${this.renderGroup(item, index, items)}
+      ${this.renderGroups(item, index, items)}
       <tr
         @click=${(event: Event) => this.#onClickRow(event, item)}
         @dragstart=${(event: DragEvent) => this.#onDragstart(event, item)}
@@ -368,21 +360,55 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderGroup(item: T, index: number, items: T[]): TemplateResult {
-    const groupBy = this.itemsGroupBy ? getValueByPath(item, this.itemsGroupBy) : undefined,
-      groupByChanged = groupBy !== getValueByPath(items[index - 1], this.itemsGroupBy),
-      selectable = this.columns.find(col => col instanceof GridSelectionColumn);
+  renderGroups(item: T, index: number, items: T[]): TemplateResult[] | typeof nothing {
+    if (!this.itemsGroupBy) {
+      return nothing;
+    }
 
+    const currentGroup = getStringByPath(item, this.itemsGroupBy),
+      previousGroup = index > 0 ? getStringByPath(items[index - 1], this.itemsGroupBy) : undefined,
+      groupsToRender: Array<{ group: string; expanded: boolean }> = [];
+
+    // If the current group is different from the previous group, render the header
+    if (currentGroup !== previousGroup) {
+      groupsToRender.push({ group: currentGroup, expanded: true });
+
+      // Check if any groups before the current group are collapsed
+      const groupsBeforeCurrent = this.dataSource?.groups.slice(0, this.dataSource.groups.indexOf(currentGroup)) ?? [];
+      for (const group of groupsBeforeCurrent.reverse()) {
+        if (!this.dataSource?.isGroupExpanded(group)) {
+          // If a group before the current one is collapsed, also render the header
+          groupsToRender.push({ group, expanded: false });
+        } else {
+          break;
+        }
+      }
+    }
+
+    if (groupsToRender.length) {
+      console.log(...groupsToRender);
+
+      const selectable = !!this.columns.find(col => col instanceof GridSelectionColumn);
+
+      return groupsToRender.reverse().map(({ group, expanded }) => this.renderGroupHeader(group, expanded, selectable));
+    } else {
+      return nothing;
+    }
+  }
+
+  renderGroupHeader(group: string, expanded: boolean, selectable: boolean): TemplateResult {
     return html`
-      ${groupBy && groupByChanged
-        ? html`
-            <tr part="group">
-              <td part="group-header">
-                <sl-grid-group-header .heading=${groupBy} .selectable=${selectable}></sl-grid-group-header>
-              </td>
-            </tr>
-          `
-        : nothing}
+      <tr part="group">
+        <td part="group-header">
+          <sl-grid-group-header
+            @sl-select=${(event: CustomEvent<boolean>) => this.#onGroupSelect(event, group)}
+            @sl-toggle=${(event: CustomEvent<boolean>) => this.#onGroupToggle(event, group)}
+            .expanded=${expanded}
+            .heading=${group}
+            .selectable=${selectable}
+          ></sl-grid-group-header>
+        </td>
+      </tr>
     `;
   }
 
@@ -592,6 +618,22 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onFilterValueChange(): void {
     this.#applyFilters();
+  }
+
+  #onGroupSelect(event: CustomEvent<boolean>, groupBy: unknown): void {
+    const items = this.dataSource?.filteredItems ?? [],
+      group = items.filter(item => getValueByPath(item, this.itemsGroupBy) === groupBy);
+
+    if (event.detail) {
+      group.forEach(item => this.selection.select(item));
+    } else {
+      group.forEach(item => this.selection.deselect(item));
+    }
+  }
+
+  #onGroupToggle(event: CustomEvent<boolean>, groupBy: string): void {
+    this.dataSource?.toggleGroup(groupBy, event.detail);
+    this.dataSource?.update();
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

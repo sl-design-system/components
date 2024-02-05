@@ -19,7 +19,7 @@ export const Basic: Story = {
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>
         <sl-grid-column path="address.phone"></sl-grid-column>
-        <sl-grid-column path="profession"></sl-grid-column>
+        <sl-grid-column path="membership"></sl-grid-column>
       </sl-grid>
     `;
   }

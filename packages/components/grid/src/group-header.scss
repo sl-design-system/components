@@ -5,8 +5,16 @@
   inline-size: 100%;
 }
 
+:host([expanded]) sl-icon {
+  rotate: 90deg;
+}
+
 sl-button {
   margin-inline: 0.25rem;
+}
+
+sl-icon {
+  transition: rotate 0.2s ease-in-out;
 }
 
 .heading {

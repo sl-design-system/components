@@ -12,7 +12,31 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/browser.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/config.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/controllers/index.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/css.js"
           }
         },
         {
@@ -37,22 +61,6 @@
           "declaration": {
             "name": "*",
             "package": "./src/directives/index.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/css.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/config.js"
           }
         },
         {
@@ -85,6 +93,26 @@
           "declaration": {
             "name": "*",
             "package": "./src/types.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/browser.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "isSafari"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "isSafari",
+          "declaration": {
+            "name": "isSafari",
+            "module": "src/browser.ts"
           }
         }
       ]
@@ -834,7 +862,7 @@
               "name": "#listeners",
               "privacy": "private",
               "type": {
-                "text": "Array<() => void>"
+                "text": "Array<() => void | Promise<void>>"
               },
               "default": "[]"
             }
@@ -4044,6 +4072,33 @@
               "default": "''"
             }
           ]
+        },
+        {
+          "kind": "function",
+          "name": "setValueByPath",
+          "return": {
+            "type": {
+              "text": "void"
+            }
+          },
+          "parameters": [
+            {
+              "name": "object",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "name": "path",
+              "default": "''"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -4068,6 +4123,14 @@
           "name": "getValueByPath",
           "declaration": {
             "name": "getValueByPath",
+            "module": "src/path.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "setValueByPath",
+          "declaration": {
+            "name": "setValueByPath",
             "module": "src/path.ts"
           }
         }

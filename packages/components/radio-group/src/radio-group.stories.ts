@@ -122,10 +122,33 @@ export const Value: Story = {
 
 export const CustomValidity: Story = {
   args: {
-    hint: 'This story has both builtin validation (required) and custom validation. You need to the middle option to make the field valid. The custom validation is done by listening to the sl-change event and setting the custom validity on the radio group. If you never select any option, then only the builtin validation applies.',
+    hint: 'This story has both builtin validation (required) and custom validation. You need to pick the middle option to make the field valid. The custom validation is done by listening to the sl-change event and setting the custom validity on the radio group. If you never select any option, then only the builtin validation applies.',
     slot: () => {
       const onValidate = (event: Event & { target: RadioGroup }): void => {
         event.target.setCustomValidity(event.target.value === '2' ? '' : 'Pick the middle option');
+      };
+
+      return html`
+        <sl-radio-group @sl-validate=${onValidate} required>
+          <sl-radio value="1">One</sl-radio>
+          <sl-radio value="2">Two</sl-radio>
+          <sl-radio value="3">Three</sl-radio>
+        </sl-radio-group>
+      `;
+    }
+  }
+};
+
+export const CustomAsyncValidity: Story = {
+  args: {
+    hint: 'This story has an async validator. You need to pick the middle option to make the field valid. It will wait 2 seconds before validating.',
+    slot: () => {
+      const onValidate = (event: Event & { target: RadioGroup }): void => {
+        const promise = new Promise<string>(resolve =>
+          setTimeout(() => resolve(event.target.value === '2' ? '' : 'Pick the middle option'), 2000)
+        );
+
+        event.target.setCustomValidity(promise);
       };
 
       return html`

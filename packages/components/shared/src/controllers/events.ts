@@ -1,13 +1,13 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 export type EventRegistration = Partial<{
-  [name in keyof GlobalEventHandlersEventMap]: (event: GlobalEventHandlersEventMap[name]) => void;
+  [name in keyof GlobalEventHandlersEventMap]: (event: GlobalEventHandlersEventMap[name]) => void | Promise<void>;
 }>;
 
 export class EventsController implements ReactiveController {
   #events?: EventRegistration;
   #host: ReactiveControllerHost & HTMLElement;
-  #listeners: Array<() => void> = [];
+  #listeners: Array<() => void | Promise<void>> = [];
 
   constructor(host: ReactiveControllerHost & HTMLElement, events?: EventRegistration) {
     this.#host = host;
@@ -23,6 +23,7 @@ export class EventsController implements ReactiveController {
   }
 
   hostDisconnected(): void {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises, @typescript-eslint/promise-function-async
     this.#listeners.forEach(cb => cb());
     this.#listeners = [];
   }

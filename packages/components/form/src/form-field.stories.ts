@@ -36,19 +36,14 @@ export default {
     };
 
     return html`
-      <style>
-        sl-button-bar {
-          margin-block-start: 1rem;
-        }
-      </style>
-      <form>
+      <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot ?? html`<sl-text-field .customValidity=${customValidity}></sl-text-field>`}
         </sl-form-field>
         <sl-button-bar>
           <sl-button @click=${onClick}>Report validity</sl-button>
         </sl-button-bar>
-      </form>
+      </sl-form>
     `;
   }
 } satisfies Meta<Props>;

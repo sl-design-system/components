@@ -168,6 +168,23 @@ export const CustomValidity: StoryObj = {
   }
 };
 
+export const CustomAsyncValidity: Story = {
+  args: {
+    hint: 'This story has an async validator. You need to enter "SLDS" to make the field valid. It will wait 2 seconds before validating.',
+    slot: () => {
+      const onValidate = (event: Event & { target: Textarea }): void => {
+        const promise = new Promise<string>(resolve =>
+          setTimeout(() => resolve(event.target.value === 'SLDS' ? '' : 'Enter "SLDS"'), 2000)
+        );
+
+        event.target.setCustomValidity(promise);
+      };
+
+      return html`<sl-textarea @sl-validate=${onValidate} required></sl-textarea>`;
+    }
+  }
+};
+
 export const All: StoryObj = {
   argTypes: {
     size: {

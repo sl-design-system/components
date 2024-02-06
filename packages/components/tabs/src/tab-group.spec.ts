@@ -3,7 +3,6 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import '../register.js';
 import { TabGroup } from './tab-group.js';
-import {stub} from "sinon";
 
 describe('sl-tab-group', () => {
   let el: TabGroup;
@@ -235,16 +234,12 @@ describe('sl-tab-group', () => {
       });
 
       it('should show the more button', async () => {
-        // const container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
-
         const slBtn = container.querySelector('sl-button');
 
         expect(slBtn).to.exist;
       });
 
       it('should show the listbox on click on the more button', async () => {
-        // const container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
-
         const slBtn = container.querySelector('sl-button'),
               clickEvent = new Event('click');
 
@@ -257,14 +252,10 @@ describe('sl-tab-group', () => {
       });
 
       it('should handle the selecting of tabs by keyboard in the listbox correctly', async () => {
-        // const container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
-
         const slBtn = container.querySelector('sl-button'),
           clickEvent = new Event('click');
 
         slBtn?.dispatchEvent(clickEvent);
-
-        // await tabGroup.updateComplete;
 
         const popover = tabGroup.shadowRoot?.querySelector('[popover]') as HTMLElement;
 

@@ -1775,6 +1775,18 @@
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
+      },
+      "tooltip": {
+        "none": {
+          "value": "{border.width.none}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
+        },
+        "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.outline"
+        }
       }
     }
   },
@@ -1858,6 +1870,14 @@
       "offset": {
         "value": "{space.sm}",
         "type": "spacing"
+      }
+    },
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
       }
     }
   },

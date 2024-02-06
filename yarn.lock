@@ -4743,6 +4743,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sl-design-system/accordion@workspace:packages/components/accordion":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/accordion@workspace:packages/components/accordion"
+  dependencies:
+    "@sl-design-system/shared": "npm:0.2.1"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/angular@workspace:packages/angular":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/angular@workspace:packages/angular"

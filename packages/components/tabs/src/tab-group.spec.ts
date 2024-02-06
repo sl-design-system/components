@@ -1,5 +1,5 @@
-import {expect, fixture, waitUntil} from '@open-wc/testing';
-import {getSnapshot, sendKeys} from '@web/test-runner-commands';
+import { expect, fixture } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import '../register.js';
 import { TabGroup } from './tab-group.js';
@@ -224,9 +224,6 @@ describe('sl-tab-group', () => {
           </div>`);
 
         tabGroup = el2.querySelector('sl-tab-group') as TabGroup;
-        // await new Promise(resolve => setTimeout(resolve, 800));
-
-        // await new Promise(resolve => setTimeout(resolve));
         container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
       });
 

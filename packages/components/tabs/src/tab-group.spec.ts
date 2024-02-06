@@ -200,7 +200,7 @@ describe('sl-tab-group', () => {
   });
 
   describe('with dropdown menu', () => {
-    let el2: TabGroup;
+    let element: TabGroup;
     let tabGroup: TabGroup;
     let container: HTMLElement;
 
@@ -211,7 +211,7 @@ describe('sl-tab-group', () => {
 
     describe('with more button in a small container',() => {
       beforeEach(async () => {
-        el2 = await fixture(html`
+        element = await fixture(html`
           <div style="width: 70px">
             <sl-tab-group>
               <sl-tab>Tab 1</sl-tab>
@@ -223,7 +223,7 @@ describe('sl-tab-group', () => {
             </sl-tab-group>
           </div>`);
 
-        tabGroup = el2.querySelector('sl-tab-group') as TabGroup;
+        tabGroup = element.querySelector('sl-tab-group') as TabGroup;
         container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
       });
 
@@ -240,7 +240,7 @@ describe('sl-tab-group', () => {
 
       it('should show the more button', async () => {
         await showListbox();
-        await el2.updateComplete;
+        await element.updateComplete;
         const slBtn = container.querySelector('sl-button');
 
         expect(slBtn).to.exist;
@@ -248,7 +248,7 @@ describe('sl-tab-group', () => {
 
       it('should show the listbox on click on the more button', async () => {
         await showListbox();
-        await el2.updateComplete;
+        await element.updateComplete;
         const slBtn = container.querySelector('sl-button'),
               clickEvent = new Event('click');
 
@@ -262,7 +262,7 @@ describe('sl-tab-group', () => {
 
       it('should handle the selecting of tabs by keyboard in the listbox correctly', async () => {
         await showListbox();
-        await el2.updateComplete;
+        await element.updateComplete;
         const slBtn = container.querySelector('sl-button'),
           clickEvent = new Event('click');
 
@@ -280,8 +280,8 @@ describe('sl-tab-group', () => {
         await sendKeys({ press: 'Enter' });
         await tabGroup.updateComplete;
 
-        let tabs = el2.querySelectorAll('sl-tab[selected]'),
-            panels = el2.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+        let tabs = element.querySelectorAll('sl-tab[selected]'),
+            panels = element.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
         await tabGroup.updateComplete;
 

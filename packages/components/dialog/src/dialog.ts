@@ -6,7 +6,7 @@ import { localized, msg } from '@lit/localize';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
-import { breakpoints } from '@sl-design-system/shared';
+import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
 import { LitElement, adoptStyles, html, nothing, unsafeCSS } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
@@ -41,11 +41,23 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** @private */
   @query('dialog') dialog?: HTMLDialogElement;
 
-  /** Disables the ability to close the dialog using the Escape key. */
-  @property({ type: Boolean, attribute: 'disable-close' }) disableClose = false;
+  /**
+   * Emits when the cancel has been cancelled. This happens when the user closes
+   * the dialog using the escape key or clicks on the backdrop.
+   */
+  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<void>;
 
-  /** Determines whether closing button (default one) should be shown in the top right corner. */
-  @property({ type: Boolean, attribute: 'closing-button' }) closingButton?: boolean;
+  /** Emits when the dialog has been closed. */
+  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<void>;
+
+  /** Determines whether a close button should be shown in the top right corner. */
+  @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
+
+  /**
+   * Disables the ability to cancel the dialog by pressing the Escape key
+   * or clicking on the backdrop.
+   */
+  @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
 
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
@@ -74,7 +86,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
           </div>
           <slot name="header-actions">
             <slot name="header-buttons"></slot>
-            ${this.closingButton
+            ${this.closeButton
               ? html`
                   <slot name="close-button" @click=${this.#onCloseClick}>
                     <sl-button fill="ghost" variant="default" aria-label=${msg('Close')}>
@@ -100,39 +112,68 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   }
 
   showModal(): void {
+    if (this.dialog?.open) {
+      return;
+    }
+
     this.inert = false;
     this.dialog?.showModal();
 
     // Disable scrolling while the dialog is open
     document.documentElement.style.overflow = 'hidden';
 
-    /** Workaround for the backdrop background,
-     *  the backdrop doesn't inherit from the :root, so we cannot use tokens for the background-color,
-     *  needs to be removed in the future,
-     * the bug should be fixed: https://drafts.csswg.org/css-position-4/#backdrop */
+    /**
+     * Workaround for the backdrop background: the backdrop doesn't inherit
+     * from the :root, so we cannot use tokens for the background-color.
+     * This needs to be removed in the future when the bug has been fixed:
+     * https://drafts.csswg.org/css-position-4/#backdrop
+     */
     const backdrop: CSSResult = unsafeCSS(
       `::backdrop {
-        background-color: ${window.getComputedStyle(document.body).getPropertyValue('--sl-body-surface-overlay')};
+        background-color: ${getComputedStyle(document.body).getPropertyValue('--sl-body-surface-overlay')};
       }
     `
     );
 
-    if (this.shadowRoot) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      adoptStyles(this.shadowRoot, [breakpoints, styles, backdrop]);
-    }
+    adoptStyles(this.shadowRoot!, [breakpoints, styles, backdrop]);
   }
 
   close(): void {
     if (this.dialog?.open) {
-      this.dialog?.close();
+      this.#closeDialogOnAnimationend();
     }
   }
 
   #onCancel(event: Event): void {
-    if (this.disableClose) {
+    if (this.disableCancel) {
       event.preventDefault();
+    } else {
+      this.cancelEvent.emit();
     }
+  }
+
+  #onClick(event: PointerEvent & { target: HTMLElement }): void {
+    const rect = this.dialog!.getBoundingClientRect();
+
+    // Check if the user clicked on the sl-dialog-close button or on the backdrop
+    if (
+      event.target.matches('sl-button[sl-dialog-close]') ||
+      (!this.disableCancel &&
+        (event.clientY < rect.top ||
+          event.clientY > rect.bottom ||
+          event.clientX < rect.left ||
+          event.clientX > rect.right))
+    ) {
+      this.#closeDialogOnAnimationend(event.target, true);
+    }
+  }
+
+  #onClose(): void {
+    // Reenable scrolling after the dialog has closed
+    document.documentElement.style.overflow = '';
+
+    this.inert = true;
+    this.closeEvent.emit();
   }
 
   #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
@@ -142,34 +183,21 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
   }
 
-  #onClick(event: PointerEvent & { target: HTMLElement }): void {
-    if (event.target && this.dialog) {
-      const rect = this.dialog.getBoundingClientRect();
-      // Check if the user clicked on the sl-dialog-close button or on the backdrop
-      if (
-        event.target.matches('sl-button[sl-dialog-close]') ||
-        (!this.disableClose &&
-          (event.clientY < rect.top ||
-            event.clientY > rect.bottom ||
-            event.clientX < rect.left ||
-            event.clientX > rect.right))
-      ) {
-        this.#closeDialogOnAnimationend(event.target as HTMLElement);
-      }
+  #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
+    if (event.code === 'Escape' && this.dialog?.open && !this.disableCancel) {
+      this.#closeDialogOnAnimationend(event.target, true);
     }
   }
 
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.code === 'Escape' && !this.disableClose) {
-      this.#closeDialogOnAnimationend(event.target as HTMLElement);
-    }
-  }
-
-  #closeDialogOnAnimationend(target: HTMLElement): void {
+  #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
     this.dialog?.addEventListener(
       'animationend',
       () => {
         this.dialog?.removeAttribute('closing');
+
+        if (emitCancelEvent) {
+          this.cancelEvent.emit();
+        }
 
         if (target?.matches('sl-button[sl-dialog-close]')) {
           this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
@@ -180,15 +208,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       { once: true }
     );
 
-    requestAnimationFrame(() => {
-      this.dialog?.setAttribute('closing', '');
-    });
-  }
-
-  #onClose(): void {
-    // Reenable scrolling after the dialog has closed
-    document.documentElement.style.overflow = '';
-
-    this.inert = true;
+    /**
+     * Set the closing attribute, this triggers the closing animation.
+     *
+     * FIXME: We can replace this using `@starting-style` once this is available in all
+     * browsers. See https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
+     */
+    requestAnimationFrame(() => this.dialog?.setAttribute('closing', ''));
   }
 }

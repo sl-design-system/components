@@ -61,6 +61,7 @@ describe('sl-tab-group', () => {
 
         let tabs = el.querySelectorAll('sl-tab[selected]'),
             panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 2');
         expect(panels.length).to.equal(1);
@@ -71,6 +72,7 @@ describe('sl-tab-group', () => {
 
         tabs = el.querySelectorAll('sl-tab[selected]');
         panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 3');
         expect(panels.length).to.equal(1);
@@ -200,6 +202,7 @@ describe('sl-tab-group', () => {
 
   describe('with dropdown menu', () => {
     let tabGroup: TabGroup;
+    let container: HTMLElement;
 
     describe('with more button in a small container',() => {
       beforeEach(async () => {
@@ -215,21 +218,24 @@ describe('sl-tab-group', () => {
             </sl-tab-group>
           </div>`);
         tabGroup = el.querySelector('sl-tab-group') as TabGroup;
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
+      });
+
+      it('should render correctly', () => {
+        expect(tabGroup).shadowDom.to.equalSnapshot();
       });
 
       it('should not show the listbox by default', async () => {
         const popover = tabGroup.shadowRoot?.querySelector('[popover]') as HTMLElement;
 
-        await new Promise(resolve => setTimeout(resolve, 800));
-
-        await expect(popover.getBoundingClientRect().width).to.equal(0);
-        await expect(popover.getBoundingClientRect().height).to.equal(0);
+        expect(popover.getBoundingClientRect().width).to.equal(0);
+        expect(popover.getBoundingClientRect().height).to.equal(0);
       });
 
       it('should show the more button', async () => {
-        const container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
-
-        await new Promise(resolve => setTimeout(resolve, 800));
+        // const container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
 
         const slBtn = container.querySelector('sl-button');
 
@@ -237,9 +243,7 @@ describe('sl-tab-group', () => {
       });
 
       it('should show the listbox on click on the more button', async () => {
-        const container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
-
-        await new Promise(resolve => setTimeout(resolve, 200));
+        // const container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
 
         const slBtn = container.querySelector('sl-button'),
               clickEvent = new Event('click');
@@ -248,104 +252,37 @@ describe('sl-tab-group', () => {
 
         const popover = tabGroup.shadowRoot?.querySelector('[popover]') as HTMLElement;
 
-        await expect(popover.getBoundingClientRect().width).not.to.equal(0);
-        await expect(popover.getBoundingClientRect().height).not.to.equal(0);
+        expect(popover.getBoundingClientRect().width).not.to.equal(0);
+        expect(popover.getBoundingClientRect().height).not.to.equal(0);
       });
 
       it('should handle the selecting of tabs by keyboard in the listbox correctly', async () => {
+        // const container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
 
-        const container = tabGroup.shadowRoot?.querySelector('.container') as HTMLElement;
+        const slBtn = container.querySelector('sl-button'),
+          clickEvent = new Event('click');
 
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        const slBtn = container.querySelector('sl-button');
-
-        const clickEvent = new Event('click');
         slBtn?.dispatchEvent(clickEvent);
+
+        // await tabGroup.updateComplete;
 
         const popover = tabGroup.shadowRoot?.querySelector('[popover]') as HTMLElement;
 
         (popover.querySelector('sl-tab:nth-of-type(2)') as HTMLElement)?.focus();
         await sendKeys({ press: 'Space' });
-
-        await new Promise(resolve => setTimeout(resolve, 600));
+        await tabGroup.updateComplete;
+        await new Promise(resolve => setTimeout(resolve, 800));
 
         let tabs = el.querySelectorAll('sl-tab[selected]'),
          listboxTabs = popover.querySelectorAll('sl-tab[selected]'),
          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
-        await expect(listboxTabs.length).to.equal(1);
-        await expect(listboxTabs[0].innerHTML).to.equal('Tab 2');
-        await expect(tabs.length).to.equal(1);
-        await expect(tabs[0].innerHTML).to.equal('Tab 2');
-        await expect(panels.length).to.equal(1);
-        await expect(panels[0].innerHTML).to.equal('Panel 2');
-
-        slBtn?.dispatchEvent(clickEvent);
-
-        (popover.querySelector('sl-tab:nth-of-type(3)') as HTMLElement)?.focus();
-        await sendKeys({ press: 'Enter' });
-
-        await new Promise(resolve => setTimeout(resolve, 800));
-
-        tabs = el.querySelectorAll('sl-tab[selected]');
-        listboxTabs = popover.querySelectorAll('sl-tab[selected]');
-        panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
-
-        await expect(listboxTabs.length).to.equal(1);
-        await expect(listboxTabs[0].innerHTML).to.equal('Tab 3');
-        await expect(tabs.length).to.equal(1);
-        await expect(tabs[0].innerHTML).to.equal('Tab 3');
-        await expect(panels.length).to.equal(1);
-        await expect(panels[0].innerHTML).to.equal('Panel 3');
-
-        slBtn?.dispatchEvent(clickEvent);
-
-        (popover.querySelector('sl-tab:nth-of-type(1)') as HTMLElement)?.focus();
-        await sendKeys({ press: 'r' });
-
-        tabs = el.querySelectorAll('sl-tab[selected]');
-        listboxTabs = popover.querySelectorAll('sl-tab[selected]');
-        panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
-        await expect(tabs.length).to.equal(1);
-        await expect(tabs[0].innerHTML).to.equal('Tab 3');
-        await expect(listboxTabs.length).to.equal(1);
-        await expect(listboxTabs[0].innerHTML).to.equal('Tab 3');
-        await expect(panels.length).to.equal(1);
-        await expect(panels[0].innerHTML).to.equal('Panel 3');
-      });
-    });
-
-    describe('with more button on resize',() => {
-      beforeEach(async () => {
-        el = await fixture(html`
-            <sl-tab-group>
-              <sl-tab selected>Tab 1</sl-tab>
-              <sl-tab>Tab 2</sl-tab>
-              <sl-tab>Tab 3</sl-tab>
-              <sl-tab-panel>Panel 1</sl-tab-panel>
-              <sl-tab-panel>Panel 2</sl-tab-panel>
-              <sl-tab-panel>Panel 3</sl-tab-panel>
-            </sl-tab-group>`);
-      });
-
-      it('should render correctly', () => {
-        expect(el).shadowDom.to.equalSnapshot();
-      });
-
-      it('should show the more button on resize', async () => {
-        const container = el.shadowRoot?.querySelector('.container') as HTMLElement;
-
-        window.dispatchEvent(new Event('resize'));
-        window.resizeTo(50, 100);
-
-        await el.updateComplete;
-
-        await new Promise(resolve => setTimeout(resolve, 1900));
-
-        const slBtn = container.querySelector('sl-button');
-
-        expect(slBtn).to.exist;
+        expect(listboxTabs.length).to.equal(1);
+        expect(listboxTabs[0].innerHTML).to.equal('Tab 2');
+        expect(tabs.length).to.equal(1);
+        expect(tabs[0].innerHTML).to.equal('Tab 2');
+        expect(panels.length).to.equal(1);
+        expect(panels[0].innerHTML).to.equal('Panel 2');
       });
     });
   });

@@ -1298,7 +1298,7 @@
           "description": "border.width.button.outline"
         },
         "option": {
-          "value": "{border.width.sm}",
+          "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }

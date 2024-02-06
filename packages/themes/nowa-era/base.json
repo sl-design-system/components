@@ -1519,6 +1519,11 @@
             "value": "{space.button.outline.block.sm}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
+          },
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
           }
         },
         "inline": {
@@ -1531,6 +1536,11 @@
             "value": "{space.button.outline.block.sm}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
+          },
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
           }
         },
         "gap": {
@@ -1543,6 +1553,11 @@
             "value": "{space.button.outline.block.md}",
             "type": "spacing",
             "description": "{space.button.gap.lg}"
+          },
+          "sm": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
           }
         }
       },

@@ -411,10 +411,13 @@
   --sl-space-input-text-field-block-md: calc(var(--sl-space-xs) + var(--sl-conceptual-border-width-default));
   --sl-space-input-option-gap-lg: var(--sl-space-sm);
   --sl-space-input-option-gap-md: var(--sl-space-sm);
+  --sl-space-input-option-gap-sm: var(--sl-space-sm);
   --sl-space-input-option-inline-lg: var(--sl-space-none);
   --sl-space-input-option-inline-md: var(--sl-space-none);
+  --sl-space-input-option-inline-sm: var(--sl-space-none);
   --sl-space-input-option-block-lg: var(--sl-space-xs);
   --sl-space-input-option-block-md: var(--sl-space-xs);
+  --sl-space-input-option-block-sm: var(--sl-space-none);
   --sl-space-button-link-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-link));

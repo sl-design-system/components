@@ -2503,6 +2503,11 @@
     "input": {
       "option": {
         "block": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
           "md": {
             "value": "{space.xs}",
             "type": "spacing",
@@ -2515,6 +2520,11 @@
           }
         },
         "inline": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
           "md": {
             "value": "{space.none}",
             "type": "spacing",
@@ -2527,6 +2537,11 @@
           }
         },
         "gap": {
+          "sm": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
           "md": {
             "value": "{space.sm}",
             "type": "spacing",

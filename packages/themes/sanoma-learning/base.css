@@ -96,6 +96,9 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
+  --sl-text-card-body: Regular 14/20 Source Sans Pro;
+  --sl-text-card-subtitle: Regular 16/24 Source Sans Pro;
+  --sl-text-card-title: Regular 18/28 The Message;
   --sl-text-text-field: [object Object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
@@ -282,6 +285,7 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
+  --sl-size-input-option-sm: var(--sl-size-lg);
   --sl-opacity-spinner-shadow: 0.32;
   --sl-text-case-badge-text-transform: var(--sl-text-typeset-text-case-uppercase);
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
@@ -450,6 +454,23 @@
   --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
+  --sl-space-card-slotheader-badges-gap: var(--sl-space-sm);
+  --sl-space-card-slotheader-badges-block: var(--sl-space-xs);
+  --sl-space-card-slotheader-badges-inline: var(--sl-space-none);
+  --sl-space-card-horizontal-gap: var(--sl-space-none);
+  --sl-space-card-horizontal-block: var(--sl-space-xl);
+  --sl-space-card-horizontal-inline: var(--sl-space-none);
+  --sl-space-card-vertical-gap: var(--sl-space-none);
+  --sl-space-card-vertical-block: var(--sl-space-xl);
+  --sl-space-card-vertical-inline: var(--sl-space-none);
+  --sl-space-card-gap-header-block: var(--sl-space-none);
+  --sl-space-card-gap-header-inline: var(--sl-space-none);
+  --sl-space-card-gap-content-block: var(--sl-space-lg);
+  --sl-space-card-gap-content-inline: var(--sl-space-sm);
+  --sl-space-card-content-block: var(--sl-space-xl);
+  --sl-space-card-content-inline: var(--sl-space-xl);
+  --sl-space-card-media-margins: var(--sl-space-sm);
+  --sl-space-card-media-full: var(--sl-space-none);
   --sl-space-popover-gap: var(--sl-space-xs);
   --sl-space-popover-inline: var(--sl-space-md);
   --sl-space-popover-block: var(--sl-space-sm);
@@ -475,6 +496,7 @@
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
   --sl-conceptual-border-width-default: var(--sl-border-width-xs);
+  --sl-border-width-card-border: var(--sl-border-width-xs);
   --sl-border-width-border-tabbar: var(--sl-border-width-xs);
   --sl-border-width-border-tab: var(--sl-border-width-xs);
   --sl-border-width-inline-message-start: var(--sl-border-width-lg);
@@ -654,8 +676,8 @@
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-subheader-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-subheader-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xs) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-subheader-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-header-3xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-header-2xl: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
@@ -666,20 +688,20 @@
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-header-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-header-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
-    var(--sl-text-typeset-line-height-xxs) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-header-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-avatar-initials-3xl: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-2xl) /
     var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-2xl) /
+  --sl-text-avatar-initials-2xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-2xl) /
     var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-2xl) /
-    var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl) /
+  --sl-text-avatar-initials-xl: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl) /
     var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-avatar-initials-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+  --sl-text-avatar-initials-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-avatar-initials-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xs) /
+    var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-color-palette-danger-300: 255 87 92;
   --sl-color-palette-warning-300: 255 207 13;
   --sl-color-palette-success-300: 69 204 128;
@@ -687,6 +709,7 @@
   --sl-color-palette-accent-400: 51 102 255;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
+  --sl-size-input-option-checkbox-icon-sm: var(--sl-size-icon-xs);
   --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
   --sl-space-select-item-gap-md: var(--sl-space-input-text-field-gap-md);
   --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);
@@ -719,6 +742,8 @@
   --sl-border-width-button-ghost: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-outline: var(--sl-conceptual-border-width-default);
   --sl-border-width-button-solid: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-card-image-margin: var(--sl-border-radius-default);
+  --sl-border-radius-card-default: var(--sl-border-radius-default);
   --sl-border-radius-skeleton-default: var(--sl-border-radius-default);
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-avatar-square: var(--sl-border-radius-default);

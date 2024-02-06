@@ -83,11 +83,11 @@ export const MoreFooterButtons: StoryObj = {
   `
 };
 
-export const DisableClose: StoryObj = {
+export const DisableCancel: StoryObj = {
   render: () => html`
     <sl-button fill="outline" @click=${onClick}>Show Dialog</sl-button>
-    <sl-dialog disable-close close-button align="space-between">
-      <span slot="title">Disable close</span>
+    <sl-dialog disable-cancel close-button align="space-between">
+      <span slot="title">Disable cancel</span>
       <p>You cannot close me by pressing the Escape key, or clicking the backdrop.</p>
       <sl-button slot="actions" fill="solid" variant="default" sl-dialog-close autofocus>Action 2</sl-button>
       <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>

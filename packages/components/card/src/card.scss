@@ -65,14 +65,10 @@ div.container {
 
   slot[name='media'] {
     aspect-ratio: var(--_aspect-ratio);
-    display: grid;
-    grid-auto-columns: 1fr;
-    grid-auto-rows: 1fr;
     height: inherit;
     max-height: 100%;
     max-width: 100%;
     overflow: hidden;
-    place-content: stretch;
   }
 
   slot[name='media']::slotted(*) {
@@ -147,6 +143,7 @@ slot[name='header']::slotted(*:not(sl-badge)) {
 slot[name='media']::slotted(*) {
   aspect-ratio: inherit;
   box-sizing: border-box;
+  height: auto;
   object-fit: cover;
   overflow: hidden;
   padding: var(--_media-padding-full);

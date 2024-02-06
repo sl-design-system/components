@@ -91,7 +91,7 @@ export const All: Story = {
       }
     </style>
     <div class="grid">
-      <sl-card>
+      <sl-card class="horizontal">
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
         <h3 slot="header">Sub header</h3>

@@ -5,7 +5,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_border-radius: var(--sl-border-radius-default);
-    --_border-width: var(--sl-border-width-button-solid);
+    --_border-width: var(--sl-border-width-input-border);
     --_padding-block: var(--sl-space-select-selectbox-block-#{$size});
     --_padding-inline: var(--sl-space-select-selectbox-inline-#{$size});
     --_font: var(--sl-text-select-selectbox-text-#{$size});

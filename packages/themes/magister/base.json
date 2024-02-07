@@ -458,7 +458,7 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Open Sans",
+          "value": "Arboria",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },
@@ -476,6 +476,14 @@
       "fontWeight": {
         "demibold": {
           "value": "SemiBold",
+          "type": "fontWeights"
+        },
+        "medium": {
+          "value": "Medium",
+          "type": "fontWeights"
+        },
+        "book": {
+          "value": "Book",
           "type": "fontWeights"
         },
         "icon-thin": {
@@ -1389,16 +1397,16 @@
       "heading": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.bold}",
+          "fontWeight": "{text.typeset.fontWeight.medium}",
           "lineHeight": "{text.typeset.lineHeight.2xl}",
-          "fontSize": "{icon.typeset.fontSize.xl}"
+          "fontSize": "{icon.typeset.fontSize.lg}"
         },
         "type": "typography"
       },
       "subheading": {
         "value": {
-          "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.book}",
           "lineHeight": "{text.typeset.lineHeight.md}",
           "fontSize": "{icon.typeset.fontSize.md}"
         },
@@ -1473,7 +1481,7 @@
   "borderRadius": {
     "button": {
       "sm": {
-        "value": "{border.radius.sm}",
+        "value": "{border.radius.2xs}",
         "type": "borderRadius",
         "description": "borderRadius.button"
       },
@@ -1525,11 +1533,15 @@
         "type": "borderRadius"
       },
       "button": {
-        "value": "{borderRadius.button.sm} + 1",
+        "value": "{borderRadius.button.md} + 1",
         "type": "borderRadius"
       },
       "full": {
         "value": "{border.radius.full}",
+        "type": "borderRadius"
+      },
+      "button-sm": {
+        "value": "{borderRadius.button.sm} + 1",
         "type": "borderRadius"
       }
     },

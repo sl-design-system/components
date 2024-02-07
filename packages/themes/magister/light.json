@@ -3416,7 +3416,7 @@
     },
     "focusring": {
       "default": {
-        "value": "{color.palette.primary.base}",
+        "value": "{color.palette.primary.600}",
         "type": "color",
         "failedToResolve": true
       }

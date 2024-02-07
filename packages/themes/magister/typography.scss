@@ -45,16 +45,16 @@
 }
 
 @mixin sl-text-dialog-subheading {
-  font-family: var(--sl-text-typeset-font-family-body);
+  font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-icon-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  font-weight: var(--sl-text-typeset-font-weight-book);
   line-height: var(--sl-text-typeset-line-height-md);
 }
 
 @mixin sl-text-dialog-heading {
   font-family: var(--sl-text-typeset-font-family-heading);
-  font-size: var(--sl-icon-typeset-font-size-xl);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-size: var(--sl-icon-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   line-height: var(--sl-text-typeset-line-height-2xl);
 }
 

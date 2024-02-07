@@ -146,9 +146,11 @@
   --sl-text-typeset-font-weight-icon-regular: 400;
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
+  --sl-text-typeset-font-weight-book: Book;
+  --sl-text-typeset-font-weight-medium: 500;
   --sl-text-typeset-font-weight-demibold: 600;
   --sl-text-typeset-font-family-body: open-sans;
-  --sl-text-typeset-font-family-heading: open-sans;
+  --sl-text-typeset-font-family-heading: arboria;
   --sl-color-palette-transparent-base: 0 0 0 / 0;
   --sl-color-palette-white-base: 254 254 254;
   --sl-color-palette-black-base: 35 50 67;
@@ -513,7 +515,7 @@
   --sl-border-radius-button-icon-only-sm: var(--sl-border-radius-full);
   --sl-border-radius-button-lg: var(--sl-border-radius-sm);
   --sl-border-radius-button-md: var(--sl-border-radius-sm);
-  --sl-border-radius-button-sm: var(--sl-border-radius-sm);
+  --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
   --sl-text-select-selectbox-title-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-select-selectbox-title-md: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-xs) /
@@ -524,9 +526,9 @@
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-dialog-subheading: var(--sl-text-typeset-font-weight-demibold) var(--sl-icon-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-dialog-heading: var(--sl-text-typeset-font-weight-bold) var(--sl-icon-typeset-font-size-xl) /
+  --sl-text-dialog-subheading: var(--sl-text-typeset-font-weight-book) var(--sl-icon-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-heading);
+  --sl-text-dialog-heading: var(--sl-text-typeset-font-weight-medium) var(--sl-icon-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-input-helper-text-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
@@ -652,7 +654,8 @@
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
-  --sl-border-radius-focusring-button: calc(var(--sl-border-radius-button-sm) + 1);
+  --sl-border-radius-focusring-button-sm: calc(var(--sl-border-radius-button-sm) + 1);
+  --sl-border-radius-focusring-button: calc(var(--sl-border-radius-button-md) + 1);
   --sl-border-radius-focusring-default: calc(var(--sl-border-radius-default) + 1);
   --sl-text-icon-font-icon-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);

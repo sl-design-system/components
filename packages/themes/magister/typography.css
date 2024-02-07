@@ -408,7 +408,7 @@
 .sl-text-button-link-disabled-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -416,7 +416,7 @@
 .sl-text-button-link-disabled-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -424,7 +424,7 @@
 .sl-text-button-link-disabled-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -432,7 +432,7 @@
 .sl-text-button-link-active-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -440,7 +440,7 @@
 .sl-text-button-link-active-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -448,7 +448,7 @@
 .sl-text-button-link-active-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -456,7 +456,7 @@
 .sl-text-button-link-hover-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -464,7 +464,7 @@
 .sl-text-button-link-hover-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -472,7 +472,7 @@
 .sl-text-button-link-hover-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -480,7 +480,7 @@
 .sl-text-button-link-idle-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -488,7 +488,7 @@
 .sl-text-button-link-idle-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -496,7 +496,7 @@
 .sl-text-button-link-idle-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }

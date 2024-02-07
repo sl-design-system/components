@@ -3009,13 +3009,13 @@
         },
         "divider": {
           "line": {
-            "value": "{color.palette.neutral.100}",
+            "value": "{color.palette.neutral.300}",
             "type": "color"
           }
         },
         "group-title": {
           "foreground": {
-            "value": "{color.palette.neutral.200}",
+            "value": "{color.palette.neutral.600}",
             "type": "color"
           }
         }

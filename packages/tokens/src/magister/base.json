@@ -492,7 +492,7 @@
       "0": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.bold}",
+          "fontWeight": "{text.typeset.fontWeight.medium}",
           "lineHeight": "{text.typeset.lineHeight.4xl}",
           "fontSize": "{text.typeset.fontSize.4xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -506,7 +506,7 @@
       "1": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "fontWeight": "{text.typeset.fontWeight.medium}",
           "lineHeight": "{text.typeset.lineHeight.3xl}",
           "fontSize": "{text.typeset.fontSize.3xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -520,7 +520,7 @@
       "2": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.bold}",
+          "fontWeight": "{text.typeset.fontWeight.medium}",
           "lineHeight": "{text.typeset.lineHeight.2xl}",
           "fontSize": "{text.typeset.fontSize.2xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -534,7 +534,7 @@
       "3": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "fontWeight": "{text.typeset.fontWeight.medium}",
           "lineHeight": "{text.typeset.lineHeight.xl}",
           "fontSize": "{text.typeset.fontSize.xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -548,7 +548,7 @@
       "4": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.bold}",
+          "fontWeight": "{text.typeset.fontWeight.medium}",
           "lineHeight": "{text.typeset.lineHeight.lg}",
           "fontSize": "{text.typeset.fontSize.lg}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -1706,6 +1706,11 @@
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.default"
+        },
+        "listbox": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
         }
       },
       "input": {
@@ -1774,6 +1779,10 @@
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
+      },
+      "divider": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
       }
     }
   },

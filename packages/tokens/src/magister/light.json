@@ -3420,7 +3420,7 @@
       },
       "listbox": {
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.400}",
           "type": "color"
         },
         "background": {

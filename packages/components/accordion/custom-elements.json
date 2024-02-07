@@ -179,15 +179,7 @@
                 "type": {
                   "text": "void"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
+              }
             },
             {
               "kind": "method",
@@ -275,12 +267,6 @@
               "privacy": "private",
               "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })",
               "description": "Event controller."
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "privacy": "private"
             },
             {
               "kind": "field",

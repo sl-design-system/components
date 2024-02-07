@@ -34,14 +34,11 @@ export class Accordion extends LitElement {
     keydown: this.#onKeydown
   });
 
-  /** @private. */
-  readonly internals = this.attachInternals();
-
   /** The original tabIndex before disabled. */
   private originalTabIndex = 0;
 
   /** Whether the button is disabled; when set no interaction is possible. */
-  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+  @property({ type: Boolean, reflect: true }) disabled?: boolean; // will we need disabled element here?
 
   /**
    * The fill of the button.
@@ -68,8 +65,6 @@ export class Accordion extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'button';
-
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
@@ -93,24 +88,32 @@ export class Accordion extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html` <slot @slotchange=${this.#onSlotChange}></slot>
-      <div class="accordion">
-        <details>
-          <summary>Click to expand</summary>
-          <div class="panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-        </details>
-      </div>`;
-  }
+    return html` <div class="accordion">
+      <details>
+        <summary>Click to expand</summary>
+        <div class="panel">
+          <slot @slotchange=${this.#onSlotChange}></slot>
+        </div>
+      </details>
+      <details>
+        <summary>Click to expand</summary>
+        <div class="panel">
+          <slot @slotchange=${this.#onSlotChange}></slot>
+        </div>
+      </details>
+    </div>`;
+  } // <slot @slotchange=${this.#onSlotChange}></slot>
+  // TODO: onclick on details needed?
 
-  #onClick(event: Event): void {
-    if (this.hasAttribute('disabled')) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else if (this.type === 'reset') {
-      this.internals.form?.reset();
-    } else if (this.type === 'submit') {
-      this.internals.form?.requestSubmit();
-    }
+  #onClick(/*event: Event*/): void {
+    // if (this.hasAttribute('disabled')) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // } else if (this.type === 'reset') {
+    //   this.internals.form?.reset();
+    // } else if (this.type === 'submit') {
+    //   this.internals.form?.requestSubmit();
+    // }
   }
 
   #onKeydown(event: KeyboardEvent): void {

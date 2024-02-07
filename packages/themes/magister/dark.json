@@ -3934,24 +3934,24 @@
     "badge": {
       "danger": {
         "background": {
-          "value": "{color.palette.danger.500}",
+          "value": "{color.palette.danger.150}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.500}",
+          "value": "{color.palette.success.300}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
@@ -3975,7 +3975,7 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
@@ -3994,15 +3994,37 @@
       },
       "primary": {
         "background": {
-          "value": "{color.palette.primary.base}",
+          "value": "{color.palette.primary.300}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
+      }
+    },
+    "avatar": {
+      "background": {
+        "value": "{color.palette.primary.300}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{color.palette.black.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "header": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "subheader": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "failedToResolve": true
       }
     }
   },

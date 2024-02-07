@@ -1296,7 +1296,7 @@
         "type": "spacing"
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },
@@ -1532,7 +1532,7 @@
         "type": "spacing"
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },

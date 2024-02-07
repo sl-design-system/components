@@ -17,11 +17,11 @@ describe('sl-tab-group', () => {
     });
 
     it('should have horizontal layout by default', () => {
-      expect(el.getAttribute('vertical')).to.equal('false');
+      expect(el).to.have.attribute('vertical','false');
     });
 
     it('should have left alignment by default', () => {
-      expect(el.getAttribute('alignment')).to.equal('left');
+      expect(el).to.have.attribute('alignment','left');
     });
   });
 
@@ -48,10 +48,10 @@ describe('sl-tab-group', () => {
 
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 1');
-        expect(tabs[0].getAttribute('aria-controls')).to.equal('sl-tab-group-4-panel-1');
+        expect(tabs[0]).to.have.attribute('aria-controls','sl-tab-group-4-panel-1');
         expect(panels.length).to.equal(1);
         expect(panels[0].innerHTML).to.equal('Panel 1');
-        expect(panels[0].getAttribute('aria-labelledby')).to.equal('sl-tab-group-4-tab-1');
+        expect(panels[0]).to.have.attribute('aria-labelledby','sl-tab-group-4-tab-1');
       });
 
       it('should handle the selecting of tabs by keyboard correctly', async () => {
@@ -178,10 +178,10 @@ describe('sl-tab-group', () => {
 
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 1');
-        expect(tabs[0].getAttribute('aria-controls')).to.equal('sl-tab-group-12-panel-1');
+        expect(tabs[0]).to.have.attribute('aria-controls','sl-tab-group-12-panel-1');
 
         expect(panels.length).to.equal(1);
-        expect(panels[0].getAttribute('aria-labelledby')).to.equal('sl-tab-group-12-tab-1');
+        expect(panels[0]).to.have.attribute('aria-labelledby','sl-tab-group-12-tab-1');
       });
 
       it('should select the right tab on click', async () => {
@@ -194,13 +194,13 @@ describe('sl-tab-group', () => {
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 2');
         expect(panels.length).to.equal(1);
-        expect(panels[0].getAttribute('aria-labelledby')).to.equal('sl-tab-group-13-tab-2');
+        expect(panels[0]).to.have.attribute('aria-labelledby','sl-tab-group-13-tab-2');
       });
     });
   });
 
   describe('with dropdown menu', () => {
-    let element: TabGroup;
+    let element: HTMLElement;
     let tabGroup: TabGroup;
     let container: HTMLElement;
 
@@ -240,7 +240,7 @@ describe('sl-tab-group', () => {
 
       it('should show the more button', async () => {
         await showListbox();
-        await element.updateComplete;
+        await tabGroup.updateComplete;
         const slBtn = container.querySelector('sl-button');
 
         expect(slBtn).to.exist;
@@ -248,7 +248,7 @@ describe('sl-tab-group', () => {
 
       it('should show the listbox on click on the more button', async () => {
         await showListbox();
-        await element.updateComplete;
+        await tabGroup.updateComplete;
         const slBtn = container.querySelector('sl-button'),
               clickEvent = new Event('click');
 
@@ -262,7 +262,7 @@ describe('sl-tab-group', () => {
 
       it('should handle the selecting of tabs by keyboard in the listbox correctly', async () => {
         await showListbox();
-        await element.updateComplete;
+        await tabGroup.updateComplete;
         const slBtn = container.querySelector('sl-button'),
           clickEvent = new Event('click');
 

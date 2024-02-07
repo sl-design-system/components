@@ -2,6 +2,8 @@
   --_background-active: var(--sl-color-tab-active-background);
   --_background-hover: var(--sl-color-tab-hover-background);
   --_badge-spacing: var(--sl-space-badge-inline-lg);
+  --_badge-translateX: 4px;
+  --_badge-translateY: -6px;
   --_color: var(--sl-color-tab-default-foreground);
   --_color-disabled: var(--sl-color-tab-disabled-foreground);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
@@ -70,5 +72,5 @@ slot[name='icon']::slotted(sl-icon) {
 }
 
 slot[name='badge']::slotted(sl-badge) {
-  transform: translate(4px, -6px);
+  transform: translate(var(--_badge-translateX), var(--_badge-translateY));
 }

@@ -18,7 +18,7 @@ export type TabsAlignment = 'left' | 'filled';
 let nextUniqueId = 0;
 
 /**
- * A tab group component with tabs and tab panels.
+ * A tab group component that can contain tabs and tab panels.
  *
  * ```html
  *    <sl-tab-group>
@@ -31,7 +31,6 @@ let nextUniqueId = 0;
  * ```
  *
  * @slot default - a place for the tab group content.
- * @slot tabs - a place for tabs components.
  */
 export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -127,7 +126,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
               part="listbox"
             >
               ${this.#allTabs}
-              <span class="indicator-listbox" role="presentation"></span>
             </div>
           </div>
         </div>
@@ -168,7 +166,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   override firstUpdated(): void {
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, TabGroup.#observerOptions);
-    setTimeout(() => this.#updateSelectionIndicator(), 700);
+    /** Timeout bigger than indicator animation duration */
+    setTimeout(() => this.#updateSelectionIndicator(), 600);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -190,9 +189,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.listbox.togglePopover();
   }
 
-  #onToggle = (event: Event): void => {
-    const indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement;
-
+  #onToggle = (event: ToggleEvent): void => {
     this.#rovingTabindexController.clearElementCache();
 
     requestAnimationFrame(() => {
@@ -200,21 +197,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         return;
       }
       this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
-      indicatorListbox.style.transform = `translateY(${this.selectedTabInListbox?.offsetTop}px)`;
-      indicatorListbox.style.height = `${this.selectedTabInListbox.offsetHeight}px`;
     });
 
-    if (
-      ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
-      (event as ToggleEvent).newState === (event as ToggleEvent).oldState
-    ) {
+    if ((event.newState === 'closed' && this.listbox.matches(':popover-open')) || event.newState === event.oldState) {
       event.stopPropagation();
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      (event.target as HTMLElement)?.hidePopover();
+      this.listbox.hidePopover();
     }
 
-    this.#moreButton?.setAttribute('aria-expanded', `${isPopoverOpen(this.listbox)}`);
+    this.#moreButton?.setAttribute('aria-expanded', isPopoverOpen(this.listbox).toString());
   };
 
   /**
@@ -265,17 +255,17 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #handleTabChange(event: Event): void {
+  #handleTabChange(event: Event & { target: HTMLElement }): void {
     /**
      * Return handler if it's not a tab
      */
-    if (!((event.target as HTMLElement).closest('sl-tab') instanceof Tab)) {
+    if (!(event.target.closest('sl-tab') instanceof Tab)) {
       return;
     }
     // Always reset the scroll when a tab is selected.
     this.scrollTo({ top: 0 });
 
-    this.#updateSelectedTab((event.target as HTMLElement).closest<Tab>('sl-tab') as Tab);
+    this.#updateSelectedTab(event.target.closest<Tab>('sl-tab') as Tab);
     this.listbox.hidePopover();
   }
 
@@ -354,7 +344,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
       const axis = this.vertical ? 'Y' : 'X',
         indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
-        indicatorListbox = this.shadowRoot?.querySelector('.indicator-listbox') as HTMLElement,
         wrapper = this.shadowRoot?.querySelector('.container') as HTMLElement,
         tabsWrapper = this.shadowRoot?.querySelector('.wrapper') as HTMLElement,
         tablist = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
@@ -363,8 +352,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       let totalTabsWidth = 0;
       let totalTabsHeight = 0;
       tabs.forEach(tab => {
-        totalTabsWidth = totalTabsWidth + tab.offsetWidth;
-        totalTabsHeight = totalTabsHeight + tab.offsetHeight;
+        totalTabsWidth += tab.offsetWidth;
+        totalTabsHeight += tab.offsetHeight;
       });
 
       this.#showMore = axis === 'X' ? totalTabsWidth > tabsWrapper.offsetWidth : totalTabsHeight > wrapper.offsetHeight;
@@ -385,10 +374,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       }
 
       indicator.style.transform = `translate${axis}(${start}px)`;
-
-      indicatorListbox.style.transform = `translateY(${
-        this.selectedTabInListbox.offsetTop + this.listbox.offsetHeight
-      }px) scaleY(${this.selectedTabInListbox.offsetHeight})`;
 
       if (axis === 'X') {
         indicator.style.removeProperty('height');

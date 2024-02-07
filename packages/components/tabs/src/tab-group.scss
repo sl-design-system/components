@@ -1,4 +1,5 @@
 :host {
+  --_background: var(--sl-color-tab-default-background);
   --_border-bottom: var(--sl-border-width-border-tab) solid var(--sl-color-tab-default-border);
   --_button-color: var(--sl-color-tab-default-foreground);
   --_button-color-active: var(--sl-color-tab-active-foreground);
@@ -7,6 +8,8 @@
   --_button-shadow: -4px 0px 4px -2px rgba(0, 0, 0, 0.12);
   --_button-vertical-shadow: 0px -4px 4px -2px rgba(0, 0, 0, 0.12);
   --_focus-radius: var(--sl-border-radius-focusring-default);
+  --_indicator-animation-duration: var(--sl-animation-duration-slow);
+  --_indicator-color: var(--sl-color-button-primary-solid-idle-background);
   --_indicator-size: var(--sl-size-select-indicator);
   --_indicator-listbox-border-radius: var(--sl-border-radius-select-indicator);
   --_listbox-background: var(--sl-color-select-listbox-background);
@@ -22,14 +25,12 @@
   --_panel-horizontal-padding: calc(var(--sl-space-tab-content-horizontal-block) - var(--_wrapper-spacing))
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
-  --_tab-group-background: var(--sl-color-tab-default-background);
-  --_tab-group-indicator-color: var(--sl-color-button-primary-solid-idle-background);
   --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth);
   --_wrapper-spacing: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
 }
 
 :host {
-  --sl-popover-offset: 4px;
+  --sl-popover-offset: var(--sl-space-popover-offset);
   display: flex;
   flex-direction: column;
   height: inherit;
@@ -53,7 +54,7 @@
 }
 
 [role='tablist'] {
-  background-color: var(--_tab-group-background);
+  background-color: var(--_background);
   border-bottom: var(--_border-bottom);
   display: flex;
   position: relative;
@@ -64,7 +65,7 @@
 }
 
 sl-button {
-  background-color: var(--_tab-group-background);
+  background-color: var(--_background);
   border-bottom: 1px solid var(--sl-color-tab-default-border);
   border-left: 0;
   border-radius: 0;
@@ -109,7 +110,7 @@ sl-button {
     display: flex;
     flex: 0 0 auto;
     flex-direction: column;
-    max-width: var(--_tablist-vertical-max-width);
+    max-inline-size: var(--_tablist-vertical-max-width);
   }
 
   .wrapper {
@@ -155,14 +156,6 @@ sl-button {
   }
 }
 
-.indicator-listbox {
-  border-radius: var(--_indicator-listbox-border-radius);
-  height: 1px;
-  inset: 0 auto auto var(--sl-space-select-listbox-inline-lg);
-  transform-origin: center top;
-  width: var(--_indicator-size);
-}
-
 :host([vertical='false']) [role='tablist'] {
   ::slotted(sl-tab) {
     white-space: nowrap;
@@ -182,20 +175,15 @@ sl-button {
   }
 }
 
-.indicator,
-.indicator-listbox {
-  background-color: var(--_tab-group-indicator-color);
+.indicator {
+  background-color: var(--_indicator-color);
   position: absolute;
   z-index: 2;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .indicator {
-    transition: transform 500ms ease-in-out;
-  }
-
-  .indicator-listbox {
-    transition: transform 50ms ease-in-out;
+    transition: transform var(--_indicator-animation-duration) ease-in-out;
   }
 }
 
@@ -221,6 +209,15 @@ div[popover] {
     justify-content: flex-start;
     padding: var(--_listbox-item-padding);
     transition: background 300ms;
+  }
+
+  sl-tab[selected]::before {
+    background: var(--_indicator-color);
+    border-radius: var(--_indicator-listbox-border-radius);
+    content: '';
+    inline-size: var(--_indicator-size);
+    inset: 0 auto 0 0;
+    position: absolute;
   }
 
   sl-tab:hover {

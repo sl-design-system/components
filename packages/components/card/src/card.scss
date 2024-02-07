@@ -1,8 +1,11 @@
 :host {
   --_aspect-ratio: var(--card-media-aspect-ratio, 4/3);
   --_orientation-breakpoint: var(--card-orientation-breakpoint, 350px);
-  --_text-width: var(--card-text-width, 1fr);
-  --_media-width: var(--card-media-width, max-content);
+  // minmax(0, max-content) minmax(50%, 1fr)
+  // --_text-width: var(--card-text-width, 1fr);
+  // --_media-width: var(--card-media-width, max-content);
+  --_text-width: var(--card-text-width, minmax(50%, 1fr));
+  --_media-width: var(--card-media-width, minmax(0, max-content));
 
   --_box-shadow: var(--sl-elevation-shadow-lg);
   --_card-background: var(--sl-color-card-background);
@@ -63,19 +66,30 @@ div.container {
     width: 100%;
   }
 
-  slot[name='media'] {
-    aspect-ratio: var(--_aspect-ratio);
-    height: inherit;
-    max-height: 100%;
-    max-width: 100%;
+  .media-wrapper {
+    display: flex;
+    flex-direction: column;
+    // box-shadow: inset 0 0 0 2px red;
     overflow: hidden;
   }
 
+  slot[name='media'] {
+    aspect-ratio: var(--_aspect-ratio);
+    display: block;
+    height: var(--card-stretch-image, unset);
+    max-height: 100%;
+    max-width: 100%;
+    // box-shadow: inset 0 0 0 4px blue;
+    overflow: hidden;
+    width: 100%;
+  }
+
   slot[name='media']::slotted(*) {
-    height: 100%;
+    height: var(--card-stretch-image, unset); // (should this be an option?)
     max-height: unset;
     max-width: unset;
     width: 100%;
+    // opacity: 0.6;
   }
 
   article {

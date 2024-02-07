@@ -40,7 +40,9 @@ export class Card extends LitElement {
   override render(): TemplateResult {
     return html`
       <div class="container">
-        <slot name="media" @slotchange=${this.#setOrientation}></slot>
+        <div class="media-wrapper">
+          <slot name="media" @slotchange=${this.#setOrientation}></slot>
+        </div>
         <div class="content">
           ${this.icon ? html`<sl-icon .name=${this.icon}></sl-icon>` : nothing}
           <header>

@@ -87,10 +87,75 @@ export const All: Story = {
       div.grid {
         display: grid;
         grid-auto-rows: 240px;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(var(--cols, 2), 1fr);
       }
     </style>
+    <h1>In grid, fixed row height</h1>
     <div class="grid">
+      <sl-card class="horizontal">
+        <img slot="media" src="${images[0]}" />
+        <h2>${titles[0]}</h2>
+        <h3 slot="header">Sub header</h3>
+        <p slot="body">${bodyCopy[0]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis-solid"></sl-icon></sl-button>
+      </sl-card>
+
+      <sl-card style="--card-media-aspect-ratio:1/1;" padding media-position="end">
+        <img slot="media" src="${images[1]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">padding, aspect ratio 1/1 - ${bodyCopy[1]}</p>
+      </sl-card>
+      <sl-card style="--card-text-width:70fr; --card-media-width:30fr;">
+        <img slot="media" src="${images[2]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">text/card-ratio:7/3; - ${bodyCopy[1]}</p>
+      </sl-card>
+      <sl-card icon="pinata" style="--card-media-aspect-ratio:2/1;" padding media-position="end">
+        <img slot="media" src="${images[3]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">padding, media: end, aspect-ratio: 2/1 - ${bodyCopy[1]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+      </sl-card>
+    </div>
+    <hr />
+    <h1>In grid, fixed row height</h1>
+    --card-stretch-image:100%
+    <div class="grid" style="--card-stretch-image:100%">
+      <sl-card class="horizontal">
+        <img slot="media" src="${images[0]}" />
+        <h2>${titles[0]}</h2>
+        <h3 slot="header">Sub header</h3>
+        <p slot="body">${bodyCopy[0]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis-solid"></sl-icon></sl-button>
+      </sl-card>
+
+      <sl-card style="--card-media-aspect-ratio:1/1;" padding media-position="end">
+        <img slot="media" src="${images[1]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">padding, aspect ratio 1/1 - ${bodyCopy[1]}</p>
+      </sl-card>
+      <sl-card style="--card-text-width:70fr; --card-media-width:30fr;">
+        <img slot="media" src="${images[2]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">text/card-ratio:7/3; - ${bodyCopy[1]}</p>
+      </sl-card>
+      <sl-card icon="pinata" style="--card-media-aspect-ratio:2/1;" padding media-position="end">
+        <img slot="media" src="${images[3]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">padding, media: end, aspect-ratio: 2/1 - ${bodyCopy[1]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+      </sl-card>
+    </div>
+
+    <hr />
+    <h1>In grid, fixed row height, 3 columns</h1>
+    <div class="grid" style="--cols: 3">
       <sl-card class="horizontal">
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
@@ -120,6 +185,8 @@ export const All: Story = {
       </sl-card>
     </div>
 
+    <hr />
+    <h1>In flexbox, full width, responsive cards</h1>
     flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;
     <div
       class="flex"
@@ -167,6 +234,8 @@ export const All: Story = {
       </sl-card>
     </div>
 
+    <hr />
+    <h1>In flexbox rows, max width of 300px</h1>
     <div class="flex" style="--card-media-aspect-ratio:1/1;">
       <sl-card style="max-width: 300px" orientation="vertical" padding>
         <img slot="media" src="${images[0]}" />

@@ -158,20 +158,20 @@
           ],
           "attributes": [
             {
-              "name": "disable-cancel",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
-              "fieldName": "disableCancel"
-            },
-            {
               "name": "close-button",
               "type": {
                 "text": "boolean | undefined"
               },
               "description": "Determines whether a close button should be shown in the top right corner.",
               "fieldName": "closeButton"
+            },
+            {
+              "name": "disable-cancel",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
+              "fieldName": "disableCancel"
             },
             {
               "name": "role",

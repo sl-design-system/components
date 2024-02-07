@@ -286,7 +286,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #updateSelectedTab(selectedTab: Tab): void {
     const controls = selectedTab.getAttribute('aria-controls');
 
-    if (!controls || selectedTab.disabled) return;
+    if (selectedTab === this.selectedTab || !controls || selectedTab.disabled) return;
 
     const selectedPanel = this.querySelector(`#${controls}`);
     const tabIndex = Array.from(this.querySelectorAll('sl-tab')).indexOf(selectedTab);

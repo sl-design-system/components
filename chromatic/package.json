@@ -35,16 +35,16 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.6.10",
-    "@storybook/addon-essentials": "^7.6.10",
-    "@storybook/addon-storysource": "^7.6.10",
-    "@storybook/web-components-vite": "^7.6.10",
-    "lit": "^3.1.1",
+    "@storybook/addon-a11y": "^7.6.12",
+    "@storybook/addon-essentials": "^7.6.12",
+    "@storybook/addon-storysource": "^7.6.12",
+    "@storybook/web-components-vite": "^7.6.12",
+    "lit": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "^7.6.10",
+    "storybook": "^7.6.12",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
-    "wireit": "^0.14.3"
+    "wireit": "^0.14.4"
   }
 }

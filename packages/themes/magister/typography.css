@@ -597,7 +597,7 @@
 .sl-text-heading-4 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   line-height: var(--sl-text-typeset-line-height-lg);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
@@ -608,7 +608,7 @@
 .sl-text-heading-3 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-xl);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-xl);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
@@ -619,7 +619,7 @@
 .sl-text-heading-2 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-2xl);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-2xl);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
@@ -630,7 +630,7 @@
 .sl-text-heading-1 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-3xl);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-sm);
   line-height: var(--sl-text-typeset-line-height-3xl);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
@@ -641,7 +641,7 @@
 .sl-text-heading-0 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-4xl);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-xs);
   line-height: var(--sl-text-typeset-line-height-4xl);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);

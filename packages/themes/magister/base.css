@@ -491,6 +491,7 @@
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
   --sl-space-button-default-inline-md: calc(var(--sl-space-lg) - var(--sl-border-width-button-solid));
+  --sl-border-width-divider: var(--sl-border-width-xs);
   --sl-border-width-popover-border: var(--sl-border-width-xs);
   --sl-border-width-popover-none: var(--sl-border-width-none);
   --sl-border-width-tooltip-border: var(--sl-border-width-xs);
@@ -668,15 +669,15 @@
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-body-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
-  --sl-text-heading-4: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+  --sl-text-heading-4: var(--sl-text-typeset-font-weight-medium) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-heading);
-  --sl-text-heading-3: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl) /
+  --sl-text-heading-3: var(--sl-text-typeset-font-weight-medium) var(--sl-text-typeset-font-size-xl) /
     var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
-  --sl-text-heading-2: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-2xl) /
+  --sl-text-heading-2: var(--sl-text-typeset-font-weight-medium) var(--sl-text-typeset-font-size-2xl) /
     var(--sl-text-typeset-line-height-2xl) var(--sl-text-typeset-font-family-heading);
-  --sl-text-heading-1: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-3xl) /
+  --sl-text-heading-1: var(--sl-text-typeset-font-weight-medium) var(--sl-text-typeset-font-size-3xl) /
     var(--sl-text-typeset-line-height-3xl) var(--sl-text-typeset-font-family-heading);
-  --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
+  --sl-text-heading-0: var(--sl-text-typeset-font-weight-medium) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
   --sl-color-palette-danger-base: 237 29 35;
@@ -711,6 +712,7 @@
   --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
+  --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);

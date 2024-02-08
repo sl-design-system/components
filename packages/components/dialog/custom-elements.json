@@ -226,7 +226,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
               ]

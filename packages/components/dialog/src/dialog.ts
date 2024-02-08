@@ -144,11 +144,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onCancel(event: Event): void {
-    if (this.disableCancel) {
-      event.preventDefault();
-    } else {
-      this.cancelEvent.emit();
+  #onCancel(event: Event & { target: HTMLElement }): void {
+    event.preventDefault();
+
+    if (!this.disableCancel) {
+      this.#closeDialogOnAnimationend(event.target, true);
     }
   }
 

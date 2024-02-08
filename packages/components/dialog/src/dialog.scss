@@ -21,7 +21,7 @@ $md-breakpoint: 600px;
   --_subtitle-font: var(--sl-text-dialog-subheading);
   --_subtitle-padding-bottom: var(--sl-space-dialog-subtitle-padding-bottom);
   --_title-font: var(--sl-text-dialog-heading);
-  --_body-font: var(--sl-text-body-lg-normal);
+  --_body-font: var(--sl-text-body-md-normal);
 
   --_closing-duration: 0.001ms;
   --_opening-duration: 0.001ms;
@@ -51,23 +51,6 @@ dialog {
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   position: fixed;
-  width: auto;
-
-  &::backdrop {
-    --backdrop-background: var(
-      --sl-color-select-item-active-foreground
-    ); // TODO: should come from the token --sl-body-surface-overlay
-    opacity: 0;
-    transition: all 0.5s;
-  }
-}
-
-dialog[open] {
-  opacity: 1;
-
-  &::backdrop {
-    opacity: 1;
-  }
 }
 
 slot[name='header'] {
@@ -126,18 +109,18 @@ slot[name='footer'] {
 }
 
 dialog[closing] {
-  animation: slide-down var(--_closing-duration) ease-out;
+  animation: slide-down var(--_closing-duration) both ease-out;
 
   &::backdrop {
-    animation: backdrop-hide var(--_closing-duration) ease-out;
+    animation: backdrop-hide var(--_closing-duration) both ease-out;
   }
 }
 
 dialog[open]:not([closing]) {
-  animation: slide-in-up var(--_opening-duration) ease-out;
+  animation: slide-in-up var(--_opening-duration) both ease-out;
 
   &::backdrop {
-    animation: backdrop-show var(--_opening-duration) ease-out;
+    animation: backdrop-show var(--_opening-duration) both ease-out;
   }
 }
 
@@ -176,7 +159,8 @@ dialog[open]:not([closing]) {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  dialog {
+  dialog,
+  dialog::backdrop {
     --_closing-duration: 400ms;
     --_opening-duration: 600ms;
   }

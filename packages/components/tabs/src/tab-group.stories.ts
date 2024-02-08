@@ -100,7 +100,8 @@ export const API: StoryObj = {
 };
 
 export const LongTitles: StoryObj = {
-  render: ({ vertical, alignment }) => html`<sl-tab-group ?vertical=${vertical} .alignment=${alignment}>
+  render: ({ vertical, alignment }) => html`
+    <sl-tab-group ?vertical=${vertical} .alignment=${alignment}>
     <sl-tab selected>This is the first tab a very looong example of the tab</sl-tab>
     <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
 
@@ -134,7 +135,8 @@ export const LongTitles: StoryObj = {
 };
 
 export const StickyTabs: StoryObj = {
-  render: ({ vertical, alignment }) => html` <style>
+  render: ({ vertical, alignment }) => html`
+    <style>
       sl-tab-group::part(container) {
         position: sticky;
       }
@@ -184,7 +186,8 @@ export const StickyTabs: StoryObj = {
 };
 
 export const VerticalInSmallContainer: StoryObj = {
-  render: ({ alignment }) => html` <style>
+  render: ({ alignment }) => html`
+    <style>
       sl-tab-group {
         block-size: 300px;
       }

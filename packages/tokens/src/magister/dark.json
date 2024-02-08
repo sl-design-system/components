@@ -2952,29 +2952,29 @@
     "inline-message": {
       "info": {
         "background": {
-          "value": "{color.palette.info.50}",
+          "value": "rgba({color.palette.primary.400}, {opacity.300})",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.info.600}",
+          "value": "{color.palette.info.200}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.200}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.200}",
           "type": "color"
         }
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.50}",
+          "value": "rgba( {color.palette.success.base} , {opacity.300})",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.success.700}",
+          "value": "{color.palette.success.300}",
           "type": "color"
         },
         "border": {
@@ -2988,11 +2988,11 @@
       },
       "warning": {
         "background": {
-          "value": "{color.palette.warning.50}",
+          "value": "rgba( {color.palette.warning.base} , {opacity.300})",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.warning.700}",
+          "value": "{color.palette.warning.base}",
           "type": "color"
         },
         "border": {
@@ -3000,25 +3000,25 @@
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.warning.400}",
+          "value": "{color.palette.warning.base}",
           "type": "color"
         }
       },
       "danger": {
         "background": {
-          "value": "{color.palette.danger.50}",
+          "value": "rgba( {color.palette.danger.base} , {opacity.300})",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.danger.600}",
+          "value": "{color.palette.danger.150}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.150}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.150}",
           "type": "color"
         }
       }

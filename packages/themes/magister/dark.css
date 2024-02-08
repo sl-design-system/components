@@ -7,6 +7,9 @@
   --sl-body-surface-overlay: rgba(var(--sl-color-palette-primary-700) / var(--sl-opacity-600));
   --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-tooltip-background: rgb(var(--sl-color-palette-primary-700));
   --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-popover-background: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));

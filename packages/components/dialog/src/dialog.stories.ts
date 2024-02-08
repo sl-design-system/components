@@ -10,9 +10,10 @@ import '../register.js';
 
 type Props = Pick<Dialog, 'closeButton' | 'disableCancel'> & {
   body: string;
-  footerButtons?: () => TemplateResult;
-  headerButtons?: () => TemplateResult;
+  footerButtons?: (props: Props) => TemplateResult;
+  headerButtons?: (props: Props) => TemplateResult;
   maxWidth: string;
+  reverse: boolean;
   subtitle: string;
   title: string;
 };
@@ -28,7 +29,9 @@ export default {
     disableCancel: false,
     title: 'Title'
   },
-  render: ({ body, closeButton, disableCancel, footerButtons, headerButtons, title, subtitle, maxWidth }) => {
+  render: args => {
+    const { body, closeButton, disableCancel, footerButtons, headerButtons, maxWidth, subtitle, title } = args;
+
     const onClick = (event: Event & { target: HTMLElement }): void => {
       (event.target.nextElementSibling as Dialog).showModal();
     };
@@ -43,9 +46,9 @@ export default {
       <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
         <span slot="title">${title}</span>
         ${subtitle ? html`<span slot="subtitle">${subtitle}</span>` : nothing} ${body}
-        ${headerButtons ? headerButtons() : nothing}
+        ${headerButtons ? headerButtons(args) : nothing}
         ${footerButtons
-          ? footerButtons()
+          ? footerButtons(args)
           : html`
               <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
               <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
@@ -75,14 +78,15 @@ export const DisableCancel: Story = {
 
 export const FooterButtons: Story = {
   args: {
-    footerButtons: () => html`
+    footerButtons: ({ reverse }) => html`
       <style>
-        sl-dialog::part(footer-bar) {
-          --sl-button-bar-align: space-between;
-        }
         @media (min-width: 600px) {
+          sl-dialog::part(footer-bar) {
+            --sl-button-bar-align: space-between;
+            ${reverse ? '--sl-button-bar-direction: row-reverse;' : ''}
+          }
           sl-button:first-of-type {
-            margin-inline-end: auto;
+            margin-inline-${reverse ? 'start' : 'end'}: auto;
           }
         }
       </style>
@@ -90,6 +94,7 @@ export const FooterButtons: Story = {
       <sl-button fill="outline" slot="actions" variant="primary" sl-dialog-close>Action 2</sl-button>
       <sl-button fill="solid" slot="actions" variant="primary" sl-dialog-close>Action</sl-button>
     `,
+    reverse: false,
     title: 'Dialog with extra footer buttons'
   }
 };

@@ -74,7 +74,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         @cancel=${this.#onCancel}
         @click=${this.#onClick}
         @close=${this.#onClose}
-        @keydown=${this.#onKeydown}
         .role=${this.role}
         aria-labelledby="title"
         part="dialog"
@@ -181,12 +180,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
-  }
-
-  #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    if (event.code === 'Escape' && this.dialog?.open && !this.disableCancel) {
-      this.#closeDialogOnAnimationend(event.target, true);
-    }
   }
 
   #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {

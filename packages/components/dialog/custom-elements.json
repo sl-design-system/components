@@ -276,23 +276,6 @@
             },
             {
               "kind": "method",
-              "name": "#onKeydown",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "KeyboardEvent & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "#closeDialogOnAnimationend",
               "return": {
                 "type": {

@@ -121,6 +121,12 @@ describe('sl-dialog', () => {
 
       await sendKeys({ press: 'Escape' });
 
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 100));
+
       expect(onCancel).to.have.been.calledOnce;
     });
 

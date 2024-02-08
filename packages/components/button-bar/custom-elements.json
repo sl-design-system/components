@@ -40,6 +40,16 @@
           "kind": "class",
           "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
           "name": "ButtonBar",
+          "cssProperties": [
+            {
+              "description": "The alignment of the buttons within the bar",
+              "name": "--sl-button-bar-align"
+            },
+            {
+              "description": "The flex direction of the button container",
+              "name": "--sl-button-bar-direction"
+            }
+          ],
           "slots": [
             {
               "description": "Buttons to be grouped in the bar",

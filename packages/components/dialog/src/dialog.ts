@@ -14,6 +14,11 @@ import styles from './dialog.scss.js';
 /**
  * A dialog component for displaying modal UI.
  *
+ * @csspart dialog - The dialog element
+ * @csspart titles - The container of the title and subtitle
+ * @csspart header-bar - The button bar in the header
+ * @csspart footer-bar - The button bar in the footer
+ * @cssprop --sl-dialog-max-inline-size - The maximum width of the dialog
  * @slot actions - Area where action buttons are placed
  * @slot default - Body content for the dialog
  * @slot footer - Footer content for the dialog

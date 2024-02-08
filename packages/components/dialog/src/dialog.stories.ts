@@ -1,8 +1,10 @@
 import type { Dialog } from './dialog.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import { faBurst } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/icon/register.js';
+import { Icon } from '@sl-design-system/icon';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 
@@ -15,6 +17,8 @@ type Props = Pick<Dialog, 'closeButton' | 'disableCancel'> & {
   title: string;
 };
 type Story = StoryObj<Props>;
+
+Icon.register(faBurst);
 
 export default {
   title: 'Dialog',
@@ -92,11 +96,19 @@ export const FooterButtons: Story = {
 
 export const HeaderButtons: Story = {
   args: {
-    headerButtons: () => html`
-      <sl-button slot="header-buttons">Button 1</sl-button>
-      <sl-button slot="header-buttons">Button 2</sl-button>
-      <sl-button slot="header-buttons">Button 3</sl-button>
-    `,
+    headerButtons: () => {
+      const onClick = (event: Event & { target: HTMLElement }): void => {
+        event.target.closest('sl-dialog')?.close();
+      };
+
+      return html`
+        <sl-button @click=${onClick} slot="header-buttons">Button 1</sl-button>
+        <sl-button @click=${onClick} slot="header-buttons">Button 2</sl-button>
+        <sl-button @click=${onClick} aria-label="Close" fill="ghost" slot="header-buttons">
+          <sl-icon name="far-burst"></sl-icon>
+        </sl-button>
+      `;
+    },
     title: 'Dialog with extra header buttons'
   }
 };

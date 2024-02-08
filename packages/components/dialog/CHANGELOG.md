@@ -1,5 +1,28 @@
 # @sl-design-system/dialog
 
+## 0.0.7
+
+### Patch Changes
+
+- [#937](https://github.com/sl-design-system/components/pull/937) [`e4e94cb`](https://github.com/sl-design-system/components/commit/e4e94cbae85ef09c029920db0cb0ac9c92939097) - - Fix large body text
+
+  - Fix backdrop not fading in/out during show/close
+  - Fix backdrop not animating after pressing Escape
+  - Add `--sl-dialog-max-inline-size` CSS public API
+
+- [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - - Add `sl-cancel` and `sl-close` events
+
+  - Rename `disableClose` to `disableCancel` to better reflect its behavior
+  - Rename `closingButton` to `closeButton` to better align with naming conventions
+
+- [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - Bump Lit and related dependencies
+
+- Updated dependencies [[`06cfb6b`](https://github.com/sl-design-system/components/commit/06cfb6bff8f2c1a8d4a132099f21f2e8dc4f2461), [`e4e94cb`](https://github.com/sl-design-system/components/commit/e4e94cbae85ef09c029920db0cb0ac9c92939097), [`9320cbc`](https://github.com/sl-design-system/components/commit/9320cbc446e479435860ad5f9756725b36acf764), [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b)]:
+  - @sl-design-system/shared@0.2.2
+  - @sl-design-system/button-bar@0.0.4
+  - @sl-design-system/icon@0.0.7
+  - @sl-design-system/button@0.0.18
+
 ## 0.0.6
 
 ### Patch Changes

@@ -21,18 +21,15 @@ export class ButtonBar extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /**
-   * The alignment of the buttons within the bar.
-   * Functionally the same as flex-box alignments.
-   * @type {'start' | 'center' | 'end' | 'space-between'}
-   */
-  @property({ reflect: true }) align: ButtonBarAlign = 'start';
+  /** The alignment of the buttons within the bar. */
+  @property({ reflect: true }) align?: ButtonBarAlign;
 
   /** When set to true, the button order is reversed using flex-direction.*/
-  @property({ type: Boolean, reflect: true }) reverse = false;
+  @property({ type: Boolean, reflect: true }) reverse?: boolean;
 
-  /** Whether the bar only contains icon-only buttons.
-   *  Determined based on the actual content, so does not need to be set.
+  /**
+   * Whether the bar only contains icon-only buttons.
+   * Determined based on the actual content, so does not need to be set.
    * @private
    */
   @property({ type: Boolean, reflect: true, attribute: 'icon-only' }) iconOnly?: boolean;
@@ -41,11 +38,12 @@ export class ButtonBar extends LitElement {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
-  async #onSlotchange(): Promise<void> {
-    const buttons = Array.from(this.querySelectorAll('sl-button'));
+  async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
+    const assignedElements = event.target.assignedElements({ flatten: true }),
+      buttons = Array.from(this.querySelectorAll('sl-button'));
 
     const icons = await Promise.all(
-      buttons.map(async el => {
+      [...assignedElements, ...buttons].map(async el => {
         if (el instanceof ReactiveElement && el.updateComplete) {
           await el.updateComplete;
         }

@@ -58,10 +58,6 @@
               "name": "header"
             },
             {
-              "description": "Closing button (placed in header) for the dialog",
-              "name": "close-button"
-            },
-            {
               "description": "More space for buttons for the dialog's header",
               "name": "header-buttons"
             },

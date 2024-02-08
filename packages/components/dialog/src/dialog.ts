@@ -18,7 +18,6 @@ import styles from './dialog.scss.js';
  * @slot default - Body content for the dialog
  * @slot footer - Footer content for the dialog
  * @slot header - Header content for the dialog
- * @slot close-button - Closing button (placed in header) for the dialog
  * @slot header-buttons - More space for buttons for the dialog's header
  * @slot title - The title of the dialog
  * @slot subtitle - The subtitle of the dialog
@@ -84,25 +83,21 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
             <slot name="subtitle"></slot>
           </div>
           <slot name="header-actions">
-            <slot name="header-buttons"></slot>
-            ${this.closeButton
-              ? html`
-                  <slot name="close-button" @click=${this.#onCloseClick}>
-                    <sl-button fill="ghost" variant="default" aria-label=${msg('Close')}>
+            <sl-button-bar part="header-bar">
+              <slot name="header-buttons"></slot>
+              ${this.closeButton
+                ? html`
+                    <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
                       <sl-icon name="xmark"></sl-icon>
                     </sl-button>
-                  </slot>
-                `
-              : nothing}
+                  `
+                : nothing}
+            </sl-button-bar>
           </slot>
         </slot>
-        <slot name="body">
-          <div class="body-content" part="body-content">
-            <slot></slot>
-          </div>
-        </slot>
+        <slot></slot>
         <slot name="footer">
-          <sl-button-bar>
+          <sl-button-bar part="footer-bar">
             <slot name="actions"></slot>
           </sl-button-bar>
         </slot>

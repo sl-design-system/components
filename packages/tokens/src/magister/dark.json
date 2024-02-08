@@ -25,11 +25,6 @@
         "value": "rgba({color.palette.primary.base} , {opacity.700})",
         "type": "color",
         "description": "body.surface.200"
-      },
-      "overlay-copy": {
-        "value": "rgba({color.palette.primary.base} , {opacity.700})",
-        "type": "color",
-        "description": "body.surface.200"
       }
     }
   },
@@ -1514,7 +1509,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.primary.900",
+                "value": "{color.palette.primary.900}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },

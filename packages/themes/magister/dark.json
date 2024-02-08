@@ -3624,6 +3624,23 @@
           "failedToResolve": true
         }
       }
+    },
+    "popover": {
+      "background": {
+        "value": "{color.palette.black.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{color.palette.neutral.400}",
+        "type": "color",
+        "failedToResolve": true
+      }
     }
   },
   "boxShadow": {

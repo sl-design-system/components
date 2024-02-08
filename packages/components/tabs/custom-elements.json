@@ -85,7 +85,7 @@
               "type": {
                 "text": "TabsAlignment"
               },
-              "default": "'left'",
+              "default": "'start'",
               "description": "The alignment of tabs inside sl-tab-group",
               "attribute": "alignment",
               "reflects": true
@@ -118,9 +118,8 @@
               "kind": "field",
               "name": "vertical",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Renders the tabs vertically instead of the default horizontal",
               "attribute": "vertical",
               "reflects": true
@@ -140,9 +139,8 @@
             {
               "name": "vertical",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Renders the tabs vertically instead of the default horizontal",
               "fieldName": "vertical"
             },
@@ -151,7 +149,7 @@
               "type": {
                 "text": "TabsAlignment"
               },
-              "default": "'left'",
+              "default": "'start'",
               "description": "The alignment of tabs inside sl-tab-group",
               "fieldName": "alignment"
             }

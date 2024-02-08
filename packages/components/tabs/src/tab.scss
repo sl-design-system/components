@@ -65,8 +65,8 @@ slot[name='subtitle'] {
 }
 
 .title {
+  inline-size: fit-content;
   position: relative;
-  width: fit-content;
 }
 
 slot[name='icon']::slotted(sl-icon) {

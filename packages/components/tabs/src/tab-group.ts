@@ -13,7 +13,7 @@ import { Tab } from './tab.js';
 import { TabPanel } from './tab-panel.js';
 import styles from './tab-group.scss.js';
 
-export type TabsAlignment = 'left' | 'filled';
+export type TabsAlignment = 'start' | 'filled';
 
 let nextUniqueId = 0;
 
@@ -93,10 +93,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   @event() tabChange!: EventEmitter<number>;
 
   /** Renders the tabs vertically instead of the default horizontal  */
-  @property({ reflect: true }) vertical = false;
+  @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
   /** The alignment of tabs inside sl-tab-group  */
-  @property({ reflect: true }) alignment: TabsAlignment = 'left';
+  @property({ reflect: true }) alignment: TabsAlignment = 'start';
 
   /** The listbox element with all tabs list. */
   @query('[popover]') listbox!: HTMLElement;

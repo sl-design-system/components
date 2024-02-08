@@ -33,14 +33,13 @@
   --sl-popover-offset: var(--sl-space-popover-offset);
   display: flex;
   flex-direction: column;
-  height: inherit;
   isolation: isolate;
-  width: inherit;
 }
 
 .container {
   display: grid;
   grid-template-columns: 1fr auto;
+  inline-size: 100%;
 }
 
 .wrapper {
@@ -101,7 +100,7 @@ sl-button {
   }
 }
 
-:host([vertical='true']) {
+:host([vertical]) {
   flex-direction: row;
 
   .container {
@@ -126,9 +125,9 @@ sl-button {
 
   .indicator {
     height: 1px;
+    inline-size: var(--_indicator-size);
     inset: 0 0 auto auto;
     transform-origin: center top;
-    width: var(--_indicator-size);
   }
 
   ::slotted(sl-tab) {
@@ -152,7 +151,7 @@ sl-button {
   }
 }
 
-:host([vertical='false']) [role='tablist'] {
+:host(:not([vertical])) [role='tablist'] {
   ::slotted(sl-tab) {
     white-space: nowrap;
   }
@@ -165,9 +164,9 @@ sl-button {
   }
 }
 
-:host([vertical='false'][alignment='filled']) [role='tablist'] {
+:host([alignment='filled']:not([vertical])) [role='tablist'] {
   ::slotted(sl-tab) {
-    width: 100%;
+    inline-size: 100%;
   }
 }
 

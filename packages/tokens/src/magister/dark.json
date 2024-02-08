@@ -9,6 +9,28 @@
       "value": "{color.surface.solid.primary.foreground}",
       "type": "color",
       "description": "color.body.foreground"
+    },
+    "surface": {
+      "100": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "description": "body.surface.100"
+      },
+      "200": {
+        "value": "{color.palette.neutral.150}",
+        "type": "color",
+        "description": "body.surface.100"
+      },
+      "overlay": {
+        "value": "rgba({color.palette.primary.base} , {opacity.700})",
+        "type": "color",
+        "description": "body.surface.200"
+      },
+      "overlay-copy": {
+        "value": "rgba({color.palette.primary.base} , {opacity.700})",
+        "type": "color",
+        "description": "body.surface.200"
+      }
     }
   },
   "color": {

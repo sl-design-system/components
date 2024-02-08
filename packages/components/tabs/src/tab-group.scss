@@ -1,5 +1,5 @@
 :host {
-  --_background: var(--sl-color-tab-default-background);
+  --_background-color: var(--sl-color-tab-default-background);
   --_border-bottom: var(--sl-border-width-border-tab) solid var(--sl-color-tab-default-border);
   --_button-color: var(--sl-color-tab-default-foreground);
   --_button-color-active: var(--sl-color-tab-active-foreground);
@@ -34,27 +34,25 @@
   display: flex;
   flex-direction: column;
   height: inherit;
+  isolation: isolate;
   width: inherit;
 }
 
 .container {
   display: grid;
   grid-template-columns: 1fr auto;
-  inset-block-start: calc(-1 * var(--_wrapper-spacing));
-  position: sticky;
 }
 
 .wrapper {
   display: grid;
   grid-template-columns: 1fr auto;
-  inset-block-start: calc(-1 * var(--_wrapper-spacing));
   overflow: hidden;
   padding: var(--_wrapper-spacing);
-  position: sticky;
+  position: relative;
 }
 
 [role='tablist'] {
-  background-color: var(--_background);
+  background-color: var(--_background-color);
   border-bottom: var(--_border-bottom);
   display: flex;
   position: relative;
@@ -65,7 +63,7 @@
 }
 
 sl-button {
-  background-color: var(--_background);
+  background-color: var(--_background-color);
   border-bottom: 1px solid var(--sl-color-tab-default-border);
   border-left: 0;
   border-radius: 0;
@@ -117,7 +115,6 @@ sl-button {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    overflow: hidden;
   }
 
   [role='tablist'] {
@@ -151,7 +148,6 @@ sl-button {
     margin: 0 var(--_wrapper-spacing);
     padding-block: var(--_button-inline-padding);
     padding-inline: 0;
-    position: sticky;
     z-index: 1;
   }
 }
@@ -178,6 +174,7 @@ sl-button {
 .indicator {
   background-color: var(--_indicator-color);
   position: absolute;
+  /** z-index 2 to make it visible, when the tab is selected, focused and hovered */
   z-index: 2;
 }
 

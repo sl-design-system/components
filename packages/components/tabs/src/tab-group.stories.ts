@@ -133,16 +133,16 @@ export const LongTitles: StoryObj = {
   </sl-tab-group>`
 };
 
-export const Vertical: StoryObj = {
-  render: ({ alignment }) => html` <style>
+export const StickyTabs: StoryObj = {
+  render: ({ vertical, alignment }) => html` <style>
       sl-tab-group::part(container) {
         position: sticky;
         inset-block-start: 16px;
-        align-self: flex-start;
+        align-self: start;
       }
     </style>
     <div class="tab-wrapper">
-      <sl-tab-group vertical="true" .alignment=${alignment}>
+      <sl-tab-group .vertical=${vertical} .alignment=${alignment}>
         <sl-tab selected>This is the first tab</sl-tab>
         <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
 

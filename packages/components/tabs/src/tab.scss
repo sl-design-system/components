@@ -1,4 +1,5 @@
 :host {
+  --_background: var(--sl-color-tab-default-background);
   --_background-active: var(--sl-color-tab-active-background);
   --_background-hover: var(--sl-color-tab-hover-background);
   --_badge-spacing: var(--sl-space-badge-inline-lg);
@@ -18,6 +19,7 @@
 
 :host {
   align-items: flex-start;
+  background-color: var(--_background);
   color: var(--_color);
   cursor: pointer;
   display: flex;

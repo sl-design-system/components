@@ -107,7 +107,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    this.#moreButton = this.shadowRoot?.querySelector('#more-btn') as HTMLButtonElement;
+    this.#moreButton = this.renderRoot.querySelector('#more-btn') as HTMLButtonElement;
     this.#allTabs = Array.from(this.querySelectorAll('sl-tab'))?.map(tab => tab.cloneNode(true)) as Tab[];
 
     return html`
@@ -167,16 +167,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, TabGroup.#observerOptions);
     /** Timeout bigger than indicator animation duration */
-    setTimeout(() => this.#updateSelectionIndicator(), 600);
+    setTimeout(() => this.#updateSelectionIndicator(), 700);
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     if (changes.has('alignment') || changes.has('vertical')) {
-      requestAnimationFrame(() => {
-        this.#updateSelectionIndicator();
-      });
+      this.#updateSelectionIndicator();
     }
   }
 
@@ -199,7 +197,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
     });
 
-    if ((event.newState === 'closed' && this.listbox.matches(':popover-open')) || event.newState === event.oldState) {
+    if (
+      (event.newState === 'closed' && this.listbox.matches(':popover-open')) ||
+      (event.newState === 'closed' && this.listbox.matches('.\\:popover-open')) ||
+      event.newState === event.oldState
+    ) {
       event.stopPropagation();
       this.listbox.hidePopover();
     }
@@ -343,10 +345,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       }
 
       const axis = this.vertical ? 'Y' : 'X',
-        indicator = this.shadowRoot?.querySelector('.indicator') as HTMLElement,
-        wrapper = this.shadowRoot?.querySelector('.container') as HTMLElement,
-        tabsWrapper = this.shadowRoot?.querySelector('.wrapper') as HTMLElement,
-        tablist = this.shadowRoot?.querySelector('[role="tablist"]') as HTMLElement,
+        indicator = this.renderRoot.querySelector('.indicator') as HTMLElement,
+        wrapper = this.renderRoot.querySelector('.container') as HTMLElement,
+        tabsWrapper = this.renderRoot.querySelector('.wrapper') as HTMLElement,
+        tablist = this.renderRoot.querySelector('[role="tablist"]') as HTMLElement,
         tabs = this.querySelectorAll('sl-tab');
 
       let totalTabsWidth = 0;
@@ -362,9 +364,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
       let start = 0;
       if (axis === 'X') {
-        start = this.selectedTab.offsetLeft - wrapper.offsetLeft - tablist.offsetLeft;
+        start = this.selectedTab.getBoundingClientRect().left - tablist.getBoundingClientRect().left;
       } else {
-        start = this.selectedTab.offsetTop - wrapper.offsetTop - tablist.offsetTop;
+        start = this.selectedTab.getBoundingClientRect().top - tablist.getBoundingClientRect().top;
       }
 
       // Somehow on Chromium, the offsetParent is different than on FF and Safari

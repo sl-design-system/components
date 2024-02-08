@@ -11,6 +11,26 @@
       "type": "color",
       "description": "color.body.foreground",
       "failedToResolve": true
+    },
+    "surface": {
+      "100": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "description": "body.surface.100",
+        "failedToResolve": true
+      },
+      "200": {
+        "value": "{color.palette.neutral.150}",
+        "type": "color",
+        "description": "body.surface.100",
+        "failedToResolve": true
+      },
+      "overlay": {
+        "value": "rgba( {color.palette.primary.800} , {opacity.900})",
+        "type": "color",
+        "description": "body.surface.200",
+        "failedToResolve": true
+      }
     }
   },
   "color": {

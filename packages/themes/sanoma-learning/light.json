@@ -30,6 +30,12 @@
         "type": "color",
         "description": "body.surface.200",
         "failedToResolve": true
+      },
+      "overlay-copy": {
+        "value": "rgba({color.palette.primary.base} , {opacity.700})",
+        "type": "color",
+        "description": "body.surface.200",
+        "failedToResolve": true
       }
     }
   },

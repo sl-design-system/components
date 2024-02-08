@@ -39,11 +39,10 @@ export class ButtonBar extends LitElement {
   }
 
   async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
-    const assignedElements = event.target.assignedElements({ flatten: true }),
-      buttons = Array.from(this.querySelectorAll('sl-button'));
+    const assignedElements = event.target.assignedElements({ flatten: true });
 
     const icons = await Promise.all(
-      [...assignedElements, ...buttons].map(async el => {
+      assignedElements.map(async el => {
         if (el instanceof ReactiveElement && el.updateComplete) {
           await el.updateComplete;
         }

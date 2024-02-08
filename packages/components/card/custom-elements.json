@@ -43,6 +43,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "height",
+              "type": {
+                "text": "CardHeightOptions"
+              },
+              "default": "'fixed'",
+              "attribute": "height",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "icon",
               "type": {
                 "text": "string | undefined"
@@ -78,15 +88,6 @@
               },
               "attribute": "padding",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "responsive",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "attribute": "responsive",
-              "reflects": true
             }
           ],
           "attributes": [
@@ -98,11 +99,12 @@
               "fieldName": "padding"
             },
             {
-              "name": "responsive",
+              "name": "height",
               "type": {
-                "text": "boolean | undefined"
+                "text": "CardHeightOptions"
               },
-              "fieldName": "responsive"
+              "default": "'fixed'",
+              "fieldName": "height"
             },
             {
               "name": "orientation",

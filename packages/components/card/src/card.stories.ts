@@ -90,6 +90,68 @@ export const All: Story = {
         grid-template-columns: repeat(var(--cols, 2), 1fr);
       }
     </style>
+    <h1>In flexbox, full width, responsive cards</h1>
+    flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;
+    <div
+      class="flex"
+      style="flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;"
+    >
+      <sl-card responsive style="--card-media-aspect-ratio:16/9;">
+        <iframe
+          width="560px"
+          height="315px"
+          slot="media"
+          src="https://www.youtube-nocookie.com/embed/LkHztUGllkc?si=2rc92T2iTKBbSQK4&amp;controls=0"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+        <h2>${titles[0]}</h2>
+        <h3 slot="header">Sub header</h3>
+        <p slot="body">Responsive, flex-size - ${bodyCopy[0]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis-solid"></sl-icon></sl-button>
+      </sl-card>
+
+      <sl-card style="--card-media-aspect-ratio:1/1;" padding>
+        <img slot="media" src="${images[1]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">vertical - max-width${bodyCopy[1]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+      </sl-card>
+
+      <sl-card media-position="end" height="flex">
+        <img slot="media" src="${images[2]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">
+          vertical -
+          max-width${bodyCopy[1]}${bodyCopy[1]}${bodyCopy[1]}${bodyCopy[1]}${bodyCopy[1]}${bodyCopy[1]}${bodyCopy[1]}${bodyCopy[1]}${bodyCopy[1]}
+        </p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+      </sl-card>
+
+      <sl-card icon="pinata" padding media-position="end" style="--card-media-aspect-ratio:1/1;">
+        <img slot="media" src="${images[3]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">vertical - max-width${bodyCopy[1]}</p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+      </sl-card>
+    </div>
+
+    <hr />
+    <h1>Flex height, full width, image width is set</h1>
+    <sl-card height="flex" style="--card-image-width:200px">
+      <img slot="media" src="${images[2]}" />
+      <h2>${titles[1]}</h2>
+      <span slot="header"><sl-badge>new</sl-badge></span>
+      <p slot="body">vertical - max-width${bodyCopy[0]} ${bodyCopy[1]} ${bodyCopy[2]} ${bodyCopy[3]}}</p>
+      <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+    </sl-card>
+
+    <hr />
     <h1>In grid, fixed row height</h1>
     <div class="grid">
       <sl-card class="horizontal">
@@ -181,55 +243,6 @@ export const All: Story = {
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">padding, media: end - ${bodyCopy[1]}</p>
-        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
-      </sl-card>
-    </div>
-
-    <hr />
-    <h1>In flexbox, full width, responsive cards</h1>
-    flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;
-    <div
-      class="flex"
-      style="flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;"
-    >
-      <sl-card responsive style="--card-media-aspect-ratio:16/9;">
-        <iframe
-          width="560px"
-          height="315px"
-          slot="media"
-          src="https://www.youtube-nocookie.com/embed/LkHztUGllkc?si=2rc92T2iTKBbSQK4&amp;controls=0"
-          title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
-        <h2>${titles[0]}</h2>
-        <h3 slot="header">Sub header</h3>
-        <p slot="body">Responsive, flex-size - ${bodyCopy[0]}</p>
-        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis-solid"></sl-icon></sl-button>
-      </sl-card>
-
-      <sl-card style="--card-media-aspect-ratio:1/1;" padding>
-        <img slot="media" src="${images[1]}" />
-        <h2>${titles[1]}</h2>
-        <span slot="header"><sl-badge>new</sl-badge></span>
-        <p slot="body">vertical - max-width${bodyCopy[1]}</p>
-        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
-      </sl-card>
-
-      <sl-card media-position="end">
-        <img slot="media" src="${images[2]}" />
-        <h2>${titles[1]}</h2>
-        <span slot="header"><sl-badge>new</sl-badge></span>
-        <p slot="body">vertical - max-width${bodyCopy[1]}</p>
-        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
-      </sl-card>
-
-      <sl-card icon="pinata" padding media-position="end" style="--card-media-aspect-ratio:1/1;">
-        <img slot="media" src="${images[3]}" />
-        <h2>${titles[1]}</h2>
-        <span slot="header"><sl-badge>new</sl-badge></span>
-        <p slot="body">vertical - max-width${bodyCopy[1]}</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
     </div>

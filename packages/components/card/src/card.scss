@@ -19,7 +19,7 @@
   --_media-padding-full: 0;
   --_media-padding: 8px;
 
-  --_media-column: var(--_media-width);
+  --_media-column: var(var(--card-image-width), var(--_media-width));
   --_text-column: var(--_text-width);
 
   --line-clamp: 1;
@@ -69,7 +69,6 @@ div.container {
   .media-wrapper {
     display: flex;
     flex-direction: column;
-    // box-shadow: inset 0 0 0 2px red;
     overflow: hidden;
   }
 
@@ -79,23 +78,29 @@ div.container {
     height: var(--card-stretch-image, unset);
     max-height: 100%;
     max-width: 100%;
-    // box-shadow: inset 0 0 0 4px blue;
     overflow: hidden;
     width: 100%;
   }
 
   slot[name='media']::slotted(*) {
-    height: var(--card-stretch-image, unset); // (should this be an option?)
+    height: 100%;
     max-height: unset;
     max-width: unset;
     width: 100%;
-    // opacity: 0.6;
   }
 
   article {
-    container: body / size;
     flex: 1 1 auto;
     grid-area: body;
+  }
+}
+
+/*  should be changed to style query once that works cross browsers 
+    https://caniuse.com/?search=style-query
+*/
+:host(.horizontal[height='fixed']) {
+  article {
+    container: body / size;
   }
 
   slot[name='body'] {
@@ -159,6 +164,7 @@ slot[name='media']::slotted(*) {
   box-sizing: border-box;
   height: auto;
   object-fit: cover;
+  object-position: 50% 50%;
   overflow: hidden;
   padding: var(--_media-padding-full);
   width: 100%;

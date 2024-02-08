@@ -3,6 +3,8 @@ import { LitElement, html, nothing } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
 
+export type CardHeightOptions = 'fixed' | 'flex';
+
 /**
  * Let the user know you are processing their data or that the (part of the) page is loading.
  *
@@ -25,7 +27,7 @@ export class Card extends LitElement {
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
 
   @property({ type: Boolean, reflect: true }) padding?: boolean;
-  @property({ type: Boolean, reflect: true }) responsive?: boolean;
+  @property({ reflect: true }) height: CardHeightOptions = 'fixed';
   @property({ reflect: true }) orientation = 'horizontal';
   @property({ reflect: true }) icon?: string;
   @property({ reflect: true, attribute: 'media-position' }) mediaPosition: string = 'start';

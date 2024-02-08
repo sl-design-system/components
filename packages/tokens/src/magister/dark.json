@@ -3084,6 +3084,20 @@
           "type": "color"
         }
       }
+    },
+    "popover": {
+      "background": {
+        "value": "{color.palette.black.base}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.neutral.400}",
+        "type": "color"
+      }
     }
   },
   "boxShadow": {

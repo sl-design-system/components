@@ -8,7 +8,7 @@ import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './checkbox.scss.js';
 
-export type CheckboxSize = 'md' | 'lg';
+export type CheckboxSize = 'sm' | 'md' | 'lg';
 
 /**
  * A checkbox with 3 states; unchecked, checked and intermediate.

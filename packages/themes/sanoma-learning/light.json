@@ -30,6 +30,12 @@
         "type": "color",
         "description": "body.surface.200",
         "failedToResolve": true
+      },
+      "overlay-copy": {
+        "value": "rgba({color.palette.primary.base} , {opacity.700})",
+        "type": "color",
+        "description": "body.surface.200",
+        "failedToResolve": true
       }
     }
   },
@@ -4452,6 +4458,23 @@
       },
       "danger": {
         "value": "{color.palette.danger.base}",
+        "type": "color",
+        "failedToResolve": true
+      }
+    },
+    "card": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{color.palette.neutral.100}",
         "type": "color",
         "failedToResolve": true
       }

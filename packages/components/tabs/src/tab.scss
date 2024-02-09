@@ -28,6 +28,7 @@
   justify-content: center;
   padding: var(--_padding);
   position: relative;
+  scroll-snap-align: start;
   transition: background 300ms;
 }
 

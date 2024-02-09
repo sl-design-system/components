@@ -45,9 +45,21 @@
 .wrapper {
   display: grid;
   grid-template-columns: 1fr auto;
-  overflow: hidden;
+  overflow: scroll;
+  overscroll-behavior-x: contain;
   padding: var(--_wrapper-spacing);
   position: relative;
+  scroll-snap-points-x: repeat(100%);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
 }
 
 [role='tablist'] {
@@ -114,6 +126,8 @@ sl-button {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
+    overscroll-behavior-y: contain;
+    scroll-snap-points-y: repeat(100%);
   }
 
   [role='tablist'] {

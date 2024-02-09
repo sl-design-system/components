@@ -34,6 +34,12 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/accordion-item.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/accordion.ts",
       "declarations": [
         {
@@ -78,6 +84,14 @@
               "description": "The size of the button.",
               "attribute": "size",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "summary",
+              "type": {
+                "text": "string"
+              },
+              "attribute": "summary"
             },
             {
               "kind": "field",
@@ -145,6 +159,13 @@
               "default": "'default'",
               "description": "The variant of the button.",
               "fieldName": "variant"
+            },
+            {
+              "name": "summary",
+              "type": {
+                "text": "string"
+              },
+              "fieldName": "summary"
             }
           ],
           "superclass": {

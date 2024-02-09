@@ -60,6 +60,8 @@ export class Accordion extends LitElement {
    */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
 
+  @property() summary!: string; // TODO: only text in the summary? if not add a slot for summary and then this text inside
+
   // TODO: add property summary and open attribute
 
   override connectedCallback(): void {
@@ -88,15 +90,9 @@ export class Accordion extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html` <div class="accordion">
+    return html` <div class="wrapper">
       <details>
-        <summary>Click to expand</summary>
-        <div class="panel">
-          <slot @slotchange=${this.#onSlotChange}></slot>
-        </div>
-      </details>
-      <details>
-        <summary>Click to expand</summary>
+        <summary>${this.summary}</summary>
         <div class="panel">
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>
@@ -104,6 +100,13 @@ export class Accordion extends LitElement {
     </div>`;
   } // <slot @slotchange=${this.#onSlotChange}></slot>
   // TODO: onclick on details needed?
+
+  /*<details>
+<summary>${this.summary}</summary>
+<div class="panel">
+  <slot @slotchange=${this.#onSlotChange}></slot>
+</div>
+</details>*/
 
   #onClick(/*event: Event*/): void {
     // if (this.hasAttribute('disabled')) {

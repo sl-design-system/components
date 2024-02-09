@@ -1,5 +1,12 @@
 # @sanomalearning/slds-magister
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b)]:
+  - @sl-design-system/icon@0.0.7
+
 ## 0.1.0
 
 ### Minor Changes

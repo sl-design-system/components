@@ -31,14 +31,14 @@ describe('sl-dialog', () => {
     });
 
     it('should not have a close button', () => {
-      expect(dialog.querySelector('slot[name="close-button"] sl-button')).not.to.exist;
+      expect(dialog.querySelector('sl-button[aria-label="Close"]')).not.to.exist;
     });
 
     it('should have a close button when set', async () => {
       el.closeButton = true;
       await el.updateComplete;
 
-      expect(dialog.querySelector('slot[name="close-button"] sl-button')).to.exist;
+      expect(dialog.querySelector('sl-button[aria-label="Close"]')).to.exist;
     });
 
     it('should have a role of dialog', () => {
@@ -121,6 +121,12 @@ describe('sl-dialog', () => {
 
       await sendKeys({ press: 'Escape' });
 
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 100));
+
       expect(onCancel).to.have.been.calledOnce;
     });
 
@@ -192,7 +198,7 @@ describe('sl-dialog', () => {
       const onClose = spy();
 
       el.addEventListener('sl-close', onClose);
-      el.renderRoot.querySelector<Button>('slot[name="close-button"] sl-button')?.click();
+      el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
 
       // Simulate the animationend event that is used in #closeDialogOnAnimationend
       dialog.dispatchEvent(new Event('animationend'));

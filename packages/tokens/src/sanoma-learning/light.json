@@ -25,6 +25,11 @@
         "value": "rgba({color.palette.primary.base} , {opacity.700})",
         "type": "color",
         "description": "body.surface.200"
+      },
+      "overlay-copy": {
+        "value": "rgba({color.palette.primary.base} , {opacity.700})",
+        "type": "color",
+        "description": "body.surface.200"
       }
     }
   },
@@ -3705,6 +3710,30 @@
           "value": "{color.palette.neutral.200}",
           "type": "color"
         }
+      },
+      "active": {
+        "background": {
+          "value": "{color.palette.accent.150}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      },
+      "content": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        }
       }
     },
     "skeleton": {
@@ -3765,6 +3794,20 @@
       },
       "danger": {
         "value": "{color.palette.danger.base}",
+        "type": "color"
+      }
+    },
+    "card": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.neutral.100}",
         "type": "color"
       }
     }

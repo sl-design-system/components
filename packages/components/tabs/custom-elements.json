@@ -343,7 +343,7 @@
               "kind": "field",
               "name": "#sizeObserver",
               "privacy": "private",
-              "default": "new ResizeObserver(() => {\n    requestAnimationFrame(() => this.#updateSelectionIndicator());\n  })",
+              "default": "new ResizeObserver(() => {\n    this.#updateSelectionIndicator();\n  })",
               "description": "Observe the tablist width."
             },
             {

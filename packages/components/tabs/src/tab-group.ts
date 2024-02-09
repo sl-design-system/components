@@ -77,7 +77,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   /** Observe the tablist width. */
   #sizeObserver = new ResizeObserver(() => {
-    requestAnimationFrame(() => this.#updateSelectionIndicator());
+    this.#updateSelectionIndicator();
   });
 
   /** The slotted tabs. */
@@ -109,6 +109,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     this.#moreButton = this.renderRoot.querySelector('#more-btn') as HTMLButtonElement;
     this.#allTabs = Array.from(this.querySelectorAll('sl-tab'))?.map(tab => tab.cloneNode(true)) as Tab[];
+    this.#allTabs.forEach(tab => tab.classList.add('listbox-tab'));
 
     return html`
       <div class="container" part="container" @keydown=${this.#handleKeydown}>
@@ -166,8 +167,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   override firstUpdated(): void {
     this.#observer = new MutationObserver(this.#handleMutation);
     this.#observer?.observe(this, TabGroup.#observerOptions);
-    /** Timeout bigger than indicator animation duration */
-    setTimeout(() => this.#updateSelectionIndicator(), 700);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -344,6 +343,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         return;
       }
 
+      if (!this.#showMore && isPopoverOpen(this.listbox)) {
+        this.listbox.hidePopover();
+      }
+
       const axis = this.vertical ? 'Y' : 'X',
         indicator = this.renderRoot.querySelector('.indicator') as HTMLElement,
         wrapper = this.renderRoot.querySelector('.container') as HTMLElement,
@@ -381,12 +384,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         indicator.style.removeProperty('height');
         indicator.style.width = `${this.selectedTab.offsetWidth}px`;
         const scrollLeft = Math.max(
-          this.selectedTab.offsetLeft + this.selectedTab.offsetWidth / 2 - wrapper.clientWidth / 2,
+          this.selectedTab.offsetLeft + this.selectedTab.offsetWidth / 2 - tabsWrapper.clientWidth / 2,
           0
         );
 
-        if (scrollLeft !== wrapper.scrollLeft) {
-          wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+        if (scrollLeft !== tabsWrapper.scrollLeft) {
+          tabsWrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
         }
       } else {
         indicator.style.removeProperty('width');

@@ -1,6 +1,7 @@
 import type { Card } from './card.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/badge/register.js';
+import '@sl-design-system/button/register.js';
 import '@sl-design-system/icon/register.js';
 import { html, nothing } from 'lit';
 import '../register.js';
@@ -89,11 +90,15 @@ export const All: Story = {
         grid-auto-rows: 240px;
         grid-template-columns: repeat(var(--cols, 2), 1fr);
       }
+
+      .hide {
+        xdisplay: none !important;
+      }
     </style>
     <h1>In flexbox, full width, responsive cards</h1>
     flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;
     <div
-      class="flex"
+      class="flex hide"
       style="flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;"
     >
       <sl-card responsive style="--card-media-aspect-ratio:16/9;">
@@ -143,7 +148,7 @@ export const All: Story = {
 
     <hr />
     <h1>Flex height, full width, image width is set</h1>
-    <sl-card height="flex" style="--card-image-width:200px">
+    <sl-card class="hide" height="flex" style="--card-image-width:200px">
       <img slot="media" src="${images[2]}" />
       <h2>${titles[1]}</h2>
       <span slot="header"><sl-badge>new</sl-badge></span>
@@ -153,8 +158,8 @@ export const All: Story = {
 
     <hr />
     <h1>In grid, fixed row height</h1>
-    <div class="grid">
-      <sl-card class="horizontal">
+    <div class="grid hidex">
+      <sl-card class="horizontal" explicit-height>
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
         <h3 slot="header">Sub header</h3>
@@ -162,19 +167,19 @@ export const All: Story = {
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis-solid"></sl-icon></sl-button>
       </sl-card>
 
-      <sl-card style="--card-media-aspect-ratio:1/1;" padding media-position="end">
+      <sl-card style="--card-media-aspect-ratio:1/1;" padding media-position="end" explicit-height>
         <img slot="media" src="${images[1]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">padding, aspect ratio 1/1 - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card style="--card-text-width:70fr; --card-media-width:30fr;">
+      <sl-card style="--card-text-width:70fr; --card-media-width:30fr;" explicit-height>
         <img slot="media" src="${images[2]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">text/card-ratio:7/3; - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card icon="pinata" style="--card-media-aspect-ratio:2/1;" padding media-position="end">
+      <sl-card icon="pinata" style="--card-media-aspect-ratio:2/1;" padding media-position="end" explicit-height>
         <img slot="media" src="${images[3]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
@@ -185,8 +190,8 @@ export const All: Story = {
     <hr />
     <h1>In grid, fixed row height</h1>
     --card-stretch-image:100%
-    <div class="grid" style="--card-stretch-image:100%">
-      <sl-card class="horizontal">
+    <div class="grid xhide" style="--card-stretch-image:100%">
+      <sl-card class="horizontal" explicit-height>
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
         <h3 slot="header">Sub header</h3>
@@ -194,19 +199,19 @@ export const All: Story = {
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis-solid"></sl-icon></sl-button>
       </sl-card>
 
-      <sl-card style="--card-media-aspect-ratio:1/1;" padding media-position="end">
+      <sl-card style="--card-media-aspect-ratio:1/1;" padding media-position="end" explicit-height>
         <img slot="media" src="${images[1]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">padding, aspect ratio 1/1 - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card style="--card-text-width:70fr; --card-media-width:30fr;">
+      <sl-card style="--card-text-width:70fr; --card-media-width:30fr;" explicit-height>
         <img slot="media" src="${images[2]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">text/card-ratio:7/3; - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card icon="pinata" style="--card-media-aspect-ratio:2/1;" padding media-position="end">
+      <sl-card icon="pinata" style="--card-media-aspect-ratio:2/1;" padding media-position="end" explicit-height>
         <img slot="media" src="${images[3]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
@@ -217,7 +222,7 @@ export const All: Story = {
 
     <hr />
     <h1>In grid, fixed row height, 3 columns</h1>
-    <div class="grid" style="--cols: 3">
+    <div class="grid hide" style="--cols: 3">
       <sl-card class="horizontal">
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
@@ -248,8 +253,8 @@ export const All: Story = {
     </div>
 
     <hr />
-    <h1>In flexbox rows, max width of 300px</h1>
-    <div class="flex" style="--card-media-aspect-ratio:1/1;">
+    <h1>Vertical, in flexbox rows, max width of 300px</h1>
+    <div class="flex xhide" style="--card-media-aspect-ratio:1/1;">
       <sl-card style="max-width: 300px" orientation="vertical" padding>
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>

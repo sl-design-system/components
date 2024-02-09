@@ -1,5 +1,21 @@
 # @sl-design-system/tooltip
 
+## 0.0.16
+
+### Patch Changes
+
+- [#883](https://github.com/sl-design-system/components/pull/883) [`b941f99`](https://github.com/sl-design-system/components/commit/b941f9943782a5a823bac0bf8433bb77c664e752) - Several small changes:
+
+  - Hide subheader on horizontal orientation and size small.
+  - Show tooltip with full name when name is truncated
+  - Changed font size to improve readability
+
+- [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - Bump Lit and related dependencies
+
+- Updated dependencies [[`06cfb6b`](https://github.com/sl-design-system/components/commit/06cfb6bff8f2c1a8d4a132099f21f2e8dc4f2461), [`9320cbc`](https://github.com/sl-design-system/components/commit/9320cbc446e479435860ad5f9756725b36acf764), [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b)]:
+  - @sl-design-system/shared@0.2.2
+  - @sl-design-system/popover@0.1.2
+
 ## 0.0.15
 
 ### Patch Changes

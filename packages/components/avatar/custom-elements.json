@@ -270,6 +270,12 @@
               "fieldName": "user"
             }
           ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
@@ -306,6 +312,15 @@
             },
             {
               "kind": "method",
+              "name": "#checkOverflow",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#waitForElement",
               "return": {
                 "type": {
@@ -325,12 +340,41 @@
           "fields": [
             {
               "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "#config",
               "privacy": "private",
               "type": {
                 "text": "AvatarConfig | undefined"
               },
               "description": "The avatar configuration settings from the current theme."
+            },
+            {
+              "kind": "field",
+              "name": "#resizeObserver",
+              "privacy": "private",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "default": "new ResizeObserver(() => {\n    this.#checkOverflow();\n    return;\n  })",
+              "description": "Observe the grid width."
+            },
+            {
+              "kind": "field",
+              "name": "#hasOverflow",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
             },
             {
               "kind": "field",

@@ -40,6 +40,16 @@
           "kind": "class",
           "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
           "name": "ButtonBar",
+          "cssProperties": [
+            {
+              "description": "The alignment of the buttons within the bar",
+              "name": "--sl-button-bar-align"
+            },
+            {
+              "description": "The flex direction of the button container",
+              "name": "--sl-button-bar-direction"
+            }
+          ],
           "slots": [
             {
               "description": "Buttons to be grouped in the bar",
@@ -51,10 +61,9 @@
               "kind": "field",
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
+                "text": "ButtonBarAlign | undefined"
               },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "description": "The alignment of the buttons within the bar.",
               "attribute": "align",
               "reflects": true
             },
@@ -62,9 +71,8 @@
               "kind": "field",
               "name": "reverse",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "When set to true, the button order is reversed using flex-direction.",
               "attribute": "reverse",
               "reflects": true
@@ -74,18 +82,16 @@
             {
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
+                "text": "ButtonBarAlign | undefined"
               },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "description": "The alignment of the buttons within the bar.",
               "fieldName": "align"
             },
             {
               "name": "reverse",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "When set to true, the button order is reversed using flex-direction.",
               "fieldName": "reverse"
             }
@@ -104,7 +110,15 @@
                 "type": {
                   "text": "Promise<void>"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
             }
           ],
           "fields": []

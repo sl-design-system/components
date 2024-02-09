@@ -15,6 +15,7 @@ $statuses: danger, success, warning, accent, neutral, primary;
   align-items: center;
   display: inline-flex;
   gap: var(--_gap);
+  max-width: 100%;
 }
 
 :host(:where(:focus-visible, [active])) {
@@ -57,6 +58,7 @@ picture {
     margin-left: var(--_margin-left);
     margin-right: var(--_margin-right);
     margin-top: var(--_margin-top);
+    pointer-events: none;
   }
 
   text.badge-text {
@@ -81,10 +83,15 @@ div {
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  span.header {
-    font: var(--_header-font);
+  span,
+  slot {
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  span.header {
+    font: var(--_header-font);
   }
 }
 
@@ -96,13 +103,14 @@ div {
   .header {
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-box-orient: vertical;
-    /* stylelint-disable-next-line value-no-vendor-prefix */
+    /* stylelint-disable-next-line value-no-vendor-prefix*/
     display: -webkit-box;
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-line-clamp: 2;
     max-width: var(--_max-width);
     overflow: hidden;
     white-space: initial;
+    word-break: break-word;
   }
 
   slot {

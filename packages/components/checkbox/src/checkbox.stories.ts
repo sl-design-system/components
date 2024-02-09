@@ -19,7 +19,7 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const sizes: CheckboxSize[] = ['md', 'lg'];
+const sizes: CheckboxSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Checkbox',

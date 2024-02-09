@@ -3,6 +3,39 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+.sl-text-card-body {
+  font-family: Source Sans Pro;
+  font-size: 14;
+  font-weight: Regular;
+  letter-spacing: 0%;
+  line-height: 20;
+  margin-bottom: 22;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.sl-text-card-subtitle {
+  font-family: Source Sans Pro;
+  font-size: 16;
+  font-weight: Regular;
+  letter-spacing: 0%;
+  line-height: 24;
+  margin-bottom: 24;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.sl-text-card-title {
+  font-family: The Message;
+  font-size: 18;
+  font-weight: Regular;
+  letter-spacing: 0%;
+  line-height: 28;
+  margin-bottom: 0;
+  text-decoration: none;
+  text-transform: none;
+}
+
 .sl-text-popover-text-title {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);

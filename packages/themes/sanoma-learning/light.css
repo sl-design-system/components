@@ -22,6 +22,8 @@
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-150));
   --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
@@ -481,6 +483,9 @@
       var(--sl-color-skeleton-base) 90%,
       var(--sl-color-skeleton-base) 100%
     );
+  --sl-color-tab-content-foreground: var(--sl-body-foreground);
+  --sl-color-tab-content-background: var(--sl-body-background);
+  --sl-color-tab-active-foreground: var(--sl-body-foreground);
   --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);
   --sl-color-tab-tabbar-background: var(--sl-body-background);
   --sl-color-tab-disabled-background: var(--sl-body-background);

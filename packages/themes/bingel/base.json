@@ -1795,7 +1795,7 @@
         "type": "spacing"
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },
@@ -2031,7 +2031,7 @@
         "type": "spacing"
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },
@@ -2085,6 +2085,36 @@
         "block": {
           "value": "{space.sm}",
           "type": "spacing"
+        }
+      },
+      "content": {
+        "horizontal": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
+        },
+        "vertical": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
         }
       }
     },
@@ -2283,6 +2313,11 @@
         "value": "circle-check",
         "type": "Icons",
         "description": "icon.core.circle-check-solid"
+      },
+      "ellipsis": {
+        "value": "ellipsis",
+        "type": "Icons",
+        "description": "icon.core.ellipsis"
       }
     },
     "typeset": {

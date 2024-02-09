@@ -985,6 +985,26 @@
         }
       }
     },
+    "tab": {
+      "title": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.lg}"
+        },
+        "type": "typography"
+      },
+      "subtitle": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.md}"
+        },
+        "type": "typography"
+      }
+    },
     "list": {
       "sm": {
         "normal": {
@@ -1734,11 +1754,11 @@
     },
     "focusring": {
       "default": {
-        "value": "{borderRadius.default} + 1",
+        "value": "{borderRadius.default} + 1px",
         "type": "borderRadius"
       },
       "checkbox": {
-        "value": "{borderRadius.checkbox} + 1",
+        "value": "{borderRadius.checkbox} + 1px",
         "type": "borderRadius"
       },
       "full": {
@@ -1762,6 +1782,10 @@
         "type": "borderRadius"
       },
       "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
+      },
+      "indicator": {
         "value": "{border.radius.3xs}",
         "type": "borderRadius"
       }
@@ -1998,7 +2022,7 @@
         }
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },
@@ -2106,6 +2130,22 @@
       "shadow": {
         "value": "{opacity.600}",
         "type": "opacity"
+      }
+    }
+  },
+  "size": {
+    "tabbar": {
+      "vertical": {
+        "maxwidth": {
+          "value": "200px",
+          "type": "sizing"
+        }
+      }
+    },
+    "select": {
+      "indicator": {
+        "value": "{size.3xs}",
+        "type": "sizing"
       }
     }
   }

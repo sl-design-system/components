@@ -52,6 +52,7 @@
   --sl-opacity-100: 0.04;
   --sl-opacity-50: 0.02;
   --sl-icon-typeset-font-size-2xs: 10px;
+  --sl-icon-core-ellipsis: ellipsis;
   --sl-icon-core-circle-check-solid: circle-check;
   --sl-icon-core-octagon-exclamation-solid: octagon-exclamation;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
@@ -319,6 +320,12 @@
   --sl-space-card-content-inline: var(--sl-space-xl);
   --sl-space-card-media-margins: var(--sl-space-sm);
   --sl-space-card-media-full: var(--sl-space-none);
+  --sl-space-tab-content-vertical-gap: var(--sl-space-xl);
+  --sl-space-tab-content-vertical-block: var(--sl-space-sm);
+  --sl-space-tab-content-vertical-inline: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-gap: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-block: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-inline: var(--sl-space-xl);
   --sl-space-tab-more-block: var(--sl-space-sm);
   --sl-space-tab-more-inline: var(--sl-space-md);
   --sl-space-tab-gap: var(--sl-space-sm);
@@ -488,9 +495,9 @@
   --sl-space-popover-gap: var(--sl-space-xs);
   --sl-space-popover-inline: var(--sl-space-md);
   --sl-space-popover-block: var(--sl-space-sm);
-  --sl-space-popover-offset: var(--sl-space-sm);
+  --sl-space-popover-offset: var(--sl-space-xs);
   --sl-space-popover-arrow-offset: var(--sl-space-lg);
-  --sl-space-tooltip-offset: var(--sl-space-sm);
+  --sl-space-tooltip-offset: var(--sl-space-xs);
   --sl-space-tooltip-gap: var(--sl-space-xs);
   --sl-space-tooltip-inline: var(--sl-space-md);
   --sl-space-tooltip-block: var(--sl-space-sm);

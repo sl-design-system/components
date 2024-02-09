@@ -2590,7 +2590,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.neutral.300}",
+                "value": "{color.palette.neutral.200}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2670,7 +2670,7 @@
           "checked": {
             "default": {
               "background": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.palette.primary.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2696,7 +2696,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.success.400}",
+                "value": "{color.palette.primary.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2722,7 +2722,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.success.400}",
+                "value": "{color.palette.primary.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -2748,7 +2748,7 @@
             },
             "focus": {
               "background": {
-                "value": "{color.palette.success.400}",
+                "value": "{color.palette.primary.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true

@@ -3,6 +3,250 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+@mixin sl-text-tooltip-text-title {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-tooltip-text-tip {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-button-label-md);
+}
+
+@mixin sl-text-popover-text-title {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
+@mixin sl-text-popover-text-text {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
+@mixin sl-text-badge-text-3xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-badge-text-2xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xs);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+}
+
+@mixin sl-text-badge-text-xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xs);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+}
+
+@mixin sl-text-badge-text-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xs);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-xs);
+}
+
+@mixin sl-text-badge-text-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: 9px;
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: 9px;
+}
+
+@mixin sl-text-badge-text-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: 6px;
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: 6px;
+}
+
+@mixin sl-text-avatar-subheader-3xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-subheader-2xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-subheader-xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-subheader-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-subheader-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-subheader-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xs);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-header-3xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-header-2xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-header-xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-header-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-header-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-header-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xs);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-initials-3xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-icon-typeset-font-size-2xl);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-2xl);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-avatar-initials-2xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-2xl);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-2xl);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-avatar-initials-xl {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-xl);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-avatar-initials-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-md);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-avatar-initials-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-avatar-initials-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xs);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-xs);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-select-selectbox-title-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-icon-typeset-font-size-sm);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xs);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-select-selectbox-title-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-icon-typeset-font-size-xs);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-xxs);
+  text-transform: var(--sl-text-typeset-text-case-uppercase);
+}
+
+@mixin sl-text-select-selectbox-text-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-select-selectbox-text-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
 @mixin sl-text-list-sm-normal {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
@@ -15,17 +259,59 @@
 }
 
 @mixin sl-text-dialog-subheading {
-  font-family: var(--sl-text-typeset-font-family-body);
+  font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-icon-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  font-weight: var(--sl-text-typeset-font-weight-book);
   line-height: var(--sl-text-typeset-line-height-md);
 }
 
 @mixin sl-text-dialog-heading {
   font-family: var(--sl-text-typeset-font-family-heading);
-  font-size: var(--sl-icon-typeset-font-size-xl);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-size: var(--sl-icon-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   line-height: var(--sl-text-typeset-line-height-2xl);
+}
+
+@mixin sl-text-input-switch-input-field-bold-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-switch-input-field-bold-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-switch-input-field-bold-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-sm);
+}
+
+@mixin sl-text-input-switch-input-field-regular-lg {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-switch-input-field-regular-md {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+@mixin sl-text-input-switch-input-field-regular-sm {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-sm);
 }
 
 @mixin sl-text-input-helper-text-lg {
@@ -73,21 +359,21 @@
 @mixin sl-text-input-field-label-label-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-xl);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-lg);
 }
 
 @mixin sl-text-input-field-label-label-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-lg);
 }
 
 @mixin sl-text-input-field-label-label-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-text-typeset-line-height-sm);
 }
 
@@ -122,7 +408,7 @@
 @mixin sl-text-button-link-disabled-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -130,7 +416,7 @@
 @mixin sl-text-button-link-disabled-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -138,7 +424,7 @@
 @mixin sl-text-button-link-disabled-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -146,7 +432,7 @@
 @mixin sl-text-button-link-active-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -154,7 +440,7 @@
 @mixin sl-text-button-link-active-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -162,7 +448,7 @@
 @mixin sl-text-button-link-active-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -170,7 +456,7 @@
 @mixin sl-text-button-link-hover-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -178,7 +464,7 @@
 @mixin sl-text-button-link-hover-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -186,7 +472,7 @@
 @mixin sl-text-button-link-hover-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-underline);
 }
@@ -194,7 +480,7 @@
 @mixin sl-text-button-link-idle-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -202,7 +488,7 @@
 @mixin sl-text-button-link-idle-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -210,7 +496,7 @@
 @mixin sl-text-button-link-idle-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-sm);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
   line-height: var(--sl-button-label-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
 }
@@ -353,7 +639,7 @@
 @mixin sl-text-heading-4 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   line-height: var(--sl-text-typeset-line-height-lg);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
@@ -364,7 +650,7 @@
 @mixin sl-text-heading-3 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-xl);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-xl);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
@@ -375,7 +661,7 @@
 @mixin sl-text-heading-2 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-2xl);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-2xl);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
@@ -386,7 +672,7 @@
 @mixin sl-text-heading-1 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-3xl);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-sm);
   line-height: var(--sl-text-typeset-line-height-3xl);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
@@ -397,12 +683,48 @@
 @mixin sl-text-heading-0 {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-4xl);
-  font-weight: var(--sl-text-typeset-font-weight-bold);
+  font-weight: var(--sl-text-typeset-font-weight-medium);
   letter-spacing: var(--sl-text-typeset-letter-spacing-xs);
   line-height: var(--sl-text-typeset-line-height-4xl);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-avatar-icon-3xl {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-icon-typeset-font-size-2xl);
+  font-weight: var(--sl-icon-style-outline);
+}
+
+@mixin sl-text-avatar-icon-2xl {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-icon-typeset-font-size-2xl);
+  font-weight: var(--sl-icon-style-outline);
+}
+
+@mixin sl-text-avatar-icon-xl {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-2xl);
+  font-weight: var(--sl-icon-style-outline);
+}
+
+@mixin sl-text-avatar-icon-lg {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-icon-style-outline);
+}
+
+@mixin sl-text-avatar-icon-md {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-icon-style-outline);
+}
+
+@mixin sl-text-avatar-icon-sm {
+  font-family: var(--sl-text-typeset-font-family-icon);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-icon-style-outline);
 }
 
 @mixin sl-text-icon-font-icon-lg {

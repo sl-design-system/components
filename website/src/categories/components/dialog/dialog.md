@@ -9,6 +9,6 @@ eleventyNavigation:
   parent: Components
   key: Dialog
   order: 6
-  status: coming
+  status: ready
 ---
 

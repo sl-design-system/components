@@ -1,6 +1,6 @@
 :host {
-  --_align: flex-start;
-  --_direction: row;
+  --_align: var(--sl-button-bar-align, start);
+  --_direction: var(--sl-button-bar-direction, row);
   --gap-h: var(--sl-space-button-bar-gap-inline);
   --gap-v: var(--sl-space-button-bar-gap-block);
 }

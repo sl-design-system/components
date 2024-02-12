@@ -1519,6 +1519,11 @@
             "value": "{space.button.outline.block.sm}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
+          },
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
           }
         },
         "inline": {
@@ -1531,6 +1536,11 @@
             "value": "{space.button.outline.block.sm}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
+          },
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
           }
         },
         "gap": {
@@ -1543,6 +1553,11 @@
             "value": "{space.button.outline.block.md}",
             "type": "spacing",
             "description": "{space.button.gap.lg}"
+          },
+          "sm": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
           }
         }
       },
@@ -2314,7 +2329,7 @@
         "type": "spacing"
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },
@@ -2550,7 +2565,7 @@
         "type": "spacing"
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },
@@ -2604,6 +2619,36 @@
         "block": {
           "value": "{space.sm}",
           "type": "spacing"
+        }
+      },
+      "content": {
+        "horizontal": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
+        },
+        "vertical": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
         }
       }
     },
@@ -2786,6 +2831,11 @@
         "value": "circle-check",
         "type": "Icons",
         "description": "icon.core.circle-check-solid"
+      },
+      "ellipsis": {
+        "value": "ellipsis",
+        "type": "Icons",
+        "description": "icon.core.ellipsis"
       }
     },
     "typeset": {
@@ -2987,6 +3037,10 @@
     },
     "input": {
       "option": {
+        "sm": {
+          "value": "{size.lg}",
+          "type": "sizing"
+        },
         "md": {
           "value": "{size.xl}",
           "type": "sizing",
@@ -2998,6 +3052,10 @@
           "description": "size.input.lg"
         },
         "checkboxIcon": {
+          "sm": {
+            "value": "{size.icon.xs}",
+            "type": "sizing"
+          },
           "md": {
             "value": "{size.icon.md}",
             "type": "sizing",

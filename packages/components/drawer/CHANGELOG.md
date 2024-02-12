@@ -1,5 +1,15 @@
 # @sl-design-system/drawer
 
+## 0.0.18
+
+### Patch Changes
+
+- [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - Bump Lit and related dependencies
+
+- Updated dependencies [[`e4e94cb`](https://github.com/sl-design-system/components/commit/e4e94cbae85ef09c029920db0cb0ac9c92939097), [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b)]:
+  - @sl-design-system/button-bar@0.0.4
+  - @sl-design-system/button@0.0.18
+
 ## 0.0.17
 
 ### Patch Changes

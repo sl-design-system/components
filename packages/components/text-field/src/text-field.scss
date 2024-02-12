@@ -3,7 +3,7 @@ $variants: default, valid, invalid;
 $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 
 :host {
-  --_border-size: var(--sl-border-width-button-solid);
+  --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);

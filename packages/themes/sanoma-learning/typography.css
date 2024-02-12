@@ -415,6 +415,20 @@
   text-transform: var(--sl-text-typeset-text-case-none);
 }
 
+.sl-text-tab-subtitle {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
+.sl-text-tab-title {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
 .sl-text-body-lg-bold {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);

@@ -1,5 +1,11 @@
 # @sl-design-system/textarea
 
+## 0.1.14
+
+### Patch Changes
+
+- [#927](https://github.com/sl-design-system/components/pull/927) [`e3c8bbb`](https://github.com/sl-design-system/components/commit/e3c8bbbd400ad07aa6ad0f984fc2b2d5e88c1e94) - Use `--sl-border-width-input-border` instead of the button border width
+
 ## 0.1.13
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @sanomalearning/slds-magister
 
+## 0.1.2
+
+### Patch Changes
+
+- [#921](https://github.com/sl-design-system/components/pull/921) [`31e6adb`](https://github.com/sl-design-system/components/commit/31e6adb4272490837d9adb4aec2343b960edd436) - Added missing tabs tokens
+
+- [#927](https://github.com/sl-design-system/components/pull/927) [`e3c8bbb`](https://github.com/sl-design-system/components/commit/e3c8bbbd400ad07aa6ad0f984fc2b2d5e88c1e94) - - Fix missing light tokens
+  - Add dark mode support
+
 ## 0.1.1
 
 ### Patch Changes

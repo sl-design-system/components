@@ -58,42 +58,15 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 
 The following guidance describes when to use the Dialog component.
 
-<div class=ds-do-dont>
-
-<div class="ds-success">
-
-<div class="ds-success__content">
-
 ### Critical information
   
 Use dialogs to present critical information or ask for decisions. For instance, when confirming a high-risk action (e.g., deleting data), a dialog ensures user attention.
-
-</div>
-
-</div>
-
-</div>
-
-<div class=ds-do-dont>
-
-<div class="ds-success">
-
-<div class="ds-success__content">
 
 ### Short tasks
   
 For quick tasks that don’t warrant a full page transition, use dialogs. They allow users to stay within the context of their current workflow.
 
-</div>
-
-</div>
-
-</div>
-
-</div>
 </section>
-
-<section>
 
 <section>
 
@@ -101,39 +74,14 @@ For quick tasks that don’t warrant a full page transition, use dialogs. They a
 
 The following guidance describes when not to use the Dialog component.
 
-<div class=ds-do-dont>
-
-<div class="ds-danger">
-
-<div class="ds-danger__content">
-
 ### Complex data
   
 Don’t overload dialogs with extensive data or complex interactions. Keep them concise.
-
-</div>
-
-</div>
-
-</div>
-
-<div class=ds-do-dont>
-
-<div class="ds-danger">
-
-<div class="ds-danger__content">
 
 ### Premature triggers
   
 Only show dialogs when the user explicitly triggers them. Avoid interrupting the user unnecessarily.
 
-</div>
-
-</div>
-
-</div>
-
-</div>
 </section>
 
 <section>
@@ -155,7 +103,7 @@ Only show dialogs when the user explicitly triggers them. Avoid interrupting the
 
 </div>
 
-</section
+</section>
 
 <section>
 

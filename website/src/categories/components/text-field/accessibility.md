@@ -14,9 +14,7 @@ Here's an overview of the common keyboard interactions associated with a text fi
 
 |Command|Description|
 |-|-|
-|Tab|-|
-|Space/Enter|-|
-|Arrow Keys|-|
+|Tab|When focus is outside the text field, moves focus to the input container. If focus is on the input container, moves focus to the end enhancer (if provided, and interactive).|
 
 {.ds-table .ds-table-align-top}
 
@@ -35,12 +33,9 @@ WAI-ARIA Roles, States, and Properties for a text field provide essential inform
   
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
 |-|-|-|-|
-|`role`	|`'button'`|Makes it clear that our custom component is a button |no|
-|`aria-labelledby`|string| When different element serves as the label, for example in the case of an icon-only button that has a label outside the button, this property can be set to the `id` of that element|yes|
-|`aria-label`|string|To be used when the button is icon-only|yes|
-|`aria-describedby`|string| When the button needs extra explanation or description you can reference this element here by the `id`. See [Note 2] below for more explanation| yes|
-|`aria-disabled`| boolean| Announces the button as disabled with a screenreader. See [Note 3] below for more explanation| yes|
-|`aria-pressed`| boolean | When the button is used as a toggle and is toggled on, the value of this state is true, and when toggled off, the state is false.| yes|
+|`ariaLabel`	|`'string'`|Defines a string that labels the action that will be performed when the user interacts with the text field. |yes|
+|`aria-required`	|`'object'`|Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required. |yes|
+|`aria-required`	|`'object'`|Informs the user when there’s an error. Set to ‘false’ by default. Values include true, spelling and grammar. Screen readers alert users when the element is set to any value other than ‘false’ |yes|
 
 {.ds-table .ds-table-align-top}
 
@@ -48,8 +43,3 @@ WAI-ARIA Roles, States, and Properties for a text field provide essential inform
 
 </section>
 
-    When `disabled` is added to a button there is no need to also add `aria-disabled`; Everything `aria-disabled` does, `disabled` does as well.
-
-    You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)
-
-</section>

@@ -33,7 +33,7 @@ eleventyNavigation:
 |-|-|-|-|
 |`ariaLabelledby`|`'string'`|Defines the aria-label of the dialog|no|
 |`ariaDescribedby`|`'string'`|Describes the purpose of the dialog|no|
-|`ariaModal`|boolean|Defines the dialog|no|
+|`ariaModal`|`'boolean'|Defines the dialog|no|
 
 {.ds-table .ds-table-align-top}
 

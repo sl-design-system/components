@@ -7,7 +7,7 @@ eleventyNavigation:
 ---
 <section>
 
-## Dialog accessibility content
+## Keyboard interactions
 
 This is the accessibility content
 
@@ -15,7 +15,7 @@ This is the accessibility content
 
 <section>
 
-## Accessibility content section
+## WAI-ARIA
 
 Another section
 

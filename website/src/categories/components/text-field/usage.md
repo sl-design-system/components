@@ -35,24 +35,11 @@ eleventyNavigation:
 
 Text fields come in handy in certain situations:
 
-<section class="ds-cards">
-<figure>
-{{'components/text-field/sl-text-field-when-use-unique.svg' | svgImage}}
-<figcaption>
-
 ### Unique input 
 When users need to input information that is unique and cannot be anticipated from a predefined set of options. Text fields provide the flexibility to capture diverse and unpredictable data.
-</figcaption>
-</figure>
-<figure>
-    {{'components/text-field/sl-text-field-when-use-memorable.svg' | svgImage}}
-    <figcaption>
 
-  ### Memorable data
-  In cases where users need to input memorable data quickly, a free-form input method is more efficient than a complex control interface. Text fields offer a straightforward way for users to provide the information they have in mind.
-    </figcaption>
-  </figure>
-</section>
+### Memorable data
+In cases where users need to input memorable data quickly, a free-form input method is more efficient than a complex control interface. Text fields offer a straightforward way for users to provide the information they have in mind.
 </section>
 
 <section>
@@ -60,38 +47,21 @@ When users need to input information that is unique and cannot be anticipated fr
 ## When not to use
 Text fields may not be the best choice in the following scenarios:
 
-<section class="ds-cards">
-  <figure>
-    {{'components/text-field/sl-text-field-when-not-use-predefined.svg' | svgImage}}
-    <figcaption>
+### Predefined options
+When input data can be conveniently selected from predefined options using checkboxes, radio buttons, dropdown menus, or text areas. These structured input controls enhance efficiency and minimize errors in such cases.
 
-  ### Predefined options
-  When input data can be conveniently selected from predefined options using checkboxes, radio buttons, dropdown menus, or text areas. These structured input controls enhance efficiency and minimize errors in such cases.
-    </figcaption>
-  </figure>
-  <figure>
-    {{'components/text-field/sl-text-field-when-not-use-sensitive.svg' | svgImage}}
-    <figcaption>
+### Sensitive information
+For handling sensitive or confidential information, such as passwords or credit card numbers, it's advisable to utilize specialized secure input fields designed to obscure the entered data for enhanced security.
 
-  ### Sensitive information
-  For handling sensitive or confidential information, such as passwords or credit card numbers, it's advisable to utilize specialized secure input fields designed to obscure the entered data for enhanced security.
-    </figcaption>
-  </figure>
-  <figure>
-    {{'components/text-field/sl-text-field-when-not-use-long.svg' | svgImage}}
-    <figcaption>
-
-  ### Longer text responses
-  Consider using text areas when you anticipate the input length will exceed the width of a text field or when you encourage users to provide longer text responses.
-    </figcaption>
-  </figure>
+### Longer text responses
+Consider using text areas when you anticipate the input length will exceed the width of a text field or when you encourage users to provide longer text responses.
+  
 </section>
-</section>
+
 <section>
 
 ## Anatomy
 Let's dive into the fundamental elements that make up a text field and understand how they enhance user experiences.
-{{ 'components/text-field/sl-text-field-anatomy.svg' | svgImage }}
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
@@ -108,8 +78,6 @@ Let's dive into the fundamental elements that make up a text field and understan
 ## Options
 
 With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
-
-{{ 'components/text-field/sl-text-field-figma-options.svg' | svgImage }}
 
 |Item|Options|Description|
 |-|-|-|

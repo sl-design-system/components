@@ -4,6 +4,7 @@ description: A dialog serves as a container for in-page contextual information o
 componentType: overlay
 shortDescription: A dialog serves as a container for in-page contextual information or actions.
 picture: 
+pictureDark:
 layout: "components/components.njk"
 tags: component
 eleventyNavigation:

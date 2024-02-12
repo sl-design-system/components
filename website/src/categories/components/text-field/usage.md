@@ -62,6 +62,8 @@ Consider using text areas when you anticipate the input length will exceed the w
 
 ## Anatomy
 
+<div class="ds-table-wrapper">
+  
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Container	|An input container is a structured enclosure for user input elements. It facilitates organized and user-friendly data collection in interfaces.|no|
@@ -69,6 +71,8 @@ Consider using text areas when you anticipate the input length will exceed the w
 |3|Validation icon	|Ensures input accuracy for users.|yes|
 
 {.ds-table}
+
+</div>
 
 </section>
 
@@ -78,6 +82,8 @@ Consider using text areas when you anticipate the input length will exceed the w
 
 With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
 
+<div class="ds-table-wrapper">
+  
 |Item|Options|Description|
 |-|-|-|
 |Size|`'md', 'lg'`|The text field is available in two sizes. If not specified the default value is `md` (medium).|
@@ -91,5 +97,7 @@ With these options you can tweak the appearance of the text field in Figma. They
 |Focus ring|`'on', 'off'`|Turn the focus ring option to show the focus state of the text field. Default value is `off`.|
 
 {.ds-table .ds-table-align-top}
+
+</div>
 
 </section>

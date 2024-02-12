@@ -11,7 +11,21 @@ export type CardHeightOptions = 'fixed' | 'flex';
  * ```html
  * <sl-card></sl-card>
  * ```
-
+ *
+ * @cssprop --sl-card-image-width -
+ * @cssprop --sl-card-media-aspect-ratio -
+ * @cssprop --sl-card-media-width -
+ * @cssprop --sl-card-media-x -
+ * @cssprop --sl-card-media-y -
+ * @cssprop --sl-card-orientation-breakpoint -
+ * @cssprop --sl-card-stretch-image -
+ * @cssprop --sl-card-text-width -
+ *
+ * @slot default - Title of the card
+ * @slot media - Media, this can be an image or video
+ * @slot header - Subtitle or badges
+ * @slot body - Body text of the card
+ * @slot actions - Icon button for actions on the card.
  */
 export class Card extends LitElement {
   /** @private */

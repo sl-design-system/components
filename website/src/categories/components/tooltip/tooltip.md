@@ -9,7 +9,7 @@ packageName: tooltip
 eleventyNavigation:
   parent: Components
   key: Tooltip
-  order: 20
+  order: 21
   status: coming
 ---
 

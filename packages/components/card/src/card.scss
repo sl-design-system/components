@@ -1,8 +1,9 @@
 :host {
-  --_aspect-ratio: var(--card-media-aspect-ratio, 4/3);
-  --_orientation-breakpoint: var(--card-orientation-breakpoint, 350px);
-  --_text-width: var(--card-text-width, minmax(50%, 1fr));
-  --_media-width: var(--card-media-width, minmax(0, max-content));
+  --_aspect-ratio: var(--sl-card-media-aspect-ratio, 4/3);
+  --_orientation-breakpoint: var(--sl-card-orientation-breakpoint, 350px);
+  --_text-width: var(--sl-card-text-width, minmax(50%, 1fr));
+  --_media-width: var(--sl-card-media-width, minmax(0, max-content));
+  --_object-position: var(--sl-card-media-x, 50%) var(--sl-card-media-y, 50%);
 
   --_box-shadow: var(--sl-elevation-shadow-lg);
   --_card-background: var(--sl-color-card-background);
@@ -16,7 +17,7 @@
   --_media-padding-full: 0;
   --_media-padding: 8px;
 
-  --_media-column: var(--card-image-width, var(--_media-width));
+  --_media-column: var(--_media-width);
   --_text-column: var(--_text-width);
 
   --line-clamp: 1;
@@ -72,7 +73,7 @@ div.container {
   slot[name='media'] {
     aspect-ratio: var(--_aspect-ratio);
     display: block;
-    height: var(--card-stretch-image, unset);
+    height: var(--sl-card-stretch-image, unset);
     max-height: 100%;
     max-width: 100%;
     overflow: hidden;
@@ -93,7 +94,7 @@ div.container {
 }
 
 :host(.horizontal[explicit-height]) {
-  --_media-width: var(--card-media-width, minmax(0, calc(calc(var(--_aspect-ratio)) * 100cqh)));
+  --_media-width: var(--sl-card-media-width, minmax(0, calc(calc(var(--_aspect-ratio)) * 100cqh)));
   container: card/ size;
 }
 
@@ -163,7 +164,7 @@ slot[name='media']::slotted(*) {
   box-sizing: border-box;
   height: auto;
   object-fit: cover;
-  object-position: 50% 50%;
+  object-position: var(--_object-position);
   overflow: hidden;
   padding: var(--_media-padding-full);
   width: 100%;

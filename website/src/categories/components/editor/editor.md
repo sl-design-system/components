@@ -8,7 +8,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Editor
-  order: 8
+  order: 9
   status: coming
 ---
 

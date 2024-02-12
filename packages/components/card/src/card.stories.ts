@@ -96,10 +96,10 @@ export const All: Story = {
       }
     </style>
     <h1>In flexbox, full width, responsive cards</h1>
-    flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;
+    flex-direction:column; --sl-card-horizontal-breakpoint:500px; --sl-card-text-width:70fr; --sl-card-media-width:30fr;
     <div
       class="flex hide"
-      style="flex-direction:column; --card-horizontal-breakpoint:500px; --card-text-width:70fr; --card-media-width:30fr;"
+      style="flex-direction:column; --sl-card-horizontal-breakpoint:500px; --sl-card-text-width:70fr; --sl-card-media-width:30fr;"
     >
       <sl-card responsive style="--card-media-aspect-ratio:16/9;">
         <iframe
@@ -173,7 +173,7 @@ export const All: Story = {
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">padding, aspect ratio 1/1 - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card style="--card-text-width:70fr; --card-media-width:30fr;" explicit-height>
+      <sl-card style="--card-text-width:70fr; --sl-card-media-width:30fr;" explicit-height>
         <img slot="media" src="${images[2]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
@@ -189,7 +189,7 @@ export const All: Story = {
     </div>
     <hr />
     <h1>In grid, fixed row height</h1>
-    --card-stretch-image:100%
+    --sl-card-stretch-image:100%
     <div class="grid xhide" style="--card-stretch-image:100%">
       <sl-card class="horizontal" explicit-height>
         <img slot="media" src="${images[0]}" />
@@ -205,7 +205,7 @@ export const All: Story = {
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body">padding, aspect ratio 1/1 - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card style="--card-text-width:70fr; --card-media-width:30fr;" explicit-height>
+      <sl-card style="--card-text-width:70fr; --sl-card-media-width:30fr;" explicit-height>
         <img slot="media" src="${images[2]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>

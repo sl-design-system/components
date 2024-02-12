@@ -8,7 +8,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Drawer
-  order: 7
+  order: 8
   status: coming
 ---
 

@@ -60,7 +60,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An avatar component to show a picture, initials or icon, to provide a quickly recognisable representation of a user.\n\n```html\n  <sl-avatar user=\"{\n     name: {\n       first: 'Lynn',\n       last: 'Smith'\n     },\n     picture: {\n       thumbnail: 'http://sanomalearning.design/avatars/lynn.png'\n     }\n   }\"></sl-avatar>\n```",
+          "description": "An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.\n\n```html\n  <sl-avatar user=\"{\n     name: {\n       first: 'Lynn',\n       last: 'Smith'\n     },\n     picture: {\n       thumbnail: 'http://sanomalearning.design/avatars/lynn.png'\n     }\n   }\"></sl-avatar>\n```",
           "name": "Avatar",
           "cssProperties": [
             {
@@ -71,34 +71,11 @@
           "members": [
             {
               "kind": "field",
-              "name": "ariaLabelText",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
               "name": "badge",
               "type": {
                 "text": "AvatarBadge | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "badgeContent",
-              "type": {
-                "text": "TemplateResult"
               },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "badgeCutout",
-              "type": {
-                "text": "TemplateResult"
-              },
-              "readonly": true
+              "description": "The badge."
             },
             {
               "kind": "field",
@@ -107,15 +84,23 @@
                 "text": "string | undefined"
               },
               "description": "Experimental feature, use with great caution.",
-              "attribute": "badge-text",
-              "reflects": true
+              "attribute": "badge-text"
+            },
+            {
+              "kind": "field",
+              "name": "borderWidth",
+              "default": "4",
+              "type": {
+                "text": "number"
+              }
             },
             {
               "kind": "field",
               "name": "errorLoadingImage",
               "type": {
                 "text": "boolean | undefined"
-              }
+              },
+              "description": "State for when loading of the image has failed."
             },
             {
               "kind": "field",
@@ -124,6 +109,7 @@
                 "text": "AvatarFallbackType | undefined"
               },
               "default": "'initials'",
+              "description": "The fallback to use when there is no user image present.",
               "attribute": "fallback"
             },
             {
@@ -131,22 +117,16 @@
               "name": "icon",
               "type": {
                 "text": "AvatarIcon | undefined"
-              }
+              },
+              "description": "The icon."
             },
             {
               "kind": "field",
               "name": "image",
               "type": {
                 "text": "AvatarImage | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "imageContent",
-              "type": {
-                "text": "TemplateResult"
               },
-              "readonly": true
+              "description": "The image."
             },
             {
               "kind": "field",
@@ -154,16 +134,9 @@
               "type": {
                 "text": "boolean | undefined"
               },
+              "description": "This hides the name when set.",
               "attribute": "image-only",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "imageSVG",
-              "type": {
-                "text": "TemplateResult"
-              },
-              "readonly": true
             },
             {
               "kind": "field",
@@ -171,7 +144,7 @@
               "type": {
                 "text": "string"
               },
-              "readonly": true
+              "default": "''"
             },
             {
               "kind": "field",
@@ -180,9 +153,16 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "used for Aria-label; you can use `{{badgeText}}` in the string to have it replaced by the value set in the badgeText",
-              "attribute": "label",
-              "reflects": true
+              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText",
+              "attribute": "label"
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "default": "{\n  sm: -2,\n  md: -4,\n  lg: -4,\n  xl: -2,\n  '2xl': -2,\n  '3xl': 2\n}",
+              "type": {
+                "text": "Record<AvatarSize, number>"
+              }
             },
             {
               "kind": "field",
@@ -191,6 +171,7 @@
                 "text": "AvatarOrientation"
               },
               "default": "'horizontal'",
+              "description": "The orientation of the avatar.",
               "attribute": "orientation",
               "reflects": true,
               "expandedType": {
@@ -203,7 +184,7 @@
               "type": {
                 "text": "string"
               },
-              "readonly": true
+              "default": "''"
             },
             {
               "kind": "field",
@@ -212,6 +193,7 @@
                 "text": "AvatarSize"
               },
               "default": "'md'",
+              "description": "The size of the avatar.",
               "attribute": "size",
               "reflects": true,
               "expandedType": {
@@ -224,6 +206,7 @@
               "type": {
                 "text": "UserStatus | undefined"
               },
+              "description": "Optional user status to show.",
               "attribute": "status",
               "reflects": true
             },
@@ -233,70 +216,11 @@
               "type": {
                 "text": "UserProfile | undefined"
               },
+              "description": "The user object.",
               "attribute": "user"
             }
           ],
           "attributes": [
-            {
-              "name": "user",
-              "type": {
-                "text": "UserProfile | undefined"
-              },
-              "fieldName": "user"
-            },
-            {
-              "name": "size",
-              "type": {
-                "text": "AvatarSize"
-              },
-              "default": "'md'",
-              "fieldName": "size",
-              "expandedType": {
-                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
-              }
-            },
-            {
-              "name": "fallback",
-              "type": {
-                "text": "AvatarFallbackType | undefined"
-              },
-              "default": "'initials'",
-              "fieldName": "fallback"
-            },
-            {
-              "name": "orientation",
-              "type": {
-                "text": "AvatarOrientation"
-              },
-              "default": "'horizontal'",
-              "fieldName": "orientation",
-              "expandedType": {
-                "text": "'horizontal' | 'vertical'"
-              }
-            },
-            {
-              "name": "image-only",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "fieldName": "imageOnly"
-            },
-            {
-              "name": "status",
-              "type": {
-                "text": "UserStatus | undefined"
-              },
-              "fieldName": "status"
-            },
-            {
-              "name": "label",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "used for Aria-label; you can use `{{badgeText}}` in the string to have it replaced by the value set in the badgeText",
-              "fieldName": "label"
-            },
             {
               "name": "badge-text",
               "type": {
@@ -304,6 +228,78 @@
               },
               "description": "Experimental feature, use with great caution.",
               "fieldName": "badgeText"
+            },
+            {
+              "name": "fallback",
+              "type": {
+                "text": "AvatarFallbackType | undefined"
+              },
+              "default": "'initials'",
+              "description": "The fallback to use when there is no user image present.",
+              "fieldName": "fallback"
+            },
+            {
+              "name": "image-only",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "This hides the name when set.",
+              "fieldName": "imageOnly"
+            },
+            {
+              "name": "label",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText",
+              "fieldName": "label"
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "AvatarOrientation"
+              },
+              "default": "'horizontal'",
+              "description": "The orientation of the avatar.",
+              "fieldName": "orientation",
+              "expandedType": {
+                "text": "'horizontal' | 'vertical'"
+              }
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "AvatarSize"
+              },
+              "default": "'md'",
+              "description": "The size of the avatar.",
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
+              }
+            },
+            {
+              "name": "status",
+              "type": {
+                "text": "UserStatus | undefined"
+              },
+              "description": "Optional user status to show.",
+              "fieldName": "status"
+            },
+            {
+              "name": "user",
+              "type": {
+                "text": "UserProfile | undefined"
+              },
+              "description": "The user object.",
+              "fieldName": "user"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -316,30 +312,58 @@
           "fields": [
             {
               "kind": "field",
-              "name": "image",
-              "type": {
-                "text": "AvatarImage | undefined"
-              }
-            },
-            {
-              "kind": "field",
               "name": "badge",
               "type": {
                 "text": "AvatarBadge | undefined"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "AvatarIcon | undefined"
-              }
+              },
+              "description": "The badge."
             },
             {
               "kind": "field",
               "name": "errorLoadingImage",
               "type": {
                 "text": "boolean | undefined"
+              },
+              "description": "State for when loading of the image has failed."
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "AvatarIcon | undefined"
+              },
+              "description": "The icon."
+            },
+            {
+              "kind": "field",
+              "name": "image",
+              "type": {
+                "text": "AvatarImage | undefined"
+              },
+              "description": "The image."
+            },
+            {
+              "kind": "field",
+              "name": "borderWidth",
+              "default": "4",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "default": "{\n  sm: -2,\n  md: -4,\n  lg: -4,\n  xl: -2,\n  '2xl': -2,\n  '3xl': 2\n}",
+              "type": {
+                "text": "Record<AvatarSize, number>"
               }
             },
             {
@@ -348,55 +372,7 @@
               "type": {
                 "text": "string"
               },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "ariaLabelText",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "initials",
-              "type": {
-                "text": "string"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "imageContent",
-              "type": {
-                "text": "TemplateResult"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "badgeContent",
-              "type": {
-                "text": "TemplateResult"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "badgeCutout",
-              "type": {
-                "text": "TemplateResult"
-              },
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "imageSVG",
-              "type": {
-                "text": "TemplateResult"
-              },
-              "readonly": true
+              "default": "''"
             }
           ]
         }
@@ -601,6 +577,16 @@
           "kind": "class",
           "description": "Groups buttons together in a bar separated by whitespace.\n\n```html\n<sl-button-bar>\n  <sl-button>Foo</sl-button>\n  <sl-button>Bar</sl-button>\n</sl-button-bar>\n```",
           "name": "ButtonBar",
+          "cssProperties": [
+            {
+              "description": "The alignment of the buttons within the bar",
+              "name": "--sl-button-bar-align"
+            },
+            {
+              "description": "The flex direction of the button container",
+              "name": "--sl-button-bar-direction"
+            }
+          ],
           "slots": [
             {
               "description": "Buttons to be grouped in the bar",
@@ -612,20 +598,21 @@
               "kind": "field",
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
+                "text": "ButtonBarAlign | undefined"
               },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
+              "description": "The alignment of the buttons within the bar.",
               "attribute": "align",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'start' | 'center' | 'end' | 'space-between' | undefined"
+              }
             },
             {
               "kind": "field",
               "name": "reverse",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "When set to true, the button order is reversed using flex-direction.",
               "attribute": "reverse",
               "reflects": true
@@ -635,18 +622,19 @@
             {
               "name": "align",
               "type": {
-                "text": "'start' | 'center' | 'end' | 'space-between'"
+                "text": "ButtonBarAlign | undefined"
               },
-              "default": "'start'",
-              "description": "The alignment of the buttons within the bar.\nFunctionally the same as flex-box alignments.",
-              "fieldName": "align"
+              "description": "The alignment of the buttons within the bar.",
+              "fieldName": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end' | 'space-between' | undefined"
+              }
             },
             {
               "name": "reverse",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "When set to true, the button order is reversed using flex-direction.",
               "fieldName": "reverse"
             }
@@ -872,6 +860,231 @@
           "declaration": {
             "name": "Button",
             "module": "../packages/components/button/src/button.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/card/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/card.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/card/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-card",
+          "declaration": {
+            "name": "Card",
+            "module": "/packages/components/card/src/card.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/card/src/card.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/card/src/card.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/card/src/card.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Let the user know you are processing their data or that the (part of the) page is loading.\n\n```html\n<sl-card></sl-card>\n```",
+          "name": "Card",
+          "cssProperties": [
+            {
+              "description": "-",
+              "name": "--sl-card-image-width"
+            },
+            {
+              "description": "-",
+              "name": "--sl-card-media-aspect-ratio"
+            },
+            {
+              "description": "-",
+              "name": "--sl-card-media-width"
+            },
+            {
+              "description": "-",
+              "name": "--sl-card-media-x"
+            },
+            {
+              "description": "-",
+              "name": "--sl-card-media-y"
+            },
+            {
+              "description": "-",
+              "name": "--sl-card-orientation-breakpoint"
+            },
+            {
+              "description": "-",
+              "name": "--sl-card-stretch-image"
+            },
+            {
+              "description": "-",
+              "name": "--sl-card-text-width"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Title of the card",
+              "name": "default"
+            },
+            {
+              "description": "Media, this can be an image or video",
+              "name": "media"
+            },
+            {
+              "description": "Subtitle or badges",
+              "name": "header"
+            },
+            {
+              "description": "Body text of the card",
+              "name": "body"
+            },
+            {
+              "description": "Icon button for actions on the card.",
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "height",
+              "type": {
+                "text": "CardHeightOptions"
+              },
+              "default": "'fixed'",
+              "attribute": "height",
+              "reflects": true,
+              "expandedType": {
+                "text": "'fixed' | 'flex'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "icon",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "mediaPosition",
+              "type": {
+                "text": "string"
+              },
+              "default": "'start'",
+              "attribute": "media-position",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "string"
+              },
+              "default": "'horizontal'",
+              "attribute": "orientation",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "padding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "attribute": "padding",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "padding",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "fieldName": "padding"
+            },
+            {
+              "name": "height",
+              "type": {
+                "text": "CardHeightOptions"
+              },
+              "default": "'fixed'",
+              "fieldName": "height",
+              "expandedType": {
+                "text": "'fixed' | 'flex'"
+              }
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "string"
+              },
+              "default": "'horizontal'",
+              "fieldName": "orientation"
+            },
+            {
+              "name": "icon",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "icon"
+            },
+            {
+              "name": "media-position",
+              "type": {
+                "text": "string"
+              },
+              "default": "'start'",
+              "fieldName": "mediaPosition"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-card",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Card",
+          "declaration": {
+            "name": "Card",
+            "module": "../packages/components/card/src/card.ts"
           }
         }
       ]
@@ -1761,7 +1974,7 @@
               "attribute": "size",
               "reflects": true,
               "expandedType": {
-                "text": "'md' | 'lg'"
+                "text": "'sm' | 'md' | 'lg'"
               }
             },
             {
@@ -1939,7 +2152,7 @@
               "description": "The size of the checkbox.",
               "fieldName": "size",
               "expandedType": {
-                "text": "'md' | 'lg'"
+                "text": "'sm' | 'md' | 'lg'"
               }
             },
             {
@@ -2221,6 +2434,30 @@
           "kind": "class",
           "description": "A dialog component for displaying modal UI.",
           "name": "Dialog",
+          "cssProperties": [
+            {
+              "description": "The maximum width of the dialog",
+              "name": "--sl-dialog-max-inline-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The dialog element",
+              "name": "dialog"
+            },
+            {
+              "description": "The container of the title and subtitle",
+              "name": "titles"
+            },
+            {
+              "description": "The button bar in the header",
+              "name": "header-bar"
+            },
+            {
+              "description": "The button bar in the footer",
+              "name": "footer-bar"
+            }
+          ],
           "slots": [
             {
               "description": "Area where action buttons are placed",
@@ -2237,10 +2474,6 @@
             {
               "description": "Header content for the dialog",
               "name": "header"
-            },
-            {
-              "description": "Closing button (placed in header) for the dialog",
-              "name": "close-button"
             },
             {
               "description": "More space for buttons for the dialog's header",
@@ -2267,22 +2500,21 @@
             },
             {
               "kind": "field",
-              "name": "closingButton",
+              "name": "closeButton",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
-              "attribute": "closing-button"
+              "description": "Determines whether a close button should be shown in the top right corner.",
+              "attribute": "close-button"
             },
             {
               "kind": "field",
-              "name": "disableClose",
+              "name": "disableCancel",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
+              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
+              "attribute": "disable-cancel"
             },
             {
               "kind": "field",
@@ -2302,25 +2534,58 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "event",
+              "name": "sl-cancel",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
+            },
+            {
+              "kind": "event",
+              "name": "sl-close",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the dialog has been closed."
+            }
+          ],
+          "events": [
+            {
+              "name": "cancelEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop.",
+              "fieldName": "cancelEvent"
+            },
+            {
+              "name": "closeEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the dialog has been closed.",
+              "fieldName": "closeEvent"
             }
           ],
           "attributes": [
             {
-              "name": "disable-close",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "closing-button",
+              "name": "close-button",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
-              "fieldName": "closingButton"
+              "description": "Determines whether a close button should be shown in the top right corner.",
+              "fieldName": "closeButton"
+            },
+            {
+              "name": "disable-cancel",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
+              "fieldName": "disableCancel"
             },
             {
               "name": "role",
@@ -5115,6 +5380,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/drag-handle-column.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/events.js"
           }
         },
@@ -5139,6 +5412,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/select-column.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/selection-column.js"
           }
         },
@@ -5148,6 +5429,14 @@
           "declaration": {
             "name": "*",
             "package": "./src/sort-column.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/text-field-column.js"
           }
         }
       ]
@@ -5183,10 +5472,26 @@
         },
         {
           "kind": "custom-element-definition",
+          "name": "sl-grid-drag-handle-column",
+          "declaration": {
+            "name": "GridDragHandleColumn",
+            "module": "/packages/components/grid/src/drag-handle-column.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
           "name": "sl-grid-filter-column",
           "declaration": {
             "name": "GridFilterColumn",
             "module": "/packages/components/grid/src/filter-column.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-grid-select-column",
+          "declaration": {
+            "name": "GridSelectColumn",
+            "module": "/packages/components/grid/src/select-column.js"
           }
         },
         {
@@ -5203,6 +5508,14 @@
           "declaration": {
             "name": "GridSortColumn",
             "module": "/packages/components/grid/src/sort-column.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-grid-text-field-column",
+          "declaration": {
+            "name": "GridTextFieldColumn",
+            "module": "/packages/components/grid/src/text-field-column.js"
           }
         }
       ]
@@ -6159,6 +6472,544 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/grid/src/drag-handle-column.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridDragHandleColumn",
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "GridColumnAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "attribute": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "autoWidth",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "event",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "attribute": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "attribute": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "attribute": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "attribute": "sticky",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "attribute": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "GridColumn",
+            "module": "/packages/components/grid/src/column.js"
+          },
+          "tagName": "sl-grid-drag-handle-column",
+          "customElement": true,
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "GridColumnAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "fieldName": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "auto-width",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "fieldName": "autoWidth",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "fieldName": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "fieldName": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "fieldName": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "fieldName": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "fieldName": "sticky",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "fieldName": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "fieldName": "columnUpdate",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridDragHandleColumn",
+          "declaration": {
+            "name": "GridDragHandleColumn",
+            "module": "../packages/components/grid/src/drag-handle-column.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/grid/src/events.ts",
       "declarations": [
         {
@@ -6200,6 +7051,24 @@
         {
           "kind": "class",
           "description": "",
+          "name": "GridItemDropEvent",
+          "superclass": {
+            "name": "GridItemEvent",
+            "module": "../packages/components/grid/src/events.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridItemEvent",
+          "superclass": {
+            "name": "GridEvent",
+            "module": "../packages/components/grid/src/events.ts"
+          }
+        },
+        {
+          "kind": "class",
+          "description": "",
           "name": "GridSortDirectionChangeEvent",
           "superclass": {
             "name": "GridColumnEvent",
@@ -6213,6 +7082,22 @@
           "name": "GridEvent",
           "declaration": {
             "name": "GridEvent",
+            "module": "../packages/components/grid/src/events.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridItemEvent",
+          "declaration": {
+            "name": "GridItemEvent",
+            "module": "../packages/components/grid/src/events.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridItemDropEvent",
+          "declaration": {
+            "name": "GridItemDropEvent",
             "module": "../packages/components/grid/src/events.ts"
           }
         },
@@ -7111,6 +7996,50 @@
               "description": "Provide your own implementation for getting the data."
             },
             {
+              "kind": "field",
+              "name": "draggableRows",
+              "type": {
+                "text": "GridDraggableRows | undefined"
+              },
+              "description": "Whether you can drag rows in the grid. If you use the drag-handle column,\nthen this property is automatically set by the column to 'between'.",
+              "attribute": "draggable-rows",
+              "expandedType": {
+                "text": "'between' | 'on-top' | 'between-or-on-top' | 'on-grid' | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "dropFilter",
+              "type": {
+                "text": "GridDropFilter<T> | undefined"
+              },
+              "description": "Determines if or what kind of drop target the given item is:\n- boolean: the item is valid drop target based on the draggableRows value\n- 'between': the item is a valid drop target between\n- 'on-top': the item is a valid drop target to drop on top of"
+            },
+            {
+              "kind": "event",
+              "name": "gridDragend",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished."
+            },
+            {
+              "kind": "event",
+              "name": "gridDragstart",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting."
+            },
+            {
+              "kind": "event",
+              "name": "gridDrop",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped."
+            },
+            {
               "kind": "event",
               "name": "gridItemsChange",
               "type": {
@@ -7258,6 +8187,30 @@
               "fieldName": "activeItemChange"
             },
             {
+              "name": "gridDragstart",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting.",
+              "fieldName": "gridDragstart"
+            },
+            {
+              "name": "gridDragend",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished.",
+              "fieldName": "gridDragend"
+            },
+            {
+              "name": "gridDrop",
+              "type": {
+                "text": "EventEmitter<GridEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped.",
+              "fieldName": "gridDrop"
+            },
+            {
               "name": "gridItemsChange",
               "type": {
                 "text": "EventEmitter<GridEvent<T>>"
@@ -7275,6 +8228,17 @@
             }
           ],
           "attributes": [
+            {
+              "name": "draggable-rows",
+              "type": {
+                "text": "GridDraggableRows | undefined"
+              },
+              "description": "Whether you can drag rows in the grid. If you use the drag-handle column,\nthen this property is automatically set by the column to 'between'.",
+              "fieldName": "draggableRows",
+              "expandedType": {
+                "text": "'between' | 'on-top' | 'between-or-on-top' | 'on-grid' | undefined"
+              }
+            },
             {
               "name": "items",
               "type": {
@@ -7408,6 +8372,14 @@
             },
             {
               "kind": "field",
+              "name": "dropFilter",
+              "type": {
+                "text": "GridDropFilter<T> | undefined"
+              },
+              "description": "Determines if or what kind of drop target the given item is:\n- boolean: the item is valid drop target based on the draggableRows value\n- 'between': the item is a valid drop target between\n- 'on-top': the item is a valid drop target to drop on top of"
+            },
+            {
+              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
@@ -7440,6 +8412,561 @@
           "declaration": {
             "name": "Grid",
             "module": "../packages/components/grid/src/grid.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/grid/src/select-column.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridSelectColumn",
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "GridColumnAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "attribute": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "autoWidth",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "event",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "attribute": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "Array<{ label: string; value: unknown }> | string[] | undefined"
+              },
+              "description": "The options for the select.",
+              "attribute": "options"
+            },
+            {
+              "kind": "field",
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "attribute": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "attribute": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "attribute": "sticky",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "attribute": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "options",
+              "type": {
+                "text": "Array<{ label: string; value: unknown }> | string[] | undefined"
+              },
+              "description": "The options for the select.",
+              "fieldName": "options"
+            },
+            {
+              "name": "align",
+              "type": {
+                "text": "GridColumnAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "fieldName": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "auto-width",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "fieldName": "autoWidth",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "fieldName": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "fieldName": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "fieldName": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "fieldName": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "fieldName": "sticky",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "fieldName": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "GridColumn",
+            "module": "/packages/components/grid/src/column.js"
+          },
+          "tagName": "sl-grid-select-column",
+          "customElement": true,
+          "events": [
+            {
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "fieldName": "columnUpdate",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridSelectColumn",
+          "declaration": {
+            "name": "GridSelectColumn",
+            "module": "../packages/components/grid/src/select-column.ts"
           }
         }
       ]
@@ -8792,6 +10319,544 @@
           "declaration": {
             "name": "GridSorter",
             "module": "../packages/components/grid/src/sorter.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/grid/src/text-field-column.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridTextFieldColumn",
+          "members": [
+            {
+              "kind": "field",
+              "name": "align",
+              "type": {
+                "text": "GridColumnAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "attribute": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "autoWidth",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "event",
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "attribute": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "attribute": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "attribute": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "attribute": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "attribute": "sticky",
+              "reflects": true,
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "attribute": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "GridColumn",
+            "module": "/packages/components/grid/src/column.js"
+          },
+          "tagName": "sl-grid-text-field-column",
+          "customElement": true,
+          "attributes": [
+            {
+              "name": "align",
+              "type": {
+                "text": "GridColumnAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of the content within the column.",
+              "fieldName": "align",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end'"
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "auto-width",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
+              "fieldName": "autoWidth",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "grow",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "The ratio with which the column will grow relative to the other columns.\nA ratio of 0 means the column width is fixed.",
+              "fieldName": "grow",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "header",
+              "type": {
+                "text": "string | GridColumnHeaderRenderer | undefined"
+              },
+              "description": "The label for the column header.",
+              "fieldName": "header",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "path",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the value for this column.",
+              "fieldName": "path",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "parts",
+              "type": {
+                "text": "string | GridColumnParts<T> | undefined"
+              },
+              "description": "Custom parts to be set on the `<td>` so it can be styled externally.",
+              "fieldName": "parts",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "sticky",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this column is sticky when the user scrolls horizontally.",
+              "fieldName": "sticky",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "name": "width",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Width of the cells for this column in pixels.",
+              "fieldName": "width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "columnUpdate",
+              "type": {
+                "text": "EventEmitter<GridColumnEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "fieldName": "columnUpdate",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "renderData",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "itemsChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the contents of the grid has changed.\nThis happens when the items property is directly set or when the data source has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "stateChanged",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderHeader",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getParts",
+              "return": {
+                "type": {
+                  "text": "string[]"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "grid",
+              "type": {
+                "text": "Grid<T> | undefined"
+              },
+              "description": "The parent grid instance.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "renderer",
+              "type": {
+                "text": "GridColumnDataRenderer<T> | undefined"
+              },
+              "description": "Renderer function for the column value of each cell.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridTextFieldColumn",
+          "declaration": {
+            "name": "GridTextFieldColumn",
+            "module": "../packages/components/grid/src/text-field-column.ts"
           }
         }
       ]
@@ -11212,7 +13277,31 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/browser.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/config.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/controllers/index.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/css.js"
           }
         },
         {
@@ -11237,22 +13326,6 @@
           "declaration": {
             "name": "*",
             "package": "./src/directives/index.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/css.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./src/config.js"
           }
         },
         {
@@ -11299,6 +13372,26 @@
           "name": "default",
           "declaration": {
             "module": "../packages/components/shared/src/breakpoints.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/browser.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "isSafari"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "isSafari",
+          "declaration": {
+            "name": "isSafari",
+            "module": "../packages/components/shared/src/browser.ts"
           }
         }
       ]
@@ -14926,6 +17019,33 @@
               "default": "''"
             }
           ]
+        },
+        {
+          "kind": "function",
+          "name": "setValueByPath",
+          "return": {
+            "type": {
+              "text": "void"
+            }
+          },
+          "parameters": [
+            {
+              "name": "object",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "name": "path",
+              "default": "''"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "unknown"
+              }
+            }
+          ]
         }
       ],
       "exports": [
@@ -14950,6 +17070,14 @@
           "name": "getValueByPath",
           "declaration": {
             "name": "getValueByPath",
+            "module": "../packages/components/shared/src/path.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "setValueByPath",
+          "declaration": {
+            "name": "setValueByPath",
             "module": "../packages/components/shared/src/path.ts"
           }
         }
@@ -16273,15 +18401,44 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A tab group component that can contain tabs and tab panels.\n\n```html\n   <sl-tab-group>\n        <sl-tab selected>First tab</sl-tab>\n        <sl-tab-panel>Content of the tab 1</sl-tab-panel>\n\n        <sl-tab>Second tab</sl-tab>\n        <sl-tab-panel>Content of the tab 2</sl-tab-panel>\n   </sl-tab-group>\n```",
           "name": "TabGroup",
+          "slots": [
+            {
+              "description": "a place for the tab group content.",
+              "name": "default"
+            }
+          ],
           "members": [
+            {
+              "kind": "field",
+              "name": "alignment",
+              "type": {
+                "text": "TabsAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of tabs inside sl-tab-group",
+              "attribute": "alignment",
+              "reflects": true,
+              "expandedType": {
+                "text": "'start' | 'filled'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox element with all tabs list."
+            },
             {
               "kind": "event",
               "name": "tabChange",
               "type": {
                 "text": "EventEmitter<number>"
-              }
+              },
+              "description": "Emits when the tab has been selected/changed."
             },
             {
               "kind": "field",
@@ -16295,9 +18452,8 @@
               "kind": "field",
               "name": "vertical",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Renders the tabs vertically instead of the default horizontal",
               "attribute": "vertical",
               "reflects": true
@@ -16309,6 +18465,7 @@
               "type": {
                 "text": "EventEmitter<number>"
               },
+              "description": "Emits when the tab has been selected/changed.",
               "fieldName": "tabChange"
             }
           ],
@@ -16316,11 +18473,22 @@
             {
               "name": "vertical",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Renders the tabs vertically instead of the default horizontal",
               "fieldName": "vertical"
+            },
+            {
+              "name": "alignment",
+              "type": {
+                "text": "TabsAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of tabs inside sl-tab-group",
+              "fieldName": "alignment",
+              "expandedType": {
+                "text": "'start' | 'filled'"
+              }
             }
           ],
           "mixins": [
@@ -16344,6 +18512,14 @@
                 "text": "Tab[] | undefined"
               },
               "description": "The slotted tabs."
+            },
+            {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox element with all tabs list."
             }
           ]
         }
@@ -16379,8 +18555,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A tab panel component - part of the tab group component, place for a tab content.\n\n```html\n     <sl-tab-panel>\n       Content of the tab\n     </sl-tab-panel>\n```",
           "name": "TabPanel",
+          "slots": [
+            {
+              "description": "a place for the tab panel content.",
+              "name": "default"
+            }
+          ],
           "members": [],
           "superclass": {
             "name": "LitElement",
@@ -16421,8 +18603,26 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A tab component - part of the tab group component.\n\n```html\n     <sl-tab>\n        <sl-icon slot=\"icon\" name=\"star\" size=\"md\"></sl-icon>\n        Tab label\n        <span slot=\"subtitle\">Tab subtitle</span>\n        <sl-badge slot=\"badge\" size=\"lg\" variant=\"danger\">4</sl-badge>\n     </sl-tab>\n```",
           "name": "Tab",
+          "slots": [
+            {
+              "description": "a place for the tab group content.",
+              "name": "default"
+            },
+            {
+              "description": "icon shown on the left side of the component.",
+              "name": "icon"
+            },
+            {
+              "description": "a place for badge component.",
+              "name": "badge"
+            },
+            {
+              "description": "subtitle of the tab, containing additional information",
+              "name": "subtitle"
+            }
+          ],
           "members": [
             {
               "kind": "field",

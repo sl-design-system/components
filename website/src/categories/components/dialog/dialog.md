@@ -8,7 +8,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Dialog
-  order: 6
+  order: 7
   status: coming
 ---
 

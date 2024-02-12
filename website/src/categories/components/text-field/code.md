@@ -31,3 +31,6 @@ eleventyNavigation:
 
 {% include "../component-table.njk" %}
 
+<script>
+  setTimeout(() => document.querySelector('#text-field-example')?.reportValidity(), 100);
+</script>

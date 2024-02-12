@@ -47,9 +47,6 @@ Text fields are ideal for capturing single-line responses.
 ## When not to use
 Text fields may not be the best choice in the following scenarios:
 
-### Predefined options
-When input data can be conveniently selected from predefined options using checkboxes, radio buttons, dropdown menus, or text areas. These structured input controls enhance efficiency and minimize errors in such cases.
-
 ### Sensitive information
 For handling sensitive or confidential information, such as passwords or credit card numbers, it's advisable to utilize specialized secure input fields designed to obscure the entered data for enhanced security.
 

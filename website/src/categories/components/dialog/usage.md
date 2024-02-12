@@ -145,7 +145,7 @@ Only show dialogs when the user explicitly triggers them. Avoid interrupting the
 | Item | Name | Description | Optional|
 |-|-|-|-|
 | 1 | Overlay | Obscures the page content behind the panel |No|
-| 2 | Panel	| Contains the panel header, subheader and panel content |No|
+| 2 | Panel	| Contains the header, subheader, panel content and actions |No|
 | 3 | Header | An area to display content at the top of the panel (e.g. title)| Yes |
 | 4 | Subheader	| An area to display the description of the title| Yes |
 | 5 | Close button| Icon button for closing the dialog | Yes |
@@ -174,6 +174,21 @@ With these options, you can tweak the appearance of the dialog in Figma. They ar
 |Align|`'Left', 'Right'`| Choose if you want to show the actions on the left or right side.|
 
 {.ds-table .ds-table-align-top}
+  
+</section>
+
+<section>
+  
+## Behavior
+
+### Height
+The height of the dialog is dynamically calculated as a percentage of the available screen. As content is injected into the dialog, it grows vertically to accommodate the information passed to it.
+
+### Entrance and exit motion
+When the user launches the dialog, the overlay fades in from 0% to 100% opacity (transitions) and the dialog slides upward from the centre of the screen (transforms:translate the x or y axis). When the user dismisses the dialog, the same animation occurs in reverse.
+
+### Content overflow
+When content exceeds the available space, it overflows and becomes scrollable. 
   
 </section>
 

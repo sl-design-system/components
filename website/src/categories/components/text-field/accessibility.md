@@ -10,6 +10,18 @@ eleventyNavigation:
 
 Here's an overview of the common keyboard interactions associated with a text field:
 
+<div class="ds-table-wrapper">
+
+|Command|Description|
+|-|-|
+|Tab|-|
+|Space/Enter|-|
+|Arrow Keys|-|
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
 </section>
 
 <section>
@@ -19,6 +31,8 @@ Here's an overview of the common keyboard interactions associated with a text fi
 WAI-ARIA Roles, States, and Properties for a text field provide essential information to assistive technologies and screen readers. They convey the text field's role, state, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 <sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it can be provided by the developer (yes)</sl-tooltip>
 
+<div class="ds-table-wrapper">
+  
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
 |-|-|-|-|
 |`role`	|`'button'`|Makes it clear that our custom component is a button |no|
@@ -29,6 +43,8 @@ WAI-ARIA Roles, States, and Properties for a text field provide essential inform
 |`aria-pressed`| boolean | When the button is used as a toggle and is toggled on, the value of this state is true, and when toggled off, the state is false.| yes|
 
 {.ds-table .ds-table-align-top}
+
+</div>
 
 </section>
 

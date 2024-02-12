@@ -159,10 +159,22 @@ Only show dialogs when the user explicitly triggers them. Avoid interrupting the
 
 <section>
 
-  ## Options
-  With these options, you can tweak the appearance of the dialog in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
-  
+## Options
+With these options, you can tweak the appearance of the dialog in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
 
+|Item|Options|Description|
+|-|-|-|
+|Device|`'Desktop', 'Mobile'`| Select the device for your prototype to ensure an optimal layout.|
+|Size|`'sm','md' (Default), 'lg', 'xl'`|The dialog come in four sizes: small, medium (default), large and extra large, providing flexibility to align with your design requirements.|
+|Close Icon|`'Yes', 'No'`| Choose if you want to show a close button.|
+|Header Order|`'Title', 'Subtitle'`| Choose if you want to start with the title or subtitle.|
+|Content|`'Yes', 'No'`| Choose if you want to show content (slot component).|
+|Slot Component|`'.slot'`|Select your own component to display within the dialog component.|
+|Actions|`'Yes', 'No'`| Choose if you want to show actions.|
+|Align|`'Left', 'Right'`| Choose if you want to show the actions on the left or right side.|
+
+{.ds-table .ds-table-align-top}
+  
 </section>
 
 <script>

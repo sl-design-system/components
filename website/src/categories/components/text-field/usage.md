@@ -33,13 +33,13 @@ eleventyNavigation:
 
 ## When to use
 
-Text fields come in handy in certain situations:
+The following guidance describes when to use the Text Field component.
 
 ### Unique input 
 When users need to input information that is unique and cannot be anticipated from a predefined set of options. Text fields provide the flexibility to capture diverse and unpredictable data.
 
-### Memorable data
-In cases where users need to input memorable data quickly, a free-form input method is more efficient than a complex control interface. Text fields offer a straightforward way for users to provide the information they have in mind.
+### Single-line input
+Text fields are ideal for capturing single-line responses.
 </section>
 
 <section>
@@ -61,7 +61,6 @@ Consider using text areas when you anticipate the input length will exceed the w
 <section>
 
 ## Anatomy
-Let's dive into the fundamental elements that make up a text field and understand how they enhance user experiences.
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
@@ -85,7 +84,7 @@ With these options you can tweak the appearance of the text field in Figma. They
 |Variant|`'default', 'valid', 'invalid'`| When you're working on a scenario where you show what happens when a field is skipped or filled in incorrectly you can choose a different variant to show this.|
 |State|`'idle','hover','active','disabled'`|These states are applied automatically in interactive examples or can be set explicitly when the use case asks for it. Default value is `idle`.|
 |Placeholder|`'on', 'off'`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
-|Placeholder text|`string`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). <br> Read further to learn why you need to be mindful of placeholder texts on the accessibility tab.|
+|Placeholder text|`string`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format).|
 |Helper|`'on', 'off'`|To turn to Helper Text on or off. Default value is `off`.|
 |Input Text |`string`|Will be shown as the value of the text field|
 |Label|`text`|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|

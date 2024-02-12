@@ -14,11 +14,15 @@ import styles from './dialog.scss.js';
 /**
  * A dialog component for displaying modal UI.
  *
+ * @csspart dialog - The dialog element
+ * @csspart titles - The container of the title and subtitle
+ * @csspart header-bar - The button bar in the header
+ * @csspart footer-bar - The button bar in the footer
+ * @cssprop --sl-dialog-max-inline-size - The maximum width of the dialog
  * @slot actions - Area where action buttons are placed
  * @slot default - Body content for the dialog
  * @slot footer - Footer content for the dialog
  * @slot header - Header content for the dialog
- * @slot close-button - Closing button (placed in header) for the dialog
  * @slot header-buttons - More space for buttons for the dialog's header
  * @slot title - The title of the dialog
  * @slot subtitle - The subtitle of the dialog
@@ -74,7 +78,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         @cancel=${this.#onCancel}
         @click=${this.#onClick}
         @close=${this.#onClose}
-        @keydown=${this.#onKeydown}
         .role=${this.role}
         aria-labelledby="title"
         part="dialog"
@@ -85,25 +88,21 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
             <slot name="subtitle"></slot>
           </div>
           <slot name="header-actions">
-            <slot name="header-buttons"></slot>
-            ${this.closeButton
-              ? html`
-                  <slot name="close-button" @click=${this.#onCloseClick}>
-                    <sl-button fill="ghost" variant="default" aria-label=${msg('Close')}>
+            <sl-button-bar part="header-bar">
+              <slot name="header-buttons"></slot>
+              ${this.closeButton
+                ? html`
+                    <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
                       <sl-icon name="xmark"></sl-icon>
                     </sl-button>
-                  </slot>
-                `
-              : nothing}
+                  `
+                : nothing}
+            </sl-button-bar>
           </slot>
         </slot>
-        <slot name="body">
-          <div class="body-content" part="body-content">
-            <slot></slot>
-          </div>
-        </slot>
+        <slot></slot>
         <slot name="footer">
-          <sl-button-bar>
+          <sl-button-bar part="footer-bar">
             <slot name="actions"></slot>
           </sl-button-bar>
         </slot>
@@ -116,12 +115,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.inert = false;
-    this.dialog?.showModal();
-
-    // Disable scrolling while the dialog is open
-    document.documentElement.style.overflow = 'hidden';
-
     /**
      * Workaround for the backdrop background: the backdrop doesn't inherit
      * from the :root, so we cannot use tokens for the background-color.
@@ -130,12 +123,18 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
      */
     const backdrop: CSSResult = unsafeCSS(
       `::backdrop {
-        background-color: ${getComputedStyle(document.body).getPropertyValue('--sl-body-surface-overlay')};
+        background-color: ${getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay')};
       }
     `
     );
 
     adoptStyles(this.shadowRoot!, [breakpoints, styles, backdrop]);
+
+    // Disable scrolling while the dialog is open
+    document.documentElement.style.overflow = 'hidden';
+
+    this.inert = false;
+    this.dialog?.showModal();
   }
 
   close(): void {
@@ -144,11 +143,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onCancel(event: Event): void {
-    if (this.disableCancel) {
-      event.preventDefault();
-    } else {
-      this.cancelEvent.emit();
+  #onCancel(event: Event & { target: HTMLElement }): void {
+    event.preventDefault();
+
+    if (!this.disableCancel) {
+      this.#closeDialogOnAnimationend(event.target, true);
     }
   }
 
@@ -181,12 +180,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
     event.stopPropagation();
 
     this.#closeDialogOnAnimationend(event.target as HTMLElement);
-  }
-
-  #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
-    if (event.code === 'Escape' && this.dialog?.open && !this.disableCancel) {
-      this.#closeDialogOnAnimationend(event.target, true);
-    }
   }
 
   #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {

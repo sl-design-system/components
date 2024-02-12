@@ -2323,10 +2323,10 @@
         "type": "Icons",
         "description": "icon.core.circle-check-solid"
       },
-      "ellipsis-solid": {
+      "ellipsis": {
         "value": "ellipsis",
         "type": "Icons",
-        "description": "icon.core.ellipsis-solid"
+        "description": "icon.core.ellipsis"
       }
     },
     "typeset": {
@@ -2431,7 +2431,7 @@
         }
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       },
       "block": {
@@ -2471,7 +2471,7 @@
         "type": "spacing"
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       }
     },
@@ -2737,6 +2737,11 @@
     "input": {
       "option": {
         "block": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
           "md": {
             "value": "{space.xs}",
             "type": "spacing",
@@ -2749,6 +2754,11 @@
           }
         },
         "inline": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
           "md": {
             "value": "{space.none}",
             "type": "spacing",
@@ -2761,6 +2771,11 @@
           }
         },
         "gap": {
+          "sm": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
           "md": {
             "value": "{space.sm}",
             "type": "spacing",
@@ -3533,6 +3548,36 @@
           "value": "{space.sm}",
           "type": "spacing"
         }
+      },
+      "content": {
+        "horizontal": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
+        },
+        "vertical": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
+        }
       }
     },
     "card": {
@@ -3712,6 +3757,10 @@
     },
     "input": {
       "option": {
+        "sm": {
+          "value": "{size.lg}",
+          "type": "sizing"
+        },
         "md": {
           "value": "{size.xl}",
           "type": "sizing",
@@ -3723,6 +3772,10 @@
           "description": "size.input.lg"
         },
         "checkboxIcon": {
+          "sm": {
+            "value": "{size.icon.xs}",
+            "type": "sizing"
+          },
           "md": {
             "value": "{size.icon.md}",
             "type": "sizing",

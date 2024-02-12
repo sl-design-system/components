@@ -1865,7 +1865,7 @@
         }
       },
       "offset": {
-        "value": "{space.sm}",
+        "value": "{space.xs}",
         "type": "spacing"
       }
     }

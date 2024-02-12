@@ -40,6 +40,30 @@
           "kind": "class",
           "description": "A dialog component for displaying modal UI.",
           "name": "Dialog",
+          "cssProperties": [
+            {
+              "description": "The maximum width of the dialog",
+              "name": "--sl-dialog-max-inline-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The dialog element",
+              "name": "dialog"
+            },
+            {
+              "description": "The container of the title and subtitle",
+              "name": "titles"
+            },
+            {
+              "description": "The button bar in the header",
+              "name": "header-bar"
+            },
+            {
+              "description": "The button bar in the footer",
+              "name": "footer-bar"
+            }
+          ],
           "slots": [
             {
               "description": "Area where action buttons are placed",
@@ -56,10 +80,6 @@
             {
               "description": "Header content for the dialog",
               "name": "header"
-            },
-            {
-              "description": "Closing button (placed in header) for the dialog",
-              "name": "close-button"
             },
             {
               "description": "More space for buttons for the dialog's header",
@@ -226,7 +246,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
               ]
@@ -270,23 +290,6 @@
                   "name": "event",
                   "type": {
                     "text": "PointerEvent & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onKeydown",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "KeyboardEvent & { target: HTMLElement }"
                   }
                 }
               ]

@@ -17,11 +17,11 @@ export const icons = {
     description: 'icon.core.circle-check-solid',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" fill="var(--fill-default)"></path></svg>'
   },
-  'ellipsis-solid': {
+  ellipsis: {
     value: 'ellipsis',
     type: 'Icons',
-    description: 'icon.core.ellipsis-solid',
-    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M8 256a56 56 0 1 1 112 0A56 56 0 1 1 8 256zm160 0a56 56 0 1 1 112 0 56 56 0 1 1 -112 0zm216-56a56 56 0 1 1 0 112 56 56 0 1 1 0-112z" fill="var(--fill-default)"></path></svg>'
+    description: 'icon.core.ellipsis',
+    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M432 256a48 48 0 1 1 -96 0 48 48 0 1 1 96 0zm-160 0a48 48 0 1 1 -96 0 48 48 0 1 1 96 0zM64 304a48 48 0 1 1 0-96 48 48 0 1 1 0 96z" fill="var(--fill-default)"></path></svg>'
   },
   'face-smile': {
     value: 'face-smile',

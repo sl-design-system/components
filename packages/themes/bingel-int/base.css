@@ -44,7 +44,7 @@
   --sl-opacity-100: 0.04;
   --sl-opacity-50: 0.02;
   --sl-icon-typeset-font-size-2xs: 10px;
-  --sl-icon-core-ellipsis-solid: ellipsis;
+  --sl-icon-core-ellipsis: ellipsis;
   --sl-icon-core-circle-check-solid: circle-check;
   --sl-icon-core-octagon-exclamation-solid: octagon-exclamation;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
@@ -280,6 +280,7 @@
   --sl-size-input-switch-handle-sm: calc(var(--sl-size-md) - (2 * var(--sl-space-input-switch-padding-controller)));
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
+  --sl-size-input-option-sm: var(--sl-size-lg);
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
@@ -308,6 +309,12 @@
   --sl-space-card-content-inline: var(--sl-space-xl);
   --sl-space-card-media-margins: var(--sl-space-sm);
   --sl-space-card-media-full: var(--sl-space-none);
+  --sl-space-tab-content-vertical-gap: var(--sl-space-xl);
+  --sl-space-tab-content-vertical-block: var(--sl-space-sm);
+  --sl-space-tab-content-vertical-inline: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-gap: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-block: var(--sl-space-xl);
+  --sl-space-tab-content-horizontal-inline: var(--sl-space-xl);
   --sl-space-tab-more-block: var(--sl-space-sm);
   --sl-space-tab-more-inline: var(--sl-space-md);
   --sl-space-tab-gap: var(--sl-space-sm);
@@ -428,10 +435,13 @@
   --sl-space-input-text-field-block-md: calc(var(--sl-space-xs) + var(--sl-conceptual-border-width-default));
   --sl-space-input-option-gap-lg: var(--sl-space-sm);
   --sl-space-input-option-gap-md: var(--sl-space-sm);
+  --sl-space-input-option-gap-sm: var(--sl-space-sm);
   --sl-space-input-option-inline-lg: var(--sl-space-none);
   --sl-space-input-option-inline-md: var(--sl-space-none);
+  --sl-space-input-option-inline-sm: var(--sl-space-none);
   --sl-space-input-option-block-lg: var(--sl-space-xs);
   --sl-space-input-option-block-md: var(--sl-space-xs);
+  --sl-space-input-option-block-sm: var(--sl-space-none);
   --sl-space-button-link-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-link));
@@ -474,9 +484,9 @@
   --sl-space-popover-gap: var(--sl-space-xs);
   --sl-space-popover-inline: var(--sl-space-md);
   --sl-space-popover-block: var(--sl-space-sm);
-  --sl-space-popover-offset: var(--sl-space-sm);
+  --sl-space-popover-offset: var(--sl-space-xs);
   --sl-space-popover-arrow-offset: var(--sl-space-lg);
-  --sl-space-tooltip-offset: var(--sl-space-sm);
+  --sl-space-tooltip-offset: var(--sl-space-xs);
   --sl-space-tooltip-gap: var(--sl-space-xs);
   --sl-space-tooltip-inline: var(--sl-space-md);
   --sl-space-tooltip-block: var(--sl-space-sm);
@@ -695,6 +705,7 @@
   --sl-color-palette-primary-400: 0 116 223;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
+  --sl-size-input-option-checkbox-icon-sm: var(--sl-size-icon-xs);
   --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
   --sl-space-select-item-gap-md: var(--sl-space-input-text-field-gap-md);
   --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);

@@ -1,5 +1,15 @@
 # @sl-design-system/button-bar
 
+## 0.0.4
+
+### Patch Changes
+
+- [#937](https://github.com/sl-design-system/components/pull/937) [`e4e94cb`](https://github.com/sl-design-system/components/commit/e4e94cbae85ef09c029920db0cb0ac9c92939097) - - Make `icon-only` take nested slotted buttons into account
+
+  - Add `--sl-button-bar-align` and `--sl-button-bar-direction` public CSS API
+
+- [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - Bump Lit and related dependencies
+
 ## 0.0.3
 
 ### Patch Changes

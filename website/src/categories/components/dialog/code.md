@@ -57,3 +57,17 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 <script>
   setTimeout(() => document.querySelector('#dialog-example')?.reportValidity(), 100);
 </script>
+
+<script>
+
+const openBtn = document.querySelector("#open-button");
+const dialogExample = document.querySelector("#dialog-example");
+
+
+openBtn.addEventListener("click", () => {
+    if (dialogExample) {
+      dialogExample.showModal();
+    }
+  })
+
+</script>

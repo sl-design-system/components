@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  list-style: none;
+}
+
+details {
+  flex: 1;
+}
+
+details > summary:first-of-type {
+  list-style: none;
+}
+
+summary {
+  border: 2px solid #c6c6c6;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+}
+
+.panel {
+  padding: 16px;
+}

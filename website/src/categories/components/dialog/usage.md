@@ -110,6 +110,8 @@ Only show dialogs when the user explicitly triggers them. Avoid interrupting the
 ## Options
 With these options, you can tweak the appearance of the dialog in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
 
+<div class="ds-table-wrapper">
+  
 |Item|Options|Description|
 |-|-|-|
 |Device|`'Desktop', 'Mobile'`| Select the device for your prototype to ensure an optimal layout.|
@@ -122,6 +124,8 @@ With these options, you can tweak the appearance of the dialog in Figma. They ar
 |Align|`'Left', 'Right'`| Choose if you want to show the actions on the left or right side.|
 
 {.ds-table .ds-table-align-top}
+
+</div>
   
 </section>
 

@@ -27,27 +27,11 @@ eleventyNavigation:
 ## When to use
 A switch component is best used when:
 
-<section class="ds-cards">
-
-<figure class="ds-cards__do">
-  {{'components/switch/sl-switch-when-use-settings.svg' | svgImage}}
-<figcaption>
-
 ### Binary Settings
 When you have straightforward on/off options that users should be able to control effortlessly, switches are the ideal choice. They offer a simple and intuitive way to switch between two states.
-</figcaption>
-</figure>
-
-<figure class="ds-cards__do">
-  {{'components/switch/sl-switch-when-use-feedback.svg' | svgImage}}
-  <figcaption>
 
 ### Instant Feedback
 Ensure users receive immediate, clear visual feedback regarding the status of a setting. Changes are instantly visible when a switch is toggled.
-  </figcaption>
-</figure>
-
-</section>
 
 </section>
 
@@ -55,26 +39,14 @@ Ensure users receive immediate, clear visual feedback regarding the status of a 
 
 ## When not to use
 
-<section class="ds-cards">
-
-<figure class="ds-cards__dont">
-  {{'components/switch/sl-switch-when-not-use-complex.svg' | svgImage}}
-  <figcaption>
-
 ### Complex Settings
 If your setting has multiple states or requires more than a simple on/off toggle, switches may not be suitable. Consider alternative components like checkboxes, dropdown menus, or sliders that can accommodate more options and nuances in such cases.
-  </figcaption>
-</figure>
-
-</section>
 
 </section>
 
 <section>
 
 ## Anatomy
-
-{{ 'components/switch/sl-switch-anatomy.svg' | svgImage }}
 
 <div class="ds-table-wrapper">
 

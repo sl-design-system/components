@@ -1,5 +1,19 @@
 # @sl-design-system/checkbox
 
+## 0.0.19
+
+### Patch Changes
+
+- [#927](https://github.com/sl-design-system/components/pull/927) [`e3c8bbb`](https://github.com/sl-design-system/components/commit/e3c8bbbd400ad07aa6ad0f984fc2b2d5e88c1e94) - Add small (`sm`) size for use in grid; this size is _not_ meant for general use
+
+## 0.0.18
+
+### Patch Changes
+
+- Updated dependencies [[`06cfb6b`](https://github.com/sl-design-system/components/commit/06cfb6bff8f2c1a8d4a132099f21f2e8dc4f2461), [`9320cbc`](https://github.com/sl-design-system/components/commit/9320cbc446e479435860ad5f9756725b36acf764), [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b)]:
+  - @sl-design-system/shared@0.2.2
+  - @sl-design-system/form@0.0.5
+
 ## 0.0.17
 
 ### Patch Changes

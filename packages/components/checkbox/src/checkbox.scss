@@ -2,7 +2,7 @@ $variants: default, valid, invalid;
 $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 $states: unchecked, checked;
 $state-selectors: '', ':where([checked], [indeterminate])';
-$sizes: md, lg;
+$sizes: sm, md, lg;
 
 :host {
   // these are temporary, until we have actual tokens for the size of the icon in the checkbox.

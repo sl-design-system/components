@@ -1,5 +1,11 @@
 # @sl-design-system/angular
 
+## 0.1.4
+
+### Patch Changes
+
+- [#937](https://github.com/sl-design-system/components/pull/937) [`e4e94cb`](https://github.com/sl-design-system/components/commit/e4e94cbae85ef09c029920db0cb0ac9c92939097) - Bump minor angular version
+
 ## 0.1.3
 
 ### Patch Changes

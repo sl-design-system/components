@@ -9,7 +9,7 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 
-<sl-button id="open-button" fill="outline" variant="primary">Open dialog</sl-button>
+<sl-button id="open-button" fill="solid" variant="primary">Open dialog</sl-button>
 <sl-dialog id="dialog-example">
 <span slot="title">Dialog title</span>
 Dolore nulla ad magna nostrud cillum veniam sint et consectetur anim Lorem. Sint fugiat id deserunt magna et
@@ -26,7 +26,7 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 
   ```html
 <!--The trigger-->
-<sl-button id="open-button" fill="outline" variant="primary">Open dialog</sl-button>
+<sl-button id="open-button" fill="solid" variant="primary">Open dialog</sl-button>
 
 <!--The dialog-->
 <sl-dialog id="dialog-example">

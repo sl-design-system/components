@@ -9,20 +9,17 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<form>
-  <sl-label for="nickname">Nickname</sl-label>
   <sl-text-field
-    id="nickname"
-    hint="What would you like people to call you?"
+    id="last-name"
+    placeholder="Type your last name"
+    aria-label="Last name"
   ></sl-text-field>
-  </form>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-label for="nickname">Nickname</sl-label>
-    <sl-text-field id="nickname" hint="What would you like people to call you?"></sl-text-field>
+    <sl-text-field id="last-name" placeholder="Type your last name" aria-label="Last name"></sl-text-field>
   ```
 
 </div>
@@ -30,7 +27,3 @@ eleventyNavigation:
 </section>
 
 {% include "../component-table.njk" %}
-
-<script>
-  setTimeout(() => document.querySelector('#text-field-example')?.reportValidity(), 100);
-</script>

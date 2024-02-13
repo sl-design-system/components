@@ -9,20 +9,17 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<form>
-  <sl-label for="nickname">Nickname</sl-label>
   <sl-text-field
-    id="nickname"
-    hint="What would you like people to call you?"
+    id="first-name"
+    placeholder="Type your first name"
+    aria-label="First name"
   ></sl-text-field>
-  </form>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-label for="nickname">Nickname</sl-label>
-    <sl-text-field id="nickname" hint="What would you like people to call you?"></sl-text-field>
+    <sl-text-field id="first-name" placeholder="Type your first name" aria-label="First name"></sl-text-field>
   ```
 
 </div>

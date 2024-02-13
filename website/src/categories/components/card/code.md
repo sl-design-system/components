@@ -7,11 +7,38 @@ eleventyNavigation:
   key: LabelCode
 ---
 
-<section>
+<section class="no-heading">
+<div class="ds-example">
+  <div class="ds-example__code-wrapper">
+    <sl-card orientation="horizontal">
+        <img slot="media" src="https://sanomalearning.design/assets/images/open-graph-card.jpg" />
+        <h2>Card title</h2>
+        <span slot="header"><sl-badge variant="accent">new</sl-badge></span>
+        <p slot="body">
+          Lorem ipsum dolor sit amet, adipisicing sint sunt sint proident sint exercitation. Quis officia pariatur in duis proident sint commodo voluptate officia quis irure in enim minim Lorem aute sit cillum non.
+        </p>
+        <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+      </sl-card>
+  </div>
+</div>
 
-## Code
+<div class="ds-code">
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  ```html
+  <sl-card orientation="horizontal">
+    <img slot="media" src="images/open-graph-card.jpg" />
+    <h2>Card title</h2>
+    <span slot="header"><sl-badge>new</sl-badge></span>
+    <p slot="body">
+      Lorem ipsum dolor sit amet...
+    </p>
+    <sl-button slot="actions" icon-only fill="ghost">
+      <sl-icon name="eye"></sl-icon>
+    </sl-button>
+  </sl-card>
+  ```
+
+</div>
 
 </section>
 
@@ -19,8 +46,8 @@ Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molesti
 
 <section>
 
-## Tokens
+## CSS Variables
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+As many properties as possible are being set by CSS variables because that way you can easily make all the cards inside a container look the same by setting the properties on that container, or you can create custom css classes that consist of a combination of settings.
 
 </section>

@@ -4,6 +4,8 @@ import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
 
 export type CardHeightOptions = 'fixed' | 'flex';
+export type CardOrientation = 'horizontal' | 'vertical';
+export type CardMediaPosition = 'start' | 'end';
 
 /**
  * Let the user know you are processing their data or that the (part of the) page is loading.
@@ -12,14 +14,13 @@ export type CardHeightOptions = 'fixed' | 'flex';
  * <sl-card></sl-card>
  * ```
  *
- * @cssprop --sl-card-image-width -
- * @cssprop --sl-card-media-aspect-ratio -
- * @cssprop --sl-card-media-width -
- * @cssprop --sl-card-media-x -
- * @cssprop --sl-card-media-y -
- * @cssprop --sl-card-orientation-breakpoint -
- * @cssprop --sl-card-stretch-image -
- * @cssprop --sl-card-text-width -
+ * @cssprop --sl-card-media-aspect-ratio - The aspectratio of the media container (default is 4/3). By default this ratio is always maintained, and will cause the media to become smaller when there isn't sufficient space for the full width.
+ * @cssprop --sl-card-media-width - The width of the media in relation to the text. Can be set in pixels or `fr`.
+ * @cssprop --sl-card-media-x - X-Focuspoint of the media; this is taken as the center when the media is cropped.
+ * @cssprop --sl-card-media-y - Y-Focuspoint of the media; this is taken as the center when the media is cropped.
+ * @cssprop --sl-card-orientation-breakpoint - When card is smaller than this size it will switch from horizontal (when set) to vertical layout.
+ * @cssprop --sl-card-stretch-image - Set this to 100% when the aspectratio of the media doesn't matter and you want it to fill the full height of the card.
+ * @cssprop --sl-card-text-width - The width of the text in relation to the media. Can be set in pixels (not recommended) or `fr`.
  *
  * @slot default - Title of the card
  * @slot media - Media, this can be an image or video
@@ -40,11 +41,11 @@ export class Card extends LitElement {
   /** @private The slotted media. */
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
 
-  @property({ type: Boolean, reflect: true }) padding?: boolean;
+  @property({ type: Boolean, reflect: true }) padding: boolean = false;
   @property({ reflect: true }) height: CardHeightOptions = 'fixed';
-  @property({ reflect: true }) orientation = 'horizontal';
+  @property({ reflect: true }) orientation: CardOrientation = 'horizontal';
   @property({ reflect: true }) icon?: string;
-  @property({ reflect: true, attribute: 'media-position' }) mediaPosition: string = 'start';
+  @property({ reflect: true, attribute: 'media-position' }) mediaPosition: CardMediaPosition = 'start';
 
   override connectedCallback(): void {
     super.connectedCallback();

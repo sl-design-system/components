@@ -70,30 +70,39 @@ If your setting has multiple states or requires more than a simple on/off toggle
 
 The switch provides a set of options, ensuring it's ready to adapt to your unique use cases.
 
+<div class="ds-table-wrapper">
+  
+### Switch
+
 |Item|Options|Description|
 |-|-|-|
-|Sizes|`'small', 'medium', 'large'`|...|
-|Status |`...`|...|
-|State|`...`|...|
-|Icon|`...`|...|
+|Sizes|`'small', 'medium', 'large'`|The switch come in three sizes: small, medium (default) and large. |
+|Orientation |`left`, 'right', 'vertical'|The switch has 3 different lay-out possibilities, providing flexibility to align with your design requirements.|
+|Disabled|`unchecked`, 'no'|To indicate if the switch is active or disabled|
+|Label|`value`|To insert the text of the label|
+|Status|`unchecked`, 'checked'|To indicate if the switch is checked or unchecked|
+|State|`default`, 'hover', 'active', 'disabled' |To indicate the state of the switch|
+|Icon|`unchecked`, 'checked'|To show an icon in the handler of the switch|
+|Focus ring|`unchecked`, 'unchecked'|To show the focus state of the switch|
 
 {.ds-table .ds-table-align-top}
 
-...
+</div>
 
-</section>
+<div class="ds-table-wrapper">
+  
+### Hint
 
-<section>
+|Item|Options|Description|
+|-|-|-|
+|Hint|`unchecked`, 'checked'|To show a hint|
+|State|`default`, 'invalid', 'disable'|To indicate the state of the hint|
+|Size|`sm`, 'md', 'lg'|The hint come in three sizes: small, medium (default) and large.|
+|Text|`value'|To insert the text of the hint|
 
-## Behavior
 
-### Switching States: Checked and Unchecked
-Get ready to take control! Switches offer two distinct states: 'checked' and 'unchecked.' In the 'checked' state, the handle confidently rests on the right, while in the 'unchecked' state, it gracefully takes its place on the left.
+{.ds-table .ds-table-align-top}
 
-### Understanding The Clickable Areas
-Let's take a closer look at the clickable area for the switch input, often referred to as the 'hit area' or 'touch target area.' This area dynamically adjusts its size to match the dimensions of the switch, ensuring precise touch interactions. And don't forget, the associated label is equally clickable, adding to the user-friendly experience.
-
-### Focusable Switch Area
-Both the switch input and label are interactive, allowing users to hover over them. However, when it comes to focus via keyboard or voice commands, only the switch thumb takes center stage.
+</div>
 
 </section>

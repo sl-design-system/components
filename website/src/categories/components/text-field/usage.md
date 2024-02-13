@@ -84,7 +84,7 @@ With these options you can tweak the appearance of the text field in Figma. They
 |Variant|`'default', 'valid', 'invalid'`| When you're working on a scenario where you show what happens when a field is skipped or filled in incorrectly you can choose a different variant to show this.|
 |State|`'idle','hover','active','disabled'`|These states are applied automatically in interactive examples or can be set explicitly when the use case asks for it. Default value is `idle`.|
 |Placeholder|`'on', 'off'`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
-|Placeholder text|`string`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format).|
+|Placeholder text|`string`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
 |Helper|`'on', 'off'`|To turn to Helper Text on or off. Default value is `off`.|
 |Input Text |`string`|Will be shown as the value of the text field|
 |Label|`text`|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|

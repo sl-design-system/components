@@ -76,14 +76,14 @@ The switch provides a set of options, ensuring it's ready to adapt to your uniqu
 
 |Item|Options|Description|
 |-|-|-|
-|Sizes|`'small', 'medium', 'large'`|The switch come in three sizes: small, medium (default) and large. |
-|Orientation |`left`, 'right', 'vertical'|The switch has 3 different lay-out possibilities, providing flexibility to align with your design requirements.|
-|Disabled|`unchecked`, 'no'|To indicate if the switch is active or disabled|
+|Sizes|`sm` `md` `lg`|The switch come in three sizes: small, medium (default) and large. |
+|Orientation |`left` `right` `vertical`|The switch has 3 different lay-out possibilities, providing flexibility to align with your design requirements.|
+|Disabled|`unchecked` `checked`|To indicate if the switch is active or disabled|
 |Label|`value`|To insert the text of the label|
-|Status|`unchecked`, 'checked'|To indicate if the switch is checked or unchecked|
-|State|`default`, 'hover', 'active', 'disabled' |To indicate the state of the switch|
-|Icon|`unchecked`, 'checked'|To show an icon in the handler of the switch|
-|Focus ring|`unchecked`, 'unchecked'|To show the focus state of the switch|
+|Status|`unchecked` `checked`|To indicate if the switch is checked or unchecked|
+|State|`default` `hover` `active` `disabled` |To indicate the state of the switch|
+|Icon|`unchecked` `checked`|To show an icon in the handler of the switch|
+|Focus ring|`unchecked` `unchecked`|To show the focus state of the switch|
 
 {.ds-table .ds-table-align-top}
 
@@ -95,10 +95,10 @@ The switch provides a set of options, ensuring it's ready to adapt to your uniqu
 
 |Item|Options|Description|
 |-|-|-|
-|Hint|`unchecked`, 'checked'|To show a hint|
-|State|`default`, 'invalid', 'disable'|To indicate the state of the hint|
-|Size|`sm`, 'md', 'lg'|The hint come in three sizes: small, medium (default) and large.|
-|Text|`value'|To insert the text of the hint|
+|Hint|`unchecked` `checked`|To show a hint|
+|State|`default` `invalid` `disable`|To indicate the state of the hint|
+|Size|`sm` `md` `lg`|The hint come in three sizes: small, medium (default) and large.|
+|Text|`value`|To insert the text of the hint|
 
 
 {.ds-table .ds-table-align-top}

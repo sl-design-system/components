@@ -70,8 +70,6 @@ If your setting has multiple states or requires more than a simple on/off toggle
 
 The switch provides a set of options, ensuring it's ready to adapt to your unique use cases.
 
-{{ 'components/switch/sl-switch-figma-options.svg' | svgImage }}
-
 |Item|Options|Description|
 |-|-|-|
 |Sizes|`'small', 'medium', 'large'`|...|

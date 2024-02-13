@@ -3,6 +3,10 @@
   list-style: none;
 }
 
+//:host(:hover) {
+//  background-color: var(--sl-color-select-item-hover-background);
+//}
+
 details {
   flex: 1;
 }
@@ -16,6 +20,11 @@ summary {
   display: flex;
   gap: 8px;
   padding: 8px;
+  transition: background 300ms;
+
+  &:hover {
+    background-color: var(--sl-color-select-item-hover-background);
+  }
 }
 
 .panel {

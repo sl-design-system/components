@@ -5,7 +5,8 @@ eleventyNavigation:
   parent: Text field
   key: TextInputAccessibility
 ---
-
+<section>
+  
 ## Keyboard interactions
 
 Here's an overview of the common keyboard interactions associated with a text field:

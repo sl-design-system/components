@@ -11,15 +11,15 @@ eleventyNavigation:
 <div class="ds-example">
   <sl-text-field
     id="last-name"
-    placeholder="Type your last name"
     aria-label="Last name"
+    value="Smith"
   ></sl-text-field>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-text-field id="last-name" placeholder="Type your last name" aria-label="Last name"></sl-text-field>
+    <sl-text-field id="last-name" aria-label="Last name" value="Smith"></sl-text-field>
   ```
 
 </div>

@@ -11,7 +11,7 @@ eleventyNavigation:
 <div class="ds-example">
   <sl-text-field
     id="first-name"
-    placeholder="Type your first name"
+    value="John"
     aria-label="First name"
   ></sl-text-field>
 </div>
@@ -19,7 +19,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-text-field id="first-name" placeholder="Type your first name" aria-label="First name"></sl-text-field>
+    <sl-text-field id="first-name" value="John" aria-label="First name"></sl-text-field>
   ```
 
 </div>

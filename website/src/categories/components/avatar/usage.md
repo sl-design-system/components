@@ -15,8 +15,11 @@ eleventyNavigation:
 
 ## When to use
 
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### User profiles
+Avatars are commonly used to display user profile pictures. Avatars provide a face to a name. When users see their own profile picture, it fosters a sense of ownership and personal connection.
+
+### People representation
+In the context of contact lists, avatars serve as visual cues that swiftly connect users to their contacts. By associating a face or image with each entry, avatars make the list more relatable and memorable. Whether it’s a colleague, student, or teacher, avatars provide that instant recognition, making interactions more personal and efficient.
 
 </section>
 
@@ -24,7 +27,11 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 
 ## When not to use
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Non-Personal Context
+When dealing with content that doesn’t directly involve people or identifiable entities, it’s essential to explore alternative visual elements. Consider using icons, abstract shapes, or relevant symbols instead of avatars. These elements maintain clarity and avoid unnecessary association with individuals.
+
+### Intrusive Design
+Don’t let avatars distract from essential content. Ensure they enhance, rather than hinder, usability.
 
 </section>
 

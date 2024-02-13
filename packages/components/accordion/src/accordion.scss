@@ -8,19 +8,20 @@
 }
 
 :host {
-  align-items: center;
-  background: var(--_background);
-  border: var(--_border-width) solid var(--_border-color);
-  border-radius: var(--_border-radius);
-  color: var(--_color);
-  cursor: pointer;
-  display: inline-flex;
-  font: var(--_font);
-  gap: var(--_label-gap);
-  justify-content: center;
-  outline-color: transparent;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
-  transform: var(--_transform);
-  vertical-align: top;
+  display: block;
+  //align-items: center;
+  //background: var(--_background);
+  //border: var(--_border-width) solid var(--_border-color);
+  //border-radius: var(--_border-radius);
+  //color: var(--_color);
+  //cursor: pointer;
+  //display: inline-flex;
+  //font: var(--_font);
+  //gap: var(--_label-gap);
+  //justify-content: center;
+  //outline-color: transparent;
+  //padding-block: var(--_padding-block);
+  //padding-inline: var(--_padding-inline);
+  //transform: var(--_transform);
+  //vertical-align: top;
 }

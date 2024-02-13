@@ -64,7 +64,7 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <details>
+      <details open>
         <summary><sl-icon name="xmark"></sl-icon> ${this.summary}</summary>
         <div class="panel">
           <slot @slotchange=${this.#onSlotChange}></slot>

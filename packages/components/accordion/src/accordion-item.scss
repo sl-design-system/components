@@ -17,6 +17,7 @@ details > summary:first-of-type {
 
 summary {
   border: 2px solid #c6c6c6;
+  cursor: pointer;
   display: flex;
   gap: 8px;
   padding: 8px;
@@ -30,3 +31,7 @@ summary {
 .panel {
   padding: 16px;
 }
+
+//details summary > * {
+//  display: inline;
+//}

@@ -1,5 +1,11 @@
 # @sanomalearning/slds-itslearning
 
+## 0.1.3
+
+### Patch Changes
+
+- [#921](https://github.com/sl-design-system/components/pull/921) [`31e6adb`](https://github.com/sl-design-system/components/commit/31e6adb4272490837d9adb4aec2343b960edd436) - Added missing tabs tokens
+
 ## 0.1.2
 
 ### Patch Changes

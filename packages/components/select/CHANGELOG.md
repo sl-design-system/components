@@ -1,5 +1,13 @@
 # @sl-design-system/select
 
+## 0.0.18
+
+### Patch Changes
+
+- [#927](https://github.com/sl-design-system/components/pull/927) [`e3c8bbb`](https://github.com/sl-design-system/components/commit/e3c8bbbd400ad07aa6ad0f984fc2b2d5e88c1e94) - Use `--sl-border-width-input-border` instead of the button border width
+
+- [#927](https://github.com/sl-design-system/components/pull/927) [`e3c8bbb`](https://github.com/sl-design-system/components/commit/e3c8bbbd400ad07aa6ad0f984fc2b2d5e88c1e94) - Fix lack of contrast by using new tokens for the listbox
+
 ## 0.0.17
 
 ### Patch Changes

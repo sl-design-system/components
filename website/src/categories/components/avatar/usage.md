@@ -55,6 +55,44 @@ Don’t let avatars distract from essential content. Ensure they enhance, rather
 
 ## Options
 
-With these options you can tweak the appearance of the avatar in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
+With these options, you can tweak the appearance of the avatar in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
+
+<div class="ds-table-wrapper">
+  
+### Avatar
+|Item|Options|Description|
+|-|-|-|
+|Size|`sm` `md` `lg` `xl` `2xl` `3xl`|The avatar come in six sizes: sm, md, large, xl, 2xl and 3xl providing flexibility to align with your design requirements.|
+|Orientation|`horizontal` `vertical`|The avatar has two different lay-out possibilities relating to the positions of the avatar, name and description relative to each other.|
+|Type|`initials` `photo` `placeholder`|Choose if you want to show a photo, a placeholder (icon) or initials in the avatar|
+
+{.ds-table}
+</div>
+
+<div class="ds-table-wrapper">
+  
+### Badge
+|Item|Options|Description|
+|-|-|-|
+|Badge|`boolean`|To indicate if the badge is enabled or disabled|
+|Types|`alpha numeric` `icon` `empty`|Choose how you want to visualize the status within the badge|
+|Background|`danger` `warning` `success` `accent` `grey` `primary`|To visualize the status color of the badge|
+
+{.ds-table}
+</div>
+
+<div class="ds-table-wrapper">
+  
+### Name and Description
+|Item|Options|Description|
+|-|-|-|
+|Header|`boolean`|To show the name of the user or entity|
+|Header|`value`|To insert the name of the user or entity|
+|Subheader|`value`|To show the description of the user or entity|
+|Subheader|`value`|To insert the description of the user or entity|
+
+
+{.ds-table}
+</div>
 
 </section>

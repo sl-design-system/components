@@ -5,34 +5,36 @@ eleventyNavigation:
   parent: Avatar
   key: AvatarAccessibility
 ---
-<section>
+<section> 
 
-## Avatar accessibility content
+## Keyboard interactions
 
-This is the accessibility content of the avatar component
+<div class="ds-table-wrapper">
 
-</section>
+|Command|Description|
+|-|-|
+|`command`|Description|
 
-<section>
+{.ds-table .ds-table-align-top}
 
-## Accessibility content section
-
-Another section
+</div>
 
 </section>
 
 <section> 
 
-## Accessibility details
+## WAI-ARIA
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+WAI-ARIA Roles, States, and Properties for a checkbox provide essential information to assistive technologies and screen readers. They convey the avatar's role, state (checked or unchecked), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
-</section>
+<div class="ds-table-wrapper">
 
-<section>
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`attribute`|`value`|Description|yes/no|
 
-## Behaviour
+{.ds-table .ds-table-align-top}
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
 </section>

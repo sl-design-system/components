@@ -6,26 +6,60 @@ eleventyNavigation:
   key: TooltipUsage
 ---
 <section>
-
-## Tooltip Usage
-
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  
+## Live Demo
 
 </section>
 
 <section>
 
-## How to use
+## When to use
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+<section>
+
+## When not to use
+  
+</section>
+
+<section>
+
+## Anatomy
+
+<div class="ds-table-wrapper">
+  
+|Item|Name| Description | Optional|
+|-|-|-|-|
+|1|Name	|Description|yes/no|
+|2|Name	|Description|yes/no|
+|3|Name	|Description|yes/no|
+|4|Name	|Description|yes/no|
+
+{.ds-table}
+
+</div>
 
 </section>
 
 <section>
 
-## Content
+## Options
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+With these options you can tweak the appearance of the tooltip in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
+
+<div class="ds-table-wrapper">
+  
+|Item|Options|Description|
+|-|-|-|
+|item|`option`|Description|
+|item|`option`|Description|
+|item|`option`|Description|
+|item|`option`|Description|
+|item|`option`|Description|
+|item|`option`|Description|
+|item|`option`|Description|
+
+{.ds-table}
+
+</div>
 
 </section>

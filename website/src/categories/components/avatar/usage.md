@@ -36,7 +36,18 @@ Don’t let avatars distract from essential content. Ensure they enhance, rather
 
 ## Anatomy
 
+<div class="ds-table-wrapper">
 
+|Item|Name| Description | Optional|
+|-|-|-|-|
+|1|Avatar	|The avatar is available in three variants: image, initials or icon|No|
+|2|Badge	|Status of user or entity|Yes|
+|2|Name	|Diplays the name of the user or entity|Yes|
+|2|Description	|Description is used to show essential information of user or entity which is related to the context of the page|Yes|
+
+{.ds-table}
+
+</div>
 
 </section>
 

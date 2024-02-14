@@ -133,13 +133,10 @@ With these options, you can tweak the appearance of the dialog in Figma. They ar
 ## Behavior
 
 ### Height
-The height of the dialog is dynamically calculated as a percentage of the available screen. As content is injected into the dialog, it grows vertically to accommodate the information passed to it.
-
-### Entrance and exit motion
-When the user launches the dialog, the overlay fades in from 0% to 100% opacity (transitions) and the dialog slides upward from the centre of the screen (transforms:translate the x or y axis). When the user dismisses the dialog, the same animation occurs in reverse.
+As content is injected into the dialog, the dialog grows vertically to accommodate the information passed to it.
 
 ### Content overflow
-When content exceeds the available space, it overflows and becomes scrollable. 
+When content exceeds the vertical space, it overflows and becomes scrollable. 
   
 </section>
 

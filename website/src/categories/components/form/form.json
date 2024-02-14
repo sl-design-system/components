@@ -1,10 +1,10 @@
 {
   "layout": "components/components.njk",
-  "tags": "label",
+  "tags": "form",
   "componentTagName": [
     {
-      "name": "Label",
-      "selector": "sl-label"
+      "name": "Form",
+      "selector": "sl-form"
     }
   ]
 }

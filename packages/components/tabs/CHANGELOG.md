@@ -1,5 +1,11 @@
 # @sl-design-system/tabs
 
+## 0.1.0
+
+### Minor Changes
+
+- [#921](https://github.com/sl-design-system/components/pull/921) [`31e6adb`](https://github.com/sl-design-system/components/commit/31e6adb4272490837d9adb4aec2343b960edd436) - Added tabs component
+
 ## 0.0.16
 
 ### Patch Changes

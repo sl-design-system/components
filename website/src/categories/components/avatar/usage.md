@@ -88,7 +88,7 @@ With these options, you can tweak the appearance of the avatar in Figma. They ar
 |-|-|-|
 |Header|`boolean`|To show the name of the user or entity|
 |Header|`value`|To insert the name of the user or entity|
-|Subheader|`value`|To show the description of the user or entity|
+|Subheader|`boolean`|To show the description of the user or entity|
 |Subheader|`value`|To insert the description of the user or entity|
 
 

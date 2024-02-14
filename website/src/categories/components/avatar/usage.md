@@ -27,9 +27,6 @@ In the context of contact lists, avatars serve as visual cues that swiftly conne
 
 ## When not to use
 
-### Non-Personal Context
-When dealing with content that doesn’t directly involve people or identifiable entities, it’s essential to explore alternative visual elements. Consider using icons, abstract shapes, or relevant symbols instead of avatars. These elements maintain clarity and avoid unnecessary association with individuals.
-
 ### Intrusive Design
 Don’t let avatars distract from essential content. Ensure they enhance, rather than hinder, usability.
 

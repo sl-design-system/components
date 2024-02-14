@@ -51,7 +51,15 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 </div>
 </section>  
 
+<section>
+
+## Migrating to SLDS Dialog
+
+When using the dialog in an existing application, and more importantly, using existing code in the contents of the dialog there are a few caveats. Please read our [overlay guidelines](/categories/guidelines/overlays/) on possible issues that can occur and how to prevent or solve them.
+</section>
+
 {% include "../component-table.njk" %}
+
 
 <script>
   const openBtnCode = document.querySelector("#open-button-code");

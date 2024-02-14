@@ -5002,7 +5002,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/checkbox@npm:0.0.18, @sl-design-system/checkbox@workspace:packages/components/checkbox":
+"@sl-design-system/checkbox@npm:0.0.19, @sl-design-system/checkbox@workspace:packages/components/checkbox":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/checkbox@workspace:packages/components/checkbox"
   dependencies:
@@ -5109,11 +5109,11 @@ __metadata:
     "@lit-labs/virtualizer": "npm:^2.0.12"
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/checkbox": "npm:0.0.18"
+    "@sl-design-system/checkbox": "npm:0.0.19"
     "@sl-design-system/icon": "npm:0.0.7"
     "@sl-design-system/popover": "npm:0.1.2"
     "@sl-design-system/shared": "npm:0.2.2"
-    "@sl-design-system/text-field": "npm:0.1.13"
+    "@sl-design-system/text-field": "npm:0.1.14"
   languageName: unknown
   linkType: soft
 
@@ -5371,7 +5371,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-field@npm:0.1.13, @sl-design-system/text-field@workspace:packages/components/text-field":
+"@sl-design-system/text-field@npm:0.1.14, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:

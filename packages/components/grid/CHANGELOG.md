@@ -1,5 +1,13 @@
 # @sl-design-system/grid
 
+## 0.0.35
+
+### Patch Changes
+
+- Updated dependencies [[`e3c8bbb`](https://github.com/sl-design-system/components/commit/e3c8bbbd400ad07aa6ad0f984fc2b2d5e88c1e94), [`e3c8bbb`](https://github.com/sl-design-system/components/commit/e3c8bbbd400ad07aa6ad0f984fc2b2d5e88c1e94)]:
+  - @sl-design-system/text-field@0.1.14
+  - @sl-design-system/checkbox@0.0.19
+
 ## 0.0.34
 
 ### Patch Changes

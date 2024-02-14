@@ -15,9 +15,25 @@ eleventyNavigation:
 
 ## When to use
 
+### Explanations for Unfamiliar Terms or Jargon
+Tooltips can offer brief definitions or explanations for technical terms, acronyms, or industry-specific terminology.
+
+### Long Titles or Descriptions
+If you’re displaying a list of articles with truncated titles, a tooltip can reveal the complete title when users hover over the ellipsis.
+
 <section>
 
 ## When not to use
+
+### Essential and critical information
+Avoid using tooltips for critical instructions or essential information. Users may miss tooltips, especially if they quickly interact with elements.
+
+### Mobile Devices and Touchscreens:
+Tooltips rely on hover interactions, which do not translate well to touchscreens.
+
+### Note
+#### Accessibility Concerns
+Some users rely on screen readers or have visual impairments. Ensure that tooltips are accessible and provide an alternative method (such as keyboard shortcuts) to access the same information.
   
 </section>
 

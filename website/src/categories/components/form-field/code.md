@@ -11,6 +11,31 @@ eleventyNavigation:
 
 <section>
 
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```html
+    npm install @sl-design-system/form
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```html
+    yarn add @sl-design-system/form
+  ```
+</div>
+
+</section>
+
+<section>
+
 The `<sl-form-field>` component fulfills four functions:
 1. It is a layout container for a form control.
 2. It provides label and hint ease-of-use properties.

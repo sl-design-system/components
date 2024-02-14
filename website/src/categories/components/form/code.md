@@ -11,6 +11,31 @@ eleventyNavigation:
 
 <section>
 
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```html
+    npm install @sl-design-system/form
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```html
+    yarn add @sl-design-system/form
+  ```
+</div>
+
+</section>
+
+<section>
+
 The `<sl-form>` component fulfills four functions:
 1. It provides a default layout for form fields.
 2. It manages the way required/optional fields should be marked.

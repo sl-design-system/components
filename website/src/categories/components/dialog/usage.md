@@ -34,18 +34,6 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
     Dolore nulla ad magna nostrud cillum...
     <sl-button slot="actions" sl-dialog-close autofocus>Close</sl-button>
 </sl-dialog>
-
-<!--Event binding-->
-<script>
-    const openBtn = document.querySelector("#open-button");
-    const dialogExample = document.querySelector("#dialog-example");
-
-    openBtn.addEventListener("click", () => {
-      if (dialogExample) {
-        dialogExample.showModal();
-      }
-    })
-</script>
   ```
 
 </div>

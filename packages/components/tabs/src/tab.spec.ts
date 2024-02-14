@@ -15,13 +15,13 @@ describe('sl-tab', () => {
   });
 
   it('should have the correct aria values', () => {
-    expect(el).attribute('aria-selected').to.equal('false');
-    expect(el).attribute('aria-disabled').to.equal('false');
+    expect(el).to.have.attribute('aria-selected','false');
+    expect(el).to.have.attribute('aria-disabled','false');
   });
 
   it('should have the correct attributes', () => {
-    expect(el).attribute('slot').to.equal('tabs');
-    expect(el).attribute('role').to.equal('tab');
+    expect(el).to.have.attribute('slot','tabs');
+    expect(el).to.have.attribute('role','tab');
   });
 
   it('should have the correct aria values', async () => {
@@ -30,7 +30,7 @@ describe('sl-tab', () => {
 
     await el.updateComplete;
 
-    expect(el).attribute('aria-selected').to.equal('true');
-    expect(el).attribute('aria-disabled').to.equal('true');
+    expect(el).to.have.attribute('aria-selected','true');
+    expect(el).to.have.attribute('aria-disabled','true');
   });
 });

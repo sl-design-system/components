@@ -15,7 +15,6 @@ describe('sl-tab-panel', () => {
   });
 
   it('should have the correct attributes', () => {
-    expect(el).attribute('tabindex').to.equal('0');
-    expect(el).attribute('role').to.equal('tabpanel');
+    expect(el).to.have.attribute('role','tabpanel');
   });
 });

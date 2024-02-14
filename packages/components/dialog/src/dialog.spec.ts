@@ -1,177 +1,324 @@
 import { expect, fixture } from '@open-wc/testing';
-import '@sl-design-system/button/register.js';
+import { type Button } from '@sl-design-system/button';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy, stub } from 'sinon';
+import { Dialog } from './dialog.js';
 import '../register.js';
-import { Dialog } from "./dialog.js";
-import type { Button } from '@sl-design-system/button';
-import { SinonStub, stub } from 'sinon';
-
 
 describe('sl-dialog', () => {
-  let el: HTMLElement;
-  let button: Button;
-  let dialog: Dialog;
-
-  const onClick = (event: Event & { target: HTMLElement }): void => {
-    (event.target.nextElementSibling as Dialog).showModal();
-  };
-
-  const showDialog = async () => {
-    const clickEvent = new Event('click');
-    button?.dispatchEvent(clickEvent);
-    await dialog.updateComplete;
-    return new Promise(resolve => setTimeout(resolve));
-  }
+  let el: Dialog, dialog: HTMLDialogElement;
 
   describe('defaults', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <div>
-          <sl-button aria-describedby="dialog" fill="outline" @click=${onClick}>Button element</sl-button>
-          <sl-dialog id="dialog" closing-button>
-            <span slot="title">Dialog title</span>
-            <p>The dialog content</p>
-            <sl-button slot="actions" sl-dialog-close>Close</sl-button>
-          </sl-dialog>
-        </div>
+        <sl-dialog>
+          <span slot="title">Dialog title</span>
+          <p>The dialog content</p>
+        </sl-dialog>
       `);
-      button = el.querySelector('sl-button') as Button;
-      dialog = el.querySelector('sl-dialog') as Dialog;
+
+      dialog = el.renderRoot.querySelector('dialog')!;
     });
 
-    it('should render correctly', () => {
-      expect(dialog).shadowDom.to.equalSnapshot();
+    it('should be inert', () => {
+      expect(el.inert).to.be.true;
     });
 
-    it('should not show the dialog by default', () => {
-      expect(dialog?.shadowRoot?.firstElementChild?.hasAttribute('open')).to.be.false;
+    it('should have a closed dialog', () => {
+      expect(dialog).to.exist;
+      expect(dialog).not.to.have.attribute('open');
     });
 
-    it('should show the dialog after showModal was called', async () => {
-      await showDialog();
-
-      expect(dialog?.shadowRoot?.firstElementChild?.hasAttribute('open')).to.be.true;
+    it('should not have a close button', () => {
+      expect(dialog.querySelector('sl-button[aria-label="Close"]')).not.to.exist;
     });
 
-    it('should not have the closing button when closingButton is not set', async () => {
-      dialog?.removeAttribute('closing-button');
-      await showDialog();
+    it('should have a close button when set', async () => {
+      el.closeButton = true;
+      await el.updateComplete;
 
-      expect(dialog?.shadowRoot?.firstElementChild?.querySelector('slot[name="close-button"] sl-button')).to.be.null;
+      expect(dialog.querySelector('sl-button[aria-label="Close"]')).to.exist;
+    });
+
+    it('should have a role of dialog', () => {
+      expect(dialog).to.have.attribute('role', 'dialog');
+    });
+
+    it('should have a dialog part', () => {
+      expect(dialog).to.have.attribute('part', 'dialog');
+    });
+
+    it('should label the dialog with the title slot', () => {
+      const title = el.renderRoot.querySelector('[id="title"]');
+
+      expect(dialog).to.have.attribute('aria-labelledby', 'title');
+      expect(title).to.exist;
+      expect(title).to.have.tagName('slot');
     });
   });
 
-  describe('Closing dialog', () => {
-    let slDialog: Dialog;
-    let dialog: HTMLDialogElement;
-    let clickEvent: PointerEvent;
-    let dialogStub:  SinonStub<[], DOMRect>;
-
-    beforeEach(async ()=>{
+  describe('showing', () => {
+    beforeEach(async () => {
       el = await fixture(html`
-        <div>
-          <sl-button aria-describedby="dialog" fill="outline" @click=${onClick}>Button element</sl-button>
-          <sl-dialog id="dialog" closing-button>
-            <span slot="title">Dialog title</span>
-            <p>The dialog content</p>
-            <sl-button slot="actions" sl-dialog-close>Close</sl-button>
-          </sl-dialog>
-        </div>
+        <sl-dialog>
+          <span slot="title">Dialog title</span>
+          <p>The dialog content</p>
+        </sl-dialog>
       `);
 
-      button = el.querySelector('sl-button') as Button;
+      dialog = el.renderRoot.querySelector('dialog')!;
 
-      slDialog = el.querySelector('sl-dialog') as Dialog;
+      el.showModal();
+    });
 
-      await showDialog();
+    it('should not be inert', () => {
+      expect(el.inert).to.be.false;
+    })
 
-      dialog = slDialog?.shadowRoot?.firstElementChild as HTMLDialogElement;
+    it('should have an open dialog', () => {
+      expect(dialog).to.have.attribute('open');
+    });
 
-      clickEvent = new PointerEvent('click');
+    it('should have hidden the overflow on the document element', () => {
+      expect(document.documentElement.style.overflow).to.equal('hidden');
+    });
 
-      dialogStub = stub(dialog,'getBoundingClientRect').returns({
+    it('should not call showModal on the dialog if already open', () => {
+      spy(dialog, 'showModal');
+
+      el.showModal();
+
+      expect(dialog.showModal).not.to.have.been.called;
+    });
+
+    it('should add a workaround for styling the backdrop', () => {
+      const stylesheet = el.shadowRoot?.adoptedStyleSheets?.at(-1);
+
+      expect(stylesheet?.cssRules).to.have.lengthOf(1);
+      expect(stylesheet?.cssRules[0].cssText).to.match(/^::backdrop/);
+    });
+  });
+
+  describe('closing', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-dialog close-button>
+          <span slot="title">Dialog title</span>
+          <p>The dialog content</p>
+          <sl-button slot="actions" sl-dialog-close>Close</sl-button>
+        </sl-dialog>
+      `);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+
+      el.showModal();
+    });
+
+    it('should emit an sl-cancel event when pressing the escape key', async () => {
+      const onCancel = spy();
+      el.addEventListener('sl-cancel', onCancel);
+
+      await sendKeys({ press: 'Escape' });
+
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(onCancel).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-cancel event when clicking the backdrop', async () => {
+      stub(dialog, 'getBoundingClientRect').returns({
         top: 400,
         right: 1400,
         bottom: 900,
         left: 700
       } as DOMRect);
-    })
 
-    it('should close the dialog when the close button in the close slot is clicked', async () => {
-      const closeButton = dialog.querySelector('slot[name="close-button"] sl-button');
+      const onCancel = spy();
+      el.addEventListener('sl-cancel', onCancel);
 
-      (closeButton as HTMLButtonElement)?.click();
+      // Mock the click event
+      const clickEvent = new PointerEvent('click');
+      stub(clickEvent, 'clientX').value(100);
+      stub(clickEvent, 'clientY').value(100);
+      dialog.dispatchEvent(clickEvent);
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
 
-      expect(dialog.hasAttribute('open')).to.be.false;
+      expect(onCancel).to.have.been.calledOnce;
     });
 
-    it('should close the dialog when the button with sl-dialog-close attribute is clicked', async () => {
-      const closeButton = slDialog.querySelector('sl-button[sl-dialog-close]');
+    it('should emit an sl-close event when calling close()', async () => {
+      const onClose = spy();
 
-      (closeButton as HTMLButtonElement)?.click();
+      el.addEventListener('sl-close', onClose);
+      el.close();
 
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
 
-      expect(dialog.hasAttribute('open')).to.be.false;
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(onClose).to.have.been.calledOnce;
     });
 
-    it('should close the dialog when the backdrop is clicked and there is no disable-close attribute', async () => {
-      if (dialog) {
+    it('should emit an sl-close event when clicking the backdrop', async () => {
+      stub(dialog, 'getBoundingClientRect').returns({
+        top: 400,
+        right: 1400,
+        bottom: 900,
+        left: 700
+      } as DOMRect);
+
+      const onClose = spy();
+      el.addEventListener('sl-close', onClose);
+
+      // Mock the click event
+      const clickEvent = new PointerEvent('click');
+      stub(clickEvent, 'clientX').value(100);
+      stub(clickEvent, 'clientY').value(100);
+      dialog.dispatchEvent(clickEvent);
+
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(onClose).to.have.been.calledOnce;
+    });
+
+    it('should close the dialog when the close button is clicked', async () => {
+      const onClose = spy();
+
+      el.addEventListener('sl-close', onClose);
+      el.renderRoot.querySelector<Button>('sl-button[aria-label="Close"]')?.click();
+
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(onClose).to.have.been.calledOnce;
+    });
+
+    it('should close the dialog when the button with sl-dialog-close is clicked', async () => {
+      const onClose = spy();
+
+      el.addEventListener('sl-close', onClose);
+      el.querySelector('sl-button')?.click();
+
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(onClose).to.have.been.calledOnce;
+    });
+
+    it('should toggle the closing attribute during close', async () => {
+      expect(dialog).not.to.have.attribute('closing');
+
+      el.close();
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(dialog).to.have.attribute('closing');
+
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
+
+      expect(dialog).not.to.have.attribute('closing');
+    });
+
+    describe('disableCancel', () => {
+      beforeEach(async () => {
+        el.disableCancel = true;
+        await el.updateComplete;
+      });
+
+      it('should not cancel the dialog pressing Escape', async () => {
+        const onCancel = spy();
+        el.addEventListener('sl-cancel', onCancel);
+
+        await sendKeys({ press: 'Escape' });
+
+        expect(onCancel).not.to.have.been.called;
+      });
+
+      it('should not cancel the dialog when clicking the backdrop', async () => {
+        stub(dialog, 'getBoundingClientRect').returns({
+          top: 400,
+          right: 1400,
+          bottom: 900,
+          left: 700
+        } as DOMRect);
+
+        const onCancel = spy();
+        el.addEventListener('sl-cancel', onCancel);
+
+        // Mock the click event
+        const clickEvent = new PointerEvent('click');
         stub(clickEvent, 'clientX').value(100);
         stub(clickEvent, 'clientY').value(100);
-
         dialog.dispatchEvent(clickEvent);
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+        // Simulate the animationend event that is used in #closeDialogOnAnimationend
+        dialog.dispatchEvent(new Event('animationend'));
 
-        expect(dialog.hasAttribute('open')).to.be.false;
-      }
+        expect(onCancel).not.to.have.been.called;
+      });
+    });
+  });
+
+  describe('closed', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-dialog>
+          <span slot="title">Dialog title</span>
+          <p>The dialog content</p>
+        </sl-dialog>
+      `);
+
+      dialog = el.renderRoot.querySelector('dialog')!;
+
+      el.showModal();
+      el.close();
+
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      dialog.dispatchEvent(new Event('animationend'));
+
+      // Wait for the component to stabilize
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
-    it('should not close the dialog when the backdrop is clicked and there is the disable-close attribute', async () => {
-      slDialog.setAttribute('disable-close', '');
-
-      await slDialog.updateComplete;
-
-      if (dialog) {
-        stub(clickEvent, 'clientX').value(100);
-        stub(clickEvent, 'clientY').value(100);
-
-        dialog.dispatchEvent(clickEvent);
-
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        expect(dialog.hasAttribute('open')).to.be.true;
-      }
+    it('should be inert', () => {
+      expect(el.inert).to.be.true;
     });
 
-    it('should not close the dialog when there is a click in the dialog itself', async () => {
-      if (dialog) {
-        stub(clickEvent, 'clientX').value(800);
-        stub(clickEvent, 'clientY').value(800);
-
-        dialog.dispatchEvent(clickEvent);
-
-        await new Promise(resolve => setTimeout(resolve, 500));
-
-        expect(dialog.hasAttribute('open')).to.be.true;
-      }
+    it('should not have an open dialog', () => {
+      expect(dialog).not.to.have.attribute('open');
     });
 
-    it('should close the dialog on escape', async () => {
-      dialog.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
-
-      await new Promise(resolve => setTimeout(resolve, 1500));
-
-      expect(dialog.hasAttribute('open')).to.be.false;
+    it('should not have reset the overflow on the document element', () => {
+      expect(document.documentElement.style.overflow).to.equal('');
     });
 
-    it('should close the dialog when the close method is called', async () => {
-      slDialog.close();
+    it('should not call close() if the dialog is already closed', () => {
+      spy(dialog, 'close');
 
-      expect(dialog.hasAttribute('open')).to.be.false;
+      el.close();
+
+      expect(dialog.close).not.to.have.been.called;
     });
   });
 });

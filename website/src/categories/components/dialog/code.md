@@ -53,6 +53,31 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 
 <section>
 
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/dialog
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/dialog
+  ```
+</div>
+
+</section>
+
+<section>
+
 ## Migrating to SLDS Dialog
 
 When using the dialog in an existing application, and more importantly, using existing code in the contents of the dialog there are a few caveats. Please read our [overlay guidelines](/categories/guidelines/overlays/) on possible issues that can occur and how to prevent or solve them.

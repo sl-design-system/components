@@ -15,7 +15,7 @@ eleventyNavigation:
 
 ```html
 
-<sl-switch size="md" checked>~Switch text</sl-switch>
+<sl-switch size="md" checked>Switch text</sl-switch>
 
 ```
 

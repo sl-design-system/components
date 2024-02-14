@@ -61,3 +61,11 @@ A form field should always have a label. That label can be hidden from view, but
 The hint is optional. It is used to provide additional information about the form field. The hint is announced to screen readers after the label.
 
 </section>
+
+<section>
+
+## Related components
+
+- [Form](/categories/components/form/)
+
+</section>

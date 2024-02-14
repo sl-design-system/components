@@ -75,7 +75,7 @@ The switch provides a set of options, ensuring it's ready to adapt to your uniqu
 |Item|Options|Description|
 |-|-|-|
 |Sizes|`sm` `md` `lg`|The switch come in three sizes: small, medium (default) and large. |
-|Orientation |`left` `right`|The switch has 2 different lay-out possibilities, providing flexibility to align with your design requirements.|
+|Orientation |`left` `right`|The switch has 2 different lay-out possibilities relating to the positions of the label and switch relative to each other.|
 |Disabled|`boolean`|To indicate if the switch is enabled or disabled|
 |Label|`value`|To insert the text of the label|
 |Status|`boolean`|To indicate if the switch is checked or unchecked|

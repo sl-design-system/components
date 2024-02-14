@@ -26,4 +26,29 @@ eleventyNavigation:
 
 </section>
 
+<section>
+
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```html
+    npm install @sl-design-system/text-field
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```html
+    yarn add @sl-design-system/text-field
+  ```
+</div>
+
+</section>
+
 {% include "../component-table.njk" %}

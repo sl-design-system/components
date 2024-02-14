@@ -38,9 +38,6 @@ These keyboard interactions make switch components not only accessible but also 
 
 When it comes to ensuring accessibility for switch components, we turn to the power of WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications). Here's how WAI-ARIA contributes:
 
-
-...role switch checked,
-
 <div class="ds-table-wrapper">
 
 |Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|

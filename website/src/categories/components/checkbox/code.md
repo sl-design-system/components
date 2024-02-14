@@ -50,6 +50,31 @@ eleventyNavigation:
 
 </section>
 
+<section>
+
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```html
+    npm install @sl-design-system/checkbox
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```html
+    yarn add @sl-design-system/checkbox
+  ```
+</div>
+
+</section>
+
 {% include "../component-table.njk" %}
 
 <script>

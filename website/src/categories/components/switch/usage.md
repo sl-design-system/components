@@ -14,9 +14,7 @@ eleventyNavigation:
 <div class="ds-code">
 
 ```html
-
 <sl-switch size="md" checked>Switch text</sl-switch>
-
 ```
 
 </div>

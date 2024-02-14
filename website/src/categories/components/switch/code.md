@@ -18,10 +18,8 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <div>
-      <sl-switch size="md" checked>Default checked</sl-switch>
-      <sl-switch size="md" reverse>Reverse unchecked</sl-switch>
-    </div>
+<sl-switch size="md" checked>Default checked</sl-switch>
+<sl-switch size="md" reverse>Reverse unchecked</sl-switch>
   ```
 
 </div>

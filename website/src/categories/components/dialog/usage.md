@@ -101,14 +101,14 @@ With these options, you can tweak the appearance of the dialog in Figma. They ar
   
 |Item|Options|Description|
 |-|-|-|
-|Device|`'Desktop', 'Mobile'`| Select the device for your prototype to ensure an optimal layout.|
-|Size|`'sm','md' (Default), 'lg', 'xl'`|The dialog come in four sizes: small, medium (default), large and extra large, providing flexibility to align with your design requirements.|
-|Close Icon|`'Yes', 'No'`| Choose if you want to show a close button.|
-|Header Order|`'Title', 'Subtitle'`| Choose if you want to start with the title or subtitle.|
-|Content|`'Yes', 'No'`| Choose if you want to show content (slot component).|
-|Slot Component|`'.slot'`|Select your own component to display within the dialog component.|
-|Actions|`'Yes', 'No'`| Choose if you want to show actions.|
-|Align|`'Left', 'Right'`| Choose if you want to show the actions on the left or right side.|
+|Device|`desktop` `mobile`| Select the device for your prototype to ensure an optimal layout.|
+|Size|`sm` `md (default)` `lg` `xl`|The dialog come in four sizes: small, medium (default), large and extra large, providing flexibility to align with your design requirements.|
+|Close Icon|`boolean`| Choose if you want to show a close button.|
+|Header Order|`title` `subtitle`| Choose if you want to start with the title or subtitle.|
+|Content|`boolean`| Choose if you want to show content (slot component).|
+|Slot Component|`.slot`|Select your own component to display within the dialog component.|
+|Actions|`boolean`| Choose if you want to show actions.|
+|Align|`left` `right`| Choose if you want to show the actions on the left or right side.|
 
 {.ds-table .ds-table-align-top}
 
@@ -121,13 +121,10 @@ With these options, you can tweak the appearance of the dialog in Figma. They ar
 ## Behavior
 
 ### Height
-The height of the dialog is dynamically calculated as a percentage of the available screen. As content is injected into the dialog, it grows vertically to accommodate the information passed to it.
-
-### Entrance and exit motion
-When the user launches the dialog, the overlay fades in from 0% to 100% opacity (transitions) and the dialog slides upward from the centre of the screen (transforms:translate the x or y axis). When the user dismisses the dialog, the same animation occurs in reverse.
+As content is injected into the dialog, the dialog grows vertically to accommodate the information passed to it.
 
 ### Content overflow
-When content exceeds the available space, it overflows and becomes scrollable. 
+When content exceeds the vertical space, it overflows and becomes scrollable. 
   
 </section>
 

@@ -83,6 +83,23 @@
               "attribute": "disable-cancel"
             },
             {
+              "kind": "method",
+              "name": "onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "ToggleEvent"
+                  }
+                }
+              ]
+            },
+            {
               "kind": "field",
               "name": "role",
               "type": {
@@ -118,6 +135,14 @@
               "description": "Emits when the dialog has been closed."
             },
             {
+              "kind": "event",
+              "name": "sl-toggle",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the accordion item has been toggled."
+            },
+            {
               "kind": "field",
               "name": "summary",
               "type": {
@@ -142,6 +167,14 @@
               },
               "description": "Emits when the dialog has been closed.",
               "fieldName": "closeEvent"
+            },
+            {
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the accordion item has been toggled.",
+              "fieldName": "toggleEvent"
             }
           ],
           "attributes": [
@@ -225,6 +258,23 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "ToggleEvent"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
@@ -369,45 +419,12 @@
             },
             {
               "kind": "field",
-              "name": "fill",
+              "name": "single",
               "type": {
-                "text": "ButtonFill"
+                "text": "boolean | undefined"
               },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "attribute": "fill",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "attribute": "size",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "type",
-              "type": {
-                "text": "ButtonType"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "attribute": "type"
-            },
-            {
-              "kind": "field",
-              "name": "variant",
-              "type": {
-                "text": "ButtonVariant"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "attribute": "variant",
+              "description": "Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened.",
+              "attribute": "single",
               "reflects": true
             }
           ],
@@ -421,40 +438,18 @@
               "fieldName": "disabled"
             },
             {
-              "name": "fill",
+              "name": "single",
               "type": {
-                "text": "ButtonFill"
+                "text": "boolean | undefined"
               },
-              "default": "'solid'",
-              "description": "The fill of the button.",
-              "fieldName": "fill"
-            },
+              "description": "Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened.",
+              "fieldName": "single"
+            }
+          ],
+          "mixins": [
             {
-              "name": "size",
-              "type": {
-                "text": "ButtonSize"
-              },
-              "default": "'md'",
-              "description": "The size of the button.",
-              "fieldName": "size"
-            },
-            {
-              "name": "type",
-              "type": {
-                "text": "ButtonType"
-              },
-              "default": "'button'",
-              "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
-              "fieldName": "type"
-            },
-            {
-              "name": "variant",
-              "type": {
-                "text": "ButtonVariant"
-              },
-              "default": "'default'",
-              "description": "The variant of the button.",
-              "fieldName": "variant"
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -484,6 +479,23 @@
             },
             {
               "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<string> & { target: AccordionItem }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#hasOnlyIconAsChild",
               "return": {
                 "type": {
@@ -501,6 +513,16 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
             {
               "kind": "field",
               "name": "formAssociated",

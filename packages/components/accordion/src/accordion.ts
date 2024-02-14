@@ -1,17 +1,13 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-// import { EventsController } from '@sl-design-system/shared';
-import type { AccordionItem } from './accordion-item.js';
+// import type { AccordionItem } from './accordion-item.js';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
+import { Icon } from '@sl-design-system/icon';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './accordion.scss.js';
-
-export type ButtonSize = 'sm' | 'md' | 'lg';
-
-export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';
-
-export type ButtonType = 'button' | 'reset' | 'submit';
-
-export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
+import { AccordionItem } from './accordion-item.js';
 
 /**
  * An accordion component....
@@ -22,17 +18,27 @@ export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'dan
  *
  * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
  */
-export class Accordion extends LitElement {
+export class Accordion extends ScopedElementsMixin(LitElement) {
+  /** @private */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-button': Button,
+      'sl-icon': Icon,
+      'sl-accordion-item': AccordionItem
+    };
+  }
+
   /** @private */
   static formAssociated = true;
 
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Event controller. */
+  // /** Event controller. */
   // #events = new EventsController(this, {
-  //   click: this.#onClick,
-  //   keydown: this.#onKeydown
+  //   toggle: this.#onToggle
+  //   // click: this.#onClick,
+  //   // keydown: this.#onKeydown
   // });
 
   /** The original tabIndex before disabled. */
@@ -41,27 +47,30 @@ export class Accordion extends LitElement {
   /** Whether the button is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean; // will we need disabled element here?
 
-  /**
-   * The fill of the button.
-   */
-  @property({ reflect: true }) fill: ButtonFill = 'solid';
+  // /**
+  //  * The fill of the button.
+  //  */
+  // @property({ reflect: true }) fill: ButtonFill = 'solid';
+  //
+  // /**
+  //  * The size of the button.
+  //  */
+  // @property({ reflect: true }) size: ButtonSize = 'md';
 
-  /**
-   * The size of the button.
-   */
-  @property({ reflect: true }) size: ButtonSize = 'md';
+  // /**
+  //  * The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.
+  //  */
+  // @property() type: ButtonType = 'button';
 
-  /**
-   * The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.
-   */
-  @property() type: ButtonType = 'button';
-
-  /**
-   * The variant of the button.
-   */
-  @property({ reflect: true }) variant: ButtonVariant = 'default';
+  // /**
+  //  * The variant of the button.
+  //  */
+  // @property({ reflect: true }) variant: ButtonVariant = 'default';
 
   // @property() summary!: string; // TODO: only text in the summary? if not add a slot for summary and then this text inside
+
+  /** Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened. */
+  @property({ type: Boolean, reflect: true }) single?: boolean;
 
   // TODO: add property summary and open attribute
 
@@ -77,6 +86,8 @@ export class Accordion extends LitElement {
     // if (!this.hasAttribute('tabindex')) {
     //   this.tabIndex = 0;
     // }
+
+    // this.items.forEach(item => item.addEventListener('toggle', () => this.#onToggle));
   }
 
   /** @private */
@@ -100,11 +111,23 @@ export class Accordion extends LitElement {
     console.log('items', this.items);
 
     return html` <div class="wrapper">
-      <slot></slot>
+      <slot @sl-toggle=${this.#onToggle}></slot>
     </div>`;
   } // <slot @slotchange=${this.#onSlotChange}></slot>
   // TODO: onclick on details needed?
 
+  override firstUpdated(): void {
+    console.log('items in firstUpdated', this.items, this.single);
+
+    this.items.forEach(item => item.addEventListener('toggle', () => this.#onToggle));
+    console.log(
+      'this.items[0].firstChild',
+      this.items[0].firstChild,
+      this.items[0].renderRoot,
+      this.items[0].renderRoot.querySelectorAll('details')
+    );
+  }
+
   /*<details>
 <summary>${this.summary}</summary>
 <div class="panel">
@@ -118,6 +141,45 @@ export class Accordion extends LitElement {
   <slot @slotchange=${this.#onSlotChange}></slot>
 </div>
 </details>*/
+
+  #onToggle(/*event: Event*/ event: CustomEvent<string> & { target: AccordionItem }): void {
+    console.log('event on toggle in main component', event, event.target, this.single);
+
+    if (!this.single /*|| event.defaultPrevented*/) {
+      // No toggling when `multiple` or the user prevents it.
+      return;
+    }
+
+    this.items.forEach(item => {
+      console.log('item in event', item);
+      if (item !== event.target) {
+        console.log(
+          'event on toggle in main component in itemmm',
+          event,
+          event.target,
+          this.single,
+          item,
+          event.target.localName,
+          item.renderRoot.querySelector('details')
+        );
+        // Close all the items that didn't dispatch the event.
+        // item.toggleEvent('closed');
+        // item.toggleEvent.emit('closed');
+        item.renderRoot.querySelector('details')?.removeAttribute('open');
+        // item.onToggle;
+      }
+    });
+
+    // resolve();
+    // if (this.hasAttribute('disabled')) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // } else if (this.type === 'reset') {
+    //   this.internals.form?.reset();
+    // } else if (this.type === 'submit') {
+    //   this.internals.form?.requestSubmit();
+    // }
+  }
 
   // #onClick(/*event: Event*/): void {
   //   // if (this.hasAttribute('disabled')) {

@@ -25,7 +25,7 @@ export const API: StoryObj = {
   },
   render: () => {
     return html`
-      <sl-accordion>
+      <sl-accordion single>
         <sl-accordion-item summary="Example summary" open>test content</sl-accordion-item>
         <sl-accordion-item summary="Example summary 2">test content 2</sl-accordion-item>
         <sl-accordion-item summary="Example summary 3">test content of the third element</sl-accordion-item>

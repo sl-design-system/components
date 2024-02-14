@@ -13,7 +13,7 @@ The `<sl-form>` component fulfills three functions:
 1. It provides a default layout for form fields.
 2. It manages the way required/optional fields should be marked.
 2. It provides a way to validate all form fields at once.
-3. It allow you to query the state of the form.
+3. It allows you to query the state of the form.
 
 ## Layout
 

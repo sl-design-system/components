@@ -40,7 +40,7 @@ eleventyNavigation:
 
     <sl-form-field label="Subjects">
       <sl-checkbox-group name="subjects">
-        <sl-checkbox checked>Mathematics</sl-checkbox>
+        <sl-checkbox>Mathematics</sl-checkbox>
         <sl-checkbox>Geography</sl-checkbox>
         <sl-checkbox>Physics</sl-checkbox>
         <sl-checkbox>History</sl-checkbox>

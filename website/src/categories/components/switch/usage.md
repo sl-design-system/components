@@ -50,7 +50,7 @@ If your setting has multiple states or requires more than a simple on/off toggle
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Handle	|Transforms between selected and unselected states as the user navigates to its preference.|no|
+|1|Handle	|Transforms between on and off states as the user navigates to its setting.|no|
 |2|On/off icon	|A visual cue is placed within the track to indicate that the switch is 'on' or 'off'.	|yes|
 |3|Slider track	|The background area serves as the pathway for the switch handle's movement. |no|
 |4|Label	|Describes the purpose and context of the switch component. |yes|
@@ -75,13 +75,13 @@ The switch provides a set of options, ensuring it's ready to adapt to your uniqu
 |Item|Options|Description|
 |-|-|-|
 |Sizes|`sm` `md` `lg`|The switch come in three sizes: small, medium (default) and large. |
-|Orientation |`left` `right` `vertical`|The switch has 3 different lay-out possibilities, providing flexibility to align with your design requirements.|
-|Disabled|`unchecked` `checked`|To indicate if the switch is active or disabled|
+|Orientation |`left` `right`|The switch has 2 different lay-out possibilities, providing flexibility to align with your design requirements.|
+|Disabled|`boolean`|To indicate if the switch is enabled or disabled|
 |Label|`value`|To insert the text of the label|
-|Status|`unchecked` `checked`|To indicate if the switch is checked or unchecked|
+|Status|`boolean`|To indicate if the switch is checked or unchecked|
 |State|`default` `hover` `active` `disabled` |To indicate the state of the switch|
-|Icon|`unchecked` `checked`|To show an icon in the handler of the switch|
-|Focus ring|`unchecked` `unchecked`|To show the focus state of the switch|
+|Icon|`boolean`|To show an icon in the handle of the switch|
+|Focus ring|`boolean`|To show the focus state of the switch|
 
 {.ds-table .ds-table-align-top}
 
@@ -93,7 +93,7 @@ The switch provides a set of options, ensuring it's ready to adapt to your uniqu
 
 |Item|Options|Description|
 |-|-|-|
-|Hint|`unchecked` `checked`|To show a hint|
+|Hint|`boolean`|To show a hint|
 |State|`default` `invalid` `disable`|To indicate the state of the hint|
 |Size|`sm` `md` `lg`|The hint come in three sizes: small, medium (default) and large.|
 |Text|`value`|To insert the text of the hint|

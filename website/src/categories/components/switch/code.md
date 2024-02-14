@@ -36,7 +36,7 @@ With npm
 
 <div class="ds-code">
 
-  ```html
+  ```bash
     npm install @sl-design-system/switch
   ```
 
@@ -46,7 +46,7 @@ With yarn
 
 <div class="ds-code">
 
-  ```html
+  ```bash
     yarn add @sl-design-system/switch
   ```
 </div>

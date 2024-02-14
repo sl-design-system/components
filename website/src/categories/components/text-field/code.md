@@ -34,7 +34,7 @@ With npm
 
 <div class="ds-code">
 
-  ```html
+  ```bash
     npm install @sl-design-system/text-field
   ```
 
@@ -44,7 +44,7 @@ With yarn
 
 <div class="ds-code">
 
-  ```html
+  ```bash
     yarn add @sl-design-system/text-field
   ```
 </div>

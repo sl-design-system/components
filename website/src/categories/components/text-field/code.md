@@ -9,25 +9,46 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<form>
-  <sl-label for="nickname">Nickname</sl-label>
   <sl-text-field
-    id="nickname"
-    hint="What would you like people to call you?"
+    id="last-name"
+    aria-label="Last name"
+    value="Smith"
   ></sl-text-field>
-  </form>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-label for="nickname">Nickname</sl-label>
-    <sl-text-field id="nickname" hint="What would you like people to call you?"></sl-text-field>
+    <sl-text-field id="last-name" aria-label="Last name" value="Smith"></sl-text-field>
   ```
 
 </div>
 
 </section>
 
-{% include "../component-table.njk" %}
+<section>
 
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/text-field
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/text-field
+  ```
+</div>
+
+</section>
+
+{% include "../component-table.njk" %}

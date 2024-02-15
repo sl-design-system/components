@@ -1,5 +1,5 @@
 ---
-title: Textarea
+title: Text Area
 description: Text areas allow users to enter and edit multi-line text. They typically appear in forms.
 componentType: editable
 shortDescription: Text areas allow users to enter and edit multi-line text.

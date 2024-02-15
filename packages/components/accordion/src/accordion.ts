@@ -151,7 +151,7 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     }
 
     this.items.forEach(item => {
-      console.log('item in event', item);
+      console.log('item in event', item, event.target, item === event.target);
       if (item !== event.target) {
         console.log(
           'event on toggle in main component in itemmm',
@@ -166,9 +166,12 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
         // item.toggleEvent('closed');
         // item.toggleEvent.emit('closed');
         item.renderRoot.querySelector('details')?.removeAttribute('open');
+        // event.target.renderRoot.querySelector('details')?.setAttribute('open', '');
         // item.onToggle;
       }
     });
+
+    event.target.renderRoot.querySelector('details')?.setAttribute('open', '');
 
     // resolve();
     // if (this.hasAttribute('disabled')) {

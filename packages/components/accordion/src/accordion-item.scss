@@ -3,6 +3,12 @@
   list-style: none;
 }
 
+:host([disabled]) {
+  summary {
+    background-color: #ccc;
+  }
+}
+
 //:host(:hover) {
 //  background-color: var(--sl-color-select-item-hover-background);
 //}

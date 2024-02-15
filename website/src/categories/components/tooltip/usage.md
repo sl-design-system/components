@@ -8,6 +8,7 @@ eleventyNavigation:
 <section>
   
 ## Live Demo
+Insert live demo of tooltip here 
 
 </section>
 
@@ -28,11 +29,10 @@ If you’re displaying a list of articles with truncated titles, a tooltip can r
 ### Essential and critical information
 Avoid using tooltips for critical instructions or essential information. Users may miss tooltips, especially if they quickly interact with elements.
 
-### Mobile Devices and Touchscreens:
+### Mobile Devices and Touchscreens
 Tooltips rely on hover interactions, which do not translate well to touchscreens.
 
-### Note
-#### Accessibility Concerns
+### Accessibility Concerns
 Some users rely on screen readers or have visual impairments. Ensure that tooltips are accessible and provide an alternative method (such as keyboard shortcuts) to access the same information.
   
 </section>
@@ -45,10 +45,9 @@ Some users rely on screen readers or have visual impairments. Ensure that toolti
   
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Name	|Description|yes/no|
-|2|Name	|Description|yes/no|
-|3|Name	|Description|yes/no|
-|4|Name	|Description|yes/no|
+|1|Panel	|Contains the panel content|no|
+|2|Content	|An area to display any text content|no|
+|3|Pointer	|Indicates the direction of context that the tooltip is attributed to|yes|
 
 {.ds-table}
 

@@ -16,7 +16,7 @@ Here is some space for the live demo
 
 ## When to use
 
-The following guidance describes when to use the Text Area component.
+The following guidance describes when to use the text area component.
 
 ### Unconstrained input
 When you need to collect input that can be of variable length, such as comments, descriptions, or notes.
@@ -28,11 +28,11 @@ Use a text area when the newline character (line break) is a valid part of the c
 
 ## When not to use
 
-The following guidance describes when not to use the Text Area component.
+The following guidance describes when not to use the text area component.
 
 ### Single-line input
 
-If the input is expected to be short and concise, consider using a the [Text Field](/categories/components/text-field/) component instead of a Text Area.
+If the input is expected to be short and concise, consider using a the [text field](/categories/components/text-field/) component instead of a Text Area.
 For instance, when collecting a username or password a single-line input is more appropriate.
 
 </section>
@@ -59,7 +59,7 @@ For instance, when collecting a username or password a single-line input is more
 <section>
 
 ## Options
-With these options, you can tweak the appearance of the dialog in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the text area in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
 
 ### Text Area
 
@@ -67,9 +67,9 @@ With these options, you can tweak the appearance of the dialog in Figma. They ar
 
 |Item|Options|Description|
 |-|-|-|
-|Size|`md` `lg`| The Text Area come in two sized medium (default) and large.|
-|State|`default` `valid` `invalid`| To indicate the state of the Text Area.|
-|Filled|`boolean`| To indicate if the Text Field is filled or displays a placeholder.|
+|Size|`md` `lg`| The text area come in two sized medium (default) and large.|
+|State|`default` `valid` `invalid`| To indicate the state of the text area.|
+|Filled|`boolean`| To indicate if the text area is filled or displays a placeholder.|
 |Input text|`value`| To insert the text of the filled text or placeholder.|
 
 {.ds-table .ds-table-align-top}
@@ -82,7 +82,13 @@ With these options, you can tweak the appearance of the dialog in Figma. They ar
 
 |Item|Options|Description|
 |-|-|-|
-|Label|`boolean`| To display a label above the Text Area|
+|Label|`boolean`| To display a label.|
+|Size|`sm` `md` `lg`| The label come in three sizes small, medium (default) and large.|
+|Disabled|`boolean`| To show the disabled state of the label.|
+|Required|`boolean`| Indicates if the text area is required.|
+|Optional|`boolean`| Indicates if the text area is optional.|
+|Info|`boolean`| To show a info icon with tooltip after the label.|
+|Text|`value`| To insert the text of the label.|
 
 {.ds-table}
 
@@ -94,9 +100,25 @@ With these options, you can tweak the appearance of the dialog in Figma. They ar
 
 |Item|Options|Description|
 |-|-|-|
-|Item|`option`| Description|
+|Hint|`boolean`| To display the hint.|
+|Size|`sm` `md` `lg`| The label come in three sizes small, medium (default) and large.|
+|State|`default` `disabled` `invalid`| To indicate the state of the hint.|
+|Icon|`boolean`| Displays an icon in front of the hint.|
+|Text|`value`| To insert the text of the hint.|
 
 {.ds-table .ds-table-align-top}
+
+</div>
+
+### Focus ring
+
+<div class="ds-table-wrapper">
+
+|Item|Options|Description|
+|-|-|-|
+|Focus ring|`boolean`| To display the focus state of the text area.|
+
+{.ds-table}
 
 </div>
   

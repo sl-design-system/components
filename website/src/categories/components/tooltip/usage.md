@@ -65,13 +65,8 @@ With these options you can tweak the appearance of the tooltip in Figma. They ar
   
 |Item|Options|Description|
 |-|-|-|
-|item|`option`|Description|
-|item|`option`|Description|
-|item|`option`|Description|
-|item|`option`|Description|
-|item|`option`|Description|
-|item|`option`|Description|
-|item|`option`|Description|
+|position|`1-o'clock` `2-o'clock` `3-o'clock` `4-o'clock` `5-o'clock` `6-o'clock` `7-o'clock` `8-o'clock` `9-o'clock` `10-o'clock` `11-o'clock` `12-o'clock`|To indicate the direction of context that the tooltip is attributed to|
+|tooltip|`value`|To insert the text of the tooltip|
 
 {.ds-table}
 

@@ -5,9 +5,37 @@ eleventyNavigation:
   parent: Avatar
   key: AvatarUsage
 ---
-<section>
-  
-## Live demo
+<section>  
+<div class="ds-example" style="justify-content: space-evenly">
+  <sl-avatar size="3xl" id="avatar1" orientation="vertical"></sl-avatar>
+  <sl-avatar size="xl" id="avatar2" status="success">Class: 1B</sl-avatar>
+
+  <small style="position: absolute; bottom:0; right:var(--scale-150-scale)">
+
+  Photos by [Xia Yang](https://unsplash.com/@imrxia?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+  and [Toa Heftiba](https://unsplash.com/@heftiba?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
+  </small>
+</div>
+
+<div class="ds-code">
+
+  ```html
+
+    const user1 = {
+      'name': {
+        'first': 'Anna',
+        'last': 'Jenssen'
+      },
+      'picture': {
+        'thumbnail': '/images/avatar.jpg'
+      }
+    }
+
+    <sl-avatar user="user1" size="3xl" id="avatar1" orientation="vertical"></sl-avatar>
+    <sl-avatar user="user2" size="xl" id="avatar2" status="success">Class: 1B</sl-avatar>
+  ```
+</div>
 
 </section>
 
@@ -96,3 +124,25 @@ With these options, you can tweak the appearance of the avatar in Figma. They ar
 </div>
 
 </section>
+
+<script>
+
+document.querySelector("#avatar1").user = {
+    'name': {
+      'first': 'Anna',
+      'last': 'Jenssen'
+    },
+    'picture': {
+      'thumbnail': '/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg'
+    }};
+
+document.querySelector("#avatar2").user = {
+    'name': {
+      'first': 'Tim',
+      'last': 'Jenssen'
+    },
+    'picture': {
+      'thumbnail': '/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg'
+    }};
+
+</script>

@@ -107,48 +107,60 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
   #hasOverflow = false;
 
-  /** The badge. */
+  /** @private The badge. */
   @state() badge?: AvatarBadge;
+
+  /** @private State for when loading of the image has failed. */
+  @state() errorLoadingImage?: boolean;
+
+  /** @private The icon. */
+  @state() icon?: AvatarIcon;
+
+  /** @private The image. */
+  @state() image?: AvatarImage;
 
   /** Experimental feature, use with great caution. */
   @property({ attribute: 'badge-text' }) badgeText?: string;
 
-  /** State for when loading of the image has failed. */
-  @state() errorLoadingImage?: boolean;
-
-  /** The fallback to use when there is no user image present. */
+  /** The fallback to use when there is no user image present.
+   * @type {'initials' | 'image'}
+   */
   @property() fallback?: AvatarFallbackType = 'initials';
 
-  /** The icon. */
-  @state() icon?: AvatarIcon;
-
-  /** The image. */
-  @state() image?: AvatarImage;
-
-  /** This hides the name when set. */
+  /** This hides the name when set to true. */
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
 
   /**
    * Used for the aria-label on the image. You can use `{{badgeText}}` in the string
-   * to have it replaced by the value set in the badgeText
+   * to have it replaced by the value set in the badgeText. For example to show "6 unread messages", where 6 is also shown in the badge.
    */
   @property() label = '';
 
-  /** The orientation of the avatar. */
+  /** The orientation of the avatar.
+   * @type {'horizontal' | 'vertical'}
+   */
   @property({ reflect: true }) orientation: AvatarOrientation = 'horizontal';
 
-  /** The size of the avatar. */
+  /** The size of the avatar.
+   * @type {'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'}
+   */
   @property({ reflect: true }) size: AvatarSize = 'md';
 
-  /** Optional user status to show. */
+  /** Optional user status to show.
+   * @type {'danger' | 'success' | 'warning' | 'accent' | 'neutral' | 'primary'}
+   */
   @property({ reflect: true }) status?: UserStatus;
 
   /** The user object. */
   @property({ type: Object }) user?: UserProfile;
 
+  /** @private border width for calculations in the svg. */
   borderWidth = BORDER_WIDTH;
+  /** @private border width for calculations in the svg. */
   initials = '';
+  /** @private offset of the badge for calculations in the svg. */
   offset = OFFSET_CIRCLE;
+  /** @private offset of the badge for calculations in the svg. */
   profileName = '';
 
   override async connectedCallback(): Promise<void> {

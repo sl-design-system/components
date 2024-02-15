@@ -6,30 +6,67 @@ eleventyNavigation:
   parent: Avatar
   key: AvatarCode
 ---
-<section>
+<section>  
+<div class="ds-example" style="justify-content: space-evenly">
+  <sl-avatar size="3xl" id="avatar3" orientation="vertical"></sl-avatar>
+  <sl-avatar size="xl" id="avatar4" status="success">Class: 1B</sl-avatar>
 
-## Avatar code
+  <small style="position: absolute; bottom:0; right:var(--scale-150-scale)">
 
-Avatar examples
+  Photos by [Xia Yang](https://unsplash.com/@imrxia?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+  and [Toa Heftiba](https://unsplash.com/@heftiba?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  </small>
+</div>
+
+<div class="ds-code">
+
+  ```html
+
+    const user1 = {
+      'name': {
+        'first': 'Anna',
+        'last': 'Jenssen'
+      },
+      'picture': {
+        'thumbnail': '/images/avatar.jpg'
+      }
+    }
+
+    <sl-avatar user="user1" size="3xl" id="avatar1" orientation="vertical"></sl-avatar>
+    <sl-avatar user="user2" size="xl" id="avatar2" status="success">Class: 1B</sl-avatar>
+  ```
+</div>
 
 </section>
 
 <section>
 
-## Code
+## Avatar shape
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+The shape of the avatar - a circle or a square, optionally with rounded corners - is determined by an application wide setting per theme. This is, like the tokens are, maintained by the SLDS team
 
 </section>
 
 {% include "../component-table.njk" %}
 
-<section>
+<script>
+document.querySelector("#avatar3").user = {
+    'name': {
+      'first': 'Anna',
+      'last': 'Jenssen'
+    },
+    'picture': {
+      'thumbnail': '/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg'
+    }};
 
-## Tokens
+document.querySelector("#avatar4").user = {
+    'name': {
+      'first': 'Tim',
+      'last': 'Jenssen'
+    },
+    'picture': {
+      'thumbnail': '/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg'
+    }};
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  
+</script>

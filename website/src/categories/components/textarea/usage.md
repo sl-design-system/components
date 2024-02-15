@@ -60,8 +60,37 @@ For instance, when collecting a username or password a single-line input is more
 ## Options
 With these options, you can tweak the appearance of the dialog in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
 
+### Text Area
+
 <div class="ds-table-wrapper">
-  
+
+|Item|Options|Description|
+|-|-|-|
+|Size|`md` `lg`| The Text Area come in two sized medium (default) and large.|
+|State|`default` `valid` `invalid`| To indicate the state of the Text Area.|
+|Filled|`boolean`| To indicate if the Text Field is filled or displays a placeholder.|
+|Input text|`value`| To insert the text of the filled text or placeholder.|
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+### Label
+
+<div class="ds-table-wrapper">
+
+|Item|Options|Description|
+|-|-|-|
+|Label|`boolean`| To display a label above the Text Area|
+
+{.ds-table}
+
+</div>
+
+### Hint
+
+<div class="ds-table-wrapper">
+
 |Item|Options|Description|
 |-|-|-|
 |Item|`option`| Description|

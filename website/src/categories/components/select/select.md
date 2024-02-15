@@ -11,6 +11,6 @@ packageName: select
 eleventyNavigation:
   parent: Components
   key: Select
-  order: 14
+  order: 15
   status: coming
 ---

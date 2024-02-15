@@ -9,7 +9,7 @@ packageName: popover
 eleventyNavigation:
   parent: Components
   key: Popover
-  order: 12
+  order: 13
   status: coming
 ---
 

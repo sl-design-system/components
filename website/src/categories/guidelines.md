@@ -1,5 +1,4 @@
 ---
-eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Pages
   key: Guidelines

@@ -147,8 +147,8 @@
                 </table>
                </div>
             {% endif %}
-            {%- if declaration.cssProperties.length -%}
-              <h3>CSS Properties</h3>            
+            {% if declaration.cssProperties.length %}
+              <h3>CSS Properties</h3>
               <div class="ds-table-wrapper">
                 <table class="ds-table">
                   <thead>
@@ -158,16 +158,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {%- for property in declaration.cssProperties -%}
+                  {% for property in declaration.cssProperties %}
                     <tr>
                       <td><code>{{property.name}}</code></td>
                       <td>{{property.description}}</td>
                     </tr>
-                  {%- endfor -%}
+                  {% endfor %}
                   </tbody>
                 </table>
               </div>
-            {%- endif -%}
+            {% endif %}
             </section>
           {%- endif -%}
         {%- endfor -%}

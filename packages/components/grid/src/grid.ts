@@ -592,7 +592,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.model.toggleGroup(group.value, event.detail);
   }
 
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+  async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
     const elements = event.target.assignedElements({ flatten: true }),
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
@@ -617,6 +617,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         }
       }
     });
+
+    // Wait for all the columns to update; the column group especially
+    // needs time for the slotchange event to fire.
+    await Promise.allSettled(columns.map(async col => col.updateComplete));
 
     this.model.columnDefinitions = columns;
   }

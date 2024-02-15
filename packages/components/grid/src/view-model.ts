@@ -13,7 +13,7 @@ export class GridViewModel<T = unknown> {
   #dataSource?: DataSource<T>;
   #grid: Grid<T>;
   #groups = new Map<string, boolean>();
-  #headerRows: Array<Array<GridColumn<T>>> = [];
+  #headerRows: Array<Array<GridColumn<T>>> = [[]];
   #rows: T[] = [];
 
   /** Returns the available columns for this grid. */
@@ -61,7 +61,9 @@ export class GridViewModel<T = unknown> {
 
   update = (): void => {
     this.#columns = this.#columnDefinitions.filter(col => !col.hidden);
-    this.#headerRows = this.#getHeaderRows(this.#columns);
+    this.#headerRows = this.#getHeaderRows(this.#columnDefinitions);
+
+    console.log('headerRows', this.#headerRows);
 
     if (this.#dataSource?.groupBy) {
       const groupByPath = this.#dataSource.groupBy.path,

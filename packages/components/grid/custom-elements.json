@@ -3475,7 +3475,7 @@
               "name": "#onSlotchange",
               "return": {
                 "type": {
-                  "text": "void"
+                  "text": "Promise<void>"
                 }
               },
               "parameters": [
@@ -6904,7 +6904,7 @@
               "type": {
                 "text": "Array<Array<GridColumn<T>>>"
               },
-              "default": "[]"
+              "default": "[[]]"
             },
             {
               "kind": "field",

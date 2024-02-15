@@ -54,6 +54,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
               @sl-change=${this.#onToggle}
               .checked=${this.selected === 'all'}
               .indeterminate=${this.selected === 'some'}
+              size="sm"
             ></sl-checkbox>
           `
         : nothing}

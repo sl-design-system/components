@@ -10,11 +10,16 @@
 }
 
 sl-button {
-  margin-inline: 0.25rem;
+  margin-inline-start: 0.25rem;
 }
 
 sl-icon {
   transition: rotate 0.2s ease-in-out;
+}
+
+sl-checkbox {
+  align-self: center;
+  padding: calc((32px - var(--sl-size-input-option-sm, 0px)) / 2);
 }
 
 .heading {

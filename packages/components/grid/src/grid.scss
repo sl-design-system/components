@@ -24,7 +24,7 @@
 }
 
 :host([items-group-by]) {
-  --_first-cell-padding-inline-start: 2rem;
+  --_first-cell-padding-inline-start: 28px;
 }
 
 :host([no-border]) {
@@ -159,6 +159,7 @@ td[part~='text-field'] {
 
 .selection-toggle {
   align-self: center;
+  padding: 6px;
 }
 
 .drop-placeholder {

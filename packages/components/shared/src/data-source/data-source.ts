@@ -29,10 +29,6 @@ export type DataSourceSortByFunction<T = unknown> = {
 
 export type DataSourceSort<T> = DataSourceSortByFunction<T> | DataSourceSortByPath;
 
-export class DataSourceGroup {
-  constructor(public path: string, public value: string) {}
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DataSource<T = any> extends EventTarget {
   /** Map of all active filters. */
@@ -62,20 +58,11 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** The filtered & sorted array of items. */
   abstract readonly filteredItems: T[];
 
-  /** The groups. */
-  abstract readonly groups: string[];
-
   /** The array of all items. */
   abstract readonly items: T[];
 
   /** Total number of items in this data source. */
   abstract readonly size: number;
-
-  /** Toggles the visibility of the group. */
-  abstract toggleGroup(value: string, collapse?: boolean): void;
-
-  /** Returns true if the group is expanded, false if collapsed. */
-  abstract isGroupExpanded(value?: string): boolean;
 
   /** Updates the list of items using filter and sorting if available. */
   abstract update(): void;
@@ -96,10 +83,23 @@ export abstract class DataSource<T = any> extends EventTarget {
     this.#filters.delete(id);
   }
 
+  /**
+   * Group the items by the given path. Optionally, you can provide a sorter and direction.
+   *
+   * This is part of the DataSource interface, because it changes how the data is sorted. You
+   * may want to pass the groupBy attribute to the server, so it can sort the data for you.
+   *
+   * @param path Path to group by attribute.
+   * @param sorter Optional sorter function.
+   * @param direction Optional sort direction.
+   */
   setGroupBy(path: string, sorter?: DataSourceSortFunction<T>, direction?: DataSourceSortDirection): void {
     this.#groupBy = { path, sorter, direction: direction ?? 'asc' };
   }
 
+  /**
+   * Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.
+   */
   removeGroupBy(): void {
     this.#groupBy = undefined;
   }

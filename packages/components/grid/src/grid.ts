@@ -1,25 +1,19 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { GridSorter, GridSorterChange } from './sorter.js';
 import type { GridFilter, GridFilterChange } from './filter.js';
+import type { GridColumnGroup } from './column-group.js';
 import type { Virtualizer } from '@lit-labs/virtualizer/Virtualizer.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { DataSource, EventEmitter } from '@sl-design-system/shared';
 import { localized } from '@lit/localize';
 import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import {
-  ArrayDataSource,
-  DataSourceGroup,
-  SelectionController,
-  event,
-  getValueByPath,
-  isSafari
-} from '@sl-design-system/shared';
+import { ArrayDataSource, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { GridViewModel, GridViewModelGroup } from './view-model.js';
 import { GridColumn } from './column.js';
-import { GridColumnGroup } from './column-group.js';
 import styles from './grid.scss.js';
 import { GridSelectionColumn } from './selection-column.js';
 import { GridActiveItemChangeEvent, GridEvent, GridItemDropEvent, GridItemEvent } from './events.js';
@@ -105,9 +99,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Emits when the active item changes */
   @event() activeItemChange!: EventEmitter<GridActiveItemChangeEvent<T>>;
 
-  /** The columns in the grid. */
-  @state() columns: Array<GridColumn<T>> = [];
-
   /** Provide your own implementation for getting the data. */
   @property({ attribute: false }) dataSource?: DataSource<T>;
 
@@ -148,6 +139,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Custom parts to be set on the `<tr>` so it can be styled externally. */
   @property({ attribute: false }) itemParts?: GridItemParts<T>;
+
+  /** The model used for rendering the grid. */
+  @property({ attribute: false }) model = new GridViewModel<T>(this);
 
   /** Hide the border around the grid when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
@@ -206,13 +200,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('items')) {
-      if (this.items && Array.isArray(this.items)) {
-        this.dataSource = new ArrayDataSource(this.items);
-        this.selection.size = this.dataSource.size;
-      } else {
-        this.dataSource = undefined;
-        this.selection.size = 0;
-      }
+      this.dataSource = this.items ? new ArrayDataSource(this.items) : undefined;
+      this.model.dataSource = this.dataSource;
+      this.selection.size = this.dataSource?.size ?? 0;
     }
 
     if (changes.has('itemsGroupBy')) {
@@ -228,10 +218,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('dataSource')) {
-      this.dataSource?.addEventListener('sl-update', () => {
-        this.selection.size = this.dataSource?.size ?? 0;
-        this.requestUpdate();
-      });
+      this.model.dataSource = this.dataSource;
 
       this.#applyFilters();
       this.#applySorters();
@@ -239,8 +226,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const items = this.dataSource?.filteredItems ?? [];
-
     return html`
       <slot @sl-column-update=${this.#onColumnUpdate} @slotchange=${this.#onSlotchange} style="display:none"></slot>
       <style>
@@ -258,7 +243,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
-            items,
+            items: this.model.rows,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
@@ -267,7 +252,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderStyles(): TemplateResult {
-    const rows = this.#getHeaderRows(this.columns);
+    const rows = this.model.headerRows;
 
     return html`
       ${rows.slice(0, -1).map((row, rowIndex) => {
@@ -291,7 +276,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ${
               col.sticky
                 ? `
-                  inset-inline-start: ${this.#getStickyColumnOffset(index)}px;
+                  inset-inline-start: ${this.model.getStickyColumnOffset(index)}px;
                   position: sticky;
                 `
                 : ''
@@ -304,7 +289,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderHeader(): TemplateResult {
-    const rows = this.#getHeaderRows(this.columns),
+    const rows = this.model.headerRows,
       showSelectionHeader =
         this.selection.size > 0 &&
         (this.selection.areSomeSelected() || this.selection.areAllSelected()) &&
@@ -333,11 +318,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderItem(item: T, index: number): TemplateResult {
-    return item instanceof DataSourceGroup ? this.renderGroupRow(item) : this.renderItemRow(item, index);
+    return item instanceof GridViewModelGroup ? this.renderGroupRow(item) : this.renderItemRow(item, index);
   }
 
   renderItemRow(item: T, index: number): TemplateResult {
-    const rows = this.#getHeaderRows(this.columns),
+    const rows = this.model.headerRows,
       selected = this.selection.isSelected(item),
       parts = [
         'row',
@@ -363,9 +348,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderGroupRow(group: DataSourceGroup): TemplateResult {
-    const expanded = this.dataSource?.isGroupExpanded(group.value),
-      selectable = !!this.columns.find(col => col instanceof GridSelectionColumn);
+  renderGroupRow(group: GridViewModelGroup): TemplateResult {
+    const expanded = this.model.getGroupState(group.value),
+      selectable = !!this.model.columns.find(col => col instanceof GridSelectionColumn),
+      selected = this.model.getGroupSelection(group.value);
 
     return html`
       <tr part="group">
@@ -376,6 +362,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             .expanded=${expanded}
             .heading=${group.value}
             .selectable=${selectable}
+            .selected=${selected}
           ></sl-grid-group-header>
         </td>
       </tr>
@@ -387,12 +374,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Do not remove, this is needed; not sure why
     await this.updateComplete;
 
-    const rows = this.#getHeaderRows(this.columns);
+    const rows = this.model.headerRows;
 
     rows[rows.length - 1]
       .filter(col => !col.hidden && col.autoWidth)
       .forEach(col => {
-        const index = this.columns.indexOf(col),
+        const index = this.model.columns.indexOf(col),
           cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(td, th):nth-child(${index + 1})`);
 
         col.width = Array.from(cells).reduce((acc, cur) => {
@@ -410,7 +397,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Since we set an explicit width for the `<thead>` and `<tbody>`, we also need
     // to set an explicit width for all the `<tr>` elements. Otherwise, the sticky columns
     // will not be sticky when you scroll horizontally.
-    const rowWidth = this.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+    const rowWidth = this.model.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
     this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
 
     this.requestUpdate('columns');
@@ -590,7 +577,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applyFilters();
   }
 
-  #onGroupSelect(event: CustomEvent<boolean>, group: DataSourceGroup): void {
+  #onGroupSelect(event: CustomEvent<boolean>, group: GridViewModelGroup): void {
     const items = this.dataSource?.filteredItems ?? [],
       groupItems = items.filter(item => getValueByPath(item, this.itemsGroupBy) === group.value);
 
@@ -601,9 +588,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onGroupToggle(event: CustomEvent<boolean>, group: DataSourceGroup): void {
-    this.dataSource?.toggleGroup(group.value, event.detail);
-    this.dataSource?.update();
+  #onGroupToggle(event: CustomEvent<boolean>, group: GridViewModelGroup): void {
+    this.model.toggleGroup(group.value, event.detail);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
@@ -632,7 +618,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       }
     });
 
-    this.columns = columns;
+    this.model.columnDefinitions = columns;
   }
 
   #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {
@@ -706,24 +692,5 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dataSource.update();
     this.requestUpdate();
     this.gridStateChange.emit(new GridEvent('sl-grid-state-change', this));
-  }
-
-  #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {
-    const children = columns
-      .filter((col): col is GridColumnGroup<T> => col instanceof GridColumnGroup)
-      .reduce((acc: Array<Array<GridColumn<T>>>, cur) => {
-        return [...acc, ...this.#getHeaderRows(cur.columns)];
-      }, []);
-
-    return children.length ? [[...columns], children.flat(2)] : [[...columns]];
-  }
-
-  #getStickyColumnOffset(index: number): number {
-    return this.columns
-      .slice(0, index)
-      .filter(col => !col.hidden)
-      .reduce((acc, { width = 0 }) => {
-        return acc + width;
-      }, 0);
   }
 }

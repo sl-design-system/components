@@ -3031,42 +3031,6 @@
             },
             {
               "kind": "field",
-              "name": "groups",
-              "type": {
-                "text": "string[]"
-              },
-              "readonly": true,
-              "description": "The groups.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "isGroupExpanded",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | undefined"
-                  }
-                }
-              ],
-              "description": "Returns true if the group is expanded, false if collapsed.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
               "name": "items",
               "type": {
                 "text": "T[]"
@@ -3107,6 +3071,7 @@
                   "text": "void"
                 }
               },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "src/data-source/data-source.ts"
@@ -3138,23 +3103,27 @@
                   "name": "path",
                   "type": {
                     "text": "string"
-                  }
+                  },
+                  "description": "Path to group by attribute."
                 },
                 {
                   "name": "sorter",
                   "optional": true,
                   "type": {
                     "text": "DataSourceSortFunction<T>"
-                  }
+                  },
+                  "description": "Optional sorter function."
                 },
                 {
                   "name": "direction",
                   "optional": true,
                   "type": {
                     "text": "DataSourceSortDirection"
-                  }
+                  },
+                  "description": "Optional sort direction."
                 }
               ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "src/data-source/data-source.ts"
@@ -3217,32 +3186,6 @@
                 "name": "DataSource",
                 "module": "src/data-source/data-source.ts"
               }
-            },
-            {
-              "kind": "method",
-              "name": "toggleGroup",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "collapse",
-                  "default": "false"
-                }
-              ],
-              "description": "Toggles the visibility of the group.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
             }
           ],
           "events": [
@@ -3258,55 +3201,6 @@
             "module": "/src/data-source/data-source.js"
           },
           "methods": [
-            {
-              "kind": "method",
-              "name": "toggleGroup",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "collapse",
-                  "default": "false"
-                }
-              ],
-              "description": "Toggles the visibility of the group.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "isGroupExpanded",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string | undefined"
-                  }
-                }
-              ],
-              "description": "Returns true if the group is expanded, false if collapsed.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
             {
               "kind": "method",
               "name": "addFilter",
@@ -3375,23 +3269,27 @@
                   "name": "path",
                   "type": {
                     "text": "string"
-                  }
+                  },
+                  "description": "Path to group by attribute."
                 },
                 {
                   "name": "sorter",
                   "optional": true,
                   "type": {
                     "text": "DataSourceSortFunction<T>"
-                  }
+                  },
+                  "description": "Optional sorter function."
                 },
                 {
                   "name": "direction",
                   "optional": true,
                   "type": {
                     "text": "DataSourceSortDirection"
-                  }
+                  },
+                  "description": "Optional sort direction."
                 }
               ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "src/data-source/data-source.ts"
@@ -3405,6 +3303,7 @@
                   "text": "void"
                 }
               },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "src/data-source/data-source.ts"
@@ -3469,12 +3368,6 @@
             },
             {
               "kind": "field",
-              "name": "#groups",
-              "privacy": "private",
-              "default": "new Map<string, boolean>()"
-            },
-            {
-              "kind": "field",
               "name": "#items",
               "privacy": "private",
               "type": {
@@ -3490,19 +3383,6 @@
               },
               "readonly": true,
               "description": "The filtered & sorted array of items.",
-              "inheritedFrom": {
-                "name": "DataSource",
-                "module": "src/data-source/data-source.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "groups",
-              "type": {
-                "text": "string[]"
-              },
-              "readonly": true,
-              "description": "The groups.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "src/data-source/data-source.ts"
@@ -3690,34 +3570,6 @@
             },
             {
               "kind": "field",
-              "name": "groups",
-              "type": {
-                "text": "string[]"
-              },
-              "readonly": true,
-              "description": "The groups."
-            },
-            {
-              "kind": "method",
-              "name": "isGroupExpanded",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Returns true if the group is expanded, false if collapsed."
-            },
-            {
-              "kind": "field",
               "name": "items",
               "type": {
                 "text": "T[]"
@@ -3749,7 +3601,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped."
             },
             {
               "kind": "method",
@@ -3773,23 +3626,27 @@
                   "name": "path",
                   "type": {
                     "text": "string"
-                  }
+                  },
+                  "description": "Path to group by attribute."
                 },
                 {
                   "name": "sorter",
                   "optional": true,
                   "type": {
                     "text": "DataSourceSortFunction<T>"
-                  }
+                  },
+                  "description": "Optional sorter function."
                 },
                 {
                   "name": "direction",
                   "optional": true,
                   "type": {
                     "text": "DataSourceSortDirection"
-                  }
+                  },
+                  "description": "Optional sort direction."
                 }
-              ]
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you."
             },
             {
               "kind": "method",
@@ -3836,31 +3693,6 @@
                 "text": "DataSourceSort<T> | undefined"
               },
               "readonly": true
-            },
-            {
-              "kind": "method",
-              "name": "toggleGroup",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "collapse",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Toggles the visibility of the group."
             }
           ],
           "superclass": {
@@ -3868,50 +3700,6 @@
             "module": "src/data-source/data-source.ts"
           },
           "methods": [
-            {
-              "kind": "method",
-              "name": "toggleGroup",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "collapse",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "description": "Toggles the visibility of the group."
-            },
-            {
-              "kind": "method",
-              "name": "isGroupExpanded",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "value",
-                  "optional": true,
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Returns true if the group is expanded, false if collapsed."
-            },
             {
               "kind": "method",
               "name": "addFilter",
@@ -3972,23 +3760,27 @@
                   "name": "path",
                   "type": {
                     "text": "string"
-                  }
+                  },
+                  "description": "Path to group by attribute."
                 },
                 {
                   "name": "sorter",
                   "optional": true,
                   "type": {
                     "text": "DataSourceSortFunction<T>"
-                  }
+                  },
+                  "description": "Optional sorter function."
                 },
                 {
                   "name": "direction",
                   "optional": true,
                   "type": {
                     "text": "DataSourceSortDirection"
-                  }
+                  },
+                  "description": "Optional sort direction."
                 }
-              ]
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you."
             },
             {
               "kind": "method",
@@ -3997,7 +3789,8 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped."
             },
             {
               "kind": "method",
@@ -4102,15 +3895,6 @@
             },
             {
               "kind": "field",
-              "name": "groups",
-              "type": {
-                "text": "string[]"
-              },
-              "readonly": true,
-              "description": "The groups."
-            },
-            {
-              "kind": "field",
               "name": "items",
               "type": {
                 "text": "T[]"
@@ -4128,22 +3912,9 @@
               "description": "Total number of items in this data source."
             }
           ]
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "DataSourceGroup"
         }
       ],
       "exports": [
-        {
-          "kind": "js",
-          "name": "DataSourceGroup",
-          "declaration": {
-            "name": "DataSourceGroup",
-            "module": "src/data-source/data-source.ts"
-          }
-        },
         {
           "kind": "js",
           "name": "DataSource",

@@ -1,19 +1,14 @@
 import type { DataSourceSortFunction } from './data-source.js';
 import { getStringByPath, getValueByPath } from '../path.js';
-import { DataSource, DataSourceGroup } from './data-source.js';
+import { DataSource } from './data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayDataSource<T = any> extends DataSource<T> {
   #filteredItems: T[] = [];
-  #groups = new Map<string, boolean>();
   #items: T[];
 
   get filteredItems(): T[] {
     return this.#filteredItems;
-  }
-
-  get groups(): string[] {
-    return Array.from(this.#groups.keys());
   }
 
   get items(): T[] {
@@ -28,14 +23,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     super();
     this.#filteredItems = [...items];
     this.#items = [...items];
-  }
-
-  toggleGroup(value: string, collapse = false): void {
-    this.#groups.set(value, collapse ?? !this.#groups.get(value));
-  }
-
-  isGroupExpanded(value?: string | undefined): boolean {
-    return value ? this.#groups.get(value) ?? true : true;
   }
 
   update(): void {
@@ -109,32 +96,6 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
         const result = sortFn(a, b);
 
         return ascending ? result : -result;
-      });
-
-      const groups: string[] = [];
-      items = items
-        .map(item => {
-          const value = getStringByPath(item, this.groupBy!.path);
-
-          if (groups.includes(value)) {
-            return this.isGroupExpanded(value) ? item : undefined;
-          } else {
-            groups.push(value);
-
-            // If this is the start of a new group, insert a group item
-            const group = new DataSourceGroup(this.groupBy!.path, value);
-
-            return this.isGroupExpanded(value) ? [group, item] : group;
-          }
-        })
-        .flatMap(item => item)
-        .filter((item): item is T => item !== undefined);
-
-      // Update the groups state
-      groups.forEach(group => {
-        if (!this.#groups.has(group)) {
-          this.#groups.set(group, true);
-        }
       });
     }
 

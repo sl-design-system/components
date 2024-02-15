@@ -50,6 +50,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
           .indeterminate=${indeterminate}
           aria-label=${msg('Select all')}
           class="selection-toggle"
+          size="sm"
         ></sl-checkbox>
       </th>
     `;
@@ -73,6 +74,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
           @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
           .checked=${checked}
           class="selection-toggle"
+          size="sm"
         ></sl-checkbox>
       </td>
     `;

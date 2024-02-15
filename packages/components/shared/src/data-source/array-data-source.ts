@@ -26,8 +26,9 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
   }
 
   update(): void {
-    let items = [...this.#items];
+    let items: T[] = [...this.#items];
 
+    // Filter the items
     for (const filter of this.filters.values()) {
       if ('filter' in filter && filter.filter) {
         items = items.filter(filter.filter);
@@ -46,6 +47,7 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
       }
     }
 
+    // Sort the items
     if (this.sort) {
       const ascending = this.sort.direction === 'asc';
 
@@ -62,6 +64,32 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
         };
       } else if ('sorter' in this.sort && this.sort.sorter) {
         sortFn = this.sort.sorter;
+      }
+
+      items.sort((a, b) => {
+        const result = sortFn(a, b);
+
+        return ascending ? result : -result;
+      });
+    }
+
+    // Group the items by first filtering them and then sorting
+    if (this.groupBy) {
+      const ascending = this.groupBy.direction === 'asc';
+
+      let sortFn: DataSourceSortFunction<T>;
+
+      if ('sorter' in this.groupBy && this.groupBy.sorter) {
+        sortFn = this.groupBy.sorter;
+      } else {
+        const path = this.groupBy.path;
+
+        sortFn = (a: T, b: T): number => {
+          const valueA = getStringByPath(a, path),
+            valueB = getStringByPath(b, path);
+
+          return valueA === valueB ? 0 : valueA < valueB ? -1 : 1;
+        };
       }
 
       items.sort((a, b) => {

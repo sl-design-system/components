@@ -9,6 +9,12 @@ export type DataSourceFilterByPath = { path: string; value: string | string[] };
 
 export type DataSourceFilter<T> = DataSourceFilterByFunction<T> | DataSourceFilterByPath;
 
+export type DataSourceGroupBy<T> = {
+  path: string;
+  sorter?: DataSourceSortFunction<T>;
+  direction: DataSourceSortDirection;
+};
+
 export type DataSourceSortDirection = 'asc' | 'desc';
 
 export type DataSourceSortFunction<T = unknown> = (a: T, b: T) => number;
@@ -28,6 +34,9 @@ export abstract class DataSource<T = any> extends EventTarget {
   /** Map of all active filters. */
   #filters: Map<string, DataSourceFilter<T>> = new Map();
 
+  /** Order the items by grouping them on the given attributes. */
+  #groupBy?: DataSourceGroupBy<T>;
+
   /**
    * The value and path/function to use for sorting. When setting this property,
    * it will cause the data to be automatically sorted.
@@ -36,6 +45,10 @@ export abstract class DataSource<T = any> extends EventTarget {
 
   get filters(): Map<string, DataSourceFilter<T>> {
     return this.#filters;
+  }
+
+  get groupBy(): DataSourceGroupBy<T> | undefined {
+    return this.#groupBy;
   }
 
   get sort(): DataSourceSort<T> | undefined {
@@ -68,6 +81,27 @@ export abstract class DataSource<T = any> extends EventTarget {
 
   removeFilter(id: string): void {
     this.#filters.delete(id);
+  }
+
+  /**
+   * Group the items by the given path. Optionally, you can provide a sorter and direction.
+   *
+   * This is part of the DataSource interface, because it changes how the data is sorted. You
+   * may want to pass the groupBy attribute to the server, so it can sort the data for you.
+   *
+   * @param path Path to group by attribute.
+   * @param sorter Optional sorter function.
+   * @param direction Optional sort direction.
+   */
+  setGroupBy(path: string, sorter?: DataSourceSortFunction<T>, direction?: DataSourceSortDirection): void {
+    this.#groupBy = { path, sorter, direction: direction ?? 'asc' };
+  }
+
+  /**
+   * Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.
+   */
+  removeGroupBy(): void {
+    this.#groupBy = undefined;
   }
 
   setSort<U extends string | DataSourceSortFunction<T>>(

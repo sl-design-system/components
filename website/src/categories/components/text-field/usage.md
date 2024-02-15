@@ -85,7 +85,7 @@ With these options you can tweak the appearance of the text field in Figma. They
 |State|`idle` `hover` `active` `disabled`|These states are applied automatically in interactive examples or can be set explicitly when the use case asks for it. Default value is `idle`.|
 |Placeholder|`boolean`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
 |Placeholder text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
-|Helper|`boolean`|To turn to Helper Text on or off. Default value is `off`.|
+|Hint|`boolean`|To turn to hint on or off. Default value is `off`.|
 |Input Text |`value`|Will be shown as the value of the text field|
 |Label|`value`|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|
 |Focus ring|`boolean`|Turn the focus ring option to show the focus state of the text field. Default value is `off`.|

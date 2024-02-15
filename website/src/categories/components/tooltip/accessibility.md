@@ -55,6 +55,8 @@ WAI-ARIA Roles, States, and Properties for a tooltip provide essential informati
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
 |-|-|-|-|
 |`aria-hidden`|`true`|If ‘true’, hides the tooltip|no|
+|`role`|`tooltip`|...|no|
+|`aria-describedby`|`string`|...|yes|
 
 {.ds-table .ds-table-align-top}
 

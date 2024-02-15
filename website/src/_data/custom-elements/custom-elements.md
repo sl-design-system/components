@@ -3993,7 +3993,6 @@
 | Name            | Privacy | Description | Parameters | Return | Inherited From |
 | --------------- | ------- | ----------- | ---------- | ------ | -------------- |
 | `renderContent` |         |             |            | `void` |                |
-| `setupLazy`     |         |             |            | `void` |                |
 
 <hr/>
 

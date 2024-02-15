@@ -20173,15 +20173,6 @@
               }
             },
             {
-              "kind": "method",
-              "name": "setupLazy",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
               "kind": "field",
               "name": "tooltip",
               "type": {
@@ -20197,15 +20188,6 @@
             {
               "kind": "method",
               "name": "renderContent",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setupLazy",
               "return": {
                 "type": {
                   "text": "void"

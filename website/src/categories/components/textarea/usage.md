@@ -7,6 +7,13 @@ eleventyNavigation:
 ---
 <section>
 
+## Live demo
+
+Here is some space for the live demo
+
+</section>
+<section>
+
 ## When to use
 
 The following guidance describes when to use the Text Area component.

@@ -31,7 +31,8 @@ Use a text area when the newline character (line break) is a valid part of the c
 The following guidance describes when not to use the Text Area component.
 
 ### Single-line input
-If the input is expected to be short and concise, consider using a the [Text Field] (/categories/components/text-field/) component instead of a Text Area.
+
+If the input is expected to be short and concise, consider using a the [Text Field](/categories/components/text-field/) component instead of a Text Area.
 For instance, when collecting a username or password a single-line input is more appropriate.
 
 </section>

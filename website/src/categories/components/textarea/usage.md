@@ -38,8 +38,7 @@ For instance, when collecting a username or password a single-line input is more
 | Item | Name | Description | Optional|
 |-|-|-|-|
 | 1 | Input container | An interactive input area. |No|
-| 2 | Input & placeholder text | Input text is a value the user has entered into an input.
-Placeholder text is a short hint that describes the expected value of an input. |No|
+| 2 | Input & placeholder text | Input text is a value the user has entered into an input and the placeholder text is a short hint that describes the expected value of an input. |No|
 | 3 | Caret | A thin vertical line that blinks to indicate where input will be inserted. |No|
 | 4 | Resize handle | An indicator that appears in the bottom right corner of the input container. |No|
 

@@ -2,7 +2,7 @@
 title: Textarea usage
 tags: usage
 eleventyNavigation:
-  parent: Text Area
+  parent: Textarea
   key: TextareaUsage
 ---
 <section>

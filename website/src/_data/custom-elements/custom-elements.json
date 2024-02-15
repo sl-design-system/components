@@ -71,14 +71,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "badge",
-              "type": {
-                "text": "AvatarBadge | undefined"
-              },
-              "description": "The badge."
-            },
-            {
-              "kind": "field",
               "name": "badgeText",
               "type": {
                 "text": "string | undefined"
@@ -88,25 +80,9 @@
             },
             {
               "kind": "field",
-              "name": "borderWidth",
-              "default": "4",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "errorLoadingImage",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "State for when loading of the image has failed."
-            },
-            {
-              "kind": "field",
               "name": "fallback",
               "type": {
-                "text": "AvatarFallbackType | undefined"
+                "text": "'initials' | 'image'"
               },
               "default": "'initials'",
               "description": "The fallback to use when there is no user image present.",
@@ -114,37 +90,13 @@
             },
             {
               "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "AvatarIcon | undefined"
-              },
-              "description": "The icon."
-            },
-            {
-              "kind": "field",
-              "name": "image",
-              "type": {
-                "text": "AvatarImage | undefined"
-              },
-              "description": "The image."
-            },
-            {
-              "kind": "field",
               "name": "imageOnly",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "This hides the name when set.",
+              "description": "This hides the name when set to true.",
               "attribute": "image-only",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "initials",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
             },
             {
               "kind": "field",
@@ -153,58 +105,36 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText",
+              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText. For example to show \"6 unread messages\", where 6 is also shown in the badge.",
               "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "offset",
-              "default": "{\n  sm: -2,\n  md: -4,\n  lg: -4,\n  xl: -2,\n  '2xl': -2,\n  '3xl': 2\n}",
-              "type": {
-                "text": "Record<AvatarSize, number>"
-              }
             },
             {
               "kind": "field",
               "name": "orientation",
               "type": {
-                "text": "AvatarOrientation"
+                "text": "'horizontal' | 'vertical'"
               },
               "default": "'horizontal'",
               "description": "The orientation of the avatar.",
               "attribute": "orientation",
-              "reflects": true,
-              "expandedType": {
-                "text": "'horizontal' | 'vertical'"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "profileName",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
+              "reflects": true
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "AvatarSize"
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
               },
               "default": "'md'",
               "description": "The size of the avatar.",
               "attribute": "size",
-              "reflects": true,
-              "expandedType": {
-                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
-              }
+              "reflects": true
             },
             {
               "kind": "field",
               "name": "status",
               "type": {
-                "text": "UserStatus | undefined"
+                "text": "'danger' | 'success' | 'warning' | 'accent' | 'neutral' | 'primary'"
               },
               "description": "Optional user status to show.",
               "attribute": "status",
@@ -232,7 +162,7 @@
             {
               "name": "fallback",
               "type": {
-                "text": "AvatarFallbackType | undefined"
+                "text": "'initials' | 'image'"
               },
               "default": "'initials'",
               "description": "The fallback to use when there is no user image present.",
@@ -243,7 +173,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "This hides the name when set.",
+              "description": "This hides the name when set to true.",
               "fieldName": "imageOnly"
             },
             {
@@ -252,37 +182,31 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText",
+              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText. For example to show \"6 unread messages\", where 6 is also shown in the badge.",
               "fieldName": "label"
             },
             {
               "name": "orientation",
               "type": {
-                "text": "AvatarOrientation"
+                "text": "'horizontal' | 'vertical'"
               },
               "default": "'horizontal'",
               "description": "The orientation of the avatar.",
-              "fieldName": "orientation",
-              "expandedType": {
-                "text": "'horizontal' | 'vertical'"
-              }
+              "fieldName": "orientation"
             },
             {
               "name": "size",
               "type": {
-                "text": "AvatarSize"
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
               },
               "default": "'md'",
               "description": "The size of the avatar.",
-              "fieldName": "size",
-              "expandedType": {
-                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
-              }
+              "fieldName": "size"
             },
             {
               "name": "status",
               "type": {
-                "text": "UserStatus | undefined"
+                "text": "'danger' | 'success' | 'warning' | 'accent' | 'neutral' | 'primary'"
               },
               "description": "Optional user status to show.",
               "fieldName": "status"
@@ -309,72 +233,7 @@
           "tagName": "sl-avatar",
           "customElement": true,
           "methods": [],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "badge",
-              "type": {
-                "text": "AvatarBadge | undefined"
-              },
-              "description": "The badge."
-            },
-            {
-              "kind": "field",
-              "name": "errorLoadingImage",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "State for when loading of the image has failed."
-            },
-            {
-              "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "AvatarIcon | undefined"
-              },
-              "description": "The icon."
-            },
-            {
-              "kind": "field",
-              "name": "image",
-              "type": {
-                "text": "AvatarImage | undefined"
-              },
-              "description": "The image."
-            },
-            {
-              "kind": "field",
-              "name": "borderWidth",
-              "default": "4",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "initials",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
-            },
-            {
-              "kind": "field",
-              "name": "offset",
-              "default": "{\n  sm: -2,\n  md: -4,\n  lg: -4,\n  xl: -2,\n  '2xl': -2,\n  '3xl': 2\n}",
-              "type": {
-                "text": "Record<AvatarSize, number>"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "profileName",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
-            }
-          ]
+          "fields": []
         }
       ],
       "exports": [

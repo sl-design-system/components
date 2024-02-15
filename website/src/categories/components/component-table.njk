@@ -3,7 +3,7 @@
     {%- if page.url == component.url -%}
       {%- for declaration in module.declarations -%}
         {%- for tagName in component.data.componentTagName -%}
-          {%- if declaration.tagName == tagName.selector -%}
+          {%- if declaration.tagName == tagName.selector or declaration.name == tagName.name -%}
             <section>
             <h2 id={{ tagName.selector }} tabindex="-1">
               <a class="header-anchor" href="#{{ tagName.selector }}">

@@ -20291,6 +20291,12 @@
           "kind": "class",
           "description": "Tooltip component.",
           "name": "Tooltip",
+          "slots": [
+            {
+              "description": "The slot for the tooltip content.",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "method",
@@ -20314,7 +20320,8 @@
                     "text": "(target: Tooltip) => void"
                   }
                 }
-              ]
+              ],
+              "description": "To attach the `sl-tooltip` to the DOM tree and anchor element"
             },
             {
               "kind": "field",
@@ -20329,7 +20336,7 @@
               "kind": "field",
               "name": "position",
               "type": {
-                "text": "PopoverPosition"
+                "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'top'",
               "description": "Tooltip position.",
@@ -20348,7 +20355,7 @@
             {
               "name": "position",
               "type": {
-                "text": "PopoverPosition"
+                "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'top'",
               "description": "Tooltip position.",
@@ -20384,7 +20391,8 @@
                     "text": "(target: Tooltip) => void"
                   }
                 }
-              ]
+              ],
+              "description": "To attach the `sl-tooltip` to the DOM tree and anchor element"
             }
           ],
           "fields": []

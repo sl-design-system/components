@@ -400,7 +400,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     const rowWidth = this.model.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
     this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
 
-    this.requestUpdate('columns');
+    this.requestUpdate();
   }
 
   #onClickRow(event: Event, item: T): void {

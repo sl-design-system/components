@@ -63,8 +63,6 @@ export class GridViewModel<T = unknown> {
     this.#columns = this.#columnDefinitions.filter(col => !col.hidden);
     this.#headerRows = this.#getHeaderRows(this.#columnDefinitions);
 
-    console.log('headerRows', this.#headerRows);
-
     if (this.#dataSource?.groupBy) {
       const groupByPath = this.#dataSource.groupBy.path,
         groups: string[] = [];
@@ -143,7 +141,7 @@ export class GridViewModel<T = unknown> {
 
   /** Returns the left offset, taking any sticky columns into account. */
   getStickyColumnOffset(index: number): number {
-    return this.#columns
+    return this.#columnDefinitions
       .slice(0, index)
       .filter(col => !col.hidden)
       .reduce((acc, { width = 0 }) => {

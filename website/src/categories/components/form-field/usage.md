@@ -85,7 +85,12 @@ With these options you can tweak the appearance of the label and hint in Figma. 
   
 |Item|Options|Description|
 |-|-|-|
-|Item|`option`|Description.|
+|Size|`sm` `md` `lg`|The label is available in three sizes. If not specified the default value is `medium`.|
+|Text|`value`|Displays the text of the label.|
+|Disabled|`boolean`|Indicates if the label has a disabled styling.|
+|Required|`boolean`|Indicates if the form control is required.|
+|Optional|`boolean`|Indicates if the form control is optional.|
+|Info|`boolean`|Shows an info icon on the end of the label to provide additional information.|
 
 {.ds-table}
 
@@ -97,7 +102,10 @@ With these options you can tweak the appearance of the label and hint in Figma. 
   
 |Item|Options|Description|
 |-|-|-|
-|Item|`option`|Description.|
+|Size|`sm` `md` `lg`|The hint is available in three sizes. If not specified the default value is `medium`.|
+|Text|`value`|Displays the text of the hint.|
+|State|`default` `invalid` `disabled`|Indicates the state of the form control.|
+|Icon|`boolean`|Show an icon in front of the hint.|
 
 {.ds-table}
 

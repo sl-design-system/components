@@ -4,6 +4,8 @@ export type Person = {
   email: string;
   profession: string;
   status: string;
+  membership: string;
+  manager?: boolean;
 };
 
 export interface People {

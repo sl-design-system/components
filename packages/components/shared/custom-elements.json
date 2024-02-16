@@ -3019,6 +3019,18 @@
             },
             {
               "kind": "field",
+              "name": "groupBy",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "items",
               "type": {
                 "text": "T[]"
@@ -3053,12 +3065,65 @@
             },
             {
               "kind": "method",
+              "name": "removeGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
               "name": "removeSort",
               "return": {
                 "type": {
                   "text": "void"
                 }
               },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "Path to group by attribute."
+                },
+                {
+                  "name": "sorter",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortFunction<T>"
+                  },
+                  "description": "Optional sorter function."
+                },
+                {
+                  "name": "direction",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  },
+                  "description": "Optional sort direction."
+                }
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "src/data-source/data-source.ts"
@@ -3193,6 +3258,59 @@
             },
             {
               "kind": "method",
+              "name": "setGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "Path to group by attribute."
+                },
+                {
+                  "name": "sorter",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortFunction<T>"
+                  },
+                  "description": "Optional sorter function."
+                },
+                {
+                  "name": "direction",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  },
+                  "description": "Optional sort direction."
+                }
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
               "name": "setSort",
               "return": {
                 "type": {
@@ -3312,6 +3430,19 @@
             },
             {
               "kind": "field",
+              "name": "#groupBy",
+              "privacy": "private",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
+              },
+              "description": "Order the items by grouping them on the given attributes.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "#sort",
               "privacy": "private",
               "type": {
@@ -3328,6 +3459,18 @@
               "name": "filters",
               "type": {
                 "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "groupBy",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
               },
               "readonly": true,
               "inheritedFrom": {
@@ -3419,6 +3562,14 @@
             },
             {
               "kind": "field",
+              "name": "groupBy",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "items",
               "type": {
                 "text": "T[]"
@@ -3445,12 +3596,57 @@
             },
             {
               "kind": "method",
+              "name": "removeGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped."
+            },
+            {
+              "kind": "method",
               "name": "removeSort",
               "return": {
                 "type": {
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "setGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "Path to group by attribute."
+                },
+                {
+                  "name": "sorter",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortFunction<T>"
+                  },
+                  "description": "Optional sorter function."
+                },
+                {
+                  "name": "direction",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  },
+                  "description": "Optional sort direction."
+                }
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you."
             },
             {
               "kind": "method",
@@ -3553,6 +3749,51 @@
             },
             {
               "kind": "method",
+              "name": "setGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "Path to group by attribute."
+                },
+                {
+                  "name": "sorter",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortFunction<T>"
+                  },
+                  "description": "Optional sorter function."
+                },
+                {
+                  "name": "direction",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  },
+                  "description": "Optional sort direction."
+                }
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you."
+            },
+            {
+              "kind": "method",
+              "name": "removeGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped."
+            },
+            {
+              "kind": "method",
               "name": "setSort",
               "return": {
                 "type": {
@@ -3603,6 +3844,15 @@
             },
             {
               "kind": "field",
+              "name": "#groupBy",
+              "privacy": "private",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
+              },
+              "description": "Order the items by grouping them on the given attributes."
+            },
+            {
+              "kind": "field",
               "name": "#sort",
               "privacy": "private",
               "type": {
@@ -3615,6 +3865,14 @@
               "name": "filters",
               "type": {
                 "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "groupBy",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
               },
               "readonly": true
             },

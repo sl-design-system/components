@@ -1,9 +1,9 @@
-import type { CSSResult, PropertyValues, TemplateResult } from 'lit';
+import type { PropertyValues, TemplateResult } from 'lit';
 import type { GridActiveItemChangeEvent } from './events.js';
 import { msg, str } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { EventsController } from '@sl-design-system/shared';
-import { css, html } from 'lit';
+import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 
@@ -50,6 +50,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
           .indeterminate=${indeterminate}
           aria-label=${msg('Select all')}
           class="selection-toggle"
+          size="sm"
         ></sl-checkbox>
       </th>
     `;
@@ -73,16 +74,9 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
           @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
           .checked=${checked}
           class="selection-toggle"
+          size="sm"
         ></sl-checkbox>
       </td>
-    `;
-  }
-
-  override renderStyles(): CSSResult {
-    return css`
-      inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
-      padding-block: 0;
-      padding-inline: 0.5rem;
     `;
   }
 

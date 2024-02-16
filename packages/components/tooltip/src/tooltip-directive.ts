@@ -29,6 +29,7 @@ export class TooltipDirective extends Directive {
     }
   }
 
+  /** @ignore */
   setupLazy(): void {
     this.didSetupLazy = true;
 

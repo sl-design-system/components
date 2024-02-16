@@ -2,16 +2,16 @@ name: Tokens
 
 on:
   push:
-    branches-ignore: 
+    branches-ignore:
       - main
-    paths: 
+    paths:
       - 'packages/tokens/src/**'
 
 env:
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
 
-permissions: 
+permissions:
   contents: write
 
 jobs:

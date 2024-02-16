@@ -32,7 +32,11 @@ eleventyNavigation:
 
 ## When to use
 
-...
+### Contextual messages
+Use an inline message to provide additional context or supporting information to a particular UI element or function.
+
+### Real-time feedback
+Use an inline message to provide real-time feedback with information about what's going to happen or has happened.
 
 
 </section>
@@ -41,7 +45,23 @@ eleventyNavigation:
 
 ## When not to use
 
-...
+### Critical information
+Avoid using inline messages for critical system-level messages such as errors (e.g. loss of functionality). For critical messages, a component that partially or fully interrupts the user experience is more appropriate.
+
+### Single input
+Avoid using inline messages to add context to a single input (e.g. text input). Use a hint instead.
+
+</section>
+
+<section>
+
+## Variants
+
+Inline messages come in various flavors, each suited for specific situations:
+Info: For general informative messages.
+Success: To indicate successful completion of an action.
+Danger: To highlight critical errors or issues.
+Warning: For potential problems that need attention.
 
 </section>
 
@@ -49,7 +69,20 @@ eleventyNavigation:
 
 ## Anatomy
 
-...
+<div class="ds-table-wrapper">
+
+| Item | Name | Description | Optional|
+|-|-|-|-|
+| 1 | Icon | Indicates the status or intent. |No|
+| 2 | Title	| Reinforces the message text. |No|
+| 3 | Message | Communicates what’s about to happen or has happened.| Yes |
+| 4 | Close button	| Icon button for closing the dialog | Yes |
+| 5 | Close button| Icon button for closing the dialog | Yes |
+| 6 | Content | An area to display any content | Yes |
+
+{.ds-table}
+
+</div>
 
 </section>
 

@@ -2710,7 +2710,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.input.textField.default.default.icon}",
+              "value": "{color.input.textField.invalid.default.icon}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3452,7 +3452,7 @@
               "type": "color"
             },
             "icon": {
-              "value": "{color.input.textField.invalid.active.icon}",
+              "value": "{color.input.textField.invalid.hover.icon}",
               "type": "color"
             },
             "inputText": {

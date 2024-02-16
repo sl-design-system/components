@@ -1,0 +1,10 @@
+{
+  "layout": "components/components.njk",
+  "tags": "hint",
+  "componentTagName": [
+    {
+      "name": "Hint",
+      "selector": "sl-hint"
+    }
+  ]
+}

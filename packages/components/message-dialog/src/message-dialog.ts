@@ -11,7 +11,6 @@ export interface MessageDialogConfig<T = unknown> {
   subtitle?: string;
   message: string | TemplateResult;
   buttons?: Array<MessageDialogButton<T>>;
-  cancel?(): void;
   disableCancel?: boolean;
 }
 
@@ -71,10 +70,7 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
 
       const dialog = document.createElement('sl-message-dialog');
       dialog.config = config;
-      dialog.addEventListener('sl-cancel', () => {
-        config?.cancel?.();
-        resolve(undefined);
-      });
+      dialog.addEventListener('sl-cancel', () => resolve(undefined));
       dialog.addEventListener('sl-close', () => dialog.remove());
 
       document.body.appendChild(dialog);

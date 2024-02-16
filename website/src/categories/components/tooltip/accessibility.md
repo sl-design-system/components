@@ -18,7 +18,7 @@ Users with different abilities should be able to access tooltip content seamless
 Tooltips should provide information that enhances the user’s understanding of the UI but is not strictly necessary for operating it.
 Avoid critical information in tooltips, as users relying solely on assistive technologies may miss it.
 
-### Non-blocking behavior:
+### Non-blocking behavior
 When a tooltip is open, it should not obstruct the user from performing other tasks on the screen.
 Test this behavior across all responsive breakpoints to ensure consistent behavior regardless of screen size.
   

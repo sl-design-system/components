@@ -1,9 +1,9 @@
 ---
-title: Tab group
+title: Tabs
 tags: overview
 eleventyNavigation:
-  parent: Tab group
-  key: TabGroupOverview
+  parent: Tabs
+  key: TabsOverview
 ---
 <section>
 <div class="ds-example">

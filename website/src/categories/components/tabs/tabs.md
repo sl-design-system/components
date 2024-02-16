@@ -1,14 +1,14 @@
 ---
 title: Tabs
-description: Tab group description
+description: Tabs description
 componentType: feedback
-shortDescription: We are still working on the tab group component
+shortDescription: We are still working on the tabs component
 layout: "components/components.njk"
 tags: component
-packageName: tab-group
+packageName: tabs
 eleventyNavigation:
   parent: Components
-  key: Tab group
+  key: Tabs
   order: 17
   status: coming
 ---

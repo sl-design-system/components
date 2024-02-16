@@ -19369,7 +19369,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text field is disabled; when set no interaction is possible.",
+              "description": "Whether the textarea is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -19507,7 +19507,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text field is a required field.",
+              "description": "Whether the textarea is a required field.",
               "attribute": "required"
             },
             {
@@ -19759,7 +19759,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text field is disabled; when set no interaction is possible.",
+              "description": "Whether the textarea is disabled; when set no interaction is possible.",
               "fieldName": "disabled"
             },
             {
@@ -19799,7 +19799,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text field is a required field.",
+              "description": "Whether the textarea is a required field.",
               "fieldName": "required"
             },
             {

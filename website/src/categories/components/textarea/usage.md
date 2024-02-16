@@ -2,16 +2,30 @@
 title: Textarea usage
 tags: usage
 eleventyNavigation:
-  parent: Textarea
+  parent: Text area
   key: TextareaUsage
 ---
-<section>
+<section class="no-heading">
 
-## Live demo
+<div class="ds-example">
+  <sl-textarea
+    id="my-hobbies"
+    aria-label="Hobbies"
+    value="Painting, drawing, dance, photography, knitting, web design and cycling."
+    style="width: 300px;"
+  ></sl-textarea>
+</div>
 
-Here is some space for the live demo
+<div class="ds-code">
+
+  ```html
+    <sl-textarea id="my-hobbies" aria-label="Hobbies" value="Painting, drawing, dance..."></sl-textarea>
+  ```
+
+</div>
 
 </section>
+
 <section>
 
 ## When to use
@@ -32,7 +46,7 @@ The following guidance describes when not to use the text area component.
 
 ### Single-line input
 
-If the input is expected to be short and concise, consider using a the [text field](/categories/components/text-field/) component instead of a Text Area.
+If the input is expected to be short and concise, consider using a [text field](/categories/components/text-field/) component instead of a Text Area.
 For instance, when collecting a username or password a single-line input is more appropriate.
 
 </section>

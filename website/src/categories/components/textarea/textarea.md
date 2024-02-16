@@ -1,5 +1,5 @@
 ---
-title: Text Area
+title: Text area
 description: Text areas allow users to enter and edit multi-line text. They typically appear in forms.
 componentType: editable
 shortDescription: Text areas allow users to enter and edit multi-line text.
@@ -10,7 +10,7 @@ tags: component
 packageName: textarea
 eleventyNavigation:
   parent: Components
-  key: Text Area
+  key: Text area
   order: 19
   status: ready
 ---

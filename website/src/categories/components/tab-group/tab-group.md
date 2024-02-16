@@ -1,5 +1,5 @@
 ---
-title: Tab group
+title: Tabs
 description: Tab group description
 componentType: feedback
 shortDescription: We are still working on the tab group component

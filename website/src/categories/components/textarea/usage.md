@@ -9,7 +9,6 @@ eleventyNavigation:
 
 <div class="ds-example">
   <sl-textarea
-    id="my-hobbies"
     aria-label="Hobbies"
     value="Painting, drawing, dance, photography, knitting, web design and cycling."
     style="width: 300px;"
@@ -19,7 +18,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-textarea id="my-hobbies" aria-label="Hobbies" value="Painting, drawing, dance..."></sl-textarea>
+    <sl-textarea aria-label="Hobbies" value="Painting, drawing, dance..."></sl-textarea>
   ```
 
 </div>

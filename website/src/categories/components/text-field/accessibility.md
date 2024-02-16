@@ -47,11 +47,11 @@ WAI-ARIA Roles, States, and Properties for a text field provide essential inform
 **Notes:**
 1. The `aria-disabled` should not be used as a one-for-one replacement for the `disabled` attribute because they have different functionalities:
 
-- `disabled` dims the checkbox visually, takes it out of the tab-focus sequence, prevents actions (click, enter) on it and announces it as 'dimmed' or 'disabled' in a screen reader.
+- `disabled` dims the text field visually, takes it out of the tab-focus sequence, prevents actions (click, enter) on it and announces it as 'dimmed' or 'disabled' in a screen reader.
 
-- `aria-disabled` only does the latter. You will need to disable the functionality yourself. This might be useful for scenarios where you don't want to take the checkbox out of the navigation flow.
+- `aria-disabled` only does the latter. You will need to disable the functionality yourself. This might be useful for scenarios where you don't want to take the text field out of the navigation flow.
 
-When `disabled` is added to a checkbox there is no need to also add `aria-disabled`. Everything `aria-disabled` does, `disabled` does as well. You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled).
+When `disabled` is added to a text field there is no need to also add `aria-disabled`. Everything `aria-disabled` does, `disabled` does as well. You can read more on the difference and in which scenarios which option might be preferable on the [MDN page about aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled).
 
 
 </section>

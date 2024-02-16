@@ -10,7 +10,6 @@ eleventyNavigation:
 
 <div class="ds-example">
   <sl-textarea
-    id="subject"
     aria-label="My favourite subject"
     value="My favourite subject is English. It is an important language to learn."
     style="width: 250px;"
@@ -20,7 +19,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-textarea id="subject" aria-label="My favourite subject" value="My favourite subject is..."></sl-textarea>
+    <sl-textarea aria-label="My favourite subject" value="My favourite subject is..."></sl-textarea>
   ```
 
 </div>

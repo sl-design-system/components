@@ -530,7 +530,7 @@
   --sl-color-input-text-field-invalid-focus-label: var(--sl-body-foreground);
   --sl-color-input-text-field-invalid-focus-border: var(--sl-color-input-text-field-invalid-default-border);
   --sl-color-input-text-field-invalid-active-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
-  --sl-color-input-text-field-invalid-active-icon: var(--sl-color-input-text-field-default-default-icon);
+  --sl-color-input-text-field-invalid-active-icon: var(--sl-color-input-text-field-invalid-default-icon);
   --sl-color-input-text-field-invalid-active-label: var(--sl-body-foreground);
   --sl-color-input-text-field-invalid-active-border: var(--sl-color-input-text-field-default-active-border);
   --sl-color-input-text-field-invalid-active-background: var(--sl-color-input-text-field-default-active-background);
@@ -658,7 +658,7 @@
   --sl-color-select-selectbox-invalid-focus-label: var(--sl-color-input-text-field-invalid-focus-label);
   --sl-color-select-selectbox-invalid-focus-border: var(--sl-color-input-text-field-invalid-focus-border);
   --sl-color-select-selectbox-invalid-active-placeholder: var(--sl-color-input-text-field-invalid-active-placeholder);
-  --sl-color-select-selectbox-invalid-active-icon: var(--sl-color-input-text-field-invalid-active-icon);
+  --sl-color-select-selectbox-invalid-active-icon: var(--sl-color-input-text-field-invalid-hover-icon);
   --sl-color-select-selectbox-invalid-active-label: var(--sl-color-input-text-field-invalid-active-label);
   --sl-color-select-selectbox-invalid-active-border: var(--sl-color-input-text-field-invalid-active-border);
   --sl-color-select-selectbox-invalid-active-background: var(--sl-color-input-text-field-invalid-active-background);

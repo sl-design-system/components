@@ -3181,7 +3181,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.input.textField.default.default.icon}",
+              "value": "{color.input.textField.invalid.default.icon}",
               "type": "color",
               "description": "color.surface.solid.primary.background",
               "failedToResolve": true
@@ -4068,7 +4068,7 @@
               "failedToResolve": true
             },
             "icon": {
-              "value": "{color.input.textField.invalid.active.icon}",
+              "value": "{color.input.textField.invalid.hover.icon}",
               "type": "color",
               "failedToResolve": true
             },

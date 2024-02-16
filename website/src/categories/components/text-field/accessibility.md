@@ -35,7 +35,7 @@ WAI-ARIA Roles, States, and Properties for a text field provide essential inform
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
 |-|-|-|-|
 |`role`|`'textbox'`|Identifies as a text input|no|
-|`aria-label`	|'string'|Defines a string that labels the action that will be performed when the user interacts with the text field. Needs to be added when the text-field is not wrapped with `sl-form-field` and there is no `sl-label`. |yes|
+|`aria-label`	|string|Defines a string that labels the action that will be performed when the user interacts with the text field. Needs to be added when the text-field is not wrapped with `sl-form-field` and there is no `sl-label`. |yes|
 |`aria-labelledby`|string|Used to connect with single header/element that describes the text field, when there is no label component connected to.|yes|
 |`aria-required`	|boolean|Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required. |yes|
 |`aria-disabled`|boolean|Announces the text field component as disabled with a screen reader. See [Note 1] below.|yes|

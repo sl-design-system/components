@@ -67,6 +67,7 @@ The hint is optional. It is used to provide additional information about the for
 |2|Label	|Descriptive text that helps identify and describe the purpose of the form control.|no|
 |3|Hint	|Provides additional information or context. |yes|
 |4|Form control	|Space to insert the preferred form control.|no|
+|4|Validation message	|Describes what went wrong after validation.|yes|
 
 {.ds-table}
 

@@ -9,13 +9,31 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-example
+  <sl-inline-message variant="danger" style="inline-size: 80%;">
+      There are some problems
+      <span slot="description">Please fulfill all required fields</span>
+      <span slot="details">
+        <ul>
+          <li style="font-size: 1.4rem;">Last name is required</li>
+          <li style="font-size: 1.4rem;">School name is required</li>
+        </ul>
+      </span>
+    </sl-inline-message>
 </div>
 
 <div class="ds-code">
 
   ```html
-    example...
+    <sl-inline-message variant="danger">
+      There are some problems
+      <span slot="description">Please fulfill all...</span>
+      <span slot="details">
+        <ul>
+          <li>Last name is required</li>
+          <li>...</li>
+        </ul>
+      </span>
+    </sl-inline-message>
   ```
 
 </div>

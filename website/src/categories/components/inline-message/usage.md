@@ -9,18 +9,18 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-  <sl-inline-message variant="info">
-                      Inline message
-                      <span slot="description">A place for additional description of the inline message</span>
-                      <span slot="details">A place fore more details like errors list</span>
+  <sl-inline-message variant="success">
+    Congratulations!
+    <span slot="description">The exercise has been solved and saved.</span>
   </sl-inline-message>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-inline-message>
-  ...
+    <sl-inline-message variant="success">
+      Congratulations!
+      <span slot="description">The exercise has...</span>
     </sl-inline-message>
   ```
 

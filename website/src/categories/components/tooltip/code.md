@@ -86,7 +86,7 @@ The complete usage example might appear as follows:
 <div class="ds-code">
 
   ```html
-    <sl-button ${tooltip('This tooltip is from a directive')} fill="outline">I have a tooltip</sl-button>
+    <sl-button ${tooltip('This tooltip is from a directive')}>I have a tooltip</sl-button>
   ```
 
 </div>

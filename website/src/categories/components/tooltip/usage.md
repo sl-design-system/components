@@ -16,7 +16,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-<sl-button aria-describedby="tooltip" fill="solid" variant="primary">Button with a tooltip</sl-button>
+<sl-button aria-describedby="tooltip">Button with a tooltip</sl-button>
 <sl-tooltip id="tooltip">This is a tooltip with some additional information</sl-tooltip>
   ```
 

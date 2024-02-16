@@ -73,10 +73,10 @@ Warning: For potential problems that need attention.
 
 | Item | Name | Description | Optional|
 |-|-|-|-|
-| 1 | Icon | Indicates the status or intent. |No|
-| 2 | Title	| Reinforces the message text. |No|
-| 3 | Message | Communicates what’s about to happen or has happened.| Yes |
-| 4 | Close button	| Icon button for closing the dialog | Yes |
+| 1 | Icon | Indicates the status or intent. |yes|
+| 2 | Title	| Reinforces the message text. |no|
+| 3 | Message | Communicates what’s about to happen or has happened.| yes |
+| 4 | Close button	| Icon button for closing the dialog | yes |
 
 {.ds-table}
 
@@ -88,6 +88,20 @@ Warning: For potential problems that need attention.
 
 ## Options
 
-...
+With these options you can tweak the appearance of the inline message in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
+
+<div class="ds-table-wrapper">
+  
+|Item|Options|Description|
+|-|-|-|
+|Variant|`info` `success` `warning` `danger`| The inline message comes in four variants|
+|Inline message|`value`| To insert the text of the title|
+|Desription|`boolean`| To turn the description on or off. Default value is `on`.|
+|Icon|`boolean`| To turn the icon on or off. Default value is `on`. |
+|Close button|`boolean`|To turn the close button on or off. Default value is `on`.|
+
+{.ds-table .ds-table-align-top}
+
+</div>
 
 </section>

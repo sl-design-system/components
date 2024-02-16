@@ -1742,12 +1742,13 @@
 | Name            | Privacy | Type                             | Default                            | Description                                                                                                                                                                                                                                                              | Inherited From |
 | --------------- | ------- | -------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
 | `activeItem`    |         | `T \| undefined`                 |                                    | The active item in the grid.                                                                                                                                                                                                                                             |                |
-| `columns`       |         | `Array<GridColumn<T>>`           | `[]`                               | The columns in the grid.                                                                                                                                                                                                                                                 |                |
 | `dataSource`    |         | `DataSource<T> \| undefined`     |                                    | Provide your own implementation for getting the data.                                                                                                                                                                                                                    |                |
 | `draggableRows` |         | `GridDraggableRows \| undefined` |                                    | Whether you can drag rows in the grid. If you use the drag-handle column,&#xA;then this property is automatically set by the column to 'between'.                                                                                                                        |                |
 | `dropFilter`    |         | `GridDropFilter<T> \| undefined` |                                    | Determines if or what kind of drop target the given item is:&#xA;\- boolean: the item is valid drop target based on the draggableRows value&#xA;\- 'between': the item is a valid drop target between&#xA;\- 'on-top': the item is a valid drop target to drop on top of |                |
 | `itemParts`     |         | `GridItemParts<T> \| undefined`  |                                    | Custom parts to be set on the `<tr>` so it can be styled externally.                                                                                                                                                                                                     |                |
 | `items`         |         | `T[] \| undefined`               |                                    | An array of items to be displayed in the grid.                                                                                                                                                                                                                           |                |
+| `itemsGroupBy`  |         | `string \| undefined`            |                                    | The path to the attribute to group the items on.                                                                                                                                                                                                                         |                |
+| `model`         |         |                                  | `new GridViewModel<T>(this)`       | The model used for rendering the grid.                                                                                                                                                                                                                                   |                |
 | `noBorder`      |         | `boolean \| undefined`           |                                    | Hide the border around the grid when true.                                                                                                                                                                                                                               |                |
 | `noRowBorder`   |         | `boolean \| undefined`           |                                    | Hides the border between rows when true.                                                                                                                                                                                                                                 |                |
 | `selection`     |         |                                  | `new SelectionController<T>(this)` | Selection manager.                                                                                                                                                                                                                                                       |                |
@@ -1757,12 +1758,14 @@
 
 ### Methods
 
-| Name                      | Privacy | Description                                                              | Parameters               | Return           | Inherited From |
-| ------------------------- | ------- | ------------------------------------------------------------------------ | ------------------------ | ---------------- | -------------- |
-| `recalculateColumnWidths` |         | Updates the `width` of all columns which have `autoWidth` set to `true`. |                          | `Promise<void>`  |                |
-| `renderHeader`            |         |                                                                          |                          | `TemplateResult` |                |
-| `renderItem`              |         |                                                                          | `item: T, index: number` | `TemplateResult` |                |
-| `renderStyles`            |         |                                                                          |                          | `TemplateResult` |                |
+| Name                      | Privacy | Description                                                              | Parameters                  | Return           | Inherited From |
+| ------------------------- | ------- | ------------------------------------------------------------------------ | --------------------------- | ---------------- | -------------- |
+| `recalculateColumnWidths` |         | Updates the `width` of all columns which have `autoWidth` set to `true`. |                             | `Promise<void>`  |                |
+| `renderGroupRow`          |         |                                                                          | `group: GridViewModelGroup` | `TemplateResult` |                |
+| `renderHeader`            |         |                                                                          |                             | `TemplateResult` |                |
+| `renderItem`              |         |                                                                          | `item: T, index: number`    | `TemplateResult` |                |
+| `renderItemRow`           |         |                                                                          | `item: T, index: number`    | `TemplateResult` |                |
+| `renderStyles`            |         |                                                                          |                             | `TemplateResult` |                |
 
 ### Events
 
@@ -1781,6 +1784,7 @@
 | ---------------- | ------------- | -------------- |
 | `draggable-rows` | draggableRows |                |
 | `items`          | items         |                |
+| `items-group-by` | itemsGroupBy  |                |
 | `no-border`      | noBorder      |                |
 | `no-row-border`  | noRowBorder   |                |
 | `striped`        | striped       |                |
@@ -1792,6 +1796,63 @@
 | Kind | Name   | Declaration | Module                                  | Package |
 | ---- | ------ | ----------- | --------------------------------------- | ------- |
 | `js` | `Grid` | Grid        | ../packages/components/grid/src/grid.ts |         |
+
+# `../packages/components/grid/src/group-header.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                               | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/grid/src/group-header.scss.ts |         |
+
+# `../packages/components/grid/src/group-header.ts`:
+
+## class: `GridGroupHeader`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name         | Privacy | Type                        | Default  | Description                                 | Inherited From |
+| ------------ | ------- | --------------------------- | -------- | ------------------------------------------- | -------------- |
+| `expanded`   |         | `boolean \| undefined`      |          | Whether the group is expanded or collapsed. |                |
+| `heading`    |         | `string \| undefined`       |          | The group heading.                          |                |
+| `selectable` |         | `boolean \| undefined`      |          | Wether you can select the entire group.     |                |
+| `selected`   |         | `'all' \| 'some' \| 'none'` | `'none'` | Whether the group is selected.              |                |
+
+### Events
+
+| Name          | Type                    | Description                                      | Inherited From |
+| ------------- | ----------------------- | ------------------------------------------------ | -------------- |
+| `selectEvent` | `EventEmitter<boolean>` | Emits when the user changes the group selection. |                |
+| `toggleEvent` | `EventEmitter<boolean>` | Emits when the user collapses/expands the group. |                |
+
+### Attributes
+
+| Name         | Field      | Inherited From |
+| ------------ | ---------- | -------------- |
+| `expanded`   | expanded   |                |
+| `heading`    | heading    |                |
+| `selectable` | selectable |                |
+| `selected`   | selected   |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name              | Declaration     | Module                                          | Package |
+| ---- | ----------------- | --------------- | ----------------------------------------------- | ------- |
+| `js` | `GridGroupHeader` | GridGroupHeader | ../packages/components/grid/src/group-header.ts |         |
 
 # `../packages/components/grid/src/select-column.ts`:
 
@@ -1889,16 +1950,16 @@
 
 ### Methods
 
-| Name                    | Privacy | Description                                                                                                                                                    | Parameters | Return           | Inherited From |
-| ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------- | -------------- |
-| `getParts`              |         |                                                                                                                                                                | `item: T`  | `string[]`       | GridColumn     |
-| `getSelectedCount`      |         |                                                                                                                                                                |            | `number`         |                |
-| `itemsChanged`          |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`           | GridColumn     |
-| `renderData`            |         |                                                                                                                                                                | `item: T`  | `TemplateResult` | GridColumn     |
-| `renderHeader`          |         |                                                                                                                                                                |            | `TemplateResult` | GridColumn     |
-| `renderSelectionHeader` |         |                                                                                                                                                                |            | `TemplateResult` |                |
-| `renderStyles`          |         |                                                                                                                                                                |            | `CSSResult`      | GridColumn     |
-| `stateChanged`          |         | This method is called when the state of the grid has changed.&#xA;This happens for examples when a filter or sorting changes.                                  |            | `void`           | GridColumn     |
+| Name                    | Privacy | Description                                                                                                                                                    | Parameters | Return              | Inherited From |
+| ----------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------------- | -------------- |
+| `getParts`              |         |                                                                                                                                                                | `item: T`  | `string[]`          | GridColumn     |
+| `getSelectedCount`      |         |                                                                                                                                                                |            | `number`            |                |
+| `itemsChanged`          |         | This method is called when the contents of the grid has changed.&#xA;This happens when the items property is directly set or when the data source has changed. |            | `void`              | GridColumn     |
+| `renderData`            |         |                                                                                                                                                                | `item: T`  | `TemplateResult`    | GridColumn     |
+| `renderHeader`          |         |                                                                                                                                                                |            | `TemplateResult`    | GridColumn     |
+| `renderSelectionHeader` |         |                                                                                                                                                                |            | `TemplateResult`    |                |
+| `renderStyles`          |         |                                                                                                                                                                |            | `CSSResult \| void` | GridColumn     |
+| `stateChanged`          |         | This method is called when the state of the grid has changed.&#xA;This happens for examples when a filter or sorting changes.                                  |            | `void`              | GridColumn     |
 
 ### Events
 
@@ -2120,6 +2181,44 @@
 | Kind | Name                  | Declaration         | Module                                               | Package |
 | ---- | --------------------- | ------------------- | ---------------------------------------------------- | ------- |
 | `js` | `GridTextFieldColumn` | GridTextFieldColumn | ../packages/components/grid/src/text-field-column.ts |         |
+
+# `../packages/components/grid/src/view-model.ts`:
+
+## class: `GridViewModel`
+
+### Fields
+
+| Name                | Privacy | Type                          | Default | Description                                                                               | Inherited From |
+| ------------------- | ------- | ----------------------------- | ------- | ----------------------------------------------------------------------------------------- | -------------- |
+| `columnDefinitions` |         | `Array<GridColumn<T>>`        |         | Sets the available columns. Not all columns may be rendered, depending on the view state. |                |
+| `columns`           |         | `Array<GridColumn<T>>`        |         | Returns an array of visible columns.                                                      |                |
+| `dataSource`        |         | `DataSource<T> \| undefined`  |         |                                                                                           |                |
+| `groups`            |         | `string[]`                    |         |                                                                                           |                |
+| `headerRows`        |         | `Array<Array<GridColumn<T>>>` |         |                                                                                           |                |
+| `rows`              |         | `T[]`                         |         |                                                                                           |                |
+
+### Methods
+
+| Name                    | Privacy | Description                                                      | Parameters                         | Return                      | Inherited From |
+| ----------------------- | ------- | ---------------------------------------------------------------- | ---------------------------------- | --------------------------- | -------------- |
+| `getGroupSelection`     |         | Returns the selected state of the group.                         | `value: string`                    | `'all' \| 'some' \| 'none'` |                |
+| `getGroupState`         |         | Returns true if the group is expanded, false if collapsed.       | `value: string`                    | `boolean`                   |                |
+| `getStickyColumnOffset` |         | Returns the left offset, taking any sticky columns into account. | `index: number`                    | `number`                    |                |
+| `toggleColumn`          |         | Toggle the visibility of the column.                             | `id: string, visible: boolean`     | `void`                      |                |
+| `toggleGroup`           |         | Toggle the visibility of the group.                              | `value: string, collapse: boolean` | `void`                      |                |
+
+<hr/>
+
+## class: `GridViewModelGroup`
+
+<hr/>
+
+## Exports
+
+| Kind | Name                 | Declaration        | Module                                        | Package |
+| ---- | -------------------- | ------------------ | --------------------------------------------- | ------- |
+| `js` | `GridViewModelGroup` | GridViewModelGroup | ../packages/components/grid/src/view-model.ts |         |
+| `js` | `GridViewModel`      | GridViewModel      | ../packages/components/grid/src/view-model.ts |         |
 
 # `../packages/components/icon/index.ts`:
 
@@ -3038,22 +3137,25 @@
 
 ### Fields
 
-| Name            | Privacy | Type                               | Default | Description                                | Inherited From |
-| --------------- | ------- | ---------------------------------- | ------- | ------------------------------------------ | -------------- |
-| `filteredItems` |         | `T[]`                              |         | The filtered & sorted array of items.      | DataSource     |
-| `filters`       |         | `Map<string, DataSourceFilter<T>>` |         |                                            | DataSource     |
-| `items`         |         | `T[]`                              |         | The array of all items.                    | DataSource     |
-| `size`          |         | `number`                           |         | Total number of items in this data source. | DataSource     |
-| `sort`          |         | `DataSourceSort<T> \| undefined`   |         |                                            | DataSource     |
+| Name            | Privacy | Type                                | Default | Description                                | Inherited From |
+| --------------- | ------- | ----------------------------------- | ------- | ------------------------------------------ | -------------- |
+| `filteredItems` |         | `T[]`                               |         | The filtered & sorted array of items.      | DataSource     |
+| `filters`       |         | `Map<string, DataSourceFilter<T>>`  |         |                                            | DataSource     |
+| `groupBy`       |         | `DataSourceGroupBy<T> \| undefined` |         |                                            | DataSource     |
+| `items`         |         | `T[]`                               |         | The array of all items.                    | DataSource     |
+| `size`          |         | `number`                            |         | Total number of items in this data source. | DataSource     |
+| `sort`          |         | `DataSourceSort<T> \| undefined`    |         |                                            | DataSource     |
 
 ### Methods
 
-| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
-| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
-| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` | DataSource     |
-| `removeFilter` |         |             | `id: string`                                                      | `void` | DataSource     |
-| `removeSort`   |         |             |                                                                   | `void` | DataSource     |
-| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` | DataSource     |
+| Name            | Privacy | Description                                                                                                                                                                                                                                                                         | Parameters                                                                            | Return | Inherited From |
+| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------ | -------------- |
+| `addFilter`     |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrFilter: U, value: string \| string[]`                              | `void` | DataSource     |
+| `removeFilter`  |         |                                                                                                                                                                                                                                                                                     | `id: string`                                                                          | `void` | DataSource     |
+| `removeGroupBy` |         | Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.                                                                                                                                                                                       |                                                                                       | `void` | DataSource     |
+| `removeSort`    |         |                                                                                                                                                                                                                                                                                     |                                                                                       | `void` | DataSource     |
+| `setGroupBy`    |         | Group the items by the given path. Optionally, you can provide a sorter and direction.&#xA;&#xA;This is part of the DataSource interface, because it changes how the data is sorted. You&#xA;may want to pass the groupBy attribute to the server, so it can sort the data for you. | `path: string, sorter: DataSourceSortFunction<T>, direction: DataSourceSortDirection` | `void` | DataSource     |
+| `setSort`       |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrSorter: U, direction: DataSourceSortDirection`                     | `void` | DataSource     |
 
 ### Events
 
@@ -3081,22 +3183,25 @@
 
 ### Fields
 
-| Name            | Privacy | Type                               | Default | Description                                | Inherited From |
-| --------------- | ------- | ---------------------------------- | ------- | ------------------------------------------ | -------------- |
-| `filteredItems` |         | `T[]`                              |         | The filtered & sorted array of items.      |                |
-| `filters`       |         | `Map<string, DataSourceFilter<T>>` |         |                                            |                |
-| `items`         |         | `T[]`                              |         | The array of all items.                    |                |
-| `size`          |         | `number`                           |         | Total number of items in this data source. |                |
-| `sort`          |         | `DataSourceSort<T> \| undefined`   |         |                                            |                |
+| Name            | Privacy | Type                                | Default | Description                                | Inherited From |
+| --------------- | ------- | ----------------------------------- | ------- | ------------------------------------------ | -------------- |
+| `filteredItems` |         | `T[]`                               |         | The filtered & sorted array of items.      |                |
+| `filters`       |         | `Map<string, DataSourceFilter<T>>`  |         |                                            |                |
+| `groupBy`       |         | `DataSourceGroupBy<T> \| undefined` |         |                                            |                |
+| `items`         |         | `T[]`                               |         | The array of all items.                    |                |
+| `size`          |         | `number`                            |         | Total number of items in this data source. |                |
+| `sort`          |         | `DataSourceSort<T> \| undefined`    |         |                                            |                |
 
 ### Methods
 
-| Name           | Privacy | Description | Parameters                                                        | Return | Inherited From |
-| -------------- | ------- | ----------- | ----------------------------------------------------------------- | ------ | -------------- |
-| `addFilter`    |         |             | `id: string, pathOrFilter: U, value: string \| string[]`          | `void` |                |
-| `removeFilter` |         |             | `id: string`                                                      | `void` |                |
-| `removeSort`   |         |             |                                                                   | `void` |                |
-| `setSort`      |         |             | `id: string, pathOrSorter: U, direction: DataSourceSortDirection` | `void` |                |
+| Name            | Privacy | Description                                                                                                                                                                                                                                                                         | Parameters                                                                            | Return | Inherited From |
+| --------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------ | -------------- |
+| `addFilter`     |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrFilter: U, value: string \| string[]`                              | `void` |                |
+| `removeFilter`  |         |                                                                                                                                                                                                                                                                                     | `id: string`                                                                          | `void` |                |
+| `removeGroupBy` |         | Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.                                                                                                                                                                                       |                                                                                       | `void` |                |
+| `removeSort`    |         |                                                                                                                                                                                                                                                                                     |                                                                                       | `void` |                |
+| `setGroupBy`    |         | Group the items by the given path. Optionally, you can provide a sorter and direction.&#xA;&#xA;This is part of the DataSource interface, because it changes how the data is sorted. You&#xA;may want to pass the groupBy attribute to the server, so it can sort the data for you. | `path: string, sorter: DataSourceSortFunction<T>, direction: DataSourceSortDirection` | `void` |                |
+| `setSort`       |         |                                                                                                                                                                                                                                                                                     | `id: string, pathOrSorter: U, direction: DataSourceSortDirection`                     | `void` |                |
 
 <hr/>
 
@@ -3876,7 +3981,7 @@
 | ------------------- | ------- | ---------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
 | `autocomplete`      |         | `typeof HTMLTextAreaElement.prototype.autocomplete \| undefined` |              | Specifies which type of data the browser can use to pre-fill the textarea.&#xA;&#xA;NOTE: Declare the type this way so it is backwards compatible with 4.9.5,&#xA;which we still use in `@sl-design-system/angular`.                                                                                                                                    |                  |
 | `customValidity`    |         | `string \| undefined`                                            |              | The error message to display when the control is invalid.                                                                                                                                                                                                                                                                                               | FormControlMixin |
-| `disabled`          |         | `boolean \| undefined`                                           |              | Whether the text field is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                |                  |
+| `disabled`          |         | `boolean \| undefined`                                           |              | Whether the textarea is disabled; when set no interaction is possible.                                                                                                                                                                                                                                                                                  |                  |
 | `form`              |         | `HTMLFormElement \| null`                                        |              | The form associated with the control.                                                                                                                                                                                                                                                                                                                   | FormControlMixin |
 | `formValue`         |         | `unknown`                                                        |              | The value used when submitting the form.                                                                                                                                                                                                                                                                                                                | FormControlMixin |
 | `labels`            |         | `` `NodeListOf<HTMLLabelElement>` \| null ``                     |              | The labels associated with the control.                                                                                                                                                                                                                                                                                                                 | FormControlMixin |
@@ -3886,7 +3991,7 @@
 | `nativeFormValue`   |         | `FormValue`                                                      |              |                                                                                                                                                                                                                                                                                                                                                         | FormControlMixin |
 | `placeholder`       |         | `string \| undefined`                                            |              | Placeholder text in the input.                                                                                                                                                                                                                                                                                                                          |                  |
 | `readonly`          |         | `boolean \| undefined`                                           |              | Whether you can interact with the textarea or if it is just a static, readonly display.                                                                                                                                                                                                                                                                 |                  |
-| `required`          |         | `boolean \| undefined`                                           |              | Whether the text field is a required field.                                                                                                                                                                                                                                                                                                             |                  |
+| `required`          |         | `boolean \| undefined`                                           |              | Whether the textarea is a required field.                                                                                                                                                                                                                                                                                                               |                  |
 | `resize`            |         | `ResizeType`                                                     | `'vertical'` | The way the textarea can be resized.                                                                                                                                                                                                                                                                                                                    |                  |
 | `rows`              |         | `number \| undefined`                                            |              | The number of rows the textarea should initially have.&#xA;If not set, the browser defaults to 2 rows.                                                                                                                                                                                                                                                  |                  |
 | `showValid`         |         | `boolean`                                                        | `false`      | When set will cause the control to show it is valid after reportValidity is called.                                                                                                                                                                                                                                                                     | FormControlMixin |

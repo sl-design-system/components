@@ -184,7 +184,8 @@ describe('sl-message-dialog', () => {
         buttons: [
           { text: 'No, run away!', fill: 'outline', value: 'NO' },
           { text: `Yes, I don't care what it does`, value: 'YES', variant: 'danger' }
-        ]
+        ],
+        disableCancel: true
       });
 
       const messageDialog = document.querySelector('sl-message-dialog')!;
@@ -223,7 +224,7 @@ describe('sl-message-dialog', () => {
       expect(buttons[1]).to.have.attribute('variant', 'danger');
     });
 
-    it('should resolve the promise with undefined when the dialog is cancelled', async () => {
+    it('should not resolve the promise when trying to cancel the dialog', async () => {
       const callback = spy();
 
       promise.then(callback);
@@ -236,7 +237,7 @@ describe('sl-message-dialog', () => {
       // Wait for component to stabilize
       await new Promise(resolve => setTimeout(resolve));
 
-      expect(callback).to.have.been.calledWith(undefined);
+      expect(callback).not.to.have.been.called;
     });
 
     it('should resolve the promise with "NO" when the first button is clicked', async () => {

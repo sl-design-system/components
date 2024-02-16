@@ -1,8 +1,8 @@
 ---
 title: Skeleton
-description: The skeleton serves as a low-fidelity representation of content, appearing before the actual content loads. It enhances perceived loading time for users by providing visual feedback during data retrieval or loading processes.
+description: Skeletons are used to provide a low fidelity representation of content before it appears in a view. This improves the perceived loading time for our users.
 componentType: feedback
-shortDescription: The skeleton serves as a low-fidelity representation of content, appearing before the actual content loads.
+shortDescription: Skeletons are used to provide a low fidelity representation of content before it appears in a view.
 layout: "components/components.njk"
 tags: component
 packageName: skeleton

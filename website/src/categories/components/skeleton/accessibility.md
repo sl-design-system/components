@@ -7,32 +7,20 @@ eleventyNavigation:
 ---
 <section>
 
-## Skeleton accessibility content
+## WAI-Aria
 
-This is the accessibility content
+The Skeleton component does not have accessibility on its own as it is only visual indicator and should be integrated within an element that refers to the loading state.
 
-</section>
+<div class="ds-table-wrapper">
+  
+|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
+|-|-|-|-|
+|`aria-busy`|`true`| To illustrate that the focusable element is loading. |yes|
+|`role`	|`alert`| To announce the loading. |yes|
 
-<section>
+{.ds-table .ds-table-align-top}
 
-## Accessibility content section
-
-Another section
-
-</section>
-
-<section> 
-
-## Accessibility details
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
 </section>
 
-<section>
-
-## Behaviour
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>

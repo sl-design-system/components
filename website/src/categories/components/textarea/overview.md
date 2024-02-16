@@ -2,7 +2,7 @@
 title: Textarea
 tags: overview
 eleventyNavigation:
-  parent: Textarea
+  parent: Text area
   key: TextareaOverview
 ---
 <section>

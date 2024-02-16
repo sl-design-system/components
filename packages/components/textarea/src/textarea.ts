@@ -67,7 +67,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
    */
   @property() autocomplete?: typeof HTMLTextAreaElement.prototype.autocomplete;
 
-  /** Whether the text field is disabled; when set no interaction is possible. */
+  /** Whether the textarea is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** Maximum length (number of characters). */
@@ -82,7 +82,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   /** Whether you can interact with the textarea or if it is just a static, readonly display. */
   @property({ type: Boolean }) readonly?: boolean;
 
-  /** Whether the text field is a required field. */
+  /** Whether the textarea is a required field. */
   @property({ type: Boolean }) override required?: boolean;
 
   /** The way the textarea can be resized. */

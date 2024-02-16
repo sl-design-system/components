@@ -77,8 +77,6 @@ Warning: For potential problems that need attention.
 | 2 | Title	| Reinforces the message text. |No|
 | 3 | Message | Communicates what’s about to happen or has happened.| Yes |
 | 4 | Close button	| Icon button for closing the dialog | Yes |
-| 5 | Close button| Icon button for closing the dialog | Yes |
-| 6 | Content | An area to display any content | Yes |
 
 {.ds-table}
 

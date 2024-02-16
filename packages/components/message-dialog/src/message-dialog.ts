@@ -11,6 +11,7 @@ export interface MessageDialogConfig<T = unknown> {
   subtitle?: string;
   message: string | TemplateResult;
   buttons?: Array<MessageDialogButton<T>>;
+  disableCancel?: boolean;
 }
 
 export interface MessageDialogButton<T = unknown> {
@@ -80,10 +81,10 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
   @property({ attribute: false }) config?: MessageDialogConfig<T>;
 
   override render(): TemplateResult {
-    const { buttons, message, title, subtitle } = this.config ?? {};
+    const { buttons, disableCancel, message, title, subtitle } = this.config ?? {};
 
     return html`
-      <sl-dialog role="alertdialog">
+      <sl-dialog .disableCancel=${disableCancel} role="alertdialog">
         <div slot="title">${title}</div>
         ${subtitle ? html`<div slot="subtitle">${subtitle}</div>` : nothing}
         <p>${message}</p>

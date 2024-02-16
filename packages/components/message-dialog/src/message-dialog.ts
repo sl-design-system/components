@@ -22,6 +22,9 @@ export interface MessageDialogButton<T = unknown> {
   variant?: ButtonVariant;
 }
 
+/**
+ * A dialog for displaying messages to the user.
+ */
 @localized()
 export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) {
   /** @private */

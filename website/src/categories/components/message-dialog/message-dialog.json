@@ -1,0 +1,10 @@
+{
+  "layout": "components/components.njk",
+  "tags": "message-dialog",
+  "componentTagName": [
+    {
+      "name": "Message dialog",
+      "selector": "sl-message-dialog"
+    }
+  ]
+}

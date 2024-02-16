@@ -38,7 +38,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A dialog for displaying messages to the user.",
           "name": "MessageDialog",
           "members": [
             {

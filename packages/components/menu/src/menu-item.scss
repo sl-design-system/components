@@ -1,0 +1,37 @@
+:host {
+  --_background: #fff;
+  --_cursor: pointer;
+}
+
+:host {
+  display: flex;
+  flex-grow: 1;
+}
+
+:host(:hover) {
+  --_background: #e0e0e0;
+}
+
+:host([disabled]) {
+  --_cursor: default;
+  pointer-events: none;
+}
+
+.wrapper {
+  align-items: center;
+  background: var(--_background);
+  border-radius: 6px;
+  cursor: var(--_cursor);
+  display: flex;
+  flex-grow: 1;
+  gap: 0.25rem;
+  padding: 6px;
+}
+
+sl-icon[name='far-chevron-right'] {
+  margin-inline-start: auto;
+}
+
+.submenu {
+  display: none;
+}

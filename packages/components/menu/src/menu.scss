@@ -1,0 +1,21 @@
+:host {
+  border: 1px solid #e9e9e9;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding-block: 4px;
+}
+
+::slotted(sl-menu-item),
+::slotted(sl-menu-item-group) {
+  margin-inline: 4px;
+}
+
+::slotted(hr) {
+  border: 0;
+  border-top: 1px solid #e9e9e9;
+  margin-block: 4px;
+  margin-inline: 0;
+  padding: 0;
+}

@@ -5329,6 +5329,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/menu@workspace:packages/components/menu":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/menu@workspace:packages/components/menu"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/icon": "npm:0.0.7"
+    "@sl-design-system/shared": "npm:0.2.2"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/monorepo@workspace:.":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/monorepo@workspace:."

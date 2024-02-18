@@ -1,0 +1,258 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/menu.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/menu-item.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-menu",
+          "declaration": {
+            "name": "Menu",
+            "module": "/src/menu.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-menu-item",
+          "declaration": {
+            "name": "MenuItem",
+            "module": "/src/menu-item.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-menu-item-group",
+          "declaration": {
+            "name": "MenuItemGroup",
+            "module": "/src/menu-item-group.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/menu-item-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "MenuItemGroup",
+          "members": [
+            {
+              "kind": "field",
+              "name": "selects",
+              "type": {
+                "text": "'single' | 'multiple' | undefined"
+              },
+              "description": "Determines whether if and how many menu items can be selected.",
+              "attribute": "selects"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "selects",
+              "type": {
+                "text": "'single' | 'multiple' | undefined"
+              },
+              "description": "Determines whether if and how many menu items can be selected.",
+              "fieldName": "selects"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-menu-item-group",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MenuItemGroup",
+          "declaration": {
+            "name": "MenuItemGroup",
+            "module": "src/menu-item-group.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/menu-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "MenuItem",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this menu item is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this menu item has been selected.",
+              "attribute": "selected",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "subMenu",
+              "type": {
+                "text": "Menu | undefined"
+              },
+              "description": "The sub menu, if present."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this menu item is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this menu item has been selected.",
+              "fieldName": "selected"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-menu-item",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onSubmenuChange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "subMenu",
+              "type": {
+                "text": "Menu | undefined"
+              },
+              "description": "The sub menu, if present."
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MenuItem",
+          "declaration": {
+            "name": "MenuItem",
+            "module": "src/menu-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/menu.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "Menu",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-menu",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Menu",
+          "declaration": {
+            "name": "Menu",
+            "module": "src/menu.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 ---
-title: Tab group usage
+title: Tabs usage
 tags: usage
 eleventyNavigation:
-  parent: Tab group
-  key: TabGroupUsage
+  parent: Tabs
+  key: TabsUsage
 ---
 <section>
 

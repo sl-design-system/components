@@ -1,10 +1,10 @@
 ---
-title: Tab group code
+title: Tabs code
 tags: code
 APIdescription: Component has a range of properties to define the experience in different use cases.
 eleventyNavigation:
-  parent: Tab group
-  key: TabGroupCode
+  parent: Tabs
+  key: TabsCode
 ---
 <section>
 

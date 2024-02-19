@@ -185,8 +185,7 @@
                 "text": "boolean | undefined"
               },
               "description": "Whether this menu item can be selected.",
-              "attribute": "selectable",
-              "reflects": true
+              "attribute": "selectable"
             },
             {
               "kind": "field",
@@ -197,6 +196,15 @@
               "description": "Whether this menu item has been selected.",
               "attribute": "selected",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "shortcut",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Keyboard shortcut for activating this menu item.",
+              "attribute": "shortcut"
             },
             {
               "kind": "event",
@@ -249,6 +257,14 @@
               },
               "description": "Whether this menu item can be selected.",
               "fieldName": "selectable"
+            },
+            {
+              "name": "shortcut",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Keyboard shortcut for activating this menu item.",
+              "fieldName": "shortcut"
             }
           ],
           "mixins": [
@@ -277,6 +293,23 @@
                   "name": "event",
                   "type": {
                     "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onShortcut",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
                   }
                 }
               ]
@@ -315,6 +348,12 @@
               "name": "#events",
               "privacy": "private",
               "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
+            },
+            {
+              "kind": "field",
+              "name": "#shortcut",
+              "privacy": "private",
+              "default": "new ShortcutController(this)"
             },
             {
               "kind": "field",

@@ -30,13 +30,6 @@
   --_indent: 6px;
 }
 
-::slotted(kbd) {
-  font-family: open-sans;
-  letter-spacing: 2px;
-  margin-inline-start: auto;
-  padding-inline-start: 0.5rem;
-}
-
 .wrapper {
   align-items: center;
   background: var(--_background);
@@ -51,6 +44,13 @@
 
 sl-icon[name='far-check'] {
   padding-inline: 3px;
+}
+
+kbd {
+  font-family: var(--sl-text-typeset-font-family-body);
+  letter-spacing: 2px;
+  margin-inline-start: auto;
+  padding-inline-start: 0.5rem;
 }
 
 sl-icon[name='far-chevron-right'] {

@@ -5482,6 +5482,7 @@ __metadata:
   dependencies:
     "@floating-ui/dom": "npm:^1.5.4"
     lit: "npm:^3.1.2"
+    tinykeys: "npm:^2.1.0"
   languageName: unknown
   linkType: soft
 
@@ -22217,6 +22218,13 @@ __metadata:
   version: 1.6.0
   resolution: "tinycolor2@npm:1.6.0"
   checksum: 10c0/9aa79a36ba2c2a87cb221453465cabacd04b9e35f9694373e846fdc78b1c768110f81e581ea41440106c0f24d9a023891d0887e8075885e790ac40eb0e74a5c1
+  languageName: node
+  linkType: hard
+
+"tinykeys@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "tinykeys@npm:2.1.0"
+  checksum: 10c0/36f0d6f8183ecbf6f1efe3c0af3bcba47e9564b4bd046cf6067607453089c685bae55e926b56630d27b1a0de3016088692f37b7b1aba80e9b05b560f8b709779
   languageName: node
   linkType: hard
 

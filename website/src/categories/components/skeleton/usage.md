@@ -5,10 +5,48 @@ eleventyNavigation:
   parent: Skeleton
   key: SkeletonUsage
 ---
-<section>
+<style>
+.ds-example__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
 
-## Live demo
+.ds-example__skeleton sl-skeleton {
+  height: 2rem;
+}
 
+.ds-example__skeleton sl-skeleton:nth-child(1) {
+    inline-size: 40rem;
+}
+
+.ds-example__skeleton sl-skeleton:nth-child(2) {
+    inline-size: 90%;
+}
+
+.ds-example__skeleton sl-skeleton:nth-child(3) {
+    inline-size: 80%;
+}
+</style>
+
+<section class="no-heading">
+<div class="ds-example">
+  <div class="ds-example__skeleton">
+    <sl-skeleton effect="shimmer" aria-label="Loading title"></sl-skeleton>
+    <sl-skeleton effect="shimmer" aria-label="Loading subtitle"></sl-skeleton>
+    <sl-skeleton effect="shimmer" aria-label="Loading description"></sl-skeleton>
+  </div>
+</div>
+
+<div class="ds-code">
+
+  ```html
+    <sl-skeleton effect="shimmer" aria-label="Loading title"></sl-skeleton>
+    <sl-skeleton effect="shimmer" aria-label="Loading subtitle"></sl-skeleton>
+    <sl-skeleton effect="shimmer" aria-label="Loading description"></sl-skeleton>
+  ```
+
+</div>
 </section>
 
 <section>

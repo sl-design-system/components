@@ -44,7 +44,7 @@ The message dialog should be used to present critical information or ask for dec
 
 ## When not to use
 
-The message dialog should not be used to present complex data or complex interactions. Keep them concise. If have a need for complex interactions, consider using the [dialog](../dialog/) component.
+The message dialog should not be used to present complex data or complex interactions. Keep them concise. If you have a need for complex interactions, consider using the [dialog](../dialog/) component.
 
 You should also not use this component to interrupt the user unnecessarily. Only show a message dialog when the user explicitly triggers it and when there is no other alternative (for example an [inline-message](../inline-message)).
 

@@ -26,7 +26,7 @@ export class Menu extends LitElement {
     `;
   }
 
-  #onSelect(event: CustomEvent<boolean>): void {
+  #onSelect(event: Event): void {
     if (this.selects && this.#menuItems.includes(event.target as MenuItem)) {
       event.preventDefault();
       event.stopPropagation();

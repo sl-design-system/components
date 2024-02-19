@@ -1,4 +1,13 @@
-import { faArrowUpShortWide, faLayerGroup, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faArrowUpShortWide,
+  faCreditCardFront,
+  faList,
+  faPen,
+  faTableCells,
+  faTableRows,
+  faTrash
+} from '@fortawesome/pro-regular-svg-icons';
+import { faPeople } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/icon/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -10,7 +19,7 @@ import { type Menu } from './menu.js';
 type Props = Pick<Menu, 'selects'> & { menuItems: () => TemplateResult };
 type Story = StoryObj<Props>;
 
-Icon.register(faArrowUpShortWide, faLayerGroup, faPen, faTrash);
+Icon.register(faArrowUpShortWide, faCreditCardFront, faList, faPen, faPeople, faTableCells, faTableRows, faTrash);
 
 export default {
   title: 'Menu',
@@ -86,16 +95,19 @@ export const Combination: Story = {
   args: {
     menuItems: () => html`
       <sl-menu-item-group selects="single">
-        <sl-menu-item selected>
-          Lorem
+        <sl-menu-item selectable selected>
+          <sl-icon name="far-list"></sl-icon>
+          List
           <kbd>⌘1</kbd>
         </sl-menu-item>
-        <sl-menu-item>
-          Ipsum
+        <sl-menu-item selectable>
+          <sl-icon name="far-credit-card-front"></sl-icon>
+          Cards
           <kbd>⌘2</kbd>
         </sl-menu-item>
-        <sl-menu-item>
-          Dolar
+        <sl-menu-item selectable>
+          <sl-icon name="far-table-cells"></sl-icon>
+          Grid
           <kbd>⌘3</kbd>
         </sl-menu-item>
       </sl-menu-item-group>
@@ -111,7 +123,7 @@ export const Combination: Story = {
         </sl-menu>
       </sl-menu-item>
       <sl-menu-item>
-        <sl-icon name="far-layer-group"></sl-icon>
+        <sl-icon name="far-table-rows"></sl-icon>
         Group by
         <sl-menu selects="single" slot="submenu">
           <sl-menu-item selectable selected>Something</sl-menu-item>

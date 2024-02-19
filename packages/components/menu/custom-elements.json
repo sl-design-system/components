@@ -91,8 +91,53 @@
           },
           "tagName": "sl-menu-item-group",
           "customElement": true,
-          "methods": [],
-          "fields": []
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onSelect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#menuItems",
+              "privacy": "private",
+              "type": {
+                "text": "MenuItem[]"
+              },
+              "default": "[]"
+            }
+          ]
         }
       ],
       "exports": [
@@ -341,7 +386,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "CustomEvent<boolean>"
+                    "text": "Event"
                   }
                 }
               ]

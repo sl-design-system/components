@@ -18,47 +18,23 @@ describe('sl-avatar', () => {
 
   const users = [
     {
-      name: {
-        first: 'Yousef',
-        prefix: 'van der',
-        last: 'Schaaf'
-      },
-      picture: {
-        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
-      }
+      name: 'Yousef van der Schaaf',
+      picture: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
     },
     {
-      name: {
-        first: 'Chester',
-        last: 'Reid'
-      },
-      picture: {
-        thumbnail: 'https://randomuser.me/api/portraits/thumb/men/19.jpg'
-      }
+      name: 'Chester Reid',
+      picture:  'https://randomuser.me/api/portraits/thumb/men/19.jpg'
     },
     {
-      name: {
-        first: 'Emma',
-        last: 'Henderson - Van Deursen'
-      },
-      picture: {
-        thumbnail: 'https://randomuser.me/api/portraits/thumb/women/19.jpg'
-      }
+      name: 'Emma Henderson - Van Deursen',
+      picture: 'https://randomuser.me/api/portraits/thumb/women/19.jpg'
     },
     {
-      name: {
-        first: 'Johnni',
-        last: 'Sullivan'
-      }
+      name: 'Johnni Sullivan'
     },
     {
-      name: {
-        first: 'Non',
-        last: 'Existing'
-      },
-      picture: {
-        thumbnail: 'https://sanomalearning.design/nonexistingavatar.jpg'
-      }
+      name: 'Non Existing',
+      picture: 'https://sanomalearning.design/nonexistingavatar.jpg'
     }
   ];
 
@@ -67,7 +43,7 @@ describe('sl-avatar', () => {
 
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-avatar .user=${users[3]}>Straight A student</sl-avatar>
+        <sl-avatar .displayName=${users[3].name}>Straight A student</sl-avatar>
       `);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
@@ -99,7 +75,7 @@ describe('sl-avatar', () => {
 
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-avatar .user=${users[3]}></sl-avatar>
+        <sl-avatar .displayName=${users[3].name}></sl-avatar>
       `);
       name = el.renderRoot.querySelector('.header');
       svg = el.renderRoot.querySelector('svg');
@@ -133,7 +109,7 @@ describe('sl-avatar', () => {
     });
 
     it('should fall back to initials when there is an error loading the image', async () => {
-      el.user = users[4];
+      el.displayName = users[4].name;
       el.setAttribute('fallback', 'initials');
       await el.updateComplete;
 
@@ -151,14 +127,14 @@ describe('sl-avatar', () => {
     const user = users[0];
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-avatar .user=${user}></sl-avatar>
+        <sl-avatar .display-name=${user.name} .picture=${user.picture}></sl-avatar>
       `);
       svg = el.renderRoot.querySelector('svg');
     });
 
     it('should render initials when no image is provided', () => {
       const avatarText = svg?.querySelector('image');
-      expect(avatarText?.getAttribute('href')).to.equal(user.picture?.thumbnail);
+      expect(avatarText?.getAttribute('href')).to.equal(user.picture);
       expect(svg?.querySelector('.initials')).not.to.exist;
       expect(svg?.querySelector('use')).not.to.exist;
     });
@@ -167,7 +143,7 @@ describe('sl-avatar', () => {
   describe('positioning of elements', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-avatar .user=${users[0]}></sl-avatar>
+        <sl-avatar .displayName=${users[0].name}></sl-avatar>
       `);
     })
 
@@ -358,7 +334,7 @@ describe('sl-avatar', () => {
     let svg:Element|null;
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-avatar .user=${users[3]}></sl-avatar>
+        <sl-avatar .displayName=${users[3].name}></sl-avatar>
       `);
       svg = el.renderRoot.querySelector('svg');
     });

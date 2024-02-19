@@ -6,7 +6,6 @@ import type {
   AvatarImage,
   AvatarOrientation,
   AvatarSize,
-  UserProfile,
   UserStatus
 } from './models.js';
 import type { AvatarConfig } from '@sl-design-system/shared';
@@ -72,15 +71,7 @@ const OFFSET_SQUARE: Record<AvatarSize, number> = {
  * An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.
  *
  * ```html
- *   <sl-avatar user="{
- *      name: {
- *        first: 'Lynn',
- *        last: 'Smith'
- *      },
- *      picture: {
- *        thumbnail: 'http://sanomalearning.design/avatars/lynn.png'
- *      }
- *    }"></sl-avatar>
+ *   <sl-avatar display-name="Lynn Smith" picture="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
  * ```
  *
  * @cssproperty --max-width: Max width of the container in ;
@@ -151,13 +142,22 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) status?: UserStatus;
 
-  /** The user object. */
-  @property({ type: Object }) user?: UserProfile;
+  /** The name that needs to be displayed. */
+  @property({ reflect: true, attribute: 'display-name' }) displayName?: string;
+
+  @property({ reflect: true }) picture?: string;
+
+  /** @private initials to render in the fallback avatar. */
+  get initials(): string {
+    if (this.displayName) {
+      const names = this.displayName.split(' ');
+      return names[0].substring(0, 1) + names[names.length - 1].substring(0, 1);
+    }
+    return '';
+  }
 
   /** @private border width for calculations in the svg. */
   borderWidth = BORDER_WIDTH;
-  /** @private border width for calculations in the svg. */
-  initials = '';
   /** @private offset of the badge for calculations in the svg. */
   offset = OFFSET_CIRCLE;
   /** @private offset of the badge for calculations in the svg. */
@@ -191,29 +191,24 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       await this.#setBaseValues();
     }
 
-    if (changes.has('user')) {
-      this.errorLoadingImage = false;
-
-      if (this.user?.name) {
-        this.initials = this.user.name.first.substring(0, 1) + this.user.name.last.substring(0, 1);
-        this.profileName = [this.user.name.first, this.user.name.prefix, this.user.name.last].filter(Boolean).join(' ');
-      } else {
-        this.initials = this.profileName = '';
-      }
-
+    if (changes.has('displayName')) {
       this.#checkOverflow();
+    }
+
+    if (changes.has('picture')) {
+      this.errorLoadingImage = false;
     }
   }
 
   override render(): TemplateResult {
     return html`
       ${this.image ? this.#renderPicture() : nothing}
-      <sl-tooltip id="avatar-tooltip">${this.profileName}</sl-tooltip>
+      <sl-tooltip id="avatar-tooltip">${this.displayName}</sl-tooltip>
       ${this.imageOnly
         ? nothing
         : html`
             <div>
-              <span class="header">${this.profileName}</span>
+              <span class="header">${this.displayName}</span>
               ${this.size === 'sm' && this.orientation === 'horizontal'
                 ? nothing
                 : html`<slot class="subheader"></slot>`}
@@ -226,8 +221,8 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
     const { x, y, containerSize, radius, size } = this.image!,
       labelParts: string[] = [];
 
-    if (this.imageOnly) {
-      labelParts.push(this.profileName);
+    if (this.imageOnly && this.displayName) {
+      labelParts.push(this.displayName);
     }
 
     if (this.label) {
@@ -327,7 +322,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   #renderImage(): TemplateResult | void {
     const { x, y, size } = this.image!;
 
-    if (!this.errorLoadingImage && this.user?.picture?.thumbnail) {
+    if (!this.errorLoadingImage && this.picture) {
       return svg`
         <image
           @error=${() => (this.errorLoadingImage = true)}
@@ -336,12 +331,12 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
           y=${y}
           height=${size}
           width=${size}
-          href=${this.user?.picture?.thumbnail}
+          href=${this.picture}
           mask="url(#circle)"
           preserveAspectRatio="xMidYMid slice"
         ></image>
       `;
-    } else if (this.user && this.fallback === 'initials') {
+    } else if (this.displayName && this.fallback === 'initials') {
       return svg`
         <rect
           x=${x}

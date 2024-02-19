@@ -28,6 +28,9 @@ export class Menu extends LitElement {
 
   #onSelect(event: CustomEvent<boolean>): void {
     if (this.selects && this.#menuItems.includes(event.target as MenuItem)) {
+      event.preventDefault();
+      event.stopPropagation();
+
       if (this.selects === 'single') {
         this.#menuItems.forEach(item => {
           if (item !== event.target) {

@@ -103,17 +103,19 @@ export const Combination: Story = {
       <sl-menu-item>
         <sl-icon name="far-arrow-up-short-wide"></sl-icon>
         Sort by
-        <sl-menu slot="submenu">
-          <sl-menu-item>Ascending</sl-menu-item>
-          <sl-menu-item>Descending</sl-menu-item>
+        <sl-menu selects="single" slot="submenu" style="width: 150px">
+          <sl-menu-item selectable selected>First name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>First name (Z-A)</sl-menu-item>
+          <sl-menu-item selectable>Last name (A-Z)</sl-menu-item>
+          <sl-menu-item selectable>Last name (Z-A)</sl-menu-item>
         </sl-menu>
       </sl-menu-item>
       <sl-menu-item>
         <sl-icon name="far-layer-group"></sl-icon>
         Group by
-        <sl-menu slot="submenu">
-          <sl-menu-item>Something</sl-menu-item>
-          <sl-menu-item>Other</sl-menu-item>
+        <sl-menu selects="single" slot="submenu">
+          <sl-menu-item selectable selected>Something</sl-menu-item>
+          <sl-menu-item selectable>Other</sl-menu-item>
         </sl-menu>
       </sl-menu-item>
       <hr />

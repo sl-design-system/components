@@ -22,6 +22,14 @@
             "name": "*",
             "package": "./src/menu-item.js"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/menu-item-group.js"
+          }
         }
       ]
     },

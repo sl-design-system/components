@@ -579,7 +579,7 @@
           "type": "typography",
           "description": "text.typeset.body.sm.normal"
         },
-        "demibold": {
+        "semibold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.semibold}",
@@ -596,7 +596,7 @@
         "bold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "letterSpacing": "{text.typeset.letterSpacing.lg}",
@@ -623,7 +623,7 @@
           "type": "typography",
           "description": "text.typeset.body.md.normal"
         },
-        "demibold": {
+        "semibold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.semibold}",
@@ -640,7 +640,7 @@
         "bold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{text.typeset.lineHeight.md}",
             "fontSize": "{text.typeset.fontSize.md}",
             "letterSpacing": "{text.typeset.letterSpacing.lg}",
@@ -667,7 +667,7 @@
           "type": "typography",
           "description": "text.typeset.body.lg.normal"
         },
-        "demibold": {
+        "semibold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.semibold}",
@@ -684,7 +684,7 @@
         "bold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{text.typeset.lineHeight.lg}",
             "fontSize": "{text.typeset.fontSize.lg}",
             "letterSpacing": "{text.typeset.letterSpacing.md}",
@@ -1104,7 +1104,7 @@
             "sm": {
               "value": {
                 "fontFamily": "{text.typeset.fontFamily.body}",
-                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "fontWeight": "{text.typeset.fontWeight.semibold}",
                 "lineHeight": "{text.typeset.lineHeight.sm}",
                 "fontSize": "{text.typeset.fontSize.md}"
               },
@@ -1114,7 +1114,7 @@
             "md": {
               "value": {
                 "fontFamily": "{text.typeset.fontFamily.body}",
-                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "fontWeight": "{text.typeset.fontWeight.semibold}",
                 "lineHeight": "{text.typeset.lineHeight.lg}",
                 "fontSize": "{text.typeset.fontSize.lg}"
               },
@@ -1124,7 +1124,7 @@
             "lg": {
               "value": {
                 "fontFamily": "{text.typeset.fontFamily.body}",
-                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "fontWeight": "{text.typeset.fontWeight.semibold}",
                 "lineHeight": "{text.typeset.lineHeight.lg}",
                 "fontSize": "{text.typeset.fontSize.xl}"
               },
@@ -1228,7 +1228,7 @@
       "subheading": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "fontWeight": "{text.typeset.fontWeight.semibold}",
           "lineHeight": "{text.typeset.lineHeight.md}",
           "fontSize": "{icon.typeset.fontSize.md}"
         },
@@ -1257,7 +1257,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xs}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1267,7 +1267,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1277,7 +1277,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.md}",
             "lineHeight": "{text.typeset.lineHeight.md}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1287,7 +1287,7 @@
         "xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xl}",
             "lineHeight": "{text.typeset.lineHeight.xl}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1297,7 +1297,7 @@
         "2xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.2xl}",
             "lineHeight": "{text.typeset.lineHeight.2xl}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1307,7 +1307,7 @@
         "3xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{icon.typeset.fontSize.2xl}",
             "lineHeight": "{text.typeset.lineHeight.2xl}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1495,7 +1495,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "6px",
             "lineHeight": "6px"
           },
@@ -1504,7 +1504,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "9px",
             "lineHeight": "9px"
           },
@@ -1513,7 +1513,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xs}"
           },
@@ -1522,7 +1522,7 @@
         "xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
@@ -1531,7 +1531,7 @@
         "2xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
@@ -1540,7 +1540,7 @@
         "3xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "lineHeight": "{text.typeset.lineHeight.sm}"
           },

@@ -70,6 +70,22 @@
   <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
   <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakters in (je hebt op dit momoment <x id="1" equiv-text="${length}"/> karakter<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</target>
 </trans-unit>
+<trans-unit id="sf1ec4acb8d744ed9">
+  <source>Alert</source>
+  <target>Waarschuwing</target>
+</trans-unit>
+<trans-unit id="s091d3d07b5b3076f">
+  <source>OK</source>
+  <target>Ok</target>
+</trans-unit>
+<trans-unit id="sb85774dc5d18ff0f">
+  <source>Confirm</source>
+  <target>Bevestig</target>
+</trans-unit>
+<trans-unit id="s2ceb11be2290bb1b">
+  <source>Cancel</source>
+  <target>Annuleren</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

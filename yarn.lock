@@ -5336,7 +5336,6 @@ __metadata:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/button": "npm:0.0.18"
-    "@sl-design-system/button-bar": "npm:0.0.4"
     "@sl-design-system/dialog": "npm:0.0.7"
   languageName: unknown
   linkType: soft

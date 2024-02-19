@@ -1,6 +1,7 @@
 :host {
   --_background: #fff;
   --_cursor: pointer;
+  --_indent: calc(var(--sl-menu-item-indent, 0) * 26px + 6px);
 }
 
 :host {
@@ -10,11 +11,23 @@
 
 :host(:hover) {
   --_background: #e0e0e0;
+  position: relative;
+
+  .submenu {
+    display: flex;
+    inset: -4px auto auto calc(100%);
+    position: absolute;
+    z-index: 1;
+  }
 }
 
 :host([disabled]) {
   --_cursor: default;
   pointer-events: none;
+}
+
+:host([selected]) {
+  --_indent: 6px;
 }
 
 .wrapper {
@@ -26,6 +39,11 @@
   flex-grow: 1;
   gap: 0.25rem;
   padding: 6px;
+  padding-inline-start: var(--_indent);
+}
+
+sl-icon[name='far-check'] {
+  padding-inline: 3px;
 }
 
 sl-icon[name='far-chevron-right'] {

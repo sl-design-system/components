@@ -1,4 +1,4 @@
-import { faChevronRight } from '@fortawesome/pro-regular-svg-icons';
+import { faCheck, faChevronRight } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
@@ -6,7 +6,7 @@ import { property, state } from 'lit/decorators.js';
 import { Menu } from './menu.js';
 import styles from './menu-item.scss.js';
 
-Icon.register(faChevronRight);
+Icon.register(faCheck, faChevronRight);
 
 export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -25,12 +25,16 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Whether this menu item has been selected. */
   @property({ type: Boolean, reflect: true }) selected?: boolean;
 
+  /** Whether this menu item can be selected. */
+  @property({ type: Boolean, reflect: true }) selectable?: boolean;
+
   /** The sub menu, if present. */
   @state() subMenu?: Menu;
 
   override render(): TemplateResult {
     return html`
       <div class="wrapper">
+        ${this.selected ? html`<sl-icon name="far-check"></sl-icon>` : nothing}
         <slot></slot>
         ${this.subMenu ? html`<sl-icon name="far-chevron-right"></sl-icon>` : nothing}
       </div>

@@ -1,4 +1,4 @@
-import { faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
+import { faArrowUpShortWide, faLayerGroup, faPen, faTrash } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/icon/register.js';
 import { Icon } from '@sl-design-system/icon';
@@ -11,7 +11,7 @@ interface Props {
 }
 type Story = StoryObj<Props>;
 
-Icon.register(faPen, faTrash);
+Icon.register(faArrowUpShortWide, faLayerGroup, faPen, faTrash);
 
 export default {
   title: 'Menu',
@@ -27,12 +27,13 @@ export const Basic: Story = {
   args: {
     menuItems: () => html`
       <sl-menu-item-group selects="single">
-        <sl-menu-item>Lorem</sl-menu-item>
+        <sl-menu-item selected>Lorem</sl-menu-item>
         <sl-menu-item>Ipsum</sl-menu-item>
         <sl-menu-item>Dolar</sl-menu-item>
       </sl-menu-item-group>
       <hr />
       <sl-menu-item>
+        <sl-icon name="far-arrow-up-short-wide"></sl-icon>
         Sort by
         <sl-menu slot="submenu">
           <sl-menu-item>Ascending</sl-menu-item>
@@ -40,6 +41,7 @@ export const Basic: Story = {
         </sl-menu>
       </sl-menu-item>
       <sl-menu-item>
+        <sl-icon name="far-layer-group"></sl-icon>
         Group by
         <sl-menu slot="submenu">
           <sl-menu-item>Something</sl-menu-item>

@@ -127,6 +127,16 @@
             },
             {
               "kind": "field",
+              "name": "selectable",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this menu item can be selected.",
+              "attribute": "selectable",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "selected",
               "type": {
                 "text": "boolean | undefined"
@@ -160,6 +170,14 @@
               },
               "description": "Whether this menu item has been selected.",
               "fieldName": "selected"
+            },
+            {
+              "name": "selectable",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this menu item can be selected.",
+              "fieldName": "selectable"
             }
           ],
           "mixins": [
@@ -234,13 +252,51 @@
           "kind": "class",
           "description": "",
           "name": "Menu",
-          "members": [],
+          "members": [
+            {
+              "kind": "field",
+              "name": "selectableChildren",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this menu has any children that can be selected."
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
           },
           "tagName": "sl-menu",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "selectableChildren",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this menu has any children that can be selected."
+            }
+          ]
         }
       ],
       "exports": [

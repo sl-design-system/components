@@ -1,6 +1,7 @@
 import { faCheck, faChevronRight } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { Menu } from './menu.js';
@@ -18,6 +19,13 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  #events = new EventsController(this, {
+    click: this.#onClick
+  });
+
+  /** Emits when the user toggles the selected state. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<boolean>;
 
   /** Whether this menu item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -42,6 +50,20 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSubmenuChange} name="submenu"></slot>
       </div>
     `;
+  }
+
+  #onClick(event: Event): void {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      return;
+    }
+
+    if (this.selectable) {
+      this.selected = !this.selected;
+      this.selectEvent.emit(this.selected);
+    }
   }
 
   #onSubmenuChange(event: Event & { target: HTMLSlotElement }): void {

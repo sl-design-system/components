@@ -146,12 +146,30 @@
               "reflects": true
             },
             {
+              "kind": "event",
+              "name": "sl-select",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user toggles the selected state."
+            },
+            {
               "kind": "field",
               "name": "subMenu",
               "type": {
                 "text": "Menu | undefined"
               },
               "description": "The sub menu, if present."
+            }
+          ],
+          "events": [
+            {
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user toggles the selected state.",
+              "fieldName": "selectEvent"
             }
           ],
           "attributes": [
@@ -195,6 +213,23 @@
           "methods": [
             {
               "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onSubmenuChange",
               "return": {
                 "type": {
@@ -221,6 +256,12 @@
               "static": true,
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
             },
             {
               "kind": "field",
@@ -260,6 +301,25 @@
                 "text": "boolean | undefined"
               },
               "description": "Whether this menu has any children that can be selected."
+            },
+            {
+              "kind": "field",
+              "name": "selects",
+              "type": {
+                "text": "'single' | 'multiple' | undefined"
+              },
+              "description": "Determines whether if and how many menu items can be selected.",
+              "attribute": "selects"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "selects",
+              "type": {
+                "text": "'single' | 'multiple' | undefined"
+              },
+              "description": "Determines whether if and how many menu items can be selected.",
+              "fieldName": "selects"
             }
           ],
           "superclass": {
@@ -269,6 +329,23 @@
           "tagName": "sl-menu",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "#onSelect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<boolean>"
+                  }
+                }
+              ]
+            },
             {
               "kind": "method",
               "name": "#onSlotchange",
@@ -288,6 +365,15 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "#menuItems",
+              "privacy": "private",
+              "type": {
+                "text": "MenuItem[]"
+              },
+              "default": "[]"
+            },
             {
               "kind": "field",
               "name": "selectableChildren",

@@ -5,10 +5,9 @@ import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
+import { type Menu } from './menu.js';
 
-interface Props {
-  menuItems: () => TemplateResult;
-}
+type Props = Pick<Menu, 'selects'> & { menuItems: () => TemplateResult };
 type Story = StoryObj<Props>;
 
 Icon.register(faArrowUpShortWide, faLayerGroup, faPen, faTrash);
@@ -18,18 +17,87 @@ export default {
   parameters: {
     layout: 'centered'
   },
-  render: ({ menuItems }) => {
-    return html`<sl-menu style="width: 200px">${menuItems()}</sl-menu>`;
+  render: ({ menuItems, selects }) => {
+    return html`<sl-menu .selects=${selects} style="width: 200px">${menuItems()}</sl-menu>`;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
   args: {
     menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-pen"></sl-icon>
+        Rename...
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-trash"></sl-icon>
+        Delete...
+      </sl-menu-item>
+    `
+  }
+};
+
+export const SingleSelect: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item selectable selected>
+        Lorem
+        <kbd>⌘1</kbd>
+      </sl-menu-item>
+      <sl-menu-item selectable>
+        Ipsum
+        <kbd>⌘2</kbd>
+      </sl-menu-item>
+      <sl-menu-item selectable>
+        Dolar
+        <kbd>⌘3</kbd>
+      </sl-menu-item>
+    `,
+    selects: 'single'
+  }
+};
+
+export const MultiSelect: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item selectable selected>Lorem</sl-menu-item>
+      <sl-menu-item selectable>Ipsum</sl-menu-item>
+      <sl-menu-item selectable>Dolar</sl-menu-item>
+    `,
+    selects: 'multiple'
+  }
+};
+
+export const ComboSelect: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item-group selects="multiple">
+        <sl-menu-item selectable selected>Lorem</sl-menu-item>
+        <sl-menu-item selectable>Ipsum</sl-menu-item>
+        <sl-menu-item selectable>Dolar</sl-menu-item>
+      </sl-menu-item-group>
+      <hr />
+      <sl-menu-item selectable selected>Foo bar</sl-menu-item>
+    `
+  }
+};
+
+export const Combination: Story = {
+  args: {
+    menuItems: () => html`
       <sl-menu-item-group selects="single">
-        <sl-menu-item selected>Lorem</sl-menu-item>
-        <sl-menu-item>Ipsum</sl-menu-item>
-        <sl-menu-item>Dolar</sl-menu-item>
+        <sl-menu-item selected>
+          Lorem
+          <kbd>⌘1</kbd>
+        </sl-menu-item>
+        <sl-menu-item>
+          Ipsum
+          <kbd>⌘2</kbd>
+        </sl-menu-item>
+        <sl-menu-item>
+          Dolar
+          <kbd>⌘3</kbd>
+        </sl-menu-item>
       </sl-menu-item-group>
       <hr />
       <sl-menu-item>

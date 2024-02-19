@@ -30,6 +30,12 @@
   --_indent: 6px;
 }
 
+::slotted(kbd) {
+  font-family: open-sans;
+  letter-spacing: 2px;
+  margin-inline-start: auto;
+}
+
 .wrapper {
   align-items: center;
   background: var(--_background);

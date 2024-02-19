@@ -495,7 +495,7 @@
       "0": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.demibol}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
           "lineHeight": "{text.typeset.lineHeight.4xl}",
           "fontSize": "{text.typeset.fontSize.4xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",

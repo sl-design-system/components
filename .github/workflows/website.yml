@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize, reopened, closed]
 
   push:
-    branches: 
+    branches:
       - main
 
   # Allows you to run this workflow manually from the Actions tab
@@ -17,8 +17,9 @@ on:
 
 env:
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
-  GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+  GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  HUSKY: 0
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

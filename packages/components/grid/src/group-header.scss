@@ -1,0 +1,28 @@
+:host {
+  align-items: center;
+  display: flex;
+  font: var(--sl-text-body-md-normal);
+  inline-size: 100%;
+}
+
+:host([expanded]) sl-icon {
+  rotate: 90deg;
+}
+
+sl-button {
+  margin-inline-start: 0.25rem;
+}
+
+sl-icon {
+  transition: rotate 0.2s ease-in-out;
+}
+
+sl-checkbox {
+  align-self: center;
+  padding: calc((32px - var(--sl-size-input-option-sm, 0px)) / 2);
+}
+
+.heading {
+  font-weight: 600;
+  margin-inline-start: 1.5rem;
+}

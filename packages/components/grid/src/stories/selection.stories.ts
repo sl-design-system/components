@@ -116,8 +116,8 @@ export const MultipleWithCustomHeader: Story = {
         <sl-grid-column path="email"></sl-grid-column>
 
         <sl-button-bar slot="selection-header">
-          <sl-button fill="link">Do something</sl-button>
-          <sl-button fill="link">Or something else</sl-button>
+          <sl-button size="sm">Do something</sl-button>
+          <sl-button size="sm">Or something else</sl-button>
         </sl-button-bar>
       </sl-grid>
     `;

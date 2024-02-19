@@ -5,7 +5,7 @@
 }
 
 :host {
-  display: flex;
+  display: block;
   flex-grow: 1;
 }
 
@@ -34,6 +34,7 @@
   font-family: open-sans;
   letter-spacing: 2px;
   margin-inline-start: auto;
+  padding-inline-start: 0.5rem;
 }
 
 .wrapper {
@@ -42,10 +43,10 @@
   border-radius: 6px;
   cursor: var(--_cursor);
   display: flex;
-  flex-grow: 1;
   gap: 0.25rem;
   padding: 6px;
   padding-inline-start: var(--_indent);
+  white-space: nowrap;
 }
 
 sl-icon[name='far-check'] {
@@ -54,6 +55,7 @@ sl-icon[name='far-check'] {
 
 sl-icon[name='far-chevron-right'] {
   margin-inline-start: auto;
+  padding-inline-start: 1rem;
 }
 
 .submenu {

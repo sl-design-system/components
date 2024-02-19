@@ -27,7 +27,7 @@ export default {
     layout: 'centered'
   },
   render: ({ menuItems, selects }) => {
-    return html`<sl-menu .selects=${selects} style="width: 200px">${menuItems()}</sl-menu>`;
+    return html`<sl-menu .selects=${selects}>${menuItems()}</sl-menu>`;
   }
 } satisfies Meta<Props>;
 
@@ -115,7 +115,7 @@ export const Combination: Story = {
       <sl-menu-item>
         <sl-icon name="far-arrow-up-short-wide"></sl-icon>
         Sort by
-        <sl-menu selects="single" slot="submenu" style="width: 150px">
+        <sl-menu selects="single" slot="submenu">
           <sl-menu-item selectable selected>First name (A-Z)</sl-menu-item>
           <sl-menu-item selectable>First name (Z-A)</sl-menu-item>
           <sl-menu-item selectable>Last name (A-Z)</sl-menu-item>

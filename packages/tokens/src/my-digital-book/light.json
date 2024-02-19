@@ -1621,7 +1621,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.primary.500}",
+                "value": "{color.palette.primary.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },

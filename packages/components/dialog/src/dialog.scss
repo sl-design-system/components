@@ -41,6 +41,7 @@ dialog {
   );
   max-inline-size: var(--_max-inline-size);
   opacity: 0;
+  overflow: visible;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
 }

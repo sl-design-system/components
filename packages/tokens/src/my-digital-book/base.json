@@ -3,84 +3,84 @@
     "palette": {
       "primary": {
         "50": {
-          "value": "#F2DAEC",
+          "value": "#E8F3FF",
           "type": "color",
           "description": "color.palette.primary.50"
         },
         "100": {
-          "value": "#E5B3D7",
+          "value": "#B3D1F3",
           "type": "color",
           "description": "color.palette.primary.100"
         },
         "150": {
-          "value": "#D78CC3",
+          "value": "#A3C3E7",
           "type": "color",
           "description": "color.palette.primary.150"
         },
         "200": {
-          "value": "#CA65AE",
+          "value": "#82ADDE",
           "type": "color",
           "description": "color.palette.primary.200"
         },
         "300": {
-          "value": "#BC3D9A",
+          "value": "#528ED3",
           "type": "color",
           "description": "color.palette.primary.300"
         },
         "400": {
-          "value": "#AF1685",
+          "value": "#2878D2",
           "type": "color",
           "description": "color.palette.primary.400"
         },
         "500": {
-          "value": "#91126F",
+          "value": "#1E68BC",
           "type": "color",
           "description": "color.palette.primary.500"
         },
         "600": {
-          "value": "#740F58",
+          "value": "#174F90",
           "type": "color",
           "description": "color.palette.primary.600"
         },
         "700": {
-          "value": "#560B42",
+          "value": "#103764",
           "type": "color",
           "description": "color.palette.primary.700"
         },
         "800": {
-          "value": "#39072B",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "description": "color.palette.primary.800"
         },
         "900": {
-          "value": "#1B0315",
+          "value": "#091F38",
           "type": "color",
           "description": "color.palette.primary.900"
         },
         "base": {
-          "value": "#AF1685",
+          "value": "#002044",
           "type": "color",
           "description": "color.palette.primary.base"
         }
       },
       "accent": {
         "50": {
-          "value": "#FDF2D7",
+          "value": "#FFECE7",
           "type": "color",
           "description": "color.palette.accent.50"
         },
         "100": {
-          "value": "#FBE3AC",
+          "value": "#FEC3B5",
           "type": "color",
           "description": "color.palette.accent.100"
         },
         "150": {
-          "value": "#F9D581",
+          "value": "#FD9A83",
           "type": "color",
           "description": "color.palette.accent.150"
         },
         "200": {
-          "value": "#F6C656",
+          "value": "#FC7051",
           "type": "color",
           "description": "color.palette.accent.200"
         },
@@ -90,7 +90,7 @@
           "description": "color.palette.accent.300"
         },
         "400": {
-          "value": "#F2A900",
+          "value": "{color.palette.accent.base}",
           "type": "color",
           "description": "color.palette.accent.400"
         },
@@ -100,27 +100,27 @@
           "description": "color.palette.accent.500"
         },
         "600": {
-          "value": "#A07000",
+          "value": "#E32D04",
           "type": "color",
           "description": "color.palette.accent.600"
         },
         "700": {
-          "value": "#785400",
+          "value": "#7F1902",
           "type": "color",
           "description": "color.palette.accent.700"
         },
         "800": {
-          "value": "#4F3700",
+          "value": "#4D0F01",
           "type": "color",
           "description": "color.palette.accent.800"
         },
         "900": {
-          "value": "#261B00",
+          "value": "#2D0F04",
           "type": "color",
           "description": "color.palette.accent.900"
         },
         "base": {
-          "value": "#F2A900",
+          "value": "#FB471F",
           "type": "color",
           "description": "color.palette.accent.base"
         }

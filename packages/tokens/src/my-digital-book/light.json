@@ -1025,7 +1025,7 @@
               "description": "color.button.warning.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.warning.500}",
+              "value": "{color.palette.warning.600}",
               "type": "color",
               "description": "color.button.warning.outline.idle.foreground"
             },
@@ -1095,7 +1095,7 @@
               "description": "color.button.warning.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.warning.500}",
+              "value": "{color.palette.warning.600}",
               "type": "color",
               "description": "color.button.warning.outline.idle.foreground"
             },
@@ -1112,7 +1112,7 @@
               "description": "color.button.warning.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.warning.600}",
+              "value": "{color.palette.warning.700}",
               "type": "color",
               "description": "color.button.warning.outline.hover.foreground"
             },
@@ -1129,7 +1129,7 @@
               "description": "color.button.warning.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.warning.700}",
+              "value": "{color.palette.warning.800}",
               "type": "color",
               "description": "color.button.warning.outline.active.foreground"
             },
@@ -3594,15 +3594,15 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.500}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.500}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.500}",
           "type": "color"
         }
       },
@@ -3630,7 +3630,7 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.warning.700}",
+          "value": "{color.palette.warning.600}",
           "type": "color"
         },
         "border": {

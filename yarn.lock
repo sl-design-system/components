@@ -5190,7 +5190,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/dialog@workspace:packages/components/dialog":
+"@sl-design-system/dialog@npm:0.0.7, @sl-design-system/dialog@workspace:packages/components/dialog":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/dialog@workspace:packages/components/dialog"
   dependencies:
@@ -5326,6 +5326,17 @@ __metadata:
   resolution: "@sl-design-system/max@workspace:packages/themes/max"
   dependencies:
     "@sl-design-system/icon": "npm:0.0.7"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/message-dialog@workspace:packages/components/message-dialog":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/message-dialog@workspace:packages/components/message-dialog"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button": "npm:0.0.18"
+    "@sl-design-system/dialog": "npm:0.0.7"
   languageName: unknown
   linkType: soft
 

@@ -65,27 +65,27 @@
       },
       "accent": {
         "50": {
-          "value": "#FFECE7",
+          "value": "#FEE2DC",
           "type": "color",
           "description": "color.palette.accent.50"
         },
         "100": {
-          "value": "#FEC3B5",
+          "value": "#FEC3B6",
           "type": "color",
           "description": "color.palette.accent.100"
         },
         "150": {
-          "value": "#FD9A83",
+          "value": "#FDA490",
           "type": "color",
           "description": "color.palette.accent.150"
         },
         "200": {
-          "value": "#FC7051",
+          "value": "#FC856B",
           "type": "color",
           "description": "color.palette.accent.200"
         },
         "300": {
-          "value": "#F4B82B",
+          "value": "#FC6645",
           "type": "color",
           "description": "color.palette.accent.300"
         },
@@ -95,7 +95,7 @@
           "description": "color.palette.accent.400"
         },
         "500": {
-          "value": "#C98D00",
+          "value": "{color.palette.accent.base}",
           "type": "color",
           "description": "color.palette.accent.500"
         },

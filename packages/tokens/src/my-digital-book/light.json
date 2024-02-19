@@ -3684,7 +3684,7 @@
       },
       "warning": {
         "background": {
-          "value": "{color.palette.warning.base}",
+          "value": "{color.palette.warning.500}",
           "type": "color"
         },
         "foreground": {
@@ -3694,7 +3694,7 @@
       },
       "accent": {
         "background": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.accent.500}",
           "type": "color"
         },
         "foreground": {
@@ -3725,11 +3725,11 @@
     },
     "avatar": {
       "background": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.primary.base}",
         "type": "color"
       },
       "foreground": {
-        "value": "{color.palette.black.base}",
+        "value": "{color.palette.white.base}",
         "type": "color"
       },
       "header": {

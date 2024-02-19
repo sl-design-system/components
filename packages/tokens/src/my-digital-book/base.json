@@ -95,27 +95,27 @@
           "description": "color.palette.accent.400"
         },
         "500": {
-          "value": "{color.palette.accent.base}",
+          "value": "#D13B1A",
           "type": "color",
           "description": "color.palette.accent.500"
         },
         "600": {
-          "value": "#E32D04",
+          "value": "#A62F15",
           "type": "color",
           "description": "color.palette.accent.600"
         },
         "700": {
-          "value": "#7F1902",
+          "value": "#7C230F",
           "type": "color",
           "description": "color.palette.accent.700"
         },
         "800": {
-          "value": "#4D0F01",
+          "value": "#52170A",
           "type": "color",
           "description": "color.palette.accent.800"
         },
         "900": {
-          "value": "#2D0F04",
+          "value": "#270B05",
           "type": "color",
           "description": "color.palette.accent.900"
         },

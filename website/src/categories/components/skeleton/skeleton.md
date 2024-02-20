@@ -9,7 +9,7 @@ packageName: skeleton
 eleventyNavigation:
   parent: Components
   key: Skeleton
-  order: 16
+  order: 17
   status: coming
 ---
 

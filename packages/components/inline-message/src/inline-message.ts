@@ -37,7 +37,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @private */
   @query('.wrapper') wrapper?: HTMLDivElement;
 
-  /** Determines whether closing button (default one) should be shown in the top right corner. */
+  /** Determines whether a (default) closing button should be shown in the top right corner. */
   @property({ type: Boolean, reflect: true }) dismissible = true;
 
   /** Determines whether the icon should be shown on the left side of the component. */

@@ -136,8 +136,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #showSubMenu(focus?: boolean): void {
-    console.log('showSubMenu', this.subMenu, focus);
-
     this.subMenu?.showPopover();
 
     if (focus) {

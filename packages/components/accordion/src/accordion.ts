@@ -210,6 +210,11 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     //   console.log('item in onClick', item);
     // });
 
+    if (!this.single /*|| event.defaultPrevented*/) {
+      // No toggling when `multiple` or the user prevents it.
+      return;
+    }
+
     this.items.forEach(item => {
       if (item !== event.target) {
         console.log('item in onClick', item);

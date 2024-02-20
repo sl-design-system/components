@@ -18,13 +18,6 @@
 :host(:hover) {
   --_background: var(--sl-color-select-item-hover-background);
   position: relative;
-
-  .submenu {
-    display: flex;
-    inset: calc(-1 * var(--sl-menu-padding)) auto auto calc(100%);
-    position: absolute;
-    z-index: 1;
-  }
 }
 
 :host(:active) {
@@ -36,8 +29,8 @@
 }
 
 :host([disabled]) {
-  --_color: var(--sl-color-select-item-disabled-foreground);
   --_cursor: default;
+  color: var(--sl-color-select-item-disabled-foreground);
   pointer-events: none;
 }
 
@@ -49,7 +42,6 @@
   align-items: center;
   background: var(--_background);
   border-radius: var(--_border-radius);
-  color: var(--_color);
   cursor: var(--_cursor);
   display: flex;
   gap: var(--_gap);

@@ -41,12 +41,10 @@
 
 :host([actual-placement^='left']) {
   margin-block-start: calc(-1 * var(--_offset));
-  margin-inline-start: calc(-1 * var(--_offset));
 }
 
 :host([actual-placement^='right']) {
   margin-block-start: calc(-1 * var(--_offset));
-  margin-inline-end: var(--_offset);
 }
 
 :host([actual-placement^='top']) {

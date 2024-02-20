@@ -19,12 +19,18 @@
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
   color: var(--_color);
+  display: none;
   flex-direction: column;
   padding-block: var(--_padding-block);
   padding-inline: 0;
+
+  @supports not selector(:popover-open) {
+    position: fixed;
+  }
 }
 
-:host(:popover-open) {
+/* stylelint-disable-next-line selector-class-pattern */
+:host(:where(:popover-open, .\\:popover-open)) {
   display: flex;
   margin: 0;
 }

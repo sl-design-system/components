@@ -85,18 +85,21 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   #onClick(): void {
     if (this.#popoverState !== 'open') {
       this.menu.showPopover();
+      this.menu.focus();
     }
   }
 
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'ArrowDown' && this.#popoverState !== 'open') {
       this.menu.showPopover();
+      this.menu.focus();
     }
   }
 
   #onSelect(): void {
     this.#updateSelected();
     this.menu.hidePopover();
+    this.button.focus();
   }
 
   #onToggle(event: ToggleEvent): void {

@@ -50,9 +50,13 @@ export class Menu extends LitElement {
     `;
   }
 
+  override focus(): void {
+    this.#rovingTabindexController.focus();
+  }
+
   #onClick(event: Event): void {
     if (event.target === this) {
-      this.#rovingTabindexController.focus();
+      this.focus();
     }
   }
 

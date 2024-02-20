@@ -674,6 +674,15 @@
           "name": "Menu",
           "members": [
             {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "selectableChildren",
               "type": {
@@ -726,6 +735,15 @@
           "tagName": "sl-menu",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
             {
               "kind": "method",
               "name": "#onClick",

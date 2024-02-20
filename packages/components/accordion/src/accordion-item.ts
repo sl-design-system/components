@@ -1,6 +1,6 @@
 // TODO: accordion item component
 import type { TemplateResult } from 'lit-html';
-import type { CSSResult, CSSResultGroup } from 'lit';
+import type { CSSResultGroup } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { localized } from '@lit/localize';
@@ -8,7 +8,7 @@ import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
 // import { EventsController } from '@sl-design-system/shared';
-import { LitElement, adoptStyles, html, unsafeCSS } from 'lit';
+import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './accordion-item.scss.js';
 
@@ -80,7 +80,7 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <details @toggle=${this.onToggle}>
+      <details @toggle=${this.onToggle} @click=${this.#onClick}>
         <summary><sl-icon name="xmark"></sl-icon> ${this.summary}</summary>
         <div class="panel">
           <slot @slotchange=${this.#onSlotChange}></slot>
@@ -95,41 +95,13 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     // this.#setIconProperties(assignedNodes);
   }
 
-  showModal(): void {
-    if (this.dialog?.open) {
-      return;
-    }
-
-    /**
-     * Workaround for the backdrop background: the backdrop doesn't inherit
-     * from the :root, so we cannot use tokens for the background-color.
-     * This needs to be removed in the future when the bug has been fixed:
-     * https://drafts.csswg.org/css-position-4/#backdrop
-     */
-    const backdrop: CSSResult = unsafeCSS(
-      `::backdrop {
-        background-color: ${getComputedStyle(this).getPropertyValue('--sl-body-surface-overlay')};
-      }
-    `
-    );
-
-    adoptStyles(this.shadowRoot!, [breakpoints, styles, backdrop]);
-
-    // Disable scrolling while the dialog is open
-    document.documentElement.style.overflow = 'hidden';
-
-    this.inert = false;
-    this.dialog?.showModal();
-  }
-
-  close(): void {
-    if (this.dialog?.open) {
-      this.#closeDialogOnAnimationend();
-    }
-  }
-
   onToggle(event: ToggleEvent): void {
-    console.log('event on toglle', event, event.target);
+    console.log('event on toglle', event, event.target, this.hasAttribute('disabled'));
+    // if (this.hasAttribute('disabled')) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    //   return;
+    // }
     this.toggleEvent.emit(event.newState);
     // if (this.hasAttribute('disabled')) {
     //   event.preventDefault();
@@ -150,19 +122,24 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
-    const rect = this.dialog!.getBoundingClientRect();
-
-    // Check if the user clicked on the sl-dialog-close button or on the backdrop
-    if (
-      event.target.matches('sl-button[sl-dialog-close]') ||
-      (!this.disableCancel &&
-        (event.clientY < rect.top ||
-          event.clientY > rect.bottom ||
-          event.clientX < rect.left ||
-          event.clientX > rect.right))
-    ) {
-      this.#closeDialogOnAnimationend(event.target, true);
+    if (this.hasAttribute('disabled')) {
+      event.preventDefault();
+      event.stopPropagation();
+      // return;
     }
+    // const rect = this.dialog!.getBoundingClientRect();
+    //
+    // // Check if the user clicked on the sl-dialog-close button or on the backdrop
+    // if (
+    //   event.target.matches('sl-button[sl-dialog-close]') ||
+    //   (!this.disableCancel &&
+    //     (event.clientY < rect.top ||
+    //       event.clientY > rect.bottom ||
+    //       event.clientX < rect.left ||
+    //       event.clientX > rect.right))
+    // ) {
+    //   this.#closeDialogOnAnimationend(event.target, true);
+    // }
   }
 
   #onClose(): void {

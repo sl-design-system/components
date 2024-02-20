@@ -144,6 +144,8 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
 
   #onToggle(/*event: Event*/ event: CustomEvent<string> & { target: AccordionItem }): void {
     console.log('event on toggle in main component', event, event.target, this.single);
+    event.preventDefault();
+    event.stopPropagation();
 
     if (!this.single /*|| event.defaultPrevented*/) {
       // No toggling when `multiple` or the user prevents it.

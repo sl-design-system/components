@@ -74,7 +74,7 @@ const OFFSET_SQUARE: Record<AvatarSize, number> = {
  *   <sl-avatar display-name="Lynn Smith" picture="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
  * ```
  *
- * @cssproperty --max-width: Max width of the container in ;
+ * @cssproperty --max-width - Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element.
  */
 export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -110,7 +110,10 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @private The image. */
   @state() image?: AvatarImage;
 
-  /** Experimental feature, use with great caution. */
+  /** Text to show on the badge in the top right corner of the avatar.
+   * Be aware this text should not be more then a few characters.
+   * Typically this option is used to show a number, for example unread messages.
+   * */
   @property({ attribute: 'badge-text' }) badgeText?: string;
 
   /** The fallback to use when there is no user image present.
@@ -145,9 +148,10 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** The name that needs to be displayed. */
   @property({ attribute: 'display-name' }) displayName?: string;
 
-  /** The initials that need to be displayed. If none are set they are determined based on the displayName*/
+  /** The initials that need to be displayed. If none are set they are determined based on the displayName .*/
   @property({ attribute: 'display-initials' }) displayInitials?: string;
 
+  /** The url of the avatar image. */
   @property({ attribute: 'picture-url' }) pictureUrl?: string;
 
   /** @private initials to render in the fallback avatar. */

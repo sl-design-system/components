@@ -50,8 +50,8 @@
           "name": "Avatar",
           "cssProperties": [
             {
-              "description": "Max width of the container in ;",
-              "name": "--max-width:"
+              "description": "Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element.",
+              "name": "--max-width"
             }
           ],
           "members": [
@@ -61,7 +61,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Experimental feature, use with great caution.",
+              "description": "Text to show on the badge in the top right corner of the avatar.\nBe aware this text should not be more then a few characters.\nTypically this option is used to show a number, for example unread messages.",
               "attribute": "badge-text"
             },
             {
@@ -70,7 +70,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName",
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
               "attribute": "display-initials"
             },
             {
@@ -129,6 +129,7 @@
               "type": {
                 "text": "string | undefined"
               },
+              "description": "The url of the avatar image.",
               "attribute": "picture-url"
             },
             {
@@ -159,7 +160,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Experimental feature, use with great caution.",
+              "description": "Text to show on the badge in the top right corner of the avatar.\nBe aware this text should not be more then a few characters.\nTypically this option is used to show a number, for example unread messages.",
               "fieldName": "badgeText"
             },
             {
@@ -227,7 +228,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName",
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
               "fieldName": "displayInitials"
             },
             {
@@ -235,6 +236,7 @@
               "type": {
                 "text": "string | undefined"
               },
+              "description": "The url of the avatar image.",
               "fieldName": "pictureUrl"
             }
           ],

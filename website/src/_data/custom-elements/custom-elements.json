@@ -60,12 +60,12 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.\n\n```html\n  <sl-avatar user=\"{\n     name: {\n       first: 'Lynn',\n       last: 'Smith'\n     },\n     picture: {\n       thumbnail: 'http://sanomalearning.design/avatars/lynn.png'\n     }\n   }\"></sl-avatar>\n```",
+          "description": "An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.\n\n```html\n  <sl-avatar display-name=\"Lynn Smith\" picture=\"http://sanomalearning.design/avatars/lynn.png\"></sl-avatar>\n```",
           "name": "Avatar",
           "cssProperties": [
             {
-              "description": "Max width of the container in ;",
-              "name": "--max-width:"
+              "description": "Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element.",
+              "name": "--max-width"
             }
           ],
           "members": [
@@ -75,8 +75,26 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Experimental feature, use with great caution.",
+              "description": "Text to show on the badge in the top right corner of the avatar.\nBe aware this text should not be more then a few characters.\nTypically this option is used to show a number, for example unread messages.",
               "attribute": "badge-text"
+            },
+            {
+              "kind": "field",
+              "name": "displayInitials",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
+              "attribute": "display-initials"
+            },
+            {
+              "kind": "field",
+              "name": "displayName",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name that needs to be displayed.",
+              "attribute": "display-name"
             },
             {
               "kind": "field",
@@ -121,6 +139,15 @@
             },
             {
               "kind": "field",
+              "name": "pictureUrl",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The url of the avatar image.",
+              "attribute": "picture-url"
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
                 "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
@@ -139,15 +166,6 @@
               "description": "Optional user status to show.",
               "attribute": "status",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "user",
-              "type": {
-                "text": "UserProfile | undefined"
-              },
-              "description": "The user object.",
-              "attribute": "user"
             }
           ],
           "attributes": [
@@ -156,7 +174,7 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Experimental feature, use with great caution.",
+              "description": "Text to show on the badge in the top right corner of the avatar.\nBe aware this text should not be more then a few characters.\nTypically this option is used to show a number, for example unread messages.",
               "fieldName": "badgeText"
             },
             {
@@ -212,12 +230,28 @@
               "fieldName": "status"
             },
             {
-              "name": "user",
+              "name": "display-name",
               "type": {
-                "text": "UserProfile | undefined"
+                "text": "string | undefined"
               },
-              "description": "The user object.",
-              "fieldName": "user"
+              "description": "The name that needs to be displayed.",
+              "fieldName": "displayName"
+            },
+            {
+              "name": "display-initials",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
+              "fieldName": "displayInitials"
+            },
+            {
+              "name": "picture-url",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The url of the avatar image.",
+              "fieldName": "pictureUrl"
             }
           ],
           "mixins": [
@@ -11538,6 +11572,263 @@
           "declaration": {
             "name": "InlineMessage",
             "module": "../packages/components/inline-message/src/inline-message.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/message-dialog/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/message-dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/message-dialog/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-message-dialog",
+          "declaration": {
+            "name": "MessageDialog",
+            "module": "/packages/components/message-dialog/src/message-dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/message-dialog/src/message-dialog.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/message-dialog/src/message-dialog.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/message-dialog/src/message-dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A dialog for displaying messages to the user.",
+          "name": "MessageDialog",
+          "members": [
+            {
+              "kind": "method",
+              "name": "alert",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Alert')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "config",
+              "type": {
+                "text": "MessageDialogConfig<T> | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "confirm",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<boolean | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Confirm')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<T | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "MessageDialogConfig<T>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-message-dialog",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "alert",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Alert')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "confirm",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<boolean | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Confirm')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<T | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "MessageDialogConfig<T>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "config",
+              "type": {
+                "text": "MessageDialogConfig<T> | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MessageDialog",
+          "declaration": {
+            "name": "MessageDialog",
+            "module": "../packages/components/message-dialog/src/message-dialog.ts"
           }
         }
       ]

@@ -8,7 +8,7 @@
   --_box-shadow: var(--sl-elevation-shadow-md);
   --_color: var(--sl-color-popover-foreground);
   --_divider-margin-block: 4px;
-  --_offset: 4px;
+  --_offset: var(--sl-menu-offset, 4px);
   --_padding-block: var(--sl-menu-padding);
   --_padding-inline: var(--sl-menu-padding);
 }

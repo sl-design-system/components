@@ -66,13 +66,21 @@
             },
             {
               "kind": "field",
+              "name": "displayInitials",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName",
+              "attribute": "display-initials"
+            },
+            {
+              "kind": "field",
               "name": "displayName",
               "type": {
                 "text": "string | undefined"
               },
               "description": "The name that needs to be displayed.",
-              "attribute": "display-name",
-              "reflects": true
+              "attribute": "display-name"
             },
             {
               "kind": "field",
@@ -117,12 +125,11 @@
             },
             {
               "kind": "field",
-              "name": "picture",
+              "name": "pictureUrl",
               "type": {
                 "text": "string | undefined"
               },
-              "attribute": "picture",
-              "reflects": true
+              "attribute": "picture-url"
             },
             {
               "kind": "field",
@@ -216,11 +223,19 @@
               "fieldName": "displayName"
             },
             {
-              "name": "picture",
+              "name": "display-initials",
               "type": {
                 "text": "string | undefined"
               },
-              "fieldName": "picture"
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName",
+              "fieldName": "displayInitials"
+            },
+            {
+              "name": "picture-url",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "pictureUrl"
             }
           ],
           "mixins": [

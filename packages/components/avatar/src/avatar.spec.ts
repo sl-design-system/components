@@ -127,7 +127,7 @@ describe('sl-avatar', () => {
     const user = users[0];
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-avatar .display-name=${user.name} .picture-url=${user.picture}></sl-avatar>
+        <sl-avatar .displayName=${user.name} .pictureUrl=${user.picture}></sl-avatar>
       `);
       svg = el.renderRoot.querySelector('svg');
     });
@@ -143,7 +143,7 @@ describe('sl-avatar', () => {
   describe('positioning of elements', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-avatar .display-name=${users[0].name}></sl-avatar>
+        <sl-avatar .displayName=${users[0].name}></sl-avatar>
       `);
     })
 

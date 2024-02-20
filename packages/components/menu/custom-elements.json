@@ -48,6 +48,14 @@
         },
         {
           "kind": "custom-element-definition",
+          "name": "sl-menu-button",
+          "declaration": {
+            "name": "MenuButton",
+            "module": "/src/menu-button.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
           "name": "sl-menu-item",
           "declaration": {
             "name": "MenuItem",
@@ -60,6 +68,166 @@
           "declaration": {
             "name": "MenuItemGroup",
             "module": "/src/menu-item-group.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/menu-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "MenuButton",
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "fill",
+              "type": {
+                "text": "ButtonFill"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "attribute": "fill"
+            },
+            {
+              "kind": "field",
+              "name": "selects",
+              "type": {
+                "text": "'single' | 'multiple' | undefined"
+              },
+              "description": "Determines whether if and how many menu items can be selected.",
+              "attribute": "selects"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "attribute": "size"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "attribute": "variant"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "fill",
+              "type": {
+                "text": "ButtonFill"
+              },
+              "default": "'solid'",
+              "description": "The fill of the button.",
+              "fieldName": "fill"
+            },
+            {
+              "name": "selects",
+              "type": {
+                "text": "'single' | 'multiple' | undefined"
+              },
+              "description": "Determines whether if and how many menu items can be selected.",
+              "fieldName": "selects"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "ButtonSize"
+              },
+              "default": "'md'",
+              "description": "The size of the button.",
+              "fieldName": "size"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "ButtonVariant"
+              },
+              "default": "'default'",
+              "description": "The variant of the button.",
+              "fieldName": "variant"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-menu-button",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MenuButton",
+          "declaration": {
+            "name": "MenuButton",
+            "module": "src/menu-button.ts"
           }
         }
       ]

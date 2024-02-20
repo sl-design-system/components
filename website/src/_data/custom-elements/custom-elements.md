@@ -2337,11 +2337,11 @@
 
 ### Fields
 
-| Name          | Privacy | Type                                           | Default  | Description                                                                              | Inherited From |
-| ------------- | ------- | ---------------------------------------------- | -------- | ---------------------------------------------------------------------------------------- | -------------- |
-| `dismissible` |         | `boolean`                                      | `true`   | Determines whether closing button (default one) should be shown in the top right corner. |                |
-| `noIcon`      |         | `boolean \| undefined`                         |          | Determines whether the icon should be shown on the left side of the component.           |                |
-| `variant`     |         | `'info' \| 'success' \| 'warning' \| 'danger'` | `'info'` | The variant of the inline message.                                                       |                |
+| Name          | Privacy | Type                                           | Default  | Description                                                                            | Inherited From |
+| ------------- | ------- | ---------------------------------------------- | -------- | -------------------------------------------------------------------------------------- | -------------- |
+| `dismissible` |         | `boolean`                                      | `true`   | Determines whether a (default) closing button should be shown in the top right corner. |                |
+| `noIcon`      |         | `boolean \| undefined`                         |          | Determines whether the icon should be shown on the left side of the component.         |                |
+| `variant`     |         | `'info' \| 'success' \| 'warning' \| 'danger'` | `'info'` | The variant of the inline message.                                                     |                |
 
 ### Attributes
 

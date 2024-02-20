@@ -20,10 +20,13 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** Events controller. */
   #events = new EventsController(this, {
-    click: this.#onClick
+    click: this.#onClick,
+    keydown: this.#onKeydown
   });
 
+  /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
 
   /** Emits when the user toggles the selected state. */
@@ -88,6 +91,15 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     if (this.selectable) {
       this.selected = !this.selected;
       this.selectEvent.emit(this.selected);
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.#onClick(event);
     }
   }
 

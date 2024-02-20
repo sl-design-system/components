@@ -567,6 +567,23 @@
             },
             {
               "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onShortcut",
               "return": {
                 "type": {
@@ -615,13 +632,15 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })",
+              "description": "Events controller."
             },
             {
               "kind": "field",
               "name": "#shortcut",
               "privacy": "private",
-              "default": "new ShortcutController(this)"
+              "default": "new ShortcutController(this)",
+              "description": "Shortcut controller."
             },
             {
               "kind": "field",
@@ -709,6 +728,23 @@
           "methods": [
             {
               "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onSelect",
               "return": {
                 "type": {
@@ -745,12 +781,27 @@
           "fields": [
             {
               "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, {\n    click: this.#onClick\n  })",
+              "description": "Events controller."
+            },
+            {
+              "kind": "field",
               "name": "#menuItems",
               "privacy": "private",
               "type": {
                 "text": "MenuItem[]"
               },
-              "default": "[]"
+              "default": "[]",
+              "description": "The menu items."
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<MenuItem>(this, {\n    focusInIndex: (elements: MenuItem[]) => elements.findIndex(el => !el.disabled),\n    elements: () => this.#menuItems || [],\n    isFocusableElement: (el: MenuItem) => !el.disabled\n  })",
+              "description": "Manage the keyboard navigation."
             },
             {
               "kind": "field",

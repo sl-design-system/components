@@ -1,4 +1,4 @@
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './menu.scss.js';
@@ -9,7 +9,20 @@ export class Menu extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** Events controller. */
+  #events = new EventsController(this, {
+    click: this.#onClick
+  });
+
+  /** The menu items. */
   #menuItems: MenuItem[] = [];
+
+  /** Manage the keyboard navigation. */
+  #rovingTabindexController = new RovingTabindexController<MenuItem>(this, {
+    focusInIndex: (elements: MenuItem[]) => elements.findIndex(el => !el.disabled),
+    elements: () => this.#menuItems || [],
+    isFocusableElement: (el: MenuItem) => !el.disabled
+  });
 
   /** Emits when the menu item selection changes. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<void>;
@@ -37,6 +50,12 @@ export class Menu extends LitElement {
     `;
   }
 
+  #onClick(event: Event): void {
+    if (event.target === this) {
+      this.#rovingTabindexController.focus();
+    }
+  }
+
   async #onSelect(event: Event): Promise<void> {
     if (this.selects && this.#menuItems.includes(event.target as MenuItem)) {
       event.preventDefault();
@@ -56,14 +75,26 @@ export class Menu extends LitElement {
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    const assignedElements = event.target.assignedElements({ flatten: true });
+    let menuItems: MenuItem[];
 
-    this.#menuItems = assignedElements.filter((element): element is MenuItem => element instanceof MenuItem);
+    if (this.querySelector('slot:not([name])')) {
+      menuItems = event.target
+        .assignedElements({ flatten: true })
+        .filter((element): element is MenuItem => element instanceof MenuItem);
+    } else {
+      menuItems = Array.from(this.querySelectorAll('sl-menu-item')).filter(
+        element => element.closest('sl-menu') === this
+      );
+    }
 
-    this.selectableChildren = assignedElements.some(element => {
+    this.#menuItems = menuItems;
+
+    this.selectableChildren = menuItems.some(element => {
       return (
         (element instanceof MenuItem && element.selectable) || (element instanceof MenuItemGroup && element.selects)
       );
     });
+
+    this.#rovingTabindexController.clearElementCache();
   }
 }

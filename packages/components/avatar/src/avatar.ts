@@ -143,12 +143,18 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) status?: UserStatus;
 
   /** The name that needs to be displayed. */
-  @property({ reflect: true, attribute: 'display-name' }) displayName?: string;
+  @property({ attribute: 'display-name' }) displayName?: string;
 
-  @property({ reflect: true }) picture?: string;
+  /** The initials that need to be displayed. If none are set they are determined based on the displayName*/
+  @property({ attribute: 'display-initials' }) displayInitials?: string;
+
+  @property({ attribute: 'picture-url' }) pictureUrl?: string;
 
   /** @private initials to render in the fallback avatar. */
   get initials(): string {
+    if (this.displayInitials) {
+      return this.displayInitials;
+    }
     if (this.displayName) {
       const names = this.displayName.split(' ');
       return names[0].substring(0, 1) + names[names.length - 1].substring(0, 1);
@@ -195,7 +201,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       this.#checkOverflow();
     }
 
-    if (changes.has('picture')) {
+    if (changes.has('pictureUrl')) {
+      // console.log('changed pictureURL');
+      await this.#setBaseValues();
       this.errorLoadingImage = false;
     }
   }
@@ -209,6 +217,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
         : html`
             <div>
               <span class="header">${this.displayName}</span>
+
               ${this.size === 'sm' && this.orientation === 'horizontal'
                 ? nothing
                 : html`<slot class="subheader"></slot>`}
@@ -322,7 +331,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   #renderImage(): TemplateResult | void {
     const { x, y, size } = this.image!;
 
-    if (!this.errorLoadingImage && this.picture) {
+    if (!this.errorLoadingImage && this.pictureUrl) {
       return svg`
         <image
           @error=${() => (this.errorLoadingImage = true)}
@@ -331,12 +340,12 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
           y=${y}
           height=${size}
           width=${size}
-          href=${this.picture}
+          href=${this.pictureUrl}
           mask="url(#circle)"
           preserveAspectRatio="xMidYMid slice"
         ></image>
       `;
-    } else if (this.displayName && this.fallback === 'initials') {
+    } else if (this.initials && this.fallback === 'initials') {
       return svg`
         <rect
           x=${x}

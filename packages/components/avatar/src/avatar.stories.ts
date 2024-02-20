@@ -12,7 +12,7 @@ interface Props
   > {
   title: string;
   displayName: string;
-  picture: string;
+  pictureUrl: string;
   imageOnly: boolean;
   orientation: AvatarOrientation;
   subheading: string;
@@ -46,6 +46,7 @@ const users: Array<{ name: string; picture?: string }> = [
     picture: 'https://randomuser.me/api/portraits/thumb/women/10.jpg'
   }
 ];
+
 const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 const fallbacks: AvatarFallbackType[] = ['image', 'initials'];
 const orientations: AvatarOrientation[] = ['horizontal', 'vertical'];
@@ -84,7 +85,7 @@ export default {
   title: 'Avatar',
   args: {
     displayName: 'Rose Nylund',
-    picture:
+    pictureUrl:
       'https://images.unsplash.com/photo-1699412958387-2fe86d46d394?q=80&w=188&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     imageOnly: false,
     badgeText: '34',
@@ -123,7 +124,7 @@ export default {
   },
   render: ({
     displayName,
-    picture,
+    pictureUrl,
     size,
     fallback,
     status,
@@ -136,7 +137,7 @@ export default {
     return html`<div style="max-width:175px;">
       <sl-avatar
         display-name=${displayName}
-        .picture=${picture}
+        picture-url=${pictureUrl}
         .size=${size}
         .fallback=${fallback}
         .status=${status}
@@ -189,16 +190,18 @@ export const All: StoryObj = {
           ${sizes.map(
             size => html` <tr>
               <th>${sizeName(size)}</th>
-              <td><sl-avatar display-name=${users[0].name} .picture=${users[0].picture} .size=${size}></sl-avatar></td>
               <td>
-                <sl-avatar display-name=${users[2].name} .picture=${users[2].picture} .size=${size}
+                <sl-avatar display-name=${users[0].name} .pictureUrl=${users[0].picture} .size=${size}></sl-avatar>
+              </td>
+              <td>
+                <sl-avatar display-name=${users[2].name} .pictureUrl=${users[2].picture} .size=${size}
                   >Subheader</sl-avatar
                 >
               </td>
               <td>
                 <sl-avatar
                   display-name=${users[2].name}
-                  .picture="${users[2].picture}"
+                  .pictureUrl="${users[2].picture}"
                   .size=${size}
                   orientation="vertical"
                   >Subheader
@@ -211,7 +214,7 @@ export const All: StoryObj = {
               <td>
                 <sl-avatar
                   display-name=${users[2].name}
-                  .picture=${users[2].picture}
+                  .pictureUrl=${users[2].picture}
                   .size=${size}
                   image-only
                 ></sl-avatar>
@@ -219,7 +222,7 @@ export const All: StoryObj = {
               <td>
                 <sl-avatar
                   display-name=${users[1].name}
-                  .picture=${users[1].picture}
+                  .pictureUrl=${users[1].picture}
                   .size=${size}
                   image-only
                   status="success"
@@ -228,7 +231,7 @@ export const All: StoryObj = {
               <td>
                 <sl-avatar
                   display-name=${users[0].name}
-                  .picture=${users[0].picture}
+                  .pictureUrl=${users[0].picture}
                   .size=${size}
                   image-only
                   badge-text="${badgeText}"

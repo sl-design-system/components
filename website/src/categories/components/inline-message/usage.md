@@ -46,10 +46,12 @@ Use an inline message to provide real-time feedback with information about what'
 ## When not to use
 
 ### Critical information
-Avoid using inline messages for critical system-level messages such as errors (e.g. loss of functionality). For critical messages, a component that partially or fully interrupts the user experience is more appropriate.
+Avoid using inline messages for critical system-level messages such as errors (e.g. loss of functionality). For critical messages, a component that partially or fully interrupts the user experience is more appropriate. Inline messages are not suitable for conveying critical system-level messages, such as errors or significant loss of functionality. 
+Critical alerts require immediate attention and should not be buried within the regular flow of content. Users need a more prominent and disruptive notification to address critical issues. For critical messages, consider using components that partially or fully interrupt the user experience, such as a [dialog](/categories/components/dialog/) or banner. These ensure that users cannot miss important information.
 
 ### Single input
-Avoid using inline messages to add context to a single input (e.g. text input). Use a hint instead.
+Avoid using inline messages to add context to a single input field (e.g., a text input). Inline messages are meant to provide additional context or supporting information related to UI elements. However, for a single input, they can clutter the interface and distract users from their primary task.
+Instead of inline messages, use [hints](/categories/components/form-field/) to guide users. Hints can be less intrusive and provide concise instructions without overwhelming the user.
 
 </section>
 

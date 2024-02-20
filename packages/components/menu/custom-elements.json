@@ -118,6 +118,14 @@
             },
             {
               "kind": "field",
+              "name": "pluralize",
+              "type": {
+                "text": "(count: number) => string | undefined"
+              },
+              "description": "Returns the string to be used when there is more than 1 item selected."
+            },
+            {
+              "kind": "field",
               "name": "selected",
               "type": {
                 "text": "string | undefined"
@@ -309,6 +317,14 @@
                 "text": "Menu"
               },
               "description": "The menu."
+            },
+            {
+              "kind": "field",
+              "name": "pluralize",
+              "type": {
+                "text": "(count: number) => string | undefined"
+              },
+              "description": "Returns the string to be used when there is more than 1 item selected."
             },
             {
               "kind": "field",

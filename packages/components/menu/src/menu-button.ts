@@ -1,4 +1,5 @@
 import { faAngleDown } from '@fortawesome/pro-regular-svg-icons';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
@@ -9,6 +10,7 @@ import styles from './menu-button.scss.js';
 
 Icon.register(faAngleDown);
 
+@localized()
 export class MenuButton extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -36,6 +38,9 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
 
   /** The menu. */
   @query('sl-menu') menu!: Menu;
+
+  /** Returns the string to be used when there is more than 1 item selected. */
+  @property({ attribute: false }) pluralize?: (count: number) => string;
 
   /** The text representing the selected menuitem(s). */
   @state() selected?: string;
@@ -108,6 +113,14 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   #updateSelected(): void {
     if (this.selects === 'single') {
       this.selected = this.querySelector('sl-menu-item[selected]')?.textContent?.trim();
+    } else if (this.selects === 'multiple') {
+      const count = this.querySelectorAll('sl-menu-item[selected]').length;
+
+      if (count > 1) {
+        this.selected = this.pluralize?.(count) ?? msg(`${count} selected`);
+      } else {
+        this.selected = this.querySelector('sl-menu-item[selected]')?.textContent?.trim();
+      }
     }
   }
 }

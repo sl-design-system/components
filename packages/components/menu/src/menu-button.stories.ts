@@ -6,7 +6,7 @@ import '@sl-design-system/icon/register.js';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 
-type Props = Pick<MenuButton, 'disabled' | 'fill' | 'selects' | 'size' | 'variant'> & {
+type Props = Pick<MenuButton, 'disabled' | 'fill' | 'pluralize' | 'selects' | 'size' | 'variant'> & {
   body: string | TemplateResult;
   menuItems?: () => TemplateResult;
 };
@@ -26,9 +26,16 @@ export default {
     size: 'md',
     variant: 'default'
   },
-  render: ({ body, disabled, fill, menuItems, selects, size, variant }) => {
+  render: ({ body, disabled, fill, menuItems, pluralize, selects, size, variant }) => {
     return html`
-      <sl-menu-button .disabled=${disabled} .fill=${fill} .selects=${selects} .size=${size} .variant=${variant}>
+      <sl-menu-button
+        .disabled=${disabled}
+        .fill=${fill}
+        .pluralize=${pluralize}
+        .selects=${selects}
+        .size=${size}
+        .variant=${variant}
+      >
         ${body ?? html`<div slot="button">${body}</div>`} ${menuItems?.()}
       </sl-menu-button>
     `;
@@ -72,7 +79,18 @@ export const SingleSelect: Story = {
   }
 };
 
-export const MultiSelect: Story = {};
+export const MultiSelect: Story = {
+  args: {
+    body: html`<span slot="button">Lists:</span>`,
+    menuItems: () => html`
+      <sl-menu-item selectable selected>Side projects</sl-menu-item>
+      <sl-menu-item selectable>Design systems</sl-menu-item>
+      <sl-menu-item selectable>Plugins</sl-menu-item>
+    `,
+    pluralize: count => `${count} list${count > 1 ? 's' : ''}`,
+    selects: 'multiple'
+  }
+};
 
 export const All: Story = {
   args: {

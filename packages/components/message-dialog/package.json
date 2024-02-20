@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/message-dialog",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Message dialog utility for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -40,7 +40,7 @@
   "dependencies": {
     "@lit/localize": "^0.12.1",
     "@open-wc/scoped-elements": "^3.0.5",
-    "@sl-design-system/button": "0.0.18",
-    "@sl-design-system/dialog": "0.0.7"
+    "@sl-design-system/button": "0.0.19",
+    "@sl-design-system/dialog": "0.0.8"
   }
 }

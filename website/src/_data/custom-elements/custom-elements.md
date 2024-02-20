@@ -1,3 +1,126 @@
+# `../packages/components/accordion/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package            |
+| ---- | ---- | ----------- | ------ | ------------------ |
+| `js` | `*`  | *           |        | ./src/accordion.js |
+
+# `../packages/components/accordion/register.ts`:
+
+## Exports
+
+| Kind                        | Name                | Declaration   | Module                                               | Package |
+| --------------------------- | ------------------- | ------------- | ---------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-accordion`      | Accordion     | /packages/components/accordion/src/accordion.js      |         |
+| `custom-element-definition` | `sl-accordion-item` | AccordionItem | /packages/components/accordion/src/accordion-item.js |         |
+
+# `../packages/components/accordion/src/accordion-item.ts`:
+
+## class: `AccordionItem`, `sl-accordion-item`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name            | Privacy | Type                        | Default    | Description                                                                                           | Inherited From |
+| --------------- | ------- | --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------- | -------------- |
+| `closeButton`   |         | `boolean \| undefined`      |            | Determines whether a close button should be shown in the top right corner.                            |                |
+| `disableCancel` |         | `boolean \| undefined`      |            | Disables the ability to cancel the dialog by pressing the Escape key&#xA;or clicking on the backdrop. |                |
+| `role`          |         | `'dialog' \| 'alertdialog'` | `'dialog'` | The ARIA role of the dialog.                                                                          |                |
+| `summary`       |         | `string`                    |            |                                                                                                       |                |
+
+### Methods
+
+| Name       | Privacy | Description | Parameters           | Return | Inherited From |
+| ---------- | ------- | ----------- | -------------------- | ------ | -------------- |
+| `onToggle` |         |             | `event: ToggleEvent` | `void` |                |
+
+### Events
+
+| Name          | Type                   | Description                                                                                                                                | Inherited From |
+| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `cancelEvent` | `EventEmitter<void>`   | Emits when the cancel has been cancelled. This happens when the user closes&#xA;the dialog using the escape key or clicks on the backdrop. |                |
+| `closeEvent`  | `EventEmitter<void>`   | Emits when the dialog has been closed.                                                                                                     |                |
+| `toggleEvent` | `EventEmitter<string>` | Emits when the accordion item has been toggled.                                                                                            |                |
+
+### Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `close-button`   | closeButton   |                |
+| `disable-cancel` | disableCancel |                |
+| `role`           | role          |                |
+| `summary`        | summary       |                |
+
+### Slots
+
+| Name      | Description |
+| --------- | ----------- |
+| `default` | ...         |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                 | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------ | ------- |
+| `js` | `AccordionItem` | AccordionItem | ../packages/components/accordion/src/accordion-item.ts |         |
+
+# `../packages/components/accordion/src/accordion.ts`:
+
+## class: `Accordion`, `sl-accordion`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name       | Privacy | Type                   | Default | Description                                                                                                | Inherited From |
+| ---------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined` |         | Whether the button is disabled; when set no interaction is possible.                                       |                |
+| `single`   |         | `boolean \| undefined` |         | Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened. |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `disabled` | disabled |                |
+| `single`   | single   |                |
+
+### Slots
+
+| Name      | Description                                                               |
+| --------- | ------------------------------------------------------------------------- |
+| `default` | Text label of the button. Optionally an <code>sl-icon</code> can be added |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                            | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `Accordion` | Accordion   | ../packages/components/accordion/src/accordion.ts |         |
+
 # `../packages/components/avatar/index.ts`:
 
 ## Exports
@@ -2368,6 +2491,75 @@
 | Kind | Name            | Declaration   | Module                                                      | Package |
 | ---- | --------------- | ------------- | ----------------------------------------------------------- | ------- |
 | `js` | `InlineMessage` | InlineMessage | ../packages/components/inline-message/src/inline-message.ts |         |
+
+# `../packages/components/message-dialog/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                 |
+| ---- | ---- | ----------- | ------ | ----------------------- |
+| `js` | `*`  | *           |        | ./src/message-dialog.js |
+
+# `../packages/components/message-dialog/register.ts`:
+
+## Exports
+
+| Kind                        | Name                | Declaration   | Module                                                    | Package |
+| --------------------------- | ------------------- | ------------- | --------------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-message-dialog` | MessageDialog | /packages/components/message-dialog/src/message-dialog.js |         |
+
+# `../packages/components/message-dialog/src/message-dialog.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                           | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/message-dialog/src/message-dialog.scss.ts |         |
+
+# `../packages/components/message-dialog/src/message-dialog.ts`:
+
+## class: `MessageDialog`, `sl-message-dialog`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Static Methods
+
+| Name      | Privacy | Description | Parameters                       | Return                          | Inherited From |
+| --------- | ------- | ----------- | -------------------------------- | ------------------------------- | -------------- |
+| `alert`   |         |             | `message: string, title`         | `Promise<void>`                 |                |
+| `confirm` |         |             | `message: string, title`         | `Promise<boolean \| undefined>` |                |
+| `show`    |         |             | `config: MessageDialogConfig<T>` | `Promise<T \| undefined>`       |                |
+
+### Fields
+
+| Name     | Privacy | Type                                  | Default | Description | Inherited From |
+| -------- | ------- | ------------------------------------- | ------- | ----------- | -------------- |
+| `config` |         | `MessageDialogConfig<T> \| undefined` |         |             |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters | Return | Inherited From |
+| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `close`     |         |             |            | `void` |                |
+| `showModal` |         |             |            | `void` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                      | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------- | ------- |
+| `js` | `MessageDialog` | MessageDialog | ../packages/components/message-dialog/src/message-dialog.ts |         |
 
 # `../packages/components/popover/index.ts`:
 

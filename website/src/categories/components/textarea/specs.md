@@ -2,7 +2,7 @@
 title: Textarea specs
 tags: specs
 eleventyNavigation:
-  parent: Textarea
+  parent: Text area
   key: TextareaSpecs
 ---
 <section>

@@ -22,7 +22,8 @@ export class Menu extends LitElement {
   /** Events controller. */
   #events = new EventsController(this, {
     click: this.#onClick,
-    keydown: this.#onKeydown
+    keydown: this.#onKeydown,
+    toggle: this.#onToggle
   });
 
   /** The menu items. */
@@ -151,5 +152,11 @@ export class Menu extends LitElement {
     });
 
     this.#rovingTabindexController.clearElementCache();
+  }
+
+  #onToggle(event: ToggleEvent): void {
+    if (event.newState === 'closed' && this.anchorElement instanceof MenuItem) {
+      this.anchorElement.focus();
+    }
   }
 }

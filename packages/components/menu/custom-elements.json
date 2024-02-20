@@ -909,6 +909,23 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "ToggleEvent"
+                  }
+                }
+              ]
             }
           ],
           "fields": [
@@ -923,7 +940,7 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown,\n    toggle: this.#onToggle\n  })",
               "description": "Events controller."
             },
             {

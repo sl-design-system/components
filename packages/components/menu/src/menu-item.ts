@@ -99,11 +99,19 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
+    if (this.disabled) {
+      return;
+    }
+
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       event.stopPropagation();
 
-      this.#onClick(event);
+      if (this.subMenu) {
+        this.#showSubMenu(true);
+      } else {
+        this.#onClick(event);
+      }
     } else if (event.key === 'ArrowRight') {
       event.preventDefault();
       event.stopPropagation();

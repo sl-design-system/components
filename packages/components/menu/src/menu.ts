@@ -69,7 +69,10 @@ export class Menu extends LitElement {
         });
       }
 
+      // Wait for the select event from the menu item to finish
+      // emitting before emitting our own select event.
       await this.updateComplete;
+
       this.selectEvent.emit();
     }
   }

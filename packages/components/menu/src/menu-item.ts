@@ -23,17 +23,19 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Events controller. */
   #events = new EventsController(this, {
     click: this.#onClick,
-    keydown: this.#onKeydown
+    keydown: this.#onKeydown,
+    pointerenter: this.#onPointerenter,
+    pointerleave: this.#onPointerleave
   });
 
   /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
 
-  /** Emits when the user toggles the selected state. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<boolean>;
-
   /** Whether this menu item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /** Emits when the user toggles the selected state. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<boolean>;
 
   /** Whether this menu item has been selected. */
   @property({ type: Boolean, reflect: true }) selected?: boolean;
@@ -88,7 +90,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    if (this.selectable) {
+    if (this.subMenu) {
+      this.#showSubMenu();
+    } else if (this.selectable) {
       this.selected = !this.selected;
       this.selectEvent.emit(this.selected);
     }
@@ -100,7 +104,20 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       event.stopPropagation();
 
       this.#onClick(event);
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      this.#showSubMenu(true);
     }
+  }
+
+  #onPointerenter(): void {
+    this.#showSubMenu();
+  }
+
+  #onPointerleave(): void {
+    this.#hideSubMenu();
   }
 
   #onShortcut(event: KeyboardEvent): void {
@@ -112,5 +129,23 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   #onSubmenuChange(event: Event & { target: HTMLSlotElement }): void {
     this.subMenu = event.target.assignedNodes().find((node): node is Menu => node instanceof Menu);
+
+    if (this.subMenu) {
+      this.subMenu.anchorElement = this;
+    }
+  }
+
+  #showSubMenu(focus?: boolean): void {
+    console.log('showSubMenu', this.subMenu, focus);
+
+    this.subMenu?.showPopover();
+
+    if (focus) {
+      this.subMenu?.focus();
+    }
+  }
+
+  #hideSubMenu(): void {
+    this.subMenu?.hidePopover();
   }
 }

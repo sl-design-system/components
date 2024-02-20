@@ -1,5 +1,12 @@
-import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import {
+  AnchorController,
+  type EventEmitter,
+  EventsController,
+  type PopoverPosition,
+  RovingTabindexController,
+  event
+} from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './menu.scss.js';
 import { MenuItemGroup } from './menu-item-group.js';
@@ -9,9 +16,13 @@ export class Menu extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** Controller for managing anchoring. */
+  #anchor = new AnchorController(this);
+
   /** Events controller. */
   #events = new EventsController(this, {
-    click: this.#onClick
+    click: this.#onClick,
+    keydown: this.#onKeydown
   });
 
   /** The menu items. */
@@ -19,10 +30,14 @@ export class Menu extends LitElement {
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<MenuItem>(this, {
-    focusInIndex: (elements: MenuItem[]) => elements.findIndex(el => !el.disabled),
+    direction: 'vertical',
     elements: () => this.#menuItems || [],
+    focusInIndex: (elements: MenuItem[]) => elements.findIndex(el => !el.disabled),
     isFocusableElement: (el: MenuItem) => !el.disabled
   });
+
+  /** The position of the menu relative to its anchor. */
+  @property() position?: PopoverPosition = 'right-start';
 
   /** Emits when the menu item selection changes. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<void>;
@@ -40,6 +55,14 @@ export class Menu extends LitElement {
     this.setAttribute('popover', '');
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('position')) {
+      this.#anchor.position = this.position;
+    }
+  }
+
   override render(): TemplateResult {
     return html`
       <slot
@@ -50,13 +73,29 @@ export class Menu extends LitElement {
     `;
   }
 
-  override focus(): void {
-    this.#rovingTabindexController.focus();
+  override focus(options?: FocusOptions): void {
+    this.#rovingTabindexController.focus(options);
   }
 
   #onClick(event: Event): void {
     if (event.target === this) {
       this.focus();
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (!(this.anchorElement instanceof MenuItem)) {
+      return;
+    }
+
+    const placement = this.getAttribute('actual-placement');
+
+    if (
+      (placement?.startsWith('right') && event.key === 'ArrowLeft') ||
+      (placement?.startsWith('left') && event.key === 'ArrowRight')
+    ) {
+      this.hidePopover();
+      this.anchorElement.focus();
     }
   }
 
@@ -85,10 +124,19 @@ export class Menu extends LitElement {
     let menuItems: MenuItem[];
 
     if (this.querySelector('slot:not([name])')) {
+      // Find all slotted nested menu items
       menuItems = event.target
         .assignedElements({ flatten: true })
-        .filter((element): element is MenuItem => element instanceof MenuItem);
+        .map(element => {
+          if (element instanceof MenuItem) {
+            return [element];
+          } else {
+            return Array.from(element.querySelectorAll('sl-menu-item'));
+          }
+        })
+        .flat(2);
     } else {
+      // Find all nested menu items in the light DOM
       menuItems = Array.from(this.querySelectorAll('sl-menu-item')).filter(
         element => element.closest('sl-menu') === this
       );

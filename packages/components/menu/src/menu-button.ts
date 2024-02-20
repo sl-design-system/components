@@ -1,7 +1,6 @@
 import { faAngleDown } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
-import { anchor } from '@sl-design-system/shared';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
@@ -54,10 +53,15 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
     super.firstUpdated(changes);
 
     this.menu.anchorElement = this.button;
+    this.menu.position = 'bottom-start';
+
     this.#updateSelected();
   }
 
   override render(): TemplateResult {
+    const assignedElements = Array.from(this.children).filter(el => el.slot === 'button'),
+      iconOnly = assignedElements.length === 1 && assignedElements[0].nodeName === 'SL-ICON';
+
     return html`
       <sl-button
         @click=${this.#onClick}
@@ -69,14 +73,9 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
       >
         <slot name="button"></slot>
         ${this.selects ? html`<span class="selected">${this.selected}</span>` : nothing}
-        ${this.hasAttribute('icon-only') ? nothing : html`<sl-icon name="far-angle-down"></sl-icon>`}
+        ${iconOnly ? nothing : html`<sl-icon name="far-angle-down"></sl-icon>`}
       </sl-button>
-      <sl-menu
-        @toggle=${this.#onToggle}
-        @sl-select=${this.#onSelect}
-        ${anchor({ position: 'bottom-start' })}
-        .selects=${this.selects}
-      >
+      <sl-menu @toggle=${this.#onToggle} @sl-select=${this.#onSelect} .selects=${this.selects}>
         <slot></slot>
       </sl-menu>
     `;

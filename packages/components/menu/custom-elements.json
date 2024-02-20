@@ -922,7 +922,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "ToggleEvent"
+                    "text": "Event"
                   }
                 }
               ]

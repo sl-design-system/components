@@ -154,8 +154,8 @@ export class Menu extends LitElement {
     this.#rovingTabindexController.clearElementCache();
   }
 
-  #onToggle(event: ToggleEvent): void {
-    if (event.newState === 'closed' && this.anchorElement instanceof MenuItem) {
+  #onToggle(event: Event): void {
+    if ((event as ToggleEvent).newState === 'closed' && this.anchorElement instanceof MenuItem) {
       this.anchorElement.focus();
     }
   }

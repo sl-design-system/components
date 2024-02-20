@@ -2369,6 +2369,75 @@
 | ---- | --------------- | ------------- | ----------------------------------------------------------- | ------- |
 | `js` | `InlineMessage` | InlineMessage | ../packages/components/inline-message/src/inline-message.ts |         |
 
+# `../packages/components/message-dialog/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                 |
+| ---- | ---- | ----------- | ------ | ----------------------- |
+| `js` | `*`  | *           |        | ./src/message-dialog.js |
+
+# `../packages/components/message-dialog/register.ts`:
+
+## Exports
+
+| Kind                        | Name                | Declaration   | Module                                                    | Package |
+| --------------------------- | ------------------- | ------------- | --------------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-message-dialog` | MessageDialog | /packages/components/message-dialog/src/message-dialog.js |         |
+
+# `../packages/components/message-dialog/src/message-dialog.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                                           | Package |
+| ---- | --------- | ----------- | ---------------------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/message-dialog/src/message-dialog.scss.ts |         |
+
+# `../packages/components/message-dialog/src/message-dialog.ts`:
+
+## class: `MessageDialog`, `sl-message-dialog`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Static Methods
+
+| Name      | Privacy | Description | Parameters                       | Return                          | Inherited From |
+| --------- | ------- | ----------- | -------------------------------- | ------------------------------- | -------------- |
+| `alert`   |         |             | `message: string, title`         | `Promise<void>`                 |                |
+| `confirm` |         |             | `message: string, title`         | `Promise<boolean \| undefined>` |                |
+| `show`    |         |             | `config: MessageDialogConfig<T>` | `Promise<T \| undefined>`       |                |
+
+### Fields
+
+| Name     | Privacy | Type                                  | Default | Description | Inherited From |
+| -------- | ------- | ------------------------------------- | ------- | ----------- | -------------- |
+| `config` |         | `MessageDialogConfig<T> \| undefined` |         |             |                |
+
+### Methods
+
+| Name        | Privacy | Description | Parameters | Return | Inherited From |
+| ----------- | ------- | ----------- | ---------- | ------ | -------------- |
+| `close`     |         |             |            | `void` |                |
+| `showModal` |         |             |            | `void` |                |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                      | Package |
+| ---- | --------------- | ------------- | ----------------------------------------------------------- | ------- |
+| `js` | `MessageDialog` | MessageDialog | ../packages/components/message-dialog/src/message-dialog.ts |         |
+
 # `../packages/components/popover/index.ts`:
 
 ## Exports

@@ -90,6 +90,14 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     // this.items.forEach(item => item.addEventListener('toggle', () => this.#onToggle));
   }
 
+  override disconnectedCallback(): void {
+    // this.items.forEach(item =>
+    //   item.renderRoot.querySelector('details')?.removeEventListener('click', () => this.#onClick)
+    // );
+
+    super.disconnectedCallback();
+  }
+
   /** @private */
   formDisabledCallback(disabled: boolean): void {
     if (disabled) {
@@ -111,20 +119,29 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     console.log('items', this.items);
 
     return html` <div class="wrapper">
-      <slot @sl-toggle=${this.#onToggle}></slot>
+      <slot @sl-toggle=${this.#onToggle} @click=${this.#onClick}></slot>
     </div>`;
   } // <slot @slotchange=${this.#onSlotChange}></slot>
   // TODO: onclick on details needed?
 
   override firstUpdated(): void {
-    console.log('items in firstUpdated', this.items, this.single);
+    console.log('items in firstUpdated', this.items, this.single, this.items[0]);
 
-    this.items.forEach(item => item.addEventListener('toggle', () => this.#onToggle));
+    // this.items.forEach(item => {
+    //   item.renderRoot.querySelector('details')?.addEventListener('click', () => this.#onClick);
+    //   console.log(
+    //     "item.renderRoot.querySelector('details')",
+    //     item.renderRoot as HTMLElement,
+    //     this.renderRoot.querySelector<HTMLElement>('details')
+    //   );
+    // }); // 'toggle'
     console.log(
       'this.items[0].firstChild',
       this.items[0].firstChild,
       this.items[0].renderRoot,
-      this.items[0].renderRoot.querySelectorAll('details')
+      this.items[0].renderRoot.children[0],
+      (this.items[0].renderRoot as HTMLElement).firstElementChild,
+      (this.items[0].renderRoot as HTMLElement).querySelector('details')
     );
   }
 
@@ -143,9 +160,9 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
 </details>*/
 
   #onToggle(/*event: Event*/ event: CustomEvent<string> & { target: AccordionItem }): void {
-    console.log('event on toggle in main component', event, event.target, this.single);
-    event.preventDefault();
-    event.stopPropagation();
+    console.log('event on toggle in main component', event, event.target, this.single, event.currentTarget);
+    // event.preventDefault();
+    // event.stopPropagation();
 
     if (!this.single /*|| event.defaultPrevented*/) {
       // No toggling when `multiple` or the user prevents it.
@@ -186,16 +203,28 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     // }
   }
 
-  // #onClick(/*event: Event*/): void {
-  //   // if (this.hasAttribute('disabled')) {
-  //   //   event.preventDefault();
-  //   //   event.stopPropagation();
-  //   // } else if (this.type === 'reset') {
-  //   //   this.internals.form?.reset();
-  //   // } else if (this.type === 'submit') {
-  //   //   this.internals.form?.requestSubmit();
-  //   // }
-  // }
+  #onClick(event: Event): void {
+    console.log('event onClick in main component', event, event.target, this.single, event.currentTarget);
+    // this.items.forEach(item => {
+    //   // item.addEventListener('click', () => this.#onClick);
+    //   console.log('item in onClick', item);
+    // });
+
+    this.items.forEach(item => {
+      if (item !== event.target) {
+        console.log('item in onClick', item);
+        item.renderRoot.querySelector('details')?.removeAttribute('open');
+      }
+    });
+    // if (this.hasAttribute('disabled')) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
+    // } else if (this.type === 'reset') {
+    //   this.internals.form?.reset();
+    // } else if (this.type === 'submit') {
+    //   this.internals.form?.requestSubmit();
+    // }
+  }
 
   // #onKeydown(event: KeyboardEvent): void {
   //   if (event.key === 'Enter' || event.key === ' ') {

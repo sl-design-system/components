@@ -102,7 +102,7 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     //   event.stopPropagation();
     //   return;
     // }
-    this.toggleEvent.emit(event.newState);
+    // this.toggleEvent.emit(event.newState);
     // if (this.hasAttribute('disabled')) {
     //   event.preventDefault();
     //   event.stopPropagation();

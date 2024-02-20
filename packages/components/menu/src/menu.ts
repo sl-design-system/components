@@ -16,6 +16,13 @@ export class Menu extends LitElement {
   /** Determines whether if and how many menu items can be selected. */
   @property() selects?: 'single' | 'multiple';
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.role = 'menu';
+    this.setAttribute('popover', '');
+  }
+
   override render(): TemplateResult {
     return html`
       <slot

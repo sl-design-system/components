@@ -1,5 +1,8 @@
+import { faGear } from '@fortawesome/pro-regular-svg-icons';
+import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import '@sl-design-system/icon/register.js';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 
@@ -8,6 +11,8 @@ type Props = Pick<MenuButton, 'disabled' | 'fill' | 'selects' | 'size' | 'varian
   menuItems?: () => TemplateResult;
 };
 type Story = StoryObj<Props>;
+
+Icon.register(faGear);
 
 export default {
   title: 'Menu button',
@@ -24,8 +29,7 @@ export default {
   render: ({ body, disabled, fill, menuItems, selects, size, variant }) => {
     return html`
       <sl-menu-button .disabled=${disabled} .fill=${fill} .selects=${selects} .size=${size} .variant=${variant}>
-        <div slot="button">${body}</div>
-        ${menuItems?.()}
+        ${body ?? html`<div slot="button">${body}</div>`} ${menuItems?.()}
       </sl-menu-button>
     `;
   }
@@ -33,6 +37,7 @@ export default {
 
 export const Basic: Story = {
   args: {
+    body: html`<sl-icon name="far-gear" slot="button"></sl-icon>`,
     menuItems: () => html`
       <sl-menu-item>
         <sl-icon name="far-pen"></sl-icon>

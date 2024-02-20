@@ -44,6 +44,13 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** The sub menu, if present. */
   @state() subMenu?: Menu;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.role = 'menuitem';
+    this.setAttribute('tabindex', '0');
+  }
+
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 

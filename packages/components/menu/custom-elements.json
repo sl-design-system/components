@@ -83,13 +83,20 @@
           "members": [
             {
               "kind": "field",
+              "name": "button",
+              "type": {
+                "text": "Button"
+              },
+              "description": "The button."
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean | undefined"
               },
               "description": "Whether the button is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true
+              "attribute": "disabled"
             },
             {
               "kind": "field",
@@ -100,6 +107,14 @@
               "default": "'solid'",
               "description": "The fill of the button.",
               "attribute": "fill"
+            },
+            {
+              "kind": "field",
+              "name": "menu",
+              "type": {
+                "text": "Menu"
+              },
+              "description": "The menu."
             },
             {
               "kind": "field",
@@ -196,12 +211,21 @@
                 "type": {
                   "text": "void"
                 }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
               },
               "parameters": [
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
+                    "text": "ToggleEvent"
                   }
                 }
               ]
@@ -217,6 +241,31 @@
               "static": true,
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#popoverState",
+              "privacy": "private",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The state of the menu popover."
+            },
+            {
+              "kind": "field",
+              "name": "button",
+              "type": {
+                "text": "Button"
+              },
+              "description": "The button."
+            },
+            {
+              "kind": "field",
+              "name": "menu",
+              "type": {
+                "text": "Menu"
+              },
+              "description": "The menu."
             }
           ]
         }

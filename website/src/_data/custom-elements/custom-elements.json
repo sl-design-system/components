@@ -11715,6 +11715,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/message-dialog/src/message-dialog.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/message-dialog/src/message-dialog.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/message-dialog/src/message-dialog.ts",
       "declarations": [
         {

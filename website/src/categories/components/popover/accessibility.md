@@ -7,32 +7,42 @@ eleventyNavigation:
 ---
 <section>
 
-## Popover accessibility content
+<section>
+  
+## Keyboard interactions
 
-This is the accessibility content
+Here's an overview of the common keyboard interactions associated with a popover:
+
+<div class="ds-table-wrapper">
+
+|Command|Description|
+|-|-|
+|`tab`|Toggles the popover when the element that triggers it is focussed.|
+|`esc`|Closes the popover.|
+
+{.ds-table .ds-table-align-top}
+
+</div>
 
 </section>
 
 <section>
 
-## Accessibility content section
 
-Another section
+## WAI-ARIA
+WAI-ARIA Roles, States, and Properties for a popover provide essential information to assistive technologies and screen readers. They convey the popovers's role, state, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
-</section>
+<sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it can be provided by the developer (yes)</sl-tooltip>
 
-<section> 
+<div class="ds-table-wrapper">
+  
+|Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
+|-|-|-|-|
+|`role`|`'popover'`|Declare our custom component as a popover.|no|
+|`aria-haspopup`|boolean|Indicates whether the popover has a popup menu or sub-level content.|yes|
 
-## Accessibility details
+{.ds-table .ds-table-align-top}
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>
-
-<section>
-
-## Behaviour
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
 </section>

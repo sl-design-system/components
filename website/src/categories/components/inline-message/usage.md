@@ -51,7 +51,7 @@ Critical alerts require immediate attention and should not be buried within the 
 
 ### Single input
 Avoid using inline messages to add context to a single input field (e.g., a text field). Inline messages are meant to provide additional context or supporting information related to UI elements. However, for a single input, they can clutter the interface and distract users from their primary task.
-Instead of inline messages, use [hints](/categories/components/form-field/) to guide users. Hints can be less intrusive and provide concise instructions without overwhelming the user.
+Instead of inline messages, use [hints](/categories/components/form-field/) to guide users. Hints are less intrusive and provide concise instructions without overwhelming the user.
 
 </section>
 

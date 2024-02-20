@@ -30,6 +30,6 @@
   "dependencies": {
     "@floating-ui/dom": "^1.5.4",
     "lit": "^3.1.2",
-    "tinykeys": "^2.1.0"
+    "tinykeys": "patch:tinykeys@npm%3A2.1.0#~/.yarn/patches/tinykeys-npm-2.1.0-819feeaed0.patch"
   }
 }

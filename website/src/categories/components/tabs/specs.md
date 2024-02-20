@@ -1,9 +1,9 @@
 ---
-title: Tab group specs
+title: Tabs specs
 tags: specs
 eleventyNavigation:
-  parent: Tab group
-  key: TabGroupSpecs
+  parent: Tabs
+  key: TabsSpecs
 ---
 <section>
 

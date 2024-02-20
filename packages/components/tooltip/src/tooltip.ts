@@ -9,11 +9,14 @@ let nextUniqueId = 0;
 
 /**
  * Tooltip component.
+ *
+ * @slot default - The slot for the tooltip content.
  */
 export class Tooltip extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
 
+  /** To attach the `sl-tooltip` to the DOM tree and anchor element */
   static lazy(target: Element, callback: (target: Tooltip) => void): void {
     const createTooltip = (): void => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -62,7 +65,9 @@ export class Tooltip extends LitElement {
     }
   };
 
-  /** Tooltip position. */
+  /** Tooltip position.
+   * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
+   * */
   @property() position: PopoverPosition = 'top';
 
   override connectedCallback(): void {

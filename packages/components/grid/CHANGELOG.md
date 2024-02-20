@@ -1,5 +1,17 @@
 # @sl-design-system/grid
 
+## 0.0.36
+
+### Patch Changes
+
+- [#939](https://github.com/sl-design-system/components/pull/939) [`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997) - Add support for grouping rows by an item property
+
+- Updated dependencies [[`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997)]:
+  - @sl-design-system/shared@0.2.3
+  - @sl-design-system/checkbox@0.0.20
+  - @sl-design-system/popover@0.1.3
+  - @sl-design-system/text-field@0.1.15
+
 ## 0.0.35
 
 ### Patch Changes

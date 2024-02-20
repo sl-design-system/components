@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.2.3
+
+### Patch Changes
+
+- [#939](https://github.com/sl-design-system/components/pull/939) [`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997) - Add ability to group by to DataSource
+
 ## 0.2.2
 
 ### Patch Changes

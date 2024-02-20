@@ -1,3 +1,4 @@
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './menu.scss.js';
@@ -9,6 +10,9 @@ export class Menu extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   #menuItems: MenuItem[] = [];
+
+  /** Emits when the menu item selection changes. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<void>;
 
   /** Whether this menu has any children that can be selected. */
   @state() selectableChildren?: boolean;
@@ -33,7 +37,7 @@ export class Menu extends LitElement {
     `;
   }
 
-  #onSelect(event: Event): void {
+  async #onSelect(event: Event): Promise<void> {
     if (this.selects && this.#menuItems.includes(event.target as MenuItem)) {
       event.preventDefault();
       event.stopPropagation();
@@ -45,6 +49,9 @@ export class Menu extends LitElement {
           }
         });
       }
+
+      await this.updateComplete;
+      this.selectEvent.emit();
     }
   }
 

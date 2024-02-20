@@ -1,4 +1,4 @@
-import { faGear } from '@fortawesome/pro-regular-svg-icons';
+import { faGear, faList, faRectanglesMixed, faTableCells } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
@@ -12,7 +12,7 @@ type Props = Pick<MenuButton, 'disabled' | 'fill' | 'selects' | 'size' | 'varian
 };
 type Story = StoryObj<Props>;
 
-Icon.register(faGear);
+Icon.register(faGear, faList, faRectanglesMixed, faTableCells);
 
 export default {
   title: 'Menu button',
@@ -22,7 +22,7 @@ export default {
   args: {
     body: 'Button',
     disabled: false,
-    fill: 'solid',
+    fill: 'outline',
     size: 'md',
     variant: 'default'
   },
@@ -48,5 +48,26 @@ export const Basic: Story = {
         Delete...
       </sl-menu-item>
     `
+  }
+};
+
+export const SingleSelect: Story = {
+  args: {
+    body: html`<span slot="button">View:</span>`,
+    menuItems: () => html`
+      <sl-menu-item selectable selected shortcut="$mod+Digit1">
+        <sl-icon name="far-list"></sl-icon>
+        List
+      </sl-menu-item>
+      <sl-menu-item selectable shortcut="$mod+Digit2">
+        <sl-icon name="far-rectangles-mixed"></sl-icon>
+        Cards
+      </sl-menu-item>
+      <sl-menu-item selectable shortcut="$mod+Digit3">
+        <sl-icon name="far-table-cells"></sl-icon>
+        Grid
+      </sl-menu-item>
+    `,
+    selects: 'single'
   }
 };

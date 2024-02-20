@@ -104,7 +104,7 @@
               "type": {
                 "text": "ButtonFill"
               },
-              "default": "'solid'",
+              "default": "'outline'",
               "description": "The fill of the button.",
               "attribute": "fill"
             },
@@ -115,6 +115,14 @@
                 "text": "Menu"
               },
               "description": "The menu."
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The text representing the selected menuitem(s)."
             },
             {
               "kind": "field",
@@ -160,7 +168,7 @@
               "type": {
                 "text": "ButtonFill"
               },
-              "default": "'solid'",
+              "default": "'outline'",
               "description": "The fill of the button.",
               "fieldName": "fill"
             },
@@ -215,6 +223,32 @@
             },
             {
               "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSelect",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#onToggle",
               "return": {
                 "type": {
@@ -229,6 +263,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateSelected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [
@@ -266,6 +309,14 @@
                 "text": "Menu"
               },
               "description": "The menu."
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The text representing the selected menuitem(s)."
             }
           ]
         }
@@ -619,6 +670,24 @@
               },
               "description": "Determines whether if and how many menu items can be selected.",
               "attribute": "selects"
+            },
+            {
+              "kind": "event",
+              "name": "sl-select",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the menu item selection changes."
+            }
+          ],
+          "events": [
+            {
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the menu item selection changes.",
+              "fieldName": "selectEvent"
             }
           ],
           "attributes": [
@@ -643,7 +712,7 @@
               "name": "#onSelect",
               "return": {
                 "type": {
-                  "text": "void"
+                  "text": "Promise<void>"
                 }
               },
               "parameters": [

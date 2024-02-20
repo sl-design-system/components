@@ -27,7 +27,16 @@ export default {
     layout: 'centered'
   },
   render: ({ menuItems, selects }) => {
-    return html`<sl-menu .selects=${selects}>${menuItems()}</sl-menu>`;
+    setTimeout(() => document.querySelector('sl-menu')?.showPopover());
+
+    return html`
+      <style>
+        .root-menu {
+          margin: auto;
+        }
+      </style>
+      <sl-menu .selects=${selects} class="root-menu">${menuItems()}</sl-menu>
+    `;
   }
 } satisfies Meta<Props>;
 

@@ -148,7 +148,7 @@ export const All: Story = {
           <sl-icon name="far-pen"></sl-icon>
           Rename...
         </sl-menu-item>
-        <sl-menu-item>
+        <sl-menu-item disabled>
           <sl-icon name="far-trash"></sl-icon>
           Delete...
         </sl-menu-item>

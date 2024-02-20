@@ -1,7 +1,12 @@
 :host {
-  --_background: #fff;
+  --_background: var(--sl-color-select-item-background);
+  --_border-radius: var(--sl-border-radius-popover-default);
   --_cursor: pointer;
+  --_gap: 0.25rem;
   --_indent: calc(var(--sl-menu-item-indent, 0) * 26px + 6px);
+  --_gap-shortcut: 0.5rem;
+  --_gap-sub-menu-indicator: 1rem;
+  --_padding: 6px;
 }
 
 :host {
@@ -10,18 +15,23 @@
 }
 
 :host(:hover) {
-  --_background: #e0e0e0;
+  --_background: var(--sl-color-select-item-hover-background);
   position: relative;
 
   .submenu {
     display: flex;
-    inset: -4px auto auto calc(100%);
+    inset: calc(-1 * var(--sl-menu-padding)) auto auto calc(100%);
     position: absolute;
     z-index: 1;
   }
 }
 
+:host(:active) {
+  --_background: var(--sl-color-select-item-active-background);
+}
+
 :host([disabled]) {
+  --_color: var(--sl-color-select-item-disabled-foreground);
   --_cursor: default;
   pointer-events: none;
 }
@@ -33,11 +43,12 @@
 .wrapper {
   align-items: center;
   background: var(--_background);
-  border-radius: 6px;
+  border-radius: var(--_border-radius);
+  color: var(--_color);
   cursor: var(--_cursor);
   display: flex;
-  gap: 0.25rem;
-  padding: 6px;
+  gap: var(--_gap);
+  padding: var(--_padding);
   padding-inline-start: var(--_indent);
   white-space: nowrap;
 }
@@ -50,12 +61,12 @@ kbd {
   font-family: var(--sl-text-typeset-font-family-body);
   letter-spacing: 2px;
   margin-inline-start: auto;
-  padding-inline-start: 0.5rem;
+  padding-inline-start: var(--_gap-shortcut);
 }
 
 sl-icon[name='far-chevron-right'] {
   margin-inline-start: auto;
-  padding-inline-start: 1rem;
+  padding-inline-start: var(--_gap-sub-menu-indicator);
 }
 
 .submenu {

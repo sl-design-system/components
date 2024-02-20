@@ -1,26 +1,36 @@
 :host {
-  --_background: #fff;
+  --sl-menu-padding: 4px;
+  --_background: var(--sl-color-popover-background);
+  --_border: var(--_border-width) solid var(--_border-color);
+  --_border-color: var(--sl-color-popover-border);
+  --_border-width: 1px;
+  --_border-radius: var(--sl-border-radius-popover-default);
+  --_box-shadow: var(--sl-elevation-shadow-md);
+  --_color: var(--sl-color-popover-foreground);
+  --_padding: var(--sl-menu-padding);
+  --_divider-margin-block: 4px;
 }
 
 :host {
   background: var(--_background);
-  border: 1px solid #e9e9e9;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  color: var(--_color);
   display: flex;
   flex-direction: column;
-  padding-block: 4px;
+  padding-block: var(--_padding);
 }
 
 ::slotted(sl-menu-item),
 ::slotted(sl-menu-item-group) {
-  margin-inline: 4px;
+  margin-inline: var(--sl-menu-padding);
 }
 
 ::slotted(hr) {
   border: 0;
-  border-top: 1px solid #e9e9e9;
-  margin-block: 4px;
+  border-top: var(--_border);
+  margin-block: var(--_divider-margin-block);
   margin-inline: 0;
   padding: 0;
 }

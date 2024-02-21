@@ -5,27 +5,69 @@ eleventyNavigation:
   parent: Skeleton
   key: SkeletonUsage
 ---
+<style>
+.ds-example__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ds-example__skeleton section sl-skeleton {
+  min-block-size: 2rem;
+}
+
+.ds-example__skeleton section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+</style>
+
+<section class="no-heading">
+<div class="ds-example">
+  <div class="ds-example__skeleton">
+    <section aria-label="Loading subjects list">
+      <sl-skeleton effect="shimmer" style="inline-size: 40rem;"></sl-skeleton>
+      <sl-skeleton effect="shimmer" style="inline-size: 90%;"></sl-skeleton>
+      <sl-skeleton effect="shimmer" style="inline-size: 80%;"></sl-skeleton>
+    </section>
+  </div>
+</div>
+
+<div class="ds-code">
+
+  ```html
+    <section aria-label="Loading subjects list">
+      <sl-skeleton effect="shimmer"></sl-skeleton>
+      <sl-skeleton effect="shimmer"></sl-skeleton>
+      <sl-skeleton effect="shimmer"></sl-skeleton>
+    </section>
+  ```
+
+</div>
+</section>
+
 <section>
 
-## Skeleton Usage
+## When to use
 
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Loading states
+Use skeletons to represent content while data is being fetched. For instance, display a skeleton list before actual items load.
+
+### Page transitions
+During page transitions or navigation, show skeletons to indicate that content is loading. This maintains user engagement.
+
+### Image loading
+When images take time to load, display image placeholders using skeletons. Users perceive faster loading times.
 
 </section>
 
 <section>
 
-## How to use
+## When not to use
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>
-
-<section>
-
-## Content
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Misleading expectations
+Don’t use skeletons if they might mislead users. For instance, showing a skeleton for a feature that won’t load can frustrate users.
 
 </section>
+

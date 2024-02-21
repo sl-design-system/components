@@ -209,22 +209,19 @@ export const All: StoryObj = {
                 <td>${c}</td>
                 ${sizes.map(
                   size =>
-                    html`${states.map(
-                        state =>
-                          html`
-                            <td>
-                              <sl-radio
-                                ?checked=${c === 'checked'}
-                                ?invalid=${state === 'invalid'}
-                                ?required=${state === 'invalid'}
-                                ?valid=${state === 'valid'}
-                                size=${size}
-                                data-mock-state
-                                >Label
-                              </sl-radio>
-                            </td>
-                          `
-                      )}
+                    html` <td>
+                        <sl-radio ?checked=${c === 'checked'} size=${size} data-mock-state>Label </sl-radio>
+                      </td>
+                      <td>
+                        <sl-radio ?checked=${c === 'checked'} show-validity="valid" size=${size} data-mock-state
+                          >Label
+                        </sl-radio>
+                      </td>
+                      <td>
+                        <sl-radio ?checked=${c === 'checked'} show-validity="invalid" size=${size} data-mock-state
+                          >Label
+                        </sl-radio>
+                      </td>
                       <td>
                         <sl-radio ?checked=${c === 'checked'} size=${size} disabled data-mock-state>Label </sl-radio>
                       </td>`

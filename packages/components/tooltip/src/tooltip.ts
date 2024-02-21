@@ -13,8 +13,14 @@ let nextUniqueId = 0;
  * @slot default - The slot for the tooltip content.
  */
 export class Tooltip extends LitElement {
+  /** The default offset of the tooltip to its anchor. */
+  static offset = 12;
+
   /** @private */
   static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
+
+  /** The default margin between the tooltip and the viewport. */
+  static viewportMargin = 8;
 
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
   static lazy(target: Element, callback: (target: Tooltip) => void): void {
@@ -38,11 +44,8 @@ export class Tooltip extends LitElement {
     ['focusin', 'pointerover'].forEach(eventName => target.addEventListener(eventName, createTooltip));
   }
 
-  /** Tooltip max-width. */
-  @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
-
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this, { maxWidth: this.maxWidth });
+  #anchor = new AnchorController(this, { offset: Tooltip.offset, viewportMargin: Tooltip.viewportMargin });
 
   /** Events controller. */
   #events = new EventsController(this);
@@ -65,9 +68,13 @@ export class Tooltip extends LitElement {
     }
   };
 
-  /** Tooltip position.
+  /** The maximum width of the tooltip. */
+  @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
+
+  /**
+   * Position of the tooltip relative to its anchor.
    * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
-   * */
+   */
   @property() position: PopoverPosition = 'top';
 
   override connectedCallback(): void {

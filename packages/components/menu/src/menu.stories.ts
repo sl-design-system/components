@@ -1,8 +1,12 @@
 import {
   faArrowUpShortWide,
+  faBook,
+  faCode,
+  faGear,
   faList,
   faPen,
   faRectanglesMixed,
+  faRocket,
   faTableCells,
   faTableRows,
   faTrash
@@ -19,7 +23,20 @@ import { type Menu } from './menu.js';
 type Props = Pick<Menu, 'selects'> & { menuItems: () => TemplateResult };
 type Story = StoryObj<Props>;
 
-Icon.register(faArrowUpShortWide, faRectanglesMixed, faList, faPen, faPeople, faTableCells, faTableRows, faTrash);
+Icon.register(
+  faArrowUpShortWide,
+  faBook,
+  faCode,
+  faGear,
+  faList,
+  faPen,
+  faPeople,
+  faRectanglesMixed,
+  faRocket,
+  faTableCells,
+  faTableRows,
+  faTrash
+);
 
 export default {
   title: 'Menu',
@@ -51,6 +68,32 @@ export const Basic: Story = {
         <sl-icon name="far-trash"></sl-icon>
         Delete...
       </sl-menu-item>
+    `
+  }
+};
+
+export const Grouped: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>
+        <sl-icon name="far-code"></sl-icon>
+        Components
+      </sl-menu-item>
+      <sl-menu-item>
+        <sl-icon name="far-gear"></sl-icon>
+        Settings
+      </sl-menu-item>
+      <hr />
+      <sl-menu-item-group heading="Design System">
+        <sl-menu-item>
+          <sl-icon name="far-rocket"></sl-icon>
+          What's new
+        </sl-menu-item>
+        <sl-menu-item>
+          <sl-icon name="far-book"></sl-icon>
+          Documentation
+        </sl-menu-item>
+      </sl-menu-item-group>
     `
   }
 };

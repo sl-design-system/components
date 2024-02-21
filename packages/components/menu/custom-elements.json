@@ -390,9 +390,28 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A group of menu items, use this if you want to group menu items in a menu with\nother menu items.",
           "name": "MenuItemGroup",
+          "slots": [
+            {
+              "description": "The menu items.",
+              "name": "default"
+            },
+            {
+              "description": "The header of the group.",
+              "name": "header"
+            }
+          ],
           "members": [
+            {
+              "kind": "field",
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The optional heading for the group.",
+              "attribute": "heading"
+            },
             {
               "kind": "field",
               "name": "selects",
@@ -404,6 +423,14 @@
             }
           ],
           "attributes": [
+            {
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The optional heading for the group.",
+              "fieldName": "heading"
+            },
             {
               "name": "selects",
               "type": {
@@ -463,7 +490,8 @@
               "type": {
                 "text": "MenuItem[]"
               },
-              "default": "[]"
+              "default": "[]",
+              "description": "The slotted menu items."
             }
           ]
         }

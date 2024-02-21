@@ -1,5 +1,17 @@
 :host {
+  --_header-color: rgb(var(--sl-color-palette-neutral-500));
+  --_header-padding: 6px;
+}
+
+:host {
   display: flex;
   flex: 1;
   flex-direction: column;
+}
+
+slot[name='header'] span,
+slot[name='header']::slotted(*) {
+  color: var(--_header-color);
+  font-weight: 600;
+  padding: var(--_header-padding);
 }

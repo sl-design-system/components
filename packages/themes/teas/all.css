@@ -510,6 +510,8 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-border-width-border-tabbar: var(--sl-border-width-xs);
+  --sl-border-width-border-tab: var(--sl-border-width-xs);
   --sl-border-width-tooltip-border: var(--sl-border-width-xs);
   --sl-border-width-tooltip-none: var(--sl-border-width-none);
   --sl-border-width-dialog-default: var(--sl-border-width-none);

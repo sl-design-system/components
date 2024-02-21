@@ -498,6 +498,8 @@
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
   --sl-space-button-default-inline-md: calc(var(--sl-space-lg) - var(--sl-border-width-button-solid));
+  --sl-border-width-border-tabbar: var(--sl-border-width-xs);
+  --sl-border-width-border-tab: var(--sl-border-width-xs);
   --sl-border-width-divider: var(--sl-border-width-xs);
   --sl-border-width-popover-border: var(--sl-border-width-xs);
   --sl-border-width-popover-none: var(--sl-border-width-none);

@@ -2152,6 +2152,16 @@
           "description": "border.width.button.outline"
         }
       },
+      "border": {
+        "tab": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        },
+        "tabbar": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
+      },
       "none": {
         "value": 0,
         "type": "borderWidth",

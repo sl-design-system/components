@@ -8,25 +8,63 @@ eleventyNavigation:
 
 <section>
 
-## Usage
+## When to use
 
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Dropdown menus for choices
+Use the select component when you need users to select from a predefined list of more than five options. Whether it’s choosing a country, a language, or a course, a select dropdown keeps things organized and user-friendly.
 
-</section>
-
-<section>
-
-## How to use
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Filtering and sorting options
+When designing search interfaces or data tables, consider using select components for filtering or sorting. These components allow users to narrow down search results based on specific criteria. For instance, teachers can filter pupils by grade level or sort the results by relevance or class. 
 
 </section>
 
 <section>
 
-## Content
+## When not to use
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Fewer total options
+If you’re dealing with less than 5 options, use [radio buttons](/categories/components/radio-group/) instead of a select component. Radio buttons are more straightforward for a limited set of options.
+
+### As a menu
+Avoid using the select component as a menu. Its primary purpose is to display a list of options. If you need to present a list of actions, consider using a [menu](/categories/components/menu/) component specifically designed for that purpose.
+</section>
+
+<section>
+
+## Anatomy
+
+<div class="ds-table-wrapper">
+
+|Item|Name| Description | Optional|
+|-|-|-|-|
+|1|Label	|Describes the input category|yes|
+|2|Select field	|Contains optional placeholder text, which is replaced by the selection|no|
+|3|Hint	|Informative message|yes|
+|4|Menu option list	|Shows a list of options|no|
+
+{.ds-table}
+
+</div>
+
+</section>
+
+<section>
+
+## Options
+
+With these options, you can tweak the appearance of the select in Figma. They are available in the Design Panel so you can compose the select to exactly fit the user experience need for the use case you are working on.
+
+<div class="ds-table-wrapper">
+
+|Item|Options|Description|
+|-|-|-|
+|item|`option`|Description|
+|item|`option`|Description|
+|item|`option`|Description|
+
+{.ds-table}
+
+</div>
+
 
 </section>

@@ -3639,12 +3639,12 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.400}",
           "type": "color"
         }
       },
       "indicator": {
-        "value": "{color.palette.primary.base}",
+        "value": "{color.palette.accent.base}",
         "type": "color"
       },
       "hover": {

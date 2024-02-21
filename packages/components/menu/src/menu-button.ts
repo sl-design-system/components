@@ -1,3 +1,4 @@
+import type { PopoverPosition } from 'packages/components/shared/index.js';
 import { faAngleDown } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
@@ -42,6 +43,9 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   /** Returns the string to be used when there is more than 1 item selected. */
   @property({ attribute: false }) pluralize?: (count: number) => string;
 
+  /** The position of the menu relative to the button. */
+  @property() position?: PopoverPosition;
+
   /** The text representing the selected menuitem(s). */
   @state() selected?: string;
 
@@ -58,9 +62,17 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
     super.firstUpdated(changes);
 
     this.menu.anchorElement = this.button;
-    this.menu.position = 'bottom-start';
+    this.menu.position = this.position ?? 'bottom-start';
 
     this.#updateSelected();
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('position')) {
+      this.menu.position = this.position || 'bottom-start';
+    }
   }
 
   override render(): TemplateResult {

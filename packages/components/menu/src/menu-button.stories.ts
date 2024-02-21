@@ -7,7 +7,7 @@ import '@sl-design-system/icon/register.js';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 
-type Props = Pick<MenuButton, 'disabled' | 'fill' | 'pluralize' | 'selects' | 'size' | 'variant'> & {
+type Props = Pick<MenuButton, 'disabled' | 'fill' | 'pluralize' | 'position' | 'selects' | 'size' | 'variant'> & {
   alignSelf: string;
   body: string | TemplateResult;
   justifySelf: string;
@@ -19,9 +19,6 @@ Icon.register(faGear, faList, faRectanglesMixed, faTableCells);
 
 export default {
   title: 'Menu button',
-  parameters: {
-    // layout: 'fullscreen'
-  },
   args: {
     alignSelf: 'center',
     body: 'Button',
@@ -39,9 +36,38 @@ export default {
     justifySelf: {
       control: 'inline-radio',
       options: ['start', 'center', 'end']
+    },
+    position: {
+      control: 'select',
+      options: [
+        'top',
+        'top-start',
+        'top-end',
+        'right',
+        'right-start',
+        'right-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'left',
+        'left-start',
+        'left-end'
+      ]
     }
   },
-  render: ({ alignSelf, body, disabled, fill, justifySelf, menuItems, pluralize, selects, size, variant }) => {
+  render: ({
+    alignSelf,
+    body,
+    disabled,
+    fill,
+    justifySelf,
+    menuItems,
+    pluralize,
+    position,
+    selects,
+    size,
+    variant
+  }) => {
     return html`
       <style>
         #root-inner {
@@ -54,6 +80,7 @@ export default {
         .disabled=${disabled}
         .fill=${fill}
         .pluralize=${pluralize}
+        .position=${position}
         .selects=${selects}
         .size=${size}
         .variant=${variant}

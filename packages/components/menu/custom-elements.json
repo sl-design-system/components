@@ -126,6 +126,15 @@
             },
             {
               "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "description": "The position of the menu relative to the button.",
+              "attribute": "position"
+            },
+            {
+              "kind": "field",
               "name": "selected",
               "type": {
                 "text": "string | undefined"
@@ -179,6 +188,14 @@
               "default": "'outline'",
               "description": "The fill of the button.",
               "fieldName": "fill"
+            },
+            {
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "description": "The position of the menu relative to the button.",
+              "fieldName": "position"
             },
             {
               "name": "selects",

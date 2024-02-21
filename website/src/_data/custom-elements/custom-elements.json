@@ -60,53 +60,47 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.\n\n```html\n  <sl-avatar user=\"{\n     name: {\n       first: 'Lynn',\n       last: 'Smith'\n     },\n     picture: {\n       thumbnail: 'http://sanomalearning.design/avatars/lynn.png'\n     }\n   }\"></sl-avatar>\n```",
+          "description": "An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.\n\n```html\n  <sl-avatar display-name=\"Lynn Smith\" picture=\"http://sanomalearning.design/avatars/lynn.png\"></sl-avatar>\n```",
           "name": "Avatar",
           "cssProperties": [
             {
-              "description": "Max width of the container in ;",
-              "name": "--max-width:"
+              "description": "Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element.",
+              "name": "--max-width"
             }
           ],
           "members": [
-            {
-              "kind": "field",
-              "name": "badge",
-              "type": {
-                "text": "AvatarBadge | undefined"
-              },
-              "description": "The badge."
-            },
             {
               "kind": "field",
               "name": "badgeText",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Experimental feature, use with great caution.",
+              "description": "Text to show on the badge in the top right corner of the avatar.\nBe aware this text should not be more then a few characters.\nTypically this option is used to show a number, for example unread messages.",
               "attribute": "badge-text"
             },
             {
               "kind": "field",
-              "name": "borderWidth",
-              "default": "4",
+              "name": "displayInitials",
               "type": {
-                "text": "number"
-              }
+                "text": "string | undefined"
+              },
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
+              "attribute": "display-initials"
             },
             {
               "kind": "field",
-              "name": "errorLoadingImage",
+              "name": "displayName",
               "type": {
-                "text": "boolean | undefined"
+                "text": "string | undefined"
               },
-              "description": "State for when loading of the image has failed."
+              "description": "The name that needs to be displayed.",
+              "attribute": "display-name"
             },
             {
               "kind": "field",
               "name": "fallback",
               "type": {
-                "text": "AvatarFallbackType | undefined"
+                "text": "'initials' | 'image'"
               },
               "default": "'initials'",
               "description": "The fallback to use when there is no user image present.",
@@ -114,37 +108,13 @@
             },
             {
               "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "AvatarIcon | undefined"
-              },
-              "description": "The icon."
-            },
-            {
-              "kind": "field",
-              "name": "image",
-              "type": {
-                "text": "AvatarImage | undefined"
-              },
-              "description": "The image."
-            },
-            {
-              "kind": "field",
               "name": "imageOnly",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "This hides the name when set.",
+              "description": "This hides the name when set to true.",
               "attribute": "image-only",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "initials",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
             },
             {
               "kind": "field",
@@ -153,71 +123,49 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText",
+              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText. For example to show \"6 unread messages\", where 6 is also shown in the badge.",
               "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "offset",
-              "default": "{\n  sm: -2,\n  md: -4,\n  lg: -4,\n  xl: -2,\n  '2xl': -2,\n  '3xl': 2\n}",
-              "type": {
-                "text": "Record<AvatarSize, number>"
-              }
             },
             {
               "kind": "field",
               "name": "orientation",
               "type": {
-                "text": "AvatarOrientation"
+                "text": "'horizontal' | 'vertical'"
               },
               "default": "'horizontal'",
               "description": "The orientation of the avatar.",
               "attribute": "orientation",
-              "reflects": true,
-              "expandedType": {
-                "text": "'horizontal' | 'vertical'"
-              }
+              "reflects": true
             },
             {
               "kind": "field",
-              "name": "profileName",
+              "name": "pictureUrl",
               "type": {
-                "text": "string"
+                "text": "string | undefined"
               },
-              "default": "''"
+              "description": "The url of the avatar image.",
+              "attribute": "picture-url"
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "AvatarSize"
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
               },
               "default": "'md'",
               "description": "The size of the avatar.",
               "attribute": "size",
-              "reflects": true,
-              "expandedType": {
-                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
-              }
+              "reflects": true
             },
             {
               "kind": "field",
               "name": "status",
               "type": {
-                "text": "UserStatus | undefined"
+                "text": "'danger' | 'success' | 'warning' | 'accent' | 'neutral' | 'primary'"
               },
               "description": "Optional user status to show.",
               "attribute": "status",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "user",
-              "type": {
-                "text": "UserProfile | undefined"
-              },
-              "description": "The user object.",
-              "attribute": "user"
             }
           ],
           "attributes": [
@@ -226,13 +174,13 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Experimental feature, use with great caution.",
+              "description": "Text to show on the badge in the top right corner of the avatar.\nBe aware this text should not be more then a few characters.\nTypically this option is used to show a number, for example unread messages.",
               "fieldName": "badgeText"
             },
             {
               "name": "fallback",
               "type": {
-                "text": "AvatarFallbackType | undefined"
+                "text": "'initials' | 'image'"
               },
               "default": "'initials'",
               "description": "The fallback to use when there is no user image present.",
@@ -243,7 +191,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "This hides the name when set.",
+              "description": "This hides the name when set to true.",
               "fieldName": "imageOnly"
             },
             {
@@ -252,48 +200,58 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText",
+              "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText. For example to show \"6 unread messages\", where 6 is also shown in the badge.",
               "fieldName": "label"
             },
             {
               "name": "orientation",
               "type": {
-                "text": "AvatarOrientation"
+                "text": "'horizontal' | 'vertical'"
               },
               "default": "'horizontal'",
               "description": "The orientation of the avatar.",
-              "fieldName": "orientation",
-              "expandedType": {
-                "text": "'horizontal' | 'vertical'"
-              }
+              "fieldName": "orientation"
             },
             {
               "name": "size",
               "type": {
-                "text": "AvatarSize"
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
               },
               "default": "'md'",
               "description": "The size of the avatar.",
-              "fieldName": "size",
-              "expandedType": {
-                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
-              }
+              "fieldName": "size"
             },
             {
               "name": "status",
               "type": {
-                "text": "UserStatus | undefined"
+                "text": "'danger' | 'success' | 'warning' | 'accent' | 'neutral' | 'primary'"
               },
               "description": "Optional user status to show.",
               "fieldName": "status"
             },
             {
-              "name": "user",
+              "name": "display-name",
               "type": {
-                "text": "UserProfile | undefined"
+                "text": "string | undefined"
               },
-              "description": "The user object.",
-              "fieldName": "user"
+              "description": "The name that needs to be displayed.",
+              "fieldName": "displayName"
+            },
+            {
+              "name": "display-initials",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
+              "fieldName": "displayInitials"
+            },
+            {
+              "name": "picture-url",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The url of the avatar image.",
+              "fieldName": "pictureUrl"
             }
           ],
           "mixins": [
@@ -309,72 +267,7 @@
           "tagName": "sl-avatar",
           "customElement": true,
           "methods": [],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "badge",
-              "type": {
-                "text": "AvatarBadge | undefined"
-              },
-              "description": "The badge."
-            },
-            {
-              "kind": "field",
-              "name": "errorLoadingImage",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "State for when loading of the image has failed."
-            },
-            {
-              "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "AvatarIcon | undefined"
-              },
-              "description": "The icon."
-            },
-            {
-              "kind": "field",
-              "name": "image",
-              "type": {
-                "text": "AvatarImage | undefined"
-              },
-              "description": "The image."
-            },
-            {
-              "kind": "field",
-              "name": "borderWidth",
-              "default": "4",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "initials",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
-            },
-            {
-              "kind": "field",
-              "name": "offset",
-              "default": "{\n  sm: -2,\n  md: -4,\n  lg: -4,\n  xl: -2,\n  '2xl': -2,\n  '3xl': 2\n}",
-              "type": {
-                "text": "Record<AvatarSize, number>"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "profileName",
-              "type": {
-                "text": "string"
-              },
-              "default": "''"
-            }
-          ]
+          "fields": []
         }
       ],
       "exports": [
@@ -890,20 +783,6 @@
           "declaration": {
             "name": "Card",
             "module": "/packages/components/card/src/card.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/card/src/card.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/card/src/card.scss.ts"
           }
         }
       ]
@@ -2751,7 +2630,10 @@
               },
               "default": "'sm'",
               "description": "The size of the button",
-              "attribute": "closeButtonSize"
+              "attribute": "closeButtonSize",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             },
             {
               "kind": "field",
@@ -2809,7 +2691,10 @@
               },
               "default": "'sm'",
               "description": "The size of the button",
-              "fieldName": "closeButtonSize"
+              "fieldName": "closeButtonSize",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             }
           ],
           "mixins": [
@@ -4843,7 +4728,10 @@
                 "text": "LabelMark | undefined"
               },
               "description": "How to mark this field depending if it is required or not.",
-              "attribute": "mark"
+              "attribute": "mark",
+              "expandedType": {
+                "text": "'optional' | 'required' | undefined"
+              }
             },
             {
               "kind": "event",
@@ -4887,7 +4775,10 @@
                 "text": "LabelMark | undefined"
               },
               "description": "How to mark this field depending if it is required or not.",
-              "fieldName": "mark"
+              "fieldName": "mark",
+              "expandedType": {
+                "text": "'optional' | 'required' | undefined"
+              }
             }
           ],
           "mixins": [
@@ -7827,7 +7718,10 @@
                 "text": "GridFilterMode | undefined"
               },
               "description": "The mode of the filter.",
-              "attribute": "mode"
+              "attribute": "mode",
+              "expandedType": {
+                "text": "'select' | 'text' | undefined"
+              }
             },
             {
               "kind": "field",
@@ -7880,7 +7774,10 @@
                 "text": "GridFilterMode | undefined"
               },
               "description": "The mode of the filter.",
-              "fieldName": "mode"
+              "fieldName": "mode",
+              "expandedType": {
+                "text": "'select' | 'text' | undefined"
+              }
             },
             {
               "name": "path",
@@ -7990,15 +7887,6 @@
             },
             {
               "kind": "field",
-              "name": "columns",
-              "type": {
-                "text": "Array<GridColumn<T>>"
-              },
-              "default": "[]",
-              "description": "The columns in the grid."
-            },
-            {
-              "kind": "field",
               "name": "dataSource",
               "type": {
                 "text": "DataSource<T> | undefined"
@@ -8084,6 +7972,22 @@
             },
             {
               "kind": "field",
+              "name": "itemsGroupBy",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the attribute to group the items on.",
+              "attribute": "items-group-by",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "model",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
+            },
+            {
+              "kind": "field",
               "name": "noBorder",
               "type": {
                 "text": "boolean | undefined"
@@ -8114,6 +8018,23 @@
             },
             {
               "kind": "method",
+              "name": "renderGroupRow",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "group",
+                  "type": {
+                    "text": "GridViewModelGroup"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "renderHeader",
               "return": {
                 "type": {
@@ -8124,6 +8045,29 @@
             {
               "kind": "method",
               "name": "renderItem",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderItemRow",
               "return": {
                 "type": {
                   "text": "TemplateResult"
@@ -8258,6 +8202,14 @@
               "fieldName": "items"
             },
             {
+              "name": "items-group-by",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the attribute to group the items on.",
+              "fieldName": "itemsGroupBy"
+            },
+            {
               "name": "no-border",
               "type": {
                 "text": "boolean | undefined"
@@ -8338,6 +8290,46 @@
             },
             {
               "kind": "method",
+              "name": "renderItemRow",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderGroupRow",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "group",
+                  "type": {
+                    "text": "GridViewModelGroup"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "recalculateColumnWidths",
               "return": {
                 "type": {
@@ -8365,15 +8357,6 @@
             },
             {
               "kind": "field",
-              "name": "columns",
-              "type": {
-                "text": "Array<GridColumn<T>>"
-              },
-              "default": "[]",
-              "description": "The columns in the grid."
-            },
-            {
-              "kind": "field",
               "name": "dataSource",
               "type": {
                 "text": "DataSource<T> | undefined"
@@ -8395,6 +8378,12 @@
                 "text": "GridItemParts<T> | undefined"
               },
               "description": "Custom parts to be set on the `<tr>` so it can be styled externally."
+            },
+            {
+              "kind": "field",
+              "name": "model",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
             },
             {
               "kind": "field",
@@ -8422,6 +8411,163 @@
           "declaration": {
             "name": "Grid",
             "module": "../packages/components/grid/src/grid.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/grid/src/group-header.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/grid/src/group-header.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/grid/src/group-header.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridGroupHeader",
+          "members": [
+            {
+              "kind": "field",
+              "name": "expanded",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is expanded or collapsed.",
+              "attribute": "expanded",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The group heading.",
+              "attribute": "heading"
+            },
+            {
+              "kind": "field",
+              "name": "selectable",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Wether you can select the entire group.",
+              "attribute": "selectable"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "'all' | 'some' | 'none'"
+              },
+              "default": "'none'",
+              "description": "Whether the group is selected.",
+              "attribute": "selected"
+            },
+            {
+              "kind": "event",
+              "name": "sl-select",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user changes the group selection."
+            },
+            {
+              "kind": "event",
+              "name": "sl-toggle",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user collapses/expands the group."
+            }
+          ],
+          "events": [
+            {
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user changes the group selection.",
+              "fieldName": "selectEvent"
+            },
+            {
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user collapses/expands the group.",
+              "fieldName": "toggleEvent"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "expanded",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is expanded or collapsed.",
+              "fieldName": "expanded"
+            },
+            {
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The group heading.",
+              "fieldName": "heading"
+            },
+            {
+              "name": "selectable",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Wether you can select the entire group.",
+              "fieldName": "selectable"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "'all' | 'some' | 'none'"
+              },
+              "default": "'none'",
+              "description": "Whether the group is selected.",
+              "fieldName": "selected"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridGroupHeader",
+          "declaration": {
+            "name": "GridGroupHeader",
+            "module": "../packages/components/grid/src/group-header.ts"
           }
         }
       ]
@@ -9199,7 +9345,7 @@
               "name": "renderStyles",
               "return": {
                 "type": {
-                  "text": "CSSResult"
+                  "text": "CSSResult | void"
                 }
               },
               "inheritedFrom": {
@@ -9467,19 +9613,6 @@
             },
             {
               "kind": "method",
-              "name": "renderStyles",
-              "return": {
-                "type": {
-                  "text": "CSSResult"
-                }
-              },
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "../packages/components/grid/src/column.ts"
-              }
-            },
-            {
-              "kind": "method",
               "name": "getSelectedCount",
               "return": {
                 "type": {
@@ -9510,6 +9643,19 @@
                 }
               },
               "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "../packages/components/grid/src/column.ts"
@@ -9647,7 +9793,10 @@
                 "text": "DataSourceSortDirection | undefined"
               },
               "description": "The direction this columns should be sorted in.",
-              "attribute": "direction"
+              "attribute": "direction",
+              "expandedType": {
+                "text": "'asc' | 'desc' | undefined"
+              }
             },
             {
               "kind": "method",
@@ -9878,7 +10027,10 @@
                 "text": "DataSourceSortDirection | undefined"
               },
               "description": "The direction this columns should be sorted in.",
-              "fieldName": "direction"
+              "fieldName": "direction",
+              "expandedType": {
+                "text": "'asc' | 'desc' | undefined"
+              }
             },
             {
               "name": "align",
@@ -10199,7 +10351,10 @@
               },
               "description": "The direction in which to sort the items.",
               "attribute": "direction",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'asc' | 'desc' | undefined"
+              }
             },
             {
               "kind": "field",
@@ -10269,7 +10424,10 @@
                 "text": "DataSourceSortDirection | undefined"
               },
               "description": "The direction in which to sort the items.",
-              "fieldName": "direction"
+              "fieldName": "direction",
+              "expandedType": {
+                "text": "'asc' | 'desc' | undefined"
+              }
             },
             {
               "name": "path",
@@ -10873,6 +11031,354 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/grid/src/view-model.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridViewModel",
+          "members": [
+            {
+              "kind": "field",
+              "name": "columnDefinitions",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "description": "Sets the available columns. Not all columns may be rendered, depending on the view state."
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "description": "Returns an array of visible columns.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "dataSource",
+              "type": {
+                "text": "DataSource<T> | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getGroupSelection",
+              "return": {
+                "type": {
+                  "text": "'all' | 'some' | 'none'"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Returns the selected state of the group."
+            },
+            {
+              "kind": "method",
+              "name": "getGroupState",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Returns true if the group is expanded, false if collapsed."
+            },
+            {
+              "kind": "method",
+              "name": "getStickyColumnOffset",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Returns the left offset, taking any sticky columns into account."
+            },
+            {
+              "kind": "field",
+              "name": "groups",
+              "type": {
+                "text": "string[]"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "headerRows",
+              "type": {
+                "text": "Array<Array<GridColumn<T>>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "toggleColumn",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "visible",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Toggle the visibility of the column."
+            },
+            {
+              "kind": "method",
+              "name": "toggleGroup",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "collapse",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Toggle the visibility of the group."
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "toggleColumn",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "visible",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Toggle the visibility of the column."
+            },
+            {
+              "kind": "method",
+              "name": "toggleGroup",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "collapse",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Toggle the visibility of the group."
+            },
+            {
+              "kind": "method",
+              "name": "getGroupSelection",
+              "return": {
+                "type": {
+                  "text": "'all' | 'some' | 'none'"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Returns the selected state of the group."
+            },
+            {
+              "kind": "method",
+              "name": "getGroupState",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Returns true if the group is expanded, false if collapsed."
+            },
+            {
+              "kind": "method",
+              "name": "getStickyColumnOffset",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Returns the left offset, taking any sticky columns into account."
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "columnDefinitions",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "description": "Sets the available columns. Not all columns may be rendered, depending on the view state."
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "description": "Returns an array of visible columns.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "dataSource",
+              "type": {
+                "text": "DataSource<T> | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "groups",
+              "type": {
+                "text": "string[]"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "headerRows",
+              "type": {
+                "text": "Array<Array<GridColumn<T>>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridViewModelGroup"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridViewModelGroup",
+          "declaration": {
+            "name": "GridViewModelGroup",
+            "module": "../packages/components/grid/src/view-model.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridViewModel",
+          "declaration": {
+            "name": "GridViewModel",
+            "module": "../packages/components/grid/src/view-model.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/icon/index.ts",
       "declarations": [],
       "exports": [
@@ -11241,7 +11747,7 @@
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "description": "Determines whether a (default) closing button should be shown in the top right corner.",
               "attribute": "dismissible",
               "reflects": true
             },
@@ -11273,7 +11779,7 @@
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "description": "Determines whether a (default) closing button should be shown in the top right corner.",
               "fieldName": "dismissible"
             },
             {
@@ -11317,6 +11823,263 @@
           "declaration": {
             "name": "InlineMessage",
             "module": "../packages/components/inline-message/src/inline-message.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/message-dialog/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/message-dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/message-dialog/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-message-dialog",
+          "declaration": {
+            "name": "MessageDialog",
+            "module": "/packages/components/message-dialog/src/message-dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/message-dialog/src/message-dialog.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/message-dialog/src/message-dialog.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/message-dialog/src/message-dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A dialog for displaying messages to the user.",
+          "name": "MessageDialog",
+          "members": [
+            {
+              "kind": "method",
+              "name": "alert",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Alert')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "config",
+              "type": {
+                "text": "MessageDialogConfig<T> | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "confirm",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<boolean | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Confirm')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<T | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "MessageDialogConfig<T>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-message-dialog",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "alert",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Alert')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "confirm",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<boolean | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Confirm')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<T | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "MessageDialogConfig<T>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "config",
+              "type": {
+                "text": "MessageDialogConfig<T> | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MessageDialog",
+          "declaration": {
+            "name": "MessageDialog",
+            "module": "../packages/components/message-dialog/src/message-dialog.ts"
           }
         }
       ]
@@ -11388,7 +12151,10 @@
               },
               "default": "'bottom'",
               "description": "The position of this popover relative to its anchor.",
-              "attribute": "position"
+              "attribute": "position",
+              "expandedType": {
+                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
+              }
             }
           ],
           "attributes": [
@@ -11399,7 +12165,10 @@
               },
               "default": "'bottom'",
               "description": "The position of this popover relative to its anchor.",
-              "fieldName": "position"
+              "fieldName": "position",
+              "expandedType": {
+                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
+              }
             }
           ],
           "superclass": {
@@ -11691,7 +12460,10 @@
                 "text": "RadioButtonSize | undefined"
               },
               "description": "The size of the radio buttons in the group.",
-              "attribute": "size"
+              "attribute": "size",
+              "expandedType": {
+                "text": "'md' | 'lg' | undefined"
+              }
             },
             {
               "kind": "event",
@@ -11857,7 +12629,10 @@
                 "text": "RadioButtonSize | undefined"
               },
               "description": "The size of the radio buttons in the group.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'md' | 'lg' | undefined"
+              }
             },
             {
               "name": "value",
@@ -12137,7 +12912,10 @@
               },
               "description": "Indicates if the radio button shows it is (in)valid.",
               "attribute": "show-validity",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'valid' | 'invalid' | "
+              }
             },
             {
               "kind": "field",
@@ -12186,7 +12964,10 @@
                 "text": "FormControlShowValidity"
               },
               "description": "Indicates if the radio button shows it is (in)valid.",
-              "fieldName": "showValidity"
+              "fieldName": "showValidity",
+              "expandedType": {
+                "text": "'valid' | 'invalid' | "
+              }
             },
             {
               "name": "size",
@@ -12360,7 +13141,10 @@
               },
               "description": "Mirrors the same property on the sl-select parent.",
               "attribute": "show-validity",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'valid' | 'invalid' | "
+              }
             },
             {
               "kind": "field",
@@ -12371,7 +13155,10 @@
               "default": "'md'",
               "description": "The size of the parent select.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'md' | 'lg' | undefined"
+              }
             }
           ],
           "attributes": [
@@ -12398,7 +13185,10 @@
               },
               "default": "'md'",
               "description": "The size of the parent select.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'md' | 'lg' | undefined"
+              }
             },
             {
               "name": "show-valid",
@@ -12414,7 +13204,10 @@
                 "text": "FormControlShowValidity"
               },
               "description": "Mirrors the same property on the sl-select parent.",
-              "fieldName": "showValidity"
+              "fieldName": "showValidity",
+              "expandedType": {
+                "text": "'valid' | 'invalid' | "
+              }
             }
           ],
           "mixins": [
@@ -13543,6 +14336,9 @@
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
+              },
+              "expandedType": {
+                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
               }
             }
           ],
@@ -13578,6 +14374,9 @@
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
+              },
+              "expandedType": {
+                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
               }
             },
             {
@@ -16085,6 +16884,18 @@
             },
             {
               "kind": "field",
+              "name": "groupBy",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "items",
               "type": {
                 "text": "T[]"
@@ -16119,12 +16930,65 @@
             },
             {
               "kind": "method",
+              "name": "removeGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
               "name": "removeSort",
               "return": {
                 "type": {
                   "text": "void"
                 }
               },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "Path to group by attribute."
+                },
+                {
+                  "name": "sorter",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortFunction<T>"
+                  },
+                  "description": "Optional sorter function."
+                },
+                {
+                  "name": "direction",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  },
+                  "description": "Optional sort direction."
+                }
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "../packages/components/shared/src/data-source/data-source.ts"
@@ -16259,6 +17123,59 @@
             },
             {
               "kind": "method",
+              "name": "setGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "Path to group by attribute."
+                },
+                {
+                  "name": "sorter",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortFunction<T>"
+                  },
+                  "description": "Optional sorter function."
+                },
+                {
+                  "name": "direction",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  },
+                  "description": "Optional sort direction."
+                }
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "removeGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
               "name": "setSort",
               "return": {
                 "type": {
@@ -16358,6 +17275,18 @@
             },
             {
               "kind": "field",
+              "name": "groupBy",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
+              },
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "sort",
               "type": {
                 "text": "DataSourceSort<T> | undefined"
@@ -16440,6 +17369,14 @@
             },
             {
               "kind": "field",
+              "name": "groupBy",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "items",
               "type": {
                 "text": "T[]"
@@ -16466,12 +17403,57 @@
             },
             {
               "kind": "method",
+              "name": "removeGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped."
+            },
+            {
+              "kind": "method",
               "name": "removeSort",
               "return": {
                 "type": {
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "setGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "Path to group by attribute."
+                },
+                {
+                  "name": "sorter",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortFunction<T>"
+                  },
+                  "description": "Optional sorter function."
+                },
+                {
+                  "name": "direction",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  },
+                  "description": "Optional sort direction."
+                }
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you."
             },
             {
               "kind": "method",
@@ -16574,6 +17556,51 @@
             },
             {
               "kind": "method",
+              "name": "setGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "path",
+                  "type": {
+                    "text": "string"
+                  },
+                  "description": "Path to group by attribute."
+                },
+                {
+                  "name": "sorter",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortFunction<T>"
+                  },
+                  "description": "Optional sorter function."
+                },
+                {
+                  "name": "direction",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSourceSortDirection"
+                  },
+                  "description": "Optional sort direction."
+                }
+              ],
+              "description": "Group the items by the given path. Optionally, you can provide a sorter and direction.\n\nThis is part of the DataSource interface, because it changes how the data is sorted. You\nmay want to pass the groupBy attribute to the server, so it can sort the data for you."
+            },
+            {
+              "kind": "method",
+              "name": "removeGroupBy",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "Remove the groupBy attribute. This will cause the data to be sorted as if it was not grouped."
+            },
+            {
+              "kind": "method",
               "name": "setSort",
               "return": {
                 "type": {
@@ -16617,6 +17644,14 @@
               "name": "filters",
               "type": {
                 "text": "Map<string, DataSourceFilter<T>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "groupBy",
+              "type": {
+                "text": "DataSourceGroupBy<T> | undefined"
               },
               "readonly": true
             },
@@ -19604,7 +20639,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text field is disabled; when set no interaction is possible.",
+              "description": "Whether the textarea is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
             },
@@ -19742,7 +20777,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text field is a required field.",
+              "description": "Whether the textarea is a required field.",
               "attribute": "required"
             },
             {
@@ -19994,7 +21029,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text field is disabled; when set no interaction is possible.",
+              "description": "Whether the textarea is disabled; when set no interaction is possible.",
               "fieldName": "disabled"
             },
             {
@@ -20034,7 +21069,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the text field is a required field.",
+              "description": "Whether the textarea is a required field.",
               "fieldName": "required"
             },
             {
@@ -20408,15 +21443,6 @@
               }
             },
             {
-              "kind": "method",
-              "name": "setupLazy",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
               "kind": "field",
               "name": "tooltip",
               "type": {
@@ -20432,15 +21458,6 @@
             {
               "kind": "method",
               "name": "renderContent",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "setupLazy",
               "return": {
                 "type": {
                   "text": "void"
@@ -20526,6 +21543,12 @@
           "kind": "class",
           "description": "Tooltip component.",
           "name": "Tooltip",
+          "slots": [
+            {
+              "description": "The slot for the tooltip content.",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "method",
@@ -20549,7 +21572,8 @@
                     "text": "(target: Tooltip) => void"
                   }
                 }
-              ]
+              ],
+              "description": "To attach the `sl-tooltip` to the DOM tree and anchor element"
             },
             {
               "kind": "field",
@@ -20564,7 +21588,7 @@
               "kind": "field",
               "name": "position",
               "type": {
-                "text": "PopoverPosition"
+                "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'top'",
               "description": "Tooltip position.",
@@ -20583,7 +21607,7 @@
             {
               "name": "position",
               "type": {
-                "text": "PopoverPosition"
+                "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'top'",
               "description": "Tooltip position.",
@@ -20619,7 +21643,8 @@
                     "text": "(target: Tooltip) => void"
                   }
                 }
-              ]
+              ],
+              "description": "To attach the `sl-tooltip` to the DOM tree and anchor element"
             }
           ],
           "fields": []

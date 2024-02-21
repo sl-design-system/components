@@ -9,6 +9,7 @@
   --_cell-padding-inline: 1rem;
   --_drop-target-background: rgba(255, 105, 180);
   --_font: var(--sl-text-body-md-normal);
+  --_group-background: #eee;
   --_header-background: #f9f9f9;
   --_header-font-weight: 600;
   --_header-padding-block: 0.5rem;
@@ -20,6 +21,10 @@
 :host {
   display: block;
   font: var(--_font);
+}
+
+:host([items-group-by]) {
+  --_first-cell-padding-inline-start: 28px;
 }
 
 :host([no-border]) {
@@ -81,7 +86,6 @@ tr {
   }
 
   &.drop-target {
-    // --_cell-background: hotpink;
     z-index: 1;
   }
 
@@ -93,16 +97,29 @@ tr {
 th,
 td {
   align-items: center;
+  background: var(--_cell-background);
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
   overflow: hidden;
+  padding: var(--_cell-padding-block) var(--_cell-padding-inline);
+
+  &:first-of-type {
+    padding-inline-start: calc(var(--_cell-padding-inline) + var(--_first-cell-padding-inline-start, 0px));
+  }
+
+  &[part~='selection'] {
+    --_cell-padding-block: 0;
+    --_cell-padding-inline: 0.5rem;
+    inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
+  }
 }
 
 th {
-  background: var(--_header-background);
+  --_cell-background: var(--_header-background);
+  --_cell-padding-block: var(--_header-padding-block);
+  --_cell-padding-inline: var(--_header-padding-inline);
   font-weight: var(--_header-font-weight);
-  padding: var(--_header-padding-block) var(--_header-padding-inline);
   text-align: start;
 }
 
@@ -111,9 +128,7 @@ th[part~='filter'] {
 }
 
 td {
-  background: var(--_cell-background);
   border-bottom: var(--_cell-border);
-  padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 }
 
 td[part~='drag-handle'] {
@@ -121,9 +136,16 @@ td[part~='drag-handle'] {
   justify-content: center;
 }
 
+td[part~='group-header'] {
+  --_cell-background: var(--_group-background);
+  --_cell-padding-block: 0;
+  --_cell-padding-inline: 0;
+  inline-size: 100%;
+}
+
 td[part~='select'],
 td[part~='text-field'] {
-  padding-block: 6px;
+  --_cell-padding-block: 6px;
 
   sl-select,
   sl-text-field {
@@ -137,6 +159,7 @@ td[part~='text-field'] {
 
 .selection-toggle {
   align-self: center;
+  padding: 6px;
 }
 
 .drop-placeholder {

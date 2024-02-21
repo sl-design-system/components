@@ -2645,25 +2645,6 @@
           "value": "{space.none}",
           "type": "spacing"
         }
-<<<<<<< HEAD
-=======
-      },
-      "slotheader": {
-        "badges": {
-          "inline": {
-            "value": "{space.none}",
-            "type": "spacing"
-          },
-          "block": {
-            "value": "{space.xs}",
-            "type": "spacing"
-          },
-          "gap": {
-            "value": "{space.sm}",
-            "type": "spacing"
-          }
-        }
->>>>>>> origin/feature/628-ui-of-card
       }
     },
     "none": {

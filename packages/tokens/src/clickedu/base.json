@@ -1869,6 +1869,16 @@
           "value": "{border.width.none}",
           "type": "borderWidth"
         }
+      },
+      "border": {
+        "tab": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        },
+        "tabbar": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
       }
     }
   },

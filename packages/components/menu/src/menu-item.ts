@@ -24,8 +24,8 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   #events = new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown,
-    pointerenter: this.#onPointerenter,
-    pointerleave: this.#onPointerleave
+    mouseenter: this.#onMouseenter,
+    mouseleave: this.#onMouseleave
   });
 
   /** Shortcut controller. */
@@ -120,11 +120,11 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onPointerenter(): void {
+  #onMouseenter(): void {
     this.#showSubMenu();
   }
 
-  #onPointerleave(): void {
+  #onMouseleave(): void {
     this.#hideSubMenu();
   }
 

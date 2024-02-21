@@ -600,7 +600,7 @@
             },
             {
               "kind": "method",
-              "name": "#onPointerenter",
+              "name": "#onMouseenter",
               "return": {
                 "type": {
                   "text": "void"
@@ -609,7 +609,7 @@
             },
             {
               "kind": "method",
-              "name": "#onPointerleave",
+              "name": "#onMouseleave",
               "return": {
                 "type": {
                   "text": "void"
@@ -693,7 +693,7 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown,\n    pointerenter: this.#onPointerenter,\n    pointerleave: this.#onPointerleave\n  })",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown,\n    mouseenter: this.#onMouseenter,\n    mouseleave: this.#onMouseleave\n  })",
               "description": "Events controller."
             },
             {

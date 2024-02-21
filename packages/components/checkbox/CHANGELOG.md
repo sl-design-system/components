@@ -1,5 +1,13 @@
 # @sl-design-system/checkbox
 
+## 0.0.20
+
+### Patch Changes
+
+- Updated dependencies [[`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997)]:
+  - @sl-design-system/shared@0.2.3
+  - @sl-design-system/form@0.0.6
+
 ## 0.0.19
 
 ### Patch Changes

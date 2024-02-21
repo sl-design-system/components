@@ -11603,7 +11603,7 @@
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "description": "Determines whether a (default) closing button should be shown in the top right corner.",
               "attribute": "dismissible",
               "reflects": true
             },
@@ -11635,7 +11635,7 @@
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "description": "Determines whether a (default) closing button should be shown in the top right corner.",
               "fieldName": "dismissible"
             },
             {

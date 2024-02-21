@@ -2,6 +2,14 @@
   display: inline-flex;
 }
 
+slot[name='button'] {
+  display: inline;
+
+  &:has(+ .selected)::after {
+    content: ':';
+  }
+}
+
 .selected {
   font-weight: 600;
 }

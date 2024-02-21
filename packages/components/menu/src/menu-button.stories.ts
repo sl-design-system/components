@@ -2,12 +2,15 @@ import { faGear, faList, faRectanglesMixed, faTableCells } from '@fortawesome/pr
 import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 import '@sl-design-system/icon/register.js';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 
 type Props = Pick<MenuButton, 'disabled' | 'fill' | 'pluralize' | 'selects' | 'size' | 'variant'> & {
+  alignSelf: string;
   body: string | TemplateResult;
+  justifySelf: string;
   menuItems?: () => TemplateResult;
 };
 type Story = StoryObj<Props>;
@@ -17,17 +20,36 @@ Icon.register(faGear, faList, faRectanglesMixed, faTableCells);
 export default {
   title: 'Menu button',
   parameters: {
-    layout: 'centered'
+    // layout: 'fullscreen'
   },
   args: {
+    alignSelf: 'center',
     body: 'Button',
     disabled: false,
     fill: 'outline',
+    justifySelf: 'center',
     size: 'md',
     variant: 'default'
   },
-  render: ({ body, disabled, fill, menuItems, pluralize, selects, size, variant }) => {
+  argTypes: {
+    alignSelf: {
+      control: 'inline-radio',
+      options: ['start', 'center', 'end']
+    },
+    justifySelf: {
+      control: 'inline-radio',
+      options: ['start', 'center', 'end']
+    }
+  },
+  render: ({ alignSelf, body, disabled, fill, justifySelf, menuItems, pluralize, selects, size, variant }) => {
     return html`
+      <style>
+        #root-inner {
+          display: grid;
+          height: calc(100dvh - 2rem);
+          place-items: center;
+        }
+      </style>
       <sl-menu-button
         .disabled=${disabled}
         .fill=${fill}
@@ -35,6 +57,7 @@ export default {
         .selects=${selects}
         .size=${size}
         .variant=${variant}
+        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
       >
         ${body ?? html`<div slot="button">${body}</div>`} ${menuItems?.()}
       </sl-menu-button>
@@ -60,7 +83,7 @@ export const Basic: Story = {
 
 export const SingleSelect: Story = {
   args: {
-    body: html`<span slot="button">View:</span>`,
+    body: html`<span slot="button">View</span>`,
     menuItems: () => html`
       <sl-menu-item selectable selected shortcut="$mod+Digit1">
         <sl-icon name="far-list"></sl-icon>
@@ -81,7 +104,7 @@ export const SingleSelect: Story = {
 
 export const MultiSelect: Story = {
   args: {
-    body: html`<span slot="button">Lists:</span>`,
+    body: html`<span slot="button">Lists</span>`,
     menuItems: () => html`
       <sl-menu-item selectable selected>Side projects</sl-menu-item>
       <sl-menu-item selectable>Design systems</sl-menu-item>

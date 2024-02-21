@@ -45,7 +45,7 @@
 }
 
 :host([actual-placement^='top']) {
-  margin-block-end: var(--_offset);
+  margin-block-start: calc(-1 * var(--_offset));
 }
 
 ::slotted(sl-menu-item),

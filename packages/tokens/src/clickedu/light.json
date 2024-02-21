@@ -3657,7 +3657,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.tab.default.border}",
           "type": "color"
         }
       },
@@ -3667,11 +3667,11 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.tab.default.border}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.tab.default.border}",
           "type": "color"
         }
       },
@@ -3685,7 +3685,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.tab.default.border}",
           "type": "color"
         }
       },
@@ -3699,7 +3699,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.tab.default.border}",
           "type": "color"
         }
       },

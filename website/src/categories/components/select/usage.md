@@ -40,7 +40,7 @@ Avoid using the select component as a menu. Its primary purpose is to display a 
 |1|Label	|Describes the input category|yes|
 |2|Select field	|Contains optional placeholder text, which is replaced by the selection|no|
 |3|Hint	|Informative message|yes|
-|4|Menu option list	|Shows a list of options|no|
+|4|Dropdown panel	|Shows a list of options|no|
 
 {.ds-table}
 
@@ -54,6 +54,46 @@ Avoid using the select component as a menu. Its primary purpose is to display a 
 
 With these options, you can tweak the appearance of the select in Figma. They are available in the Design Panel so you can compose the select to exactly fit the user experience need for the use case you are working on.
 
+### Label
+<div class="ds-table-wrapper">
+
+|Item|Options|Description|
+|-|-|-|
+|item|`option`|Description|
+|item|`option`|Description|
+|item|`option`|Description|
+
+{.ds-table}
+
+</div>
+
+### Select box
+<div class="ds-table-wrapper">
+
+|Item|Options|Description|
+|-|-|-|
+|item|`option`|Description|
+|item|`option`|Description|
+|item|`option`|Description|
+
+{.ds-table}
+
+</div>
+
+### Dropdown panel
+<div class="ds-table-wrapper">
+
+|Item|Options|Description|
+|-|-|-|
+|Position|`top` `bottom`|Indicates the position of the dropdown panel|
+|Size|`md` `lg`|Description|
+|item|`option`|Description|
+
+{.ds-table}
+
+</div>
+
+### Hint
 <div class="ds-table-wrapper">
 
 |Item|Options|Description|

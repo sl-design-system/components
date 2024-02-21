@@ -35,11 +35,11 @@ eleventyNavigation:
   </sl-button>
   </header>
   <hr color="#D9D9D9" />
-  <section id="example-content">
+  <div id="example-content">
     <p>Assigned to</p> <p>John Smith</p>
     <p>Class</p> <p>2a</p>
     <p>Due</p> <p>March 10, 2024</p>
-  </section>
+  </div>
   </sl-popover>
 </div>
 

@@ -32,11 +32,11 @@ eleventyNavigation:
   </sl-button>
   </header>
   <hr color="#D9D9D9" />
-  <section id="code-example">
+  <div id="code-example">
     <p><sl-icon slot="icon" name="fas-school" size="lg"></sl-icon>Da Vinci International School</p>
     <p><sl-icon slot="icon" name="fas-screen-users" size="lg"></sl-icon>Class 2a</p>
     <p><sl-icon slot="icon" name="fas-envelope" size="lg"></sl-icon>john.smith@primaryschool.org</p>
-  </section>
+  </div>
   </sl-popover>
 </div>
 

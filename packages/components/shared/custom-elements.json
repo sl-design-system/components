@@ -321,20 +321,16 @@
               "name": "maxWidth",
               "type": {
                 "text": "number | undefined"
-              }
+              },
+              "description": "The max width of the popover."
             },
             {
               "kind": "field",
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "description": " Can be used for styling anchor element, when popover is opened and the anchor is not a sl-button. For sl-button active state styling is used by default.",
-              "name": "popover-opened"
+              },
+              "description": "The main position of the popover relative to the anchor."
             }
           ],
           "methods": [
@@ -399,14 +395,16 @@
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
-              }
+              },
+              "description": "The main position of the popover relative to the anchor."
             },
             {
               "kind": "field",
               "name": "maxWidth",
               "type": {
                 "text": "number | undefined"
-              }
+              },
+              "description": "The max width of the popover."
             }
           ]
         }

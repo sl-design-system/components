@@ -3,7 +3,7 @@
 }
 
 slot[name='button'] {
-  display: inline;
+  display: inline-flex;
 
   &:has(+ .selected)::after {
     content: ':';

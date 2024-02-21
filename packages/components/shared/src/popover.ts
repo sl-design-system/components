@@ -1,7 +1,5 @@
-import type { Middleware, MiddlewareState } from '@floating-ui/dom';
-import { arrow, flip, shift, size } from '@floating-ui/core';
-import { autoUpdate, computePosition, offset } from '@floating-ui/dom';
-import { getContainingBlock, getWindow, isContainingBlock } from '@floating-ui/utils/dom';
+import { arrow, flip, offset, shift, size } from '@floating-ui/core';
+import { autoUpdate, computePosition } from '@floating-ui/dom';
 import popoverPolyfillStyles from './popover.scss.js';
 
 export { popoverPolyfillStyles };
@@ -14,24 +12,10 @@ export type PopoverPosition = Side | AlignedPlacement;
 
 export interface PositionPopoverOptions {
   arrow?: string | HTMLElement;
-  position?: PopoverPosition;
-  offset?: [block: number, inline: number];
-  viewportMargin?: number;
   maxWidth?: number;
-}
-
-function getArrowElement(element: HTMLElement, arrow?: string | HTMLElement): HTMLElement | undefined {
-  if (arrow instanceof HTMLElement) {
-    return arrow;
-  } else if (typeof arrow === 'string') {
-    return element.shadowRoot?.querySelector(arrow) || undefined;
-  }
-
-  return undefined;
-}
-
-function getOffset(element: HTMLElement): number {
-  return parseInt(window.getComputedStyle(element).getPropertyValue('--sl-popover-offset')) || 0;
+  offset?: number;
+  position?: PopoverPosition;
+  viewportMargin?: number;
 }
 
 function roundByDPR(num: number): number {
@@ -51,116 +35,6 @@ export const isPopoverOpen = (element?: HTMLElement): boolean => {
 
 const MIN_OVERLAY_HEIGHT = 25;
 
-const flipPlacement = (position: PopoverPosition): PopoverPosition[] => {
-  // Position can have a secondary part (-start, -end); we are only
-  // interested in the first part.
-  const [, pos] = /(\w+).*$/.exec(position) || [];
-
-  let replace = [];
-  if (pos === 'top' || pos === 'bottom') {
-    replace = pos === 'top' ? ['bottom', 'right', 'left'] : ['top', 'right', 'left'];
-  } else {
-    replace = pos === 'left' ? ['right', 'top', 'bottom'] : ['left', 'top', 'bottom'];
-  }
-  const positions: PopoverPosition[] = [];
-  replace.forEach(replacePart => {
-    positions.push(position.replace(pos, replacePart) as PopoverPosition);
-  });
-  return positions;
-};
-
-/** This is a temporary workaround until @floating-ui fixes this issue.
- *  https://github.com/floating-ui/floating-ui/pull/2351
- */
-const topLayerOverTransforms = (): Middleware => ({
-  name: 'topLayer',
-  async fn(middlewareArguments: MiddlewareState) {
-    const {
-      x,
-      y,
-      elements: { reference, floating }
-    } = middlewareArguments;
-    let onTopLayer = false;
-    let topLayerIsFloating = false;
-    let withinReference = false;
-    const diffCoords = {
-      x: 0,
-      y: 0
-    };
-    try {
-      onTopLayer = onTopLayer || floating.matches(':popover-open');
-      // eslint-disable-next-line no-empty
-    } catch (error) {}
-    try {
-      onTopLayer = onTopLayer || floating.matches(':open');
-      // eslint-disable-next-line no-empty
-    } catch (error) {}
-    try {
-      onTopLayer = onTopLayer || floating.matches(':modal');
-      // eslint-disable-next-line no-empty
-      /* c8 ignore next 3 */
-    } catch (error) {}
-    topLayerIsFloating = onTopLayer;
-    const dialogAncestorQueryEvent = new Event('floating-ui-dialog-test', {
-      composed: true,
-      bubbles: true
-    });
-    floating.addEventListener(
-      'floating-ui-dialog-test',
-      (event: Event) => {
-        (event.composedPath() as unknown as Element[]).forEach(el => {
-          withinReference = withinReference || el === reference;
-          if (el === floating || el.localName !== 'dialog') return;
-          try {
-            onTopLayer = onTopLayer || el.matches(':modal');
-            // eslint-disable-next-line no-empty
-            /* c8 ignore next */
-          } catch (error) {}
-        });
-      },
-      { once: true }
-    );
-    floating.dispatchEvent(dialogAncestorQueryEvent);
-    let overTransforms = false;
-
-    const root = (withinReference ? reference : floating) as Element;
-    const containingBlock = isContainingBlock(root) ? root : getContainingBlock(root);
-
-    if (containingBlock !== null && getWindow(containingBlock) !== (containingBlock as unknown as Window)) {
-      const css = getComputedStyle(containingBlock);
-      overTransforms = css.transform !== 'none' || (css.filter ? css.filter !== 'none' : false);
-    }
-
-    if (onTopLayer && overTransforms && containingBlock) {
-      const rect = containingBlock.getBoundingClientRect();
-      diffCoords.x = rect.x;
-      diffCoords.y = rect.y;
-    }
-
-    if (onTopLayer && topLayerIsFloating) {
-      return {
-        x: x + diffCoords.x,
-        y: y + diffCoords.y,
-        data: diffCoords
-      };
-    }
-
-    if (onTopLayer) {
-      return {
-        x,
-        y,
-        data: diffCoords
-      };
-    }
-
-    return {
-      x: x - diffCoords.x,
-      y: y - diffCoords.y,
-      data: diffCoords
-    };
-  }
-});
-
 export const positionPopover = (
   element: HTMLElement,
   anchor: Element,
@@ -172,30 +46,30 @@ export const positionPopover = (
   element.style.insetInlineStart = '0px';
 
   const cleanup = autoUpdate(anchor, element, () => {
-    const { position = 'top', viewportMargin = 0 } = options;
-
+    // Offset should come first, according to floating-ui docs
+    // Flip should come before shift, otherwise it won't flip properly
     const middleware = [
-      shift({ padding: viewportMargin }),
-      flip({ fallbackPlacements: flipPlacement(position) }),
-      offset(getOffset(element)),
+      options.offset !== undefined ? offset(options.offset) : undefined,
+      flip({ fallbackAxisSideDirection: 'end' }),
+      options.viewportMargin !== undefined ? shift({ padding: options.viewportMargin }) : undefined,
       size({
-        padding: viewportMargin,
+        padding: options.viewportMargin,
         apply: ({ availableWidth, availableHeight }) => {
           // Make sure that the overlay is contained by the visible page.
           const maxHeight = Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight));
 
           Object.assign(element.style, {
             maxWidth: `${options.maxWidth ?? Math.floor(availableWidth)}px`,
-            maxHeight: `${maxHeight - viewportMargin}px`
+            maxHeight: `${maxHeight - (options.viewportMargin ?? 0)}px`
           });
         }
-      }),
-      topLayerOverTransforms()
-    ];
+      })
+    ].filter(Boolean);
 
-    let arrowElement: HTMLElement | undefined;
+    let arrowElement: HTMLElement | null | undefined;
     if (options.arrow) {
-      arrowElement = getArrowElement(element, options.arrow);
+      arrowElement =
+        options.arrow instanceof HTMLElement ? options.arrow : element.shadowRoot?.querySelector(options.arrow);
 
       middleware.push(arrow({ element: arrowElement }));
     }
@@ -203,7 +77,7 @@ export const positionPopover = (
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     computePosition(anchor, element, {
       strategy: 'fixed',
-      placement: position,
+      placement: options.position ?? 'top',
       middleware
     }).then(({ x, y, middlewareData: { arrow }, placement: actualPlacement }) => {
       Object.assign(element.style, {

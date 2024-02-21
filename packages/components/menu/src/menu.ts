@@ -17,7 +17,10 @@ export class Menu extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this);
+  #anchor = new AnchorController(this, {
+    offset: 4,
+    viewportMargin: 8
+  });
 
   /** Events controller. */
   #events = new EventsController(this, {

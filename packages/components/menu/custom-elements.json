@@ -274,6 +274,15 @@
             },
             {
               "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#onToggle",
               "return": {
                 "type": {
@@ -950,7 +959,7 @@
               "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this)",
+              "default": "new AnchorController(this, {\n    offset: 4,\n    viewportMargin: 8\n  })",
               "description": "Controller for managing anchoring."
             },
             {

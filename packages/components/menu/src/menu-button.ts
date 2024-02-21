@@ -63,15 +63,13 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
 
     this.menu.anchorElement = this.button;
     this.menu.position = this.position ?? 'bottom-start';
-
-    this.#updateSelected();
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     if (changes.has('position')) {
-      this.menu.position = this.position || 'bottom-start';
+      this.menu.position = this.position ?? 'bottom-start';
     }
   }
 
@@ -93,7 +91,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         ${iconOnly ? nothing : html`<sl-icon name="far-angle-down"></sl-icon>`}
       </sl-button>
       <sl-menu @toggle=${this.#onToggle} @sl-select=${this.#onSelect} .selects=${this.selects}>
-        <slot></slot>
+        <slot @slotchange=${this.#onSlotchange}></slot>
       </sl-menu>
     `;
   }
@@ -116,6 +114,10 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
     this.#updateSelected();
     this.menu.hidePopover();
     this.button.focus();
+  }
+
+  #onSlotchange(): void {
+    this.#updateSelected();
   }
 
   #onToggle(event: ToggleEvent): void {

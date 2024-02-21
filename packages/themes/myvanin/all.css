@@ -542,6 +542,10 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-full);
   --sl-border-radius-button-md: var(--sl-border-radius-full);
   --sl-border-radius-button-sm: var(--sl-border-radius-full);
+  --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-select-selectbox-title-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-xs) var(--sl-text-typeset-font-family-body);
   --sl-text-select-selectbox-title-md: var(--sl-text-typeset-font-weight-regular) var(--sl-icon-typeset-font-size-xs) /
@@ -785,6 +789,15 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-150));
+    --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
+    --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tooltip-border: rgb(var(--sl-color-palette-neutral-900));
     --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-tooltip-background: rgb(var(--sl-color-palette-neutral-900));
@@ -1175,6 +1188,15 @@
     --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-info-base));
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-info-base));
+    --sl-color-tab-content-foreground: var(--sl-body-foreground);
+    --sl-color-tab-content-background: var(--sl-body-background);
+    --sl-color-tab-active-foreground: var(--sl-body-foreground);
+    --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);
+    --sl-color-tab-tabbar-background: var(--sl-body-background);
+    --sl-color-tab-disabled-background: var(--sl-body-background);
+    --sl-color-tab-hover-foreground: var(--sl-body-foreground);
+    --sl-color-tab-default-foreground: var(--sl-body-foreground);
+    --sl-color-tab-default-background: var(--sl-body-background);
     --sl-color-popover-foreground: var(--sl-body-foreground);
     --sl-color-avatar-subheader: var(--sl-body-foreground);
     --sl-color-avatar-header: var(--sl-body-foreground);

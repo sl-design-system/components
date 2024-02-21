@@ -15,6 +15,15 @@
     0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-400));
   --sl-elevation-shadow-sm: 0 0 6px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
     0 2px 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
+  --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-150));
+  --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
+  --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-700));
@@ -464,6 +473,10 @@
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-400));
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
+  --sl-color-tab-content-background: var(--sl-body-background);
+  --sl-color-tab-tabbar-background: var(--sl-body-background);
+  --sl-color-tab-disabled-background: var(--sl-body-background);
+  --sl-color-tab-default-background: var(--sl-body-background);
   --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-background: var(--sl-body-background);
   --sl-color-select-selectbox-valid-disabled-placeholder: var(--sl-color-input-text-field-default-disabled-placeholder);
@@ -585,6 +598,11 @@
   --sl-color-input-option-default-checked-default-border: var(
     --sl-color-input-option-default-checked-default-background
   );
+  --sl-color-tab-content-foreground: var(--sl-body-foreground);
+  --sl-color-tab-active-foreground: var(--sl-body-foreground);
+  --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);
+  --sl-color-tab-hover-foreground: var(--sl-body-foreground);
+  --sl-color-tab-default-foreground: var(--sl-body-foreground);
   --sl-color-dialog-foreground: var(--sl-body-foreground);
   --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);

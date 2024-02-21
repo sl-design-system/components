@@ -530,6 +530,10 @@
   --sl-border-radius-button-md: var(--sl-border-radius-2xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
   --sl-border-radius-badge-full: var(--sl-border-radius-full);
+  --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-tooltip-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
@@ -786,6 +790,15 @@
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-500));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-150));
+    --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
+    --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
     --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
     --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-500));
@@ -1204,6 +1217,10 @@
     --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-base));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
+    --sl-color-tab-content-background: var(--sl-body-background);
+    --sl-color-tab-tabbar-background: var(--sl-body-background);
+    --sl-color-tab-disabled-background: var(--sl-body-background);
+    --sl-color-tab-default-background: var(--sl-body-background);
     --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-50));
     --sl-color-dialog-border: var(--sl-body-background);
     --sl-color-dialog-background: var(--sl-body-background);
@@ -1376,6 +1393,11 @@
     --sl-color-button-success-solid-idle-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-button-primary-outline-idle-background: var(--sl-body-background);
     --sl-color-button-default-link-hover-foreground: rgb(var(--sl-color-palette-accent-700));
+    --sl-color-tab-content-foreground: var(--sl-body-foreground);
+    --sl-color-tab-active-foreground: var(--sl-body-foreground);
+    --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);
+    --sl-color-tab-hover-foreground: var(--sl-body-foreground);
+    --sl-color-tab-default-foreground: var(--sl-body-foreground);
     --sl-color-dialog-foreground: var(--sl-body-foreground);
     --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);
     --sl-color-select-selectbox-valid-disabled-icon: var(--sl-color-input-text-field-valid-disabled-icon);

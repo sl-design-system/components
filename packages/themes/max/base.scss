@@ -531,6 +531,10 @@
   --sl-border-radius-button-md: var(--sl-border-radius-2xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
   --sl-border-radius-badge-full: var(--sl-border-radius-full);
+  --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /

@@ -5,6 +5,52 @@ eleventyNavigation:
   parent: Popover
   key: PopoverUsage
 ---
+<style>
+.ds-example header {
+  margin-block: var(--scale-100-scale);
+}
+
+#example-content {
+  display: grid;
+  gap: 0.4rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+#example-content p {
+  margin-block: 0;
+}
+</style>
+
+<section class="no-heading">
+<div class="ds-example">
+<sl-button id="anchor" popovertarget="popover-1" variant="primary">Show more information</sl-button>
+<sl-popover id="popover-1" anchor="anchor">
+<header class="ds-heading-3">Project Overview</header>
+<hr color="#D9D9D9" />
+<section id="example-content">
+  <p>Assigned to</p> <p>John Smith</p>
+  <p>Class</p> <p>2a</p>
+  <p>Due</p> <p>March 10, 2024</p>
+</section>
+</sl-popover>
+</div>
+
+<div class="ds-code">
+
+  ```html
+<sl-button id="anchor" popovertarget="popover-1">Show more information</sl-button>
+<sl-popover id="popover-1" anchor="anchor">
+    <header>Project Overview</header>
+    <hr>
+    <section>
+      Assigned to...
+    </section>
+</sl-popover>
+  ```
+
+</div>
+</section>
+
 <section>
 
 ## When to use
@@ -64,3 +110,16 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 </div>
 
 </section>
+
+<script>
+const popoverBtn = document.querySelector("#anchor");
+const popoverExample = document.querySelector("#popover-1");
+
+requestAnimationFrame(() => {
+popoverBtn.addEventListener("click", () => {
+    if (popoverExample) {
+      popoverExample.togglePopover();
+    }
+  })
+})
+</script>

@@ -1,35 +1,55 @@
 ---
 title: Popover code
 tags: code
-APIdescription: Component has a range of properties to define the experience in different use cases.
+APIdescription: The popover component offers settings for various scenarios.
 eleventyNavigation:
   parent: Popover
   key: PopoverCode
 ---
-<section>
+<section class="no-heading">
 
-## Skeleton code
-
-Skeleton examples
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
+<div class="ds-example">
+<sl-button id="my-btn" popovertarget="popover-2" fill="outline" variant="primary">More details about the student</sl-button>
+<sl-popover id="popover-2" anchor="my-btn">
+<header class="ds-heading-3">John Smith</header>
+<hr color="#D9D9D9" />
+<section id="example-content">
+  <p><sl-icon slot="icon" name="fas-school" size="xl"></sl-icon></p> <p>Da Vinci International School</p>
+  <p><sl-icon slot="icon" name="star" size="xl"></sl-icon></p> <p>Class 2a</p>
+  <p><sl-icon slot="icon" name="fas-envelope" size="xl"></sl-icon></p> <p>john.smith@primaryschool.org</p>
 </section>
+</sl-popover>
+</div>
 
-<section>
+<div class="ds-code">
 
-## Code
+  ```html
+<sl-button id="my-btn" popovertarget="popover-2">Show more information</sl-button>
+<sl-popover id="popover-2" anchor="my-btn">
+  <header>Project Overview</header>
+  <hr>
+  <section>
+    Assigned to...
+  </section>
+</sl-popover>
+  ```
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
 </section>
 
 {% include "../component-table.njk" %}
 
-<section>
+<script>
+const myPopoverBtn = document.querySelector("#my-btn");
+const popoverCodeExample = document.querySelector("#popover-2");
 
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  
+requestAnimationFrame(() => {
+console.log('myPopoverBtn, popoverCodeExample', myPopoverBtn, popoverCodeExample);
+myPopoverBtn?.addEventListener("click", () => {
+    if (popoverCodeExample) {
+      popoverCodeExample.togglePopover();
+    }
+  })
+})
+</script>

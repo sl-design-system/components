@@ -485,8 +485,18 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Menu item component for use inside a menu.",
           "name": "MenuItem",
+          "slots": [
+            {
+              "description": "Content to display inside the menu item.",
+              "name": "default"
+            },
+            {
+              "description": "The menu items that will be displayed when the menu item is shown.",
+              "name": "submenu"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -536,7 +546,7 @@
             },
             {
               "kind": "field",
-              "name": "subMenu",
+              "name": "submenu",
               "type": {
                 "text": "Menu | undefined"
               },
@@ -741,7 +751,7 @@
             },
             {
               "kind": "field",
-              "name": "subMenu",
+              "name": "submenu",
               "type": {
                 "text": "Menu | undefined"
               },

@@ -69,18 +69,11 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
     super.firstUpdated(changes);
 
     this.menu.anchorElement = this.button;
-    this.menu.position = this.position ?? 'bottom-start';
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('position')) {
-      this.menu.position = this.position ?? 'bottom-start';
-    }
   }
 
   override render(): TemplateResult {
+    // Check if the button only contains an icon; we have to look in the light DOM for this,
+    // since we render our own icon in the shadow DOM.
     const assignedElements = Array.from(this.children).filter(el => el.slot === 'button'),
       iconOnly = assignedElements.length === 1 && assignedElements[0].nodeName === 'SL-ICON';
 
@@ -97,7 +90,12 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         ${this.selects ? html`<span class="selected">${this.selected}</span>` : nothing}
         ${iconOnly ? nothing : html`<sl-icon name="far-angle-down"></sl-icon>`}
       </sl-button>
-      <sl-menu @toggle=${this.#onToggle} @sl-select=${this.#onSelect} .selects=${this.selects}>
+      <sl-menu
+        @toggle=${this.#onToggle}
+        @sl-select=${this.#onSelect}
+        .position=${this.position ?? 'bottom-start'}
+        .selects=${this.selects}
+      >
         <slot @slotchange=${this.#onSlotchange}></slot>
       </sl-menu>
     `;

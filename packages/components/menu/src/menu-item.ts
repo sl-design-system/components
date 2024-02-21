@@ -9,6 +9,12 @@ import styles from './menu-item.scss.js';
 
 Icon.register(faCheck, faChevronRight);
 
+/**
+ * Menu item component for use inside a menu.
+ *
+ * @slot default - Content to display inside the menu item.
+ * @slot submenu - The menu items that will be displayed when the menu item is shown.
+ */
 export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -47,7 +53,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   @property() shortcut?: string;
 
   /** The sub menu, if present. */
-  @state() subMenu?: Menu;
+  @state() submenu?: Menu;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -74,7 +80,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
         ${this.selected ? html`<sl-icon name="far-check"></sl-icon>` : nothing}
         <slot></slot>
         ${this.shortcut ? html`<kbd>${this.#shortcut.render(this.shortcut)}</kbd>` : nothing}
-        ${this.subMenu ? html`<sl-icon name="far-chevron-right"></sl-icon>` : nothing}
+        ${this.submenu ? html`<sl-icon name="far-chevron-right"></sl-icon>` : nothing}
       </div>
       <div class="submenu">
         <slot @slotchange=${this.#onSubmenuChange} name="submenu"></slot>
@@ -90,7 +96,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    if (this.subMenu) {
+    if (this.submenu) {
       this.#showSubMenu();
     } else if (this.selectable) {
       this.selected = !this.selected;
@@ -107,7 +113,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
       event.stopPropagation();
 
-      if (this.subMenu) {
+      if (this.submenu) {
         this.#showSubMenu(true);
       } else {
         this.#onClick(event);
@@ -136,22 +142,22 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   }
 
   #onSubmenuChange(event: Event & { target: HTMLSlotElement }): void {
-    this.subMenu = event.target.assignedNodes().find((node): node is Menu => node instanceof Menu);
+    this.submenu = event.target.assignedElements({ flatten: true }).find((node): node is Menu => node instanceof Menu);
 
-    if (this.subMenu) {
-      this.subMenu.anchorElement = this;
+    if (this.submenu) {
+      this.submenu.anchorElement = this;
     }
   }
 
   #showSubMenu(focus?: boolean): void {
-    this.subMenu?.showPopover();
+    this.submenu?.showPopover();
 
     if (focus) {
-      this.subMenu?.focus();
+      this.submenu?.focus();
     }
   }
 
   #hideSubMenu(): void {
-    this.subMenu?.hidePopover();
+    this.submenu?.hidePopover();
   }
 }

@@ -1975,5 +1975,13 @@
         "type": "Flex"
       }
     }
+  },
+  "size": {
+    "select": {
+      "indicator": {
+        "value": "{size.3xs}",
+        "type": "sizing"
+      }
+    }
   }
 }

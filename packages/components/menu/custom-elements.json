@@ -78,8 +78,18 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Custom element that combines a button and a menu and automatically wires them up\ntogether.",
           "name": "MenuButton",
+          "slots": [
+            {
+              "description": "The menu items should be slotted in the default slot.",
+              "name": "default"
+            },
+            {
+              "description": "Any content for the button should be slotted here.",
+              "name": "button"
+            }
+          ],
           "members": [
             {
               "kind": "field",

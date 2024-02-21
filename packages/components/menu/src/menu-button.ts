@@ -1,5 +1,5 @@
-import type { PopoverPosition } from 'packages/components/shared/index.js';
 import { faAngleDown } from '@fortawesome/pro-regular-svg-icons';
+import { type PopoverPosition } from '@sl-design-system/shared';
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
@@ -11,6 +11,13 @@ import styles from './menu-button.scss.js';
 
 Icon.register(faAngleDown);
 
+/**
+ * Custom element that combines a button and a menu and automatically wires them up
+ * together.
+ *
+ * @slot default - The menu items should be slotted in the default slot.
+ * @slot button - Any content for the button should be slotted here.
+ */
 @localized()
 export class MenuButton extends ScopedElementsMixin(LitElement) {
   /** @private */

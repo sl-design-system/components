@@ -108,6 +108,13 @@ export const Basic: Story = {
   }
 };
 
+export const Disabled: Story = {
+  args: {
+    ...Basic.args,
+    disabled: true
+  }
+};
+
 export const SingleSelect: Story = {
   args: {
     body: html`<span slot="button">View</span>`,

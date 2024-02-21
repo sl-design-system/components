@@ -8,6 +8,8 @@ eleventyNavigation:
 <style>
 .ds-example header {
   margin-block: var(--scale-100-scale);
+  display: flex;
+  justify-content: space-between;
 }
 
 #example-content {
@@ -22,25 +24,31 @@ eleventyNavigation:
 </style>
 
 <section class="no-heading">
+
 <div class="ds-example">
-<sl-button id="anchor" popovertarget="popover-1" variant="primary">Show more information</sl-button>
-<sl-popover id="popover-1" anchor="anchor">
-<header class="ds-heading-3">Project Overview</header>
-<hr color="#D9D9D9" />
-<section id="example-content">
-  <p>Assigned to</p> <p>John Smith</p>
-  <p>Class</p> <p>2a</p>
-  <p>Due</p> <p>March 10, 2024</p>
-</section>
-</sl-popover>
+  <sl-button id="anchor" popovertarget="popover-1" variant="primary">Show more information</sl-button>
+  <sl-popover id="popover-1" anchor="anchor" aria-label="More information about John">
+  <header class="ds-heading-3">
+  Project Overview
+  <sl-button id="close-btn" fill="ghost" variant="default" size="sm" aria-label="Close the popover" autofocus>
+  <sl-icon name="xmark"></sl-icon>
+  </sl-button>
+  </header>
+  <hr color="#D9D9D9" />
+  <section id="example-content">
+    <p>Assigned to</p> <p>John Smith</p>
+    <p>Class</p> <p>2a</p>
+    <p>Due</p> <p>March 10, 2024</p>
+  </section>
+  </sl-popover>
 </div>
 
 <div class="ds-code">
 
   ```html
 <sl-button id="anchor" popovertarget="popover-1">Show more information</sl-button>
-<sl-popover id="popover-1" anchor="anchor">
-    <header>Project Overview</header>
+<sl-popover id="popover-1" anchor="anchor" aria-label="More information about John">
+    <header>Project Overview <sl-button autofocus>...</sl-button></header>
     <hr>
     <section>
       Assigned to...
@@ -114,11 +122,18 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 <script>
 const popoverBtn = document.querySelector("#anchor");
 const popoverExample = document.querySelector("#popover-1");
+const closeBtn = document.querySelector("#close-btn");
 
 requestAnimationFrame(() => {
 popoverBtn.addEventListener("click", () => {
     if (popoverExample) {
       popoverExample.togglePopover();
+    }
+  });
+
+closeBtn.addEventListener("click", () => {
+    if (popoverExample) {
+      popoverExample.hidePopover();
     }
   })
 })

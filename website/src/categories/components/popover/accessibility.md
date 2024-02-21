@@ -17,8 +17,8 @@ Here's an overview of the common keyboard interactions associated with a popover
 
 |Command|Description|
 |-|-|
-|`tab`|Toggles the popover when the element that triggers it is focussed.|
-|`esc`|Closes the popover.|
+|`Tab`|When the popover is opened, focus moves into the popover container to the first focusable element to navigate elements inside.|
+|`Esc`|Closes the popover.|
 
 {.ds-table .ds-table-align-top}
 
@@ -38,8 +38,10 @@ WAI-ARIA Roles, States, and Properties for a popover provide essential informati
   
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
 |-|-|-|-|
-|`role`|`'popover'`|Declare our custom component as a popover.|no|
-|`aria-haspopup`|boolean|Indicates whether the popover has a popup menu or sub-level content.|yes|
+|`aria-expanded`|boolean|Set to `true` (on the anchor element) if the popover is visible, `false` if the popover is hidden.|no|
+|`aria-controls`|string|Used to link the anchor element (element that triggers the popover component) with popover. Should contain `id` of the popover element and should be added to the anchor element.|no|
+|`aria-label`|string|Can be used to describe the popover content/purpose.|yes|
+|`aria-labelledby`|string|Used to connect (by `id`) with single header/element inside a popover that describes the popover.|yes|
 
 {.ds-table .ds-table-align-top}
 

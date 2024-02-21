@@ -25,7 +25,7 @@ import { MessageDialog } from '@sl-design-system/message-dialog';
 import { setup } from '@sl-design-system/sanoma-learning';
 import { Icon } from '@sl-design-system/icon';
 import { faBug, faCode, faMessagesQuestion, faPenToSquare, faPencilRuler } from '@fortawesome/pro-regular-svg-icons';
-import { faEnvelope, faHandBackPointUp, faSchool } from '@fortawesome/pro-solid-svg-icons';
+import { faEnvelope, faHandBackPointUp, faSchool, faScreenUsers } from '@fortawesome/pro-solid-svg-icons';
 import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 
 setup();
@@ -40,6 +40,7 @@ Icon.register(
   faPenToSquare,
   faPencilRuler,
   faSchool,
+  faScreenUsers,
   faSlack
 );
 

@@ -6,35 +6,97 @@ eleventyNavigation:
   parent: Popover
   key: PopoverCode
 ---
+<style>
+#code-example {
+  display: flex;
+  flex-direction: column;
+}
+
+#code-example p {
+  display: inline-flex;
+  font-size: 1.4rem;
+  gap: 1.6rem;
+}
+</style>
+
 <section class="no-heading">
 
 <div class="ds-example">
-<sl-button id="my-btn" popovertarget="popover-2" fill="outline" variant="primary">More details about the student</sl-button>
-<sl-popover id="popover-2" anchor="my-btn">
-<header class="ds-heading-3">John Smith</header>
-<hr color="#D9D9D9" />
-<section id="example-content">
-  <p><sl-icon slot="icon" name="fas-school" size="xl"></sl-icon></p> <p>Da Vinci International School</p>
-  <p><sl-icon slot="icon" name="star" size="xl"></sl-icon></p> <p>Class 2a</p>
-  <p><sl-icon slot="icon" name="fas-envelope" size="xl"></sl-icon></p> <p>john.smith@primaryschool.org</p>
-</section>
-</sl-popover>
+  <sl-button id="my-btn" popovertarget="popover-2" fill="outline" variant="primary">More details about the student</sl-button>
+  <sl-popover id="popover-2" anchor="my-btn" position="bottom-start" aria-label="Information about the student - John Smith">
+  <header class="ds-heading-3" style="align-items: start;">
+  <sl-avatar display-name="John Smith" size="2xl">Primary school</sl-avatar>
+  <sl-button id="close-popover-btn" fill="ghost" variant="default" size="sm" aria-label="Close the popover" autofocus>
+  <sl-icon name="xmark"></sl-icon>
+  </sl-button>
+  </header>
+  <hr color="#D9D9D9" />
+  <section id="code-example">
+    <p><sl-icon slot="icon" name="fas-school" size="lg"></sl-icon>Da Vinci International School</p>
+    <p><sl-icon slot="icon" name="fas-screen-users" size="lg"></sl-icon>Class 2a</p>
+    <p><sl-icon slot="icon" name="fas-envelope" size="lg"></sl-icon>john.smith@primaryschool.org</p>
+  </section>
+  </sl-popover>
 </div>
 
 <div class="ds-code">
 
   ```html
-<sl-button id="my-btn" popovertarget="popover-2">Show more information</sl-button>
-<sl-popover id="popover-2" anchor="my-btn">
-  <header>Project Overview</header>
-  <hr>
-  <section>
-    Assigned to...
-  </section>
+<sl-button id="my-btn" popovertarget="popover-2">More details...</sl-button>
+<sl-popover id="popover-2" anchor="my-btn" position="bottom-start" aria-label="Information about the student...">
+    <header>...<sl-button autofocus>...</sl-button></header>
+    <hr>
+    <section>
+      Da Vinci...
+    </section>
 </sl-popover>
   ```
 
 </div>
+
+</section>
+
+<section>
+
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/popover
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/popover
+  ```
+</div>
+
+</section>
+
+<section>
+
+## Opening / closing
+
+The `sl-popover` component uses `'popover'` attribute and can be shown/hidden using Popover API methods like:
+
+### `hidePopover()`
+Hides a popover element by removing it from the top layer and styling it with display: none.
+
+### `showPopover()`
+Shows a popover element by adding it to the top layer.
+
+### `togglePopover()`
+Toggles a popover element between the showing and hidden states.
+
+More information you can find [here](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API).
 
 </section>
 
@@ -43,12 +105,18 @@ eleventyNavigation:
 <script>
 const myPopoverBtn = document.querySelector("#my-btn");
 const popoverCodeExample = document.querySelector("#popover-2");
+const closePopoverBtn = document.querySelector("#close-popover-btn");
 
 requestAnimationFrame(() => {
-console.log('myPopoverBtn, popoverCodeExample', myPopoverBtn, popoverCodeExample);
 myPopoverBtn?.addEventListener("click", () => {
     if (popoverCodeExample) {
       popoverCodeExample.togglePopover();
+    }
+  });
+
+closePopoverBtn.addEventListener("click", () => {
+    if (popoverCodeExample) {
+      popoverCodeExample.hidePopover();
     }
   })
 })

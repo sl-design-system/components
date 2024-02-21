@@ -11,7 +11,7 @@ packageName: card
 eleventyNavigation:
   parent: Components
   key: Card
-  order: 2
+  order: 8
   status: coming
 ---
 

@@ -11,7 +11,7 @@ packageName: badge
 eleventyNavigation:
   parent: Components
   key: Badge
-  order: 2
+  order: 4
   status: coming
 ---
 

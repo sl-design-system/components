@@ -11,7 +11,7 @@ packageName: tabs
 eleventyNavigation:
   parent: Components
   key: Tabs
-  order: 19
+  order: 23
   status: coming
 ---
 

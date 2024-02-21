@@ -9,7 +9,7 @@ packageName: grid
 eleventyNavigation:
   parent: Components
   key: Grid
-  order: 10
+  order: 13
   status: coming
 ---
 

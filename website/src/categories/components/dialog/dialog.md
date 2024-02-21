@@ -10,7 +10,7 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Dialog
-  order: 6
+  order: 10
   status: ready
 ---
 

@@ -11,7 +11,7 @@ packageName: spinner
 eleventyNavigation:
   parent: Components
   key: Spinner
-  order: 2
+  order: 21
   status: coming
 ---
 

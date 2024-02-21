@@ -11,7 +11,7 @@ packageName: skeleton
 eleventyNavigation:
   parent: Components
   key: Skeleton
-  order: 17
+  order: 20
   status: ready
 ---
 

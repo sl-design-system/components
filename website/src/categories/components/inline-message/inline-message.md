@@ -11,7 +11,7 @@ packageName: inline-message
 eleventyNavigation:
   parent: Components
   key: Inline message
-  order: 12
+  order: 15
   status: ready
 ---
 

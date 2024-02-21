@@ -11,7 +11,7 @@ packageName: avatar
 eleventyNavigation:
   parent: Components
   key: Avatar
-  order: 2
+  order: 3
   status: ready
 ---
 

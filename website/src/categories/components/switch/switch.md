@@ -11,6 +11,6 @@ packageName: switch
 eleventyNavigation:
   parent: Components
   key: Switch
-  order: 18
+  order: 22
   status: ready
 ---

@@ -292,6 +292,7 @@
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
   --sl-size-input-option-sm: var(--sl-size-lg);
+  --sl-size-select-indicator: var(--sl-size-3xs);
   --sl-opacity-spinner-shadow: 0.32;
   --sl-text-case-badge-text-transform: var(--sl-text-typeset-text-case-uppercase);
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);

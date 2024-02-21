@@ -1,35 +1,68 @@
 ---
-title: Inline Message code
+title: Inline message code
 tags: code
 APIdescription: Component has a range of properties to define the experience in different use cases.
 eleventyNavigation:
-  parent: Inline Message
-  key: inlineMessageCode
+  parent: Inline message
+  key: InlineMessageCode
 ---
-<section>
+<section class="no-heading">
 
-## Inline Message code
+<div class="ds-example">
+  <sl-inline-message variant="danger" style="inline-size: 80%;">
+      There are some problems
+      <span slot="description">Please fulfill all required fields:</span>
+      <span slot="details">
+        <ul>
+          <li style="font-size: 1.4rem;">Last name is required</li>
+          <li style="font-size: 1.4rem;">School name is required</li>
+        </ul>
+      </span>
+    </sl-inline-message>
+</div>
 
-Inline Message examples
+<div class="ds-code">
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  ```html
+    <sl-inline-message variant="danger">
+      There are some problems
+      <span slot="description">Please fulfill all...</span>
+      <span slot="details">
+        <ul>
+          <li>Last name is required</li>
+          <li>...</li>
+        </ul>
+      </span>
+    </sl-inline-message>
+  ```
+
+</div>
 
 </section>
 
 <section>
 
-## Code
+## Installation
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/inline-message
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/inline-message
+  ```
+</div>
 
 </section>
 
 {% include "../component-table.njk" %}
-
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  

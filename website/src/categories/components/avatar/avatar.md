@@ -1,8 +1,8 @@
 ---
 title: Avatar
-description: Avatar component description
+description: An avatar is a visual representation of an entity, such as a user or an organization.
 componentType: action
-shortDescription: We are still working on the avatar component
+shortDescription: An avatar is a visual representation of a user or entity.
 picture: <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" fill="none" aria-labelledby="avatarTitle avatarDesc" role="img"><title id="avatarTitle">Illustration of the avatar component.</title><desc id="avatarDesc">An illustrated avatar component representing avatar component card.</desc><path fill="#36F" d="M164.568 71.5A11.003 11.003 0 0 0 164 75c0 6.075 4.925 11 11 11 1.223 0 2.4-.2 3.499-.568A31.866 31.866 0 0 1 182 100c0 17.673-14.327 32-32 32-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32a31.86 31.86 0 0 1 14.568 3.5Z"/><rect width="18" height="18" x="166" y="66" fill="#FF575C" rx="9"/><path fill="#F4F4F4" d="M141.66 111.384c-1.365 0-2.731-.256-4.096-.768a11.177 11.177 0 0 1-3.616-2.24l2.688-3.232a10.06 10.06 0 0 0 2.496 1.568c.917.405 1.803.608 2.656.608.981 0 1.707-.181 2.176-.544.491-.363.736-.853.736-1.472 0-.661-.277-1.141-.832-1.44-.533-.32-1.259-.672-2.176-1.056l-2.72-1.152a9.24 9.24 0 0 1-2.016-1.184 6.133 6.133 0 0 1-1.568-1.888c-.405-.747-.608-1.621-.608-2.624 0-1.152.309-2.197.928-3.136.64-.939 1.515-1.685 2.624-2.24 1.131-.555 2.421-.832 3.872-.832 1.195 0 2.389.235 3.584.704a9.077 9.077 0 0 1 3.136 2.048l-2.4 2.976c-.683-.533-1.365-.939-2.048-1.216-.683-.299-1.44-.448-2.272-.448-.811 0-1.461.17-1.952.512-.469.32-.704.779-.704 1.376 0 .64.299 1.12.896 1.44.619.32 1.376.661 2.272 1.024l2.688 1.088c1.259.512 2.261 1.216 3.008 2.112.747.896 1.12 2.08 1.12 3.552a5.883 5.883 0 0 1-.928 3.2c-.619.981-1.515 1.771-2.688 2.368-1.173.597-2.592.896-4.256.896ZM153.073 111V90.136h4.704v16.896h8.256V111h-12.96Z"/></svg>
 pictureDark: <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" fill="none" aria-labelledby="avatarDarkTitle avatarDarkDesc" role="img"><title id="avatarDarkTitle">Illustration of the avatar component.</title><desc id="avatarDarkDesc">An illustrated avatar component representing avatar component card.</desc><path fill="#5985FF" d="M164.568 71.5A11.003 11.003 0 0 0 164 75c0 6.075 4.925 11 11 11 1.223 0 2.4-.2 3.499-.568A31.866 31.866 0 0 1 182 100c0 17.673-14.327 32-32 32-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32a31.86 31.86 0 0 1 14.568 3.5Z"/><rect width="18" height="18" x="166" y="66" fill="#FF575C" rx="9"/><path fill="#222" d="M141.66 111.384c-1.365 0-2.731-.256-4.096-.768a11.177 11.177 0 0 1-3.616-2.24l2.688-3.232a10.06 10.06 0 0 0 2.496 1.568c.917.405 1.803.608 2.656.608.981 0 1.707-.181 2.176-.544.491-.363.736-.853.736-1.472 0-.661-.277-1.141-.832-1.44-.533-.32-1.259-.672-2.176-1.056l-2.72-1.152a9.24 9.24 0 0 1-2.016-1.184 6.133 6.133 0 0 1-1.568-1.888c-.405-.747-.608-1.621-.608-2.624 0-1.152.309-2.197.928-3.136.64-.939 1.515-1.685 2.624-2.24 1.131-.555 2.421-.832 3.872-.832 1.195 0 2.389.235 3.584.704a9.077 9.077 0 0 1 3.136 2.048l-2.4 2.976c-.683-.533-1.365-.939-2.048-1.216-.683-.299-1.44-.448-2.272-.448-.811 0-1.461.17-1.952.512-.469.32-.704.779-.704 1.376 0 .64.299 1.12.896 1.44.619.32 1.376.661 2.272 1.024l2.688 1.088c1.259.512 2.261 1.216 3.008 2.112.747.896 1.12 2.08 1.12 3.552a5.883 5.883 0 0 1-.928 3.2c-.619.981-1.515 1.771-2.688 2.368-1.173.597-2.592.896-4.256.896ZM153.073 111V90.136h4.704v16.896h8.256V111h-12.96Z"/></svg>
 layout: "components/components.njk"
@@ -12,6 +12,6 @@ eleventyNavigation:
   parent: Components
   key: Avatar
   order: 2
-  status: coming
+  status: ready
 ---
 

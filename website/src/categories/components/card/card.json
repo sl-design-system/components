@@ -1,0 +1,10 @@
+{
+  "layout": "components/components.njk",
+  "tags": "card",
+  "componentTagName": [
+    {
+      "name": "Card",
+      "selector": "sl-card"
+    }
+  ]
+}

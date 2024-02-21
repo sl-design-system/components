@@ -77,9 +77,11 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 
 |Item|Options|Description|
 |-|-|-|
-|Size|`md` `lg`| The select box come in two sizesc medium (default) and large.|
-|Variant|`default` `valid` `invalid`|To indicate the variant of the select box.|
-|item|`option`|Description|
+|Size|`md` `lg`| The select box come in two sizesc medium (default) and large|
+|Variant|`default` `valid` `invalid`|Indicates the variant of the select box|
+|State|`idle` `hover` `active` `disabled`|Indicates the state of the select box|
+|Filled|`empty` `filled` `placeholder`|To indicate is the select is filles or shows a placeholder text|
+|Default value|`value`|To insert the default text of the placeholder|
 
 {.ds-table}
 
@@ -90,9 +92,10 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 
 |Item|Options|Description|
 |-|-|-|
+|Menu open|`boolean`|Displays the dropdown panel|
 |Position|`top` `bottom`|Indicates the position of the dropdown panel|
 |Size|`md` `lg`|Description|
-|item|`option`|Description|
+|Pre selected item|`default` `01` `02` `03` `04` `05` `06` `07` `08` `09` `10` `11` `12` `13` `14` `15`|Indicates the pre select an item from the list|
 
 {.ds-table}
 
@@ -105,7 +108,7 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 |Item|Options|Description|
 |-|-|-|
 |Hint|`boolean`| To display the hint.|
-|Size|`sm` `md` `lg`| The label come in three sizes small, medium (default) and large.|
+|Size|`sm` `md` `lg`| The hint come in three sizes small, medium (default) and large.|
 |State|`default` `disabled` `invalid`| To indicate the state of the hint.|
 |Icon|`boolean`| Displays an icon in front of the hint.|
 |Text|`value`| To insert the text of the hint.|
@@ -120,7 +123,7 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 
 |Item|Options|Description|
 |-|-|-|
-|Focus ring|`boolean`| To display the focus state of the text area.|
+|Focus ring|`boolean`| To display the focus state of the select.|
 
 {.ds-table}
 

@@ -7,32 +7,39 @@ eleventyNavigation:
 ---
 <section>
 
-## Accessibility content
+## Keyboard interactions
 
-This is the accessibility example content
+<div class="ds-table-wrapper">
 
-</section>
+|Command|Description|
+|-|-|
+|Tab|When focus is outside the select, moves focus to the input container.|
+|Space|Launches/closes the select panel|
+|Up|When focus is inside the select panel, moves focus upwards through the option items in the select panel|
+|Down|When focus is inside the select panel, moves focus downwards through the option items in the select panel|
+|Home|When focus is inside the select panel, moves to the first available option item in the select panel|
+|End|When focus is inside the select panel, moves to the last available option item in the select panel|
 
-<section>
+{.ds-table .ds-table-align-top}
 
-## Accessibility content section
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>
-
-<section> 
-
-## Accessibility details
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
 </section>
 
 <section>
 
-## Behaviour
+## WAI-ARIA
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+<div class="ds-table-wrapper">
+
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`ariaLabel`|string|Defines a string that labels the action that will be performed when the user interacts with the select|no|
+|`aria-required`|string|Informs the user that an input is required. When set to ‘true’, screen readers notify users that the element is required|yes|
+|`aria-invalid`|object|Informs the user when there’s an error. Set to ‘false’ by default. Values include true, spelling and grammar. Screen readers alert users when the element is set to any value other than ‘false’|no|
+
+{.ds-table .ds-table-align-top}
+
+</div>
 
 </section>

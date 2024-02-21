@@ -116,9 +116,9 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       if (this.submenu) {
         this.#showSubMenu(true);
       } else {
-        this.#onClick(event);
+        this.click();
       }
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight' && this.submenu) {
       event.preventDefault();
       event.stopPropagation();
 

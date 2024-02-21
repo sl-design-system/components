@@ -7,6 +7,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { Menu } from './menu.js';
+import { MenuItem } from './menu-item.js';
 import styles from './menu-button.scss.js';
 
 Icon.register(faAngleDown);
@@ -91,6 +92,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         ${iconOnly ? nothing : html`<sl-icon name="far-angle-down"></sl-icon>`}
       </sl-button>
       <sl-menu
+        @click=${this.#onMenuClick}
         @toggle=${this.#onToggle}
         @sl-select=${this.#onSelect}
         .position=${this.position ?? 'bottom-start'}
@@ -112,6 +114,13 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
     if (event.key === 'ArrowDown' && this.#popoverState !== 'open') {
       this.menu.showPopover();
       this.menu.focus();
+    }
+  }
+
+  #onMenuClick(event: Event): void {
+    if (event.target instanceof MenuItem) {
+      this.menu.hidePopover();
+      this.button.focus();
     }
   }
 

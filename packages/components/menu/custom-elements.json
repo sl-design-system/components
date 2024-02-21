@@ -275,6 +275,23 @@
             },
             {
               "kind": "method",
+              "name": "#onMenuClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onSelect",
               "return": {
                 "type": {

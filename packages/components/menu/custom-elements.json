@@ -780,6 +780,16 @@
             },
             {
               "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "4",
+              "description": "The default offset of the menu to its anchor."
+            },
+            {
+              "kind": "field",
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
@@ -812,6 +822,16 @@
                 "text": "EventEmitter<void>"
               },
               "description": "Emits when the menu item selection changes."
+            },
+            {
+              "kind": "field",
+              "name": "viewportMargin",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default margin between the menu and the viewport."
             }
           ],
           "events": [
@@ -957,9 +977,29 @@
           "fields": [
             {
               "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "4",
+              "description": "The default offset of the menu to its anchor."
+            },
+            {
+              "kind": "field",
+              "name": "viewportMargin",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default margin between the menu and the viewport."
+            },
+            {
+              "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this, {\n    offset: 4,\n    viewportMargin: 8\n  })",
+              "default": "new AnchorController(this, { offset: Menu.offset, viewportMargin: Menu.viewportMargin })",
               "description": "Controller for managing anchoring."
             },
             {

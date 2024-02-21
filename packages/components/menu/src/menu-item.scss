@@ -8,6 +8,7 @@
   --_gap-shortcut: 0.5rem;
   --_gap-sub-menu-indicator: 1rem;
   --_padding: 6px;
+  --_submenu-offset: -5px;
 }
 
 :host {
@@ -36,6 +37,10 @@
 
 :host([selected]) {
   --_indent: 6px;
+}
+
+slot[name='submenu']::slotted(sl-menu) {
+  margin-block-start: var(--_submenu-offset);
 }
 
 .wrapper {

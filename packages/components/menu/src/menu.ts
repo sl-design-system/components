@@ -13,14 +13,17 @@ import { MenuItemGroup } from './menu-item-group.js';
 import { MenuItem } from './menu-item.js';
 
 export class Menu extends LitElement {
+  /** The default offset of the menu to its anchor. */
+  static offset = 4;
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** The default margin between the menu and the viewport. */
+  static viewportMargin = 8;
+
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this, {
-    offset: 4,
-    viewportMargin: 8
-  });
+  #anchor = new AnchorController(this, { offset: Menu.offset, viewportMargin: Menu.viewportMargin });
 
   /** Events controller. */
   #events = new EventsController(this, {

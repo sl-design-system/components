@@ -38,12 +38,18 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Base popover web component.",
+          "description": "A floating overlay that appears on top of other elements.",
           "name": "Popover",
           "cssParts": [
             {
               "description": "The container for the popover",
               "name": "container"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The content of the popover",
+              "name": "default"
             }
           ],
           "members": [

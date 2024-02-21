@@ -8,9 +8,10 @@ import styles from './popover.scss.js';
 let nextUniqueId = 0;
 
 /**
- * Base popover web component.
+ * A floating overlay that appears on top of other elements.
  *
  * @csspart container - The container for the popover
+ * @slot default - The content of the popover
  */
 export class Popover extends LitElement {
   /** The default offset of the popover to its anchor. */

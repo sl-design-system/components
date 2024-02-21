@@ -5238,6 +5238,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/my-digital-book@workspace:packages/themes/my-digital-book":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/my-digital-book@workspace:packages/themes/my-digital-book"
+  dependencies:
+    "@sl-design-system/icon": "npm:0.0.7"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/myvanin@workspace:packages/themes/myvanin":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/myvanin@workspace:packages/themes/myvanin"

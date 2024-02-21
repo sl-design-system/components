@@ -9,12 +9,11 @@ eleventyNavigation:
 <section>  
 <div class="ds-example" style="justify-content: space-evenly">
   <sl-avatar display-name="Anna Jenssen" picture-url="/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg" size="3xl" orientation="vertical"></sl-avatar>
-  <sl-avatar display-name="Tim Jenssen" picture-url="/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg" size="xl" status="success">Class: 1B</sl-avatar>
+  <sl-avatar display-name="Tim Jenssen" size="xl" status="success">Class: 1B</sl-avatar>
 
   <small style="position: absolute; bottom:0; right:var(--scale-150-scale)">
 
-  Photos by [Xia Yang](https://unsplash.com/@imrxia?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
-  and [Toa Heftiba](https://unsplash.com/@heftiba?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+  Photo by [Toa Heftiba](https://unsplash.com/@heftiba?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
 
   </small>
 </div>
@@ -29,8 +28,7 @@ eleventyNavigation:
       orientation="vertical"></sl-avatar>
 
     <sl-avatar 
-      display-name="Tim Jenssen" 
-      picture-url="/images/avatar.jpg"  
+      display-name="Tim Jenssen"
       size="xl" 
       status="success">Class: 1B</sl-avatar>
   ```

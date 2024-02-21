@@ -70,4 +70,14 @@ eleventyNavigation:
 
 </section>
 
+<section>
+
+## Sizing
+
+The skeleton component has `display: block` set by default, so it occupies the entire width of the container.
+If you want to change the width you can simply use `inline-size` to manipulate the width e.g. `inline-size: 80%;`.
+When you need to indicate that an avatar or any other element with a round shape is loading, you can use `variant="circle"` for such purposes.
+
+</section>
+
 {% include "../component-table.njk" %}

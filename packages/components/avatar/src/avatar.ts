@@ -93,7 +93,6 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** Observe the grid width. */
   #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
     this.#checkOverflow();
-    return;
   });
 
   #hasOverflow = false;
@@ -206,7 +205,6 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
     }
 
     if (changes.has('pictureUrl')) {
-      // console.log('changed pictureURL');
       await this.#setBaseValues();
       this.errorLoadingImage = false;
     }

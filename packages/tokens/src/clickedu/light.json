@@ -3644,12 +3644,12 @@
         }
       },
       "indicator": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.primary.base}",
         "type": "color"
       },
       "hover": {
         "background": {
-          "value": "{color.palette.accent.100}",
+          "value": "{color.palette.accent.50}",
           "type": "color"
         },
         "foreground": {
@@ -3691,7 +3691,7 @@
       },
       "active": {
         "background": {
-          "value": "{color.palette.accent.150}",
+          "value": "{color.palette.accent.100}",
           "type": "color"
         },
         "foreground": {

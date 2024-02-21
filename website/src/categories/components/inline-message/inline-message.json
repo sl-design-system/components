@@ -1,0 +1,10 @@
+{
+  "layout": "components/components.njk",
+  "tags": "inline-message",
+  "componentTagName": [
+    {
+      "name": "Inline field",
+      "selector": "sl-inline-message"
+    }
+  ]
+}

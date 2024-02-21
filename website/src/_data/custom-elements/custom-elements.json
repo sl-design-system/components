@@ -2409,7 +2409,10 @@
               },
               "default": "'sm'",
               "description": "The size of the button",
-              "attribute": "closeButtonSize"
+              "attribute": "closeButtonSize",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             },
             {
               "kind": "field",
@@ -2467,7 +2470,10 @@
               },
               "default": "'sm'",
               "description": "The size of the button",
-              "fieldName": "closeButtonSize"
+              "fieldName": "closeButtonSize",
+              "expandedType": {
+                "text": "'sm' | 'md' | 'lg'"
+              }
             }
           ],
           "mixins": [
@@ -4501,7 +4507,10 @@
                 "text": "LabelMark | undefined"
               },
               "description": "How to mark this field depending if it is required or not.",
-              "attribute": "mark"
+              "attribute": "mark",
+              "expandedType": {
+                "text": "'optional' | 'required' | undefined"
+              }
             },
             {
               "kind": "event",
@@ -4545,7 +4554,10 @@
                 "text": "LabelMark | undefined"
               },
               "description": "How to mark this field depending if it is required or not.",
-              "fieldName": "mark"
+              "fieldName": "mark",
+              "expandedType": {
+                "text": "'optional' | 'required' | undefined"
+              }
             }
           ],
           "mixins": [
@@ -7485,7 +7497,10 @@
                 "text": "GridFilterMode | undefined"
               },
               "description": "The mode of the filter.",
-              "attribute": "mode"
+              "attribute": "mode",
+              "expandedType": {
+                "text": "'select' | 'text' | undefined"
+              }
             },
             {
               "kind": "field",
@@ -7538,7 +7553,10 @@
                 "text": "GridFilterMode | undefined"
               },
               "description": "The mode of the filter.",
-              "fieldName": "mode"
+              "fieldName": "mode",
+              "expandedType": {
+                "text": "'select' | 'text' | undefined"
+              }
             },
             {
               "name": "path",
@@ -9554,7 +9572,10 @@
                 "text": "DataSourceSortDirection | undefined"
               },
               "description": "The direction this columns should be sorted in.",
-              "attribute": "direction"
+              "attribute": "direction",
+              "expandedType": {
+                "text": "'asc' | 'desc' | undefined"
+              }
             },
             {
               "kind": "method",
@@ -9785,7 +9806,10 @@
                 "text": "DataSourceSortDirection | undefined"
               },
               "description": "The direction this columns should be sorted in.",
-              "fieldName": "direction"
+              "fieldName": "direction",
+              "expandedType": {
+                "text": "'asc' | 'desc' | undefined"
+              }
             },
             {
               "name": "align",
@@ -10106,7 +10130,10 @@
               },
               "description": "The direction in which to sort the items.",
               "attribute": "direction",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'asc' | 'desc' | undefined"
+              }
             },
             {
               "kind": "field",
@@ -10176,7 +10203,10 @@
                 "text": "DataSourceSortDirection | undefined"
               },
               "description": "The direction in which to sort the items.",
-              "fieldName": "direction"
+              "fieldName": "direction",
+              "expandedType": {
+                "text": "'asc' | 'desc' | undefined"
+              }
             },
             {
               "name": "path",
@@ -11496,7 +11526,7 @@
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "description": "Determines whether a (default) closing button should be shown in the top right corner.",
               "attribute": "dismissible",
               "reflects": true
             },
@@ -11528,7 +11558,7 @@
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
+              "description": "Determines whether a (default) closing button should be shown in the top right corner.",
               "fieldName": "dismissible"
             },
             {
@@ -11900,7 +11930,10 @@
               },
               "default": "'bottom'",
               "description": "The position of this popover relative to its anchor.",
-              "attribute": "position"
+              "attribute": "position",
+              "expandedType": {
+                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
+              }
             }
           ],
           "attributes": [
@@ -11911,7 +11944,10 @@
               },
               "default": "'bottom'",
               "description": "The position of this popover relative to its anchor.",
-              "fieldName": "position"
+              "fieldName": "position",
+              "expandedType": {
+                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
+              }
             }
           ],
           "superclass": {
@@ -12203,7 +12239,10 @@
                 "text": "RadioButtonSize | undefined"
               },
               "description": "The size of the radio buttons in the group.",
-              "attribute": "size"
+              "attribute": "size",
+              "expandedType": {
+                "text": "'md' | 'lg' | undefined"
+              }
             },
             {
               "kind": "event",
@@ -12369,7 +12408,10 @@
                 "text": "RadioButtonSize | undefined"
               },
               "description": "The size of the radio buttons in the group.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'md' | 'lg' | undefined"
+              }
             },
             {
               "name": "value",
@@ -12649,7 +12691,10 @@
               },
               "description": "Indicates if the radio button shows it is (in)valid.",
               "attribute": "show-validity",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'valid' | 'invalid' | "
+              }
             },
             {
               "kind": "field",
@@ -12698,7 +12743,10 @@
                 "text": "FormControlShowValidity"
               },
               "description": "Indicates if the radio button shows it is (in)valid.",
-              "fieldName": "showValidity"
+              "fieldName": "showValidity",
+              "expandedType": {
+                "text": "'valid' | 'invalid' | "
+              }
             },
             {
               "name": "size",
@@ -12872,7 +12920,10 @@
               },
               "description": "Mirrors the same property on the sl-select parent.",
               "attribute": "show-validity",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'valid' | 'invalid' | "
+              }
             },
             {
               "kind": "field",
@@ -12883,7 +12934,10 @@
               "default": "'md'",
               "description": "The size of the parent select.",
               "attribute": "size",
-              "reflects": true
+              "reflects": true,
+              "expandedType": {
+                "text": "'md' | 'lg' | undefined"
+              }
             }
           ],
           "attributes": [
@@ -12910,7 +12964,10 @@
               },
               "default": "'md'",
               "description": "The size of the parent select.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "expandedType": {
+                "text": "'md' | 'lg' | undefined"
+              }
             },
             {
               "name": "show-valid",
@@ -12926,7 +12983,10 @@
                 "text": "FormControlShowValidity"
               },
               "description": "Mirrors the same property on the sl-select parent.",
-              "fieldName": "showValidity"
+              "fieldName": "showValidity",
+              "expandedType": {
+                "text": "'valid' | 'invalid' | "
+              }
             }
           ],
           "mixins": [
@@ -14055,6 +14115,9 @@
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
+              },
+              "expandedType": {
+                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
               }
             }
           ],
@@ -14090,6 +14153,9 @@
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
+              },
+              "expandedType": {
+                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
               }
             },
             {

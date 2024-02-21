@@ -334,7 +334,7 @@
               "type": {
                 "text": "ResizeObserver | undefined"
               },
-              "default": "new ResizeObserver(() => {\n    this.#checkOverflow();\n    return;\n  })",
+              "default": "new ResizeObserver(() => {\n    this.#checkOverflow();\n  })",
               "description": "Observe the grid width."
             },
             {

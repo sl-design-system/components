@@ -6,8 +6,6 @@ eleventyNavigation:
   key: PopoverAccessibility
 ---
 <section>
-
-<section>
   
 ## Keyboard interactions
 
@@ -27,7 +25,6 @@ Here's an overview of the common keyboard interactions associated with a popover
 </section>
 
 <section>
-
 
 ## WAI-ARIA
 WAI-ARIA Roles, States, and Properties for a popover provide essential information to assistive technologies and screen readers. They convey the popovers's role, state, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.

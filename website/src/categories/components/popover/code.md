@@ -16,6 +16,7 @@ eleventyNavigation:
   display: inline-flex;
   font-size: 1.4rem;
   gap: 1.6rem;
+  margin-block: 0.8rem;
 }
 </style>
 
@@ -118,6 +119,6 @@ closePopoverBtn.addEventListener("click", () => {
     if (popoverCodeExample) {
       popoverCodeExample.hidePopover();
     }
-  })
+  });
 })
 </script>

@@ -135,6 +135,6 @@ closeBtn.addEventListener("click", () => {
     if (popoverExample) {
       popoverExample.hidePopover();
     }
-  })
+  });
 })
 </script>

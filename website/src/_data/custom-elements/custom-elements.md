@@ -2463,9 +2463,9 @@
 
 ### Fields
 
-| Name       | Privacy | Type                           | Default    | Description                                          | Inherited From |
-| ---------- | ------- | ------------------------------ | ---------- | ---------------------------------------------------- | -------------- |
-| `position` |         | `PopoverPosition \| undefined` | `'bottom'` | The position of this popover relative to its anchor. |                |
+| Name       | Privacy | Type                                                                                                                                                                 | Default    | Description                                     | Inherited From |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------- | -------------- |
+| `position` |         | `'top' \| 'right' \| 'bottom' \| 'left' \| 'top-start' \| 'top-end' \| 'right-start' \| 'right-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end'` | `'bottom'` | The position of popover relative to its anchor. |                |
 
 ### Attributes
 
@@ -2478,6 +2478,12 @@
 | Name        | Description                   |
 | ----------- | ----------------------------- |
 | `container` | The container for the popover |
+
+### Slots
+
+| Name      | Description                  |
+| --------- | ---------------------------- |
+| `default` | Body content for the popover |
 
 <hr/>
 

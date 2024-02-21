@@ -8,8 +8,8 @@ eleventyNavigation:
 ---
 <section>  
 <div class="ds-example" style="justify-content: space-evenly">
-  <sl-avatar size="3xl" id="avatar3" orientation="vertical"></sl-avatar>
-  <sl-avatar size="xl" id="avatar4" status="success">Class: 1B</sl-avatar>
+  <sl-avatar display-name="Anna Jenssen" picture-url="/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg" size="3xl" orientation="vertical"></sl-avatar>
+  <sl-avatar display-name="Tim Jenssen" picture-url="/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg" size="xl" status="success">Class: 1B</sl-avatar>
 
   <small style="position: absolute; bottom:0; right:var(--scale-150-scale)">
 
@@ -22,19 +22,17 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
+    <sl-avatar 
+      display-name="Anna Jenssen" 
+      picture-url="/images/avatar.jpg" 
+      size="3xl" 
+      orientation="vertical"></sl-avatar>
 
-    const user1 = {
-      'name': {
-        'first': 'Anna',
-        'last': 'Jenssen'
-      },
-      'picture': {
-        'thumbnail': '/images/avatar.jpg'
-      }
-    }
-
-    <sl-avatar user="user1" size="3xl" id="avatar1" orientation="vertical"></sl-avatar>
-    <sl-avatar user="user2" size="xl" id="avatar2" status="success">Class: 1B</sl-avatar>
+    <sl-avatar 
+      display-name="Tim Jenssen" 
+      picture-url="/images/avatar.jpg"  
+      size="xl" 
+      status="success">Class: 1B</sl-avatar>
   ```
 </div>
 
@@ -50,23 +48,3 @@ The shape of the avatar - a circle or a square, optionally with rounded corners 
 
 {% include "../component-table.njk" %}
 
-<script>
-document.querySelector("#avatar3").user = {
-    'name': {
-      'first': 'Anna',
-      'last': 'Jenssen'
-    },
-    'picture': {
-      'thumbnail': '/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg'
-    }};
-
-document.querySelector("#avatar4").user = {
-    'name': {
-      'first': 'Tim',
-      'last': 'Jenssen'
-    },
-    'picture': {
-      'thumbnail': '/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg'
-    }};
-
-</script>

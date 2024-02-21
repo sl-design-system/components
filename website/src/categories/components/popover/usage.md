@@ -13,7 +13,7 @@ eleventyNavigation:
 When you want to provide more context or detailed information about an element. 
 
 ### Interactive Elements
-Use popovers for actions or interactions related to an element. For example: a “More” button revealing additional actions for a task (e.g., edit, delete).
+Use popovers for actions or interactions related to an element. For instance, a scenario where a user hovers over an image thumbnail. A popover could appear, displaying additional details about the image, such as its title, description, and tags.
 
 </section>
 

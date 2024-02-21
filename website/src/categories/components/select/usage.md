@@ -55,13 +55,18 @@ Avoid using the select component as a menu. Its primary purpose is to display a 
 With these options, you can tweak the appearance of the select in Figma. They are available in the Design Panel so you can compose the select to exactly fit the user experience need for the use case you are working on.
 
 ### Label
+
 <div class="ds-table-wrapper">
 
 |Item|Options|Description|
 |-|-|-|
-|item|`option`|Description|
-|item|`option`|Description|
-|item|`option`|Description|
+|Label|`boolean`| To display a label.|
+|Size|`sm` `md` `lg`| The label come in three sizes small, medium (default) and large.|
+|Disabled|`boolean`| To show the disabled state of the label.|
+|Required|`boolean`| Indicates if it is requiered to select an option.|
+|Optional|`boolean`| Indicates if it is optional to select an  option.|
+|Info|`boolean`| To show a info icon with tooltip after the label.|
+|Text|`value`| To insert the text of the label.|
 
 {.ds-table}
 
@@ -72,8 +77,8 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 
 |Item|Options|Description|
 |-|-|-|
-|item|`option`|Description|
-|item|`option`|Description|
+|Size|`md` `lg`| The select box come in two sizesc medium (default) and large.|
+|Variant|`default` `valid` `invalid`|To indicate the variant of the select box.|
 |item|`option`|Description|
 
 {.ds-table}
@@ -94,17 +99,31 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 </div>
 
 ### Hint
+
 <div class="ds-table-wrapper">
 
 |Item|Options|Description|
 |-|-|-|
-|item|`option`|Description|
-|item|`option`|Description|
-|item|`option`|Description|
+|Hint|`boolean`| To display the hint.|
+|Size|`sm` `md` `lg`| The label come in three sizes small, medium (default) and large.|
+|State|`default` `disabled` `invalid`| To indicate the state of the hint.|
+|Icon|`boolean`| Displays an icon in front of the hint.|
+|Text|`value`| To insert the text of the hint.|
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+### Focus ring
+
+<div class="ds-table-wrapper">
+
+|Item|Options|Description|
+|-|-|-|
+|Focus ring|`boolean`| To display the focus state of the text area.|
 
 {.ds-table}
 
-</div>
 
 
 </section>

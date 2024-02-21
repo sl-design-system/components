@@ -38,7 +38,7 @@ const MIN_OVERLAY_HEIGHT = 25;
 export const positionPopover = (
   element: HTMLElement,
   anchor: Element,
-  options: PositionPopoverOptions
+  options: PositionPopoverOptions = {}
 ): (() => void) => {
   // Reset element to top left to prevent layout interference
   // See https://floating-ui.com/docs/computePosition#initial-layout

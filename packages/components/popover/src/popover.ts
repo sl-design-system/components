@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { PopoverPosition } from '@sl-design-system/shared';
-import { AnchorController, EventsController, popoverPolyfillStyles } from '@sl-design-system/shared';
+import { AnchorController, popoverPolyfillStyles } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
@@ -13,18 +13,20 @@ let nextUniqueId = 0;
  * @csspart container - The container for the popover
  */
 export class Popover extends LitElement {
+  /** The default offset of the popover to its anchor. */
+  static offset = 12;
+
   /** @private */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @private */
   static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
 
-  #events = new EventsController(this);
+  /** The default margin between the tooltip and the viewport. */
+  static viewportMargin = 8;
 
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this);
-
-  #popoverId = `sl-popover-${nextUniqueId++}`;
+  #anchor = new AnchorController(this, { offset: Popover.offset, viewportMargin: Popover.viewportMargin });
 
   /** The position of this popover relative to its anchor. */
   @property() position?: PopoverPosition = 'bottom';
@@ -32,19 +34,8 @@ export class Popover extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#events.listen(this, 'keydown', this.#onKeydown);
-  }
-
-  constructor() {
-    super();
-
-    if (!this.hasAttribute('popover')) {
-      this.setAttribute('popover', '');
-    }
-
-    if (!this.hasAttribute('id')) {
-      this.setAttribute('id', this.#popoverId);
-    }
+    this.id ||= `sl-popover-${nextUniqueId++}`;
+    this.setAttribute('popover', '');
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -88,11 +79,5 @@ export class Popover extends LitElement {
         </svg>
       </div>
     `;
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.code === 'Escape') {
-      this.hidePopover();
-    }
   }
 }

@@ -19,6 +19,9 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** @private */
   static formAssociated = true;
 
+  /** The default offset of the listbox to the button. */
+  static offset = 6;
+
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -31,6 +34,9 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** The default margin between the tooltip and the viewport. */
+  static viewportMargin = 8;
 
   /** Events controller. */
   #events = new EventsController(this, {
@@ -197,7 +203,12 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     return html`
       <slot name="button"></slot>
       <div
-        ${anchor({ element: this.button, position: 'bottom' })}
+        ${anchor({
+          element: this.button,
+          offset: Select.offset,
+          position: 'bottom-start',
+          viewportMargin: Select.viewportMargin
+        })}
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @toggle=${this.#onToggle}

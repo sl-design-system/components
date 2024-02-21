@@ -4535,6 +4535,7 @@
             },
             {
               "name": "options",
+              "default": "{}",
               "type": {
                 "text": "PositionPopoverOptions"
               }

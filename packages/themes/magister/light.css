@@ -16,7 +16,7 @@
   --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
-  --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
   --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));

@@ -4470,12 +4470,12 @@
           "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
+        },
+        "indicator": {
+          "value": "{color.palette.accent.base}",
+          "type": "color",
+          "failedToResolve": true
         }
-      },
-      "indicator": {
-        "value": "{color.palette.accent.base}",
-        "type": "color",
-        "failedToResolve": true
       },
       "hover": {
         "background": {

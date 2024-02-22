@@ -788,7 +788,7 @@
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-100));
     --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-50));
-    --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
     --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-500));
     --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-500));

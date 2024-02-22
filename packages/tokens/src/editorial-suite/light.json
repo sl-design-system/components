@@ -3784,11 +3784,11 @@
         "border": {
           "value": "{color.palette.neutral.200}",
           "type": "color"
+        },
+        "indicator": {
+          "value": "{color.palette.accent.base}",
+          "type": "color"
         }
-      },
-      "indicator": {
-        "value": "{color.palette.accent.base}",
-        "type": "color"
       },
       "hover": {
         "background": {

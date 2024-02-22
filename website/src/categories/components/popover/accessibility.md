@@ -36,7 +36,7 @@ WAI-ARIA Roles, States, and Properties for a popover provide essential informati
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
 |-|-|-|-|
 |`aria-expanded`|boolean|Set to `true` (on the anchor element) if the popover is visible, `false` if the popover is hidden.|no|
-|`aria-controls`|string|Used to link the anchor element (element that triggers the popover component) with popover. Should contain `id` of the popover element and should be added to the anchor element.|no|
+|`aria-controls`|string|Used to link the anchor element (element that triggers the popover component) with popover. It contains `id` of the popover element and is added to the anchor element.|no|
 |`aria-label`|string|Can be used to describe the popover content/purpose.|yes|
 |`aria-labelledby`|string|Used to connect (by `id`) with single header/element inside a popover that describes the popover.|yes|
 

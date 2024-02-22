@@ -47,6 +47,7 @@ eleventyNavigation:
 
   ```html
 <sl-button id="anchor" popovertarget="popover-1">Show more information</sl-button>
+
 <sl-popover id="popover-1" anchor="anchor" aria-label="More information about John">
     <header>Project Overview <sl-button autofocus>...</sl-button></header>
     <hr>

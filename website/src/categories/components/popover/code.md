@@ -44,8 +44,14 @@ eleventyNavigation:
 
   ```html
 <sl-button id="my-btn" popovertarget="popover-2">More details...</sl-button>
+
 <sl-popover id="popover-2" anchor="my-btn" position="bottom-start" aria-label="Information about the student...">
-    <header>...<sl-button autofocus>...</sl-button></header>
+    <header>
+      <sl-avatar display-name="John Smith">Primary school</sl-avatar>
+      <sl-button aria-label="Close the popover" autofocus>
+        <sl-icon name="xmark"></sl-icon>
+      </sl-button>
+    </header>
     <hr>
     <section>
       Da Vinci...
@@ -86,18 +92,21 @@ With yarn
 
 ## Opening / closing
 
-The `sl-popover` component uses `'popover'` attribute and can be shown/hidden using Popover API methods like:
+The `sl-popover` component uses `'popover'` attribute and can be shown/hidden using native Popover API methods like:
 
-### `hidePopover()`
-Hides a popover element by removing it from the top layer and styling it with display: none.
+<div class="ds-table-wrapper">
 
-### `showPopover()`
-Shows a popover element by adding it to the top layer.
+|Name| Description |
+|-|-|
+|`hidePopover()`|Hides a popover element by removing it from the top layer and styling it with display: none.|
+|`showPopover()`|Shows a popover element by adding it to the top layer.|
+|`togglePopover()`|Toggles a popover element between the showing and hidden states.|
 
-### `togglePopover()`
-Toggles a popover element between the showing and hidden states.
+{.ds-table}
 
-More information you can find [here](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API).
+</div>
+
+More information you can find [on the MDN page about the Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API).
 
 </section>
 

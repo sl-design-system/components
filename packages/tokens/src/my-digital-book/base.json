@@ -3,124 +3,124 @@
     "palette": {
       "primary": {
         "50": {
-          "value": "#F2DAEC",
+          "value": "#E8F3FF",
           "type": "color",
           "description": "color.palette.primary.50"
         },
         "100": {
-          "value": "#E5B3D7",
+          "value": "#B3D1F3",
           "type": "color",
           "description": "color.palette.primary.100"
         },
         "150": {
-          "value": "#D78CC3",
+          "value": "#A3C3E7",
           "type": "color",
           "description": "color.palette.primary.150"
         },
         "200": {
-          "value": "#CA65AE",
+          "value": "#82ADDE",
           "type": "color",
           "description": "color.palette.primary.200"
         },
         "300": {
-          "value": "#BC3D9A",
+          "value": "#528ED3",
           "type": "color",
           "description": "color.palette.primary.300"
         },
         "400": {
-          "value": "#AF1685",
+          "value": "#2878D2",
           "type": "color",
           "description": "color.palette.primary.400"
         },
         "500": {
-          "value": "#91126F",
+          "value": "#1E68BC",
           "type": "color",
           "description": "color.palette.primary.500"
         },
         "600": {
-          "value": "#740F58",
+          "value": "#174F90",
           "type": "color",
           "description": "color.palette.primary.600"
         },
         "700": {
-          "value": "#560B42",
+          "value": "#103764",
           "type": "color",
           "description": "color.palette.primary.700"
         },
         "800": {
-          "value": "#39072B",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "description": "color.palette.primary.800"
         },
         "900": {
-          "value": "#1B0315",
+          "value": "#091F38",
           "type": "color",
           "description": "color.palette.primary.900"
         },
         "base": {
-          "value": "#AF1685",
+          "value": "#002044",
           "type": "color",
           "description": "color.palette.primary.base"
         }
       },
       "accent": {
         "50": {
-          "value": "#FDF2D7",
+          "value": "#FEE2DC",
           "type": "color",
           "description": "color.palette.accent.50"
         },
         "100": {
-          "value": "#FBE3AC",
+          "value": "#FEC3B6",
           "type": "color",
           "description": "color.palette.accent.100"
         },
         "150": {
-          "value": "#F9D581",
+          "value": "#FDA490",
           "type": "color",
           "description": "color.palette.accent.150"
         },
         "200": {
-          "value": "#F6C656",
+          "value": "#FC856B",
           "type": "color",
           "description": "color.palette.accent.200"
         },
         "300": {
-          "value": "#F4B82B",
+          "value": "#FC6645",
           "type": "color",
           "description": "color.palette.accent.300"
         },
         "400": {
-          "value": "#F2A900",
+          "value": "{color.palette.accent.base}",
           "type": "color",
           "description": "color.palette.accent.400"
         },
         "500": {
-          "value": "#C98D00",
+          "value": "#D13B1A",
           "type": "color",
           "description": "color.palette.accent.500"
         },
         "600": {
-          "value": "#A07000",
+          "value": "#A62F15",
           "type": "color",
           "description": "color.palette.accent.600"
         },
         "700": {
-          "value": "#785400",
+          "value": "#7C230F",
           "type": "color",
           "description": "color.palette.accent.700"
         },
         "800": {
-          "value": "#4F3700",
+          "value": "#52170A",
           "type": "color",
           "description": "color.palette.accent.800"
         },
         "900": {
-          "value": "#261B00",
+          "value": "#270B05",
           "type": "color",
           "description": "color.palette.accent.900"
         },
         "base": {
-          "value": "#F2A900",
+          "value": "#FB471F",
           "type": "color",
           "description": "color.palette.accent.base"
         }
@@ -189,64 +189,64 @@
       },
       "info": {
         "50": {
-          "value": "#E8D9F3",
+          "value": "#E8F3FF",
           "type": "color",
-          "description": "color.palette.info.50"
+          "description": "color.palette.primary.50"
         },
         "100": {
-          "value": "#D0B1E5",
+          "value": "#B3D1F3",
           "type": "color",
-          "description": "color.palette.info.100"
+          "description": "color.palette.primary.100"
         },
         "150": {
-          "value": "#B888D8",
+          "value": "#A3C3E7",
           "type": "color",
-          "description": "color.palette.info.150"
+          "description": "color.palette.primary.150"
         },
         "200": {
-          "value": "#A05FCB",
+          "value": "#82ADDE",
           "type": "color",
-          "description": "color.palette.info.200"
+          "description": "color.palette.primary.200"
         },
         "300": {
-          "value": "#8737BD",
+          "value": "#528ED3",
           "type": "color",
-          "description": "color.palette.info.300"
+          "description": "color.palette.primary.300"
         },
         "400": {
-          "value": "#6F0EB0",
+          "value": "{color.palette.info.base}",
           "type": "color",
-          "description": "color.palette.info.400"
+          "description": "color.palette.primary.400"
         },
         "500": {
-          "value": "#5C0C92",
+          "value": "#1E68BC",
           "type": "color",
-          "description": "color.palette.info.500"
+          "description": "color.palette.primary.500"
         },
         "600": {
-          "value": "#4A0975",
+          "value": "#174F90",
           "type": "color",
-          "description": "color.palette.info.600"
+          "description": "color.palette.primary.600"
         },
         "700": {
-          "value": "#370757",
+          "value": "#103764",
           "type": "color",
-          "description": "color.palette.info.700"
+          "description": "color.palette.primary.700"
         },
         "800": {
-          "value": "#240539",
+          "value": "#002044",
           "type": "color",
-          "description": "color.palette.info.800"
+          "description": "color.palette.primary.800"
         },
         "900": {
-          "value": "#11021C",
+          "value": "#091F38",
           "type": "color",
-          "description": "color.palette.info.900"
+          "description": "color.palette.primary.900"
         },
         "base": {
-          "value": "#6F0EB0",
+          "value": "#2878D2",
           "type": "color",
-          "description": "color.palette.info.base"
+          "description": "color.palette.primary.base"
         }
       },
       "success": {
@@ -312,64 +312,64 @@
       },
       "warning": {
         "50": {
-          "value": "#FEEDD7",
+          "value": "#FEE2DC",
           "type": "color",
-          "description": "color.palette.warning.50"
+          "description": "color.palette.accent.50"
         },
         "100": {
-          "value": "#FEDAAC",
+          "value": "#FEC3B6",
           "type": "color",
-          "description": "color.palette.warning.100"
+          "description": "color.palette.accent.100"
         },
         "150": {
-          "value": "#FDC681",
+          "value": "#FDA490",
           "type": "color",
-          "description": "color.palette.warning.150"
+          "description": "color.palette.accent.150"
         },
         "200": {
-          "value": "#FCB356",
+          "value": "#FC856B",
           "type": "color",
-          "description": "color.palette.warning.200"
+          "description": "color.palette.accent.200"
         },
         "300": {
-          "value": "#FC9F2B",
+          "value": "#FC6645",
           "type": "color",
-          "description": "color.palette.warning.300"
+          "description": "color.palette.accent.300"
         },
         "400": {
-          "value": "#FB8C00",
+          "value": "{color.palette.warning.base}",
           "type": "color",
-          "description": "color.palette.warning.400"
+          "description": "color.palette.accent.400"
         },
         "500": {
-          "value": "#D17400",
+          "value": "#D13B1A",
           "type": "color",
-          "description": "color.palette.warning.500"
+          "description": "color.palette.accent.500"
         },
         "600": {
-          "value": "#A65D00",
+          "value": "#A62F15",
           "type": "color",
-          "description": "color.palette.warning.600"
+          "description": "color.palette.accent.600"
         },
         "700": {
-          "value": "#7C4500",
+          "value": "#7C230F",
           "type": "color",
-          "description": "color.palette.warning.700"
+          "description": "color.palette.accent.700"
         },
         "800": {
-          "value": "#522E00",
+          "value": "#52170A",
           "type": "color",
-          "description": "color.palette.warning.800"
+          "description": "color.palette.accent.800"
         },
         "900": {
-          "value": "#271600",
+          "value": "#270B05",
           "type": "color",
-          "description": "color.palette.warning.900"
+          "description": "color.palette.accent.900"
         },
         "base": {
-          "value": "#FB8C00",
+          "value": "#FB471F",
           "type": "color",
-          "description": "color.palette.warning.base"
+          "description": "color.palette.accent.base"
         }
       },
       "danger": {
@@ -461,7 +461,7 @@
     "typeset": {
       "fontFamily": {
         "heading": {
-          "value": "Open Sans",
+          "value": "The Message",
           "type": "fontFamilies",
           "description": "text.typeset.fontFamily.heading"
         },
@@ -477,7 +477,15 @@
         }
       },
       "fontWeight": {
+        "regular": {
+          "value": "Regular",
+          "type": "fontWeights"
+        },
         "demibold": {
+          "value": "DemiBold",
+          "type": "fontWeights"
+        },
+        "semibold": {
           "value": "SemiBold",
           "type": "fontWeights"
         }
@@ -487,7 +495,7 @@
       "0": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.bold}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
           "lineHeight": "{text.typeset.lineHeight.4xl}",
           "fontSize": "{text.typeset.fontSize.4xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -501,7 +509,7 @@
       "1": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
           "lineHeight": "{text.typeset.lineHeight.3xl}",
           "fontSize": "{text.typeset.fontSize.3xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -515,7 +523,7 @@
       "2": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.bold}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
           "lineHeight": "{text.typeset.lineHeight.2xl}",
           "fontSize": "{text.typeset.fontSize.2xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -529,7 +537,7 @@
       "3": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
           "lineHeight": "{text.typeset.lineHeight.xl}",
           "fontSize": "{text.typeset.fontSize.xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -543,7 +551,7 @@
       "4": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.bold}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
           "lineHeight": "{text.typeset.lineHeight.lg}",
           "fontSize": "{text.typeset.fontSize.lg}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -571,10 +579,10 @@
           "type": "typography",
           "description": "text.typeset.body.sm.normal"
         },
-        "demibold": {
+        "semibold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "letterSpacing": "{text.typeset.letterSpacing.md}",
@@ -588,7 +596,7 @@
         "bold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "letterSpacing": "{text.typeset.letterSpacing.lg}",
@@ -615,10 +623,10 @@
           "type": "typography",
           "description": "text.typeset.body.md.normal"
         },
-        "demibold": {
+        "semibold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{text.typeset.lineHeight.md}",
             "fontSize": "{text.typeset.fontSize.md}",
             "letterSpacing": "{text.typeset.letterSpacing.md}",
@@ -632,7 +640,7 @@
         "bold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{text.typeset.lineHeight.md}",
             "fontSize": "{text.typeset.fontSize.md}",
             "letterSpacing": "{text.typeset.letterSpacing.lg}",
@@ -659,10 +667,10 @@
           "type": "typography",
           "description": "text.typeset.body.lg.normal"
         },
-        "demibold": {
+        "semibold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{text.typeset.lineHeight.lg}",
             "fontSize": "{text.typeset.fontSize.lg}",
             "letterSpacing": "{text.typeset.letterSpacing.md}",
@@ -676,7 +684,7 @@
         "bold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{text.typeset.lineHeight.lg}",
             "fontSize": "{text.typeset.fontSize.lg}",
             "letterSpacing": "{text.typeset.letterSpacing.md}",
@@ -694,7 +702,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{button.label.sm}",
             "fontSize": "{text.typeset.fontSize.sm}"
           },
@@ -703,7 +711,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{button.label.md}",
             "fontSize": "{text.typeset.fontSize.md}"
           },
@@ -712,7 +720,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "lineHeight": "{button.label.lg}",
             "fontSize": "{text.typeset.fontSize.lg}"
           },
@@ -747,7 +755,7 @@
           "sm": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.sm}",
               "fontSize": "{text.typeset.fontSize.sm}",
               "textDecoration": "{text.typeset.textDecoration.none}"
@@ -757,7 +765,7 @@
           "md": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.md}",
               "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.none}"
@@ -767,7 +775,7 @@
           "lg": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
               "textDecoration": "{text.typeset.textDecoration.none}"
@@ -779,7 +787,7 @@
           "sm": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.sm}",
               "fontSize": "{text.typeset.fontSize.sm}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -789,7 +797,7 @@
           "md": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.md}",
               "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -799,7 +807,7 @@
           "lg": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -811,7 +819,7 @@
           "sm": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.sm}",
               "fontSize": "{text.typeset.fontSize.sm}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -821,7 +829,7 @@
           "md": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.md}",
               "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -831,7 +839,7 @@
           "lg": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
@@ -843,7 +851,7 @@
           "sm": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.sm}",
               "fontSize": "{text.typeset.fontSize.sm}",
               "textDecoration": "{text.typeset.textDecoration.none}"
@@ -853,7 +861,7 @@
           "md": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.md}",
               "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.none}"
@@ -863,7 +871,7 @@
           "lg": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{button.label.lg}",
               "fontSize": "{text.typeset.fontSize.lg}",
               "textDecoration": "{text.typeset.textDecoration.none}"
@@ -944,7 +952,7 @@
           "sm": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{text.typeset.lineHeight.sm}",
               "fontSize": "{text.typeset.fontSize.md}"
             },
@@ -954,7 +962,7 @@
           "md": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{text.typeset.lineHeight.lg}",
               "fontSize": "{text.typeset.fontSize.lg}"
             },
@@ -964,7 +972,7 @@
           "lg": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.bold}",
+              "fontWeight": "{text.typeset.fontWeight.semibold}",
               "lineHeight": "{text.typeset.lineHeight.lg}",
               "fontSize": "{text.typeset.fontSize.xl}"
             },
@@ -1096,7 +1104,7 @@
             "sm": {
               "value": {
                 "fontFamily": "{text.typeset.fontFamily.body}",
-                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "fontWeight": "{text.typeset.fontWeight.semibold}",
                 "lineHeight": "{text.typeset.lineHeight.sm}",
                 "fontSize": "{text.typeset.fontSize.md}"
               },
@@ -1106,7 +1114,7 @@
             "md": {
               "value": {
                 "fontFamily": "{text.typeset.fontFamily.body}",
-                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "fontWeight": "{text.typeset.fontWeight.semibold}",
                 "lineHeight": "{text.typeset.lineHeight.lg}",
                 "fontSize": "{text.typeset.fontSize.lg}"
               },
@@ -1116,7 +1124,7 @@
             "lg": {
               "value": {
                 "fontFamily": "{text.typeset.fontFamily.body}",
-                "fontWeight": "{text.typeset.fontWeight.bold}",
+                "fontWeight": "{text.typeset.fontWeight.semibold}",
                 "lineHeight": "{text.typeset.lineHeight.lg}",
                 "fontSize": "{text.typeset.fontSize.xl}"
               },
@@ -1220,7 +1228,7 @@
       "subheading": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "fontWeight": "{text.typeset.fontWeight.semibold}",
           "lineHeight": "{text.typeset.lineHeight.md}",
           "fontSize": "{icon.typeset.fontSize.md}"
         },
@@ -1249,7 +1257,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xs}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1259,7 +1267,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "lineHeight": "{text.typeset.lineHeight.sm}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1269,7 +1277,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.md}",
             "lineHeight": "{text.typeset.lineHeight.md}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1279,7 +1287,7 @@
         "xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xl}",
             "lineHeight": "{text.typeset.lineHeight.xl}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1289,7 +1297,7 @@
         "2xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.2xl}",
             "lineHeight": "{text.typeset.lineHeight.2xl}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1299,7 +1307,7 @@
         "3xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{icon.typeset.fontSize.2xl}",
             "lineHeight": "{text.typeset.lineHeight.2xl}",
             "textCase": "{text.typeset.textCase.uppercase}"
@@ -1487,7 +1495,7 @@
         "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "6px",
             "lineHeight": "6px"
           },
@@ -1496,7 +1504,7 @@
         "md": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "9px",
             "lineHeight": "9px"
           },
@@ -1505,7 +1513,7 @@
         "lg": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xs}"
           },
@@ -1514,7 +1522,7 @@
         "xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
@@ -1523,7 +1531,7 @@
         "2xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.xs}",
             "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
@@ -1532,7 +1540,7 @@
         "3xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontWeight": "{text.typeset.fontWeight.semibold}",
             "fontSize": "{text.typeset.fontSize.sm}",
             "lineHeight": "{text.typeset.lineHeight.sm}"
           },

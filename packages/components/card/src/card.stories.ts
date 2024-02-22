@@ -270,6 +270,12 @@ export const All: Story = {
         <p slot="body">vertical - max-width${bodyCopy[1]}</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
+      <sl-card style="max-width: 300px;" orientation="vertical" icon="pinata">
+        <img slot="media" src="${images[1]}" />
+        <h2>${titles[1]}</h2>
+        <span slot="header"><sl-badge>new</sl-badge></span>
+        <p slot="body">vertical - max-width${bodyCopy[1]}</p>
+      </sl-card>
       <sl-card style="max-width: 300px" orientation="vertical">
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>

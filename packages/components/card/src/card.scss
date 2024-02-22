@@ -9,13 +9,14 @@
   --_card-background: var(--sl-color-card-background);
   --_card-border-radius: var(--sl-border-radius-card-default);
   --_card-border: 1px solid var(--sl-color-card-border);
-  --_content-padding-block: 0 var(--sl-space-card-vertical-block);
+  --_content-gap: var(--sl-space-card-gap-content-block) var(--sl-space-card-gap-content-inline);
+  --_content-padding-block: 0 var(--sl-space-card-content-block);
   --_content-padding-inline: var(--sl-space-card-content-inline);
   --_font-body: var(--sl-text-card-body);
   --_font-sub-title: var(--sl-text-card-subtitle);
   --_font-title: var(--sl-text-card-title);
   --_media-padding-full: 0;
-  --_media-padding: 8px;
+  --_media-padding: var(-sl-space-card-media-margins);
 
   --_media-column: var(--_media-width);
   --_text-column: var(--_text-width);
@@ -57,6 +58,7 @@ div.container {
 :host(:where(.horizontal)) {
   .container {
     --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
+
     grid-template-areas: 'media content actions';
     grid-template-columns: var(--_media-column) var(--_text-column) max-content;
     grid-template-rows: 1fr;
@@ -122,7 +124,7 @@ div.container {
 .content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--_content-gap);
   grid-area: content;
   overflow: hidden;
   padding: var(--_content-padding-block) var(--_content-padding-inline);

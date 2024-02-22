@@ -22,6 +22,7 @@ export class AnchorController implements ReactiveController {
         this.#cleanup = positionPopover(host, anchorElement, {
           ...this.#config,
           maxWidth: this.maxWidth,
+          offset: this.offset,
           position: this.position
         });
       }
@@ -46,16 +47,23 @@ export class AnchorController implements ReactiveController {
     }
   };
 
-  /** The main position of the popover relative to the anchor. */
-  position?: PopoverPosition;
+  /** The offset of the popover to its anchor. */
+  offset?: number;
 
   /** The max width of the popover. */
   maxWidth?: number;
+
+  /** The main position of the popover relative to the anchor. */
+  position?: PopoverPosition;
 
   constructor(host: ReactiveControllerHost & HTMLElement, config: AnchorControllerConfig = {}) {
     this.#config = config;
     this.#host = host;
     this.#host.addController(this);
+
+    this.offset = this.#config.offset;
+    this.maxWidth = this.#config.maxWidth;
+    this.position = this.#config.position;
   }
 
   hostConnected(): void {

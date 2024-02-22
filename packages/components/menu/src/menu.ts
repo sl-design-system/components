@@ -43,6 +43,12 @@ export class Menu extends LitElement {
     isFocusableElement: (el: MenuItem) => !el.disabled
   });
 
+  /**
+   * The offset of the menu to its anchor. This is a property on this instance so
+   * that it can be overridden by the menu item in case of a nested menu.
+   */
+  @property({ type: Number }) offset?: number;
+
   /** The position of the menu relative to its anchor. */
   @property() position?: PopoverPosition = 'right-start';
 
@@ -64,6 +70,10 @@ export class Menu extends LitElement {
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
+
+    if (changes.has('offset')) {
+      this.#anchor.offset = this.offset;
+    }
 
     if (changes.has('position')) {
       this.#anchor.position = this.position;

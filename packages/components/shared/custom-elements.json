@@ -326,6 +326,14 @@
             },
             {
               "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The offset of the popover to its anchor."
+            },
+            {
+              "kind": "field",
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
@@ -392,11 +400,11 @@
             },
             {
               "kind": "field",
-              "name": "position",
+              "name": "offset",
               "type": {
-                "text": "PopoverPosition | undefined"
+                "text": "number | undefined"
               },
-              "description": "The main position of the popover relative to the anchor."
+              "description": "The offset of the popover to its anchor."
             },
             {
               "kind": "field",
@@ -405,6 +413,14 @@
                 "text": "number | undefined"
               },
               "description": "The max width of the popover."
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "description": "The main position of the popover relative to the anchor."
             }
           ]
         }

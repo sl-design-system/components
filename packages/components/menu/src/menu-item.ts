@@ -1,9 +1,16 @@
 import { faCheck, faChevronRight } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, EventsController, ShortcutController, event } from '@sl-design-system/shared';
+import {
+  type EventEmitter,
+  EventsController,
+  ShortcutController,
+  event,
+  isPopoverOpen
+} from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { Menu } from './menu.js';
 import styles from './menu-item.scss.js';
 
@@ -16,6 +23,9 @@ Icon.register(faCheck, faChevronRight);
  * @slot submenu - The menu items that will be displayed when the menu item is shown.
  */
 export class MenuItem extends ScopedElementsMixin(LitElement) {
+  /** The default offset of the submenu to the menu item. */
+  static submenuOffset = 0;
+
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -31,11 +41,23 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     click: this.#onClick,
     keydown: this.#onKeydown,
     pointerenter: this.#onPointerenter,
-    pointerleave: this.#onPointerleave
+    pointerleave: this.#onPointerleave,
+    pointermove: this.#onPointermove
   });
 
   /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
+
+  /**
+   * A CSS clip-path polygon indicating a triangle between the menu and its trigger,
+   * also called a "safe triangle". This is used to prevent the menu from closing
+   * when the user moves the cursor from the trigger to the menu.
+   * See https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
+   */
+  @state() safeTriangleClipPath?: string;
+
+  /** The inset for the safe triangle element, relative to it's parent menu. */
+  @state() safeTriangleInset?: number[];
 
   /** Whether this menu item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -85,6 +107,18 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       <div class="submenu">
         <slot @slotchange=${this.#onSubmenuChange} name="submenu"></slot>
       </div>
+      ${this.safeTriangleInset && this.safeTriangleClipPath
+        ? html`
+            <div
+              aria-hidden="true"
+              class="safe-triangle"
+              style=${styleMap({
+                clipPath: `polygon(${this.safeTriangleClipPath})`,
+                inset: this.safeTriangleInset.map(v => `${v}px`).join(' ')
+              })}
+            ></div>
+          `
+        : nothing}
     `;
   }
 
@@ -134,6 +168,12 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     this.#hideSubMenu();
   }
 
+  #onPointermove(event: PointerEvent): void {
+    if (isPopoverOpen(this.submenu)) {
+      this.#calculateSafeTriangle(event);
+    }
+  }
+
   #onShortcut(event: KeyboardEvent): void {
     event.preventDefault();
     event.stopPropagation();
@@ -146,10 +186,15 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
     if (this.submenu) {
       this.submenu.anchorElement = this;
+      this.submenu.offset = MenuItem.submenuOffset;
     }
   }
 
   #showSubMenu(focus?: boolean): void {
+    if (!this.submenu) {
+      return;
+    }
+
     this.submenu?.showPopover();
 
     if (focus) {
@@ -159,5 +204,54 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   #hideSubMenu(): void {
     this.submenu?.hidePopover();
+    this.safeTriangleInset = this.safeTriangleClipPath = undefined;
+  }
+
+  #calculateSafeTriangle(event: PointerEvent): void {
+    const actualPlacement = this.submenu?.getAttribute('actual-placement'),
+      parentMenu = this.closest('sl-menu') || this.assignedSlot?.closest('sl-menu');
+
+    if (!actualPlacement || !parentMenu || !this.submenu) {
+      return undefined;
+    }
+
+    const { clientX, clientY } = event,
+      parentRect = parentMenu?.getBoundingClientRect(),
+      rect = this.getBoundingClientRect(),
+      submenuRect = this.submenu.getBoundingClientRect();
+
+    let inset: number[] | undefined,
+      clipPath = '';
+    if (actualPlacement.startsWith('right')) {
+      inset = [
+        Math.min(rect.top, submenuRect.top),
+        submenuRect.left,
+        Math.max(rect.bottom, submenuRect.bottom),
+        rect.left
+      ];
+      clipPath = `${clientX - inset[3]}px ${clientY - inset[0]}px, 100% 0, 100% 100%`;
+    } else if (actualPlacement.startsWith('left')) {
+      inset = [
+        Math.min(rect.top, submenuRect.top),
+        rect.right,
+        Math.max(rect.bottom, submenuRect.bottom),
+        submenuRect.right
+      ];
+      clipPath = `${clientX - inset[3]}px ${clientY - inset[0]}px, 0 100%, 0 0`;
+    } else {
+      console.log('Unsupported placement: ', actualPlacement);
+      inset = [0, 0, 0, 0];
+    }
+
+    // Calculate the inset relative to the parent menu
+    inset = [
+      inset[0] - parentRect.top,
+      parentRect.right - inset[1],
+      parentRect.bottom - inset[2],
+      inset[3] - parentRect.left
+    ];
+
+    this.safeTriangleClipPath = clipPath;
+    this.safeTriangleInset = inset;
   }
 }

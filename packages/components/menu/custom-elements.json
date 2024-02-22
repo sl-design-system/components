@@ -555,6 +555,22 @@
             },
             {
               "kind": "field",
+              "name": "safeTriangleClipPath",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A CSS clip-path polygon indicating a triangle between the menu and its trigger,\nalso called a \"safe triangle\". This is used to prevent the menu from closing\nwhen the user moves the cursor from the trigger to the menu.\nSee https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles"
+            },
+            {
+              "kind": "field",
+              "name": "safeTriangleInset",
+              "type": {
+                "text": "number[] | undefined"
+              },
+              "description": "The inset for the safe triangle element, relative to it's parent menu."
+            },
+            {
+              "kind": "field",
               "name": "selectable",
               "type": {
                 "text": "boolean | undefined"
@@ -596,6 +612,16 @@
                 "text": "Menu | undefined"
               },
               "description": "The sub menu, if present."
+            },
+            {
+              "kind": "field",
+              "name": "submenuOffset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "0",
+              "description": "The default offset of the submenu to the menu item."
             }
           ],
           "events": [
@@ -709,6 +735,23 @@
             },
             {
               "kind": "method",
+              "name": "#onPointermove",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onShortcut",
               "return": {
                 "type": {
@@ -767,9 +810,36 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#calculateSafeTriangle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "submenuOffset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "0",
+              "description": "The default offset of the submenu to the menu item."
+            },
             {
               "kind": "field",
               "name": "scopedElements",
@@ -784,7 +854,7 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown,\n    pointerenter: this.#onPointerenter,\n    pointerleave: this.#onPointerleave\n  })",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown,\n    pointerenter: this.#onPointerenter,\n    pointerleave: this.#onPointerleave,\n    pointermove: this.#onPointermove\n  })",
               "description": "Events controller."
             },
             {
@@ -793,6 +863,22 @@
               "privacy": "private",
               "default": "new ShortcutController(this)",
               "description": "Shortcut controller."
+            },
+            {
+              "kind": "field",
+              "name": "safeTriangleClipPath",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A CSS clip-path polygon indicating a triangle between the menu and its trigger,\nalso called a \"safe triangle\". This is used to prevent the menu from closing\nwhen the user moves the cursor from the trigger to the menu.\nSee https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles"
+            },
+            {
+              "kind": "field",
+              "name": "safeTriangleInset",
+              "type": {
+                "text": "number[] | undefined"
+              },
+              "description": "The inset for the safe triangle element, relative to it's parent menu."
             },
             {
               "kind": "field",
@@ -851,7 +937,16 @@
               },
               "static": true,
               "default": "4",
-              "description": "The default offset of the menu to its anchor."
+              "description": "The default offset of the menu to its anchor.",
+              "attribute": "offset"
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The offset of the menu to its anchor. This is a property on this instance so\nthat it can be overridden by the menu item in case of a nested menu."
             },
             {
               "kind": "field",
@@ -910,6 +1005,15 @@
             }
           ],
           "attributes": [
+            {
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "default": "4",
+              "description": "The default offset of the menu to its anchor.",
+              "fieldName": "offset"
+            },
             {
               "name": "position",
               "type": {
@@ -1042,16 +1146,6 @@
           "fields": [
             {
               "kind": "field",
-              "name": "offset",
-              "type": {
-                "text": "number"
-              },
-              "static": true,
-              "default": "4",
-              "description": "The default offset of the menu to its anchor."
-            },
-            {
-              "kind": "field",
               "name": "viewportMargin",
               "type": {
                 "text": "number"
@@ -1090,6 +1184,14 @@
               "privacy": "private",
               "default": "new RovingTabindexController<MenuItem>(this, {\n    direction: 'vertical',\n    elements: () => this.#menuItems || [],\n    focusInIndex: (elements: MenuItem[]) => elements.findIndex(el => !el.disabled),\n    isFocusableElement: (el: MenuItem) => !el.disabled\n  })",
               "description": "Manage the keyboard navigation."
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The offset of the menu to its anchor. This is a property on this instance so\nthat it can be overridden by the menu item in case of a nested menu."
             },
             {
               "kind": "field",

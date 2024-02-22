@@ -17,12 +17,7 @@
 }
 
 :host(:hover) {
-  --_background: var(--sl-color-select-item-hover-background);
   position: relative;
-}
-
-:host(:active) {
-  --_background: var(--sl-color-select-item-active-background);
 }
 
 :host(:focus-visible) {
@@ -54,6 +49,14 @@ slot[name='submenu']::slotted(sl-menu) {
   padding: var(--_padding);
   padding-inline-start: var(--_indent);
   white-space: nowrap;
+
+  &:hover {
+    --_background: var(--sl-color-select-item-hover-background);
+  }
+
+  &:active {
+    --_background: var(--sl-color-select-item-active-background);
+  }
 }
 
 sl-icon[name='far-check'] {
@@ -70,4 +73,10 @@ kbd {
 sl-icon[name='far-chevron-right'] {
   margin-inline-start: auto;
   padding-inline-start: var(--_gap-sub-menu-indicator);
+}
+
+.safe-triangle {
+  background: rgb(100 0 0 / 0.2);
+  clip-path: polygon(10px 50%, 0 100%, 0 0);
+  position: fixed;
 }

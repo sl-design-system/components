@@ -107,7 +107,7 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 |Size|`md` `lg`| The select box come in two sizes; medium (default) and large|
 |Variant|`default` `valid` `invalid`|Indicates the variant of the select box|
 |State|`idle` `hover` `active` `disabled`|Indicates the state of the select box|
-|Filled|`empty` `filled` `placeholder`|To indicate is the select is filles or shows a placeholder text|
+|Filled|`empty` `filled` `placeholder`|To indicate the select is filled or shows a placeholder text|
 |Default value|`value`|To insert the default text of the placeholder|
 
 {.ds-table}

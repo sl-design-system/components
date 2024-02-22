@@ -555,22 +555,6 @@
             },
             {
               "kind": "field",
-              "name": "safeTriangleClipPath",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "A CSS clip-path polygon indicating a triangle between the menu and its trigger,\nalso called a \"safe triangle\". This is used to prevent the menu from closing\nwhen the user moves the cursor from the trigger to the menu.\nSee https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles"
-            },
-            {
-              "kind": "field",
-              "name": "safeTriangleInset",
-              "type": {
-                "text": "number[] | undefined"
-              },
-              "description": "The inset for the safe triangle element, relative to it's parent menu."
-            },
-            {
-              "kind": "field",
               "name": "selectable",
               "type": {
                 "text": "boolean | undefined"
@@ -826,7 +810,8 @@
                     "text": "PointerEvent"
                   }
                 }
-              ]
+              ],
+              "description": "Calculate a \"safe triangle\" for the submenu to a user can safely move his cursor\nfrom the trigger to the submenu without the submenu closing.\nSee https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles"
             }
           ],
           "fields": [
@@ -863,22 +848,6 @@
               "privacy": "private",
               "default": "new ShortcutController(this)",
               "description": "Shortcut controller."
-            },
-            {
-              "kind": "field",
-              "name": "safeTriangleClipPath",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "A CSS clip-path polygon indicating a triangle between the menu and its trigger,\nalso called a \"safe triangle\". This is used to prevent the menu from closing\nwhen the user moves the cursor from the trigger to the menu.\nSee https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles"
-            },
-            {
-              "kind": "field",
-              "name": "safeTriangleInset",
-              "type": {
-                "text": "number[] | undefined"
-              },
-              "description": "The inset for the safe triangle element, relative to it's parent menu."
             },
             {
               "kind": "field",

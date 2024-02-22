@@ -3,7 +3,7 @@
   --_background: var(--sl-color-popover-background);
   --_border: var(--_border-width) solid var(--_border-color);
   --_border-color: var(--sl-color-popover-border);
-  --_border-width: 1px;
+  --_border-width: var(--sl-menu-border-width, 1px);
   --_border-radius: var(--sl-border-radius-popover-default);
   --_box-shadow: var(--sl-elevation-shadow-md);
   --_color: var(--sl-color-popover-foreground);

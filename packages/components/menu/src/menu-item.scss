@@ -18,6 +18,10 @@
 
 :host(:hover) {
   position: relative;
+
+  .safe-triangle {
+    display: block;
+  }
 }
 
 :host(:focus-visible) {
@@ -37,6 +41,23 @@
 slot[name='submenu']::slotted(sl-menu) {
   // Make sure the first menu item in the nested menu aligns vertically
   margin-block-start: var(--_submenu-offset);
+}
+
+.safe-triangle {
+  clip-path: polygon(var(--_safe-triangle-polygon));
+  display: none;
+  // The variables were calculated using getBoundingClientRect(), but that also
+  // includes the border width, so we need to subtract it because CSS inset does
+  // NOT include the border.
+  inset: calc(var(--_safe-triangle-inset-block-start) - var(--sl-menu-border-width, 1px))
+    calc(var(--_safe-triangle-inset-inline-end) - var(--sl-menu-border-width, 1px))
+    calc(var(--_safe-triangle-inset-block-end) - var(--sl-menu-border-width, 1px))
+    calc(var(--_safe-triangle-inset-inline-start) - var(--sl-menu-border-width, 1px));
+  position: fixed;
+
+  &:hover + .wrapper {
+    --_background: var(--sl-color-select-item-hover-background);
+  }
 }
 
 .wrapper {
@@ -73,10 +94,4 @@ kbd {
 sl-icon[name='far-chevron-right'] {
   margin-inline-start: auto;
   padding-inline-start: var(--_gap-sub-menu-indicator);
-}
-
-.safe-triangle {
-  background: rgb(100 0 0 / 0.2);
-  clip-path: polygon(10px 50%, 0 100%, 0 0);
-  position: fixed;
 }

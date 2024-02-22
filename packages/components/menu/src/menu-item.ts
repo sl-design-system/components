@@ -10,7 +10,6 @@ import {
 } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { Menu } from './menu.js';
 import styles from './menu-item.scss.js';
 
@@ -47,17 +46,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   /** Shortcut controller. */
   #shortcut = new ShortcutController(this);
-
-  /**
-   * A CSS clip-path polygon indicating a triangle between the menu and its trigger,
-   * also called a "safe triangle". This is used to prevent the menu from closing
-   * when the user moves the cursor from the trigger to the menu.
-   * See https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
-   */
-  @state() safeTriangleClipPath?: string;
-
-  /** The inset for the safe triangle element, relative to it's parent menu. */
-  @state() safeTriangleInset?: number[];
 
   /** Whether this menu item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -98,6 +86,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
+      <div aria-hidden="true" class="safe-triangle"></div>
       <div class="wrapper">
         ${this.selected ? html`<sl-icon name="far-check"></sl-icon>` : nothing}
         <slot></slot>
@@ -107,18 +96,6 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
       <div class="submenu">
         <slot @slotchange=${this.#onSubmenuChange} name="submenu"></slot>
       </div>
-      ${this.safeTriangleInset && this.safeTriangleClipPath
-        ? html`
-            <div
-              aria-hidden="true"
-              class="safe-triangle"
-              style=${styleMap({
-                clipPath: `polygon(${this.safeTriangleClipPath})`,
-                inset: this.safeTriangleInset.map(v => `${v}px`).join(' ')
-              })}
-            ></div>
-          `
-        : nothing}
     `;
   }
 
@@ -204,54 +181,52 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
 
   #hideSubMenu(): void {
     this.submenu?.hidePopover();
-    this.safeTriangleInset = this.safeTriangleClipPath = undefined;
   }
 
+  /**
+   * Calculate a "safe triangle" for the submenu to a user can safely move his cursor
+   * from the trigger to the submenu without the submenu closing.
+   * See https://www.smashingmagazine.com/2023/08/better-context-menus-safe-triangles
+   */
   #calculateSafeTriangle(event: PointerEvent): void {
     const actualPlacement = this.submenu?.getAttribute('actual-placement'),
       parentMenu = this.closest('sl-menu') || this.assignedSlot?.closest('sl-menu');
 
     if (!actualPlacement || !parentMenu || !this.submenu) {
-      return undefined;
+      return;
     }
 
-    const { clientX, clientY } = event,
-      parentRect = parentMenu?.getBoundingClientRect(),
+    const parentRect = parentMenu?.getBoundingClientRect(),
       rect = this.getBoundingClientRect(),
       submenuRect = this.submenu.getBoundingClientRect();
 
-    let inset: number[] | undefined,
-      clipPath = '';
-    if (actualPlacement.startsWith('right')) {
-      inset = [
-        Math.min(rect.top, submenuRect.top),
-        submenuRect.left,
-        Math.max(rect.bottom, submenuRect.bottom),
-        rect.left
-      ];
-      clipPath = `${clientX - inset[3]}px ${clientY - inset[0]}px, 100% 0, 100% 100%`;
-    } else if (actualPlacement.startsWith('left')) {
-      inset = [
-        Math.min(rect.top, submenuRect.top),
-        rect.right,
-        Math.max(rect.bottom, submenuRect.bottom),
-        submenuRect.right
-      ];
-      clipPath = `${clientX - inset[3]}px ${clientY - inset[0]}px, 0 100%, 0 0`;
-    } else {
-      console.log('Unsupported placement: ', actualPlacement);
-      inset = [0, 0, 0, 0];
-    }
-
-    // Calculate the inset relative to the parent menu
-    inset = [
-      inset[0] - parentRect.top,
-      parentRect.right - inset[1],
-      parentRect.bottom - inset[2],
-      inset[3] - parentRect.left
+    // Top, right, bottom, left
+    const inset = [
+      Math.floor(Math.min(rect.top, submenuRect.top) - parentRect.top),
+      0,
+      Math.ceil(parentRect.bottom - Math.max(rect.bottom, submenuRect.bottom)),
+      0
     ];
 
-    this.safeTriangleClipPath = clipPath;
-    this.safeTriangleInset = inset;
+    let polygon = '';
+    if (actualPlacement.startsWith('right')) {
+      inset[1] = Math.floor(parentRect.right - submenuRect.left);
+      inset[3] = Math.floor(rect.left - parentRect.left);
+
+      polygon = `${event.clientX - rect.left}px ${event.clientY - submenuRect.top}px, 100% 0, 100% 100%`;
+    } else if (actualPlacement.startsWith('left')) {
+      inset[1] = Math.floor(parentRect.right - rect.right);
+      inset[3] = Math.floor(submenuRect.right - parentRect.left);
+
+      polygon = `${event.clientX - rect.left}px ${event.clientY - submenuRect.top}px, 0 100%, 0 0`;
+    } else {
+      console.warn('Unsupported submenu placement: ', actualPlacement);
+      return;
+    }
+
+    ['block-start', 'inline-end', 'block-end', 'inline-start'].forEach((side, i) => {
+      this.style.setProperty(`--_safe-triangle-inset-${side}`, `${inset[i]}px`);
+    });
+    this.style.setProperty('--_safe-triangle-polygon', polygon);
   }
 }

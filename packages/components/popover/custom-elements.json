@@ -48,7 +48,7 @@
           ],
           "slots": [
             {
-              "description": "The content of the popover",
+              "description": "Body content for the popover",
               "name": "default"
             }
           ],
@@ -67,10 +67,10 @@
               "kind": "field",
               "name": "position",
               "type": {
-                "text": "PopoverPosition | undefined"
+                "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'bottom'",
-              "description": "The position of this popover relative to its anchor.",
+              "description": "The position of popover relative to its anchor.",
               "attribute": "position"
             },
             {
@@ -88,10 +88,10 @@
             {
               "name": "position",
               "type": {
-                "text": "PopoverPosition | undefined"
+                "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'bottom'",
-              "description": "The position of this popover relative to its anchor.",
+              "description": "The position of popover relative to its anchor.",
               "fieldName": "position"
             }
           ],

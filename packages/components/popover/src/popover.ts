@@ -11,7 +11,7 @@ let nextUniqueId = 0;
  * A floating overlay that appears on top of other elements.
  *
  * @csspart container - The container for the popover
- * @slot default - The content of the popover
+ * @slot default - Body content for the popover
  */
 export class Popover extends LitElement {
   /** The default offset of the popover to its anchor. */
@@ -29,7 +29,9 @@ export class Popover extends LitElement {
   /** Controller for managing anchoring. */
   #anchor = new AnchorController(this, { offset: Popover.offset, viewportMargin: Popover.viewportMargin });
 
-  /** The position of this popover relative to its anchor. */
+  /** The position of popover relative to its anchor.
+   * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
+   * */
   @property() position?: PopoverPosition = 'bottom';
 
   override connectedCallback(): void {

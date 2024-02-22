@@ -1,7 +1,11 @@
 ---
 title: Select code
 tags: code
-APIdescription: Component has a range of properties to define the experience in different use cases.
+APIdescription: {
+  sl-select: "Select component has a range of properties, attributes etc. to define the experience in different use cases, and it can be used as the replacement of the HTML native select element.",
+  sl-select-option: "Select option component offers settings for various scenarios, and it is a part of the select component representing each selectable element.",
+  sl-select-option-group: "Select option group component provides properties to define the experience in different use cases, and it is a kind of wrapper for multiple select options, can be used optionally to improve readability."
+}
 eleventyNavigation:
   parent: Select
   key: SelectCode

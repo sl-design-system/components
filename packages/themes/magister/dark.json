@@ -4300,19 +4300,19 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.600}",
           "type": "color",
           "failedToResolve": true
         },
         "indicator": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "hover": {
         "background": {
-          "value": "{color.palette.accent.100}",
+          "value": "rgba({color.palette.primary.400}, {opacity.400})",
           "type": "color",
           "failedToResolve": true
         },
@@ -4322,7 +4322,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.600}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4334,12 +4334,12 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.300}",
           "type": "color",
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.600}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4356,14 +4356,14 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.600}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "active": {
         "background": {
-          "value": "{color.palette.accent.150}",
+          "value": "rgba({color.palette.primary.400}, {opacity.600})",
           "type": "color",
           "failedToResolve": true
         },
@@ -4373,7 +4373,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.600}",
           "type": "color",
           "failedToResolve": true
         }

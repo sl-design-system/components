@@ -1,35 +1,133 @@
 ---
 title: Popover code
 tags: code
-APIdescription: Component has a range of properties to define the experience in different use cases.
+APIdescription: The popover component offers settings for various scenarios.
 eleventyNavigation:
   parent: Popover
   key: PopoverCode
 ---
-<section>
+<style>
+#code-example {
+  display: flex;
+  flex-direction: column;
+}
 
-## Skeleton code
+#code-example p {
+  display: inline-flex;
+  font-size: 1.4rem;
+  gap: 1.6rem;
+  margin-block: 0.8rem;
+}
+</style>
 
-Skeleton examples
+<section class="no-heading">
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+<div class="ds-example">
+  <sl-button id="my-btn" popovertarget="popover-2" fill="outline" variant="primary">More details about the student</sl-button>
+  <sl-popover id="popover-2" anchor="my-btn" position="bottom-start" aria-label="Information about the student - John Smith">
+  <header class="ds-heading-3" style="align-items: start;">
+  <sl-avatar display-name="John Smith" size="2xl">Primary school</sl-avatar>
+  <sl-button id="close-popover-btn" fill="ghost" variant="default" size="sm" aria-label="Close the popover" autofocus>
+  <sl-icon name="xmark"></sl-icon>
+  </sl-button>
+  </header>
+  <hr color="#D9D9D9" />
+  <div id="code-example">
+    <p><sl-icon slot="icon" name="fas-school" size="lg"></sl-icon>Da Vinci International School</p>
+    <p><sl-icon slot="icon" name="fas-screen-users" size="lg"></sl-icon>Class 2a</p>
+    <p><sl-icon slot="icon" name="fas-envelope" size="lg"></sl-icon>john.smith@primaryschool.org</p>
+  </div>
+  </sl-popover>
+</div>
+
+<div class="ds-code">
+
+  ```html
+<sl-button id="my-btn" popovertarget="popover-2">More details...</sl-button>
+
+<sl-popover id="popover-2" anchor="my-btn" position="bottom-start" aria-label="Information about the student...">
+    <header>
+      <sl-avatar display-name="John Smith">Primary school</sl-avatar>
+      <sl-button aria-label="Close the popover" autofocus>
+        <sl-icon name="xmark"></sl-icon>
+      </sl-button>
+    </header>
+    <hr>
+    <section>
+      Da Vinci...
+    </section>
+</sl-popover>
+  ```
+
+</div>
 
 </section>
 
 <section>
 
-## Code
+## Installation
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/popover
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/popover
+  ```
+</div>
+
+</section>
+
+<section>
+
+## Opening / closing
+
+The `sl-popover` component uses `'popover'` attribute and can be shown/hidden using native Popover API methods like:
+
+<div class="ds-table-wrapper">
+
+|Name| Description |
+|-|-|
+|`hidePopover()`|Hides a popover element by removing it from the top layer and styling it with display: none.|
+|`showPopover()`|Shows a popover element by adding it to the top layer.|
+|`togglePopover()`|Toggles a popover element between the showing and hidden states.|
+
+{.ds-table}
+
+</div>
+
+More information you can find [on the MDN page about the Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API).
 
 </section>
 
 {% include "../component-table.njk" %}
 
-<section>
+<script>
+const myPopoverBtn = document.querySelector("#my-btn");
+const popoverCodeExample = document.querySelector("#popover-2");
+const closePopoverBtn = document.querySelector("#close-popover-btn");
 
-## Tokens
+requestAnimationFrame(() => {
+myPopoverBtn?.addEventListener("click", () => {
+    if (popoverCodeExample) {
+      popoverCodeExample.togglePopover();
+    }
+  });
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  
+closePopoverBtn.addEventListener("click", () => {
+    if (popoverCodeExample) {
+      popoverCodeExample.hidePopover();
+    }
+  });
+})
+</script>

@@ -72,6 +72,31 @@ eleventyNavigation:
 
 <section>
 
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/skeleton
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/skeleton
+  ```
+</div>
+
+</section>
+
+<section>
+
 ## Sizing
 
 The skeleton component has `display: block` set by default, so it occupies the entire width of the container.

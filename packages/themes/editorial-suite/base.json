@@ -3645,6 +3645,22 @@
           "value": "{space.none}",
           "type": "spacing"
         }
+      },
+      "slotheader": {
+        "badges": {
+          "inline": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.xs}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        }
       }
     }
   },

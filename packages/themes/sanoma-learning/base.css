@@ -466,6 +466,9 @@
   --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
+  --sl-space-card-slotheader-badges-gap: var(--sl-space-sm);
+  --sl-space-card-slotheader-badges-block: var(--sl-space-xs);
+  --sl-space-card-slotheader-badges-inline: var(--sl-space-none);
   --sl-space-card-horizontal-gap: var(--sl-space-none);
   --sl-space-card-horizontal-block: var(--sl-space-xl);
   --sl-space-card-horizontal-inline: var(--sl-space-none);

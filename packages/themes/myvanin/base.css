@@ -289,6 +289,9 @@
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
   --sl-size-input-option-sm: var(--sl-size-lg);
+  --sl-space-card-slotheader-badges-gap: var(--sl-space-sm);
+  --sl-space-card-slotheader-badges-block: var(--sl-space-xs);
+  --sl-space-card-slotheader-badges-inline: var(--sl-space-none);
   --sl-space-card-horizontal-gap: var(--sl-space-none);
   --sl-space-card-horizontal-block: var(--sl-space-xl);
   --sl-space-card-horizontal-inline: var(--sl-space-none);

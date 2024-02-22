@@ -289,6 +289,9 @@
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
+  --sl-space-card-slotheader-badges-gap: var(--sl-space-sm);
+  --sl-space-card-slotheader-badges-block: var(--sl-space-xs);
+  --sl-space-card-slotheader-badges-inline: var(--sl-space-none);
   --sl-space-card-horizontal-gap: var(--sl-space-none);
   --sl-space-card-horizontal-block: var(--sl-space-xl);
   --sl-space-card-horizontal-inline: var(--sl-space-none);

@@ -1,15 +1,15 @@
 ---
 title: Tooltip
-description: Tooltip description
+description: A tooltip is a small, contextual overlay that provides additional information when users interact with an element in a user interface.
 componentType: overlay
-shortDescription: We are still working on the tooltip component
+shortDescription: A tooltip is a small, contextual overlay that provides additional information.
 layout: "components/components.njk"
 tags: component
 packageName: tooltip
 eleventyNavigation:
   parent: Components
   key: Tooltip
-  order: 20
-  status: coming
+  order: 22
+  status: ready
 ---
 

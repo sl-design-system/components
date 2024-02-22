@@ -2789,15 +2789,6 @@
             },
             {
               "kind": "field",
-              "name": "columns",
-              "type": {
-                "text": "Array<GridColumn<T>>"
-              },
-              "default": "[]",
-              "description": "The columns in the grid."
-            },
-            {
-              "kind": "field",
               "name": "dataSource",
               "type": {
                 "text": "DataSource<T> | undefined"
@@ -2880,6 +2871,22 @@
             },
             {
               "kind": "field",
+              "name": "itemsGroupBy",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the attribute to group the items on.",
+              "attribute": "items-group-by",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "model",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
+            },
+            {
+              "kind": "field",
               "name": "noBorder",
               "type": {
                 "text": "boolean | undefined"
@@ -2910,6 +2917,23 @@
             },
             {
               "kind": "method",
+              "name": "renderGroupRow",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "group",
+                  "type": {
+                    "text": "GridViewModelGroup"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "renderHeader",
               "return": {
                 "type": {
@@ -2920,6 +2944,29 @@
             {
               "kind": "method",
               "name": "renderItem",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderItemRow",
               "return": {
                 "type": {
                   "text": "TemplateResult"
@@ -3051,6 +3098,14 @@
               "fieldName": "items"
             },
             {
+              "name": "items-group-by",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The path to the attribute to group the items on.",
+              "fieldName": "itemsGroupBy"
+            },
+            {
               "name": "no-border",
               "type": {
                 "text": "boolean | undefined"
@@ -3125,6 +3180,46 @@
                   "name": "index",
                   "type": {
                     "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderItemRow",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "renderGroupRow",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "group",
+                  "type": {
+                    "text": "GridViewModelGroup"
                   }
                 }
               ]
@@ -3331,10 +3426,56 @@
             },
             {
               "kind": "method",
-              "name": "#onSlotchange",
+              "name": "#onGroupSelect",
               "return": {
                 "type": {
                   "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<boolean>"
+                  }
+                },
+                {
+                  "name": "group",
+                  "type": {
+                    "text": "GridViewModelGroup"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onGroupToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<boolean>"
+                  }
+                },
+                {
+                  "name": "group",
+                  "type": {
+                    "text": "GridViewModelGroup"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
                 }
               },
               "parameters": [
@@ -3423,40 +3564,6 @@
                   "text": "void"
                 }
               }
-            },
-            {
-              "kind": "method",
-              "name": "#getHeaderRows",
-              "return": {
-                "type": {
-                  "text": "Array<Array<GridColumn<T>>>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "columns",
-                  "type": {
-                    "text": "Array<GridColumn<T>>"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#getStickyColumnOffset",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "index",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
             }
           ],
           "fields": [
@@ -3567,15 +3674,6 @@
             },
             {
               "kind": "field",
-              "name": "columns",
-              "type": {
-                "text": "Array<GridColumn<T>>"
-              },
-              "default": "[]",
-              "description": "The columns in the grid."
-            },
-            {
-              "kind": "field",
               "name": "dataSource",
               "type": {
                 "text": "DataSource<T> | undefined"
@@ -3597,6 +3695,12 @@
                 "text": "GridItemParts<T> | undefined"
               },
               "description": "Custom parts to be set on the `<tr>` so it can be styled externally."
+            },
+            {
+              "kind": "field",
+              "name": "model",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
             },
             {
               "kind": "field",
@@ -3624,6 +3728,187 @@
           "declaration": {
             "name": "Grid",
             "module": "src/grid.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/group-header.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridGroupHeader",
+          "members": [
+            {
+              "kind": "field",
+              "name": "expanded",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is expanded or collapsed.",
+              "attribute": "expanded",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The group heading.",
+              "attribute": "heading"
+            },
+            {
+              "kind": "field",
+              "name": "selectable",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Wether you can select the entire group.",
+              "attribute": "selectable"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "'all' | 'some' | 'none'"
+              },
+              "default": "'none'",
+              "description": "Whether the group is selected.",
+              "attribute": "selected"
+            },
+            {
+              "kind": "event",
+              "name": "sl-select",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user changes the group selection."
+            },
+            {
+              "kind": "event",
+              "name": "sl-toggle",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user collapses/expands the group."
+            }
+          ],
+          "events": [
+            {
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user changes the group selection.",
+              "fieldName": "selectEvent"
+            },
+            {
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<boolean>"
+              },
+              "description": "Emits when the user collapses/expands the group.",
+              "fieldName": "toggleEvent"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "expanded",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is expanded or collapsed.",
+              "fieldName": "expanded"
+            },
+            {
+              "name": "heading",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The group heading.",
+              "fieldName": "heading"
+            },
+            {
+              "name": "selectable",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Wether you can select the entire group.",
+              "fieldName": "selectable"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "'all' | 'some' | 'none'"
+              },
+              "default": "'none'",
+              "description": "Whether the group is selected.",
+              "fieldName": "selected"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<boolean>"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridGroupHeader",
+          "declaration": {
+            "name": "GridGroupHeader",
+            "module": "src/group-header.ts"
           }
         }
       ]
@@ -4438,7 +4723,7 @@
               "name": "renderStyles",
               "return": {
                 "type": {
-                  "text": "CSSResult"
+                  "text": "CSSResult | void"
                 }
               },
               "inheritedFrom": {
@@ -4703,19 +4988,6 @@
             },
             {
               "kind": "method",
-              "name": "renderStyles",
-              "return": {
-                "type": {
-                  "text": "CSSResult"
-                }
-              },
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
-              "kind": "method",
               "name": "getSelectedCount",
               "return": {
                 "type": {
@@ -4803,6 +5075,19 @@
                 }
               },
               "description": "This method is called when the state of the grid has changed.\nThis happens for examples when a filter or sorting changes.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "renderStyles",
+              "return": {
+                "type": {
+                  "text": "CSSResult | void"
+                }
+              },
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -6277,6 +6562,430 @@
           "declaration": {
             "name": "GridTextFieldColumn",
             "module": "src/text-field-column.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/view-model.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridViewModel",
+          "members": [
+            {
+              "kind": "field",
+              "name": "columnDefinitions",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "description": "Sets the available columns. Not all columns may be rendered, depending on the view state."
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "description": "Returns an array of visible columns.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "dataSource",
+              "type": {
+                "text": "DataSource<T> | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getGroupSelection",
+              "return": {
+                "type": {
+                  "text": "'all' | 'some' | 'none'"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Returns the selected state of the group."
+            },
+            {
+              "kind": "method",
+              "name": "getGroupState",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Returns true if the group is expanded, false if collapsed."
+            },
+            {
+              "kind": "method",
+              "name": "getStickyColumnOffset",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Returns the left offset, taking any sticky columns into account."
+            },
+            {
+              "kind": "field",
+              "name": "groups",
+              "type": {
+                "text": "string[]"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "headerRows",
+              "type": {
+                "text": "Array<Array<GridColumn<T>>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "toggleColumn",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "visible",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Toggle the visibility of the column."
+            },
+            {
+              "kind": "method",
+              "name": "toggleGroup",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "collapse",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Toggle the visibility of the group."
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "toggleColumn",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "id",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "visible",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Toggle the visibility of the column."
+            },
+            {
+              "kind": "method",
+              "name": "toggleGroup",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "collapse",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ],
+              "description": "Toggle the visibility of the group."
+            },
+            {
+              "kind": "method",
+              "name": "getGroupSelection",
+              "return": {
+                "type": {
+                  "text": "'all' | 'some' | 'none'"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Returns the selected state of the group."
+            },
+            {
+              "kind": "method",
+              "name": "getGroupState",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Returns true if the group is expanded, false if collapsed."
+            },
+            {
+              "kind": "method",
+              "name": "getStickyColumnOffset",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "Returns the left offset, taking any sticky columns into account."
+            },
+            {
+              "kind": "method",
+              "name": "#getHeaderRows",
+              "return": {
+                "type": {
+                  "text": "Array<Array<GridColumn<T>>>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "columns",
+                  "type": {
+                    "text": "Array<GridColumn<T>>"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#columnDefinitions",
+              "privacy": "private",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "#columns",
+              "privacy": "private",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "#dataSource",
+              "privacy": "private",
+              "type": {
+                "text": "DataSource<T> | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#grid",
+              "privacy": "private",
+              "type": {
+                "text": "Grid<T>"
+              },
+              "default": "grid"
+            },
+            {
+              "kind": "field",
+              "name": "#groups",
+              "privacy": "private",
+              "default": "new Map<string, boolean>()"
+            },
+            {
+              "kind": "field",
+              "name": "#headerRows",
+              "privacy": "private",
+              "type": {
+                "text": "Array<Array<GridColumn<T>>>"
+              },
+              "default": "[[]]"
+            },
+            {
+              "kind": "field",
+              "name": "#rows",
+              "privacy": "private",
+              "type": {
+                "text": "T[]"
+              },
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "columnDefinitions",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "description": "Sets the available columns. Not all columns may be rendered, depending on the view state."
+            },
+            {
+              "kind": "field",
+              "name": "columns",
+              "type": {
+                "text": "Array<GridColumn<T>>"
+              },
+              "description": "Returns an array of visible columns.",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "dataSource",
+              "type": {
+                "text": "DataSource<T> | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "groups",
+              "type": {
+                "text": "string[]"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "headerRows",
+              "type": {
+                "text": "Array<Array<GridColumn<T>>>"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "T[]"
+              },
+              "readonly": true
+            }
+          ]
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GridViewModelGroup"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GridViewModelGroup",
+          "declaration": {
+            "name": "GridViewModelGroup",
+            "module": "src/view-model.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "GridViewModel",
+          "declaration": {
+            "name": "GridViewModel",
+            "module": "src/view-model.ts"
           }
         }
       ]

@@ -9306,5 +9306,15 @@
       "editorial-suite/base": "enabled",
       "editorial-suite/light": "enabled"
     }
+  },
+  {
+    "id": "5fce7e9ea4c449e6db2a4075a03d0b54e40b0ba2",
+    "name": "my-digital-book/light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "core": "enabled",
+      "my-digital-book/base": "enabled",
+      "my-digital-book/light": "enabled"
+    }
   }
 ]

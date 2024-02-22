@@ -1,9 +1,9 @@
 ---
-title: Tab group accessibility
+title: Tabs accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Tab group
-  key: TabGroupAccessibility
+  parent: Tabs
+  key: TabsAccessibility
 ---
 <section>
 

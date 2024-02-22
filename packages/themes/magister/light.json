@@ -4327,14 +4327,14 @@
           "failedToResolve": true
         },
         "indicator": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "hover": {
         "background": {
-          "value": "{color.palette.accent.100}",
+          "value": "{color.palette.primary.50}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4385,7 +4385,7 @@
       },
       "active": {
         "background": {
-          "value": "{color.palette.accent.150}",
+          "value": "{color.palette.primary.100}",
           "type": "color",
           "failedToResolve": true
         },

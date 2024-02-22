@@ -794,13 +794,12 @@
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-150));
+    --sl-color-tab-active-background: rgb(var(--sl-color-palette-primary-100));
     --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
-    --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tab-hover-background: rgb(var(--sl-color-palette-primary-50));
     --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
@@ -1161,6 +1160,7 @@
     --sl-color-tab-tabbar-background: var(--sl-body-background);
     --sl-color-tab-disabled-background: var(--sl-body-background);
     --sl-color-tab-hover-foreground: var(--sl-body-foreground);
+    --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-primary-base));
     --sl-color-tab-default-foreground: var(--sl-body-foreground);
     --sl-color-tab-default-background: var(--sl-body-background);
     --sl-color-popover-foreground: var(--sl-body-foreground);

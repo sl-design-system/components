@@ -38,6 +38,31 @@ eleventyNavigation:
 
 <section>
 
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/avatar
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/avatar
+  ```
+</div>
+
+</section>
+
+<section>
+
 ## Avatar shape
 
 The shape of the avatar - a circle or a square, optionally with rounded corners - is determined by an application wide setting per theme. This is, like the tokens are, maintained by the SLDS team

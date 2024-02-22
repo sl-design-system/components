@@ -11,6 +11,7 @@ let nextUniqueId = 0;
  * Base popover web component.
  *
  * @csspart container - The container for the popover
+ * @slot default - Body content for the popover
  */
 export class Popover extends LitElement {
   /** @private */
@@ -26,7 +27,9 @@ export class Popover extends LitElement {
 
   #popoverId = `sl-popover-${nextUniqueId++}`;
 
-  /** The position of this popover relative to its anchor. */
+  /** The position of popover relative to its anchor.
+   * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
+   * */
   @property() position?: PopoverPosition = 'bottom';
 
   override connectedCallback(): void {

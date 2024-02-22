@@ -122,7 +122,7 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 |Menu open|`boolean`|Displays the dropdown panel|
 |Position|`top` `bottom`|Indicates the position of the dropdown panel|
 |Size|`md` `lg`|Description|
-|Pre selected item|`default` `01` `02` `03` `04` `05` `06` `07` `08` `09` `10` `11` `12` `13` `14` `15`|Indicates the pre select an item from the list|
+|Pre selected item|`default` `01` `02` `03` `04` `05` `06` `07` `08` `09` `10` `11` `12` `13` `14` `15`|Indicates the pre selected item from the list|
 
 {.ds-table}
 

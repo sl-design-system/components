@@ -3543,7 +3543,7 @@
             "failedToResolve": true
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.800}",
             "type": "color",
             "failedToResolve": true
           },
@@ -3565,7 +3565,7 @@
             "failedToResolve": true
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.800}",
             "type": "color",
             "failedToResolve": true
           },
@@ -3587,7 +3587,7 @@
             "failedToResolve": true
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.800}",
             "type": "color",
             "failedToResolve": true
           },
@@ -3609,7 +3609,7 @@
             "failedToResolve": true
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.800}",
             "type": "color",
             "failedToResolve": true
           },
@@ -4151,7 +4151,7 @@
       },
       "listbox": {
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.500}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4174,7 +4174,7 @@
         "failedToResolve": true
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.500}",
         "type": "color",
         "failedToResolve": true
       }

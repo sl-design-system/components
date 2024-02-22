@@ -3626,7 +3626,7 @@
         },
         "disabled": {
           "background": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.white.base}",
             "type": "color",
             "failedToResolve": true
           },
@@ -4302,7 +4302,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4314,7 +4314,7 @@
       },
       "hover": {
         "background": {
-          "value": "{color.palette.neutral.50}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4324,7 +4324,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4341,7 +4341,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4358,14 +4358,14 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "active": {
         "background": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.300}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4375,7 +4375,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color",
           "failedToResolve": true
         }

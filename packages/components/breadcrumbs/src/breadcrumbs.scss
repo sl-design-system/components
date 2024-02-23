@@ -4,6 +4,10 @@
   gap: 0.5rem;
 }
 
+a {
+  flex-shrink: 0;
+}
+
 a,
 ::slotted(*) {
   align-items: center;
@@ -14,4 +18,17 @@ a,
 a,
 ::slotted(a) {
   text-decoration: underline;
+}
+
+::slotted(*) {
+  display: block;
+  overflow-x: clip;
+  overflow-y: visible;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+sl-icon,
+::slotted(sl-icon) {
+  flex-shrink: 0;
 }

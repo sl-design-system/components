@@ -10,8 +10,8 @@ eleventyNavigation:
 
 <div class="ds-example">
   <sl-inline-message variant="success">
-    Congratulations!
-    <span slot="description">The exercise has been solved and saved.</span>
+    <span slot="title">Congratulations!</span>
+    The exercise has been solved and saved.
   </sl-inline-message>
 </div>
 
@@ -19,8 +19,8 @@ eleventyNavigation:
 
   ```html
     <sl-inline-message variant="success">
-      Congratulations!
-      <span slot="description">The exercise has...</span>
+      <span slot="title">Congratulations!</span>
+      The exercise has...
     </sl-inline-message>
   ```
 

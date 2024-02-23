@@ -246,7 +246,7 @@ The default, valid, and invalid checkboxes play a pivotal role in offering users
 
 ## Options
 
-With these options, you can tweak the appearance of the radio in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the checkbox in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
 
 {{ 'components/checkbox/sl-checkbox-figma-options.svg' | svgImage }}
 

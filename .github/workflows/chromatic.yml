@@ -4,7 +4,7 @@
 name: 'Chromatic'
 
 # Event for the workflow
-on: 
+on:
   pull_request:
     branches: [ "main" ]
     types: [opened, synchronize, reopened, closed]
@@ -25,7 +25,7 @@ jobs:
     if: '! github.event.pull_request.draft'
     # Job steps
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - name: Install dependencies
         # 👇 Install dependencies with the same package manager used in the project (replace it as needed), e.g. yarn, npm, pnpm
         run: yarn install --immutable
@@ -49,4 +49,4 @@ jobs:
           workingDir: chromatic
           exitOnceUploaded: true
 
-          
+

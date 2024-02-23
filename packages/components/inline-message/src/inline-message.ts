@@ -15,8 +15,8 @@ export type InlineMessageVariant = 'info' | 'success' | 'warning' | 'danger';
 /**
  * An inline message component for displaying additional information/errors.
  *
- * @slot default - title content for the inline message
- * @slot description - slot for additional information and more content for the inline-message
+ * @slot default - slot for the main information of the inline-message
+ * @slot title - title content for the inline message
  * @slot details - slot for more details of the inline-message like list of errors
  * @slot icon - icon shown on the left side of the component
  * @slot close-button - Closing button for the inline message
@@ -81,8 +81,8 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                 <sl-icon name=${this.iconName} size="md"></sl-icon>
               </slot>`}
           <div class="content-details">
-            <slot></slot>
-            <slot name="description" part="description"></slot>
+            <slot name="title"></slot>
+            <slot part="description"></slot>
             <slot name="details" part="details"></slot>
           </div>
         </div>

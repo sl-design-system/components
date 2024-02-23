@@ -43,11 +43,11 @@
           "slots": [
             {
               "description": "title content for the inline message",
-              "name": "default"
+              "name": "title"
             },
             {
-              "description": "slot for additional information and more content for the inline-message",
-              "name": "description"
+              "description": "slot for the main information of the inline-message",
+              "name": "default"
             },
             {
               "description": "slot for more details of the inline-message like list of errors",

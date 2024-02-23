@@ -77,13 +77,13 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         <div class="content">
           ${this.noIcon
             ? nothing
-            : html`<slot name="icon" part="icon">
+            : html`<slot name="icon">
                 <sl-icon name=${this.iconName} size="md"></sl-icon>
               </slot>`}
           <div class="content-details">
-            <slot name="title" part="title"></slot>
+            <slot name="title"></slot>
             <slot></slot>
-            <slot name="details" part="details"></slot>
+            <slot name="details"></slot>
           </div>
         </div>
         ${this.dismissible

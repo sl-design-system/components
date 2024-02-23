@@ -42,12 +42,12 @@
           "name": "InlineMessage",
           "slots": [
             {
-              "description": "title content for the inline message",
-              "name": "title"
-            },
-            {
               "description": "slot for the main information of the inline-message",
               "name": "default"
+            },
+            {
+              "description": "title content for the inline message",
+              "name": "title"
             },
             {
               "description": "slot for more details of the inline-message like list of errors",

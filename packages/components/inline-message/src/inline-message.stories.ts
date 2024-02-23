@@ -14,7 +14,7 @@ const noIcon: string[] = ['', 'true'];
 const onClick = (event: Event, variant?: InlineMessageVariant): void => {
   const newInlMessage = new InlineMessage();
   newInlMessage.variant = variant || 'info';
-  newInlMessage.innerHTML = 'Inline message title' + '<span slot="description">Description text</span>';
+  newInlMessage.innerHTML = '<span slot="title">Inline message title</span>' + 'Message body text';
   (event.target as HTMLElement).nextElementSibling?.after(newInlMessage);
 };
 
@@ -31,8 +31,8 @@ export const API: StoryObj = {
     dismissible: true,
     variant: 'info',
     noIcon: false,
-    description: 'A place for additional description',
-    bodyContent: `Inline message title`,
+    bodyContent: 'The main content of the message',
+    title: `Inline message title`,
     details: 'A place for details like errors list'
   },
   argTypes: {
@@ -41,11 +41,11 @@ export const API: StoryObj = {
       options: ['info', 'success', 'warning', 'danger']
     }
   },
-  render: ({ description, bodyContent, dismissible, variant, noIcon, details }) => {
+  render: ({ title, bodyContent, dismissible, variant, noIcon, details }) => {
     return html`
       <sl-inline-message ?dismissible=${dismissible} ?no-icon=${noIcon} variant=${variant}>
+        <span slot="title">${title}</span>
         ${bodyContent}
-        <span slot="description">${description}</span>
         <span slot="details">${details}</span>
       </sl-inline-message>
     `;
@@ -86,8 +86,8 @@ export const All: StoryObj = {
                 html`
                   <td>
                     <sl-inline-message ?no-icon=${noIconEl} ?dismissible=${dismissible} variant=${variant}>
-                      Variant ${variant} inline message
-                      <span slot="description">A place for additional description of the inline message</span>
+                      <span slot="title">Variant ${variant} inline message title</span>
+                      The main content of the message
                       <span slot="details">A place fore more details like errors list</span>
                     </sl-inline-message>
                   </td>
@@ -131,8 +131,8 @@ export const ErrorsList: StoryObj = {
       >Show (error) inline message</sl-button
     >
     <sl-inline-message variant="danger">
-      Variant danger inline message
-      <span slot="description">A place for additional description</span>
+      <span slot="title">Variant danger inline message</span>
+      Body text of the message
       <span slot="details">
         <ul>
           <li>Error 1</li>

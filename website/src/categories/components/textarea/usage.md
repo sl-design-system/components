@@ -72,7 +72,7 @@ For instance, when collecting a username or password a single-line input is more
 <section>
 
 ## Options
-With these options, you can tweak the appearance of the text area in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the text area in Figma. They are available in the Design Panel so you can compose the text area to exactly fit the user experience need for the use case you are working on.
 
 ### Text Area
 

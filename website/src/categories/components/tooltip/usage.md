@@ -70,7 +70,7 @@ Some users rely on screen readers or have visual impairments. Ensure that toolti
 
 ## Options
 
-With these options you can tweak the appearance of the tooltip in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
+With these options you can tweak the appearance of the tooltip in Figma. They are available in the Design Panel so you can compose the tooltip to exactly fit the user experience need for the uses case you are working on.
 
 <div class="ds-table-wrapper">
   

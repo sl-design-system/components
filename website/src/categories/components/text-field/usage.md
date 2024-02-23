@@ -30,7 +30,7 @@ eleventyNavigation:
 
 ## When to use
 
-The following guidance describes when to use the Text Field component.
+The following guidance describes when to use the text field component.
 
 ### Unique input 
 When users need to input information that is unique and cannot be anticipated from a predefined set of options. Text fields provide the flexibility to capture diverse and unpredictable data.
@@ -74,7 +74,7 @@ Consider using a [text area](/categories/components/textarea/) when you anticipa
 
 ## Options
 
-With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
+With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the text field to exactly fit the user experience need for the uses case you are working on.
 
 <div class="ds-table-wrapper">
   

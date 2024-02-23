@@ -142,7 +142,7 @@ export const Empty: Story = {
 export const Groups: Story = {
   args: {
     options: html`
-      <sl-select-option-group group-heading="Happy">
+      <sl-select-option-group heading="Happy">
         <sl-select-option>😄 Grinning Face with Smiling Eyes</sl-select-option>
         <sl-select-option>😂 Face with Tears of Joy</sl-select-option>
         <sl-select-option>😊 Smiling Face with Smiling Eyes</sl-select-option>

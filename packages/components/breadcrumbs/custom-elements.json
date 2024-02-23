@@ -40,13 +40,107 @@
           "kind": "class",
           "description": "",
           "name": "Breadcrumbs",
-          "members": [],
+          "members": [
+            {
+              "kind": "field",
+              "name": "breadcrumbs",
+              "type": {
+                "text": "Breadcrumb[]"
+              },
+              "default": "[]",
+              "description": "The slotted breadcrumbs."
+            },
+            {
+              "kind": "field",
+              "name": "homeUrl",
+              "type": {
+                "text": "string"
+              },
+              "default": "'/'",
+              "description": "The url for the home link, defaults to the root url.",
+              "attribute": "home-url"
+            },
+            {
+              "kind": "field",
+              "name": "noHome",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When true doesn't show a home link as the first breadcrumb.",
+              "attribute": "no-home"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "home-url",
+              "type": {
+                "text": "string"
+              },
+              "default": "'/'",
+              "description": "The url for the home link, defaults to the root url.",
+              "fieldName": "homeUrl"
+            },
+            {
+              "name": "no-home",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When true doesn't show a home link as the first breadcrumb.",
+              "fieldName": "noHome"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
           },
           "tagName": "sl-breadcrumbs",
-          "customElement": true
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "breadcrumbs",
+              "type": {
+                "text": "Breadcrumb[]"
+              },
+              "default": "[]",
+              "description": "The slotted breadcrumbs."
+            }
+          ]
         }
       ],
       "exports": [

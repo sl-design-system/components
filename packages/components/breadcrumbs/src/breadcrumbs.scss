@@ -1,0 +1,17 @@
+:host {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+a,
+::slotted(*) {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+a,
+::slotted(a) {
+  text-decoration: underline;
+}

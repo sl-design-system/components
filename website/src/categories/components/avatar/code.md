@@ -6,30 +6,68 @@ eleventyNavigation:
   parent: Avatar
   key: AvatarCode
 ---
-<section>
+<section>  
+<div class="ds-example" style="justify-content: space-evenly">
+  <sl-avatar display-name="Anna Jenssen" picture-url="/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg" size="3xl" orientation="vertical"></sl-avatar>
+  <sl-avatar display-name="Tim Jenssen" size="xl" status="success">Class: 1B</sl-avatar>
 
-## Avatar code
+  <small style="position: absolute; bottom:0; right:var(--scale-150-scale)">
 
-Avatar examples
+  Photo by [Toa Heftiba](https://unsplash.com/@heftiba?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  </small>
+</div>
+
+<div class="ds-code">
+
+  ```html
+    <sl-avatar 
+      display-name="Anna Jenssen" 
+      picture-url="/images/avatar.jpg" 
+      size="3xl" 
+      orientation="vertical"></sl-avatar>
+
+    <sl-avatar 
+      display-name="Tim Jenssen"
+      size="xl" 
+      status="success">Class: 1B</sl-avatar>
+  ```
+</div>
 
 </section>
 
 <section>
 
-## Code
+## Installation
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/avatar
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/avatar
+  ```
+</div>
+
+</section>
+
+<section>
+
+## Avatar shape
+
+The shape of the avatar - a circle or a square, optionally with rounded corners - is determined by an application wide setting per theme. This is, like the tokens are, maintained by the SLDS team
 
 </section>
 
 {% include "../component-table.njk" %}
 
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  

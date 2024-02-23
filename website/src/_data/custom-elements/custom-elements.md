@@ -164,50 +164,39 @@
 
 ### Fields
 
-| Name                | Privacy | Type                              | Default                                                               | Description                                                                                                                               | Inherited From |
-| ------------------- | ------- | --------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `badge`             |         | `AvatarBadge \| undefined`        |                                                                       | The badge.                                                                                                                                |                |
-| `badgeText`         |         | `string \| undefined`             |                                                                       | Experimental feature, use with great caution.                                                                                             |                |
-| `borderWidth`       |         | `number`                          | `4`                                                                   |                                                                                                                                           |                |
-| `errorLoadingImage` |         | `boolean \| undefined`            |                                                                       | State for when loading of the image has failed.                                                                                           |                |
-| `fallback`          |         | `AvatarFallbackType \| undefined` | `'initials'`                                                          | The fallback to use when there is no user image present.                                                                                  |                |
-| `icon`              |         | `AvatarIcon \| undefined`         |                                                                       | The icon.                                                                                                                                 |                |
-| `image`             |         | `AvatarImage \| undefined`        |                                                                       | The image.                                                                                                                                |                |
-| `imageOnly`         |         | `boolean \| undefined`            |                                                                       | This hides the name when set.                                                                                                             |                |
-| `initials`          |         | `string`                          | `''`                                                                  |                                                                                                                                           |                |
-| `label`             |         | `string`                          | `''`                                                                  | Used for the aria-label on the image. You can use `{{badgeText}}` in the string&#xA;to have it replaced by the value set in the badgeText |                |
-| `offset`            |         | `Record<AvatarSize, number>`      | `{
-  sm: -2,
-  md: -4,
-  lg: -4,
-  xl: -2,
-  '2xl': -2,
-  '3xl': 2
-}` |                                                                                                                                           |                |
-| `orientation`       |         | `AvatarOrientation`               | `'horizontal'`                                                        | The orientation of the avatar.                                                                                                            |                |
-| `profileName`       |         | `string`                          | `''`                                                                  |                                                                                                                                           |                |
-| `size`              |         | `AvatarSize`                      | `'md'`                                                                | The size of the avatar.                                                                                                                   |                |
-| `status`            |         | `UserStatus \| undefined`         |                                                                       | Optional user status to show.                                                                                                             |                |
-| `user`              |         | `UserProfile \| undefined`        |                                                                       | The user object.                                                                                                                          |                |
+| Name              | Privacy | Type                                                                       | Default        | Description                                                                                                                                                                                                             | Inherited From |
+| ----------------- | ------- | -------------------------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
+| `badgeText`       |         | `string \| undefined`                                                      |                | Text to show on the badge in the top right corner of the avatar.&#xA;Be aware this text should not be more then a few characters.&#xA;Typically this option is used to show a number, for example unread messages.      |                |
+| `displayInitials` |         | `string \| undefined`                                                      |                | The initials that need to be displayed. If none are set they are determined based on the displayName .                                                                                                                  |                |
+| `displayName`     |         | `string \| undefined`                                                      |                | The name that needs to be displayed.                                                                                                                                                                                    |                |
+| `fallback`        |         | `'initials' \| 'image'`                                                    | `'initials'`   | The fallback to use when there is no user image present.                                                                                                                                                                |                |
+| `imageOnly`       |         | `boolean \| undefined`                                                     |                | This hides the name when set to true.                                                                                                                                                                                   |                |
+| `label`           |         | `string`                                                                   | `''`           | Used for the aria-label on the image. You can use `{{badgeText}}` in the string&#xA;to have it replaced by the value set in the badgeText. For example to show "6 unread messages", where 6 is also shown in the badge. |                |
+| `orientation`     |         | `'horizontal' \| 'vertical'`                                               | `'horizontal'` | The orientation of the avatar.                                                                                                                                                                                          |                |
+| `pictureUrl`      |         | `string \| undefined`                                                      |                | The url of the avatar image.                                                                                                                                                                                            |                |
+| `size`            |         | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl'`                           | `'md'`         | The size of the avatar.                                                                                                                                                                                                 |                |
+| `status`          |         | `'danger' \| 'success' \| 'warning' \| 'accent' \| 'neutral' \| 'primary'` |                | Optional user status to show.                                                                                                                                                                                           |                |
 
 ### Attributes
 
-| Name          | Field       | Inherited From |
-| ------------- | ----------- | -------------- |
-| `badge-text`  | badgeText   |                |
-| `fallback`    | fallback    |                |
-| `image-only`  | imageOnly   |                |
-| `label`       | label       |                |
-| `orientation` | orientation |                |
-| `size`        | size        |                |
-| `status`      | status      |                |
-| `user`        | user        |                |
+| Name               | Field           | Inherited From |
+| ------------------ | --------------- | -------------- |
+| `badge-text`       | badgeText       |                |
+| `fallback`         | fallback        |                |
+| `image-only`       | imageOnly       |                |
+| `label`            | label           |                |
+| `orientation`      | orientation     |                |
+| `size`             | size            |                |
+| `status`           | status          |                |
+| `display-name`     | displayName     |                |
+| `display-initials` | displayInitials |                |
+| `picture-url`      | pictureUrl      |                |
 
 ### CSS Properties
 
-| Name           | Default | Description                     |
-| -------------- | ------- | ------------------------------- |
-| `--max-width:` |         | Max width of the container in ; |
+| Name          | Default | Description                                                                                                     |
+| ------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| `--max-width` |         | Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element. |
 
 <hr/>
 
@@ -2460,11 +2449,11 @@
 
 ### Fields
 
-| Name          | Privacy | Type                                           | Default  | Description                                                                              | Inherited From |
-| ------------- | ------- | ---------------------------------------------- | -------- | ---------------------------------------------------------------------------------------- | -------------- |
-| `dismissible` |         | `boolean`                                      | `true`   | Determines whether closing button (default one) should be shown in the top right corner. |                |
-| `noIcon`      |         | `boolean \| undefined`                         |          | Determines whether the icon should be shown on the left side of the component.           |                |
-| `variant`     |         | `'info' \| 'success' \| 'warning' \| 'danger'` | `'info'` | The variant of the inline message.                                                       |                |
+| Name          | Privacy | Type                                           | Default  | Description                                                                            | Inherited From |
+| ------------- | ------- | ---------------------------------------------- | -------- | -------------------------------------------------------------------------------------- | -------------- |
+| `dismissible` |         | `boolean`                                      | `true`   | Determines whether a (default) closing button should be shown in the top right corner. |                |
+| `noIcon`      |         | `boolean \| undefined`                         |          | Determines whether the icon should be shown on the left side of the component.         |                |
+| `variant`     |         | `'info' \| 'success' \| 'warning' \| 'danger'` | `'info'` | The variant of the inline message.                                                     |                |
 
 ### Attributes
 
@@ -2597,9 +2586,9 @@
 
 ### Fields
 
-| Name       | Privacy | Type                           | Default    | Description                                          | Inherited From |
-| ---------- | ------- | ------------------------------ | ---------- | ---------------------------------------------------- | -------------- |
-| `position` |         | `PopoverPosition \| undefined` | `'bottom'` | The position of this popover relative to its anchor. |                |
+| Name       | Privacy | Type                                                                                                                                                                 | Default    | Description                                     | Inherited From |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------------------- | -------------- |
+| `position` |         | `'top' \| 'right' \| 'bottom' \| 'left' \| 'top-start' \| 'top-end' \| 'right-start' \| 'right-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end'` | `'bottom'` | The position of popover relative to its anchor. |                |
 
 ### Attributes
 
@@ -2612,6 +2601,12 @@
 | Name        | Description                   |
 | ----------- | ----------------------------- |
 | `container` | The container for the popover |
+
+### Slots
+
+| Name      | Description                  |
+| --------- | ---------------------------- |
+| `default` | Body content for the popover |
 
 <hr/>
 

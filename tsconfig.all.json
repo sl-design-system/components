@@ -43,6 +43,7 @@
     { "path": "./packages/themes/kampus" },
     { "path": "./packages/themes/magister" },
     { "path": "./packages/themes/max" },
+    { "path": "./packages/themes/my-digital-book" },
     { "path": "./packages/themes/myvanin" },
     { "path": "./packages/themes/neon" },
     { "path": "./packages/themes/nowa-era" },

@@ -11,7 +11,7 @@ packageName: textarea
 eleventyNavigation:
   parent: Components
   key: Text area
-  order: 19
+  order: 20
   status: ready
 ---
 

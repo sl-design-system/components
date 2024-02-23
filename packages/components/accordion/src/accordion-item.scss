@@ -1,4 +1,10 @@
 :host {
+  --_background: var(--sl-color-tab-default-background);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+}
+
+:host {
   display: flex;
   list-style: none;
 }
@@ -21,8 +27,13 @@ details > summary:first-of-type {
   list-style: none;
 }
 
+details > summary:first-of-type::-webkit-details-marker {
+  display: none; /* Hides the arrow in Safari */
+}
+
 summary {
-  border: 2px solid #c6c6c6;
+  background-color: var(--_background);
+  border-bottom: 2px solid #c6c6c6; // TODO: change to box-shadow becuse of focus visible border radius???
   cursor: pointer;
   display: flex;
   gap: 8px;
@@ -32,12 +43,77 @@ summary {
   &:hover {
     background-color: var(--sl-color-select-item-hover-background);
   }
+
+  &:focus-visible {
+    border-radius: 4px; // TODO: change this one in the future
+    outline: var(--_focus-outline);
+    outline-offset: var(--_focus-outline-offset);
+    position: relative;
+  }
 }
 
 .panel {
   padding: 16px;
 }
 
+//details[open] {
+//  .panel {
+//    animation: slideDown 200ms linear;
+//  }
+//}
+
 //details summary > * {
 //  display: inline;
 //}
+
+//@keyframes flipdown {
+//  0% {
+//    opacity: 0;
+//    transform-origin: top center;
+//    transform: rotateX(-90deg);
+//  }
+//  5% {
+//    opacity: 1;
+//  }
+//  80% {
+//    transform: rotateX(8deg);
+//  }
+//  83% {
+//    transform: rotateX(6deg);
+//  }
+//  92% {
+//    transform: rotateX(-3deg);
+//  }
+//  100% {
+//    transform-origin: top center;
+//    transform: rotateX(0deg);
+//  }
+//}
+
+//@keyframes slideDown {
+//  0% {
+//    opacity: 0.5;
+//    transform: translateY(-10px);
+//  }
+//
+//  50% {
+//    opacity: 0.8;
+//    transform: translateY(-5px);
+//  }
+//
+//  100% {
+//    opacity: 1;
+//    transform: translateY(0);
+//  }
+//}
+
+@keyframes details-show {
+  from {
+    opacity: 0;
+    transform: var(--details-translate, translateY(-0.5em));
+  }
+}
+
+details[open] > *:not(summary) {
+  animation: details-show 150ms ease-in-out;
+}

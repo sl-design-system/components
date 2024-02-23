@@ -16,6 +16,7 @@ import styles from './accordion-item.scss.js';
  * An accordion item component.
  *
  * @slot default - ...
+ * @part summary - ...
  */
 
 @localized()
@@ -76,12 +77,21 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     // this.inert = true;
+    // if (this.hasAttribute('disabled')) {
+    //   // this.tabIndex = this.disabled ? -1 : 0;
+    //   this.setAttribute('tabindex', '-1');
+    // }
   }
+
+  // TODO: add disabled to details
+  // ?disabled=${this.hasAttribute('disabled')}
 
   override render(): TemplateResult {
     return html`
       <details @toggle=${this.onToggle} @click=${this.#onClick}>
-        <summary><sl-icon name="xmark"></sl-icon> ${this.summary}</summary>
+        <summary tabindex=${this.hasAttribute('disabled') ? -1 : 0} part="summary">
+          <sl-icon name="xmark"></sl-icon> ${this.summary}
+        </summary>
         <div class="panel">
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>

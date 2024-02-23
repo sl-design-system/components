@@ -95,7 +95,7 @@ Only show dialogs when the user explicitly triggers them. Avoid interrupting the
 <section>
 
 ## Options
-With these options, you can tweak the appearance of the dialog in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the dialog in Figma. They are available in the Design Panel so you can compose the dialog to exactly fit the user experience need for the use case you are working on.
 
 <div class="ds-table-wrapper">
   

@@ -7,7 +7,7 @@ eleventyNavigation:
 ---
 <section class="no-heading">
 <div class="ds-example">
-<sl-select value="2" style="inline-size: 20rem;">
+<sl-select value="2" style="inline-size: 20rem;" aria-label="Subjects list">
     <sl-select-option value="1">Biology</sl-select-option>
     <sl-select-option value="2">Mathematics</sl-select-option>
     <sl-select-option value="3">English</sl-select-option>

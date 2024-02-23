@@ -14,7 +14,7 @@ eleventyNavigation:
 
 <div class="ds-example">
   <div class="ds-example__examples-wrapper">
-  <sl-select style="inline-size: 30rem;">
+  <sl-select style="inline-size: 30rem;" aria-label="List of available subjects">
     <sl-select-option-group heading="Languages">
       <sl-select-option>English</sl-select-option>
       <sl-select-option>German</sl-select-option>

@@ -14,9 +14,8 @@ eleventyNavigation:
 |Command|Description|
 |-|-|
 |Tab|When focus is outside the select, moves focus to the input container.|
-|Space/Enter|Launches/closes the select panel|
-|Up|When focus is inside the select panel, moves focus upwards through the option items in the select panel|
-|Down|When focus is inside the select panel, moves focus downwards through the option items in the select panel|
+|Space/Enter|Opens/closes the select panel|
+|Arrow Keys|Once you are in the opened select panel you can navigate to the next option by using the right or down arrow key. You can navigate back to the previous option with left or up. The focus indicator loops, so when you are at the last option and press "down" it will focus on the first option.|
 |Home|When focus is inside the select panel, moves to the first available option item in the select panel|
 |End|When focus is inside the select panel, moves to the last available option item in the select panel|
 
@@ -29,6 +28,8 @@ eleventyNavigation:
 <section>
 
 ## WAI-ARIA
+
+WAI-ARIA Roles, States, and Properties for a select component provide essential information to assistive technologies and screen readers. They convey the select component's role, and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
 ### Select
 
@@ -51,7 +52,7 @@ eleventyNavigation:
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
 |-|-|-|-|
 |`role`|`'group'`|Identifies the `select-option-group` as a group.|no|
 |`aria-label`|string|String that labels the select options group. Same as `heading` string by default. When there is no `heading` please add your own aria-label string.|no/yes|
@@ -65,7 +66,7 @@ eleventyNavigation:
 
 <div class="ds-table-wrapper">
 
-|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
 |-|-|-|-|
 |`role`|`'option'`|Identifies the `select-option` as an option, which is a part of the listbox/group.|no|
 |`aria-disabled`|boolean|Announces the select option as disabled with a screen reader when there is a `disabled` attribute set.|no|

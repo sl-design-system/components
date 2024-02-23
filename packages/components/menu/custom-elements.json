@@ -881,24 +881,6 @@
           "name": "Menu",
           "members": [
             {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
               "kind": "field",
               "name": "offset",
               "type": {
@@ -1010,41 +992,6 @@
           "methods": [
             {
               "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "#onKeydown",
               "return": {
                 "type": {
@@ -1115,6 +1062,16 @@
           "fields": [
             {
               "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "viewportMargin",
               "type": {
                 "text": "number"
@@ -1134,7 +1091,7 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown,\n    toggle: this.#onToggle\n  })",
+              "default": "new EventsController(this, {\n    keydown: this.#onKeydown,\n    toggle: this.#onToggle\n  })",
               "description": "Events controller."
             },
             {

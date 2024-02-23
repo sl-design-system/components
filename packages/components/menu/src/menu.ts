@@ -17,6 +17,9 @@ export class Menu extends LitElement {
   static offset = 4;
 
   /** @private */
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @private */
   static override styles: CSSResultGroup = styles;
 
   /** The default margin between the menu and the viewport. */
@@ -27,7 +30,6 @@ export class Menu extends LitElement {
 
   /** Events controller. */
   #events = new EventsController(this, {
-    click: this.#onClick,
     keydown: this.#onKeydown,
     toggle: this.#onToggle
   });
@@ -88,16 +90,6 @@ export class Menu extends LitElement {
         style="--sl-menu-item-indent: ${this.selects || this.selectableChildren ? '1' : '0'}"
       ></slot>
     `;
-  }
-
-  override focus(options?: FocusOptions): void {
-    this.#rovingTabindexController.focus(options);
-  }
-
-  #onClick(event: Event): void {
-    if (event.target === this) {
-      this.focus();
-    }
   }
 
   #onKeydown(event: KeyboardEvent): void {

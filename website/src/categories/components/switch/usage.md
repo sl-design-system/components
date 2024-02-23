@@ -66,7 +66,7 @@ If your setting has multiple states or requires more than a simple on/off toggle
 
 ## Options
 
-The switch provides a set of options, ensuring it's ready to adapt to your unique use cases.
+With these options, you can tweak the appearance of the switch in Figma. They are available in the Design Panel so you can compose the switch to exactly fit the user experience need for the use case you are working on.
 
 <div class="ds-table-wrapper">
   

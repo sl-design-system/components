@@ -14,6 +14,9 @@ import { SelectButton } from './select-button.js';
 
 export type SelectSize = 'md' | 'lg';
 
+/**
+ * @slot default - Place for `sl-select-option` elements
+ * */
 @localized()
 export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */

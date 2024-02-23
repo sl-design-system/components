@@ -23,7 +23,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
           cache: 'yarn'
       - run: yarn install --immutable
       - run: yarn transform-tokens

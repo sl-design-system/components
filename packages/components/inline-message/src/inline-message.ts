@@ -81,8 +81,8 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                 <sl-icon name=${this.iconName} size="md"></sl-icon>
               </slot>`}
           <div class="content-details">
-            <slot name="title"></slot>
-            <slot part="description"></slot>
+            <slot name="title" part="title"></slot>
+            <slot></slot>
             <slot name="details" part="details"></slot>
           </div>
         </div>

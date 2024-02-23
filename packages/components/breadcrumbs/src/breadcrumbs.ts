@@ -1,6 +1,7 @@
-import { faChevronRight, faHouse } from '@fortawesome/pro-regular-svg-icons';
+import { faChevronRight, faEllipsis, faHouse } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -13,7 +14,7 @@ declare global {
   }
 }
 
-Icon.register(faChevronRight, faHouse);
+Icon.register(faChevronRight, faEllipsis, faHouse);
 
 export interface Breadcrumb {
   element: Element;
@@ -26,6 +27,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-icon': Icon
     };
   }
@@ -50,6 +52,9 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
             <a href=${this.homeUrl}><sl-icon name="far-house"></sl-icon>${msg('Home')}</a>
             <sl-icon name="far-chevron-right"></sl-icon>
           `}
+      ${this.breadcrumbs.length > 3
+        ? html`<sl-button fill="link"><sl-icon name="far-ellipsis"></sl-icon></sl-button>`
+        : nothing}
       <slot @slotchange=${this.#onSlotchange}></slot>
     `;
   }

@@ -28,6 +28,10 @@ a,
   white-space: nowrap;
 }
 
+::slotted(:not(:nth-last-child(-n + 6))) {
+  display: none;
+}
+
 sl-icon,
 ::slotted(sl-icon) {
   flex-shrink: 0;

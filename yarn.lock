@@ -4991,7 +4991,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/breadcrumbs@workspace:packages/components/breadcrumbs"
   dependencies:
-    "@sl-design-system/shared": "npm:0.2.3"
+    "@lit/localize": "npm:^0.12.1"
+    "@sl-design-system/icon": "npm:0.0.7"
+    lit: "npm:^3.1.2"
   languageName: unknown
   linkType: soft
 

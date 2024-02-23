@@ -86,6 +86,10 @@
   <source>Cancel</source>
   <target>Annuleren</target>
 </trans-unit>
+<trans-unit id="s6abb1cd87fe0114e">
+  <source>Home</source>
+  <target>Thuis</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

@@ -53,8 +53,8 @@ describe('sl-inline-message', () => {
       it('should close the inline message when the close button is clicked', async () => {
       const msg = await fixture<InlineMessage>(html`
         <sl-inline-message variant="danger">
-        Variant danger inline message
-        <span slot="description">A place for additional description</span>
+        <span slot="title">Variant danger inline message</span>
+        A place for additional description
       </sl-inline-message> `);
       const closeButton = msg.shadowRoot?.querySelector('slot[name="close-button"] sl-button') as Button;
 
@@ -67,8 +67,8 @@ describe('sl-inline-message', () => {
     it('should close the inline message when remove is called', async () => {
       const elMsg = await fixture<InlineMessage>(html`
         <sl-inline-message variant="info">
-          inline message
-          <span slot="description">A place for additional description</span>
+          <span slot="title">inline message</span>
+          A place for additional description
         </sl-inline-message> `);
 
       elMsg.remove();

@@ -370,6 +370,12 @@
           "kind": "class",
           "description": "",
           "name": "Select",
+          "slots": [
+            {
+              "description": "Place for `sl-select-option` elements",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "field",

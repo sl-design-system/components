@@ -110,12 +110,17 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    if (event.key === 'ArrowDown') {
-      if (this.#popoverState !== 'open') {
-        this.menu.showPopover();
-      }
-
+    if (this.#popoverState !== 'open' && event.key === 'ArrowDown') {
+      this.menu.showPopover();
       this.menu.focus();
+    } else {
+      const actualPlacement = this.menu.getAttribute('actual-placement');
+
+      if (actualPlacement?.startsWith('top') && event.key === 'ArrowUp') {
+        this.menu.focusLastItem();
+      } else if (actualPlacement?.startsWith('bottom') && event.key === 'ArrowDown') {
+        this.menu.focus();
+      }
     }
   }
 

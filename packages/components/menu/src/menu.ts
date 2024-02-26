@@ -92,6 +92,10 @@ export class Menu extends LitElement {
     `;
   }
 
+  focusLastItem(): void {
+    this.#rovingTabindexController.focusToElement(this.#menuItems.length - 1);
+  }
+
   #onKeydown(event: KeyboardEvent): void {
     if (!(this.anchorElement instanceof MenuItem)) {
       return;

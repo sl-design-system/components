@@ -881,6 +881,15 @@
           "name": "Menu",
           "members": [
             {
+              "kind": "method",
+              "name": "focusLastItem",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
               "kind": "field",
               "name": "offset",
               "type": {
@@ -990,6 +999,15 @@
           "tagName": "sl-menu",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "focusLastItem",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
             {
               "kind": "method",
               "name": "#onKeydown",

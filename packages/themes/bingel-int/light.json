@@ -4450,7 +4450,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.500}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4472,7 +4472,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.500}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4484,12 +4484,12 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.400}",
           "type": "color",
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.500}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4506,7 +4506,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.500}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4523,7 +4523,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.500}",
           "type": "color",
           "failedToResolve": true
         }

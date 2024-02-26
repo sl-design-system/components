@@ -785,15 +785,14 @@
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-500));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-100));
-    --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-500));
+    --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-500));
+    --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-50));
     --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-primary-base));
-    --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-500));
     --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
     --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
     --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-500));
@@ -1213,6 +1212,7 @@
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-tab-content-background: var(--sl-body-background);
     --sl-color-tab-tabbar-background: var(--sl-body-background);
+    --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-tab-disabled-background: var(--sl-body-background);
     --sl-color-tab-default-background: var(--sl-body-background);
     --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-50));

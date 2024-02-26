@@ -11,6 +11,7 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-accordion-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-base));
   --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-base));
@@ -472,6 +473,9 @@
   --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-accordion-icon: var(--sl-body-foreground);
+  --sl-color-accordion-foreground: var(--sl-body-foreground);
+  --sl-color-accordion-background: var(--sl-body-background);
   --sl-color-card-foreground: var(--sl-body-foreground);
   --sl-color-card-background: var(--sl-body-background);
   --sl-color-skeleton-shimmer: linear-gradient

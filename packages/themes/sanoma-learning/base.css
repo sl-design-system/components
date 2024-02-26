@@ -52,6 +52,7 @@
   --sl-space-badge-gap-md: 3px;
   --sl-space-badge-inline-3xl: 3px;
   --sl-space-badge-inline-md: 1px;
+  --sl-space-3xl: 40px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;
@@ -466,6 +467,14 @@
   --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
+  --sl-space-accordion-gap: var(--sl-space-md);
+  --sl-space-accordion-block: var(--sl-space-lg);
+  --sl-space-accordion-inline: var(--sl-space-3xl);
+  --sl-space-accordion-title-gap: var(--sl-space-sm);
+  --sl-space-accordion-title-block: var(--sl-space-lg);
+  --sl-space-accordion-title-inline: var(--sl-space-sm);
+  --sl-space-accordion-content-block: var(--sl-space-lg);
+  --sl-space-accordion-content-inline: var(--sl-space-3xl);
   --sl-space-card-slotheader-badges-gap: var(--sl-space-sm);
   --sl-space-card-slotheader-badges-block: var(--sl-space-xs);
   --sl-space-card-slotheader-badges-inline: var(--sl-space-none);

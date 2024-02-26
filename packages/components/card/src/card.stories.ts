@@ -11,6 +11,11 @@ type Props = Pick<Card, 'padding' | 'orientation'> & {
   title?: string;
   bodyText?: string;
   imageUrl?: string;
+  subheaderContent?: boolean;
+  subheaderBadge?: string;
+  subheaderText?: string;
+  actionButton?: boolean;
+  actionButtonIcon?: string;
 };
 
 type Story = StoryObj<Props>;
@@ -26,20 +31,58 @@ export default {
     media: true,
     orientation: 'horizontal',
     imageUrl:
-      'https://images.unsplash.com/photo-1586622992874-27d98f198139?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+      'https://images.unsplash.com/photo-1586622992874-27d98f198139?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    subheaderContent: true,
+    subheaderBadge: 'new',
+    subheaderText: 'Written by Nils',
+    actionButton: true,
+    actionButtonIcon: 'ellipsis'
   },
   argTypes: {
     orientation: {
       control: 'inline-radio',
       options: orientations
+    },
+    subheaderBadge: {
+      control: 'text',
+      if: { arg: 'subheaderContent' }
+    },
+    subheaderText: {
+      control: 'text',
+      if: { arg: 'subheaderContent' }
+    },
+    actionButtonIcon: {
+      control: 'text',
+      if: { arg: 'actionButton' }
     }
   },
-  render: ({ media, title, bodyText, orientation, imageUrl }) => html`
+  render: ({
+    media,
+    title,
+    bodyText,
+    orientation,
+    imageUrl,
+    subheaderContent,
+    subheaderBadge,
+    subheaderText,
+    actionButton,
+    actionButtonIcon
+  }) => html`
     <sl-card .orientation=${orientation}>
-      ${media ? html`<img slot="media" .src="${imageUrl}" />` : nothing}
+      ${media && imageUrl ? html`<img slot="media" src=${imageUrl} />` : nothing}
 
       <h2>${title}</h2>
+      ${subheaderContent
+        ? html`<span slot="header"
+            >${subheaderBadge ? html`<sl-badge>${subheaderBadge}</sl-badge>` : nothing} ${subheaderText}</span
+          >`
+        : nothing}
       <p slot="body">${bodyText}</p>
+      ${actionButton
+        ? html`<sl-button icon-only slot="actions" fill="ghost"
+            ><sl-icon .name="${actionButtonIcon}"></sl-icon
+          ></sl-button>`
+        : nothing}
     </sl-card>
   `
 } satisfies Meta<Props>;
@@ -90,15 +133,11 @@ export const All: Story = {
         grid-auto-rows: 240px;
         grid-template-columns: repeat(var(--cols, 2), 1fr);
       }
-
-      .hide {
-        xdisplay: none !important;
-      }
     </style>
     <h1>In flexbox, full width, responsive cards</h1>
     flex-direction:column; --sl-card-horizontal-breakpoint:500px; --sl-card-text-width:70fr; --sl-card-media-width:30fr;
     <div
-      class="flex hide"
+      class="flex"
       style="flex-direction:column; --sl-card-horizontal-breakpoint:500px; --sl-card-text-width:70fr; --sl-card-media-width:30fr;"
     >
       <sl-card responsive style="--card-media-aspect-ratio:16/9;">
@@ -148,7 +187,7 @@ export const All: Story = {
 
     <hr />
     <h1>Flex height, full width, image width is set</h1>
-    <sl-card class="hide" height="flex" style="--card-image-width:200px">
+    <sl-card height="flex" style="--card-image-width:200px">
       <img slot="media" src="${images[2]}" />
       <h2>${titles[1]}</h2>
       <span slot="header"><sl-badge>new</sl-badge></span>
@@ -158,7 +197,7 @@ export const All: Story = {
 
     <hr />
     <h1>In grid, fixed row height</h1>
-    <div class="grid hidex">
+    <div class="grid">
       <sl-card class="horizontal" explicit-height>
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
@@ -190,7 +229,7 @@ export const All: Story = {
     <hr />
     <h1>In grid, fixed row height</h1>
     --sl-card-stretch-image:100%
-    <div class="grid xhide" style="--sl-card-stretch-image:100%">
+    <div class="grid" style="--sl-card-stretch-image:100%">
       <sl-card class="horizontal">
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
@@ -222,7 +261,7 @@ export const All: Story = {
 
     <hr />
     <h1>In grid, fixed row height, 3 columns</h1>
-    <div class="grid hide" style="--cols: 3">
+    <div class="grid" style="--cols: 3">
       <sl-card class="horizontal">
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>
@@ -254,7 +293,7 @@ export const All: Story = {
 
     <hr />
     <h1>Vertical, in flexbox rows, max width of 300px</h1>
-    <div class="flex xhide" style="--card-media-aspect-ratio:1/1;">
+    <div class="flex" style="--card-media-aspect-ratio:1/1;">
       <sl-card style="max-width: 300px" orientation="vertical" padding>
         <img slot="media" src="${images[0]}" />
         <h2>${titles[0]}</h2>

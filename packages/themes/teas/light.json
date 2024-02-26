@@ -4464,19 +4464,19 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color",
           "failedToResolve": true
         },
         "indicator": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "hover": {
         "background": {
-          "value": "{color.palette.accent.100}",
+          "value": "{color.palette.primary.50}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4486,7 +4486,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4498,12 +4498,12 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.500}",
           "type": "color",
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4520,14 +4520,14 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "active": {
         "background": {
-          "value": "{color.palette.accent.150}",
+          "value": "{color.palette.primary.100}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4537,7 +4537,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color",
           "failedToResolve": true
         }

@@ -11815,12 +11815,12 @@
           "name": "InlineMessage",
           "slots": [
             {
-              "description": "title content for the inline message",
+              "description": "slot for the main information of the inline-message",
               "name": "default"
             },
             {
-              "description": "slot for additional information and more content for the inline-message",
-              "name": "description"
+              "description": "title content for the inline message",
+              "name": "title"
             },
             {
               "description": "slot for more details of the inline-message like list of errors",

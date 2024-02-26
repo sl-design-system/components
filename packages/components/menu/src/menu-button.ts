@@ -122,14 +122,12 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   #onMenuClick(event: Event): void {
     if (event.target instanceof MenuItem) {
       this.menu.hidePopover();
-      this.button.focus();
     }
   }
 
   #onSelect(): void {
     this.#updateSelected();
     this.menu.hidePopover();
-    this.button.focus();
   }
 
   #onSlotchange(): void {
@@ -138,6 +136,10 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
 
   #onToggle(event: ToggleEvent): void {
     this.#popoverState = event.newState;
+
+    if (event.newState === 'closed') {
+      this.button.focus();
+    }
   }
 
   #updateSelected(): void {

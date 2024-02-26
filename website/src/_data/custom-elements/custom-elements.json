@@ -11498,12 +11498,12 @@
           "name": "InlineMessage",
           "slots": [
             {
-              "description": "title content for the inline message",
+              "description": "slot for the main information of the inline-message",
               "name": "default"
             },
             {
-              "description": "slot for additional information and more content for the inline-message",
-              "name": "description"
+              "description": "title content for the inline message",
+              "name": "title"
             },
             {
               "description": "slot for more details of the inline-message like list of errors",
@@ -11921,33 +11921,33 @@
               "name": "container"
             }
           ],
+          "slots": [
+            {
+              "description": "Body content for the popover",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "field",
               "name": "position",
               "type": {
-                "text": "PopoverPosition | undefined"
+                "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'bottom'",
-              "description": "The position of this popover relative to its anchor.",
-              "attribute": "position",
-              "expandedType": {
-                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
-              }
+              "description": "The position of popover relative to its anchor.",
+              "attribute": "position"
             }
           ],
           "attributes": [
             {
               "name": "position",
               "type": {
-                "text": "PopoverPosition | undefined"
+                "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'bottom'",
-              "description": "The position of this popover relative to its anchor.",
-              "fieldName": "position",
-              "expandedType": {
-                "text": "'top' | 'right' | 'bottom' | 'left' | AlignedPlacement | undefined"
-              }
+              "description": "The position of popover relative to its anchor.",
+              "fieldName": "position"
             }
           ],
           "superclass": {
@@ -13216,6 +13216,12 @@
           "kind": "class",
           "description": "",
           "name": "Select",
+          "slots": [
+            {
+              "description": "Place for `sl-select-option` elements",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "field",

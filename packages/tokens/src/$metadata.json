@@ -38,6 +38,8 @@
     "nowa-era/base",
     "nowa-era/light",
     "editorial-suite/base",
-    "editorial-suite/light"
+    "editorial-suite/light",
+    "my-digital-book/base",
+    "my-digital-book/light"
   ]
 }

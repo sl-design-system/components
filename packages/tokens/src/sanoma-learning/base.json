@@ -2097,6 +2097,44 @@
           "type": "spacing"
         }
       }
+    },
+    "accordion": {
+      "content": {
+        "inline": {
+          "value": "{space.3xl}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "title": {
+        "inline": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "inline": {
+        "value": "{space.3xl}",
+        "type": "spacing"
+      },
+      "block": {
+        "value": "{space.lg}",
+        "type": "spacing"
+      },
+      "gap": {
+        "value": "{space.md}",
+        "type": "spacing"
+      }
     }
   },
   "dialog": {

@@ -1,9 +1,9 @@
 ---
-title: Label specs
+title: Card specs
 tags: specs
 eleventyNavigation:
-  parent: Label
-  key: LabelSpecs
+  parent: Card
+  key: CardSpecs
 ---
 
 <section>

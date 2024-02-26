@@ -1,23 +1,23 @@
 ---
-title: Label
+title: Card
 tags: overview
 eleventyNavigation:
-  parent: Label
-  key: LabelOverview
+  parent: Card
+  key: CardOverview
 ---
 
 <section>
 
 <div class="ds-example">
 
-<sl-label>This is a label</sl-label>
+<sl-card>This is a card</sl-card>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-label>This is a label</sl-label>
+  <sl-card>This is a card</sl-card>
   ```
 
 </div>

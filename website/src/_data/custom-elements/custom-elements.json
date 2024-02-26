@@ -789,6 +789,20 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/card/src/card.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/card/src/card.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/card/src/card.ts",
       "declarations": [
         {

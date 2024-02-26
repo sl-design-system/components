@@ -1,22 +1,23 @@
 ---
-title: Label code
+title: Card code
 tags: code
-APIdescription: Component has a range of properties to define the experience in different use cases.
+APIdescription: The card has a range of properties to define the experience in different use cases.
 eleventyNavigation:
-  parent: Label
-  key: LabelCode
+  parent: Card
+  key: CardCode
 ---
 
 <section class="no-heading">
 <div class="ds-example">
   <div class="ds-example__code-wrapper">
-    <sl-card orientation="horizontal">
+    <sl-card style="--sl-card-media-aspect-ratio:1/1;">
         <img slot="media" src="https://sanomalearning.design/assets/images/open-graph-card.jpg" />
-        <h2>Card title</h2>
-        <span slot="header"><sl-badge variant="accent">new</sl-badge></span>
+        <h2>Fun adventures in digital learning</h2>
+        <span slot="header"><sl-badge variant="accent">new</sl-badge> written by: Lynn</span>
         <p slot="body">
-          Lorem ipsum dolor sit amet, adipisicing sint sunt sint proident sint exercitation. Quis officia pariatur in duis proident sint commodo voluptate officia quis irure in enim minim Lorem aute sit cillum non.
+          Digital learning is when we use computers, tablets, or even phones to learn new things. It's super cool because it lets us explore all sorts of topics without even leaving our homes!
         </p>
+        <p slot="body">First off, digital learning means we can learn anytime, anywhere. Say goodbye to boring textbooks! With digital learning, we can watch fun videos, play educational games, and even talk to teachers and other students online. It's like having a whole world of knowledge at our fingertips!</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
   </div>
@@ -25,12 +26,15 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-card orientation="horizontal">
+  <sl-card style="--sl-card-media-aspect-ratio:1/1;">
     <img slot="media" src="images/open-graph-card.jpg" />
-    <h2>Card title</h2>
-    <span slot="header"><sl-badge>new</sl-badge></span>
+    <h2>Fun adventures...</h2>
+    <span slot="header">
+      <sl-badge>new</sl-badge>
+       written by: Lynn
+    </span>
     <p slot="body">
-      Lorem ipsum dolor sit amet...
+      Digital learning is when...
     </p>
     <sl-button slot="actions" icon-only fill="ghost">
       <sl-icon name="eye"></sl-icon>

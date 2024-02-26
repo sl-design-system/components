@@ -1,9 +1,9 @@
 ---
-title: Label accessibility
+title: Card accessibility
 tags: accessibility
 eleventyNavigation:
-  parent: Label
-  key: LabelAccessibility
+  parent: Card
+  key: CardAccessibility
 ---
 
 <section> 

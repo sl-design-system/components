@@ -8,13 +8,13 @@
   --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-body-background: rgb(var(--sl-color-palette-black-base));
   --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-150));
+  --sl-color-tab-active-background: rgba(var(--sl-color-palette-primary-100) / var(--sl-opacity-600));
   --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
-  --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-tab-hover-background: rgba(var(--sl-color-palette-primary-100) / var(--sl-opacity-400));
+  --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-primary-100));
   --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-500));
   --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-500));

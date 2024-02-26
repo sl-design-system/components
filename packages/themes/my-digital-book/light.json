@@ -4472,7 +4472,7 @@
           "failedToResolve": true
         },
         "indicator": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "failedToResolve": true
         }

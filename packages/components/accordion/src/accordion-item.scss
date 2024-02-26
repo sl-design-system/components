@@ -33,12 +33,14 @@ details > summary:first-of-type::-webkit-details-marker {
 
 summary {
   background-color: var(--_background);
-  border-bottom: 2px solid #c6c6c6; // TODO: change to box-shadow becuse of focus visible border radius???
+  border-bottom: 1px solid #c6c6c6; // TODO: change to box-shadow becuse of focus visible border radius???
   cursor: pointer;
   display: flex;
   gap: 8px;
   padding: 8px;
   transition: background 300ms;
+  //transition: background 300ms, transform 400ms;
+  //transition: transform 400ms;
 
   &:hover {
     background-color: var(--sl-color-select-item-hover-background);
@@ -50,10 +52,26 @@ summary {
     outline-offset: var(--_focus-outline-offset);
     position: relative;
   }
+
+  sl-icon {
+    transition: transform 300ms;
+  }
 }
 
 .panel {
   padding: 16px;
+  transform-origin: top;
+  transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+}
+
+details:not([open]) {
+  .panel {
+    opacity: 0;
+    //padding: 16px;
+    transform: scaleY(0);
+    //transform-origin: top;
+    //transition: transform 300ms ease;
+  }
 }
 
 //details[open] {
@@ -114,6 +132,58 @@ summary {
   }
 }
 
-details[open] > *:not(summary) {
-  animation: details-show 150ms ease-in-out;
+//details[open] > *:not(summary) {
+//  animation: details-show 150ms ease-in-out;
+//}
+
+details[open] {
+  .panel {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+details[open] summary {
+  sl-icon {
+    // sl-icon.opened
+    transform: rotate(90deg);
+  }
+}
+
+//@keyframes details-show {
+//  from {
+//    opacity: 0;
+//    transform: translateY(-0.5em);
+//  }
+//}
+//
+//details[open] > *:not(summary) {
+//  animation: details-show 150ms ease-in-out;
+//}
+
+//details[open] > .panel {
+//  opacity: 0;
+//  transition: opacity 0.3s ease-in-out; /* Add a smooth transition */
+//}
+//
+///* When details is open, show the content */
+//details[open] > .panel {
+//  opacity: 1;
+//}
+
+@keyframes append-animate {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+details[open] > .panel {
+  animation: append-animate 0.3s linear;
+  transform-origin: 50% 0;
 }

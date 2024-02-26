@@ -164,7 +164,7 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     // event.preventDefault();
     // event.stopPropagation();
 
-    if (!this.single /*|| event.defaultPrevented*/) {
+    /*    if (!this.single /!*|| event.defaultPrevented*!/) {
       // No toggling when `multiple` or the user prevents it.
       return;
     }
@@ -185,12 +185,13 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
         // item.toggleEvent('closed');
         // item.toggleEvent.emit('closed');
         item.renderRoot.querySelector('details')?.removeAttribute('open');
+        // requestAnimationFrame(() => item.renderRoot.querySelector('details')?.removeAttribute('open'));
         // event.target.renderRoot.querySelector('details')?.setAttribute('open', '');
         // item.onToggle;
       }
-    });
+    });*/
 
-    event.target.renderRoot.querySelector('details')?.setAttribute('open', '');
+    // event.target.renderRoot.querySelector('details')?.setAttribute('open', '');
 
     // resolve();
     // if (this.hasAttribute('disabled')) {

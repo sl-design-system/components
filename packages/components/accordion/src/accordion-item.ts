@@ -8,9 +8,12 @@ import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
 // import { EventsController } from '@sl-design-system/shared';
+import { faMinus, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './accordion-item.scss.js';
+
+Icon.register(faMinus, faPlus); // TODO: use tokens instead
 
 /**
  * An accordion item component.
@@ -70,6 +73,11 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
   // TODO: add aria-expanded?, role button needed as well?
 
+  // TODO: open attribute - same as in details element?
+
+  /** Open... */
+  @property({ reflect: true, type: Boolean }) open?: boolean;
+
   // /** Whether only one accordion item can be opened at once. By default multiple accordion items can be opened. */
   // @property({ type: Boolean, reflect: true }) single?: boolean;
 
@@ -88,8 +96,16 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <details @toggle=${this.onToggle} @click=${this.#onClick}>
+      <details
+        @toggle=${this.onToggle}
+        @click=${this.#onClick}
+        ?open=${this.open}
+        @animationend=${this.#closeOnAnimationend}
+      >
         <summary tabindex=${this.hasAttribute('disabled') ? -1 : 0} part="summary">
+          ${this.open
+            ? html` <sl-icon name="fas-minus" class="opened"></sl-icon> `
+            : html` <sl-icon name="fas-plus"></sl-icon> `}
           <sl-icon name="xmark"></sl-icon> ${this.summary}
         </summary>
         <div class="panel">
@@ -99,6 +115,9 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     `;
   } // details - open
 
+  // <sl-icon name="fas-plus"></sl-icon>
+  //     <sl-icon name="fas-minus"></sl-icon>
+
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const assignedNodes = event.target.assignedNodes({ flatten: true });
     console.log(assignedNodes);
@@ -107,6 +126,11 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
   onToggle(event: ToggleEvent): void {
     console.log('event on toglle', event, event.target, this.hasAttribute('disabled'));
+
+    this.open = event.newState === 'open';
+
+    // TODO: this.open change on toggle
+    // this.requestUpdate();
     // if (this.hasAttribute('disabled')) {
     //   event.preventDefault();
     //   event.stopPropagation();
@@ -121,6 +145,10 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     // } else if (this.type === 'submit') {
     //   this.internals.form?.requestSubmit();
     // }
+  }
+
+  #closeOnAnimationend(event: AnimationEvent): void {
+    console.log('event closeOnAnimationend', event);
   }
 
   #onCancel(event: Event & { target: HTMLElement }): void {

@@ -98,6 +98,16 @@
             },
             {
               "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Open...",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "role",
               "type": {
                 "text": "'dialog' | 'alertdialog'"
@@ -197,6 +207,14 @@
                 "text": "string"
               },
               "fieldName": "summary"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Open...",
+              "fieldName": "open"
             }
           ],
           "mixins": [
@@ -242,6 +260,23 @@
                   "name": "event",
                   "type": {
                     "text": "ToggleEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#closeOnAnimationend",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "AnimationEvent"
                   }
                 }
               ]

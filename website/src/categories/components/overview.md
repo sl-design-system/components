@@ -55,7 +55,7 @@ Components that can be clicked to trigger an action.
 
 ## Selection {.ds-heading-1}
 
-This is a short introduction of the section, we want to keep this within 2 or 3 lines.
+Components that offer the user the possibility of choosing.
 
 <section class="ds-components__cards">
 {% for component in collections.component %}
@@ -178,7 +178,7 @@ Components that add a bit of extra screen real estate. Or will focus the attenti
 
 ## Feedback {.ds-heading-1}
 
-This is a short introduction of the section, we want to keep this within 2 or 3 lines. This is a short introduction of the section, we want to keep this within 2 or 3 lines. This is a short introduction of the section, we want to keep this within 2 or 3 lines.
+Components that communicate the states of the system to the user. 
 
 <section class="ds-components__cards">
 {% for component in collections.component %}

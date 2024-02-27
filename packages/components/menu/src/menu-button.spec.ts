@@ -140,6 +140,10 @@ describe('sl-menu-button', () => {
         expect(assignedElements).to.eql(Array.from(el.querySelectorAll(':scope > sl-menu-item')));
       });
 
+      it('should be anchored to the button', () => {
+        expect(menu.anchorElement).to.equal(button);
+      });
+
       describe('show', () => {
         it('should show the menu when the button is clicked', async () => {
           button.click();

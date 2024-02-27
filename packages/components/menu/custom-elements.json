@@ -906,7 +906,7 @@
               "type": {
                 "text": "number | undefined"
               },
-              "description": "The offset of the menu to its anchor. This is a property on this instance so\nthat it can be overridden by the menu item in case of a nested menu."
+              "description": "The offset of the menu to its anchor. This is a property on this instance so\nthat it can be overridden by the menu item in case of a nested menu. You\nshould not need to set this property yourself."
             },
             {
               "kind": "field",
@@ -1135,7 +1135,7 @@
               "type": {
                 "text": "number | undefined"
               },
-              "description": "The offset of the menu to its anchor. This is a property on this instance so\nthat it can be overridden by the menu item in case of a nested menu."
+              "description": "The offset of the menu to its anchor. This is a property on this instance so\nthat it can be overridden by the menu item in case of a nested menu. You\nshould not need to set this property yourself."
             },
             {
               "kind": "field",

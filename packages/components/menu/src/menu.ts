@@ -47,7 +47,8 @@ export class Menu extends LitElement {
 
   /**
    * The offset of the menu to its anchor. This is a property on this instance so
-   * that it can be overridden by the menu item in case of a nested menu.
+   * that it can be overridden by the menu item in case of a nested menu. You
+   * should not need to set this property yourself.
    */
   @property({ type: Number }) offset?: number;
 

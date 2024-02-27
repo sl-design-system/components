@@ -29,16 +29,20 @@ export class Popover extends LitElement {
   /** Controller for managing anchoring. */
   #anchor = new AnchorController(this, { offset: Popover.offset, viewportMargin: Popover.viewportMargin });
 
-  /** The position of popover relative to its anchor.
+  /**
+   * The position of popover relative to its anchor.
    * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
-   * */
+   */
   @property() position?: PopoverPosition = 'bottom';
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.id ||= `sl-popover-${nextUniqueId++}`;
-    this.setAttribute('popover', '');
+
+    if (!this.hasAttribute('popover')) {
+      this.setAttribute('popover', '');
+    }
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

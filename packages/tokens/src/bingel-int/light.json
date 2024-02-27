@@ -3839,6 +3839,20 @@
           "type": "color"
         }
       }
+    },
+    "card": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color"
+      }
     }
   },
   "boxShadow": {

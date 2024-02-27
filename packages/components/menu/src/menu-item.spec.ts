@@ -165,7 +165,7 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
 
-      await sendKeys({ down: 'Meta' })
+      await sendKeys({ down: navigator.platform.indexOf('Mac') > -1 ? 'Meta' : 'Ctrl' })
       await sendKeys({ press: '1' });
 
       expect(onClick).to.have.been.calledOnce;
@@ -255,7 +255,7 @@ describe('sl-menu-item', () => {
       menu.setAttribute('actual-placement', 'right-start');
 
       await sendKeys({ press: 'ArrowLeft' });
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(menu).not.to.match(':popover-open');
       expect(el).to.equal(document.activeElement);

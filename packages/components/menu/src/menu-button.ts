@@ -88,7 +88,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         .variant=${this.variant}
       >
         <slot name="button"></slot>
-        ${this.selects ? html`<span class="selected">${this.selected}</span>` : nothing}
+        ${this.selects && this.selected ? html`<span class="selected">${this.selected}</span>` : nothing}
         ${iconOnly ? nothing : html`<sl-icon name="far-angle-down"></sl-icon>`}
       </sl-button>
       <sl-menu
@@ -104,9 +104,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(): void {
-    if (this.#popoverState !== 'open') {
-      this.menu.showPopover();
-    }
+    this.menu.togglePopover();
   }
 
   #onKeydown(event: KeyboardEvent): void {

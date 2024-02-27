@@ -4151,6 +4151,12 @@
       "type": "opacity",
       "description": "opacity.1000"
     },
+    "spinner": {
+      "shadow": {
+        "value": "{opacity.600}",
+        "type": "opacity"
+      }
+    },
     "transparent": {
       "value": 0,
       "type": "opacity",

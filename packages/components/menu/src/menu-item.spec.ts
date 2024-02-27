@@ -165,7 +165,7 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
 
-      await sendKeys({ down: navigator.platform.indexOf('Mac') > -1 ? 'Meta' : 'Ctrl' })
+      await sendKeys({ down: navigator.platform.indexOf('Mac') > -1 ? 'Meta' : 'Control' })
       await sendKeys({ press: '1' });
 
       expect(onClick).to.have.been.calledOnce;

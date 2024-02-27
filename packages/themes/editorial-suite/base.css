@@ -284,6 +284,7 @@
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
   --sl-size-input-option-sm: var(--sl-size-lg);
+  --sl-size-select-indicator: var(--sl-size-3xs);
   --sl-opacity-spinner-shadow: 0.32;
   --sl-text-case-badge-text-transform: var(--sl-text-typeset-text-case-uppercase);
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
@@ -525,6 +526,10 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-2xs);
   --sl-border-radius-button-md: var(--sl-border-radius-2xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
+  --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-text: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /

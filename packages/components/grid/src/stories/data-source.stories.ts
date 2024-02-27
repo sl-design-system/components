@@ -1,3 +1,4 @@
+import type { GridItemDropEvent } from '../events.js';
 import type { StoryObj } from '@storybook/web-components';
 import type { Person } from '@sl-design-system/example-data';
 import { getPeople } from '@sl-design-system/example-data';
@@ -99,6 +100,47 @@ export const CustomSorting: Story = {
     return html`
       <p>This grid sorts people by last name, then first name, via a custom sorter on the data directly.</p>
       <sl-grid .dataSource=${dataSource}>
+        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+        <sl-grid-column path="email"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const Selection: Story = {
+  render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayDataSource(people as Person[]);
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+        <sl-grid-column path="email"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const SelectionDragAndDrop: Story = {
+  render: (_, { loaded: { people } }) => {
+    const onDrop = (event: GridItemDropEvent<Person>): void => {
+      // Reorder the person in the grid
+      const newPeople = [...(people as Person[])],
+        person = newPeople.splice(event.oldIndex, 1)[0];
+      newPeople.splice(event.newIndex, 0, person);
+
+      const dataSource = new ArrayDataSource(newPeople);
+      dataSource.update();
+    };
+
+    const dataSource = new ArrayDataSource(people as Person[]);
+
+    return html`
+      <sl-grid @sl-grid-drop=${onDrop} .dataSource=${dataSource}>
+        <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
         <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>

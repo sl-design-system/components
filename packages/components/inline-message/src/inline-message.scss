@@ -40,7 +40,7 @@ $variants: info, success, warning, danger;
   color: var(--_color);
   display: flex;
   flex-direction: column;
-  font: var(--_title-font);
+  font: var(--_description-font);
   margin: auto auto 0;
   outline: none;
   overflow: hidden;
@@ -77,8 +77,8 @@ slot[name='icon'] {
   }
 }
 
-slot[name='description'] {
-  font: var(--_description-font);
+slot[name='title'] {
+  font: var(--_title-font);
 }
 
 slot[name='details'] {

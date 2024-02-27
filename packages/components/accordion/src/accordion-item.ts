@@ -10,7 +10,8 @@ import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared'
 // import { EventsController } from '@sl-design-system/shared';
 import { faMinus, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { LitElement, html } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import styles from './accordion-item.scss.js';
 
 Icon.register(faMinus, faPlus); // TODO: use tokens instead
@@ -42,8 +43,8 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
   //   // keydown: this.#onKeydown
   // });
 
-  /** @private */
-  @query('dialog') dialog?: HTMLDialogElement;
+  // /** @private */
+  // @query('dialog') dialog?: HTMLDialogElement;
 
   /**
    * Emits when the cancel has been cancelled. This happens when the user closes
@@ -53,15 +54,6 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
   /** Emits when the dialog has been closed. */
   @event({ name: 'sl-close' }) closeEvent!: EventEmitter<void>;
-
-  /** Determines whether a close button should be shown in the top right corner. */
-  @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
-
-  /**
-   * Disables the ability to cancel the dialog by pressing the Escape key
-   * or clicking on the backdrop.
-   */
-  @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
 
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
@@ -103,10 +95,11 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
         @animationend=${this.#closeOnAnimationend}
       >
         <summary tabindex=${this.hasAttribute('disabled') ? -1 : 0} part="summary">
-          ${this.open
-            ? html` <sl-icon name="fas-minus" class="opened"></sl-icon> `
-            : html` <sl-icon name="fas-plus"></sl-icon> `}
-          <sl-icon name="xmark"></sl-icon> ${this.summary}
+          <span class="icons">
+            <sl-icon name="fas-plus" class="plus"></sl-icon>
+            <sl-icon name="fas-minus" class=${classMap({ opened: !!this.open, minus: true })}></sl-icon>
+          </span>
+          ${this.summary}
         </summary>
         <div class="panel">
           <slot @slotchange=${this.#onSlotChange}></slot>
@@ -114,6 +107,11 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
       </details>
     `;
   } // details - open
+
+  //   ${this.open
+  //             ? html` <sl-icon name="fas-minus" class="opened"></sl-icon> `
+  //             : html` <sl-icon name="fas-plus"></sl-icon> `}
+  // <sl-icon name="xmark"></sl-icon>
 
   // <sl-icon name="fas-plus"></sl-icon>
   //     <sl-icon name="fas-minus"></sl-icon>
@@ -151,13 +149,13 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     console.log('event closeOnAnimationend', event);
   }
 
-  #onCancel(event: Event & { target: HTMLElement }): void {
-    event.preventDefault();
-
-    if (!this.disableCancel) {
-      this.#closeDialogOnAnimationend(event.target, true);
-    }
-  }
+  // #onCancel(event: Event & { target: HTMLElement }): void {
+  //   event.preventDefault();
+  //
+  //   if (!this.disableCancel) {
+  //     this.#closeDialogOnAnimationend(event.target, true);
+  //   }
+  // }
 
   #onClick(event: PointerEvent & { target: HTMLElement }): void {
     if (this.hasAttribute('disabled')) {
@@ -180,46 +178,46 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     // }
   }
 
-  #onClose(): void {
-    // Reenable scrolling after the dialog has closed
-    document.documentElement.style.overflow = '';
+  // #onClose(): void {
+  //   // Reenable scrolling after the dialog has closed
+  //   document.documentElement.style.overflow = '';
+  //
+  //   this.inert = true;
+  //   this.closeEvent.emit();
+  // }
+  //
+  // #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
+  //   event.preventDefault();
+  //   event.stopPropagation();
+  //
+  //   this.#closeDialogOnAnimationend(event.target as HTMLElement);
+  // }
 
-    this.inert = true;
-    this.closeEvent.emit();
-  }
-
-  #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.#closeDialogOnAnimationend(event.target as HTMLElement);
-  }
-
-  #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
-    this.dialog?.addEventListener(
-      'animationend',
-      () => {
-        this.dialog?.removeAttribute('closing');
-
-        if (emitCancelEvent) {
-          this.cancelEvent.emit();
-        }
-
-        if (target?.matches('sl-button[sl-dialog-close]')) {
-          this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
-        } else {
-          this.dialog?.close();
-        }
-      },
-      { once: true }
-    );
-
-    /**
-     * Set the closing attribute, this triggers the closing animation.
-     *
-     * FIXME: We can replace this using `@starting-style` once this is available in all
-     * browsers. See https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
-     */
-    requestAnimationFrame(() => this.dialog?.setAttribute('closing', ''));
-  }
+  // #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
+  //   this.dialog?.addEventListener(
+  //     'animationend',
+  //     () => {
+  //       this.dialog?.removeAttribute('closing');
+  //
+  //       if (emitCancelEvent) {
+  //         this.cancelEvent.emit();
+  //       }
+  //
+  //       if (target?.matches('sl-button[sl-dialog-close]')) {
+  //         this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
+  //       } else {
+  //         this.dialog?.close();
+  //       }
+  //     },
+  //     { once: true }
+  //   );
+  //
+  //   /**
+  //    * Set the closing attribute, this triggers the closing animation.
+  //    *
+  //    * FIXME: We can replace this using `@starting-style` once this is available in all
+  //    * browsers. See https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
+  //    */
+  //   requestAnimationFrame(() => this.dialog?.setAttribute('closing', ''));
+  // }
 }

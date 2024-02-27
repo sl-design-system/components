@@ -99,13 +99,13 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
   }
 
   /** @private */
-  formDisabledCallback(disabled: boolean): void {
-    if (disabled) {
-      this.originalTabIndex = this.tabIndex;
-    }
-
-    this.tabIndex = disabled ? -1 : this.originalTabIndex;
-  }
+  // formDisabledCallback(disabled: boolean): void {
+  //   if (disabled) {
+  //     this.originalTabIndex = this.tabIndex;
+  //   }
+  //
+  //   this.tabIndex = disabled ? -1 : this.originalTabIndex;
+  // }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
@@ -246,11 +246,11 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
   //   // this.#setIconProperties(assignedNodes);
   // }
 
-  #hasOnlyIconAsChild(el: HTMLElement): boolean {
-    return (
-      (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
-    );
-  }
+  // #hasOnlyIconAsChild(el: HTMLElement): boolean {
+  //   return (
+  //     (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
+  //   );
+  // }
 
   // #setIconProperties(assignedNodes: Node[]): void {
   //   const filteredNodes = assignedNodes.filter(node => {

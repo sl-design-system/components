@@ -62,24 +62,6 @@
           ],
           "members": [
             {
-              "kind": "field",
-              "name": "closeButton",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Determines whether a close button should be shown in the top right corner.",
-              "attribute": "close-button"
-            },
-            {
-              "kind": "field",
-              "name": "disableCancel",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
-              "attribute": "disable-cancel"
-            },
-            {
               "kind": "method",
               "name": "onToggle",
               "return": {
@@ -177,22 +159,6 @@
           ],
           "attributes": [
             {
-              "name": "close-button",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Determines whether a close button should be shown in the top right corner.",
-              "fieldName": "closeButton"
-            },
-            {
-              "name": "disable-cancel",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
-              "fieldName": "disableCancel"
-            },
-            {
               "name": "role",
               "type": {
                 "text": "'dialog' | 'alertdialog'"
@@ -283,23 +249,6 @@
             },
             {
               "kind": "method",
-              "name": "#onCancel",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "#onClick",
               "return": {
                 "type": {
@@ -314,54 +263,6 @@
                   }
                 }
               ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClose",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onCloseClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#closeDialogOnAnimationend",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "optional": true,
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                },
-                {
-                  "name": "emitCancelEvent",
-                  "default": "false"
-                }
-              ]
             }
           ],
           "fields": [
@@ -374,14 +275,6 @@
               "static": true,
               "privacy": "private",
               "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "dialog",
-              "type": {
-                "text": "HTMLDialogElement | undefined"
-              },
-              "privacy": "private"
             }
           ]
         }
@@ -466,24 +359,6 @@
           "methods": [
             {
               "kind": "method",
-              "name": "formDisabledCallback",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "disabled",
-                  "type": {
-                    "text": "boolean"
-                  }
-                }
-              ],
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
               "name": "#onToggle",
               "return": {
                 "type": {
@@ -512,23 +387,6 @@
                   "name": "event",
                   "type": {
                     "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#hasOnlyIconAsChild",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "el",
-                  "type": {
-                    "text": "HTMLElement"
                   }
                 }
               ]

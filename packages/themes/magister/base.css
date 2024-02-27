@@ -751,6 +751,7 @@
   --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-skeleton-default: var(--sl-border-radius-default);
   --sl-border-radius-card-image-margin: var(--sl-border-radius-default);
   --sl-border-radius-card-default: var(--sl-border-radius-default);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);

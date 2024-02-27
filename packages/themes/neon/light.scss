@@ -15,6 +15,16 @@
     0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-400));
   --sl-elevation-shadow-sm: 0 0 6px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
     0 2px 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
+  --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
+  --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-base));
+  --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-base));
+  --sl-color-spinner-success: rgb(var(--sl-color-palette-success-base));
+  --sl-color-spinner-info: rgb(var(--sl-color-palette-info-base));
+  --sl-color-spinner-accent: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-spinner-white: rgb(var(--sl-color-palette-white-base));
+  --sl-color-spinner-default: rgb(var(--sl-color-palette-primary-500));
   --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-tab-active-background: rgb(var(--sl-color-palette-primary-100));
@@ -474,6 +484,15 @@
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-400));
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
+  --sl-color-skeleton-shimmer: linear-gradient
+    (
+      90deg,
+      var(--sl-color-skeleton-base) 0%,
+      var(--sl-color-skeleton-base) 10%,
+      var(--sl-color-skeleton-effect) 50%,
+      var(--sl-color-skeleton-base) 90%,
+      var(--sl-color-skeleton-base) 100%
+    );
   --sl-color-card-background: var(--sl-body-background);
   --sl-color-tab-content-background: var(--sl-body-background);
   --sl-color-tab-tabbar-background: var(--sl-body-background);

@@ -2063,6 +2063,12 @@
         "value": "{borderRadius.default}",
         "type": "borderRadius"
       }
+    },
+    "skeleton": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {

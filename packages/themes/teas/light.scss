@@ -10,6 +10,13 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-base));
+  --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-base));
+  --sl-color-spinner-success: rgb(var(--sl-color-palette-success-base));
+  --sl-color-spinner-info: rgb(var(--sl-color-palette-info-base));
+  --sl-color-spinner-accent: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-spinner-white: rgb(var(--sl-color-palette-white-base));
+  --sl-color-spinner-default: rgb(var(--sl-color-palette-primary-500));
   --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-700));
   --sl-color-tab-active-background: rgb(var(--sl-color-palette-primary-100));

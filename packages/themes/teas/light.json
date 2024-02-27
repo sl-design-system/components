@@ -4571,6 +4571,43 @@
         "type": "color",
         "failedToResolve": true
       }
+    },
+    "spinner": {
+      "default": {
+        "value": "{color.palette.primary.500}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "white": {
+        "value": "{color.palette.white.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "accent": {
+        "value": "{color.palette.accent.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "info": {
+        "value": "{color.palette.info.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "success": {
+        "value": "{color.palette.success.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "warning": {
+        "value": "{color.palette.warning.base}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "danger": {
+        "value": "{color.palette.danger.base}",
+        "type": "color",
+        "failedToResolve": true
+      }
     }
   },
   "boxShadow": {

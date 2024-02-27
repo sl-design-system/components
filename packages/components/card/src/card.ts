@@ -1,4 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
+import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { LitElement, html, nothing } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
@@ -8,7 +8,7 @@ export type CardOrientation = 'horizontal' | 'vertical';
 export type CardMediaPosition = 'start' | 'end';
 
 /**
- * Let the user know you are processing their data or that the (part of the) page is loading.
+ * Use cards to display media and text in a compact, appealing way.
  *
  * ```html
  * <sl-card></sl-card>
@@ -35,7 +35,6 @@ export class Card extends LitElement {
   /** Observe the grid width. */
   #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
     this.#setOrientation();
-    return;
   });
 
   /** @private The slotted media. */
@@ -52,6 +51,21 @@ export class Card extends LitElement {
     this.#setOrientation();
 
     this.#resizeObserver?.observe(this);
+  }
+
+  override disconnectedCallback(): void {
+    this.#resizeObserver?.disconnect();
+    this.#resizeObserver = undefined;
+
+    super.disconnectedCallback();
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('orientation')) {
+      this.#setOrientation();
+    }
   }
 
   override render(): TemplateResult {

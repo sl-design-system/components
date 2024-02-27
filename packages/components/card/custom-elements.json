@@ -38,7 +38,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Let the user know you are processing their data or that the (part of the) page is loading.\n\n```html\n<sl-card></sl-card>\n```",
+          "description": "Use cards to display media and text in a compact, appealing way.\n\n```html\n<sl-card></sl-card>\n```",
           "name": "Card",
           "cssProperties": [
             {
@@ -209,7 +209,7 @@
               "type": {
                 "text": "ResizeObserver | undefined"
               },
-              "default": "new ResizeObserver(() => {\n    this.#setOrientation();\n    return;\n  })",
+              "default": "new ResizeObserver(() => {\n    console.log('resize triggered');\n    this.#setOrientation();\n  })",
               "description": "Observe the grid width."
             },
             {

@@ -16,13 +16,15 @@
   --_font-sub-title: var(--sl-text-card-subtitle);
   --_font-title: var(--sl-text-card-title);
   --_media-padding-full: 0;
-  --_media-padding: var(-sl-space-card-media-margins);
+  --_media-padding: var(--sl-space-card-media-margins);
 
   --_media-column: var(--_media-width);
   --_text-column: var(--_text-width);
 
   --line-clamp: 1;
+}
 
+:host {
   background-color: var(--_card-background);
   border: var(--_card-border);
   border-radius: var(--_card-border-radius);

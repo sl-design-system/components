@@ -5,12 +5,71 @@ import '../register.js';
 
 describe('sl-card', () => {
   let el: Card;
+  const image = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=',
+        title = 'Title',
+        subHeader = 'subHeader',
+        bodyCopy = 'Lorem Ipsum'
 
-  beforeEach(async () => {
-    el = await fixture(html`<sl-card></sl-card>`);
+  describe('with image', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-card>
+      <img slot="media" src="${image}" />
+      <h2>${title}</h2>
+      <h3 slot="header">${subHeader}</h3>
+      <p slot="body">${bodyCopy}</p>
+      <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis"></sl-icon></sl-button>
+    </sl-card>`);
+    });
+  
+    it('should render correctly', () => {
+      expect(el).shadowDom.to.equalSnapshot();
+    });
+  
+    it('should have the class "horizontal" by default when an image is present', () => {
+      expect(el).to.have.class('horizontal');
+    });
+    
+    describe('vertical', () => {
+      beforeEach(async () => {
+        el.setAttribute('orientation','vertical');
+        await el.updateComplete;
+      });
+      
+      it('should not add the class "horizontal" but it should add "has media"', () => {
+        expect(el).not.to.have.class('horizontal');
+        expect(el).to.have.class('has-media');        
+      });
+    });
   });
 
-  it('should render correctly', () => {
-    expect(el).shadowDom.to.equalSnapshot();
+  describe('without image', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-card>
+      <h2>${title}</h2>
+      <h3 slot="header">${subHeader}</h3>
+      <p slot="body">${bodyCopy}</p>
+      <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis"></sl-icon></sl-button>
+    </sl-card>`);
+    });
+  
+    it('should not have the class "horizontal" by default when no image is present', () => {
+      expect(el).not.to.have.class('horizontal');
+    });
+  });
+
+  describe('with breakpoint set', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-card style="--sl-card-horizontal-breakpoint:1800px">
+      <img slot="media" src="${image}" />
+      <h2>${title}</h2>
+      <h3 slot="header">${subHeader}</h3>
+      <p slot="body">${bodyCopy}</p>
+      <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis"></sl-icon></sl-button>
+    </sl-card>`);
+    });
+
+    it.only('should switch to vertical mode when a breakpoint is set that is larger than the current screen width', async () => {
+      expect(el).not.to.have.class('horizontal');
+    });
   });
 });

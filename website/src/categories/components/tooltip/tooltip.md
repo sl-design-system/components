@@ -11,7 +11,7 @@ packageName: tooltip
 eleventyNavigation:
   parent: Components
   key: Tooltip
-  order: 26
+  order: 28
   status: ready
 ---
 

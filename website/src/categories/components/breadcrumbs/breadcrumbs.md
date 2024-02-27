@@ -9,7 +9,7 @@ packageName: breadcrumbs
 eleventyNavigation:
   parent: Components
   key: Breadcrumbs
-  order: 7
+  order: 5
   status: coming
 ---
 

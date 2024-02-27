@@ -11,7 +11,7 @@ packageName: text-field
 eleventyNavigation:
   parent: Components
   key: Text field
-  order: 25
+  order: 26
   status: ready
 ---
 

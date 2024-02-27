@@ -96,7 +96,7 @@ Components that offer the user the possibility of choosing.
 
 ## Editable {.ds-heading-1}
 
-This is a short introduction of the section, we want to keep this within 2 or 3 lines.
+Components that give the user the possibility of add their inputs.
 
 <section class="ds-components__cards">
 {% for component in collections.component %}

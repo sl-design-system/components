@@ -10,6 +10,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Message dialog
-  order: 16
+  order: 18
   status: ready
 ---

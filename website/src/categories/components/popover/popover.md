@@ -11,7 +11,7 @@ packageName: popover
 eleventyNavigation:
   parent: Components
   key: Popover
-  order: 14
+  order: 19
   status: ready
 ---
 

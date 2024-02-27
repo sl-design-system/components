@@ -6,6 +6,7 @@
   --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
   --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-500));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-100));
   --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-500));
@@ -432,6 +433,7 @@
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-base));
   --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-card-background: var(--sl-body-background);
   --sl-color-tab-content-background: var(--sl-body-background);
   --sl-color-tab-tabbar-background: var(--sl-body-background);
   --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-400));
@@ -585,6 +587,7 @@
   --sl-color-button-success-solid-idle-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-button-primary-outline-idle-background: var(--sl-body-background);
   --sl-color-button-default-link-hover-foreground: rgb(var(--sl-color-palette-accent-700));
+  --sl-color-card-foreground: var(--sl-body-foreground);
   --sl-color-tab-content-foreground: var(--sl-body-foreground);
   --sl-color-tab-active-foreground: var(--sl-body-foreground);
   --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);

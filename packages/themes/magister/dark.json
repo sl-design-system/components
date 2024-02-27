@@ -4390,6 +4390,23 @@
           "failedToResolve": true
         }
       }
+    },
+    "card": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color",
+        "failedToResolve": true
+      },
+      "border": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "failedToResolve": true
+      }
     }
   },
   "boxShadow": {

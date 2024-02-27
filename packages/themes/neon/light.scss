@@ -15,6 +15,7 @@
     0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-400));
   --sl-elevation-shadow-sm: 0 0 6px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
     0 2px 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
+  --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-tab-active-background: rgb(var(--sl-color-palette-primary-100));
   --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-400));
@@ -473,6 +474,7 @@
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-400));
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
+  --sl-color-card-background: var(--sl-body-background);
   --sl-color-tab-content-background: var(--sl-body-background);
   --sl-color-tab-tabbar-background: var(--sl-body-background);
   --sl-color-tab-disabled-background: var(--sl-body-background);
@@ -598,6 +600,7 @@
   --sl-color-input-option-default-checked-default-border: var(
     --sl-color-input-option-default-checked-default-background
   );
+  --sl-color-card-foreground: var(--sl-body-foreground);
   --sl-color-tab-content-foreground: var(--sl-body-foreground);
   --sl-color-tab-active-foreground: var(--sl-body-foreground);
   --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);

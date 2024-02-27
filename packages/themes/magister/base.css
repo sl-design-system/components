@@ -504,6 +504,7 @@
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
   --sl-space-button-default-inline-md: calc(var(--sl-space-lg) - var(--sl-border-width-button-solid));
+  --sl-border-width-card-border: var(--sl-border-width-xs);
   --sl-border-width-border-tabbar: var(--sl-border-width-xs);
   --sl-border-width-border-tab: var(--sl-border-width-xs);
   --sl-border-width-divider: var(--sl-border-width-xs);
@@ -537,6 +538,12 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-sm);
   --sl-border-radius-button-md: var(--sl-border-radius-sm);
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
+  --sl-text-card-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-card-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-card-title: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
@@ -744,6 +751,8 @@
   --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-card-image-margin: var(--sl-border-radius-default);
+  --sl-border-radius-card-default: var(--sl-border-radius-default);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);

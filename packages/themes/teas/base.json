@@ -2033,6 +2033,47 @@
         },
         "type": "typography"
       }
+    },
+    "card": {
+      "title": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.xl}",
+          "fontSize": "{text.typeset.fontSize.xl}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "textCase": "{text.typeset.textCase.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}"
+        },
+        "type": "typography"
+      },
+      "subtitle": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.lg}",
+          "fontSize": "{text.typeset.fontSize.lg}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "textCase": "{text.typeset.textCase.none}"
+        },
+        "type": "typography"
+      },
+      "body": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.md}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "textCase": "{text.typeset.textCase.none}"
+        },
+        "type": "typography"
+      }
     }
   },
   "borderRadius": {
@@ -2143,6 +2184,16 @@
         "type": "borderRadius",
         "description": "borderRadius.button"
       }
+    },
+    "card": {
+      "default": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      },
+      "image-margin": {
+        "value": "{borderRadius.default}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -2249,6 +2300,12 @@
           "type": "borderWidth"
         },
         "tabbar": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
+      },
+      "card": {
+        "border": {
           "value": "{border.width.xs}",
           "type": "borderWidth"
         }

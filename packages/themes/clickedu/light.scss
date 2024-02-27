@@ -7,6 +7,7 @@
   --sl-box-shadow-none: 0 0 0 0;
   --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-100));
   --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-50));
   --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
@@ -392,6 +393,7 @@
   --sl-box-shadow-tooltip: [object Object];
   --sl-box-shadow-select-listbox: [object Object];
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
+  --sl-color-card-background: var(--sl-body-background);
   --sl-color-tab-content-background: var(--sl-body-background);
   --sl-color-tab-active-border: var(--sl-color-tab-default-border);
   --sl-color-tab-tabbar-border: var(--sl-color-tab-default-border);
@@ -568,6 +570,7 @@
   --sl-color-button-default-link-hover-border: var(--sl-color-button-default-link-idle-background);
   --sl-color-button-default-link-hover-background: var(--sl-color-button-default-link-idle-background);
   --sl-color-button-default-link-idle-border: var(--sl-color-button-default-link-idle-background);
+  --sl-color-card-foreground: var(--sl-body-foreground);
   --sl-color-tab-content-foreground: var(--sl-body-foreground);
   --sl-color-tab-active-foreground: var(--sl-body-foreground);
   --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);

@@ -510,6 +510,7 @@
   --sl-space-tooltip-inline: var(--sl-space-md);
   --sl-space-tooltip-block: var(--sl-space-sm);
   --sl-space-tooltip-arrow-offset: var(--sl-space-sm);
+  --sl-border-width-card-border: var(--sl-border-width-xs);
   --sl-border-width-border-tabbar: var(--sl-border-width-xs);
   --sl-border-width-border-tab: var(--sl-border-width-xs);
   --sl-border-width-dialog-default: var(--sl-border-width-none);
@@ -541,6 +542,12 @@
   --sl-border-radius-button-md: var(--sl-border-radius-2xl);
   --sl-border-radius-button-sm: var(--sl-border-radius-lg);
   --sl-border-radius-badge-full: var(--sl-border-radius-full);
+  --sl-text-card-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-card-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-card-title: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
@@ -754,6 +761,8 @@
   );
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-card-image-margin: var(--sl-border-radius-default);
+  --sl-border-radius-card-default: var(--sl-border-radius-default);
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
@@ -791,6 +800,7 @@
     --sl-box-shadow-none: 0 0 0 0;
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-tab-active-background: rgb(var(--sl-color-palette-accent-100));
     --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-50));
     --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
@@ -1176,6 +1186,7 @@
     --sl-box-shadow-tooltip: [object Object];
     --sl-box-shadow-select-listbox: [object Object];
     --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
+    --sl-color-card-background: var(--sl-body-background);
     --sl-color-tab-content-background: var(--sl-body-background);
     --sl-color-tab-active-border: var(--sl-color-tab-default-border);
     --sl-color-tab-tabbar-border: var(--sl-color-tab-default-border);
@@ -1380,6 +1391,7 @@
     --sl-color-button-default-link-hover-border: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-default-link-hover-background: var(--sl-color-button-default-link-idle-background);
     --sl-color-button-default-link-idle-border: var(--sl-color-button-default-link-idle-background);
+    --sl-color-card-foreground: var(--sl-body-foreground);
     --sl-color-tab-content-foreground: var(--sl-body-foreground);
     --sl-color-tab-active-foreground: var(--sl-body-foreground);
     --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);

@@ -12,6 +12,7 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-tab-active-background: rgb(var(--sl-color-palette-primary-100));
   --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-400));
@@ -411,6 +412,8 @@
   --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-info-base));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-info-base));
+  --sl-color-card-foreground: var(--sl-body-foreground);
+  --sl-color-card-background: var(--sl-body-background);
   --sl-color-tab-content-foreground: var(--sl-body-foreground);
   --sl-color-tab-content-background: var(--sl-body-background);
   --sl-color-tab-active-foreground: var(--sl-body-foreground);

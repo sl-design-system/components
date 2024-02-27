@@ -517,6 +517,7 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-border-width-card-border: var(--sl-border-width-xs);
   --sl-border-width-border-tabbar: var(--sl-border-width-xs);
   --sl-border-width-border-tab: var(--sl-border-width-xs);
   --sl-border-width-tooltip-border: var(--sl-border-width-xs);
@@ -550,6 +551,12 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-full);
   --sl-border-radius-button-md: var(--sl-border-radius-full);
   --sl-border-radius-button-sm: var(--sl-border-radius-full);
+  --sl-text-card-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-card-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-card-title: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
@@ -755,6 +762,8 @@
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-input-border: var(--sl-conceptual-border-width-default);
   --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
+  --sl-border-radius-card-image-margin: var(--sl-border-radius-default);
+  --sl-border-radius-card-default: var(--sl-border-radius-default);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
   --sl-border-radius-inline-message-default: var(--sl-border-radius-default);
   --sl-border-radius-focusring-checkbox: calc(var(--sl-border-radius-checkbox) + 1);
@@ -797,6 +806,7 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-tab-active-background: rgb(var(--sl-color-palette-primary-100));
     --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-400));
@@ -1196,6 +1206,8 @@
     --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-info-base));
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-info-base));
+    --sl-color-card-foreground: var(--sl-body-foreground);
+    --sl-color-card-background: var(--sl-body-background);
     --sl-color-tab-content-foreground: var(--sl-body-foreground);
     --sl-color-tab-content-background: var(--sl-body-background);
     --sl-color-tab-active-foreground: var(--sl-body-foreground);

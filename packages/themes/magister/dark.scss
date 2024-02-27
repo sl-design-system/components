@@ -8,6 +8,7 @@
   --sl-body-surface-overlay: rgba(var(--sl-color-palette-primary-700) / var(--sl-opacity-600));
   --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-600));
   --sl-color-tab-active-background: rgba(var(--sl-color-palette-primary-400) / var(--sl-opacity-600));
   --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-600));
@@ -532,6 +533,8 @@
   --sl-color-button-default-solid-active-border: var(--sl-color-button-default-solid-active-background);
   --sl-color-button-default-solid-hover-border: var(--sl-color-button-default-solid-hover-background);
   --sl-color-button-default-solid-idle-border: var(--sl-color-button-default-solid-idle-background);
+  --sl-color-card-foreground: var(--sl-body-foreground);
+  --sl-color-card-background: var(--sl-body-background);
   --sl-color-tab-content-foreground: var(--sl-body-foreground);
   --sl-color-tab-content-background: var(--sl-body-background);
   --sl-color-tab-active-foreground: var(--sl-body-foreground);

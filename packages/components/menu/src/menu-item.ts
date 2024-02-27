@@ -75,6 +75,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    if (changes.has('disabled')) {
+      this.setAttribute('tabindex', this.disabled ? '-1' : '0');
+    }
+
     if (changes.has('shortcut')) {
       if (this.shortcut) {
         this.#shortcut.bind({ [this.shortcut]: this.#onShortcut.bind(this) });
@@ -93,9 +97,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
         ${this.shortcut ? html`<kbd>${this.#shortcut.render(this.shortcut)}</kbd>` : nothing}
         ${this.submenu ? html`<sl-icon name="far-chevron-right"></sl-icon>` : nothing}
       </div>
-      <div class="submenu">
-        <slot @slotchange=${this.#onSubmenuChange} name="submenu"></slot>
-      </div>
+      <slot @slotchange=${this.#onSubmenuChange} name="submenu"></slot>
     `;
   }
 

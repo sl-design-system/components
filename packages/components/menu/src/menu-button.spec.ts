@@ -148,14 +148,14 @@ describe('sl-menu-button', () => {
         it('should show the menu when the button is clicked', async () => {
           button.click();
 
-          expect(menu.matches(':popover-open')).to.be.true;
+          expect(menu).to.match(':popover-open');
         });
 
         it('should show the menu when the button is focused and the down arrow key is pressed', async () => {
           button.focus();
           await sendKeys({ press: 'ArrowDown' });
 
-          expect(menu.matches(':popover-open')).to.be.true;
+          expect(menu).to.match(':popover-open');
         });
 
         it('should focus the menu when the button is focused and the down arrow key is pressed', async () => {
@@ -169,14 +169,14 @@ describe('sl-menu-button', () => {
           button.focus();
           await sendKeys({ press: 'Enter' });
 
-          expect(menu.matches(':popover-open')).to.be.true;
+          expect(menu).to.match(':popover-open');
         });
 
         it('should show the menu when the button is focused and the space key is pressed', async () => {
           button.focus();
           await sendKeys({ press: ' ' });
 
-          expect(menu.matches(':popover-open')).to.be.true;
+          expect(menu).to.match(':popover-open');
         });
       });
 
@@ -189,45 +189,45 @@ describe('sl-menu-button', () => {
         });
 
         it('should hide the menu when the button is clicked', async () => {
-          expect(menu.matches(':popover-open')).to.be.true;
+          expect(menu).to.match(':popover-open');
 
           button.click();
 
-          expect(menu.matches(':popover-open')).to.be.false;
+          expect(menu).not.to.match(':popover-open');
         });
 
         it('should hide the menu when the escape key is pressed', async () => {
-          expect(menu.matches(':popover-open')).to.be.true;
+          expect(menu).to.match(':popover-open');
 
           await sendKeys({ press: 'Escape' });
 
-          expect(menu.matches(':popover-open')).to.be.false;
+          expect(menu).not.to.match(':popover-open');
         });
 
         it('should hide the menu when a menu item is clicked', async () => {
-          expect(menu.matches(':popover-open')).to.be.true;
+          expect(menu).to.match(':popover-open');
 
           el.querySelector('sl-menu-item')?.click();
 
-          expect(menu.matches(':popover-open')).to.be.false;
+          expect(menu).not.to.match(':popover-open');
         });
 
         it('should hide the menu when a menu item is focused and the enter key is pressed', async () => {
-          expect(menu.matches(':popover-open')).to.be.true;
+          expect(menu).to.match(':popover-open');
 
           el.querySelector('sl-menu-item')?.focus();
           await sendKeys({ press: 'Enter' });
 
-          expect(menu.matches(':popover-open')).to.be.false;
+          expect(menu).not.to.match(':popover-open');
         });
 
         it('should hide the menu when a menu item is focused and the space key is pressed', async () => {
-          expect(menu.matches(':popover-open')).to.be.true;
+          expect(menu).to.match(':popover-open');
 
           el.querySelector('sl-menu-item')?.focus();
           await sendKeys({ press: ' ' });
 
-          expect(menu.matches(':popover-open')).to.be.false;
+          expect(menu).not.to.match(':popover-open');
         });
       });
     });

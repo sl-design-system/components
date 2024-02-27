@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import '../register.js';
 import { type Menu } from './menu.js';
-import type { MenuItem } from './menu-item.js';
-import { spy } from 'sinon';
+import { type MenuItem } from './menu-item.js';
 
 describe('sl-menu', () => {
   let el: Menu;

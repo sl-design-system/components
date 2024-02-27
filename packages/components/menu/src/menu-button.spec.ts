@@ -339,7 +339,7 @@ describe('sl-menu-button', () => {
       expect(selected).to.have.text('2 selected');
     });
 
-    it('should show call pluralize if there are more than 1 selected menu items', async () => {
+    it('should call pluralize if there is more than 1 selected menu item', async () => {
       el.pluralize = fake.returns('2 items');
 
       el.querySelectorAll('sl-menu-item').forEach(menuItem => menuItem.click());

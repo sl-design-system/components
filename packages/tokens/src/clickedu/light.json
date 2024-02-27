@@ -3727,6 +3727,67 @@
         "value": "{color.palette.neutral.100}",
         "type": "color"
       }
+    },
+    "spinner": {
+      "default": {
+        "value": "{color.palette.primary.500}",
+        "type": "color"
+      },
+      "white": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      },
+      "accent": {
+        "value": "{color.palette.accent.base}",
+        "type": "color"
+      },
+      "info": {
+        "value": "{color.palette.info.base}",
+        "type": "color"
+      },
+      "success": {
+        "value": "{color.palette.success.base}",
+        "type": "color"
+      },
+      "warning": {
+        "value": "{color.palette.warning.base}",
+        "type": "color"
+      },
+      "danger": {
+        "value": "{color.palette.danger.base}",
+        "type": "color"
+      }
+    },
+    "skeleton": {
+      "base": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "description": "body.surface.100"
+      },
+      "effect": {
+        "value": "{color.palette.neutral.150}",
+        "type": "color",
+        "description": "body.surface.100"
+      },
+      "pulse": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "alpha",
+              "value": "0.4",
+              "space": "hsl"
+            }
+          }
+        },
+        "description": "body.surface.100"
+      },
+      "shimmer": {
+        "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.effect} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",
+        "type": "color",
+        "description": "body.surface.100"
+      }
     }
   },
   "boxShadow": {

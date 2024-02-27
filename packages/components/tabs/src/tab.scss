@@ -76,6 +76,7 @@ slot[name='subtitle'] {
 
 slot[name='icon']::slotted(sl-icon) {
   block-size: var(--_icon-block-size);
+  fill: var(--_color);
 }
 
 slot[name='badge']::slotted(sl-badge) {

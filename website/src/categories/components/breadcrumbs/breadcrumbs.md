@@ -2,7 +2,7 @@
 title: Breadcrumbs
 description: Breadcrumbs component description
 componentType: action
-shortDescription: We are still working on the avatar component
+shortDescription: We are still working on the breadcrumbs component
 layout: "components/components.njk"
 tags: component
 packageName: breadcrumbs

@@ -1,5 +1,13 @@
 # @sl-design-system/shared
 
+## 0.2.4
+
+### Patch Changes
+
+- [#974](https://github.com/sl-design-system/components/pull/974) [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf) - Make popover offset and viewportMargin themable
+
+- [#974](https://github.com/sl-design-system/components/pull/974) [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf) - Remove nested barrel files
+
 ## 0.2.3
 
 ### Patch Changes

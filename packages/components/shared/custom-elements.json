@@ -359,6 +359,31 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#getAnchorElement",
+              "return": {
+                "type": {
+                  "text": "Element | null"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#linkAnchorWithPopover",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "expanded",
+                  "default": "false"
+                }
+              ],
+              "description": "Normally when using the `popovertarget` attribute with popovers,\nthe browser will automatically set the `aria-details` attribute on\nthe anchor element and `aria-expanded` on the trigger. But since we\ncannot use the `popovertarget` attribute in combination with custom\nelements, we need to set these ourselves."
             }
           ],
           "fields": [
@@ -386,7 +411,7 @@
               "type": {
                 "text": "ReactiveControllerHost & HTMLElement"
               },
-              "default": "this.#host"
+              "default": "host"
             },
             {
               "kind": "field",

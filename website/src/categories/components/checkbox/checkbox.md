@@ -11,6 +11,6 @@ packageName: checkbox
 eleventyNavigation:
   parent: Components
   key: Checkbox
-  order: 5
+  order: 9
   status: ready
 ---

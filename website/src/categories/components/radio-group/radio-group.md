@@ -11,6 +11,6 @@ packageName: radio-group
 eleventyNavigation:
   parent: Components
   key: Radio group
-  order: 15
+  order: 20
   status: coming
 ---

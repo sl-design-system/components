@@ -1,0 +1,10 @@
+{
+  "layout": "components/components.njk",
+  "tags": "badge",
+  "componentTagName": [
+    {
+      "name": "Badge",
+      "selector": "sl-badge"
+    }
+  ]
+}

@@ -163,6 +163,46 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
       event.stopPropagation();
       // return;
     }
+
+    const detailsElement = event.target.parentElement;
+    const contentElement = event.target.nextElementSibling;
+
+    console.log('detailsElement, contentElement', detailsElement, contentElement);
+
+    // Chrome sometimes has a hiccup and gets stuck.
+    if (contentElement?.classList.contains('animation')) {
+      // So we make sure to remove those classes manually,
+      contentElement?.classList.remove('animation', 'collapsing');
+      // ... enforce a reflow so that collapsing may be animated again,
+      // void element.offsetWidth;
+      void this.offsetWidth;
+      // ... and fallback to the default behaviour this time.
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unsafe-argument
+    // const onAnimationEnd = (cb): void => contentElement?.addEventListener('animationend', cb, { once: true });
+
+    const onAnimationEnd = (cb: () => void): void => {
+      contentElement?.addEventListener('animationend', cb, { once: true });
+    };
+
+    // request an animation frame to force Safari 16 to actually perform the animation
+    requestAnimationFrame(() => contentElement?.classList.add('animation'));
+    onAnimationEnd(() => contentElement?.classList.remove('animation'));
+
+    const isDetailsOpen = detailsElement?.getAttribute('open') !== null;
+    if (isDetailsOpen) {
+      // prevent default collapsing and delay it until the animation has completed
+      event.preventDefault();
+      contentElement?.classList.add('collapsing');
+      onAnimationEnd(() => {
+        detailsElement?.removeAttribute('open');
+        contentElement?.classList.remove('collapsing');
+      });
+    }
+
     // const rect = this.dialog!.getBoundingClientRect();
     //
     // // Check if the user clicked on the sl-dialog-close button or on the backdrop

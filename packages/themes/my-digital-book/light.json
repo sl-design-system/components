@@ -4467,7 +4467,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.400}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4489,7 +4489,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.400}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4506,7 +4506,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.400}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4523,7 +4523,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.400}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4540,7 +4540,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.400}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4577,7 +4577,7 @@
     },
     "spinner": {
       "default": {
-        "value": "{color.palette.primary.500}",
+        "value": "{color.palette.primary.base}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4587,7 +4587,7 @@
         "failedToResolve": true
       },
       "accent": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.accent.600}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4597,17 +4597,17 @@
         "failedToResolve": true
       },
       "success": {
-        "value": "{color.palette.success.base}",
+        "value": "{color.palette.success.500}",
         "type": "color",
         "failedToResolve": true
       },
       "warning": {
-        "value": "{color.palette.warning.base}",
+        "value": "{color.palette.warning.600}",
         "type": "color",
         "failedToResolve": true
       },
       "danger": {
-        "value": "{color.palette.danger.base}",
+        "value": "{color.palette.danger.500}",
         "type": "color",
         "failedToResolve": true
       }

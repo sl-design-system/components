@@ -3,7 +3,7 @@ import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { type Breadcrumbs } from './breadcrumbs.js';
+import { Breadcrumbs } from './breadcrumbs.js';
 
 describe('sl-breadcrumbs', () => {
   let el: Breadcrumbs;
@@ -70,6 +70,46 @@ describe('sl-breadcrumbs', () => {
 
     it('should not have a menu button', () => {
       expect(el.renderRoot.querySelector('sl-menu-button')).not.to.exist;
+    });
+  });
+
+  describe('static no home default', () => {
+    beforeEach(async () => {
+      Breadcrumbs.noHome = true;
+
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/docs">Docs</a>
+          <a href="/docs/getting-started">Getting Started</a>
+          <span>Developers</span>
+        </sl-breadcrumbs>
+      `)
+    });
+
+    afterEach(() => (Breadcrumbs.noHome = false));
+
+    it('should not have a home link', () => {
+      expect(el.renderRoot.querySelector('a')).not.to.exist;
+    });
+  });
+
+  describe('static home url default', () => {
+    beforeEach(async () => {
+      Breadcrumbs.homeUrl = '/custom-home';
+
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="/docs">Docs</a>
+          <a href="/docs/getting-started">Getting Started</a>
+          <span>Developers</span>
+        </sl-breadcrumbs>
+      `)
+    });
+
+    afterEach(() => (Breadcrumbs.homeUrl = '/'));
+
+    it('should not have a home link', () => {
+      expect(el.renderRoot.querySelector('a')).to.have.attribute('href', '/custom-home');
     });
   });
 

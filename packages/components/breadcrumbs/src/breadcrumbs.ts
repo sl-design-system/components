@@ -1,7 +1,7 @@
 import { faChevronRight, faEllipsis, faHouse } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
+import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -17,19 +17,24 @@ declare global {
 Icon.register(faChevronRight, faEllipsis, faHouse);
 
 export interface Breadcrumb {
-  element: Element;
+  element: HTMLElement;
   label: string;
   url?: string;
 }
 
+/**
+ * A component to display a breadcrumb trail.
+ *
+ * @slot default - The breadcrumbs to display.
+ */
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /**
    * The url for the home link, defaults to the root url.
    *
    * By changing this static property you can change the default value for
-   * all instances of the component. Changing the static property won't
-   * affect already created instances.
+   * all future instances of the component. Changing the static property
+   * won't affect already created instances.
    */
   static homeUrl = '/';
 
@@ -37,16 +42,17 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    * When true doesn't show a home link as the first breadcrumb.
    *
    * By changing this static property you can change the default value for
-   * all instances of the component. Changing the static property won't
-   * affect already created instances.
+   * all future instances of the component. Changing the static property
+   * won't affect already created instances.
    */
   static noHome = false;
 
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-menu-button': MenuButton,
+      'sl-menu-item': MenuItem
     };
   }
 
@@ -59,8 +65,8 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /**
    * The url for the home link, defaults to the root url.
    *
-   * If you want to change the default value for all instances of the component,
-   * you can change the static property. If you want to change the property for an already
+   * If you want to change the default value for all future instances of the component,
+   * you can change the static property. If you want to change the property of an already
    * created instance, you need to change this property.
    */
   @property({ attribute: 'home-url' }) homeUrl = Breadcrumbs.homeUrl;
@@ -68,8 +74,8 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /**
    * When true doesn't show a home link as the first breadcrumb.
    *
-   * If you want to change the default value for all instances of the component,
-   * you can change the static property. If you want to change the property for an already
+   * If you want to change the default value for all future instances of the component,
+   * you can change the static property. If you want to change the property of an already
    * created instance, you need to change this property.
    */
   @property({ type: Boolean, attribute: 'no-home' }) noHome = Breadcrumbs.noHome;
@@ -83,16 +89,31 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
             <sl-icon name="far-chevron-right"></sl-icon>
           `}
       ${this.breadcrumbs.length > 3
-        ? html`<sl-button fill="link"><sl-icon name="far-ellipsis"></sl-icon></sl-button>`
+        ? html`
+            <sl-menu-button fill="link">
+              <sl-icon name="far-ellipsis" slot="button"></sl-icon>
+              ${this.breadcrumbs
+                .slice(0, -3)
+                .map(
+                  ({ element, label }) => html`
+                    <sl-menu-item @click=${() => this.#onClick(element)}>${label}</sl-menu-item>
+                  `
+                )}
+            </sl-menu-button>
+          `
         : nothing}
       <slot @slotchange=${this.#onSlotchange}></slot>
     `;
   }
 
+  #onClick(element: HTMLElement): void {
+    element.click();
+  }
+
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     this.breadcrumbs = event.target
       .assignedElements({ flatten: true })
-      .filter(element => !(element instanceof Icon))
+      .filter((element): element is HTMLElement => !(element instanceof Icon))
       .map(element => {
         return {
           element,

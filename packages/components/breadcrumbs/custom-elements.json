@@ -38,8 +38,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A component to display a breadcrumb trail.",
           "name": "Breadcrumbs",
+          "slots": [
+            {
+              "description": "The breadcrumbs to display.",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -58,13 +64,13 @@
               },
               "static": true,
               "default": "'/'",
-              "description": "The url for the home link, defaults to the root url.\n\nBy changing this static property you can change the default value for\nall instances of the component. Changing the static property won't\naffect already created instances.",
+              "description": "The url for the home link, defaults to the root url.\n\nBy changing this static property you can change the default value for\nall future instances of the component. Changing the static property\nwon't affect already created instances.",
               "attribute": "home-url"
             },
             {
               "kind": "field",
               "name": "homeUrl",
-              "description": "The url for the home link, defaults to the root url.\n\nIf you want to change the default value for all instances of the component,\nyou can change the static property. If you want to change the property for an already\ncreated instance, you need to change this property."
+              "description": "The url for the home link, defaults to the root url.\n\nIf you want to change the default value for all future instances of the component,\nyou can change the static property. If you want to change the property of an already\ncreated instance, you need to change this property."
             },
             {
               "kind": "field",
@@ -74,13 +80,13 @@
               },
               "static": true,
               "default": "false",
-              "description": "When true doesn't show a home link as the first breadcrumb.\n\nBy changing this static property you can change the default value for\nall instances of the component. Changing the static property won't\naffect already created instances.",
+              "description": "When true doesn't show a home link as the first breadcrumb.\n\nBy changing this static property you can change the default value for\nall future instances of the component. Changing the static property\nwon't affect already created instances.",
               "attribute": "no-home"
             },
             {
               "kind": "field",
               "name": "noHome",
-              "description": "When true doesn't show a home link as the first breadcrumb.\n\nIf you want to change the default value for all instances of the component,\nyou can change the static property. If you want to change the property for an already\ncreated instance, you need to change this property."
+              "description": "When true doesn't show a home link as the first breadcrumb.\n\nIf you want to change the default value for all future instances of the component,\nyou can change the static property. If you want to change the property of an already\ncreated instance, you need to change this property."
             }
           ],
           "attributes": [
@@ -90,7 +96,7 @@
                 "text": "string"
               },
               "default": "'/'",
-              "description": "The url for the home link, defaults to the root url.\n\nBy changing this static property you can change the default value for\nall instances of the component. Changing the static property won't\naffect already created instances.",
+              "description": "The url for the home link, defaults to the root url.\n\nBy changing this static property you can change the default value for\nall future instances of the component. Changing the static property\nwon't affect already created instances.",
               "fieldName": "homeUrl"
             },
             {
@@ -99,7 +105,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "When true doesn't show a home link as the first breadcrumb.\n\nBy changing this static property you can change the default value for\nall instances of the component. Changing the static property won't\naffect already created instances.",
+              "description": "When true doesn't show a home link as the first breadcrumb.\n\nBy changing this static property you can change the default value for\nall future instances of the component. Changing the static property\nwon't affect already created instances.",
               "fieldName": "noHome"
             }
           ],
@@ -116,6 +122,23 @@
           "tagName": "sl-breadcrumbs",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
             {
               "kind": "method",
               "name": "#onSlotchange",
@@ -157,12 +180,12 @@
             {
               "kind": "field",
               "name": "homeUrl",
-              "description": "The url for the home link, defaults to the root url.\n\nIf you want to change the default value for all instances of the component,\nyou can change the static property. If you want to change the property for an already\ncreated instance, you need to change this property."
+              "description": "The url for the home link, defaults to the root url.\n\nIf you want to change the default value for all future instances of the component,\nyou can change the static property. If you want to change the property of an already\ncreated instance, you need to change this property."
             },
             {
               "kind": "field",
               "name": "noHome",
-              "description": "When true doesn't show a home link as the first breadcrumb.\n\nIf you want to change the default value for all instances of the component,\nyou can change the static property. If you want to change the property for an already\ncreated instance, you need to change this property."
+              "description": "When true doesn't show a home link as the first breadcrumb.\n\nIf you want to change the default value for all future instances of the component,\nyou can change the static property. If you want to change the property of an already\ncreated instance, you need to change this property."
             }
           ]
         }

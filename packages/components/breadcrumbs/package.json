@@ -40,7 +40,6 @@
   "dependencies": {
     "@lit/localize": "^0.12.1",
     "@open-wc/scoped-elements": "^3.0.5",
-    "@sl-design-system/button": "0.0.19",
     "@sl-design-system/icon": "0.0.7",
     "@sl-design-system/menu": "0.0.0",
     "lit": "^3.1.2"

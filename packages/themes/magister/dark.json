@@ -4403,14 +4403,14 @@
         "failedToResolve": true
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.600}",
         "type": "color",
         "failedToResolve": true
       }
     },
     "spinner": {
       "default": {
-        "value": "{color.palette.primary.500}",
+        "value": "{color.palette.primary.300}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4425,7 +4425,7 @@
         "failedToResolve": true
       },
       "info": {
-        "value": "{color.palette.info.base}",
+        "value": "{color.palette.info.300}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4440,26 +4440,26 @@
         "failedToResolve": true
       },
       "danger": {
-        "value": "{color.palette.danger.base}",
+        "value": "{color.palette.danger.200}",
         "type": "color",
         "failedToResolve": true
       }
     },
     "skeleton": {
       "base": {
-        "value": "{color.palette.neutral.700}",
+        "value": "{color.palette.neutral.900}",
         "type": "color",
         "description": "body.surface.100",
         "failedToResolve": true
       },
       "effect": {
-        "value": "{color.palette.neutral.800}",
+        "value": "{color.palette.primary.900}",
         "type": "color",
         "description": "body.surface.100",
         "failedToResolve": true
       },
       "pulse": {
-        "value": "{color.palette.neutral.700}",
+        "value": "{color.palette.primary.800}",
         "type": "color",
         "$extensions": {
           "studio.tokens": {

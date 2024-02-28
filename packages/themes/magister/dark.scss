@@ -8,6 +8,14 @@
   --sl-body-surface-overlay: rgba(var(--sl-color-palette-primary-700) / var(--sl-opacity-600));
   --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-tab-active-background: rgba(var(--sl-color-palette-primary-400) / var(--sl-opacity-600));
+  --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-tab-hover-background: rgba(var(--sl-color-palette-primary-400) / var(--sl-opacity-400));
+  --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-600));
   --sl-color-select-listbox-background: rgb(var(--sl-color-palette-black-base));
   --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-select-selectbox-default-default-icon: rgb(var(--sl-color-palette-white-base));
@@ -369,6 +377,7 @@
   --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
   --sl-body-background: var(--sl-color-surface-solid-primary-background);
+  --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-primary-base));
   --sl-color-select-selectbox-valid-disabled-placeholder: var(--sl-color-input-text-field-default-disabled-placeholder);
   --sl-color-select-selectbox-invalid-disabled-placeholder: var(
     --sl-color-input-text-field-invalid-disabled-placeholder
@@ -523,6 +532,15 @@
   --sl-color-button-default-solid-active-border: var(--sl-color-button-default-solid-active-background);
   --sl-color-button-default-solid-hover-border: var(--sl-color-button-default-solid-hover-background);
   --sl-color-button-default-solid-idle-border: var(--sl-color-button-default-solid-idle-background);
+  --sl-color-tab-content-foreground: var(--sl-body-foreground);
+  --sl-color-tab-content-background: var(--sl-body-background);
+  --sl-color-tab-active-foreground: var(--sl-body-foreground);
+  --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);
+  --sl-color-tab-tabbar-background: var(--sl-body-background);
+  --sl-color-tab-disabled-background: var(--sl-body-background);
+  --sl-color-tab-hover-foreground: var(--sl-body-foreground);
+  --sl-color-tab-default-foreground: var(--sl-body-foreground);
+  --sl-color-tab-default-background: var(--sl-body-background);
   --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);
   --sl-color-select-selectbox-valid-disabled-icon: var(--sl-color-input-text-field-valid-disabled-icon);
   --sl-color-select-selectbox-valid-disabled-label: var(--sl-color-input-text-field-valid-disabled-label);

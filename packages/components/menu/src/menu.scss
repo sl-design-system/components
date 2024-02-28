@@ -1,0 +1,50 @@
+:host {
+  --sl-menu-padding: 4px;
+  --_background: var(--sl-color-popover-background);
+  --_border: var(--_border-width) solid var(--_border-color);
+  --_border-color: var(--sl-color-popover-border);
+  --_border-width: var(--sl-menu-border-width, 1px);
+  --_border-radius: var(--sl-border-radius-popover-default);
+  --_box-shadow: var(--sl-elevation-shadow-md);
+  --_color: var(--sl-color-popover-foreground);
+  --_divider-margin-block: 4px;
+  --_offset: var(--sl-menu-offset, 4px);
+  --_padding-block: var(--sl-menu-padding);
+  --_padding-inline: var(--sl-menu-padding);
+}
+
+:host {
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  color: var(--_color);
+  display: none;
+  flex-direction: column;
+  overflow: visible;
+  padding-block: var(--_padding-block);
+  padding-inline: 0;
+
+  @supports not selector(:popover-open) {
+    position: fixed;
+  }
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+:host(:where(:popover-open, .\\:popover-open)) {
+  display: flex;
+  margin: 0;
+}
+
+::slotted(sl-menu-item),
+::slotted(sl-menu-item-group) {
+  margin-inline: var(--_padding-inline);
+}
+
+::slotted(hr) {
+  border: 0;
+  border-top: var(--_border);
+  margin-block: var(--_divider-margin-block);
+  margin-inline: 0;
+  padding: 0;
+}

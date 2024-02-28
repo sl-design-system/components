@@ -3954,6 +3954,14 @@
         "type": "sizing"
       }
     },
+    "accordion": {
+      "icon": {
+        "height": {
+          "value": 28,
+          "type": "sizing"
+        }
+      }
+    },
     "none": {
       "value": 0,
       "type": "sizing",

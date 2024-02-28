@@ -29,6 +29,9 @@ export interface Breadcrumb {
  */
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
+  /** The number of breadcrumbs to show before collapsing the rest. */
+  static collapseThreshold = 3;
+
   /**
    * The url for the home link, defaults to the root url.
    *
@@ -88,26 +91,20 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
             <a href=${this.homeUrl}><sl-icon name="far-house"></sl-icon>${msg('Home')}</a>
             <sl-icon name="far-chevron-right"></sl-icon>
           `}
-      ${this.breadcrumbs.length > 3
+      ${this.breadcrumbs.length > Breadcrumbs.collapseThreshold
         ? html`
             <sl-menu-button fill="link">
               <sl-icon name="far-ellipsis" slot="button"></sl-icon>
               ${this.breadcrumbs
-                .slice(0, -3)
+                .slice(0, -Breadcrumbs.collapseThreshold)
                 .map(
-                  ({ element, label }) => html`
-                    <sl-menu-item @click=${() => this.#onClick(element)}>${label}</sl-menu-item>
-                  `
+                  ({ element, label }) => html`<sl-menu-item @click=${() => element.click()}>${label}</sl-menu-item>`
                 )}
             </sl-menu-button>
           `
         : nothing}
       <slot @slotchange=${this.#onSlotchange}></slot>
     `;
-  }
-
-  #onClick(element: HTMLElement): void {
-    element.click();
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

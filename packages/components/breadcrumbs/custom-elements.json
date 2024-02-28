@@ -58,6 +58,16 @@
             },
             {
               "kind": "field",
+              "name": "collapseThreshold",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "3",
+              "description": "The number of breadcrumbs to show before collapsing the rest."
+            },
+            {
+              "kind": "field",
               "name": "homeUrl",
               "type": {
                 "text": "string"
@@ -124,23 +134,6 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "element",
-                  "type": {
-                    "text": "HTMLElement"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "#onSlotchange",
               "return": {
                 "type": {
@@ -158,6 +151,16 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "collapseThreshold",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "3",
+              "description": "The number of breadcrumbs to show before collapsing the rest."
+            },
             {
               "kind": "field",
               "name": "scopedElements",

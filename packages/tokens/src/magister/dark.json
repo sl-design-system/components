@@ -3723,13 +3723,13 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.600}",
         "type": "color"
       }
     },
     "spinner": {
       "default": {
-        "value": "{color.palette.primary.500}",
+        "value": "{color.palette.primary.300}",
         "type": "color"
       },
       "white": {
@@ -3741,7 +3741,7 @@
         "type": "color"
       },
       "info": {
-        "value": "{color.palette.info.base}",
+        "value": "{color.palette.info.300}",
         "type": "color"
       },
       "success": {
@@ -3753,23 +3753,23 @@
         "type": "color"
       },
       "danger": {
-        "value": "{color.palette.danger.base}",
+        "value": "{color.palette.danger.200}",
         "type": "color"
       }
     },
     "skeleton": {
       "base": {
-        "value": "{color.palette.neutral.700}",
+        "value": "{color.palette.neutral.900}",
         "type": "color",
         "description": "body.surface.100"
       },
       "effect": {
-        "value": "{color.palette.neutral.800}",
+        "value": "{color.palette.primary.900}",
         "type": "color",
         "description": "body.surface.100"
       },
       "pulse": {
-        "value": "{color.palette.neutral.700}",
+        "value": "{color.palette.primary.800}",
         "type": "color",
         "$extensions": {
           "studio.tokens": {

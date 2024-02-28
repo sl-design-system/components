@@ -25,9 +25,14 @@ sl-icon,
 }
 
 a,
-::slotted(a) {
+::slotted(a),
+::slotted(:last-child) {
   padding-block: var(--_link-padding-block);
   padding-inline: var(--_link-padding-inline);
+}
+
+a,
+::slotted(a) {
   text-decoration: var(--_link-decoration);
 }
 

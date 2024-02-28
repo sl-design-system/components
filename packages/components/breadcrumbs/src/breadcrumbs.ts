@@ -88,6 +88,13 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Boolean, attribute: 'no-home' }) noHome = Breadcrumbs.noHome;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('aria-label', msg('Breadcrumb trail'));
+    this.setAttribute('role', 'navigation');
+  }
+
   override render(): TemplateResult {
     return html`
       ${this.noHome

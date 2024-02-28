@@ -4473,12 +4473,12 @@
         "failedToResolve": true
       },
       "accent": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.accent.800}",
         "type": "color",
         "failedToResolve": true
       },
       "info": {
-        "value": "{color.palette.info.base}",
+        "value": "{color.palette.info.400}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4488,25 +4488,25 @@
         "failedToResolve": true
       },
       "warning": {
-        "value": "{color.palette.warning.base}",
+        "value": "{color.palette.warning.700}",
         "type": "color",
         "failedToResolve": true
       },
       "danger": {
-        "value": "{color.palette.danger.base}",
+        "value": "{color.palette.danger.700}",
         "type": "color",
         "failedToResolve": true
       }
     },
     "skeleton": {
       "base": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.150}",
         "type": "color",
         "description": "body.surface.100",
         "failedToResolve": true
       },
       "effect": {
-        "value": "{color.palette.neutral.150}",
+        "value": "{color.palette.neutral.200}",
         "type": "color",
         "description": "body.surface.100",
         "failedToResolve": true

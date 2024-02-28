@@ -44,7 +44,7 @@ describe('sl-card', () => {
       
       it('should not add the class "sl-horizontal" but it should add "has media"', () => {
         expect(el).not.to.have.class('sl-horizontal');
-        expect(el).to.have.class('has-media');        
+        expect(el).to.have.class('sl-has-media');        
       });
     });
   });

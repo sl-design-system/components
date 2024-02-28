@@ -95,12 +95,21 @@
           "members": [
             {
               "kind": "field",
+              "name": "explicitHeight",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to be added in order to assure the correct rendering",
+              "attribute": "explicit-height"
+            },
+            {
+              "kind": "field",
               "name": "height",
               "type": {
                 "text": "CardHeightOptions"
               },
               "default": "'fixed'",
-              "description": "When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to 'fixed' in order to assure the correct rendering",
+              "description": "When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card.",
               "attribute": "height",
               "reflects": true
             },
@@ -159,12 +168,20 @@
               "fieldName": "padding"
             },
             {
+              "name": "explicit-height",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to be added in order to assure the correct rendering",
+              "fieldName": "explicitHeight"
+            },
+            {
               "name": "height",
               "type": {
                 "text": "CardHeightOptions"
               },
               "default": "'fixed'",
-              "description": "When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to 'fixed' in order to assure the correct rendering",
+              "description": "When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card.",
               "fieldName": "height"
             },
             {

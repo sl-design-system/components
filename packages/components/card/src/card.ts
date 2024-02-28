@@ -42,7 +42,9 @@ export class Card extends LitElement {
 
   /** Indicates whether there is a padding around the media. Recommended to set to true when the `--sl-card-stretch-image` isn't set to 100% */
   @property({ type: Boolean, reflect: true }) padding: boolean = false;
-  /** When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to 'fixed' in order to assure the correct rendering */
+  /** When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to be added in order to assure the correct rendering */
+  @property({ type: Boolean, attribute: 'explicit-height' }) explicitHeight?: boolean;
+  /** When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card. */
   @property({ reflect: true }) height: CardHeightOptions = 'fixed';
   /** The position of the media in relation to the text */
   @property({ reflect: true }) orientation: CardOrientation = 'horizontal';

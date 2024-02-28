@@ -4992,7 +4992,10 @@ __metadata:
   resolution: "@sl-design-system/breadcrumbs@workspace:packages/components/breadcrumbs"
   dependencies:
     "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button": "npm:0.0.19"
     "@sl-design-system/icon": "npm:0.0.7"
+    "@sl-design-system/menu": "npm:0.0.0"
     lit: "npm:^3.1.2"
   languageName: unknown
   linkType: soft
@@ -5188,7 +5191,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/menu@workspace:packages/components/menu":
+"@sl-design-system/menu@npm:0.0.0, @sl-design-system/menu@workspace:packages/components/menu":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/menu@workspace:packages/components/menu"
   dependencies:

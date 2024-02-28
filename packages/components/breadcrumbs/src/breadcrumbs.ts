@@ -24,6 +24,24 @@ export interface Breadcrumb {
 
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
+  /**
+   * The url for the home link, defaults to the root url.
+   *
+   * By changing this static property you can change the default value for
+   * all instances of the component. Changing the static property won't
+   * affect already created instances.
+   */
+  static homeUrl = '/';
+
+  /**
+   * When true doesn't show a home link as the first breadcrumb.
+   *
+   * By changing this static property you can change the default value for
+   * all instances of the component. Changing the static property won't
+   * affect already created instances.
+   */
+  static noHome = false;
+
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -38,11 +56,23 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /** The slotted breadcrumbs. */
   @state() breadcrumbs: Breadcrumb[] = [];
 
-  /** The url for the home link, defaults to the root url. */
-  @property({ attribute: 'home-url' }) homeUrl = '/';
+  /**
+   * The url for the home link, defaults to the root url.
+   *
+   * If you want to change the default value for all instances of the component,
+   * you can change the static property. If you want to change the property for an already
+   * created instance, you need to change this property.
+   */
+  @property({ attribute: 'home-url' }) homeUrl = Breadcrumbs.homeUrl;
 
-  /** When true doesn't show a home link as the first breadcrumb. */
-  @property({ type: Boolean, attribute: 'no-home' }) noHome?: boolean;
+  /**
+   * When true doesn't show a home link as the first breadcrumb.
+   *
+   * If you want to change the default value for all instances of the component,
+   * you can change the static property. If you want to change the property for an already
+   * created instance, you need to change this property.
+   */
+  @property({ type: Boolean, attribute: 'no-home' }) noHome = Breadcrumbs.noHome;
 
   override render(): TemplateResult {
     return html`

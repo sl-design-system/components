@@ -56,18 +56,31 @@
               "type": {
                 "text": "string"
               },
+              "static": true,
               "default": "'/'",
-              "description": "The url for the home link, defaults to the root url.",
+              "description": "The url for the home link, defaults to the root url.\n\nBy changing this static property you can change the default value for\nall instances of the component. Changing the static property won't\naffect already created instances.",
               "attribute": "home-url"
+            },
+            {
+              "kind": "field",
+              "name": "homeUrl",
+              "description": "The url for the home link, defaults to the root url.\n\nIf you want to change the default value for all instances of the component,\nyou can change the static property. If you want to change the property for an already\ncreated instance, you need to change this property."
             },
             {
               "kind": "field",
               "name": "noHome",
               "type": {
-                "text": "boolean | undefined"
+                "text": "boolean"
               },
-              "description": "When true doesn't show a home link as the first breadcrumb.",
+              "static": true,
+              "default": "false",
+              "description": "When true doesn't show a home link as the first breadcrumb.\n\nBy changing this static property you can change the default value for\nall instances of the component. Changing the static property won't\naffect already created instances.",
               "attribute": "no-home"
+            },
+            {
+              "kind": "field",
+              "name": "noHome",
+              "description": "When true doesn't show a home link as the first breadcrumb.\n\nIf you want to change the default value for all instances of the component,\nyou can change the static property. If you want to change the property for an already\ncreated instance, you need to change this property."
             }
           ],
           "attributes": [
@@ -77,15 +90,16 @@
                 "text": "string"
               },
               "default": "'/'",
-              "description": "The url for the home link, defaults to the root url.",
+              "description": "The url for the home link, defaults to the root url.\n\nBy changing this static property you can change the default value for\nall instances of the component. Changing the static property won't\naffect already created instances.",
               "fieldName": "homeUrl"
             },
             {
               "name": "no-home",
               "type": {
-                "text": "boolean | undefined"
+                "text": "boolean"
               },
-              "description": "When true doesn't show a home link as the first breadcrumb.",
+              "default": "false",
+              "description": "When true doesn't show a home link as the first breadcrumb.\n\nBy changing this static property you can change the default value for\nall instances of the component. Changing the static property won't\naffect already created instances.",
               "fieldName": "noHome"
             }
           ],
@@ -139,6 +153,16 @@
               },
               "default": "[]",
               "description": "The slotted breadcrumbs."
+            },
+            {
+              "kind": "field",
+              "name": "homeUrl",
+              "description": "The url for the home link, defaults to the root url.\n\nIf you want to change the default value for all instances of the component,\nyou can change the static property. If you want to change the property for an already\ncreated instance, you need to change this property."
+            },
+            {
+              "kind": "field",
+              "name": "noHome",
+              "description": "When true doesn't show a home link as the first breadcrumb.\n\nIf you want to change the default value for all instances of the component,\nyou can change the static property. If you want to change the property for an already\ncreated instance, you need to change this property."
             }
           ]
         }

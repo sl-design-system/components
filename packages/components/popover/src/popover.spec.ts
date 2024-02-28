@@ -24,11 +24,10 @@ describe('sl-popover', () => {
 
   describe('defaults', () => {
     beforeEach(async () => {
-      // FIXME: `popovertarget` is not a valid attribute
       el = await fixture(html`
         <div>
-          <sl-button popovertarget="popover-1" id="anchor" variant="primary" @click=${onClick}>Toggle popover</sl-button>
-          <sl-popover id="popover-1" anchor="anchor">
+          <sl-button id="anchor" variant="primary" @click=${onClick}>Toggle popover</sl-button>
+          <sl-popover anchor="anchor">
             <header>Please confirm</header>
             <section>
               Are you sure you want to continue?
@@ -84,15 +83,14 @@ describe('sl-popover', () => {
     beforeEach(async ()=>{
       el = await fixture(html`
         <div>
-          <sl-button popovertarget="popover-2" id="anchor2" variant="primary" @click=${onClick}>Toggle popover</sl-button>
-          <sl-popover id="popover-2" anchor="anchor2">
+          <sl-button id="anchor2" variant="primary" @click=${onClick}>Toggle popover</sl-button>
+          <sl-popover anchor="anchor2">
             Popover content
           </sl-popover>
         </div>
       `);
 
       button = el.querySelector('sl-button') as Button;
-
       popover = el.querySelector('sl-popover') as Popover;
 
       await showPopoverElement();

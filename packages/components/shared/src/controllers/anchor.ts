@@ -105,5 +105,16 @@ export class AnchorController implements ReactiveController {
     }
 
     anchorElement?.setAttribute('aria-expanded', expanded.toString());
+
+    // If the anchor element is a button, we need to set the `popover-opened` attribute
+    // TODO: Figure out whether we want to keep doing this. And if so, perhaps not just
+    // for buttons?
+    if (anchorElement?.tagName === 'SL-BUTTON') {
+      if (expanded) {
+        anchorElement.setAttribute('popover-opened', '');
+      } else {
+        anchorElement.removeAttribute('popover-opened');
+      }
+    }
   }
 }

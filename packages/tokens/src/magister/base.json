@@ -1635,6 +1635,26 @@
           "type": "typography"
         }
       }
+    },
+    "tab": {
+      "title": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.lg}"
+        },
+        "type": "typography"
+      },
+      "subtitle": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.md}"
+        },
+        "type": "typography"
+      }
     }
   },
   "borderRadius": {
@@ -1851,6 +1871,16 @@
       "divider": {
         "value": "{border.width.xs}",
         "type": "borderWidth"
+      },
+      "border": {
+        "tab": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        },
+        "tabbar": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
       }
     }
   },
@@ -2023,6 +2053,14 @@
       "justifyContent": {
         "value": "{justifyContent.end}",
         "type": "Flex"
+      }
+    }
+  },
+  "size": {
+    "select": {
+      "indicator": {
+        "value": "{size.3xs}",
+        "type": "sizing"
       }
     }
   }

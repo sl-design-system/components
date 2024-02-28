@@ -834,7 +834,7 @@
     --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
-    --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
     --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
     --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
@@ -1594,6 +1594,15 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
     --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-body-background: rgb(var(--sl-color-palette-black-base));
+    --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-active-background: rgb(var(--sl-color-palette-neutral-800));
+    --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-hover-background: rgb(var(--sl-color-palette-neutral-900));
+    --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-700));
     --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-800));
     --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-700));
@@ -2058,6 +2067,15 @@
     --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
     --sl-color-avatar-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-300));
+    --sl-color-tab-content-foreground: var(--sl-body-foreground);
+    --sl-color-tab-content-background: var(--sl-body-background);
+    --sl-color-tab-active-foreground: var(--sl-body-foreground);
+    --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);
+    --sl-color-tab-tabbar-background: var(--sl-body-background);
+    --sl-color-tab-disabled-background: var(--sl-body-background);
+    --sl-color-tab-hover-foreground: var(--sl-body-foreground);
+    --sl-color-tab-default-foreground: var(--sl-body-foreground);
+    --sl-color-tab-default-background: var(--sl-body-background);
     --sl-color-skeleton-shimmer: linear-gradient
       (
         90deg,

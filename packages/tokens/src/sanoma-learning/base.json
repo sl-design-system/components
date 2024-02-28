@@ -2231,6 +2231,14 @@
         "value": "{size.3xs}",
         "type": "sizing"
       }
+    },
+    "accordion": {
+      "icon": {
+        "height": {
+          "value": "28",
+          "type": "sizing"
+        }
+      }
     }
   }
 }

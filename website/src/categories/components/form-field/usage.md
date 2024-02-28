@@ -48,7 +48,7 @@ Do not use the form field if the field is not part of a larger form. For example
 
 ## Layout
 
-A form field always has a vertical layout. The label is always at the top, followed by the optional hint, the form control itself and at the bottom any error messages.
+A form field always has a vertical layout. The label is always at the top, followed by the form control itself, and at the bottom an optional hint or error message, depending on the state of the component.
 
 </section>
 
@@ -60,7 +60,7 @@ A form field should always have a label. That label can be hidden from view, but
 The hint is optional. It is used to provide additional information about the form field. The hint is announced to screen readers after the label.
 
 <div class="ds-table-wrapper">
-  
+
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Form field	|Wrapper component for form controls.|no|
@@ -83,7 +83,7 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 ### Label
 
 <div class="ds-table-wrapper">
-  
+
 |Item|Options|Description|
 |-|-|-|
 |Size|`sm` `md` `lg`|The label is available in three sizes. If not specified the default value is `medium`.|
@@ -100,7 +100,7 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 ### Hint
 
 <div class="ds-table-wrapper">
-  
+
 |Item|Options|Description|
 |-|-|-|
 |Size|`sm` `md` `lg`|The hint is available in three sizes. If not specified the default value is `medium`.|

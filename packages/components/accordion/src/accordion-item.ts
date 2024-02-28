@@ -169,10 +169,14 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
     console.log('detailsElement, contentElement', detailsElement, contentElement);
 
+    if (!detailsElement || !contentElement) {
+      return;
+    }
+
     // Chrome sometimes has a hiccup and gets stuck.
-    if (contentElement?.classList.contains('animation')) {
+    if (contentElement.classList.contains('animation')) {
       // So we make sure to remove those classes manually,
-      contentElement?.classList.remove('animation', 'collapsing');
+      contentElement.classList.remove('animation', 'collapsing');
       // ... enforce a reflow so that collapsing may be animated again,
       // void element.offsetWidth;
       void this.offsetWidth;
@@ -185,21 +189,21 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     // const onAnimationEnd = (cb): void => contentElement?.addEventListener('animationend', cb, { once: true });
 
     const onAnimationEnd = (cb: () => void): void => {
-      contentElement?.addEventListener('animationend', cb, { once: true });
+      contentElement.addEventListener('animationend', cb, { once: true });
     };
 
     // request an animation frame to force Safari 16 to actually perform the animation
-    requestAnimationFrame(() => contentElement?.classList.add('animation'));
-    onAnimationEnd(() => contentElement?.classList.remove('animation'));
+    requestAnimationFrame(() => contentElement.classList.add('animation'));
+    onAnimationEnd(() => contentElement.classList.remove('animation'));
 
-    const isDetailsOpen = detailsElement?.getAttribute('open') !== null;
+    const isDetailsOpen = detailsElement.getAttribute('open') !== null;
     if (isDetailsOpen) {
       // prevent default collapsing and delay it until the animation has completed
       event.preventDefault();
-      contentElement?.classList.add('collapsing');
+      contentElement.classList.add('collapsing');
       onAnimationEnd(() => {
-        detailsElement?.removeAttribute('open');
-        contentElement?.classList.remove('collapsing');
+        // detailsElement?.removeAttribute('open');
+        contentElement.classList.remove('collapsing');
       });
     }
 

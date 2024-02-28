@@ -281,5 +281,14 @@ details[open] {
 }
 
 .animation {
-  background-color: #0074d9;
+  //background-color: #0074d9;
+  animation-duration: 300ms;
+  animation-name: append-animate-panel;
+  animation-timing-function: ease-out;
+}
+
+.collapsing {
+  animation-direction: reverse;
+  animation-duration: 300ms;
+  animation-timing-function: ease-in;
 }

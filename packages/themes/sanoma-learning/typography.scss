@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-@mixin sl-text-card-body {
+@mixin sl-text-accordion-body {
   font-family: Source Sans Pro;
   font-size: 14;
   font-weight: Regular;
@@ -14,26 +14,48 @@
   text-transform: none;
 }
 
+@mixin sl-text-accordion-title {
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  line-height: var(--sl-text-typeset-line-height-xl);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+@mixin sl-text-card-body {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  line-height: var(--sl-text-typeset-line-height-md);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
 @mixin sl-text-card-subtitle {
-  font-family: Source Sans Pro;
-  font-size: 16;
-  font-weight: Regular;
-  letter-spacing: 0%;
-  line-height: 24;
-  margin-bottom: 24;
-  text-decoration: none;
-  text-transform: none;
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
 }
 
 @mixin sl-text-card-title {
-  font-family: The Message;
-  font-size: 18;
-  font-weight: Regular;
-  letter-spacing: 0%;
-  line-height: 28;
-  margin-bottom: 0;
-  text-decoration: none;
-  text-transform: none;
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  line-height: var(--sl-text-typeset-line-height-xl);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
 }
 
 @mixin sl-text-popover-text-title {

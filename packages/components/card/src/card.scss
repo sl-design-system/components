@@ -30,12 +30,6 @@
   border-radius: var(--_card-border-radius);
   box-shadow: var(--_box-shadow);
   box-sizing: border-box;
-  display: block;
-  inline-size: 100%;
-  overflow: hidden;
-}
-
-div.container {
   display: grid;
   grid-template-areas:
     'media'
@@ -43,30 +37,28 @@ div.container {
     'content';
   grid-template-columns: 1fr;
   grid-template-rows: min-content minmax(16px, max-content) 1fr;
+  inline-size: 100%;
+  overflow: hidden;
 }
 
 :host([padding]) {
   --_media-padding-full: var(--_media-padding) var(--_media-padding) 0 var(--_media-padding);
 }
 
-:host(.horizontal[padding]) {
+:host(.sl-horizontal[padding]) {
   --_media-padding-full: var(--_media-padding) 0 var(--_media-padding) var(--_media-padding);
 }
 
-:host(.horizontal[padding][media-position='end']) {
+:host(.sl-horizontal[padding][media-position='end']) {
   --_media-padding-full: var(--_media-padding) var(--_media-padding) var(--_media-padding) 0;
 }
 
-:host(:where(.horizontal)) {
-  .container {
-    --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
+:host(:where(.sl-horizontal)) {
+  --_content-padding-block: var(--sl-space-card-vertical-block) var(--sl-space-card-vertical-block);
 
-    grid-template-areas: 'media content actions';
-    grid-template-columns: var(--_media-column) var(--_text-column) max-content;
-    grid-template-rows: 1fr;
-    height: 100%;
-    width: 100%;
-  }
+  grid-template-areas: 'media content actions';
+  grid-template-columns: var(--_media-column) var(--_text-column) max-content;
+  grid-template-rows: 1fr;
 
   .media-wrapper {
     display: flex;
@@ -97,12 +89,12 @@ div.container {
   }
 }
 
-:host(.horizontal[explicit-height]) {
+:host(.sl-horizontal[explicit-height]) {
   --_media-width: var(--sl-card-media-width, minmax(0, calc(calc(var(--_aspect-ratio)) * 100cqh)));
   container: card/ size;
 }
 
-:host(.horizontal[height='fixed']) {
+:host(.sl-horizontal[height='fixed']) {
   article {
     container: body / size;
   }
@@ -118,7 +110,7 @@ div.container {
   }
 }
 
-:host(:where(.horizontal[media-position='end'])) .container {
+:host(:where(.sl-horizontal[media-position='end'])) {
   grid-template-areas: 'content actions media';
   grid-template-columns: var(--_text-column) max-content var(--_media-column);
 }
@@ -149,7 +141,7 @@ header {
   grid-area: header;
 }
 
-:host(.has-media) slot[name='media'] {
+:host(.sl-has-media) slot[name='media'] {
   aspect-ratio: var(--_aspect-ratio);
   display: flex;
   grid-area: media;

@@ -40,10 +40,15 @@ export class Card extends LitElement {
   /** @private The slotted media. */
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
 
+  /** Indicates whether there is a padding around the media. Recommended to set to true when the `--sl-card-stretch-image` isn't set to 100% */
   @property({ type: Boolean, reflect: true }) padding: boolean = false;
+  /** When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to 'fixed' in order to assure the correct rendering */
   @property({ reflect: true }) height: CardHeightOptions = 'fixed';
+  /** The position of the media in relation to the text */
   @property({ reflect: true }) orientation: CardOrientation = 'horizontal';
+  /** Show an icon in front of the text. Use the name of the icon you want to show as the input */
   @property({ reflect: true }) icon?: string;
+  /** Show the media at the start or at the end. */
   @property({ reflect: true, attribute: 'media-position' }) mediaPosition: CardMediaPosition = 'start';
 
   override connectedCallback(): void {
@@ -70,33 +75,31 @@ export class Card extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <div class="container">
-        <div class="media-wrapper">
-          <slot name="media" @slotchange=${this.#setOrientation}></slot>
-        </div>
-        <div class="content">
-          ${this.icon ? html`<sl-icon name=${this.icon}></sl-icon>` : nothing}
-          <header>
-            <slot class="title"></slot>
-            <slot name="header"></slot>
-          </header>
-          <article><slot name="body"></slot></article>
-        </div>
-        <slot name="actions"></slot>
+      <div class="media-wrapper">
+        <slot name="media" @slotchange=${this.#setOrientation}></slot>
       </div>
+      <div class="content">
+        ${this.icon ? html`<sl-icon name=${this.icon}></sl-icon>` : nothing}
+        <header>
+          <slot class="title"></slot>
+          <slot name="header"></slot>
+        </header>
+        <article><slot name="body"></slot></article>
+      </div>
+      <slot name="actions"></slot>
     `;
   }
 
   #setOrientation(): void {
     const breakpoint = parseInt(window.getComputedStyle(this).getPropertyValue('--sl-card-horizontal-breakpoint')) || 0;
     const hasMedia = this.media ? this.media.length > 0 : false;
-    this.classList.remove('horizontal', 'has-media');
+    this.classList.remove('sl-horizontal', 'sl-has-media');
     if (!hasMedia) return;
 
     if (this.orientation === 'horizontal' && (this.getBoundingClientRect().width > breakpoint || breakpoint === 0)) {
-      this.classList.add('horizontal');
+      this.classList.add('sl-horizontal');
     } else {
-      this.classList.add('has-media');
+      this.classList.add('sl-has-media');
     }
   }
 }

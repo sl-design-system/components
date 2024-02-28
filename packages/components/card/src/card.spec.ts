@@ -25,8 +25,8 @@ describe('sl-card', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
   
-    it('should have the class "horizontal" by default when an image is present', () => {
-      expect(el).to.have.class('horizontal');
+    it('should have the class "sl-horizontal" by default when an image is present', () => {
+      expect(el).to.have.class('sl-horizontal');
     });
 
     it('should render an icon when the icon name is given present', async () => {
@@ -42,8 +42,8 @@ describe('sl-card', () => {
         await el.updateComplete;
       });
       
-      it('should not add the class "horizontal" but it should add "has media"', () => {
-        expect(el).not.to.have.class('horizontal');
+      it('should not add the class "sl-horizontal" but it should add "has media"', () => {
+        expect(el).not.to.have.class('sl-horizontal');
         expect(el).to.have.class('has-media');        
       });
     });
@@ -59,8 +59,8 @@ describe('sl-card', () => {
     </sl-card>`);
     });
   
-    it('should not have the class "horizontal" by default when no image is present', () => {
-      expect(el).not.to.have.class('horizontal');
+    it('should not have the class "sl-horizontal" by default when no image is present', () => {
+      expect(el).not.to.have.class('sl-horizontal');
     });
   });
 
@@ -76,7 +76,7 @@ describe('sl-card', () => {
     });
 
     it('should switch to vertical mode when a breakpoint is set that is larger than the current screen width', async () => {
-      expect(el).not.to.have.class('horizontal');
+      expect(el).not.to.have.class('sl-horizontal');
     });
   });
 });

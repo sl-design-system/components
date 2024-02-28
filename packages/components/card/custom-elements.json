@@ -100,6 +100,7 @@
                 "text": "CardHeightOptions"
               },
               "default": "'fixed'",
+              "description": "When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to 'fixed' in order to assure the correct rendering",
               "attribute": "height",
               "reflects": true
             },
@@ -109,6 +110,7 @@
               "type": {
                 "text": "string | undefined"
               },
+              "description": "Show an icon in front of the text. Use the name of the icon you want to show as the input",
               "attribute": "icon",
               "reflects": true
             },
@@ -119,6 +121,7 @@
                 "text": "CardMediaPosition"
               },
               "default": "'start'",
+              "description": "Show the media at the start or at the end.",
               "attribute": "media-position",
               "reflects": true
             },
@@ -129,6 +132,7 @@
                 "text": "CardOrientation"
               },
               "default": "'horizontal'",
+              "description": "The position of the media in relation to the text",
               "attribute": "orientation",
               "reflects": true
             },
@@ -139,6 +143,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Indicates whether there is a padding around the media. Recommended to set to true when the `--sl-card-stretch-image` isn't set to 100%",
               "attribute": "padding",
               "reflects": true
             }
@@ -150,6 +155,7 @@
                 "text": "boolean"
               },
               "default": "false",
+              "description": "Indicates whether there is a padding around the media. Recommended to set to true when the `--sl-card-stretch-image` isn't set to 100%",
               "fieldName": "padding"
             },
             {
@@ -158,6 +164,7 @@
                 "text": "CardHeightOptions"
               },
               "default": "'fixed'",
+              "description": "When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to 'fixed' in order to assure the correct rendering",
               "fieldName": "height"
             },
             {
@@ -166,6 +173,7 @@
                 "text": "CardOrientation"
               },
               "default": "'horizontal'",
+              "description": "The position of the media in relation to the text",
               "fieldName": "orientation"
             },
             {
@@ -173,6 +181,7 @@
               "type": {
                 "text": "string | undefined"
               },
+              "description": "Show an icon in front of the text. Use the name of the icon you want to show as the input",
               "fieldName": "icon"
             },
             {
@@ -181,6 +190,7 @@
                 "text": "CardMediaPosition"
               },
               "default": "'start'",
+              "description": "Show the media at the start or at the end.",
               "fieldName": "mediaPosition"
             }
           ],
@@ -209,7 +219,7 @@
               "type": {
                 "text": "ResizeObserver | undefined"
               },
-              "default": "new ResizeObserver(() => {\n    console.log('resize triggered');\n    this.#setOrientation();\n  })",
+              "default": "new ResizeObserver(() => {\n    this.#setOrientation();\n  })",
               "description": "Observe the grid width."
             },
             {

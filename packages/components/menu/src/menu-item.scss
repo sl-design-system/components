@@ -26,6 +26,8 @@
 
 :host(:focus-visible) {
   outline: var(--_focus-outline);
+  position: relative;
+  z-index: 1;
 }
 
 :host([disabled]) {

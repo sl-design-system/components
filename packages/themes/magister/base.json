@@ -1909,7 +1909,7 @@
       "title": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "fontWeight": "{text.typeset.fontWeight.bold}",
           "lineHeight": "{text.typeset.lineHeight.xl}",
           "fontSize": "{text.typeset.fontSize.xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",
@@ -1983,7 +1983,7 @@
       }
     },
     "default": {
-      "value": "{border.radius.3xs}",
+      "value": "{border.radius.2xs}",
       "type": "borderRadius",
       "description": "borderRadius.button"
     },

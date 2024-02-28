@@ -12,10 +12,14 @@
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
-  --sl-color-spinner-accent: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-500));
+  --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-600));
+  --sl-color-spinner-success: rgb(var(--sl-color-palette-success-600));
+  --sl-color-spinner-info: rgb(var(--sl-color-palette-info-600));
+  --sl-color-spinner-accent: rgb(var(--sl-color-palette-accent-600));
   --sl-color-spinner-white: rgb(var(--sl-color-palette-white-base));
-  --sl-color-spinner-default: rgb(var(--sl-color-palette-primary-500));
-  --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-spinner-default: rgb(var(--sl-color-palette-primary-600));
+  --sl-color-card-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-active-background: rgb(var(--sl-color-palette-primary-100));
   --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
@@ -385,10 +389,6 @@
       var(--sl-color-skeleton-base) 90%,
       var(--sl-color-skeleton-base) 100%
     );
-  --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-base));
-  --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-base));
-  --sl-color-spinner-success: rgb(var(--sl-color-palette-success-base));
-  --sl-color-spinner-info: rgb(var(--sl-color-palette-info-base));
   --sl-color-card-foreground: var(--sl-body-foreground);
   --sl-color-card-background: var(--sl-body-background);
   --sl-color-tab-content-foreground: var(--sl-body-foreground);

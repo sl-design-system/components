@@ -4405,14 +4405,14 @@
         "failedToResolve": true
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.200}",
         "type": "color",
         "failedToResolve": true
       }
     },
     "spinner": {
       "default": {
-        "value": "{color.palette.primary.500}",
+        "value": "{color.palette.primary.600}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4422,22 +4422,22 @@
         "failedToResolve": true
       },
       "accent": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.accent.600}",
         "type": "color",
         "failedToResolve": true
       },
       "info": {
-        "value": "{color.palette.info.base}",
+        "value": "{color.palette.info.600}",
         "type": "color",
         "failedToResolve": true
       },
       "success": {
-        "value": "{color.palette.success.base}",
+        "value": "{color.palette.success.800}",
         "type": "color",
         "failedToResolve": true
       },
       "warning": {
-        "value": "{color.palette.warning.base}",
+        "value": "{color.palette.warning.800}",
         "type": "color",
         "failedToResolve": true
       },

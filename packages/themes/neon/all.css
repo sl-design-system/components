@@ -303,7 +303,7 @@
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
-  --sl-text-case-badge-text-transform: var(--sl-text-typeset-text-case-none);
+  --sl-text-case-badge-text-transform: var(--sl-text-typeset-text-case-uppercase);
   --sl-conceptual-border-width-default: var(--sl-border-width-sm);
   --sl-icon-typeset-font-size-4xl: var(--sl-size-4xl);
   --sl-icon-typeset-font-size-3xl: var(--sl-size-3xl);

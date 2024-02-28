@@ -28,7 +28,7 @@
 .sl-text-card-title {
   font-family: var(--sl-text-typeset-font-family-heading);
   font-size: var(--sl-text-typeset-font-size-xl);
-  font-weight: var(--sl-text-typeset-font-weight-regular);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-xl);
   margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);

@@ -115,16 +115,6 @@
             },
             {
               "kind": "field",
-              "name": "icon",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Show an icon in front of the text. Use the name of the icon you want to show as the input",
-              "attribute": "icon",
-              "reflects": true
-            },
-            {
-              "kind": "field",
               "name": "mediaPosition",
               "type": {
                 "text": "CardMediaPosition"
@@ -194,14 +184,6 @@
               "fieldName": "orientation"
             },
             {
-              "name": "icon",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Show an icon in front of the text. Use the name of the icon you want to show as the input",
-              "fieldName": "icon"
-            },
-            {
               "name": "media-position",
               "type": {
                 "text": "CardMediaPosition"
@@ -218,6 +200,15 @@
           "tagName": "sl-card",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "#setIcon",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
             {
               "kind": "method",
               "name": "#setOrientation",
@@ -242,6 +233,14 @@
             {
               "kind": "field",
               "name": "media",
+              "type": {
+                "text": "HTMLElement[] | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "icon",
               "type": {
                 "text": "HTMLElement[] | undefined"
               },

@@ -16,6 +16,7 @@ type Props = Pick<Card, 'padding' | 'orientation'> & {
   subheaderText?: string;
   actionButton?: boolean;
   actionButtonIcon?: string;
+  cardIcon?: string;
 };
 
 type Story = StoryObj<Props>;
@@ -36,7 +37,8 @@ export default {
     subheaderBadge: 'new',
     subheaderText: 'Written by Nils',
     actionButton: true,
-    actionButtonIcon: 'ellipsis'
+    actionButtonIcon: 'ellipsis',
+    cardIcon: 'pinata'
   },
   argTypes: {
     orientation: {
@@ -66,11 +68,12 @@ export default {
     subheaderBadge,
     subheaderText,
     actionButton,
-    actionButtonIcon
+    actionButtonIcon,
+    cardIcon
   }) => html`
     <sl-card .orientation=${orientation}>
       ${media && imageUrl ? html`<img slot="media" src=${imageUrl} />` : nothing}
-
+      ${cardIcon ? html`<sl-icon .name="${cardIcon}" slot="icon"></sl-icon>` : nothing}
       <h2>${title}</h2>
       ${subheaderContent
         ? html`<span slot="header"
@@ -188,7 +191,8 @@ export const All: Story = {
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
 
-      <sl-card responsive icon="pinata" padding media-position="end" style="--sl-card-media-aspect-ratio:1/1;">
+      <sl-card responsive padding media-position="end" style="--sl-card-media-aspect-ratio:1/1;">
+        <sl-icon name="pinata" slot="icon"></sl-icon>
         <img slot="media" src="${images[3]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
@@ -230,7 +234,8 @@ export const All: Story = {
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body"><em>text/card-ratio:7/3</em> - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card icon="pinata" style="--sl-card-media-aspect-ratio:2/1;" padding media-position="end" explicit-height>
+      <sl-card style="--sl-card-media-aspect-ratio:2/1;" padding media-position="end" explicit-height>
+        <sl-icon name="pinata" slot="icon"></sl-icon>
         <img slot="media" src="${images[3]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
@@ -264,7 +269,8 @@ export const All: Story = {
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body"><em>text/card-ratio:7/3</em> - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card icon="pinata" style="--sl-card-media-aspect-ratio:2/1;" padding media-position="end" explicit-height>
+      <sl-card style="--sl-card-media-aspect-ratio:2/1;" padding media-position="end" explicit-height>
+        <sl-icon name="pinata" slot="icon"></sl-icon>
         <img slot="media" src="${images[3]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
@@ -296,7 +302,8 @@ export const All: Story = {
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body"><em>media-position: end</em> - ${bodyCopy[1]}</p>
       </sl-card>
-      <sl-card icon="pinata" padding media-position="end" explicit-height>
+      <sl-card padding media-position="end" explicit-height>
+        <sl-icon name="pinata" slot="icon"></sl-icon>
         <img slot="media" src="${images[3]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
@@ -321,14 +328,16 @@ export const All: Story = {
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis"></sl-icon></sl-button>
       </sl-card>
 
-      <sl-card style="max-width: 300px;" orientation="vertical" icon="pinata">
+      <sl-card style="max-width: 300px;" orientation="vertical">
+        <sl-icon name="pinata" slot="icon"></sl-icon>
         <img slot="media" src="${images[1]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body"><em>icon:pinata</em> - ${bodyCopy[1]}</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
-      <sl-card style="max-width: 300px;" orientation="vertical" icon="pinata">
+      <sl-card style="max-width: 300px;" orientation="vertical">
+        <sl-icon name="pinata" slot="icon"></sl-icon>
         <img slot="media" src="${images[1]}" />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
@@ -340,7 +349,8 @@ export const All: Story = {
         <p slot="body">${bodyCopy[1]}</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
       </sl-card>
-      <sl-card style="max-width: 300px" orientation="vertical" icon="pinata">
+      <sl-card style="max-width: 300px" orientation="vertical">
+        <sl-icon name="pinata" slot="icon"></sl-icon>
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body"><em>icon:pinata</em> - ${bodyCopy[1]}</p>

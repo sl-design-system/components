@@ -1,5 +1,5 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
+import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
 
@@ -39,6 +39,8 @@ export class Card extends LitElement {
 
   /** @private The slotted media. */
   @queryAssignedElements({ slot: 'media' }) media?: HTMLElement[];
+  /** @private The slotted icon. */
+  @queryAssignedElements({ slot: 'icon' }) icon?: HTMLElement[];
 
   /** Indicates whether there is a padding around the media. Recommended to set to true when the `--sl-card-stretch-image` isn't set to 100% */
   @property({ type: Boolean, reflect: true }) padding: boolean = false;
@@ -48,8 +50,6 @@ export class Card extends LitElement {
   @property({ reflect: true }) height: CardHeightOptions = 'fixed';
   /** The position of the media in relation to the text */
   @property({ reflect: true }) orientation: CardOrientation = 'horizontal';
-  /** Show an icon in front of the text. Use the name of the icon you want to show as the input */
-  @property({ reflect: true }) icon?: string;
   /** Show the media at the start or at the end. */
   @property({ reflect: true, attribute: 'media-position' }) mediaPosition: CardMediaPosition = 'start';
 
@@ -81,7 +81,7 @@ export class Card extends LitElement {
         <slot name="media" @slotchange=${this.#setOrientation}></slot>
       </div>
       <div class="content">
-        ${this.icon ? html`<sl-icon name=${this.icon}></sl-icon>` : nothing}
+        <slot name="icon" @slotchange=${this.#setIcon}></slot>
         <header>
           <slot class="title"></slot>
           <slot name="header"></slot>
@@ -90,6 +90,12 @@ export class Card extends LitElement {
       </div>
       <slot name="actions"></slot>
     `;
+  }
+  #setIcon(): void {
+    const hasIcon = this.icon ? this.icon.length > 0 : false;
+    this.classList.remove('sl-has-icon');
+    if (!hasIcon) return;
+    this.classList.add('sl-has-icon');
   }
 
   #setOrientation(): void {

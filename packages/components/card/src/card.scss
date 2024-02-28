@@ -124,7 +124,7 @@
   padding: var(--_content-padding-block) var(--_content-padding-inline);
 }
 
-:host([icon]) .content {
+:host(.sl-has-icon) .content {
   display: grid;
   grid-template-areas:
     'icon header'
@@ -132,7 +132,7 @@
   grid-template-columns: max-content 1fr;
   grid-template-rows: max-content 1fr;
 
-  sl-icon {
+  slot[name='icon']::slotted(*) {
     grid-area: icon;
   }
 }

@@ -1,7 +1,13 @@
-import type { DirectiveParameters, ElementPart, PartInfo } from 'lit/directive.js';
-import { Directive, PartType, directive } from 'lit/directive.js';
+import {
+  Directive,
+  type DirectiveParameters,
+  type ElementPart,
+  type PartInfo,
+  PartType,
+  directive
+} from 'lit/directive.js';
 import { nothing } from 'lit';
-import { type PopoverPosition, positionPopover } from '../popover.js';
+import { type PositionPopoverOptions, positionPopover } from '../popover.js';
 
 declare global {
   interface HTMLElement {
@@ -9,10 +15,8 @@ declare global {
   }
 }
 
-export interface AnchorDirectiveConfig {
-  arrow?: string | HTMLElement;
+export interface AnchorDirectiveConfig extends PositionPopoverOptions {
   element?: HTMLElement;
-  position?: PopoverPosition;
 }
 
 export class AnchorDirective extends Directive {
@@ -33,7 +37,7 @@ export class AnchorDirective extends Directive {
   }
 
   override update(part: ElementPart, [config = {}]: DirectiveParameters<this>): void {
-    this.#config = { position: 'top', ...config };
+    this.#config = config;
     this.#host = part.element as HTMLElement;
     this.#host.addEventListener('beforetoggle', (event: Event) =>
       this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
@@ -51,10 +55,7 @@ export class AnchorDirective extends Directive {
       }
 
       if (anchorElement) {
-        this.#cleanup = positionPopover(host, anchorElement, {
-          arrow: this.#config?.arrow,
-          position: this.#config?.position
-        });
+        this.#cleanup = positionPopover(host, anchorElement, this.#config);
       }
     } else if (this.#cleanup) {
       this.#cleanup();

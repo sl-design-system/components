@@ -20,7 +20,7 @@ export const API: StoryObj = {
   },
   argTypes: {
     position: {
-      control: 'inline-radio',
+      control: 'select',
       options: [
         'top',
         'top-start',

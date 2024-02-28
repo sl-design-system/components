@@ -136,4 +136,7 @@ $variants: default, primary, success, warning, danger;
 
 ::slotted(sl-icon) {
   fill: var(--_color);
+
+  // Prevent the icon from ever gaining focus inside the button
+  pointer-events: none;
 }

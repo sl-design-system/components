@@ -1,16 +1,9 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { type PopoverPosition, positionPopover } from '../popover.js';
+import { type PopoverPosition, type PositionPopoverOptions, isPopoverOpen, positionPopover } from '../popover.js';
 
-export interface AnchorControllerConfig {
-  arrow?: string | HTMLElement;
-  position?: PopoverPosition;
-  maxWidth?: number;
-}
+export type AnchorControllerConfig = PositionPopoverOptions;
 
-/**
- * @attr popover-opened -  Can be used for styling anchor element, when popover is opened and the anchor is not a sl-button.
- * For sl-button active state styling is used by default.
- */
+let nextUniqueId = 0;
 
 export class AnchorController implements ReactiveController {
   #cleanup?: () => void;
@@ -18,83 +11,111 @@ export class AnchorController implements ReactiveController {
   #host: ReactiveControllerHost & HTMLElement;
 
   #onBeforeToggle = (event: Event): void => {
-    const host = this.#host as HTMLElement;
+    const anchorElement = this.#getAnchorElement(),
+      { newState, oldState } = event as ToggleEvent;
 
-    let anchorElement = host.anchorElement;
-    if (!anchorElement && host.hasAttribute('anchor')) {
-      anchorElement =
-        (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
-    }
+    this.#linkAnchorWithPopover(newState === 'open');
 
-    if ((event as ToggleEvent).newState === 'open' && (event as ToggleEvent).oldState === 'closed') {
-      if (anchorElement) {
-        this.#cleanup = positionPopover(host, anchorElement, {
-          arrow: this.#config?.arrow,
-          position: this.position ?? this.#config.position ?? 'top',
-          maxWidth: this.maxWidth ?? this.#config.maxWidth
-        });
-
-        if (host.matches('sl-popover')) {
-          /** popover-opened can be used for styling anchor element, when popover is opened and the anchor is not a sl-button  */
-          (anchorElement as HTMLElement)?.setAttribute('popover-opened', '');
-          anchorElement.setAttribute('aria-expanded', 'true');
-        }
-      }
+    if (anchorElement && newState === 'open' && oldState === 'closed') {
+      this.#cleanup = positionPopover(this.#host, anchorElement, {
+        ...this.#config,
+        maxWidth: this.maxWidth,
+        offset: this.offset,
+        position: this.position
+      });
     } else if (this.#cleanup) {
       this.#cleanup();
       this.#cleanup = undefined;
-      if (host.matches('sl-popover')) {
-        (anchorElement as HTMLElement)?.removeAttribute('popover-opened');
-        anchorElement?.setAttribute('aria-expanded', 'false');
-      }
     }
   };
 
   #onToggle = (event: Event): void => {
-    /** workaround to make it working on clicking again (togglePopover method) on the anchor element
-     * in Chrome and Safari there is the same state for new and old - open, when it's already opened and we want to close it
-     * in FF on click runs toggle event twice */
-    if (
-      ((event as ToggleEvent).newState === 'closed' && (event.target as HTMLElement).matches(':popover-open')) ||
-      (event as ToggleEvent).newState === (event as ToggleEvent).oldState
-    ) {
+    const { newState, oldState, target } = event as ToggleEvent & { target: HTMLElement };
+
+    /**
+     * Workaround to make it working on clicking again (togglePopover method) on the anchor element
+     * in Chrome and Safari there is the same state for new and old - open, when it's already opened
+     * and we want to close it in FF on click runs toggle event twice.
+     */
+    if ((newState === 'closed' && isPopoverOpen(target)) || newState === oldState) {
       event.stopPropagation();
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      (event.target as HTMLElement)?.hidePopover();
+
+      this.#host.hidePopover();
     }
   };
 
-  position?: PopoverPosition;
+  /** The offset of the popover to its anchor. */
+  offset?: number;
 
+  /** The max width of the popover. */
   maxWidth?: number;
+
+  /** The main position of the popover relative to the anchor. */
+  position?: PopoverPosition;
 
   constructor(host: ReactiveControllerHost & HTMLElement, config: AnchorControllerConfig = {}) {
     this.#config = config;
     this.#host = host;
     this.#host.addController(this);
+
+    this.offset = this.#config.offset;
+    this.maxWidth = this.#config.maxWidth;
+    this.position = this.#config.position;
   }
 
   hostConnected(): void {
-    const host = this.#host as HTMLElement;
-
-    let anchorElement = host.anchorElement;
-    if (!anchorElement && host.hasAttribute('anchor')) {
-      anchorElement =
-        (host.getRootNode() as HTMLElement)?.querySelector(`#${host.getAttribute('anchor') ?? ''}`) || undefined;
-    }
-
-    if (host.matches('sl-popover')) {
-      anchorElement?.setAttribute('aria-expanded', 'false');
-      anchorElement?.setAttribute('aria-controls', host.id);
-    }
+    this.#linkAnchorWithPopover();
 
     this.#host?.addEventListener('beforetoggle', this.#onBeforeToggle);
     this.#host?.addEventListener('toggle', this.#onToggle);
   }
 
   hostDisconnected(): void {
-    this.#host?.removeEventListener('beforetoggle', this.#onBeforeToggle);
     this.#host?.removeEventListener('toggle', this.#onToggle);
+    this.#host?.removeEventListener('beforetoggle', this.#onBeforeToggle);
+
+    this.#host.removeAttribute('aria-details');
+    this.#getAnchorElement()?.removeAttribute('aria-expanded');
+    this.#getAnchorElement()?.removeAttribute('popover-opened');
+  }
+
+  #getAnchorElement(): Element | null {
+    let anchorElement = this.#host.anchorElement || null;
+
+    if (!anchorElement && this.#host.hasAttribute('anchor')) {
+      anchorElement = (this.#host.getRootNode() as HTMLElement)?.querySelector(`#${this.#host.getAttribute('anchor')}`);
+    }
+
+    return anchorElement;
+  }
+
+  /**
+   * Normally when using the `popovertarget` attribute with popovers,
+   * the browser will automatically set the `aria-details` attribute on
+   * the anchor element and `aria-expanded` on the trigger. But since we
+   * cannot use the `popovertarget` attribute in combination with custom
+   * elements, we need to set these ourselves.
+   */
+  #linkAnchorWithPopover(expanded = false): void {
+    const anchorElement = this.#getAnchorElement();
+
+    if (anchorElement && !this.#host.hasAttribute('aria-details')) {
+      anchorElement.id ||= `sl-anchor-${nextUniqueId++}`;
+
+      this.#host.setAttribute('aria-details', anchorElement.id);
+    }
+
+    anchorElement?.setAttribute('aria-expanded', expanded.toString());
+
+    // If the anchor element is a button, we need to set the `popover-opened` attribute
+    // TODO: Figure out whether we want to keep doing this. And if so, perhaps not just
+    // for buttons?
+    if (anchorElement?.tagName === 'SL-BUTTON') {
+      if (expanded) {
+        anchorElement.setAttribute('popover-opened', '');
+      } else {
+        anchorElement.removeAttribute('popover-opened');
+      }
+    }
   }
 }

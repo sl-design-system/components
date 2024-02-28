@@ -410,20 +410,6 @@
   --sl-space-dialog-desktop-container-padding-bottom: var(--sl-space-xl);
   --sl-space-dialog-desktop-container-inline: var(--sl-space-xl);
   --sl-space-dialog-desktop-container-padding-top: var(--sl-space-xl);
-  --sl-space-popover-gap: var(--sl-space-xs);
-  --sl-space-popover-inline: var(--sl-space-md);
-  --sl-space-popover-block: var(--sl-space-sm);
-  --sl-space-popover-offset: var(--sl-space-sm);
-  --sl-space-popover-arrow-offset: var(--sl-space-lg);
-  --sl-space-tooltip-offset: var(--sl-space-xs);
-  --sl-space-tooltip-gap: var(--sl-space-xs);
-  --sl-space-tooltip-inline: var(--sl-space-md);
-  --sl-space-tooltip-block: var(--sl-space-sm);
-  --sl-space-tooltip-arrow-offset: var(--sl-space-sm);
-  --sl-space-group-xl: var(--sl-space-sm);
-  --sl-space-group-lg: var(--sl-space-sm);
-  --sl-space-group-md: var(--sl-space-xs);
-  --sl-space-group-sm: var(--sl-space-2xs);
   --sl-space-input-switch-margin-bottom-none: var(--sl-space-none);
   --sl-space-input-switch-margin-bottom-lg: var(--sl-space-none);
   --sl-space-input-switch-margin-bottom-md: var(--sl-space-xs);
@@ -453,6 +439,12 @@
   --sl-space-input-helper-gap-lg: var(--sl-space-sm);
   --sl-space-input-helper-gap-md: var(--sl-space-xs);
   --sl-space-input-helper-gap-sm: var(--sl-space-xs);
+  --sl-space-input-text-field-gap-lg: var(--sl-space-sm);
+  --sl-space-input-text-field-gap-md: var(--sl-space-sm);
+  --sl-space-input-text-field-inline-lg: calc(var(--sl-space-lg) - var(--sl-conceptual-border-width-default));
+  --sl-space-input-text-field-inline-md: calc(var(--sl-space-md) - var(--sl-conceptual-border-width-default));
+  --sl-space-input-text-field-block-lg: calc(var(--sl-space-sm) - var(--sl-conceptual-border-width-default));
+  --sl-space-input-text-field-block-md: calc(var(--sl-space-xs) + var(--sl-conceptual-border-width-default));
   --sl-space-input-option-gap-lg: var(--sl-space-sm);
   --sl-space-input-option-gap-md: var(--sl-space-sm);
   --sl-space-input-option-gap-sm: var(--sl-space-sm);
@@ -462,10 +454,20 @@
   --sl-space-input-option-block-lg: var(--sl-space-xs);
   --sl-space-input-option-block-md: var(--sl-space-xs);
   --sl-space-input-option-block-sm: var(--sl-space-none);
-  --sl-space-input-text-field-inline-lg: var(--sl-space-lg);
-  --sl-space-input-text-field-inline-md: var(--sl-space-md);
-  --sl-space-input-text-field-block-lg: var(--sl-space-sm);
-  --sl-space-input-text-field-block-md: var(--sl-space-sm);
+  --sl-space-popover-gap: var(--sl-space-xs);
+  --sl-space-popover-inline: var(--sl-space-md);
+  --sl-space-popover-block: var(--sl-space-sm);
+  --sl-space-popover-offset: var(--sl-space-sm);
+  --sl-space-popover-arrow-offset: var(--sl-space-lg);
+  --sl-space-tooltip-offset: var(--sl-space-xs);
+  --sl-space-tooltip-gap: var(--sl-space-xs);
+  --sl-space-tooltip-inline: var(--sl-space-md);
+  --sl-space-tooltip-block: var(--sl-space-sm);
+  --sl-space-tooltip-arrow-offset: var(--sl-space-sm);
+  --sl-space-group-xl: var(--sl-space-sm);
+  --sl-space-group-lg: var(--sl-space-sm);
+  --sl-space-group-md: var(--sl-space-xs);
+  --sl-space-group-sm: var(--sl-space-2xs);
   --sl-space-button-link-icon-only-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-link));
   --sl-space-button-link-icon-only-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-link));
@@ -715,10 +717,14 @@
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-size-input-option-checkbox-icon-sm: var(--sl-size-icon-xs);
+  --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
+  --sl-space-select-item-gap-md: var(--sl-space-input-text-field-gap-md);
   --sl-space-select-item-inline-lg: var(--sl-space-input-text-field-inline-lg);
   --sl-space-select-item-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-item-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-item-block-md: var(--sl-space-input-text-field-block-md);
+  --sl-space-select-selectbox-gap-lg: var(--sl-space-input-text-field-gap-lg);
+  --sl-space-select-selectbox-gap-md: var(--sl-space-input-text-field-gap-md);
   --sl-space-select-selectbox-inline-lg: var(--sl-space-input-text-field-inline-lg);
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
@@ -736,8 +742,6 @@
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
     (var(--sl-space-input-switch-padding-container) * 2)
   );
-  --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
-  --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);
   --sl-border-radius-popover-default: var(--sl-border-radius-default);
@@ -772,10 +776,6 @@
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-icon);
   --sl-text-input-text-field-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
-  --sl-space-select-item-gap-lg: var(--sl-space-input-text-field-gap-lg);
-  --sl-space-select-item-gap-md: var(--sl-space-input-text-field-gap-md);
-  --sl-space-select-selectbox-gap-lg: var(--sl-space-input-text-field-gap-lg);
-  --sl-space-select-selectbox-gap-md: var(--sl-space-input-text-field-gap-md);
 }
 
 @media (prefers-color-scheme: light) {

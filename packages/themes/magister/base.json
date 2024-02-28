@@ -2428,45 +2428,117 @@
         }
       }
     },
-    "input": {
-      "textField": {
-        "block": {
-          "md": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.md"
-          },
-          "lg": {
-            "value": "{space.sm}",
-            "type": "spacing",
-            "description": "space.button.solid.block.lg"
-          }
-        },
-        "inline": {
-          "md": {
-            "value": "{space.md}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.md"
-          },
-          "lg": {
-            "value": "{space.lg}",
-            "type": "spacing",
-            "description": "space.button.solid.inline.lg"
-          }
-        },
-        "gap": {
-          "md": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.md}"
-          },
-          "lg": {
-            "value": "{space.button.outline.block.md}",
-            "type": "spacing",
-            "description": "{space.button.gap.lg}"
-          }
+    "group": {
+      "sm": {
+        "value": "{space.2xs}",
+        "type": "spacing"
+      },
+      "md": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      },
+      "lg": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "xl": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      }
+    },
+    "tooltip": {
+      "arrow": {
+        "offset": {
+          "value": "{space.sm}",
+          "type": "spacing"
         }
       },
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      },
+      "offset": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      }
+    },
+    "popover": {
+      "arrow": {
+        "offset": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "offset": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      }
+    },
+    "none": {
+      "value": 0,
+      "type": "spacing",
+      "description": "space.none"
+    },
+    "2xs": {
+      "value": 2,
+      "type": "spacing",
+      "description": "space.2xs"
+    },
+    "xs": {
+      "value": 4,
+      "type": "spacing",
+      "description": "space.xs"
+    },
+    "sm": {
+      "value": 8,
+      "type": "spacing",
+      "description": "space.sm"
+    },
+    "md": {
+      "value": 12,
+      "type": "spacing",
+      "description": "space.md"
+    },
+    "lg": {
+      "value": 16,
+      "type": "spacing",
+      "description": "space.lg"
+    },
+    "xl": {
+      "value": 24,
+      "type": "spacing",
+      "description": "space.xl"
+    },
+    "2xl": {
+      "value": 30,
+      "type": "spacing",
+      "description": "space.2xl"
+    },
+    "input": {
       "option": {
         "block": {
           "sm": {
@@ -2508,6 +2580,44 @@
             "type": "spacing",
             "description": "{space.button.gap.md}"
           },
+          "md": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      },
+      "textField": {
+        "block": {
+          "md": {
+            "value": "{space.xs} + {conceptual.border.width.default}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
+          "lg": {
+            "value": "{space.sm} - {conceptual.border.width.default}",
+            "type": "spacing",
+            "description": "space.button.solid.block.lg"
+          }
+        },
+        "inline": {
+          "md": {
+            "value": "{space.md} - {conceptual.border.width.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
+          "lg": {
+            "value": "{space.lg} - {conceptual.border.width.default}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.lg"
+          }
+        },
+        "gap": {
           "md": {
             "value": "{space.sm}",
             "type": "spacing",
@@ -2706,116 +2816,6 @@
           }
         }
       }
-    },
-    "group": {
-      "sm": {
-        "value": "{space.2xs}",
-        "type": "spacing"
-      },
-      "md": {
-        "value": "{space.xs}",
-        "type": "spacing"
-      },
-      "lg": {
-        "value": "{space.sm}",
-        "type": "spacing"
-      },
-      "xl": {
-        "value": "{space.sm}",
-        "type": "spacing"
-      }
-    },
-    "tooltip": {
-      "arrow": {
-        "offset": {
-          "value": "{space.sm}",
-          "type": "spacing"
-        }
-      },
-      "block": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.solid.block.md"
-      },
-      "inline": {
-        "value": "{space.md}",
-        "type": "spacing",
-        "description": "space.button.solid.inline.md"
-      },
-      "gap": {
-        "value": "{space.xs}",
-        "type": "spacing"
-      },
-      "offset": {
-        "value": "{space.xs}",
-        "type": "spacing"
-      }
-    },
-    "popover": {
-      "arrow": {
-        "offset": {
-          "value": "{space.lg}",
-          "type": "spacing"
-        }
-      },
-      "offset": {
-        "value": "{space.sm}",
-        "type": "spacing"
-      },
-      "block": {
-        "value": "{space.sm}",
-        "type": "spacing",
-        "description": "space.button.solid.block.md"
-      },
-      "inline": {
-        "value": "{space.md}",
-        "type": "spacing",
-        "description": "space.button.solid.inline.md"
-      },
-      "gap": {
-        "value": "{space.xs}",
-        "type": "spacing"
-      }
-    },
-    "none": {
-      "value": 0,
-      "type": "spacing",
-      "description": "space.none"
-    },
-    "2xs": {
-      "value": 2,
-      "type": "spacing",
-      "description": "space.2xs"
-    },
-    "xs": {
-      "value": 4,
-      "type": "spacing",
-      "description": "space.xs"
-    },
-    "sm": {
-      "value": 8,
-      "type": "spacing",
-      "description": "space.sm"
-    },
-    "md": {
-      "value": 12,
-      "type": "spacing",
-      "description": "space.md"
-    },
-    "lg": {
-      "value": 16,
-      "type": "spacing",
-      "description": "space.lg"
-    },
-    "xl": {
-      "value": 24,
-      "type": "spacing",
-      "description": "space.xl"
-    },
-    "2xl": {
-      "value": 30,
-      "type": "spacing",
-      "description": "space.2xl"
     },
     "dialog": {
       "desktop": {

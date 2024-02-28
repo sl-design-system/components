@@ -3724,13 +3724,13 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.300}",
         "type": "color"
       }
     },
     "spinner": {
       "default": {
-        "value": "{color.palette.primary.500}",
+        "value": "{color.palette.primary.600}",
         "type": "color"
       },
       "white": {
@@ -3738,7 +3738,7 @@
         "type": "color"
       },
       "accent": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.accent.700}",
         "type": "color"
       },
       "info": {
@@ -3746,15 +3746,15 @@
         "type": "color"
       },
       "success": {
-        "value": "{color.palette.success.base}",
+        "value": "{color.palette.success.600}",
         "type": "color"
       },
       "warning": {
-        "value": "{color.palette.warning.base}",
+        "value": "{color.palette.warning.600}",
         "type": "color"
       },
       "danger": {
-        "value": "{color.palette.danger.base}",
+        "value": "{color.palette.danger.600}",
         "type": "color"
       }
     },

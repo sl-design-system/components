@@ -219,6 +219,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('dataSource')) {
       this.model.dataSource = this.dataSource;
+      this.selection.size = this.dataSource?.size ?? 0;
 
       this.#applyFilters();
       this.#applySorters();

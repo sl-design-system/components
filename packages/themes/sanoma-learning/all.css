@@ -106,9 +106,6 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
-  --sl-text-card-body: Regular 14/20 Source Sans Pro;
-  --sl-text-card-subtitle: Regular 16/24 Source Sans Pro;
-  --sl-text-card-title: Regular 18/28 The Message;
   --sl-text-text-field: [object Object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
@@ -546,6 +543,12 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-3xs);
   --sl-border-radius-button-md: var(--sl-border-radius-3xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-3xs);
+  --sl-text-card-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-card-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-card-title: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-text: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
@@ -831,7 +834,7 @@
     --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
-    --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
     --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
     --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
@@ -1591,6 +1594,15 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
     --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-body-background: rgb(var(--sl-color-palette-black-base));
+    --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-active-background: rgb(var(--sl-color-palette-neutral-800));
+    --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-disabled-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-tab-hover-background: rgb(var(--sl-color-palette-neutral-900));
+    --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
+    --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-700));
     --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-800));
     --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-700));
@@ -2055,6 +2067,15 @@
     --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
     --sl-color-avatar-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-300));
+    --sl-color-tab-content-foreground: var(--sl-body-foreground);
+    --sl-color-tab-content-background: var(--sl-body-background);
+    --sl-color-tab-active-foreground: var(--sl-body-foreground);
+    --sl-color-tab-tabbar-foreground: var(--sl-body-foreground);
+    --sl-color-tab-tabbar-background: var(--sl-body-background);
+    --sl-color-tab-disabled-background: var(--sl-body-background);
+    --sl-color-tab-hover-foreground: var(--sl-body-foreground);
+    --sl-color-tab-default-foreground: var(--sl-body-foreground);
+    --sl-color-tab-default-background: var(--sl-body-background);
     --sl-color-skeleton-shimmer: linear-gradient
       (
         90deg,

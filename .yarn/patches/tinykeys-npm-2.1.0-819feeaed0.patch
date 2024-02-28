@@ -1,0 +1,14 @@
+diff --git a/package.json b/package.json
+index d6a93bb7cce03b4836cf96deba308de0417079a3..958a5556711c4add467087af5f26cb1ed87303d7 100644
+--- a/package.json
++++ b/package.json
+@@ -16,7 +16,8 @@
+   "exports": {
+     ".": {
+       "import": "./dist/tinykeys.module.js",
+-      "require": "./dist/tinykeys.js"
++      "require": "./dist/tinykeys.js",
++      "types": "./dist/tinykeys.d.ts"
+     }
+   },
+   "keywords": [

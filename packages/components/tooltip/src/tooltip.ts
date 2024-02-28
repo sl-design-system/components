@@ -56,7 +56,6 @@ export class Tooltip extends LitElement {
 
   #onHide = ({ target }: Event): void => {
     if (this.#matchesAnchor(target as Element)) {
-      this.anchorElement = undefined;
       this.hidePopover();
     }
   };

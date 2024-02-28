@@ -76,6 +76,7 @@ export class AnchorController implements ReactiveController {
 
     this.#host.removeAttribute('aria-details');
     this.#getAnchorElement()?.removeAttribute('aria-expanded');
+    this.#getAnchorElement()?.removeAttribute('popover-opened');
   }
 
   #getAnchorElement(): Element | null {

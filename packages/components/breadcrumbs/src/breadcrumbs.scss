@@ -1,5 +1,4 @@
 :host {
-  --_collapse-threshold: 3;
   --_gap: 0.25rem;
   --_link-gap: 0.25rem;
   --_link-decoration: underline;
@@ -13,6 +12,12 @@
   gap: var(--_gap);
 }
 
+a {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--_link-gap);
+}
+
 a,
 sl-icon,
 ::slotted(sl-icon) {
@@ -20,14 +25,7 @@ sl-icon,
 }
 
 a,
-::slotted(*) {
-  align-items: center;
-  display: inline-flex;
-}
-
-a,
 ::slotted(a) {
-  gap: var(--_link-gap);
   padding-block: var(--_link-padding-block);
   padding-inline: var(--_link-padding-inline);
   text-decoration: var(--_link-decoration);
@@ -41,9 +39,10 @@ a,
   white-space: nowrap;
 }
 
-// If there are more than --_collapse-threshold items, hide all items
-// except the last --_collapse-threshold items. We multiply by 2 because
-// of the icons in between the items.
-::slotted(:not(:nth-last-child(-n + calc(var(--_collapse-threshold) * 2)))) {
+// If there are more than 3 items, hide all items except the last 3
+// items. We multiply by 2 because of the icons in between the items.
+// Note that we cannot use CSS custom properties here, so the value
+// needs to be hardcoded.
+::slotted(:not(:nth-last-child(-n + 6))) {
   display: none;
 }

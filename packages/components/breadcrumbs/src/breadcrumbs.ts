@@ -14,13 +14,21 @@ declare global {
   }
 }
 
-Icon.register(faChevronRight, faEllipsis, faHouse);
-
 export interface Breadcrumb {
   element: HTMLElement;
   label: string;
   url?: string;
 }
+
+Icon.register(faChevronRight, faEllipsis, faHouse);
+
+/**
+ * If there are more than 3 items, hide all items except the last 3
+ * items. Note that we cannot use CSS custom properties for styling,
+ * so the value needs to be hardcoded there. It doesn't make sense
+ * to not use a hardcoded value here.
+ */
+const COLLAPSE_THRESHOLD = 3;
 
 /**
  * A component to display a breadcrumb trail.
@@ -29,9 +37,6 @@ export interface Breadcrumb {
  */
 @localized()
 export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
-  /** The number of breadcrumbs to show before collapsing the rest. */
-  static collapseThreshold = 3;
-
   /**
    * The url for the home link, defaults to the root url.
    *
@@ -91,12 +96,12 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
             <a href=${this.homeUrl}><sl-icon name="far-house"></sl-icon>${msg('Home')}</a>
             <sl-icon name="far-chevron-right"></sl-icon>
           `}
-      ${this.breadcrumbs.length > Breadcrumbs.collapseThreshold
+      ${this.breadcrumbs.length > COLLAPSE_THRESHOLD
         ? html`
             <sl-menu-button fill="link">
               <sl-icon name="far-ellipsis" slot="button"></sl-icon>
               ${this.breadcrumbs
-                .slice(0, -Breadcrumbs.collapseThreshold)
+                .slice(0, -COLLAPSE_THRESHOLD)
                 .map(
                   ({ element, label }) => html`<sl-menu-item @click=${() => element.click()}>${label}</sl-menu-item>`
                 )}

@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/sanoma-learning",
   "description": "Sanoma Learning theme for the SL Design System",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

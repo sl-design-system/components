@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/max",
   "description": "Max theme for the SL Design System",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

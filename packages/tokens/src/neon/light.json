@@ -3768,11 +3768,11 @@
         "type": "color"
       },
       "accent": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.accent.800}",
         "type": "color"
       },
       "info": {
-        "value": "{color.palette.info.base}",
+        "value": "{color.palette.info.400}",
         "type": "color"
       },
       "success": {
@@ -3780,22 +3780,22 @@
         "type": "color"
       },
       "warning": {
-        "value": "{color.palette.warning.base}",
+        "value": "{color.palette.warning.700}",
         "type": "color"
       },
       "danger": {
-        "value": "{color.palette.danger.base}",
+        "value": "{color.palette.danger.700}",
         "type": "color"
       }
     },
     "skeleton": {
       "base": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.150}",
         "type": "color",
         "description": "body.surface.100"
       },
       "effect": {
-        "value": "{color.palette.neutral.150}",
+        "value": "{color.palette.neutral.200}",
         "type": "color",
         "description": "body.surface.100"
       },

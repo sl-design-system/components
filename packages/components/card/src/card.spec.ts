@@ -28,6 +28,13 @@ describe('sl-card', () => {
     it('should have the class "horizontal" by default when an image is present', () => {
       expect(el).to.have.class('horizontal');
     });
+
+    it('should render an icon when the icon name is given present', async () => {
+      expect(el.renderRoot.querySelector('sl-icon[name="pinata"]')).not.to.exist;
+      el.setAttribute('icon','pinata');
+      await el.updateComplete;
+      expect(el.renderRoot.querySelector('sl-icon[name="pinata"]')).to.exist;
+    });
     
     describe('vertical', () => {
       beforeEach(async () => {
@@ -68,7 +75,7 @@ describe('sl-card', () => {
     </sl-card>`);
     });
 
-    it.only('should switch to vertical mode when a breakpoint is set that is larger than the current screen width', async () => {
+    it('should switch to vertical mode when a breakpoint is set that is larger than the current screen width', async () => {
       expect(el).not.to.have.class('horizontal');
     });
   });

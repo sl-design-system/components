@@ -75,7 +75,7 @@ export class Card extends LitElement {
           <slot name="media" @slotchange=${this.#setOrientation}></slot>
         </div>
         <div class="content">
-          ${this.icon ? html`<sl-icon .name=${this.icon}></sl-icon>` : nothing}
+          ${this.icon ? html`<sl-icon name=${this.icon}></sl-icon>` : nothing}
           <header>
             <slot class="title"></slot>
             <slot name="header"></slot>
@@ -89,7 +89,7 @@ export class Card extends LitElement {
 
   #setOrientation(): void {
     const breakpoint = parseInt(window.getComputedStyle(this).getPropertyValue('--sl-card-horizontal-breakpoint')) || 0;
-    const hasMedia = this.media ? this.media?.length > 0 : false;
+    const hasMedia = this.media ? this.media.length > 0 : false;
     this.classList.remove('horizontal', 'has-media');
     if (!hasMedia) return;
 

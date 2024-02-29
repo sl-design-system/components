@@ -154,7 +154,7 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     );
     // if (event.animationName !== 'slide-in-up') {
     // this.panel?.removeAttribute('open');
-    /*    if (/!*this.open*!/ this.renderRoot.querySelector('details')?.hasAttribute('open')) {
+    if (/*this.open*/ this.renderRoot.querySelector('details')?.hasAttribute('open')) {
       this.panel?.classList.add('collapsing');
       this.panel?.addEventListener(
         'animationend',
@@ -162,16 +162,17 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
           // this.remove();
           this.panel?.removeAttribute('open');
           this.panel?.classList.remove('collapsing');
-          this.panel?.classList.remove('animation');
+          // // this.panel?.classList.remove('animation');
         },
         { once: true }
       );
 
-      // requestAnimationFrame(() => {
-      //   this.panel?.setAttribute('close', '');
-      // });
-      // }
-    }*/
+      requestAnimationFrame(() => {
+        this.panel?.setAttribute('close', '');
+        // this.panel?.classList.remove('collapsing');
+        // this.panel?.classList.remove('animation');
+      });
+    }
   }
 
   // #onCancel(event: Event & { target: HTMLElement }): void {
@@ -223,15 +224,15 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
     const isDetailsOpen = detailsElement.getAttribute('open') !== null;
     console.log('isDetailsOpen in onClick', isDetailsOpen);
-    if (isDetailsOpen) {
-      // prevent default collapsing and delay it until the animation has completed
-      event.preventDefault();
-      contentElement.classList.add('collapsing');
-      onAnimationEnd(() => {
-        detailsElement?.removeAttribute('open');
-        contentElement.classList.remove('collapsing');
-      });
-    }
+    // if (isDetailsOpen) {
+    //   // prevent default collapsing and delay it until the animation has completed
+    //   event.preventDefault();
+    //   contentElement.classList.add('collapsing');
+    //   onAnimationEnd(() => {
+    //     detailsElement?.removeAttribute('open');
+    //     contentElement.classList.remove('collapsing');
+    //   });
+    // }
 
     // const rect = this.dialog!.getBoundingClientRect();
     //

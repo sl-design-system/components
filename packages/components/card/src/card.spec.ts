@@ -14,6 +14,7 @@ describe('sl-card', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-card>
       <img slot="media" src="${image}" />
+      <sl-icon name="pinata" slot="icon"></sl-icon>
       <h2>${title}</h2>
       <h3 slot="header">${subHeader}</h3>
       <p slot="body">${bodyCopy}</p>
@@ -28,12 +29,9 @@ describe('sl-card', () => {
     it('should have the class "sl-horizontal" by default when an image is present', () => {
       expect(el).to.have.class('sl-horizontal');
     });
-
-    it('should render an icon when the icon name is given present', async () => {
-      expect(el.renderRoot.querySelector('sl-icon[name="pinata"]')).not.to.exist;
-      el.setAttribute('icon','pinata');
-      await el.updateComplete;
-      expect(el.renderRoot.querySelector('sl-icon[name="pinata"]')).to.exist;
+    
+    it('should have the class "sl-has-icon" when an icon is present', async () => {
+      expect(el).to.have.class('sl-has-icon');
     });
     
     describe('vertical', () => {
@@ -61,6 +59,10 @@ describe('sl-card', () => {
   
     it('should not have the class "sl-horizontal" by default when no image is present', () => {
       expect(el).not.to.have.class('sl-horizontal');
+    });
+    
+    it('should not have the class "sl-has-icon" when an icon is present', async () => {
+      expect(el).not.to.have.class('sl-has-icon');
     });
   });
 

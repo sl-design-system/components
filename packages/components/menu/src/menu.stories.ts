@@ -49,7 +49,8 @@ export default {
     return html`
       <style>
         .root-menu {
-          margin: auto;
+          margin: auto !important;
+          position: static !important;
         }
       </style>
       <sl-menu .selects=${selects} class="root-menu">${menuItems()}</sl-menu>

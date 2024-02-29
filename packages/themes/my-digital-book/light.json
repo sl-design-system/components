@@ -4570,7 +4570,7 @@
         "failedToResolve": true
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.200}",
         "type": "color",
         "failedToResolve": true
       }
@@ -4592,7 +4592,7 @@
         "failedToResolve": true
       },
       "info": {
-        "value": "{color.palette.info.base}",
+        "value": "{color.palette.info.500}",
         "type": "color",
         "failedToResolve": true
       },

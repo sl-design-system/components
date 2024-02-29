@@ -275,6 +275,14 @@
               "static": true,
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "panel",
+              "type": {
+                "text": "HTMLDivElement | undefined"
+              },
+              "privacy": "private"
             }
           ]
         }

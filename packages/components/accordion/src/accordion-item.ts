@@ -10,7 +10,7 @@ import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared'
 // import { EventsController } from '@sl-design-system/shared';
 import { faMinus, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { LitElement, html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './accordion-item.scss.js';
 
@@ -70,6 +70,9 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
   /** Open... */
   @property({ reflect: true, type: Boolean }) open?: boolean;
 
+  /** @private */
+  @query('.panel') panel?: HTMLDivElement;
+
   // /** Whether only one accordion item can be opened at once. By default multiple accordion items can be opened. */
   // @property({ type: Boolean, reflect: true }) single?: boolean;
 
@@ -88,12 +91,7 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <details
-        @toggle=${this.onToggle}
-        @click=${this.#onClick}
-        ?open=${this.open}
-        @animationend=${this.#closeOnAnimationend}
-      >
+      <details @toggle=${this.onToggle} @click=${this.#onClick} ?open=${this.open}>
         <summary tabindex=${this.hasAttribute('disabled') ? -1 : 0} part="summary">
           <span class="icons">
             <sl-icon name="fas-plus" class="plus"></sl-icon>
@@ -101,7 +99,7 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
           </span>
           ${this.summary}
         </summary>
-        <div class="panel">
+        <div class="panel" @animationend=${this.#closeOnAnimationend}>
           <slot @slotchange=${this.#onSlotChange}></slot>
         </div>
       </details>
@@ -146,7 +144,34 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
   }
 
   #closeOnAnimationend(event: AnimationEvent): void {
-    console.log('event closeOnAnimationend', event);
+    console.log(
+      'event closeOnAnimationend',
+      event,
+      this.open,
+      this.renderRoot,
+      this.renderRoot.querySelector('details'),
+      this.renderRoot.querySelector('details')?.hasAttribute('open')
+    );
+    // if (event.animationName !== 'slide-in-up') {
+    // this.panel?.removeAttribute('open');
+    /*    if (/!*this.open*!/ this.renderRoot.querySelector('details')?.hasAttribute('open')) {
+      this.panel?.classList.add('collapsing');
+      this.panel?.addEventListener(
+        'animationend',
+        () => {
+          // this.remove();
+          this.panel?.removeAttribute('open');
+          this.panel?.classList.remove('collapsing');
+          this.panel?.classList.remove('animation');
+        },
+        { once: true }
+      );
+
+      // requestAnimationFrame(() => {
+      //   this.panel?.setAttribute('close', '');
+      // });
+      // }
+    }*/
   }
 
   // #onCancel(event: Event & { target: HTMLElement }): void {
@@ -167,7 +192,7 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     const detailsElement = event.target.parentElement;
     const contentElement = event.target.nextElementSibling;
 
-    console.log('detailsElement, contentElement', detailsElement, contentElement);
+    console.log('detailsElement, contentElement', detailsElement, contentElement, event);
 
     if (!detailsElement || !contentElement) {
       return;
@@ -197,12 +222,13 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     onAnimationEnd(() => contentElement.classList.remove('animation'));
 
     const isDetailsOpen = detailsElement.getAttribute('open') !== null;
+    console.log('isDetailsOpen in onClick', isDetailsOpen);
     if (isDetailsOpen) {
       // prevent default collapsing and delay it until the animation has completed
       event.preventDefault();
       contentElement.classList.add('collapsing');
       onAnimationEnd(() => {
-        // detailsElement?.removeAttribute('open');
+        detailsElement?.removeAttribute('open');
         contentElement.classList.remove('collapsing');
       });
     }

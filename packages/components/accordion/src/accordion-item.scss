@@ -285,10 +285,12 @@ details[open] {
   animation-duration: 300ms;
   animation-name: append-animate-panel;
   animation-timing-function: ease-out;
+  //animation-fill-mode: both;
 }
 
 .collapsing {
   animation-direction: reverse;
   animation-duration: 300ms;
+  animation-name: append-animate-panel;
   animation-timing-function: ease-in;
 }

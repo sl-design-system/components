@@ -4,6 +4,7 @@
   --_link-decoration: underline;
   --_link-padding-block: 0.375rem;
   --_link-padding-inline: 0.5rem;
+  --_tooltip-max-inline-size: min(18rem, 50vw);
 }
 
 :host {
@@ -50,4 +51,8 @@ a,
 // needs to be hardcoded.
 ::slotted(:not(:nth-last-child(-n + 6))) {
   display: none;
+}
+
+sl-tooltip {
+  max-inline-size: var(--_tooltip-max-inline-size) !important;
 }

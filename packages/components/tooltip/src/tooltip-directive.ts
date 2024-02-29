@@ -33,10 +33,14 @@ export class TooltipDirective extends Directive {
   setupLazy(): void {
     this.didSetupLazy = true;
 
-    Tooltip.lazy(this.part!.element, (tooltip: Tooltip) => {
-      this.tooltip = tooltip;
-      this.renderContent();
-    });
+    Tooltip.lazy(
+      this.part!.element,
+      tooltip => {
+        this.tooltip = tooltip;
+        this.renderContent();
+      },
+      { context: this.part!.element.shadowRoot ?? document }
+    );
   }
 }
 

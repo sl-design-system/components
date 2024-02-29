@@ -175,6 +175,16 @@
           ],
           "members": [
             {
+              "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default padding of the arrow."
+            },
+            {
               "kind": "method",
               "name": "lazy",
               "static": true,
@@ -194,6 +204,13 @@
                   "name": "callback",
                   "type": {
                     "text": "(target: Tooltip) => void"
+                  }
+                },
+                {
+                  "name": "options",
+                  "default": "{}",
+                  "type": {
+                    "text": "TooltipOptions"
                   }
                 }
               ],
@@ -286,12 +303,29 @@
                   "type": {
                     "text": "(target: Tooltip) => void"
                   }
+                },
+                {
+                  "name": "options",
+                  "default": "{}",
+                  "type": {
+                    "text": "TooltipOptions"
+                  }
                 }
               ],
               "description": "To attach the `sl-tooltip` to the DOM tree and anchor element"
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default padding of the arrow."
+            },
             {
               "kind": "field",
               "name": "offset",
@@ -316,7 +350,7 @@
               "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this, { offset: Tooltip.offset, viewportMargin: Tooltip.viewportMargin })",
+              "default": "new AnchorController(this, {\n    arrowElement: '.arrow',\n    arrowPadding: Tooltip.arrowPadding,\n    offset: Tooltip.offset,\n    viewportMargin: Tooltip.viewportMargin\n  })",
               "description": "Controller for managing anchoring."
             },
             {

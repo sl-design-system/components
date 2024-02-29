@@ -35,18 +35,6 @@
   inset-block-start: -11px;
 }
 
-:host([actual-placement='bottom']) .arrow {
-  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='bottom-start']) .arrow {
-  inset-inline-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
-}
-
-:host([actual-placement='bottom-end']) .arrow {
-  inset-inline-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
-}
-
 :host([actual-placement^='left']) .arrow {
   inset-inline-end: calc(var(--_arrow-height) * -1);
 
@@ -55,18 +43,6 @@
     transform-origin: top center;
     translate: 13px 8px;
   }
-}
-
-:host([actual-placement='left']) .arrow {
-  inset-block: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='left-start']) .arrow {
-  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
-:host([actual-placement='left-end']) .arrow {
-  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
 }
 
 :host([actual-placement^='right']) .arrow {
@@ -79,33 +55,9 @@
   }
 }
 
-:host([actual-placement='right']) .arrow {
-  inset-block: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='right-start']) .arrow {
-  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
-:host([actual-placement='right-end']) .arrow {
-  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
 :host([actual-placement^='top']) .arrow {
   inset-block-end: -11px;
   scale: 1 -1;
-}
-
-:host([actual-placement='top']) .arrow {
-  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='top-start']) .arrow {
-  inset-inline-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
-}
-
-:host([actual-placement='top-end']) .arrow {
-  inset-inline-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-height)));
 }
 
 .arrow {

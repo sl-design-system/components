@@ -299,6 +299,22 @@
           "name": "AnchorController",
           "members": [
             {
+              "kind": "field",
+              "name": "arrowElement",
+              "type": {
+                "text": "string | HTMLElement | undefined"
+              },
+              "description": "The arrow pointing from the popover to the anchor element."
+            },
+            {
+              "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The padding of the arrow."
+            },
+            {
               "kind": "method",
               "name": "hostConnected",
               "return": {
@@ -422,6 +438,22 @@
               "kind": "field",
               "name": "#onToggle",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "arrowElement",
+              "type": {
+                "text": "string | HTMLElement | undefined"
+              },
+              "description": "The arrow pointing from the popover to the anchor element."
+            },
+            {
+              "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The padding of the arrow."
             },
             {
               "kind": "field",

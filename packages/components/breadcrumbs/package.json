@@ -42,6 +42,7 @@
     "@open-wc/scoped-elements": "^3.0.5",
     "@sl-design-system/icon": "0.0.7",
     "@sl-design-system/menu": "0.0.0",
+    "@sl-design-system/tooltip": "0.0.17",
     "lit": "^3.1.2"
   }
 }

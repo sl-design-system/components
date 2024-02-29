@@ -138,6 +138,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateTooltips",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [
@@ -150,6 +159,13 @@
               "static": true,
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "default": "new ResizeObserver(() => this.#updateTooltips())",
+              "description": "Observe changes in size, so we can check whether we need to show tooltips\nfor truncated links."
             },
             {
               "kind": "field",

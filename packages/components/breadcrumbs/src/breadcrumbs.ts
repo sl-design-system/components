@@ -3,6 +3,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Icon } from '@sl-design-system/icon';
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './breadcrumbs.scss.js';
@@ -17,6 +18,7 @@ declare global {
 export interface Breadcrumb {
   element: HTMLElement;
   label: string;
+  tooltip?: boolean | Tooltip;
   url?: string;
 }
 
@@ -60,12 +62,19 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     return {
       'sl-icon': Icon,
       'sl-menu-button': MenuButton,
-      'sl-menu-item': MenuItem
+      'sl-menu-item': MenuItem,
+      'sl-tooltip': Tooltip
     };
   }
 
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /**
+   * Observe changes in size, so we can check whether we need to show tooltips
+   * for truncated links.
+   */
+  #observer = new ResizeObserver(() => this.#updateTooltips());
 
   /** The slotted breadcrumbs. */
   @state() breadcrumbs: Breadcrumb[] = [];
@@ -93,6 +102,14 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
 
     this.setAttribute('aria-label', msg('Breadcrumb trail'));
     this.setAttribute('role', 'navigation');
+
+    this.#observer.observe(this);
+  }
+
+  override disconnectedCallback(): void {
+    super.disconnectedCallback();
+
+    this.#observer.disconnect();
   }
 
   override render(): TemplateResult {
@@ -122,7 +139,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     this.breadcrumbs = event.target
       .assignedElements({ flatten: true })
-      .filter((element): element is HTMLElement => !(element instanceof Icon))
+      .filter((element): element is HTMLElement => !(element instanceof Icon || element instanceof Tooltip))
       .map(element => {
         return {
           element,
@@ -142,6 +159,33 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       icon.name = 'far-chevron-right';
 
       element.after(icon);
+    });
+  }
+
+  #updateTooltips(): void {
+    this.breadcrumbs.forEach(breadcrumb => {
+      const element = breadcrumb.element;
+
+      if (!breadcrumb.tooltip && element.offsetWidth < element.scrollWidth) {
+        breadcrumb.tooltip = true;
+
+        Tooltip.lazy(
+          element,
+          tooltip => {
+            breadcrumb.tooltip = tooltip;
+            tooltip.position = 'bottom';
+            tooltip.textContent = breadcrumb.label;
+          },
+          { context: this.shadowRoot!, parentNode: this.shadowRoot! }
+        );
+      } else if (breadcrumb.tooltip && element.offsetWidth >= element.scrollWidth) {
+        breadcrumb.element.removeAttribute('aria-describedby');
+
+        if (typeof breadcrumb.tooltip !== 'boolean') {
+          breadcrumb.tooltip.remove();
+          breadcrumb.tooltip = undefined;
+        }
+      }
     });
   }
 }

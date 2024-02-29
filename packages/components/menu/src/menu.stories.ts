@@ -20,7 +20,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Menu } from './menu.js';
 
-type Props = Pick<Menu, 'selects'> & { menuItems: () => TemplateResult };
+type Props = Pick<Menu, 'selects'> & { menuItems: () => TemplateResult; maxWidth: string };
 type Story = StoryObj<Props>;
 
 Icon.register(
@@ -40,10 +40,13 @@ Icon.register(
 
 export default {
   title: 'Menu',
+  args: {
+    maxWidth: '200px'
+  },
   parameters: {
     layout: 'centered'
   },
-  render: ({ menuItems, selects }) => {
+  render: ({ maxWidth, menuItems, selects }) => {
     setTimeout(() => document.querySelector('sl-menu')?.showPopover());
 
     return html`
@@ -53,7 +56,7 @@ export default {
           position: static !important;
         }
       </style>
-      <sl-menu .selects=${selects} class="root-menu">${menuItems()}</sl-menu>
+      <sl-menu .selects=${selects} class="root-menu" style="max-width: ${maxWidth}">${menuItems()}</sl-menu>
     `;
   }
 } satisfies Meta<Props>;
@@ -95,6 +98,15 @@ export const Grouped: Story = {
           Documentation
         </sl-menu-item>
       </sl-menu-item-group>
+    `
+  }
+};
+
+export const Overflow: Story = {
+  args: {
+    menuItems: () => html`
+      <sl-menu-item>Cupidatat amet aute sint voluptate fugiat dolore.</sl-menu-item>
+      <sl-menu-item>Laboris laborum excepteur aute esse reprehenderit.</sl-menu-item>
     `
   }
 };

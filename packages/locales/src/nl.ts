@@ -16,7 +16,7 @@ export const templates = {
   s5e8250fb85d64c23: `Sluiten`,
   s629576c6b305d539: `optioneel`,
   s62aa2ba3fe47ece4: `Vink tenminste één optie aan.`,
-  s6abb1cd87fe0114e: `Thuis`,
+  s6abb1cd87fe0114e: `Home`,
   s8079b71872346425: `Voer een waarde in.`,
   s864c948d4629240f: `Toon alles`,
   sa447e2f801a7eb2d: `Kies een optie.`,

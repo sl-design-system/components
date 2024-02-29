@@ -161,7 +161,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       }
 
       const icon = this.shadowRoot!.createElement('sl-icon') as Icon;
-      icon.name = 'far-chevron-right';
+      icon.name = 'chevron-right';
 
       element.after(icon);
     });

@@ -4456,7 +4456,7 @@
     },
     "spinner": {
       "default": {
-        "value": "{color.palette.primary.500}",
+        "value": "{color.palette.primary.300}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4476,7 +4476,7 @@
         "failedToResolve": true
       },
       "success": {
-        "value": "{color.palette.success.base}",
+        "value": "{color.palette.success.500}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4486,7 +4486,7 @@
         "failedToResolve": true
       },
       "danger": {
-        "value": "{color.palette.danger.base}",
+        "value": "{color.palette.danger.500}",
         "type": "color",
         "failedToResolve": true
       }

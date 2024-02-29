@@ -52,8 +52,8 @@
   --sl-opacity-100: 0.04;
   --sl-opacity-50: 0.02;
   --sl-icon-typeset-font-size-2xs: 10px;
-  --sl-icon-core-angle-down: ellipsis;
-  --sl-icon-core-house: ellipsis;
+  --sl-icon-core-angle-down: angle-down;
+  --sl-icon-core-house: house;
   --sl-icon-core-ellipsis: ellipsis;
   --sl-icon-core-circle-check-solid: circle-check;
   --sl-icon-core-octagon-exclamation-solid: octagon-exclamation;

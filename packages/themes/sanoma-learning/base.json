@@ -2472,7 +2472,7 @@
       "chevron-right": {
         "value": "chevron-right",
         "type": "Icons",
-        "description": "icon.core.chevron-down"
+        "description": "icon.core.chevron-right"
       },
       "check": {
         "value": "check",
@@ -2505,12 +2505,12 @@
         "description": "icon.core.ellipsis"
       },
       "house": {
-        "value": "ellipsis",
+        "value": "house",
         "type": "Icons",
         "description": "icon.core.house"
       },
       "angle-down": {
-        "value": "ellipsis",
+        "value": "angle-down",
         "type": "Icons",
         "description": "icon.core.angle-down"
       }

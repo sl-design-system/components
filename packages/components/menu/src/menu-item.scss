@@ -81,7 +81,7 @@ slot[name='submenu']::slotted(sl-menu) {
   }
 }
 
-sl-icon[name='far-check'] {
+sl-icon[name='check'] {
   padding-inline: 3px;
 }
 
@@ -92,7 +92,7 @@ kbd {
   padding-inline-start: var(--_gap-shortcut);
 }
 
-sl-icon[name='far-chevron-right'] {
+sl-icon[name='chevron-right'] {
   margin-inline-start: auto;
   padding-inline-start: var(--_gap-sub-menu-indicator);
 }

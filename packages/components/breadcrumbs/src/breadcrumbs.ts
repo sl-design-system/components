@@ -1,4 +1,3 @@
-import { faChevronRight, faEllipsis, faHouse } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
@@ -21,8 +20,6 @@ export interface Breadcrumb {
   tooltip?: boolean | Tooltip;
   url?: string;
 }
-
-Icon.register(faChevronRight, faEllipsis, faHouse);
 
 /**
  * If there are more than 3 items, hide all items except the last 3
@@ -125,13 +122,13 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       ${this.noHome
         ? nothing
         : html`
-            <a href=${this.homeUrl}><sl-icon name="far-house"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
-            <sl-icon name="far-chevron-right"></sl-icon>
+            <a href=${this.homeUrl}><sl-icon name="house"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
+            <sl-icon name="chevron-right"></sl-icon>
           `}
       ${this.breadcrumbs.length > this.collapseThreshold
         ? html`
             <sl-menu-button fill="link">
-              <sl-icon name="far-ellipsis" slot="button"></sl-icon>
+              <sl-icon name="ellipsis" slot="button"></sl-icon>
               ${this.breadcrumbs
                 .slice(0, -this.collapseThreshold)
                 .map(

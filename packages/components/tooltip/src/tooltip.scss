@@ -24,12 +24,38 @@
   overflow-wrap: break-word;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+  }
+
+  /**
+   * Because of :host and the fact that the element is often not inside a shadow root,
+   * the popover-polyfill can have a higher specificity. We need to use !important
+   * to overwrite the polyfill styling.
+   *
+   * This is only necessary for Firefox < 125 and older browsers that don't support popover
+   */
+  @supports not selector(:popover-open) {
+    background: var(--_background) !important;
+    border: var(--_border) !important;
+    color: var(--_color) !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    padding-block: var(--_padding-block) !important;
+    padding-inline: var(--_padding-inline) !important;
+  }
 }
 
-/* stylelint-disable-next-line selector-class-pattern*/
-:host(:is(:popover-open, .\\:popover-open)) {
+/* stylelint-disable-next-line selector-class-pattern */
+:host(:where(:popover-open, .\\:popover-open)) {
+  /* stylelint-disable-next-line scss/at-rule-no-unknown */
+  @starting-style {
+    display: block;
+    opacity: 0;
+  }
+
   opacity: 1;
-  transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 
 :host([actual-placement^='bottom']) .arrow {

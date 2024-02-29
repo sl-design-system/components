@@ -29,6 +29,9 @@ export default {
       control: 'inline-radio',
       options: ['start', 'center', 'end']
     },
+    example: {
+      table: { disable: true }
+    },
     justifySelf: {
       control: 'inline-radio',
       options: ['start', 'center', 'end']

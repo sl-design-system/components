@@ -4619,14 +4619,6 @@
       "exports": [
         {
           "kind": "js",
-          "name": "popoverPolyfillStyles",
-          "declaration": {
-            "name": "popoverPolyfillStyles",
-            "module": "src/popover.ts"
-          }
-        },
-        {
-          "kind": "js",
           "name": "isPopoverOpen",
           "declaration": {
             "name": "isPopoverOpen",

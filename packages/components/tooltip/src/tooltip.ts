@@ -1,6 +1,6 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import type { PopoverPosition } from '@sl-design-system/shared';
-import { AnchorController, EventsController, popoverPolyfillStyles } from '@sl-design-system/shared';
+import { AnchorController, EventsController } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
@@ -44,7 +44,7 @@ export class Tooltip extends LitElement {
   static offset = 12;
 
   /** @private */
-  static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
+  static override styles: CSSResultGroup = styles;
 
   /** The default margin between the tooltip and the viewport. */
   static viewportMargin = 8;

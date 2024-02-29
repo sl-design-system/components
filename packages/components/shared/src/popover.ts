@@ -1,8 +1,5 @@
 import { arrow, flip, offset, shift, size } from '@floating-ui/core';
 import { autoUpdate, computePosition } from '@floating-ui/dom';
-import popoverPolyfillStyles from './popover.scss.js';
-
-export { popoverPolyfillStyles };
 
 type Alignment = 'start' | 'end';
 type Side = 'top' | 'right' | 'bottom' | 'left';

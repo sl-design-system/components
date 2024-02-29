@@ -9,7 +9,7 @@ eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Components
   key: Editor
-  order: 9
+  order: 12
   status: coming
 ---
 

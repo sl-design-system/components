@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/grid",
-  "version": "0.0.36",
+  "version": "0.1.0",
   "description": "Grid components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -41,10 +41,10 @@
     "@lit-labs/virtualizer": "^2.0.12",
     "@lit/localize": "^0.12.1",
     "@open-wc/scoped-elements": "^3.0.5",
-    "@sl-design-system/checkbox": "0.0.20",
+    "@sl-design-system/checkbox": "0.0.21",
     "@sl-design-system/icon": "0.0.7",
-    "@sl-design-system/popover": "0.1.3",
-    "@sl-design-system/shared": "0.2.3",
-    "@sl-design-system/text-field": "0.1.15"
+    "@sl-design-system/popover": "0.1.4",
+    "@sl-design-system/shared": "0.2.4",
+    "@sl-design-system/text-field": "0.1.16"
   }
 }

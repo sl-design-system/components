@@ -10,7 +10,7 @@ eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Components
   key: Grid
-  order: 10
+  order: 15
   status: coming
 ---
 

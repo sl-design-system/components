@@ -1,0 +1,10 @@
+{
+  "layout": "components/components.njk",
+  "tags": "spinner",
+  "componentTagName": [
+    {
+      "name": "Spinner",
+      "selector": "sl-spinner"
+    }
+  ]
+}

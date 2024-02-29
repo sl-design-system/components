@@ -1,6 +1,6 @@
 :host {
-  --_arrow-height: 6px;
-  --_arrow-width: 16px;
+  --_arrow-block-size: 6px;
+  --_arrow-inline-size: 16px;
   --_background: var(--sl-color-tooltip-background);
   --_border-radius: var(--sl-border-radius-default);
   --_border: 0;
@@ -60,38 +60,38 @@
 }
 
 :host([actual-placement^='bottom']) .arrow {
-  inset-block-start: calc(var(--_arrow-height) * -1);
+  inset-block-start: calc(var(--_arrow-block-size) * -1);
 }
 
 :host([actual-placement^='left']) .arrow {
-  inset-inline-end: calc(var(--_arrow-height) * -1);
+  inset-inline-end: calc(var(--_arrow-inline-size) * -1);
 
   svg {
     rotate: 90deg;
-    transform-origin: top center;
-    translate: 8px 8px;
+    transform-origin: left;
+    translate: calc(var(--_arrow-block-size) / 2) calc(var(--_arrow-inline-size) / -2);
   }
 }
 
 :host([actual-placement^='right']) .arrow {
-  inset-inline-start: calc(var(--_arrow-height) * -1);
+  inset-inline-start: calc(var(--_arrow-inline-size) * -1);
 
   svg {
     rotate: -90deg;
-    transform-origin: top center;
-    translate: -8px 8px;
+    transform-origin: right;
+    translate: calc(var(--_arrow-block-size) / -2) calc(var(--_arrow-inline-size) / -2);
   }
 }
 
 :host([actual-placement^='top']) .arrow {
-  inset-block-end: calc(var(--_arrow-height) * -1);
+  inset-block-end: calc(var(--_arrow-block-size) * -1);
   scale: 1 -1;
 }
 
 .arrow {
-  block-size: var(--_arrow-width);
+  block-size: var(--_arrow-block-size);
   display: flex;
   fill: var(--_background);
-  inline-size: var(--_arrow-width);
+  inline-size: var(--_arrow-inline-size);
   position: absolute;
 }

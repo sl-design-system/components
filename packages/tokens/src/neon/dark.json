@@ -3661,7 +3661,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         },
         "indicator": {
@@ -3679,7 +3679,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
@@ -3693,7 +3693,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
@@ -3707,7 +3707,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
@@ -3721,7 +3721,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
@@ -3746,7 +3746,7 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.700}",
         "type": "color"
       }
     },

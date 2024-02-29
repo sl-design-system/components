@@ -114,10 +114,6 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     this.#observer.observe(this);
   }
 
-  // override firstUpdated(): void {
-  //   this.#update();
-  // }
-
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 

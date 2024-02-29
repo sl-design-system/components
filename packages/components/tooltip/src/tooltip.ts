@@ -38,7 +38,7 @@ let nextUniqueId = 0;
  */
 export class Tooltip extends LitElement {
   /** The default padding of the arrow. */
-  static arrowPadding = 8;
+  static arrowPadding = 16;
 
   /** The default offset of the tooltip to its anchor. */
   static offset = 12;

@@ -60,7 +60,7 @@
                 "text": "number"
               },
               "static": true,
-              "default": "8",
+              "default": "16",
               "description": "The default padding of the arrow."
             },
             {
@@ -120,7 +120,7 @@
                 "text": "number"
               },
               "static": true,
-              "default": "8",
+              "default": "16",
               "description": "The default padding of the arrow."
             },
             {

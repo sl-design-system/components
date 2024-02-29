@@ -759,6 +759,241 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/card/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/card.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/card/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-card",
+          "declaration": {
+            "name": "Card",
+            "module": "/packages/components/card/src/card.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/card/src/card.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/card/src/card.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/card/src/card.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Let the user know you are processing their data or that the (part of the) page is loading.\n\n```html\n<sl-card></sl-card>\n```",
+          "name": "Card",
+          "cssProperties": [
+            {
+              "description": "The aspectratio of the media container (default is 4/3). By default this ratio is always maintained, and will cause the media to become smaller when there isn't sufficient space for the full width.",
+              "name": "--sl-card-media-aspect-ratio"
+            },
+            {
+              "description": "The width of the media in relation to the text. Can be set in pixels or `fr`.",
+              "name": "--sl-card-media-width"
+            },
+            {
+              "description": "X-Focuspoint of the media; this is taken as the center when the media is cropped.",
+              "name": "--sl-card-media-x"
+            },
+            {
+              "description": "Y-Focuspoint of the media; this is taken as the center when the media is cropped.",
+              "name": "--sl-card-media-y"
+            },
+            {
+              "description": "When card is smaller than this size it will switch from horizontal (when set) to vertical layout.",
+              "name": "--sl-card-orientation-breakpoint"
+            },
+            {
+              "description": "Set this to 100% when the aspectratio of the media doesn't matter and you want it to fill the full height of the card.",
+              "name": "--sl-card-stretch-image"
+            },
+            {
+              "description": "The width of the text in relation to the media. Can be set in pixels (not recommended) or `fr`.",
+              "name": "--sl-card-text-width"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Title of the card",
+              "name": "default"
+            },
+            {
+              "description": "Media, this can be an image or video",
+              "name": "media"
+            },
+            {
+              "description": "Subtitle or badges",
+              "name": "header"
+            },
+            {
+              "description": "Body text of the card",
+              "name": "body"
+            },
+            {
+              "description": "Icon button for actions on the card.",
+              "name": "actions"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "height",
+              "type": {
+                "text": "CardHeightOptions"
+              },
+              "default": "'fixed'",
+              "attribute": "height",
+              "reflects": true,
+              "expandedType": {
+                "text": "'fixed' | 'flex'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "icon",
+              "type": {
+                "text": "string | undefined"
+              },
+              "attribute": "icon",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "mediaPosition",
+              "type": {
+                "text": "CardMediaPosition"
+              },
+              "default": "'start'",
+              "attribute": "media-position",
+              "reflects": true,
+              "expandedType": {
+                "text": "'start' | 'end'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "orientation",
+              "type": {
+                "text": "CardOrientation"
+              },
+              "default": "'horizontal'",
+              "attribute": "orientation",
+              "reflects": true,
+              "expandedType": {
+                "text": "'horizontal' | 'vertical'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "padding",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "padding",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "padding",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "padding"
+            },
+            {
+              "name": "height",
+              "type": {
+                "text": "CardHeightOptions"
+              },
+              "default": "'fixed'",
+              "fieldName": "height",
+              "expandedType": {
+                "text": "'fixed' | 'flex'"
+              }
+            },
+            {
+              "name": "orientation",
+              "type": {
+                "text": "CardOrientation"
+              },
+              "default": "'horizontal'",
+              "fieldName": "orientation",
+              "expandedType": {
+                "text": "'horizontal' | 'vertical'"
+              }
+            },
+            {
+              "name": "icon",
+              "type": {
+                "text": "string | undefined"
+              },
+              "fieldName": "icon"
+            },
+            {
+              "name": "media-position",
+              "type": {
+                "text": "CardMediaPosition"
+              },
+              "default": "'start'",
+              "fieldName": "mediaPosition",
+              "expandedType": {
+                "text": "'start' | 'end'"
+              }
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-card",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Card",
+          "declaration": {
+            "name": "Card",
+            "module": "../packages/components/card/src/card.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/checkbox/index.ts",
       "declarations": [],
       "exports": [

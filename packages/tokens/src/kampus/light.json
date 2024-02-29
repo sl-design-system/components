@@ -3641,7 +3641,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color"
         },
         "indicator": {
@@ -3659,7 +3659,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color"
         }
       },
@@ -3673,7 +3673,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color"
         }
       },
@@ -3687,7 +3687,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color"
         }
       },
@@ -3701,7 +3701,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.300}",
           "type": "color"
         }
       },
@@ -3726,13 +3726,13 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.300}",
         "type": "color"
       }
     },
     "spinner": {
       "default": {
-        "value": "{color.palette.primary.500}",
+        "value": "{color.palette.primary.600}",
         "type": "color"
       },
       "white": {
@@ -3740,7 +3740,7 @@
         "type": "color"
       },
       "accent": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.accent.600}",
         "type": "color"
       },
       "info": {
@@ -3748,11 +3748,11 @@
         "type": "color"
       },
       "success": {
-        "value": "{color.palette.success.base}",
+        "value": "{color.palette.success.500}",
         "type": "color"
       },
       "warning": {
-        "value": "{color.palette.warning.base}",
+        "value": "{color.palette.warning.600}",
         "type": "color"
       },
       "danger": {
@@ -3803,8 +3803,7 @@
         "type": "dropShadow"
       },
       "type": "boxShadow",
-      "description": "boxShadow.focus",
-      "failedToResolve": true
+      "description": "boxShadow.focus"
     },
     "none": {
       "value": {

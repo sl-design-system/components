@@ -3752,7 +3752,7 @@
     },
     "spinner": {
       "default": {
-        "value": "{color.palette.primary.500}",
+        "value": "{color.palette.primary.300}",
         "type": "color"
       },
       "white": {
@@ -3768,7 +3768,7 @@
         "type": "color"
       },
       "success": {
-        "value": "{color.palette.success.base}",
+        "value": "{color.palette.success.500}",
         "type": "color"
       },
       "warning": {
@@ -3776,7 +3776,7 @@
         "type": "color"
       },
       "danger": {
-        "value": "{color.palette.danger.base}",
+        "value": "{color.palette.danger.500}",
         "type": "color"
       }
     },

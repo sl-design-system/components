@@ -1,4 +1,10 @@
 export const icons = {
+  'angle-down': {
+    value: 'ellipsis',
+    type: 'Icons',
+    description: 'icon.core.angle-down',
+    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M432 256a48 48 0 1 1 -96 0 48 48 0 1 1 96 0zm-160 0a48 48 0 1 1 -96 0 48 48 0 1 1 96 0zM64 304a48 48 0 1 1 0-96 48 48 0 1 1 0 96z" fill="var(--fill-default)"></path></svg>'
+  },
   check: {
     value: 'check',
     type: 'Icons',
@@ -10,6 +16,12 @@ export const icons = {
     type: 'Icons',
     description: 'icon.core.chevron-down',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M239 401c9.4 9.4 24.6 9.4 33.9 0L465 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-175 175L81 175c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L239 401z" fill="var(--fill-default)"></path></svg>'
+  },
+  'chevron-right': {
+    value: 'chevron-right',
+    type: 'Icons',
+    description: 'icon.core.chevron-down',
+    svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M305 239c9.4 9.4 9.4 24.6 0 33.9L113 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L79 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L305 239z" fill="var(--fill-default)"></path></svg>'
   },
   circle: { svg: '<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg>' },
   'circle-check-solid': {
@@ -41,6 +53,12 @@ export const icons = {
   },
   hand: {
     svg: '<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M12.855 2.531c-.2 0-.229.029-.343.029-.287-.802-1.06-1.404-1.948-1.404-.2 0-.373.029-.544.086C9.647.641 8.988.24 8.272.24c-.745 0-1.404.4-1.776 1.002a1.622 1.622 0 0 0-.516-.086A2.072 2.072 0 0 0 3.918 3.22v4.349c-.172-.029-.315-.058-.458-.058-1.26 0-2.292 1.032-2.292 2.32 0 .574.2 1.118.602 1.548l2.32 2.492a5.984 5.984 0 0 0 4.354 1.89h.86c3.036 0 5.528-2.463 5.528-5.5V4.594c0-1.117-.86-2.063-1.977-2.063Zm.602 7.73a4.126 4.126 0 0 1-4.125 4.124h-.888a4.662 4.662 0 0 1-3.352-1.432L2.83 10.49a.915.915 0 0 1-.286-.66c0-.63.544-.916.888-.916.258 0 .516.115.687.315l.774.802a.219.219 0 0 0 .143.057c.143 0 .23-.085.23-.229V3.22c0-.373.314-.688.687-.688.372 0 .659.315.659.688v4.68c.057.257.257.458.515.458.23 0 .43-.2.43-.43l.029-5.625c0-.372.286-.687.658-.687.373 0 .66.315.66.687v5.596c.057.258.257.459.515.459.23 0 .43-.2.43-.43v-4.68c0-.372.315-.687.687-.687.373 0 .659.315.659.687v4.68c.057.23.258.43.516.43.229 0 .43-.2.43-.43V4.594c0-.373.286-.688.658-.688.373 0 .659.315.659.688v5.666Z"/></svg>'
+  },
+  house: {
+    value: 'ellipsis',
+    type: 'Icons',
+    description: 'icon.core.house',
+    svg: '<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M432 256a48 48 0 1 1 -96 0 48 48 0 1 1 96 0zm-160 0a48 48 0 1 1 -96 0 48 48 0 1 1 96 0zM64 304a48 48 0 1 1 0-96 48 48 0 1 1 0 96z" fill="var(--fill-default)"></path></svg>'
   },
   info: {
     svg: '<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16ZM9.125 4.005a1.125 1.125 0 1 1-2.25 0 1.125 1.125 0 0 1 2.25 0ZM8 6.505a1 1 0 0 1 1 1v4.5a1 1 0 1 1-2 0v-4.5a1 1 0 0 1 1-1Z"/></svg>'

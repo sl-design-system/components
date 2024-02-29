@@ -2469,6 +2469,11 @@
         "type": "Icons",
         "description": "icon.core.chevron-down"
       },
+      "chevron-right": {
+        "value": "chevron-right",
+        "type": "Icons",
+        "description": "icon.core.chevron-down"
+      },
       "check": {
         "value": "check",
         "type": "Icons",
@@ -2498,6 +2503,16 @@
         "value": "ellipsis",
         "type": "Icons",
         "description": "icon.core.ellipsis"
+      },
+      "house": {
+        "value": "ellipsis",
+        "type": "Icons",
+        "description": "icon.core.house"
+      },
+      "angle-down": {
+        "value": "ellipsis",
+        "type": "Icons",
+        "description": "icon.core.angle-down"
       }
     },
     "typeset": {

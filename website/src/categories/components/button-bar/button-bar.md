@@ -9,6 +9,6 @@ packageName: button-bar
 eleventyNavigation:
   parent: Components
   key: Button bar
-  order: 4
+  order: 7
   status: coming
 ---

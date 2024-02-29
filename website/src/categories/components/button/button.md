@@ -11,6 +11,6 @@ tags: component
 eleventyNavigation:
   parent: Components
   key: Button
-  order: 3
+  order: 6
   status: ready
 ---

@@ -2311,6 +2311,11 @@
       "type": "spacing",
       "description": "space.2xl"
     },
+    "3xl": {
+      "value": 40,
+      "type": "spacing",
+      "description": "space.3xl"
+    },
     "button": {
       "solid": {
         "block": {

@@ -5,23 +5,20 @@ eleventyNavigation:
   parent: Card
   key: CardOverview
 ---
+
 <section>
 
 <div class="ds-example">
 
-<sl-avatar uniqueProfileId="1"></sl-avatar>
-<sl-avatar uniqueProfileId="2"></sl-avatar>
-<sl-avatar uniqueProfileId="3"></sl-avatar>
+<sl-card>This is a card</sl-card>
 
 </div>
 
 <div class="ds-code">
 
-```html
-<sl-avatar uniqueProfileId="1"></sl-avatar>
-<sl-avatar uniqueProfileId="2"></sl-avatar>
-<sl-avatar uniqueProfileId="3"></sl-avatar>
-```
+  ```html
+  <sl-card>This is a card</sl-card>
+  ```
 
 </div>
 
@@ -41,7 +38,7 @@ Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tell
 <div class="ds-success__content">
 
 ### Do
-  
+
 Place text here
 
 </div>
@@ -56,7 +53,7 @@ Place text here
 <div class="ds-danger__content">
 
 ### Don't
-  
+
 Place text here
 
 </div>
@@ -91,3 +88,4 @@ Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molesti
 Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
 
 </section>
+

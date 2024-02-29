@@ -1,5 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
 import { Icon } from '@sl-design-system/icon';
+import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
@@ -173,6 +174,66 @@ describe('sl-breadcrumbs', () => {
       menuButton?.querySelector<HTMLElement>('sl-menu-item')?.click();
 
       expect(onClick).to.have.been.calledOnce;
+    });
+  });
+
+  describe('on mobile', () => {
+    beforeEach(async () => {
+      // iPhone 15 portrait
+      await setViewport({ width: 393, height: 852 })
+
+      el = await fixture(html`
+        <sl-breadcrumbs>
+          <a href="javascript:void(0)">1</a>
+          <a href="javascript:void(0)">2</a>
+          <a href="javascript:void(0)">3</a>
+          <a href="javascript:void(0)">4</a>
+          <a href="javascript:void(0)">5</a>
+          <span>6</span>
+        </sl-breadcrumbs>
+      `);
+
+      // Give the resize observer time to process
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should only show the home icon', () => {
+      const homeLink = el.renderRoot.querySelector('a')!;
+
+      expect(homeLink).to.contain('sl-icon');
+      expect(homeLink).not.to.have.text('Home');
+    });
+
+    it('should only show the last 2 breadcrumbs', () => {
+      const children = Array.from(el.children);
+
+      expect(children).to.have.length(5 + 5 + 1);
+      expect(children[0]).to.not.be.displayed; // <a>1</a>
+      expect(children[1]).to.not.be.displayed; // <sl-icon>
+      expect(children[2]).to.not.be.displayed; // <a>2</a>
+      expect(children[3]).to.not.be.displayed; // <sl-icon>
+      expect(children[4]).to.not.be.displayed; // <a>3</a>
+      expect(children[5]).to.not.be.displayed; // <sl-icon>
+      expect(children[6]).to.not.be.displayed; // <a>4</a>
+      expect(children[7]).to.be.displayed; // <sl-icon>
+      expect(children[8]).to.be.displayed; // <a>5</a>
+      expect(children[9]).to.be.displayed; // <sl-icon>
+      expect(children[10]).to.be.displayed; // <span>6</span>
+    });
+
+    it('should show all hidden links in the menu', () => {
+      const menuButton = el.renderRoot.querySelector('sl-menu-button'),
+        menuItems = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []);
+
+      expect(menuButton).to.exist;
+      expect(menuButton).to.have.attribute('fill', 'link');
+      expect(menuButton?.querySelector('sl-icon')).to.have.attribute('name', 'far-ellipsis');
+
+      expect(menuItems).to.have.length(4);
+      expect(menuItems[0]).to.have.text('1')
+      expect(menuItems[1]).to.have.text('2')
+      expect(menuItems[2]).to.have.text('3')
+      expect(menuItems[3]).to.have.text('4')
     });
   });
 });

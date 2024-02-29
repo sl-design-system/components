@@ -324,7 +324,6 @@ export const All: Story = {
         <h2>${titles[0]}</h2>
         <h3 slot="header">Sub header</h3>
         <p slot="body"><em>padding</em> - ${bodyCopy[0]}</p>
-        e
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="ellipsis"></sl-icon></sl-button>
       </sl-card>
 

@@ -90,7 +90,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** The avatar configuration settings from the current theme. */
   #config?: AvatarConfig;
 
-  /** Observe the grid width. */
+  /** Observe the avatar width. */
   #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
     this.#checkOverflow();
   });

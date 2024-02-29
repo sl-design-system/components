@@ -61,11 +61,11 @@
 }
 
 .arrow {
+  block-size: var(--_arrow-width);
   display: flex;
   fill: var(--_background);
-  height: var(--_arrow-width);
+  inline-size: var(--_arrow-width);
   position: absolute;
-  width: var(--_arrow-width);
 
   path {
     fill: var(--_background);

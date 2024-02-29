@@ -1,26 +1,17 @@
 :host {
+  --_arrow-height: 6px;
+  --_arrow-width: 16px;
   --_background: var(--sl-color-tooltip-background);
-  --_border: 0;
   --_border-radius: var(--sl-border-radius-default);
+  --_border: 0;
   --_color: var(--sl-color-tooltip-foreground);
   --_font: var(--sl-text-tooltip-text-tip);
   --_max-width: var(--sl-tooltip-max-width, auto);
   --_padding-block: var(--sl-space-tooltip-block);
   --_padding-inline: var(--sl-space-tooltip-inline);
-
-  /* to position */
-  --_arrow-height: 6px;
-  --_arrow-width: 16px;
-  /* the distance from the edge when the arrow is positionend at start or end */
-  --_arrow-start-end-offset: var(--sl-space-tooltip-arrow-offset);
 }
 
 :host {
-  /** This has to be in pixels until we can use @property.
-   *  --_arrow-height + tooltip offset
-   */
-  --sl-popover-offset: 14px;
-
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
@@ -45,18 +36,6 @@
   inset-block-start: calc(var(--_arrow-height) * -1);
 }
 
-:host([actual-placement='bottom']) .arrow {
-  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='bottom-start']) .arrow {
-  inset-inline-start: var(--_arrow-start-end-offset);
-}
-
-:host([actual-placement='bottom-end']) .arrow {
-  inset-inline-end: var(--_arrow-start-end-offset);
-}
-
 :host([actual-placement^='left']) .arrow {
   inset-inline-end: calc(var(--_arrow-height) * -1);
 
@@ -65,18 +44,6 @@
     transform-origin: top center;
     translate: 8px 8px;
   }
-}
-
-:host([actual-placement='left']) .arrow {
-  inset-block: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='left-start']) .arrow {
-  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
-:host([actual-placement='left-end']) .arrow {
-  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
 }
 
 :host([actual-placement^='right']) .arrow {
@@ -89,39 +56,15 @@
   }
 }
 
-:host([actual-placement='right']) .arrow {
-  inset-block: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='right-start']) .arrow {
-  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
-:host([actual-placement='right-end']) .arrow {
-  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
 :host([actual-placement^='top']) .arrow {
   inset-block-end: calc(var(--_arrow-height) * -1);
   scale: 1 -1;
 }
 
-:host([actual-placement='top']) .arrow {
-  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='top-start']) .arrow {
-  inset-inline-start: var(--_arrow-start-end-offset);
-}
-
-:host([actual-placement='top-end']) .arrow {
-  inset-inline-end: var(--_arrow-start-end-offset);
-}
-
 .arrow {
+  block-size: var(--_arrow-width);
   display: flex;
   fill: var(--_background);
-  height: var(--_arrow-width);
+  inline-size: var(--_arrow-width);
   position: absolute;
-  width: var(--_arrow-width);
 }

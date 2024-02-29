@@ -58,6 +58,15 @@
             },
             {
               "kind": "field",
+              "name": "collapseThreshold",
+              "default": "3",
+              "description": "The threshold for when breadcrumbs should be collapsed into a menu.",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "kind": "field",
               "name": "homeUrl",
               "type": {
                 "text": "string"
@@ -141,7 +150,7 @@
             },
             {
               "kind": "method",
-              "name": "#updateTooltips",
+              "name": "#update",
               "return": {
                 "type": {
                   "text": "void"
@@ -164,7 +173,7 @@
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new ResizeObserver(() => this.#updateTooltips())",
+              "default": "new ResizeObserver(() => this.#update())",
               "description": "Observe changes in size, so we can check whether we need to show tooltips\nfor truncated links."
             },
             {
@@ -175,6 +184,15 @@
               },
               "default": "[]",
               "description": "The slotted breadcrumbs."
+            },
+            {
+              "kind": "field",
+              "name": "collapseThreshold",
+              "default": "3",
+              "description": "The threshold for when breadcrumbs should be collapsed into a menu.",
+              "type": {
+                "text": "number"
+              }
             },
             {
               "kind": "field",

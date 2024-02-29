@@ -32,6 +32,11 @@ Icon.register(faChevronRight, faEllipsis, faHouse);
  */
 const COLLAPSE_THRESHOLD = 3;
 
+// On mobile, only show the last 2 items.
+const MOBILE_COLLAPSE_THRESHOLD = 2;
+
+const isMobile = (): boolean => matchMedia('(width <= 600px)').matches;
+
 /**
  * A component to display a breadcrumb trail.
  *
@@ -74,10 +79,13 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    * Observe changes in size, so we can check whether we need to show tooltips
    * for truncated links.
    */
-  #observer = new ResizeObserver(() => this.#updateTooltips());
+  #observer = new ResizeObserver(() => this.#update());
 
   /** The slotted breadcrumbs. */
   @state() breadcrumbs: Breadcrumb[] = [];
+
+  /** The threshold for when breadcrumbs should be collapsed into a menu. */
+  @state() collapseThreshold = COLLAPSE_THRESHOLD;
 
   /**
    * The url for the home link, defaults to the root url.
@@ -117,15 +125,15 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       ${this.noHome
         ? nothing
         : html`
-            <a href=${this.homeUrl}><sl-icon name="far-house"></sl-icon>${msg('Home')}</a>
+            <a href=${this.homeUrl}><sl-icon name="far-house"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
             <sl-icon name="far-chevron-right"></sl-icon>
           `}
-      ${this.breadcrumbs.length > COLLAPSE_THRESHOLD
+      ${this.breadcrumbs.length > this.collapseThreshold
         ? html`
             <sl-menu-button fill="link">
               <sl-icon name="far-ellipsis" slot="button"></sl-icon>
               ${this.breadcrumbs
-                .slice(0, -COLLAPSE_THRESHOLD)
+                .slice(0, -this.collapseThreshold)
                 .map(
                   ({ element, label }) => html`<sl-menu-item @click=${() => element.click()}>${label}</sl-menu-item>`
                 )}
@@ -162,7 +170,9 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     });
   }
 
-  #updateTooltips(): void {
+  #update(): void {
+    this.collapseThreshold = isMobile() ? MOBILE_COLLAPSE_THRESHOLD : COLLAPSE_THRESHOLD;
+
     this.breadcrumbs.forEach(breadcrumb => {
       const element = breadcrumb.element;
 

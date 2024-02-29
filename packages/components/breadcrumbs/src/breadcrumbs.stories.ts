@@ -47,10 +47,20 @@ export const Collapse: Story = {
     `
   }
 };
+
 export const HomeUrl: Story = {
   args: {
     ...Basic.args,
     homeUrl: 'https://example.com'
+  }
+};
+
+export const Mobile: Story = {
+  ...Basic,
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphone5'
+    }
   }
 };
 

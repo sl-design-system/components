@@ -38,7 +38,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Base popover web component.",
+          "description": "A floating overlay that appears on top of other elements.",
           "name": "Popover",
           "cssParts": [
             {
@@ -55,6 +55,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "12",
+              "description": "The default offset of the popover to its anchor."
+            },
+            {
+              "kind": "field",
               "name": "position",
               "type": {
                 "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
@@ -62,6 +72,16 @@
               "default": "'bottom'",
               "description": "The position of popover relative to its anchor.",
               "attribute": "position"
+            },
+            {
+              "kind": "field",
+              "name": "viewportMargin",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default margin between the tooltip and the viewport."
             }
           ],
           "attributes": [
@@ -81,26 +101,18 @@
           },
           "tagName": "sl-popover",
           "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "#onKeydown",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ]
-            }
-          ],
+          "methods": [],
           "fields": [
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "12",
+              "description": "The default offset of the popover to its anchor."
+            },
             {
               "kind": "field",
               "name": "shadowRootOptions",
@@ -113,22 +125,20 @@
             },
             {
               "kind": "field",
-              "name": "#events",
-              "privacy": "private",
-              "default": "new EventsController(this)"
+              "name": "viewportMargin",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default margin between the tooltip and the viewport."
             },
             {
               "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this)",
+              "default": "new AnchorController(this, { offset: Popover.offset, viewportMargin: Popover.viewportMargin })",
               "description": "Controller for managing anchoring."
-            },
-            {
-              "kind": "field",
-              "name": "#popoverId",
-              "privacy": "private",
-              "default": "`sl-popover-${nextUniqueId++}`"
             }
           ]
         }

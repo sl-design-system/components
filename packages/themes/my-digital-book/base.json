@@ -1882,6 +1882,26 @@
           }
         }
       }
+    },
+    "tab": {
+      "title": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.lg}"
+        },
+        "type": "typography"
+      },
+      "subtitle": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.md}"
+        },
+        "type": "typography"
+      }
     }
   },
   "borderRadius": {
@@ -2093,6 +2113,16 @@
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        }
+      },
+      "border": {
+        "tab": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        },
+        "tabbar": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
         }
       },
       "none": {
@@ -3651,74 +3681,13 @@
       }
     }
   },
-  "opacity": {
-    "50": {
-      "value": 0.02,
-      "type": "opacity",
-      "description": "opacity.50"
-    },
-    "100": {
-      "value": 0.04,
-      "type": "opacity",
-      "description": "opacity.100"
-    },
-    "150": {
-      "value": 0.06,
-      "type": "opacity",
-      "description": "opacity.150"
-    },
-    "200": {
-      "value": 0.08,
-      "type": "opacity",
-      "description": "opacity.200"
-    },
-    "300": {
-      "value": 0.12,
-      "type": "opacity",
-      "description": "opacity.300"
-    },
-    "400": {
-      "value": 0.16,
-      "type": "opacity",
-      "description": "opacity.400"
-    },
-    "500": {
-      "value": 0.2,
-      "type": "opacity",
-      "description": "opacity.500"
-    },
-    "600": {
-      "value": 0.32,
-      "type": "opacity",
-      "description": "opacity.600"
-    },
-    "700": {
-      "value": 0.48,
-      "type": "opacity",
-      "description": "opacity.700"
-    },
-    "800": {
-      "value": 0.64,
-      "type": "opacity",
-      "description": "opacity.800"
-    },
-    "900": {
-      "value": 0.8,
-      "type": "opacity",
-      "description": "opacity.900"
-    },
-    "1000": {
-      "value": 1,
-      "type": "opacity",
-      "description": "opacity.1000"
-    },
-    "transparent": {
-      "value": 0,
-      "type": "opacity",
-      "description": "opacity.transparent"
-    }
-  },
   "size": {
+    "select": {
+      "indicator": {
+        "value": "{size.3xs}",
+        "type": "sizing"
+      }
+    },
     "none": {
       "value": 0,
       "type": "sizing",
@@ -4046,6 +4015,73 @@
         "value": "{size.4xl}",
         "type": "sizing"
       }
+    }
+  },
+  "opacity": {
+    "50": {
+      "value": 0.02,
+      "type": "opacity",
+      "description": "opacity.50"
+    },
+    "100": {
+      "value": 0.04,
+      "type": "opacity",
+      "description": "opacity.100"
+    },
+    "150": {
+      "value": 0.06,
+      "type": "opacity",
+      "description": "opacity.150"
+    },
+    "200": {
+      "value": 0.08,
+      "type": "opacity",
+      "description": "opacity.200"
+    },
+    "300": {
+      "value": 0.12,
+      "type": "opacity",
+      "description": "opacity.300"
+    },
+    "400": {
+      "value": 0.16,
+      "type": "opacity",
+      "description": "opacity.400"
+    },
+    "500": {
+      "value": 0.2,
+      "type": "opacity",
+      "description": "opacity.500"
+    },
+    "600": {
+      "value": 0.32,
+      "type": "opacity",
+      "description": "opacity.600"
+    },
+    "700": {
+      "value": 0.48,
+      "type": "opacity",
+      "description": "opacity.700"
+    },
+    "800": {
+      "value": 0.64,
+      "type": "opacity",
+      "description": "opacity.800"
+    },
+    "900": {
+      "value": 0.8,
+      "type": "opacity",
+      "description": "opacity.900"
+    },
+    "1000": {
+      "value": 1,
+      "type": "opacity",
+      "description": "opacity.1000"
+    },
+    "transparent": {
+      "value": 0,
+      "type": "opacity",
+      "description": "opacity.transparent"
     }
   },
   "button": {

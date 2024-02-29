@@ -11,6 +11,19 @@
   --sl-flex-direction-row-reverse: row-reverse;
   --sl-flex-direction-column-reverse: column-reverse;
   --sl-flex-direction-column: column;
+  --sl-opacity-transparent: 0;
+  --sl-opacity-1000: 1;
+  --sl-opacity-900: 0.8;
+  --sl-opacity-800: 0.64;
+  --sl-opacity-700: 0.48;
+  --sl-opacity-600: 0.32;
+  --sl-opacity-500: 0.2;
+  --sl-opacity-400: 0.16;
+  --sl-opacity-300: 0.12;
+  --sl-opacity-200: 0.08;
+  --sl-opacity-150: 0.06;
+  --sl-opacity-100: 0.04;
+  --sl-opacity-50: 0.02;
   --sl-size-avatar-3xl: 80px;
   --sl-size-avatar-xl: 52px;
   --sl-size-avatar-lg: 40px;
@@ -31,19 +44,6 @@
   --sl-size-3xs: 4px;
   --sl-size-4xs: 2px;
   --sl-size-none: 0px;
-  --sl-opacity-transparent: 0;
-  --sl-opacity-1000: 1;
-  --sl-opacity-900: 0.8;
-  --sl-opacity-800: 0.64;
-  --sl-opacity-700: 0.48;
-  --sl-opacity-600: 0.32;
-  --sl-opacity-500: 0.2;
-  --sl-opacity-400: 0.16;
-  --sl-opacity-300: 0.12;
-  --sl-opacity-200: 0.08;
-  --sl-opacity-150: 0.06;
-  --sl-opacity-100: 0.04;
-  --sl-opacity-50: 0.02;
   --sl-icon-typeset-font-size-2xs: 10px;
   --sl-icon-core-ellipsis: ellipsis;
   --sl-icon-core-circle-check-solid: circle-check;
@@ -292,6 +292,7 @@
   --sl-size-input-option-lg: var(--sl-size-2xl);
   --sl-size-input-option-md: var(--sl-size-xl);
   --sl-size-input-option-sm: var(--sl-size-lg);
+  --sl-size-select-indicator: var(--sl-size-3xs);
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
@@ -505,6 +506,8 @@
   --sl-space-tooltip-inline: var(--sl-space-md);
   --sl-space-tooltip-block: var(--sl-space-sm);
   --sl-space-tooltip-arrow-offset: var(--sl-space-sm);
+  --sl-border-width-border-tabbar: var(--sl-border-width-xs);
+  --sl-border-width-border-tab: var(--sl-border-width-xs);
   --sl-border-width-tooltip-border: var(--sl-border-width-xs);
   --sl-border-width-tooltip-none: var(--sl-border-width-none);
   --sl-border-width-dialog-default: var(--sl-border-width-none);
@@ -532,6 +535,10 @@
   --sl-border-radius-button-md: var(--sl-border-radius-2xl);
   --sl-border-radius-button-sm: var(--sl-border-radius-lg);
   --sl-border-radius-badge-full: var(--sl-border-radius-full);
+  --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-list-sm-normal: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-tooltip-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /

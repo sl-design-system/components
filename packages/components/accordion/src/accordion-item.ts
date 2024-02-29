@@ -94,8 +94,16 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
       <details @toggle=${this.onToggle} @click=${this.#onClick} ?open=${this.open}>
         <summary tabindex=${this.hasAttribute('disabled') ? -1 : 0} part="summary">
           <span class="icons">
-            <sl-icon name="fas-plus" class="plus"></sl-icon>
-            <sl-icon name="fas-minus" class=${classMap({ opened: !!this.open, minus: true })}></sl-icon>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 147 172"
+              width="24px"
+              class=${classMap({ opened: !!this.open })}
+            >
+              <rect class="horizontal-line" width="12.116" height="97.939" x="67.442" y="37.0305" rx="5.048" />
+              <rect class="vertical-line" width="12.116" height="97.939" x="67.442" y="37.0305" rx="5.048" />
+            </svg>
           </span>
           ${this.summary}
         </summary>

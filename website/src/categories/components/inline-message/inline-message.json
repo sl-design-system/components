@@ -3,7 +3,7 @@
   "tags": "inline-message",
   "componentTagName": [
     {
-      "name": "Inline field",
+      "name": "Inline message",
       "selector": "sl-inline-message"
     }
   ]

@@ -109,7 +109,7 @@ describe('sl-menu-button', () => {
         const icon = button.querySelector('sl-icon');
 
         expect(icon).to.exist;
-        expect(icon).to.have.attribute('name', 'far-angle-down');
+        expect(icon).to.have.attribute('name', 'angle-down');
       });
 
       it('should focus the button after the menu is hidden', async () => {
@@ -248,7 +248,7 @@ describe('sl-menu-button', () => {
     });
 
     it('should not have an arrow in the button', () => {
-      expect(button.querySelector('sl-icon[name="far-angle-down"]')).not.to.exist;
+      expect(button.querySelector('sl-icon[name="angle-down"]')).not.to.exist;
     });
 
     it('should not have a selected span', () => {

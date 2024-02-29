@@ -1,4 +1,3 @@
-import { faAngleDown } from '@fortawesome/pro-regular-svg-icons';
 import { type PopoverPosition } from '@sl-design-system/shared';
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
@@ -9,8 +8,6 @@ import { property, query, state } from 'lit/decorators.js';
 import { Menu } from './menu.js';
 import { MenuItem } from './menu-item.js';
 import styles from './menu-button.scss.js';
-
-Icon.register(faAngleDown);
 
 /**
  * Custom element that combines a button and a menu and automatically wires them up
@@ -89,7 +86,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
       >
         <slot name="button"></slot>
         ${this.selects && this.selected ? html`<span class="selected">${this.selected}</span>` : nothing}
-        ${iconOnly ? nothing : html`<sl-icon name="far-angle-down"></sl-icon>`}
+        ${iconOnly ? nothing : html`<sl-icon name="angle-down"></sl-icon>`}
       </sl-button>
       <sl-menu
         @click=${this.#onMenuClick}

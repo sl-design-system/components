@@ -1,30 +1,40 @@
-import type { Popover } from './popover.js';
-import type { Button } from '@sl-design-system/button';
-import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/text-field/register.js';
-import { html } from 'lit';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
+import { type Popover } from './popover.js';
 
-type Props = Pick<Popover, 'position'>;
+type Props = Pick<Popover, 'position'> & {
+  alignSelf: string;
+  body: string | (() => TemplateResult);
+  justifySelf: string;
+};
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Popover',
-  parameters: {
-    layout: 'centered'
-  }
-} satisfies Meta<Props>;
-
-export const Basic: Story = {
   args: {
+    alignSelf: 'center',
+    body: `I'm a popover example`,
+    justifySelf: 'center',
     position: 'bottom'
   },
   argTypes: {
-    position: {
+    alignSelf: {
       control: 'inline-radio',
+      options: ['start', 'center', 'end']
+    },
+    body: {
+      table: { disable: true }
+    },
+    justifySelf: {
+      control: 'inline-radio',
+      options: ['start', 'center', 'end']
+    },
+    position: {
+      control: 'select',
       options: [
         'top',
         'top-start',
@@ -41,16 +51,63 @@ export const Basic: Story = {
       ]
     }
   },
-  render: ({ position }) => {
+  render: ({ alignSelf, justifySelf, body, position }) => {
     const onClick = (): void => {
       const popover = document.querySelector('sl-popover') as HTMLElement;
       popover.togglePopover();
     };
 
     return html`
-      <sl-button @click=${onClick} id="button" variant="primary">Toggle popover</sl-button>
-      <sl-popover anchor="button" position=${ifDefined(position)}>I'm a popover example</sl-popover>
+      <style>
+        #root-inner {
+          display: grid;
+          height: calc(100dvh - 2rem);
+          place-items: center;
+        }
+      </style>
+      <sl-button
+        @click=${onClick}
+        id="button"
+        variant="primary"
+        style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
+        >Toggle</sl-button
+      >
+      <sl-popover anchor="button" .position=${position}>${typeof body === 'string' ? body : body()}</sl-popover>
     `;
+  }
+} satisfies Meta<Props>;
+
+export const Basic: Story = {};
+
+export const RichContent: Story = {
+  args: {
+    body: () => {
+      const onClose = (event: Event & { target: HTMLElement }): void => {
+        event.target.closest('sl-popover')?.hidePopover();
+      };
+
+      return html`
+        <style>
+          header {
+            font: var(--sl-text-popover-text-title);
+          }
+
+          hr {
+            margin: 8px 0;
+          }
+        </style>
+        <header>Please confirm</header>
+        <section>
+          <hr color="#D9D9D9" />
+          Are you sure you want to continue?
+          <hr color="#D9D9D9" />
+        </section>
+        <sl-button-bar align="end">
+          <sl-button @click=${onClose} autofocus size="sm">Cancel</sl-button>
+          <sl-button @click=${onClose} size="sm" variant="primary">Confirm</sl-button>
+        </sl-button-bar>
+      `;
+    }
   }
 };
 
@@ -90,94 +147,6 @@ export const All: Story = {
         <sl-popover anchor="anchor2" popover="manual" position="left-start">Left <br> start <br> example</sl-popover>
         <sl-popover anchor="anchor2" popover="manual" position="left-end">Left <br> end <br> example</sl-popover>
       </div>
-    `;
-  }
-};
-
-export const MoreComplexContent: Story = {
-  render: () => {
-    const onClick = (event: Event & { target: Button }): void => {
-      const popover = event.target.nextElementSibling as HTMLElement;
-
-      popover.togglePopover();
-    };
-
-    const onClose = (event: Event & { target: Button }): void => {
-      event.target.closest('sl-popover')?.hidePopover();
-    };
-
-    return html`
-      <style>
-        header {
-          font: var(--sl-text-popover-text-title);
-        }
-
-        hr {
-          margin: 8px 0;
-        }
-
-        footer {
-          display: flex;
-          gap: 8px;
-          justify-content: end;
-        }
-      </style>
-      <div>
-        <sl-button id="anchor" variant="primary" @click=${onClick}>Toggle popover</sl-button>
-        <sl-popover anchor="anchor">
-          <header>Please confirm</header>
-          <section>
-            <hr color="#D9D9D9" />
-            Are you sure you want to continue?
-            <hr color="#D9D9D9" />
-          </section>
-          <footer>
-            <sl-button @click=${onClose} autofocus size="sm">Cancel</sl-button>
-            <sl-button @click=${onClose} size="sm" variant="primary">Confirm</sl-button>
-          </footer>
-        </sl-popover>
-      </div>
-    `;
-  }
-};
-
-export const Edges: Story = {
-  render: () => {
-    setTimeout(() => {
-      document.querySelectorAll('sl-popover').forEach(popover => popover.showPopover());
-    });
-
-    return html`
-      <style>
-        #anchor1 {
-          inset: 0 auto auto 50%;
-          position: fixed;
-          translate: -50%;
-        }
-        #anchor2 {
-          inset: 50% 0 auto auto;
-          position: fixed;
-          translate: 0 -50%;
-        }
-        #anchor3 {
-          inset: auto auto 0 50%;
-          position: fixed;
-          translate: -50%;
-        }
-        #anchor4 {
-          inset: 50% auto auto 0;
-          position: fixed;
-          translate: 0 -50%;
-        }
-      </style>
-      <span id="anchor1">Popover</span>
-      <span id="anchor2">Popover</span>
-      <span id="anchor3">Popover</span>
-      <span id="anchor4">Popover</span>
-      <sl-popover anchor="anchor1" popover="manual" position="top">Top</sl-popover>
-      <sl-popover anchor="anchor2" popover="manual" position="right">Right</sl-popover>
-      <sl-popover anchor="anchor3" popover="manual" position="bottom">Bottom</sl-popover>
-      <sl-popover anchor="anchor4" popover="manual" position="left">Left</sl-popover>
     `;
   }
 };

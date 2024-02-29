@@ -69,17 +69,17 @@ describe('sl-menu-item', () => {
     });
 
     it('should have a check icon when selected', async () => {
-      expect(el.renderRoot.querySelector('sl-icon[name="far-check"]')).to.exist;
+      expect(el.renderRoot.querySelector('sl-icon[name="check"]')).to.exist;
 
       el.click();
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('sl-icon[name="far-check"]')).not.to.exist;
+      expect(el.renderRoot.querySelector('sl-icon[name="check"]')).not.to.exist;
 
       el.click();
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('sl-icon[name="far-check"]')).to.exist;
+      expect(el.renderRoot.querySelector('sl-icon[name="check"]')).to.exist;
     });
 
     it('should toggle selected when clicked', () => {
@@ -206,7 +206,7 @@ describe('sl-menu-item', () => {
       const icon = el.renderRoot.querySelector('sl-icon');
 
       expect(icon).to.exist;
-      expect(icon).to.have.attribute('name', 'far-chevron-right');
+      expect(icon).to.have.attribute('name', 'chevron-right');
     });
 
     it('should anchor the submenu to the menu item', () => {

@@ -1,0 +1,48 @@
+{
+  "name": "@sl-design-system/breadcrumbs",
+  "version": "0.0.0",
+  "description": "Breadcrumbs component for the SL Design System",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/components/breadcrumbs"
+  },
+  "homepage": "https://sanomalearning.design/components/breadcrumbs",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "customElements": "custom-elements.json",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json",
+    "./register.js": "./register.js"
+  },
+  "files": [
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.js.map",
+    "custom-elements.json"
+  ],
+  "sideEffects": [
+    "register.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  },
+  "dependencies": {
+    "@lit/localize": "^0.12.1",
+    "@open-wc/scoped-elements": "^3.0.5",
+    "@sl-design-system/icon": "0.0.7",
+    "@sl-design-system/menu": "0.0.1",
+    "@sl-design-system/tooltip": "0.0.18",
+    "lit": "^3.1.2"
+  }
+}

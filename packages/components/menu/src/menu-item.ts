@@ -1,4 +1,3 @@
-import { faCheck, faChevronRight } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import {
@@ -12,8 +11,6 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, state } from 'lit/decorators.js';
 import { Menu } from './menu.js';
 import styles from './menu-item.scss.js';
-
-Icon.register(faCheck, faChevronRight);
 
 /**
  * Menu item component for use inside a menu.
@@ -92,10 +89,10 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     return html`
       <div aria-hidden="true" class="safe-triangle"></div>
       <div class="wrapper">
-        ${this.selected ? html`<sl-icon name="far-check"></sl-icon>` : nothing}
+        ${this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
         <slot></slot>
         ${this.shortcut ? html`<kbd>${this.#shortcut.render(this.shortcut)}</kbd>` : nothing}
-        ${this.submenu ? html`<sl-icon name="far-chevron-right"></sl-icon>` : nothing}
+        ${this.submenu ? html`<sl-icon name="chevron-right"></sl-icon>` : nothing}
       </div>
       <slot @slotchange=${this.#onSubmenuChange} name="submenu"></slot>
     `;

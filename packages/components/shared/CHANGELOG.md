@@ -1,5 +1,13 @@
 # @sl-design-system/shared
 
+## 0.2.5
+
+### Patch Changes
+
+- [#992](https://github.com/sl-design-system/components/pull/992) [`dbc032b`](https://github.com/sl-design-system/components/commit/dbc032b3a7587dfcbdb6a2118330b039765cf0fb) - Fix npm install problem due to tinykeys dependency
+
+- [#984](https://github.com/sl-design-system/components/pull/984) [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc) - Change `AnchorController` to use the arrow positioning of floating-ui
+
 ## 0.2.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/shared",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Shared code for the SL Design System components",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^1.6.3",
-    "lit": "^3.1.2",
-    "tinykeys": "patch:tinykeys@npm%3A2.1.0#~/.yarn/patches/tinykeys-npm-2.1.0-819feeaed0.patch"
+    "lit": "^3.1.2"
   }
 }

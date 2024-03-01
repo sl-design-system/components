@@ -19,6 +19,8 @@ export class AnchorController implements ReactiveController {
     if (anchorElement && newState === 'open' && oldState === 'closed') {
       this.#cleanup = positionPopover(this.#host, anchorElement, {
         ...this.#config,
+        arrowElement: this.arrowElement,
+        arrowPadding: this.arrowPadding,
         maxWidth: this.maxWidth,
         offset: this.offset,
         position: this.position
@@ -44,6 +46,12 @@ export class AnchorController implements ReactiveController {
     }
   };
 
+  /** The arrow pointing from the popover to the anchor element. */
+  arrowElement?: string | HTMLElement;
+
+  /** The padding of the arrow. */
+  arrowPadding?: number;
+
   /** The offset of the popover to its anchor. */
   offset?: number;
 
@@ -58,6 +66,8 @@ export class AnchorController implements ReactiveController {
     this.#host = host;
     this.#host.addController(this);
 
+    this.arrowElement = this.#config.arrowElement;
+    this.arrowPadding = this.#config.arrowPadding;
     this.offset = this.#config.offset;
     this.maxWidth = this.#config.maxWidth;
     this.position = this.#config.position;

@@ -3760,12 +3760,12 @@
     },
     "skeleton": {
       "base": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.150}",
         "type": "color",
         "description": "body.surface.100"
       },
       "effect": {
-        "value": "{color.palette.neutral.150}",
+        "value": "{color.palette.neutral.300}",
         "type": "color",
         "description": "body.surface.100"
       },

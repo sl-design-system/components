@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/radio-group",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Radio group component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@lit/localize": "^0.12.1",
-    "@sl-design-system/form": "0.0.7",
-    "@sl-design-system/shared": "0.2.4"
+    "@sl-design-system/form": "0.0.8",
+    "@sl-design-system/shared": "0.2.5"
   }
 }

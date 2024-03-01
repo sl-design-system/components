@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/textarea",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Textarea component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@open-wc/scoped-elements": "^3.0.5",
-    "@sl-design-system/form": "0.0.7",
+    "@sl-design-system/form": "0.0.8",
     "@sl-design-system/icon": "0.0.7",
-    "@sl-design-system/shared": "0.2.4"
+    "@sl-design-system/shared": "0.2.5"
   }
 }

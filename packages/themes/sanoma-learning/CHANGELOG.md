@@ -1,5 +1,11 @@
 # @sanomalearning/slds-sanoma-learning
 
+## 0.3.0
+
+### Minor Changes
+
+- [#990](https://github.com/sl-design-system/components/pull/990) [`89d6d7f`](https://github.com/sl-design-system/components/commit/89d6d7f7d1686cab7c77d0f6cdf18be1367f5edc) - Added accordion tokens
+
 ## 0.2.4
 
 ### Patch Changes

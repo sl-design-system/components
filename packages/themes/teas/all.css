@@ -831,6 +831,9 @@
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
+    --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-500));
     --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-600));
     --sl-color-spinner-success: rgb(var(--sl-color-palette-success-600));
@@ -1294,6 +1297,15 @@
     --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-base));
     --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-skeleton-shimmer: linear-gradient
+      (
+        90deg,
+        var(--sl-color-skeleton-base) 0%,
+        var(--sl-color-skeleton-base) 10%,
+        var(--sl-color-skeleton-effect) 50%,
+        var(--sl-color-skeleton-base) 90%,
+        var(--sl-color-skeleton-base) 100%
+      );
     --sl-color-card-foreground: var(--sl-body-foreground);
     --sl-color-card-background: var(--sl-body-background);
     --sl-color-tab-content-foreground: var(--sl-body-foreground);

@@ -4,17 +4,16 @@ import type { CSSResultGroup } from 'lit';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { localized } from '@lit/localize';
-import { Icon } from '@sl-design-system/icon';
 import { Button } from '@sl-design-system/button';
 import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
 // import { EventsController } from '@sl-design-system/shared';
-import { faMinus, faPlus } from '@fortawesome/pro-solid-svg-icons';
+// import { faMinus, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './accordion-item.scss.js';
 
-Icon.register(faMinus, faPlus); // TODO: use tokens instead
+// Icon.register(faMinus, faPlus); // TODO: use tokens instead
 
 /**
  * An accordion item component.
@@ -28,8 +27,8 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
-      'sl-icon': Icon
+      'sl-button': Button
+      // 'sl-icon': Icon
     };
   }
 
@@ -78,12 +77,6 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
 
   override connectedCallback(): void {
     super.connectedCallback();
-
-    // this.inert = true;
-    // if (this.hasAttribute('disabled')) {
-    //   // this.tabIndex = this.disabled ? -1 : 0;
-    //   this.setAttribute('tabindex', '-1');
-    // }
   }
 
   // TODO: add disabled to details
@@ -93,18 +86,17 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     return html`
       <details @toggle=${this.onToggle} @click=${this.#onClick} ?open=${this.open}>
         <summary tabindex=${this.hasAttribute('disabled') ? -1 : 0} part="summary">
-          <span class="icons">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 147 172"
-              width="24px"
-              class=${classMap({ opened: !!this.open })}
-            >
-              <rect class="horizontal-line" width="12.116" height="97.939" x="67.442" y="37.0305" rx="5.048" />
-              <rect class="vertical-line" width="12.116" height="97.939" x="67.442" y="37.0305" rx="5.048" />
-            </svg>
-          </span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="28"
+            viewBox="0 0 24 28"
+            fill="none"
+            class=${classMap({ opened: !!this.open })}
+          >
+            <rect class="horizontal-line" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" fill="#222222" />
+            <rect class="vertical-line" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" fill="#222222" />
+          </svg>
           ${this.summary}
         </summary>
         <div class="panel" @animationend=${this.#closeOnAnimationend}>
@@ -114,13 +106,49 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     `;
   } // details - open
 
+  // TODO: additional div wrapper for the animation?
+
   //   ${this.open
   //             ? html` <sl-icon name="fas-minus" class="opened"></sl-icon> `
   //             : html` <sl-icon name="fas-plus"></sl-icon> `}
   // <sl-icon name="xmark"></sl-icon>
 
+  /*<svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 147 172"
+  width="24px"
+  height="28px"
+  class=${classMap({ opened: !!this.open })}
+>
+<rect class="horizontal-line" width="12.116" height="97.939" x="67.442" y="37.0305" rx="5.048" />
+<rect class="vertical-line" width="12.116" height="97.939" x="67.442" y="37.0305" rx="5.048" />
+  </svg>*/
+
   // <sl-icon name="fas-plus"></sl-icon>
   //     <sl-icon name="fas-minus"></sl-icon>
+
+  /*<span class="icons">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="28"
+  viewBox="0 0 24 28"
+  fill="none"
+  class=${classMap({ opened: !!this.open })}
+>
+<rect
+  class="horizontal-line"
+x="11.0103"
+y="6"
+width="1.97938"
+height="16"
+rx="0.824742"
+fill="#222222"
+/>
+<rect class="vertical-line" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" fill="#222222" />
+  </svg>
+  </span>*/
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const assignedNodes = event.target.assignedNodes({ flatten: true });

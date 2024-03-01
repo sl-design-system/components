@@ -1,5 +1,5 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
-import { type KeyBindingMap, tinykeys } from 'tinykeys';
+import { type KeyBindingMap, tinykeys } from '../vendor/tinykeys.js';
 
 type ShortcutTarget = Parameters<typeof tinykeys>[0];
 export type ShortcutMap = KeyBindingMap;

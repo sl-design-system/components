@@ -4837,6 +4837,112 @@
       "path": "src/types.ts",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/vendor/tinykeys.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createKeybindingsHandler",
+          "return": {
+            "type": {
+              "text": "EventListener"
+            }
+          },
+          "parameters": [
+            {
+              "name": "keyBindingMap",
+              "type": {
+                "text": "KeyBindingMap"
+              }
+            },
+            {
+              "name": "options",
+              "default": "{}",
+              "type": {
+                "text": "KeyBindingHandlerOptions"
+              }
+            }
+          ],
+          "description": "Creates an event listener for handling keybindings."
+        },
+        {
+          "kind": "function",
+          "name": "parseKeybinding",
+          "return": {
+            "type": {
+              "text": "KeyBindingPress[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Parses a \"Key Binding String\" into its parts\n\ngrammar    = `<sequence>`\n<sequence> = `<press> <press> <press> ...`\n<press>    = `<key>` or `<mods>+<key>`\n<mods>     = `<mod>+<mod>+...`"
+        },
+        {
+          "kind": "function",
+          "name": "tinykeys",
+          "return": {
+            "type": {
+              "text": "() => void"
+            }
+          },
+          "parameters": [
+            {
+              "name": "target",
+              "type": {
+                "text": "Window | HTMLElement"
+              }
+            },
+            {
+              "name": "keyBindingMap",
+              "type": {
+                "text": "KeyBindingMap"
+              }
+            },
+            {
+              "name": "options",
+              "default": "{}",
+              "type": {
+                "text": "KeyBindingOptions"
+              }
+            }
+          ],
+          "description": "Subscribes to keybindings.\n\nReturns an unsubscribe method."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "parseKeybinding",
+          "declaration": {
+            "name": "parseKeybinding",
+            "module": "src/vendor/tinykeys.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "createKeybindingsHandler",
+          "declaration": {
+            "name": "createKeybindingsHandler",
+            "module": "src/vendor/tinykeys.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "tinykeys",
+          "declaration": {
+            "name": "tinykeys",
+            "module": "src/vendor/tinykeys.ts"
+          }
+        }
+      ]
     }
   ]
 }

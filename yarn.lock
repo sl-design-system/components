@@ -5524,7 +5524,6 @@ __metadata:
   dependencies:
     "@floating-ui/dom": "npm:^1.6.3"
     lit: "npm:^3.1.2"
-    tinykeys: "patch:tinykeys@npm%3A2.1.0#~/.yarn/patches/tinykeys-npm-2.1.0-819feeaed0.patch"
   languageName: unknown
   linkType: soft
 
@@ -22287,20 +22286,6 @@ __metadata:
   version: 1.6.0
   resolution: "tinycolor2@npm:1.6.0"
   checksum: 10c0/9aa79a36ba2c2a87cb221453465cabacd04b9e35f9694373e846fdc78b1c768110f81e581ea41440106c0f24d9a023891d0887e8075885e790ac40eb0e74a5c1
-  languageName: node
-  linkType: hard
-
-"tinykeys@npm:2.1.0":
-  version: 2.1.0
-  resolution: "tinykeys@npm:2.1.0"
-  checksum: 10c0/36f0d6f8183ecbf6f1efe3c0af3bcba47e9564b4bd046cf6067607453089c685bae55e926b56630d27b1a0de3016088692f37b7b1aba80e9b05b560f8b709779
-  languageName: node
-  linkType: hard
-
-"tinykeys@patch:tinykeys@npm%3A2.1.0#~/.yarn/patches/tinykeys-npm-2.1.0-819feeaed0.patch":
-  version: 2.1.0
-  resolution: "tinykeys@patch:tinykeys@npm%3A2.1.0#~/.yarn/patches/tinykeys-npm-2.1.0-819feeaed0.patch::version=2.1.0&hash=67532a"
-  checksum: 10c0/0e2675310357c2b8b06476b711815ed49ff999f51570ae5b264df0df817d31b3edac9b736129ef52455d7483c511d37498766d508bb00abf7e6745317ef15226
   languageName: node
   linkType: hard
 

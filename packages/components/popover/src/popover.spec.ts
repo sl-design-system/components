@@ -1,5 +1,5 @@
 import { expect, fixture } from '@open-wc/testing';
-import type { Button } from '@sl-design-system/button';
+import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
@@ -19,8 +19,8 @@ describe('sl-popover', () => {
     const clickEvent = new Event('click');
     button?.dispatchEvent(clickEvent);
     await popover.updateComplete;
-    return new Promise(resolve => setTimeout(resolve));
-  }
+    return await new Promise(resolve => setTimeout(resolve));
+  };
 
   describe('defaults', () => {
     beforeEach(async () => {
@@ -29,9 +29,7 @@ describe('sl-popover', () => {
           <sl-button id="anchor" variant="primary" @click=${onClick}>Toggle popover</sl-button>
           <sl-popover anchor="anchor">
             <header>Please confirm</header>
-            <section>
-              Are you sure you want to continue?
-            </section>
+            <section>Are you sure you want to continue?</section>
             <footer>
               <sl-button size="sm" autofocus>Cancel</sl-button>
               <sl-button size="sm" variant="primary">Confirm</sl-button>
@@ -52,7 +50,7 @@ describe('sl-popover', () => {
     });
 
     // FIXME: Don't test a custom element using its constructor
-    it.skip('should set id attribute if not already set', async () => {
+    it.skip('should set id attribute if not already set', () => {
       const element = new Popover();
 
       expect(element.hasAttribute('id')).to.be.true;
@@ -77,16 +75,11 @@ describe('sl-popover', () => {
   });
 
   describe('Closing popover', () => {
-    let popover: Popover;
-    let clickEvent: PointerEvent;
-
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       el = await fixture(html`
         <div>
           <sl-button id="anchor2" variant="primary" @click=${onClick}>Toggle popover</sl-button>
-          <sl-popover anchor="anchor2">
-            Popover content
-          </sl-popover>
+          <sl-popover anchor="anchor2"> Popover content </sl-popover>
         </div>
       `);
 
@@ -94,8 +87,6 @@ describe('sl-popover', () => {
       popover = el.querySelector('sl-popover') as Popover;
 
       await showPopoverElement();
-
-      clickEvent = new PointerEvent('click');
     });
 
     it('should close the popover after togglePopover was called twice', async () => {
@@ -112,19 +103,17 @@ describe('sl-popover', () => {
   });
 
   describe('Hiding popover', () => {
-    let popover: Popover;
-
     const hideOnClick = (event: Event & { target: HTMLElement }): void => {
       (event.target.nextElementSibling as HTMLElement).hidePopover();
     };
 
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       el = await fixture(html`
         <div>
-          <sl-button popovertarget="popover-2" id="anchor2" variant="primary" @click=${hideOnClick}>Toggle popover</sl-button>
-          <sl-popover id="popover-2" anchor="anchor2">
-            Popover content
-          </sl-popover>
+          <sl-button popovertarget="popover-2" id="anchor2" variant="primary" @click=${hideOnClick}
+            >Toggle popover</sl-button
+          >
+          <sl-popover id="popover-2" anchor="anchor2"> Popover content </sl-popover>
         </div>
       `);
 
@@ -144,19 +133,17 @@ describe('sl-popover', () => {
   });
 
   describe('Showing popover', () => {
-    let popover: Popover;
-
     const hideOnClick = (event: Event & { target: HTMLElement }): void => {
       (event.target.nextElementSibling as HTMLElement).showPopover();
     };
 
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       el = await fixture(html`
         <div>
-          <sl-button popovertarget="popover-2" id="anchor2" variant="primary" @click=${hideOnClick}>Toggle popover</sl-button>
-          <sl-popover id="popover-2" anchor="anchor2">
-            Popover content
-          </sl-popover>
+          <sl-button popovertarget="popover-2" id="anchor2" variant="primary" @click=${hideOnClick}
+            >Toggle popover</sl-button
+          >
+          <sl-popover id="popover-2" anchor="anchor2"> Popover content </sl-popover>
         </div>
       `);
 

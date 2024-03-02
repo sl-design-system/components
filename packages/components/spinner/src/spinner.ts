@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult, nothing } from 'lit';
-import { LitElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, type nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './spinner.scss.js';
 

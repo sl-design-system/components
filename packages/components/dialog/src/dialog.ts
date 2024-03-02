@@ -1,13 +1,19 @@
-import type { TemplateResult } from 'lit-html';
-import type { CSSResult, CSSResultGroup } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { localized, msg } from '@lit/localize';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
 import { Icon } from '@sl-design-system/icon';
-import { Button } from '@sl-design-system/button';
 import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
-import { LitElement, adoptStyles, html, nothing, unsafeCSS } from 'lit';
+import {
+  type CSSResult,
+  type CSSResultGroup,
+  LitElement,
+  type TemplateResult,
+  adoptStyles,
+  html,
+  nothing,
+  unsafeCSS
+} from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
 
@@ -63,9 +69,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    */
   @property({ type: Boolean, attribute: 'disable-cancel' }) disableCancel?: boolean;
 
-  /** The ARIA role of the dialog. */
-  @property() override role: 'dialog' | 'alertdialog' = 'dialog';
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -78,7 +81,6 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         @cancel=${this.#onCancel}
         @click=${this.#onClick}
         @close=${this.#onClose}
-        .role=${this.role}
         aria-labelledby="title"
         part="dialog"
       >

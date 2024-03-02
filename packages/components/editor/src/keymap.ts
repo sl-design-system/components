@@ -1,7 +1,3 @@
-import type { Schema } from 'prosemirror-model';
-import type { Command, EditorState } from 'prosemirror-state';
-import type { DispatchFn } from './commands.js';
-import type { EditorMarks, EditorNodes } from './schema.js';
 import {
   chainCommands,
   createParagraphNear,
@@ -16,7 +12,11 @@ import {
 } from 'prosemirror-commands';
 import { redo, undo } from 'prosemirror-history';
 import { undoInputRule } from 'prosemirror-inputrules';
+import { type Schema } from 'prosemirror-model';
+import { type Command, type EditorState } from 'prosemirror-state';
+import { type DispatchFn } from './commands.js';
 import { splitListItemKeepMarks } from './list-utils.js';
+import { type EditorMarks, type EditorNodes } from './schema.js';
 
 // https://github.com/ProseMirror/prosemirror-example-setup/blob/master/src/keymap.js
 const mac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;

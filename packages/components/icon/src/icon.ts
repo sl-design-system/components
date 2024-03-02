@@ -1,9 +1,8 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { IconDefinition, IconLibrary } from './models.js';
-import { LitElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import styles from './icon.scss.js';
+import { type IconDefinition, type IconLibrary } from './models.js';
 
 declare global {
   interface Window {
@@ -36,9 +35,10 @@ export class Icon extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  private iconNotDef = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>`;
+  private iconNotDef =
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="icon-not-def"><path d="M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z"/></svg>';
   // do we want to show something here? it would probably only cause flickering
-  private iconLoading = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-loading"></svg>`;
+  private iconLoading = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="icon-loading"></svg>';
 
   /**
    * Add icon(s) to the icon registry
@@ -160,7 +160,8 @@ export class Icon extends LitElement {
 
   async #waitForWindowProperty(name: string | undefined): Promise<void> {
     let tries = 0;
-    return new Promise<void>(resolve => {
+
+    await new Promise<void>(resolve => {
       const checkProperty = (): void => {
         if (window.SLDS?.icons && Object.keys(window.SLDS.icons).length > 0) {
           if (name && window.SLDS?.icons[name]) {
@@ -177,6 +178,7 @@ export class Icon extends LitElement {
           setTimeout(checkProperty, 100); // check again in 100ms
         }
       };
+
       checkProperty();
     });
   }

@@ -1,11 +1,7 @@
-import type { TemplateResult } from 'lit-html';
-import type { CSSResultGroup } from 'lit';
-import type { ButtonSize } from '@sl-design-system/button';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button, type ButtonSize } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
-import { LitElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './drawer.scss.js';
 
@@ -60,7 +56,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
           <sl-button-bar>
             <sl-button
               sl-dialog-close
-              .size="${this.closeButtonSize}"
+              .size=${this.closeButtonSize}
               tab-index="0"
               aria-label="back to page"
               title="close"

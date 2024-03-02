@@ -1,5 +1,5 @@
-import type { ReactiveController, ReactiveElement } from 'lit';
-import type { ClassElement } from './base.js';
+import { type ReactiveController, type ReactiveElement } from 'lit';
+import { type ClassElement } from './base.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ObserveFunction = (oldValue: any, newValue: any, name: PropertyKey) => void;
@@ -8,7 +8,12 @@ type ObserveLifecycle = 'update' | 'updated';
 class PropertyObserverController<T extends ReactiveElement, TKey extends keyof T> implements ReactiveController {
   private _value?: T[TKey];
 
-  constructor(private host: T, private key: TKey, private cb: ObserveFunction, private lifecycle: ObserveLifecycle) {
+  constructor(
+    private host: T,
+    private key: TKey,
+    private cb: ObserveFunction,
+    private lifecycle: ObserveLifecycle
+  ) {
     host.addController(this);
   }
 

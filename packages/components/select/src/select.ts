@@ -1,16 +1,13 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { FormControlMixin } from '@sl-design-system/form';
-import type { EventEmitter } from '@sl-design-system/shared';
-import { EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
-import { LitElement, html } from 'lit';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { FormControlMixin } from '@sl-design-system/form';
+import { type EventEmitter, EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
-import { SelectOption } from './select-option.js';
-import { SelectOptionGroup } from './select-option-group.js';
-import styles from './select.scss.js';
 import { SelectButton } from './select-button.js';
+import { SelectOptionGroup } from './select-option-group.js';
+import { SelectOption } from './select-option.js';
+import styles from './select.scss.js';
 
 export type SelectSize = 'md' | 'lg';
 
@@ -330,7 +327,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** Returns a flattened array of all options (also the options in groups). */
   #getAllOptions(root: Element): Array<SelectOption<T>> {
     if (root instanceof SelectOption) {
-      return [root];
+      return [root] as Array<SelectOption<T>>;
     } else if (root instanceof SelectOptionGroup) {
       return Array.from(root.children).flatMap(child => this.#getAllOptions(child));
     } else {

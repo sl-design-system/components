@@ -1,17 +1,13 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { PropertyValues } from 'lit/development';
-import type { EventEmitter } from '@sl-design-system/shared';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { msg } from '@lit/localize';
-import { Icon } from '@sl-design-system/icon';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
-import { RovingTabindexController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
-import { LitElement, html, nothing } from 'lit';
+import { Icon } from '@sl-design-system/icon';
+import { type EventEmitter, RovingTabindexController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
-import { Tab } from './tab.js';
-import { TabPanel } from './tab-panel.js';
 import styles from './tab-group.scss.js';
+import { TabPanel } from './tab-panel.js';
+import { Tab } from './tab.js';
 
 export type TabsAlignment = 'start' | 'filled';
 

@@ -1,10 +1,10 @@
 import { expect } from '@open-wc/testing';
 import { type Dialog } from '@sl-design-system/dialog';
 import { sendKeys } from '@web/test-runner-commands';
-import { MessageDialog } from './message-dialog.js';
+import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { html } from 'lit';
+import { MessageDialog } from './message-dialog.js';
 
 describe('sl-message-dialog', () => {
   let dialog: Dialog, promise: Promise<unknown>;
@@ -110,7 +110,7 @@ describe('sl-message-dialog', () => {
     });
 
     it('should have Cancel and OK buttons', () => {
-    const buttons = dialog.querySelectorAll('sl-button');
+      const buttons = dialog.querySelectorAll('sl-button');
 
       expect(buttons).to.have.length(2);
       expect(buttons[0]).to.have.trimmed.text('Cancel');
@@ -183,7 +183,7 @@ describe('sl-message-dialog', () => {
         message: html`This is a message with <strong>HTML</strong>!`,
         buttons: [
           { text: 'No, run away!', fill: 'outline', value: 'NO' },
-          { text: `Yes, I don't care what it does`, value: 'YES', variant: 'danger' }
+          { text: "Yes, I don't care what it does", value: 'YES', variant: 'danger' }
         ],
         disableCancel: true
       });
@@ -210,7 +210,7 @@ describe('sl-message-dialog', () => {
       const html = dialog.querySelector('p')?.innerHTML;
 
       // Use match instead of equal because the HTML includes a Lit placeholder comment
-      expect(html).to.match(/This is a message with \<strong\>HTML\<\/strong>!/);
+      expect(html).to.match(/This is a message with <strong>HTML<\/strong>!/);
     });
 
     it('should have custom buttons', () => {
@@ -220,7 +220,7 @@ describe('sl-message-dialog', () => {
       expect(buttons[0]).to.have.trimmed.text('No, run away!');
       expect(buttons[0]).to.have.attribute('fill', 'outline');
       expect(buttons[0]).to.have.attribute('variant', 'default');
-      expect(buttons[1]).to.have.trimmed.text(`Yes, I don't care what it does`);
+      expect(buttons[1]).to.have.trimmed.text("Yes, I don't care what it does");
       expect(buttons[1]).to.have.attribute('variant', 'danger');
     });
 

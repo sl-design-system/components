@@ -1,12 +1,11 @@
-import type { Checkbox, CheckboxSize } from './checkbox.js';
-import type { CheckboxGroup } from './checkbox-group.js';
-import type { TemplateResult } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
-import { html } from 'lit';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html } from 'lit';
 import '../register.js';
+import { type CheckboxGroup } from './checkbox-group.js';
+import { type Checkbox, type CheckboxSize } from './checkbox.js';
 
 type Props = Pick<
   Checkbox,
@@ -14,7 +13,7 @@ type Props = Pick<
 > & {
   hint?: string;
   label?: string;
-  slot?: () => TemplateResult;
+  slot?(): TemplateResult;
   text?: string;
 };
 type Story = StoryObj<Props>;

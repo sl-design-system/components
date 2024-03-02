@@ -1,4 +1,4 @@
-import type { ReactiveController, ReactiveControllerHost } from 'lit';
+import { type ReactiveController, type ReactiveControllerHost } from 'lit';
 import { type PopoverPosition, type PositionPopoverOptions, isPopoverOpen, positionPopover } from '../popover.js';
 
 export type AnchorControllerConfig = PositionPopoverOptions;

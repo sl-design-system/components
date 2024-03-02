@@ -1,22 +1,19 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { GridColumn } from './column.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import type { DataSourceFilterFunction, EventEmitter } from '@sl-design-system/shared';
 import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
 import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
-import { TextField } from '@sl-design-system/text-field';
 import { Popover } from '@sl-design-system/popover';
-import { event, getNameByPath } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { type DataSourceFilterFunction, type EventEmitter, event, getNameByPath } from '@sl-design-system/shared';
+import { TextField } from '@sl-design-system/text-field';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { type GridColumn } from './column.js';
+import { GridFilterValueChangeEvent } from './events.js';
 import { type GridFilterMode, type GridFilterOption } from './filter-column.js';
 import styles from './filter.scss.js';
-import { GridFilterValueChangeEvent } from './events.js';
 
 export type GridFilterChange = 'added' | 'removed';
 
@@ -106,7 +103,7 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
       <sl-popover anchor="anchor" position="bottom">
         <header>
           <h1 id="title">
-            ${msg(`Filter by`)} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>
+            ${msg('Filter by')} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>
           </h1>
           <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
             <sl-icon name="far-xmark"></sl-icon>
@@ -116,16 +113,15 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
           ? html`
               <sl-checkbox-group aria-labelledby="title" autofocus>
                 ${this.options?.map(
-                  option =>
-                    html`
-                      <sl-checkbox
-                        @sl-change=${(event: CustomEvent<boolean>) => this.#onChange(option, event.detail)}
-                        ?checked=${this.value?.includes(option.value?.toString() ?? '')}
-                        .value=${option.value}
-                      >
-                        ${option.label}
-                      </sl-checkbox>
-                    `
+                  option => html`
+                    <sl-checkbox
+                      @sl-change=${(event: CustomEvent<boolean>) => this.#onChange(option, event.detail)}
+                      ?checked=${this.value?.includes(option.value?.toString() ?? '')}
+                      .value=${option.value}
+                    >
+                      ${option.label}
+                    </sl-checkbox>
+                  `
                 )}
               </sl-checkbox-group>
             `

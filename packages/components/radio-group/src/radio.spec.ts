@@ -1,8 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { Radio } from './radio.js';
 import '../register.js';
+import { Radio } from './radio.js';
 
 describe('sl-radio', () => {
   let el: Radio;
@@ -67,11 +67,11 @@ describe('sl-radio', () => {
   });
 
   describe('disabled', () => {
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       el = await fixture(html`<sl-radio disabled>Hello world</sl-radio>`);
     });
 
-    it('should be disabled', async () => {
+    it('should be disabled', () => {
       expect(el.disabled).to.be.true;
     });
 

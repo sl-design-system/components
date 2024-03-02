@@ -1,7 +1,7 @@
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill, type ButtonVariant } from '@sl-design-system/button';
 import { Dialog } from '@sl-design-system/dialog';
-import { localized, msg } from '@lit/localize';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './message-dialog.scss.js';
@@ -40,7 +40,7 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
   static override styles: CSSResultGroup = styles;
 
   static async alert(message: string, title = msg('Alert')): Promise<void> {
-    return this.show({
+    return await this.show({
       buttons: [{ text: msg('OK'), variant: 'primary' }],
       title,
       message
@@ -48,7 +48,7 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
   }
 
   static async confirm(message: string, title = msg('Confirm')): Promise<boolean | undefined> {
-    return this.show<boolean>({
+    return await this.show<boolean>({
       buttons: [
         { text: msg('Cancel'), value: false },
         { text: msg('OK'), value: true, variant: 'primary' }
@@ -59,7 +59,7 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
   }
 
   static async show<T = unknown>(config: MessageDialogConfig<T>): Promise<T | undefined> {
-    return new Promise<T | undefined>(resolve => {
+    return await new Promise<T | undefined>(resolve => {
       config.buttons = config.buttons?.map(button => {
         const action = button.action;
 

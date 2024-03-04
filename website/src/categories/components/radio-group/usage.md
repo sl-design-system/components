@@ -12,9 +12,9 @@ eleventyNavigation:
 
 <sl-label for="radio-group">What animal do you like best?</sl-label>
 <sl-radio-group id="radio-group">
-  <sl-radio>Dog aria-checked="false"</sl-radio>
-  <sl-radio>Cat aria-checked="true" checked</sl-radio>
-  <sl-radio>Hamster aria-checked="false"</sl-radio>
+  <sl-radio aria-checked="false">Dog</sl-radio>
+  <sl-radio aria-checked="true" checked>Cat</sl-radio>
+  <sl-radio aria-checked="false">Hamster</sl-radio>
 </sl-radio-group>  
 
 </div>
@@ -24,9 +24,9 @@ eleventyNavigation:
   ```html
   <sl-label for="radio-group">What animal do you like best?</sl-label>
   <sl-radio-group>
-    <sl-radio>Dog aria-checked="false"</sl-radio>
-    <sl-radio>Cat aria-checked="true" checked</sl-radio>
-    <sl-radio>Hamster aria-checked="false"</sl-radio>
+    <sl-radio aria-checked="false">Dog</sl-radio>
+    <sl-radio aria-checked="true" checked>Cat</sl-radio>
+    <sl-radio aria-checked="false">Hamster</sl-radio>
   </sl-radio-group>
   ```
 

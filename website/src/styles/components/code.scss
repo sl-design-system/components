@@ -201,7 +201,7 @@ pre[class*='language-'] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: rgb(var(--sl-color-palette-neutral-600)); // TODO: change these colours in the future
+  color: var(--control-color-code-text-neutral);
 }
 
 .token.punctuation {
@@ -213,7 +213,7 @@ pre[class*='language-'] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: rgb(var(--sl-color-palette-danger-500));
+  color: var(--control-color-code-text-danger);
 }
 
 .token.keyword,
@@ -225,7 +225,7 @@ pre[class*='language-'] {
 .token.variable,
 .token.boolean,
 .token.number {
-  color: rgb(var(--sl-color-palette-success-500)); // TODO: change these colours in the future
+  color: var(--control-color-code-text-success);
 }
 
 .token.selector,
@@ -234,7 +234,7 @@ pre[class*='language-'] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: var(--highlight-color);
+  color: var(--control-color-code-text-accent);
 }
 
 .token.atrule,
@@ -245,7 +245,7 @@ pre[class*='language-'] {
 
 .token.regex,
 .token.important {
-  color: rgb(var(--sl-color-palette-warning-500)); // TODO: change these colours in the future
+  color: var(--control-color-code-text-warning);
 }
 
 .token.important,

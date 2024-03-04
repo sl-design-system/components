@@ -1,5 +1,13 @@
 # @sl-design-system/text-field
 
+## 0.1.17
+
+### Patch Changes
+
+- Updated dependencies [[`dbc032b`](https://github.com/sl-design-system/components/commit/dbc032b3a7587dfcbdb6a2118330b039765cf0fb), [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc)]:
+  - @sl-design-system/shared@0.2.5
+  - @sl-design-system/form@0.0.8
+
 ## 0.1.16
 
 ### Patch Changes

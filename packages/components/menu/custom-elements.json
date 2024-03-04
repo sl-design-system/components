@@ -20,6 +20,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/menu-button.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/menu-item.js"
           }
         },

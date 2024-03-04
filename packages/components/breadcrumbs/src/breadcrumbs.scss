@@ -1,0 +1,73 @@
+$md-breakpoint: 600px;
+
+:host {
+  --_gap: 0.25rem;
+  --_link-gap: 0.25rem;
+  --_link-decoration: underline;
+  --_link-padding-block: 0.375rem;
+  --_link-padding-inline: 0.5rem;
+  --_link-underline-offset: 2px;
+  --_tooltip-max-inline-size: min(18rem, 50vw);
+}
+
+:host {
+  align-items: center;
+  display: flex;
+  gap: var(--_gap);
+}
+
+a,
+sl-icon,
+::slotted(sl-icon) {
+  flex-shrink: 0;
+}
+
+a,
+::slotted(a),
+::slotted(:last-child) {
+  padding-block: var(--_link-padding-block);
+  padding-inline: var(--_link-padding-inline);
+}
+
+a,
+::slotted(a) {
+  text-decoration: var(--_link-decoration);
+  text-underline-offset: var(--_link-underline-offset, auto);
+}
+
+a {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--_link-gap);
+
+  @media (width <= $md-breakpoint) {
+    padding-block: var(--_link-padding-inline);
+  }
+}
+
+::slotted(*) {
+  display: block;
+  overflow-x: clip;
+  overflow-y: visible;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// If there are more than 3 items, hide all items except the last 3
+// items. We multiply by 2 because of the icons in between the items.
+// Note that we cannot use CSS custom properties here, so the value
+// needs to be hardcoded.
+::slotted(:not(:nth-last-child(-n + 6))) {
+  display: none;
+}
+
+// On mobile, only show the last 2 items
+@media (width <= $md-breakpoint) {
+  ::slotted(:not(:nth-last-child(-n + 4))) {
+    display: none;
+  }
+}
+
+sl-tooltip {
+  max-inline-size: var(--_tooltip-max-inline-size) !important;
+}

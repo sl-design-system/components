@@ -55,6 +55,16 @@
           "members": [
             {
               "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "16",
+              "description": "The default padding of the arrow."
+            },
+            {
+              "kind": "field",
               "name": "offset",
               "type": {
                 "text": "number"
@@ -105,6 +115,16 @@
           "fields": [
             {
               "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "16",
+              "description": "The default padding of the arrow."
+            },
+            {
+              "kind": "field",
               "name": "offset",
               "type": {
                 "text": "number"
@@ -137,7 +157,7 @@
               "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this, { offset: Popover.offset, viewportMargin: Popover.viewportMargin })",
+              "default": "new AnchorController(this, {\n    arrowElement: '.arrow',\n    arrowPadding: Popover.arrowPadding,\n    offset: Popover.offset,\n    viewportMargin: Popover.viewportMargin\n  })",
               "description": "Controller for managing anchoring."
             }
           ]

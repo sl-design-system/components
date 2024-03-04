@@ -39,6 +39,6 @@
   },
   "dependencies": {
     "@open-wc/scoped-elements": "^3.0.5",
-    "@sl-design-system/shared": "0.2.4"
+    "@sl-design-system/shared": "0.2.5"
   }
 }

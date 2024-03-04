@@ -4,5 +4,8 @@ module.exports = {
     project: [
       'tsconfig.json'
     ]
-  }
+  },
+  ignorePatterns: [
+    'src/vendor/**/*'
+  ]
 };

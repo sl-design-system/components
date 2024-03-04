@@ -1,8 +1,5 @@
 import { arrow, flip, offset, shift, size } from '@floating-ui/core';
 import { autoUpdate, computePosition } from '@floating-ui/dom';
-import popoverPolyfillStyles from './popover.scss.js';
-
-export { popoverPolyfillStyles };
 
 type Alignment = 'start' | 'end';
 type Side = 'top' | 'right' | 'bottom' | 'left';
@@ -11,7 +8,8 @@ type AlignedPlacement = `${Side}-${Alignment}`;
 export type PopoverPosition = Side | AlignedPlacement;
 
 export interface PositionPopoverOptions {
-  arrow?: string | HTMLElement;
+  arrowElement?: string | HTMLElement;
+  arrowPadding?: number;
   maxWidth?: number;
   offset?: number;
   position?: PopoverPosition;
@@ -50,7 +48,7 @@ export const positionPopover = (
     // Flip should come before shift, otherwise it won't flip properly
     const middleware = [
       options.offset !== undefined ? offset(options.offset) : undefined,
-      flip({ fallbackAxisSideDirection: 'end' }),
+      flip(),
       options.viewportMargin !== undefined ? shift({ padding: options.viewportMargin }) : undefined,
       size({
         padding: options.viewportMargin,
@@ -67,11 +65,13 @@ export const positionPopover = (
     ].filter(Boolean);
 
     let arrowElement: HTMLElement | null | undefined;
-    if (options.arrow) {
+    if (options.arrowElement) {
       arrowElement =
-        options.arrow instanceof HTMLElement ? options.arrow : element.shadowRoot?.querySelector(options.arrow);
+        options.arrowElement instanceof HTMLElement
+          ? options.arrowElement
+          : element.shadowRoot?.querySelector(options.arrowElement);
 
-      middleware.push(arrow({ element: arrowElement }));
+      middleware.push(arrow({ element: arrowElement, padding: options.arrowPadding }));
     }
 
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -86,7 +86,10 @@ export const positionPopover = (
       element.setAttribute('actual-placement', actualPlacement);
 
       if (arrow && arrowElement) {
-        arrowElement.style.translate = `${arrow.x || 0}px ${arrow.y || 0}px`;
+        Object.assign(arrowElement.style, {
+          'inset-inline-start': typeof arrow.x === 'number' ? `${roundByDPR(arrow.x)}px` : '',
+          'inset-block-start': typeof arrow.y === 'number' ? `${roundByDPR(arrow.y)}px` : ''
+        });
       }
     });
   });

@@ -149,7 +149,8 @@
       "output": [
         "packages/themes/**/*.{css,json,scss}",
         "!packages/themes/*/fonts.css",
-        "!packages/themes/*/{package,tsconfig}.json"
+        "!packages/themes/*/{package,tsconfig}.json",
+        "!packages/themes/tsconfig.json"
       ]
     },
     "build:types": {

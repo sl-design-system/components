@@ -193,20 +193,22 @@ fill="#222222"
     // if (event.animationName !== 'slide-in-up') {
     // this.panel?.removeAttribute('open');
     if (/*this.open*/ this.renderRoot.querySelector('details')?.hasAttribute('open')) {
-      this.panel?.classList.add('collapsing');
+      // this.panel?.classList.add('collapsing');
+      this.panel?.classList.remove('collapsing');
       this.panel?.addEventListener(
         'animationend',
         () => {
           // this.remove();
           this.panel?.removeAttribute('open');
-          this.panel?.classList.remove('collapsing');
+          // this.panel?.classList.remove('collapsing');
           // // this.panel?.classList.remove('animation');
         },
         { once: true }
       );
 
       requestAnimationFrame(() => {
-        this.panel?.setAttribute('close', '');
+        // this.panel?.setAttribute('close', '');
+        this.panel?.classList.add('collapsing');
         // this.panel?.classList.remove('collapsing');
         // this.panel?.classList.remove('animation');
       });
@@ -229,9 +231,15 @@ fill="#222222"
     }
 
     const detailsElement = event.target.parentElement;
-    const contentElement = event.target.nextElementSibling;
+    const contentElement = event.target.nextElementSibling?.querySelector('.panel'); //event.target.nextElementSibling;
 
-    console.log('detailsElement, contentElement', detailsElement, contentElement, event);
+    console.log(
+      'detailsElement, contentElement',
+      detailsElement,
+      contentElement,
+      event,
+      event.target.nextElementSibling?.querySelector('.panel')
+    );
 
     if (!detailsElement || !contentElement) {
       return;
@@ -285,7 +293,86 @@ fill="#222222"
     // ) {
     //   this.#closeDialogOnAnimationend(event.target, true);
     // }
+
+    // const { duration, easing } = this.#animationOptions;
+    // const wrapper = event.target.nextElementSibling as HTMLElement;
+    // const duration = '300ms';
+    // const easing = 'cubic-bezier(0.7, -0.4, 0.4, 1.4)';
+    // const animated = true;
+    //
+    // // The wrapper is hidden when collapsed to prevent the user
+    // // from TABing into the card, so unhide it.
+    // wrapper.style.display = 'block';
+    //
+    // // // Animate the header arrow rotating.
+    // // this.icon.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(90deg)' }], {
+    // //   direction: this.open ? 'normal' : 'reverse',
+    // //   duration: animated ? duration : 0,
+    // //   easing,
+    // //   fill: 'both'
+    // // });
+    //
+    // const { height = 0 } = (contentElement as HTMLElement).getBoundingClientRect(); //this.body.getBoundingClientRect();
+    //
+    // const animation = wrapper.animate(
+    //   [
+    //     { height: `${height}px`, overflow: 'visible', opacity: '1' },
+    //     { height: '0', overflow: 'hidden', opacity: '0' }
+    //   ],
+    //   {
+    //     direction: this.open ? 'reverse' : 'normal',
+    //     duration: animated ? duration : 0,
+    //     easing,
+    //     fill: 'none'
+    //   }
+    // );
+    //
+    // await animation.finished;
+    //
+    // wrapper.style.display = this.open ? 'block' : 'none';
+    // wrapper.style.height = this.open ? 'auto' : '0px';
+    // wrapper.style.overflow = this.open ? 'visible' : 'hidden';
   }
+
+  // async #onAnimate(): Promise<void> {
+  //   const wrapper = event.target.nextElementSibling as HTMLElement;
+  //   const duration = '300ms';
+  //   const easing = 'cubic-bezier(0.7, -0.4, 0.4, 1.4)';
+  //   const animated = true;
+  //
+  //   // The wrapper is hidden when collapsed to prevent the user
+  //   // from TABing into the card, so unhide it.
+  //   wrapper.style.display = 'block';
+  //
+  //   // // Animate the header arrow rotating.
+  //   // this.icon.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(90deg)' }], {
+  //   //   direction: this.open ? 'normal' : 'reverse',
+  //   //   duration: animated ? duration : 0,
+  //   //   easing,
+  //   //   fill: 'both'
+  //   // });
+  //
+  //   const { height = 0 } = (contentElement as HTMLElement).getBoundingClientRect(); //this.body.getBoundingClientRect();
+  //
+  //   const animation = wrapper.animate(
+  //     [
+  //       { height: `${height}px`, overflow: 'visible', opacity: '1' },
+  //       { height: '0', overflow: 'hidden', opacity: '0' }
+  //     ],
+  //     {
+  //       direction: this.open ? 'reverse' : 'normal',
+  //       duration: animated ? duration : 0,
+  //       easing,
+  //       fill: 'none'
+  //     }
+  //   );
+  //
+  //   await animation.finished;
+  //
+  //   wrapper.style.display = this.open ? 'block' : 'none';
+  //   wrapper.style.height = this.open ? 'auto' : '0px';
+  //   wrapper.style.overflow = this.open ? 'visible' : 'hidden';
+  // }
 
   // #onClose(): void {
   //   // Reenable scrolling after the dialog has closed

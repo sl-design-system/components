@@ -81,8 +81,9 @@ Radio buttons become less practical as the number of options in a list grows. If
 ## Sizing
 
 Radio Group come in two sizes, to match diferents scenarios:
-Medium: The medium-sized radio buttons function as the default option across our user interfaces. It achieves a balanced blend of size and clarity, establishing itself as the standard and user-friendly choice for single-choice. 
-Large: Opting for the large radio buttons for touch-based devices can offer advantages since it presents a larger tap target. This size facilitates more accessible user interactions.
+
+- Medium: The medium-sized radio buttons function as the default option across our user interfaces. It achieves a balanced blend of size and clarity, establishing itself as the standard and user-friendly choice for single-choice. 
+- Large: Opting for the large radio buttons for touch-based devices can offer advantages since it presents a larger tap target. This size facilitates more accessible user interactions.
 
 </section>
 
@@ -92,8 +93,9 @@ Large: Opting for the large radio buttons for touch-based devices can offer adva
 ## Status
 
 Radio Group come in two sizes, to match diferents scenarios:
-Checked: The checked status signifies that a user has actively selected that option from a group of choices. It visually indicates the chosen state, this visual cue helps users easily identify which option they have selected among the available choices.
-Unchecked: An unchecked radio button represents a state where the user has not selected that option. Users can choose only one option at a time in a group of radio buttons. Users can click on an unchecked radio button to select it, deselecting any chosen previously option within the same group.
+
+- Checked: The checked status signifies that a user has actively selected that option from a group of choices. It visually indicates the chosen state, this visual cue helps users easily identify which option they have selected among the available choices.
+- Unchecked: An unchecked radio button represents a state where the user has not selected that option. Users can choose only one option at a time in a group of radio buttons. Users can click on an unchecked radio button to select it, deselecting any chosen previously option within the same group.
 
 </section>
 
@@ -103,9 +105,10 @@ Unchecked: An unchecked radio button represents a state where the user has not s
 ## Variants
 
 Radio Group come in various versions, each suited for specific situations:
-Default: The default radio button variant allows users to check or uncheck an option. When a radio button is checked, it indicates that the option is chosen, while when it's unchecked, it means the option is not chosen.
-Valid: The valid variant of a radio button functions as a feedback mechanism, confirming that the chosen option aligns with the correct choice according to established criteria.
-Invalid: This variant is featured in validation processes. When checked, it communicates issues or discrepancies in the entered data, encouraging users to review and change their input, ensuring data accuracy and a smooth user experience.
+
+- Default: The default radio button variant allows users to check or uncheck an option. When a radio button is checked, it indicates that the option is chosen, while when it's unchecked, it means the option is not chosen.
+- Valid: The valid variant of a radio button functions as a feedback mechanism, confirming that the chosen option aligns with the correct choice according to established criteria.
+- Invalid: This variant is featured in validation processes. When checked, it communicates issues or discrepancies in the entered data, encouraging users to review and change their input, ensuring data accuracy and a smooth user experience.
 
 </section>
 

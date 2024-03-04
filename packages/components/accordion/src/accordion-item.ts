@@ -45,14 +45,14 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
   // /** @private */
   // @query('dialog') dialog?: HTMLDialogElement;
 
-  /**
-   * Emits when the cancel has been cancelled. This happens when the user closes
-   * the dialog using the escape key or clicks on the backdrop.
-   */
-  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<void>;
-
-  /** Emits when the dialog has been closed. */
-  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<void>;
+  // /**
+  //  * Emits when the cancel has been cancelled. This happens when the user closes
+  //  * the dialog using the escape key or clicks on the backdrop.
+  //  */
+  // @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<void>;
+  //
+  // /** Emits when the dialog has been closed. */
+  // @event({ name: 'sl-close' }) closeEvent!: EventEmitter<void>;
 
   /** The ARIA role of the dialog. */
   @property() override role: 'dialog' | 'alertdialog' = 'dialog';
@@ -180,6 +180,59 @@ fill="#222222"
     // } else if (this.type === 'submit') {
     //   this.internals.form?.requestSubmit();
     // }
+
+    /*    const detailsElement = event.target as HTMLElement; //(event.target as HTMLElement)?.parentElement as HTMLElement;
+    // const contentElement = event.target.nextElementSibling?.querySelector('.panel'); //event.target.nextElementSibling;
+    const contentElement = (event.target as HTMLElement)?.querySelector('.wrapper'); //(event.target as HTMLElement)?.nextElementSibling as HTMLElement;
+
+    console.log(
+      'event on lick - toggggle detailsElement, contentElement',
+      event.target as HTMLElement,
+      (event.target as HTMLElement)?.querySelector('.wrapper'),
+      detailsElement,
+      contentElement,
+      event,
+      (event.target as HTMLElement)?.nextElementSibling?.querySelector('.panel')
+    );
+
+    if (!detailsElement || !contentElement) {
+      return;
+    }
+
+    // Chrome sometimes has a hiccup and gets stuck.
+    if (contentElement.classList.contains('animation')) {
+      // So we make sure to remove those classes manually,
+      contentElement.classList.remove('animation', 'collapsing');
+      // ... enforce a reflow so that collapsing may be animated again,
+      // void element.offsetWidth;
+      void this.offsetWidth;
+      // ... and fallback to the default behaviour this time.
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-function-return-type,@typescript-eslint/no-unsafe-argument
+    // const onAnimationEnd = (cb): void => contentElement?.addEventListener('animationend', cb, { once: true });
+
+    const onAnimationEnd = (cb: () => void): void => {
+      contentElement.addEventListener('animationend', cb, { once: true });
+    };
+
+    // request an animation frame to force Safari 16 to actually perform the animation
+    requestAnimationFrame(() => contentElement.classList.add('animation'));
+    onAnimationEnd(() => contentElement.classList.remove('animation'));
+
+    const isDetailsOpen = detailsElement.getAttribute('open') !== null;
+    console.log('isDetailsOpen in onClick', isDetailsOpen);
+    if (isDetailsOpen) {
+      // prevent default collapsing and delay it until the animation has completed
+      event.preventDefault();
+      contentElement.classList.add('collapsing');
+      onAnimationEnd(() => {
+        detailsElement?.removeAttribute('open');
+        contentElement.classList.remove('collapsing');
+      });
+    }*/
   }
 
   #closeOnAnimationend(event: AnimationEvent): void {
@@ -230,7 +283,7 @@ fill="#222222"
   //   }
   // }
 
-  #onClick(event: PointerEvent & { target: HTMLElement }): void {
+  #onClick(event: Event & { target: HTMLElement }): void {
     if (this.hasAttribute('disabled')) {
       event.preventDefault();
       event.stopPropagation();
@@ -242,7 +295,7 @@ fill="#222222"
     const contentElement = event.target.nextElementSibling;
 
     console.log(
-      'detailsElement, contentElement',
+      'event on click detailsElement, contentElement',
       detailsElement,
       contentElement,
       event,
@@ -301,7 +354,7 @@ fill="#222222"
     // ) {
     //   this.#closeDialogOnAnimationend(event.target, true);
     // }
-
+    //
     // const { duration, easing } = this.#animationOptions;
     // const wrapper = event.target.nextElementSibling as HTMLElement;
     // const duration = '300ms';
@@ -311,15 +364,15 @@ fill="#222222"
     // // The wrapper is hidden when collapsed to prevent the user
     // // from TABing into the card, so unhide it.
     // wrapper.style.display = 'block';
-    //
-    // // // Animate the header arrow rotating.
-    // // this.icon.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(90deg)' }], {
-    // //   direction: this.open ? 'normal' : 'reverse',
-    // //   duration: animated ? duration : 0,
-    // //   easing,
-    // //   fill: 'both'
-    // // });
-    //
+
+    // // Animate the header arrow rotating.
+    // this.icon.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(90deg)' }], {
+    //   direction: this.open ? 'normal' : 'reverse',
+    //   duration: animated ? duration : 0,
+    //   easing,
+    //   fill: 'both'
+    // });
+
     // const { height = 0 } = (contentElement as HTMLElement).getBoundingClientRect(); //this.body.getBoundingClientRect();
     //
     // const animation = wrapper.animate(

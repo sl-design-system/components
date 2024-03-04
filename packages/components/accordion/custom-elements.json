@@ -100,22 +100,6 @@
             },
             {
               "kind": "event",
-              "name": "sl-cancel",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
-            },
-            {
-              "kind": "event",
-              "name": "sl-close",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the dialog has been closed."
-            },
-            {
-              "kind": "event",
               "name": "sl-toggle",
               "type": {
                 "text": "EventEmitter<string>"
@@ -132,22 +116,6 @@
             }
           ],
           "events": [
-            {
-              "name": "cancelEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop.",
-              "fieldName": "cancelEvent"
-            },
-            {
-              "name": "closeEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the dialog has been closed.",
-              "fieldName": "closeEvent"
-            },
             {
               "name": "toggleEvent",
               "type": {
@@ -259,7 +227,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
               ]

@@ -218,8 +218,16 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
 
     this.items.forEach(item => {
       if (item !== event.target) {
-        console.log('item in onClick', item);
-        item.renderRoot.querySelector('details')?.removeAttribute('open');
+        console.log('item in onClick', item, item.renderRoot.querySelector('details')?.hasAttribute('open'));
+        // item.renderRoot.querySelector('details')?.removeAttribute('open');
+        // item.renderRoot.querySelector('details')?.click();
+        // requestAnimationFrame(() => {
+        if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
+          console.log('item in onClick has attribute open', item, item.renderRoot.querySelector('details'));
+          item.renderRoot.querySelector('details')?.click(); // TODO: single not working with animation when closing other elements
+          item.renderRoot.querySelector('details')?.removeAttribute('open');
+        }
+        // });
       }
     });
     // if (this.hasAttribute('disabled')) {

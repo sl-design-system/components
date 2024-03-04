@@ -1,5 +1,29 @@
 # @sl-design-system/checkbox
 
+## 0.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`dbc032b`](https://github.com/sl-design-system/components/commit/dbc032b3a7587dfcbdb6a2118330b039765cf0fb), [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc)]:
+  - @sl-design-system/shared@0.2.5
+  - @sl-design-system/form@0.0.8
+
+## 0.0.21
+
+### Patch Changes
+
+- Updated dependencies [[`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf), [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf)]:
+  - @sl-design-system/shared@0.2.4
+  - @sl-design-system/form@0.0.7
+
+## 0.0.20
+
+### Patch Changes
+
+- Updated dependencies [[`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997)]:
+  - @sl-design-system/shared@0.2.3
+  - @sl-design-system/form@0.0.6
+
 ## 0.0.19
 
 ### Patch Changes

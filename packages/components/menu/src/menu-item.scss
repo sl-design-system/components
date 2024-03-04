@@ -1,0 +1,98 @@
+:host {
+  --_background: var(--sl-color-select-item-background);
+  --_border-radius: var(--sl-border-radius-popover-default);
+  --_cursor: pointer;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_gap: 0.25rem;
+  --_indent: calc(var(--sl-menu-item-indent, 0) * 26px + 6px);
+  --_gap-shortcut: 0.5rem;
+  --_gap-sub-menu-indicator: 1rem;
+  --_padding: 6px;
+  --_submenu-offset: -5px;
+}
+
+:host {
+  display: block;
+  flex-grow: 1;
+}
+
+:host(:hover) {
+  position: relative;
+
+  .safe-triangle {
+    display: block;
+  }
+}
+
+:host(:focus-visible) {
+  outline: var(--_focus-outline);
+  position: relative;
+  z-index: 1;
+}
+
+:host([disabled]) {
+  --_cursor: default;
+  color: var(--sl-color-select-item-disabled-foreground);
+  pointer-events: none;
+}
+
+:host([selected]) {
+  --_indent: 6px;
+}
+
+slot[name='submenu']::slotted(sl-menu) {
+  // Make sure the first menu item in the nested menu aligns vertically
+  margin-block-start: var(--_submenu-offset);
+}
+
+.safe-triangle {
+  clip-path: polygon(var(--_safe-triangle-polygon));
+  display: none;
+  // The variables were calculated using getBoundingClientRect(), but that also
+  // includes the border width, so we need to subtract it because CSS inset does
+  // NOT include the border.
+  inset: calc(var(--_safe-triangle-inset-block-start) - var(--sl-menu-border-width, 1px))
+    calc(var(--_safe-triangle-inset-inline-end) - var(--sl-menu-border-width, 1px))
+    calc(var(--_safe-triangle-inset-block-end) - var(--sl-menu-border-width, 1px))
+    calc(var(--_safe-triangle-inset-inline-start) - var(--sl-menu-border-width, 1px));
+  position: fixed;
+
+  &:hover + .wrapper {
+    --_background: var(--sl-color-select-item-hover-background);
+  }
+}
+
+.wrapper {
+  align-items: center;
+  background: var(--_background);
+  border-radius: var(--_border-radius);
+  cursor: var(--_cursor);
+  display: flex;
+  gap: var(--_gap);
+  padding: var(--_padding);
+  padding-inline-start: var(--_indent);
+
+  &:hover {
+    --_background: var(--sl-color-select-item-hover-background);
+  }
+
+  &:active {
+    --_background: var(--sl-color-select-item-active-background);
+  }
+}
+
+sl-icon[name='check'] {
+  padding-inline: 3px;
+}
+
+kbd {
+  font-family: var(--sl-text-typeset-font-family-body);
+  letter-spacing: 2px;
+  margin-inline-start: auto;
+  padding-inline-start: var(--_gap-shortcut);
+}
+
+sl-icon[name='chevron-right'] {
+  margin-inline-start: auto;
+  padding-inline-start: var(--_gap-sub-menu-indicator);
+}

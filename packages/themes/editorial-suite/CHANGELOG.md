@@ -1,5 +1,11 @@
 # @sl-design-system/editorial-suite
 
+## 0.0.5
+
+### Patch Changes
+
+- [#985](https://github.com/sl-design-system/components/pull/985) [`9c88751`](https://github.com/sl-design-system/components/commit/9c887516bacb0a335d8d2283e47d9a78f359a334) - Added tokens for Tab component
+
 ## 0.0.4
 
 ### Patch Changes

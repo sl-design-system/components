@@ -9,20 +9,17 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<form>
-  <sl-label for="nickname">Nickname</sl-label>
   <sl-text-field
-    id="nickname"
-    hint="What would you like people to call you?"
+    id="first-name"
+    value="John"
+    aria-label="First name"
   ></sl-text-field>
-  </form>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-label for="nickname">Nickname</sl-label>
-    <sl-text-field id="nickname" hint="What would you like people to call you?"></sl-text-field>
+    <sl-text-field id="first-name" value="John" aria-label="First name"></sl-text-field>
   ```
 
 </div>
@@ -33,26 +30,13 @@ eleventyNavigation:
 
 ## When to use
 
-Text fields come in handy in certain situations:
-
-<section class="ds-cards">
-<figure>
-{{'components/text-field/sl-text-field-when-use-unique.svg' | svgImage}}
-<figcaption>
+The following guidance describes when to use the text field component.
 
 ### Unique input 
 When users need to input information that is unique and cannot be anticipated from a predefined set of options. Text fields provide the flexibility to capture diverse and unpredictable data.
-</figcaption>
-</figure>
-<figure>
-    {{'components/text-field/sl-text-field-when-use-memorable.svg' | svgImage}}
-    <figcaption>
 
-  ### Memorable data
-  In cases where users need to input memorable data quickly, a free-form input method is more efficient than a complex control interface. Text fields offer a straightforward way for users to provide the information they have in mind.
-    </figcaption>
-  </figure>
-</section>
+### Single-line input
+Text fields are ideal for capturing single-line responses.
 </section>
 
 <section>
@@ -60,39 +44,20 @@ When users need to input information that is unique and cannot be anticipated fr
 ## When not to use
 Text fields may not be the best choice in the following scenarios:
 
-<section class="ds-cards">
-  <figure>
-    {{'components/text-field/sl-text-field-when-not-use-predefined.svg' | svgImage}}
-    <figcaption>
+### Sensitive information
+For handling sensitive or confidential information, such as passwords or credit card numbers, it's advisable to utilize specialized secure input fields designed to obscure the entered data for enhanced security.
 
-  ### Predefined options
-  When input data can be conveniently selected from predefined options using checkboxes, radio buttons, dropdown menus, or text areas. These structured input controls enhance efficiency and minimize errors in such cases.
-    </figcaption>
-  </figure>
-  <figure>
-    {{'components/text-field/sl-text-field-when-not-use-sensitive.svg' | svgImage}}
-    <figcaption>
-
-  ### Sensitive information
-  For handling sensitive or confidential information, such as passwords or credit card numbers, it's advisable to utilize specialized secure input fields designed to obscure the entered data for enhanced security.
-    </figcaption>
-  </figure>
-  <figure>
-    {{'components/text-field/sl-text-field-when-not-use-long.svg' | svgImage}}
-    <figcaption>
-
-  ### Longer text responses
-  Consider using text areas when you anticipate the input length will exceed the width of a text field or when you encourage users to provide longer text responses.
-    </figcaption>
-  </figure>
+### Longer text responses
+Consider using a [text area](/categories/components/textarea/) when you anticipate the input length will exceed the width of a text field or when you encourage users to provide longer text responses.
+  
 </section>
-</section>
+
 <section>
 
 ## Anatomy
-Let's dive into the fundamental elements that make up a text field and understand how they enhance user experiences.
-{{ 'components/text-field/sl-text-field-anatomy.svg' | svgImage }}
 
+<div class="ds-table-wrapper">
+  
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Container	|An input container is a structured enclosure for user input elements. It facilitates organized and user-friendly data collection in interfaces.|no|
@@ -101,28 +66,32 @@ Let's dive into the fundamental elements that make up a text field and understan
 
 {.ds-table}
 
+</div>
+
 </section>
 
 <section>
 
 ## Options
 
-With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the input field to exactly fit the user experience need for the uses case you are working on.
+With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the text field to exactly fit the user experience need for the uses case you are working on.
 
-{{ 'components/text-field/sl-text-field-figma-options.svg' | svgImage }}
-
+<div class="ds-table-wrapper">
+  
 |Item|Options|Description|
 |-|-|-|
-|Size|`'md', 'lg'`|The text field is available in two sizes. If not specified the default value is `md` (medium).|
-|Variant|`'default', 'valid', 'invalid'`| When you're working on a scenario where you show what happens when a field is skipped or filled in incorrectly you can choose a different variant to show this.|
-|State|`'idle','hover','active','disabled'`|These states are applied automatically in interactive examples or can be set explicitly when the use case asks for it. Default value is `idle`.|
-|Placeholder|`'on', 'off'`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
-|Placeholder text|`string`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). <br> Read further to learn why you need to be mindful of placeholder texts on the accessibility tab.|
-|Helper|`'on', 'off'`|To turn to Helper Text on or off. Default value is `off`.|
-|Input Text |`string`|Will be shown as the value of the text field|
-|Label|`text`|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|
-|Focus ring|`'on', 'off'`|Turn the focus ring option to show the focus state of the text field. Default value is `off`.|
+|Size|`md` `lg`|The text field is available in two sizes. If not specified the default value is `md` (medium).|
+|Variant|`default` `valid` `invalid`| When you're working on a scenario where you show what happens when a field is skipped or filled in incorrectly you can choose a different variant to show this.|
+|State|`idle` `hover` `active` `disabled`|These states are applied automatically in interactive examples or can be set explicitly when the use case asks for it. Default value is `idle`.|
+|Placeholder|`boolean`|If the setting is enabled, the placeholder will be visible, whereas if it is disabled, the user's input will be displayed. Default value is `off`.|
+|Placeholder text|`value`|Use placeholder text to give the user a short hint about what they need to input (e.g. a sample value or a short description of the expected format). Placeholder is not a replacement for labels. It's an optional feature that disappears once users begin entering their data. |
+|Hint|`boolean`|To turn to hint on or off. Default value is `off`.|
+|Input Text |`value`|Will be shown as the value of the text field|
+|Label|`value`|Provide users with additional context about button functionality by adding a label, ensuring clarity and ease of use.|
+|Focus ring|`boolean`|Turn the focus ring option to show the focus state of the text field. Default value is `off`.|
 
 {.ds-table .ds-table-align-top}
+
+</div>
 
 </section>

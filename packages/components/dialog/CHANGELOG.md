@@ -1,5 +1,31 @@
 # @sl-design-system/dialog
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [[`dbc032b`](https://github.com/sl-design-system/components/commit/dbc032b3a7587dfcbdb6a2118330b039765cf0fb), [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc)]:
+  - @sl-design-system/shared@0.2.5
+  - @sl-design-system/button@0.0.21
+
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf), [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf), [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf)]:
+  - @sl-design-system/shared@0.2.4
+  - @sl-design-system/button@0.0.20
+
+## 0.0.8
+
+### Patch Changes
+
+- [#969](https://github.com/sl-design-system/components/pull/969) [`207bb08`](https://github.com/sl-design-system/components/commit/207bb08fdae47c80eb74eb07164d3a0478f6ae78) - Set dialog overflow from hidden (default) to visible
+
+- Updated dependencies [[`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997)]:
+  - @sl-design-system/shared@0.2.3
+  - @sl-design-system/button@0.0.19
+
 ## 0.0.7
 
 ### Patch Changes

@@ -3,6 +3,53 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+.sl-text-card-body {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  line-height: var(--sl-text-typeset-line-height-md);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+.sl-text-card-subtitle {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  line-height: var(--sl-text-typeset-line-height-lg);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+.sl-text-card-title {
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  letter-spacing: var(--sl-text-typeset-letter-spacing-md);
+  line-height: var(--sl-text-typeset-line-height-xl);
+  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  text-decoration: var(--sl-text-typeset-text-decoration-none);
+  text-transform: var(--sl-text-typeset-text-case-none);
+}
+
+.sl-text-tab-subtitle {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-md);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
+.sl-text-tab-title {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-md);
+}
+
 .sl-text-popover-text-title {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);

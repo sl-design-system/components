@@ -1,0 +1,15 @@
+:host {
+  display: inline-flex;
+}
+
+slot[name='button'] {
+  display: inline-flex;
+
+  &:has(+ .selected)::after {
+    content: ':';
+  }
+}
+
+.selected {
+  font-weight: 600;
+}

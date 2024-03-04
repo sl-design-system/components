@@ -5,10 +5,11 @@ componentType: overlay
 shortDescription: We are still working on the drawer component
 layout: "components/components.njk"
 tags: component
+eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Components
   key: Drawer
-  order: 7
+  order: 11
   status: coming
 ---
 

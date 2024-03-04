@@ -1,5 +1,33 @@
 # @sl-design-system/avatar
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`dbc032b`](https://github.com/sl-design-system/components/commit/dbc032b3a7587dfcbdb6a2118330b039765cf0fb), [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc)]:
+  - @sl-design-system/shared@0.2.5
+  - @sl-design-system/tooltip@0.0.19
+
+## 0.2.0
+
+### Minor Changes
+
+- [#954](https://github.com/sl-design-system/components/pull/954) [`fe029ab`](https://github.com/sl-design-system/components/commit/fe029abb8011a24fdf55c00b823dbdd910740758) - Changed API, now you need to pass the display name and picture url as two separate attributes, instead of a user object
+
+### Patch Changes
+
+- Updated dependencies [[`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf), [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf)]:
+  - @sl-design-system/tooltip@0.0.18
+  - @sl-design-system/shared@0.2.4
+
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [[`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997)]:
+  - @sl-design-system/shared@0.2.3
+  - @sl-design-system/tooltip@0.0.17
+
 ## 0.1.4
 
 ### Patch Changes

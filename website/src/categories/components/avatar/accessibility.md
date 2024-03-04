@@ -5,34 +5,28 @@ eleventyNavigation:
   parent: Avatar
   key: AvatarAccessibility
 ---
-<section>
-
-## Avatar accessibility content
-
-This is the accessibility content of the avatar component
-
-</section>
-
-<section>
-
-## Accessibility content section
-
-Another section
-
-</section>
 
 <section> 
 
-## Accessibility details
+## WAI-ARIA
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+WAI-ARIA Roles, States, and Properties for an avatar provide essential information to assistive technologies and screen readers. They convey the avatar's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
-</section>
+<div class="ds-table-wrapper">
 
-<section>
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`aria-label`|string|Combination of name, label and badge text, depending on settings. See [Note 1] below for more explanation|no|
 
-## Behaviour
+{.ds-table .ds-table-align-top}
+</div>
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+**Notes**
+
+1. There are various components that can occur in the label; 
+
+    - The display name, that is only added when the avatar is set to `image-only`. Otherwise the name would be read out twice by the screen reader, and the main point of using an avatar is a quick way to identify a user. Reading out a name twice would not be "quick".
+    - The label, this can be set by using the `label` attribute. This is usefull when a status badge is displayed for example, that way it would read out "Anna Jenssen, online". In the string you can also use `{{'{{badgeText}}'}}` which wil be replaced by the text in the badge. That way you can get it to read out "Anna Jenssen has 5 open assignments" when you set `has {{'{{badgeText}}'}} open assignments` as the label text
+    - The badge text, when no label it set it will just read out what is visible in the badge.
 
 </section>

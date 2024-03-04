@@ -11,6 +11,18 @@
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
   --sl-body-foreground: rgb(var(--sl-color-palette-primary-base));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-accordion-active-border: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-accordion-active-icon: rgb(var(--sl-color-palette-accent-800));
+  --sl-color-accordion-active-foreground: rgb(var(--sl-color-palette-accent-800));
+  --sl-color-accordion-active-header: rgb(var(--sl-color-palette-accent-150));
+  --sl-color-accordion-disabled-border: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-accordion-disabled-icon: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-accordion-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-accordion-hover-border: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-accordion-hover-icon: rgb(var(--sl-color-palette-accent-500));
+  --sl-color-accordion-hover-foreground: rgb(var(--sl-color-palette-accent-500));
+  --sl-color-accordion-hover-header: rgb(var(--sl-color-palette-accent-50));
+  --sl-color-accordion-default-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-card-border: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-base));
   --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-base));
@@ -29,7 +41,7 @@
   --sl-color-tab-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-hover-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-hover-background: rgb(var(--sl-color-palette-accent-100));
-  --sl-color-tab-indicator: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-tab-default-indicator: rgb(var(--sl-color-palette-accent-base));
   --sl-color-tab-default-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));
@@ -474,6 +486,14 @@
   --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-base));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-accordion-active-background: var(--sl-body-background);
+  --sl-color-accordion-disabled-header: var(--sl-body-background);
+  --sl-color-accordion-disabled-background: var(--sl-body-background);
+  --sl-color-accordion-hover-background: var(--sl-body-background);
+  --sl-color-accordion-default-icon: var(--sl-body-foreground);
+  --sl-color-accordion-default-foreground: var(--sl-body-foreground);
+  --sl-color-accordion-default-header: var(--sl-body-background);
+  --sl-color-accordion-default-background: var(--sl-body-background);
   --sl-color-card-foreground: var(--sl-body-foreground);
   --sl-color-card-background: var(--sl-body-background);
   --sl-color-skeleton-shimmer: linear-gradient

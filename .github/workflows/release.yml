@@ -8,6 +8,7 @@ on:
 env:
   FIGMA_TOKEN: ${{ secrets.FIGMA_AUTH_TOKEN }}
   FONT_AWESOME_AUTH_TOKEN: ${{ secrets.FONT_AWESOME_AUTH_TOKEN }}
+  HUSKY: 0
 
 permissions:
   contents: write
@@ -21,14 +22,14 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: 'yarn'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@sl-design-system'

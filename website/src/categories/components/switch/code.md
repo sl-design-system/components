@@ -10,20 +10,43 @@ eleventyNavigation:
 
 <div class="ds-example">
   <div class="ds-example__examples-wrapper">
-    <sl-switch size="md" hint="helper text" checked>horizontal orientation</sl-switch>
-    <sl-switch size="md" orientation="vertical" hint="helper text">vertical orientation</sl-switch>
+    <sl-switch size="md" checked>Default checked</sl-switch>
+    <sl-switch size="md" reverse>Reverse unchecked</sl-switch>
   </div>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <div>
-      <sl-switch size="md" hint="helper text" checked>horizontal orientation</sl-switch>
-      <sl-switch size="md" orientation="vertical" hint="helper text">vertical orientation</sl-switch>
-    </div>
+<sl-switch size="md" checked>Default checked</sl-switch>
+<sl-switch size="md" reverse>Reverse unchecked</sl-switch>
   ```
 
+</div>
+
+</section>
+
+<section>
+
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/switch
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/switch
+  ```
 </div>
 
 </section>

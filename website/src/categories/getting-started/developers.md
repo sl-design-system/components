@@ -49,7 +49,7 @@ To get started using the SL Design System, you can install it via npm. Each comp
 <div class="ds-code">
 
   ```bash
-  npm add @sl-design-system/button 
+  npm install @sl-design-system/button 
   ```
 
 </div>
@@ -65,7 +65,7 @@ To start using the SL Design System, you need to setup a theme for your applicat
 <div class="ds-code">
 
   ```bash
-  npm add @sl-design-system/sanoma-learning
+  npm install @sl-design-system/sanoma-learning
   ```
 
 </div>

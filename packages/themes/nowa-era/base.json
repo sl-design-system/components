@@ -1844,6 +1844,11 @@
       "type": "spacing",
       "description": "space.2xl"
     },
+    "3xl": {
+      "value": 40,
+      "type": "spacing",
+      "description": "space.3xl"
+    },
     "button": {
       "solid": {
         "block": {
@@ -2823,6 +2828,11 @@
         "type": "Icons",
         "description": "icon.core.chevron-down"
       },
+      "chevron-right": {
+        "value": "chevron-right",
+        "type": "Icons",
+        "description": "icon.core.chevron-right"
+      },
       "check": {
         "value": "check",
         "type": "Icons",
@@ -2852,6 +2862,16 @@
         "value": "ellipsis",
         "type": "Icons",
         "description": "icon.core.ellipsis"
+      },
+      "house": {
+        "value": "house",
+        "type": "Icons",
+        "description": "icon.core.house"
+      },
+      "angle-down": {
+        "value": "angle-down",
+        "type": "Icons",
+        "description": "icon.core.angle-down"
       }
     },
     "typeset": {

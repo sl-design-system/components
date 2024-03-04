@@ -44,12 +44,15 @@
   --sl-opacity-100: 0.04;
   --sl-opacity-50: 0.02;
   --sl-icon-typeset-font-size-2xs: 10px;
+  --sl-icon-core-angle-down: angle-down;
+  --sl-icon-core-house: house;
   --sl-icon-core-ellipsis: ellipsis;
   --sl-icon-core-circle-check-solid: circle-check;
   --sl-icon-core-octagon-exclamation-solid: octagon-exclamation;
   --sl-icon-core-triangle-exclamation-solid: triangle-exclamation;
   --sl-icon-core-xmark: xmark;
   --sl-icon-core-check: check;
+  --sl-icon-core-chevron-right: chevron-right;
   --sl-icon-core-chevron-down: chevron-down;
   --sl-icon-core-pinata-solid: pinata;
   --sl-icon-core-pinata: pinata;
@@ -70,6 +73,7 @@
   --sl-space-badge-gap-md: 3px;
   --sl-space-badge-inline-3xl: 3px;
   --sl-space-badge-inline-md: 1px;
+  --sl-space-3xl: 40px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
   --sl-space-lg: 16px;

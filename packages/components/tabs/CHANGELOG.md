@@ -1,5 +1,33 @@
 # @sl-design-system/tabs
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`dbc032b`](https://github.com/sl-design-system/components/commit/dbc032b3a7587dfcbdb6a2118330b039765cf0fb), [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc)]:
+  - @sl-design-system/shared@0.2.5
+  - @sl-design-system/button@0.0.21
+
+## 0.1.2
+
+### Patch Changes
+
+- [#985](https://github.com/sl-design-system/components/pull/985) [`9c88751`](https://github.com/sl-design-system/components/commit/9c887516bacb0a335d8d2283e47d9a78f359a334) - Missing fill for tab icon in the default state added
+
+- [#985](https://github.com/sl-design-system/components/pull/985) [`9c88751`](https://github.com/sl-design-system/components/commit/9c887516bacb0a335d8d2283e47d9a78f359a334) - Added tokens for Tab component
+
+- Updated dependencies [[`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf), [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf), [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf)]:
+  - @sl-design-system/shared@0.2.4
+  - @sl-design-system/button@0.0.20
+
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997)]:
+  - @sl-design-system/shared@0.2.3
+  - @sl-design-system/button@0.0.19
+
 ## 0.1.0
 
 ### Minor Changes

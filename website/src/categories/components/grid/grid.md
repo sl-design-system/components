@@ -6,10 +6,11 @@ shortDescription: We are still working on the grid component
 layout: "components/components.njk"
 tags: component
 packageName: grid
+eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Components
   key: Grid
-  order: 9
+  order: 15
   status: coming
 ---
 

@@ -7,32 +7,38 @@ eleventyNavigation:
 ---
 <section>
 
-## Dialog accessibility content
+## Keyboard interactions
 
-This is the accessibility content
+<div class="ds-table-wrapper">
 
-</section>
+|Command|Description|
+|-|-|
+|Tab|Moves focus to the next tabbable element inside the dialog. If focus is on the last tabbable element, it wraps back to the first.|
+|Shift + Tab|Moves focus to the previous tabbable element inside the dialog. If focus is on the first, it wraps to the last.|
+|Escape (ESC)|Closes the dialog, but only when `disableCancel` is set to `false` (default)|
 
-<section>
+{.ds-table .ds-table-align-top}
 
-## Accessibility content section
-
-Another section
-
-</section>
-
-<section> 
-
-## Accessibility details
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
 </section>
 
 <section>
 
-## Behaviour
+## WAI-ARIA
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+<div class="ds-table-wrapper">
+
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`ariaLabelledby`|string|Defines the aria-label of the dialog, taken from the contents of the `title` slot.|no|
+|`ariaDescribedby`|string|Describes the purpose of the dialog|yes|
+|`ariaModal`|boolean|Defines the type of dialog; whether it is modal or not|no|
+|`ariaRole`|`'dialog', 'alertdialog'`|Defines the type of dialog; set by the `role` property, default is `dialog`|no|
+
+{.ds-table .ds-table-align-top}
+
+</div>
 
 </section>
+

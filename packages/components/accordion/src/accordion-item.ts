@@ -107,6 +107,7 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
       </details>
     `;
   } // details - open
+  // class=${classMap({ collapsing: !this.open, panel: true })}
 
   // TODO: additional div wrapper for the animation?
 
@@ -184,6 +185,7 @@ fill="#222222"
   #closeOnAnimationend(event: AnimationEvent): void {
     console.log(
       'event closeOnAnimationend',
+      event.animationName,
       event,
       this.open,
       this.renderRoot,
@@ -192,14 +194,18 @@ fill="#222222"
     );
     // if (event.animationName !== 'slide-in-up') {
     // this.panel?.removeAttribute('open');
-    if (/*this.open*/ this.renderRoot.querySelector('details')?.hasAttribute('open')) {
+    if (
+      /*this.open*/ this.renderRoot.querySelector('details')?.hasAttribute('open') &&
+      event.animationName === 'animate-panel-2'
+    ) {
       // this.panel?.classList.add('collapsing');
-      this.panel?.classList.remove('collapsing');
+      this.panel?.classList.remove('animation');
       this.panel?.addEventListener(
         'animationend',
         () => {
           // this.remove();
-          this.panel?.removeAttribute('open');
+          // this.panel?.removeAttribute('open');
+          this.renderRoot.querySelector('details')?.removeAttribute('open');
           // this.panel?.classList.remove('collapsing');
           // // this.panel?.classList.remove('animation');
         },
@@ -208,6 +214,7 @@ fill="#222222"
 
       requestAnimationFrame(() => {
         // this.panel?.setAttribute('close', '');
+        // this.panel?.classList.add('collapsing');
         this.panel?.classList.add('collapsing');
         // this.panel?.classList.remove('collapsing');
         // this.panel?.classList.remove('animation');
@@ -231,7 +238,8 @@ fill="#222222"
     }
 
     const detailsElement = event.target.parentElement;
-    const contentElement = event.target.nextElementSibling?.querySelector('.panel'); //event.target.nextElementSibling;
+    // const contentElement = event.target.nextElementSibling?.querySelector('.panel'); //event.target.nextElementSibling;
+    const contentElement = event.target.nextElementSibling;
 
     console.log(
       'detailsElement, contentElement',
@@ -270,15 +278,15 @@ fill="#222222"
 
     const isDetailsOpen = detailsElement.getAttribute('open') !== null;
     console.log('isDetailsOpen in onClick', isDetailsOpen);
-    // if (isDetailsOpen) {
-    //   // prevent default collapsing and delay it until the animation has completed
-    //   event.preventDefault();
-    //   contentElement.classList.add('collapsing');
-    //   onAnimationEnd(() => {
-    //     detailsElement?.removeAttribute('open');
-    //     contentElement.classList.remove('collapsing');
-    //   });
-    // }
+    if (isDetailsOpen) {
+      // prevent default collapsing and delay it until the animation has completed
+      event.preventDefault();
+      contentElement.classList.add('collapsing');
+      onAnimationEnd(() => {
+        detailsElement?.removeAttribute('open');
+        contentElement.classList.remove('collapsing');
+      });
+    }
 
     // const rect = this.dialog!.getBoundingClientRect();
     //

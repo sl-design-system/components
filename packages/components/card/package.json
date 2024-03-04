@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/card",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Card component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

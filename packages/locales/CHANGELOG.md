@@ -1,5 +1,11 @@
 # @sl-design-system/locales
 
+## 0.0.4
+
+### Patch Changes
+
+- [#984](https://github.com/sl-design-system/components/pull/984) [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc) - Update locales
+
 ## 0.0.3
 
 ### Patch Changes

@@ -4174,7 +4174,7 @@
             {
               "name": "{\n    finisher,\n    descriptor\n  }",
               "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?(property: PropertyKey): PropertyDescriptor;\n  }"
               }
             },
             {

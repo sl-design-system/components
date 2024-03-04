@@ -1,4 +1,4 @@
-import { msg } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
@@ -12,6 +12,13 @@ import { Tab } from './tab.js';
 export type TabsAlignment = 'start' | 'filled';
 
 let nextUniqueId = 0;
+
+const OBSERVER_OPTIONS: MutationObserverInit = {
+  attributes: true,
+  subtree: true,
+  attributeFilter: ['selected'],
+  attributeOldValue: true
+};
 
 /**
  * A tab group component that can contain tabs and tab panels.
@@ -28,6 +35,7 @@ let nextUniqueId = 0;
  *
  * @slot default - a place for the tab group content.
  */
+@localized()
 export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -54,13 +62,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     elements: () => (isPopoverOpen(this.listbox) ? this.#allTabs : this.tabs) || [],
     isFocusableElement: (el: Tab) => !el.disabled
   });
-
-  static #observerOptions = {
-    attributes: true,
-    subtree: true,
-    attributeFilter: ['selected'],
-    attributeOldValue: true
-  };
 
   /** All slotted tabs. */
   #allTabs: Tab[] = [];
@@ -114,33 +115,35 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <span class="indicator" role="presentation"></span>
             <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
             <div
-              id="tabs-popover"
               ${anchor({ element: this.#moreButton, position: this.vertical ? 'bottom-start' : 'bottom-end' })}
+              @click=${this.#handleTabChange}
               @toggle=${this.#onToggle}
+              aria-labelledby="more-btn"
+              id="tabs-popover"
+              part="listbox"
               popover
               role="listbox"
-              @click=${this.#handleTabChange}
-              part="listbox"
             >
               ${this.#allTabs}
             </div>
           </div>
         </div>
         ${this.#showMore
-          ? html` <sl-button
-              id="more-btn"
-              @click=${this.#onClick}
-              popovertarget="tabs-popover"
-              fill="ghost"
-              variant="primary"
-              size="md"
-              aria-controls="tabs-popover"
-              aria-expanded="false"
-              aria-haspopup="true"
-              aria-label=${msg('Show all')}
-            >
-              <sl-icon name="ellipsis"></sl-icon>
-            </sl-button>`
+          ? html`
+              <sl-button
+                @click=${this.#onClick}
+                aria-controls="tabs-popover"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label=${msg('Show all')}
+                id="more-btn"
+                fill="ghost"
+                size="md"
+                variant="primary"
+              >
+                <sl-icon name="ellipsis"></sl-icon>
+              </sl-button>
+            `
           : nothing}
       </div>
       <slot></slot>
@@ -162,7 +165,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   override firstUpdated(): void {
     this.#observer = new MutationObserver(this.#handleMutation);
-    this.#observer?.observe(this, TabGroup.#observerOptions);
+    this.#observer?.observe(this, OBSERVER_OPTIONS);
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -213,7 +216,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         const selectedTab = <Tab>mutation.target;
         this.#observer?.disconnect();
         this.#updateSelectedTab(selectedTab);
-        this.#observer?.observe(this, TabGroup.#observerOptions);
+        this.#observer?.observe(this, OBSERVER_OPTIONS);
       }
     });
   };

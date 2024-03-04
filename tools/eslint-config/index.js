@@ -4,6 +4,7 @@ import chaiExpect from 'eslint-plugin-chai-expect';
 import chaiFriendly from 'eslint-plugin-chai-friendly';
 import importPlugin from 'eslint-plugin-import';
 import lit from 'eslint-plugin-lit';
+import litA11y from 'eslint-plugin-lit-a11y';
 import mocha from 'eslint-plugin-mocha';
 import prettier from 'eslint-plugin-prettier/recommended';
 import storybook from 'eslint-plugin-storybook';
@@ -48,6 +49,12 @@ export default tseslint.config(
     }
   },
   {
+    plugins: { 'lit-a11y': litA11y },
+    rules: {
+      ...litA11y.configs.recommended.rules
+    }
+  },
+  {
     files: ['**/*.ts'],
     rules: {
       'no-fallthrough': [
@@ -56,6 +63,7 @@ export default tseslint.config(
           commentPattern: 'Break[\\s\\w]*omitted'
         }
       ],
+      // Disable here so we can enable the typescript one
       'no-return-await': 'off',
       'sort-imports': [
         'error',
@@ -112,7 +120,10 @@ export default tseslint.config(
           warnOnUnassignedImports: true
         }
       ],
-      'n/no-callback-literal': 'off',
+      // Generates too many false positives
+      'lit-a11y/click-events-have-key-events': 'off',
+      // This generates false positives for popovers
+      'lit-a11y/no-autofocus': 'off',
       'prettier/prettier': [
         'error',
         {
@@ -138,6 +149,10 @@ export default tseslint.config(
        * chai-as-promised and the expect() method in tests.
        */
       '@typescript-eslint/no-floating-promises': 'off',
+      // No warnings when using dummy images
+      'lit-a11y/alt-text': 'off',
+      // No warning when using dummy hrefs
+      'lit-a11y/anchor-is-valid': 'off',
       // Make sure we don't commit `it.only(...)` tests
       'mocha/no-exclusive-tests': 'error',
       // We use arrow functions by default
@@ -161,7 +176,11 @@ export default tseslint.config(
     rules: {
       ...storybook.configs.recommended.overrides[0].rules,
       // Within stories, we regularly have inline styles
-      'lit/prefer-static-styles': 'off'
+      'lit/prefer-static-styles': 'off',
+      // No warnings when using dummy images
+      'lit-a11y/alt-text': 'off',
+      // No warning when using dummy hrefs
+      'lit-a11y/anchor-is-valid': 'off'
     }
   }
 );

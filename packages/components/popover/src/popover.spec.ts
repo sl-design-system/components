@@ -31,7 +31,7 @@ describe('sl-popover', () => {
             <header>Please confirm</header>
             <section>Are you sure you want to continue?</section>
             <footer>
-              <sl-button size="sm" autofocus>Cancel</sl-button>
+              <sl-button size="sm">Cancel</sl-button>
               <sl-button size="sm" variant="primary">Confirm</sl-button>
             </footer>
           </sl-popover>

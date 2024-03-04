@@ -87,7 +87,7 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
     const { buttons, disableCancel, message, title, subtitle } = this.config ?? {};
 
     return html`
-      <sl-dialog .disableCancel=${disableCancel} role="alertdialog">
+      <sl-dialog .disableCancel=${disableCancel} dialog-role="alertdialog">
         <div slot="title">${title}</div>
         ${subtitle ? html`<div slot="subtitle">${subtitle}</div>` : nothing}
         <p>${message}</p>

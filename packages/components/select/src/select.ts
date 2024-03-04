@@ -4,6 +4,7 @@ import { FormControlMixin } from '@sl-design-system/form';
 import { type EventEmitter, EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { SelectButton } from './select-button.js';
 import { SelectOptionGroup } from './select-option-group.js';
 import { SelectOption } from './select-option.js';
@@ -12,8 +13,10 @@ import styles from './select.scss.js';
 export type SelectSize = 'md' | 'lg';
 
 /**
+ * A form control that allows users to select one option from a list of options.
+ *
  * @slot default - Place for `sl-select-option` elements
- * */
+ */
 @localized()
 export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
@@ -212,6 +215,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @toggle=${this.#onToggle}
+        aria-label=${ifDefined(this.placeholder)}
         part="listbox"
         popover
         role="listbox"

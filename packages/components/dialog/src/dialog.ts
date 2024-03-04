@@ -63,6 +63,9 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /** Determines whether a close button should be shown in the top right corner. */
   @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
 
+  /** The role for the dialog element. */
+  @property({ attribute: 'dialog-role' }) dialogRole: 'dialog' | 'alertdialog' = 'dialog';
+
   /**
    * Disables the ability to cancel the dialog by pressing the Escape key
    * or clicking on the backdrop.
@@ -82,6 +85,7 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         @click=${this.#onClick}
         @close=${this.#onClose}
         aria-labelledby="title"
+        role=${this.dialogRole}
         part="dialog"
       >
         <slot name="header">

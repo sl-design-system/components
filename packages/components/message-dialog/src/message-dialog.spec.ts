@@ -21,8 +21,8 @@ describe('sl-message-dialog', () => {
       dialog = messageDialog.renderRoot.querySelector('sl-dialog')!;
     });
 
-    it('should have an alertdialog role', () => {
-      expect(dialog).to.have.attribute('role', 'alertdialog');
+    it('should have an alertdialog role on the native dialog', () => {
+      expect(dialog.renderRoot.querySelector('dialog')).to.have.attribute('role', 'alertdialog');
     });
 
     it('should have an "Alert" title', () => {
@@ -97,8 +97,8 @@ describe('sl-message-dialog', () => {
       dialog = messageDialog.renderRoot.querySelector('sl-dialog')!;
     });
 
-    it('should have an alertdialog role', () => {
-      expect(dialog).to.have.attribute('role', 'alertdialog');
+    it('should have an alertdialog role on the native dialog', () => {
+      expect(dialog.renderRoot.querySelector('dialog')).to.have.attribute('role', 'alertdialog');
     });
 
     it('should have an "Confirm" title', () => {
@@ -194,8 +194,8 @@ describe('sl-message-dialog', () => {
       dialog = messageDialog.renderRoot.querySelector('sl-dialog')!;
     });
 
-    it('should have an alertdialog role', () => {
-      expect(dialog).to.have.attribute('role', 'alertdialog');
+    it('should have an alertdialog role on the native dialog', () => {
+      expect(dialog.renderRoot.querySelector('dialog')).to.have.attribute('role', 'alertdialog');
     });
 
     it('should have a title', () => {

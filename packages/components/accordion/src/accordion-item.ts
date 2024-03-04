@@ -99,8 +99,10 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
           </svg>
           ${this.summary}
         </summary>
-        <div class="panel" @animationend=${this.#closeOnAnimationend}>
-          <slot @slotchange=${this.#onSlotChange}></slot>
+        <div class="wrapper">
+          <div class="panel" @animationend=${this.#closeOnAnimationend}>
+            <slot @slotchange=${this.#onSlotChange}></slot>
+          </div>
         </div>
       </details>
     `;

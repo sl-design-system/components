@@ -38,8 +38,13 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@lit/localize": "^0.12.1",
     "@sl-design-system/form": "0.0.8",
     "@sl-design-system/shared": "0.2.5"
+  },
+  "devDependencies": {
+    "@lit/localize": "^0.12.1"
+  },
+  "peerDependencies": {
+    "@lit/localize": "^0.12.1"
   }
 }

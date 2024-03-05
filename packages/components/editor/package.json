@@ -39,7 +39,19 @@
   },
   "dependencies": {
     "@sl-design-system/form": "0.0.8",
-    "@sl-design-system/shared": "0.2.5",
+    "@sl-design-system/shared": "0.2.5"
+  },
+  "devDependencies": {
+    "prosemirror-commands": "^1.5.2",
+    "prosemirror-history": "^1.3.2",
+    "prosemirror-inputrules": "^1.4.0",
+    "prosemirror-keymap": "^1.2.2",
+    "prosemirror-model": "^1.19.4",
+    "prosemirror-schema-list": "^1.3.0",
+    "prosemirror-state": "^1.4.3",
+    "prosemirror-view": "^1.33.1"
+  },
+  "peerDependencies": {
     "prosemirror-commands": "^1.5.2",
     "prosemirror-history": "^1.3.2",
     "prosemirror-inputrules": "^1.4.0",

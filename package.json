@@ -26,7 +26,7 @@
     "chromatic-components": "yarn workspace @sl-design-system/chromatic components",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
     "extract-i18n": "lit-localize extract",
-    "lint": "wireit",
+    "lint:components": "wireit",
     "postinstall": "husky || true",
     "release": "wireit",
     "start": "wireit",
@@ -171,13 +171,17 @@
         "!packages/{components,themes}/*/node_modules/**"
       ]
     },
-    "lint": {
+    "lint:components": {
       "dependencies": [
-        "lint:components"
+        "lint:components:code",
+        "lint:components:styles"
       ]
     },
-    "lint:components": {
+    "lint:components:code": {
       "command": "eslint --config packages/components/eslint.config.mjs packages/components/*"
+    },
+    "lint:components:styles": {
+      "command": "stylelint --quiet-deprecation-warnings packages/components/*"
     },
     "release": {
       "command": "yarn changeset publish",

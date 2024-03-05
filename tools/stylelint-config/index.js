@@ -1,6 +1,6 @@
 /** @type {import('stylelint').Config} */
 export default {
-  extends: ['stylelint-config-standard-scss'],
+  extends: ['stylelint-config-standard'],
   plugins: ['stylelint-use-logical', 'stylelint-order', 'stylelint-prettier'],
   rules: {
     'no-descending-specificity': null,
@@ -10,6 +10,10 @@ export default {
     'scss/operator-no-newline-after': null
   },
   overrides: [
+    {
+      files: ['**/*.scss'],
+      extends: ['stylelint-config-standard-scss']
+    },
     {
       files: ['**/*.ts'],
       customSyntax: 'postcss-lit'

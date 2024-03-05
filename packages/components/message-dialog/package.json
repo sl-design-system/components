@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/message-dialog",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Message dialog utility for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "0.0.21",
-    "@sl-design-system/dialog": "0.0.10"
+    "@sl-design-system/button": "0.0.22",
+    "@sl-design-system/dialog": "0.0.11"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.1",

@@ -1,7 +1,7 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Icon } from '@sl-design-system/icon';
+import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';

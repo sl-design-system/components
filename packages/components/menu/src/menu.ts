@@ -8,9 +8,9 @@ import {
 } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import styles from './menu.scss.js';
 import { MenuItemGroup } from './menu-item-group.js';
 import { MenuItem } from './menu-item.js';
+import styles from './menu.scss.js';
 
 export class Menu extends LitElement {
   /** The default offset of the menu to its anchor. */

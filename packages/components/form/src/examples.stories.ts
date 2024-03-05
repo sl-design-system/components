@@ -1,5 +1,3 @@
-import type { Form } from './form.js';
-import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
@@ -7,10 +5,12 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
-import '@sl-design-system/textarea/register.js';
 import '@sl-design-system/text-field/register.js';
+import '@sl-design-system/textarea/register.js';
+import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
+import { type Form } from './form.js';
 
 type Story = StoryObj;
 

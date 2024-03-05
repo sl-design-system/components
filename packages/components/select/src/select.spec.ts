@@ -1,16 +1,16 @@
 import { expect, fixture } from '@open-wc/testing';
-import { html } from 'lit';
 import { sendKeys } from '@web/test-runner-commands';
+import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { Select } from './select.js';
 import { SelectButton } from './select-button.js';
+import { Select } from './select.js';
 
 describe('sl-select', () => {
   let el: Select;
 
   describe('empty', () => {
-    beforeEach(async ()=> {
+    beforeEach(async () => {
       el = await fixture(html`<sl-select></sl-select>`);
     });
 
@@ -44,7 +44,7 @@ describe('sl-select', () => {
 
     it('should not be disabled', () => {
       expect(el).not.to.have.attribute('disabled');
-      expect(el.disabled).not.to.be.true
+      expect(el.disabled).not.to.be.true;
     });
 
     it('should be disabled when set', async () => {
@@ -63,8 +63,8 @@ describe('sl-select', () => {
       el.placeholder = 'Placeholder';
       await el.updateComplete;
 
-      expect(el.querySelector('sl-select-button')).to.have.attribute('aria-placeholder','Placeholder');
-    })
+      expect(el.querySelector('sl-select-button')).to.have.attribute('aria-placeholder', 'Placeholder');
+    });
 
     it('should not be required', () => {
       expect(el).not.to.have.attribute('required');
@@ -126,7 +126,7 @@ describe('sl-select', () => {
       expect(onChange).to.have.been.calledOnce;
     });
 
-    it('should delegate focus to the button when focusing the select', async () => {
+    it('should delegate focus to the button when focusing the select', () => {
       el.focus();
 
       expect(document.activeElement).to.equal(el.querySelector('sl-select-button'));
@@ -180,7 +180,7 @@ describe('sl-select', () => {
   });
 
   describe('disabled', () => {
-    beforeEach(async ()=> {
+    beforeEach(async () => {
       el = await fixture(html`<sl-select disabled></sl-select>`);
     });
 

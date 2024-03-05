@@ -1,7 +1,7 @@
-import type { ButtonBar, ButtonBarAlign } from './button-bar.js';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
+import { type ButtonBar, type ButtonBarAlign } from './button-bar.js';
 
 describe('dna-button-bar', () => {
   let el: ButtonBar;

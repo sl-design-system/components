@@ -1,11 +1,10 @@
-import type { PropertyValues, TemplateResult } from 'lit';
-import type { GridActiveItemChangeEvent } from './events.js';
 import { msg, str } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { EventsController } from '@sl-design-system/shared';
-import { html } from 'lit';
+import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
+import { type GridActiveItemChangeEvent } from './events.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectionColumn<T = any> extends GridColumn<T> {

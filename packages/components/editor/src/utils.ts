@@ -1,6 +1,5 @@
-import type { Node, Schema } from 'prosemirror-model';
-import type { EditorState } from 'prosemirror-state';
-import { DOMParser, DOMSerializer } from 'prosemirror-model';
+import { DOMParser, DOMSerializer, type Node, type Schema } from 'prosemirror-model';
+import { type EditorState } from 'prosemirror-state';
 
 export const createContentNode = (schema: Schema, value = ''): Node => {
   const element = document.createElement('div');

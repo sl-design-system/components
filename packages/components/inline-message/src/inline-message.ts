@@ -1,12 +1,9 @@
-import type { TemplateResult } from 'lit-html';
-import type { CSSResultGroup, PropertyValues } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Icon } from '@sl-design-system/icon';
-import { Button } from '@sl-design-system/button';
-import { breakpoints } from '@sl-design-system/shared';
 import { localized, msg } from '@lit/localize';
-import { LitElement, html, nothing } from 'lit';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
+import { Icon } from '@sl-design-system/icon';
+import { breakpoints } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
 
@@ -63,7 +60,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  override async updated(changes: PropertyValues<this>): Promise<void> {
+  override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     if (changes.has('variant')) {

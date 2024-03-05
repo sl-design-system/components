@@ -8,7 +8,7 @@
     "inlineSources": true,
     "lib": ["es2022", "DOM", "DOM.Iterable"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noImplicitAny": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,

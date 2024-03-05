@@ -1,7 +1,7 @@
-import { html } from 'lit';
-import { Hint } from './hint.js';
 import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit';
 import '../register.js';
+import { Hint } from './hint.js';
 
 describe('sl-hint', () => {
   let el: Hint;

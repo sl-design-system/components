@@ -1,4 +1,4 @@
-import config from '../../eslint.config.js';
+import config from '../../eslint.config.mjs';
 
 /**
  * NOTE: All paths are relative to where eslint is run from,
@@ -8,6 +8,7 @@ export default [
   {
     ignores: [
       'packages/components/**/*.js',
+      'packages/components/**/*.mjs',
       'packages/components/**/*.d.ts',
       'packages/components/**/*.scss.ts',
       'packages/components/shared/src/vendor/*.ts',

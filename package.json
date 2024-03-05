@@ -6,7 +6,6 @@
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git"
   },
-  "type": "module",
   "workspaces": [
     "chromatic",
     "packages/angular",
@@ -178,7 +177,7 @@
       ]
     },
     "lint:components": {
-      "command": "eslint --config packages/components/eslint.config.js packages/components/*"
+      "command": "eslint --config packages/components/eslint.config.mjs packages/components/*"
     },
     "release": {
       "command": "yarn changeset publish",

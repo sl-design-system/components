@@ -1,4 +1,4 @@
-import config from '../../eslint.config.js';
+import config from '../../eslint.config.mjs';
 
 /**
  * NOTE: All paths are relative to where eslint is run from,

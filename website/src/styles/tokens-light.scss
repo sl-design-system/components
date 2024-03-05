@@ -11,55 +11,153 @@
     --control-color-border-negative-border: var(--colors-neutral-base-white);
     --control-color-focus-accent-focus: var(--colors-accent-200-accent);
     --control-color-focus-base-focus: var(--colors-accent-base-accent);
-    --control-color-state-accent-border-active-state: var(--control-color-border-negative-border);
-    --control-color-state-accent-border-default-state: var(--control-color-border-negative-border);
-    --control-color-state-accent-border-disabled-state: var(--colors-accent-200-accent);
-    --control-color-state-accent-border-hover-state: var(--control-color-border-negative-border);
-    --control-color-state-accent-container-active-state: var(--colors-accent-600-accent);
-    --control-color-state-accent-container-default-state: var(--control-color-surface-accent-surface);
-    --control-color-state-accent-container-disabled-state: var(--colors-accent-base-accent);
-    --control-color-state-accent-container-hover-state: var(--colors-accent-500-accent);
-    --control-color-state-accent-font-default-state: var(--control-color-text-negative-text);
-    --control-color-state-accent-font-disabled-state: var(--colors-accent-200-accent);
-    --control-color-state-accent-font-hover-state: var(--colors-neutral-600-neutral);
-    --control-color-state-danger-container-active-state: var(--colors-success-400-success);
-    --control-color-state-danger-container-default-state: var(--colors-danger-300-danger);
-    --control-color-state-danger-container-focus-state: var(--colors-success-300-success);
-    --control-color-state-danger-container-hover-state: var(--colors-success-200-success);
-    --control-color-state-danger-container-pressed-state: var(--colors-success-400-success);
-    --control-color-state-danger-font-default-state: var(--colors-neutral-base-black);
-    --control-color-state-danger-font-hover-state: var(--colors-neutral-base-black);
-    --control-color-state-default-container-active-state: var(--colors-neutral-400-neutral);
-    --control-color-state-default-container-default-state: var(--colors-neutral-200-neutral);
-    --control-color-state-default-container-disabled-state: var(--colors-neutral-150-neutral);
-    --control-color-state-default-container-focus-state: var(--colors-neutral-200-neutral);
-    --control-color-state-default-container-hover-state: var(--colors-neutral-300-neutral);
-    --control-color-state-default-container-pressed-state: var(--colors-neutral-400-neutral);
-    --control-color-state-default-font-active-state: var(--colors-neutral-700-neutral);
-    --control-color-state-default-font-default-state: var(--colors-neutral-500-neutral);
-    --control-color-state-default-font-disabled-state: var(--colors-neutral-500-neutral);
-    --control-color-state-default-font-hover-state: var(--colors-neutral-600-neutral);
-    --control-color-state-primary-container-active-state: var(--colors-accent-600-accent);
-    --control-color-state-primary-container-default-state: var(--colors-accent-base-accent);
-    --control-color-state-primary-container-focus-state: var(--colors-accent-base-accent);
-    --control-color-state-primary-container-hover-state: var(--colors-accent-500-accent);
-    --control-color-state-primary-container-pressed-state: var(--colors-accent-600-accent);
-    --control-color-state-primary-font-default-state: var(--colors-neutral-base-white);
-    --control-color-state-primary-font-hover-state: var(--colors-neutral-base-white);
-    --control-color-state-success-container-active-state: var(--colors-success-400-success);
-    --control-color-state-success-container-default-state: var(--colors-success-300-success);
-    --control-color-state-success-container-focus-state: var(--colors-success-300-success);
-    --control-color-state-success-container-hover-state: var(--colors-success-200-success);
-    --control-color-state-success-container-pressed-state: var(--colors-success-400-success);
-    --control-color-state-success-font-default-state: var(--colors-neutral-base-black);
-    --control-color-state-success-font-hover-state: var(--colors-neutral-base-black);
-    --control-color-state-warning-container-active-state: var(--colors-success-400-success);
-    --control-color-state-warning-container-default-state: var(--colors-warning-300-warning);
-    --control-color-state-warning-container-focus-state: var(--colors-success-300-success);
-    --control-color-state-warning-container-hover-state: var(--colors-success-200-success);
-    --control-color-state-warning-container-pressed-state: var(--colors-success-400-success);
-    --control-color-state-warning-font-default-state: var(--colors-neutral-base-black);
-    --control-color-state-warning-font-hover-state: var(--colors-neutral-base-black);
+    --control-color-state-accent-border-active-state: var(
+      --control-color-border-negative-border
+    );
+    --control-color-state-accent-border-default-state: var(
+      --control-color-border-negative-border
+    );
+    --control-color-state-accent-border-disabled-state: var(
+      --colors-accent-200-accent
+    );
+    --control-color-state-accent-border-hover-state: var(
+      --control-color-border-negative-border
+    );
+    --control-color-state-accent-container-active-state: var(
+      --colors-accent-600-accent
+    );
+    --control-color-state-accent-container-default-state: var(
+      --control-color-surface-accent-surface
+    );
+    --control-color-state-accent-container-disabled-state: var(
+      --colors-accent-base-accent
+    );
+    --control-color-state-accent-container-hover-state: var(
+      --colors-accent-500-accent
+    );
+    --control-color-state-accent-font-default-state: var(
+      --control-color-text-negative-text
+    );
+    --control-color-state-accent-font-disabled-state: var(
+      --colors-accent-200-accent
+    );
+    --control-color-state-accent-font-hover-state: var(
+      --colors-neutral-600-neutral
+    );
+    --control-color-state-danger-container-active-state: var(
+      --colors-success-400-success
+    );
+    --control-color-state-danger-container-default-state: var(
+      --colors-danger-300-danger
+    );
+    --control-color-state-danger-container-focus-state: var(
+      --colors-success-300-success
+    );
+    --control-color-state-danger-container-hover-state: var(
+      --colors-success-200-success
+    );
+    --control-color-state-danger-container-pressed-state: var(
+      --colors-success-400-success
+    );
+    --control-color-state-danger-font-default-state: var(
+      --colors-neutral-base-black
+    );
+    --control-color-state-danger-font-hover-state: var(
+      --colors-neutral-base-black
+    );
+    --control-color-state-default-container-active-state: var(
+      --colors-neutral-400-neutral
+    );
+    --control-color-state-default-container-default-state: var(
+      --colors-neutral-200-neutral
+    );
+    --control-color-state-default-container-disabled-state: var(
+      --colors-neutral-150-neutral
+    );
+    --control-color-state-default-container-focus-state: var(
+      --colors-neutral-200-neutral
+    );
+    --control-color-state-default-container-hover-state: var(
+      --colors-neutral-300-neutral
+    );
+    --control-color-state-default-container-pressed-state: var(
+      --colors-neutral-400-neutral
+    );
+    --control-color-state-default-font-active-state: var(
+      --colors-neutral-700-neutral
+    );
+    --control-color-state-default-font-default-state: var(
+      --colors-neutral-500-neutral
+    );
+    --control-color-state-default-font-disabled-state: var(
+      --colors-neutral-500-neutral
+    );
+    --control-color-state-default-font-hover-state: var(
+      --colors-neutral-600-neutral
+    );
+    --control-color-state-primary-container-active-state: var(
+      --colors-accent-600-accent
+    );
+    --control-color-state-primary-container-default-state: var(
+      --colors-accent-base-accent
+    );
+    --control-color-state-primary-container-focus-state: var(
+      --colors-accent-base-accent
+    );
+    --control-color-state-primary-container-hover-state: var(
+      --colors-accent-500-accent
+    );
+    --control-color-state-primary-container-pressed-state: var(
+      --colors-accent-600-accent
+    );
+    --control-color-state-primary-font-default-state: var(
+      --colors-neutral-base-white
+    );
+    --control-color-state-primary-font-hover-state: var(
+      --colors-neutral-base-white
+    );
+    --control-color-state-success-container-active-state: var(
+      --colors-success-400-success
+    );
+    --control-color-state-success-container-default-state: var(
+      --colors-success-300-success
+    );
+    --control-color-state-success-container-focus-state: var(
+      --colors-success-300-success
+    );
+    --control-color-state-success-container-hover-state: var(
+      --colors-success-200-success
+    );
+    --control-color-state-success-container-pressed-state: var(
+      --colors-success-400-success
+    );
+    --control-color-state-success-font-default-state: var(
+      --colors-neutral-base-black
+    );
+    --control-color-state-success-font-hover-state: var(
+      --colors-neutral-base-black
+    );
+    --control-color-state-warning-container-active-state: var(
+      --colors-success-400-success
+    );
+    --control-color-state-warning-container-default-state: var(
+      --colors-warning-300-warning
+    );
+    --control-color-state-warning-container-focus-state: var(
+      --colors-success-300-success
+    );
+    --control-color-state-warning-container-hover-state: var(
+      --colors-success-200-success
+    );
+    --control-color-state-warning-container-pressed-state: var(
+      --colors-success-400-success
+    );
+    --control-color-state-warning-font-default-state: var(
+      --colors-neutral-base-black
+    );
+    --control-color-state-warning-font-hover-state: var(
+      --colors-neutral-base-black
+    );
     --control-color-surface-100-accent-surface: var(--colors-accent-50-accent);
     --control-color-surface-100-surface: var(--colors-neutral-50-neutral);
     --control-color-surface-200-surface: var(--colors-neutral-100-neutral);
@@ -84,7 +182,7 @@
     --control-color-visuals-guide-fill: var(--colors-accent-base-accent);
     --control-color-visuals-guide-text: var(--colors-neutral-base-white);
 
-    --control-color-code-text-neutral: rgb(var(--sl-color-palette-neutral-600));
+    --control-color-code-text-neutral: rgb(var(--sl-color-palette-neutral-500));
     --control-color-code-text-accent: rgb(var(--sl-color-palette-accent-500));
     --control-color-code-text-danger: rgb(var(--sl-color-palette-danger-500));
     --control-color-code-text-warning: rgb(var(--sl-color-palette-warning-500));

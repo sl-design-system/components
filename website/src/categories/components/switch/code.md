@@ -1,26 +1,54 @@
 ---
 title: Switch code
 tags: code
-APIdescription: Component has a range of properties to define the experience in different use cases.
+APIdescription: The switch component has a range of properties to define the experience in different use cases. It is commonly used to enable and disable different options.
 eleventyNavigation:
   parent: Switch
   key: SwitchCode
 ---
+<section>
+
+<div class="ds-example">
+  <div class="ds-example__examples-wrapper">
+    <sl-switch size="md" checked>Default checked</sl-switch>
+    <sl-switch size="md" reverse>Reverse unchecked</sl-switch>
+  </div>
+</div>
+
+<div class="ds-code">
+
+  ```html
+<sl-switch size="md" checked>Default checked</sl-switch>
+<sl-switch size="md" reverse>Reverse unchecked</sl-switch>
+  ```
+
+</div>
+
+</section>
 
 <section>
 
-## Code
+## Installation
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/switch
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/switch
+  ```
+</div>
 
 </section>
 
 {% include "../component-table.njk" %}
-
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  

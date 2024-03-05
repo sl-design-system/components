@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/icon",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "Icon component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/icon"
+    "directory": "packages/components/icon"
   },
   "homepage": "https://sanomalearning.design/components/icon",
   "bugs": {
@@ -38,6 +38,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "lit": "^3.0.0"
+    "lit": "^3.1.2"
   }
 }

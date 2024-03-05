@@ -40,6 +40,30 @@
           "kind": "class",
           "description": "A dialog component for displaying modal UI.",
           "name": "Dialog",
+          "cssProperties": [
+            {
+              "description": "The maximum width of the dialog",
+              "name": "--sl-dialog-max-inline-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The dialog element",
+              "name": "dialog"
+            },
+            {
+              "description": "The container of the title and subtitle",
+              "name": "titles"
+            },
+            {
+              "description": "The button bar in the header",
+              "name": "header-bar"
+            },
+            {
+              "description": "The button bar in the footer",
+              "name": "footer-bar"
+            }
+          ],
           "slots": [
             {
               "description": "Area where action buttons are placed",
@@ -56,10 +80,6 @@
             {
               "description": "Header content for the dialog",
               "name": "header"
-            },
-            {
-              "description": "Closing button (placed in header) for the dialog",
-              "name": "close-button"
             },
             {
               "description": "More space for buttons for the dialog's header",
@@ -86,22 +106,21 @@
             },
             {
               "kind": "field",
-              "name": "closingButton",
+              "name": "closeButton",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
-              "attribute": "closing-button"
+              "description": "Determines whether a close button should be shown in the top right corner.",
+              "attribute": "close-button"
             },
             {
               "kind": "field",
-              "name": "disableClose",
+              "name": "disableCancel",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "attribute": "disable-close"
+              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
+              "attribute": "disable-cancel"
             },
             {
               "kind": "field",
@@ -121,25 +140,58 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "event",
+              "name": "sl-cancel",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
+            },
+            {
+              "kind": "event",
+              "name": "sl-close",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the dialog has been closed."
+            }
+          ],
+          "events": [
+            {
+              "name": "cancelEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop.",
+              "fieldName": "cancelEvent"
+            },
+            {
+              "name": "closeEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the dialog has been closed.",
+              "fieldName": "closeEvent"
             }
           ],
           "attributes": [
             {
-              "name": "disable-close",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Disables the ability to close the dialog using the Escape key.",
-              "fieldName": "disableClose"
-            },
-            {
-              "name": "closing-button",
+              "name": "close-button",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Determines whether closing button (default one) should be shown in the top right corner.",
-              "fieldName": "closingButton"
+              "description": "Determines whether a close button should be shown in the top right corner.",
+              "fieldName": "closeButton"
+            },
+            {
+              "name": "disable-cancel",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
+              "fieldName": "disableCancel"
             },
             {
               "name": "role",
@@ -154,7 +206,7 @@
           "mixins": [
             {
               "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -194,24 +246,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "#onCloseClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "PointerEvent & { target: HTMLElement }"
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
               ]
@@ -235,7 +270,16 @@
             },
             {
               "kind": "method",
-              "name": "#onKeydown",
+              "name": "#onClose",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onCloseClick",
               "return": {
                 "type": {
                   "text": "void"
@@ -245,7 +289,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "KeyboardEvent"
+                    "text": "PointerEvent & { target: HTMLElement }"
                   }
                 }
               ]
@@ -261,20 +305,16 @@
               "parameters": [
                 {
                   "name": "target",
+                  "optional": true,
                   "type": {
                     "text": "HTMLElement"
                   }
+                },
+                {
+                  "name": "emitCancelEvent",
+                  "default": "false"
                 }
               ]
-            },
-            {
-              "kind": "method",
-              "name": "#onClose",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
             }
           ],
           "fields": [

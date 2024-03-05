@@ -1,17 +1,17 @@
 $sizes: md, lg;
 $variants: default, valid, invalid;
-$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 $resize-types: none, both, horizontal, vertical, auto;
 
 :host {
   --sl-textarea-rows: 3;
-  --_border-size: var(--sl-border-width-button-default);
+  --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
   --_transition: 200ms ease-in-out;
   --_min-height: calc(var(--sl-textarea-rows) * 1lh);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 }
 
 @each $size in $sizes {
@@ -99,13 +99,24 @@ $resize-types: none, both, horizontal, vertical, auto;
 
 :host {
   align-items: start;
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
   display: flex;
-  flex-direction: column;
   gap: var(--_gap);
+  outline-color: transparent;
+  position: relative;
+  transition: var(--_transition);
+  transition-property: background, border, color, filter, outline-color;
   vertical-align: top;
 }
 
-:host(:disabled) {
+:host(:focus-within) {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+}
+
+:host([disabled]) {
   cursor: default;
   pointer-events: none;
 }
@@ -119,7 +130,7 @@ slot[name='textarea']::slotted(textarea) {
   flex: 1;
   font: var(--_font);
   margin: 0;
-  min-height: var(--_min-height);
+  min-block-size: var(--_min-height);
   outline: none;
   padding: var(--_padding);
 
@@ -133,40 +144,9 @@ slot[name='textarea']::slotted(textarea) {
   }
 }
 
-.wrapper {
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  display: flex;
-  outline-color: transparent;
-  position: relative;
-  transition: var(--_transition);
-  transition-property: background, border, color, filter, outline-color;
-  width: 100%;
-}
-
-:host(:where(:focus-visible, :focus-within)) .wrapper {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
-}
-
 slot[name='suffix'] sl-icon {
   --fill-default: inherit;
   position: absolute;
   right: var(--_right);
   top: var(--_top);
-}
-
-.invalid-icon {
-  display: none;
-}
-
-:host(:where([invalid])) {
-  .invalid-icon {
-    display: block;
-  }
-
-  slot[name='hint']::slotted(*) {
-    display: none;
-  }
 }

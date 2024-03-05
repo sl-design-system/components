@@ -29,7 +29,10 @@ export class Button extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** Event controller. */
-  #events = new EventsController(this);
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+  });
 
   /** @private. */
   readonly internals = this.attachInternals();
@@ -37,21 +40,27 @@ export class Button extends LitElement {
   /** The original tabIndex before disabled. */
   private originalTabIndex = 0;
 
-  /** The fill of the button.
-   * @type {'solid' | 'outline' | 'link' | 'ghost'} */
+  /** Whether the button is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
+  /**
+   * The fill of the button.
+   */
   @property({ reflect: true }) fill: ButtonFill = 'solid';
 
-  /** The size of the button.
-   * @type {'sm' | 'md' | 'lg'} */
+  /**
+   * The size of the button.
+   */
   @property({ reflect: true }) size: ButtonSize = 'md';
 
   /**
    * The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.
-   * @type {'button' | 'reset' | 'submit'} */
+   */
   @property() type: ButtonType = 'button';
 
-  /** The variant of the button.
-   * @type {'default' | 'primary' | 'success' | 'warning' | 'danger'} */
+  /**
+   * The variant of the button.
+   */
   @property({ reflect: true }) variant: ButtonVariant = 'default';
 
   override connectedCallback(): void {
@@ -59,12 +68,18 @@ export class Button extends LitElement {
 
     this.internals.role = 'button';
 
-    this.#events.listen(this, 'click', this.#onClick);
-    this.#events.listen(this, 'keydown', this.#onKeydown);
-
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = 0;
     }
+  }
+
+  /** @private */
+  formDisabledCallback(disabled: boolean): void {
+    if (disabled) {
+      this.originalTabIndex = this.tabIndex;
+    }
+
+    this.tabIndex = disabled ? -1 : this.originalTabIndex;
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -77,15 +92,6 @@ export class Button extends LitElement {
 
   override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
-  }
-
-  /** @private */
-  formDisabledCallback(disabled: boolean): void {
-    if (disabled) {
-      this.originalTabIndex = this.tabIndex;
-    }
-
-    this.tabIndex = disabled ? -1 : this.originalTabIndex;
   }
 
   #onClick(event: Event): void {

@@ -1,0 +1,259 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/message-dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-message-dialog",
+          "declaration": {
+            "name": "MessageDialog",
+            "module": "/src/message-dialog.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/message-dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A dialog for displaying messages to the user.",
+          "name": "MessageDialog",
+          "members": [
+            {
+              "kind": "method",
+              "name": "alert",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Alert')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "field",
+              "name": "config",
+              "type": {
+                "text": "MessageDialogConfig<T> | undefined"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "confirm",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<boolean | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Confirm')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<T | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "MessageDialogConfig<T>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "mixins": [
+            {
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-message-dialog",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "alert",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<void>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Alert')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "confirm",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<boolean | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "title",
+                  "default": "msg('Confirm')"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "show",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Promise<T | undefined>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "MessageDialogConfig<T>"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "showModal",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "close",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "config",
+              "type": {
+                "text": "MessageDialogConfig<T> | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MessageDialog",
+          "declaration": {
+            "name": "MessageDialog",
+            "module": "src/message-dialog.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

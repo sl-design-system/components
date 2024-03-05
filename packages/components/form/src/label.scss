@@ -1,0 +1,37 @@
+$sizes: sm, md, lg;
+
+:host {
+  --_color: var(--sl-body-foreground);
+  --_fill: var(--sl-color-input-field-label-icon-default);
+}
+
+:host {
+  align-items: center;
+  color: var(--_color);
+  display: inline-flex;
+}
+
+:host([disabled]) {
+  --_color: var(--sl-color-input-field-label-text-disabled);
+  --_fill: var(--sl-color-input-field-label-icon-disabled);
+}
+
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    slot[name='label']::slotted(label) {
+      font: var(--sl-text-input-field-label-label-#{$size});
+    }
+
+    .optional,
+    .required {
+      font: var(--sl-text-input-field-label-tag-#{$size});
+      margin-inline-start: var(--sl-space-input-field-label-gap-#{$size});
+    }
+  }
+}
+
+slot[name='icon']::slotted(sl-icon) {
+  align-self: center;
+  fill: var(--_fill);
+  margin-left: var(--sl-space-input-field-label-icon-md);
+}

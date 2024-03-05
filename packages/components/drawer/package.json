@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/drawer",
-  "version": "0.0.13",
+  "version": "0.0.21",
   "description": "Drawer component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/drawer"
+    "directory": "packages/components/drawer"
   },
   "homepage": "https://sanomalearning.design/components/drawer",
   "bugs": {
@@ -38,9 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@open-wc/scoped-elements": "2.2.1",
-    "@sl-design-system/button": "0.0.13",
-    "@sl-design-system/button-bar": "0.0.2",
-    "lit": "^3.0.0"
+    "@open-wc/scoped-elements": "^3.0.5",
+    "@sl-design-system/button": "0.0.21",
+    "@sl-design-system/button-bar": "0.0.4"
   }
 }

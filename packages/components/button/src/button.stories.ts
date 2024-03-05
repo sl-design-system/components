@@ -7,10 +7,9 @@ import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
 
-interface Props extends Pick<Button, 'fill' | 'size' | 'variant'> {
+interface Props extends Pick<Button, 'disabled' | 'fill' | 'size' | 'variant'> {
   icon: string;
   text: string;
-  disabled: boolean;
 }
 
 type Story = StoryObj<Props>;
@@ -46,10 +45,6 @@ export default {
     variant: {
       control: 'radio',
       options: variants
-    },
-    disabled: {
-      control: 'inline-radio',
-      options: disabledStates
     }
   },
   render: ({ fill, size, text, variant, icon, disabled }) => {
@@ -206,7 +201,7 @@ export const AlignmentIssues: Story = {
     }
   },
   render: ({ fill, variant }) => {
-    Icon.registerIcon(faPinata);
+    Icon.register(faPinata);
     return html`
       <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button>
       <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button><br />

@@ -40,13 +40,18 @@ export const boxShadow = {
   matcher: token => token.type === 'boxShadow',
   transformer: token => {
     if(Array.isArray(token.value)){
-      const cssTokens = token.value.map(t => `${t.x} ${t.y} ${t.blur} ${t.spread} ${t.color.replace(',','/')}`);
+      const cssTokens = token.value.map(t => `${addUnit(t.x)} ${addUnit(t.y)} ${addUnit(t.blur)} ${addUnit(t.spread)} ${t.color.replace(',','/')}`);
       return cssTokens.join(', ');
     }else {
-      return `${token.value.x} ${token.value.y} ${token.value.blur} ${token.value.spread} ${token.value.color.replace(',','/')}`;
+      return `${addUnit(token.value.x)} ${addUnit(token.value.y)} ${addUnit(token.value.blur)} ${addUnit(token.value.spread)} ${token.value.color.replace(',','/')}`;
     }
   }
 };
+
+const addUnit = (value) => {
+  const hasUnit = ['px','%','em','rem','vh','vw'].some(unit => typeof value ==="string" && value?.indexOf(unit)>0);
+  return hasUnit || value===0 ? value : value+'px';
+}
 
 export const sizePx = {
   name: 'size/px',

@@ -1,20 +1,23 @@
 $sizes: sm, md, lg;
 
 :host {
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_handle-color: var(--sl-color-input-switch-default-unchecked-default-handle);
+  --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
+  --_label-text-color: var(--sl-color-input-field-label-text-default);
+  --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
+  --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
   --_toggle-padding: var(--sl-space-input-switch-padding-controller);
   --_track-radius: calc((var(--handle-size) + var(--_toggle-padding) * 2) / 2);
   --_transition: var(--sl-animation-duration-normal);
-
-  --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
-  --_handle-color: var(--sl-color-input-switch-default-unchecked-default-handle);
-  --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
-  --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
-  --_label-text-color: var(--sl-color-input-field-label-text-default);
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
-
   --handle-position: 0%;
   --isLTR: 1;
+
+  align-items: center;
+  display: inline-flex;
+  gap: 0 var(--sl-space-input-switch-margin-left);
+  outline: none;
 }
 
 @each $size in $sizes {
@@ -23,13 +26,6 @@ $sizes: sm, md, lg;
     --_toggle-width: calc(var(--sl-size-input-switch-controller-width-#{$size}) - var(--_toggle-padding) * 2);
     --_gap: var(--sl-space-input-gap-#{$size});
     --_input-label-font: var(--sl-text-input-field-label-tag-#{$size});
-  }
-
-  :host([orientation='vertical']) {
-    --_input-label-font: var(--sl-text-input-switch-input-field-bold-#{$size});
-    --_toggle-container-margin: var(--sl-space-input-switch-margin-top-#{$size})
-      0
-      var(--sl-space-input-switch-margin-bottom-#{$size});
   }
 }
 
@@ -45,7 +41,7 @@ $sizes: sm, md, lg;
   --_icon-color: var(--sl-color-input-switch-default-unchecked-active-icon);
 }
 
-:host(:where(:disabled, [internals-disabled])) {
+:host([disabled]) {
   --_label-text-color: var(--sl-color-input-field-label-text-disabled);
 
   .toggle {
@@ -77,43 +73,34 @@ $sizes: sm, md, lg;
   }
 }
 
-:host([checked]:where([disabled], :disabled, [internals-disabled])) .toggle {
+:host([checked][disabled]) .toggle {
   --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
   --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
   --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
 }
 
-:host {
-  align-items: center;
-  display: inline-grid;
-  gap: 0 var(--sl-space-input-switch-margin-left);
-  grid-auto-rows: 1fr min-content;
-  grid-template-areas:
-    'input-label toggle'
-    'hint toggle';
-  grid-template-columns: 1fr minmax(0, max-content);
-  outline: none;
-}
-
-:host-context([dir='rtl']) {
-  --isLTR: -1;
-}
-
-:host(:focus-visible) .track {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
-}
-
-:host(:where(:disabled, [internals-disabled])) {
+:host([disabled]) {
   cursor: default;
   pointer-events: none;
 }
 
-.input-label {
+:host([reverse]) {
+  align-self: start;
+
+  .toggle {
+    order: -1;
+  }
+}
+
+:host(:focus-within) .track:focus-visible {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+}
+
+slot {
   color: var(--_label-text-color);
   cursor: pointer;
   font: var(--_input-label-font);
-  grid-area: input-label;
 }
 
 .toggle {
@@ -123,19 +110,15 @@ $sizes: sm, md, lg;
   padding: var(--_toggle-container-padding);
 }
 
-:host(.no-label) .toggle {
-  margin-top: 0;
-}
-
 .track {
   background-color: var(--_main-background-color);
   border-radius: var(--_track-radius);
   box-shadow: var(--_box-shadow);
   display: grid;
+  inline-size: var(--_toggle-width);
   outline: none;
   outline-color: transparent;
   padding: var(--_toggle-padding);
-  width: var(--_toggle-width);
 
   @media (prefers-reduced-motion: no-preference) {
     transition: var(--_transition);
@@ -145,12 +128,12 @@ $sizes: sm, md, lg;
 
 .track div {
   background-color: var(--_handle-color);
+  block-size: var(--handle-size);
   border-radius: calc(var(--handle-size) / 2);
   display: grid;
-  height: var(--handle-size);
+  inline-size: var(--handle-size);
   place-content: center;
   translate: var(--handle-position);
-  width: var(--handle-size);
   will-change: transform;
 
   sl-icon {
@@ -160,22 +143,4 @@ $sizes: sm, md, lg;
   @media (prefers-reduced-motion: no-preference) {
     transition: translate var(--sl-animation-duration-normal) var(--sl-animation-easing-ease-in-out);
   }
-}
-
-.helper {
-  --sl-space-input-helper-padding-top-sm: 0;
-  --sl-space-input-helper-padding-top-md: 0;
-  --sl-space-input-helper-padding-top-lg: 0;
-  display: contents;
-  grid-area: hint;
-}
-
-:host(:where([invalid])) slot[name='hint']::slotted(*) {
-  display: none;
-}
-
-:host([orientation='vertical']) {
-  align-items: flex-start;
-  display: flex;
-  flex-direction: column;
 }

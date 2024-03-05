@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/popover",
-  "version": "0.0.12",
+  "version": "0.1.5",
   "description": "Popover component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/popover"
+    "directory": "packages/components/popover"
   },
   "homepage": "https://sanomalearning.design/components/popover",
   "bugs": {
@@ -38,7 +38,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "0.1.8",
-    "lit": "^3.0.0"
+    "@sl-design-system/shared": "0.2.5"
   }
 }

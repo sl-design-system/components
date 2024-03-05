@@ -1,19 +1,19 @@
-import { Preview } from '@storybook/angular';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
-import 'element-internals-polyfill';
-import {configureLocalization} from '@lit/localize';
+import { configureLocalization } from '@lit/localize';
+import * as locales from '@sl-design-system/locales';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { Preview } from '@storybook/angular';
 import { updateTheme, themes } from '../../../.storybook/themes';
 
 const { setLocale } = configureLocalization({
-  sourceLocale: 'en',
-  targetLocales: ['nl'],
-  loadLocale: locale => import(`../../locales/src/${locale}.ts`)
+  sourceLocale: locales.sourceLocale,
+  targetLocales: locales.targetLocales,
+  loadLocale: locale => Promise.resolve(locales[locale as typeof locales.targetLocales[number]])
 });
 
 const preview: Preview = {
   decorators: [
-    (story, { globals: { locale = 'en' } }) => {
+    (story, { globals: { locale = locales.sourceLocale } }) => {
       document.documentElement.lang = locale;
       setLocale(locale);
 

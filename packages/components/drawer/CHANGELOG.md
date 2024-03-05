@@ -1,5 +1,67 @@
 # @sl-design-system/drawer
 
+## 0.0.21
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.21
+
+## 0.0.20
+
+### Patch Changes
+
+- Updated dependencies [[`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf)]:
+  - @sl-design-system/button@0.0.20
+
+## 0.0.19
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.19
+
+## 0.0.18
+
+### Patch Changes
+
+- [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - Bump Lit and related dependencies
+
+- Updated dependencies [[`e4e94cb`](https://github.com/sl-design-system/components/commit/e4e94cbae85ef09c029920db0cb0ac9c92939097), [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b)]:
+  - @sl-design-system/button-bar@0.0.4
+  - @sl-design-system/button@0.0.18
+
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies [[`c9c1395`](https://github.com/sl-design-system/components/commit/c9c1395c60eeb958dd25098e85c94818fac635bc)]:
+  - @sl-design-system/button@0.0.17
+
+## 0.0.16
+
+### Patch Changes
+
+- Updated dependencies [[`820171d`](https://github.com/sl-design-system/components/commit/820171dd3b507d92a4e885e2fb452d2984c0f27b), [`555c301`](https://github.com/sl-design-system/components/commit/555c301f416a7a35dad4f167b21b91f0c735ce51), [`820171d`](https://github.com/sl-design-system/components/commit/820171dd3b507d92a4e885e2fb452d2984c0f27b)]:
+  - @sl-design-system/button@0.0.16
+
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [[`c15e60e`](https://github.com/sl-design-system/components/commit/c15e60eef61430b3a9b944c4f8438d19ce8bb3c1), [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d)]:
+  - @sl-design-system/button@0.0.15
+
+## 0.0.14
+
+### Patch Changes
+
+- [#688](https://github.com/sl-design-system/components/pull/688) [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0) - Upgrade to Lit 3.0
+
+- Updated dependencies [[`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0)]:
+  - @sl-design-system/button-bar@0.0.3
+  - @sl-design-system/button@0.0.14
+
 ## 0.0.13
 
 ### Patch Changes

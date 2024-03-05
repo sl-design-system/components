@@ -476,20 +476,35 @@
         "value": "{border.radius.full}",
         "type": "borderRadius"
       }
+    },
+    "select": {
+      "listbox": {
+        "value": "{border.radius.2xs}",
+        "type": "borderRadius"
+      },
+      "item": {
+        "value": "{border.radius.3xs}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
     "width": {
       "button": {
-        "default": {
+        "solid": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.button.solid"
         },
         "outline": {
           "value": "{border.width.xs}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
+        },
+        "ghost": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth",
+          "description": "border.width.button.ghost"
         },
         "link": {
           "value": "{border.width.xs}",
@@ -501,7 +516,7 @@
         "none": {
           "value": "{border.width.none}",
           "type": "borderWidth",
-          "description": "border.width.button.default"
+          "description": "border.width.input.none"
         },
         "border": {
           "value": "{border.width.sm}",
@@ -513,6 +528,27 @@
         "default": {
           "value": "{border.width.xs}",
           "type": "borderWidth"
+        },
+        "offset": {
+          "value": "{border.width.sm}",
+          "type": "borderWidth"
+        }
+      },
+      "inline-message": {
+        "default": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth"
+        },
+        "start": {
+          "value": "{border.width.lg}",
+          "type": "borderWidth"
+        }
+      },
+      "select": {
+        "listbox": {
+          "value": "{conceptual.border.width.default}",
+          "type": "borderWidth",
+          "description": "border.width.button.default"
         }
       }
     }
@@ -665,6 +701,14 @@
           "type": "borderWidth",
           "description": "Conceptual Theme Border Token"
         }
+      }
+    }
+  },
+  "textCase": {
+    "badge": {
+      "textTransform": {
+        "value": "{text.typeset.textCase.uppercase}",
+        "type": "textCase"
       }
     }
   }

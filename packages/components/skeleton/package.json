@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/skeleton",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Skeleton component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/skeleton"
+    "directory": "packages/components/skeleton"
   },
   "homepage": "https://sanomalearning.design/components/skeleton",
   "bugs": {
@@ -38,6 +38,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "lit": "^3.0.0"
+    "lit": "^3.1.2"
   }
 }

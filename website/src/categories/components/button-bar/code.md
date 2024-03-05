@@ -15,7 +15,7 @@ Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molesti
 
 ### SL DS components
 
-<div class="ds-component__buttons-wrapper ">
+<div class="ds-example__code-wrapper">
   <sl-button fill="default" size="md">Default</sl-button>
   <sl-button fill="default" size="md" variant="primary">Primary</sl-button>
   <sl-button fill="default" size="md" variant="success">Success</sl-button>

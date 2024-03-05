@@ -1,7 +1,3 @@
-:host {
-  box-shadow: #e2e2e2 0 5px 10px 0;
-}
-
 :host([aria-hidden='true']) {
   display: none;
   pointer-events: none;

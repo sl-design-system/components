@@ -1,211 +1,151 @@
-import type { Switch, SwitchOrientation, SwitchSize } from './switch.js';
+import type { Switch, SwitchSize } from './switch.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
-import '@sl-design-system/icon/register.js';
-import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
-import '@sl-design-system/label/register.js';
+import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/icon/register.js';
+import '@sl-design-system/form/register.js';
+import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import { html } from 'lit';
 import '../register.js';
 
-const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
-  const data = new FormData(event.target),
-    output = (event.target.nextElementSibling || document.createElement('pre')) as HTMLOutputElement;
-  event.preventDefault();
-  event.target.after(output);
-
-  output.textContent = '';
-  data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
+type Props = Pick<Switch, 'checked' | 'disabled' | 'reverse' | 'size' | 'value'> & {
+  text: string;
 };
-
-interface Props extends Pick<Switch, 'checked' | 'disabled' | 'value' | 'size' | 'hint' | 'orientation'> {
-  label: string;
-}
-
 type Story = StoryObj<Props>;
 
 const sizes: SwitchSize[] = ['sm', 'md', 'lg'];
-const orientations: SwitchOrientation[] = ['horizontal', 'vertical'];
-const states: string[] = ['', 'checked'];
-
-const sizeName = (size: SwitchSize): string => {
-  switch (size) {
-    case 'sm':
-      return 'Small';
-    case 'md':
-      return 'Medium';
-    case 'lg':
-      return 'Large';
-  }
-};
 
 export default {
   title: 'Switch',
   args: {
     checked: false,
     disabled: false,
-    value: '12345',
+    reverse: false,
     size: 'md',
-    orientation: 'horizontal',
-    hint: 'Something to help the user out',
-    label: 'Label for the switch'
+    text: 'Text inside the switch',
+    value: '12345'
   },
   argTypes: {
     size: {
       control: 'inline-radio',
       options: sizes
-    },
-    orientation: {
-      control: 'inline-radio',
-      options: orientations
     }
   },
-  render: ({ checked, disabled, value, size, hint, label, orientation }) => html`
-    <sl-switch
-      ?checked=${checked}
-      ?disabled=${disabled}
-      .value=${value}
-      .size=${size}
-      .hint=${hint}
-      .orientation=${orientation}
-      >${label}</sl-switch
-    >
+  render: ({ checked, disabled, reverse, size, text, value }) => html`
+    <sl-switch ?checked=${checked} ?disabled=${disabled} ?reverse=${reverse} .size=${size} .value=${value}>
+      ${text}
+    </sl-switch>
   `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
-export const All: Story = {
-  render: () => {
-    return html` <style>
-        sl-switch {
-          min-width: 250px;
-        }
-        tbody th,
-        tbody td {
-          vertical-align: top;
-        }
-        td > div {
-          display: inline-flex;
-          flex-direction: column;
-          gap: 8px;
-        }
+export const Checked: Story = {
+  args: {
+    checked: true
+  }
+};
 
-        tbody td:nth-of-type(2n) {
-          border-right: 2px solid #dedede;
-          padding-right: 24px;
-        }
-        tbody td:nth-of-type(2n + 1):not(:first-of-type) {
-          padding-left: 24px;
-        }
-        tbody td:last-of-type {
-          border: none;
-        }
-        sl-switch:not(:last-of-type) {
-          border-bottom: 1px solid #efefef;
-          padding-bottom: 8px;
-        }
-      </style>
-      <table>
-        <thead>
-          <tr>
-            <td></td>
-            ${sizes.map(size => html` <th colspan="2">Size: ${sizeName(size)}</th> `)}
-          </tr>
-        </thead>
-        <tbody>
-          ${orientations.map(
-            orientation =>
-              html`<tr>
-                <th>${orientation}</th>
-                ${sizes.map(size =>
-                  states.map(
-                    state => html`
-                      <td>
-                        <div>
-                          <sl-switch
-                            .size=${size}
-                            .orientation=${orientation}
-                            ?checked=${state === 'checked'}
-                            hint="Check this one"
-                            >With hint</sl-switch
-                          >
-                          <sl-switch .size=${size} .orientation=${orientation} ?checked=${state === 'checked'}
-                            >Without hint</sl-switch
-                          >
-                          <sl-switch
-                            .size=${size}
-                            .orientation=${orientation}
-                            ?checked=${state === 'checked'}
-                          ></sl-switch>
-                          <sl-switch
-                            .size=${size}
-                            .orientation=${orientation}
-                            ?checked=${state === 'checked'}
-                            hint="This one can't be changed"
-                            disabled
-                            >Disabled</sl-switch
-                          >
-                        </div>
-                      </td>
-                    `
-                  )
-                )}
-              </tr>`
-          )}
-        </tbody>
-      </table>`;
+export const Disabled: Story = {
+  args: {
+    disabled: true
+  }
+};
+
+export const Empty: Story = {
+  args: {
+    text: ''
+  }
+};
+
+export const Overflow: Story = {
+  args: {
+    text: 'Ad fugiat esse qui dolore. Est dolore non aute consectetur nisi commodo magna dolore aute irure elit. Ipsum nulla labore minim anim nisi laborum. Reprehenderit non aliqua aliqua amet in enim dolor duis Lorem. Do magna amet ea laboris aliqua. Eu dolor nostrud adipisicing nostrud in cillum eu magna est non id culpa eiusmod. Esse non cillum officia et ad aute incididunt ea elit commodo adipisicing adipisicing.'
+  }
+};
+
+export const Reverse: Story = {
+  args: {
+    reverse: true
   }
 };
 
 export const CustomIcons: Story = {
   render: () => {
-    Icon.registerIcon(faTurtle, faRabbitRunning);
-    return html` ${sizes.map(
-      size => html` <sl-switch .size=${size} iconOff="far-turtle" iconOn="far-rabbit-running"></sl-switch> `
+    Icon.register(faTurtle, faRabbitRunning);
+
+    return html`${sizes.map(
+      size => html`<sl-switch .size=${size} icon-off="far-turtle" icon-on="far-rabbit-running"></sl-switch>`
     )}`;
   }
 };
 
-export const ValidateInForm: Story = {
-  render: ({ checked, disabled, value, size, hint, label, orientation }) => html`
-    <style>
-      form {
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-      }
-      sl-label {
-        margin-block-start: 0.5rem;
-      }
-      sl-label:first-of-type {
-        margin-block-start: 0;
-      }
-      sl-button-bar {
-        margin-top: 24px;
-      }
-      sl-button-bar,
-      sl-input,
-      sl-textarea {
-        align-self: stretch;
-      }
-    </style>
-    <form @submit=${onSubmit}>
-      <sl-label for="group">Switch</sl-label>
-      <sl-switch
-        ?checked=${checked}
-        ?disabled=${disabled}
-        .value=${value}
-        .size=${size}
-        .hint=${hint}
-        .orientation=${orientation}
-        required
-        >${label}</sl-switch
-      >
-      <sl-button-bar align="end">
-        <sl-button type="reset">Reset</sl-button>
-        <sl-button type="submit">Submit</sl-button>
-      </sl-button-bar>
-    </form>
-  `
+export const CustomValidity: Story = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    const onValidate = (event: Event & { target: Switch }): void => {
+      event.target.setCustomValidity(event.target.checked ? '' : 'Toggle the switch.');
+    };
+
+    return html`
+      <sl-form>
+        <sl-form-field
+          hint="This story has custom validation. If you do not toggle the switch, you will see a validation message. NOTE: This is a technical story; this is NOT meant as a functional example. The switch component should never be used in this way."
+          label="Do not do this in real code!"
+        >
+          <sl-switch @sl-validate=${onValidate} reverse>You must toggle me</sl-switch>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+};
+
+export const All: StoryObj = {
+  render: () => {
+    return html`
+      <style>
+        table {
+          border-collapse: collapse;
+          border-spacing: 0;
+        }
+        td[colspan] {
+          font-weight: bold;
+          padding-block-start: 1rem;
+          text-align: center;
+        }
+        td + td {
+          padding-inline-start: 1rem;
+        }
+      </style>
+      <table>
+        <tbody>
+          ${sizes.map(
+            size => html`
+              <tr>
+                <td colspan="2">${size}</td>
+              </tr>
+              <tr>
+                <td>
+                  <sl-switch .size=${size}>Toggle me</sl-switch>
+                  <sl-switch .size=${size} disabled>Toggle me</sl-switch>
+                </td>
+                <td>
+                  <sl-switch .size=${size} checked>Toggle me</sl-switch>
+                  <sl-switch .size=${size} checked disabled>Toggle me</sl-switch>
+                </td>
+              </tr>
+            `
+          )}
+          </tr>
+        </tbody>
+      </table>
+    `;
+  }
 };

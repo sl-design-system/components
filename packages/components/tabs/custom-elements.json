@@ -70,16 +70,41 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A tab group component that can contain tabs and tab panels.\n\n```html\n   <sl-tab-group>\n        <sl-tab selected>First tab</sl-tab>\n        <sl-tab-panel>Content of the tab 1</sl-tab-panel>\n\n        <sl-tab>Second tab</sl-tab>\n        <sl-tab-panel>Content of the tab 2</sl-tab-panel>\n   </sl-tab-group>\n```",
           "name": "TabGroup",
+          "slots": [
+            {
+              "description": "a place for the tab group content.",
+              "name": "default"
+            }
+          ],
           "members": [
+            {
+              "kind": "field",
+              "name": "alignment",
+              "type": {
+                "text": "TabsAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of tabs inside sl-tab-group",
+              "attribute": "alignment",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox element with all tabs list."
+            },
             {
               "kind": "event",
               "name": "tabChange",
               "type": {
                 "text": "EventEmitter<number>"
               },
-              "attribute": "tabChange"
+              "description": "Emits when the tab has been selected/changed."
             },
             {
               "kind": "field",
@@ -93,9 +118,8 @@
               "kind": "field",
               "name": "vertical",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Renders the tabs vertically instead of the default horizontal",
               "attribute": "vertical",
               "reflects": true
@@ -107,6 +131,7 @@
               "type": {
                 "text": "EventEmitter<number>"
               },
+              "description": "Emits when the tab has been selected/changed.",
               "fieldName": "tabChange"
             }
           ],
@@ -114,17 +139,25 @@
             {
               "name": "vertical",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Renders the tabs vertically instead of the default horizontal",
               "fieldName": "vertical"
+            },
+            {
+              "name": "alignment",
+              "type": {
+                "text": "TabsAlignment"
+              },
+              "default": "'start'",
+              "description": "The alignment of tabs inside sl-tab-group",
+              "fieldName": "alignment"
             }
           ],
           "mixins": [
             {
               "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements"
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -137,6 +170,15 @@
             {
               "kind": "method",
               "name": "#updateSlots",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
               "return": {
                 "type": {
                   "text": "void"
@@ -175,7 +217,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
               ]
@@ -256,7 +298,7 @@
               "kind": "field",
               "name": "#rovingTabindexController",
               "privacy": "private",
-              "default": "new RovingTabindexController<Tab>(this, {\n    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),\n    elements: () => this.tabs || [],\n    isFocusableElement: (el: Tab) => !el.disabled\n  })"
+              "default": "new RovingTabindexController<Tab>(this, {\n    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),\n    elements: () => (isPopoverOpen(this.listbox) ? this.#allTabs : this.tabs) || [],\n    isFocusableElement: (el: Tab) => !el.disabled\n  })"
             },
             {
               "kind": "field",
@@ -267,6 +309,42 @@
               },
               "static": true,
               "default": "{\n    attributes: true,\n    subtree: true,\n    attributeFilter: ['selected'],\n    attributeOldValue: true\n  }"
+            },
+            {
+              "kind": "field",
+              "name": "#allTabs",
+              "privacy": "private",
+              "type": {
+                "text": "Tab[]"
+              },
+              "default": "[]",
+              "description": "All slotted tabs."
+            },
+            {
+              "kind": "field",
+              "name": "#showMore",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether more button needs to be shown"
+            },
+            {
+              "kind": "field",
+              "name": "#moreButton",
+              "privacy": "private",
+              "type": {
+                "text": "HTMLButtonElement"
+              },
+              "description": "Button used to show all tabs"
+            },
+            {
+              "kind": "field",
+              "name": "#sizeObserver",
+              "privacy": "private",
+              "default": "new ResizeObserver(() => {\n    this.#updateSelectionIndicator();\n  })",
+              "description": "Observe the tablist width."
             },
             {
               "kind": "field",
@@ -287,6 +365,23 @@
             },
             {
               "kind": "field",
+              "name": "selectedTabInListbox",
+              "type": {
+                "text": "Tab | null"
+              },
+              "privacy": "private",
+              "description": "The current tab node selected in the tab listbox (dropdown)."
+            },
+            {
+              "kind": "field",
+              "name": "listbox",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "description": "The listbox element with all tabs list."
+            },
+            {
+              "kind": "field",
               "name": "#initialSelectedTab",
               "privacy": "private",
               "type": {
@@ -294,6 +389,11 @@
               },
               "description": "Get the selected tab button, or the first tab button.",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "#onToggle",
+              "privacy": "private"
             },
             {
               "kind": "field",
@@ -321,8 +421,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A tab panel component - part of the tab group component, place for a tab content.\n\n```html\n     <sl-tab-panel>\n       Content of the tab\n     </sl-tab-panel>\n```",
           "name": "TabPanel",
+          "slots": [
+            {
+              "description": "a place for the tab panel content.",
+              "name": "default"
+            }
+          ],
           "members": [],
           "superclass": {
             "name": "LitElement",
@@ -349,8 +455,26 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A tab component - part of the tab group component.\n\n```html\n     <sl-tab>\n        <sl-icon slot=\"icon\" name=\"star\" size=\"md\"></sl-icon>\n        Tab label\n        <span slot=\"subtitle\">Tab subtitle</span>\n        <sl-badge slot=\"badge\" size=\"lg\" variant=\"danger\">4</sl-badge>\n     </sl-tab>\n```",
           "name": "Tab",
+          "slots": [
+            {
+              "description": "a place for the tab group content.",
+              "name": "default"
+            },
+            {
+              "description": "icon shown on the left side of the component.",
+              "name": "icon"
+            },
+            {
+              "description": "a place for badge component.",
+              "name": "badge"
+            },
+            {
+              "description": "subtitle of the tab, containing additional information",
+              "name": "subtitle"
+            }
+          ],
           "members": [
             {
               "kind": "field",

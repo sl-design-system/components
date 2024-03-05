@@ -9,16 +9,3 @@
   gap: var(--_gap);
   vertical-align: top;
 }
-
-.wrapper {
-  align-items: start;
-  display: flex;
-  flex-direction: column;
-  gap: var(--_gap);
-}
-
-:host(:where([invalid])) {
-  slot[name='hint']::slotted(*) {
-    display: none;
-  }
-}

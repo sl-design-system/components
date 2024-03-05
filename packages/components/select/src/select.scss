@@ -1,150 +1,55 @@
 $sizes: md, lg;
 $variants: default, valid, invalid;
-$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
 
 :host {
-  --sl-popover-offset: 0px;
+  --sl-popover-offset: 6px;
+  --_background: var(--sl-color-select-listbox-background);
+  --_border-color: var(--sl-color-select-listbox-border);
+  --_border-radius: var(--sl-border-radius-select-listbox);
+  --_border-width: var(--sl-border-width-select-listbox);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 
-  align-items: stretch;
   display: flex;
-  flex-direction: column;
-  gap: var(--_gap);
   outline: none;
 }
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
+    --_padding-block: var(--sl-space-select-listbox-block-#{$size});
+    --_padding-inline: var(--sl-space-select-listbox-inline-#{$size});
     --_gap: var(--sl-space-select-listbox-gap-#{$size});
-    --_dialog-padding-block: var(--sl-space-select-listbox-block-#{$size});
-    --_dialog-padding-inline: var(--sl-space-select-listbox-inline-#{$size});
-    --_button-padding-block: var(--sl-space-select-selectbox-block-#{$size});
-    --_button-padding-inline: var(--sl-space-select-selectbox-inline-#{$size});
-    --_font: var(--sl-text-select-selectbox-text-#{$size});
-    --_border-radius: var(--sl-border-radius-default);
-    --_border-width: var(--sl-border-width-button-default);
   }
 }
 
-@each $variant in $variants {
-  $i: index($variants, $variant);
-  $variant-selector: nth($variant-selectors, $i);
-
-  :host(#{$variant-selector}:not(:disabled, [internals-disabled])) {
-    button {
-      --_background: var(--sl-color-select-selectbox-#{$variant}-default-background);
-      --_border-color: var(--sl-color-select-selectbox-#{$variant}-default-border);
-      --_color: var(--sl-color-select-selectbox-#{$variant}-default-foreground);
-      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-default-placeholder);
-    }
-
-    button:focus-within,
-    button:focus-visible {
-      --_background: var(--sl-color-select-selectbox-#{$variant}-focus-background);
-      --_border-color: var(--sl-color-select-selectbox-#{$variant}-focus-border);
-      --_color: var(--sl-color-select-selectbox-#{$variant}-focus-foreground);
-      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-focus-placeholder);
-    }
-
-    button:hover {
-      --_background: var(--sl-color-select-selectbox-#{$variant}-hover-background);
-      --_border-color: var(--sl-color-select-selectbox-#{$variant}-hover-border);
-      --_color: var(--sl-color-select-selectbox-#{$variant}-hover-foreground);
-      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-hover-placeholder);
-    }
-
-    button:active {
-      --_background: var(--sl-color-select-selectbox-#{$variant}-active-background);
-      --_border-color: var(--sl-color-select-selectbox-#{$variant}-active-border);
-      --_color: var(--sl-color-select-selectbox-#{$variant}-active-foreground);
-      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-active-placeholder);
-    }
-  }
-
-  :host(#{$variant-selector}:where(:disabled, [internals-disabled])) {
-    button {
-      --_background: var(--sl-color-select-selectbox-#{$variant}-disabled-background);
-      --_border-color: var(--sl-color-select-selectbox-#{$variant}-disabled-border);
-      --_color: var(--sl-color-select-selectbox-#{$variant}-disabled-foreground);
-      --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-disabled-placeholder);
-    }
-  }
-}
-
-dialog[popover] {
-  --_max-overlay-height: var(--max-overlay-height, 80vh);
-  background-color: #fff;
+div {
+  background: var(--_background);
+  border: var(--_border-width) solid var(--_border-color);
+  box-shadow: var(--sl-elevation-shadow-md);
   box-sizing: border-box;
   display: none;
   flex-direction: column;
   gap: var(--_gap);
   margin: 0;
-  max-height: var(--_max-overlay-height);
-  opacity: 0;
   overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   overflow-y: auto;
-  padding-block: var(--_dialog-padding-block);
-  padding-inline: var(--_dialog-padding-inline);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
-}
 
-button {
-  align-items: center;
-  background: var(--_background);
-  border: var(--_border-width) solid var(--_border-color);
-  border-radius: var(--_border-radius);
-  display: grid;
-  flex: 1 1 auto;
-  font: var(--_font);
-  gap: var(--_gap);
-  grid-template-columns: auto 24px;
-  outline: none;
-  outline-color: transparent;
-  padding: 0;
-  text-align: start;
-  transition: 0.2s ease-in-out;
-  transition-property: background, border, color, filter, outline-color;
-
-  > span {
-    display: block;
-    padding-block: var(--_button-padding-block);
-    padding-inline: var(--_button-padding-inline);
-    pointer-events: none;
-    white-space: nowrap;
+  @supports not selector(:popover-open) {
+    position: fixed;
   }
 
-  > span[contenttype='element'] {
-    padding-block: 0;
-    padding-inline: 0;
+  /* stylelint-disable-next-line selector-class-pattern */
+  &:where(:popover-open, .\\:popover-open) {
+    /* stylelint-disable-next-line max-nesting-depth, scss/at-rule-no-unknown */
+    @starting-style {
+      display: flex;
+      opacity: 0;
+    }
+
+    display: flex;
+    opacity: 1;
   }
-
-  &:focus-within,
-  &:focus-visible {
-    outline: var(--_focus-outline);
-    outline-offset: var(--_focus-outline-offset);
-  }
-
-  &.placeholder {
-    color: var(--_placeholder-color);
-  }
-}
-
-sl-icon {
-  display: grid;
-  place-items: center;
-  pointer-events: none;
-  transition: transform 0.2s ease-in-out;
-}
-
-button[aria-expanded='true'] sl-icon {
-  transform: rotateX(180deg);
-}
-
-:is(button[aria-expanded='true'] + dialog, dialog:popover-open) {
-  border: 0;
-  box-shadow: var(--sl-dropshadow-select-listbox);
-  display: flex;
-  opacity: 1;
-  z-index: 1;
 }

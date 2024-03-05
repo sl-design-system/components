@@ -7,9 +7,9 @@ eleventyNavigation:
   parent: Button
   key: ButtonCode
 ---
-<section>
+<section class="no-heading">
 <div class="ds-example">
-  <div class="ds-component__buttons-wrapper">
+  <div class="ds-example__code-wrapper">
     <sl-button fill="solid" size="md">Default</sl-button>
     <sl-button fill="solid" size="md" variant="primary">Primary</sl-button>
     <sl-button fill="solid" size="md" variant="success">Success</sl-button>
@@ -28,6 +28,31 @@ eleventyNavigation:
   <sl-button fill="solid" size="md" variant="danger">Danger</sl-button>
   ```
 
+</div>
+
+</section>
+
+<section>
+
+## Installation
+
+With npm
+
+<div class="ds-code">
+
+  ```html
+    npm install @sl-design-system/button
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```html
+    yarn add @sl-design-system/button
+  ```
 </div>
 
 </section>

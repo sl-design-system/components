@@ -46,7 +46,7 @@ const tokenToCss = (dictionary, token, options = { prefix: '  ' }) => {
     }
 
     // Wrap the value inside a calc() function if it contains an expression
-    if (!value.startsWith('rgb') && [' - ', ' + ', ' / '].some(expr => value.indexOf(expr) !== -1)) {
+    if (!value.startsWith('rgb') && token.type !== 'boxShadow' && [' - ', ' + ', ' / '].some(expr => value.indexOf(expr) !== -1)) {
       value = `calc(${value})`;
     }
 

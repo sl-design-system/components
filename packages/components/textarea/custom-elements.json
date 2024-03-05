@@ -38,7 +38,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Single line text input component.",
+          "description": "Multi line text area component.",
           "name": "Textarea",
           "slots": [
             {
@@ -51,10 +51,29 @@
               "kind": "field",
               "name": "autocomplete",
               "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+                "text": "typeof HTMLTextAreaElement.prototype.autocomplete | undefined"
               },
               "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
               "attribute": "autocomplete"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "method",
+              "name": "getLocalizedValidationMessage",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
               "kind": "field",
@@ -90,14 +109,22 @@
                 "text": "boolean | undefined"
               },
               "description": "Whether you can interact with the textarea or if it is just a static, readonly display.",
-              "attribute": "readonly",
-              "reflects": true
+              "attribute": "readonly"
+            },
+            {
+              "kind": "field",
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is a required field.",
+              "attribute": "required"
             },
             {
               "kind": "field",
               "name": "resize",
               "type": {
-                "text": "'none' | 'vertical' | 'auto'"
+                "text": "ResizeType"
               },
               "default": "'vertical'",
               "description": "The way the textarea can be resized.",
@@ -106,25 +133,56 @@
             },
             {
               "kind": "field",
+              "name": "rows",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The number of rows the textarea should initially have.\nIf not set, the browser defaults to 2 rows.",
+              "attribute": "rows"
+            },
+            {
+              "kind": "field",
               "name": "showValid",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
-              "description": "Whether the textarea should get valid styles when is valid.",
-              "attribute": "showValid",
-              "reflects": true
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "attribute": "show-valid"
             },
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "TextareaSize"
               },
               "default": "'md'",
               "description": "The size of the textarea.",
               "attribute": "size",
               "reflects": true
+            },
+            {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",
@@ -136,28 +194,11 @@
             },
             {
               "kind": "field",
-              "name": "valid",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the textarea is valid.",
-              "attribute": "valid",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
-            },
-            {
-              "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string"
               },
+              "default": "''",
               "description": "The value for the textarea.",
               "attribute": "value"
             },
@@ -165,22 +206,55 @@
               "kind": "field",
               "name": "wrap",
               "type": {
-                "text": "'soft' | 'hard'"
+                "text": "WrapType"
               },
               "default": "'soft'",
-              "description": "The text way should be wrapped during form submission.",
-              "attribute": "wrap",
-              "reflects": true
+              "description": "The way text should be wrapped during form submission.",
+              "attribute": "wrap"
+            }
+          ],
+          "events": [
+            {
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the focus leaves the component.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the value changes.",
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component gains focus.",
+              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
             {
               "name": "autocomplete",
               "type": {
-                "text": "typeof HTMLInputElement.prototype.autocomplete | undefined"
+                "text": "typeof HTMLTextAreaElement.prototype.autocomplete | undefined"
               },
               "description": "Specifies which type of data the browser can use to pre-fill the textarea.\n\nNOTE: Declare the type this way so it is backwards compatible with 4.9.5,\nwhich we still use in `@sl-design-system/angular`.",
               "fieldName": "autocomplete"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the textarea is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
             },
             {
               "name": "maxlength",
@@ -215,66 +289,74 @@
               "fieldName": "readonly"
             },
             {
-              "name": "value",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The value for the textarea.",
-              "fieldName": "value"
-            },
-            {
-              "name": "valid",
+              "name": "required",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the textarea is valid.",
-              "fieldName": "valid"
-            },
-            {
-              "name": "showValid",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the textarea should get valid styles when is valid.",
-              "fieldName": "showValid"
+              "description": "Whether the textarea is a required field.",
+              "fieldName": "required"
             },
             {
               "name": "resize",
               "type": {
-                "text": "'none' | 'vertical' | 'auto'"
+                "text": "ResizeType"
               },
               "default": "'vertical'",
               "description": "The way the textarea can be resized.",
               "fieldName": "resize"
             },
             {
+              "name": "rows",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The number of rows the textarea should initially have.\nIf not set, the browser defaults to 2 rows.",
+              "fieldName": "rows"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "fieldName": "showValid"
+            },
+            {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "TextareaSize"
               },
               "default": "'md'",
               "description": "The size of the textarea.",
               "fieldName": "size"
             },
             {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The value for the textarea.",
+              "fieldName": "value"
+            },
+            {
               "name": "wrap",
               "type": {
-                "text": "'soft' | 'hard'"
+                "text": "WrapType"
               },
               "default": "'soft'",
-              "description": "The text way should be wrapped during form submission.",
+              "description": "The way text should be wrapped during form submission.",
               "fieldName": "wrap"
             }
           ],
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             },
             {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "name": "ScopedElementsMixin",
+              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -286,20 +368,12 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onClick",
+              "name": "getLocalizedValidationMessage",
               "return": {
                 "type": {
-                  "text": "void"
+                  "text": "string"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
+              }
             },
             {
               "kind": "method",
@@ -320,15 +394,6 @@
             },
             {
               "kind": "method",
-              "name": "#setSize",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
               "name": "#onSlotchange",
               "return": {
                 "type": {
@@ -343,25 +408,69 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#setSize",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#syncTextarea",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "textarea",
+                  "type": {
+                    "text": "HTMLTextAreaElement"
+                  }
+                }
+              ]
             }
           ],
           "fields": [
             {
               "kind": "field",
-              "name": "#events",
+              "name": "scopedElements",
+              "type": {
+                "text": "ScopedElementsMap"
+              },
+              "static": true,
               "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick\n  })"
+              "readonly": true
             },
             {
               "kind": "field",
-              "name": "#validation",
-              "privacy": "private",
-              "default": "new ValidationController(this, {\n    target: () => this.textarea\n  })"
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
             },
             {
               "kind": "field",
-              "name": "internals",
-              "readonly": true,
+              "name": "#observer",
+              "privacy": "private",
+              "default": "new ResizeObserver(() => {\n    // Workaround for \"ResizeObserver loop completed with undelivered notifications.\"\n    requestAnimationFrame(() => this.#setSize());\n  })",
+              "description": "Observe the textarea width."
+            },
+            {
+              "kind": "field",
+              "name": "showExternalValidityIcon",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
               "privacy": "private"
             },
             {
@@ -371,23 +480,6 @@
                 "text": "HTMLTextAreaElement"
               },
               "description": "The textarea in the light DOM."
-            },
-            {
-              "kind": "field",
-              "name": "#resizeObserver",
-              "privacy": "private",
-              "type": {
-                "text": "ResizeObserver | undefined"
-              },
-              "description": "Observe the textarea width."
-            },
-            {
-              "kind": "field",
-              "name": "validators",
-              "type": {
-                "text": "Validator[] | undefined"
-              },
-              "description": "Custom validators specified by the user."
             }
           ]
         }

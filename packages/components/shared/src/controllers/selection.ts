@@ -4,8 +4,9 @@ export interface SelectionControllerOptions {
   multiple: boolean;
 }
 
-export class SelectionController<T> {
-  #host: ReactiveControllerHost;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class SelectionController<T = any> {
+  #host: ReactiveControllerHost & Element;
 
   /** Whether all items are selected or not. */
   #selectAll = false;
@@ -26,7 +27,7 @@ export class SelectionController<T> {
     return this.#selection;
   }
 
-  constructor(host: ReactiveControllerHost, options?: Partial<SelectionControllerOptions>) {
+  constructor(host: ReactiveControllerHost & Element, options?: Partial<SelectionControllerOptions>) {
     this.#host = host;
     this.multiple = !!options?.multiple;
   }
@@ -42,13 +43,13 @@ export class SelectionController<T> {
       this.#selection.add(item);
     }
 
-    this.#host.requestUpdate();
+    this.#updateHost();
   }
 
   selectAll(): void {
     this.#selectAll = true;
     this.#selection.clear();
-    this.#host.requestUpdate();
+    this.#updateHost();
   }
 
   deselect(item: T): void {
@@ -58,13 +59,13 @@ export class SelectionController<T> {
       this.#selection.delete(item);
     }
 
-    this.#host.requestUpdate();
+    this.#updateHost();
   }
 
   deselectAll(): void {
     this.#selectAll = false;
     this.#selection.clear();
-    this.#host.requestUpdate();
+    this.#updateHost();
   }
 
   toggle(item: T): void {
@@ -103,5 +104,10 @@ export class SelectionController<T> {
 
   isSelectAllToggled(): boolean {
     return this.#selectAll;
+  }
+
+  #updateHost(): void {
+    this.#host.dispatchEvent(new CustomEvent('sl-selection-change', { bubbles: true, composed: true, detail: this }));
+    this.#host.requestUpdate();
   }
 }

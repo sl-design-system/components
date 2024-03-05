@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import { argv } from 'node:process';
-import sass from 'sass';
+import * as sass from 'sass';
 import stylelint from 'stylelint';
 import figmaThemes from '../packages/tokens/src/$themes.json' assert { type: 'json' };
 import { buildStyles } from './style-dictionary.js';

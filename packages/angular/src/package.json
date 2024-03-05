@@ -1,0 +1,23 @@
+{
+  "name": "@sl-design-system/angular",
+  "version": "0.1.0",
+  "type": "module",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/angular"
+  },
+  "peerDependencies": {
+    "@angular/core": "^16.0.0 || ^17.0.0",
+    "@angular/forms": "^16.0.0 || ^17.0.0",
+    "@sl-design-system/form": "0.0.2",
+    "@sl-design-system/icon": "0.0.5",
+    "@sl-design-system/checkbox": "0.0.15",
+    "@sl-design-system/text-field": "0.1.10",
+    "@sl-design-system/radio-group": "0.0.15",
+    "@sl-design-system/textarea": "0.1.10"
+  }
+}

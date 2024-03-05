@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import { RadioGroup } from './radio-group.js';
 import '../register.js';
 
@@ -32,92 +33,282 @@ describe('sl-radio-group', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('should be valid when no option is chosen but the group is not required', () =>{
-      expect(el.internals.validity.valid).to.equal(true);
+    it('should have a role of radiogroup', () => {
+      expect(el.internals.role).to.equal('radiogroup');
+    });
+
+    it('should not be disabled', () => {
+      const allDisabled = Array.from(el.querySelectorAll('sl-radio')).every(radio => radio.disabled);
+
+      expect(el).not.to.have.attribute('disabled');
+      expect(el.disabled).not.to.be.true;
+      expect(allDisabled).to.be.false;
+    });
+
+    it('should be disabled when set', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('disabled');
+      expect(el.radios?.every(radio => radio.disabled)).to.be.true;
+    });
+
+    it('should not be required', () => {
+      expect(el).not.to.have.attribute('required');
+      expect(el.required).not.to.be.true;
+    });
+
+    it('should be required when set', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('required');
+    });
+
+    it('should be valid', () =>{
+      expect(el.valid).to.be.true;
+    });
+
+    it('should not have a horizontal orientation', () => {
+      expect(el.horizontal).not.to.be.true;
+      expect(el).not.to.have.attribute('horizontal');
+    });
+
+    it('should be horizontal when set', async () => {
+      el.horizontal = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('horizontal');
+    });
+
+    it('should emit an sl-change event when clicking an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when pressing the space key on an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.querySelector('sl-radio')?.focus();
+      await sendKeys({ press: 'Space' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-change event when pressing the enter key on an option', async () => {
+      const onChange = spy();
+
+      el.addEventListener('sl-change', onChange);
+      el.querySelector('sl-radio')?.focus();
+      await sendKeys({ press: 'Enter' });
+
+      expect(onChange).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-focus event when focusing the group', async () => {
+      const onFocus = spy();
+
+      el.addEventListener('sl-focus', onFocus);
+      el.querySelector('sl-radio')?.focus();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onFocus).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-blur event when blurring the group', () => {
+      const onBlur = spy();
+
+      el.addEventListener('sl-blur', onBlur);
+      el.querySelector('sl-radio')?.focus();
+      el.querySelector('sl-radio')?.blur();
+
+      expect(onBlur).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when calling reportValidity', () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.reportValidity();
+
+      expect(onValidate).to.have.been.calledOnce;
+    });
+
+    it('should emit an sl-validate event when selecting an option', async () => {
+      const onValidate = spy();
+
+      el.addEventListener('sl-validate', onValidate);
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onValidate).to.have.been.calledOnce;
     });
 
     it('should handle the navigating between options correctly', async () => {
-      expect(el.buttons?.[0].checked).to.equal(false);
-      expect(el.buttons?.[0].tabIndex).to.equal(0);
-      expect(el.buttons?.[1].checked).to.equal(false);
-      expect(el.buttons?.[1].tabIndex).to.equal(-1);
+      const radios = Array.from(el.querySelectorAll('sl-radio'));
 
-      el.buttons?.[0]?.focus();
+      expect(radios.at(0)?.checked).to.be.false;
+      expect(radios.at(0)?.tabIndex).to.equal(0);
+      expect(radios.at(1)?.checked).to.be.false;
+      expect(radios.at(1)?.tabIndex).to.equal(-1);
+
+      radios.at(0)?.focus();
       await sendKeys({ press: 'Space' });
 
-      expect(el.buttons?.[0].checked).to.equal(true);
-      expect(el.buttons?.[1].checked).to.equal(false);
+      expect(radios.at(0)?.checked).to.be.true;
+      expect(radios.at(1)?.checked).to.be.false;
 
       await sendKeys({ press: 'ArrowRight' });
       await sendKeys({ press: 'Enter' });
 
-      expect(el.buttons?.[0].checked).to.equal(false);
-      expect(el.buttons?.[1].checked).to.equal(true);
-    });
-  });
-
-
-  describe('selected option', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-radio-group value="2">
-      <sl-radio value="1">Option 1</sl-radio>
-      <sl-radio value="2">Option 2</sl-radio>
-      <sl-radio value="3">Option 3</sl-radio>
-    </sl-radio-group>`);
-    });
-
-    it('should have the right option selected to match the value', () => {
-      expect(el.value).to.equal("2");
-
-      expect(el.buttons?.[0].checked).to.equal(false);
-      expect(el.buttons?.[1].checked).to.equal(true);
-      expect(el.buttons?.[2].checked).to.equal(false);
-    });
-
-    it('should not break when the value doesn\'t match any of the options', async () => {
-      el.setAttribute('value', 'non-existend');
-      await el.updateComplete;
-
-      expect(el.value).to.equal("non-existend");
-
-      expect(el.buttons?.[0].checked).to.equal(false);
-      expect(el.buttons?.[1].checked).to.equal(false);
-      expect(el.buttons?.[2].checked).to.equal(false);
+      expect(radios.at(0)?.checked).to.be.false;
+      expect(radios.at(1)?.checked).to.be.true;
     });
   });
 
   describe('validation', () => {
     beforeEach(async () => {
       el = await fixture(html`
-          <sl-radio-group required>
-            <sl-radio value="1">Option 1</sl-radio>
-            <sl-radio value="2">Option 2</sl-radio>
-            <sl-radio value="3">Option 3</sl-radio>
-          </sl-radio-group>
+        <sl-radio-group>
+          <sl-radio value="1">Option 1</sl-radio>
+          <sl-radio value="2">Option 2</sl-radio>
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
       `);
     });
 
-    it('should not be valid when no option is chosen when it is a required group', async () => {
-      expect(el.internals.validity.valid).to.equal(false);
+    it('should be invalid when required and no option is selected', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.valid).to.be.false;
     });
 
-    it('should be valid when an option is chosen when it is a required group', async () => {
-      expect(el.internals.validity.valid).to.equal(false);
+    it('should have no validation message when valid', () => {
+      expect(el.validationMessage).to.equal('');
+    });
 
-      el.buttons?.[0]?.focus();
-      await sendKeys({ press: 'Space' });
-      await el.form?.checkValidity();
+    it('should be valid when required and an option is selected', async () => {
+      el.required = true;
+      await el.updateComplete;
 
-      expect(el.internals.validity.valid).to.equal(true);
+      expect(el.valid).to.be.false;
+
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should not have a show-validity attribute when reported', async () => {
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('show-validity');
+    });
+
+    it('should have an invalid show-validity attribute when required and reported', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should emit an update-validity event when reported', async () => {
+      const onUpdateValidity = spy();
+
+      el.addEventListener('sl-update-validity', onUpdateValidity);
+      el.reportValidity();
+      await el.updateComplete;
+
+      expect(onUpdateValidity).to.have.been.calledOnce;
+    });
+
+    it('should have a validation message when required and no option is selected', async () => {
+      el.required = true;
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Please select an option.');
+    });
+
+    it('should have a custom validation message when it has a custom-validity attribute', async () => {
+      el.setAttribute('custom-validity', 'Custom validation message');
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a custom validation message after calling setCustomValidity', async () => {
+      el.setCustomValidity('Custom validation message');
+      await el.updateComplete;
+
+      expect(el.validationMessage).to.equal('Custom validation message');
+    });
+
+    it('should have a custom validation message when calling setCustomValidity on validate', async () => {
+      el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
+
+      el.required = true;
+      await el.updateComplete;
+
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.validationMessage).to.equal('Custom validation message');
     });
   });
 
-  describe('form integration', () => {
+  describe('selected option', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-radio-group value="2">
+          <sl-radio value="1">Option 1</sl-radio>
+          <sl-radio value="2">Option 2</sl-radio>
+          <sl-radio value="3">Option 3</sl-radio>
+        </sl-radio-group>
+      `);
+    });
+
+    it('should have the right option selected to match the value', () => {
+      const radios = Array.from(el.querySelectorAll('sl-radio'));
+
+      expect(el.value).to.equal('2');
+
+      expect(radios.at(0)?.checked).to.be.false;
+      expect(radios.at(1)?.checked).to.be.true;
+      expect(radios.at(2)?.checked).to.be.false;
+    });
+
+    it('should not break when the value does not match any of the options', async () => {
+      const radios = Array.from(el.querySelectorAll('sl-radio'));
+
+      el.setAttribute('value', 'dummy');
+      await el.updateComplete;
+
+      expect(el.value).to.equal('dummy');
+
+      expect(radios.at(0)?.checked).to.be.false;
+      expect(radios.at(1)?.checked).to.be.false;
+      expect(radios.at(2)?.checked).to.be.false;
+    });
+  });
+
+  describe('form reset', () => {
     let form: HTMLFormElement;
+
     beforeEach(async () => {
       form = await fixture(html`
         <form>
-        <sl-radio-group required>
+          <sl-radio-group required>
             <sl-radio value="1">Option 1</sl-radio>
             <sl-radio value="2">Option 2</sl-radio>
             <sl-radio value="3">Option 3</sl-radio>
@@ -129,14 +320,35 @@ describe('sl-radio-group', () => {
     });
 
     it('should change the value back to the initial state when the form is reset', async () => {
-      el.buttons?.[0]?.focus();
+      el.querySelector('sl-radio')?.focus();
       await sendKeys({ press: 'Space' });
 
       expect(el.value).to.equal('1');
 
-      el.formResetCallback();
+      form.reset();
 
-      expect(el.value).to.equal(undefined);
+      expect(el.value).to.be.undefined;
+    });
+
+    it('should reset the checked state of the radios', async () => {
+      const radio = el.querySelector('sl-radio');
+
+      radio?.click();
+      form.reset();
+
+      expect(radio).not.to.have.attribute('checked');
+    });
+
+    it('should emit an sl-change event', async () => {
+      const onChange = spy();
+
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      el.addEventListener('sl-change', onChange);
+      form.reset();
+
+      expect(onChange).to.have.been.calledOnce;
     });
   });
 });

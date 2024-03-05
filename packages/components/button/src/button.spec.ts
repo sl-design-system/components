@@ -104,7 +104,7 @@ describe('sl-button', () => {
       beforeEach(async () => {
         el = await fixture(html`<sl-button size="lg"><sl-icon name="star"></sl-icon> You're a star</sl-button>`);
       });
-      
+
       it('should not have an icon-only attribute', () => {
         expect(el).not.to.have.attribute('icon-only');
       });
@@ -123,16 +123,18 @@ describe('sl-button', () => {
     it('should not be disabled by default', () => {
       expect(el).not.to.have.attribute('disabled');
       expect(el).not.to.match(':disabled');
+      expect(el.disabled).not.to.be.true;
     });
 
-    it('should have the :disabled pseudo class', () => {
-      el.setAttribute('disabled', '');
+    it('should have the :disabled pseudo class', async () => {
+      el.disabled = true;
+      await el.updateComplete;
 
       expect(el).to.match(':disabled');
     });
 
     it('should have a tabindex of -1', async () => {
-      el.setAttribute('disabled', '');
+      el.disabled = true;
       await el.updateComplete;
 
       expect(el).to.have.attribute('tabindex', '-1');
@@ -140,14 +142,14 @@ describe('sl-button', () => {
 
     it('should not emit a click event when the button is disabled', async () => {
       const clickEvent = new Event('click');
-      const preventDefaultSpy = spy(clickEvent,'preventDefault');
-      const stopPropagationSpy = spy(clickEvent,'stopPropagation');
-      
-      el.setAttribute('disabled', '');
+      const preventDefaultSpy = spy(clickEvent, 'preventDefault');
+      const stopPropagationSpy = spy(clickEvent, 'stopPropagation');
+
+      el.disabled = true;
       await el.updateComplete;
-      
+
       el.dispatchEvent(clickEvent);
-      
+
       expect(preventDefaultSpy).to.have.been.called;
       expect(stopPropagationSpy).to.have.been.called;
     });

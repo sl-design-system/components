@@ -1,132 +1,124 @@
 import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { Validator } from '@sl-design-system/shared';
-import { MutationController } from '@lit-labs/observers/mutation-controller.js';
-import {
-  EventsController,
-  FormControlMixin,
-  HintMixin,
-  RovingTabindexController,
-  ValidationController,
-  hintStyles,
-  requiredValidator,
-  validationStyles
-} from '@sl-design-system/shared';
+import type { Radio, RadioButtonSize } from './radio.js';
+import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
+import { FormControlMixin } from '@sl-design-system/form';
+import type { EventEmitter } from '@sl-design-system/shared';
+import { EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
-import { property, queryAssignedNodes } from 'lit/decorators.js';
-import { Radio } from './radio.js';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './radio-group.scss.js';
 
+const OBSERVER_OPTIONS: MutationObserverInit = {
+  attributeFilter: ['checked'],
+  attributeOldValue: true,
+  subtree: true
+};
+
 /**
- * Radio group; treat a group of radio button as one form input with valitation, hints and errors
+ * A group of radio buttons.
  *
  * ```html
  *   <sl-radio-group>
- *     <sl-radio>Option 1</sl-radio>
- *     <sl-radio>Option 2</sl-radio>
- *     <sl-radio>Option 3</sl-radio>
+ *     <sl-radio value="1">Option 1</sl-radio>
+ *     <sl-radio value="2">Option 2</sl-radio>
+ *     <sl-radio value="3">Option 3</sl-radio>
  *   </sl-radio-group>
  * ```
  *
  * @slot default - A list of `sl-radio` elements.
  */
-export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
+@localized()
+export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;
 
   /** @private */
-  static override styles: CSSResultGroup = [validationStyles, hintStyles, styles];
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @private */
+  static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
   #events = new EventsController(this, {
-    click: this.#onClick,
+    focusin: this.#onFocusin,
     focusout: this.#onFocusout
   });
 
-  /** Observe the state of the radios. */
-  #mutation = new MutationController(this, {
-    callback: mutations => {
-      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
+  /** The initial state when the form was associated with the radio group. Used to reset the group. */
+  #initialState?: T;
 
-      if (target instanceof Radio && target.value) {
-        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));
-        this.value = target.value;
-      }
-    },
-    config: {
-      attributeFilter: ['checked'],
-      attributeOldValue: true,
-      subtree: true
-    }
+  /** When an option is checked, update the state. */
+  #observer = new MutationObserver(mutations => {
+    const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};
+
+    this.#observer.disconnect();
+    this.#setSelectedOption(target as Radio<T>);
+    this.#observer.observe(this, OBSERVER_OPTIONS);
   });
 
   /** Manage the keyboard navigation. */
-  #rovingTabindexController = new RovingTabindexController<Radio>(this, {
-    focusInIndex: (elements: Radio[]) => {
+  #rovingTabindexController = new RovingTabindexController<Radio<T>>(this, {
+    focusInIndex: (elements: Array<Radio<T>>) => {
       return elements.findIndex(el => {
         return this.value ? !el.disabled && el.value === this.value : !el.disabled;
       });
     },
-    elementEnterAction: (el: Radio) => {
+    elementEnterAction: (el: Radio<T>) => {
       this.value = el.value;
     },
-    elements: () => this.buttons,
+    elements: () => this.radios ?? [],
     isFocusableElement: (el: Radio) => !el.disabled
   });
-
-  #validation = new ValidationController(this, {
-    validators: [requiredValidator]
-  });
-  #initialState?: string;
 
   /** @private Element internals. */
   readonly internals = this.attachInternals();
 
-  /** @ignore The assigned nodes. */
-  @queryAssignedNodes() defaultNodes?: Node[];
+  /** @private The slotted radios. */
+  @queryAssignedElements() radios?: Array<Radio<T>>;
+
+  /** Emits when the component loses focus. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+
+  /** Emits when the value changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | undefined>;
+
+  /** Emits when the component receives focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+
+  /** Whether the group is disabled; when set no interaction is possible. */
+  @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
   /** The orientation of the radio options; when true, the radio buttons are displayed next to each other instead of below each other. */
   @property({ type: Boolean, reflect: true }) horizontal?: boolean;
 
-  /** Custom validators. */
-  @property({ attribute: false }) validators?: Validator[];
+  /** Whether the user is required to select an option in the group. */
+  @property({ type: Boolean, reflect: true }) override required?: boolean;
+
+  /** When set will cause the control to show it is valid after reportValidity is called. */
+  @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
+
+  /** The size of the radio buttons in the group. */
+  @property() size?: RadioButtonSize;
 
   /** The value for the radio group, to be used in forms. */
-  @property({ reflect: true }) value?: string;
-
-  /** @private All included sl-radio components. */
-  get buttons(): Radio[] {
-    return this.defaultNodes?.filter((node): node is Radio => node instanceof Radio) || [];
-  }
+  @property() override value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.internals.role = 'radiogroup';
+    this.#observer.observe(this, OBSERVER_OPTIONS);
 
+    this.internals.role = 'radiogroup';
     this.setFormControlElement(this);
 
-    this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
-    // Run initial validation
-    this.#validation.validate(this.value);
+    // Listen for i18n updates and update the validation message
+    this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
   }
 
-  override willUpdate(changes: PropertyValues<this>): void {
-    super.willUpdate(changes);
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
 
-    if (changes.has('value')) {
-      this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
-      this.setFormValue(this.value);
-      this.#validation.validate(this.value);
-    }
-  }
-
-  override render(): TemplateResult {
-    return html`
-      <div class="wrapper">
-        <slot @slotchange=${this.#onSlotchange}></slot>
-      </div>
-      ${this.renderHint()} ${this.#validation.render()}
-    `;
+    super.disconnectedCallback();
   }
 
   /** @ignore Stores the initial state of the radio group */
@@ -134,29 +126,98 @@ export class RadioGroup extends FormControlMixin(HintMixin(LitElement)) {
     this.#initialState = this.value;
   }
 
-  /** @ignore  Resets the radio group to the initial state */
+  /** @ignore Resets the radio group to the initial state */
   formResetCallback(): void {
     this.value = this.#initialState;
+
+    this.#observer.disconnect();
+    this.#setSelectedOption(this.radios?.find(radio => radio.value === this.value));
+    this.#observer.observe(this, OBSERVER_OPTIONS);
   }
 
-  #onClick(event: Event): void {
-    event.preventDefault();
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
 
-    this.#rovingTabindexController.focus();
+    this.#updateValueAndValidity();
   }
 
-  #onFocusout(event: FocusEvent): void {
-    if (!event.relatedTarget || !this.buttons.includes(event.relatedTarget as Radio)) {
-      // This component is weird in that it doesn't actually contain the form controls,
-      // those are the `<sl-radio>` custom elements in the light DOM. So run the validation
-      // manually from here.
-      this.#validation.validate(this.value);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('disabled') && typeof this.disabled === 'boolean') {
+      this.radios?.forEach(radio => (radio.disabled = !!this.disabled));
     }
+
+    if (changes.has('required')) {
+      this.internals.ariaRequired = this.required ? 'true' : 'false';
+
+      this.#updateValueAndValidity();
+    }
+
+    if (changes.has('showValidity')) {
+      const radio = this.radios?.find(radio => radio.value === this.value);
+      if (radio) {
+        radio.showValidity = this.showValidity;
+      }
+    }
+
+    if (changes.has('size')) {
+      this.radios?.forEach(radio => (radio.size = this.size || 'md'));
+    }
+
+    if (changes.has('value')) {
+      this.#observer.disconnect();
+      this.radios?.forEach(radio => (radio.checked = radio.value === this.value));
+      this.#observer.observe(this, OBSERVER_OPTIONS);
+    }
+  }
+
+  override render(): TemplateResult {
+    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
+  }
+
+  #onFocusin(): void {
+    this.focusEvent.emit();
+  }
+
+  #onFocusout(): void {
+    this.blurEvent.emit();
   }
 
   #onSlotchange(): void {
     this.#rovingTabindexController.clearElementCache();
 
-    this.buttons?.forEach(radio => (radio.checked = radio.value === this.value));
+    this.radios?.forEach(radio => {
+      radio.checked = radio.value === this.value;
+
+      if (typeof this.disabled === 'boolean') {
+        radio.disabled = this.disabled;
+      }
+
+      if (this.size) {
+        radio.size = this.size;
+      }
+    });
+  }
+
+  #setSelectedOption(option?: Radio<T>, emitEvent = true): void {
+    this.radios?.forEach(radio => (radio.checked = radio.value === option?.value));
+    this.value = option?.value;
+
+    if (emitEvent) {
+      this.changeEvent.emit(this.value);
+    }
+
+    this.#updateValueAndValidity();
+  }
+
+  #updateValueAndValidity(): void {
+    this.internals.setFormValue(this.nativeFormValue);
+    this.internals.setValidity(
+      { valueMissing: this.required && !this.radios?.some(radio => radio.checked) },
+      msg('Please select an option.')
+    );
+
+    this.updateValidity();
   }
 }

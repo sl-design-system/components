@@ -4,6 +4,23 @@ import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tab.scss.js';
 
+/**
+ * A tab component - part of the tab group component.
+ *
+ * ```html
+ *      <sl-tab>
+ *         <sl-icon slot="icon" name="star" size="md"></sl-icon>
+ *         Tab label
+ *         <span slot="subtitle">Tab subtitle</span>
+ *         <sl-badge slot="badge" size="lg" variant="danger">4</sl-badge>
+ *      </sl-tab>
+ * ```
+ *
+ * @slot default - a place for the tab group content.
+ * @slot icon - icon shown on the left side of the component.
+ * @slot badge - a place for badge component.
+ * @slot subtitle - subtitle of the tab, containing additional information
+ */
 export class Tab extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
@@ -15,7 +32,14 @@ export class Tab extends LitElement {
   @property({ reflect: true, type: Boolean }) disabled = false;
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html` <slot name="icon" part="icon"></slot>
+      <div class="content">
+        <span class="title">
+          <slot></slot>
+          <slot name="badge" part="badge"></slot>
+        </span>
+        <slot name="subtitle" part="subtitle"></slot>
+      </div>`;
   }
 
   /**

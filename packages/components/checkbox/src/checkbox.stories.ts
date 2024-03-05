@@ -1,76 +1,25 @@
 import type { Checkbox, CheckboxSize } from './checkbox.js';
-import type { StoryObj } from '@storybook/web-components';
-import '@sl-design-system/label/register.js';
+import type { CheckboxGroup } from './checkbox-group.js';
+import type { TemplateResult } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/form/register.js';
 import { html } from 'lit';
 import '../register.js';
 
-const onSubmit = (event: Event & { target: HTMLFormElement }): void => {
-  const data = new FormData(event.target),
-    output = (event.target.nextElementSibling || document.createElement('pre')) as HTMLOutputElement;
-
-  event.preventDefault();
-  event.target.after(output);
-
-  output.textContent = '';
-  data.forEach((value, key) => (output.textContent += `${key}: ${value.toString()}\n`));
+type Props = Pick<
+  Checkbox,
+  'checked' | 'disabled' | 'indeterminate' | 'required' | 'showValid' | 'showValidity' | 'size' | 'value'
+> & {
+  hint?: string;
+  label?: string;
+  slot?: () => TemplateResult;
+  text?: string;
 };
+type Story = StoryObj<Props>;
 
-//  helper function to create nodeArrays (not collections)
-const nodeArray = (selector: string, parent?: Document | ParentNode | null): Element[] => {
-  parent = parent ?? document;
-  return [].slice.call(parent.querySelectorAll(selector));
-};
-
-const onChange = (event: Event): void => {
-  let check: Checkbox = event.target as Checkbox;
-  if (check.indeterminate) {
-    check.checked = true;
-    check.indeterminate = false;
-  }
-
-  if (!check) return;
-
-  //  check/uncheck children (includes check itself)
-  const children = nodeArray('sl-checkbox', check.parentNode);
-  children.forEach(child => {
-    (child as Checkbox).checked = check.checked;
-    (child as Checkbox).indeterminate = false;
-  });
-
-  //  traverse up from target check
-  while (check && check !== null) {
-    const parentContainer = (check as Element).closest('ul')?.parentNode;
-
-    if (!parentContainer || parentContainer?.nodeName !== 'LI') return;
-
-    const parent = parentContainer.querySelector('sl-checkbox');
-    const siblings = nodeArray('sl-checkbox', parent?.closest('li')?.querySelector('ul'));
-
-    if (!parent) return;
-
-    //  get checked state of siblings
-    //  are every or some siblings checked (using Boolean as test function)
-    const checkStatus = siblings.map(check => (check as Checkbox).checked);
-    const every = checkStatus.every(Boolean);
-    const some = checkStatus.some(Boolean);
-
-    //  check parent if all siblings are checked
-    //  set indeterminate if not all and not none are checked
-    parent.checked = every;
-    parent.indeterminate = !every && every !== some;
-
-    //  prepare for nex loop
-    if (check != parent) {
-      check = parent;
-    } else {
-      return;
-    }
-  }
-};
-
-const sizes: CheckboxSize[] = ['md', 'lg'];
-const states: string[] = ['', 'valid', 'invalid'];
-const checked: string[] = ['', 'checked', 'indeterminate'];
+const sizes: CheckboxSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Checkbox',
@@ -78,294 +27,315 @@ export default {
     checked: false,
     disabled: false,
     indeterminate: false,
+    label: 'Label',
     text: 'Toggle me',
     value: '12345',
-    size: 'md',
-    hint: 'Something to help the user out'
+    size: 'md'
   },
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: ['md', 'lg']
+      options: sizes
     }
+  },
+  render: ({ checked, disabled, hint, indeterminate, label, required, showValid, size, slot, text, value }) => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <sl-form>
+        <sl-form-field .hint=${hint} .label=${label}>
+          ${slot?.() ??
+          html`
+            <sl-checkbox
+              ?checked=${checked}
+              ?disabled=${disabled}
+              ?indeterminate=${indeterminate}
+              ?required=${required}
+              .showValid=${showValid}
+              .size=${size ?? 'md'}
+              .value=${value}
+              >${text}</sl-checkbox
+            >
+          `}
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+} satisfies Meta<Props>;
+
+export const Basic: Story = {};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true
   }
 };
 
-export const API: StoryObj = {
-  render: ({ checked, disabled, indeterminate, text, value, size, hint }) => html`
-    <sl-checkbox
-      ?checked=${checked}
-      ?disabled=${disabled}
-      .indeterminate=${indeterminate}
-      .value=${value}
-      .size=${size}
-      .hint=${hint}
-      >${text}</sl-checkbox
-    >
-  `
+export const Empty: Story = {
+  args: {
+    hint: 'This checkbox has no text and is only as wide as the checkbox itself',
+    text: ''
+  }
 };
 
-export const All: StoryObj = {
-  render: () => {
-    setTimeout(() => document.querySelector('form')?.reportValidity());
-    return html`
-      <style>
-        table {
-          border-collapse: collapse;
-          margin-bottom: 24px;
-        }
+export const Required: Story = {
+  args: {
+    hint: 'This checkbox is required and should display an error after reporting the validity',
+    required: true
+  }
+};
 
-        th {
-          text-transform: capitalize;
-        }
-        th,
-        td {
-          padding: 4px 8px;
-        }
-        thead td {
-          text-align: center;
-        }
-
-        tbody td:nth-of-type(4n + 5) {
-          border-right: 2px solid #dedede;
-          padding-right: 24px;
-        }
-        tbody td:nth-of-type(4n + 2):not(:first-of-type) {
-          padding-left: 24px;
-        }
-        tbody td:last-of-type {
-          border: none;
-        }
-
-        sl-error {
-          display: none;
-        }
-      </style>
-      <form>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              ${sizes.map(size => html` <th colspan=${states.length + 1}>Size: ${size}</th> `)}
-            </tr>
-          </thead>
-          <tbody>
-            ${checked.map(
-              c =>
-                html` <tr>
-                  <td>${c}</td>
-                  ${sizes.map(
-                    size =>
-                      html`${states.map(
-                          state =>
-                            html`
-                              <td>
-                                <sl-checkbox
-                                  ?checked=${c === 'checked'}
-                                  ?indeterminate=${c === 'indeterminate'}
-                                  ?invalid=${state === 'invalid'}
-                                  ?required=${state === 'invalid'}
-                                  ?valid=${state === 'valid'}
-                                  size=${size}
-                                  data-mock-state
-                                  >Label
-                                </sl-checkbox>
-                              </td>
-                            `
-                        )}
-                        <td>
-                          <sl-checkbox
-                            ?checked=${c === 'checked'}
-                            ?indeterminate=${c === 'indeterminate'}
-                            size=${size}
-                            disabled
-                            data-mock-state
-                            >Label
-                          </sl-checkbox>
-                        </td>`
-                  )}
-                </tr>`
-            )}
-          </tbody>
-        </table>
-      </form>
-    `;
+export const Group: Story = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group>
+        <sl-checkbox>Check me</sl-checkbox>
+        <sl-checkbox>No me</sl-checkbox>
+        <sl-checkbox>I was here first!</sl-checkbox>
+        <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
+      </sl-checkbox-group>
+    `
   }
 };
 
 export const Indeterminate: StoryObj = {
-  render: () => html`
-    <h2>Single</h2>
-    <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
-    <h2>In group, with children</h2>
-    <p>
-      When you use the checkboxes in a nested structure, or have one checkbox to rule them all (to select all in a list
-      of items for example) this is how the indeterminate state should behave:
-    </p>
-    <ul>
-      <li>
-        <sl-checkbox @sl-change=${onChange} name="tall" id="tall">Tall Things</sl-checkbox>
-        <ul>
-          <li>
-            <sl-checkbox @sl-change=${onChange} name="tall-1" id="tall-1">Buildings</sl-checkbox>
-          </li>
-          <li>
-            <sl-checkbox @sl-change=${onChange} name="tall-2" id="tall-2">Giants</sl-checkbox>
-
-            <ul>
-              <li>
-                <sl-checkbox @sl-change=${onChange} name="tall-2-1" id="tall-2-1">Andre</sl-checkbox>
-              </li>
-              <li>
-                <sl-checkbox @sl-change=${onChange} name="tall-2-2" id="tall-2-2">Paul Bunyan</sl-checkbox>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <sl-checkbox @sl-change=${onChange} name="tall-3" id="tall-3">Two sandwiches</sl-checkbox>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <sl-checkbox @sl-change=${onChange} name="short" id="short">Short Things</sl-checkbox>
-        <ul>
-          <li>
-            <sl-checkbox @sl-change=${onChange} name="short-1" id="short-1">Smurfs</sl-checkbox>
-          </li>
-          <li>
-            <sl-checkbox @sl-change=${onChange} name="short-2" id="short-2">Mushrooms</sl-checkbox>
-          </li>
-          <li>
-            <sl-checkbox @sl-change=${onChange} name="short-3" id="short-3">One Sandwich</sl-checkbox>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  `
-};
-
-export const NoText: StoryObj = {
-  render: () => html`
-    <style>
-      div {
-        align-items: start;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-      }
-      sl-checkbox {
-        background: hotpink;
-      }
-    </style>
-    <div>
-      <sl-checkbox aria-label="Hello world"> </sl-checkbox>
-      <sl-checkbox>Hello world</sl-checkbox>
-      <sl-checkbox aria-label="Hello world" size="lg"></sl-checkbox>
-      <sl-checkbox size="lg">Hello world</sl-checkbox>
-    </div>
-  `
-};
-
-export const Overflow: StoryObj = {
-  render: () => html`
-    <style>
-      div {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-      .wrapper {
-        border: 2px solid rgb(var(--sl-color-palette-accent-base));
-      }
-    </style>
-    <em>Borders are added to show the alignment in the container</em>
-    <div class="wrapper">
-      <sl-checkbox
-        >Elit consectetur duis nisi id veniam id deserunt cupidatat. Consectetur consectetur consequat ea proident nulla
-        consectetur anim incididunt esse magna eu. In est cupidatat ea veniam exercitation irure ullamco nisi proident
-        enim.
-      </sl-checkbox>
-    </div>
-    <div class="wrapper">
-      <sl-checkbox>Elit consectetur. </sl-checkbox>
-    </div>
-  `
-};
-
-export const WithLabel: StoryObj = {
-  render: () => html`
-    <style>
-      .wrapper {
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-    ${sizes.map(
-      size => html`
-        <h2>Size: ${size}</h2>
-        <div class="wrapper">
-          <sl-label for="checkbox" size=${size}>Label</sl-label>
-          <sl-checkbox id="checkbox" size=${size}>Checkbox</sl-checkbox>
-        </div>
-      `
-    )}
-  `
-};
-
-export const Group: StoryObj = {
-  render: () => html`
-    <sl-label for="group">Checkbox group</sl-label>
-    <sl-checkbox-group id="group" hint="Pick one of these options.">
-      <sl-checkbox>Check me</sl-checkbox>
-      <sl-checkbox>No me</sl-checkbox>
-      <sl-checkbox>I was here first!</sl-checkbox>
-      <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
-    </sl-checkbox-group>
-  `
-};
-
-export const ValidateInForm: StoryObj = {
   render: () => {
-    setTimeout(() => document.querySelector('form')?.reportValidity());
+    const onChange = (event: Event & { target: Checkbox }): void => {
+      let check = event.target;
+
+      if (check.indeterminate) {
+        check.checked = true;
+        check.indeterminate = false;
+      }
+
+      if (!check) return;
+
+      // check/uncheck children (includes check itself)
+      check.parentElement?.querySelectorAll('sl-checkbox').forEach(child => {
+        child.checked = check.checked;
+        child.indeterminate = false;
+      });
+
+      //  traverse up from target check
+      while (check && check !== null) {
+        const parentContainer = (check as Element).closest('ul')?.parentNode;
+
+        if (!parentContainer || parentContainer?.nodeName !== 'LI') return;
+
+        const parent = parentContainer.querySelector('sl-checkbox');
+        if (!parent) return;
+
+        const checkStatus = Array.from(
+          parent?.closest('li')?.querySelector('ul')?.querySelectorAll('sl-checkbox') ?? []
+        ).map(child => child.checked);
+
+        //  get checked state of siblings
+        //  are every or some siblings checked (using Boolean as test function)
+        const every = checkStatus.every(Boolean);
+        const some = checkStatus.some(Boolean);
+
+        //  check parent if all siblings are checked
+        //  set indeterminate if not all and not none are checked
+        parent.checked = every;
+        parent.indeterminate = !every && every !== some;
+
+        //  prepare for nex loop
+        if (check != parent) {
+          check = parent;
+        } else {
+          return;
+        }
+      }
+    };
+
+    return html`
+      <h2>Single</h2>
+      <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
+      <h2>In group, with children</h2>
+      <p>
+        When you use the checkboxes in a nested structure, or have one checkbox to rule them all (to select all in a
+        list of items for example) this is how the indeterminate state should behave:
+      </p>
+      <ul>
+        <li>
+          <sl-checkbox @sl-change=${onChange} name="tall" id="tall">Tall Things</sl-checkbox>
+          <ul>
+            <li>
+              <sl-checkbox @sl-change=${onChange} name="tall-1" id="tall-1">Buildings</sl-checkbox>
+            </li>
+            <li>
+              <sl-checkbox @sl-change=${onChange} name="tall-2" id="tall-2">Giants</sl-checkbox>
+
+              <ul>
+                <li>
+                  <sl-checkbox @sl-change=${onChange} name="tall-2-1" id="tall-2-1">Andre</sl-checkbox>
+                </li>
+                <li>
+                  <sl-checkbox @sl-change=${onChange} name="tall-2-2" id="tall-2-2">Paul Bunyan</sl-checkbox>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <sl-checkbox @sl-change=${onChange} name="tall-3" id="tall-3">Two sandwiches</sl-checkbox>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <sl-checkbox @sl-change=${onChange} name="short" id="short">Short Things</sl-checkbox>
+          <ul>
+            <li>
+              <sl-checkbox @sl-change=${onChange} name="short-1" id="short-1">Smurfs</sl-checkbox>
+            </li>
+            <li>
+              <sl-checkbox @sl-change=${onChange} name="short-2" id="short-2">Mushrooms</sl-checkbox>
+            </li>
+            <li>
+              <sl-checkbox @sl-change=${onChange} name="short-3" id="short-3">One Sandwich</sl-checkbox>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    `;
+  }
+};
+
+export const Overflow: Story = {
+  args: {
+    hint: 'The checkbox should be aligned with the first row of text',
+    text: 'Nostrud exercitation irure sint sint aliquip quis nostrud adipisicing. Amet qui proident aliqua est. Voluptate dolore est et nisi adipisicing minim magna excepteur officia sit ullamco aute dolor. Sit velit enim labore ullamco aute. Est ea officia velit aliquip anim non irure in occaecat ipsum est aliquip dolore. Excepteur magna aute duis sint enim exercitation aliqua dolor enim ullamco sit ex. Sit ea ex ut aute veniam laboris consectetur Lorem fugiat laboris.'
+  }
+};
+
+export const Valid: Story = {
+  args: {
+    checked: true,
+    hint: 'This checkbox is marked as valid after reporting the validity',
+    showValid: true
+  }
+};
+
+export const CustomValidity: Story = {
+  args: {
+    hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',
+    slot: () => {
+      const onValidate = (event: Event & { target: CheckboxGroup }): void => {
+        event.target.setCustomValidity(event.target.value?.includes('2') ? '' : 'Pick the middle option');
+      };
+
+      return html`
+        <sl-checkbox-group @sl-validate=${onValidate} required>
+          <sl-checkbox value="1">One</sl-checkbox>
+          <sl-checkbox value="2">Two</sl-checkbox>
+          <sl-checkbox value="3">Three</sl-checkbox>
+        </sl-checkbox-group>
+      `;
+    }
+  }
+};
+
+export const CustomAsyncValidity: Story = {
+  args: {
+    hint: 'This story has an async validator. You need to select the middle option to make the field valid. It will wait 2 seconds before validating.',
+    slot: () => {
+      const onValidate = (event: Event & { target: CheckboxGroup }): void => {
+        if (!event.target.value?.length) {
+          return;
+        }
+
+        const promise = new Promise<string>(resolve =>
+          setTimeout(() => resolve(event.target.value?.includes('2') ? '' : 'Pick the middle option'), 2000)
+        );
+
+        event.target.setCustomValidity(promise);
+      };
+
+      return html`
+        <sl-checkbox-group @sl-validate=${onValidate} required>
+          <sl-checkbox value="1">One</sl-checkbox>
+          <sl-checkbox value="2">Two</sl-checkbox>
+          <sl-checkbox value="3">Three</sl-checkbox>
+        </sl-checkbox-group>
+      `;
+    }
+  }
+};
+
+export const All: StoryObj = {
+  render: () => {
+    const checked: string[] = ['', 'checked', 'indeterminate'];
 
     return html`
       <style>
-        form {
-          align-items: start;
-          display: flex;
-          flex-direction: column;
+        table {
+          border-collapse: collapse;
+          border-spacing: 0;
         }
-        sl-label {
-          margin-block-start: 0.5rem;
+        td[colspan] {
+          font-weight: bold;
+          padding-block-start: 1rem;
+          text-align: center;
         }
-        sl-label:first-of-type {
-          margin-block-start: 0;
-        }
-        sl-button-bar,
-        sl-text-input,
-        sl-textarea {
-          align-self: stretch;
+        td {
+          padding: 0.25rem 0.5rem;
         }
       </style>
-      <form @submit=${onSubmit}>
-        <sl-label for="group">Checkbox group</sl-label>
-        <sl-checkbox-group id="group" required id="options" name="options">
-          <sl-checkbox value="1">Check me</sl-checkbox>
-          <sl-checkbox value="2" checked>No me</sl-checkbox>
-          <sl-checkbox value="3">I was here first!</sl-checkbox>
-          <sl-checkbox value="4" disabled>Can't check me, even if you wanted to</sl-checkbox>
-        </sl-checkbox-group>
-        <sl-label for="conditions">Read everything?</sl-label>
-        <sl-checkbox value="read" name="conditions" required checked
-          >Yes, I have read the terms and conditions</sl-checkbox
-        >
-        <sl-label for="newletter">Can we spam you?</sl-label>
-        <sl-checkbox value="yes" name="newletter">Yes, subscribe me to the newsletter</sl-checkbox>
-        <sl-button-bar align="end">
-          <sl-button type="reset">Reset</sl-button>
-          <sl-button type="submit">Submit</sl-button>
-        </sl-button-bar>
-      </form>
+      <table>
+        <tbody>
+          ${sizes.map(
+            size => html`
+              <tr>
+                <td colspan="4">${size}</td>
+              </tr>
+              ${checked.map(
+                check => html`
+                  <tr>
+                    <td>
+                      <sl-checkbox
+                        ?checked=${check === 'checked'}
+                        ?indeterminate=${check === 'indeterminate'}
+                        size=${size}
+                        >Label
+                      </sl-checkbox>
+                    </td>
+                    <td>
+                      <sl-checkbox
+                        ?checked=${check === 'checked'}
+                        ?indeterminate=${check === 'indeterminate'}
+                        show-validity="valid"
+                        size=${size}
+                        >Label
+                      </sl-checkbox>
+                    </td>
+                    <td>
+                      <sl-checkbox
+                        ?checked=${check === 'checked'}
+                        ?indeterminate=${check === 'indeterminate'}
+                        show-validity="invalid"
+                        size=${size}
+                        >Label
+                      </sl-checkbox>
+                    </td>
+                    <td>
+                      <sl-checkbox
+                        ?checked=${check === 'checked'}
+                        ?indeterminate=${check === 'indeterminate'}
+                        size=${size}
+                        disabled
+                        >Label
+                      </sl-checkbox>
+                    </td>
+                  </tr>
+                `
+              )}
+            `
+          )}
+        </tbody>
+      </table>
     `;
   }
 };

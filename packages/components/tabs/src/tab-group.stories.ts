@@ -1,4 +1,6 @@
 import type { Tab } from './tab.js';
+import '@sl-design-system/badge/register.js';
+import '@sl-design-system/icon/register.js';
 import type { StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
@@ -6,7 +8,14 @@ import '../register.js';
 export default {
   title: 'Tab Group',
   args: {
-    vertical: false
+    vertical: false,
+    alignment: 'start'
+  },
+  argTypes: {
+    alignment: {
+      control: 'inline-radio',
+      options: ['start', 'filled']
+    }
   }
 };
 
@@ -45,38 +54,56 @@ const createLipsumParagraphs = (paragraphs: number): string => {
 };
 
 export const API: StoryObj = {
-  render: ({ vertical }) => html`
-    <style>
-      sl-tab-panel {
-        padding: 8px;
-      }
-    </style>
-    <sl-tab-group .vertical=${vertical}>
-      <sl-tab disabled>🧁 Tab 1</sl-tab>
-      <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
+  render: ({ vertical, alignment }) => {
+    return html`
+      <sl-tab-group ?vertical=${vertical} .alignment=${alignment}>
+        <sl-tab disabled>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 1
+          <span slot="subtitle">Tab 1 subtitle</span>
+        </sl-tab>
+        <sl-tab-panel><p>Contents tab 1</p></sl-tab-panel>
 
-      <sl-tab>🍰 Tab 2</sl-tab>
-      <sl-tab-panel>
-        <p>Contents tab 2</p>
-        <sl-avatar></sl-avatar>
-      </sl-tab-panel>
+        <sl-tab>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 2
+          <span slot="subtitle">Tab 2 subtitle</span>
+          <sl-badge slot="badge" size="lg" variant="danger">4</sl-badge>
+        </sl-tab>
+        <sl-tab-panel>
+          <div>Contents tab 2</div>
+        </sl-tab-panel>
 
-      <sl-tab>🍡 Tab 3</sl-tab>
-      <sl-tab-panel><div>Contents tab 3</div></sl-tab-panel>
+        <sl-tab>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 3
+          <span slot="subtitle">Tab 3 subtitle</span>
+          <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
+        </sl-tab>
+        <sl-tab-panel>
+          <div>Contents tab 3</div>
+        </sl-tab-panel>
 
-      <sl-tab>🥞 Tab 4</sl-tab>
-      <sl-tab-panel>Contents tab 4</sl-tab-panel>
+        <sl-tab>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 4
+        </sl-tab>
+        <sl-tab-panel> Contents tab 4 </sl-tab-panel>
 
-      <sl-tab>🍪 Tab 5</sl-tab>
-      <sl-tab-panel>Contents tab 5</sl-tab-panel>
-    </sl-tab-group>
-  `
+        <sl-tab>
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          Tab 5
+        </sl-tab>
+        <sl-tab-panel>Contents tab 5</sl-tab-panel>
+      </sl-tab-group>
+    `;
+  }
 };
 
 export const LongTitles: StoryObj = {
-  render: ({ vertical }) => html`<sl-tab-group .vertical=${vertical}>
-    <sl-tab selected>This is the first tab</sl-tab>
-    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(4)}</sl-tab-panel>
+  render: ({ vertical, alignment }) => html` <sl-tab-group ?vertical=${vertical} .alignment=${alignment}>
+    <sl-tab selected>This is the first tab a very looong example of the tab</sl-tab>
+    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
 
     <sl-tab>This is the second tab</sl-tab>
     <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
@@ -107,12 +134,118 @@ export const LongTitles: StoryObj = {
   </sl-tab-group>`
 };
 
+export const StickyTabs: StoryObj = {
+  render: ({ vertical, alignment }) => html` <style>
+      sl-tab-group::part(container) {
+        position: sticky;
+      }
+
+      sl-tab-group[vertical]::part(container) {
+        inset-block-start: 16px;
+        align-self: start;
+      }
+
+      sl-tab-group::part(container) {
+        inset-block-start: -4px;
+      }
+    </style>
+    <div class="tab-wrapper">
+      <sl-tab-group ?vertical=${vertical} .alignment=${alignment}>
+        <sl-tab selected>This is the first tab</sl-tab>
+        <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
+
+        <sl-tab>This is the second tab</sl-tab>
+        <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
+
+        <sl-tab>This is the third tab</sl-tab>
+        <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
+
+        <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
+        <sl-tab-panel>Contents tab 4</sl-tab-panel>
+
+        <sl-tab>This is the fifth tab</sl-tab>
+        <sl-tab-panel>Contents tab 5</sl-tab-panel>
+
+        <sl-tab>This is the sixth tab</sl-tab>
+        <sl-tab-panel>Contents tab 6</sl-tab-panel>
+
+        <sl-tab>This is the seventh tab</sl-tab>
+        <sl-tab-panel>Contents tab 7</sl-tab-panel>
+
+        <sl-tab>This is the eighth tab</sl-tab>
+        <sl-tab-panel>Contents tab 8</sl-tab-panel>
+
+        <sl-tab>This is the nineth tab</sl-tab>
+        <sl-tab-panel>Contents tab 9</sl-tab-panel>
+
+        <sl-tab>This is the tenth tab</sl-tab>
+        <sl-tab-panel>Contents tab 10</sl-tab-panel>
+      </sl-tab-group>
+    </div>`
+};
+
+export const VerticalInSmallContainer: StoryObj = {
+  render: ({ alignment }) => html` <style>
+      sl-tab-group {
+        block-size: 300px;
+      }
+
+      sl-tab-panel {
+        overflow: auto;
+      }
+
+      sl-tab-group::part(wrapper) {
+        position: sticky;
+        inset-block-start: 0;
+        align-self: flex-start;
+      }
+
+      .tab-wrapper {
+        border: 4px dashed #c6c6c6;
+        padding: 20px;
+      }
+    </style>
+    <div class="tab-wrapper">
+      <sl-tab-group vertical .alignment=${alignment}>
+        <sl-tab selected>This is the first tab</sl-tab>
+        <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
+
+        <sl-tab>This is the second tab</sl-tab>
+        <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
+
+        <sl-tab>This is the third tab</sl-tab>
+        <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
+
+        <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
+        <sl-tab-panel>Contents tab 4</sl-tab-panel>
+
+        <sl-tab>This is the fifth tab</sl-tab>
+        <sl-tab-panel>Contents tab 5</sl-tab-panel>
+
+        <sl-tab>This is the sixth tab</sl-tab>
+        <sl-tab-panel>Contents tab 6</sl-tab-panel>
+
+        <sl-tab>This is the seventh tab</sl-tab>
+        <sl-tab-panel>Contents tab 7</sl-tab-panel>
+
+        <sl-tab>This is the eighth tab</sl-tab>
+        <sl-tab-panel>Contents tab 8</sl-tab-panel>
+
+        <sl-tab>This is the nineth tab</sl-tab>
+        <sl-tab-panel>Contents tab 9</sl-tab-panel>
+
+        <sl-tab>This is the tenth tab</sl-tab>
+        <sl-tab-panel>Contents tab 10</sl-tab-panel>
+      </sl-tab-group>
+    </div>`
+};
+
 export const ExternalInteraction: StoryObj = {
   render: ({ vertical }) => html`
-    <sl-tab-group .vertical=${vertical} id="externalInteraction" @sl-tab-change=${tabChange}>
+    <sl-tab-group ?vertical=${vertical} id="externalInteraction" @sl-tab-change=${tabChange}>
       <sl-tab selected>Tab 1</sl-tab>
       <sl-tab>Tab 2</sl-tab>
-      <sl-tab>Tab 3</sl-tab>
+      <sl-tab disabled>Tab 3</sl-tab>
       <sl-tab>Tab 4</sl-tab>
       <sl-tab>Tab 5</sl-tab>
     </sl-tab-group>
@@ -125,12 +258,7 @@ export const ExternalInteraction: StoryObj = {
 
 export const SingleTab: StoryObj = {
   render: ({ vertical }) => html`
-    <style>
-      sl-tab-panel {
-        padding: 8px;
-      }
-    </style>
-    <sl-tab-group .vertical=${vertical} id="singleTab" @sl-tab-change=${tabChange}>
+    <sl-tab-group ?vertical=${vertical} id="singleTab" @sl-tab-change=${tabChange}>
       <sl-tab>Tab 1</sl-tab>
       <sl-tab>Tab 2</sl-tab>
       <sl-tab selected>Tab 3</sl-tab>

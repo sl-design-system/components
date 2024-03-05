@@ -13,9 +13,13 @@ declare global {
   }
 }
 
-export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+export type IconSize = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 window.SLDS ||= { icons: {} };
+
+const isIconDefinition = (icon: IconDefinition | IconLibrary): icon is IconDefinition => {
+  return 'icon' in icon;
+};
 
 /**
  * An icon that uses either FontAwesome custom svg's straight from Figma.
@@ -39,35 +43,47 @@ export class Icon extends LitElement {
   /**
    * Add icon(s) to the icon registry
    *
-   * @param {IconDefinition | IconDefinition[] } faIcons One or more IconDefinition that have been imported from FontAwesome
+   * @param {IconDefinition | IconDefinition[] } icons One or more IconDefinition that have been imported from FontAwesome
    */
-  static registerIcon(...faIcons: IconDefinition[]): void {
-    // TODO: find a better (and more universal) way to only log these kind of warnings in dev mode
-    const isDevMode = location.hostname === 'localhost';
-
-    faIcons.forEach(icon => {
-      if (window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] && isDevMode) {
-        console.warn(`Icon ${icon.prefix}-${icon.iconName} is already in the registry`);
-        return;
-      }
-
-      const {
-          icon: [width, height, , , path]
-        } = icon,
-        paths = Array.isArray(path) ? path : [path];
-      const svg = `<svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">${paths
-        .map((p: string, i) => `<path d="${p}" fill="var(--fill-${Icon.getColorToken(i, icon.prefix)})"></path>`)
-        .join('')}</svg>`;
-      window.SLDS.icons[`${icon.prefix}-${icon.iconName}`] = { svg, type: 'RegisterdIcon' };
-    });
-  }
+  static register(...icons: IconDefinition[]): void;
 
   /**
    * Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.
    * Is run in the setup method of each theme.
+   *
+   * @param {IconLibrary} icons The IconLibrary of the theme
    */
-  static registerIcons(icons: IconLibrary): void {
-    window.SLDS.icons = { ...window.SLDS.icons, ...icons };
+  static register(icons: IconLibrary): void;
+
+  static register(icon: IconDefinition | IconLibrary, ...icons: IconDefinition[]): void {
+    // TODO: find a better (and more universal) way to only log these kind of warnings in dev mode
+    const isDevMode = location.hostname === 'localhost';
+
+    if (isIconDefinition(icon)) {
+      [icon, ...icons].forEach(i => {
+        if (window.SLDS.icons[`${i.prefix}-${i.iconName}`] && isDevMode) {
+          console.warn(`Icon ${i.prefix}-${i.iconName} is already in the registry`);
+          return;
+        }
+
+        const {
+            icon: [width, height, , , path]
+          } = i,
+          paths = Array.isArray(path) ? path : [path];
+
+        const svg = `
+          <svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            ${paths
+              .map((p: string, idx) => `<path d="${p}" fill="var(--fill-${Icon.getColorToken(idx, i.prefix)})"></path>`)
+              .join('')}
+          </svg>
+        `;
+
+        window.SLDS.icons[`${i.prefix}-${i.iconName}`] = { svg, type: 'RegisteredIcon' };
+      });
+    } else {
+      window.SLDS.icons = { ...window.SLDS.icons, ...icon };
+    }
   }
 
   private static getColorToken(pathCounter: number, style: string): string {
@@ -109,14 +125,9 @@ export class Icon extends LitElement {
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
-    if (!this.hasAttribute('tabindex')) {
-      this.setAttribute('tabindex', '-1');
-    }
-
-    await this.#waitForWindowProperty().then(() => {
-      this.sldsLibrary = window.SLDS;
-      this.iconHTML = this.#getIconHTML();
-    });
+    await this.#waitForWindowProperty(this.name);
+    this.sldsLibrary = window.SLDS;
+    this.iconHTML = this.#getIconHTML();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -147,12 +158,22 @@ export class Icon extends LitElement {
    * we need to wait a bit and then check again, so we can (re)render the icon when the library is set.
    */
 
-  async #waitForWindowProperty(): Promise<void> {
+  async #waitForWindowProperty(name: string | undefined): Promise<void> {
+    let tries = 0;
     return new Promise<void>(resolve => {
       const checkProperty = (): void => {
         if (window.SLDS?.icons && Object.keys(window.SLDS.icons).length > 0) {
-          resolve();
+          if (name && window.SLDS?.icons[name]) {
+            resolve();
+          } else if (tries > 10) {
+            resolve();
+          } else {
+            // wait for a bit and see if the wanted icon has been added in the mean time
+            setTimeout(checkProperty, 100); // check again in 100ms
+            tries++;
+          }
         } else {
+          // wait for init of component library, this should be quick
           setTimeout(checkProperty, 100); // check again in 100ms
         }
       };

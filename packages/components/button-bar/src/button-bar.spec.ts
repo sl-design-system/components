@@ -14,11 +14,11 @@ describe('dna-button-bar', () => {
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('should align buttons from the start by default', () => {
-    expect(el).to.have.attribute('align', 'start');
+  it('should not have a default alignment', () => {
+    expect(el).not.to.have.attribute('align');
   });
 
-  ['center', 'end', 'space-between'].forEach(align => {
+  ['center', 'end', 'space-between', 'start'].forEach(align => {
     it(`should support ${align} alignment`, async () => {
       el.align = align as ButtonBarAlign;
       await el.updateComplete;

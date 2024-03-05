@@ -10,19 +10,15 @@ describe('sl-select-option', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-select-option>Option</sl-select-option>`);
     });
-  
+
     it('should render correctly', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
-  
+
     it('should have the correct attributes', () => {
-      expect(el).attribute('role').to.equal('option');
-      expect(el).attribute('aria-selected').to.equal('false');
-      expect(el).attribute('aria-disabled').to.equal('false');
-    });
-  
-    it('should have the correct content type', () => {
-      expect(el.contentType).equal('string')
+      expect(el).to.have.attribute('role', 'option');
+      expect(el).not.to.have.attribute('aria-selected');
+      expect(el).not.to.have.attribute('aria-disabled');
     });
   });
 
@@ -46,7 +42,7 @@ describe('sl-select-option', () => {
     });
 
     it('should have the correct attributes', () => {
-      expect(el).attribute('aria-disabled').to.equal('true');
+      expect(el).to.have.attribute('aria-disabled', 'true');
     });
 
     it('should have the selected status', () => {
@@ -58,13 +54,9 @@ describe('sl-select-option', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-select-option><sl-avatar></sl-avatar></sl-select-option>`);
     });
-  
+
     it('should render correctly', () => {
       expect(el).shadowDom.to.equalSnapshot();
-    });
-  
-    it('should have the correct content type', () => {
-      expect(el.contentType).equal('element')
     });
   });
 });

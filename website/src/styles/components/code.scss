@@ -1,3 +1,5 @@
+@import './../breakpoints';
+
 $transition-timing: 300ms;
 
 .ds-code {
@@ -93,7 +95,19 @@ $transition-timing: 300ms;
   gap: 1rem;
   justify-content: center;
   min-height: 16rem;
+  padding: 1.6rem;
   position: relative;
+}
+
+.ds-example__examples-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+  margin: 2.4rem 0;
+
+  @media screen and (min-width: $lg-breakpoint) {
+    flex-direction: row;
+  }
 }
 
 .ds-cards .ds-example {
@@ -117,6 +131,17 @@ $transition-timing: 300ms;
   position: absolute;
   right: 8px;
   top: 8px;
+}
+
+.ds-example__code-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin: 2.4rem 0;
+
+  @media screen and (min-width: $md-breakpoint) {
+    flex-direction: row;
+  }
 }
 
 code {
@@ -146,7 +171,6 @@ code[class*='language-'] {
   tab-size: 4;
   text-align: left;
   text-shadow: none;
-  white-space: pre-line;
   word-break: normal;
   word-spacing: normal;
   word-wrap: normal;
@@ -177,7 +201,7 @@ pre[class*='language-'] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #d4d0ab; // TODO: change these colours in the future
+  color: #737373; // TODO: change these colours in the future
 }
 
 .token.punctuation {

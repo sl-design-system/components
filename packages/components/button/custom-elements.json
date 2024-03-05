@@ -49,9 +49,19 @@
           "members": [
             {
               "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "fill",
               "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+                "text": "ButtonFill"
               },
               "default": "'solid'",
               "description": "The fill of the button.",
@@ -62,7 +72,7 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "ButtonSize"
               },
               "default": "'md'",
               "description": "The size of the button.",
@@ -73,7 +83,7 @@
               "kind": "field",
               "name": "type",
               "type": {
-                "text": "'button' | 'reset' | 'submit'"
+                "text": "ButtonType"
               },
               "default": "'button'",
               "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
@@ -83,7 +93,7 @@
               "kind": "field",
               "name": "variant",
               "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+                "text": "ButtonVariant"
               },
               "default": "'default'",
               "description": "The variant of the button.",
@@ -93,9 +103,17 @@
           ],
           "attributes": [
             {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the button is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
+            },
+            {
               "name": "fill",
               "type": {
-                "text": "'solid' | 'outline' | 'link' | 'ghost'"
+                "text": "ButtonFill"
               },
               "default": "'solid'",
               "description": "The fill of the button.",
@@ -104,7 +122,7 @@
             {
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg'"
+                "text": "ButtonSize"
               },
               "default": "'md'",
               "description": "The size of the button.",
@@ -113,7 +131,7 @@
             {
               "name": "type",
               "type": {
-                "text": "'button' | 'reset' | 'submit'"
+                "text": "ButtonType"
               },
               "default": "'button'",
               "description": "The type of the button. Can be used to mimic the functionality of submit and reset buttons in native HTML buttons.",
@@ -122,7 +140,7 @@
             {
               "name": "variant",
               "type": {
-                "text": "'default' | 'primary' | 'success' | 'warning' | 'danger'"
+                "text": "ButtonVariant"
               },
               "default": "'default'",
               "description": "The variant of the button.",
@@ -255,7 +273,7 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this)",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })",
               "description": "Event controller."
             },
             {

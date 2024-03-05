@@ -1,0 +1,10 @@
+{
+  "layout": "components/components.njk",
+  "tags": "text-field",
+  "componentTagName": [
+    {
+      "name": "Text field",
+      "selector": "sl-text-field"
+    }
+  ]
+}

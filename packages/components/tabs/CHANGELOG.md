@@ -1,5 +1,73 @@
 # @sl-design-system/tabs
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`dbc032b`](https://github.com/sl-design-system/components/commit/dbc032b3a7587dfcbdb6a2118330b039765cf0fb), [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc)]:
+  - @sl-design-system/shared@0.2.5
+  - @sl-design-system/button@0.0.21
+
+## 0.1.2
+
+### Patch Changes
+
+- [#985](https://github.com/sl-design-system/components/pull/985) [`9c88751`](https://github.com/sl-design-system/components/commit/9c887516bacb0a335d8d2283e47d9a78f359a334) - Missing fill for tab icon in the default state added
+
+- [#985](https://github.com/sl-design-system/components/pull/985) [`9c88751`](https://github.com/sl-design-system/components/commit/9c887516bacb0a335d8d2283e47d9a78f359a334) - Added tokens for Tab component
+
+- Updated dependencies [[`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf), [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf), [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf)]:
+  - @sl-design-system/shared@0.2.4
+  - @sl-design-system/button@0.0.20
+
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997)]:
+  - @sl-design-system/shared@0.2.3
+  - @sl-design-system/button@0.0.19
+
+## 0.1.0
+
+### Minor Changes
+
+- [#921](https://github.com/sl-design-system/components/pull/921) [`31e6adb`](https://github.com/sl-design-system/components/commit/31e6adb4272490837d9adb4aec2343b960edd436) - Added tabs component
+
+## 0.0.16
+
+### Patch Changes
+
+- [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - Bump Lit and related dependencies
+
+- Updated dependencies [[`06cfb6b`](https://github.com/sl-design-system/components/commit/06cfb6bff8f2c1a8d4a132099f21f2e8dc4f2461), [`9320cbc`](https://github.com/sl-design-system/components/commit/9320cbc446e479435860ad5f9756725b36acf764), [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b)]:
+  - @sl-design-system/shared@0.2.2
+
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [[`b507ee0`](https://github.com/sl-design-system/components/commit/b507ee07e119733d285a348e74f34c4b2d172902), [`d881d5f`](https://github.com/sl-design-system/components/commit/d881d5fc5274be5275f910f445a16408d6bb2373)]:
+  - @sl-design-system/shared@0.2.1
+
+## 0.0.14
+
+### Patch Changes
+
+- [#790](https://github.com/sl-design-system/components/pull/790) [`9b8e371`](https://github.com/sl-design-system/components/commit/9b8e371932fbe979f3250e07c605ad39239d4f82) - Upgrade to latest `@open-wc/scoped-elements` to track the standards spec
+
+- Updated dependencies [[`198c7c2`](https://github.com/sl-design-system/components/commit/198c7c277787d48276d402522f94f2d0d5132152), [`b3f9d42`](https://github.com/sl-design-system/components/commit/b3f9d42945c7b427105353ede3cf74ba3191792d)]:
+  - @sl-design-system/shared@0.2.0
+
+## 0.0.13
+
+### Patch Changes
+
+- [#688](https://github.com/sl-design-system/components/pull/688) [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0) - Upgrade to Lit 3.0
+
+- Updated dependencies [[`45bff4d`](https://github.com/sl-design-system/components/commit/45bff4d60a32f4d46d8c9c99200efeaa1be6a2f0), [`199a2fc`](https://github.com/sl-design-system/components/commit/199a2fc0b3f0efb54c06429fd91fa09071b337de), [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0)]:
+  - @sl-design-system/shared@0.1.9
+
 ## 0.0.12
 
 ### Patch Changes

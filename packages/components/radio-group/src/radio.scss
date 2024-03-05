@@ -1,7 +1,7 @@
 $variants: default, valid, invalid;
-$variant-selectors: ':not([valid],[invalid])', ':where([valid])', ':where([invalid])';
+$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 $states: unchecked, checked;
-$state-selectors: '', ':where(:--checked, :--indeterminate, [state--checked], [state--indeterminate])';
+$state-selectors: '', '[checked]';
 $sizes: md, lg;
 
 :host {
@@ -14,7 +14,7 @@ $sizes: md, lg;
   --sl-size-input-icon-size-md: 20px;
   --sl-size-input-icon-size-lg: 28px;
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: 1px;
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
 }
 
 @each $size in $sizes {
@@ -46,28 +46,28 @@ $sizes: md, lg;
       --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-default-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):hover) {
+    :host(#{$variant-selector + $state-selector}:not([disabled]):hover) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-hover-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-hover-label);
       --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-hover-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):active) {
+    :host(#{$variant-selector + $state-selector}:not([disabled]):active) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-active-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-active-label);
       --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-active-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:not(:disabled, [internals-disabled]):focus-visible) {
+    :host(#{$variant-selector + $state-selector}:not([disabled]):focus-visible) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-focus-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-focus-label);
       --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-focus-icon);
     }
 
-    :host(#{$variant-selector + $state-selector}:where(:disabled, [internals-disabled])) {
+    :host(#{$variant-selector + $state-selector}:where([disabled])) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-background);
       --_border-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-border);
       --_label-color: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-label);
@@ -93,12 +93,12 @@ $sizes: md, lg;
   transition-property: background, border-color, color, filter, outline-color;
 }
 
-:host(:where(:focus-visible)) .box {
+:host(:focus-visible) .box {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 }
 
-:host(:where(:disabled, [internals-disabled])) {
+:host([disabled]) {
   cursor: default;
   pointer-events: none;
 }

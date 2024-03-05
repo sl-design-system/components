@@ -113,7 +113,7 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string"
               },
               "attribute": "value"
             }
@@ -122,7 +122,7 @@
             {
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "string"
               },
               "fieldName": "value"
             }
@@ -130,11 +130,7 @@
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             }
           ],
           "superclass": {
@@ -196,22 +192,17 @@
               "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this)",
+              "default": "new EventsController(this, { focusout: this.#onFocusout })",
               "description": "Manage events."
-            },
-            {
-              "kind": "field",
-              "name": "#validation",
-              "privacy": "private",
-              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
             },
             {
               "kind": "field",
               "name": "#value",
               "privacy": "private",
               "type": {
-                "text": "string | undefined"
+                "text": "string"
               },
+              "default": "''",
               "description": "The value of the content in the editor."
             },
             {
@@ -315,23 +306,52 @@
       "declarations": [
         {
           "kind": "function",
-          "name": "rootListDepth",
+          "name": "findAncestorPosition",
           "return": {
             "type": {
-              "text": "number | undefined"
+              "text": "ResolvedPos"
             }
           },
           "parameters": [
+            {
+              "name": "doc",
+              "type": {
+                "text": "Node"
+              }
+            },
             {
               "name": "pos",
               "type": {
                 "text": "ResolvedPos"
               }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "getAncestorNodesBetween",
+          "return": {
+            "type": {
+              "text": "Node[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "doc",
+              "type": {
+                "text": "Node"
+              }
             },
             {
-              "name": "nodes",
+              "name": "$from",
               "type": {
-                "text": "{ [key: string]: NodeType }"
+                "text": "ResolvedPos"
+              }
+            },
+            {
+              "name": "$to",
+              "type": {
+                "text": "ResolvedPos"
               }
             }
           ]
@@ -361,6 +381,91 @@
         },
         {
           "kind": "function",
+          "name": "isRangeOfType",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "doc",
+              "type": {
+                "text": "Node"
+              }
+            },
+            {
+              "name": "$from",
+              "type": {
+                "text": "ResolvedPos"
+              }
+            },
+            {
+              "name": "$to",
+              "type": {
+                "text": "ResolvedPos"
+              }
+            },
+            {
+              "name": "nodeType",
+              "type": {
+                "text": "NodeType"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "liftFollowingList",
+          "return": {
+            "type": {
+              "text": "Transaction"
+            }
+          },
+          "parameters": [
+            {
+              "name": "state",
+              "type": {
+                "text": "EditorState"
+              }
+            },
+            {
+              "name": "from",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "to",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "rootListDepthNum",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "tr",
+              "type": {
+                "text": "Transaction"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "liftListItems",
+          "return": {
+            "type": {
+              "text": "Command"
+            }
+          }
+        },
+        {
+          "kind": "function",
           "name": "liftSelectionList",
           "return": {
             "type": {
@@ -378,6 +483,41 @@
               "name": "tr",
               "type": {
                 "text": "Transaction"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "rootListDepth",
+          "return": {
+            "type": {
+              "text": "number | undefined"
+            }
+          },
+          "parameters": [
+            {
+              "name": "pos",
+              "type": {
+                "text": "ResolvedPos"
+              }
+            },
+            {
+              "name": "nodes",
+              "type": {
+                "text": "{ [key: string]: NodeType }"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "splitListItemKeepMarks",
+          "parameters": [
+            {
+              "name": "itemType",
+              "type": {
+                "text": "NodeType"
               }
             }
           ]
@@ -436,10 +576,10 @@
         },
         {
           "kind": "function",
-          "name": "liftFollowingList",
+          "name": "toggleOrderedList",
           "return": {
             "type": {
-              "text": "Transaction"
+              "text": "boolean"
             }
           },
           "parameters": [
@@ -450,140 +590,15 @@
               }
             },
             {
-              "name": "from",
+              "name": "dispatch",
               "type": {
-                "text": "number"
+                "text": "DispatchFn"
               }
             },
             {
-              "name": "to",
+              "name": "view",
               "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "rootListDepthNum",
-              "type": {
-                "text": "number"
-              }
-            },
-            {
-              "name": "tr",
-              "type": {
-                "text": "Transaction"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "isRangeOfType",
-          "return": {
-            "type": {
-              "text": "boolean"
-            }
-          },
-          "parameters": [
-            {
-              "name": "doc",
-              "type": {
-                "text": "Node"
-              }
-            },
-            {
-              "name": "$from",
-              "type": {
-                "text": "ResolvedPos"
-              }
-            },
-            {
-              "name": "$to",
-              "type": {
-                "text": "ResolvedPos"
-              }
-            },
-            {
-              "name": "nodeType",
-              "type": {
-                "text": "NodeType"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "getAncestorNodesBetween",
-          "return": {
-            "type": {
-              "text": "Node[]"
-            }
-          },
-          "parameters": [
-            {
-              "name": "doc",
-              "type": {
-                "text": "Node"
-              }
-            },
-            {
-              "name": "$from",
-              "type": {
-                "text": "ResolvedPos"
-              }
-            },
-            {
-              "name": "$to",
-              "type": {
-                "text": "ResolvedPos"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "findAncestorPosition",
-          "return": {
-            "type": {
-              "text": "ResolvedPos"
-            }
-          },
-          "parameters": [
-            {
-              "name": "doc",
-              "type": {
-                "text": "Node"
-              }
-            },
-            {
-              "name": "pos",
-              "type": {
-                "text": "ResolvedPos"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "liftListItems",
-          "return": {
-            "type": {
-              "text": "Command"
-            }
-          }
-        },
-        {
-          "kind": "function",
-          "name": "wrapInList",
-          "return": {
-            "type": {
-              "text": "Command"
-            }
-          },
-          "parameters": [
-            {
-              "name": "nodeType",
-              "type": {
-                "text": "NodeType"
+                "text": "EditorView"
               }
             }
           ]
@@ -619,39 +634,15 @@
         },
         {
           "kind": "function",
-          "name": "toggleOrderedList",
+          "name": "wrapInList",
           "return": {
             "type": {
-              "text": "boolean"
+              "text": "Command"
             }
           },
           "parameters": [
             {
-              "name": "state",
-              "type": {
-                "text": "EditorState"
-              }
-            },
-            {
-              "name": "dispatch",
-              "type": {
-                "text": "DispatchFn"
-              }
-            },
-            {
-              "name": "view",
-              "type": {
-                "text": "EditorView"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "splitListItemKeepMarks",
-          "parameters": [
-            {
-              "name": "itemType",
+              "name": "nodeType",
               "type": {
                 "text": "NodeType"
               }
@@ -780,10 +771,52 @@
       "declarations": [
         {
           "kind": "function",
+          "name": "commonAttributes",
+          "return": {
+            "type": {
+              "text": "Attrs"
+            }
+          }
+        },
+        {
+          "kind": "function",
           "name": "isEmpty",
           "return": {
             "type": {
               "text": "boolean"
+            }
+          },
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "text": "Record<string, unknown>"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "marks",
+          "type": {
+            "text": "Record<EditorMarks, MarkSpec>"
+          },
+          "default": "{\n  /**\n   * A link. Has `href` and `title` attributes. `title` defaults to an empty string.\n   * Rendered and parsed as an `<a>` element.\n   */\n  link: {\n    attrs: {\n      href: { default: '' },\n      target: { default: null },\n      title: { default: null }\n    },\n    inclusive: false,\n    parseDOM: [\n      {\n        getAttrs: (node: string | HTMLElement): Attrs | null => {\n          if (typeof node !== 'string') {\n            return {\n              href: node.getAttribute('href'),\n              target: node.getAttribute('target'),\n              title: node.getAttribute('title')\n            };\n          }\n\n          return null;\n        },\n        tag: 'a[href]'\n      }\n    ],\n    toDOM: (mark: Mark): DOMOutputSpec => [\n      'a',\n      // Add default value for href. Otherwise the link is not rendered properly\n      Object.assign({}, { href: '' }, removeEmptyEntries(mark.attrs)),\n      SLOT\n    ]\n  },\n  /**\n   * An emphasis mark. Rendered as an `<em>` element.\n   * Has parse rules that also match `<i>` and `font-style: italic`.\n   */\n  em: {\n    parseDOM: [{ tag: 'i' }, { tag: 'em' }, { style: 'font-style=italic' }],\n    toDOM: (): DOMOutputSpec => ['em', SLOT]\n  },\n  /**\n   * A strong mark. Rendered as `<strong>`, parse rules also match `<b>` and `font-weight: bold`.\n   */\n  strong: {\n    parseDOM: [\n      { tag: 'strong' },\n      // This works around a Google Docs misbehavior where pasted content will be inexplicably\n      // wrapped in `<b>`tags with a font-weight normal\n      {\n        tag: 'b',\n        getAttrs: (node: string | HTMLElement): false | null => {\n          if (typeof node !== 'string') {\n            return node.style.fontWeight !== 'normal' && null;\n          }\n\n          return null;\n        }\n      },\n      {\n        // According to the docs, the value can be a DOM element (for tag rules) or a string (for style rules).\n        getAttrs: (node: string | HTMLElement): false | null => {\n          if (typeof node === 'string') {\n            return /^(bold(er)?|[5-9]\\d{2,})$/.test(node) && null;\n          }\n\n          return null;\n        },\n        style: 'font-weight'\n      }\n    ],\n    toDOM: (): DOMOutputSpec => ['strong', SLOT]\n  },\n  /**\n   * Code font mark. Represented as a `<code>` element.\n   */\n  code: {\n    parseDOM: [\n      { tag: 'span.code', preserveWhitespace: true },\n      { tag: 'code', preserveWhitespace: true },\n      { tag: 'tt', preserveWhitespace: true },\n      {\n        tag: 'span',\n        preserveWhitespace: true,\n        getAttrs: domNode => {\n          const dom = domNode as HTMLSpanElement;\n\n          if (dom.style.whiteSpace === 'pre') {\n            return {};\n          }\n\n          if (dom.style.fontFamily && dom.style.fontFamily.toLowerCase().indexOf('monospace') >= 0) {\n            return {};\n          }\n\n          return false;\n        }\n      }\n    ],\n    toDOM: (): DOMOutputSpec => ['code', SLOT]\n  },\n  /**\n   * An underline mark. Rendered as a `<u>` element. Parse rules also match `text-decoration: underline`.\n   */\n  underline: {\n    parseDOM: [{ tag: 'u' }, { style: 'text-decoration=underline' }],\n    toDOM: (): DOMOutputSpec => ['u', SLOT]\n  },\n  /**\n   * A strikethrough mark. Rendered as a `<del>` element.\n   * Parse rules also match `<s>`, `<strike>`, `text-decoration: line-through`.\n   */\n  strikethrough: {\n    parseDOM: [{ tag: 'del' }, { tag: 's' }, { tag: 'strike' }, { style: 'text-decoration=line-through' }],\n    toDOM: (): DOMOutputSpec => ['del', SLOT]\n  },\n  /**\n   * A subscript mark. Rendered as a `<sub>` element. Parse rules also match `vertical-align: sub`.\n   */\n  subscript: {\n    parseDOM: [{ tag: 'sub' }, { style: 'vertical-align=sub' }],\n    toDOM: (): DOMOutputSpec => ['sub', SLOT]\n  },\n  /**\n   * A superscript mark. Rendered as a `<sup>` element. Parse rules also match `vertical-align: super`.\n   */\n  superscript: {\n    parseDOM: [{ tag: 'sup' }, { style: 'vertical-align=super' }],\n    toDOM: (): DOMOutputSpec => ['sup', SLOT]\n  }\n}"
+        },
+        {
+          "kind": "variable",
+          "name": "nodes",
+          "type": {
+            "text": "Record<EditorNodes, NodeSpec>"
+          },
+          "default": "{\n  /** The top level document node. */\n  doc: {\n    content: 'block+'\n  },\n  /**\n   * A plain textblock paragraph. Represented as a `<p>` element in the DOM.\n   */\n  paragraph: {\n    attrs: Object.assign({}, commonAttributes()),\n    content: 'inline*',\n    group: 'block',\n    parseDOM: [{ tag: 'p', getAttrs: getAttributes }],\n    toDOM: (node: PMNode): DOMOutputSpec =>\n      isEmpty(node.attrs) ? ['p', SLOT] : ['p', removeEmptyEntries(node.attrs), SLOT]\n  },\n  /**\n   * A blockquote (`<blockquote>`) which wraps one or more blocks.\n   */\n  blockquote: {\n    attrs: Object.assign({}, commonAttributes()),\n    content: 'inline*',\n    defining: true,\n    group: 'block',\n    parseDOM: [{ tag: 'blockquote', getAttrs: getAttributes }],\n    toDOM: (node: PMNode): DOMOutputSpec => ['blockquote', removeEmptyEntries(node.attrs), SLOT]\n  },\n  /**\n   * A horizontal (`<hr>`) rule.\n   */\n  horizontalRule: {\n    group: 'block',\n    parseDOM: [{ tag: 'hr' }],\n    toDOM: (): DOMOutputSpec => ['hr']\n  },\n  /**\n   * A heading textblock with a `level` attribute that has to hold a number from 1 to 6.\n   * Parsed and serialized as an `<h1>` to an `<h6>` element.\n   */\n  heading: {\n    attrs: Object.assign({ level: { default: 1 } }, commonAttributes()),\n    content: 'inline*',\n    defining: true,\n    group: 'block',\n    parseDOM: [\n      { tag: 'h1', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 1 }) },\n      { tag: 'h2', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 2 }) },\n      { tag: 'h3', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 3 }) },\n      { tag: 'h4', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 4 }) },\n      { tag: 'h5', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 5 }) },\n      { tag: 'h6', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 6 }) }\n    ],\n    toDOM: (node: PMNode): DOMOutputSpec => {\n      const attrs = removeEntries(node.attrs, key => key !== 'level'),\n        { level } = node.attrs as Attrs & { level: number };\n\n      return [`h${level}`, removeEmptyEntries(attrs), SLOT];\n    }\n  },\n  /**\n   * A code listing. Prevents marks or non-text inline nodes by default.\n   * Represented as a `<pre>` element with a `<code>` element inside.\n   */\n  codeBlock: {\n    code: true,\n    content: 'text*',\n    defining: true,\n    group: 'block',\n    marks: '',\n    parseDOM: [\n      {\n        preserveWhitespace: 'full',\n        tag: 'pre'\n      }\n    ],\n    toDOM: (): DOMOutputSpec => ['pre', ['code', SLOT]]\n  },\n  /** The text node. */\n  text: {\n    group: 'inline'\n  },\n  /**\n   * An inline image (`<img>`) node. Supports `src`, `alt`, and `href` attributes.\n   * The last two default to an empty string.\n   */\n  image: {\n    attrs: Object.assign({}, commonAttributes(), {\n      alt: { default: null },\n      height: { default: null },\n      src: {},\n      width: { default: null }\n    }),\n    draggable: true,\n    group: 'inline',\n    inline: true,\n    parseDOM: [{ tag: 'img[src]', getAttrs: getAttributes }],\n    toDOM: (node: PMNode): DOMOutputSpec => ['img', removeEmptyEntries(node.attrs)]\n  },\n  /**\n   * A hard line break. Represented as a `<br>` element in the DOM.\n   */\n  hardBreak: {\n    group: 'inline',\n    inline: true,\n    parseDOM: [{ tag: 'br', getAttrs: getAttributes }],\n    selectable: false,\n    toDOM: (): DOMOutputSpec => ['br']\n  },\n  /**\n   * A list item. Represented as a `<li>` element.\n   */\n  listItem: {\n    attrs: Object.assign({}, commonAttributes()),\n    content: 'paragraph block*',\n    marks: '_',\n    parseDOM: [{ tag: 'li', getAttrs: getAttributes }],\n    toDOM: (node: PMNode): DOMOutputSpec => ['li', removeEmptyEntries(node.attrs), SLOT]\n  },\n  /**\n   * An ordered list. Represented as an `<ol>` element. Has a single `order` attribute\n   * which determines the number at which the list starts counting. Defaults to 1.\n   */\n  orderedList: {\n    attrs: {\n      order: {\n        default: 1\n      }\n    },\n    content: 'listItem+',\n    group: 'block',\n    parseDOM: [\n      {\n        getAttrs: (node: string | HTMLElement) => {\n          if (typeof node === 'string') {\n            return {};\n          }\n\n          return {\n            ...getAttributes(node),\n            order: node.hasAttribute('start') ? parseInt(node.getAttribute('start') || '0', 10) : 1\n          };\n        },\n        tag: 'ol'\n      }\n    ],\n    toDOM: (node: PMNode): DOMOutputSpec => {\n      const { order } = node.attrs as Attrs & { order: number };\n\n      return order === 1 ? ['ol', SLOT] : ['ol', { start: order }, SLOT];\n    }\n  },\n  /**\n   * An unordered list. Represented as a `<ul>` element.\n   */\n  bulletList: {\n    content: 'listItem+',\n    group: 'block',\n    parseDOM: [{ tag: 'ul', getAttrs: getAttributes }],\n    toDOM: (): DOMOutputSpec => ['ul', SLOT]\n  }\n}"
+        },
+        {
+          "kind": "function",
+          "name": "removeEmptyEntries",
+          "return": {
+            "type": {
+              "text": "Record<string, string>"
             }
           },
           "parameters": [
@@ -817,48 +850,6 @@
               }
             }
           ]
-        },
-        {
-          "kind": "function",
-          "name": "removeEmptyEntries",
-          "return": {
-            "type": {
-              "text": "Record<string, string>"
-            }
-          },
-          "parameters": [
-            {
-              "name": "obj",
-              "type": {
-                "text": "Record<string, unknown>"
-              }
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "commonAttributes",
-          "return": {
-            "type": {
-              "text": "Attrs"
-            }
-          }
-        },
-        {
-          "kind": "variable",
-          "name": "marks",
-          "type": {
-            "text": "Record<EditorMarks, MarkSpec>"
-          },
-          "default": "{\n  /**\n   * A link. Has `href` and `title` attributes. `title` defaults to an empty string.\n   * Rendered and parsed as an `<a>` element.\n   */\n  link: {\n    attrs: {\n      href: { default: '' },\n      target: { default: null },\n      title: { default: null }\n    },\n    inclusive: false,\n    parseDOM: [\n      {\n        getAttrs: (node: string | HTMLElement): Attrs | null => {\n          if (typeof node !== 'string') {\n            return {\n              href: node.getAttribute('href'),\n              target: node.getAttribute('target'),\n              title: node.getAttribute('title')\n            };\n          }\n\n          return null;\n        },\n        tag: 'a[href]'\n      }\n    ],\n    toDOM: (mark: Mark): DOMOutputSpec => [\n      'a',\n      // Add default value for href. Otherwise the link is not rendered properly\n      Object.assign({}, { href: '' }, removeEmptyEntries(mark.attrs)),\n      SLOT\n    ]\n  },\n  /**\n   * An emphasis mark. Rendered as an `<em>` element.\n   * Has parse rules that also match `<i>` and `font-style: italic`.\n   */\n  em: {\n    parseDOM: [{ tag: 'i' }, { tag: 'em' }, { style: 'font-style=italic' }],\n    toDOM: (): DOMOutputSpec => ['em', SLOT]\n  },\n  /**\n   * A strong mark. Rendered as `<strong>`, parse rules also match `<b>` and `font-weight: bold`.\n   */\n  strong: {\n    parseDOM: [\n      { tag: 'strong' },\n      // This works around a Google Docs misbehavior where pasted content will be inexplicably\n      // wrapped in `<b>`tags with a font-weight normal\n      {\n        tag: 'b',\n        getAttrs: (node: string | HTMLElement): false | null => {\n          if (typeof node !== 'string') {\n            return node.style.fontWeight !== 'normal' && null;\n          }\n\n          return null;\n        }\n      },\n      {\n        // According to the docs, the value can be a DOM element (for tag rules) or a string (for style rules).\n        getAttrs: (node: string | HTMLElement): false | null => {\n          if (typeof node === 'string') {\n            return /^(bold(er)?|[5-9]\\d{2,})$/.test(node) && null;\n          }\n\n          return null;\n        },\n        style: 'font-weight'\n      }\n    ],\n    toDOM: (): DOMOutputSpec => ['strong', SLOT]\n  },\n  /**\n   * Code font mark. Represented as a `<code>` element.\n   */\n  code: {\n    parseDOM: [\n      { tag: 'span.code', preserveWhitespace: true },\n      { tag: 'code', preserveWhitespace: true },\n      { tag: 'tt', preserveWhitespace: true },\n      {\n        tag: 'span',\n        preserveWhitespace: true,\n        getAttrs: domNode => {\n          const dom = domNode as HTMLSpanElement;\n\n          if (dom.style.whiteSpace === 'pre') {\n            return {};\n          }\n\n          if (dom.style.fontFamily && dom.style.fontFamily.toLowerCase().indexOf('monospace') >= 0) {\n            return {};\n          }\n\n          return false;\n        }\n      }\n    ],\n    toDOM: (): DOMOutputSpec => ['code', SLOT]\n  },\n  /**\n   * An underline mark. Rendered as a `<u>` element. Parse rules also match `text-decoration: underline`.\n   */\n  underline: {\n    parseDOM: [{ tag: 'u' }, { style: 'text-decoration=underline' }],\n    toDOM: (): DOMOutputSpec => ['u', SLOT]\n  },\n  /**\n   * A strikethrough mark. Rendered as a `<del>` element.\n   * Parse rules also match `<s>`, `<strike>`, `text-decoration: line-through`.\n   */\n  strikethrough: {\n    parseDOM: [{ tag: 'del' }, { tag: 's' }, { tag: 'strike' }, { style: 'text-decoration=line-through' }],\n    toDOM: (): DOMOutputSpec => ['del', SLOT]\n  },\n  /**\n   * A subscript mark. Rendered as a `<sub>` element. Parse rules also match `vertical-align: sub`.\n   */\n  subscript: {\n    parseDOM: [{ tag: 'sub' }, { style: 'vertical-align=sub' }],\n    toDOM: (): DOMOutputSpec => ['sub', SLOT]\n  },\n  /**\n   * A superscript mark. Rendered as a `<sup>` element. Parse rules also match `vertical-align: super`.\n   */\n  superscript: {\n    parseDOM: [{ tag: 'sup' }, { style: 'vertical-align=super' }],\n    toDOM: (): DOMOutputSpec => ['sup', SLOT]\n  }\n}"
-        },
-        {
-          "kind": "variable",
-          "name": "nodes",
-          "type": {
-            "text": "Record<EditorNodes, NodeSpec>"
-          },
-          "default": "{\n  /** The top level document node. */\n  doc: {\n    content: 'block+'\n  },\n  /**\n   * A plain textblock paragraph. Represented as a `<p>` element in the DOM.\n   */\n  paragraph: {\n    attrs: Object.assign({}, commonAttributes()),\n    content: 'inline*',\n    group: 'block',\n    parseDOM: [{ tag: 'p', getAttrs: getAttributes }],\n    toDOM: (node: PMNode): DOMOutputSpec =>\n      isEmpty(node.attrs) ? ['p', SLOT] : ['p', removeEmptyEntries(node.attrs), SLOT]\n  },\n  /**\n   * A blockquote (`<blockquote>`) which wraps one or more blocks.\n   */\n  blockquote: {\n    attrs: Object.assign({}, commonAttributes()),\n    content: 'inline*',\n    defining: true,\n    group: 'block',\n    parseDOM: [{ tag: 'blockquote', getAttrs: getAttributes }],\n    toDOM: (node: PMNode): DOMOutputSpec => ['blockquote', removeEmptyEntries(node.attrs), SLOT]\n  },\n  /**\n   * A horizontal (`<hr>`) rule.\n   */\n  horizontalRule: {\n    group: 'block',\n    parseDOM: [{ tag: 'hr' }],\n    toDOM: (): DOMOutputSpec => ['hr']\n  },\n  /**\n   * A heading textblock with a `level` attribute that has to hold a number from 1 to 6.\n   * Parsed and serialized as an `<h1>` to an `<h6>` element.\n   */\n  heading: {\n    attrs: Object.assign({ level: { default: 1 } }, commonAttributes()),\n    content: 'inline*',\n    defining: true,\n    group: 'block',\n    parseDOM: [\n      { tag: 'h1', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 1 }) },\n      { tag: 'h2', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 2 }) },\n      { tag: 'h3', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 3 }) },\n      { tag: 'h4', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 4 }) },\n      { tag: 'h5', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 5 }) },\n      { tag: 'h6', getAttrs: (node: string | HTMLElement) => ({ ...getAttributes(node), level: 6 }) }\n    ],\n    toDOM: (node: PMNode): DOMOutputSpec => {\n      const attrs = removeEntries(node.attrs, key => key !== 'level'),\n        { level } = node.attrs as Attrs & { level: number };\n\n      return [`h${level}`, removeEmptyEntries(attrs), SLOT];\n    }\n  },\n  /**\n   * A code listing. Prevents marks or non-text inline nodes by default.\n   * Represented as a `<pre>` element with a `<code>` element inside.\n   */\n  codeBlock: {\n    code: true,\n    content: 'text*',\n    defining: true,\n    group: 'block',\n    marks: '',\n    parseDOM: [\n      {\n        preserveWhitespace: 'full',\n        tag: 'pre'\n      }\n    ],\n    toDOM: (): DOMOutputSpec => ['pre', ['code', SLOT]]\n  },\n  /** The text node. */\n  text: {\n    group: 'inline'\n  },\n  /**\n   * An inline image (`<img>`) node. Supports `src`, `alt`, and `href` attributes.\n   * The last two default to an empty string.\n   */\n  image: {\n    attrs: Object.assign({}, commonAttributes(), {\n      alt: { default: null },\n      height: { default: null },\n      src: {},\n      width: { default: null }\n    }),\n    draggable: true,\n    group: 'inline',\n    inline: true,\n    parseDOM: [{ tag: 'img[src]', getAttrs: getAttributes }],\n    toDOM: (node: PMNode): DOMOutputSpec => ['img', removeEmptyEntries(node.attrs)]\n  },\n  /**\n   * A hard line break. Represented as a `<br>` element in the DOM.\n   */\n  hardBreak: {\n    group: 'inline',\n    inline: true,\n    parseDOM: [{ tag: 'br', getAttrs: getAttributes }],\n    selectable: false,\n    toDOM: (): DOMOutputSpec => ['br']\n  },\n  /**\n   * A list item. Represented as a `<li>` element.\n   */\n  listItem: {\n    attrs: Object.assign({}, commonAttributes()),\n    content: 'paragraph block*',\n    marks: '_',\n    parseDOM: [{ tag: 'li', getAttrs: getAttributes }],\n    toDOM: (node: PMNode): DOMOutputSpec => ['li', removeEmptyEntries(node.attrs), SLOT]\n  },\n  /**\n   * An ordered list. Represented as an `<ol>` element. Has a single `order` attribute\n   * which determines the number at which the list starts counting. Defaults to 1.\n   */\n  orderedList: {\n    attrs: {\n      order: {\n        default: 1\n      }\n    },\n    content: 'listItem+',\n    group: 'block',\n    parseDOM: [\n      {\n        getAttrs: (node: string | HTMLElement) => {\n          if (typeof node === 'string') {\n            return {};\n          }\n\n          return {\n            ...getAttributes(node),\n            order: node.hasAttribute('start') ? parseInt(node.getAttribute('start') || '0', 10) : 1\n          };\n        },\n        tag: 'ol'\n      }\n    ],\n    toDOM: (node: PMNode): DOMOutputSpec => {\n      const { order } = node.attrs as Attrs & { order: number };\n\n      return order === 1 ? ['ol', SLOT] : ['ol', { start: order }, SLOT];\n    }\n  },\n  /**\n   * An unordered list. Represented as a `<ul>` element.\n   */\n  bulletList: {\n    content: 'listItem+',\n    group: 'block',\n    parseDOM: [{ tag: 'ul', getAttrs: getAttributes }],\n    toDOM: (): DOMOutputSpec => ['ul', SLOT]\n  }\n}"
         }
       ],
       "exports": [

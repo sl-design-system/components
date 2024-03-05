@@ -8,6 +8,18 @@ export class GridEvent<T> extends Event {
   }
 }
 
+export class GridItemEvent<T> extends GridEvent<T> {
+  constructor(type: string, grid: Grid<T>, public readonly item: T) {
+    super(type, grid);
+  }
+}
+
+export class GridItemDropEvent<T> extends GridItemEvent<T> {
+  constructor(grid: Grid<T>, item: T, public readonly oldIndex: number, public readonly newIndex: number) {
+    super('sl-grid-drop', grid, item);
+  }
+}
+
 export class GridActiveItemChangeEvent<T> extends GridEvent<T> {
   constructor(grid: Grid<T>, public readonly item: T, public readonly relatedEvent: Event | null) {
     super('sl-active-item-change', grid);

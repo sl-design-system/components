@@ -7,7 +7,9 @@
   --_cell-border: 1px solid #eee;
   --_cell-padding-block: 0.5rem;
   --_cell-padding-inline: 1rem;
+  --_drop-target-background: rgba(255, 105, 180);
   --_font: var(--sl-text-body-md-normal);
+  --_group-background: #eee;
   --_header-background: #f9f9f9;
   --_header-font-weight: 600;
   --_header-padding-block: 0.5rem;
@@ -19,6 +21,10 @@
 :host {
   display: block;
   font: var(--_font);
+}
+
+:host([items-group-by]) {
+  --_first-cell-padding-inline-start: 28px;
 }
 
 :host([no-border]) {
@@ -71,40 +77,95 @@ tr {
   inline-size: max(var(--sl-grid-row-width), 100%);
   margin: 0;
 
+  &:last-of-type {
+    --_cell-border: 0;
+  }
+
   &[part~='selected'] {
     --_cell-background: var(--_selected-background);
+  }
+
+  &.drop-target {
+    z-index: 1;
+  }
+
+  &.drop-target-on-top {
+    --_cell-background: var(--_drop-target-background);
   }
 }
 
 th,
 td {
   align-items: center;
+  background: var(--_cell-background);
   box-sizing: border-box;
   display: inline-flex;
   flex-shrink: 0;
   overflow: hidden;
-}
+  padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
-th {
-  background: var(--_header-background);
-  font-weight: var(--_header-font-weight);
-  padding: var(--_header-padding-block) var(--_header-padding-inline);
-  text-align: start;
+  &:first-of-type {
+    padding-inline-start: calc(var(--_cell-padding-inline) + var(--_first-cell-padding-inline-start, 0px));
+  }
 
-  &[part~='filter'] {
-    padding: 0;
+  &[part~='selection'] {
+    --_cell-padding-block: 0;
+    --_cell-padding-inline: 0.5rem;
+    inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
   }
 }
 
-td {
-  background: var(--_cell-background);
-  padding: var(--_cell-padding-block) var(--_cell-padding-inline);
+th {
+  --_cell-background: var(--_header-background);
+  --_cell-padding-block: var(--_header-padding-block);
+  --_cell-padding-inline: var(--_header-padding-inline);
+  font-weight: var(--_header-font-weight);
+  text-align: start;
 }
 
-tr:not(:first-of-type) td {
-  border-top: var(--_cell-border);
+th[part~='filter'] {
+  padding: 0;
+}
+
+td {
+  border-bottom: var(--_cell-border);
+}
+
+td[part~='drag-handle'] {
+  cursor: grab;
+  justify-content: center;
+}
+
+td[part~='group-header'] {
+  --_cell-background: var(--_group-background);
+  --_cell-padding-block: 0;
+  --_cell-padding-inline: 0;
+  inline-size: 100%;
+}
+
+td[part~='select'],
+td[part~='text-field'] {
+  --_cell-padding-block: 6px;
+
+  sl-select,
+  sl-text-field {
+    flex-grow: 1;
+  }
 }
 
 .selection-count {
   font-weight: normal;
+}
+
+.selection-toggle {
+  align-self: center;
+  padding: 6px;
+}
+
+.drop-placeholder {
+  background: #eee;
+  inline-size: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 1;
 }

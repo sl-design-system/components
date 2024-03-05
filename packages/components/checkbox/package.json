@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/checkbox",
-  "version": "0.0.13",
+  "version": "0.0.22",
   "description": "Checkbox component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/checkbox"
+    "directory": "packages/components/checkbox"
   },
   "homepage": "https://sanomalearning.design/components/checkbox",
   "bugs": {
@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@lit-labs/observers": "^2.0.1",
-    "@sl-design-system/shared": "0.1.8",
-    "lit": "^3.0.0"
+    "@lit/localize": "^0.12.1",
+    "@sl-design-system/form": "0.0.8",
+    "@sl-design-system/shared": "0.2.5"
   }
 }

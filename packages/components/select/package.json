@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/select",
-  "version": "0.0.12",
+  "version": "0.0.21",
   "description": "Select component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/select"
+    "directory": "packages/components/select"
   },
   "homepage": "https://sanomalearning.design/components/select",
   "bugs": {
@@ -38,9 +38,10 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.5.3",
-    "@sl-design-system/popover": "0.0.12",
-    "@sl-design-system/shared": "0.1.8",
-    "lit": "^3.0.0"
+    "@lit/localize": "^0.12.1",
+    "@open-wc/scoped-elements": "^3.0.5",
+    "@sl-design-system/form": "0.0.8",
+    "@sl-design-system/icon": "0.0.7",
+    "@sl-design-system/shared": "0.2.5"
   }
 }

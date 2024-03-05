@@ -2,48 +2,36 @@ $sizes: md, lg;
 
 :host {
   --sl-border-radius-select-item: 2px;
-  --_transition: 200ms ease-in-out;
   --_selected-indicator-color: var(--sl-color-select-item-default-indicator);
   --_text-color: var(--sl-color-select-item-default-foreground);
+  --_transition: 200ms ease-in-out;
   border-radius: var(--sl-border-radius-select-item);
   color: var(--_text-color);
   cursor: pointer;
   display: block;
   font: var(--_font);
-  outline-color: transparent;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   position: relative;
-
-  transition: var(--_transition);
-  transition-property: outline-color;
-  white-space: nowrap;
 }
+
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_font: var(--sl-text-select-selectbox-text-#{$size});
   }
 
-  :host([size='#{$size}'][contenttype='string']) {
+  :host([size='#{$size}']) {
     --_padding-block: var(--sl-space-select-item-block-#{$size});
     --_padding-inline: var(--sl-space-select-item-inline-#{$size});
   }
 }
 
-:host([contenttype='element']) {
-  --_padding-block: 0;
-  --_padding-inline: 0;
+:host(:hover) {
+  background-color: var(--sl-color-select-item-hover-background);
 }
 
-:host([selected])::before {
-  background: var(--_selected-indicator-color);
-  border-radius: var(--sl-border-radius-select-item);
-  bottom: 0;
-  content: '';
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: calc(2 * var(--sl-border-radius-select-item));
+:host(:active) {
+  background-color: var(--sl-color-select-item-active-background);
 }
 
 :host([disabled]) {
@@ -53,15 +41,11 @@ $sizes: md, lg;
   pointer-events: none;
 }
 
-:host(:is(:hover)) {
-  background-color: var(--sl-color-select-item-hover-background);
-}
-
-:host(:is(:active)) {
-  background-color: var(--sl-color-select-item-active-background);
-}
-
-:host(:where(:focus-visible, :focus-within)) {
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+:host([selected])::before {
+  background: var(--_selected-indicator-color);
+  border-radius: var(--sl-border-radius-select-item);
+  content: '';
+  inline-size: calc(2 * var(--sl-border-radius-select-item));
+  inset: 0 auto 0 0;
+  position: absolute;
 }

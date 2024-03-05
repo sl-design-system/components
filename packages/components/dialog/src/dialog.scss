@@ -11,7 +11,7 @@ $md-breakpoint: 600px;
   --_footer-direction: column-reverse;
   --_footer-align: var(--sl-dialog-footer-justify-content);
   --_min-inline-size: var(--sl-size-dialog-min);
-  --_max-inline-size: var(--sl-size-dialog-full);
+  --_max-inline-size: var(--sl-dialog-max-inline-size, var(--sl-size-dialog-full));
   --_padding-block: var(--sl-space-dialog-mobile-body-block);
   --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
   --_margin-container-inline: var(--sl-space-dialog-mobile-container-inline);
@@ -19,14 +19,11 @@ $md-breakpoint: 600px;
   --_margin-bottom-container: var(--sl-space-dialog-mobile-container-padding-bottom);
   --_color: var(--sl-color-dialog-foreground);
   --_subtitle-font: var(--sl-text-dialog-subheading);
-  --_subtitle-padding-bottom: var(--sl-space-dialog-subtitle-padding-bottom);
   --_title-font: var(--sl-text-dialog-heading);
-  --_body-font: var(--sl-text-body-lg-normal);
 }
 
 :host {
   display: block;
-  text-align: inherit;
 }
 
 dialog {
@@ -36,7 +33,7 @@ dialog {
   color: var(--_color);
   display: flex;
   flex-direction: column;
-  inset: 0;
+  gap: var(--_body-gap);
   margin: auto auto 0;
   max-block-size: min(
     100%,
@@ -44,95 +41,83 @@ dialog {
   );
   max-inline-size: var(--_max-inline-size);
   opacity: 0;
-  overflow: hidden;
+  overflow: visible;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
-  position: fixed;
-  width: auto;
+}
+
+dialog,
+dialog::backdrop {
+  // To ensure the dialog is shown even when prefers-reduced-motion is on,
+  // we need to have a duration that is non-zero.
+  --_closing-duration: 0.001ms;
+  --_opening-duration: 0.001ms;
+}
+
+dialog[closing] {
+  animation: slide-down var(--_closing-duration) both ease-out;
 
   &::backdrop {
-    --backdrop-background: var(
-      --sl-color-select-item-active-foreground
-    ); // TODO: should come from the token --sl-body-surface-overlay
-    opacity: 0;
-    transition: all 0.5s;
+    animation: backdrop-hide var(--_closing-duration) both ease-out;
   }
 }
 
-dialog[open] {
-  opacity: 1;
+dialog[open]:not([closing]) {
+  animation: slide-in-up var(--_opening-duration) both ease-out;
 
   &::backdrop {
-    opacity: 1;
+    animation: backdrop-show var(--_opening-duration) both ease-out;
   }
 }
 
 slot[name='header'] {
+  align-items: start;
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--_header-gap);
 }
 
 .titles {
-  align-items: flex-start;
+  align-items: start;
   display: flex;
   flex-direction: var(--_heading-direction);
   gap: var(--_heading-gap);
 }
 
-slot[name='header-actions'] {
-  display: inline-flex;
-}
-
-slot[name='header-buttons'],
-slot[name='header-buttons']::slotted(*) {
-  display: flex;
-}
-
-slot[name='close-button'] {
-  display: block;
-}
-
-slot[name='close-button']::slotted(*),
-slot[name='header-buttons']::slotted(*) {
-  align-self: baseline;
-}
-
 slot[name='subtitle']::slotted(*) {
   font: var(--_subtitle-font);
-  padding-bottom: var(--_subtitle-padding-bottom);
 }
 
 slot[name='title']::slotted(*) {
   font: var(--_title-font);
+  text-wrap: balance;
 }
 
-.body-content {
-  font: var(--_body-font);
-  margin: var(--_body-gap) 0;
+slot[name='header-actions'] sl-button-bar {
+  flex-shrink: 0;
+}
+
+slot:not([name]) {
+  display: block;
   overflow: auto;
 }
 
-slot[name='footer'] {
-  sl-button-bar {
-    align-items: stretch;
-    flex-direction: var(--_footer-direction);
-    flex-grow: 1;
-    flex-shrink: 0;
-  }
+slot[name='footer'] sl-button-bar {
+  --sl-button-bar-direction: var(--_footer-direction);
+  align-items: stretch;
 }
 
-@media screen and (min-width: $md-breakpoint) {
+// This is for the non-mobile styling. The default styling is for mobile.
+@media (min-width: $md-breakpoint) {
   :host {
+    --_body-gap: var(--sl-space-dialog-desktop-body-gap);
     --_border-radius: var(--sl-border-radius-dialog-desktop);
+    --_footer-direction: var(--sl-dialog-footer-flex-direction);
+    --_margin-bottom-container: var(--sl-space-dialog-desktop-container-padding-bottom);
+    --_margin-container-inline: var(--sl-space-dialog-desktop-container-inline);
+    --_margin-top-container: var(--sl-space-dialog-desktop-container-padding-top);
+    --_max-inline-size: var(--sl-dialog-max-inline-size, var(--sl-size-dialog-max));
     --_padding-block: var(--sl-space-dialog-desktop-body-block);
     --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
-    --_margin-bottom-container: var(--sl-space-dialog-desktop-container-padding-bottom);
-    --_margin-top-container: var(--sl-space-dialog-desktop-container-padding-top);
-    --_max-inline-size: var(--sl-size-dialog-max);
-    --_margin-container-inline: var(--sl-space-dialog-desktop-container-inline);
-    --_body-gap: var(--sl-space-dialog-desktop-body-gap);
-    --_footer-direction: var(--sl-dialog-footer-flex-direction);
   }
 
   dialog {
@@ -148,29 +133,16 @@ slot[name='footer'] {
     width: fit-content;
   }
 
-  slot[name='footer'] {
-    sl-button-bar {
-      align-items: center;
-      justify-content: var(--_footer-align);
-    }
+  slot[name='footer'] sl-button-bar {
+    --sl-button-bar-align: var(--_footer-align);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  dialog[closing] {
-    animation: slide-down 400ms ease-out;
-
-    &::backdrop {
-      animation: backdrop-hide 400ms ease-out;
-    }
-  }
-
-  dialog[open]:not([closing]) {
-    animation: slide-in-up 600ms ease-out;
-
-    &::backdrop {
-      animation: backdrop-show 600ms ease-out;
-    }
+  dialog,
+  dialog::backdrop {
+    --_closing-duration: 400ms;
+    --_opening-duration: 600ms;
   }
 }
 

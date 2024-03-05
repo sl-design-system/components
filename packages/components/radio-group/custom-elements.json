@@ -54,7 +54,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Radio group; treat a group of radio button as one form input with valitation, hints and errors\n\n```html\n  <sl-radio-group>\n    <sl-radio>Option 1</sl-radio>\n    <sl-radio>Option 2</sl-radio>\n    <sl-radio>Option 3</sl-radio>\n  </sl-radio-group>\n```",
+          "description": "A group of radio buttons.\n\n```html\n  <sl-radio-group>\n    <sl-radio value=\"1\">Option 1</sl-radio>\n    <sl-radio value=\"2\">Option 2</sl-radio>\n    <sl-radio value=\"3\">Option 3</sl-radio>\n  </sl-radio-group>\n```",
           "name": "RadioGroup",
           "slots": [
             {
@@ -63,6 +63,16 @@
             }
           ],
           "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is disabled; when set no interaction is possible.",
+              "attribute": "disabled",
+              "reflects": true
+            },
             {
               "kind": "field",
               "name": "horizontal",
@@ -75,24 +85,101 @@
             },
             {
               "kind": "field",
-              "name": "validators",
+              "name": "required",
               "type": {
-                "text": "Validator[] | undefined"
+                "text": "boolean | undefined"
               },
-              "description": "Custom validators."
+              "description": "Whether the user is required to select an option in the group.",
+              "attribute": "required",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showValid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "attribute": "show-valid"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "RadioButtonSize | undefined"
+              },
+              "description": "The size of the radio buttons in the group.",
+              "attribute": "size"
+            },
+            {
+              "kind": "event",
+              "name": "sl-blur",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "event",
+              "name": "sl-change",
+              "type": {
+                "text": "EventEmitter<T | undefined>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "event",
+              "name": "sl-focus",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "T | undefined"
               },
               "description": "The value for the radio group, to be used in forms.",
-              "attribute": "value",
-              "reflects": true
+              "attribute": "value"
+            }
+          ],
+          "events": [
+            {
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component loses focus.",
+              "fieldName": "blurEvent"
+            },
+            {
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<T | undefined>"
+              },
+              "description": "Emits when the value changes.",
+              "fieldName": "changeEvent"
+            },
+            {
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<void>"
+              },
+              "description": "Emits when the component receives focus.",
+              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the group is disabled; when set no interaction is possible.",
+              "fieldName": "disabled"
+            },
             {
               "name": "horizontal",
               "type": {
@@ -102,9 +189,33 @@
               "fieldName": "horizontal"
             },
             {
+              "name": "required",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the user is required to select an option in the group.",
+              "fieldName": "required"
+            },
+            {
+              "name": "show-valid",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "When set will cause the control to show it is valid after reportValidity is called.",
+              "fieldName": "showValid"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "RadioButtonSize | undefined"
+              },
+              "description": "The size of the radio buttons in the group.",
+              "fieldName": "size"
+            },
+            {
               "name": "value",
               "type": {
-                "text": "string | undefined"
+                "text": "T | undefined"
               },
               "description": "The value for the radio group, to be used in forms.",
               "fieldName": "value"
@@ -113,11 +224,7 @@
           "mixins": [
             {
               "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
-            },
-            {
-              "name": "HintMixin",
-              "package": "@sl-design-system/shared"
+              "package": "@sl-design-system/form"
             }
           ],
           "superclass": {
@@ -129,20 +236,12 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onClick",
+              "name": "#onFocusin",
               "return": {
                 "type": {
                   "text": "void"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
+              }
             },
             {
               "kind": "method",
@@ -151,19 +250,42 @@
                 "type": {
                   "text": "void"
                 }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#setSelectedOption",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
               },
               "parameters": [
                 {
-                  "name": "event",
+                  "name": "option",
+                  "optional": true,
                   "type": {
-                    "text": "FocusEvent"
+                    "text": "Radio<T>"
                   }
+                },
+                {
+                  "name": "emitEvent",
+                  "default": "true"
                 }
               ]
             },
             {
               "kind": "method",
-              "name": "#onSlotchange",
+              "name": "#updateValueAndValidity",
               "return": {
                 "type": {
                   "text": "void"
@@ -184,38 +306,43 @@
             },
             {
               "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "ShadowRootInit"
+              },
+              "static": true,
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this, {\n    click: this.#onClick,\n    focusout: this.#onFocusout\n  })",
+              "default": "new EventsController(this, {\n    focusin: this.#onFocusin,\n    focusout: this.#onFocusout\n  })",
               "description": "Events controller."
-            },
-            {
-              "kind": "field",
-              "name": "#mutation",
-              "privacy": "private",
-              "default": "new MutationController(this, {\n    callback: mutations => {\n      const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n      if (target instanceof Radio && target.value) {\n        this.buttons?.forEach(radio => (radio.checked = radio.value === target.value));\n        this.value = target.value;\n      }\n    },\n    config: {\n      attributeFilter: ['checked'],\n      attributeOldValue: true,\n      subtree: true\n    }\n  })",
-              "description": "Observe the state of the radios."
-            },
-            {
-              "kind": "field",
-              "name": "#rovingTabindexController",
-              "privacy": "private",
-              "default": "new RovingTabindexController<Radio>(this, {\n    focusInIndex: (elements: Radio[]) => {\n      return elements.findIndex(el => {\n        return this.value ? !el.disabled && el.value === this.value : !el.disabled;\n      });\n    },\n    elementEnterAction: (el: Radio) => {\n      this.value = el.value;\n    },\n    elements: () => this.buttons,\n    isFocusableElement: (el: Radio) => !el.disabled\n  })",
-              "description": "Manage the keyboard navigation."
-            },
-            {
-              "kind": "field",
-              "name": "#validation",
-              "privacy": "private",
-              "default": "new ValidationController(this, {\n    validators: [requiredValidator]\n  })"
             },
             {
               "kind": "field",
               "name": "#initialState",
               "privacy": "private",
               "type": {
-                "text": "string | undefined"
-              }
+                "text": "T | undefined"
+              },
+              "description": "The initial state when the form was associated with the radio group. Used to reset the group."
+            },
+            {
+              "kind": "field",
+              "name": "#observer",
+              "privacy": "private",
+              "default": "new MutationObserver(mutations => {\n    const { target } = mutations.find(m => m.attributeName === 'checked' && m.oldValue === null) || {};\n\n    this.#observer.disconnect();\n    this.#setSelectedOption(target as Radio<T>);\n    this.#observer.observe(this, OBSERVER_OPTIONS);\n  })",
+              "description": "When an option is checked, update the state."
+            },
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<Radio<T>>(this, {\n    focusInIndex: (elements: Array<Radio<T>>) => {\n      return elements.findIndex(el => {\n        return this.value ? !el.disabled && el.value === this.value : !el.disabled;\n      });\n    },\n    elementEnterAction: (el: Radio<T>) => {\n      this.value = el.value;\n    },\n    elements: () => this.radios ?? [],\n    isFocusableElement: (el: Radio) => !el.disabled\n  })",
+              "description": "Manage the keyboard navigation."
             },
             {
               "kind": "field",
@@ -225,20 +352,11 @@
             },
             {
               "kind": "field",
-              "name": "validators",
+              "name": "radios",
               "type": {
-                "text": "Validator[] | undefined"
+                "text": "Array<Radio<T>> | undefined"
               },
-              "description": "Custom validators."
-            },
-            {
-              "kind": "field",
-              "name": "buttons",
-              "type": {
-                "text": "Radio[]"
-              },
-              "privacy": "private",
-              "readonly": true
+              "privacy": "private"
             }
           ]
         }
@@ -275,9 +393,29 @@
             },
             {
               "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether this radio button is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showValidity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Indicates if the radio button shows it is (in)valid.",
+              "attribute": "show-validity",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "RadioButtonSize"
               },
               "default": "'md'",
               "description": "The size of the radio button.",
@@ -288,9 +426,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "string"
+                "text": "T | undefined"
               },
-              "default": "''",
               "description": "The value for this radio button.",
               "attribute": "value"
             }
@@ -305,28 +442,37 @@
               "fieldName": "checked"
             },
             {
-              "name": "value",
+              "name": "disabled",
               "type": {
-                "text": "string"
+                "text": "boolean | undefined"
               },
-              "default": "''",
-              "description": "The value for this radio button.",
-              "fieldName": "value"
+              "description": "Whether this radio button is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "show-validity",
+              "type": {
+                "text": "FormControlShowValidity"
+              },
+              "description": "Indicates if the radio button shows it is (in)valid.",
+              "fieldName": "showValidity"
             },
             {
               "name": "size",
               "type": {
-                "text": "'md' | 'lg'"
+                "text": "RadioButtonSize"
               },
               "default": "'md'",
               "description": "The size of the radio button.",
               "fieldName": "size"
-            }
-          ],
-          "mixins": [
+            },
             {
-              "name": "FormControlMixin",
-              "package": "@sl-design-system/shared"
+              "name": "value",
+              "type": {
+                "text": "T | undefined"
+              },
+              "description": "The value for this radio button.",
+              "fieldName": "value"
             }
           ],
           "superclass": {
@@ -374,26 +520,10 @@
           "fields": [
             {
               "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
               "name": "#events",
               "privacy": "private",
-              "default": "new EventsController(this)",
+              "default": "new EventsController(this, {\n    click: this.#onClick,\n    keydown: this.#onKeydown\n  })",
               "description": "Events controller."
-            },
-            {
-              "kind": "field",
-              "name": "internals",
-              "readonly": true,
-              "privacy": "private"
             }
           ]
         }

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/monorepo",
-  "packageManager": "yarn@3.5.0",
+  "packageManager": "yarn@4.1.0",
   "private": true,
   "repository": {
     "type": "git",
@@ -25,7 +25,7 @@
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
     "extract-i18n": "lit-localize extract",
     "lint": "wireit",
-    "postinstall": "husky install",
+    "postinstall": "husky || true",
     "release": "wireit",
     "reset": "wireit",
     "start": "wireit",
@@ -171,8 +171,7 @@
     },
     "lint": {
       "dependencies": [
-        "lint:components",
-        "./packages/angular:lint"
+        "lint:components"
       ]
     },
     "lint:components": {
@@ -181,7 +180,8 @@
     "release": {
       "command": "yarn changeset publish",
       "dependencies": [
-        "build"
+        "build",
+        "./packages/angular:release"
       ]
     },
     "reset": {
@@ -198,6 +198,10 @@
         ".storybook/main.ts"
       ],
       "dependencies": [
+        {
+          "script": "build:cem",
+          "cascade": false
+        },
         {
           "script": "build:components",
           "cascade": false
@@ -225,7 +229,7 @@
       ]
     },
     "storybook": {
-      "command": "yarn workspace @sl-design-system/angular-root storybook",
+      "command": "yarn workspace @sl-design-system/angular storybook",
       "dependencies": [
         "storybook:build"
       ]
@@ -286,47 +290,46 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
-    "@changesets/cli": "^2.26.2",
-    "@changesets/get-github-info": "^0.5.2",
-    "@custom-elements-manifest/analyzer": "^0.9.0",
-    "@lit/localize-tools": "^0.7.0",
-    "@oddbird/popover-polyfill": "^0.3.0",
-    "@open-wc/testing": "^3.2.0",
-    "@storybook/addon-a11y": "^7.5.1",
-    "@storybook/addon-essentials": "^7.5.1",
-    "@storybook/addon-storysource": "^7.5.1",
-    "@storybook/web-components-vite": "^7.5.1",
-    "@typescript-eslint/eslint-plugin": "^6.7.5",
-    "@typescript-eslint/parser": "^6.7.5",
-    "@web/dev-server-esbuild": "^0.4.3",
-    "@web/test-runner": "^0.17.2",
-    "@web/test-runner-commands": "^0.8.2",
-    "@web/test-runner-playwright": "^0.10.2",
+    "@changesets/cli": "^2.27.1",
+    "@changesets/get-github-info": "^0.6.0",
+    "@custom-elements-manifest/analyzer": "^0.9.2",
+    "@lit/localize-tools": "^0.7.2",
+    "@oddbird/popover-polyfill": "^0.4.0",
+    "@open-wc/testing": "^4.0.0",
+    "@storybook/addon-a11y": "^7.6.17",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-storysource": "^7.6.17",
+    "@storybook/web-components-vite": "^7.6.17",
+    "@types/mocha": "^10.0.6",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "@web/dev-server-esbuild": "^1.0.2",
+    "@web/test-runner": "^0.18.0",
+    "@web/test-runner-commands": "^0.9.0",
+    "@web/test-runner-playwright": "^0.11.0",
     "@webcomponents/scoped-custom-element-registry": "^0.0.9",
-    "chromatic": "^7.4.0",
-    "element-internals-polyfill": "1.3.9",
+    "chromatic": "^7.6.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.0.2",
-    "lit": "^3.0.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "lit": "^3.1.2",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.5",
-    "rollup": "^3.29.4",
-    "sass": "^1.69.4",
-    "sinon": "^16.1.3",
-    "storybook": "^7.5.1",
+    "sass": "^1.71.1",
+    "sinon": "^17.0.1",
+    "storybook": "^7.6.17",
     "stylelint": "^15.9.0",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-prettier": "^3.0.0",
-    "typescript": "^5.2.2",
-    "vite": "^4.4.11",
-    "wireit": "^0.14.1"
+    "typescript": "^5.3.3",
+    "vite": "^5.1.3",
+    "wireit": "^0.14.4"
   }
 }

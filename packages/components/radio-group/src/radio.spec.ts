@@ -16,60 +16,92 @@ describe('sl-radio', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('should not be checked by default', () => {
-      expect(el.checked).not.to.equal(true);
-      expect(el.internals.ariaChecked).not.to.equal('true');
+    it('should have a role of radio', () => {
+      expect(el).to.have.attribute('role', 'radio');
     });
 
-    it('should not be disabled by default', () => {
-      expect(el).not.to.have.attribute('disabled');
+    it('should not be checked', () => {
+      expect(el).not.to.have.attribute('aria-checked');
+      expect(el).not.to.have.attribute('checked');
+      expect(el.checked).not.to.be.true;
     });
 
-    it('should change the state to checked when clicked', async () => {
+    it('should be checked when clicked', async () => {
       el.click();
+      await el.updateComplete;
 
-      expect(el.checked).to.equal(true);
+      expect(el).to.have.attribute('aria-checked', 'true');
+      expect(el).to.have.attribute('checked');
+      expect(el.checked).to.be.true;
     });
 
-    it('should change the state to checked on key down', async () => {
+    it('should be checked after Enter', async () => {
       el.focus();
       await sendKeys({ press: 'Enter' });
 
+      expect(el).to.have.attribute('aria-checked', 'true');
+      expect(el).to.have.attribute('checked');
       expect(el.checked).to.equal(true);
     });
 
+    it('should be checked after Space', async () => {
+      el.focus();
+      await sendKeys({ press: 'Space' });
+
+      expect(el).to.have.attribute('aria-checked', 'true');
+      expect(el).to.have.attribute('checked');
+      expect(el.checked).to.equal(true);
+    });
+
+    it('should not be disabled', () => {
+      expect(el).not.to.have.attribute('disabled');
+      expect(el.disabled).not.to.be.true;
+    });
+
+    it('should be disabled when set', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('disabled');
+    });
   });
 
   describe('disabled', () => {
     beforeEach(async ()=>{
-      const group = await fixture(html`<sl-radio-group><sl-radio value="1" disabled>Hello world</sl-radio></sl-radio-group>`);
-      el = group.firstElementChild as Radio;
+      el = await fixture(html`<sl-radio disabled>Hello world</sl-radio>`);
     });
 
-    it('should be disabled if set', async () => {
-      expect(el).to.have.attribute('disabled');
+    it('should be disabled', async () => {
+      expect(el.disabled).to.be.true;
     });
 
-    it('should not change the state to checked when clicked', async () => {
+    it('should ignore clicks', async () => {
       el.click();
-
-      expect(el.checked).to.equal(false);
-    });
-
-    it('should change the state to checked when clicked on the wrapper', async () => {
-      (el.renderRoot.querySelector('.wrapper') as HTMLElement)?.click();
-
-      expect(el.checked).to.equal(false);
-    });
-
-    it('should not change the state to checked on key down', async () => {
-      el.disabled = true;
       await el.updateComplete;
 
+      expect(el).not.to.have.attribute('aria-checked');
+      expect(el).not.to.have.attribute('checked');
+      expect(el.checked).not.to.be.true;
+    });
+
+    it('should ignore Enter', async () => {
       el.focus();
       await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
 
-      expect(el.checked).to.equal(false);
+      expect(el).not.to.have.attribute('aria-checked');
+      expect(el).not.to.have.attribute('checked');
+      expect(el.checked).not.to.be.true;
+    });
+
+    it('should ignore Space', async () => {
+      el.focus();
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+
+      expect(el).not.to.have.attribute('aria-checked');
+      expect(el).not.to.have.attribute('checked');
+      expect(el.checked).not.to.be.true;
     });
   });
 
@@ -78,9 +110,18 @@ describe('sl-radio', () => {
       el = await fixture(html`<sl-radio checked>Hello world</sl-radio>`);
     });
 
-    it('should be checked when the property is set', () => {
-      expect(el.checked).to.equal(true);
-      expect(el.internals.ariaChecked).to.equal('true');
+    it('should be checked', () => {
+      expect(el).to.have.attribute('aria-checked', 'true');
+      expect(el.checked).to.be.true;
+    });
+
+    it('should not toggle checked after click', async () => {
+      el.click();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('aria-checked', 'true');
+      expect(el).to.have.attribute('checked');
+      expect(el.checked).to.be.true;
     });
   });
 });

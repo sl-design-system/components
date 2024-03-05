@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/switch",
-  "version": "0.0.7",
+  "version": "0.0.15",
   "description": "Switch component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/switch"
+    "directory": "packages/components/switch"
   },
   "homepage": "https://sanomalearning.design/components/switch",
   "bugs": {
@@ -38,8 +38,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@lit-labs/observers": "^2.0.1",
-    "@sl-design-system/shared": "0.1.8",
-    "lit": "^3.0.0"
+    "@sl-design-system/form": "0.0.8",
+    "@sl-design-system/icon": "0.0.7",
+    "@sl-design-system/shared": "0.2.5",
+    "lit": "^3.1.2"
   }
 }

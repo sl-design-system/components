@@ -2,14 +2,14 @@
 title: Textarea
 tags: overview
 eleventyNavigation:
-  parent: Textarea
+  parent: Text area
   key: TextareaOverview
 ---
 <section>
 
 <div class="ds-example">
 
-<sl-textarea placeholder="placeholder">Textarea example code</sl-text-input>
+<sl-textarea placeholder="placeholder">Textarea example code</sl-textarea>
 
 </div>
 

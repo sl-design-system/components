@@ -7,6 +7,7 @@
     --control-color-border-300-border: var(--colors-neutral-300-neutral);
     --control-color-border-400-border: var(--colors-neutral-400-neutral);
     --control-color-border-500-border: var(--colors-neutral-700-neutral);
+    --control-color-border-danger-border: var(--colors-base-danger);
     --control-color-border-negative-border: var(--colors-neutral-base-white);
     --control-color-focus-accent-focus: var(--colors-accent-200-accent);
     --control-color-focus-base-focus: var(--colors-accent-base-accent);
@@ -66,15 +67,20 @@
     --control-color-surface-400-surface: var(--colors-neutral-200-neutral);
     --control-color-surface-accent-surface: var(--colors-accent-base-accent);
     --control-color-surface-base-surface: var(--colors-neutral-base-white);
+    --control-color-surface-danger-surface: var(--colors-danger-base-danger);
     --control-color-surface-nav-surface: var(--colors-neutral-50-neutral);
+    --control-color-surface-success-surface: var(--colors-success-400-success);
     --control-color-text-100-text: var(--colors-neutral-400-neutral);
     --control-color-text-200-text: var(--colors-neutral-500-neutral);
     --control-color-text-accent-text: var(--colors-accent-base-accent);
     --control-color-text-base-text: var(--colors-neutral-base-black);
+    --control-color-text-danger-text: var(--colors-danger-600-danger);
     --control-color-text-negative-text: var(--colors-neutral-50-neutral);
     --control-color-visuals-background: var(--colors-accent-200-accent);
+    --control-color-visuals-clickable-area: var(--colors-warning-100-warning);
     --control-color-visuals-component-part-100: var(--colors-accent-200-accent);
     --control-color-visuals-component-text: var(--colors-neutral-800-neutral);
+    --control-color-visuals-guide-clickable-area: var(--colors-200-warnng);
     --control-color-visuals-guide-fill: var(--colors-accent-base-accent);
     --control-color-visuals-guide-text: var(--colors-neutral-base-white);
   }

@@ -1,5 +1,37 @@
 # @sl-design-system/icon
 
+## 0.0.7
+
+### Patch Changes
+
+- [#925](https://github.com/sl-design-system/components/pull/925) [`2aff1dd`](https://github.com/sl-design-system/components/commit/2aff1dd7aa946cb2ee998d7d121ab585ca9ad39b) - Bump Lit and related dependencies
+
+## 0.0.6
+
+### Patch Changes
+
+- [#831](https://github.com/sl-design-system/components/pull/831) [`a05db1d`](https://github.com/sl-design-system/components/commit/a05db1dcc19153ce0c843782c6d5aff46a992acf) - Added retries when searching for icon to fix not loading of icon
+
+- [#871](https://github.com/sl-design-system/components/pull/871) [`bbf18f7`](https://github.com/sl-design-system/components/commit/bbf18f7453debffe8f3bebf096a0552b8df60500) - Rename `registerIcon` and `registerIcons` into a single overloaded `register` method
+
+- [#792](https://github.com/sl-design-system/components/pull/792) [`0b41208`](https://github.com/sl-design-system/components/commit/0b41208f390b27e3738e0d81258abeaa18e19a0f) - Added badge component, added smaller icon.
+
+## 0.0.5
+
+### Patch Changes
+
+- [#786](https://github.com/sl-design-system/components/pull/786) [`4ca7b20`](https://github.com/sl-design-system/components/commit/4ca7b20ee7d09ee2ccfcf2743fd48f00a8207e39) - Fix outline being shown when focused
+
+- [#786](https://github.com/sl-design-system/components/pull/786) [`4ca7b20`](https://github.com/sl-design-system/components/commit/4ca7b20ee7d09ee2ccfcf2743fd48f00a8207e39) - Remove tabindex=-1 which causes the icon to receive focus
+
+- [#790](https://github.com/sl-design-system/components/pull/790) [`9b8e371`](https://github.com/sl-design-system/components/commit/9b8e371932fbe979f3250e07c605ad39239d4f82) - Update to the latest fontawesome icons
+
+## 0.0.4
+
+### Patch Changes
+
+- [#688](https://github.com/sl-design-system/components/pull/688) [`a816bfe`](https://github.com/sl-design-system/components/commit/a816bfec8e3459cc3b12def88922a421345768f0) - Upgrade to Lit 3.0
+
 ## 0.0.3
 
 ### Patch Changes

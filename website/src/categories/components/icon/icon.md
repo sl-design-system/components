@@ -11,6 +11,6 @@ packageName: icon
 eleventyNavigation:
   parent: Components
   key: Icon
-  order: 10
+  order: 16
   status: coming
 ---

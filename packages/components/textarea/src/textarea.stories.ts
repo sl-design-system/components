@@ -1,58 +1,188 @@
-import type { ResizeType, Textarea, TextareaSize } from './textarea.js';
-import type { StoryObj } from '@storybook/web-components';
-import '@sl-design-system/label/register.js';
-import type { HintSize } from '@sl-design-system/shared';
-import type { LabelSize } from '@sl-design-system/label';
+import type { Textarea, TextareaSize } from './textarea.js';
+import type { TemplateResult } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/form/register.js';
 import { html } from 'lit';
 import '../register.js';
 
-export default {
-  title: 'Textarea'
+type Props = Pick<
+  Textarea,
+  | 'disabled'
+  | 'maxLength'
+  | 'minLength'
+  | 'placeholder'
+  | 'readonly'
+  | 'required'
+  | 'rows'
+  | 'showValid'
+  | 'size'
+  | 'resize'
+  | 'value'
+  | 'wrap'
+> & {
+  hint?: string;
+  label?: string;
+  slot?: () => TemplateResult;
 };
+type Story = StoryObj<Props>;
 
-const resizeTypes: ResizeType[] = ['none', 'vertical', 'auto'],
-  sizes: TextareaSize[] = ['md', 'lg'],
-  hintSizes: HintSize[] = ['sm', 'md', 'lg'],
-  labelSizes: LabelSize[] = ['sm', 'md', 'lg'];
+const sizes: TextareaSize[] = ['md', 'lg'];
 
-export const API: StoryObj = {
+export default {
+  title: 'Textarea',
   args: {
     disabled: false,
-    placeholder: 'Type here',
+    label: 'Label',
+    placeholder: 'Type something here',
+    readonly: false,
     required: false,
+    resize: 'vertical',
+    showValid: false,
     size: 'md',
     value: '',
-    resize: 'none',
-    readonly: false,
-    hint: ''
+    wrap: 'soft'
   },
   argTypes: {
-    size: {
-      control: 'inline-radio',
-      options: ['md', 'lg']
-    },
     resize: {
       control: 'inline-radio',
-      options: resizeTypes
+      options: ['none', 'vertical', 'auto']
+    },
+    size: {
+      control: 'inline-radio',
+      options: sizes
+    },
+    value: {
+      control: 'text'
+    },
+    wrap: {
+      control: 'inline-radio',
+      options: ['soft', 'hard']
     }
   },
-  render: ({ disabled, placeholder, required, size, value, resize, readonly, hint }) =>
-    html`
-      <sl-textarea
-        ?readonly=${readonly}
-        .disabled=${disabled}
-        .placeholder=${placeholder}
-        .required=${required}
-        .size=${size}
-        .value=${value}
-        .resize=${resize}
-        .hint=${hint}
-      ></sl-textarea>
-    `
+  render: ({
+    disabled,
+    label,
+    hint,
+    maxLength,
+    minLength,
+    placeholder,
+    required,
+    showValid,
+    size,
+    resize,
+    readonly,
+    rows,
+    slot,
+    value,
+    wrap
+  }) => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <sl-form>
+        <sl-form-field .hint=${hint} .label=${label}>
+          ${slot?.() ??
+          html`
+            <sl-textarea
+              ?disabled=${disabled}
+              ?readonly=${readonly}
+              ?required=${required}
+              .maxLength=${maxLength}
+              .minLength=${minLength}
+              .placeholder=${placeholder ?? ''}
+              .resize=${resize}
+              .rows=${rows}
+              .showValid=${showValid}
+              .size=${size}
+              .value=${value}
+              .wrap=${wrap}
+            ></sl-textarea>
+          `}
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
+  }
+} satisfies Meta<Props>;
+
+export const Basic: Story = {};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true
+  }
 };
 
-export const Disabled: StoryObj = {
-  render: () => html`<sl-textarea disabled value="Textarea disabled"></sl-textarea>`
+export const MinMaxLength: Story = {
+  args: {
+    hint: "This field requires a minimum of 3 and a maximum of 5 characters. The browser won't report an error until you type at least 1 character.",
+    minLength: 3,
+    maxLength: 5
+  }
+};
+
+export const Readonly: Story = {
+  args: {
+    hint: 'The field is readonly, you can focus it, but you cannot enter any text.',
+    readonly: true
+  }
+};
+
+export const Required: Story = {
+  args: {
+    hint: 'This field is required, if you leave it empty you will see an error message when clicking the button.',
+    required: true
+  }
+};
+
+export const Resize: Story = {
+  args: {
+    hint: 'This field will resize automatically as you type.',
+    resize: 'auto'
+  }
+};
+
+export const Valid: Story = {
+  args: {
+    hint: 'After clicking the button, this field will show it is valid.',
+    showValid: true
+  }
+};
+
+export const CustomValidity: StoryObj = {
+  args: {
+    hint: 'This story has both builtin validation (required) and custom validation. You need to enter "SLDS" to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the textarea element.',
+    slot: () => {
+      const onValidate = (event: Event & { target: Textarea }): void => {
+        const value = event.target.value;
+
+        event.target.setCustomValidity(value === 'SLDS' ? '' : 'Enter "SLDS"');
+      };
+
+      return html`<sl-textarea @sl-validate=${onValidate} required></sl-textarea>`;
+    }
+  }
+};
+
+export const CustomAsyncValidity: Story = {
+  args: {
+    hint: 'This story has an async validator. You need to enter "SLDS" to make the field valid. It will wait 2 seconds before validating.',
+    slot: () => {
+      const onValidate = (event: Event & { target: Textarea }): void => {
+        const promise = new Promise<string>(resolve =>
+          setTimeout(() => resolve(event.target.value === 'SLDS' ? '' : 'Enter "SLDS"'), 2000)
+        );
+
+        event.target.setCustomValidity(promise);
+      };
+
+      return html`<sl-textarea @sl-validate=${onValidate} required></sl-textarea>`;
+    }
+  }
 };
 
 export const All: StoryObj = {
@@ -92,148 +222,22 @@ export const All: StoryObj = {
             <sl-textarea disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-textarea>
           </div>
           <div class="wrapper">
-            <sl-textarea invalid size=${size} value="${size} invalid"></sl-textarea>
-            <sl-textarea invalid size=${size} placeholder="Placeholder ${size} invalid"></sl-textarea>
-            <sl-textarea disabled invalid size=${size} value="${size} invalid disabled"></sl-textarea>
-            <sl-textarea disabled invalid size=${size} placeholder="Placeholder ${size} disabled invalid"></sl-textarea>
+            <sl-textarea show-validity="invalid" size=${size} value="${size} invalid"></sl-textarea>
+            <sl-textarea placeholder="Placeholder ${size} invalid" show-validity="invalid" size=${size}></sl-textarea>
+            <sl-textarea disabled show-validity="invalid" size=${size} value="${size} invalid disabled"></sl-textarea>
+            <sl-textarea
+              disabled
+              placeholder="Placeholder ${size} disabled invalid"
+              size=${size}
+              show-validity="invalid"
+            ></sl-textarea>
           </div>
           <div class="wrapper">
-            <sl-textarea showValid valid size=${size} value="I am md valid"></sl-textarea>
-            <sl-textarea disabled showValid valid size=${size} value="${size} valid disabled"></sl-textarea>
+            <sl-textarea show-validity="valid" size=${size} value="I am md valid"></sl-textarea>
+            <sl-textarea disabled show-validity="valid" size=${size} value="${size} valid disabled"></sl-textarea>
           </div>
         </div>
       `
     )}
   `
-};
-
-export const Label: StoryObj = {
-  render: () => {
-    return html`
-      <style>
-        form {
-          display: flex;
-          flex-direction: column;
-        }
-
-        sl-textarea {
-          width: 300px;
-          --sl-textarea-rows: 5;
-          margin-bottom: 1rem;
-        }
-      </style>
-      <form>
-        ${labelSizes.map((size, id) => {
-          const textareaSize = size === 'lg' ? size : 'md';
-          return html`
-            <sl-label for="form-textarea-${id}" size=${size}>What is your name?</sl-label>
-            <sl-textarea id="form-textarea-${id}" size=${textareaSize}></sl-textarea>
-          `;
-        })}
-      </form>
-    `;
-  }
-};
-
-export const Hint: StoryObj = {
-  render: () => {
-    return html`
-      <style>
-        form {
-          display: flex;
-          flex-direction: column;
-        }
-
-        sl-textarea {
-          margin-bottom: 1rem;
-        }
-      </style>
-      <form>
-        ${hintSizes.map((hintSize, id) => {
-          return html`
-            <sl-label for="form-textarea-${id}">Nickname</sl-label>
-            <sl-textarea
-              id="form-textarea-${id}"
-              hint="What would you like people to call you?"
-              hintSize=${hintSize}
-            ></sl-textarea>
-          `;
-        })}
-        <sl-label for="textarea4">Nickname</sl-label>
-        <sl-textarea
-          id="textarea4"
-          disabled
-          hint="What would you like people to call you?"
-          hintSize="lg"
-          value="Disabled textarea"
-        ></sl-textarea>
-      </form>
-    `;
-  }
-};
-
-export const RichLabelHint: StoryObj = {
-  render: () => html`
-    <style>
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-
-      div {
-        gap: 0.25rem;
-      }
-    </style>
-    <form>
-      <sl-label for="textarea">
-        <label slot="label">Custom <i>label</i></label>
-      </sl-label>
-      <sl-textarea id="textarea">
-        <div slot="hint">
-          Hint is an accessible way to provide <strong>additional information</strong> that might help the user
-        </div>
-      </sl-textarea>
-    </form>
-  `
-};
-
-export const MinMaxLength: StoryObj = {
-  render: () => {
-    const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.previousElementSibling as Textarea)?.reportValidity();
-    };
-
-    return html`
-      <style>
-        sl-textarea {
-          width: 350px;
-          margin-bottom: 8px;
-        }
-      </style>
-      <sl-textarea minlength="3" maxlength="5" placeholder="Min 3 and max 5 chars" required></sl-textarea>
-      <sl-button @click=${onClick}>Validate</sl-button>
-    `;
-  }
-};
-
-export const CustomValidation: StoryObj = {
-  render: () => {
-    const onClick = (event: Event & { target: HTMLElement }): void => {
-      (event.target.previousElementSibling as Textarea)?.reportValidity();
-    };
-
-    return html`
-      <style>
-        sl-textarea {
-          width: 350px;
-          margin-bottom: 8px;
-        }
-      </style>
-      <sl-textarea minlength="3" maxlength="5" required="true">
-        <div slot="too-short">You need to enter at least 3 characters here; this is a custom message.</div>
-        <div slot="value-missing">This is the custom value-missing message (for the required attribute).</div>
-      </sl-textarea>
-      <sl-button @click=${onClick}>Validate</sl-button>
-    `;
-  }
 };

@@ -1,54 +1,98 @@
 :host {
-  --_background: #fff;
-  --_border: 1px solid var(--_border-color);
-  --_border-color: rgba(0, 0, 0, 0.2);
-  --_border-radius: 3px;
-  --_box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.2), 0 0 0.0625rem rgba(0, 0, 0, 0.11);
-  --_padding: 0.5rem;
+  --_arrow-block-size: 6px;
+  --_arrow-inline-size: 16px;
+  --_background: var(--sl-color-popover-background);
+  --_border-color: var(--sl-color-popover-border);
+  --_border-radius: var(--sl-border-radius-popover-default);
+  --_border-width: 1px;
+  --_border: var(--_border-width) solid var(--_border-color);
+  --_box-shadow: var(--sl-elevation-shadow-md);
+  --_color: var(--sl-color-popover-foreground);
+  --_font: var(--sl-text-popover-text-text);
+  --_padding-block: var(--sl-space-popover-block);
+  --_padding-inline: var(--sl-space-popover-inline);
 }
 
 :host {
-  // This has to be in pixels until we can use @property
-  --sl-popover-offset: 8px;
-
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
+  color: var(--_color);
+  font: var(--_font);
+  max-width: var(--_max-width);
+  opacity: 0;
   overflow: visible;
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+  }
+
+  /**
+   * Because of :host and the fact that the element is often not inside a shadow root,
+   * the popover-polyfill can have a higher specificity. We need to use !important
+   * to overwrite the polyfill styling.
+   *
+   * This is only necessary for Firefox < 125 and older browsers that don't support popover
+   */
+  @supports not selector(:popover-open) {
+    background: var(--_background) !important;
+    border: var(--_border) !important;
+    color: var(--_color) !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    padding-block: var(--_padding-block) !important;
+    padding-inline: var(--_padding-inline) !important;
+    position: fixed;
+  }
 }
 
-:host([actual-placement='bottom']) .arrow {
-  inset-block-start: -12px;
-  inset-inline-start: 0;
+/* stylelint-disable-next-line selector-class-pattern */
+:host(:where(:popover-open, .\\:popover-open)) {
+  /* stylelint-disable-next-line scss/at-rule-no-unknown */
+  @starting-style {
+    display: block;
+    opacity: 0;
+  }
+
+  opacity: 1;
+}
+
+:host([actual-placement^='bottom']) .arrow {
+  inset-block-start: calc(var(--_arrow-block-size) * -1);
+}
+
+:host([actual-placement^='left']) .arrow {
+  inset-inline-end: calc(var(--_arrow-inline-size) * -1);
+
+  svg {
+    rotate: 90deg;
+    transform-origin: left;
+    translate: calc(var(--_arrow-block-size) / 2) calc(var(--_arrow-inline-size) / -2);
+  }
+}
+
+:host([actual-placement^='right']) .arrow {
+  inset-inline-start: calc(var(--_arrow-inline-size) * -1);
+
+  svg {
+    rotate: -90deg;
+    transform-origin: right;
+    translate: calc(var(--_arrow-block-size) / -2) calc(var(--_arrow-inline-size) / -2);
+  }
+}
+
+:host([actual-placement^='top']) .arrow {
+  inset-block-end: calc(var(--_arrow-block-size) * -1);
   scale: 1 -1;
 }
 
-:host([actual-placement='left']) .arrow {
-  inset-block-start: 0;
-  inset-inline-end: -18px;
-  rotate: -90deg;
-}
-
-:host([actual-placement='right']) .arrow {
-  inset-block-start: 0;
-  inset-inline-start: -18px;
-  rotate: 90deg;
-}
-
-:host([actual-placement='top']) .arrow {
-  inset-block-end: -12px;
-  inset-inline-start: 0;
-}
-
-.container {
-  padding: var(--_padding);
-}
-
 .arrow {
-  display: flex;
+  block-size: var(--_arrow-block-size);
+  display: inline-flex;
   fill: var(--_background);
+  inline-size: var(--_arrow-inline-size);
   position: absolute;
-  stroke: var(--_border-color);
-  stroke-width: 2px;
 }

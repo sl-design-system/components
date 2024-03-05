@@ -7,20 +7,27 @@ import { str } from '@lit/localize';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export const templates = {
-  s1e4177e8de76dfc9: `Dit veld volgt niet het gespecificeerde patroon.`,
-  s321a73dff0c18f15: `De waarde komt niet overeen met het gespecificeerde type.`,
+  s091d3d07b5b3076f: `Ok`,
+  s2ceb11be2290bb1b: `Annuleren`,
   s39bba60b440fcf00: `verplicht`,
-  s3ee922cc6e82d53a: `Dit veld moet verplicht ingevuld worden.`,
   s4215e0aa2fa8f5b4: `Type hier om te filteren`,
-  s45d6e41483a83f82: str`Dit veld moet tenminste ${0} karakter${1} lang zijn.`,
   s58bfb494feb8eb02: str`${0} geselecteerd`,
-  s5def830dd16bcde9: `Stap komt niet overeen`,
   s5e10d00d437e2e21: `Leeg`,
   s5e8250fb85d64c23: `Sluiten`,
   s629576c6b305d539: `optioneel`,
+  s62aa2ba3fe47ece4: `Vink tenminste één optie aan.`,
+  s6abb1cd87fe0114e: `Home`,
+  s8079b71872346425: `Voer een waarde in.`,
+  s864c948d4629240f: `Toon alles`,
+  sa447e2f801a7eb2d: `Kies een optie.`,
+  sa996297f6a208e98: `Kruimelpad`,
+  sb85774dc5d18ff0f: `Bevestig`,
+  sb881081d4f28c851: `Kies een optie uit de lijst.`,
+  sc94053131f85fc8a: `Vink dit vakje aan.`,
+  sc95c7150ab686f99: `Voer een correcte waarde in.`,
   sca81470958a97fc4: `Filter op`,
   sd0b6082239185272: `Selecteer alles`,
-  sd6f67602bb05032b: str`Gebruik niet meer dan ${0} karakters (je gebruikt nu ${1} karakters).`,
-  sd7cc2f6441ad9a1c: `Verkeerde invoer`,
-  sf274d65b5f738f24: `De waarde is buiten de toegestane reeks.`
+  sd244b51f6d7de8e2: `Voer een waarde in volgens het gevraagde patroon.`,
+  sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
+  sf1ec4acb8d744ed9: `Mededeling`
 };

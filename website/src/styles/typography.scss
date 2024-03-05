@@ -1,19 +1,19 @@
 @font-face {
-  font-family: 'The Message';
+  font-family: 'the-message';
   font-style: normal;
   font-weight: 400;
   src: url('./../../assets/fonts/the-message-regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'The Message';
+  font-family: 'the-message';
   font-style: normal;
   font-weight: 600;
   src: url('./../../assets/fonts/the-message-demibold.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'The Message';
+  font-family: 'the-message';
   font-style: normal;
   font-weight: 700;
   src: url('./../../assets/fonts/the-message-bold.woff2') format('woff2');
@@ -32,7 +32,7 @@ h5,
 .ds-heading-1,
 .ds-heading-2,
 .ds-heading-3 {
-  font-family: 'The Message', sans-serif;
+  font-family: 'the-message', sans-serif;
   font-weight: 600;
 }
 
@@ -45,7 +45,7 @@ h1,
 h2,
 .ds-heading-2 {
   font-size: 1.8rem;
-  margin-bottom: var(--scale-100-scale);
+  margin-block: var(--scale-400-scale) var(--scale-100-scale);
 }
 
 h3,
@@ -54,8 +54,27 @@ h3,
   margin-bottom: var(--scale-100-scale);
 }
 
+p + h3 {
+  margin-top: var(--scale-400-scale);
+}
+
+h4,
+.ds-heading-4 {
+  font-size: 1.6rem;
+  margin-bottom: var(--scale-100-scale);
+}
+
 p,
 li {
   font-size: 1.6rem;
   line-height: 2.4rem;
+}
+
+p {
+  margin-block: var(--scale-150-scale);
+}
+
+small p {
+  font-size: 1rem;
+  line-height: 1rem;
 }

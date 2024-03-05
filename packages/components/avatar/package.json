@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/avatar",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "Avatar component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/avatar"
+    "directory": "packages/components/avatar"
   },
   "homepage": "https://sanomalearning.design/components/avatar",
   "bugs": {
@@ -38,6 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "lit": "^3.0.0"
+    "@sl-design-system/shared": "0.2.5",
+    "@sl-design-system/tooltip": "0.0.19"
   }
 }

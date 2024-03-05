@@ -1,15 +1,15 @@
 import type { CSSResultGroup, TemplateResult } from 'lit';
 import type { GridColumn } from './column.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements';
+import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import type { DataSourceFilterFunction, EventEmitter } from '@sl-design-system/shared';
 import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
 import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements';
+import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
-import { TextInput } from '@sl-design-system/text-input';
+import { TextField } from '@sl-design-system/text-field';
 import { Popover } from '@sl-design-system/popover';
 import { event, getNameByPath } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
@@ -20,7 +20,7 @@ import { GridFilterValueChangeEvent } from './events.js';
 
 export type GridFilterChange = 'added' | 'removed';
 
-Icon.registerIcon(faFilter, faFilterSolid, faXmark);
+Icon.register(faFilter, faFilterSolid, faXmark);
 
 @localized()
 export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
@@ -31,7 +31,7 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
       'sl-checkbox': Checkbox,
       'sl-checkbox-group': CheckboxGroup,
       'sl-icon': Icon,
-      'sl-text-input': TextInput,
+      'sl-text-field': TextField,
       'sl-popover': Popover
     };
   }
@@ -130,14 +130,14 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
               </sl-checkbox-group>
             `
           : html`
-              <sl-text-input
+              <sl-text-field
                 @keydown=${this.#onKeydown}
                 @input=${this.#onInput}
                 .placeholder=${msg('Type here to filter')}
                 .value=${this.value?.toString() ?? ''}
                 aria-labelledby="title"
                 autofocus
-              ></sl-text-input>
+              ></sl-text-field>
             `}
       </sl-popover>
     `;

@@ -229,6 +229,10 @@
     },
     "input": {
       "option": {
+        "sm": {
+          "value": "{size.lg}",
+          "type": "sizing"
+        },
         "md": {
           "value": "{size.xl}",
           "type": "sizing",
@@ -240,6 +244,10 @@
           "description": "size.input.lg"
         },
         "checkboxIcon": {
+          "sm": {
+            "value": "{size.icon.xs}",
+            "type": "sizing"
+          },
           "md": {
             "value": "{size.icon.md}",
             "type": "sizing",
@@ -309,6 +317,10 @@
       }
     },
     "icon": {
+      "2xs": {
+        "value": "10px",
+        "type": "sizing"
+      },
       "xs": {
         "value": "{size.xs}",
         "type": "sizing"
@@ -390,6 +402,98 @@
         "type": "sizing",
         "description": "size.input.lg"
       }
+    },
+    "badge": {
+      "sm": {
+        "value": "{size.2xs}",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "{size.xs}",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "{size.sm}",
+        "type": "sizing"
+      },
+      "xl": {
+        "value": "{size.md}",
+        "type": "sizing"
+      },
+      "2xl": {
+        "value": "18",
+        "type": "sizing"
+      },
+      "3xl": {
+        "value": "{size.lg}",
+        "type": "sizing"
+      }
+    },
+    "avatar": {
+      "sm": {
+        "value": "{size.xl}",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "{size.2xl}",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "40",
+        "type": "sizing"
+      },
+      "xl": {
+        "value": "52",
+        "type": "sizing"
+      },
+      "2xl": {
+        "value": "{size.4xl}",
+        "type": "sizing"
+      },
+      "3xl": {
+        "value": "80",
+        "type": "sizing"
+      }
+    },
+    "skeleton": {
+      "minHeight": {
+        "value": "{size.2xs}",
+        "type": "sizing"
+      }
+    },
+    "spinner": {
+      "xs": {
+        "value": "{size.xs}",
+        "type": "sizing"
+      },
+      "sm": {
+        "value": "{size.sm}",
+        "type": "sizing"
+      },
+      "md": {
+        "value": "{size.md}",
+        "type": "sizing"
+      },
+      "lg": {
+        "value": "{size.lg}",
+        "type": "sizing"
+      },
+      "xl": {
+        "value": "{size.xl}",
+        "type": "sizing"
+      },
+      "2xl": {
+        "value": "{size.2xl}",
+        "type": "sizing"
+      },
+      "3xl": {
+        "value": "{size.3xl}",
+        "type": "sizing"
+      },
+      "4xl": {
+        "value": "{size.4xl}",
+        "type": "sizing"
+      }
     }
   },
   "space": {
@@ -433,53 +537,58 @@
       "type": "spacing",
       "description": "space.2xl"
     },
+    "3xl": {
+      "value": "40",
+      "type": "spacing",
+      "description": "space.3xl"
+    },
     "button": {
       "solid": {
         "block": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.default}",
+            "value": "{space.xs} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.block.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.sm} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.sm} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "sm": {
-            "value": "{space.lg} - {border.width.button.default}",
+            "value": "{space.lg} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.xl} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.xl} - {border.width.button.default}",
+            "value": "{space.xl} - {border.width.button.solid}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
         },
         "icon-only": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.default}",
+            "value": "{space.xs} - {border.width.button.solid}",
             "type": "spacing"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.sm} - {border.width.button.solid}",
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.default}",
+            "value": "{space.sm} - {border.width.button.solid}",
             "type": "spacing"
           }
         }
@@ -537,49 +646,49 @@
       "ghost": {
         "block": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.link}",
+            "value": "{space.xs} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.block.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.block.lg"
           }
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.link}",
+            "value": "{space.md} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
         },
         "icon-only": {
           "sm": {
-            "value": "{space.xs} - {border.width.button.link}",
+            "value": "{space.xs} - {border.width.button.ghost}",
             "type": "spacing"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.sm} - {border.width.button.link}",
+            "value": "{space.sm} - {border.width.button.ghost}",
             "type": "spacing"
           }
         }
@@ -655,6 +764,11 @@
     "input": {
       "option": {
         "block": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.block.md"
+          },
           "md": {
             "value": "{space.xs}",
             "type": "spacing",
@@ -667,6 +781,11 @@
           }
         },
         "inline": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "space.button.solid.inline.md"
+          },
           "md": {
             "value": "{space.none}",
             "type": "spacing",
@@ -679,6 +798,11 @@
           }
         },
         "gap": {
+          "sm": {
+            "value": "{space.sm}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
           "md": {
             "value": "{space.sm}",
             "type": "spacing",
@@ -1200,8 +1324,389 @@
         "type": "spacing"
       },
       "offset": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      }
+    },
+    "badge": {
+      "inline": {
+        "sm": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "1px",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "3px",
+          "type": "spacing"
+        }
+      },
+      "block": {
+        "sm": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        }
+      },
+      "gap": {
+        "sm": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "3",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.xs}+ {space.2xs}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.xs}+ {space.2xs}",
+          "type": "spacing"
+        }
+      },
+      "icon": {
+        "inline": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "2xl": {
+            "value": "1",
+            "type": "spacing"
+          },
+          "3xl": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          }
+        },
+        "block": {
+          "sm": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "2xl": {
+            "value": "1",
+            "type": "spacing"
+          },
+          "3xl": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          }
+        }
+      },
+      "label": {
+        "inline": {
+          "sm": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
+          "md": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
+          "lg": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "3px",
+            "type": "spacing"
+          },
+          "2xl": {
+            "value": "3px",
+            "type": "spacing"
+          },
+          "3xl": {
+            "value": "3px",
+            "type": "spacing"
+          }
+        }
+      }
+    },
+    "avatar": {
+      "inline": {
+        "sm": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "block": {
+        "sm": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "lg": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "xl": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "2xl": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "3xl": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
+    },
+    "popover": {
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "value": "{space.md}",
+        "type": "spacing",
+        "description": "space.button.solid.inline.md"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      },
+      "offset": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      }
+    },
+    "inline-message": {
+      "block": {
+        "value": "{space.lg}",
+        "type": "spacing",
+        "description": "space.button.solid.block.md"
+      },
+      "inline": {
+        "start": {
+          "value": "{space.lg}+{border.width.inline-message.start}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        },
+        "end": {
+          "value": "{space.2xl}",
+          "type": "spacing",
+          "description": "space.button.solid.inline.md"
+        }
+      },
+      "gap": {
+        "value": "{space.lg}",
+        "type": "spacing"
+      },
+      "content": {
+        "gap": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        }
+      }
+    },
+    "tab": {
+      "inline": {
+        "value": "{space.xl}",
+        "type": "spacing"
+      },
+      "block": {
         "value": "{space.sm}",
         "type": "spacing"
+      },
+      "gap": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "more": {
+        "inline": {
+          "value": "{space.md}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "content": {
+        "horizontal": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
+        },
+        "vertical": {
+          "inline": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.xl}",
+            "type": "spacing"
+          }
+        }
+      }
+    },
+    "card": {
+      "media": {
+        "full": {
+          "value": "{space.none}",
+          "type": "spacing"
+        },
+        "margins": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "content": {
+        "inline": {
+          "value": "{space.xl}",
+          "type": "spacing"
+        }
+      },
+      "vertical": {
+        "inline": {
+          "value": "{space.none}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.xl}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.none}",
+          "type": "spacing"
+        }
+      },
+      "horizontal": {
+        "inline": {
+          "value": "{space.none}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.xl}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.none}",
+          "type": "spacing"
+        }
+      },
+      "slotheader": {
+        "badges": {
+          "inline": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "block": {
+            "value": "{space.xs}",
+            "type": "spacing"
+          },
+          "gap": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          }
+        }
       }
     }
   },
@@ -1517,6 +2022,11 @@
         "type": "Icons",
         "description": "icon.core.chevron-down"
       },
+      "chevron-right": {
+        "value": "chevron-right",
+        "type": "Icons",
+        "description": "icon.core.chevron-right"
+      },
       "check": {
         "value": "check",
         "type": "Icons",
@@ -1532,14 +2042,39 @@
         "type": "Icons",
         "description": "icon.core.triangle-exclamation-solid"
       },
+      "octagon-exclamation-solid": {
+        "value": "octagon-exclamation",
+        "type": "Icons",
+        "description": "icon.core.octagon-exclamation-solid"
+      },
       "circle-check-solid": {
         "value": "circle-check",
         "type": "Icons",
         "description": "icon.core.circle-check-solid"
+      },
+      "ellipsis": {
+        "value": "ellipsis",
+        "type": "Icons",
+        "description": "icon.core.ellipsis"
+      },
+      "house": {
+        "value": "house",
+        "type": "Icons",
+        "description": "icon.core.house"
+      },
+      "angle-down": {
+        "value": "angle-down",
+        "type": "Icons",
+        "description": "icon.core.angle-down"
       }
     },
     "typeset": {
       "fontSize": {
+        "2xs": {
+          "value": "10px",
+          "type": "fontSizes",
+          "description": "icon.typeset.fontSize.xs"
+        },
         "xs": {
           "value": "{size.xs}",
           "type": "fontSizes",
@@ -1639,8 +2174,8 @@
           },
           {
             "x": "0",
-            "y": "2",
-            "blur": "4",
+            "y": "2px",
+            "blur": "4px",
             "spread": "0",
             "color": "rgba({color.palette.neutral.base} , {opacity.200})",
             "type": "dropShadow"
@@ -1655,7 +2190,7 @@
             "y": "0",
             "blur": "4",
             "spread": "0",
-            "color": "rgba({color.palette.neutral.base} , {opacity.100})",
+            "color": "rgba({color.palette.neutral.base} , {opacity.50})",
             "type": "dropShadow"
           },
           {

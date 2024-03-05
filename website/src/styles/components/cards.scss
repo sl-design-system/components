@@ -2,7 +2,7 @@
 
 section.ds-cards {
   display: grid;
-  gap: 24px 16px;
+  gap: 2.4rem;
   grid-template-columns: 1fr;
 
   @media screen and (min-width: $md-breakpoint) {
@@ -12,10 +12,13 @@ section.ds-cards {
   figure {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 1.6rem;
+    position: relative;
   }
 
   svg {
+    border-radius: 0.2rem;
+    box-sizing: content-box;
     margin: 0;
   }
 
@@ -25,5 +28,31 @@ section.ds-cards {
 
   .ds-cards .ds-example {
     border-radius: 0;
+  }
+}
+
+@media screen and (min-width: $md-breakpoint) {
+  section.ds-cards-horizontal {
+    grid-template-columns: 1fr;
+
+    figure {
+      flex-direction: row;
+    }
+
+    svg {
+      flex: 0 0 30%;
+    }
+  }
+}
+
+.ds-cards__do {
+  svg {
+    box-shadow: 0 0.4rem 0 0 var(--control-color-surface-success-surface);
+  }
+}
+
+.ds-cards__dont {
+  svg {
+    box-shadow: 0 0.4rem 0 0 var(--control-color-surface-danger-surface);
   }
 }

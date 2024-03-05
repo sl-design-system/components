@@ -1,80 +1,64 @@
-import type { Avatar, AvatarFallbackType, AvatarOrientation, AvatarSize, UserProfile, UserStatus } from './avatar.js';
+import type { Avatar } from './avatar.js';
+import type { AvatarFallbackType, AvatarOrientation, AvatarSize, UserStatus } from './models.js';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '@sl-design-system/tooltip/register.js';
 import { html } from 'lit';
 import '../register.js';
 
-interface Props extends Pick<Avatar, 'title' | 'size' | 'fallback' | 'status' | 'imageOnly' | 'orientation'> {
+interface Props
+  extends Pick<
+    Avatar,
+    'title' | 'displayName' | 'size' | 'fallback' | 'status' | 'imageOnly' | 'orientation' | 'badgeText'
+  > {
   title: string;
-  firstName: string;
-  lastName: string;
-  picture: string;
+  displayName: string;
+  pictureUrl: string;
   imageOnly: boolean;
   orientation: AvatarOrientation;
   subheading: string;
+  badgeText: string;
+  labelText: string;
 }
 
 type Story = StoryObj<Props>;
 
-const users: UserProfile[] = [
+const users: Array<{ name: string; picture?: string }> = [
   {
-    name: {
-      title: 'Mr',
-      first: 'Yousef',
-      last: 'Van der Schaaf'
-    },
-    picture: {
-      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
-    }
+    name: 'Yousef van der Schaaf',
+    picture: 'https://randomuser.me/api/portraits/thumb/mendfgdfgdfdfg/81.jpg'
   },
   {
-    name: {
-      title: 'Mr',
-      first: 'Chester',
-      last: 'Reid'
-    },
-    picture: {
-      thumbnail: 'https://randomuser.me/api/portraits/thumb/men/16.jpg'
-    }
+    name: 'Chester Reid',
+    picture: 'https://randomuser.me/api/portraits/thumb/men/19.jpg'
   },
   {
-    name: {
-      title: 'Ms',
-      first: 'Emma',
-      last: 'Henderson'
-    },
-    picture: {
-      thumbnail: 'https://randomuser.me/api/portraits/thumb/women/18.jpg'
-    }
+    name: 'Emma Henderson - Van Deursen',
+    picture: 'https://randomuser.me/api/portraits/thumb/women/19.jpg'
   },
   {
-    name: {
-      title: 'Mr',
-      first: 'Johnni',
-      last: 'Sullivan'
-    }
+    name: 'Johnni Sullivan'
   },
   {
-    name: {
-      title: 'Mr',
-      first: 'Gustav',
-      last: 'Christensen'
-    }
+    name: 'Gustav Christensen'
   },
   {
-    name: {
-      title: 'Ms',
-      first: 'Rose',
-      last: 'Nylund'
-    },
-    picture: {
-      thumbnail: 'https://randomuser.me/api/portraits/thumb/women/10.jpg'
-    }
+    name: 'Rose Nylund',
+    picture: 'https://randomuser.me/api/portraits/thumb/women/10.jpg'
   }
 ];
+
 const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 const fallbacks: AvatarFallbackType[] = ['image', 'initials'];
 const orientations: AvatarOrientation[] = ['horizontal', 'vertical'];
-const statuses: Array<UserStatus | undefined> = [undefined, 'online', 'offline', 'away', 'do-not-disturb'];
+const statuses: Array<UserStatus | undefined> = [
+  undefined,
+  'danger',
+  'success',
+  'warning',
+  'accent',
+  'neutral',
+  'primary'
+];
 
 const sizeName = (size: string): string => {
   switch (size) {
@@ -100,15 +84,21 @@ const sizeName = (size: string): string => {
 export default {
   title: 'Avatar',
   args: {
-    title: 'Ms',
-    firstName: 'Rose',
-    lastName: 'Nylund',
-    picture: 'https://randomuser.me/api/portraits/thumb/women/14.jpg',
+    displayName: 'Rose Nylund',
+    pictureUrl:
+      'https://images.unsplash.com/photo-1699412958387-2fe86d46d394?q=80&w=188&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     imageOnly: false,
-    size: 'md'
+    badgeText: '34',
+    size: 'md',
+    fallback: 'initials',
+    labelText: '{{badgeText}} unread messages'
   },
   argTypes: {
     subheading: {
+      control: 'text',
+      defaultValue: null
+    },
+    badgeText: {
       control: 'text',
       defaultValue: null
     },
@@ -132,38 +122,39 @@ export default {
       options: orientations
     }
   },
-  render: ({ title, firstName, lastName, picture, size, fallback, status, imageOnly, subheading, orientation }) => {
-    let user: UserProfile = {
-      name: {
-        title,
-        first: firstName,
-        last: lastName
-      }
-    };
-    if (picture) {
-      user = {
-        ...user,
-        picture: {
-          thumbnail: picture
-        }
-      };
-    }
-    return html`<sl-avatar
-      .user=${user}
-      .size=${size}
-      .fallback=${fallback}
-      .status=${status}
-      ?image-only=${imageOnly}
-      .orientation=${orientation}
-      >${subheading}</sl-avatar
-    >`;
+  render: ({
+    displayName,
+    pictureUrl,
+    size,
+    fallback,
+    status,
+    imageOnly,
+    subheading,
+    orientation,
+    badgeText,
+    labelText
+  }) => {
+    return html`<div style="max-width:175px;">
+      <sl-avatar
+        display-name=${displayName}
+        picture-url=${pictureUrl}
+        .size=${size}
+        .fallback=${fallback}
+        .status=${status}
+        ?image-only=${imageOnly}
+        badge-text=${badgeText}
+        label=${labelText}
+        .orientation=${orientation}
+        >${subheading}</sl-avatar
+      >
+    </div>`;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
 export const All: StoryObj = {
-  render: () => {
+  render: ({ badgeText }) => {
     return html` <style>
         table {
           border-collapse: collapse;
@@ -176,30 +167,85 @@ export const All: StoryObj = {
         th,
         td {
           padding: 4px 8px;
+          vertical-align: top;
+          --max-width: 100px;
         }
       </style>
       <table>
         <thead>
           <tr>
             <th>Size</th>
-            <th>With avatar</th>
-            <th>With initials</th>
+            <th>With name</th>
+            <th>With subheader</th>
+            <th>Vertical</th>
             <th>With placeholder</th>
-            <th>With subheading</th>
-            <th>With status</th>
+            <th>With initials</th>
             <th>Image only</th>
+            <th>empty badge</th>
+            <th>number badge</th>
+            <th>active</th>
           </tr>
         </thead>
         <tbody>
           ${sizes.map(
             size => html` <tr>
               <th>${sizeName(size)}</th>
-              <td><sl-avatar .user=${users[2]} .size=${size}></sl-avatar></td>
-              <td><sl-avatar .user=${users[3]} .size=${size}></sl-avatar></td>
-              <td><sl-avatar .user=${users[4]} .size=${size} fallback="image"></sl-avatar></td>
-              <td><sl-avatar .user=${users[1]} .size=${size}>Very good student</sl-avatar></td>
-              <td><sl-avatar .user=${users[0]} .size=${size} status="online"></sl-avatar></td>
-              <td><sl-avatar .user=${users[5]} .size=${size} image-only></sl-avatar></td>
+              <td>
+                <sl-avatar display-name=${users[0].name} .pictureUrl=${users[0].picture} .size=${size}></sl-avatar>
+              </td>
+              <td>
+                <sl-avatar display-name=${users[2].name} .pictureUrl=${users[2].picture} .size=${size}
+                  >Subheader</sl-avatar
+                >
+              </td>
+              <td>
+                <sl-avatar
+                  display-name=${users[2].name}
+                  .pictureUrl="${users[2].picture}"
+                  .size=${size}
+                  orientation="vertical"
+                  >Subheader
+                </sl-avatar>
+              </td>
+              <td>
+                <sl-avatar display-name=${users[4].name} .size=${size} fallback="image"></sl-avatar>
+              </td>
+              <td><sl-avatar display-name=${users[3].name} .size=${size}></sl-avatar></td>
+              <td>
+                <sl-avatar
+                  display-name=${users[2].name}
+                  .pictureUrl=${users[2].picture}
+                  .size=${size}
+                  image-only
+                ></sl-avatar>
+              </td>
+              <td>
+                <sl-avatar
+                  display-name=${users[1].name}
+                  .pictureUrl=${users[1].picture}
+                  .size=${size}
+                  image-only
+                  status="success"
+                ></sl-avatar>
+              </td>
+              <td>
+                <sl-avatar
+                  display-name=${users[0].name}
+                  .pictureUrl=${users[0].picture}
+                  .size=${size}
+                  image-only
+                  badge-text="${badgeText}"
+                ></sl-avatar>
+              </td>
+              <td>
+                <sl-avatar
+                  display-name=${users[5].name}
+                  .size=${size}
+                  image-only
+                  badge-text="${badgeText}"
+                  active
+                ></sl-avatar>
+              </td>
             </tr>`
           )}
           </tr>

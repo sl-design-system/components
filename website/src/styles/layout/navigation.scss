@@ -470,6 +470,12 @@ $short-transition-timing: 200ms;
   }
 }
 
+@media screen and (min-width: $xl-breakpoint) {
+  .ds-top-navigation__component-name {
+    padding-left: 7.2rem;
+  }
+}
+
 @keyframes slideDown {
   0% {
     opacity: 0;

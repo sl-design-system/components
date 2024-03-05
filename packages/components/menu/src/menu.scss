@@ -1,0 +1,75 @@
+:host {
+  --sl-menu-padding: 4px;
+  --_background: var(--sl-color-popover-background);
+  --_border: var(--_border-width) solid var(--_border-color);
+  --_border-color: var(--sl-color-popover-border);
+  --_border-width: var(--sl-menu-border-width, 1px);
+  --_border-radius: var(--sl-border-radius-popover-default);
+  --_box-shadow: var(--sl-elevation-shadow-md);
+  --_color: var(--sl-color-popover-foreground);
+  --_divider-margin-block: 4px;
+  --_padding-block: var(--sl-menu-padding);
+  --_padding-inline: var(--sl-menu-padding);
+}
+
+:host {
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  color: var(--_color);
+  display: none;
+  flex-direction: column;
+  margin: 0;
+  opacity: 0;
+  overflow: visible;
+  padding-block: var(--_padding-block);
+  padding-inline: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+  }
+
+  /**
+   * Because of :host and the fact that the element is often not inside a shadow root,
+   * the popover-polyfill can have a higher specificity. We need to use !important
+   * to overwrite the polyfill styling.
+   *
+   * This is only necessary for Firefox < 125 and older browsers that don't support popover
+   */
+  @supports not selector(:popover-open) {
+    background: var(--_background) !important;
+    border: var(--_border) !important;
+    color: var(--_color) !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    padding-block: var(--_padding-block) !important;
+    padding-inline: 0 !important;
+    position: fixed;
+  }
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+:host(:where(:popover-open, .\\:popover-open)) {
+  /* stylelint-disable-next-line scss/at-rule-no-unknown */
+  @starting-style {
+    display: flex;
+    opacity: 0;
+  }
+
+  display: flex;
+  opacity: 1;
+}
+
+::slotted(sl-menu-item),
+::slotted(sl-menu-item-group) {
+  margin-inline: var(--_padding-inline);
+}
+
+::slotted(hr) {
+  border: 0;
+  border-top: var(--_border);
+  margin-block: var(--_divider-margin-block);
+  margin-inline: 0;
+  padding: 0;
+}

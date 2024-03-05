@@ -1,5 +1,5 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+/* eslint-disable wc/no-self-class */
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
 
@@ -91,6 +91,7 @@ export class Card extends LitElement {
       <slot name="actions"></slot>
     `;
   }
+
   #setIcon(): void {
     const hasIcon = this.icon ? this.icon.length > 0 : false;
     this.classList.remove('sl-has-icon');

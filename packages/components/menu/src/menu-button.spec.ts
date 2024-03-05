@@ -6,8 +6,8 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { fake, spy } from 'sinon';
 import '../register.js';
-import { type Menu } from './menu.js';
 import { type MenuButton } from './menu-button.js';
+import { type Menu } from './menu.js';
 
 Icon.register(faGear);
 
@@ -145,7 +145,7 @@ describe('sl-menu-button', () => {
       });
 
       describe('show', () => {
-        it('should show the menu when the button is clicked', async () => {
+        it('should show the menu when the button is clicked', () => {
           button.click();
 
           expect(menu).to.match(':popover-open');
@@ -188,7 +188,7 @@ describe('sl-menu-button', () => {
           await new Promise(resolve => setTimeout(resolve, 100));
         });
 
-        it('should hide the menu when the button is clicked', async () => {
+        it('should hide the menu when the button is clicked', () => {
           expect(menu).to.match(':popover-open');
 
           button.click();
@@ -204,7 +204,7 @@ describe('sl-menu-button', () => {
           expect(menu).not.to.match(':popover-open');
         });
 
-        it('should hide the menu when a menu item is clicked', async () => {
+        it('should hide the menu when a menu item is clicked', () => {
           expect(menu).to.match(':popover-open');
 
           el.querySelector('sl-menu-item')?.click();
@@ -327,7 +327,7 @@ describe('sl-menu-button', () => {
       el.querySelector('sl-menu-item')?.click();
       await new Promise(resolve => setTimeout(resolve));
 
-      let selected = el.renderRoot.querySelector('.selected');
+      const selected = el.renderRoot.querySelector('.selected');
 
       expect(selected).to.exist;
       expect(selected).to.have.text('Item 1');
@@ -337,7 +337,7 @@ describe('sl-menu-button', () => {
       el.querySelectorAll('sl-menu-item').forEach(menuItem => menuItem.click());
       await new Promise(resolve => setTimeout(resolve));
 
-      let selected = el.renderRoot.querySelector('.selected');
+      const selected = el.renderRoot.querySelector('.selected');
 
       expect(selected).to.exist;
       expect(selected).to.have.text('2 selected');
@@ -349,7 +349,7 @@ describe('sl-menu-button', () => {
       el.querySelectorAll('sl-menu-item').forEach(menuItem => menuItem.click());
       await new Promise(resolve => setTimeout(resolve));
 
-      let selected = el.renderRoot.querySelector('.selected');
+      const selected = el.renderRoot.querySelector('.selected');
 
       expect(el.pluralize).to.have.been.calledWith(2);
       expect(selected).to.exist;

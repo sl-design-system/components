@@ -1,18 +1,17 @@
-import type { RadioGroup } from './radio-group.js';
-import type { RadioButtonSize } from './radio.js';
-import type { TemplateResult } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
-import { html } from 'lit';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html } from 'lit';
 import '../register.js';
+import { type RadioGroup } from './radio-group.js';
+import { type RadioButtonSize } from './radio.js';
 
 type Props = Pick<RadioGroup, 'disabled' | 'horizontal' | 'required' | 'size' | 'value'> & {
   hint?: string;
   label?: string;
   options?: TemplateResult;
-  slot?: () => TemplateResult;
+  slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
 

@@ -1,7 +1,6 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { FormControlShowValidity } from '@sl-design-system/form';
+import { type FormControlShowValidity } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './radio.scss.js';
 

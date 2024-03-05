@@ -1,8 +1,7 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { SelectSize } from './select.js';
-import { LitElement, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-option-group.scss.js';
+import { type SelectSize } from './select.js';
 
 /**
  * A way to group options together, with or without a heading.

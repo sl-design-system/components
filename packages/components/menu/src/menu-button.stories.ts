@@ -1,9 +1,9 @@
 import { faGear, faList, faRectanglesMixed, faTableCells } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
-import '@sl-design-system/icon/register.js';
 import '../register.js';
 import { type MenuButton } from './menu-button.js';
 
@@ -11,7 +11,7 @@ type Props = Pick<MenuButton, 'disabled' | 'fill' | 'pluralize' | 'position' | '
   alignSelf: string;
   body: string | TemplateResult;
   justifySelf: string;
-  menuItems?: () => TemplateResult;
+  menuItems?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
 

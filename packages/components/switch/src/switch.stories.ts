@@ -1,13 +1,13 @@
-import type { Switch, SwitchSize } from './switch.js';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/icon/register.js';
 import '@sl-design-system/form/register.js';
-import { faRabbitRunning, faTurtle } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
+import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
+import { type Switch, type SwitchSize } from './switch.js';
 
 type Props = Pick<Switch, 'checked' | 'disabled' | 'reverse' | 'size' | 'value'> & {
   text: string;

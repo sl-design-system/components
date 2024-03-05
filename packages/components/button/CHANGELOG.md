@@ -1,5 +1,14 @@
 # @sl-design-system/button
 
+## 0.0.22
+
+### Patch Changes
+
+- [#995](https://github.com/sl-design-system/components/pull/995) [`12b0477`](https://github.com/sl-design-system/components/commit/12b0477da1f7ce615269b228a6fceb7cb8c6b4f5) - Linting fixes due to new eslint configuration
+
+- Updated dependencies [[`aaa09ff`](https://github.com/sl-design-system/components/commit/aaa09ffb78db9df6298ce77d51a79b7aed213e59), [`12b0477`](https://github.com/sl-design-system/components/commit/12b0477da1f7ce615269b228a6fceb7cb8c6b4f5)]:
+  - @sl-design-system/shared@0.2.6
+
 ## 0.0.21
 
 ### Patch Changes

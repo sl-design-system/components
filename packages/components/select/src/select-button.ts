@@ -1,13 +1,11 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { SelectSize } from './select.js';
-import type { SelectOption } from './select-option.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import type { FormControlShowValidity } from '@sl-design-system/form';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type FormControlShowValidity } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import { LitElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './select-button.scss.js';
+import { type SelectOption } from './select-option.js';
+import { type SelectSize } from './select.js';
 
 export class SelectButton extends ScopedElementsMixin(LitElement) {
   /** @private */

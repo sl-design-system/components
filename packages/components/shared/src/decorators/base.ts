@@ -1,11 +1,11 @@
-import type { ReactiveElement } from 'lit';
-import type { Constructor } from '../types.js';
+import { type ReactiveElement } from 'lit';
+import { type Constructor } from '../types.js';
 
 // From the TC39 Decorators proposal
 export interface ClassDescriptor {
   kind: 'class';
   elements: ClassElement[];
-  finisher?: <T>(clazz: Constructor<T>) => void | Constructor<T>;
+  finisher?<T>(clazz: Constructor<T>): void | Constructor<T>;
 }
 
 // From the TC39 Decorators proposal
@@ -16,7 +16,7 @@ export interface ClassElement {
   // eslint-disable-next-line @typescript-eslint/ban-types
   initializer?: Function;
   extras?: ClassElement[];
-  finisher?: <T>(clazz: Constructor<T>) => void | Constructor<T>;
+  finisher?<T>(clazz: Constructor<T>): void | Constructor<T>;
   descriptor?: PropertyDescriptor;
 }
 
@@ -39,13 +39,13 @@ export const decorateProperty =
     descriptor
   }: {
     finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;
-    descriptor?: (property: PropertyKey) => PropertyDescriptor;
+    descriptor?(property: PropertyKey): PropertyDescriptor;
   }) =>
   (
     protoOrDescriptor: ReactiveElement | ClassElement,
     name?: PropertyKey
     // Note TypeScript requires the return type to be `void|any`
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-redundant-type-constituents
   ): void | any => {
     // TypeScript / Babel legacy mode
     if (name !== undefined) {

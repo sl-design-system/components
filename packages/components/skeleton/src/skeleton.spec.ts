@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
-import { Skeleton } from "./skeleton.js";
+import { Skeleton } from './skeleton.js';
 
 describe('sl-skeleton', () => {
   let el: Skeleton;

@@ -1,21 +1,18 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { EditorMarks, EditorNodes } from './schema.js';
-import type { Plugin } from 'prosemirror-state';
 import { FormControlMixin } from '@sl-design-system/form';
 import { EventsController } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import { baseKeymap } from 'prosemirror-commands';
 import { history } from 'prosemirror-history';
-import { Schema } from 'prosemirror-model';
 import { keymap } from 'prosemirror-keymap';
-import { EditorState } from 'prosemirror-state';
+import { Schema } from 'prosemirror-model';
+import { EditorState, type Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { LitElement, html } from 'lit';
-import { property } from 'lit/decorators.js';
-import styles from './editor.scss.js';
-import { createContentNode, getHTML } from './utils.js';
-import { marks, nodes } from './schema.js';
 import { setHTML } from './commands.js';
+import styles from './editor.scss.js';
 import { buildKeymap, buildListKeymap } from './keymap.js';
+import { type EditorMarks, type EditorNodes, marks, nodes } from './schema.js';
+import { createContentNode, getHTML } from './utils.js';
 
 export class Editor extends FormControlMixin(LitElement) {
   /** @private */

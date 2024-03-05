@@ -3650,15 +3650,6 @@
             },
             {
               "kind": "field",
-              "name": "#virtualizer",
-              "privacy": "private",
-              "type": {
-                "text": "Virtualizer | undefined"
-              },
-              "description": "The virtualizer instance."
-            },
-            {
-              "kind": "field",
               "name": "selection",
               "readonly": true,
               "default": "new SelectionController<T>(this)",

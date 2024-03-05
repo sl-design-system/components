@@ -9,8 +9,8 @@ import {
 } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { Menu } from './menu.js';
 import styles from './menu-item.scss.js';
+import { Menu } from './menu.js';
 
 /**
  * Menu item component for use inside a menu.

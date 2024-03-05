@@ -1,5 +1,4 @@
-import type { Command, EditorState, Transaction } from 'prosemirror-state';
-import { AllSelection } from 'prosemirror-state';
+import { AllSelection, type Command, type EditorState, type Transaction } from 'prosemirror-state';
 import { createContentNode } from './utils.js';
 
 export type DispatchFn = (tr: Transaction) => void;

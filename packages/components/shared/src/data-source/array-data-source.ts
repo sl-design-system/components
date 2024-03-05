@@ -1,6 +1,5 @@
-import type { DataSourceSortFunction } from './data-source.js';
 import { getStringByPath, getValueByPath } from '../path.js';
-import { DataSource } from './data-source.js';
+import { DataSource, type DataSourceSortFunction } from './data-source.js';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class ArrayDataSource<T = any> extends DataSource<T> {

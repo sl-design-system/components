@@ -4,13 +4,13 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
-import { type Tooltip } from './tooltip.js';
 import { tooltip } from './tooltip-directive.js';
+import { type Tooltip } from './tooltip.js';
 
 type Props = Pick<Tooltip, 'maxWidth' | 'position'> & {
   alignSelf: string;
   justifySelf: string;
-  example?: (props: Props) => TemplateResult;
+  example?(props: Props): TemplateResult;
   message: string;
 };
 type Story = StoryObj<Props>;

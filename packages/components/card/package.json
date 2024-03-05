@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/card",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Card component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -37,7 +37,10 @@
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
-  "dependencies": {
-    "lit": "^3.1.0"
+  "devDependencies": {
+    "lit": "^3.1.2"
+  },
+  "peerDependencies": {
+    "lit": "^3.1.2"
   }
 }

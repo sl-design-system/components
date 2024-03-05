@@ -13,7 +13,11 @@ export interface EventOptions {
 }
 
 export class EventEmitter<T> {
-  constructor(private target: HTMLElement, private eventName: string, private options?: EventOptions) {}
+  constructor(
+    private target: HTMLElement,
+    private eventName: string,
+    private options?: EventOptions
+  ) {}
 
   emit(value: T, options?: EventOptions): boolean {
     let event: Event;

@@ -1,12 +1,10 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { Checkbox, CheckboxSize } from './checkbox.js';
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import type { EventEmitter } from '@sl-design-system/shared';
-import { EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
+import { type Checkbox, type CheckboxSize } from './checkbox.js';
 
 const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], attributeOldValue: true, subtree: true };
 

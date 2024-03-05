@@ -1,12 +1,17 @@
-import type { Node, NodeType, ResolvedPos, Schema } from 'prosemirror-model';
-import type { Command, EditorState, Selection, Transaction } from 'prosemirror-state';
-import type { EditorView } from 'prosemirror-view';
-import type { DispatchFn } from './commands.js';
 import { autoJoin } from 'prosemirror-commands';
-import { Fragment, NodeRange, Slice } from 'prosemirror-model';
+import { Fragment, type Node, NodeRange, type NodeType, type ResolvedPos, type Schema, Slice } from 'prosemirror-model';
 import { wrapInList as pslWrapInList, splitListItem } from 'prosemirror-schema-list';
-import { NodeSelection, TextSelection } from 'prosemirror-state';
+import {
+  type Command,
+  type EditorState,
+  NodeSelection,
+  type Selection,
+  TextSelection,
+  type Transaction
+} from 'prosemirror-state';
 import { ReplaceAroundStep, liftTarget } from 'prosemirror-transform';
+import { type EditorView } from 'prosemirror-view';
+import { type DispatchFn } from './commands.js';
 
 export const rootListDepth = (pos: ResolvedPos, nodes: { [key: string]: NodeType }): number | undefined => {
   // Get the depth of the nearest ancestor list

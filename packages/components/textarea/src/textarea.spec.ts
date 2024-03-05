@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import '../register.js';
 import { Textarea } from './textarea.js';
-import { spy } from 'sinon';
 
 describe('sl-textarea', () => {
   let el: Textarea, textarea: HTMLTextAreaElement;
@@ -124,7 +124,7 @@ describe('sl-textarea', () => {
 
     it('should not have a placeholder by default', () => {
       expect(el).not.to.have.attribute('placeholder');
-      expect(el.placeholder).to.be.undefined
+      expect(el.placeholder).to.be.undefined;
     });
 
     it('should have a placeholder when set', async () => {
@@ -230,7 +230,7 @@ describe('sl-textarea', () => {
       el = await fixture(html`<sl-textarea required></sl-textarea>`);
     });
 
-    it('should be invalid', async () => {
+    it('should be invalid', () => {
       expect(el.valid).to.be.false;
     });
 
@@ -238,7 +238,7 @@ describe('sl-textarea', () => {
       expect(el.validationMessage).to.equal('Please fill out this field.');
     });
 
-    it('should have a custom validation message after calling setCustomValidity', async () => {
+    it('should have a custom validation message after calling setCustomValidity', () => {
       el.setCustomValidity('Custom validation message');
 
       expect(el.validationMessage).to.equal('Custom validation message');
@@ -282,7 +282,7 @@ describe('sl-textarea', () => {
 
     it('should be valid after typing', async () => {
       el.focus();
-      await sendKeys({ type: 'asdf '});
+      await sendKeys({ type: 'asdf ' });
       await el.updateComplete;
 
       expect(el.valid).to.equal(true);
@@ -294,7 +294,7 @@ describe('sl-textarea', () => {
       el = await fixture(html`<sl-textarea maxlength="3"></sl-textarea>`);
     });
 
-    it('should be valid', async () => {
+    it('should be valid', () => {
       expect(el.valid).to.be.true;
     });
 
@@ -315,12 +315,14 @@ describe('sl-textarea', () => {
       await el.updateComplete;
     });
 
-    it('should be invalid', async () => {
+    it('should be invalid', () => {
       expect(el.valid).to.be.false;
     });
 
     it('should have a validation message', () => {
-      expect(el.validationMessage).to.equal('Please lengthen this text to 3 characters or more (you are currently using 1 character).');
+      expect(el.validationMessage).to.equal(
+        'Please lengthen this text to 3 characters or more (you are currently using 1 character).'
+      );
     });
 
     it('should have an invalid icon after reporting', async () => {
@@ -389,7 +391,7 @@ describe('sl-textarea', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-textarea>
-          <textarea id="foo" placeholder="I am a custom textarea" spellcheck="true" slot="textarea" />
+          <textarea id="foo" placeholder="I am a custom textarea" spellcheck="true" slot="textarea"></textarea>
         </sl-textarea>
       `);
     });
@@ -406,4 +408,3 @@ describe('sl-textarea', () => {
     });
   });
 });
-

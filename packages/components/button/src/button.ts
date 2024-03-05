@@ -1,6 +1,5 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 import { EventsController } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button.scss.js';
 

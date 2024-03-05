@@ -302,16 +302,6 @@
             },
             {
               "kind": "field",
-              "name": "#observerOptions",
-              "privacy": "private",
-              "type": {
-                "text": "object"
-              },
-              "static": true,
-              "default": "{\n    attributes: true,\n    subtree: true,\n    attributeFilter: ['selected'],\n    attributeOldValue: true\n  }"
-            },
-            {
-              "kind": "field",
               "name": "#allTabs",
               "privacy": "private",
               "type": {

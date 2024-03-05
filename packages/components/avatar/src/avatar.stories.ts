@@ -1,9 +1,9 @@
-import type { Avatar } from './avatar.js';
-import type { AvatarFallbackType, AvatarOrientation, AvatarSize, UserStatus } from './models.js';
-import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/tooltip/register.js';
+import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
+import { type Avatar } from './avatar.js';
+import { type AvatarFallbackType, type AvatarOrientation, type AvatarSize, type UserStatus } from './models.js';
 
 interface Props
   extends Pick<
@@ -155,7 +155,8 @@ export const Basic: Story = {};
 
 export const All: StoryObj = {
   render: ({ badgeText }) => {
-    return html` <style>
+    return html`
+      <style>
         table {
           border-collapse: collapse;
           margin-bottom: 24px;
@@ -188,68 +189,71 @@ export const All: StoryObj = {
         </thead>
         <tbody>
           ${sizes.map(
-            size => html` <tr>
-              <th>${sizeName(size)}</th>
-              <td>
-                <sl-avatar display-name=${users[0].name} .pictureUrl=${users[0].picture} .size=${size}></sl-avatar>
-              </td>
-              <td>
-                <sl-avatar display-name=${users[2].name} .pictureUrl=${users[2].picture} .size=${size}
-                  >Subheader</sl-avatar
-                >
-              </td>
-              <td>
-                <sl-avatar
-                  display-name=${users[2].name}
-                  .pictureUrl="${users[2].picture}"
-                  .size=${size}
-                  orientation="vertical"
-                  >Subheader
-                </sl-avatar>
-              </td>
-              <td>
-                <sl-avatar display-name=${users[4].name} .size=${size} fallback="image"></sl-avatar>
-              </td>
-              <td><sl-avatar display-name=${users[3].name} .size=${size}></sl-avatar></td>
-              <td>
-                <sl-avatar
-                  display-name=${users[2].name}
-                  .pictureUrl=${users[2].picture}
-                  .size=${size}
-                  image-only
-                ></sl-avatar>
-              </td>
-              <td>
-                <sl-avatar
-                  display-name=${users[1].name}
-                  .pictureUrl=${users[1].picture}
-                  .size=${size}
-                  image-only
-                  status="success"
-                ></sl-avatar>
-              </td>
-              <td>
-                <sl-avatar
-                  display-name=${users[0].name}
-                  .pictureUrl=${users[0].picture}
-                  .size=${size}
-                  image-only
-                  badge-text="${badgeText}"
-                ></sl-avatar>
-              </td>
-              <td>
-                <sl-avatar
-                  display-name=${users[5].name}
-                  .size=${size}
-                  image-only
-                  badge-text="${badgeText}"
-                  active
-                ></sl-avatar>
-              </td>
-            </tr>`
+            size => html`
+              <tr>
+                <th>${sizeName(size)}</th>
+                <td>
+                  <sl-avatar display-name=${users[0].name} .pictureUrl=${users[0].picture} .size=${size}></sl-avatar>
+                </td>
+                <td>
+                  <sl-avatar display-name=${users[2].name} .pictureUrl=${users[2].picture} .size=${size}
+                    >Subheader</sl-avatar
+                  >
+                </td>
+                <td>
+                  <sl-avatar
+                    display-name=${users[2].name}
+                    .pictureUrl=${users[2].picture}
+                    .size=${size}
+                    orientation="vertical"
+                    >Subheader
+                  </sl-avatar>
+                </td>
+                <td>
+                  <sl-avatar display-name=${users[4].name} .size=${size} fallback="image"></sl-avatar>
+                </td>
+                <td><sl-avatar display-name=${users[3].name} .size=${size}></sl-avatar></td>
+                <td>
+                  <sl-avatar
+                    display-name=${users[2].name}
+                    .pictureUrl=${users[2].picture}
+                    .size=${size}
+                    image-only
+                  ></sl-avatar>
+                </td>
+                <td>
+                  <sl-avatar
+                    display-name=${users[1].name}
+                    .pictureUrl=${users[1].picture}
+                    .size=${size}
+                    image-only
+                    status="success"
+                  ></sl-avatar>
+                </td>
+                <td>
+                  <sl-avatar
+                    display-name=${users[0].name}
+                    .pictureUrl=${users[0].picture}
+                    .size=${size}
+                    image-only
+                    badge-text=${badgeText}
+                  ></sl-avatar>
+                </td>
+                <td>
+                  <sl-avatar
+                    display-name=${users[5].name}
+                    .size=${size}
+                    image-only
+                    badge-text=${badgeText}
+                    active
+                  ></sl-avatar>
+                </td>
+              </tr>
+            `
           )}
-          </tr>
-        </tbody>
-      </table>`;
+        </tr>
+      </tbody>
+    </table>
+    `;
   }
 };

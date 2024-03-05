@@ -1,12 +1,9 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { localized, msg, str } from '@lit/localize';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
-import type { EventEmitter } from '@sl-design-system/shared';
-import { event } from '@sl-design-system/shared';
-import { LitElement, html, nothing } from 'lit';
+import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './textarea.scss.js';
 

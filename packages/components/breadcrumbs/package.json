@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/breadcrumbs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Breadcrumbs component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,11 +38,16 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@sl-design-system/icon": "0.0.8",
+    "@sl-design-system/menu": "0.0.3",
+    "@sl-design-system/tooltip": "0.0.20"
+  },
+  "devDependencies": {
     "@lit/localize": "^0.12.1",
-    "@open-wc/scoped-elements": "^3.0.5",
-    "@sl-design-system/icon": "0.0.7",
-    "@sl-design-system/menu": "0.0.2",
-    "@sl-design-system/tooltip": "0.0.19",
-    "lit": "^3.1.2"
+    "@open-wc/scoped-elements": "^3.0.5"
+  },
+  "peerDependencies": {
+    "@lit/localize": "^0.12.1",
+    "@open-wc/scoped-elements": "^3.0.5"
   }
 }

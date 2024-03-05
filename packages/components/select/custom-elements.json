@@ -368,7 +368,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A form control that allows users to select one option from a list of options.",
           "name": "Select",
           "slots": [
             {

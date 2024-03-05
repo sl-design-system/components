@@ -1,7 +1,5 @@
-import type { TemplateResult } from 'lit';
-import type { DataSourceSortDirection, DataSourceSortFunction } from '@sl-design-system/shared';
-import { getNameByPath } from '@sl-design-system/shared';
-import { html } from 'lit';
+import { type DataSourceSortDirection, type DataSourceSortFunction, getNameByPath } from '@sl-design-system/shared';
+import { type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 import { GridSorter } from './sorter.js';

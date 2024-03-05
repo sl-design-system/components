@@ -3,17 +3,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { Menu } from './menu.js';
 import { type MenuItem } from './menu-item.js';
+import { Menu } from './menu.js';
 
 describe('sl-menu-item', () => {
   let el: MenuItem;
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-menu-item>Item 1</sl-menu-item>
-      `);
+      el = await fixture(html`<sl-menu-item>Item 1</sl-menu-item>`);
     });
 
     it('should have a menuitem role', () => {
@@ -59,9 +57,7 @@ describe('sl-menu-item', () => {
 
   describe('selected', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-menu-item selectable selected>Item 1</sl-menu-item>
-      `);
+      el = await fixture(html` <sl-menu-item selectable selected>Item 1</sl-menu-item> `);
     });
 
     it('should be be selected', () => {
@@ -118,7 +114,7 @@ describe('sl-menu-item', () => {
       el.addEventListener('sl-select', onSelect);
       el.click();
 
-      expect(onSelect).to.have.been.calledOnce
+      expect(onSelect).to.have.been.calledOnce;
     });
 
     it('should emit an sl-select event when focused and pressing enter', async () => {
@@ -128,7 +124,7 @@ describe('sl-menu-item', () => {
       el.focus();
       await sendKeys({ press: 'Enter' });
 
-      expect(onSelect).to.have.been.calledOnce
+      expect(onSelect).to.have.been.calledOnce;
     });
 
     it('should emit an sl-select event when focused and pressing space', async () => {
@@ -138,15 +134,13 @@ describe('sl-menu-item', () => {
       el.focus();
       await sendKeys({ press: ' ' });
 
-      expect(onSelect).to.have.been.calledOnce
+      expect(onSelect).to.have.been.calledOnce;
     });
   });
 
   describe('shortcut', () => {
     beforeEach(async () => {
-      el = await fixture(html`
-        <sl-menu-item shortcut="$mod+Digit1">Item 1</sl-menu-item>
-      `);
+      el = await fixture(html` <sl-menu-item shortcut="$mod+Digit1">Item 1</sl-menu-item> `);
     });
 
     it('should have a shortcut', () => {
@@ -165,7 +159,7 @@ describe('sl-menu-item', () => {
 
       el.addEventListener('click', onClick);
 
-      await sendKeys({ down: navigator.platform.indexOf('Mac') > -1 ? 'Meta' : 'Control' })
+      await sendKeys({ down: navigator.platform.indexOf('Mac') > -1 ? 'Meta' : 'Control' });
       await sendKeys({ press: '1' });
 
       expect(onClick).to.have.been.calledOnce;
@@ -178,7 +172,7 @@ describe('sl-menu-item', () => {
       el.disabled = true;
 
       await el.updateComplete;
-      await sendKeys({ down: 'Meta' })
+      await sendKeys({ down: 'Meta' });
       await sendKeys({ press: '1' });
 
       expect(onClick).not.to.have.been.called;

@@ -17,7 +17,7 @@ describe('sl-breadcrumbs', () => {
           <a href="/docs/getting-started">Getting Started</a>
           <span>Developers</span>
         </sl-breadcrumbs>
-      `)
+      `);
     });
 
     it('should have a navigation role', () => {
@@ -60,8 +60,7 @@ describe('sl-breadcrumbs', () => {
 
     it('should render icon separators between the links', () => {
       expect(
-        Array
-          .from(el.querySelectorAll('a'))
+        Array.from(el.querySelectorAll('a'))
           .map(link => link.nextElementSibling as Icon)
           .every(icon => icon.tagName === 'SL-ICON' && icon.name === 'chevron-right')
       ).to.be.true;
@@ -84,7 +83,7 @@ describe('sl-breadcrumbs', () => {
           <a href="/docs/getting-started">Getting Started</a>
           <span>Developers</span>
         </sl-breadcrumbs>
-      `)
+      `);
     });
 
     afterEach(() => (Breadcrumbs.noHome = false));
@@ -104,7 +103,7 @@ describe('sl-breadcrumbs', () => {
           <a href="/docs/getting-started">Getting Started</a>
           <span>Developers</span>
         </sl-breadcrumbs>
-      `)
+      `);
     });
 
     afterEach(() => (Breadcrumbs.homeUrl = '/'));
@@ -125,13 +124,13 @@ describe('sl-breadcrumbs', () => {
           <a href="javascript:void(0)">5</a>
           <span>6</span>
         </sl-breadcrumbs>
-      `)
+      `);
     });
 
     it('should have all links with separators in the DOM', () => {
       expect(el.querySelectorAll('a')).to.have.length(5);
       expect(el.querySelectorAll('sl-icon')).to.have.length(5);
-    })
+    });
 
     it('should only show the last 3 breadcrumbs', () => {
       const children = Array.from(el.children);
@@ -159,9 +158,9 @@ describe('sl-breadcrumbs', () => {
       expect(menuButton?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
 
       expect(menuItems).to.have.length(3);
-      expect(menuItems[0]).to.have.text('1')
-      expect(menuItems[1]).to.have.text('2')
-      expect(menuItems[2]).to.have.text('3')
+      expect(menuItems[0]).to.have.text('1');
+      expect(menuItems[1]).to.have.text('2');
+      expect(menuItems[2]).to.have.text('3');
     });
 
     it('should click the link when clicking on the menu item', () => {
@@ -180,7 +179,7 @@ describe('sl-breadcrumbs', () => {
   describe('on mobile', () => {
     beforeEach(async () => {
       // iPhone 15 portrait
-      await setViewport({ width: 393, height: 852 })
+      await setViewport({ width: 393, height: 852 });
 
       el = await fixture(html`
         <sl-breadcrumbs>
@@ -230,10 +229,10 @@ describe('sl-breadcrumbs', () => {
       expect(menuButton?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
 
       expect(menuItems).to.have.length(4);
-      expect(menuItems[0]).to.have.text('1')
-      expect(menuItems[1]).to.have.text('2')
-      expect(menuItems[2]).to.have.text('3')
-      expect(menuItems[3]).to.have.text('4')
+      expect(menuItems[0]).to.have.text('1');
+      expect(menuItems[1]).to.have.text('2');
+      expect(menuItems[2]).to.have.text('3');
+      expect(menuItems[3]).to.have.text('4');
     });
   });
 });

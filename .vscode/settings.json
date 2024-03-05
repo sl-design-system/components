@@ -4,6 +4,7 @@
   },
   "editor.detectIndentation": false,
   "editor.tabSize": 2,
+  "eslint.experimental.useFlatConfig": true,
   "eslint.format.enable": true,
   "[typescriptreact]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"

@@ -1,7 +1,7 @@
-import { html } from 'lit';
-import { Error } from './error.js';
 import { expect, fixture } from '@open-wc/testing';
+import { html } from 'lit';
 import '../register.js';
+import { Error } from './error.js';
 
 describe('sl-error', () => {
   let el: Error;

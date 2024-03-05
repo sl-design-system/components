@@ -1,9 +1,8 @@
-import type { Person } from '@sl-design-system/example-data';
-import type { TextField } from '@sl-design-system/text-field';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import { getPeople } from '@sl-design-system/example-data';
+import { type Person, getPeople } from '@sl-design-system/example-data';
 import { ArrayDataSource } from '@sl-design-system/shared';
+import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
+import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
 

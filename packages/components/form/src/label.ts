@@ -1,8 +1,7 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { FormControl } from './form-control-mixin.js';
 import { localized, msg } from '@lit/localize';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { LitElement, html, nothing } from 'lit';
+import { type FormControl } from './form-control-mixin.js';
 import styles from './label.scss.js';
 
 export type LabelMark = 'optional' | 'required';
@@ -21,7 +20,7 @@ export class Label extends LitElement {
   #label?: HTMLLabelElement;
 
   /** Observe the form control for changes to the required attribute. */
-  #observer = new MutationObserver(() => void this.#update());
+  #observer = new MutationObserver(() => this.#update());
 
   /** Whether the form control is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled = false;
@@ -104,7 +103,7 @@ export class Label extends LitElement {
         }
 
         this.#observer.observe(target, { attributes: true, attributeFilter: ['disabled', 'required'] });
-        void this.#update();
+        this.#update();
       } else {
         this.#observer.disconnect();
         this.required = undefined;

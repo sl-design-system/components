@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, ReactiveElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, ReactiveElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './button-bar.scss.js';
 
@@ -45,7 +44,7 @@ export class ButtonBar extends LitElement {
 
     const icons = await Promise.all(
       assignedElements.map(async el => {
-        if (el instanceof ReactiveElement && el.updateComplete) {
+        if (el instanceof ReactiveElement) {
           await el.updateComplete;
         }
 

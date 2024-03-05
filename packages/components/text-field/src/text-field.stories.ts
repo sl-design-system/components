@@ -1,12 +1,11 @@
-import type { TextField, TextFieldSize } from './text-field.js';
-import type { TemplateResult } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/icon/register.js';
 import '@sl-design-system/form/register.js';
-import { html } from 'lit';
+import '@sl-design-system/icon/register.js';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html } from 'lit';
 import '../register.js';
+import { type TextField, type TextFieldSize } from './text-field.js';
 
 type Props = Pick<
   TextField,
@@ -24,7 +23,7 @@ type Props = Pick<
 > & {
   hint?: string;
   label?: string;
-  slot?: () => TemplateResult;
+  slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
 

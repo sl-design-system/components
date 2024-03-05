@@ -56,7 +56,7 @@
           ],
           "slots": [
             {
-              "description": "...",
+              "description": "Body content for the accordion",
               "name": "default"
             }
           ],

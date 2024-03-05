@@ -1,6 +1,4 @@
 import type { StoryObj } from '@storybook/web-components';
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/icon/register.js';
 import { html } from 'lit';
 import '../register.js';
@@ -50,8 +48,6 @@ export const API: StoryObj = {
   }
 };
 
-// TODO: add sticky example
-
 export const Sticky: StoryObj = {
   args: {
     single: false
@@ -95,12 +91,12 @@ export const Sticky: StoryObj = {
           augue. Sed tincidunt, lorem a placerat aliquet, nisi erat lobortis orci, in aliquet mi ante nec nisi.
           Pellentesque porttitor elit sem, nec scelerisque arcu suscipit eu.
         </sl-accordion-item>
-        <sl-accordion-item summary="Art Quest: Painting, Drawing, and Sculpting"
-          >test content of the third element</sl-accordion-item
-        >
-        <sl-accordion-item summary="History Detectives: Solving Historical Riddles" disabled
-          >test content of the 4 element</sl-accordion-item
-        >
+        <sl-accordion-item summary="Art Quest: Painting, Drawing, and Sculpting">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </sl-accordion-item>
+        <sl-accordion-item summary="History Detectives: Solving Historical Riddles" disabled>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </sl-accordion-item>
         <sl-accordion-item summary="Music Marvels: Playing Instruments and Composing Tunes">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac augue neque. Nunc sed ex ut neque lacinia
           rutrum nec vitae mi. Donec dictum urna elit, et feugiat nunc fringilla nec. Maecenas nisi lorem, facilisis nec

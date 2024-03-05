@@ -74,6 +74,7 @@ summary {
   gap: var(--_title-gap); //8px;
   padding-block: var(--_padding-block);
   padding-inline: var(--_title-padding);
+  position: relative;
   transition: background 300ms;
   //transition: background 300ms, transform 400ms;
   //transition: transform 400ms;
@@ -190,13 +191,15 @@ summary {
 details[open] {
   summary::after {
     background-color: var(--_border-color);
-    bottom: 0; /* Place it at the bottom */
-    content: ''; /* Create an empty pseudo-element */
+    content: '';
+    //bottom: 0;
     height: var(--_border-width);
-    left: 0; /* Align it to the left edge */
+    //left: 0;
+    inset-block-end: 0;
+    inset-inline-start: 0;
     margin-inline: var(--_panel-padding-inline);
-    position: absolute; /* Position it absolutely within the parent */
-    width: calc(100% - 2 * var(--_panel-padding-inline)); /* Make it span the entire width of the parent */
+    position: absolute;
+    width: calc(100% - 2 * var(--_panel-padding-inline));
   }
 
   .panel {

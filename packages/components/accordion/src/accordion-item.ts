@@ -6,19 +6,15 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { localized } from '@lit/localize';
 import { Button } from '@sl-design-system/button';
 import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
-// import { EventsController } from '@sl-design-system/shared';
-// import { faMinus, faPlus } from '@fortawesome/pro-solid-svg-icons';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './accordion-item.scss.js';
 
-// Icon.register(faMinus, faPlus); // TODO: use tokens instead
-
 /**
  * An accordion item component.
  *
- * @slot default - ...
+ * @slot default - Body content for the accordion
  * @part summary - ...
  */
 
@@ -154,6 +150,7 @@ fill="#222222"
   </span>*/
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    console.log('event onSlotChange', event);
     const assignedNodes = event.target.assignedNodes({ flatten: true });
     console.log(assignedNodes);
     // this.#setIconProperties(assignedNodes);

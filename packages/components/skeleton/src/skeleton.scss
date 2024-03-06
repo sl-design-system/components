@@ -1,13 +1,11 @@
 :host {
+  --_animation-duration: var(--sl-skeleton-animation-duration, 3000ms);
   --_background: var(--sl-color-skeleton-base);
-  --_border-radius: var(--sl-border-radius-skeleton-default);
   --_border-radius-circle: var(--sl-border-radius-circle);
+  --_border-radius: var(--sl-border-radius-skeleton-default);
   --_min-block-size: var(--sl-size-skeleton-min-height);
   --_shine-color: var(--sl-color-skeleton-effect);
-  --_animation-duration: var(--sl-skeleton-animation-duration, 3000ms);
-}
 
-:host {
   background: var(--_background);
   display: block;
   min-block-size: var(--_min-block-size);
@@ -24,6 +22,10 @@
 :host([effect='shimmer']) {
   background: linear-gradient(to right, var(--_background) 4%, var(--_shine-color) 25%, var(--_background) 36%);
   background-size: 2000px 100%;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: shimmer-effect var(--_animation-duration) linear infinite;
+  }
 }
 
 :host([effect='sheen']) {
@@ -35,18 +37,14 @@
     var(--_shine-color)
   );
   background-size: 200% 100%;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  :host([effect='shimmer']) {
-    animation: shimmer-effect var(--_animation-duration) linear infinite;
-  }
-
-  :host([effect='sheen']) {
+  @media (prefers-reduced-motion: no-preference) {
     animation: sheen-effect var(--_animation-duration) linear infinite;
   }
+}
 
-  :host([effect='pulse']) {
+:host([effect='pulse']) {
+  @media (prefers-reduced-motion: no-preference) {
     animation: pulse-effect var(--_animation-duration) ease-in-out 0.5s infinite;
   }
 }

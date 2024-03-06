@@ -62,6 +62,16 @@
           ],
           "members": [
             {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the element is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
               "kind": "method",
               "name": "onToggle",
               "return": {
@@ -84,7 +94,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Open...",
+              "description": "Whether the details is opened.",
               "attribute": "open",
               "reflects": true
             },
@@ -112,6 +122,7 @@
               "type": {
                 "text": "string"
               },
+              "description": "A text shown in the header - as a title of the accordion item.",
               "attribute": "summary"
             }
           ],
@@ -140,14 +151,23 @@
               "type": {
                 "text": "string"
               },
+              "description": "A text shown in the header - as a title of the accordion item.",
               "fieldName": "summary"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the element is disabled.",
+              "fieldName": "disabled"
             },
             {
               "name": "open",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Open...",
+              "description": "Whether the details is opened.",
               "fieldName": "open"
             }
           ],
@@ -164,23 +184,6 @@
           "tagName": "sl-accordion-item",
           "customElement": true,
           "methods": [
-            {
-              "kind": "method",
-              "name": "#onSlotChange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            },
             {
               "kind": "method",
               "name": "onToggle",
@@ -276,7 +279,7 @@
           "name": "Accordion",
           "slots": [
             {
-              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
+              "description": "The place for multiple <sl-accordion-item>",
               "name": "default"
             }
           ],

@@ -2,8 +2,6 @@ import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
 // import type { AccordionItem } from './accordion-item.js';
 import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
-import { Icon } from '@sl-design-system/icon';
 import { LitElement, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './accordion.scss.js';
@@ -16,14 +14,12 @@ import { AccordionItem } from './accordion-item.js';
  *   <sl-accordionn>...</sl-accordion>
  * ```
  *
- * @slot default - Text label of the button. Optionally an <code>sl-icon</code> can be added
+ * @slot default - The place for multiple <sl-accordion-item>
  */
 export class Accordion extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
-      'sl-icon': Icon,
       'sl-accordion-item': AccordionItem
     };
   }
@@ -205,13 +201,21 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick(event: Event): void {
-    console.log('event onClick in main component', event, event.target, this.single, event.currentTarget);
+    console.log(
+      'event onClick in main component',
+      event,
+      event.target,
+      this.single,
+      event.currentTarget,
+      (event.target as HTMLElement)?.hasAttribute('disabled')
+    );
     // this.items.forEach(item => {
     //   // item.addEventListener('click', () => this.#onClick);
     //   console.log('item in onClick', item);
     // });
 
-    if (!this.single /*|| event.defaultPrevented*/) {
+    if (!this.single || event.defaultPrevented) {
+      // TODO: event.defaultPrevented
       // No toggling when `multiple` or the user prevents it.
       return;
     }

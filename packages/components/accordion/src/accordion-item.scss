@@ -6,6 +6,7 @@
   --_border-width: var(--sl-border-width-divider);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
   --_icon-size: var(--sl-size-accordion-icon-height);
   --_padding-block: var(--sl-space-accordion-content-block);
   --_panel-color: var(--sl-color-accordion-default-foreground);
@@ -36,7 +37,7 @@
 }
 
 details {
-  border-bottom: var(--_border-width) solid var(--_border-color); //1px solid #c6c6c6; // TODO: change to box-shadow because of focus visible border radius???
+  border-bottom: var(--_border-width) solid var(--_border-color); // TODO: change to box-shadow because of focus visible border radius???
   flex: 1;
 }
 
@@ -48,37 +49,17 @@ details > summary:first-of-type::-webkit-details-marker {
   display: none; /* Hides the arrow in Safari */
 }
 
-//// On click
-//// Change to: "02";
-//// Animate: Smart animate;
-//animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
-//animation-duration: 300ms;
-
-//transition: all 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4);
-
-// On click
-// Change to: "minus";
-// Animate: Smart animate;
-//animation-timing-function: cubic-bezier(0.6, 2, 0.6, 1);
-//animation-duration: 300ms;
-
-//transition: all 300ms cubic-bezier(0.6, 2, 0.6, 1);
-
 summary {
   background-color: var(--_background);
   color: var(--_title-color);
-  //border-bottom: 1px solid #c6c6c6; // TODO: change to box-shadow because of focus visible border radius???
   cursor: pointer;
   display: flex;
   font: var(--_title-font);
-  gap: var(--_title-gap); //8px;
+  gap: var(--_title-gap);
   padding-block: var(--_padding-block);
   padding-inline: var(--_title-padding);
   position: relative;
-  transition: background 300ms;
-  //transition: background 300ms, transform 400ms;
-  //transition: transform 400ms;
-  z-index: 1; // TODO: maybe remove and in other place z-index 1 instead of 2?
+  transition: background 300ms; // TODO: add animation timing from tokens
 
   // svg animation stylings
   .horizontal-line {
@@ -111,31 +92,19 @@ summary {
 }
 
 :host(:not([disabled])) summary:focus-visible {
-  border-radius: 4px; // TODO: change this one in the future
+  border-radius: var(--_focus-radius);
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
   position: relative;
-  /** z-index is set to 2 to make sure the outline is above the summary, when that is focused or hovered */
-  z-index: 2;
+  z-index: 1;
 }
 
 .panel {
   color: var(--_panel-color);
   font: var(--_panel-font);
-  min-height: 0;
-  //transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
-  padding: var(--_panel-padding-block) var(--_panel-padding-inline); //16px;
-  //margin: 0 40px 16px;
-  //padding-top: 20px;
-  //margin: 0 var(--_panel-padding-inline) var(--_panel-padding-block);
-  //padding-top: var(--_panel-padding-block);
-  //border-top: 1px solid #c6c6c6;
+  min-height: 0; // TODO: min-block-size? Check if it's still working fine with animations
+  padding: var(--_panel-padding-block) var(--_panel-padding-inline);
   position: relative;
-  //transform-origin: top;
-  /* stylelint-disable-next-line property-no-vendor-prefix */
-  //-webkit-transition: transform 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4);
-  //transition: transform 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4);
-  //animation: append-animate-panel 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4) reverse;
 }
 
 //details {
@@ -192,9 +161,7 @@ details[open] {
   summary::after {
     background-color: var(--_border-color);
     content: '';
-    //bottom: 0;
     height: var(--_border-width);
-    //left: 0;
     inset-block-end: 0;
     inset-inline-start: 0;
     margin-inline: var(--_panel-padding-inline);
@@ -202,16 +169,16 @@ details[open] {
     width: calc(100% - 2 * var(--_panel-padding-inline));
   }
 
-  .panel {
-    //transform: scaleY(1);
-    animation-duration: 300ms;
-    animation-name: animate-panel; //append-animate-panel;
-    //animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
-    //transform: scaleY(1);
-    // transition: all 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4);
-    //animation: append-animate-panel 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4); // linear
-    opacity: 1;
-  }
+  //.panel {
+  //  //transform: scaleY(1);
+  //  animation-duration: 300ms;
+  //  animation-name: animate-panel; //append-animate-panel;
+  //  //animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
+  //  //transform: scaleY(1);
+  //  // transition: all 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4);
+  //  //animation: append-animate-panel 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4); // linear
+  //  opacity: 1;
+  //}
 }
 
 //details:not([open]) {
@@ -340,16 +307,16 @@ details[open] summary {
 //  }
 //}
 
-details > .wrapper {
-  //overflow: hidden;
-  //display: grid;
-  /* intentionally independent from .animation as Safari 16
-  would otherwise ignore the expansion animation. */
-  animation-duration: 0.2s;
-  display: block;
-  height: auto;
-  overflow: visible;
-}
+//details > .wrapper {
+//  //overflow: hidden;
+//  //display: grid;
+//  /* intentionally independent from .animation as Safari 16
+//  would otherwise ignore the expansion animation. */
+//  animation-duration: 0.2s;
+//  display: block;
+//  height: auto;
+//  overflow: visible;
+//}
 
 //.animation {
 //  //background-color: #0074d9;
@@ -391,11 +358,10 @@ details > .wrapper {
 }
 
 details > .wrapper {
-  /* intentionally independent from .animation as Safari 16
-  would otherwise ignore the expansion animation. */
   animation-duration: 300ms;
   display: grid;
   overflow: hidden;
+  transition: all 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4);
 }
 
 details > .animation {

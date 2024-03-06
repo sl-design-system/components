@@ -746,15 +746,15 @@
   --sl-space-button-bar-gap-inline: var(--sl-space-button-bar-gap-block);
   --sl-space-input-switch-padding-row-lg: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
-    (var(--sl-space-input-switch-padding-container) * 2)
+      (var(--sl-space-input-switch-padding-container) * 2)
   );
   --sl-space-input-switch-padding-row-md: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-md) +
-    (var(--sl-space-input-switch-padding-container) * 2)
+      (var(--sl-space-input-switch-padding-container) * 2)
   );
   --sl-space-input-switch-padding-row-sm: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
-    (var(--sl-space-input-switch-padding-container) * 2)
+      (var(--sl-space-input-switch-padding-container) * 2)
   );
   --sl-border-width-inline-message-default: var(--sl-conceptual-border-width-default);
   --sl-border-width-select-listbox: var(--sl-conceptual-border-width-default);

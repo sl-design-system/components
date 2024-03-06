@@ -17,7 +17,10 @@ export class Spinner extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  @property({ reflect: true }) size: SpinnerSize = 'md';
+  /** The size of the spinner. When not set, defaults to md. */
+  @property({ reflect: true }) size?: SpinnerSize;
+
+  /** The spinner variant. */
   @property({ reflect: true }) variant?: SpinnerVariant;
 
   override connectedCallback(): void {

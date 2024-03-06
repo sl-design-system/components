@@ -45,9 +45,9 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "SpinnerSize"
+                "text": "SpinnerSize | undefined"
               },
-              "default": "'md'",
+              "description": "The size of the spinner. When not set, defaults to md.",
               "attribute": "size",
               "reflects": true
             },
@@ -57,6 +57,7 @@
               "type": {
                 "text": "SpinnerVariant | undefined"
               },
+              "description": "The spinner variant.",
               "attribute": "variant",
               "reflects": true
             }
@@ -65,9 +66,9 @@
             {
               "name": "size",
               "type": {
-                "text": "SpinnerSize"
+                "text": "SpinnerSize | undefined"
               },
-              "default": "'md'",
+              "description": "The size of the spinner. When not set, defaults to md.",
               "fieldName": "size"
             },
             {
@@ -75,6 +76,7 @@
               "type": {
                 "text": "SpinnerVariant | undefined"
               },
+              "description": "The spinner variant.",
               "fieldName": "variant"
             }
           ],

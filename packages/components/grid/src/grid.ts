@@ -1,6 +1,6 @@
 /* eslint-disable lit/prefer-static-styles */
 import { localized } from '@lit/localize';
-import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
+import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import {
   ArrayDataSource,
@@ -191,19 +191,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       { passive: true }
     );
 
-    /**
-     * Workaround for https://github.com/lit/lit/issues/4232
-     *
-     * The `Virtualizer` type isn't being exported from `@lit-labs/virtualizer` so we to
-     * disable a bunch of linting in order to get this to work.
-     */
+    // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
-    const virtualizer: any = this.tbody[virtualizerRef as unknown as keyof HTMLTableSectionElement];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    virtualizer.disconnected();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    virtualizer.connected();
+
+    const virtualizerHost = this.tbody as VirtualizerHostElement;
+    virtualizerHost[virtualizerRef]?.disconnected();
+    virtualizerHost[virtualizerRef]?.connected();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

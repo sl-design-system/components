@@ -11,16 +11,14 @@
   --_font: var(--sl-text-popover-text-text);
   --_padding-block: var(--sl-space-popover-block);
   --_padding-inline: var(--sl-space-popover-inline);
-}
 
-:host {
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
   box-shadow: var(--_box-shadow);
   color: var(--_color);
   font: var(--_font);
-  max-width: var(--_max-width);
+  max-inline-size: var(--_max-width);
   opacity: 0;
   overflow: visible;
   padding-block: var(--_padding-block);

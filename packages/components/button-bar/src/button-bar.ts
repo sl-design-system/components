@@ -48,7 +48,7 @@ export class ButtonBar extends LitElement {
           await el.updateComplete;
         }
 
-        return el.hasAttribute('has-icon');
+        return el.hasAttribute('icon-only');
       })
     );
 

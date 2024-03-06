@@ -40,8 +40,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** Determines whether the icon should be shown on the left side of the component. */
   @property({ type: Boolean, attribute: 'no-icon' }) noIcon?: boolean;
 
-  /** The variant of the inline message.
-   * @type {'info' | 'success' | 'warning' | 'danger'} */
+  /**
+   * The variant of the inline message.
+   * @type {'info' | 'success' | 'warning' | 'danger'}
+   */
   @property({ reflect: true }) variant: InlineMessageVariant = 'info';
 
   /** @private The name of the icon, depending on the variant of the inline message. */

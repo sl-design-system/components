@@ -9,16 +9,14 @@
   --_max-width: var(--sl-tooltip-max-width, auto);
   --_padding-block: var(--sl-space-tooltip-block);
   --_padding-inline: var(--sl-space-tooltip-inline);
-}
 
-:host {
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
   color: var(--_color);
   font: var(--_font);
   margin: 0;
-  max-width: var(--_max-width);
+  max-inline-size: var(--_max-width);
   opacity: 0;
   overflow: visible;
   overflow-wrap: break-word;

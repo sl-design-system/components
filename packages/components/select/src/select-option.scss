@@ -5,6 +5,7 @@ $sizes: md, lg;
   --_selected-indicator-color: var(--sl-color-select-item-default-indicator);
   --_text-color: var(--sl-color-select-item-default-foreground);
   --_transition: 200ms ease-in-out;
+
   border-radius: var(--sl-border-radius-select-item);
   color: var(--_text-color);
   cursor: pointer;
@@ -18,9 +19,6 @@ $sizes: md, lg;
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_font: var(--sl-text-select-selectbox-text-#{$size});
-  }
-
-  :host([size='#{$size}']) {
     --_padding-block: var(--sl-space-select-item-block-#{$size});
     --_padding-inline: var(--sl-space-select-item-inline-#{$size});
   }
@@ -37,6 +35,7 @@ $sizes: md, lg;
 :host([disabled]) {
   --_selected-indicator-color: var(--sl-color-select-item-disabled-indicator);
   --_text-color: var(--sl-color-select-item-disabled-foreground);
+
   cursor: default;
   pointer-events: none;
 }

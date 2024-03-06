@@ -7,7 +7,7 @@
   --_cell-border: 1px solid #eee;
   --_cell-padding-block: 0.5rem;
   --_cell-padding-inline: 1rem;
-  --_drop-target-background: rgba(255, 105, 180);
+  --_drop-target-background: rgb(255 105 180);
   --_font: var(--sl-text-body-md-normal);
   --_group-background: #eee;
   --_header-background: #f9f9f9;
@@ -16,9 +16,7 @@
   --_header-padding-inline: 1rem;
   --_selected-background: #338bff0f;
   --_striped-background: #f9f9f9;
-}
 
-:host {
   display: block;
   font: var(--_font);
 }
@@ -42,8 +40,8 @@
 table {
   display: flex;
   flex-direction: column;
-  min-width: 100%;
-  width: fit-content;
+  inline-size: fit-content;
+  min-inline-size: 100%;
 }
 
 thead,
@@ -57,7 +55,7 @@ thead {
   border-end-end-radius: 0;
   border-end-start-radius: 0;
   inset-block-start: 0;
-  max-width: var(--sl-grid-width);
+  max-inline-size: var(--sl-grid-width);
   overflow-x: hidden;
   position: sticky;
   z-index: 1;
@@ -67,8 +65,8 @@ tbody {
   border-block-start: 0;
   border-start-end-radius: 0;
   border-start-start-radius: 0;
-  max-width: var(--sl-grid-width);
-  min-height: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
+  max-inline-size: var(--sl-grid-width);
+  min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
   overflow-x: auto;
 }
 
@@ -111,6 +109,7 @@ td {
   &[part~='selection'] {
     --_cell-padding-block: 0;
     --_cell-padding-inline: 0.5rem;
+
     inline-size: calc(2 * var(--sl-space-input-option-inline-md) + var(--sl-size-input-md) + 1rem);
   }
 }
@@ -119,6 +118,7 @@ th {
   --_cell-background: var(--_header-background);
   --_cell-padding-block: var(--_header-padding-block);
   --_cell-padding-inline: var(--_header-padding-inline);
+
   font-weight: var(--_header-font-weight);
   text-align: start;
 }
@@ -128,7 +128,7 @@ th[part~='filter'] {
 }
 
 td {
-  border-bottom: var(--_cell-border);
+  border-block-end: var(--_cell-border);
 }
 
 td[part~='drag-handle'] {
@@ -140,6 +140,7 @@ td[part~='group-header'] {
   --_cell-background: var(--_group-background);
   --_cell-padding-block: 0;
   --_cell-padding-inline: 0;
+
   inline-size: 100%;
 }
 
@@ -165,7 +166,7 @@ td[part~='text-field'] {
 .drop-placeholder {
   background: #eee;
   inline-size: 100%;
+  inset-block-start: 0;
   position: absolute;
-  top: 0;
   z-index: 1;
 }

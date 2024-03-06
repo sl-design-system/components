@@ -4,6 +4,13 @@ export default {
   plugins: ['stylelint-use-logical', 'stylelint-order', 'stylelint-prettier'],
   rules: {
     'no-descending-specificity': null,
+    'property-no-vendor-prefix': [
+      true,
+      {
+        // WebKit still has this property prefixed
+        ignoreProperties: ['backdrop-filter']
+      }
+    ],
     'csstools/use-logical': 'always',
     'order/properties-alphabetical-order': true,
     'prettier/prettier': true,

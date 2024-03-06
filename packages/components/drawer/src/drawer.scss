@@ -2,48 +2,46 @@
   --_background: #fff;
   --_border: 0;
   --_border-radius: 3px;
-  --_box-shadow: 0 6px 10px -6px rgba(0, 0, 0, 0.7);
+  --_box-shadow: 0 6px 10px -6px rgb(0 0 0 / 70%);
   --_gap: 0.5rem;
   --_spacing: 0.5rem;
   --_max-inline-size: var(--sl-drawer-max-inline-size, 500px);
-}
 
-:host {
   display: block;
 }
 
 :host([attachment='right']) dialog {
-  --fade-start-x: 100%;
-  height: 100vh;
-  left: unset;
-  right: 0;
-  top: 0;
+  --_fade-start-x: 100%;
+
+  block-size: 100vh;
+  inset-block-start: 0;
+  inset-inline: unset 0;
 }
 
 :host([attachment='left']) dialog {
-  --fade-start-x: -100%;
-  height: 100vh;
-  left: 0;
-  right: unset;
-  top: 0;
+  --_fade-start-x: -100%;
+
+  block-size: 100vh;
+  inset-block-start: 0;
+  inset-inline: 0 unset;
 }
 
 :host([attachment='top']) dialog {
-  --fade-start-y: -100%;
-  bottom: unset;
-  left: 0;
+  --_fade-start-y: -100%;
+
+  inline-size: 100vw;
+  inset-block: 0 unset;
+  inset-inline-start: 0;
   max-inline-size: 100vw;
-  top: 0;
-  width: 100vw;
 }
 
 :host([attachment='bottom']) dialog {
-  --fade-start-y: 100%;
-  bottom: 0;
-  left: 0;
+  --_fade-start-y: 100%;
+
+  inline-size: 100vw;
+  inset-block: unset 0;
+  inset-inline-start: 0;
   max-inline-size: 100vw;
-  top: unset;
-  width: 100vw;
 }
 
 dialog {
@@ -60,14 +58,17 @@ dialog {
   max-inline-size: min(90vw, var(--_max-inline-size));
   padding: 1rem;
   position: fixed;
-  transform: translate(var(--fade-start-x, 0), var(--fade-start-y, 0))
-    scale(var(--fade-start-sx, 1), var(--fade-start-sx, 1));
+  transform: translate(var(--_fade-start-x, 0), var(--_fade-start-y, 0))
+    scale(var(--_fade-start-sx, 1), var(--_fade-start-sx, 1));
 
   &::backdrop {
-    /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
     transition: backdrop-filter 0.5s ease;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: all 0.5s cubic-bezier(0.25, 0, 0.3, 1);
   }
 }
 
@@ -88,11 +89,5 @@ div {
 
   [sl-dialog-close] {
     order: 1;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  dialog {
-    transition: all 0.5s cubic-bezier(0.25, 0, 0.3, 1);
   }
 }

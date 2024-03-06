@@ -50,16 +50,20 @@
           "name": "Icon",
           "cssProperties": [
             {
-              "description": "currentColor;",
-              "name": "--sl-icon-fill-default:"
+              "description": "The size of the icon container, defaults to md",
+              "name": "--sl-icon-container-size"
             },
             {
               "description": "Accent color, only used for multicolor icons",
-              "name": "--sl-icon-fill-accent: rgb(var(--sl-color-palette-accent-300))"
+              "name": "--sl-icon-fill-accent"
             },
             {
-              "description": "unset;",
-              "name": "--sl-icon-container-size:"
+              "description": "Default fill color",
+              "name": "--sl-icon-fill-default"
+            },
+            {
+              "description": "The size of the svg element, defaults to md",
+              "name": "--sl-icon-size"
             }
           ],
           "members": [

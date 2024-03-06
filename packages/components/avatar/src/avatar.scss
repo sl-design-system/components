@@ -52,7 +52,7 @@ picture {
   position: relative;
 
   svg {
-    margin: logical var(--_margin-top) var(--_margin-left) var(--_margin-bottom) var(--_margin-right);
+    margin: var(--_margin-top) var(--_margin-right) var(--_margin-bottom) var(--_margin-left);
     pointer-events: none;
   }
 

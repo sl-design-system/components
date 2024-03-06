@@ -14,7 +14,7 @@ import styles from './accordion-item.scss.js';
  * An accordion item component.
  *
  * @slot default - Body content for the accordion
- * @part summary - ...
+ * @part summary - Header element of the accordion-item
  */
 
 @localized()
@@ -23,9 +23,8 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button
-      // 'sl-icon': Icon
     };
-  }
+  } // TODO: maybe scopedElements not necessary?
 
   /** @private */
   static override styles: CSSResultGroup = [breakpoints, styles];

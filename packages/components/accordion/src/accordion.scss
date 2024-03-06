@@ -1,27 +1,3 @@
 :host {
-  --_animation: var(--sl-animation-button);
-  --_background: var(--sl-color-button-default-idle-background);
-  --_transition-duration: var(--sl-animation-button-duration);
-  --_transition-easing: var(--sl-animation-button-easing);
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
-}
-
-:host {
   display: block;
-  //align-items: center;
-  //background: var(--_background);
-  //border: var(--_border-width) solid var(--_border-color);
-  //border-radius: var(--_border-radius);
-  //color: var(--_color);
-  //cursor: pointer;
-  //display: inline-flex;
-  //font: var(--_font);
-  //gap: var(--_label-gap);
-  //justify-content: center;
-  //outline-color: transparent;
-  //padding-block: var(--_padding-block);
-  //padding-inline: var(--_padding-inline);
-  //transform: var(--_transform);
-  //vertical-align: top;
 }

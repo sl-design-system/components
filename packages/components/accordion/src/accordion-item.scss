@@ -37,7 +37,7 @@
 }
 
 details {
-  border-bottom: var(--_border-width) solid var(--_border-color); // TODO: change to box-shadow because of focus visible border radius???
+  border-bottom: var(--_border-width) solid var(--_border-color);
   flex: 1;
 }
 
@@ -107,56 +107,6 @@ summary {
   position: relative;
 }
 
-//details {
-//  .panel {
-//    opacity: 0;
-//    //padding: 16px;
-//    //transform: scaleY(0);
-//    //transition: transform 300ms ease;
-//  }
-//}
-
-//@keyframes flipdown {
-//  0% {
-//    opacity: 0;
-//    transform-origin: top center;
-//    transform: rotateX(-90deg);
-//  }
-//  5% {
-//    opacity: 1;
-//  }
-//  80% {
-//    transform: rotateX(8deg);
-//  }
-//  83% {
-//    transform: rotateX(6deg);
-//  }
-//  92% {
-//    transform: rotateX(-3deg);
-//  }
-//  100% {
-//    transform-origin: top center;
-//    transform: rotateX(0deg);
-//  }
-//}
-
-//@keyframes slideDown {
-//  0% {
-//    opacity: 0.5;
-//    transform: translateY(-10px);
-//  }
-//
-//  50% {
-//    opacity: 0.8;
-//    transform: translateY(-5px);
-//  }
-//
-//  100% {
-//    opacity: 1;
-//    transform: translateY(0);
-//  }
-//}
-
 details[open] {
   summary::after {
     background-color: var(--_border-color);
@@ -168,31 +118,7 @@ details[open] {
     position: absolute;
     width: calc(100% - 2 * var(--_panel-padding-inline));
   }
-
-  //.panel {
-  //  //transform: scaleY(1);
-  //  animation-duration: 300ms;
-  //  animation-name: animate-panel; //append-animate-panel;
-  //  //animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
-  //  //transform: scaleY(1);
-  //  // transition: all 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4);
-  //  //animation: append-animate-panel 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4); // linear
-  //  opacity: 1;
-  //}
 }
-
-//details:not([open]) {
-//  .panel {
-//    //transform: scaleY(1);
-//    animation-duration: 300ms;
-//    animation-name: animate-panel-2; //append-animate-panel;
-//    animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4);
-//    //transform: scaleY(1);
-//    // transition: all 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4);
-//    //animation: append-animate-panel 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4); // linear
-//    opacity: 0;
-//  }
-//}
 
 .opened {
   .vertical-line {
@@ -211,152 +137,6 @@ details[open] summary {
   }
 }
 
-//details[open] > .panel {
-//  opacity: 0;
-//  transition: opacity 0.3s ease-in-out; /* Add a smooth transition */
-//}
-//
-///* When details is open, show the content */
-//details[open] > .panel {
-//  opacity: 1;
-//}
-
-//.icons {
-//  display: inline-flex;
-//  inline-size: auto;
-// // margin-right: 16px;
-//  //display: block;
-//  position: relative;
-//
-//  //svg {
-//  //  //padding: 6px 4px; // TODO: no tokens for icon padding?
-//  //  //width: 16px; //var(--_icon-size); // TODO: there is no token?
-//  //  //height: var(--_icon-size);
-//  //  //height: 16px;
-//  //}
-//}
-
-//@keyframes append-animate {
-//  from {
-//    opacity: 0;
-//    transform: scaleY(0);
-//  }
-//
-//  to {
-//    opacity: 1;
-//    transform: scaleY(1);
-//  }
-//}
-
-//details[open] > .panel {
-//  animation: append-animate 0.3s linear;
-//  transform-origin: 50% 0;
-//}
-//
-//.plus {
-//  opacity: 1;
-//}
-//
-//.minus {
-//  opacity: 0;
-//}
-
-//@keyframes append-animate {
-//  from {
-//    opacity: 0.8;
-//    //transform: scaleY(0);
-//    transform: rotate(-60deg);
-//  }
-//
-//  to {
-//    opacity: 1;
-//    //transform: scaleY(1);
-//    transform: rotate(0deg);
-//  }
-//}
-
-@keyframes append-animate-panel {
-  from {
-    opacity: 0.8;
-    transform: scaleY(0);
-    //transform: rotate(-60deg);
-  }
-
-  to {
-    opacity: 1;
-    transform: scaleY(1);
-    //transform: rotate(0deg);
-  }
-}
-
-//.minus:not(.opened) {
-//  transform: rotate(90deg);
-//}
-//
-//.minus.opened {
-//  animation: append-animate 100ms linear;
-//  //transform-origin: 50% 0;
-//  opacity: 1;
-//  //transform: rotate(90deg);
-//}
-//
-//details[open] {
-//  .plus {
-//    opacity: 0;
-//    transform: rotate(90deg);
-//  }
-//}
-
-//details > .wrapper {
-//  //overflow: hidden;
-//  //display: grid;
-//  /* intentionally independent from .animation as Safari 16
-//  would otherwise ignore the expansion animation. */
-//  animation-duration: 0.2s;
-//  display: block;
-//  height: auto;
-//  overflow: visible;
-//}
-
-//.animation {
-//  //background-color: #0074d9;
-//  animation-duration: 300ms;
-//  animation-name: animate-panel; //append-animate-panel;
-//  animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4); //ease-out;
-//  //animation-fill-mode: both;
-//}
-//
-//.collapsing {
-//  animation-direction: reverse;
-//  animation-duration: 300ms;
-//  animation-name: animate-panel-2; // append-animate-panel;
-//  animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4); //ease-in;
-//}
-
-@keyframes animate-panel {
-  from {
-    //height: 0;
-    opacity: 0;
-  }
-
-  to {
-    //height: 100px; //auto; //100%; //200px;
-    opacity: 1;
-  }
-}
-
-@keyframes animate-panel-2 {
-  from {
-    height: 100px; //auto; //100%; //200px;
-    opacity: 1;
-  }
-
-  to {
-    height: 0;
-    opacity: 0;
-  }
-}
-
 details > .wrapper {
   animation-duration: 300ms;
   display: grid;
@@ -365,7 +145,7 @@ details > .wrapper {
 }
 
 details > .animation {
-  animation-name: grid-expand;
+  animation-name: content-expand;
   //animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4); //ease-out;
   animation-timing-function: linear;
 }
@@ -376,7 +156,14 @@ details > .collapsing {
   animation-timing-function: linear;
 }
 
-@keyframes grid-expand {
+@media (prefers-reduced-motion: no-preference) {
+  // TODO: Animations here
+  //.indicator {
+  //  transition: transform var(--_indicator-animation-duration) ease-in-out;
+  //}
+}
+
+@keyframes content-expand {
   0% {
     grid-template-rows: 0fr;
   }

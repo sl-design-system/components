@@ -4,9 +4,9 @@ $variants: default, 'white', accent, info, danger, success, warning;
 :host {
   --sl-spinner-size: var(--sl-size-spinner-md);
   --_color: currentcolor;
+  --_rotate-duration: calc(var(--_spin-duration) * 4);
   --_shadow-opacity: var(--sl-opacity-spinner-shadow);
   --_spin-duration: 20s;
-  --_rotate-duration: calc(var(--_spin-duration) * 4);
 
   block-size: var(--sl-spinner-size);
   display: inline-flex;

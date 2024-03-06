@@ -91,7 +91,7 @@ const buildIcons = async theme => {
       } = faIcon,
       paths = Array.isArray(path) ? path : [path];
 
-    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
+    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
 
     icons[iconName] = { ...value, svg };
   });

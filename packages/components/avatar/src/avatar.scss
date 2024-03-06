@@ -7,18 +7,16 @@ $statuses: danger, success, warning, accent, neutral, primary;
   --_avatar-foreground: var(--sl-color-avatar-foreground);
   --_avatar-badge-background-color: var(--sl-color-badge-danger-background);
   --_avatar-badge-text-color: var(--sl-color-badge-danger-foreground);
-
   --_focusring-color: transparent;
-
-  --_max-width: var(--max-width, 20rem);
+  --_max-inline-size: var(--sl-avatar-max-inline-size, 20rem);
 
   align-items: center;
   display: inline-flex;
   gap: var(--_gap);
-  max-width: 100%;
+  max-inline-size: 100%;
 }
 
-:host(:where(:focus-visible, [active])) {
+:host(:focus-visible) {
   --_focusring-color: var(--sl-color-focusring-default);
 }
 
@@ -46,18 +44,15 @@ $statuses: danger, success, warning, accent, neutral, primary;
 }
 
 picture {
+  block-size: var(--_picture-size);
   display: grid;
   flex: 0 0 var(--_picture-size);
-  height: var(--_picture-size);
+  inline-size: var(--_picture-size);
   place-content: center;
   position: relative;
-  width: var(--_picture-size);
 
   svg {
-    margin-bottom: var(--_margin-bottom);
-    margin-left: var(--_margin-left);
-    margin-right: var(--_margin-right);
-    margin-top: var(--_margin-top);
+    margin: logical var(--_margin-top) var(--_margin-left) var(--_margin-bottom) var(--_margin-right);
     pointer-events: none;
   }
 
@@ -97,17 +92,17 @@ div {
 
 :host([orientation='vertical']) {
   flex-direction: column;
-  max-width: var(--_max-width);
+  max-inline-size: var(--_max-inline-size);
   text-align: center;
 
   .header {
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-box-orient: vertical;
-    /* stylelint-disable-next-line value-no-vendor-prefix*/
+    /* stylelint-disable-next-line value-no-vendor-prefix */
     display: -webkit-box;
     /* stylelint-disable-next-line property-no-vendor-prefix */
     -webkit-line-clamp: 2;
-    max-width: var(--_max-width);
+    max-inline-size: var(--_max-inline-size);
     overflow: hidden;
     white-space: initial;
     word-break: break-word;
@@ -115,7 +110,7 @@ div {
 
   slot {
     display: block;
-    max-width: var(--_max-width);
+    max-inline-size: var(--_max-inline-size);
     overflow: hidden;
     text-overflow: ellipsis;
   }

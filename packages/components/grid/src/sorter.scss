@@ -3,16 +3,14 @@
   --_inactive-color: #ccc;
   --_direction-color: var(--_inactive-color);
   --_gap: 0.5rem;
+
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--_gap);
 }
 
 :host([direction]) {
   --_direction-color: var(--_active-color);
-}
-
-:host {
-  cursor: pointer;
-  display: inline-flex;
-  gap: var(--_gap);
 }
 
 .direction {

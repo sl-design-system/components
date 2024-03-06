@@ -4,16 +4,15 @@
   --_border-radius: 3px;
   --_padding-block: 8px;
   --_padding-inline: 8px;
-}
 
-:host {
   border: var(--_border);
   border-radius: var(--_border-radius);
   display: block;
 }
 
 :host(:focus) {
-  --_border-color: hsl(207, 95%, calc(55% - 8% * 2));
+  --_border-color: hsl(207deg 95% calc(55% - 8% * 2));
+
   outline: none;
 }
 

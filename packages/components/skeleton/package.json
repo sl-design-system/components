@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/skeleton",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Skeleton component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

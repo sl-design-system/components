@@ -7,12 +7,14 @@ export default {
     'csstools/use-logical': 'always',
     'order/properties-alphabetical-order': true,
     'prettier/prettier': true,
-    'scss/operator-no-newline-after': null
   },
   overrides: [
     {
       files: ['**/*.scss'],
-      extends: ['stylelint-config-standard-scss']
+      extends: ['stylelint-config-standard-scss'],
+      rules: {
+        'scss/operator-no-newline-after': null
+      }
     },
     {
       files: ['**/*.ts'],

@@ -5286,6 +5286,8 @@ __metadata:
   resolution: "@sl-design-system/locales@workspace:packages/locales"
   dependencies:
     "@lit/localize": "npm:^0.12.1"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
   languageName: unknown
   linkType: soft
 

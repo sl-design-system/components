@@ -8,13 +8,13 @@ const jsFolder = 'build';
 
 const tsEntrypoints = [
   './src/ts/utils/active-element.ts',
-  './src/ts/components/my-counter.ts',
-  './src/ts/components/test-component.ts',
+  './src/ts/components/*.ts',
   './src/ts/scripts/*.ts',
   './src/ts/ssr-utils/lit-hydrate-support.ts',
   './src/ts/ssr-utils/is-land.ts'
 ];
 const filesPromises = tsEntrypoints.map(async (entry) => tinyGlob(entry));
+console.log(filesPromises);
 const entryPoints = (await Promise.all(filesPromises)).flat();
 
 let config = {

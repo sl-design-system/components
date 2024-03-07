@@ -1,14 +1,13 @@
 import type { TemplateResult } from 'lit-html';
 import type { CSSResultGroup } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { localized } from '@lit/localize';
-import { Button } from '@sl-design-system/button';
 import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './accordion-item.scss.js';
+
+let nextUniqueId = 0;
 
 /**
  * An accordion item component.
@@ -18,38 +17,19 @@ import styles from './accordion-item.scss.js';
  */
 
 @localized()
-export class AccordionItem extends ScopedElementsMixin(LitElement) {
-  /** @private */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-button': Button
-    };
-  } // TODO: maybe scopedElements not necessary?
-
+export class AccordionItem extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  // /** Event controller. */
-  // #events = new EventsController(this, {
-  //   toggle: this.#onToggle
-  //   // click: this.#onClick,
-  //   // keydown: this.#onKeydown
-  // });
+  /**
+   * Unique ID for each accordion item component.
+   */
+  #accordionItemId = `sl-accordion-item-${nextUniqueId++}`;
 
-  // /** @private */
-  // @query('dialog') dialog?: HTMLDialogElement;
-
-  // /**
-  //  * Emits when the cancel has been cancelled. This happens when the user closes
-  //  * the dialog using the escape key or clicks on the backdrop.
-  //  */
-  // @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<void>;
-  //
-  // /** Emits when the dialog has been closed. */
-  // @event({ name: 'sl-close' }) closeEvent!: EventEmitter<void>;
-
-  /** The ARIA role of the dialog. */
-  @property() override role: 'dialog' | 'alertdialog' = 'dialog';
+  /**
+   * Unique ID for each accordion item component content.
+   */
+  #accordionItemContentId = `sl-accordion-item-content-${nextUniqueId++}`;
 
   /** A text shown in the header - as a title of the accordion item. */
   @property() summary!: string;
@@ -60,32 +40,25 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
   /** Emits when the accordion item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<string>;
 
-  // TODO: add aria-expanded?, role button needed as well?
-
   // TODO: open attribute - same as in details element?
 
-  /** Whether the details is opened. */
+  /** Whether the details element is opened. */
   @property({ reflect: true, type: Boolean }) open?: boolean;
 
   /** @private */
   @query('.panel') panel?: HTMLDivElement;
 
-  // /** Whether only one accordion item can be opened at once. By default multiple accordion items can be opened. */
-  // @property({ type: Boolean, reflect: true }) single?: boolean;
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
-  }
-
-  // TODO: add disabled to details
-  // ?disabled=${this.hasAttribute('disabled')}
-
   override render(): TemplateResult {
     return html`
       <details @toggle=${this.onToggle} @click=${this.#onClick} ?open=${this.open}>
-        <summary tabindex=${this.disabled ? -1 : 0} part="summary">
+        <summary
+          id=${this.#accordionItemId}
+          aria-controls=${this.#accordionItemContentId}
+          aria-disabled=${this.disabled ? 'true' : 'false'}
+          aria-expanded=${this.open ? 'true' : 'false'}
+          tabindex=${this.disabled ? -1 : 0}
+          part="summary"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -100,14 +73,13 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
           ${this.summary}
         </summary>
         <div class="wrapper">
-          <div class="panel">
+          <div id=${this.#accordionItemContentId} class="panel" role="region" aria-labelledby=${this.#accordionItemId}>
             <slot></slot>
           </div>
         </div>
       </details>
     `;
-  } // details - open
-  // class=${classMap({ collapsing: !this.open, panel: true })}
+  }
 
   // <div class="panel" @animationend=${this.#closeOnAnimationend}>
 
@@ -173,14 +145,14 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
     // const contentElement = event.target.nextElementSibling?.querySelector('.panel'); //event.target.nextElementSibling;
     const contentElement = event.target.nextElementSibling;
 
-    // console.log(
-    //   'event on click detailsElement, contentElement',
-    //   detailsElement,
-    //   contentElement,
-    //   event,
-    //   event.target.nextElementSibling?.querySelector('.panel'),
-    //   this.hasAttribute('disabled')
-    // );
+    console.log(
+      'event on click detailsElement, contentElement',
+      detailsElement,
+      contentElement,
+      event,
+      event.target.nextElementSibling?.querySelector('.panel'),
+      this.hasAttribute('disabled')
+    );
 
     if (!detailsElement || !contentElement) {
       return;
@@ -203,18 +175,18 @@ export class AccordionItem extends ScopedElementsMixin(LitElement) {
       contentElement.addEventListener('animationend', cb, { once: true });
     };
 
-    requestAnimationFrame(() => contentElement.classList.add('animation'));
-    onAnimationEnd(() => contentElement.classList.remove('animation'));
+    requestAnimationFrame(() => contentElement.classList.add('opening'));
+    onAnimationEnd(() => contentElement.classList.remove('opening'));
 
     const isDetailsOpen = detailsElement.getAttribute('open') !== null;
     console.log('isDetailsOpen in onClick', isDetailsOpen);
     if (isDetailsOpen) {
       // prevent default collapsing and delay it until the animation has completed
       event.preventDefault();
-      contentElement.classList.add('collapsing');
+      contentElement.classList.add('closing');
       onAnimationEnd(() => {
         detailsElement?.removeAttribute('open');
-        contentElement.classList.remove('collapsing');
+        contentElement.classList.remove('closing');
       });
     }
   }

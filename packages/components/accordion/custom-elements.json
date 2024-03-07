@@ -50,7 +50,7 @@
           "name": "AccordionItem",
           "cssParts": [
             {
-              "description": "...",
+              "description": "Header element of the accordion-item",
               "name": "summary"
             }
           ],
@@ -94,19 +94,9 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the details is opened.",
+              "description": "Whether the details element is opened.",
               "attribute": "open",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "attribute": "role"
             },
             {
               "kind": "event",
@@ -138,15 +128,6 @@
           ],
           "attributes": [
             {
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "fieldName": "role"
-            },
-            {
               "name": "summary",
               "type": {
                 "text": "string"
@@ -167,14 +148,8 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the details is opened.",
+              "description": "Whether the details element is opened.",
               "fieldName": "open"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -239,13 +214,17 @@
           "fields": [
             {
               "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
+              "name": "#accordionItemId",
               "privacy": "private",
-              "readonly": true
+              "default": "`sl-accordion-item-${nextUniqueId++}`",
+              "description": "Unique ID for each accordion item component."
+            },
+            {
+              "kind": "field",
+              "name": "#accordionItemContentId",
+              "privacy": "private",
+              "default": "`sl-accordion-item-content-${nextUniqueId++}`",
+              "description": "Unique ID for each accordion item component content."
             },
             {
               "kind": "field",
@@ -275,7 +254,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An accordion component....\n\n```html\n  <sl-accordionn>...</sl-accordion>\n```",
+          "description": "An accordion component that can contain accordion-items\n\n```html\n  <sl-accordionn>...</sl-accordion>\n```",
           "name": "Accordion",
           "slots": [
             {
@@ -284,16 +263,6 @@
             }
           ],
           "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the button is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true
-            },
             {
               "kind": "field",
               "name": "single",
@@ -306,14 +275,6 @@
             }
           ],
           "attributes": [
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the button is disabled; when set no interaction is possible.",
-              "fieldName": "disabled"
-            },
             {
               "name": "single",
               "type": {
@@ -336,23 +297,6 @@
           "tagName": "sl-accordion",
           "customElement": true,
           "methods": [
-            {
-              "kind": "method",
-              "name": "#onToggle",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "CustomEvent<string> & { target: AccordionItem }"
-                  }
-                }
-              ]
-            },
             {
               "kind": "method",
               "name": "#onClick",
@@ -381,26 +325,6 @@
               "static": true,
               "privacy": "private",
               "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "formAssociated",
-              "type": {
-                "text": "boolean"
-              },
-              "static": true,
-              "default": "true",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "originalTabIndex",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0",
-              "description": "The original tabIndex before disabled."
             },
             {
               "kind": "field",

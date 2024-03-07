@@ -20,6 +20,7 @@
   --_title-font: var(--sl-text-accordion-title);
   --_title-gap: var(--sl-space-accordion-title-gap);
   --_title-padding: var(--sl-space-accordion-title-inline);
+  --_transition-duration: 300ms;
 }
 
 :host {
@@ -42,11 +43,11 @@ details {
 }
 
 details > summary:first-of-type {
-  list-style: none;
+  list-style: none; /* Hides the default arrow */
 }
 
 details > summary:first-of-type::-webkit-details-marker {
-  display: none; /* Hides the arrow in Safari */
+  display: none; /* Hides the default arrow in Safari */
 }
 
 summary {
@@ -59,7 +60,10 @@ summary {
   padding-block: var(--_padding-block);
   padding-inline: var(--_title-padding);
   position: relative;
-  transition: background 300ms; // TODO: add animation timing from tokens
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background var(--_transition-duration);
+  }
 
   // svg animation stylings
   .horizontal-line {
@@ -69,7 +73,11 @@ summary {
   rect {
     fill: var(--_title-color);
     transform-origin: center;
-    transition: transform 300ms cubic-bezier(0.6, 2, 0.6, 1);
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    @media (prefers-reduced-motion: no-preference) {
+      transition: transform var(--_transition-duration) cubic-bezier(0.6, 2, 0.6, 1);
+    }
   }
 }
 
@@ -102,7 +110,7 @@ summary {
 .panel {
   color: var(--_panel-color);
   font: var(--_panel-font);
-  min-height: 0; // TODO: min-block-size? Check if it's still working fine with animations
+  min-block-size: 0;
   padding: var(--_panel-padding-block) var(--_panel-padding-inline);
   position: relative;
 }
@@ -132,35 +140,38 @@ details[open] {
 
 details[open] summary {
   sl-icon:not(.opened) {
-    // sl-icon.opened
     transform: rotate(90deg);
   }
 }
 
-details > .wrapper {
-  animation-duration: 300ms;
-  display: grid;
-  overflow: hidden;
-  transition: all 300ms cubic-bezier(0.7, -0.4, 0.4, 1.4);
-}
+details {
+  .wrapper {
+    // To ensure the accordion item can be opened/closed even when prefers-reduced-motion is on,
+    // we need to have a duration that is non-zero.
+    --_animation-duration: 0.001ms;
+    animation-duration: var(--_animation-duration);
+    display: grid;
+    overflow: hidden;
+  }
 
-details > .animation {
-  animation-name: content-expand;
-  //animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4); //ease-out;
-  animation-timing-function: linear;
-}
+  .opening {
+    animation-name: content-expand;
+    animation-timing-function: linear;
+  }
 
-details > .collapsing {
-  animation-direction: reverse;
-  //animation-timing-function: cubic-bezier(0.7, -0.4, 0.4, 1.4); //ease-in;
-  animation-timing-function: linear;
+  .closing {
+    animation-direction: reverse;
+    animation-timing-function: linear;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  // TODO: Animations here
-  //.indicator {
-  //  transition: transform var(--_indicator-animation-duration) ease-in-out;
-  //}
+  details {
+    .wrapper {
+      --_animation-duration: var(--_transition-duration);
+      transition: all var(--_transition-duration) cubic-bezier(0.7, -0.4, 0.4, 1.4);
+    }
+  }
 }
 
 @keyframes content-expand {

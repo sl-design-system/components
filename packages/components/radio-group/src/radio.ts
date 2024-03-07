@@ -45,7 +45,6 @@ export class Radio<T = unknown> extends LitElement {
     super.updated(changes);
 
     if (changes.has('checked')) {
-      console.log(this.checked, this.shadowRoot?.querySelector('.label')?.innerHTML);
       this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
     }
 

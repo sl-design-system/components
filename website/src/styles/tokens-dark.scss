@@ -82,5 +82,11 @@
     --control-color-visuals-guide-clickable-area: var(--colors-warning-400-warning);
     --control-color-visuals-guide-fill: var(--colors-accent-500-accent);
     --control-color-visuals-guide-text: var(--colors-neutral-base-white);
+
+    --control-color-code-text-neutral: rgb(var(--sl-color-palette-neutral-100));
+    --control-color-code-text-accent: rgb(var(--sl-color-palette-accent-200));
+    --control-color-code-text-danger: rgb(var(--sl-color-palette-danger-200));
+    --control-color-code-text-warning: rgb(var(--sl-color-palette-warning-200));
+    --control-color-code-text-success: rgb(var(--sl-color-palette-success-200));
   }
 }

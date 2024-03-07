@@ -1722,6 +1722,18 @@
         "value": "{space.xs}",
         "type": "spacing"
       }
+    },
+    "breadcrumb": {
+      "gap": {
+        "full": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "short": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
     }
   },
   "text": {

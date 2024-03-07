@@ -1708,6 +1708,20 @@
           }
         }
       }
+    },
+    "menu": {
+      "block": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "inline": {
+        "value": "{space.sm}",
+        "type": "spacing"
+      },
+      "gap": {
+        "value": "{space.xs}",
+        "type": "spacing"
+      }
     }
   },
   "text": {

@@ -9,13 +9,15 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-
-<sl-label for="radio-group">What animal do you like best?</sl-label>
-<sl-radio-group id="radio-group">
-  <sl-radio aria-checked="false">Dog</sl-radio>
-  <sl-radio aria-checked="true" checked>Cat</sl-radio>
-  <sl-radio aria-checked="false">Hamster</sl-radio>
-</sl-radio-group>  
+  <sl-form>
+    <sl-form-field label="What animal do you like best?">
+      <sl-radio-group id="radio-group">
+        <sl-radio>Dog</sl-radio>
+        <sl-radio checked="true">Cat</sl-radio>
+        <sl-radio >Hamster</sl-radio>
+      </sl-radio-group>  
+    </sl-form-field>
+  </sl-form>
 
 </div>
 

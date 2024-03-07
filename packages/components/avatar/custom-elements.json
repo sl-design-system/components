@@ -50,8 +50,8 @@
           "name": "Avatar",
           "cssProperties": [
             {
-              "description": "Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element.",
-              "name": "--max-width"
+              "description": "Max inline-size of the container in vertical mode. If not set it will behave like a regular `display: block` element.",
+              "name": "--sl-avatar-max-inline-size"
             }
           ],
           "members": [

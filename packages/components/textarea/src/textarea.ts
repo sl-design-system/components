@@ -18,6 +18,7 @@ let nextUniqueId = 0;
 /**
  * Multi line text area component.
  *
+ * @cssprop --sl-textarea-rows - The number of rows initially visible in the textarea
  * @slot textarea - The slot for the textarea element
  */
 @localized()

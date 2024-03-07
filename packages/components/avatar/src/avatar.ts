@@ -71,7 +71,7 @@ const OFFSET_SQUARE: Record<AvatarSize, number> = {
  *   <sl-avatar display-name="Lynn Smith" picture="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
  * ```
  *
- * @cssproperty --max-width - Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element.
+ * @cssprop --sl-avatar-max-inline-size - Max inline-size of the container in vertical mode. If not set it will behave like a regular `display: block` element.
  */
 export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -164,8 +164,10 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
   /** @private border width for calculations in the svg. */
   borderWidth = BORDER_WIDTH;
+
   /** @private offset of the badge for calculations in the svg. */
   offset = OFFSET_CIRCLE;
+
   /** @private offset of the badge for calculations in the svg. */
   profileName = '';
 

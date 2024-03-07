@@ -1,5 +1,19 @@
 # @sl-design-system/grid
 
+## 0.1.3
+
+### Patch Changes
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Linting fixes for styling
+
+- [#1027](https://github.com/sl-design-system/components/pull/1027) [`3be7a02`](https://github.com/sl-design-system/components/commit/3be7a02b4bc5218e5dd8f6e3405e6573cbd65c5f) - Cleaner workaround for grid scrolling bug
+
+- Updated dependencies [[`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b), [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b)]:
+  - @sl-design-system/text-field@0.1.19
+  - @sl-design-system/checkbox@0.0.24
+  - @sl-design-system/popover@0.1.7
+  - @sl-design-system/icon@0.0.9
+
 ## 0.1.2
 
 ### Patch Changes

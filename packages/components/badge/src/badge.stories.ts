@@ -1,5 +1,6 @@
 import { faCheck, faGear } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 import '../register.js';
@@ -8,6 +9,8 @@ import { type Badge, type BadgeSize, type BadgeVariant } from './badge.js';
 type Props = Pick<Badge, 'size' | 'variant'> & { icon?: boolean; text?: string };
 
 type Story = StoryObj<Props>;
+
+Icon.register(faCheck, faGear);
 
 const sizes: BadgeSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 const variants: BadgeVariant[] = ['neutral', 'primary', 'danger', 'success', 'warning', 'accent'];
@@ -62,8 +65,6 @@ export const Basic: Story = {};
 
 export const All: Story = {
   render: () => {
-    Icon.register(faCheck, faGear);
-
     return html`
       <style>
         table {
@@ -92,12 +93,13 @@ export const All: Story = {
               html` <tr>
                 <th>${sizeName(size)}</th>
                 ${variants.map(
-                  variant =>
-                    html`<td>
+                  variant => html`
+                    <td>
                       <sl-badge .variant=${variant} .size=${size}><sl-icon name="far-check"></sl-icon></sl-badge>
                       <sl-badge .variant=${variant} .size=${size}>99+</sl-badge>
                       <sl-badge .variant=${variant} .size=${size}><sl-icon name="far-gear"></sl-icon> away</sl-badge>
-                    </td>`
+                    </td>
+                  `
                 )}
               </tr>`
           )}

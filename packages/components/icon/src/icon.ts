@@ -27,9 +27,10 @@ const isIconDefinition = (icon: IconDefinition | IconLibrary): icon is IconDefin
  *   <sl-icon name="unicorn"></sl-icon>
  * ```
  *
- * @cssproperty --fill-default: currentColor;
- * @cssproperty  [--fill-accent: rgb(var(--sl-color-palette-accent-300))] Accent color, only used for multicolor icons
- * @cssproperty --icon-container-size: unset;
+ * @cssprop --sl-icon-container-size - The size of the icon container, defaults to md
+ * @cssprop --sl-icon-fill-accent - Accent color, only used for multicolor icons
+ * @cssprop --sl-icon-fill-default - Default fill color
+ * @cssprop --sl-icon-size - The size of the svg element, defaults to md
  */
 export class Icon extends LitElement {
   /** @private */
@@ -74,7 +75,10 @@ export class Icon extends LitElement {
         const svg = `
           <svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             ${paths
-              .map((p: string, idx) => `<path d="${p}" fill="var(--fill-${Icon.getColorToken(idx, i.prefix)})"></path>`)
+              .map(
+                (p: string, idx) =>
+                  `<path d="${p}" fill="var(--sl-icon-fill-${Icon.getColorToken(idx, i.prefix)})"></path>`
+              )
               .join('')}
           </svg>
         `;
@@ -99,10 +103,11 @@ export class Icon extends LitElement {
   /** The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma. */
   @property() name?: string;
 
-  /** The size of the icon
+  /**
+   * The size of the icon.
    * @type {'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'}
    */
-  @property({ reflect: true }) size: IconSize = 'md';
+  @property({ reflect: true }) size?: IconSize;
 
   #getIconHTML(): string {
     if (!this.sldsLibrary) {

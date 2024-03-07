@@ -50,16 +50,20 @@
           "name": "Icon",
           "cssProperties": [
             {
-              "description": "currentColor;",
-              "name": "--fill-default:"
+              "description": "The size of the icon container, defaults to md",
+              "name": "--sl-icon-container-size"
             },
             {
               "description": "Accent color, only used for multicolor icons",
-              "name": "--fill-accent: rgb(var(--sl-color-palette-accent-300))"
+              "name": "--sl-icon-fill-accent"
             },
             {
-              "description": "unset;",
-              "name": "--icon-container-size:"
+              "description": "Default fill color",
+              "name": "--sl-icon-fill-default"
+            },
+            {
+              "description": "The size of the svg element, defaults to md",
+              "name": "--sl-icon-size"
             }
           ],
           "members": [
@@ -151,8 +155,7 @@
               "type": {
                 "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
               },
-              "default": "'md'",
-              "description": "The size of the icon",
+              "description": "The size of the icon.",
               "attribute": "size",
               "reflects": true
             }
@@ -179,8 +182,7 @@
               "type": {
                 "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
               },
-              "default": "'md'",
-              "description": "The size of the icon",
+              "description": "The size of the icon.",
               "fieldName": "size"
             }
           ],

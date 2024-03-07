@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 $sizes: md, lg;
 $variants: default, valid, invalid;
 $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
@@ -9,6 +11,19 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_transition: 200ms ease-in-out;
+
+  align-items: center;
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--_gap);
+  outline-color: transparent;
+  overflow: hidden;
+  padding: var(--_padding);
+  transition: var(--_transition);
+  transition-property: background, border, color, filter, outline-color;
 }
 
 @each $size in $sizes {
@@ -26,8 +41,8 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 }
 
 @each $variant in $variants {
-  $i: index($variants, $variant);
-  $variant-selector: nth($variant-selectors, $i);
+  $i: list.index($variants, $variant);
+  $variant-selector: list.nth($variant-selectors, $i);
 
   :host(#{$variant-selector}) {
     --_background: var(--sl-color-input-text-field-#{$variant}-default-background);
@@ -39,7 +54,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
     }
 
     slot[name='suffix'] sl-icon {
-      --fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
+      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-default-icon);
     }
   }
 
@@ -53,7 +68,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
     }
 
     slot[name='suffix'] sl-icon {
-      --fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
+      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-hover-icon);
     }
   }
 
@@ -67,7 +82,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
     }
 
     slot[name='suffix'] sl-icon {
-      --fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
+      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-active-icon);
     }
   }
 
@@ -81,7 +96,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
     }
 
     slot[name='suffix'] sl-icon {
-      --fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
+      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-focus-icon);
     }
   }
 
@@ -95,24 +110,9 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
     }
 
     slot[name='suffix'] sl-icon {
-      --fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
+      --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
     }
   }
-}
-
-:host {
-  align-items: center;
-  background: var(--_background);
-  border: var(--_border);
-  border-radius: var(--_border-radius);
-  box-sizing: border-box;
-  display: flex;
-  gap: var(--_gap);
-  outline-color: transparent;
-  overflow: hidden;
-  padding: var(--_padding);
-  transition: var(--_transition);
-  transition-property: background, border, color, filter, outline-color;
 }
 
 :host(:focus-within) {

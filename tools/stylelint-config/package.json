@@ -1,0 +1,41 @@
+{
+  "name": "@sl-design-system/stylelint-config",
+  "version": "0.0.1",
+  "packageManager": "yarn@4.1.1",
+  "description": "Stylelint config for SL Design System projects",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "tools/stylelint-config"
+  },
+  "homepage": "https://sanomalearning.design",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "scripts": {
+    "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
+  },
+  "dependencies": {
+    "postcss": "^8.4.35",
+    "postcss-lit": "^1.1.1",
+    "prettier": "^3.2.5",
+    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-standard-scss": "^13.0.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-prettier": "^5.0.0",
+    "stylelint-use-logical": "^2.1.2"
+  },
+  "devDependencies": {
+    "stylelint": "^16.2.1"
+  },
+  "peerDependencies": {
+    "stylelint": "^16.2.1"
+  }
+}

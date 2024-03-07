@@ -46,7 +46,10 @@ export class AccordionItem extends LitElement {
   @property({ reflect: true, type: Boolean }) open?: boolean;
 
   /** @private */
-  @query('.panel') panel?: HTMLDivElement;
+  @query('.panel') panel!: HTMLDivElement;
+
+  /** @private */
+  @query('.wrapper') wrapper!: HTMLDivElement;
 
   override render(): TemplateResult {
     return html`
@@ -93,16 +96,78 @@ export class AccordionItem extends LitElement {
     this.toggleEvent.emit(event.newState);
   }
 
-  #closeOnAnimationend(event: AnimationEvent): void {
+  #onAnimationend(event: Event & { target: HTMLElement }): void {
+    if (!this.wrapper || !this.renderRoot.querySelector('details')) {
+      return;
+    }
     console.log(
       'event closeOnAnimationend',
-      event.animationName,
+      this.wrapper,
+      // event.animationName,
       event,
       this.open,
       this.renderRoot,
       this.renderRoot.querySelector('details'),
-      this.renderRoot.querySelector('details')?.hasAttribute('open')
+      this.renderRoot.querySelector('details')?.hasAttribute('open'),
+      this.renderRoot.querySelector('details')?.getAttribute('open') !== null
     );
+
+    this.wrapper?.addEventListener(
+      'animationend',
+      () => {
+        // requestAnimationFrame(() => this.wrapper?.classList.add('opening'));
+
+        // this.wrapper?.classList.remove('opening');
+
+        const isDetailsOpen = this.renderRoot.querySelector('details')?.getAttribute('open') !== null;
+        if (!isDetailsOpen) {
+          console.log(
+            'event closeOnAnimationend in isDetailsOpen',
+            this.wrapper,
+            // event.animationName,
+            event,
+            this.open,
+            this.renderRoot,
+            this.renderRoot.querySelector('details'),
+            this.renderRoot.querySelector('details')?.hasAttribute('open'),
+            this.renderRoot.querySelector('details')?.getAttribute('open') !== null
+          );
+          // event.preventDefault();
+          // this.wrapper?.classList.add('closing');
+          // prevent default collapsing and delay it until the animation has completed
+          // event.preventDefault();
+          // this.wrapper.classList.remove('opening');
+          this.wrapper.classList.remove('closing');
+          // this.wrapper.classList.add('closing');
+          // onAnimationEnd(() => {
+          this.renderRoot.querySelector('details')?.removeAttribute('open');
+          // this.wrapper.classList.remove('closing');
+          // });
+          // requestAnimationFrame(() => {
+          // this.wrapper.classList.remove('closing');
+          // });
+        } else {
+          console.log(
+            'event closeOnAnimationend in isDetailsOpen in else...',
+            event,
+            this.renderRoot.querySelector('details')
+          );
+          // this.wrapper.classList.remove('closing');
+          this.wrapper?.classList.remove('opening');
+          // this.renderRoot.querySelector('details')?.removeAttribute('open');
+        }
+      },
+      { once: true }
+    );
+
+    // const isDetailsOpen = this.renderRoot.querySelector('details')?.getAttribute('open') !== null;
+    // if (!isDetailsOpen) {
+    //   requestAnimationFrame(() => this.wrapper?.classList.add('opening'));
+    // } else {
+    //   requestAnimationFrame(() => this.wrapper?.classList.add('closing'));
+    // }
+    // requestAnimationFrame(() => this.wrapper?.setAttribute('closing', ''));
+
     // // if (event.animationName !== 'slide-in-up') {
     // // this.panel?.removeAttribute('open');
     // if (
@@ -171,23 +236,37 @@ export class AccordionItem extends LitElement {
     }*/
     // const onAnimationEnd = (cb): void => contentElement?.addEventListener('animationend', cb, { once: true });
 
-    const onAnimationEnd = (cb: () => void): void => {
-      contentElement.addEventListener('animationend', cb, { once: true });
-    };
+    // const onAnimationEnd = (cb: () => void): void => {
+    //   contentElement.addEventListener('animationend', cb, { once: true });
+    // };
 
-    requestAnimationFrame(() => contentElement.classList.add('opening'));
-    onAnimationEnd(() => contentElement.classList.remove('opening'));
+    // requestAnimationFrame(() => contentElement.classList.add('opening'));
+    // onAnimationEnd(() => contentElement.classList.remove('opening'));
+    // this.#onAnimationend(event);
 
     const isDetailsOpen = detailsElement.getAttribute('open') !== null;
     console.log('isDetailsOpen in onClick', isDetailsOpen);
     if (isDetailsOpen) {
       // prevent default collapsing and delay it until the animation has completed
-      event.preventDefault();
-      contentElement.classList.add('closing');
-      onAnimationEnd(() => {
-        detailsElement?.removeAttribute('open');
-        contentElement.classList.remove('closing');
-      });
+      // event.preventDefault();
+      // contentElement.classList.add('closing');
+      // this.wrapper.classList.remove('opening');
+      requestAnimationFrame(() => contentElement.classList.add('closing'));
+      this.#onAnimationend(event);
+      // onAnimationEnd(() => {
+      // detailsElement?.removeAttribute('open');
+      //   contentElement.classList.remove('closing');
+      // });
+      // requestAnimationFrame(() => {
+      //   this.wrapper.classList.remove('closing');
+      // });
+      this.wrapper.classList.remove('closing');
+    } else {
+      requestAnimationFrame(() => contentElement.classList.add('opening'));
+
+      this.#onAnimationend(event);
+
+      this.wrapper.classList.remove('closing');
     }
   }
 

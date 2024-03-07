@@ -178,7 +178,7 @@
             },
             {
               "kind": "method",
-              "name": "#closeOnAnimationend",
+              "name": "#onAnimationend",
               "return": {
                 "type": {
                   "text": "void"
@@ -188,7 +188,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "AnimationEvent"
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
               ]
@@ -230,7 +230,15 @@
               "kind": "field",
               "name": "panel",
               "type": {
-                "text": "HTMLDivElement | undefined"
+                "text": "HTMLDivElement"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "wrapper",
+              "type": {
+                "text": "HTMLDivElement"
               },
               "privacy": "private"
             }

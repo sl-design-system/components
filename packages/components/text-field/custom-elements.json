@@ -40,12 +40,6 @@
           "kind": "class",
           "description": "Single line text field component.",
           "name": "TextField",
-          "cssProperties": [
-            {
-              "description": "The number of rows initially visible in the textarea",
-              "name": "--sl-textarea-rows"
-            }
-          ],
           "cssParts": [
             {
               "description": "The input's wrapper",

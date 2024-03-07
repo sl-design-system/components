@@ -23,12 +23,14 @@
   },
   "files": [
     "**/*.d.ts",
-    "**/*.d.ts.map",
     "**/*.js",
     "**/*.js.map",
     "**/*.xlf"
   ],
-  "dependencies": {
+  "devDependencies": {
+    "@lit/localize": "^0.12.1"
+  },
+  "peerDependencies": {
     "@lit/localize": "^0.12.1"
   }
 }

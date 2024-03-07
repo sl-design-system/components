@@ -4,25 +4,28 @@ import { customElement, property } from 'lit/decorators.js';
 console.log('loaded');
 @customElement('my-counter')
 export class MyCounter extends LitElement {
-  @property({ type: Number }) count = 0;
+  @property() package?: string;
 
   override render(): TemplateResult {
     return html`
-      <button @click=${() => this.count++}>Increment</button>
-      <div>Count: ${this.count}</div>
+     <section>
+  <h2 tabindex="-1">Installation</h2>
+
+  With npm
+
+  <div class="ds-code">
+    <pre class="language-bash"><code class="language-bash">npm install @sl-design-system/${this.package}</code></pre>
+  </div>
+  
+  With yarn
+
+  <div class="ds-code">
+    <pre class="language-bash"><code class="language-bash">yarn add @sl-design-system/${this.package}</code></pre>
+  </div>
+
+</section>
     `;
   }
-
-  static override styles = css`
-    :host {
-      display: block;
-    }
-
-    button {
-      background-color: var(--primary-color);
-      color: var(--on-primary-color);
-    }
-  `;
 }
 
 declare global {

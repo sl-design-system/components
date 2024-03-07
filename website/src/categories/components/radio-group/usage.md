@@ -5,8 +5,6 @@ eleventyNavigation:
   parent: Radio group
   key: RadioGroupUsage
 ---
-<my-counter></my-counter>
-
 <section class="no-heading">
 
 <div class="ds-example">

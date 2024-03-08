@@ -1,5 +1,12 @@
 # @sl-design-system/locales
 
+## 0.0.6
+
+### Patch Changes
+
+- [#1032](https://github.com/sl-design-system/components/pull/1032) [`7bfda37`](https://github.com/sl-design-system/components/commit/7bfda37c299fff1f8827ac042b268a64a7c4f32d) - - Fix missing types in the NPM package
+  - Move the `@lit/localize` dependency to `peerDependencies`
+
 ## 0.0.5
 
 ### Patch Changes

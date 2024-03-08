@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/tooltip",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Tooltip component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

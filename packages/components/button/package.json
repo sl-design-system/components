@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/button",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Button component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

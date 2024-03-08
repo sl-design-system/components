@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/angular",
   "description": "Angular support for the SL Design System",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "publishConfig": {
     "directory": "dist",
     "registry": "https://npm.pkg.github.com"

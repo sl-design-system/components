@@ -1,5 +1,13 @@
 # @sl-design-system/message-dialog
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b)]:
+  - @sl-design-system/button@0.0.23
+  - @sl-design-system/dialog@0.0.12
+
 ## 0.0.4
 
 ### Patch Changes

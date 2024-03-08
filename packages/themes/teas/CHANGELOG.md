@@ -1,5 +1,12 @@
 # @sl-design-system/teas
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b), [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b)]:
+  - @sl-design-system/icon@0.0.9
+
 ## 0.1.5
 
 ### Patch Changes

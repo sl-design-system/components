@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit-html';
 import type { CSSResultGroup } from 'lit';
 import { localized } from '@lit/localize';
-import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { LitElement, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -15,11 +15,10 @@ let nextUniqueId = 0;
  * @slot default - Body content for the accordion
  * @part summary - Header element of the accordion-item
  */
-
 @localized()
 export class AccordionItem extends LitElement {
   /** @private */
-  static override styles: CSSResultGroup = [breakpoints, styles];
+  static override styles: CSSResultGroup = styles;
 
   /**
    * Unique ID for each accordion item component.
@@ -40,13 +39,8 @@ export class AccordionItem extends LitElement {
   /** Emits when the accordion item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<string>;
 
-  // TODO: open attribute - same as in details element?
-
   /** Whether the details element is opened. */
   @property({ reflect: true, type: Boolean }) open?: boolean;
-
-  /** @private */
-  @query('.panel') panel!: HTMLDivElement;
 
   /** @private */
   @query('.wrapper') wrapper!: HTMLDivElement;
@@ -84,118 +78,10 @@ export class AccordionItem extends LitElement {
     `;
   }
 
-  // <div class="panel" @animationend=${this.#closeOnAnimationend}>
-
   onToggle(event: ToggleEvent): void {
-    console.log('event on toglle', event, event.target, this.hasAttribute('disabled'));
-
     this.open = event.newState === 'open';
 
-    // TODO: this.open change on toggle
-    // TODO: emit sl-toggle when toggle because it does not bubble
     this.toggleEvent.emit(event.newState);
-  }
-
-  #onAnimationend(event: Event & { target: HTMLElement }): void {
-    if (!this.wrapper || !this.renderRoot.querySelector('details')) {
-      return;
-    }
-    console.log(
-      'event closeOnAnimationend',
-      this.wrapper,
-      // event.animationName,
-      event,
-      this.open,
-      this.renderRoot,
-      this.renderRoot.querySelector('details'),
-      this.renderRoot.querySelector('details')?.hasAttribute('open'),
-      this.renderRoot.querySelector('details')?.getAttribute('open') !== null
-    );
-
-    this.wrapper?.addEventListener(
-      'animationend',
-      () => {
-        // requestAnimationFrame(() => this.wrapper?.classList.add('opening'));
-
-        // this.wrapper?.classList.remove('opening');
-
-        const isDetailsOpen = this.renderRoot.querySelector('details')?.getAttribute('open') !== null;
-        if (!isDetailsOpen) {
-          console.log(
-            'event closeOnAnimationend in isDetailsOpen',
-            this.wrapper,
-            // event.animationName,
-            event,
-            this.open,
-            this.renderRoot,
-            this.renderRoot.querySelector('details'),
-            this.renderRoot.querySelector('details')?.hasAttribute('open'),
-            this.renderRoot.querySelector('details')?.getAttribute('open') !== null
-          );
-          // event.preventDefault();
-          // this.wrapper?.classList.add('closing');
-          // prevent default collapsing and delay it until the animation has completed
-          // event.preventDefault();
-          // this.wrapper.classList.remove('opening');
-          this.wrapper.classList.remove('closing');
-          // this.wrapper.classList.add('closing');
-          // onAnimationEnd(() => {
-          this.renderRoot.querySelector('details')?.removeAttribute('open');
-          // this.wrapper.classList.remove('closing');
-          // });
-          // requestAnimationFrame(() => {
-          // this.wrapper.classList.remove('closing');
-          // });
-        } else {
-          console.log(
-            'event closeOnAnimationend in isDetailsOpen in else...',
-            event,
-            this.renderRoot.querySelector('details')
-          );
-          // this.wrapper.classList.remove('closing');
-          this.wrapper?.classList.remove('opening');
-          // this.renderRoot.querySelector('details')?.removeAttribute('open');
-        }
-      },
-      { once: true }
-    );
-
-    // const isDetailsOpen = this.renderRoot.querySelector('details')?.getAttribute('open') !== null;
-    // if (!isDetailsOpen) {
-    //   requestAnimationFrame(() => this.wrapper?.classList.add('opening'));
-    // } else {
-    //   requestAnimationFrame(() => this.wrapper?.classList.add('closing'));
-    // }
-    // requestAnimationFrame(() => this.wrapper?.setAttribute('closing', ''));
-
-    // // if (event.animationName !== 'slide-in-up') {
-    // // this.panel?.removeAttribute('open');
-    // if (
-    //   /*this.open*/ this.renderRoot.querySelector('details')?.hasAttribute('open') &&
-    //   event.animationName === 'animate-panel-2'
-    // ) {
-    //   // this.panel?.classList.add('collapsing');
-    //   this.panel?.classList.remove('animation');
-    //   this.panel?.addEventListener(
-    //     'animationend',
-    //     () => {
-    //       // this.remove();
-    //       // this.panel?.removeAttribute('open');
-    //       this.renderRoot.querySelector('details')?.removeAttribute('open');
-    //       // this.panel?.classList.remove('collapsing');
-    //       // // this.panel?.classList.remove('animation');
-    //     },
-    //     { once: true }
-    //   );
-    //
-    //   requestAnimationFrame(() => {
-    //     // this.panel?.setAttribute('close', '');
-    //     // this.panel?.classList.add('collapsing');
-    //     this.panel?.classList.add('collapsing');
-    //     // this.panel?.classList.remove('collapsing');
-    //     // this.panel?.classList.remove('animation');
-    //   });
-    // }
   }
 
   #onClick(event: Event & { target: HTMLElement }): void {
@@ -206,110 +92,29 @@ export class AccordionItem extends LitElement {
       return;
     }
 
-    const detailsElement = event.target.parentElement;
-    // const contentElement = event.target.nextElementSibling?.querySelector('.panel'); //event.target.nextElementSibling;
-    const contentElement = event.target.nextElementSibling;
+    const details = this.renderRoot.querySelector('details') as HTMLDetailsElement;
 
-    console.log(
-      'event on click detailsElement, contentElement',
-      detailsElement,
-      contentElement,
-      event,
-      event.target.nextElementSibling?.querySelector('.panel'),
-      this.hasAttribute('disabled')
+    // In Chrome opening animation is not working by default when opening details on the second time
+    requestAnimationFrame(() => this.wrapper.classList.add('opening'));
+    this.wrapper.addEventListener(
+      'animationend',
+      () => {
+        this.wrapper.classList.remove('opening');
+      },
+      { once: true }
     );
 
-    if (!detailsElement || !contentElement) {
-      return;
-    }
-    // TODO: emit event on click or on toggle better?
-
-    // Chrome sometimes has a hiccup and gets stuck.
-    /*    if (contentElement.classList.contains('animation')) {
-      // So we make sure to remove those classes manually,
-      contentElement.classList.remove('animation', 'collapsing');
-      // ... enforce a reflow so that collapsing may be animated again,
-      // void element.offsetWidth;
-      void this.offsetWidth;
-      // ... and fallback to the default behaviour this time.
-      return;
-    }*/
-    // const onAnimationEnd = (cb): void => contentElement?.addEventListener('animationend', cb, { once: true });
-
-    // const onAnimationEnd = (cb: () => void): void => {
-    //   contentElement.addEventListener('animationend', cb, { once: true });
-    // };
-
-    // requestAnimationFrame(() => contentElement.classList.add('opening'));
-    // onAnimationEnd(() => contentElement.classList.remove('opening'));
-    // this.#onAnimationend(event);
-
-    const isDetailsOpen = detailsElement.getAttribute('open') !== null;
-    console.log('isDetailsOpen in onClick', isDetailsOpen);
-    if (isDetailsOpen) {
-      // prevent default collapsing and delay it until the animation has completed
-      // event.preventDefault();
-      // contentElement.classList.add('closing');
-      // this.wrapper.classList.remove('opening');
-      requestAnimationFrame(() => contentElement.classList.add('closing'));
-      this.#onAnimationend(event);
-      // onAnimationEnd(() => {
-      // detailsElement?.removeAttribute('open');
-      //   contentElement.classList.remove('closing');
-      // });
-      // requestAnimationFrame(() => {
-      //   this.wrapper.classList.remove('closing');
-      // });
-      this.wrapper.classList.remove('closing');
-    } else {
-      requestAnimationFrame(() => contentElement.classList.add('opening'));
-
-      this.#onAnimationend(event);
-
-      this.wrapper.classList.remove('closing');
+    if (/*details.hasAttribute('open')*/ details.getAttribute('open') !== null) {
+      event.preventDefault();
+      this.wrapper.classList.add('closing');
+      this.wrapper.addEventListener(
+        'animationend',
+        () => {
+          details.removeAttribute('open');
+          this.wrapper.classList.remove('closing');
+        },
+        { once: true }
+      );
     }
   }
-
-  // #onClose(): void {
-  //   // Reenable scrolling after the dialog has closed
-  //   document.documentElement.style.overflow = '';
-  //
-  //   this.inert = true;
-  //   this.closeEvent.emit();
-  // }
-  //
-  // #onCloseClick(event: PointerEvent & { target: HTMLElement }): void {
-  //   event.preventDefault();
-  //   event.stopPropagation();
-  //
-  //   this.#closeDialogOnAnimationend(event.target as HTMLElement);
-  // }
-
-  // #closeDialogOnAnimationend(target?: HTMLElement, emitCancelEvent = false): void {
-  //   this.dialog?.addEventListener(
-  //     'animationend',
-  //     () => {
-  //       this.dialog?.removeAttribute('closing');
-  //
-  //       if (emitCancelEvent) {
-  //         this.cancelEvent.emit();
-  //       }
-  //
-  //       if (target?.matches('sl-button[sl-dialog-close]')) {
-  //         this.dialog?.close(target?.getAttribute('sl-dialog-close') || '');
-  //       } else {
-  //         this.dialog?.close();
-  //       }
-  //     },
-  //     { once: true }
-  //   );
-  //
-  //   /**
-  //    * Set the closing attribute, this triggers the closing animation.
-  //    *
-  //    * FIXME: We can replace this using `@starting-style` once this is available in all
-  //    * browsers. See https://developer.mozilla.org/en-US/docs/Web/CSS/@starting-style
-  //    */
-  //   requestAnimationFrame(() => this.dialog?.setAttribute('closing', ''));
-  // }
 }

@@ -29,8 +29,6 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
   /** Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened. */
   @property({ type: Boolean, reflect: true }) single?: boolean;
 
-  // TODO: add property summary and open attribute
-
   /** @private The slotted accordion items. */
   @queryAssignedElements() items!: AccordionItem[];
 
@@ -40,7 +38,6 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     if (changes.get('single') === false) {
       this.items.forEach(item => {
         if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
-          item.renderRoot.querySelector('details')?.click();
           item.renderRoot.querySelector('details')?.removeAttribute('open');
         }
       });
@@ -48,9 +45,7 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html` <div class="wrapper">
-      <slot @click=${this.#onClick}></slot>
-    </div>`;
+    return html` <slot @click=${this.#onClick}></slot> `;
   }
 
   #onClick(event: Event): void {
@@ -62,7 +57,6 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     this.items.forEach(item => {
       if (item !== event.target) {
         if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
-          item.renderRoot.querySelector('details')?.click();
           item.renderRoot.querySelector('details')?.removeAttribute('open');
         }
       }

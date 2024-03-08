@@ -60,6 +60,7 @@ summary {
   padding-block: var(--_padding-block);
   padding-inline: var(--_title-padding);
   position: relative;
+  z-index: 1; /* To work properly with sticky */
 
   @media (prefers-reduced-motion: no-preference) {
     transition: background var(--_transition-duration);
@@ -104,7 +105,8 @@ summary {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
   position: relative;
-  z-index: 1;
+  /** z-index is set to 2 to make sure the outline is above the summary, when that is focused or hovered */
+  z-index: 2;
 }
 
 .panel {

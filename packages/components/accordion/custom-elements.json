@@ -178,23 +178,6 @@
             },
             {
               "kind": "method",
-              "name": "#onAnimationend",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "#onClick",
               "return": {
                 "type": {
@@ -225,14 +208,6 @@
               "privacy": "private",
               "default": "`sl-accordion-item-content-${nextUniqueId++}`",
               "description": "Unique ID for each accordion item component content."
-            },
-            {
-              "kind": "field",
-              "name": "panel",
-              "type": {
-                "text": "HTMLDivElement"
-              },
-              "privacy": "private"
             },
             {
               "kind": "field",

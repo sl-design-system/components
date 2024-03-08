@@ -65,62 +65,62 @@
       },
       "accent": {
         "50": {
-          "value": "#FDF2D7",
+          "value": "#FDF3E0",
           "type": "color",
           "description": "color.palette.accent.50"
         },
         "100": {
-          "value": "#FBE3AC",
+          "value": "#FAE7BE",
           "type": "color",
           "description": "color.palette.accent.100"
         },
         "150": {
-          "value": "#F9D581",
+          "value": "#F8DA9C",
           "type": "color",
           "description": "color.palette.accent.150"
         },
         "200": {
-          "value": "#F6C656",
+          "value": "#F6CD7A",
           "type": "color",
           "description": "color.palette.accent.200"
         },
         "300": {
-          "value": "#F4B82B",
+          "value": "#F3C159",
           "type": "color",
           "description": "color.palette.accent.300"
         },
         "400": {
-          "value": "#F2A900",
+          "value": "#F1B437",
           "type": "color",
           "description": "color.palette.accent.400"
         },
         "500": {
-          "value": "#C98D00",
+          "value": "#C8962E",
           "type": "color",
           "description": "color.palette.accent.500"
         },
         "600": {
-          "value": "#A07000",
+          "value": "#A07724",
           "type": "color",
           "description": "color.palette.accent.600"
         },
         "700": {
-          "value": "#785400",
+          "value": "#77591B",
           "type": "color",
           "description": "color.palette.accent.700"
         },
         "800": {
-          "value": "#4F3700",
+          "value": "#4E3B12",
           "type": "color",
           "description": "color.palette.accent.800"
         },
         "900": {
-          "value": "#261B00",
+          "value": "#261C09",
           "type": "color",
           "description": "color.palette.accent.900"
         },
         "base": {
-          "value": "#F2A900",
+          "value": "#F1B437",
           "type": "color",
           "description": "color.palette.accent.base"
         }

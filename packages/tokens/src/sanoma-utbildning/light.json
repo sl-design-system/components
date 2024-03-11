@@ -3594,7 +3594,7 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.500}",
           "type": "color"
         },
         "border": {

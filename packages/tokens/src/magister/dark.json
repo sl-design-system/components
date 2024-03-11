@@ -3026,21 +3026,21 @@
     "badge": {
       "danger": {
         "background": {
-          "value": "{color.palette.danger.500}",
+          "value": "{color.palette.danger.150}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.500}",
+          "value": "{color.palette.success.300}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       },
@@ -3060,7 +3060,7 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       },
@@ -3076,21 +3076,21 @@
       },
       "primary": {
         "background": {
-          "value": "{color.palette.primary.base}",
+          "value": "{color.palette.primary.300}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       },
       "info": {
         "background": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.300}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       }

@@ -3842,7 +3842,7 @@
           }
         },
         "divider": {
-          "value": "{color.palette.neutral.150}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "description": "color.button.info.outline.disabled.foreground"
         }

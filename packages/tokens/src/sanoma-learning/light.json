@@ -55,7 +55,7 @@
     "badge": {
       "info": {
         "background": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.400}",
           "type": "color"
         },
         "foreground": {

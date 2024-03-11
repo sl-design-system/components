@@ -4254,7 +4254,7 @@
       },
       "info": {
         "background": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.600}",
           "type": "color",
           "failedToResolve": true
         },

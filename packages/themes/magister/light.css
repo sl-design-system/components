@@ -37,6 +37,7 @@
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-600));
   --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-600));
   --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-600));
   --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-white-base));
@@ -404,7 +405,6 @@
   --sl-color-tab-default-background: var(--sl-body-background);
   --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-avatar-header: var(--sl-body-foreground);
-  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-base));
   --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
   --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-base));
   --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-base));

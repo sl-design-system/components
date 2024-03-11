@@ -43,6 +43,7 @@
   --sl-color-tooltip-background: rgb(var(--sl-color-palette-primary-700));
   --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-popover-background: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-200));
@@ -420,6 +421,7 @@
   --sl-color-select-selectbox-default-default-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-select-selectbox-default-default-border: var(--sl-color-input-text-field-default-default-border);
   --sl-color-select-item-default-indicator: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-base));
   --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
   --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
   --sl-color-inline-message-danger-background: rgba(var(--sl-color-palette-danger-base) / var(--sl-opacity-300));

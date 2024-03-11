@@ -433,6 +433,8 @@
   --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-primary-50));
   --sl-color-button-default-solid-idle-background: rgba(var(--sl-color-palette-primary-50) / var(--sl-opacity-200));
+  --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-base));
   --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-300));
   --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));

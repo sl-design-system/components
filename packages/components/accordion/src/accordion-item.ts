@@ -104,7 +104,7 @@ export class AccordionItem extends LitElement {
       { once: true }
     );
 
-    if (/*details.hasAttribute('open')*/ details.getAttribute('open') !== null) {
+    if (details.hasAttribute('open')) {
       event.preventDefault();
       this.wrapper.classList.add('closing');
       this.wrapper.addEventListener(

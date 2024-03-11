@@ -1,13 +1,404 @@
-import type { AccordionItem } from './accordion-item.js';
+// import type { Accordion } from './accordion.js';
 import { expect, fixture } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
 import '../register.js';
+import { AccordionItem } from './accordion-item.js';
+import '../register.js';
 
 describe('sl-accordion-item', () => {
   // let el: Button;
   let el: AccordionItem;
+
+  // TODO: single version and click open close only one opened at once
+
+  describe('defaults', () => {
+    let details: HTMLDetailsElement;
+    let summary: HTMLElement;
+    let wrapper: HTMLDivElement;
+
+    beforeEach(async () => {
+      el = await fixture(
+        html` <sl-accordion-item summary="Accordion summary">Content of accordion</sl-accordion-item>`
+      );
+
+      details = el.renderRoot.querySelector('details') as HTMLDetailsElement;
+      summary = el.renderRoot.querySelector('summary') as HTMLElement;
+      wrapper = el.renderRoot.querySelector('.wrapper') as HTMLDivElement;
+    });
+
+    it('should render correctly', () => {
+      expect(el).shadowDom.to.equalSnapshot();
+    });
+
+    it('should not be disabled', () => {
+      console.log('el in item---', el);
+      expect(el).not.to.have.attribute('disabled');
+      expect(el.disabled).not.to.be.true;
+    });
+
+    // TODO: separated disabled
+
+    // it('should have a role of radiogroup', () => {
+    //   expect(el.internals.role).to.equal('radiogroup');
+    // });
+
+    // it('should not be disabled', () => {
+    //   const allDisabled = Array.from(el.querySelectorAll('sl-accordion-item')).every(accordion => accordion.disabled);
+    //
+    //   expect(el).not.to.have.attribute('disabled');
+    //   console.log('eeel', el, allDisabled);
+    //   expect(allDisabled).to.be.false;
+    // });
+
+    // it('should be disabled when set', async () => {
+    //   el.disabled = true;
+    //   await el.updateComplete;
+    //
+    //   expect(el).to.have.attribute('disabled');
+    //   expect(el.radios?.every(radio => radio.disabled)).to.be.true;
+    // });
+
+    it('should have the correct attributes', () => {
+      console.log('summary and el---', summary, el);
+      // expect(el).to.have.attribute('role', 'option');
+      // expect(el).to.have.attribute('aria-selected');
+      expect(summary).to.have.attribute('aria-controls', 'sl-accordion-item-content-5');
+      expect(summary).to.have.attribute('aria-expanded', 'false');
+      expect(summary).to.have.attribute('aria-disabled', 'false'); // TODO:  aria-controls aria-expanded aria-disabled tabindex
+    });
+
+    it('should not have single attribute by default', async () => {
+      // el.single = true;
+      // await el.updateComplete;
+
+      expect(el).not.to.have.attribute('single');
+    });
+
+    it('should open on click', async () => {
+      summary.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(details).to.have.attribute('open');
+      expect(summary).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should open on Enter', async () => {
+      summary.focus();
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(details).to.have.attribute('open');
+      expect(summary).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should open on Space', async () => {
+      summary.focus();
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(details).to.have.attribute('open');
+      expect(summary).to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should toggle the closing class during closing', async () => {
+      summary.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+      console.log('wrapper1', wrapper, summary, details);
+      console.log('details1', details);
+      expect(details).to.have.attribute('open');
+
+      // expect(el).not.to.have.class('sl-horizontal');
+      // expect(el).to.have.class('sl-has-media');
+      // expect(dialog).not.to.have.attribute('closing');
+      // expect(wrapper).to.have.class('closing');
+
+      // el.close();
+      summary.click();
+      await el.updateComplete;
+
+      // summary.click();
+      // await el.updateComplete;
+      // await new Promise(resolve => setTimeout(resolve));
+
+      // Wait for the event to be emitted
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(wrapper).to.have.class('closing');
+
+      // Simulate the animationend event that is used in #closeDialogOnAnimationend
+      wrapper.dispatchEvent(new Event('animationend'));
+
+      expect(wrapper).not.to.have.class('closing');
+    });
+
+    // it('should be single when set', async () => {
+    //   el.single = true;
+    //   await el.updateComplete;
+    //
+    //   expect(el).to.have.attribute('single');
+    // });
+
+    // it('should emit an sl-change event when clicking an option', async () => {
+    //   // const onChange = spy();
+    //   //
+    //   // el.addEventListener('sl-change', onChange);
+    //   // el.querySelector('sl-radio')?.click();
+    //   // await new Promise(resolve => setTimeout(resolve));
+    //   //
+    //   // expect(onChange).to.have.been.calledOnce;
+    // });
+
+    // it('should emit an sl-change event when pressing the space key on an option', async () => {
+    //   const onChange = spy();
+    //
+    //   el.addEventListener('sl-change', onChange);
+    //   el.querySelector('sl-radio')?.focus();
+    //   await sendKeys({ press: 'Space' });
+    //
+    //   expect(onChange).to.have.been.calledOnce;
+    // });
+    //
+    // it('should emit an sl-change event when pressing the enter key on an option', async () => {
+    //   const onChange = spy();
+    //
+    //   el.addEventListener('sl-change', onChange);
+    //   el.querySelector('sl-radio')?.focus();
+    //   await sendKeys({ press: 'Enter' });
+    //
+    //   expect(onChange).to.have.been.calledOnce;
+    // });
+
+    // it('should emit an sl-focus event when focusing the group', async () => {
+    //   const onFocus = spy();
+    //
+    //   el.addEventListener('sl-focus', onFocus);
+    //   el.querySelector('sl-radio')?.focus();
+    //   await new Promise(resolve => setTimeout(resolve));
+    //
+    //   expect(onFocus).to.have.been.calledOnce;
+    // });
+
+    // it('should emit an sl-blur event when blurring the group', () => {
+    //   const onBlur = spy();
+    //
+    //   el.addEventListener('sl-blur', onBlur);
+    //   el.querySelector('sl-radio')?.focus();
+    //   el.querySelector('sl-radio')?.blur();
+    //
+    //   expect(onBlur).to.have.been.calledOnce;
+    // });
+
+    // it('should emit an sl-validate event when calling reportValidity', () => {
+    //   const onValidate = spy();
+    //
+    //   el.addEventListener('sl-validate', onValidate);
+    //   el.reportValidity();
+    //
+    //   expect(onValidate).to.have.been.calledOnce;
+    // });
+
+    // TODO: open on keyboard enter / space
+
+    // it('should toggle only one accordion when single is set', async () => {
+    //   const items = Array.from(el.querySelectorAll('sl-accordion-item'));
+    //
+    //   el.single = true;
+    //   await el.updateComplete;
+    //
+    //   // items.forEach(item => {
+    //   //   if (item !== event.target) {
+    //   //     if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
+    //   //       item.renderRoot.querySelector('details')?.click();
+    //   //       item.renderRoot.querySelector('details')?.removeAttribute('open');
+    //   //     }
+    //   //   }
+    //   // });
+    //
+    //   console.log(' items[0]', items[0], items, el.single, el);
+    //   console.log('items[0].renderRoot', items[0].renderRoot.querySelector('summary'));
+    //
+    //   // items[0].click();
+    //
+    //   items[0].renderRoot.querySelector('summary').click();
+    //
+    //   await el.updateComplete;
+    //
+    //   // await new Promise(resolve => setTimeout(resolve, 100));
+    //   await new Promise(resolve => setTimeout(resolve));
+    //
+    //   console.log('222 items[0]', items[0].open, items[0], items[0].renderRoot);
+    //
+    //   expect(items.at(0)?.open).to.be.true;
+    //
+    //   // items[1].click();
+    //
+    //   items[1].renderRoot.querySelector('summary').click();
+    //
+    //   await el.updateComplete;
+    //
+    //   // await new Promise(resolve => setTimeout(resolve, 100));
+    //   await new Promise(resolve => setTimeout(resolve));
+    //
+    //   console.log(' items[0] at the end', items[0], items, el.single, el);
+    //
+    //   expect(items.at(0)?.open).to.be.false;
+    //   expect(items.at(1)?.open).to.be.true;
+    //
+    //   // expect(radios.at(0)?.checked).to.be.false;
+    //   // expect(radios.at(0)?.tabIndex).to.equal(0);
+    //   // expect(radios.at(1)?.checked).to.be.false;
+    //   // expect(radios.at(1)?.tabIndex).to.equal(-1);
+    //   //
+    //   // radios.at(0)?.focus();
+    //   // await sendKeys({ press: 'Space' });
+    //   //
+    //   // expect(radios.at(0)?.checked).to.be.true;
+    //   // expect(radios.at(1)?.checked).to.be.false;
+    //   //
+    //   // await sendKeys({ press: 'ArrowRight' });
+    //   // await sendKeys({ press: 'Enter' });
+    //   //
+    //   // expect(radios.at(0)?.checked).to.be.false;
+    //   // expect(radios.at(1)?.checked).to.be.true;
+    // });
+    //
+    // it('should not toggle only one accordion when there is no single set', async () => {
+    //   const items = Array.from(el.querySelectorAll('sl-accordion-item'));
+    //
+    //   // el.single = true;
+    //   // await el.updateComplete;
+    //
+    //   // items.forEach(item => {
+    //   //   if (item !== event.target) {
+    //   //     if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
+    //   //       item.renderRoot.querySelector('details')?.click();
+    //   //       item.renderRoot.querySelector('details')?.removeAttribute('open');
+    //   //     }
+    //   //   }
+    //   // });
+    //
+    //   console.log(' items[0]', items[0], items, el.single, el);
+    //   console.log('items[0].renderRoot', items[0].renderRoot.querySelector('summary'));
+    //
+    //   // items[0].click();
+    //
+    //   items[0].renderRoot.querySelector('summary').click();
+    //
+    //   await el.updateComplete;
+    //
+    //   // await new Promise(resolve => setTimeout(resolve, 100));
+    //   await new Promise(resolve => setTimeout(resolve));
+    //
+    //   console.log('222 items[0]', items[0].open, items[0], items[0].renderRoot);
+    //
+    //   expect(items.at(0)?.open).to.be.true;
+    //
+    //   // items[1].click();
+    //
+    //   items[1].renderRoot.querySelector('summary').click();
+    //
+    //   await el.updateComplete;
+    //
+    //   // await new Promise(resolve => setTimeout(resolve, 100));
+    //   await new Promise(resolve => setTimeout(resolve));
+    //
+    //   console.log('333 items[0] at the end', items[0], items, el.single, el);
+    //
+    //   expect(items.at(0)?.open).to.be.true;
+    //   expect(items.at(1)?.open).to.be.true;
+    //
+    //   // expect(radios.at(0)?.checked).to.be.false;
+    //   // expect(radios.at(0)?.tabIndex).to.equal(0);
+    //   // expect(radios.at(1)?.checked).to.be.false;
+    //   // expect(radios.at(1)?.tabIndex).to.equal(-1);
+    //   //
+    //   // radios.at(0)?.focus();
+    //   // await sendKeys({ press: 'Space' });
+    //   //
+    //   // expect(radios.at(0)?.checked).to.be.true;
+    //   // expect(radios.at(1)?.checked).to.be.false;
+    //   //
+    //   // await sendKeys({ press: 'ArrowRight' });
+    //   // await sendKeys({ press: 'Enter' });
+    //   //
+    //   // expect(radios.at(0)?.checked).to.be.false;
+    //   // expect(radios.at(1)?.checked).to.be.true;
+    // });
+  });
+
+  describe('disabled', () => {
+    let details: HTMLDetailsElement;
+    let summary: HTMLElement;
+
+    beforeEach(async () => {
+      el = await fixture(
+        html`<sl-accordion-item summary="Accordion summary of disabled item" disabled
+          >Content of disabled accordion item</sl-accordion-item
+        >`
+      );
+
+      details = el.renderRoot.querySelector('details') as HTMLDetailsElement;
+      summary = el.renderRoot.querySelector('summary') as HTMLElement;
+    });
+
+    it('should be disabled', async () => {
+      expect(el.disabled).to.be.true;
+    });
+
+    it('should have a tabindex of -1', async () => {
+      // el.disabled = true;
+      // await el.updateComplete;
+
+      console.log('ell-renderroot:::', el.renderRoot.querySelector('summary'));
+
+      expect(summary).to.have.attribute('tabindex', '-1');
+    });
+
+    it('should have the correct attributes', () => {
+      // const summary = el.renderRoot.querySelector('summary');
+      console.log("el.renderRoot.querySelector('summary') innn", el.renderRoot.querySelector('summary'));
+      expect(details).not.to.have.attribute('open');
+      expect(summary).to.have.attribute('aria-controls', 'sl-accordion-item-content-21');
+      expect(summary).to.have.attribute('aria-expanded', 'false');
+      expect(summary).to.have.attribute('aria-disabled', 'true'); // TODO:  aria-controls aria-expanded aria-disabled tabindex
+    });
+
+    it('should ignore clicks', async () => {
+      summary.click();
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(details).not.to.have.attribute('open');
+      expect(summary).not.to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should ignore Enter', async () => {
+      summary.focus();
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(details).not.to.have.attribute('open');
+      expect(summary).not.to.have.attribute('aria-expanded', 'true');
+    });
+
+    it('should ignore Space', async () => {
+      summary.focus();
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(details).not.to.have.attribute('open');
+      expect(summary).not.to.have.attribute('aria-expanded', 'true');
+    });
+  });
+
   //
   // describe('defaults', () => {
   //   beforeEach(async () => {

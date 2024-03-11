@@ -6,6 +6,7 @@ import { restore, spy, stub } from 'sinon';
 import '../register.js';
 import { Accordion } from './accordion.js';
 import '../register.js';
+import { AccordionItem } from './accordion-item';
 
 describe('sl-accordion', () => {
   // let el: Button;
@@ -58,6 +59,13 @@ describe('sl-accordion', () => {
     //   expect(el.radios?.every(radio => radio.disabled)).to.be.true;
     // });
 
+    it('should not have single attribute by default', async () => {
+      // el.single = true;
+      // await el.updateComplete;
+
+      expect(el).not.to.have.attribute('single');
+    });
+
     it('should be single when set', async () => {
       el.single = true;
       await el.updateComplete;
@@ -65,15 +73,15 @@ describe('sl-accordion', () => {
       expect(el).to.have.attribute('single');
     });
 
-    it('should emit an sl-change event when clicking an option', async () => {
-      // const onChange = spy();
-      //
-      // el.addEventListener('sl-change', onChange);
-      // el.querySelector('sl-radio')?.click();
-      // await new Promise(resolve => setTimeout(resolve));
-      //
-      // expect(onChange).to.have.been.calledOnce;
-    });
+    // it('should emit an sl-change event when clicking an option', async () => {
+    //   // const onChange = spy();
+    //   //
+    //   // el.addEventListener('sl-change', onChange);
+    //   // el.querySelector('sl-radio')?.click();
+    //   // await new Promise(resolve => setTimeout(resolve));
+    //   //
+    //   // expect(onChange).to.have.been.calledOnce;
+    // });
 
     // it('should emit an sl-change event when pressing the space key on an option', async () => {
     //   const onChange = spy();
@@ -142,24 +150,97 @@ describe('sl-accordion', () => {
       // });
 
       console.log(' items[0]', items[0], items, el.single, el);
+      console.log('items[0].renderRoot', items[0].renderRoot.querySelector('summary'));
 
-      items[0].click();
+      // items[0].click();
+
+      items[0]?.renderRoot.querySelector('summary')?.click();
 
       await el.updateComplete;
 
-      await new Promise(resolve => setTimeout(resolve, 1900));
-      // await new Promise(resolve => setTimeout(resolve));
+      // await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve));
 
       console.log('222 items[0]', items[0].open, items[0], items[0].renderRoot);
 
       expect(items.at(0)?.open).to.be.true;
 
-      items[1].click();
+      // items[1].click();
+
+      items[1]?.renderRoot.querySelector('summary')?.click();
 
       await el.updateComplete;
 
+      // await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve));
+
+      console.log(' items[0] at the end', items[0], items, el.single, el);
+
       expect(items.at(0)?.open).to.be.false;
+      expect(items.at(1)?.open).to.be.true;
+
+      // expect(radios.at(0)?.checked).to.be.false;
+      // expect(radios.at(0)?.tabIndex).to.equal(0);
+      // expect(radios.at(1)?.checked).to.be.false;
+      // expect(radios.at(1)?.tabIndex).to.equal(-1);
+      //
+      // radios.at(0)?.focus();
+      // await sendKeys({ press: 'Space' });
+      //
+      // expect(radios.at(0)?.checked).to.be.true;
+      // expect(radios.at(1)?.checked).to.be.false;
+      //
+      // await sendKeys({ press: 'ArrowRight' });
+      // await sendKeys({ press: 'Enter' });
+      //
+      // expect(radios.at(0)?.checked).to.be.false;
+      // expect(radios.at(1)?.checked).to.be.true;
+    });
+
+    it('should not toggle only one accordion when there is no single set', async () => {
+      const items = Array.from(el.querySelectorAll('sl-accordion-item')) as AccordionItem[];
+
+      // el.single = true;
+      // await el.updateComplete;
+
+      // items.forEach(item => {
+      //   if (item !== event.target) {
+      //     if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
+      //       item.renderRoot.querySelector('details')?.click();
+      //       item.renderRoot.querySelector('details')?.removeAttribute('open');
+      //     }
+      //   }
+      // });
+
+      console.log(' items[0]', items[0], items, el.single, el);
+      console.log('items[0].renderRoot', items[0].renderRoot.querySelector('summary'));
+
+      // items[0].click();
+
+      items[0].renderRoot.querySelector('summary')?.click();
+
+      await el.updateComplete;
+
+      // await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve));
+
+      console.log('222 items[0]', items[0].open, items[0], items[0].renderRoot);
+
       expect(items.at(0)?.open).to.be.true;
+
+      // items[1].click();
+
+      items[1].renderRoot.querySelector('summary')?.click();
+
+      await el.updateComplete;
+
+      // await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve));
+
+      console.log('333 items[0] at the end', items[0], items, el.single, el);
+
+      expect(items.at(0)?.open).to.be.true;
+      expect(items.at(1)?.open).to.be.true;
 
       // expect(radios.at(0)?.checked).to.be.false;
       // expect(radios.at(0)?.tabIndex).to.equal(0);

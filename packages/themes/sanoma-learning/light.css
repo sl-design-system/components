@@ -483,7 +483,6 @@
   --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
   --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
-  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-base));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-accordion-active-background: var(--sl-body-background);
@@ -693,6 +692,7 @@
   --sl-color-button-success-outline-active-border: rgb(var(--sl-color-palette-success-300));
   --sl-color-button-success-outline-hover-border: rgb(var(--sl-color-palette-success-300));
   --sl-color-button-success-solid-disabled-foreground: rgb(var(--sl-color-palette-success-300));
+  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-400));
   --sl-color-avatar-subheader: var(--sl-body-foreground);
   --sl-color-avatar-header: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);

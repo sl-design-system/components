@@ -4399,7 +4399,7 @@
       },
       "info": {
         "background": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.500}",
           "type": "color",
           "failedToResolve": true
         },

@@ -841,7 +841,7 @@
     --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-base));
     --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-base));
+    --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-500));
     --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
     --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-white-base));

@@ -36,7 +36,7 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     if (changes.get('single') === false) {
       this.items.forEach(item => {
         if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
-          item.renderRoot.querySelector('details')?.removeAttribute('open');
+          item.renderRoot.querySelector('summary')?.click();
         }
       });
     }
@@ -55,7 +55,7 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
     this.items.forEach(item => {
       if (item !== event.target) {
         if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
-          item.renderRoot.querySelector('details')?.removeAttribute('open');
+          item.renderRoot.querySelector('summary')?.click();
         }
       }
     });

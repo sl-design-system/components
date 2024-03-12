@@ -45,7 +45,7 @@ export class AccordionItem extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <details @toggle=${this.onToggle} @click=${this.#onClick} ?open=${this.open}>
+      <details @toggle=${this.onToggle} ?open=${this.open}>
         <summary
           id=${this.#accordionItemId}
           aria-controls=${this.#accordionItemContentId}
@@ -53,6 +53,7 @@ export class AccordionItem extends LitElement {
           aria-expanded=${this.open ? 'true' : 'false'}
           tabindex=${this.disabled ? -1 : 0}
           part="summary"
+          @click=${this.#onClick}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

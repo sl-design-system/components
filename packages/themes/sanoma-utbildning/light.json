@@ -4242,17 +4242,17 @@
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.info.500}",
+          "value": "{color.palette.info.600}",
           "type": "color",
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.500}",
           "type": "color",
           "failedToResolve": true
         },
         "icon": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.500}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4388,6 +4388,18 @@
       "primary": {
         "background": {
           "value": "{color.palette.primary.base}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      },
+      "info": {
+        "background": {
+          "value": "{color.palette.info.400}",
           "type": "color",
           "failedToResolve": true
         },

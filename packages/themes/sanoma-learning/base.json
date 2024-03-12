@@ -3806,7 +3806,7 @@
         "type": "spacing"
       },
       "block": {
-        "value": "{space.sm}",
+        "value": "{space.sm}+{space.2xs}",
         "type": "spacing"
       },
       "gap": {

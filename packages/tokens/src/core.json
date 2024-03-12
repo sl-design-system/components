@@ -1710,17 +1710,33 @@
       }
     },
     "menu": {
-      "block": {
-        "value": "{space.sm}",
-        "type": "spacing"
+      "container": {
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "inline": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        }
       },
-      "inline": {
-        "value": "{space.sm}",
-        "type": "spacing"
-      },
-      "gap": {
-        "value": "{space.xs}",
-        "type": "spacing"
+      "item": {
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "inline": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
       }
     },
     "breadcrumb": {

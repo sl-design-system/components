@@ -1,13 +1,13 @@
-import type { ReactiveController, ReactiveElement } from 'lit';
+import { type ReactiveController, type ReactiveElement } from 'lit';
 
 type DirectionTypes = 'horizontal' | 'vertical' | 'both' | 'grid';
 
 export type FocusGroupConfig<T> = {
-  focusInIndex?: (elements: T[]) => number;
+  focusInIndex?(elements: T[]): number;
   direction?: DirectionTypes | (() => DirectionTypes);
-  elementEnterAction?: (el: T) => void;
-  elements: () => T[];
-  isFocusableElement?: (el: T) => boolean;
+  elementEnterAction?(el: T): void;
+  elements(): T[];
+  isFocusableElement?(el: T): boolean;
   listenerScope?: HTMLElement | (() => HTMLElement);
 };
 

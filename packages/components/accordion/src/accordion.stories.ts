@@ -1,5 +1,5 @@
-import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/icon/register.js';
+import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
 

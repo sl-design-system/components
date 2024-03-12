@@ -1,14 +1,10 @@
-// import type { Accordion } from './accordion.js';
 import { expect, fixture } from '@open-wc/testing';
-import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { restore, spy, stub } from 'sinon';
 import '../register.js';
 import { AccordionItem } from './accordion-item.js';
-import '../register.js';
 
 describe('sl-accordion-item', () => {
-  // let el: Button;
   let el: AccordionItem;
 
   // TODO: single version and click open close only one opened at once
@@ -69,7 +65,7 @@ describe('sl-accordion-item', () => {
       expect(summary).to.have.attribute('aria-disabled', 'false'); // TODO:  aria-controls aria-expanded aria-disabled tabindex
     });
 
-    it('should not have single attribute by default', async () => {
+    it('should not have single attribute by default', () => {
       // el.single = true;
       // await el.updateComplete;
 
@@ -347,11 +343,11 @@ describe('sl-accordion-item', () => {
       summary = el.renderRoot.querySelector('summary') as HTMLElement;
     });
 
-    it('should be disabled', async () => {
+    it('should be disabled', () => {
       expect(el.disabled).to.be.true;
     });
 
-    it('should have a tabindex of -1', async () => {
+    it('should have a tabindex of -1', () => {
       // el.disabled = true;
       // await el.updateComplete;
 

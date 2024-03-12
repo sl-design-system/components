@@ -1,19 +1,18 @@
-import type { Select, SelectSize } from './select.js';
-import type { TemplateResult } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import { type FormControlShowValidity } from '@sl-design-system/form';
 import '@sl-design-system/form/register.js';
-import type { FormControlShowValidity } from '@sl-design-system/form';
-import { html } from 'lit';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html } from 'lit';
 import '../register.js';
+import { type Select, type SelectSize } from './select.js';
 
 type Props = Pick<Select, 'disabled' | 'placeholder' | 'required' | 'size' | 'value'> & {
   hint?: string;
   label?: string;
   options?: TemplateResult;
-  slot?: () => TemplateResult;
+  slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
 
@@ -134,7 +133,6 @@ export const EmbeddedComponents: Story = {
 
 export const Empty: Story = {
   args: {
-    options: html``,
     placeholder: undefined
   }
 };
@@ -174,7 +172,7 @@ export const OptionOverflow: Story = {
     options: html`
       ${Array.from(
         { length: 100 },
-        (_, i) => html`<sl-select-option value="${i + 1}">Option ${i + 1}</sl-select-option>`
+        (_, i) => html`<sl-select-option value=${i + 1}>Option ${i + 1}</sl-select-option>`
       )}
     `
   }
@@ -295,7 +293,7 @@ export const All: StoryObj = {
               <tr>
                 <td></td>
                 ${disabledStates.map(
-                  state => html`<td class="${state ? 'sb-disabled' : ''}">${state ? 'Disabled' : 'Enabled'}</td>`
+                  state => html`<td class=${state ? 'sb-disabled' : ''}>${state ? 'Disabled' : 'Enabled'}</td>`
                 )}
               </tr>
             </thead>
@@ -306,7 +304,7 @@ export const All: StoryObj = {
                     <th>${state}</th>
                     ${disabledStates.map(
                       disabledState => html`
-                        <td class="${disabledState ? 'sb-disabled' : ''}">
+                        <td class=${disabledState ? 'sb-disabled' : ''}>
                           <sl-select
                             ?disabled=${disabledState}
                             ?required=${state === 'invalid'}
@@ -324,31 +322,32 @@ export const All: StoryObj = {
                 `
               )}
               ${states.map(
-                state => html`<tr>
-                  <th>Placeholder ${state}</th>
-                  ${disabledStates.map(
-                    disabledState => html`
-                      <td class="${disabledState ? 'sb-disabled' : ''}">
-                        <sl-select
-                          ?disabled=${disabledState}
-                          ?required=${state === 'invalid'}
-                          .showValid=${state === 'valid'}
-                          .showValidity=${state}
-                          .size=${size}
-                          data-mock-state
-                          placeholder="Placeholder"
-                          ><sl-select-option .size=${size} ?disabled=${disabledState}>Hamster</sl-select-option>
-                        </sl-select>
-                      </td>
-                    `
-                  )}
-                </tr>`
+                state =>
+                  html`<tr>
+                    <th>Placeholder ${state}</th>
+                    ${disabledStates.map(
+                      disabledState => html`
+                        <td class=${disabledState ? 'sb-disabled' : ''}>
+                          <sl-select
+                            ?disabled=${disabledState}
+                            ?required=${state === 'invalid'}
+                            .showValid=${state === 'valid'}
+                            .showValidity=${state}
+                            .size=${size}
+                            data-mock-state
+                            placeholder="Placeholder"
+                            ><sl-select-option .size=${size} ?disabled=${disabledState}>Hamster</sl-select-option>
+                          </sl-select>
+                        </td>
+                      `
+                    )}
+                  </tr>`
               )}
               <tr>
                 <th>Unselected Option</th>
                 ${disabledStates.map(
                   state => html`
-                    <td class="${state ? 'sb-disabled' : ''}">
+                    <td class=${state ? 'sb-disabled' : ''}>
                       <sl-select-option .size=${size} ?disabled=${state}>🐹 Hamster</sl-select-option>
                     </td>
                   `
@@ -358,7 +357,7 @@ export const All: StoryObj = {
                 <th>Selected Option</th>
                 ${disabledStates.map(
                   state => html`
-                    <td class="${state ? 'sb-disabled' : ''}">
+                    <td class=${state ? 'sb-disabled' : ''}>
                       <sl-select-option .size=${size} ?disabled=${state} selected>🐹 Hamster</sl-select-option>
                     </td>
                   `

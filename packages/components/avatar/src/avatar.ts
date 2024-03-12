@@ -1,21 +1,18 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type {
-  AvatarBadge,
-  AvatarFallbackType,
-  AvatarIcon,
-  AvatarImage,
-  AvatarOrientation,
-  AvatarSize,
-  UserStatus
-} from './models.js';
-import type { AvatarConfig } from '@sl-design-system/shared';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Config } from '@sl-design-system/shared';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type AvatarConfig, Config } from '@sl-design-system/shared';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { LitElement, html, nothing, svg } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing, svg } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './avatar.scss.js';
+import {
+  type AvatarBadge,
+  type AvatarFallbackType,
+  type AvatarIcon,
+  type AvatarImage,
+  type AvatarOrientation,
+  type AvatarSize,
+  type UserStatus
+} from './models.js';
 
 const BORDER_WIDTH = 4; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
 const FOCUS_RING_STROKE_WIDTH = 2;
@@ -74,7 +71,7 @@ const OFFSET_SQUARE: Record<AvatarSize, number> = {
  *   <sl-avatar display-name="Lynn Smith" picture="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
  * ```
  *
- * @cssproperty --max-width - Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element.
+ * @cssprop --sl-avatar-max-inline-size - Max inline-size of the container in vertical mode. If not set it will behave like a regular `display: block` element.
  */
 export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -167,8 +164,10 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
   /** @private border width for calculations in the svg. */
   borderWidth = BORDER_WIDTH;
+
   /** @private offset of the badge for calculations in the svg. */
   offset = OFFSET_CIRCLE;
+
   /** @private offset of the badge for calculations in the svg. */
   profileName = '';
 
@@ -465,16 +464,17 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
     if (!element) return;
     this.#hasOverflow = element.offsetWidth < element.scrollWidth || element.offsetHeight + 4 < element.scrollHeight;
     if (this.#hasOverflow) {
-      element.setAttribute('aria-describedby', `avatar-tooltip`);
+      element.setAttribute('aria-describedby', 'avatar-tooltip');
     } else {
       element.removeAttribute('aria-describedby');
     }
   }
 
   async #waitForElement(selector: string): Promise<Element | null> {
-    return new Promise(resolve => {
+    return await new Promise(resolve => {
       if (this.renderRoot.querySelector(selector)) {
-        return resolve(this.renderRoot.querySelector(selector));
+        resolve(this.renderRoot.querySelector(selector));
+        return;
       }
 
       const observer = new MutationObserver(() => {

@@ -1,9 +1,7 @@
 :host {
   --_direction: column;
   --_gap: var(--sl-space-group-md);
-}
 
-:host {
   align-items: start;
   display: flex;
   flex-direction: column;
@@ -13,5 +11,6 @@
 
 :host([horizontal]) {
   --_gap: var(--sl-space-group-lg);
+
   flex-direction: row;
 }

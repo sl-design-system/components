@@ -1,9 +1,14 @@
-import type { CSSResult, PropertyValues, TemplateResult } from 'lit';
-import type { GridColumnEvent } from './events.js';
-import type { EventEmitter } from '@sl-design-system/shared';
-import { EventsController, dasherize, event, getNameByPath, getValueByPath } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import {
+  type EventEmitter,
+  EventsController,
+  dasherize,
+  event,
+  getNameByPath,
+  getValueByPath
+} from '@sl-design-system/shared';
+import { type CSSResult, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { type GridColumnEvent } from './events.js';
 import { type Grid } from './grid.js';
 
 /** Custom for aligning the content in the cells. */

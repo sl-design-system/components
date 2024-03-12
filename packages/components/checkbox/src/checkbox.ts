@@ -1,9 +1,7 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { EventEmitter } from '@sl-design-system/shared';
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
-import { EventsController, event } from '@sl-design-system/shared';
-import { LitElement, html, svg } from 'lit';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './checkbox.scss.js';

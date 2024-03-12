@@ -1,7 +1,6 @@
-import type { PropertyValues, TemplateResult } from 'lit';
 import { faGripDotsVertical } from '@fortawesome/pro-solid-svg-icons';
 import { Icon } from '@sl-design-system/icon';
-import { html } from 'lit';
+import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { GridColumn } from './column.js';
 
 Icon.register(faGripDotsVertical);

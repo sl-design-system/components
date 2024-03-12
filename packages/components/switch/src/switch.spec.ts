@@ -2,9 +2,9 @@ import { expect, fixture } from '@open-wc/testing';
 import { Icon } from '@sl-design-system/icon';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import '../register.js';
 import { Switch } from './switch.js';
-import { spy } from 'sinon';
 
 describe('sl-switch', () => {
   let el: Switch;
@@ -149,7 +149,7 @@ describe('sl-switch', () => {
       expect(el.validationMessage).to.equal('');
     });
 
-    it('should have a validation message after custom validation', async () => {
+    it('should have a validation message after custom validation', () => {
       el.addEventListener('sl-validate', () => el.setCustomValidity('Custom validation message'));
       el.click();
 
@@ -207,15 +207,15 @@ describe('sl-switch', () => {
   });
 
   describe('disabled', () => {
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       el = await fixture(html`<sl-switch disabled></sl-switch>`);
     });
 
-    it('should have an attribute', async () => {
+    it('should have an attribute', () => {
       expect(el).to.have.attribute('disabled');
     });
 
-    it('should not change the state when clicked', async () => {
+    it('should not change the state when clicked', () => {
       el.click();
 
       expect(el.checked).not.to.equal(true);

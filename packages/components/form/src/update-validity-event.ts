@@ -1,4 +1,4 @@
-import type { FormControlShowValidity } from './form-control-mixin.js';
+import { type FormControlShowValidity } from './form-control-mixin.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {

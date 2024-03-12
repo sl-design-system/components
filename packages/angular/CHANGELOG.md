@@ -1,5 +1,11 @@
 # @sl-design-system/angular
 
+## 0.1.5
+
+### Patch Changes
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Bump dependencies
+
 ## 0.1.4
 
 ### Patch Changes

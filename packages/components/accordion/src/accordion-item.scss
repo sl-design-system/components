@@ -21,9 +21,7 @@
   --_title-gap: var(--sl-space-accordion-title-gap);
   --_title-padding: var(--sl-space-accordion-title-inline);
   --_transition-duration: 300ms;
-}
 
-:host {
   display: flex;
   list-style: none;
 }
@@ -35,11 +33,6 @@
   rect {
     fill: var(--_title-color-disabled);
   }
-}
-
-details {
-  border-bottom: var(--_border-width) solid var(--_border-color);
-  flex: 1;
 }
 
 details > summary:first-of-type {
@@ -105,6 +98,7 @@ summary {
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
   position: relative;
+
   /** z-index is set to 2 to make sure the outline is above the summary, when that is focused or hovered */
   z-index: 2;
 }
@@ -120,13 +114,13 @@ summary {
 details[open] {
   summary::after {
     background-color: var(--_border-color);
+    block-size: var(--_border-width);
     content: '';
-    height: var(--_border-width);
+    inline-size: calc(100% - 2 * var(--_panel-padding-inline));
     inset-block-end: 0;
     inset-inline-start: 0;
     margin-inline: var(--_panel-padding-inline);
     position: absolute;
-    width: calc(100% - 2 * var(--_panel-padding-inline));
   }
 }
 
@@ -147,10 +141,13 @@ details[open] summary {
 }
 
 details {
+  border-block-end: var(--_border-width) solid var(--_border-color);
+  flex: 1;
+
   .wrapper {
-    // To ensure the accordion item can be opened/closed even when prefers-reduced-motion is on,
-    // we need to have a duration that is non-zero.
+    // To ensure the accordion item can be opened/closed even when prefers-reduced-motion is on, we need to have a duration that is non-zero.
     --_animation-duration: 0.001ms;
+
     animation-duration: var(--_animation-duration);
     display: grid;
     overflow: hidden;
@@ -171,6 +168,7 @@ details {
   details {
     .wrapper {
       --_animation-duration: var(--_transition-duration);
+
       transition: all var(--_transition-duration) cubic-bezier(0.7, -0.4, 0.4, 1.4);
     }
   }

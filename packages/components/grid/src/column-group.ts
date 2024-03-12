@@ -1,6 +1,5 @@
-import type { PropertyValues, TemplateResult } from 'lit';
 import { getNameByPath } from '@sl-design-system/shared';
-import { html } from 'lit';
+import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 import { GridColumnEvent } from './events.js';

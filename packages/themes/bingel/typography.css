@@ -83,7 +83,7 @@
   font-weight: var(--sl-text-typeset-font-weight-bold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -94,7 +94,7 @@
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -105,7 +105,7 @@
   font-weight: var(--sl-text-typeset-font-weight-regular);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-lg);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-lg);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -116,7 +116,7 @@
   font-weight: var(--sl-text-typeset-font-weight-bold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   line-height: var(--sl-text-typeset-line-height-md);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -127,7 +127,7 @@
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-md);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -138,7 +138,7 @@
   font-weight: var(--sl-text-typeset-font-weight-regular);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-md);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-md);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-md);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -149,7 +149,7 @@
   font-weight: var(--sl-text-typeset-font-weight-bold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   line-height: var(--sl-text-typeset-line-height-sm);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -160,7 +160,7 @@
   font-weight: var(--sl-text-typeset-font-weight-demibold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-sm);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -171,7 +171,7 @@
   font-weight: var(--sl-text-typeset-font-weight-regular);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-sm);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-sm);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-sm);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -182,7 +182,7 @@
   font-weight: var(--sl-text-typeset-font-weight-bold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-lg);
   line-height: var(--sl-text-typeset-line-height-lg);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-none);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -193,7 +193,7 @@
   font-weight: var(--sl-text-typeset-font-weight-regular);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-xl);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-none);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -204,7 +204,7 @@
   font-weight: var(--sl-text-typeset-font-weight-bold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-md);
   line-height: var(--sl-text-typeset-line-height-2xl);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-none);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -215,7 +215,7 @@
   font-weight: var(--sl-text-typeset-font-weight-regular);
   letter-spacing: var(--sl-text-typeset-letter-spacing-sm);
   line-height: var(--sl-text-typeset-line-height-3xl);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-none);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }
@@ -226,7 +226,7 @@
   font-weight: var(--sl-text-typeset-font-weight-bold);
   letter-spacing: var(--sl-text-typeset-letter-spacing-xs);
   line-height: var(--sl-text-typeset-line-height-4xl);
-  margin-bottom: var(--sl-text-typeset-paragraph-spacing-none);
+  margin-block-end: var(--sl-text-typeset-paragraph-spacing-none);
   text-decoration: var(--sl-text-typeset-text-decoration-none);
   text-transform: var(--sl-text-typeset-text-case-none);
 }

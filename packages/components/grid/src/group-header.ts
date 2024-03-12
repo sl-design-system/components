@@ -1,12 +1,10 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { faChevronRight } from '@fortawesome/pro-regular-svg-icons';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { LitElement, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './group-header.scss.js';
 

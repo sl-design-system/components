@@ -1,15 +1,10 @@
 // import type { Accordion } from './accordion.js';
 import { expect, fixture } from '@open-wc/testing';
-import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { restore, spy, stub } from 'sinon';
 import '../register.js';
 import { Accordion } from './accordion.js';
-import '../register.js';
-import { AccordionItem } from './accordion-item';
 
 describe('sl-accordion', () => {
-  // let el: Button;
   let el: Accordion;
 
   describe('empty', () => {
@@ -59,7 +54,7 @@ describe('sl-accordion', () => {
     //   expect(el.radios?.every(radio => radio.disabled)).to.be.true;
     // });
 
-    it('should not have single attribute by default', async () => {
+    it('should not have single attribute by default', () => {
       // el.single = true;
       // await el.updateComplete;
 
@@ -198,7 +193,7 @@ describe('sl-accordion', () => {
     });
 
     it('should not toggle only one accordion when there is no single set', async () => {
-      const items = Array.from(el.querySelectorAll('sl-accordion-item')) as AccordionItem[];
+      const items = Array.from(el.querySelectorAll('sl-accordion-item'));
 
       // el.single = true;
       // await el.updateComplete;

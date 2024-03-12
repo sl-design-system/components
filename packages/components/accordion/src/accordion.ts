@@ -1,10 +1,8 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { LitElement, html } from 'lit';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
-import styles from './accordion.scss.js';
 import { AccordionItem } from './accordion-item.js';
+import styles from './accordion.scss.js';
 
 /**
  * An accordion component that can contain accordion-items

@@ -1,8 +1,6 @@
-import type { TemplateResult } from 'lit-html';
-import type { CSSResultGroup } from 'lit';
 import { localized } from '@lit/localize';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './accordion-item.scss.js';

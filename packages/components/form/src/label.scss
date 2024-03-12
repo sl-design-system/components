@@ -3,9 +3,7 @@ $sizes: sm, md, lg;
 :host {
   --_color: var(--sl-body-foreground);
   --_fill: var(--sl-color-input-field-label-icon-default);
-}
 
-:host {
   align-items: center;
   color: var(--_color);
   display: inline-flex;
@@ -33,5 +31,5 @@ $sizes: sm, md, lg;
 slot[name='icon']::slotted(sl-icon) {
   align-self: center;
   fill: var(--_fill);
-  margin-left: var(--sl-space-input-field-label-icon-md);
+  margin-inline-start: var(--sl-space-input-field-label-icon-md);
 }

@@ -1,4 +1,4 @@
-import type { ReactiveControllerHost } from 'lit';
+import { type ReactiveControllerHost } from 'lit';
 
 export interface SelectionControllerOptions {
   multiple: boolean;

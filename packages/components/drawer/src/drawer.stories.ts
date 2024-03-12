@@ -1,8 +1,8 @@
-import type { Drawer } from './drawer.js';
-import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
+import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
+import { type Drawer } from './drawer.js';
 
 export default {
   title: 'Drawer',

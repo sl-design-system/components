@@ -1,8 +1,7 @@
-import type { GridColumnDataRenderer } from '../../index.js';
-import type { Person } from '@sl-design-system/example-data';
-import type { StoryObj } from '@storybook/web-components';
-import { getPeople } from '@sl-design-system/example-data';
+import { type Person, getPeople } from '@sl-design-system/example-data';
+import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { type GridColumnDataRenderer } from '../../index.js';
 import '../../register.js';
 
 type Story = StoryObj;

@@ -1,6 +1,6 @@
-import type { PropertyValues, ReactiveElement } from 'lit';
-import type { Constructor } from '@sl-design-system/shared';
 import { msg } from '@lit/localize';
+import { type Constructor } from '@sl-design-system/shared';
+import { type PropertyValues, type ReactiveElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { UpdateValidityEvent } from './update-validity-event.js';
 import { ValidateEvent } from './validate-event.js';

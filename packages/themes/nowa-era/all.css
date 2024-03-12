@@ -606,15 +606,15 @@
   --sl-space-button-bar-gap-inline: var(--sl-space-button-bar-gap-block);
   --sl-space-input-switch-padding-row-lg: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
-    (var(--sl-space-input-switch-padding-container) * 2)
+      (var(--sl-space-input-switch-padding-container) * 2)
   );
   --sl-space-input-switch-padding-row-md: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-md) +
-    (var(--sl-space-input-switch-padding-container) * 2)
+      (var(--sl-space-input-switch-padding-container) * 2)
   );
   --sl-space-input-switch-padding-row-sm: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-sm) +
-    (var(--sl-space-input-switch-padding-container) * 2)
+      (var(--sl-space-input-switch-padding-container) * 2)
   );
   --sl-space-input-text-field-gap-lg: var(--sl-space-button-outline-block-md);
   --sl-space-input-text-field-gap-md: var(--sl-space-button-outline-block-md);

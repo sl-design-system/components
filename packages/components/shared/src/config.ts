@@ -37,7 +37,7 @@ export class Config {
 
   static async #waitForWindowProperty(): Promise<ConfigSettings> {
     let tries = 0;
-    return new Promise<ConfigSettings>(resolve => {
+    return await new Promise<ConfigSettings>(resolve => {
       const checkProperty = (): void => {
         if (window.SLDSConfig?.config && Object.keys(window.SLDSConfig.config).length > 0) {
           resolve(window.SLDSConfig.config);

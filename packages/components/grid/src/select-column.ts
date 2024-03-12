@@ -1,5 +1,5 @@
-import { getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { Select, SelectOption } from '@sl-design-system/select';
+import { getValueByPath, setValueByPath } from '@sl-design-system/shared';
 import { type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';

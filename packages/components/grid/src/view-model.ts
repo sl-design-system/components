@@ -1,10 +1,13 @@
-import type { GridColumn } from './column.js';
-import type { Grid } from './grid.js';
 import { type DataSource, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { GridColumnGroup } from './column-group.js';
+import { type GridColumn } from './column.js';
+import { type Grid } from './grid.js';
 
 export class GridViewModelGroup {
-  constructor(public path: string, public value: string) {}
+  constructor(
+    public path: string,
+    public value: string
+  ) {}
 }
 
 export class GridViewModel<T = unknown> {

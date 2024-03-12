@@ -10,9 +10,7 @@
   --_divider-margin-block: 4px;
   --_padding-block: var(--sl-menu-padding);
   --_padding-inline: var(--sl-menu-padding);
-}
 
-:host {
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
@@ -68,7 +66,7 @@
 
 ::slotted(hr) {
   border: 0;
-  border-top: var(--_border);
+  border-block-start: var(--_border);
   margin-block: var(--_divider-margin-block);
   margin-inline: 0;
   padding: 0;

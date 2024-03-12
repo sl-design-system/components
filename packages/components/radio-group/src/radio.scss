@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 $variants: default, valid, invalid;
 $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
 $states: unchecked, checked;
@@ -15,6 +17,16 @@ $sizes: md, lg;
   --sl-size-input-icon-size-lg: 28px;
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+
+  align-items: start;
+  color: var(--_label-color);
+  cursor: pointer;
+  display: inline-flex;
+  font: var(--_font);
+  gap: var(--_gap);
+  line-height: var(--_line-height);
+  outline: none;
+  padding: var(--_padding);
 }
 
 @each $size in $sizes {
@@ -32,12 +44,12 @@ $sizes: md, lg;
 }
 
 @each $variant in $variants {
-  $i: index($variants, $variant);
-  $variant-selector: nth($variant-selectors, $i);
+  $i: list.index($variants, $variant);
+  $variant-selector: list.nth($variant-selectors, $i);
 
   @each $state in $states {
-    $j: index($states, $state);
-    $state-selector: nth($state-selectors, $j);
+    $j: list.index($states, $state);
+    $state-selector: list.nth($state-selectors, $j);
 
     :host(#{$variant-selector + $state-selector}) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-default-background);
@@ -74,18 +86,6 @@ $sizes: md, lg;
       --_fill: var(--sl-color-input-option-#{$variant}-#{$state}-disabled-icon);
     }
   }
-}
-
-:host {
-  align-items: start;
-  color: var(--_label-color);
-  cursor: pointer;
-  display: inline-flex;
-  font: var(--_font);
-  gap: var(--_gap);
-  line-height: var(--_line-height);
-  outline: none;
-  padding: var(--_padding);
 }
 
 :host(:where(:active, :focus-visible, :hover)) .box {

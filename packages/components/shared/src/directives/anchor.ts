@@ -1,3 +1,4 @@
+import { nothing } from 'lit';
 import {
   Directive,
   type DirectiveParameters,
@@ -6,7 +7,6 @@ import {
   PartType,
   directive
 } from 'lit/directive.js';
-import { nothing } from 'lit';
 import { type PositionPopoverOptions, positionPopover } from '../popover.js';
 
 declare global {

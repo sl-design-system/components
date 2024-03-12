@@ -1,13 +1,16 @@
-import type { Badge, BadgeSize, BadgeVariant } from './badge.js';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import { Icon } from '@sl-design-system/icon';
 import { faCheck, faGear } from '@fortawesome/pro-regular-svg-icons';
+import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
+import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 import '../register.js';
+import { type Badge, type BadgeSize, type BadgeVariant } from './badge.js';
 
 type Props = Pick<Badge, 'size' | 'variant'> & { icon?: boolean; text?: string };
 
 type Story = StoryObj<Props>;
+
+Icon.register(faCheck, faGear);
 
 const sizes: BadgeSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 const variants: BadgeVariant[] = ['neutral', 'primary', 'info', 'danger', 'success', 'warning', 'accent'];
@@ -51,20 +54,17 @@ export default {
       options: variants
     }
   },
-  render: ({ size, text, variant, icon }) =>
-    html`
-      <sl-badge .size=${size} .variant=${variant}
-        >${icon ? html`<sl-icon name="check"></sl-icon>` : nothing}${text}</sl-badge
-      >
-    `
+  render: ({ size, text, variant, icon }) => html`
+    <sl-badge .size=${size} .variant=${variant}>
+      ${icon ? html`<sl-icon name="check"></sl-icon>` : nothing} ${text}
+    </sl-badge>
+  `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
 export const All: Story = {
   render: () => {
-    Icon.register(faCheck, faGear);
-
     return html`
       <style>
         table {
@@ -89,16 +89,19 @@ export const All: Story = {
         </thead>
         <tbody>
           ${sizes.map(
-            size => html` <tr>
-              <th>${sizeName(size)}</th>
-              ${variants.map(
-                variant => html`<td>
-                  <sl-badge .variant=${variant} .size=${size}><sl-icon name="far-check"></sl-icon></sl-badge>
-                  <sl-badge .variant=${variant} .size=${size}>99+</sl-badge>
-                  <sl-badge .variant=${variant} .size=${size}><sl-icon name="far-gear"></sl-icon> away</sl-badge>
-                </td>`
-              )}
-            </tr>`
+            size =>
+              html` <tr>
+                <th>${sizeName(size)}</th>
+                ${variants.map(
+                  variant => html`
+                    <td>
+                      <sl-badge .variant=${variant} .size=${size}><sl-icon name="far-check"></sl-icon></sl-badge>
+                      <sl-badge .variant=${variant} .size=${size}>99+</sl-badge>
+                      <sl-badge .variant=${variant} .size=${size}><sl-icon name="far-gear"></sl-icon> away</sl-badge>
+                    </td>
+                  `
+                )}
+              </tr>`
           )}
         </tbody>
       </table>

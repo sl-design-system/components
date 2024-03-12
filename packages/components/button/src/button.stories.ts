@@ -1,11 +1,11 @@
-import type { Button, ButtonFill, ButtonSize, ButtonVariant } from './button.js';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/icon/register.js';
 import { faPinata } from '@fortawesome/pro-regular-svg-icons';
+import '@sl-design-system/button-bar/register.js';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
+import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
+import { type Button, type ButtonFill, type ButtonSize, type ButtonVariant } from './button.js';
 
 interface Props extends Pick<Button, 'disabled' | 'fill' | 'size' | 'variant'> {
   icon: string;
@@ -18,6 +18,8 @@ const fills: ButtonFill[] = ['solid', 'outline', 'link', 'ghost'];
 const variants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
 const disabledStates = [false, true];
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
+
+Icon.register(faPinata);
 
 export default {
   title: 'Button',
@@ -89,71 +91,74 @@ export const All: Story = {
         }
       </style>
       ${sizes.map(
-        size => html` <h2>Size: ${size}</h2>
-          <table>
-            <thead>
-              <tr>
-                <td></td>
-                ${fills.map(fill => html`<th colspan="6">${fill}</th>`)}
-              </tr>
-              <tr>
-                <td></td>
-                ${fills.map(_ =>
-                  disabledStates.map(
-                    disabledState =>
-                      html` <td colspan="3" class="${disabledState ? 'sb-disabled' : ''}">
-                        ${disabledState ? 'Disabled' : 'Enabled'}
-                      </td>`
-                  )
+        size =>
+          html` <h2>Size: ${size}</h2>
+            <table>
+              <thead>
+                <tr>
+                  <td></td>
+                  ${fills.map(fill => html`<th colspan="6">${fill}</th>`)}
+                </tr>
+                <tr>
+                  <td></td>
+                  ${fills.map(() =>
+                    disabledStates.map(
+                      disabledState => html`
+                        <td colspan="3" class=${disabledState ? 'sb-disabled' : ''}>
+                          ${disabledState ? 'Disabled' : 'Enabled'}
+                        </td>
+                      `
+                    )
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                ${variants.map(
+                  variant => html`
+                    <tr>
+                      <th>${variant}</th>
+                      ${fills.map(fill =>
+                        disabledStates.map(
+                          disabledState =>
+                            html` <td class=${disabledState ? 'sb-disabled' : ''}>
+                                <sl-button
+                                  .fill=${fill}
+                                  .size=${size}
+                                  ?disabled=${disabledState}
+                                  .variant=${variant}
+                                  data-mock-state
+                                  >Label
+                                </sl-button>
+                              </td>
+                              <td class=${disabledState ? 'sb-disabled' : ''}>
+                                <sl-button
+                                  .fill=${fill}
+                                  .size=${size}
+                                  ?disabled=${disabledState}
+                                  .variant=${variant}
+                                  data-mock-state
+                                >
+                                  <sl-icon name="face-smile"></sl-icon> Label
+                                </sl-button>
+                              </td>
+                              <td class=${disabledState ? 'sb-disabled' : ''}>
+                                <sl-button
+                                  .fill=${fill}
+                                  .size=${size}
+                                  ?disabled=${disabledState}
+                                  .variant=${variant}
+                                  data-mock-state
+                                >
+                                  <sl-icon name="face-smile"></sl-icon>
+                                </sl-button>
+                              </td>`
+                        )
+                      )}
+                    </tr>
+                  `
                 )}
-              </tr>
-            </thead>
-            <tbody>
-              ${variants.map(
-                variant => html`
-                  <tr>
-                    <th>${variant}</th>
-                    ${fills.map(fill =>
-                      disabledStates.map(
-                        disabledState => html` <td class="${disabledState ? 'sb-disabled' : ''}">
-                            <sl-button
-                              .fill=${fill}
-                              .size=${size}
-                              ?disabled=${disabledState}
-                              .variant=${variant}
-                              data-mock-state
-                              >Label
-                            </sl-button>
-                          </td>
-                          <td class="${disabledState ? 'sb-disabled' : ''}">
-                            <sl-button
-                              .fill=${fill}
-                              .size=${size}
-                              ?disabled=${disabledState}
-                              .variant=${variant}
-                              data-mock-state
-                            >
-                              <sl-icon name="face-smile"></sl-icon> Label
-                            </sl-button>
-                          </td>
-                          <td class="${disabledState ? 'sb-disabled' : ''}">
-                            <sl-button
-                              .fill=${fill}
-                              .size=${size}
-                              ?disabled=${disabledState}
-                              .variant=${variant}
-                              data-mock-state
-                            >
-                              <sl-icon name="face-smile"></sl-icon>
-                            </sl-button>
-                          </td>`
-                      )
-                    )}
-                  </tr>
-                `
-              )}
-            </tbody>
-          </table>`
+              </tbody>
+            </table>`
       )}`;
   }
 };
@@ -201,7 +206,6 @@ export const AlignmentIssues: Story = {
     }
   },
   render: ({ fill, variant }) => {
-    Icon.register(faPinata);
     return html`
       <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button>
       <sl-button .fill=${fill} size="md" .variant=${variant}><sl-icon name="far-pinata"></sl-icon></sl-button><br />

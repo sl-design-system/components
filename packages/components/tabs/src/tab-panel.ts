@@ -1,5 +1,4 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import styles from './tab-panel.scss.js';
 
 /**

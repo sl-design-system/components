@@ -1,9 +1,9 @@
-import type { TextField } from './text-field.js';
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
+import { type TextField } from './text-field.js';
 
 describe('sl-text-field', () => {
   let el: TextField, input: HTMLInputElement;
@@ -43,7 +43,7 @@ describe('sl-text-field', () => {
       expect(input.value).to.equal('');
     });
 
-    it('should have a value when set', async() => {
+    it('should have a value when set', async () => {
       el.value = 'my value';
       await el.updateComplete;
 
@@ -145,7 +145,7 @@ describe('sl-text-field', () => {
       await el.updateComplete;
 
       expect(input).to.have.attribute('minlength', '3');
-    })
+    });
 
     it('should focus the input when focusing the element', () => {
       el.focus();
@@ -218,7 +218,7 @@ describe('sl-text-field', () => {
       expect(el.validationMessage).to.equal('Please fill out this field.');
     });
 
-    it('should have a custom validation message after calling setCustomValidity', async () => {
+    it('should have a custom validation message after calling setCustomValidity', () => {
       el.setCustomValidity('Custom validation message');
 
       expect(el.validationMessage).to.equal('Custom validation message');
@@ -306,7 +306,7 @@ describe('sl-text-field', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-text-field>
-          <input id="foo" slot="input" placeholder="I am a custom input" type="color"/>
+          <input id="foo" slot="input" placeholder="I am a custom input" type="color" />
         </sl-text-field>
       `);
 

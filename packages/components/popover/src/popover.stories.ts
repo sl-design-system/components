@@ -17,7 +17,7 @@ export default {
   title: 'Popover',
   args: {
     alignSelf: 'center',
-    body: `I'm a popover example`,
+    body: "I'm a popover example",
     justifySelf: 'center',
     position: 'bottom'
   },

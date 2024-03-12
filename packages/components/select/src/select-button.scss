@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 $sizes: md, lg;
 $variants: default, valid, invalid;
 $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
@@ -14,8 +16,8 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 }
 
 @each $variant in $variants {
-  $i: index($variants, $variant);
-  $variant-selector: nth($variant-selectors, $i);
+  $i: list.index($variants, $variant);
+  $variant-selector: list.nth($variant-selectors, $i);
 
   :host(#{$variant-selector}:not([disabled])) {
     --_background: var(--sl-color-select-selectbox-#{$variant}-default-background);

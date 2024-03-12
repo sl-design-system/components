@@ -31,8 +31,7 @@ div {
   flex-direction: column;
   gap: var(--_gap);
   margin: 0;
-  overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
-  overflow-y: auto;
+  overflow: hidden auto; // `auto` because of FF issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);

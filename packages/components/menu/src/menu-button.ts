@@ -1,13 +1,13 @@
-import { type PopoverPosition } from '@sl-design-system/shared';
 import { localized, msg, str } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button, type ButtonFill, type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
+import { type PopoverPosition } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
-import { Menu } from './menu.js';
-import { MenuItem } from './menu-item.js';
 import styles from './menu-button.scss.js';
+import { MenuItem } from './menu-item.js';
+import { Menu } from './menu.js';
 
 /**
  * Custom element that combines a button and a menu and automatically wires them up

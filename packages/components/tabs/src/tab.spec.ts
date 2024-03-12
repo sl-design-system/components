@@ -15,22 +15,22 @@ describe('sl-tab', () => {
   });
 
   it('should have the correct aria values', () => {
-    expect(el).to.have.attribute('aria-selected','false');
-    expect(el).to.have.attribute('aria-disabled','false');
+    expect(el).to.have.attribute('aria-selected', 'false');
+    expect(el).to.have.attribute('aria-disabled', 'false');
   });
 
   it('should have the correct attributes', () => {
-    expect(el).to.have.attribute('slot','tabs');
-    expect(el).to.have.attribute('role','tab');
+    expect(el).to.have.attribute('slot', 'tabs');
+    expect(el).to.have.attribute('role', 'tab');
   });
 
-  it('should have the correct aria values', async () => {
+  it('should have the correct aria values when disabled and selected', async () => {
     el.selected = true;
     el.disabled = true;
 
     await el.updateComplete;
 
-    expect(el).to.have.attribute('aria-selected','true');
-    expect(el).to.have.attribute('aria-disabled','true');
+    expect(el).to.have.attribute('aria-selected', 'true');
+    expect(el).to.have.attribute('aria-disabled', 'true');
   });
 });

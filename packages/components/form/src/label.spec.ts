@@ -1,12 +1,12 @@
-import type { TextField } from '@sl-design-system/text-field';
-import type { Form } from './form.js';
-import type { Label } from './label.js';
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/switch/register.js';
+import { type TextField } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../register.js';
+import { type Form } from './form.js';
+import { type Label } from './label.js';
 
 describe('sl-label', () => {
   describe('defaults', () => {
@@ -42,7 +42,7 @@ describe('sl-label', () => {
       slLabel.for = undefined;
       await slLabel.updateComplete;
 
-      expect(el.querySelector('label')?.htmlFor).to.equal('')
+      expect(el.querySelector('label')?.htmlFor).to.equal('');
     });
 
     it('should not mark the label', () => {

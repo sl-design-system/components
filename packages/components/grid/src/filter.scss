@@ -1,12 +1,10 @@
 :host {
   --_active-color: var(--sl-color-input-option-default-checked-default-background);
   --_gap: 0.25rem;
-  --_icon-color: currentColor;
-}
+  --_icon-color: currentcolor;
 
-:host {
   display: block;
-  width: 100%;
+  inline-size: 100%;
 }
 
 :host([active]) {
@@ -23,12 +21,13 @@
 
 sl-popover {
   --_padding: 0;
+
   padding: 0;
 }
 
 header {
   align-items: center;
-  border-bottom: 1px solid #ccc;
+  border-block-end: 1px solid #ccc;
   display: flex;
   gap: 0.5rem;
   justify-content: space-between;

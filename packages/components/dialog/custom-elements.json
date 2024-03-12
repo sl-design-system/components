@@ -115,22 +115,22 @@
             },
             {
               "kind": "field",
+              "name": "dialogRole",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The role for the dialog element.",
+              "attribute": "dialog-role"
+            },
+            {
+              "kind": "field",
               "name": "disableCancel",
               "type": {
                 "text": "boolean | undefined"
               },
               "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
               "attribute": "disable-cancel"
-            },
-            {
-              "kind": "field",
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "attribute": "role"
             },
             {
               "kind": "method",
@@ -186,21 +186,21 @@
               "fieldName": "closeButton"
             },
             {
+              "name": "dialog-role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The role for the dialog element.",
+              "fieldName": "dialogRole"
+            },
+            {
               "name": "disable-cancel",
               "type": {
                 "text": "boolean | undefined"
               },
               "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
               "fieldName": "disableCancel"
-            },
-            {
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "fieldName": "role"
             }
           ],
           "mixins": [

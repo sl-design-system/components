@@ -3594,15 +3594,15 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.info.500}",
+          "value": "{color.palette.info.600}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.500}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.500}",
           "type": "color"
         }
       },
@@ -3715,6 +3715,16 @@
       "primary": {
         "background": {
           "value": "{color.palette.primary.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
+      },
+      "info": {
+        "background": {
+          "value": "{color.palette.info.400}",
           "type": "color"
         },
         "foreground": {

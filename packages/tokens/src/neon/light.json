@@ -90,6 +90,16 @@
           "value": "{color.palette.white.base}",
           "type": "color"
         }
+      },
+      "info": {
+        "background": {
+          "value": "{color.palette.info.base}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
+          "type": "color"
+        }
       }
     },
     "button": {

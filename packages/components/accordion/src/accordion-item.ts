@@ -45,7 +45,7 @@ export class AccordionItem extends LitElement {
 
   override render(): TemplateResult {
     return html`
-      <details @toggle=${this.onToggle} ?open=${this.open}>
+      <details @toggle=${this.#onToggle} ?open=${this.open}>
         <summary
           id=${this.#accordionItemId}
           aria-controls=${this.#accordionItemContentId}
@@ -77,7 +77,7 @@ export class AccordionItem extends LitElement {
     `;
   }
 
-  onToggle(event: ToggleEvent): void {
+  #onToggle(event: ToggleEvent): void {
     this.open = event.newState === 'open';
 
     this.toggleEvent.emit(event.newState);

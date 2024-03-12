@@ -60,7 +60,7 @@ describe('sl-accordion', () => {
 
       await el.updateComplete;
 
-      await new Promise(resolve => setTimeout(resolve));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       expect(items.at(0)?.open).to.be.false;
       expect(items.at(1)?.open).to.be.true;

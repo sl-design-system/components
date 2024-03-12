@@ -72,23 +72,6 @@
               "reflects": true
             },
             {
-              "kind": "method",
-              "name": "onToggle",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "ToggleEvent"
-                  }
-                }
-              ]
-            },
-            {
               "kind": "field",
               "name": "open",
               "type": {
@@ -161,7 +144,7 @@
           "methods": [
             {
               "kind": "method",
-              "name": "onToggle",
+              "name": "#onToggle",
               "return": {
                 "type": {
                   "text": "void"

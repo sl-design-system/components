@@ -205,7 +205,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An accordion component that can contain accordion-items\n\n```html\n  <sl-accordionn>...</sl-accordion>\n```",
+          "description": "An accordion component that can contain accordion-items\n\n```html\n  <sl-accordion>...</sl-accordion>\n```",
           "name": "Accordion",
           "slots": [
             {

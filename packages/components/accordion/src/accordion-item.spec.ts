@@ -62,7 +62,7 @@ describe('sl-accordion-item', () => {
 
     it('should open on Space', async () => {
       summary.focus();
-      await sendKeys({ press: 'Enter' });
+      await sendKeys({ press: 'Space' });
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
 
@@ -140,7 +140,7 @@ describe('sl-accordion-item', () => {
 
     it('should ignore Space', async () => {
       summary.focus();
-      await sendKeys({ press: 'Enter' });
+      await sendKeys({ press: 'Space' });
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
 

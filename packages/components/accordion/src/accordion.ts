@@ -7,7 +7,7 @@ import styles from './accordion.scss.js';
  * An accordion component that can contain accordion-items
  *
  * ```html
- *   <sl-accordionn>...</sl-accordion>
+ *   <sl-accordion>...</sl-accordion>
  * ```
  *
  * @slot default - The place for multiple <sl-accordion-item>

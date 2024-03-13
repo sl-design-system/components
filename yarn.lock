@@ -2307,7 +2307,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@custom-elements-manifest/analyzer@npm:^0.9.2, @custom-elements-manifest/analyzer@npm:^0.9.3":
+"@custom-elements-manifest/analyzer@npm:^0.9.3":
   version: 0.9.3
   resolution: "@custom-elements-manifest/analyzer@npm:0.9.3"
   dependencies:
@@ -5621,7 +5621,7 @@ __metadata:
     "@11ty/eleventy-img": "npm:^3.1.8"
     "@11ty/eleventy-navigation": "npm:^0.3.5"
     "@11ty/eleventy-plugin-syntaxhighlight": "npm:^5.0.0"
-    "@custom-elements-manifest/analyzer": "npm:^0.9.2"
+    "@custom-elements-manifest/analyzer": "npm:^0.9.3"
     "@custom-elements-manifest/to-markdown": "npm:^0.1.0"
     "@luncheon/esbuild-plugin-gzip": "npm:^0.1.0"
     "@oddbird/popover-polyfill": "npm:^0.4.0"

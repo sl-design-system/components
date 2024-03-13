@@ -134,12 +134,6 @@ details[open] {
   }
 }
 
-details[open] summary {
-  sl-icon:not(.opened) {
-    transform: rotate(90deg);
-  }
-}
-
 details {
   border-block-end: var(--_border-width) solid var(--_border-color);
   flex: 1;
@@ -165,12 +159,10 @@ details {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  details {
-    .wrapper {
-      --_animation-duration: var(--_transition-duration);
+  details .wrapper {
+    --_animation-duration: var(--_transition-duration);
 
-      transition: all var(--_transition-duration) cubic-bezier(0.7, -0.4, 0.4, 1.4);
-    }
+    transition: all var(--_transition-duration) cubic-bezier(0.7, -0.4, 0.4, 1.4);
   }
 }
 

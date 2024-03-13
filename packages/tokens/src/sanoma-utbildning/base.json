@@ -189,7 +189,7 @@
       },
       "info": {
         "50": {
-          "value": "{color.palette.info.base}",
+          "value": "#E6F1FB",
           "type": "color",
           "description": "color.palette.info.50"
         },
@@ -214,7 +214,7 @@
           "description": "color.palette.info.300"
         },
         "400": {
-          "value": "#0074DF",
+          "value": "{color.palette.info.base}",
           "type": "color",
           "description": "color.palette.info.400"
         },
@@ -244,7 +244,7 @@
           "description": "color.palette.info.900"
         },
         "base": {
-          "value": "#E6F1FB",
+          "value": "#0074DF",
           "type": "color",
           "description": "color.palette.info.base"
         }

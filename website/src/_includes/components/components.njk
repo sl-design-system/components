@@ -6,7 +6,7 @@ layout: base.njk
   <div class="ds-component__heading-wrapper">
     {% if version[packageName] %}<a href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F{{packageName}}%40{{version[packageName]}}"><span class="ds-badge">v{{version[packageName]}}</span></a>{% endif %}
     <h1 class="ds-heading-1">
-      {{ title }} 
+      {{ title }}
     </h1>
     <p class="ds-component__heading-description">{{ description }}</p>
   </div>
@@ -14,6 +14,18 @@ layout: base.njk
 <section>
   {%- for post in collections.component -%}
     {% if page.url === post.url %}
+      <sl-tab-group>
+        <sl-tab >Tab 1</sl-tab>
+        <sl-tab selected>Tab 2</sl-tab>
+        <sl-tab disabled>Tab 3</sl-tab>
+        <sl-tab selected>Tab 4</sl-tab>
+        <sl-tab selected>Tab 5</sl-tab>
+        <sl-tab-panel>Panel 1</sl-tab-panel>
+        <sl-tab-panel>Panel 2</sl-tab-panel>
+        <sl-tab-panel>Panel 3</sl-tab-panel>
+        <sl-tab-panel>Panel 4</sl-tab-panel>
+        <sl-tab-panel>Panel 5</sl-tab-panel>
+      </sl-tab-group>
       <div horizontal class="ds-tabs" role="tablist">
         <button class="ds-tab">Usage</button>
         <button class="ds-tab">Code</button>

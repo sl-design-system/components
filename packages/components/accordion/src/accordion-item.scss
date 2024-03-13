@@ -1,0 +1,177 @@
+:host {
+  --_background: var(--sl-color-accordion-default-header);
+  --_background-hover: var(--sl-color-accordion-hover-header);
+  --_background-active: var(--sl-color-accordion-active-header);
+  --_border-color: var(--sl-color-accordion-default-border);
+  --_border-width: var(--sl-border-width-divider);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
+  --_icon-size: var(--sl-size-accordion-icon-height);
+  --_padding-block: var(--sl-space-accordion-content-block);
+  --_panel-color: var(--sl-color-accordion-default-foreground);
+  --_panel-font: var(--sl-text-accordion-body);
+  --_panel-padding-block: var(--sl-space-accordion-content-block);
+  --_panel-padding-inline: var(--sl-space-accordion-content-inline);
+  --_title-color: var(--sl-color-accordion-default-foreground);
+  --_title-color-active: var(--sl-color-accordion-active-foreground);
+  --_title-color-disabled: var(--sl-color-accordion-disabled-foreground);
+  --_title-color-hover: var(--sl-color-accordion-hover-foreground);
+  --_title-font: var(--sl-text-accordion-title);
+  --_title-gap: var(--sl-space-accordion-title-gap);
+  --_title-padding: var(--sl-space-accordion-title-inline);
+  --_transition-duration: 300ms;
+
+  display: flex;
+  list-style: none;
+}
+
+:host([disabled]) summary {
+  color: var(--_title-color-disabled);
+  cursor: default;
+
+  rect {
+    fill: var(--_title-color-disabled);
+  }
+}
+
+details > summary:first-of-type {
+  list-style: none; /* Hides the default arrow */
+}
+
+details > summary:first-of-type::-webkit-details-marker {
+  display: none; /* Hides the default arrow in Safari */
+}
+
+summary {
+  background-color: var(--_background);
+  color: var(--_title-color);
+  cursor: pointer;
+  display: flex;
+  font: var(--_title-font);
+  gap: var(--_title-gap);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_title-padding);
+  position: relative;
+  z-index: 1; /* To work properly with sticky */
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background var(--_transition-duration);
+  }
+
+  // svg animation stylings
+  .horizontal-line {
+    transform: rotate(90deg);
+  }
+
+  rect {
+    fill: var(--_title-color);
+    transform-origin: center;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    @media (prefers-reduced-motion: no-preference) {
+      transition: transform var(--_transition-duration) cubic-bezier(0.6, 2, 0.6, 1);
+    }
+  }
+}
+
+:host(:not([disabled])) summary:hover {
+  background-color: var(--_background-hover);
+  color: var(--_title-color-hover);
+
+  rect {
+    fill: var(--_title-color-hover);
+  }
+}
+
+:host(:not([disabled])) summary:active {
+  background-color: var(--_background-active);
+  color: var(--_title-color-active);
+
+  rect {
+    fill: var(--_title-color-active);
+  }
+}
+
+:host(:not([disabled])) summary:focus-visible {
+  border-radius: var(--_focus-radius);
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+  position: relative;
+
+  /** z-index is set to 2 to make sure the outline is above the summary, when that is focused or hovered */
+  z-index: 2;
+}
+
+.panel {
+  color: var(--_panel-color);
+  font: var(--_panel-font);
+  min-block-size: 0;
+  padding: var(--_panel-padding-block) var(--_panel-padding-inline);
+  position: relative;
+}
+
+details[open] {
+  summary::after {
+    background-color: var(--_border-color);
+    block-size: var(--_border-width);
+    content: '';
+    inline-size: calc(100% - 2 * var(--_panel-padding-inline));
+    inset-block-end: 0;
+    inset-inline-start: 0;
+    margin-inline: var(--_panel-padding-inline);
+    position: absolute;
+  }
+}
+
+.opened {
+  .vertical-line {
+    transform: rotate(90deg);
+  }
+
+  .horizontal-line {
+    transform: rotate(270deg);
+  }
+}
+
+details {
+  border-block-end: var(--_border-width) solid var(--_border-color);
+  flex: 1;
+
+  .wrapper {
+    // To ensure the accordion item can be opened/closed even when prefers-reduced-motion is on, we need to have a duration that is non-zero.
+    --_animation-duration: 0.001ms;
+
+    animation-duration: var(--_animation-duration);
+    display: grid;
+    overflow: hidden;
+  }
+
+  .opening {
+    animation-name: content-expand;
+    animation-timing-function: linear;
+  }
+
+  .closing {
+    animation-direction: reverse;
+    animation-timing-function: linear;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  details .wrapper {
+    --_animation-duration: var(--_transition-duration);
+
+    transition: all var(--_transition-duration) cubic-bezier(0.7, -0.4, 0.4, 1.4);
+  }
+}
+
+@keyframes content-expand {
+  0% {
+    grid-template-rows: 0fr;
+  }
+
+  100% {
+    grid-template-rows: 1fr;
+  }
+}

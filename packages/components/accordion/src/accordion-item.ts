@@ -1,11 +1,9 @@
 import { localized } from '@lit/localize';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { property, query } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './accordion-item.scss.js';
-
-let nextUniqueId = 0;
 
 /**
  * An accordion item component.
@@ -18,37 +16,24 @@ export class AccordionItem extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /**
-   * Unique ID for each accordion item component.
-   */
-  #accordionItemId = `sl-accordion-item-${nextUniqueId++}`;
-
-  /**
-   * Unique ID for each accordion item component content.
-   */
-  #accordionItemContentId = `sl-accordion-item-content-${nextUniqueId++}`;
-
   /** A text shown in the header - as a title of the accordion item. */
-  @property() summary!: string;
+  @property() summary?: string;
 
   /** Whether the element is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** Emits when the accordion item has been toggled. */
-  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<string>;
-
   /** Whether the details element is opened. */
   @property({ reflect: true, type: Boolean }) open?: boolean;
 
-  /** @private */
-  @query('.wrapper') wrapper!: HTMLDivElement;
+  /** Emits when the accordion item has been toggled. */
+  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<string>;
 
   override render(): TemplateResult {
     return html`
       <details @toggle=${this.#onToggle} ?open=${this.open}>
         <summary
-          id=${this.#accordionItemId}
-          aria-controls=${this.#accordionItemContentId}
+          id="summary-id"
+          aria-controls="content"
           aria-disabled=${this.disabled ? 'true' : 'false'}
           aria-expanded=${this.open ? 'true' : 'false'}
           tabindex=${this.disabled ? -1 : 0}
@@ -69,7 +54,7 @@ export class AccordionItem extends LitElement {
           ${this.summary}
         </summary>
         <div class="wrapper">
-          <div id=${this.#accordionItemContentId} class="panel" role="region" aria-labelledby=${this.#accordionItemId}>
+          <div id="content" class="panel" role="region" aria-labelledby="summary-id">
             <slot></slot>
           </div>
         </div>
@@ -84,6 +69,8 @@ export class AccordionItem extends LitElement {
   }
 
   #onClick(event: Event & { target: HTMLElement }): void {
+    const wrapper = this.renderRoot.querySelector('.wrapper') as HTMLDivElement;
+
     if (this.disabled || event.defaultPrevented) {
       // No toggling when `disabled` or the user prevents it.
       event.preventDefault();
@@ -94,23 +81,23 @@ export class AccordionItem extends LitElement {
     const details = this.renderRoot.querySelector('details') as HTMLDetailsElement;
 
     // In Chrome opening animation is not working by default when opening details on the second time
-    requestAnimationFrame(() => this.wrapper.classList.add('opening'));
-    this.wrapper.addEventListener(
+    requestAnimationFrame(() => wrapper.classList.add('opening'));
+    wrapper.addEventListener(
       'animationend',
       () => {
-        this.wrapper.classList.remove('opening');
+        wrapper.classList.remove('opening');
       },
       { once: true }
     );
 
     if (details.hasAttribute('open')) {
       event.preventDefault();
-      this.wrapper.classList.add('closing');
-      this.wrapper.addEventListener(
+      wrapper.classList.add('closing');
+      wrapper.addEventListener(
         'animationend',
         () => {
           details.removeAttribute('open');
-          this.wrapper.classList.remove('closing');
+          wrapper.classList.remove('closing');
         },
         { once: true }
       );

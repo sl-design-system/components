@@ -1,4 +1,3 @@
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { AccordionItem } from './accordion-item.js';
@@ -13,14 +12,7 @@ import styles from './accordion.scss.js';
  *
  * @slot default - The place for multiple <sl-accordion-item>
  */
-export class Accordion extends ScopedElementsMixin(LitElement) {
-  /** @private */
-  static get scopedElements(): ScopedElementsMap {
-    return {
-      'sl-accordion-item': AccordionItem
-    };
-  }
-
+export class Accordion extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -31,19 +23,17 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
   @queryAssignedElements() items!: AccordionItem[];
 
   override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
     if (changes.get('single') === false) {
-      this.items.forEach(item => {
-        if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
+      this.items
+        .filter(item => item.renderRoot.querySelector('details')?.hasAttribute('open'))
+        .forEach(item => {
           item.renderRoot.querySelector('summary')?.click();
-        }
-      });
+        });
     }
   }
 
   override render(): TemplateResult {
-    return html` <slot @click=${this.#onClick}></slot> `;
+    return html`<slot @click=${this.#onClick}></slot>`;
   }
 
   #onClick(event: Event): void {
@@ -52,12 +42,12 @@ export class Accordion extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.items.forEach(item => {
-      if (item !== event.target) {
-        if (item.renderRoot.querySelector('details')?.hasAttribute('open')) {
-          item.renderRoot.querySelector('summary')?.click();
-        }
-      }
-    });
+    this.items
+      .filter(item => {
+        return item !== event.target && item.renderRoot.querySelector('details')?.hasAttribute('open');
+      })
+      .forEach(item => {
+        item.renderRoot.querySelector('summary')?.click();
+      });
   }
 }

@@ -14,6 +14,14 @@
             "name": "*",
             "package": "./src/accordion.js"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/accordion-item.js"
+          }
         }
       ]
     },
@@ -93,7 +101,7 @@
               "kind": "field",
               "name": "summary",
               "type": {
-                "text": "string"
+                "text": "string | undefined"
               },
               "description": "A text shown in the header - as a title of the accordion item.",
               "attribute": "summary"
@@ -113,7 +121,7 @@
             {
               "name": "summary",
               "type": {
-                "text": "string"
+                "text": "string | undefined"
               },
               "description": "A text shown in the header - as a title of the accordion item.",
               "fieldName": "summary"
@@ -177,30 +185,7 @@
               ]
             }
           ],
-          "fields": [
-            {
-              "kind": "field",
-              "name": "#accordionItemId",
-              "privacy": "private",
-              "default": "`sl-accordion-item-${nextUniqueId++}`",
-              "description": "Unique ID for each accordion item component."
-            },
-            {
-              "kind": "field",
-              "name": "#accordionItemContentId",
-              "privacy": "private",
-              "default": "`sl-accordion-item-content-${nextUniqueId++}`",
-              "description": "Unique ID for each accordion item component content."
-            },
-            {
-              "kind": "field",
-              "name": "wrapper",
-              "type": {
-                "text": "HTMLDivElement"
-              },
-              "privacy": "private"
-            }
-          ]
+          "fields": []
         }
       ],
       "exports": [
@@ -250,12 +235,6 @@
               "fieldName": "single"
             }
           ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements/lit-element.js"
-            }
-          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
@@ -282,16 +261,6 @@
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
-              "privacy": "private",
-              "readonly": true
-            },
             {
               "kind": "field",
               "name": "items",

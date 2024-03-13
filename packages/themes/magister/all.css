@@ -559,7 +559,7 @@
     var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-tab-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-tab-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
+  --sl-text-tab-title: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-tooltip-text-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);

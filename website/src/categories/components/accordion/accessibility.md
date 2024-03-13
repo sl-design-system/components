@@ -7,17 +7,17 @@ eleventyNavigation:
 ---
 <section>
 
-## Accordion accessibility content
+## Alignment
 
-This is the accessibility content of the Accordion component
+The icons are left-aligned to improve the experience for users with low vision, as the expanded/collapsed indicator is closer to the accordion title.
 
 </section>
 
 <section>
 
-## Accessibility content section
+## Keyboard interactions
 
-Another section
+Each accordion is a tab stop. Space or Enter keys expand or collapse accordions, which are collapsed by default. Interactive elements within expanded accordions integrate into the tab order automatically.
 
 </section>
 

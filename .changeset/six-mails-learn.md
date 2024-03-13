@@ -1,5 +1,5 @@
 ---
-"@sl-design-system/accordion": minor
+"@sl-design-system/accordion": patch
 ---
 
 New accordion component

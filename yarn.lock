@@ -4967,7 +4967,7 @@ __metadata:
     "@angular/platform-browser": "npm:^17.1.2"
     "@angular/platform-browser-dynamic": "npm:^17.1.2"
     "@babel/core": "npm:^7.24.0"
-    "@sl-design-system/locales": "npm:0.0.5"
+    "@sl-design-system/locales": "npm:0.0.6"
     "@storybook/addon-essentials": "npm:^7.6.17"
     "@storybook/addon-links": "npm:^7.6.17"
     "@storybook/angular": "npm:^7.6.17"
@@ -5281,11 +5281,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/locales@npm:0.0.5, @sl-design-system/locales@workspace:packages/locales":
+"@sl-design-system/locales@npm:0.0.6, @sl-design-system/locales@workspace:packages/locales":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/locales@workspace:packages/locales"
   dependencies:
     "@lit/localize": "npm:^0.12.1"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
   languageName: unknown
   linkType: soft
 
@@ -5429,6 +5431,14 @@ __metadata:
 "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/sanoma-learning@workspace:packages/themes/sanoma-learning"
+  dependencies:
+    "@sl-design-system/icon": "npm:0.0.9"
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning"
   dependencies:
     "@sl-design-system/icon": "npm:0.0.9"
   languageName: unknown

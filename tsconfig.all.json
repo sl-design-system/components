@@ -33,6 +33,7 @@
     { "path": "./packages/components/text-field"},
     { "path": "./packages/components/textarea" },
     { "path": "./packages/components/tooltip" },
+    { "path": "./packages/locales" },
     { "path": "./packages/themes/bingel" },
     { "path": "./packages/themes/bingel-dc" },
     { "path": "./packages/themes/bingel-int" },

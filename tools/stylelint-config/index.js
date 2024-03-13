@@ -13,7 +13,17 @@ export default {
     ],
     'csstools/use-logical': 'always',
     'order/properties-alphabetical-order': true,
-    'prettier/prettier': true,
+    'prettier/prettier': [
+      true,
+      {
+        arrowParens: 'avoid',
+        printWidth: 120,
+        singleQuote: true,
+        tabWidth: 2,
+        trailingComma: 'none',
+        endOfLine: 'auto'
+      }
+    ]
   },
   overrides: [
     {

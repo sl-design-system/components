@@ -23,16 +23,16 @@ Each accordion is a tab stop. `Space` or `Enter` keys expand or collapse accordi
 
 <section> 
 
-## Accessibility details
+## WAI-ARIA
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+WAI-ARIA Roles, States, and Properties for an avatar provide essential information to assistive technologies and screen readers. They convey the accordion's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
-</section>
+<div class="ds-table-wrapper">
 
-<section>
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`aria-expanded`|boolean|When `true`, the associated content is shown; when `false`, it’s hidden.|no|
+|`aria-controls`|id|This id references the hidden content beneath it|no|
 
-## Behaviour
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>
+{.ds-table .ds-table-align-top}
+</div>

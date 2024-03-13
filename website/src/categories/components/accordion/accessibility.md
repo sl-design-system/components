@@ -17,7 +17,7 @@ The icons are left-aligned to improve the experience for users with low vision, 
 
 ## Keyboard interactions
 
-Each accordion is a tab stop. Space or Enter keys expand or collapse accordions, which are collapsed by default. Interactive elements within expanded accordions integrate into the tab order automatically.
+Each accordion is a tab stop. `Space` or `Enter` keys expand or collapse accordions, which are collapsed by default. Interactive elements within expanded accordions integrate into the tab order automatically.
 
 </section>
 

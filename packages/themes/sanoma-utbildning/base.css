@@ -192,17 +192,17 @@
   --sl-color-palette-success-150: 130 209 180;
   --sl-color-palette-success-100: 173 224 206;
   --sl-color-palette-success-50: 215 240 231;
-  --sl-color-palette-info-base: 230 241 251;
+  --sl-color-palette-info-base: 0 116 223;
   --sl-color-palette-info-900: 0 18 35;
   --sl-color-palette-info-800: 0 38 73;
   --sl-color-palette-info-700: 0 47 98;
   --sl-color-palette-info-600: 0 77 148;
   --sl-color-palette-info-500: 0 96 185;
-  --sl-color-palette-info-400: 0 116 223;
   --sl-color-palette-info-300: 43 139 228;
   --sl-color-palette-info-200: 86 163 234;
   --sl-color-palette-info-150: 129 186 239;
   --sl-color-palette-info-100: 172 210 245;
+  --sl-color-palette-info-50: 230 241 251;
   --sl-color-palette-neutral-base: 50 50 50;
   --sl-color-palette-neutral-900: 24 24 24;
   --sl-color-palette-neutral-800: 50 50 50;
@@ -725,7 +725,7 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
-  --sl-color-palette-info-50: 230 241 251;
+  --sl-color-palette-info-400: 0 116 223;
   --sl-color-palette-accent-400: 241 180 55;
   --sl-color-palette-primary-400: 1 118 109;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);

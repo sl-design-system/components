@@ -17,7 +17,7 @@
   --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-500));
   --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-600));
   --sl-color-spinner-success: rgb(var(--sl-color-palette-success-500));
-  --sl-color-spinner-info: rgb(var(--sl-color-palette-info-base));
+  --sl-color-spinner-info: rgb(var(--sl-color-palette-info-500));
   --sl-color-spinner-accent: rgb(var(--sl-color-palette-accent-600));
   --sl-color-spinner-white: rgb(var(--sl-color-palette-white-base));
   --sl-color-spinner-default: rgb(var(--sl-color-palette-primary-base));
@@ -39,7 +39,6 @@
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
-  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-400));
   --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
   --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-white-base));
@@ -67,6 +66,7 @@
   --sl-color-inline-message-info-icon: rgb(var(--sl-color-palette-info-500));
   --sl-color-inline-message-info-border: rgb(var(--sl-color-palette-info-500));
   --sl-color-inline-message-info-foreground: rgb(var(--sl-color-palette-info-600));
+  --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-50));
   --sl-color-focusring-default: rgb(var(--sl-color-palette-primary-base));
   --sl-color-select-listbox-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-400));
@@ -438,7 +438,7 @@
   --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-avatar-subheader: var(--sl-body-foreground);
   --sl-color-avatar-header: var(--sl-body-foreground);
-  --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-50));
+  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-400));
   --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);
   --sl-color-dialog-background: var(--sl-body-background);

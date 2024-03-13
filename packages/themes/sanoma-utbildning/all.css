@@ -200,17 +200,17 @@
   --sl-color-palette-success-150: 130 209 180;
   --sl-color-palette-success-100: 173 224 206;
   --sl-color-palette-success-50: 215 240 231;
-  --sl-color-palette-info-base: 230 241 251;
+  --sl-color-palette-info-base: 0 116 223;
   --sl-color-palette-info-900: 0 18 35;
   --sl-color-palette-info-800: 0 38 73;
   --sl-color-palette-info-700: 0 47 98;
   --sl-color-palette-info-600: 0 77 148;
   --sl-color-palette-info-500: 0 96 185;
-  --sl-color-palette-info-400: 0 116 223;
   --sl-color-palette-info-300: 43 139 228;
   --sl-color-palette-info-200: 86 163 234;
   --sl-color-palette-info-150: 129 186 239;
   --sl-color-palette-info-100: 172 210 245;
+  --sl-color-palette-info-50: 230 241 251;
   --sl-color-palette-neutral-base: 50 50 50;
   --sl-color-palette-neutral-900: 24 24 24;
   --sl-color-palette-neutral-800: 50 50 50;
@@ -733,7 +733,7 @@
   --sl-text-heading-0: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-4xl) /
     var(--sl-text-typeset-line-height-4xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-typeset-font-family-icon: font-awesome-6-pro;
-  --sl-color-palette-info-50: 230 241 251;
+  --sl-color-palette-info-400: 0 116 223;
   --sl-color-palette-accent-400: 241 180 55;
   --sl-color-palette-primary-400: 1 118 109;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
@@ -818,7 +818,7 @@
     --sl-color-spinner-danger: rgb(var(--sl-color-palette-danger-500));
     --sl-color-spinner-warning: rgb(var(--sl-color-palette-warning-600));
     --sl-color-spinner-success: rgb(var(--sl-color-palette-success-500));
-    --sl-color-spinner-info: rgb(var(--sl-color-palette-info-base));
+    --sl-color-spinner-info: rgb(var(--sl-color-palette-info-500));
     --sl-color-spinner-accent: rgb(var(--sl-color-palette-accent-600));
     --sl-color-spinner-white: rgb(var(--sl-color-palette-white-base));
     --sl-color-spinner-default: rgb(var(--sl-color-palette-primary-base));
@@ -840,7 +840,6 @@
     --sl-color-avatar-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
     --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
-    --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-400));
     --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
     --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-white-base));
@@ -868,6 +867,7 @@
     --sl-color-inline-message-info-icon: rgb(var(--sl-color-palette-info-500));
     --sl-color-inline-message-info-border: rgb(var(--sl-color-palette-info-500));
     --sl-color-inline-message-info-foreground: rgb(var(--sl-color-palette-info-600));
+    --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-50));
     --sl-color-focusring-default: rgb(var(--sl-color-palette-primary-base));
     --sl-color-select-listbox-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-400));
@@ -1239,7 +1239,7 @@
     --sl-color-popover-foreground: var(--sl-body-foreground);
     --sl-color-avatar-subheader: var(--sl-body-foreground);
     --sl-color-avatar-header: var(--sl-body-foreground);
-    --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-50));
+    --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-400));
     --sl-color-dialog-border: var(--sl-body-background);
     --sl-color-dialog-foreground: var(--sl-body-foreground);
     --sl-color-dialog-background: var(--sl-body-background);

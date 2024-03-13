@@ -5436,6 +5436,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/sanoma-utbildning@workspace:packages/themes/sanoma-utbildning"
+  dependencies:
+    "@sl-design-system/icon": "npm:0.0.9"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/scripts@workspace:scripts":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/scripts@workspace:scripts"

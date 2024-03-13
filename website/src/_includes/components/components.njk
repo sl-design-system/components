@@ -15,16 +15,54 @@ layout: base.njk
   {%- for post in collections.component -%}
     {% if page.url === post.url %}
       <sl-tab-group>
-        <sl-tab >Tab 1</sl-tab>
-        <sl-tab selected>Tab 2</sl-tab>
-        <sl-tab disabled>Tab 3</sl-tab>
-        <sl-tab selected>Tab 4</sl-tab>
-        <sl-tab selected>Tab 5</sl-tab>
-        <sl-tab-panel>Panel 1</sl-tab-panel>
-        <sl-tab-panel>Panel 2</sl-tab-panel>
-        <sl-tab-panel>Panel 3</sl-tab-panel>
-        <sl-tab-panel>Panel 4</sl-tab-panel>
-        <sl-tab-panel>Panel 5</sl-tab-panel>
+        <sl-tab selected>Usage</sl-tab>
+        <sl-tab>Code</sl-tab>
+        <sl-tab>Accessibility</sl-tab>
+        <sl-tab-panel>
+          <div id="myVerticalTabsContent" class="ds-tabs__tab-content">
+            <div class="ds-tabs__tab-container"></div>
+            version: {{version[packageName]}}
+            {{packageName}}
+            {%- for usage in collections.usage -%}
+              {% if usage.url.includes(page.url) %}
+                {{ usage.templateContent | safe }}
+              {% endif %}
+            {%- endfor -%}
+            </div>
+{#          generateVerticalTabs(tabContent);#}
+{#          {% include "partials/modules/module-two-column--stacked-cards.njk" %}#}
+          <script type="module">
+            import { generateVerticalTabs } from '/js/scripts/tabs.js';
+            setTimeout(() => {
+              const verticalTabContent = document.getElementById('myVerticalTabsContent');
+              console.log('verticalTabContent', verticalTabContent);
+              generateVerticalTabs(verticalTabContent);
+            });
+            // const verticalTabContent = document.getElementById('myVerticalTabsContent');
+            // console.log('verticalTabContent', verticalTabContent);
+            // generateVerticalTabs(verticalTabContent);
+          </script>
+          // TODO: content is not wrapped by ds-tabs__tab-container, why??
+          </div>
+        </sl-tab-panel>
+        <sl-tab-panel>
+          <div class="ds-tabs__tab-content">
+            {%- for code in collections.code -%}
+              {% if code.url.includes(page.url) %}
+                {{ code.templateContent | safe }}
+              {% endif %}
+            {%- endfor -%}
+          </div>
+        </sl-tab-panel>
+        <sl-tab-panel>
+          <div class="ds-tabs__tab-content">
+            {%- for accessibility in collections.accessibility -%}
+              {% if accessibility.url.includes(page.url) %}
+                {{ accessibility.templateContent | safe }}
+              {% endif %}
+            {%- endfor -%}
+          </div>
+        </sl-tab-panel>
       </sl-tab-group>
       <div horizontal class="ds-tabs" role="tablist">
         <button class="ds-tab">Usage</button>

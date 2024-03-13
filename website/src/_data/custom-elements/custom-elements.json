@@ -14,6 +14,14 @@
             "name": "*",
             "package": "./src/accordion.js"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/accordion-item.js"
+          }
         }
       ]
     },
@@ -42,79 +50,58 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/accordion/src/accordion-item.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/accordion/src/accordion-item.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/accordion/src/accordion-item.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "An accordion item component.",
           "name": "AccordionItem",
+          "cssParts": [
+            {
+              "description": "Header element of the accordion-item",
+              "name": "summary"
+            }
+          ],
           "slots": [
             {
-              "description": "...",
+              "description": "Body content for the accordion",
               "name": "default"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "closeButton",
+              "name": "disabled",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Determines whether a close button should be shown in the top right corner.",
-              "attribute": "close-button"
+              "description": "Whether the element is disabled.",
+              "attribute": "disabled",
+              "reflects": true
             },
             {
               "kind": "field",
-              "name": "disableCancel",
+              "name": "open",
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
-              "attribute": "disable-cancel"
-            },
-            {
-              "kind": "method",
-              "name": "onToggle",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "ToggleEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "attribute": "role"
-            },
-            {
-              "kind": "event",
-              "name": "sl-cancel",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
-            },
-            {
-              "kind": "event",
-              "name": "sl-close",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the dialog has been closed."
+              "description": "Whether the details element is opened.",
+              "attribute": "open",
+              "reflects": true
             },
             {
               "kind": "event",
@@ -128,28 +115,13 @@
               "kind": "field",
               "name": "summary",
               "type": {
-                "text": "string"
+                "text": "string | undefined"
               },
+              "description": "A text shown in the header - as a title of the accordion item.",
               "attribute": "summary"
             }
           ],
           "events": [
-            {
-              "name": "cancelEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop.",
-              "fieldName": "cancelEvent"
-            },
-            {
-              "name": "closeEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the dialog has been closed.",
-              "fieldName": "closeEvent"
-            },
             {
               "name": "toggleEvent",
               "type": {
@@ -161,42 +133,28 @@
           ],
           "attributes": [
             {
-              "name": "close-button",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Determines whether a close button should be shown in the top right corner.",
-              "fieldName": "closeButton"
-            },
-            {
-              "name": "disable-cancel",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
-              "fieldName": "disableCancel"
-            },
-            {
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "fieldName": "role"
-            },
-            {
               "name": "summary",
               "type": {
-                "text": "string"
+                "text": "string | undefined"
               },
+              "description": "A text shown in the header - as a title of the accordion item.",
               "fieldName": "summary"
-            }
-          ],
-          "mixins": [
+            },
             {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements/lit-element.js"
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the element is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the details element is opened.",
+              "fieldName": "open"
             }
           ],
           "superclass": {
@@ -205,25 +163,7 @@
           },
           "tagName": "sl-accordion-item",
           "customElement": true,
-          "methods": [
-            {
-              "kind": "method",
-              "name": "onToggle",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "ToggleEvent"
-                  }
-                }
-              ]
-            }
-          ],
+          "methods": [],
           "fields": []
         }
       ],
@@ -240,29 +180,33 @@
     },
     {
       "kind": "javascript-module",
+      "path": "../packages/components/accordion/src/accordion.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/accordion/src/accordion.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/accordion/src/accordion.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "An accordion component....\n\n```html\n  <sl-accordionn>...</sl-accordion>\n```",
+          "description": "An accordion component that can contain accordion-items\n\n```html\n  <sl-accordion>...</sl-accordion>\n```",
           "name": "Accordion",
           "slots": [
             {
-              "description": "Text label of the button. Optionally an <code>sl-icon</code> can be added",
+              "description": "The place for multiple <sl-accordion-item>",
               "name": "default"
             }
           ],
           "members": [
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the button is disabled; when set no interaction is possible.",
-              "attribute": "disabled",
-              "reflects": true
-            },
             {
               "kind": "field",
               "name": "single",
@@ -276,26 +220,12 @@
           ],
           "attributes": [
             {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Whether the button is disabled; when set no interaction is possible.",
-              "fieldName": "disabled"
-            },
-            {
               "name": "single",
               "type": {
                 "text": "boolean | undefined"
               },
               "description": "Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened.",
               "fieldName": "single"
-            }
-          ],
-          "mixins": [
-            {
-              "name": "ScopedElementsMixin",
-              "package": "@open-wc/scoped-elements/lit-element.js"
             }
           ],
           "superclass": {
@@ -686,7 +616,7 @@
               "attribute": "variant",
               "reflects": true,
               "expandedType": {
-                "text": "'neutral' | 'primary' | 'danger' | 'success' | 'warning' | 'accent'"
+                "text": "'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent'"
               }
             }
           ],
@@ -710,7 +640,7 @@
               "default": "'neutral'",
               "fieldName": "variant",
               "expandedType": {
-                "text": "'neutral' | 'primary' | 'danger' | 'success' | 'warning' | 'accent'"
+                "text": "'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent'"
               }
             }
           ],

@@ -153,9 +153,9 @@ $transition-timing: 300ms;
   display: none;
 }
 
-.ds-tabs__tab-content:not(.ds-tabs__tab-content--active) {
-  display: none;
-}
+//.ds-tabs__tab-content:not(.ds-tabs__tab-content--active) {
+//  display: none;
+//}
 
 .ds-tabs[vertical] {
   display: none;

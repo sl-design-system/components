@@ -119,7 +119,7 @@ function generateTabsElements(): void {
   });
 }
 
-function generateVerticalTabs(verticalTabContent: Element): void {
+export function generateVerticalTabs(verticalTabContent: Element): void {
   if (!verticalTabContent) {
     return;
   }
@@ -435,3 +435,5 @@ function onScroll(event: Event): void {
   }
   slider.style.left = `${current.getBoundingClientRect().left - tabsWrapper.getBoundingClientRect().left}px`;
 }
+
+// module.exports = generateVerticalTabs;

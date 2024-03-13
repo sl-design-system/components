@@ -1,3 +1,126 @@
+# `../packages/components/accordion/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package            |
+| ---- | ---- | ----------- | ------ | ------------------ |
+| `js` | `*`  | *           |        | ./src/accordion.js |
+
+# `../packages/components/accordion/register.ts`:
+
+## Exports
+
+| Kind                        | Name                | Declaration   | Module                                               | Package |
+| --------------------------- | ------------------- | ------------- | ---------------------------------------------------- | ------- |
+| `custom-element-definition` | `sl-accordion`      | Accordion     | /packages/components/accordion/src/accordion.js      |         |
+| `custom-element-definition` | `sl-accordion-item` | AccordionItem | /packages/components/accordion/src/accordion-item.js |         |
+
+# `../packages/components/accordion/src/accordion-item.ts`:
+
+## class: `AccordionItem`, `sl-accordion-item`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name            | Privacy | Type                        | Default    | Description                                                                                           | Inherited From |
+| --------------- | ------- | --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------- | -------------- |
+| `closeButton`   |         | `boolean \| undefined`      |            | Determines whether a close button should be shown in the top right corner.                            |                |
+| `disableCancel` |         | `boolean \| undefined`      |            | Disables the ability to cancel the dialog by pressing the Escape key&#xA;or clicking on the backdrop. |                |
+| `role`          |         | `'dialog' \| 'alertdialog'` | `'dialog'` | The ARIA role of the dialog.                                                                          |                |
+| `summary`       |         | `string`                    |            |                                                                                                       |                |
+
+### Methods
+
+| Name       | Privacy | Description | Parameters           | Return | Inherited From |
+| ---------- | ------- | ----------- | -------------------- | ------ | -------------- |
+| `onToggle` |         |             | `event: ToggleEvent` | `void` |                |
+
+### Events
+
+| Name          | Type                   | Description                                                                                                                                | Inherited From |
+| ------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `cancelEvent` | `EventEmitter<void>`   | Emits when the cancel has been cancelled. This happens when the user closes&#xA;the dialog using the escape key or clicks on the backdrop. |                |
+| `closeEvent`  | `EventEmitter<void>`   | Emits when the dialog has been closed.                                                                                                     |                |
+| `toggleEvent` | `EventEmitter<string>` | Emits when the accordion item has been toggled.                                                                                            |                |
+
+### Attributes
+
+| Name             | Field         | Inherited From |
+| ---------------- | ------------- | -------------- |
+| `close-button`   | closeButton   |                |
+| `disable-cancel` | disableCancel |                |
+| `role`           | role          |                |
+| `summary`        | summary       |                |
+
+### Slots
+
+| Name      | Description |
+| --------- | ----------- |
+| `default` | ...         |
+
+<hr/>
+
+## Exports
+
+| Kind | Name            | Declaration   | Module                                                 | Package |
+| ---- | --------------- | ------------- | ------------------------------------------------------ | ------- |
+| `js` | `AccordionItem` | AccordionItem | ../packages/components/accordion/src/accordion-item.ts |         |
+
+# `../packages/components/accordion/src/accordion.ts`:
+
+## class: `Accordion`, `sl-accordion`
+
+### Superclass
+
+| Name         | Module | Package |
+| ------------ | ------ | ------- |
+| `LitElement` |        | lit     |
+
+### Mixins
+
+| Name                  | Module | Package                                 |
+| --------------------- | ------ | --------------------------------------- |
+| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
+
+### Fields
+
+| Name       | Privacy | Type                   | Default | Description                                                                                                | Inherited From |
+| ---------- | ------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------- | -------------- |
+| `disabled` |         | `boolean \| undefined` |         | Whether the button is disabled; when set no interaction is possible.                                       |                |
+| `single`   |         | `boolean \| undefined` |         | Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened. |                |
+
+### Attributes
+
+| Name       | Field    | Inherited From |
+| ---------- | -------- | -------------- |
+| `disabled` | disabled |                |
+| `single`   | single   |                |
+
+### Slots
+
+| Name      | Description                                                               |
+| --------- | ------------------------------------------------------------------------- |
+| `default` | Text label of the button. Optionally an <code>sl-icon</code> can be added |
+
+<hr/>
+
+## Exports
+
+| Kind | Name        | Declaration | Module                                            | Package |
+| ---- | ----------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `Accordion` | Accordion   | ../packages/components/accordion/src/accordion.ts |         |
+
 # `../packages/components/avatar/index.ts`:
 
 ## Exports
@@ -71,9 +194,9 @@
 
 ### CSS Properties
 
-| Name                          | Default | Description                                                                                                           |
-| ----------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
-| `--sl-avatar-max-inline-size` |         | Max inline-size of the container in vertical mode. If not set it will behave like a regular `display: block` element. |
+| Name          | Default | Description                                                                                                     |
+| ------------- | ------- | --------------------------------------------------------------------------------------------------------------- |
+| `--max-width` |         | Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element. |
 
 <hr/>
 
@@ -144,83 +267,6 @@
 | Kind | Name    | Declaration | Module                                    | Package |
 | ---- | ------- | ----------- | ----------------------------------------- | ------- |
 | `js` | `Badge` | Badge       | ../packages/components/badge/src/badge.ts |         |
-
-# `../packages/components/breadcrumbs/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package              |
-| ---- | ---- | ----------- | ------ | -------------------- |
-| `js` | `*`  | *           |        | ./src/breadcrumbs.js |
-
-# `../packages/components/breadcrumbs/register.ts`:
-
-## Exports
-
-| Kind                        | Name             | Declaration | Module                                              | Package |
-| --------------------------- | ---------------- | ----------- | --------------------------------------------------- | ------- |
-| `custom-element-definition` | `sl-breadcrumbs` | Breadcrumbs | /packages/components/breadcrumbs/src/breadcrumbs.js |         |
-
-# `../packages/components/breadcrumbs/src/breadcrumbs.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                     | Package |
-| ---- | --------- | ----------- | ---------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/breadcrumbs/src/breadcrumbs.scss.ts |         |
-
-# `../packages/components/breadcrumbs/src/breadcrumbs.ts`:
-
-## class: `Breadcrumbs`, `sl-breadcrumbs`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                                 |
-| --------------------- | ------ | --------------------------------------- |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
-
-### Static Fields
-
-| Name      | Privacy | Type      | Default | Description                                                                                                                                                                                                                                                    | Inherited From |
-| --------- | ------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `homeUrl` |         | `string`  | `'/'`   | The url for the home link, defaults to the root url.&#xA;&#xA;By changing this static property you can change the default value for&#xA;all future instances of the component. Changing the static property&#xA;won't affect already created instances.        |                |
-| `noHome`  |         | `boolean` | `false` | When true doesn't show a home link as the first breadcrumb.&#xA;&#xA;By changing this static property you can change the default value for&#xA;all future instances of the component. Changing the static property&#xA;won't affect already created instances. |                |
-
-### Fields
-
-| Name                | Privacy | Type           | Default | Description                                                                                                                                                                                                                                                                                              | Inherited From |
-| ------------------- | ------- | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `breadcrumbs`       |         | `Breadcrumb[]` | `[]`    | The slotted breadcrumbs.                                                                                                                                                                                                                                                                                 |                |
-| `collapseThreshold` |         | `number`       | `3`     | The threshold for when breadcrumbs should be collapsed into a menu.                                                                                                                                                                                                                                      |                |
-| `homeUrl`           |         |                |         | The url for the home link, defaults to the root url.&#xA;&#xA;If you want to change the default value for all future instances of the component,&#xA;you can change the static property. If you want to change the property of an already&#xA;created instance, you need to change this property.        |                |
-| `noHome`            |         |                |         | When true doesn't show a home link as the first breadcrumb.&#xA;&#xA;If you want to change the default value for all future instances of the component,&#xA;you can change the static property. If you want to change the property of an already&#xA;created instance, you need to change this property. |                |
-
-### Attributes
-
-| Name       | Field   | Inherited From |
-| ---------- | ------- | -------------- |
-| `home-url` | homeUrl |                |
-| `no-home`  | noHome  |                |
-
-### Slots
-
-| Name      | Description                 |
-| --------- | --------------------------- |
-| `default` | The breadcrumbs to display. |
-
-<hr/>
-
-## Exports
-
-| Kind | Name          | Declaration | Module                                                | Package |
-| ---- | ------------- | ----------- | ----------------------------------------------------- | ------- |
-| `js` | `Breadcrumbs` | Breadcrumbs | ../packages/components/breadcrumbs/src/breadcrumbs.ts |         |
 
 # `../packages/components/button-bar/index.ts`:
 
@@ -358,90 +404,6 @@
 | Kind | Name     | Declaration | Module                                      | Package |
 | ---- | -------- | ----------- | ------------------------------------------- | ------- |
 | `js` | `Button` | Button      | ../packages/components/button/src/button.ts |         |
-
-# `../packages/components/card/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package       |
-| ---- | ---- | ----------- | ------ | ------------- |
-| `js` | `*`  | *           |        | ./src/card.js |
-
-# `../packages/components/card/register.ts`:
-
-## Exports
-
-| Kind                        | Name      | Declaration | Module                                | Package |
-| --------------------------- | --------- | ----------- | ------------------------------------- | ------- |
-| `custom-element-definition` | `sl-card` | Card        | /packages/components/card/src/card.js |         |
-
-# `../packages/components/card/src/card.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/card/src/card.scss.ts |         |
-
-# `../packages/components/card/src/card.ts`:
-
-## class: `Card`, `sl-card`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name             | Privacy | Type                   | Default        | Description                                                                                                                                                                            | Inherited From |
-| ---------------- | ------- | ---------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
-| `explicitHeight` |         | `boolean \| undefined` |                | When the height of the card is set (or constrained) by its container (for example in a grid with fixed rows) this needs to be set to be added in order to assure the correct rendering |                |
-| `height`         |         | `CardHeightOptions`    | `'fixed'`      | When the height is `fixed` the image will determine the height of the card, when it is `flex` the height of the text will determine the height of the card.                            |                |
-| `mediaPosition`  |         | `CardMediaPosition`    | `'start'`      | Show the media at the start or at the end.                                                                                                                                             |                |
-| `orientation`    |         | `CardOrientation`      | `'horizontal'` | The position of the media in relation to the text                                                                                                                                      |                |
-| `padding`        |         | `boolean`              | `false`        | Indicates whether there is a padding around the media. Recommended to set to true when the `--sl-card-stretch-image` isn't set to 100%                                                 |                |
-
-### Attributes
-
-| Name              | Field          | Inherited From |
-| ----------------- | -------------- | -------------- |
-| `padding`         | padding        |                |
-| `explicit-height` | explicitHeight |                |
-| `height`          | height         |                |
-| `orientation`     | orientation    |                |
-| `media-position`  | mediaPosition  |                |
-
-### CSS Properties
-
-| Name                               | Default | Description                                                                                                                                                                                           |
-| ---------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--sl-card-media-aspect-ratio`     |         | The aspectratio of the media container (default is 4/3). By default this ratio is always maintained, and will cause the media to become smaller when there isn't sufficient space for the full width. |
-| `--sl-card-media-width`            |         | The width of the media in relation to the text. Can be set in pixels or `fr`.                                                                                                                         |
-| `--sl-card-media-x`                |         | X-Focuspoint of the media; this is taken as the center when the media is cropped.                                                                                                                     |
-| `--sl-card-media-y`                |         | Y-Focuspoint of the media; this is taken as the center when the media is cropped.                                                                                                                     |
-| `--sl-card-orientation-breakpoint` |         | When card is smaller than this size it will switch from horizontal (when set) to vertical layout.                                                                                                     |
-| `--sl-card-stretch-image`          |         | Set this to 100% when the aspectratio of the media doesn't matter and you want it to fill the full height of the card.                                                                                |
-| `--sl-card-text-width`             |         | The width of the text in relation to the media. Can be set in pixels (not recommended) or `fr`.                                                                                                       |
-
-### Slots
-
-| Name      | Description                          |
-| --------- | ------------------------------------ |
-| `default` | Title of the card                    |
-| `media`   | Media, this can be an image or video |
-| `header`  | Subtitle or badges                   |
-| `body`    | Body text of the card                |
-| `actions` | Icon button for actions on the card. |
-
-<hr/>
-
-## Exports
-
-| Kind | Name   | Declaration | Module                                  | Package |
-| ---- | ------ | ----------- | --------------------------------------- | ------- |
-| `js` | `Card` | Card        | ../packages/components/card/src/card.ts |         |
 
 # `../packages/components/checkbox/index.ts`:
 
@@ -687,8 +649,8 @@
 | Name            | Privacy | Type                        | Default    | Description                                                                                           | Inherited From |
 | --------------- | ------- | --------------------------- | ---------- | ----------------------------------------------------------------------------------------------------- | -------------- |
 | `closeButton`   |         | `boolean \| undefined`      |            | Determines whether a close button should be shown in the top right corner.                            |                |
-| `dialogRole`    |         | `'dialog' \| 'alertdialog'` | `'dialog'` | The role for the dialog element.                                                                      |                |
 | `disableCancel` |         | `boolean \| undefined`      |            | Disables the ability to cancel the dialog by pressing the Escape key&#xA;or clicking on the backdrop. |                |
+| `role`          |         | `'dialog' \| 'alertdialog'` | `'dialog'` | The ARIA role of the dialog.                                                                          |                |
 
 ### Methods
 
@@ -709,8 +671,8 @@
 | Name             | Field         | Inherited From |
 | ---------------- | ------------- | -------------- |
 | `close-button`   | closeButton   |                |
-| `dialog-role`    | dialogRole    |                |
 | `disable-cancel` | disableCancel |                |
+| `role`           | role          |                |
 
 ### CSS Properties
 
@@ -810,12 +772,6 @@
 | `disable-close`   | disableClose    |                |
 | `attachment`      | attachment      |                |
 | `closeButtonSize` | closeButtonSize |                |
-
-### CSS Properties
-
-| Name                          | Default | Description                           |
-| ----------------------------- | ------- | ------------------------------------- |
-| `--sl-drawer-max-inline-size` |         | The maximum inline size of the drawer |
 
 ### Slots
 
@@ -2425,7 +2381,7 @@
 | ------- | ------- | ----------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- | -------------- |
 | `label` |         | `string \| undefined`                                             |         | The label of the icon; Describes the icon for assistive devices. If not present, the icon is considered&#xA;to be purely presentational. |                |
 | `name`  |         | `string \| undefined`                                             |         | The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma.                                         |                |
-| `size`  |         | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| '4xl'` |         | The size of the icon.                                                                                                                    |                |
+| `size`  |         | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| '4xl'` | `'md'`  | The size of the icon                                                                                                                     |                |
 
 ### Attributes
 
@@ -2437,12 +2393,11 @@
 
 ### CSS Properties
 
-| Name                       | Default | Description                                    |
-| -------------------------- | ------- | ---------------------------------------------- |
-| `--sl-icon-container-size` |         | The size of the icon container, defaults to md |
-| `--sl-icon-fill-accent`    |         | Accent color, only used for multicolor icons   |
-| `--sl-icon-fill-default`   |         | Default fill color                             |
-| `--sl-icon-size`           |         | The size of the svg element, defaults to md    |
+| Name                                                     | Default | Description                                  |
+| -------------------------------------------------------- | ------- | -------------------------------------------- |
+| `--fill-default:`                                        |         | currentColor;                                |
+| `--fill-accent: rgb(var(--sl-color-palette-accent-300))` |         | Accent color, only used for multicolor icons |
+| `--icon-container-size:`                                 |         | unset;                                       |
 
 <hr/>
 
@@ -2510,13 +2465,13 @@
 
 ### Slots
 
-| Name           | Description                                                     |
-| -------------- | --------------------------------------------------------------- |
-| `default`      | slot for the main information of the inline-message             |
-| `title`        | title content for the inline message                            |
-| `details`      | slot for more details of the inline-message like list of errors |
-| `icon`         | icon shown on the left side of the component                    |
-| `close-button` | Closing button for the inline message                           |
+| Name           | Description                                                             |
+| -------------- | ----------------------------------------------------------------------- |
+| `default`      | title content for the inline message                                    |
+| `description`  | slot for additional information and more content for the inline-message |
+| `details`      | slot for more details of the inline-message like list of errors         |
+| `icon`         | icon shown on the left side of the component                            |
+| `close-button` | Closing button for the inline message                                   |
 
 <hr/>
 
@@ -2525,272 +2480,6 @@
 | Kind | Name            | Declaration   | Module                                                      | Package |
 | ---- | --------------- | ------------- | ----------------------------------------------------------- | ------- |
 | `js` | `InlineMessage` | InlineMessage | ../packages/components/inline-message/src/inline-message.ts |         |
-
-# `../packages/components/menu/index.ts`:
-
-## Exports
-
-| Kind | Name | Declaration | Module | Package                  |
-| ---- | ---- | ----------- | ------ | ------------------------ |
-| `js` | `*`  | *           |        | ./src/menu.js            |
-| `js` | `*`  | *           |        | ./src/menu-button.js     |
-| `js` | `*`  | *           |        | ./src/menu-item.js       |
-| `js` | `*`  | *           |        | ./src/menu-item-group.js |
-
-# `../packages/components/menu/register.ts`:
-
-## Exports
-
-| Kind                        | Name                 | Declaration   | Module                                           | Package |
-| --------------------------- | -------------------- | ------------- | ------------------------------------------------ | ------- |
-| `custom-element-definition` | `sl-menu`            | Menu          | /packages/components/menu/src/menu.js            |         |
-| `custom-element-definition` | `sl-menu-button`     | MenuButton    | /packages/components/menu/src/menu-button.js     |         |
-| `custom-element-definition` | `sl-menu-item`       | MenuItem      | /packages/components/menu/src/menu-item.js       |         |
-| `custom-element-definition` | `sl-menu-item-group` | MenuItemGroup | /packages/components/menu/src/menu-item-group.js |         |
-
-# `../packages/components/menu/src/menu-button.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                              | Package |
-| ---- | --------- | ----------- | --------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/menu/src/menu-button.scss.ts |         |
-
-# `../packages/components/menu/src/menu-button.ts`:
-
-## class: `MenuButton`, `sl-menu-button`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                                 |
-| --------------------- | ------ | --------------------------------------- |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
-
-### Fields
-
-| Name        | Privacy | Type                                     | Default     | Description                                                            | Inherited From |
-| ----------- | ------- | ---------------------------------------- | ----------- | ---------------------------------------------------------------------- | -------------- |
-| `button`    |         | `Button`                                 |             | The button.                                                            |                |
-| `disabled`  |         | `boolean \| undefined`                   |             | Whether the button is disabled; when set no interaction is possible.   |                |
-| `fill`      |         | `ButtonFill`                             | `'outline'` | The fill of the button.                                                |                |
-| `menu`      |         | `Menu`                                   |             | The menu.                                                              |                |
-| `pluralize` |         | `(count: number) => string \| undefined` |             | Returns the string to be used when there is more than 1 item selected. |                |
-| `position`  |         | `PopoverPosition \| undefined`           |             | The position of the menu relative to the button.                       |                |
-| `selected`  |         | `string \| undefined`                    |             | The text representing the selected menuitem(s).                        |                |
-| `selects`   |         | `'single' \| 'multiple' \| undefined`    |             | Determines whether if and how many menu items can be selected.         |                |
-| `size`      |         | `ButtonSize`                             | `'md'`      | The size of the button.                                                |                |
-| `variant`   |         | `ButtonVariant`                          | `'default'` | The variant of the button.                                             |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `disabled` | disabled |                |
-| `fill`     | fill     |                |
-| `position` | position |                |
-| `selects`  | selects  |                |
-| `size`     | size     |                |
-| `variant`  | variant  |                |
-
-### Slots
-
-| Name      | Description                                           |
-| --------- | ----------------------------------------------------- |
-| `default` | The menu items should be slotted in the default slot. |
-| `button`  | Any content for the button should be slotted here.    |
-
-<hr/>
-
-## Exports
-
-| Kind | Name         | Declaration | Module                                         | Package |
-| ---- | ------------ | ----------- | ---------------------------------------------- | ------- |
-| `js` | `MenuButton` | MenuButton  | ../packages/components/menu/src/menu-button.ts |         |
-
-# `../packages/components/menu/src/menu-item-group.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                                  | Package |
-| ---- | --------- | ----------- | ------------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/menu/src/menu-item-group.scss.ts |         |
-
-# `../packages/components/menu/src/menu-item-group.ts`:
-
-## class: `MenuItemGroup`, `sl-menu-item-group`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Fields
-
-| Name      | Privacy | Type                                  | Default | Description                                                    | Inherited From |
-| --------- | ------- | ------------------------------------- | ------- | -------------------------------------------------------------- | -------------- |
-| `heading` |         | `string \| undefined`                 |         | The optional heading for the group.                            |                |
-| `selects` |         | `'single' \| 'multiple' \| undefined` |         | Determines whether if and how many menu items can be selected. |                |
-
-### Attributes
-
-| Name      | Field   | Inherited From |
-| --------- | ------- | -------------- |
-| `heading` | heading |                |
-| `selects` | selects |                |
-
-### Slots
-
-| Name      | Description              |
-| --------- | ------------------------ |
-| `default` | The menu items.          |
-| `header`  | The header of the group. |
-
-<hr/>
-
-## Exports
-
-| Kind | Name            | Declaration   | Module                                             | Package |
-| ---- | --------------- | ------------- | -------------------------------------------------- | ------- |
-| `js` | `MenuItemGroup` | MenuItemGroup | ../packages/components/menu/src/menu-item-group.ts |         |
-
-# `../packages/components/menu/src/menu-item.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                            | Package |
-| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/menu/src/menu-item.scss.ts |         |
-
-# `../packages/components/menu/src/menu-item.ts`:
-
-## class: `MenuItem`, `sl-menu-item`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Mixins
-
-| Name                  | Module | Package                                 |
-| --------------------- | ------ | --------------------------------------- |
-| `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
-
-### Static Fields
-
-| Name            | Privacy | Type     | Default | Description                                         | Inherited From |
-| --------------- | ------- | -------- | ------- | --------------------------------------------------- | -------------- |
-| `submenuOffset` |         | `number` | `0`     | The default offset of the submenu to the menu item. |                |
-
-### Fields
-
-| Name         | Privacy | Type                   | Default | Description                                      | Inherited From |
-| ------------ | ------- | ---------------------- | ------- | ------------------------------------------------ | -------------- |
-| `disabled`   |         | `boolean \| undefined` |         | Whether this menu item is disabled.              |                |
-| `selectable` |         | `boolean \| undefined` |         | Whether this menu item can be selected.          |                |
-| `selected`   |         | `boolean \| undefined` |         | Whether this menu item has been selected.        |                |
-| `shortcut`   |         | `string \| undefined`  |         | Keyboard shortcut for activating this menu item. |                |
-| `submenu`    |         | `Menu \| undefined`    |         | The sub menu, if present.                        |                |
-
-### Events
-
-| Name          | Type                    | Description                                     | Inherited From |
-| ------------- | ----------------------- | ----------------------------------------------- | -------------- |
-| `selectEvent` | `EventEmitter<boolean>` | Emits when the user toggles the selected state. |                |
-
-### Attributes
-
-| Name         | Field      | Inherited From |
-| ------------ | ---------- | -------------- |
-| `disabled`   | disabled   |                |
-| `selected`   | selected   |                |
-| `selectable` | selectable |                |
-| `shortcut`   | shortcut   |                |
-
-### Slots
-
-| Name      | Description                                                        |
-| --------- | ------------------------------------------------------------------ |
-| `default` | Content to display inside the menu item.                           |
-| `submenu` | The menu items that will be displayed when the menu item is shown. |
-
-<hr/>
-
-## Exports
-
-| Kind | Name       | Declaration | Module                                       | Package |
-| ---- | ---------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `MenuItem` | MenuItem    | ../packages/components/menu/src/menu-item.ts |         |
-
-# `../packages/components/menu/src/menu.scss.ts`:
-
-## Exports
-
-| Kind | Name      | Declaration | Module                                       | Package |
-| ---- | --------- | ----------- | -------------------------------------------- | ------- |
-| `js` | `default` |             | ../packages/components/menu/src/menu.scss.ts |         |
-
-# `../packages/components/menu/src/menu.ts`:
-
-## class: `Menu`, `sl-menu`
-
-### Superclass
-
-| Name         | Module | Package |
-| ------------ | ------ | ------- |
-| `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name             | Privacy | Type     | Default | Description                                           | Inherited From |
-| ---------------- | ------- | -------- | ------- | ----------------------------------------------------- | -------------- |
-| `offset`         |         | `number` | `4`     | The default offset of the menu to its anchor.         |                |
-| `viewportMargin` |         | `number` | `8`     | The default margin between the menu and the viewport. |                |
-
-### Fields
-
-| Name                 | Privacy | Type                                  | Default         | Description                                                                                                                                                                                                  | Inherited From |
-| -------------------- | ------- | ------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
-| `offset`             |         | `number \| undefined`                 |                 | The offset of the menu to its anchor. This is a property on this instance so&#xA;that it can be overridden by the menu item in case of a nested menu. You&#xA;should not need to set this property yourself. |                |
-| `position`           |         | `PopoverPosition \| undefined`        | `'right-start'` | The position of the menu relative to its anchor.                                                                                                                                                             |                |
-| `selectableChildren` |         | `boolean \| undefined`                |                 | Whether this menu has any children that can be selected.                                                                                                                                                     |                |
-| `selects`            |         | `'single' \| 'multiple' \| undefined` |                 | Determines whether if and how many menu items can be selected.                                                                                                                                               |                |
-
-### Methods
-
-| Name            | Privacy | Description | Parameters | Return | Inherited From |
-| --------------- | ------- | ----------- | ---------- | ------ | -------------- |
-| `focusLastItem` |         |             |            | `void` |                |
-
-### Events
-
-| Name          | Type                 | Description                                 | Inherited From |
-| ------------- | -------------------- | ------------------------------------------- | -------------- |
-| `selectEvent` | `EventEmitter<void>` | Emits when the menu item selection changes. |                |
-
-### Attributes
-
-| Name       | Field    | Inherited From |
-| ---------- | -------- | -------------- |
-| `offset`   | offset   |                |
-| `position` | position |                |
-| `selects`  | selects  |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name   | Declaration | Module                                  | Package |
-| ---- | ------ | ----------- | --------------------------------------- | ------- |
-| `js` | `Menu` | Menu        | ../packages/components/menu/src/menu.ts |         |
 
 # `../packages/components/message-dialog/index.ts`:
 
@@ -2894,14 +2583,6 @@
 | Name         | Module | Package |
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
-
-### Static Fields
-
-| Name             | Privacy | Type     | Default | Description                                              | Inherited From |
-| ---------------- | ------- | -------- | ------- | -------------------------------------------------------- | -------------- |
-| `arrowPadding`   |         | `number` | `16`    | The default padding of the arrow.                        |                |
-| `offset`         |         | `number` | `12`    | The default offset of the popover to its anchor.         |                |
-| `viewportMargin` |         | `number` | `8`     | The default margin between the tooltip and the viewport. |                |
 
 ### Fields
 
@@ -3274,13 +2955,6 @@
 | `FormControlMixin`    |        | @sl-design-system/form                  |
 | `ScopedElementsMixin` |        | @open-wc/scoped-elements/lit-element.js |
 
-### Static Fields
-
-| Name             | Privacy | Type     | Default | Description                                              | Inherited From |
-| ---------------- | ------- | -------- | ------- | -------------------------------------------------------- | -------------- |
-| `offset`         |         | `number` | `6`     | The default offset of the listbox to the button.         |                |
-| `viewportMargin` |         | `number` | `8`     | The default margin between the tooltip and the viewport. |                |
-
 ### Fields
 
 | Name                | Privacy | Type                                         | Default | Description                                                                                                                                                                                                                                                                                                                                             | Inherited From   |
@@ -3336,12 +3010,6 @@
 | `name`            | name           | FormControlMixin |
 | `show-validity`   | showValidity   | FormControlMixin |
 
-### Slots
-
-| Name      | Description                           |
-| --------- | ------------------------------------- |
-| `default` | Place for `sl-select-option` elements |
-
 <hr/>
 
 ## Exports
@@ -3354,27 +3022,19 @@
 
 ## Exports
 
-| Kind | Name | Declaration | Module | Package                                |
-| ---- | ---- | ----------- | ------ | -------------------------------------- |
-| `js` | `*`  | *           |        | ./src/browser.js                       |
-| `js` | `*`  | *           |        | ./src/config.js                        |
-| `js` | `*`  | *           |        | ./src/controllers/anchor.js            |
-| `js` | `*`  | *           |        | ./src/controllers/events.js            |
-| `js` | `*`  | *           |        | ./src/controllers/focus-group.js       |
-| `js` | `*`  | *           |        | ./src/controllers/roving-tabindex.js   |
-| `js` | `*`  | *           |        | ./src/controllers/selection.js         |
-| `js` | `*`  | *           |        | ./src/controllers/shortcut.js          |
-| `js` | `*`  | *           |        | ./src/css.js                           |
-| `js` | `*`  | *           |        | ./src/data-source/array-data-source.js |
-| `js` | `*`  | *           |        | ./src/data-source/data-source.js       |
-| `js` | `*`  | *           |        | ./src/decorators/base.js               |
-| `js` | `*`  | *           |        | ./src/decorators/event.js              |
-| `js` | `*`  | *           |        | ./src/decorators/observe.js            |
-| `js` | `*`  | *           |        | ./src/directives/anchor.js             |
-| `js` | `*`  | *           |        | ./src/path.js                          |
-| `js` | `*`  | *           |        | ./src/popover.js                       |
-| `js` | `*`  | *           |        | ./src/string.js                        |
-| `js` | `*`  | *           |        | ./src/types.js                         |
+| Kind | Name | Declaration | Module | Package                    |
+| ---- | ---- | ----------- | ------ | -------------------------- |
+| `js` | `*`  | *           |        | ./src/browser.js           |
+| `js` | `*`  | *           |        | ./src/config.js            |
+| `js` | `*`  | *           |        | ./src/controllers/index.js |
+| `js` | `*`  | *           |        | ./src/css.js               |
+| `js` | `*`  | *           |        | ./src/data-source/index.js |
+| `js` | `*`  | *           |        | ./src/decorators/index.js  |
+| `js` | `*`  | *           |        | ./src/directives/index.js  |
+| `js` | `*`  | *           |        | ./src/path.js              |
+| `js` | `*`  | *           |        | ./src/popover.js           |
+| `js` | `*`  | *           |        | ./src/string.js            |
+| `js` | `*`  | *           |        | ./src/types.js             |
 
 # `../packages/components/shared/src/breakpoints.scss.ts`:
 
@@ -3425,13 +3085,10 @@
 
 ### Fields
 
-| Name           | Privacy | Type                                 | Default | Description                                                | Inherited From |
-| -------------- | ------- | ------------------------------------ | ------- | ---------------------------------------------------------- | -------------- |
-| `arrowElement` |         | `string \| HTMLElement \| undefined` |         | The arrow pointing from the popover to the anchor element. |                |
-| `arrowPadding` |         | `number \| undefined`                |         | The padding of the arrow.                                  |                |
-| `maxWidth`     |         | `number \| undefined`                |         | The max width of the popover.                              |                |
-| `offset`       |         | `number \| undefined`                |         | The offset of the popover to its anchor.                   |                |
-| `position`     |         | `PopoverPosition \| undefined`       |         | The main position of the popover relative to the anchor.   |                |
+| Name       | Privacy | Type                           | Default | Description | Inherited From |
+| ---------- | ------- | ------------------------------ | ------- | ----------- | -------------- |
+| `maxWidth` |         | `number \| undefined`          |         |             |                |
+| `position` |         | `PopoverPosition \| undefined` |         |             |                |
 
 ### Methods
 
@@ -3439,6 +3096,12 @@
 | ------------------ | ------- | ----------- | ---------- | ------ | -------------- |
 | `hostConnected`    |         |             |            | `void` |                |
 | `hostDisconnected` |         |             |            | `void` |                |
+
+### Attributes
+
+| Name             | Field | Inherited From |
+| ---------------- | ----- | -------------- |
+| `popover-opened` |       |                |
 
 <hr/>
 
@@ -3524,6 +3187,18 @@
 | Kind | Name                   | Declaration          | Module                                                       | Package |
 | ---- | ---------------------- | -------------------- | ------------------------------------------------------------ | ------- |
 | `js` | `FocusGroupController` | FocusGroupController | ../packages/components/shared/src/controllers/focus-group.ts |         |
+
+# `../packages/components/shared/src/controllers/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package              |
+| ---- | ---- | ----------- | ------ | -------------------- |
+| `js` | `*`  | *           |        | ./anchor.js          |
+| `js` | `*`  | *           |        | ./events.js          |
+| `js` | `*`  | *           |        | ./focus-group.js     |
+| `js` | `*`  | *           |        | ./roving-tabindex.js |
+| `js` | `*`  | *           |        | ./selection.js       |
 
 # `../packages/components/shared/src/controllers/roving-tabindex.ts`:
 
@@ -3619,27 +3294,6 @@
 | Kind | Name                  | Declaration         | Module                                                     | Package |
 | ---- | --------------------- | ------------------- | ---------------------------------------------------------- | ------- |
 | `js` | `SelectionController` | SelectionController | ../packages/components/shared/src/controllers/selection.ts |         |
-
-# `../packages/components/shared/src/controllers/shortcut.ts`:
-
-## class: `ShortcutController`
-
-### Methods
-
-| Name               | Privacy | Description | Parameters                 | Return | Inherited From |
-| ------------------ | ------- | ----------- | -------------------------- | ------ | -------------- |
-| `bind`             |         |             | `shortcuts: KeyBindingMap` | `void` |                |
-| `hostConnected`    |         |             |                            | `void` |                |
-| `hostDisconnected` |         |             |                            | `void` |                |
-| `unbind`           |         |             |                            | `void` |                |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                 | Declaration        | Module                                                    | Package |
-| ---- | -------------------- | ------------------ | --------------------------------------------------------- | ------- |
-| `js` | `ShortcutController` | ShortcutController | ../packages/components/shared/src/controllers/shortcut.ts |         |
 
 # `../packages/components/shared/src/css.ts`:
 
@@ -3744,18 +3398,27 @@
 | ---- | ------------ | ----------- | ------------------------------------------------------------ | ------- |
 | `js` | `DataSource` | DataSource  | ../packages/components/shared/src/data-source/data-source.ts |         |
 
+# `../packages/components/shared/src/data-source/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package                |
+| ---- | ---- | ----------- | ------ | ---------------------- |
+| `js` | `*`  | *           |        | ./array-data-source.js |
+| `js` | `*`  | *           |        | ./data-source.js       |
+
 # `../packages/components/shared/src/decorators/base.ts`:
 
 ## Functions
 
-| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                | Return               |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| Name               | Description                                                                                                                                                                                                                                                                  | Parameters                                                                                                                                                                                                                                    | Return               |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
 | `decorateProperty` | Helper for decorating a property that is compatible with both TypeScript&#xA;and Babel decorators. The optional `finisher` can be used to perform work on&#xA;the class. The optional `descriptor` should return a PropertyDescriptor&#xA;to install for the given property. | `{
     finisher,
     descriptor
   }: {
     finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) \| null;
-    descriptor?(property: PropertyKey): PropertyDescriptor;
+    descriptor?: (property: PropertyKey) => PropertyDescriptor;
   }, finisher: function, descriptor: function` | `ClassElement\|void` |
 
 <hr/>
@@ -3801,6 +3464,16 @@
 | `js` | `EventEmitter` | EventEmitter | ../packages/components/shared/src/decorators/event.ts |         |
 | `js` | `event`        | event        | ../packages/components/shared/src/decorators/event.ts |         |
 
+# `../packages/components/shared/src/decorators/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package      |
+| ---- | ---- | ----------- | ------ | ------------ |
+| `js` | `*`  | *           |        | ./base.js    |
+| `js` | `*`  | *           |        | ./event.js   |
+| `js` | `*`  | *           |        | ./observe.js |
+
 # `../packages/components/shared/src/decorators/observe.ts`:
 
 ## Functions
@@ -3844,6 +3517,14 @@
 | `js` | `AnchorDirective` | AnchorDirective | ../packages/components/shared/src/directives/anchor.ts |         |
 | `js` | `anchor`          | anchor          | ../packages/components/shared/src/directives/anchor.ts |         |
 
+# `../packages/components/shared/src/directives/index.ts`:
+
+## Exports
+
+| Kind | Name | Declaration | Module | Package     |
+| ---- | ---- | ----------- | ------ | ----------- |
+| `js` | `*`  | *           |        | ./anchor.js |
+
 # `../packages/components/shared/src/path.ts`:
 
 ## Functions
@@ -3866,6 +3547,14 @@
 | `js` | `getValueByPath`  | getValueByPath  | ../packages/components/shared/src/path.ts |         |
 | `js` | `setValueByPath`  | setValueByPath  | ../packages/components/shared/src/path.ts |         |
 
+# `../packages/components/shared/src/popover.scss.ts`:
+
+## Exports
+
+| Kind | Name      | Declaration | Module                                            | Package |
+| ---- | --------- | ----------- | ------------------------------------------------- | ------- |
+| `js` | `default` |             | ../packages/components/shared/src/popover.scss.ts |         |
+
 # `../packages/components/shared/src/popover.ts`:
 
 ## Functions
@@ -3879,10 +3568,11 @@
 
 ## Exports
 
-| Kind | Name              | Declaration     | Module                                       | Package |
-| ---- | ----------------- | --------------- | -------------------------------------------- | ------- |
-| `js` | `isPopoverOpen`   | isPopoverOpen   | ../packages/components/shared/src/popover.ts |         |
-| `js` | `positionPopover` | positionPopover | ../packages/components/shared/src/popover.ts |         |
+| Kind | Name                    | Declaration           | Module                                       | Package |
+| ---- | ----------------------- | --------------------- | -------------------------------------------- | ------- |
+| `js` | `popoverPolyfillStyles` | popoverPolyfillStyles | ../packages/components/shared/src/popover.ts |         |
+| `js` | `isPopoverOpen`         | isPopoverOpen         | ../packages/components/shared/src/popover.ts |         |
+| `js` | `positionPopover`       | positionPopover       | ../packages/components/shared/src/popover.ts |         |
 
 # `../packages/components/shared/src/string.ts`:
 
@@ -3911,26 +3601,6 @@
 | `js` | `decamelize` | decamelize  | ../packages/components/shared/src/string.ts |         |
 | `js` | `humanize`   | humanize    | ../packages/components/shared/src/string.ts |         |
 | `js` | `underscore` | underscore  | ../packages/components/shared/src/string.ts |         |
-
-# `../packages/components/shared/src/vendor/tinykeys.ts`:
-
-## Functions
-
-| Name                       | Description                                                                                                                                                                                                     | Parameters                                                                                | Return              |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------- |
-| `createKeybindingsHandler` | Creates an event listener for handling keybindings.                                                                                                                                                             | `keyBindingMap: KeyBindingMap, options: KeyBindingHandlerOptions`                         | `EventListener`     |
-| `parseKeybinding`          | Parses a "Key Binding String" into its parts&#xA;&#xA;grammar    = `<sequence>`&#xA;\<sequence> = `<press> <press> <press> ...`&#xA;\<press>    = `<key>` or `<mods>+<key>`&#xA;\<mods>     = `<mod>+<mod>+...` | `str: string`                                                                             | `KeyBindingPress[]` |
-| `tinykeys`                 | Subscribes to keybindings.&#xA;&#xA;Returns an unsubscribe method.                                                                                                                                              | `target: Window \| HTMLElement, keyBindingMap: KeyBindingMap, options: KeyBindingOptions` | `() => void`        |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                       | Declaration              | Module                                               | Package |
-| ---- | -------------------------- | ------------------------ | ---------------------------------------------------- | ------- |
-| `js` | `parseKeybinding`          | parseKeybinding          | ../packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `createKeybindingsHandler` | createKeybindingsHandler | ../packages/components/shared/src/vendor/tinykeys.ts |         |
-| `js` | `tinykeys`                 | tinykeys                 | ../packages/components/shared/src/vendor/tinykeys.ts |         |
 
 # `../packages/components/skeleton/index.ts`:
 
@@ -4024,10 +3694,10 @@
 
 ### Fields
 
-| Name      | Privacy | Type                          | Default | Description                                                | Inherited From |
-| --------- | ------- | ----------------------------- | ------- | ---------------------------------------------------------- | -------------- |
-| `size`    |         | `SpinnerSize \| undefined`    |         | The size of the spinner. Defaults to md in CSS if not set. |                |
-| `variant` |         | `SpinnerVariant \| undefined` |         | The spinner variant.                                       |                |
+| Name      | Privacy | Type                          | Default | Description | Inherited From |
+| --------- | ------- | ----------------------------- | ------- | ----------- | -------------- |
+| `size`    |         | `SpinnerSize`                 | `'md'`  |             |                |
+| `variant` |         | `SpinnerVariant \| undefined` |         |             |                |
 
 ### Attributes
 
@@ -4035,12 +3705,6 @@
 | --------- | ------- | -------------- |
 | `size`    | size    |                |
 | `variant` | variant |                |
-
-### CSS Properties
-
-| Name                | Default | Description                                        |
-| ------------------- | ------- | -------------------------------------------------- |
-| `--sl-spinner-size` |         | The size of the spinner, defaults to md if not set |
 
 <hr/>
 
@@ -4566,12 +4230,6 @@
 | `name`            | name           | FormControlMixin |
 | `show-validity`   | showValidity   | FormControlMixin |
 
-### CSS Properties
-
-| Name                 | Default | Description                                          |
-| -------------------- | ------- | ---------------------------------------------------- |
-| `--sl-textarea-rows` |         | The number of rows initially visible in the textarea |
-
 ### Slots
 
 | Name       | Description                       |
@@ -4663,26 +4321,18 @@
 | ------------ | ------ | ------- |
 | `LitElement` |        | lit     |
 
-### Static Fields
-
-| Name             | Privacy | Type     | Default | Description                                              | Inherited From |
-| ---------------- | ------- | -------- | ------- | -------------------------------------------------------- | -------------- |
-| `arrowPadding`   |         | `number` | `16`    | The default padding of the arrow.                        |                |
-| `offset`         |         | `number` | `12`    | The default offset of the tooltip to its anchor.         |                |
-| `viewportMargin` |         | `number` | `8`     | The default margin between the tooltip and the viewport. |                |
-
 ### Static Methods
 
-| Name   | Privacy | Description                                                   | Parameters                                                                      | Return | Inherited From |
-| ------ | ------- | ------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------ | -------------- |
-| `lazy` |         | To attach the `sl-tooltip` to the DOM tree and anchor element | `target: Element, callback: (target: Tooltip) => void, options: TooltipOptions` | `void` |                |
+| Name   | Privacy | Description                                                   | Parameters                                             | Return | Inherited From |
+| ------ | ------- | ------------------------------------------------------------- | ------------------------------------------------------ | ------ | -------------- |
+| `lazy` |         | To attach the `sl-tooltip` to the DOM tree and anchor element | `target: Element, callback: (target: Tooltip) => void` | `void` |                |
 
 ### Fields
 
-| Name       | Privacy | Type                                                                                                                                                                 | Default | Description                                     | Inherited From |
-| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ----------------------------------------------- | -------------- |
-| `maxWidth` |         | `number \| undefined`                                                                                                                                                |         | The maximum width of the tooltip.               |                |
-| `position` |         | `'top' \| 'right' \| 'bottom' \| 'left' \| 'top-start' \| 'top-end' \| 'right-start' \| 'right-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end'` | `'top'` | Position of the tooltip relative to its anchor. |                |
+| Name       | Privacy | Type                                                                                                                                                                 | Default | Description        | Inherited From |
+| ---------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ------------------ | -------------- |
+| `maxWidth` |         | `number \| undefined`                                                                                                                                                |         | Tooltip max-width. |                |
+| `position` |         | `'top' \| 'right' \| 'bottom' \| 'left' \| 'top-start' \| 'top-end' \| 'right-start' \| 'right-end' \| 'bottom-start' \| 'bottom-end' \| 'left-start' \| 'left-end'` | `'top'` | Tooltip position.  |                |
 
 ### Attributes
 

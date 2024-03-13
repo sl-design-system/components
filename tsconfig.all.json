@@ -12,6 +12,7 @@
     "packages/components/*/node_modules/**/*.ts"
   ],
   "references": [
+    { "path": "./packages/components/accordion" },
     { "path": "./packages/components/avatar" },
     { "path": "./packages/components/button" },
     { "path": "./packages/components/button-bar" },

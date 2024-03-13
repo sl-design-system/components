@@ -50,7 +50,7 @@ $transition-timing: 300ms;
   }
 
   &:hover::before {
-    animation: 300ms FadeIn;
+    animation: 300ms fade-in;
     opacity: 1;
   }
 
@@ -76,7 +76,7 @@ $transition-timing: 300ms;
   }
 }
 
-@keyframes FadeIn {
+@keyframes fade-in {
   0% {
     opacity: 0;
   }

@@ -1,5 +1,287 @@
 {
   "schemaVersion": "1.0.0",
   "readme": "",
-  "modules": []
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/accordion.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/accordion-item.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-accordion",
+          "declaration": {
+            "name": "Accordion",
+            "module": "/src/accordion.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-accordion-item",
+          "declaration": {
+            "name": "AccordionItem",
+            "module": "/src/accordion-item.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/accordion-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An accordion item component.",
+          "name": "AccordionItem",
+          "cssParts": [
+            {
+              "description": "Header element of the accordion-item",
+              "name": "summary"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Body content for the accordion",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the element is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the details element is opened.",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "event",
+              "name": "sl-toggle",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the accordion item has been toggled."
+            },
+            {
+              "kind": "field",
+              "name": "summary",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A text shown in the header - as a title of the accordion item.",
+              "attribute": "summary"
+            }
+          ],
+          "events": [
+            {
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the accordion item has been toggled.",
+              "fieldName": "toggleEvent"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "summary",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A text shown in the header - as a title of the accordion item.",
+              "fieldName": "summary"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the element is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the details element is opened.",
+              "fieldName": "open"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-accordion-item",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "ToggleEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLElement }"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AccordionItem",
+          "declaration": {
+            "name": "AccordionItem",
+            "module": "src/accordion-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/accordion.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An accordion component that can contain accordion-items\n\n```html\n  <sl-accordion>...</sl-accordion>\n```",
+          "name": "Accordion",
+          "slots": [
+            {
+              "description": "The place for multiple <sl-accordion-item>",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "single",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened.",
+              "attribute": "single",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "single",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened.",
+              "fieldName": "single"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-accordion",
+          "customElement": true,
+          "methods": [
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "AccordionItem[]"
+              },
+              "privacy": "private"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Accordion",
+          "declaration": {
+            "name": "Accordion",
+            "module": "src/accordion.ts"
+          }
+        }
+      ]
+    }
+  ]
 }

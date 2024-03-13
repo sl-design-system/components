@@ -40,6 +40,8 @@
     "editorial-suite/base",
     "editorial-suite/light",
     "my-digital-book/base",
-    "my-digital-book/light"
+    "my-digital-book/light",
+    "sanoma-utbildning/base",
+    "sanoma-utbildning/light"
   ]
 }

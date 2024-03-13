@@ -13,7 +13,7 @@ type Story = StoryObj<Props>;
 Icon.register(faCheck, faGear);
 
 const sizes: BadgeSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
-const variants: BadgeVariant[] = ['neutral', 'primary', 'danger', 'success', 'warning', 'accent'];
+const variants: BadgeVariant[] = ['neutral', 'primary', 'info', 'danger', 'success', 'warning', 'accent'];
 
 const sizeName = (size: string): string => {
   switch (size) {

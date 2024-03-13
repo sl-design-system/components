@@ -4396,6 +4396,18 @@
           "type": "color",
           "failedToResolve": true
         }
+      },
+      "info": {
+        "background": {
+          "value": "{color.palette.info.500}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
       }
     },
     "avatar": {

@@ -32,7 +32,7 @@ describe('sl-accordion-item', () => {
     });
 
     it('should have the correct attributes', () => {
-      expect(summary).to.have.attribute('aria-controls', 'sl-accordion-item-content-5');
+      expect(summary).to.have.attribute('aria-controls', 'content');
       expect(summary).to.have.attribute('aria-expanded', 'false');
       expect(summary).to.have.attribute('aria-disabled', 'false');
     });
@@ -114,7 +114,7 @@ describe('sl-accordion-item', () => {
 
     it('should have the correct attributes', () => {
       expect(details).not.to.have.attribute('open');
-      expect(summary).to.have.attribute('aria-controls', 'sl-accordion-item-content-21');
+      expect(summary).to.have.attribute('aria-controls', 'content');
       expect(summary).to.have.attribute('aria-expanded', 'false');
       expect(summary).to.have.attribute('aria-disabled', 'true');
     });

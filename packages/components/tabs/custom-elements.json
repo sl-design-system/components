@@ -445,7 +445,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A tab component - part of the tab group component.\n\n```html\n     <sl-tab>\n        <sl-icon slot=\"icon\" name=\"star\" size=\"md\"></sl-icon>\n        Tab label\n        <span slot=\"subtitle\">Tab subtitle</span>\n        <sl-badge slot=\"badge\" size=\"lg\" variant=\"danger\">4</sl-badge>\n     </sl-tab>\n```",
+          "description": "A tab component - part of the tab group component.\n\n```html\n  <sl-tab>\n    <sl-icon slot=\"icon\" name=\"star\" size=\"md\"></sl-icon>\n    Tab label\n    <span slot=\"subtitle\">Tab subtitle</span>\n    <sl-badge slot=\"badge\" size=\"lg\" variant=\"danger\">4</sl-badge>\n  </sl-tab>\n```",
           "name": "Tab",
           "slots": [
             {
@@ -470,31 +470,36 @@
               "kind": "field",
               "name": "disabled",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the tab item is disabled",
               "attribute": "disabled",
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "When set, it will render the tab contents in a link tag. Use this when\nyou want to render the tab contents using a router and to make the tab\nnavigatable by URL.",
+              "attribute": "href"
+            },
+            {
               "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
+              "name": "renderContent",
               "return": {
                 "type": {
-                  "text": "void"
+                  "text": "TemplateResult"
                 }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+              }
             },
             {
               "kind": "field",
               "name": "selected",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the tab item is selected",
               "attribute": "selected",
               "reflects": true
@@ -502,22 +507,28 @@
           ],
           "attributes": [
             {
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is selected",
-              "fieldName": "selected"
-            },
-            {
               "name": "disabled",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the tab item is disabled",
               "fieldName": "disabled"
+            },
+            {
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "When set, it will render the tab contents in a link tag. Use this when\nyou want to render the tab contents using a router and to make the tab\nnavigatable by URL.",
+              "fieldName": "href"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the tab item is selected",
+              "fieldName": "selected"
             }
           ],
           "superclass": {
@@ -529,14 +540,29 @@
           "methods": [
             {
               "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
+              "name": "renderContent",
+              "return": {
+                "type": {
+                  "text": "TemplateResult"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
               "return": {
                 "type": {
                   "text": "void"
                 }
               },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
             }
           ],
           "fields": []

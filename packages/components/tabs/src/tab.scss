@@ -20,22 +20,27 @@
   --_listbox-item-padding: var(--sl-space-select-item-block-lg) var(--sl-space-select-item-inline-lg);
   --_padding: var(--sl-space-tab-block) var(--sl-space-tab-inline);
 
-  align-items: flex-start;
-  background-color: var(--_background);
+  background: var(--_background);
   color: var(--_color);
   cursor: pointer;
-  display: flex;
-  font: var(--_font);
-  gap: var(--_gap);
-  justify-content: center;
-  padding: var(--_padding);
-  position: relative;
+  display: inline-flex;
   scroll-snap-align: start;
   transition: background 300ms;
 }
 
-slot[name='subtitle'] {
-  font: var(--_font-subtitle);
+:host(:hover) {
+  background: var(--_background-hover);
+}
+
+:host(:active) {
+  background: var(--_background-active);
+}
+
+:host(:focus-visible) {
+  border-radius: var(--_focus-radius);
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+  z-index: 1;
 }
 
 :host([disabled]) {
@@ -47,19 +52,32 @@ slot[name='subtitle'] {
   }
 }
 
-:host(:hover) {
-  background-color: var(--_background-hover);
+:host([has-subtitle]) .title {
+  font: var(--_font);
 }
 
-:host(:active) {
-  background-color: var(--_background-active);
+a,
+.wrapper {
+  align-items: start;
+  display: flex;
+  gap: var(--_gap);
+  justify-content: center;
+  padding: var(--_padding);
 }
 
-:host(:focus-visible) {
-  border-radius: var(--_focus-radius);
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
-  z-index: 1;
+a {
+  color: var(--_color);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--_color);
+    text-decoration: none;
+  }
+}
+
+slot[name='icon']::slotted(sl-icon) {
+  block-size: var(--_icon-block-size);
+  fill: var(--_color);
 }
 
 .content {
@@ -68,17 +86,17 @@ slot[name='subtitle'] {
 }
 
 .title {
+  font: var(--_font-subtitle);
   inline-size: fit-content;
   position: relative;
 }
 
-slot[name='icon']::slotted(sl-icon) {
-  block-size: var(--_icon-block-size);
-  fill: var(--_color);
-}
-
 slot[name='badge']::slotted(sl-badge) {
   transform: translate(var(--_badge-translateX), var(--_badge-translateY));
+}
+
+slot[name='subtitle'] {
+  font: var(--_font-subtitle);
 }
 
 :host(.listbox-tab) {

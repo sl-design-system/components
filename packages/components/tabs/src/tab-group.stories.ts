@@ -274,3 +274,29 @@ export const SingleTab: StoryObj = {
     </sl-tab-group>
   `
 };
+
+export const LinksInTabs: StoryObj = {
+  render: () => {
+    return html`
+      <style>
+        a {
+          color: blue;
+          text-decoration: underline;
+
+          &:hover {
+            color: darkblue;
+          }
+        }
+      </style>
+      <sl-tab-group>
+        <sl-tab href="javascript:void(0)">Just a title</sl-tab>
+        <sl-tab href="javascript:void(0)">
+          <sl-icon slot="icon" name="star" size="md"></sl-icon>
+          More than a title
+          <span slot="subtitle">Tab 2 subtitle</span>
+          <sl-badge slot="badge" size="lg" variant="danger">4</sl-badge>
+        </sl-tab>
+      </sl-tab-group>
+    `;
+  }
+};

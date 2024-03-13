@@ -18,7 +18,7 @@ Insert demo
 ## When to use
 
 ### Chunking information and reducing clutter
-Reduce cognitive load for users by simplifying the interface. When you have a large amount of content, consider using accordions to hide non-essential information initially. Place detailed content within the accordion pane. Users can click on the accordion title to reveal the hidden information.
+Reduce cognitive load for users by simplifying the interface. When you have a large amount of content, consider using accordions to hide non-essential information initially. Place detailed content within the accordion panel. Users can press on the accordion title to reveal the hidden information.
 
 </section>
 

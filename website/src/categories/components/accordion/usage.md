@@ -60,11 +60,11 @@ With these options, you can tweak the appearance of the accordion in Figma. They
 
 |Item|Options|Description|
 |-|-|-|
-|Accordion open|`all closed` `01` `02` `03` `04` `05` `06` `07` `08` `09` `10` `all open`|Determines which panels are open|
-|Edit mode|`boolean`|Displays a slot component to insert the content of all panels |
-|Show up (up to 01 including 10)|`boolean`|Determines if this panel should be shown |
-|State (for every shown panel)|`default` `hover` `active` `disabled`|Determines the state of the header|
-|Title (for every shown panel)|`value`|Displays the text of the title|
+|Accordion open|`all closed` `01` `02` `03` `04` `05` `06` `07` `08` `09` `10` `all open`|Determines which panel is open.|
+|Edit mode|`boolean`|Displays slot components for inserting the content of all panels. |
+|Show up (up to 01 including 10)|`boolean`|Determines if the item is visible. |
+|State (for every visible panel)|`default` `hover` `active` `disabled`|Determines the state of the item.|
+|Title (for every visible panel)|`value`|Displays the title of the item.|
 
 {.ds-table}
 </div>

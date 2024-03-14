@@ -14,7 +14,7 @@
     "custom-property-pattern": [
       "(-[a-z]+)*",
       {
-        "message": "Expected --sl or --_ custom property prefix"
+        "message": "Expected kebab case for custom properties"
       }
     ]
   }

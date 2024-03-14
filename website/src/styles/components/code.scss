@@ -82,6 +82,7 @@ $transition-timing: 300ms;
 code {
   background-color: var(--table-code-background);
   border-radius: 0.6rem;
+
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;

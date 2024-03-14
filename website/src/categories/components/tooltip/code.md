@@ -37,30 +37,7 @@ eleventyNavigation:
 </div>
 </section>
 
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/tooltip
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/tooltip
-  ```
-</div>
-
-</section>
+<ds-install-info package="tooltip"></ds-install-info>
 
 <section>
 

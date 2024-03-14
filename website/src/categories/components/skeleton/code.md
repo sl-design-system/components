@@ -70,30 +70,7 @@ eleventyNavigation:
 
 </section>
 
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/skeleton
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/skeleton
-  ```
-</div>
-
-</section>
+<ds-install-info package="skeleton"></ds-install-info>
 
 <section>
 

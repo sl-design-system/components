@@ -32,30 +32,7 @@ eleventyNavigation:
 
 </section>
 
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```html
-    npm install @sl-design-system/button
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```html
-    yarn add @sl-design-system/button
-  ```
-</div>
-
-</section>
+<ds-install-info package="button"></ds-install-info>
 
 {% include "../component-table.njk" %}
 

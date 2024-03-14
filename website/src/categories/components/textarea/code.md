@@ -26,29 +26,5 @@ eleventyNavigation:
 
 </section>
 
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/textarea
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/textarea
-  ```
-</div>
-
-</section>
-
+<ds-install-info package="textarea"></ds-install-info>
 {% include "../component-table.njk" %}

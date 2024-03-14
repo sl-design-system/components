@@ -55,29 +55,6 @@ eleventyNavigation:
 
 </section>
 
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/select
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/select
-  ```
-</div>
-
-</section>
+<ds-install-info package="select"></ds-install-info>
 
 {% include "../component-table.njk" %}

@@ -20,7 +20,7 @@ layout: base.njk
         <sl-tab>Accessibility</sl-tab>
         <sl-tab-panel>
           <div id="myVerticalTabsContent" class="ds-tabs__tab-content">
-            <div class="ds-tabs__tab-container"></div>
+            <div class="ds-tabs__tab-container">
             version: {{version[packageName]}}
             {{packageName}}
             {%- for usage in collections.usage -%}
@@ -33,7 +33,7 @@ layout: base.njk
 {#          {% include "partials/modules/module-two-column--stacked-cards.njk" %}#}
           <script type="module">
             import { generateVerticalTabs } from '/js/scripts/tabs.js';
-            setTimeout(() => {
+            requestAnimationFrame(() => {
               const verticalTabContent = document.getElementById('myVerticalTabsContent');
               console.log('verticalTabContent', verticalTabContent);
               generateVerticalTabs(verticalTabContent);
@@ -42,8 +42,8 @@ layout: base.njk
             // console.log('verticalTabContent', verticalTabContent);
             // generateVerticalTabs(verticalTabContent);
           </script>
-          // TODO: content is not wrapped by ds-tabs__tab-container, why??
           </div>
+          // TODO: content is not wrapped by ds-tabs__tab-container, why??
         </sl-tab-panel>
         <sl-tab-panel>
           <div class="ds-tabs__tab-content">

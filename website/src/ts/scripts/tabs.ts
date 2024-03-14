@@ -124,6 +124,8 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
     return;
   }
 
+  console.log('verticalTabContent in tabs script - generateVerticalTabs', verticalTabContent);
+
   const verticalTabsContainers = document.createElement('div');
   verticalTabsContainers.setAttribute('vertical', '');
   verticalTabsContainers.classList.add('ds-tabs');
@@ -153,6 +155,7 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
   const headerAnchorsParents = Array.from(headerAnchors)
     .map(element => {
       if (element.parentElement?.tagName === 'H2') {
+        console.log('element h2?', element);
         if (element.parentElement.parentNode) {
           (element.parentElement.parentNode as Element).id = element.parentElement.id;
         }
@@ -389,6 +392,8 @@ function alignVerticalTabIndicator(tab: Element, currentVerticalTabsContainer: E
   const currentVerticalIndicatorElement = currentVerticalTabsContainer.querySelector(
     '.ds-tabs__vertical-indicator'
   ) as HTMLElement;
+
+  console.log('currentVerticalIndicatorElement', currentVerticalIndicatorElement);
 
   if (!verticalTabsWrapperAll || !currentVerticalSliderElement || !currentVerticalIndicatorElement) {
     return;

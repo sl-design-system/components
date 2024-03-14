@@ -5,23 +5,40 @@ eleventyNavigation:
   parent: Tabs
   key: TabsUsage
 ---
-
-<section class="no-heading">
-
+<section>
 <div class="ds-example">
-
-<sl-spinner role="alert" size="md"></sl-spinner>
-
+<sl-tab-group>
+<sl-tab >Tab 1</sl-tab>
+<sl-tab selected>Tab 2</sl-tab>
+<sl-tab disabled>Tab 3</sl-tab>
+<sl-tab selected>Tab 4</sl-tab>
+<sl-tab selected>Tab 5</sl-tab>
+<sl-tab-panel>Panel 1</sl-tab-panel>
+<sl-tab-panel>Panel 2</sl-tab-panel>
+<sl-tab-panel>Panel 3</sl-tab-panel>
+<sl-tab-panel>Panel 4</sl-tab-panel>
+<sl-tab-panel>Panel 5</sl-tab-panel>
+</sl-tab-group>
 </div>
 
 <div class="ds-code">
-  
+
   ```html
-  <sl-spinner role="alert" size="xl"></sl-spinner>
+<sl-tab-group>
+    <sl-tab >Tab 1</sl-tab>
+    <sl-tab selected>Tab 2</sl-tab>
+    <sl-tab disabled>Tab 3</sl-tab>
+    <sl-tab selected>Tab 4</sl-tab>
+    <sl-tab selected>Tab 5</sl-tab>
+    <sl-tab-panel>Panel 1</sl-tab-panel>
+    <sl-tab-panel>Panel 2</sl-tab-panel>
+    <sl-tab-panel>Panel 3</sl-tab-panel>
+    <sl-tab-panel>Panel 4</sl-tab-panel>
+    <sl-tab-panel>Panel 5</sl-tab-panel>
+</sl-tab-group>
   ```
 
 </div>
-
 </section>
 
 
@@ -58,7 +75,6 @@ Be cautious when hiding critical information behind tabs, leading users to overl
 ## Anatomy
 Tabs are a combination of a tab list and a tab panel. The tab list contains the navigation tabs. When there is overflow, it shows the "more button" to open the tabs popover. The tab panel presents content for selected tabs.
 
-### Tabs
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Icon | The icon improves the visibility. |Yes|
@@ -107,6 +123,8 @@ The orientation of tabs plays a significant role in determining the layout and f
 With these options, you can tweak the appearance of the tabs in Figma. They are available in the Design Panel so you can compose the spinner to exactly fit the user experience need for the use case you are working on.
 
 ### Tab List
+The tab list provides the options to set up the version of the component that you need.
+
 |Item|Options|Description|
 |-|-|-|
 |Subtitles|`'on', 'of'`|Toogle to display the subtitle in the tabs. |
@@ -116,6 +134,8 @@ With these options, you can tweak the appearance of the tabs in Figma. They are 
 {.ds-table .ds-table-align-top}
 
 ### Tabs
+This are the tab buttons to switch between content. 
+
 |Item|Options|Description|
 |-|-|-|
 |State|`'Default', 'Hover', 'Active', 'Disabled'`|Define the behaviour of the tab related to the tab list. |

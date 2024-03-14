@@ -103,7 +103,6 @@ The orientation of tabs plays a significant role in determining the layout and f
 <section>
 
 ## Options
-
 With these options, you can tweak the appearance of the tabs in Figma. They are available in the Design Panel so you can compose the spinner to exactly fit the user experience need for the use case you are working on.
 
 ### Tab List
@@ -124,5 +123,22 @@ With these options, you can tweak the appearance of the tabs in Figma. They are 
 |Title|`'input'`|Text input to inser the title. |
 |Subtitle|`'input'`|Text input to inser the subtitle. |
 {.ds-table .ds-table-align-top}
+
+</section>
+
+
+<section>
+
+## Behavior
+Understanding the behavior of tabs is crucial for creating intuitive and user-friendly content access. Tabs exhibit various characteristics and functionalities that impact how users interact with them.
+
+### No Label Wrap
+When the labels may exceed the available space, especially in lengthy titles. We don't wrap the labels, preventing truncation to ensure users can still identify and access tabs without sacrificing usability. To solve the hide tabs, we provide an overflow tabs button.
+
+### Focusable Area
+Tabs should provide a focusable area to accommodate keyboard navigation. The focusable area allows users to navigate between tabs, enhancing usability and accessibility for all users.
+
+### Overflow Tabs
+In cases where the number of tabs exceeds the available space, overflow buttons offer a solution for managing tab visibility. The overflow tabs menu provides a solution for accessing hidden tabs. The tabs list is also scrollable, allowing users to move horizontally to view additional tabs. 
 
 </section>

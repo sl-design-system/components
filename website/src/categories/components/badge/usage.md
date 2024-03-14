@@ -5,11 +5,25 @@ eleventyNavigation:
   parent: Badge
   key: BadgeUsage
 ---
-<section>
+<section>  
+<div class="ds-example" style="gap: 3rem;">
+<sl-badge>99+</sl-badge>
+<sl-badge size="sm" variant="danger"></sl-badge>
+<sl-badge size="3xl" variant="info"><sl-icon name="face-smile"></sl-icon>Student</sl-badge>
+<sl-badge size="2xl" variant="success">English teacher</sl-badge>
+</div>
 
-  insert live demo
-  
-</section>  
+<div class="ds-code">
+
+  ```html
+    <sl-badge>99+</sl-badge>
+<sl-badge size="sm" variant="danger"></sl-badge>
+    <sl-badge size="3xl" variant="info"><sl-icon name="face-smile"></sl-icon>Student</sl-badge>
+    <sl-badge size="2xl" variant="success">English teacher</sl-badge>
+  ```
+</div>
+
+</section>
 
 <section>
 

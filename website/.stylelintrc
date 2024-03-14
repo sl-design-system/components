@@ -1,5 +1,5 @@
 {
-  "extends": "../.stylelintrc.cjs",
+  "extends": "../.stylelintrc.mjs",
   "plugins": [
     "stylelint-prettier"
   ],
@@ -9,6 +9,12 @@
       "^(?:(?:o|c|u|t|s|is|has|_|js|qa)-)?[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:--[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:\\[.+\\])?$",
       {
         "message": "Class names should match the SUIT CSS naming convention"
+      }
+    ],
+    "custom-property-pattern": [
+      "(-[a-z]+)*",
+      {
+        "message": "Expected --sl or --_ custom property prefix"
       }
     ]
   }

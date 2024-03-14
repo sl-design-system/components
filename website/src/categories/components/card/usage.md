@@ -14,6 +14,14 @@ eleventyNavigation:
 
 ## When to use
 
+### Content Grouping
+Cards are great for putting similar content together. Use them when you want to show information about one specific thing.
+
+### Visual Hierarchy
+Cards help organize information clearly. They make it easy for users to scan and identify important information.
+
+### Modularity
+When you need a modular design that can be reused across different parts of your application, cards are a great choice.
 
 </section>
 
@@ -21,6 +29,8 @@ eleventyNavigation:
 
 ## When not to use
 
+### Complexity
+Use cards for simple content presentation, but avoid them for complex layouts or intricate interactions.
 
 </section>
 
@@ -32,10 +42,12 @@ eleventyNavigation:
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|name	|description|yes/no|
-|2|name	|description|yes/no|
-|3|name	|description|yes/no|
-|4|name	|description|yes/no|
+|1|Card Container	|The placeholder of the card|no|
+|2|Card image	|The image of the card|yes|
+|3|Card header	|The title of the card|no|
+|3|More button	|To display secondary actions related to the content|yes|
+|4|Card body	|The content of the card |no|
+|4|Card footer	|Displays actions related to subject|yes|
 
 {.ds-table}
 
@@ -56,14 +68,6 @@ With these options, you can tweak the appearance of the card in Figma. They are 
 |item|`option`|description|
 |item|`option`|description|
 |item|`option`|description|
-
-
-{.ds-table}
-</div>
-
-
-
-
 
 {.ds-table}
 </div>

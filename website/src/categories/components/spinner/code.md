@@ -6,30 +6,33 @@ eleventyNavigation:
   parent: Spinner
   key: SpinnerCode
 ---
-<section>
+<section class="no-heading">
 
-## Spinner code
+<div class="ds-example">
 
-Card examples
+<sl-spinner size="sm"></sl-spinner>
+<sl-spinner variant="accent" size="md"></sl-spinner>
+<sl-spinner variant="info" size="lg"></sl-spinner>
+<sl-spinner variant="danger" size="xl"></sl-spinner>
+<sl-spinner variant="warning" size="2xl"></sl-spinner>
+<sl-spinner variant="success" size="3xl"></sl-spinner>
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
-</section>
+<div class="ds-code">
+  
+  ```html
+  <sl-spinner size="sm"></sl-spinner>
+  <sl-spinner variant="accent" size="md"></sl-spinner>
+  <sl-spinner variant="info" size="lg"></sl-spinner>
+  <sl-spinner variant="danger" size="xl"></sl-spinner>
+  <sl-spinner variant="warning" size="2xl"></sl-spinner>
+  <sl-spinner variant="success" size="3xl"></sl-spinner>
+  ```
 
-<section>
-
-## Code
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
 </section>
 
 {% include "../component-table.njk" %}
 
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  

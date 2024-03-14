@@ -58,9 +58,13 @@ With these options, you can tweak the appearance of the badge in Figma. They are
 |Item|Options|Description|
 |-|-|-|
 |Size|`sm` `md` `lg` `xl` `2xl` `3xl`|Description|
-|Item|`option`|Description|
-|Item|`option`|Description|
-|Item|`option`|Description|
+|Variant|`primary` `accent` `neutral` `success` `info` `warning` `danger`|The badge offers seven distinct intents, each conveying a unique tone to the user.|
+|Show label|`boolean`|The option to turn the label on or off|
+|Label|`option`|Displays the text of the label|
+|Show icon|`boolean`|The option to turn the icon on or off|
+|Icon type|`fa` `svg`|Choose between a FontAwesome icon or a custom SVG.|
+|FontAwesome|`value`|To insert the name of the icon.|
+|SVG Instance|`instance`|To select the instance of the SVG.|
 
 {.ds-table}
 </div>

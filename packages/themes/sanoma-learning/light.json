@@ -1803,7 +1803,7 @@
         "solid": {
           "idle": {
             "background": {
-              "value": "{color.palette.info.300}",
+              "value": "{color.palette.info.200}",
               "type": "color",
               "description": "color.button.info.warning.idle.background",
               "failedToResolve": true
@@ -1823,7 +1823,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.info.200}",
+              "value": "{color.palette.info.150}",
               "type": "color",
               "description": "color.button.info.solid.hover.background",
               "failedToResolve": true
@@ -1843,7 +1843,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.info.150}",
+              "value": "{color.palette.info.100}",
               "type": "color",
               "description": "color.button.info.solid.active.background",
               "failedToResolve": true
@@ -1863,7 +1863,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.info.150}",
+              "value": "{color.palette.info.100}",
               "type": "color",
               "description": "color.button.info.solid.disabled.background",
               "failedToResolve": true

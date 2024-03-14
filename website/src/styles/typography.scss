@@ -1,19 +1,19 @@
 @font-face {
-  font-family: 'the-message';
+  font-family: the-message;
   font-style: normal;
   font-weight: 400;
   src: url('./../../assets/fonts/the-message-regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'the-message';
+  font-family: the-message;
   font-style: normal;
   font-weight: 600;
   src: url('./../../assets/fonts/the-message-demibold.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'the-message';
+  font-family: the-message;
   font-style: normal;
   font-weight: 700;
   src: url('./../../assets/fonts/the-message-bold.woff2') format('woff2');
@@ -21,7 +21,11 @@
 
 body,
 button {
-  font-family: 'source-sans-pro', sans-serif;
+  font-family: source-sans-pro, sans-serif;
+
+  --typography-body: 1.6rem/2.4rem 'source-sans-pro', sans-serif;
+  --typography-h2: 600 1.8rem/1 'the-message', sans-serif;
+  --typography-h2-margin-block: var(--scale-400-scale) var(--scale-100-scale);
 }
 
 h1,
@@ -32,7 +36,7 @@ h5,
 .ds-heading-1,
 .ds-heading-2,
 .ds-heading-3 {
-  font-family: 'the-message', sans-serif;
+  font-family: the-message, sans-serif;
   font-weight: 600;
 }
 
@@ -44,24 +48,24 @@ h1,
 
 h2,
 .ds-heading-2 {
-  font-size: 1.8rem;
-  margin-block: var(--scale-400-scale) var(--scale-100-scale);
+  font: var(--typography-h2);
+  margin-block: var(--typography-h2-margin-block);
 }
 
 h3,
 .ds-heading-3 {
   font-size: 1.6rem;
-  margin-bottom: var(--scale-100-scale);
+  margin-block-end: var(--scale-100-scale);
 }
 
 p + h3 {
-  margin-top: var(--scale-400-scale);
+  margin-block-start: var(--scale-400-scale);
 }
 
 h4,
 .ds-heading-4 {
   font-size: 1.6rem;
-  margin-bottom: var(--scale-100-scale);
+  margin-block-end: var(--scale-100-scale);
 }
 
 p,

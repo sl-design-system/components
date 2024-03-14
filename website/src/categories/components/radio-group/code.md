@@ -41,6 +41,6 @@ eleventyNavigation:
 
 </section>
 
-<!-- <my-counter package="radio-group"></my-counter> -->
-{%- include "../install-info.njk" -%}
+<ds-install-info package="radio-group"></ds-install-info>
+
 {%- include "../component-table.njk" -%}

@@ -10,7 +10,7 @@
       {
         "message": "Class names should match the SUIT CSS naming convention"
       }
-    ],   
+    ],
     "custom-property-pattern": [
       "(-[a-z]+)*",
       {

@@ -1549,7 +1549,7 @@
               "description": "color.button.info.solid.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.info.200}",
               "type": "color",
               "description": "color.button.info.warning.idle.border"
             }
@@ -1566,7 +1566,7 @@
               "description": "color.button.info.solid.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.info.200}",
+              "value": "{color.palette.info.150}",
               "type": "color",
               "description": "color.button.info.solid.hover.border"
             }
@@ -1583,7 +1583,7 @@
               "description": "color.button.info.solid.active.foreground"
             },
             "border": {
-              "value": "{color.palette.info.150}",
+              "value": "{color.palette.info.100}",
               "type": "color",
               "description": "color.button.info.solid.active.border"
             }
@@ -1600,7 +1600,7 @@
               "description": "color.button.info.solid.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.info.150}",
+              "value": "{color.palette.info.100}",
               "type": "color",
               "description": "color.button.info.default.disabled.border"
             }

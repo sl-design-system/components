@@ -15,6 +15,8 @@ eleventyNavigation:
 
 ## When to use
 
+### Use Badges to Draw Attention
+Badges are an effective way to highlight new notifications, important content, or status changes that may be of particular interest to users. By adding badges, you can instantly grab attention and encourage users to explore further.
 
 </section>
 
@@ -22,6 +24,8 @@ eleventyNavigation:
 
 ## When not to use
 
+### Don't use badges as a interactive status indicators
+Badges serve as visual cues to convey information without requiring user interaction. 
 
 </section>
 
@@ -33,10 +37,9 @@ eleventyNavigation:
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|name	|description|yes/no|
-|2|name	|description|yes/no|
-|3|name	|description|yes/no|
-|4|name	|description|yes/no|
+|1|Container	|The badge container|no|
+|2|Icon	|Icon that can be positioned before the label.|yes|
+|3|Label	|The label is the text attributed to the badge that provides context.|yes|
 
 {.ds-table}
 
@@ -54,7 +57,7 @@ With these options, you can tweak the appearance of the badge in Figma. They are
   
 |Item|Options|Description|
 |-|-|-|
-|Item|`option`|Description|
+|Size|`sm` `md` `lg` `xl` `2xl` `3xl`|Description|
 |Item|`option`|Description|
 |Item|`option`|Description|
 |Item|`option`|Description|

@@ -25,7 +25,7 @@ Each accordion is a tab stop. `Space` or `Enter` keys expand or collapse accordi
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for an avatar provide essential information to assistive technologies and screen readers. They convey the accordion's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+WAI-ARIA roles, states, and properties for an accordion provide essential information to assistive technologies and screen readers. They convey the accordion's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
 ### Accordion item
 

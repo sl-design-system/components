@@ -249,7 +249,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{body.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.default.outline.idle.background",
               "failedToResolve": true
@@ -329,7 +329,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{body.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.info.outline.disabled.background",
               "failedToResolve": true
@@ -659,7 +659,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{body.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.outline.idle.background",
               "failedToResolve": true
@@ -1069,7 +1069,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{body.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.success.outline.idle.background",
               "failedToResolve": true
@@ -1149,7 +1149,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{body.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.success.outline.disabled.background",
               "failedToResolve": true
@@ -1479,7 +1479,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{body.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.warning.outline.idle.background",
               "failedToResolve": true
@@ -1559,7 +1559,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{body.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.warning.outline.disabled.background",
               "failedToResolve": true
@@ -1889,7 +1889,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{body.background}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.danger.outline.idle.background",
               "failedToResolve": true

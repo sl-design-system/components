@@ -1815,7 +1815,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.base}",
+              "value": "{color.palette.info.200}",
               "type": "color",
               "description": "color.button.info.warning.idle.border",
               "failedToResolve": true
@@ -1835,7 +1835,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.200}",
+              "value": "{color.palette.info.150}",
               "type": "color",
               "description": "color.button.info.solid.hover.border",
               "failedToResolve": true
@@ -1855,7 +1855,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.150}",
+              "value": "{color.palette.info.100}",
               "type": "color",
               "description": "color.button.info.solid.active.border",
               "failedToResolve": true
@@ -1875,7 +1875,7 @@
               "failedToResolve": true
             },
             "border": {
-              "value": "{color.palette.info.150}",
+              "value": "{color.palette.info.100}",
               "type": "color",
               "description": "color.button.info.default.disabled.border",
               "failedToResolve": true

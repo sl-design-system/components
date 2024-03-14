@@ -7,32 +7,14 @@ eleventyNavigation:
 ---
 <section>
 
-## Badge accessibility content
+## Context and clarity
+When using badges, pair them with a single item avoid confusion. Make sure the badge is clearly connected to the specific content it represents.
 
-This is the accessibility content of the card component
+## Color independence
+Don’t use color alone to provide information. Some users may have color vision deficiencies or rely on screen readers.
+Ensure that the badge’s meaning is clear even without color cues.
 
-</section>
+Role and Semantics:
+Consider using role=“status” for badges that represent live status updates. This helps screen readers announce the badge appropriately.
+Use semantic HTML elements (such as <span> or <div>) for badges to maintain proper document structure.
 
-<section>
-
-## Accessibility content section
-
-Another section
-
-</section>
-
-<section> 
-
-## Accessibility details
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>
-
-<section>
-
-## Behaviour
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>

@@ -102,7 +102,7 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
-  --sl-text-text-field: [object Object];
+  --sl-text-text-field: [object object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
   --sl-text-typeset-letter-spacing-md: 0%;
@@ -145,7 +145,7 @@
   --sl-text-typeset-font-size-md: 14px;
   --sl-text-typeset-font-size-sm: 12px;
   --sl-text-typeset-font-size-xs: 10px;
-  --sl-text-typeset-font-weight-icon-solid: Solid;
+  --sl-text-typeset-font-weight-icon-solid: solid;
   --sl-text-typeset-font-weight-icon-regular: 400;
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
@@ -236,7 +236,7 @@
   --sl-color-palette-primary-150: 151 212 210;
   --sl-color-palette-primary-100: 185 227 225;
   --sl-color-palette-primary-50: 220 241 240;
-  --sl-elevation-shadow-none: 0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0);
+  --sl-elevation-shadow-none: 0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0%);
   --sl-elevation-shadow-lg: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
     0 8px 16px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
   --sl-elevation-shadow-md: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
@@ -304,7 +304,7 @@
   --sl-space-tab-more-block: var(--sl-space-sm);
   --sl-space-tab-more-inline: var(--sl-space-md);
   --sl-space-tab-gap: var(--sl-space-sm);
-  --sl-space-tab-block: var(--sl-space-sm);
+  --sl-space-tab-block: var(--sl-space-md);
   --sl-space-tab-inline: var(--sl-space-xl);
   --sl-space-inline-message-content-gap: var(--sl-space-xs);
   --sl-space-inline-message-gap: var(--sl-space-lg);
@@ -504,8 +504,8 @@
   --sl-icon-typeset-font-size-xs: var(--sl-size-xs);
   --sl-icon-style-solid: var(--sl-text-typeset-font-weight-icon-solid);
   --sl-icon-style-outline: 400;
-  --sl-component-button-md: [object Object];
-  --sl-component-button-lg: [object Object];
+  --sl-component-button-md: [object object];
+  --sl-component-button-lg: [object object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
   --sl-conceptual-border-width-default: var(--sl-border-width-xs);

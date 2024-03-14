@@ -9,13 +9,13 @@ export class CodeSnippet extends LitElement {
 
   @property() language?: string;
 
-  /** @private The slotted checkboxes. */
+  /** @private The slotted code. */
   @queryAssignedNodes({ flatten: true }) code?: Node[];
 
   override render(): TemplateResult {
     return html`
       <pre class="language-${this.language}"><code class="language-${this.language}"><slot></slot></code></pre>
-      <sl-button fill="outline" size="sm" icon-only @click=${this.#copyCode} aria-label="Copy the code">
+      <sl-button fill="outline" size="md" icon-only @click=${this.#copyCode} aria-label="Copy the code">
         <sl-icon name="far-copy"></sl-icon>
       </sl-button>
     `;

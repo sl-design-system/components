@@ -7,7 +7,7 @@ codeContainers.forEach(codeContainer => {
 
     copyButton.classList.add('ds-code__copy-button');
     copyButton.setAttribute('fill', 'outline');
-    copyButton.setAttribute('size', 'sm');
+    copyButton.setAttribute('size', 'md');
     copyButton.setAttribute('icon-only', 'icon-only');
     copyButton.setAttribute('aria-label', 'Copy the code');
 

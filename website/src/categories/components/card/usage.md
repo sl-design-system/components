@@ -65,9 +65,15 @@ With these options, you can tweak the appearance of the card in Figma. They are 
   
 |Item|Options|Description|
 |-|-|-|
-|item|`option`|description|
-|item|`option`|description|
-|item|`option`|description|
+|Orientation|`horizontal` `vertical`|Indicates the orientation of the card|
+|Media margin|`1/2` `1/2` `none`|Indicates if there is margin around the media or not|
+|Ratio| Depends on the orientation |Indicates the ratio between the card body and media|
+|Truncation|`boolean`|Indicates if the text of the card body is truncated|
+|Media position|`top` `left` `right` `none`|Indicates the position of the media|
+|Card icon|`boolean`|Indicates if there is an icon in front of the header|
+|More button|`boolean`|Indicates if there is more button|
+|Body text|`value`|To insert the text of the card|
+
 
 {.ds-table}
 </div>

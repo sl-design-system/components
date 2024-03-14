@@ -131,6 +131,11 @@
   }
 }
 
+::slotted(sl-tab:last-of-type):hover {
+  position: relative;
+  z-index: 2;
+}
+
 sl-menu-button {
   align-self: center;
   position: relative;
@@ -139,7 +144,7 @@ sl-menu-button {
     background: linear-gradient(90deg, transparent, var(--_background));
     block-size: 100%;
     content: '';
-    inline-size: 300%;
+    inline-size: 200%;
     inset: 0 auto 0 0;
     pointer-events: none;
     position: absolute;

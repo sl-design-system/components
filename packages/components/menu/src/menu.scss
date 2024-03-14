@@ -20,9 +20,10 @@
   flex-direction: column;
   margin: 0;
   opacity: 0;
-  overflow: visible;
+  overflow: visible auto;
   padding-block: var(--_padding-block);
   padding-inline: 0;
+  scrollbar-width: thin;
 
   @media (prefers-reduced-motion: no-preference) {
     transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
@@ -40,7 +41,7 @@
     border: var(--_border) !important;
     color: var(--_color) !important;
     margin: 0 !important;
-    overflow: visible !important;
+    overflow: visible auto !important;
     padding-block: var(--_padding-block) !important;
     padding-inline: 0 !important;
     position: fixed;

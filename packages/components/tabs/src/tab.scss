@@ -28,6 +28,8 @@
 
 :host(:hover) {
   background: var(--_background-hover);
+  position: relative;
+  z-index: 1; // Ensure the hover state is on top of any menu-button gradient
 }
 
 :host(:active) {

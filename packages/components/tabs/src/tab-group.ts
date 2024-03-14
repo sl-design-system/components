@@ -9,6 +9,17 @@ import styles from './tab-group.scss.js';
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
 
+declare global {
+  interface Element {
+    /**
+     * Non standard method, but implemented in everything except FF.
+     * Useful for scrolling an element into view if it's not already.
+     * See https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoViewIfNeeded
+     */
+    scrollIntoViewIfNeeded?(arg?: boolean | ScrollIntoViewOptions): void;
+  }
+}
+
 export type TabsAlignment = 'start' | 'center' | 'end' | 'stretch';
 
 const OBSERVER_OPTIONS: MutationObserverInit = {
@@ -247,7 +258,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     });
 
     this.selectedTab = selectedTab;
-    this.selectedTab.scrollIntoView(this.vertical ? { block: 'nearest' } : { inline: 'nearest' });
+
+    const options: ScrollIntoViewOptions = this.vertical ? { block: 'center' } : { inline: 'center' };
+    this.selectedTab.scrollIntoViewIfNeeded?.(options) ?? this.selectedTab.scrollIntoView(options);
 
     this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
 
@@ -285,7 +298,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
       tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement;
 
-    this.showMenu = !this.vertical && tablist.offsetWidth >= scroller.offsetWidth;
+    this.showMenu = !this.vertical && tablist.scrollWidth > scroller.offsetWidth;
 
     this.selectedTab?.scrollIntoView();
 

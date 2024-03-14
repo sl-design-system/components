@@ -460,7 +460,7 @@
   --sl-color-button-default-outline-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-solid-disabled-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-button-default-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-button-default-solid-disabled-background: rgb(var(--sl-color-palette-transparent-base));
+  --sl-color-button-default-solid-disabled-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-button-default-solid-active-border: rgb(var(--sl-color-palette-accent-600));
   --sl-color-button-default-solid-active-foreground: rgb(var(--sl-color-palette-accent-900));
   --sl-color-button-default-solid-active-background: rgb(var(--sl-color-palette-accent-150));

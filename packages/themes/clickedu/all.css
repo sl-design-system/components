@@ -1082,7 +1082,7 @@
     --sl-color-button-success-ghost-idle-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-success-outline-disabled-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-success-outline-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-button-success-outline-disabled-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-button-success-outline-disabled-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-success-outline-active-border: rgb(var(--sl-color-palette-success-700));
     --sl-color-button-success-outline-active-foreground: rgb(var(--sl-color-palette-success-700));
     --sl-color-button-success-outline-active-background: rgb(var(--sl-color-palette-success-100));
@@ -1122,7 +1122,7 @@
     --sl-color-button-primary-ghost-idle-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-primary-outline-disabled-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-primary-outline-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-button-primary-outline-disabled-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-button-primary-outline-disabled-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-primary-outline-active-border: rgb(var(--sl-color-palette-primary-600));
     --sl-color-button-primary-outline-active-foreground: rgb(var(--sl-color-palette-primary-600));
     --sl-color-button-primary-outline-active-background: rgb(var(--sl-color-palette-primary-100));
@@ -1163,7 +1163,7 @@
     --sl-color-button-default-ghost-idle-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-default-outline-disabled-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-button-default-outline-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-button-default-outline-disabled-background: rgb(var(--sl-color-palette-white-base));
+    --sl-color-button-default-outline-disabled-background: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-button-default-outline-active-border: rgb(var(--sl-color-palette-accent-600));
     --sl-color-button-default-outline-active-foreground: rgb(var(--sl-color-palette-accent-600));
     --sl-color-button-default-outline-active-background: rgb(var(--sl-color-palette-accent-100));

@@ -61,13 +61,14 @@ Tabs are a combination of a tab list and a tab panel. The tab list contains the 
 ### Tabs
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Icon | DESCRIPTION_TEXT |Yes|
-|2|Title |DESCRIPTION_TEXT |Yes|
-|3|Subtitle |DESCRIPTION_TEXT |Yes|
-|4|Badge |DESCRIPTION_TEXT |Yes|
-|5|Indicator |DESCRIPTION_TEXT |no|
-|6|Tab |DESCRIPTION_TEXT |no|
-|7|More Button |DESCRIPTION_TEXT |no|
+|1|Icon | The icon improves the visibility. |Yes|
+|2|Title |The tab's label needs to be clear and direct to make it easier for the user to scan through the content. |Yes|
+|3|Subtitle |A description text clarifies the content the user will find in the tab panel. |Yes|
+|4|Badge |Give the user some quotes about whether there is new content or the need to review the panel content. |Yes|
+|5|Indicator |Visual distinction of the tab to make it easy to see between an active and inactive tab. |no|
+|6|Tab |Interactive button to display the tab panel related to the tab. |no|
+|7|More Button |Button to show the tabs menu when there is a hidden tab. |no|
+
 {.ds-table .ds-table-align-top}
 
 ### Tabs Popover
@@ -111,6 +112,7 @@ With these options, you can tweak the appearance of the tabs in Figma. They are 
 |Subtitles|`'on', 'of'`|Toogle to display the subtitle in the tabs. |
 |Alignement|`'Left', 'Filled'`|Define the behaviour of the tab related to the tab list. |
 |More Button|`'on', 'of'`|Toogle to display the overflow button in the tabs list. |
+
 {.ds-table .ds-table-align-top}
 
 ### Tabs
@@ -122,6 +124,7 @@ With these options, you can tweak the appearance of the tabs in Figma. They are 
 |Icon Only|`'on', 'of'`|Toogle to switch only icon tabs. |
 |Title|`'input'`|Text input to inser the title. |
 |Subtitle|`'input'`|Text input to inser the subtitle. |
+
 {.ds-table .ds-table-align-top}
 
 </section>

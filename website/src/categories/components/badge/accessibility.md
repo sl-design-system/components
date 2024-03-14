@@ -14,7 +14,6 @@ When using badges, pair them with a single item avoid confusion. Make sure the b
 Don’t use color alone to provide information. Some users may have color vision deficiencies or rely on screen readers.
 Ensure that the badge’s meaning is clear even without color cues.
 
-Role and Semantics:
+## WAI-ARIA
 Consider using role=“status” for badges that represent live status updates. This helps screen readers announce the badge appropriately.
-Use semantic HTML elements (such as <span> or <div>) for badges to maintain proper document structure.
 

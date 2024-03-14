@@ -1,47 +1,97 @@
 :host {
-  --_background-color: var(--sl-color-tab-default-background);
-  --_border-bottom: var(--sl-border-width-border-tab) solid var(--sl-color-tab-default-border);
-  --_button-color: var(--sl-color-tab-default-foreground);
-  --_button-color-active: var(--sl-color-tab-active-foreground);
-  --_button-color-hover: var(--sl-color-tab-hover-foreground);
-  --_button-inline-padding: var(--sl-space-tab-more-inline);
-  --_button-shadow: -4px 0px 4px -2px rgb(0 0 0 / 12%);
-  --_button-vertical-shadow: 0px -4px 4px -2px rgb(0 0 0 / 12%);
-  --_focus-radius: var(--sl-border-radius-focusring-default);
+  --_background: var(--sl-color-tab-default-background);
+  --_border: var(--sl-border-width-border-tab) solid var(--sl-color-tab-default-border);
   --_indicator-animation-duration: var(--sl-animation-duration-slow);
   --_indicator-color: var(--sl-color-button-primary-solid-idle-background);
   --_indicator-size: var(--sl-size-select-indicator);
-  --_indicator-listbox-border-radius: var(--sl-border-radius-select-indicator);
-  --_listbox-background: var(--sl-color-select-listbox-background);
-  --_listbox-border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
-  --_listbox-border-radius: var(--sl-border-radius-select-listbox);
-  --_listbox-box-shadow: var(--sl-elevation-shadow-md);
-  --_listbox-gap: var(--sl-space-select-listbox-gap-lg);
-  --_listbox-padding: var(--sl-space-select-listbox-block-lg) var(--sl-space-select-listbox-inline-lg);
-  --_panel-horizontal-padding: calc(var(--sl-space-tab-content-horizontal-block) - var(--_wrapper-spacing))
+  --_panel-horizontal-padding: var(--sl-space-tab-content-horizontal-block)
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
-  --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth);
-  --_wrapper-spacing: calc(var(--sl-border-width-focusring-default) + var(--sl-border-width-focusring-offset));
+  --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth, 200px);
+  --_tabs-alignment: start;
 
   display: flex;
   flex-direction: column;
   isolation: isolate;
 }
 
-.container {
-  display: grid;
-  grid-template-columns: 1fr auto;
+:host([align-tabs='center']) {
+  --_tabs-alignment: center;
+}
+
+:host([align-tabs='end']) {
+  --_tabs-alignment: end;
+}
+
+:host([align-tabs='stretch']) {
+  --_tabs-alignment: stretch;
+
+  [part='tablist'] {
+    inline-size: 100%;
+  }
+
+  ::slotted(sl-tab) {
+    flex-grow: 1;
+  }
+}
+
+:host([vertical]) {
+  flex-direction: row;
+
+  [part='container'] {
+    border: 0;
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    max-inline-size: var(--_tablist-vertical-max-width);
+  }
+
+  [part='scroller'] {
+    border-inline-end: var(--_border);
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overscroll-behavior-y: contain;
+    scroll-snap-points-y: repeat(100%);
+  }
+
+  [part='tablist'] {
+    flex-direction: column;
+    inline-size: 100%;
+  }
+
+  .indicator {
+    block-size: 1px;
+    inline-size: var(--_indicator-size);
+    inset: 0 0 auto auto;
+    transform-origin: center top;
+  }
+
+  ::slotted(sl-tab) {
+    flex-shrink: 1;
+  }
+
+  ::slotted(sl-tab-panel) {
+    padding: var(--_panel-vertical-padding);
+  }
+}
+
+[part='container'] {
+  border-block-end: var(--_border);
+  display: flex;
   inline-size: 100%;
 }
 
-.wrapper {
+[part='wrapper'] {
   display: grid;
   grid-template-columns: 1fr auto;
-  overflow: scroll;
+}
+
+[part='scroller'] {
+  display: flex;
+  justify-content: var(--_tabs-alignment);
+  overflow: scroll clip;
   overscroll-behavior-x: contain;
-  padding: var(--_wrapper-spacing);
-  position: relative;
   scroll-snap-points-x: repeat(100%);
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
@@ -55,169 +105,48 @@
   }
 }
 
-[role='tablist'] {
-  background-color: var(--_background-color);
-  border-block-end: var(--_border-bottom);
+[part='tablist'] {
+  background: var(--_background);
   display: flex;
+  inline-size: fit-content;
+  justify-content: var(--_tabs-alignment);
   position: relative;
+}
+
+.indicator {
+  background: var(--_indicator-color);
+  block-size: var(--_indicator-size);
+  inline-size: 1px;
+  inset: auto auto 0 0;
+  position: absolute;
+  transform-origin: center left;
+  transition-property: scale, translate;
+  transition-timing-function: ease-in-out;
+
+  /** z-index is set to 2 to make sure the indicator is above the tab, when that is selected, focused or hovered */
+  z-index: 2;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition-duration: var(--_indicator-animation-duration);
+  }
+}
+
+sl-menu-button {
+  align-self: center;
+  position: relative;
+
+  &::before {
+    background: linear-gradient(90deg, transparent, var(--_background));
+    block-size: 100%;
+    content: '';
+    inline-size: 300%;
+    inset: 0 auto 0 0;
+    pointer-events: none;
+    position: absolute;
+    translate: -100%;
+  }
 }
 
 ::slotted(sl-tab-panel) {
   padding: var(--_panel-horizontal-padding);
-}
-
-sl-button {
-  background-color: var(--_background-color);
-  border-block-end: 1px solid var(--sl-color-tab-default-border);
-  border-inline-end: 0;
-  border-inline-start: 0;
-  border-radius: 0;
-  box-shadow: var(--_button-shadow);
-  inset-inline-end: 0;
-  margin: var(--_wrapper-spacing) 0;
-  padding-block: 0;
-  padding-inline: var(--_button-inline-padding);
-  position: sticky;
-  z-index: 1;
-
-  sl-icon {
-    --sl-icon-fill-default: var(--_button-color);
-  }
-
-  &:hover {
-    background-color: var(--sl-color-select-item-hover-background);
-
-    sl-icon {
-      --sl-icon-fill-default: var(--_button-color-hover);
-    }
-  }
-
-  &:active {
-    background-color: var(--sl-color-select-item-active-background);
-
-    sl-icon {
-      --sl-icon-fill-default: var(--_button-color-active);
-    }
-  }
-
-  &:focus-visible {
-    border-radius: var(--_focus-radius);
-  }
-}
-
-:host([vertical]) {
-  flex-direction: row;
-
-  .container {
-    display: flex;
-    flex: 0 0 auto;
-    flex-direction: column;
-    max-inline-size: var(--_tablist-vertical-max-width);
-  }
-
-  .wrapper {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    overscroll-behavior-y: contain;
-    scroll-snap-points-y: repeat(100%);
-  }
-
-  [role='tablist'] {
-    border-block-end: 0;
-    border-inline-end: var(--_border-bottom);
-    flex: 0 0 auto;
-    flex-direction: column;
-  }
-
-  .indicator {
-    block-size: 1px;
-    inline-size: var(--_indicator-size);
-    inset: 0 0 auto auto;
-    transform-origin: center top;
-  }
-
-  ::slotted(sl-tab) {
-    justify-content: flex-start;
-  }
-
-  ::slotted(sl-tab-panel) {
-    padding: var(--_panel-vertical-padding);
-  }
-
-  sl-button {
-    border-block-end: 0;
-    border-block-start: 0;
-    border-inline-end: 1px solid var(--sl-color-tab-default-border);
-    box-shadow: var(--_button-vertical-shadow);
-    inset-block-end: 0;
-    margin: 0 var(--_wrapper-spacing);
-    padding-block: var(--_button-inline-padding);
-    padding-inline: 0;
-    z-index: 1;
-  }
-}
-
-:host(:not([vertical])) [role='tablist'] {
-  ::slotted(sl-tab) {
-    white-space: nowrap;
-  }
-
-  .indicator {
-    block-size: var(--_indicator-size);
-    inline-size: 1px;
-    inset: auto auto 0 0;
-    transform-origin: center left;
-  }
-}
-
-:host([alignment='filled']:not([vertical])) [role='tablist'] {
-  ::slotted(sl-tab) {
-    inline-size: 100%;
-  }
-}
-
-.indicator {
-  background-color: var(--_indicator-color);
-  position: absolute;
-
-  /** z-index is set to 2 to make sure the indicator is above the tab, when that is selected, focused or hovered */
-  z-index: 2;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .indicator {
-    transition: transform var(--_indicator-animation-duration) ease-in-out;
-  }
-}
-
-div[popover] {
-  background-color: var(--_listbox-background);
-  border: var(--_listbox-border);
-  border-radius: var(--_listbox-border-radius);
-  box-shadow: var(--_listbox-box-shadow);
-  box-sizing: border-box;
-  display: none;
-  flex-direction: column;
-  gap: var(--_listbox-gap);
-  margin: 0;
-  overflow: hidden auto; // because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
-  padding: var(--_listbox-padding);
-  transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
-
-  @supports not selector(:popover-open) {
-    position: fixed;
-  }
-
-  /* stylelint-disable-next-line selector-class-pattern */
-  &:where(:popover-open, .\\:popover-open) {
-    /* stylelint-disable-next-line max-nesting-depth, scss/at-rule-no-unknown */
-    @starting-style {
-      display: flex;
-      opacity: 0;
-    }
-
-    display: flex;
-    opacity: 1;
-  }
 }

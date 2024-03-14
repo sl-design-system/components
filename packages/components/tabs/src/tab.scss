@@ -14,16 +14,14 @@
   --_font-subtitle: var(--sl-text-tab-subtitle);
   --_gap: var(--sl-space-tab-gap);
   --_icon-block-size: var(--sl-text-typeset-line-height-md);
-  --_listbox-color: var(--sl-color-select-item-default-foreground);
-  --_listbox-font: var(--sl-text-select-selectbox-text-lg);
-  --_listbox-item-border-radius: var(--sl-border-radius-select-item);
-  --_listbox-item-padding: var(--sl-space-select-item-block-lg) var(--sl-space-select-item-inline-lg);
   --_padding: var(--sl-space-tab-block) var(--sl-space-tab-inline);
 
   background: var(--_background);
   color: var(--_color);
   cursor: pointer;
   display: inline-flex;
+  flex-shrink: 0;
+  min-inline-size: fit-content;
   scroll-snap-align: start;
   transition: background 300ms;
 }
@@ -39,12 +37,13 @@
 :host(:focus-visible) {
   border-radius: var(--_focus-radius);
   outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+  outline-offset: calc(var(--_focus-outline-offset) * -1);
   z-index: 1;
 }
 
 :host([disabled]) {
-  color: var(--_color-disabled);
+  --_color: var(--_color-disabled);
+
   pointer-events: none;
 
   slot[name='icon']::slotted(sl-icon) {

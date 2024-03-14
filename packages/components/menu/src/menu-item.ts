@@ -12,6 +12,12 @@ import { property, state } from 'lit/decorators.js';
 import styles from './menu-item.scss.js';
 import { Menu } from './menu.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-menu-item': MenuItem;
+  }
+}
+
 /**
  * Menu item component for use inside a menu.
  *

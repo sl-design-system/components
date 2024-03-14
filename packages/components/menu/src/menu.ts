@@ -12,6 +12,12 @@ import { MenuItemGroup } from './menu-item-group.js';
 import { MenuItem } from './menu-item.js';
 import styles from './menu.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-menu': Menu;
+  }
+}
+
 export class Menu extends LitElement {
   /** The default offset of the menu to its anchor. */
   static offset = 4;

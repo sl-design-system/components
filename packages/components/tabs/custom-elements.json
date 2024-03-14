@@ -70,7 +70,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A tab group component that can contain tabs and tab panels.\n\n```html\n   <sl-tab-group>\n        <sl-tab selected>First tab</sl-tab>\n        <sl-tab-panel>Content of the tab 1</sl-tab-panel>\n\n        <sl-tab>Second tab</sl-tab>\n        <sl-tab-panel>Content of the tab 2</sl-tab-panel>\n   </sl-tab-group>\n```",
+          "description": "A tab group component that can contain tabs and tab panels.\n\n```html\n  <sl-tab-group>\n    <sl-tab selected>First tab</sl-tab>\n    <sl-tab>Second tab</sl-tab>\n\n    <sl-tab-panel>Content of the tab 1</sl-tab-panel>\n    <sl-tab-panel>Content of the tab 2</sl-tab-panel>\n  </sl-tab-group>\n```",
           "name": "TabGroup",
           "slots": [
             {
@@ -81,26 +81,34 @@
           "members": [
             {
               "kind": "field",
-              "name": "alignment",
+              "name": "alignTabs",
               "type": {
-                "text": "TabsAlignment"
+                "text": "TabsAlignment | undefined"
               },
-              "default": "'start'",
-              "description": "The alignment of tabs inside sl-tab-group",
-              "attribute": "alignment",
+              "description": "The alignment of tabs within the wrapper.",
+              "attribute": "align-tabs",
               "reflects": true
             },
             {
               "kind": "field",
-              "name": "listbox",
+              "name": "selectedTab",
               "type": {
-                "text": "HTMLElement"
+                "text": "Tab | undefined"
               },
-              "description": "The listbox element with all tabs list."
+              "description": "The currently selected tab."
+            },
+            {
+              "kind": "field",
+              "name": "showMenu",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the menu button needs to be shown."
             },
             {
               "kind": "event",
-              "name": "tabChange",
+              "name": "sl-tab-change",
               "type": {
                 "text": "EventEmitter<number>"
               },
@@ -127,15 +135,23 @@
           ],
           "events": [
             {
-              "name": "tabChange",
+              "name": "tabChangeEvent",
               "type": {
                 "text": "EventEmitter<number>"
               },
               "description": "Emits when the tab has been selected/changed.",
-              "fieldName": "tabChange"
+              "fieldName": "tabChangeEvent"
             }
           ],
           "attributes": [
+            {
+              "name": "align-tabs",
+              "type": {
+                "text": "TabsAlignment | undefined"
+              },
+              "description": "The alignment of tabs within the wrapper.",
+              "fieldName": "alignTabs"
+            },
             {
               "name": "vertical",
               "type": {
@@ -143,15 +159,6 @@
               },
               "description": "Renders the tabs vertically instead of the default horizontal",
               "fieldName": "vertical"
-            },
-            {
-              "name": "alignment",
-              "type": {
-                "text": "TabsAlignment"
-              },
-              "default": "'start'",
-              "description": "The alignment of tabs inside sl-tab-group",
-              "fieldName": "alignment"
             }
           ],
           "mixins": [
@@ -169,45 +176,7 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#updateSlots",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
               "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#setupTabs",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab buttons."
-            },
-            {
-              "kind": "method",
-              "name": "#setupPanels",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "Apply accessible attributes and values to the tab panels."
-            },
-            {
-              "kind": "method",
-              "name": "#handleTabChange",
               "return": {
                 "type": {
                   "text": "void"
@@ -224,6 +193,66 @@
             },
             {
               "kind": "method",
+              "name": "#onKeydown",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "KeyboardEvent & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onMenuItemClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tab",
+                  "type": {
+                    "text": "Tab"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#linkTabsWithPanels",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#updateSelectedTab",
               "return": {
                 "type": {
@@ -237,30 +266,20 @@
                     "text": "Tab"
                   }
                 }
-              ],
-              "description": "Update the selected tab button with attributes and values.\nUpdate the tab group state."
-            },
-            {
-              "kind": "method",
-              "name": "#handleKeydown",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "KeyboardEvent"
-                  }
-                }
-              ],
-              "description": "Handle keyboard accessible controls."
+              ]
             },
             {
               "kind": "method",
               "name": "#updateSelectionIndicator",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#updateSize",
               "return": {
                 "type": {
                   "text": "void"
@@ -271,70 +290,58 @@
           "fields": [
             {
               "kind": "field",
-              "name": "scopedElements",
-              "type": {
-                "text": "ScopedElementsMap"
-              },
-              "static": true,
-              "privacy": "private",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "#tabGroupId",
+              "name": "#idPrefix",
               "privacy": "private",
               "default": "`sl-tab-group-${nextUniqueId++}`",
-              "description": "Unique ID for each tab group component present."
+              "description": "Unique prefix ID for each component in the light DOM."
             },
             {
               "kind": "field",
-              "name": "#observer",
+              "name": "#mutationObserver",
               "privacy": "private",
-              "type": {
-                "text": "MutationObserver | undefined"
-              }
+              "default": "new MutationObserver(entries => {\n    entries.forEach(entry => {\n      if (entry.attributeName === 'selected' && entry.oldValue === null) {\n        this.#mutationObserver?.disconnect();\n\n        // Update the selected tab with the observer turned off to avoid loops\n        this.#updateSelectedTab(entry.target as Tab);\n\n        this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);\n      }\n    });\n  })",
+              "description": "Observe changes to the selected tab and update accordingly. This observer\nis necessary for changes to the selected tab that are made programmatically.\nSelected changes made by the user are handled by the click event listener."
+            },
+            {
+              "kind": "field",
+              "name": "#resizeObserver",
+              "privacy": "private",
+              "default": "new ResizeObserver(() => {\n    this.#shouldAnimate = false;\n    this.#updateSize();\n    this.#shouldAnimate = true;\n  })",
+              "description": "Observe changes to the size of the tablist so:\n- we can determine when to display an overflow menu with tab items\n- we know when we need to reposition the active tab indicator"
             },
             {
               "kind": "field",
               "name": "#rovingTabindexController",
               "privacy": "private",
-              "default": "new RovingTabindexController<Tab>(this, {\n    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),\n    elements: () => (isPopoverOpen(this.listbox) ? this.#allTabs : this.tabs) || [],\n    isFocusableElement: (el: Tab) => !el.disabled\n  })"
+              "default": "new RovingTabindexController<Tab>(this, {\n    focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),\n    elements: () => this.tabs || [],\n    isFocusableElement: (el: Tab) => !el.disabled\n  })",
+              "description": "Manage keyboard navigation between tabs."
             },
             {
               "kind": "field",
-              "name": "#allTabs",
-              "privacy": "private",
-              "type": {
-                "text": "Tab[]"
-              },
-              "default": "[]",
-              "description": "All slotted tabs."
-            },
-            {
-              "kind": "field",
-              "name": "#showMore",
+              "name": "#shouldAnimate",
               "privacy": "private",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether more button needs to be shown"
+              "description": "Determines whether the active tab indicator should animate."
             },
             {
               "kind": "field",
-              "name": "#moreButton",
-              "privacy": "private",
+              "name": "selectedTab",
               "type": {
-                "text": "HTMLButtonElement"
+                "text": "Tab | undefined"
               },
-              "description": "Button used to show all tabs"
+              "description": "The currently selected tab."
             },
             {
               "kind": "field",
-              "name": "#sizeObserver",
-              "privacy": "private",
-              "default": "new ResizeObserver(() => {\n    this.#updateSelectionIndicator();\n  })",
-              "description": "Observe the tablist width."
+              "name": "showMenu",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the menu button needs to be shown."
             },
             {
               "kind": "field",
@@ -343,53 +350,6 @@
                 "text": "Tab[] | undefined"
               },
               "description": "The slotted tabs."
-            },
-            {
-              "kind": "field",
-              "name": "selectedTab",
-              "type": {
-                "text": "Tab | null"
-              },
-              "privacy": "private",
-              "description": "The current tab node selected in the tab group."
-            },
-            {
-              "kind": "field",
-              "name": "selectedTabInListbox",
-              "type": {
-                "text": "Tab | null"
-              },
-              "privacy": "private",
-              "description": "The current tab node selected in the tab listbox (dropdown)."
-            },
-            {
-              "kind": "field",
-              "name": "listbox",
-              "type": {
-                "text": "HTMLElement"
-              },
-              "description": "The listbox element with all tabs list."
-            },
-            {
-              "kind": "field",
-              "name": "#initialSelectedTab",
-              "privacy": "private",
-              "type": {
-                "text": "Tab | null"
-              },
-              "description": "Get the selected tab button, or the first tab button.",
-              "readonly": true
-            },
-            {
-              "kind": "field",
-              "name": "#onToggle",
-              "privacy": "private"
-            },
-            {
-              "kind": "field",
-              "name": "#handleMutation",
-              "privacy": "private",
-              "description": "If the selected tab is selected programmatically update all the tabs."
             }
           ]
         }

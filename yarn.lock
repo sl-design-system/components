@@ -5563,8 +5563,8 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/button": "npm:0.0.23"
     "@sl-design-system/icon": "npm:0.0.9"
+    "@sl-design-system/menu": "npm:0.0.4"
     "@sl-design-system/shared": "npm:0.2.6"
   peerDependencies:
     "@lit/localize": ^0.12.1

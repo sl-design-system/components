@@ -1,17 +1,15 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, RovingTabindexController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './tab-group.scss.js';
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
 
-export type TabsAlignment = 'start' | 'filled';
-
-let nextUniqueId = 0;
+export type TabsAlignment = 'start' | 'center' | 'end' | 'stretch';
 
 const OBSERVER_OPTIONS: MutationObserverInit = {
   attributes: true,
@@ -20,380 +18,277 @@ const OBSERVER_OPTIONS: MutationObserverInit = {
   attributeOldValue: true
 };
 
+let nextUniqueId = 0;
+
 /**
  * A tab group component that can contain tabs and tab panels.
  *
  * ```html
- *    <sl-tab-group>
- *         <sl-tab selected>First tab</sl-tab>
- *         <sl-tab-panel>Content of the tab 1</sl-tab-panel>
+ *   <sl-tab-group>
+ *     <sl-tab selected>First tab</sl-tab>
+ *     <sl-tab>Second tab</sl-tab>
  *
- *         <sl-tab>Second tab</sl-tab>
- *         <sl-tab-panel>Content of the tab 2</sl-tab-panel>
- *    </sl-tab-group>
+ *     <sl-tab-panel>Content of the tab 1</sl-tab-panel>
+ *     <sl-tab-panel>Content of the tab 2</sl-tab-panel>
+ *   </sl-tab-group>
  * ```
  *
  * @slot default - a place for the tab group content.
  */
 @localized()
 export class TabGroup extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
       'sl-icon': Icon,
+      'sl-menu-button': MenuButton,
+      'sl-menu-item': MenuItem,
       'sl-tab': Tab,
       'sl-tab-panel': TabPanel
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Unique prefix ID for each component in the light DOM. */
+  #idPrefix = `sl-tab-group-${nextUniqueId++}`;
+
   /**
-   * Unique ID for each tab group component present.
+   * Observe changes to the selected tab and update accordingly. This observer
+   * is necessary for changes to the selected tab that are made programmatically.
+   * Selected changes made by the user are handled by the click event listener.
    */
-  #tabGroupId = `sl-tab-group-${nextUniqueId++}`;
+  #mutationObserver = new MutationObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.attributeName === 'selected' && entry.oldValue === null) {
+        this.#mutationObserver?.disconnect();
 
-  #observer?: MutationObserver;
+        // Update the selected tab with the observer turned off to avoid loops
+        this.#updateSelectedTab(entry.target as Tab);
 
+        this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
+      }
+    });
+  });
+
+  /**
+   * Observe changes to the size of the tablist so:
+   * - we can determine when to display an overflow menu with tab items
+   * - we know when we need to reposition the active tab indicator
+   */
+  #resizeObserver = new ResizeObserver(() => {
+    this.#shouldAnimate = false;
+    this.#updateSize();
+    this.#shouldAnimate = true;
+  });
+
+  /** Manage keyboard navigation between tabs. */
   #rovingTabindexController = new RovingTabindexController<Tab>(this, {
     focusInIndex: (elements: Tab[]) => elements.findIndex(el => el.selected),
-    elements: () => (isPopoverOpen(this.listbox) ? this.#allTabs : this.tabs) || [],
+    elements: () => this.tabs || [],
     isFocusableElement: (el: Tab) => !el.disabled
   });
 
-  /** All slotted tabs. */
-  #allTabs: Tab[] = [];
+  /** Determines whether the active tab indicator should animate. */
+  #shouldAnimate = false;
 
-  /** Whether more button needs to be shown */
-  #showMore = false;
+  /** The alignment of tabs within the wrapper. */
+  @property({ reflect: true, attribute: 'align-tabs' }) alignTabs?: TabsAlignment;
 
-  /** Button used to show all tabs */
-  #moreButton!: HTMLButtonElement;
+  /** The currently selected tab. */
+  @state() selectedTab?: Tab;
 
-  /** Observe the tablist width. */
-  #sizeObserver = new ResizeObserver(() => {
-    this.#updateSelectionIndicator();
-  });
-
-  /** The slotted tabs. */
-  @queryAssignedElements({ slot: 'tabs' }) tabs?: Tab[];
-
-  /** The current tab node selected in the tab group. */
-  @state() private selectedTab: Tab | null = this.#initialSelectedTab;
-
-  /** The current tab node selected in the tab listbox (dropdown). */
-  @state() private selectedTabInListbox: Tab | null = this.#initialSelectedTab;
+  /** Whether the menu button needs to be shown. */
+  @state() showMenu = false;
 
   /** Emits when the tab has been selected/changed. */
-  @event() tabChange!: EventEmitter<number>;
+  @event({ name: 'sl-tab-change' }) tabChangeEvent!: EventEmitter<number>;
+
+  /** The slotted tabs. */
+  @state() tabs?: Tab[];
 
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
-  /** The alignment of tabs inside sl-tab-group  */
-  @property({ reflect: true }) alignment: TabsAlignment = 'start';
-
-  /** The listbox element with all tabs list. */
-  @query('[popover]') listbox!: HTMLElement;
-
-  /** Get the selected tab button, or the first tab button. */
-  get #initialSelectedTab(): Tab | null {
-    return this.querySelector('sl-tab[selected]') || this.querySelector('sl-tab:not([disabled])');
-  }
-
-  override render(): TemplateResult {
-    this.#moreButton = this.renderRoot.querySelector('#more-btn') as HTMLButtonElement;
-    this.#allTabs = Array.from(this.querySelectorAll('sl-tab'))?.map(tab => tab.cloneNode(true)) as Tab[];
-    this.#allTabs.forEach(tab => tab.classList.add('listbox-tab'));
-
-    return html`
-      <div class="container" part="container" @keydown=${this.#handleKeydown}>
-        <div class="wrapper" part="wrapper">
-          <div @click=${this.#handleTabChange} role="tablist" part="tab-list">
-            <span class="indicator" role="presentation"></span>
-            <slot name="tabs" @slotchange=${() => this.#rovingTabindexController.clearElementCache()}></slot>
-            <div
-              ${anchor({ element: this.#moreButton, position: this.vertical ? 'bottom-start' : 'bottom-end' })}
-              @click=${this.#handleTabChange}
-              @toggle=${this.#onToggle}
-              aria-labelledby="more-btn"
-              id="tabs-popover"
-              part="listbox"
-              popover
-              role="listbox"
-            >
-              ${this.#allTabs}
-            </div>
-          </div>
-        </div>
-        ${this.#showMore
-          ? html`
-              <sl-button
-                @click=${this.#onClick}
-                aria-controls="tabs-popover"
-                aria-expanded="false"
-                aria-haspopup="true"
-                aria-label=${msg('Show all')}
-                id="more-btn"
-                fill="ghost"
-                size="md"
-                variant="primary"
-              >
-                <sl-icon name="ellipsis"></sl-icon>
-              </sl-button>
-            `
-          : nothing}
-      </div>
-      <slot></slot>
-    `;
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#sizeObserver.observe(this);
-    this.#updateSlots();
+    this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
+
+    // We need to wait for the next frame so the element has time to render
+    requestAnimationFrame(() => {
+      const tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
+
+      // We want to observe the size of the tablist, not the
+      // container or wrapper. The tablist is the element that
+      // changes size for example when fonts are loaded. The
+      // other elements do not change size when the tablist does.
+      this.#resizeObserver.observe(tablist);
+    });
   }
 
   override disconnectedCallback(): void {
-    this.#sizeObserver.disconnect();
+    this.#resizeObserver.disconnect();
+    this.#mutationObserver.disconnect();
 
     super.disconnectedCallback();
-  }
-
-  override firstUpdated(): void {
-    this.#observer = new MutationObserver(this.#handleMutation);
-    this.#observer?.observe(this, OBSERVER_OPTIONS);
   }
 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('alignment') || changes.has('vertical')) {
+    if (changes.has('alignTabs')) {
+      this.#shouldAnimate = false;
       this.#updateSelectionIndicator();
+      this.#shouldAnimate = true;
     }
   }
 
-  #updateSlots(): void {
-    this.#setupTabs();
-    this.#setupPanels();
+  override render(): TemplateResult {
+    return html`
+      <div part="container">
+        <div part="wrapper">
+          <div part="scroller">
+            <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
+              <span class="indicator" role="presentation"></span>
+              <slot @slotchange=${this.#onSlotchange} name="tabs"></slot>
+            </div>
+          </div>
+
+          ${this.showMenu
+            ? html`
+                <sl-menu-button aria-label=${msg('Show all')} fill="ghost">
+                  <sl-icon name="ellipsis" slot="button"></sl-icon>
+                  ${this.tabs?.map(
+                    tab => html`
+                      <sl-menu-item @click=${() => this.#onMenuItemClick(tab)} ?disabled=${tab.disabled}>
+                        ${tab.textContent?.trim()}
+                      </sl-menu-item>
+                    `
+                  )}
+                </sl-menu-button>
+              `
+            : nothing}
+        </div>
+      </div>
+      <slot @slotchange=${() => this.#linkTabsWithPanels()}></slot>
+    `;
   }
 
-  #onClick(): void {
-    this.listbox.togglePopover();
+  #onClick(event: Event & { target: HTMLElement }): void {
+    const tab = event.target.closest('sl-tab');
+
+    if (!tab) {
+      return;
+    }
+
+    this.scrollTo({ top: 0 });
+    this.#updateSelectedTab(tab);
   }
 
-  #onToggle = (event: ToggleEvent): void => {
-    this.#rovingTabindexController.clearElementCache();
+  #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
+    const tab = event.target.closest('sl-tab');
 
-    requestAnimationFrame(() => {
-      if (!this.listbox || !this.selectedTab) {
-        return;
-      }
-      this.selectedTabInListbox = this.listbox.querySelector(`#${this.selectedTab.id}`) as Tab;
-    });
-
-    if (
-      (event.newState === 'closed' && this.listbox.matches(':popover-open')) ||
-      (event.newState === 'closed' && this.listbox.matches('.\\:popover-open')) ||
-      event.newState === event.oldState
-    ) {
+    if (tab && ['Enter', ' '].includes(event.key)) {
+      event.preventDefault();
       event.stopPropagation();
-      this.listbox.hidePopover();
+
+      this.scrollTo({ top: 0 });
+      this.#updateSelectedTab(tab);
     }
+  }
 
-    this.#moreButton?.setAttribute('aria-expanded', isPopoverOpen(this.listbox).toString());
-  };
+  #onMenuItemClick(tab: Tab): void {
+    this.#updateSelectedTab(tab);
+  }
 
-  /**
-   * If the selected tab is selected programmatically update all the tabs.
-   */
-  #handleMutation = (mutations: MutationRecord[]): void => {
-    mutations.forEach(mutation => {
-      if (mutation.attributeName === 'selected' && mutation.oldValue === null) {
-        const selectedTab = <Tab>mutation.target;
-        this.#observer?.disconnect();
-        this.#updateSelectedTab(selectedTab);
-        this.#observer?.observe(this, OBSERVER_OPTIONS);
-      }
-    });
-  };
+  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    this.tabs = event.target.assignedElements({ flatten: true }).filter((el): el is Tab => el instanceof Tab);
+    this.selectedTab = this.tabs.find(tab => tab.selected) || this.tabs.find(tab => !tab.disabled);
 
-  /**
-   * Apply accessible attributes and values to the tab buttons.
-   */
-  #setupTabs(): void {
-    const tabs = this.querySelectorAll('sl-tab');
+    this.#rovingTabindexController.clearElementCache();
+    this.#linkTabsWithPanels();
+  }
 
-    tabs.forEach((tab, index) => {
-      tab.setAttribute('id', `${this.#tabGroupId}-tab-${index + 1}`);
-      tab.setAttribute('aria-controls', `${this.#tabGroupId}-panel-${index + 1}`);
+  #linkTabsWithPanels(): void {
+    this.tabs?.forEach((tab, index) => {
+      tab.setAttribute('id', `${this.#idPrefix}-tab-${index + 1}`);
+      tab.setAttribute('aria-controls', `${this.#idPrefix}-panel-${index + 1}`);
       tab.toggleAttribute('selected', tab === this.selectedTab);
     });
-  }
 
-  /**
-   * Apply accessible attributes and values to the tab panels.
-   */
-  #setupPanels(): void {
-    const panels = this.querySelectorAll('sl-tab-panel');
-    const selectedPanelId = this.selectedTab?.getAttribute('aria-controls');
-    const tabIndex = this.selectedTab ? Array.from(this.querySelectorAll('sl-tab')).indexOf(this.selectedTab) : 0;
+    const panels = this.querySelectorAll('sl-tab-panel'),
+      selectedPanelId = this.selectedTab?.getAttribute('aria-controls'),
+      selectedTabIndex = this.selectedTab ? this.tabs?.indexOf(this.selectedTab) ?? 0 : 0;
 
     if (panels.length === 1) {
-      panels[0].setAttribute('id', `${this.#tabGroupId}-panel-${tabIndex + 1}`);
-      panels[0].setAttribute('aria-labelledby', `${this.#tabGroupId}-tab-${tabIndex + 1}`);
+      panels[0].setAttribute('id', `${this.#idPrefix}-panel-${selectedTabIndex + 1}`);
+      panels[0].setAttribute('aria-labelledby', `${this.#idPrefix}-tab-${selectedTabIndex + 1}`);
       panels[0].setAttribute('aria-hidden', 'false');
     } else {
       panels.forEach((panel, index) => {
-        panel.setAttribute('id', `${this.#tabGroupId}-panel-${index + 1}`);
-        panel.setAttribute('aria-labelledby', `${this.#tabGroupId}-tab-${index + 1}`);
+        panel.setAttribute('id', `${this.#idPrefix}-panel-${index + 1}`);
+        panel.setAttribute('aria-labelledby', `${this.#idPrefix}-tab-${index + 1}`);
         panel.setAttribute('aria-hidden', `${panel.getAttribute('id') !== selectedPanelId ? 'true' : 'false'}`);
       });
     }
   }
 
-  #handleTabChange(event: Event & { target: HTMLElement }): void {
-    /**
-     * Return handler if it's not a tab
-     */
-    if (!(event.target.closest('sl-tab') instanceof Tab)) {
+  #updateSelectedTab(selectedTab: Tab): void {
+    if (selectedTab === this.selectedTab) {
       return;
     }
-    // Always reset the scroll when a tab is selected.
-    this.scrollTo({ top: 0 });
 
-    this.#updateSelectedTab(event.target.closest<Tab>('sl-tab') as Tab);
-    this.listbox.hidePopover();
-  }
+    this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
 
-  /**
-   * Update the selected tab button with attributes and values.
-   * Update the tab group state.
-   */
-  #updateSelectedTab(selectedTab: Tab): void {
-    const controls = selectedTab.getAttribute('aria-controls');
-
-    if (selectedTab === this.selectedTab || !controls || selectedTab.disabled) return;
-
-    const selectedPanel = this.querySelector(`#${controls}`);
-    const tabIndex = Array.from(this.querySelectorAll('sl-tab')).indexOf(selectedTab);
-
-    /**
-     * Reset all the selected state of the tabs, and select the clicked tab
-     */
-    this.querySelectorAll<Tab>('sl-tab').forEach((tab: Tab) => {
-      tab.removeAttribute('selected');
-      if (tab.id === selectedTab.id) {
-        tab.setAttribute('selected', '');
-        tab.focus();
-        tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-        this.selectedTab = tab;
-      }
+    this.querySelectorAll('sl-tab-panel').forEach(panel => {
+      panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
     });
 
-    this.selectedTabInListbox = this.listbox?.querySelector(`#${selectedTab.id}`);
+    this.selectedTab = selectedTab;
+    this.selectedTab.scrollIntoView(this.vertical ? { block: 'nearest' } : { inline: 'nearest' });
 
-    /**
-     * Reset all the visibility of the panels,
-     * and show the panel related to the selected tab
-     */
-    const panels = this.querySelectorAll('sl-tab-panel');
-
-    if (panels.length === 1) {
-      panels[0].setAttribute('id', `${this.#tabGroupId}-panel-${tabIndex + 1}`);
-      panels[0].setAttribute('aria-labelledby', `${this.#tabGroupId}-tab-${tabIndex + 1}`);
-    } else {
-      panels.forEach(panel => {
-        panel.setAttribute('aria-hidden', `${panel !== selectedPanel ? 'true' : 'false'}`);
-      });
-    }
-
-    this.tabChange.emit(tabIndex);
+    this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
 
     this.#updateSelectionIndicator();
   }
 
-  /**
-   * Handle keyboard accessible controls.
-   */
-  #handleKeydown(event: KeyboardEvent): void {
-    if (isPopoverOpen(this.listbox)) {
-      this.#rovingTabindexController.clearElementCache();
-      this.#rovingTabindexController.hostContainsFocus();
+  #updateSelectionIndicator(): void {
+    if (!this.selectedTab) {
+      return;
     }
 
-    if (['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-      this.scrollTo({ top: 0 });
-      this.#updateSelectedTab(<Tab>event.target);
+    const indicator = this.renderRoot.querySelector('.indicator') as HTMLElement,
+      tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
+      rect = this.selectedTab.getBoundingClientRect();
 
-      if (isPopoverOpen(this.listbox)) {
-        this.listbox.hidePopover();
-      }
+    let start = 0;
+    if (this.vertical) {
+      start = rect.top - tablist.getBoundingClientRect().top;
+    } else {
+      start = rect.left - tablist.getBoundingClientRect().left;
+    }
+
+    indicator.style.transitionDuration = this.#shouldAnimate ? '' : '0s';
+
+    if (this.vertical) {
+      indicator.style.scale = `1 ${rect.height}`;
+      indicator.style.translate = `0 ${start}px`;
+    } else {
+      indicator.style.scale = `${rect.width} 1`;
+      indicator.style.translate = `${start}px`;
     }
   }
 
-  #updateSelectionIndicator(): void {
-    requestAnimationFrame(() => {
-      if (!this.selectedTab || !this.selectedTabInListbox) {
-        return;
-      }
+  #updateSize(): void {
+    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
+      tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement;
 
-      if (!this.#showMore && isPopoverOpen(this.listbox)) {
-        this.listbox.hidePopover();
-      }
+    this.showMenu = !this.vertical && tablist.offsetWidth >= scroller.offsetWidth;
 
-      const axis = this.vertical ? 'Y' : 'X',
-        indicator = this.renderRoot.querySelector('.indicator') as HTMLElement,
-        wrapper = this.renderRoot.querySelector('.container') as HTMLElement,
-        tabsWrapper = this.renderRoot.querySelector('.wrapper') as HTMLElement,
-        tablist = this.renderRoot.querySelector('[role="tablist"]') as HTMLElement,
-        tabs = this.querySelectorAll('sl-tab');
+    this.selectedTab?.scrollIntoView();
 
-      let totalTabsWidth = 0;
-      let totalTabsHeight = 0;
-      tabs.forEach(tab => {
-        totalTabsWidth += tab.offsetWidth;
-        totalTabsHeight += tab.offsetHeight;
-      });
-
-      this.#showMore = axis === 'X' ? totalTabsWidth > tabsWrapper.offsetWidth : totalTabsHeight > wrapper.offsetHeight;
-
-      this.requestUpdate();
-
-      let start = 0;
-      if (axis === 'X') {
-        start = this.selectedTab.getBoundingClientRect().left - tablist.getBoundingClientRect().left;
-      } else {
-        start = this.selectedTab.getBoundingClientRect().top - tablist.getBoundingClientRect().top;
-      }
-
-      // Somehow on Chromium, the offsetParent is different than on FF and Safari
-      // If on Chromium, take the `wrapper.offsetLeft` into account as well
-      if (this.selectedTab.offsetParent === wrapper) {
-        start += axis === 'X' ? wrapper.offsetLeft : wrapper.offsetTop;
-      }
-
-      indicator.style.transform = `translate${axis}(${start}px)`;
-
-      if (axis === 'X') {
-        indicator.style.removeProperty('height');
-        indicator.style.width = `${this.selectedTab.offsetWidth}px`;
-        const scrollLeft = Math.max(
-          this.selectedTab.offsetLeft + this.selectedTab.offsetWidth / 2 - tabsWrapper.clientWidth / 2,
-          0
-        );
-
-        if (scrollLeft !== tabsWrapper.scrollLeft) {
-          tabsWrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-        }
-      } else {
-        indicator.style.removeProperty('width');
-        indicator.style.height = `${this.selectedTab.offsetHeight}px`;
-      }
-    });
+    this.#updateSelectionIndicator();
   }
 }

@@ -4,6 +4,225 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "../packages/components/accordion/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/accordion.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/accordion-item.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/accordion/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-accordion",
+          "declaration": {
+            "name": "Accordion",
+            "module": "/packages/components/accordion/src/accordion.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-accordion-item",
+          "declaration": {
+            "name": "AccordionItem",
+            "module": "/packages/components/accordion/src/accordion-item.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/accordion/src/accordion-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An accordion item component.",
+          "name": "AccordionItem",
+          "cssParts": [
+            {
+              "description": "Header element of the accordion-item",
+              "name": "summary"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Body content for the accordion",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the element is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the details element is opened.",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "event",
+              "name": "sl-toggle",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the accordion item has been toggled."
+            },
+            {
+              "kind": "field",
+              "name": "summary",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A text shown in the header - as a title of the accordion item.",
+              "attribute": "summary"
+            }
+          ],
+          "events": [
+            {
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the accordion item has been toggled.",
+              "fieldName": "toggleEvent"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "summary",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A text shown in the header - as a title of the accordion item.",
+              "fieldName": "summary"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the element is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the details element is opened.",
+              "fieldName": "open"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-accordion-item",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AccordionItem",
+          "declaration": {
+            "name": "AccordionItem",
+            "module": "../packages/components/accordion/src/accordion-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/accordion/src/accordion.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An accordion component that can contain accordion-items\n\n```html\n  <sl-accordion>...</sl-accordion>\n```",
+          "name": "Accordion",
+          "slots": [
+            {
+              "description": "The place for multiple <sl-accordion-item>",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "single",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened.",
+              "attribute": "single",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "single",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened.",
+              "fieldName": "single"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-accordion",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Accordion",
+          "declaration": {
+            "name": "Accordion",
+            "module": "../packages/components/accordion/src/accordion.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/avatar/index.ts",
       "declarations": [],
       "exports": [
@@ -36,20 +255,6 @@
           "declaration": {
             "name": "Avatar",
             "module": "/packages/components/avatar/src/avatar.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/avatar/src/avatar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/avatar/src/avatar.scss.ts"
           }
         }
       ]
@@ -319,20 +524,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/badge/src/badge.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/badge/src/badge.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/badge/src/badge.ts",
       "declarations": [
         {
@@ -444,20 +635,6 @@
           "declaration": {
             "name": "Breadcrumbs",
             "module": "/packages/components/breadcrumbs/src/breadcrumbs.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/breadcrumbs/src/breadcrumbs.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/breadcrumbs/src/breadcrumbs.scss.ts"
           }
         }
       ]
@@ -636,20 +813,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/button-bar/src/button-bar.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button-bar/src/button-bar.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/button-bar/src/button-bar.ts",
       "declarations": [
         {
@@ -765,20 +928,6 @@
           "declaration": {
             "name": "Button",
             "module": "/packages/components/button/src/button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/button/src/button.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/button/src/button.scss.ts"
           }
         }
       ]
@@ -969,20 +1118,6 @@
           "declaration": {
             "name": "Card",
             "module": "/packages/components/card/src/card.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/card/src/card.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/card/src/card.scss.ts"
           }
         }
       ]
@@ -1229,20 +1364,6 @@
           "declaration": {
             "name": "CheckboxGroup",
             "module": "/packages/components/checkbox/src/checkbox-group.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/checkbox/src/checkbox-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/checkbox/src/checkbox-group.scss.ts"
           }
         }
       ]
@@ -1832,20 +1953,6 @@
           "declaration": {
             "name": "CheckboxGroup",
             "module": "../packages/components/checkbox/src/checkbox-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/checkbox/src/checkbox.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/checkbox/src/checkbox.scss.ts"
           }
         }
       ]
@@ -2512,20 +2619,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/dialog/src/dialog.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/dialog/src/dialog.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/dialog/src/dialog.ts",
       "declarations": [
         {
@@ -2773,20 +2866,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/drawer/src/drawer.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/drawer/src/drawer.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/drawer/src/drawer.ts",
       "declarations": [
         {
@@ -3025,20 +3104,6 @@
           "declaration": {
             "name": "setHTML",
             "module": "../packages/components/editor/src/commands.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/editor/src/editor.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/editor/src/editor.scss.ts"
           }
         }
       ]
@@ -4437,20 +4502,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/form/src/error.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/form/src/error.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/form/src/error.ts",
       "declarations": [
         {
@@ -4889,20 +4940,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/form/src/form-field.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/form/src/form-field.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/form/src/form-field.ts",
       "declarations": [
         {
@@ -5034,20 +5071,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/form/src/form.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/form/src/form.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/form/src/form.ts",
       "declarations": [
         {
@@ -5165,20 +5188,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/form/src/hint.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/form/src/hint.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/form/src/hint.ts",
       "declarations": [
         {
@@ -5238,20 +5247,6 @@
           "declaration": {
             "name": "Hint",
             "module": "../packages/components/form/src/hint.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/form/src/label.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/form/src/label.scss.ts"
           }
         }
       ]
@@ -7873,20 +7868,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/grid/src/filter.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/grid/src/filter.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/grid/src/filter.ts",
       "declarations": [
         {
@@ -8057,20 +8038,6 @@
           "declaration": {
             "name": "GridFilter",
             "module": "../packages/components/grid/src/filter.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/grid/src/grid.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/grid/src/grid.scss.ts"
           }
         }
       ]
@@ -8626,20 +8593,6 @@
           "declaration": {
             "name": "Grid",
             "module": "../packages/components/grid/src/grid.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/grid/src/group-header.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/grid/src/group-header.scss.ts"
           }
         }
       ]
@@ -10529,20 +10482,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/grid/src/sorter.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/grid/src/sorter.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/grid/src/sorter.ts",
       "declarations": [
         {
@@ -11632,20 +11571,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/icon/src/icon.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/icon/src/icon.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/icon/src/icon.ts",
       "declarations": [
         {
@@ -11914,20 +11839,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/inline-message/src/inline-message.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/inline-message/src/inline-message.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/inline-message/src/inline-message.ts",
       "declarations": [
         {
@@ -12118,20 +12029,6 @@
           "declaration": {
             "name": "MenuItemGroup",
             "module": "/packages/components/menu/src/menu-item-group.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/menu/src/menu-button.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/menu/src/menu-button.scss.ts"
           }
         }
       ]
@@ -12384,20 +12281,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/menu/src/menu-item-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/menu/src/menu-item-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/menu/src/menu-item-group.ts",
       "declarations": [
         {
@@ -12469,20 +12352,6 @@
           "declaration": {
             "name": "MenuItemGroup",
             "module": "../packages/components/menu/src/menu-item-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/menu/src/menu-item.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/menu/src/menu-item.scss.ts"
           }
         }
       ]
@@ -12657,20 +12526,6 @@
           "declaration": {
             "name": "MenuItem",
             "module": "../packages/components/menu/src/menu-item.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/menu/src/menu.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/menu/src/menu.scss.ts"
           }
         }
       ]
@@ -12886,20 +12741,6 @@
           "declaration": {
             "name": "MessageDialog",
             "module": "/packages/components/message-dialog/src/message-dialog.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/message-dialog/src/message-dialog.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/message-dialog/src/message-dialog.scss.ts"
           }
         }
       ]
@@ -13149,20 +12990,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/popover/src/popover.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/popover/src/popover.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/popover/src/popover.ts",
       "declarations": [
         {
@@ -13328,20 +13155,6 @@
           "declaration": {
             "name": "RadioGroup",
             "module": "/packages/components/radio-group/src/radio-group.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/radio-group/src/radio-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/radio-group/src/radio-group.scss.ts"
           }
         }
       ]
@@ -13957,20 +13770,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/radio-group/src/radio.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/radio-group/src/radio.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/radio-group/src/radio.ts",
       "declarations": [
         {
@@ -14169,20 +13968,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/select/src/select-button.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/select/src/select-button.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/select/src/select-button.ts",
       "declarations": [
         {
@@ -14341,20 +14126,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/select/src/select-option-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/select/src/select-option-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/select/src/select-option-group.ts",
       "declarations": [
         {
@@ -14405,20 +14176,6 @@
           "declaration": {
             "name": "SelectOptionGroup",
             "module": "../packages/components/select/src/select-option-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/select/src/select-option.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/select/src/select-option.scss.ts"
           }
         }
       ]
@@ -14505,20 +14262,6 @@
           "declaration": {
             "name": "SelectOption",
             "module": "../packages/components/select/src/select-option.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/select/src/select.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/select/src/select.scss.ts"
           }
         }
       ]
@@ -15365,20 +15108,6 @@
           "declaration": {
             "name": "*",
             "package": "./src/types.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/shared/src/breakpoints.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/shared/src/breakpoints.scss.ts"
           }
         }
       ]
@@ -19789,20 +19518,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/skeleton/src/skeleton.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/skeleton/src/skeleton.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/skeleton/src/skeleton.ts",
       "declarations": [
         {
@@ -19900,20 +19615,6 @@
           "declaration": {
             "name": "Spinner",
             "module": "/packages/components/spinner/src/spinner.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/spinner/src/spinner.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/spinner/src/spinner.scss.ts"
           }
         }
       ]
@@ -20031,20 +19732,6 @@
           "declaration": {
             "name": "Switch",
             "module": "/packages/components/switch/src/switch.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/switch/src/switch.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/switch/src/switch.scss.ts"
           }
         }
       ]
@@ -20769,20 +20456,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-group.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tabs/src/tab-group.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/tabs/src/tab-group.ts",
       "declarations": [
         {
@@ -20923,20 +20596,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab-panel.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tabs/src/tab-panel.scss.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/tabs/src/tab-panel.ts",
       "declarations": [
         {
@@ -20965,20 +20624,6 @@
           "declaration": {
             "name": "TabPanel",
             "module": "../packages/components/tabs/src/tab-panel.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tabs/src/tab.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tabs/src/tab.scss.ts"
           }
         }
       ]
@@ -21123,20 +20768,6 @@
           "declaration": {
             "name": "TextField",
             "module": "/packages/components/text-field/src/text-field.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/text-field/src/text-field.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/text-field/src/text-field.scss.ts"
           }
         }
       ]
@@ -21919,20 +21550,6 @@
           "declaration": {
             "name": "Textarea",
             "module": "/packages/components/textarea/src/textarea.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/textarea/src/textarea.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/textarea/src/textarea.scss.ts"
           }
         }
       ]
@@ -22864,20 +22481,6 @@
           "declaration": {
             "name": "tooltip",
             "module": "../packages/components/tooltip/src/tooltip-directive.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "../packages/components/tooltip/src/tooltip.scss.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "module": "../packages/components/tooltip/src/tooltip.scss.ts"
           }
         }
       ]

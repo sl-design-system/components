@@ -6,11 +6,65 @@ eleventyNavigation:
   key: AccordionUsage
 ---
 <section>
+<div class="ds-example">
 
-## Live demo
+<sl-accordion style="inline-size: 50rem;">
+  <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure">
+    Embark on a thrilling journey back in time to the age of dinosaurs! Unearth fossils, learn about different
+    species, and imagine what life was like when these colossal creatures roamed the Earth. From the mighty
+    Tyrannosaurus rex to the gentle Brachiosaurus, this adventure will ignite your curiosity about our planet’s
+    ancient past. Dig deep into the layers of history as you explore ancient landscapes, where once the ground
+    trembled under the footsteps of massive sauropods. Feel the rush of adrenaline as you encounter the
+    razor-sharp teeth of a Velociraptor, preserved in stone for millions of years.
+  </sl-accordion-item>
+  <sl-accordion-item summary="Geography Safari: Mapping Our World">
+    Grab your compass and explore the globe! Discover continents, oceans, mountains, and rainforests. Study maps,
+    learn about diverse cultures, and understand the impact of geography on our lives. From the Great Wall of
+    China to the Amazon River, every place has a story. Let’s embark on a safari of knowledge! Navigate the vast
+    expanse of Earth’s seven continents, each with its unique landscapes, people, and history. Dive into the azure
+    depths of the Pacific Ocean, where mysterious creatures and hidden treasures await discovery.
+  </sl-accordion-item>
+  <sl-accordion-item summary="Journey Through Ancient Civilizations">
+    Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond. Explore majestic
+    pyramids, decode hieroglyphics, meet philosophers, and witness epic battles. Learn about the ingenious
+    inventions, rich cultures, and captivating myths that shaped human history. Your passport to the past awaits!
+    Step into the shadow of the Great Sphinx, its enigmatic gaze guarding secrets buried in the sands of the Nile.
+    Sail the cerulean Aegean Sea, where the winds carry echoes of Odysseus’s legendary odyssey. Stand in the
+    grandeur of the Colosseum, where gladiators clashed and emperors reveled in blood-soaked spectacles. Marvel at
+    the Hanging Gardens of Babylon, a verdant oasis rising amidst the arid Mesopotamian plains.
+  </sl-accordion-item>
+  <sl-accordion-item summary="Math Magic - solving Puzzles with numbers">
+    Get ready to unlock the secrets of numbers! Dive into mathematical puzzles, brainteasers, and mind-bending
+    riddles. Whether you’re deciphering patterns, calculating probabilities, or exploring geometric shapes, math
+    becomes an enchanting adventure. Discover how math is not just about equations—it’s a magical language that
+    shapes our world. Decipher Patterns: Unravel intricate sequences and hidden symmetries. From Fibonacci spirals
+    to geometric progressions, every pattern holds a clue waiting to be revealed. Calculate Probabilities: Peek
+    behind the curtain of chance. Explore dice rolls, card games, and probability puzzles.
+  </sl-accordion-item>
+</sl-accordion>
 
-Insert demo
+</div>
 
+<div class="ds-code">
+
+  ```html
+<sl-accordion>
+    <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure">
+      Embark on a thrilling journey back in time to the age of dinosaurs...
+    </sl-accordion-item>
+    <sl-accordion-item summary="Geography Safari: Mapping Our World">
+      ...
+    </sl-accordion-item>
+    <sl-accordion-item summary="Journey Through Ancient Civilizations">
+      ...
+    </sl-accordion-item>
+    <sl-accordion-item summary="Math Magic - solving Puzzles with numbers">
+      ...
+    </sl-accordion-item>
+</sl-accordion>
+  ```
+
+</div>
 </section>
 
 <section>

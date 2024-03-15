@@ -5,12 +5,39 @@ eleventyNavigation:
   parent: Card
   key: CardAccessibility
 ---
+<section>
+  
+## Accessibility considerations
 
-<section> 
-
-## Alt text for images
-If your card includes an image, provide appropriate alt text. For decorative images, use an empty alt attribute (alt="") to silence the image in screen reader output. For meaningful images, write concise and descriptive alt text that conveys the image’s purpose.
-
+- Wrap your cards in an ordered or unordered list (`<ul>` or `<ol>`) to group your cards. Each list item `<li>` represents a card.
+- Each Card has a Heading level of the same level because they belong to a flat list hierarchy
+- If the cards are part of a specific group, add an appropriate heading or use `aria-label` to describe the group.
+- Update the heading level based on the content of the page to make sure card headings are in the correct, logical order
+- Avoid having 2 links to the same URL (in the same Card) like one for the Title and another for the action (in that way we reduce the tab stops)
+- When creating a tab order for the different parts of the card, remember to put the headline before the image or media so that screen-reader users get the context before the image alt tag
+- Avoid nesting interactive elements, such as placing a button inside a link or a link inside a button.
+- Don't wrap the whole card in a Link, use the expand prop to make it interactive
+  
 </section>
 
+<section>
 
+## Keyboard interaction
+  
+</section>
+<section> 
+
+## WAI-ARIA
+
+WAI-ARIA Roles, States, and Properties for an avatar provide essential information to assistive technologies and screen readers. They convey the avatar's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+
+<div class="ds-table-wrapper">
+
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`aria-label`|string|Combination of name, label and badge text, depending on settings. See [Note 1] below for more explanation|no|
+
+{.ds-table .ds-table-align-top}
+</div>
+
+</section>

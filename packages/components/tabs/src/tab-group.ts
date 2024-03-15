@@ -287,8 +287,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     this.selectedTab = selectedTab;
 
-    // const options: ScrollIntoViewOptions = this.vertical ? { block: 'center' } : { inline: 'center' };
-    // this.selectedTab.scrollIntoViewIfNeeded?.(options) ?? this.selectedTab.scrollIntoView(options);
+    const options: ScrollIntoViewOptions = this.vertical ? { block: 'center' } : { inline: 'center' };
+    this.selectedTab.scrollIntoViewIfNeeded?.(options) ?? this.selectedTab.scrollIntoView(options);
 
     this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
 

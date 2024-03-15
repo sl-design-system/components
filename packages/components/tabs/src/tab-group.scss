@@ -85,6 +85,7 @@
 [part='wrapper'] {
   display: grid;
   grid-template-columns: 1fr auto;
+  inline-size: 100%;
 }
 
 [part='scroller'] {

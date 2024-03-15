@@ -304,6 +304,23 @@
             },
             {
               "kind": "method",
+              "name": "#scrollIntoViewIfNeeded",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "tab",
+                  "type": {
+                    "text": "Tab"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#scrollToTop",
               "return": {
                 "type": {

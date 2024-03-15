@@ -9,17 +9,6 @@ import styles from './tab-group.scss.js';
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
 
-declare global {
-  interface Element {
-    /**
-     * Non standard method, but implemented in everything except FF.
-     * Useful for scrolling an element into view if it's not already.
-     * See https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoViewIfNeeded
-     */
-    scrollIntoViewIfNeeded?(arg?: boolean | ScrollIntoViewOptions): void;
-  }
-}
-
 export type TabsAlignment = 'start' | 'center' | 'end' | 'stretch';
 
 const OBSERVER_OPTIONS: MutationObserverInit = {
@@ -267,10 +256,23 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     });
   }
 
+  #scrollIntoViewIfNeeded(tab: Tab): void {
+    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
+
+    // Scroll the tab into view if it's not already
+    if (tab.offsetLeft < scroller.scrollLeft) {
+      scroller.scrollTo({ left: tab.offsetLeft });
+    } else if (tab.offsetLeft + tab.offsetWidth > scroller.scrollLeft + scroller.offsetWidth) {
+      scroller.scrollTo({ left: tab.offsetLeft - scroller.offsetWidth + tab.offsetWidth });
+    }
+  }
+
   #scrollToTop(): void {
     const { bottom = 0 } = this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() ?? {},
       { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() ?? {};
 
+    // Scroll to make sure the top of the panel is visible, but don't scroll too far
+    // so the tab container may become unstuck if sticky.
     getScrollParent(this)?.scrollBy({ top: top - bottom });
   }
 
@@ -286,12 +288,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     });
 
     this.selectedTab = selectedTab;
-
-    const options: ScrollIntoViewOptions = this.vertical ? { block: 'center' } : { inline: 'center' };
-    this.selectedTab.scrollIntoViewIfNeeded?.(options) ?? this.selectedTab.scrollIntoView(options);
-
     this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
 
+    this.#scrollIntoViewIfNeeded(selectedTab);
     this.#updateSelectionIndicator();
   }
 

@@ -17,7 +17,7 @@ eleventyNavigation:
 
   ```html
     <sl-badge>99+</sl-badge>
-<sl-badge size="sm" variant="danger"></sl-badge>
+    <sl-badge size="sm" variant="danger"></sl-badge>
     <sl-badge size="3xl" variant="info"><sl-icon name="face-smile"></sl-icon>Student</sl-badge>
     <sl-badge size="2xl" variant="success">English teacher</sl-badge>
   ```

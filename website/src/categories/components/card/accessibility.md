@@ -9,7 +9,7 @@ eleventyNavigation:
   
 ## Accessibility considerations
 
-- Wrap your cards in an ordered or unordered list (`<ul>` or `<ol>`) to group your cards. Each list item `<li>` represents a card.
+- Wrap your cards in a list to group your cards. Each list item `<li>` represents a card.
 - Each Card has a Heading level of the same level because they belong to a flat list hierarchy
 - If the cards are part of a specific group, add an appropriate heading or use `aria-label` to describe the group.
 - Update the heading level based on the content of the page to make sure card headings are in the correct, logical order

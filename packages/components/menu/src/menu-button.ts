@@ -6,7 +6,6 @@ import { type PopoverPosition } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import styles from './menu-button.scss.js';
-import { MenuItem } from './menu-item.js';
 import { Menu } from './menu.js';
 
 /**
@@ -119,10 +118,8 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onMenuClick(event: Event): void {
-    if (event.target instanceof MenuItem) {
-      this.menu.hidePopover();
-    }
+  #onMenuClick(): void {
+    this.menu.hidePopover();
   }
 
   #onSelect(): void {

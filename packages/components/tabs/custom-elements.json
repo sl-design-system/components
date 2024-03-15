@@ -70,12 +70,38 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A tab group component that can contain tabs and tab panels.\n\n```html\n  <sl-tab-group>\n    <sl-tab selected>First tab</sl-tab>\n    <sl-tab>Second tab</sl-tab>\n\n    <sl-tab-panel>Content of the tab 1</sl-tab-panel>\n    <sl-tab-panel>Content of the tab 2</sl-tab-panel>\n  </sl-tab-group>\n```",
+          "description": "A tab group component that can contain tabs and tab panels.\n\n```html\n  <sl-tab-group>\n    <sl-tab>First tab</sl-tab>\n    <sl-tab selected>Second tab</sl-tab>\n\n    <sl-tab-panel>Content of tab 1</sl-tab-panel>\n    <sl-tab-panel>Content of tab 2</sl-tab-panel>\n  </sl-tab-group>\n```",
           "name": "TabGroup",
+          "cssParts": [
+            {
+              "description": "The container for the tabs.",
+              "name": "container"
+            },
+            {
+              "description": "Wraps the scroll container and menu button.",
+              "name": "wrapper"
+            },
+            {
+              "description": "The scroll container of the tabs.",
+              "name": "scroller"
+            },
+            {
+              "description": "The tablist element which also contains the active tab indicator",
+              "name": "tablist"
+            },
+            {
+              "description": "The container for the tab panels.",
+              "name": "panels"
+            }
+          ],
           "slots": [
             {
-              "description": "a place for the tab group content.",
+              "description": "Tab panels or other tab content here.",
               "name": "default"
+            },
+            {
+              "description": "The tabs to display.",
+              "name": "tabs"
             }
           ],
           "members": [
@@ -113,6 +139,14 @@
                 "text": "EventEmitter<number>"
               },
               "description": "Emits when the tab has been selected/changed."
+            },
+            {
+              "kind": "field",
+              "name": "tabPanels",
+              "type": {
+                "text": "TabPanel[] | undefined"
+              },
+              "description": "The slotted tabs."
             },
             {
               "kind": "field",
@@ -227,7 +261,24 @@
             },
             {
               "kind": "method",
-              "name": "#onSlotchange",
+              "name": "#onTabSlotchange",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onTabPanelSlotchange",
               "return": {
                 "type": {
                   "text": "void"
@@ -345,6 +396,14 @@
             },
             {
               "kind": "field",
+              "name": "tabPanels",
+              "type": {
+                "text": "TabPanel[] | undefined"
+              },
+              "description": "The slotted tabs."
+            },
+            {
+              "kind": "field",
               "name": "tabs",
               "type": {
                 "text": "Tab[] | undefined"
@@ -371,7 +430,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A tab panel component - part of the tab group component, place for a tab content.\n\n```html\n     <sl-tab-panel>\n       Content of the tab\n     </sl-tab-panel>\n```",
+          "description": "A tab panel component, to be used with the tab group component for your tab content.\n\n```html\n  <sl-tab-panel>Content of the tab</sl-tab-panel>\n```",
           "name": "TabPanel",
           "slots": [
             {

@@ -7,6 +7,10 @@ customElements.define('sl-tab-group', TabGroup);
 customElements.define('sl-tab-panel', TabPanel);
 
 declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-tab-change': CustomEvent<number>;
+  }
+
   interface HTMLElementTagNameMap {
     'sl-tab': Tab;
     'sl-tab-group': TabGroup;

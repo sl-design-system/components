@@ -36,15 +36,22 @@ let nextUniqueId = 0;
  *
  * ```html
  *   <sl-tab-group>
- *     <sl-tab selected>First tab</sl-tab>
- *     <sl-tab>Second tab</sl-tab>
+ *     <sl-tab>First tab</sl-tab>
+ *     <sl-tab selected>Second tab</sl-tab>
  *
- *     <sl-tab-panel>Content of the tab 1</sl-tab-panel>
- *     <sl-tab-panel>Content of the tab 2</sl-tab-panel>
+ *     <sl-tab-panel>Content of tab 1</sl-tab-panel>
+ *     <sl-tab-panel>Content of tab 2</sl-tab-panel>
  *   </sl-tab-group>
  * ```
  *
- * @slot default - a place for the tab group content.
+ * @csspart container - The container for the tabs.
+ * @csspart wrapper - Wraps the scroll container and menu button.
+ * @csspart scroller - The scroll container of the tabs.
+ * @csspart tablist - The tablist element which also contains the active tab indicator
+ * @csspart panels - The container for the tab panels.
+ *
+ * @slot default - Tab panels or other tab content here.
+ * @slot tabs - The tabs to display.
  */
 @localized()
 export class TabGroup extends ScopedElementsMixin(LitElement) {
@@ -117,6 +124,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-tab-change' }) tabChangeEvent!: EventEmitter<number>;
 
   /** The slotted tabs. */
+  @state() tabPanels?: TabPanel[];
+
+  /** The slotted tabs. */
   @state() tabs?: Tab[];
 
   /** Renders the tabs vertically instead of the default horizontal  */
@@ -163,7 +173,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           <div part="scroller">
             <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
               <span class="indicator" role="presentation"></span>
-              <slot @slotchange=${this.#onSlotchange} name="tabs"></slot>
+              <slot @slotchange=${this.#onTabSlotchange} name="tabs"></slot>
             </div>
           </div>
 
@@ -183,7 +193,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             : nothing}
         </div>
       </div>
-      <slot @slotchange=${() => this.#linkTabsWithPanels()}></slot>
+      <div part="panels">
+        <slot @slotchange=${this.#onTabPanelSlotchange}></slot>
+      </div>
     `;
   }
 
@@ -214,36 +226,45 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.#updateSelectedTab(tab);
   }
 
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+  #onTabSlotchange(event: Event & { target: HTMLSlotElement }): void {
     this.tabs = event.target.assignedElements({ flatten: true }).filter((el): el is Tab => el instanceof Tab);
+    this.tabs.forEach((tab, index) => {
+      tab.id ||= `${this.#idPrefix}-tab-${index + 1}`;
+    });
+
+    // If no tab is selected, select the first enabled one
     this.selectedTab = this.tabs.find(tab => tab.selected) || this.tabs.find(tab => !tab.disabled);
 
     this.#rovingTabindexController.clearElementCache();
     this.#linkTabsWithPanels();
   }
 
-  #linkTabsWithPanels(): void {
-    this.tabs?.forEach((tab, index) => {
-      tab.setAttribute('id', `${this.#idPrefix}-tab-${index + 1}`);
-      tab.setAttribute('aria-controls', `${this.#idPrefix}-panel-${index + 1}`);
-      tab.toggleAttribute('selected', tab === this.selectedTab);
+  #onTabPanelSlotchange(event: Event & { target: HTMLSlotElement }): void {
+    this.tabPanels = event.target
+      .assignedElements({ flatten: true })
+      .filter((el): el is TabPanel => el instanceof TabPanel);
+
+    this.tabPanels.forEach((panel, index) => {
+      panel.id ||= `${this.#idPrefix}-panel-${index + 1}`;
     });
 
-    const panels = this.querySelectorAll('sl-tab-panel'),
-      selectedPanelId = this.selectedTab?.getAttribute('aria-controls'),
-      selectedTabIndex = this.selectedTab ? this.tabs?.indexOf(this.selectedTab) ?? 0 : 0;
+    this.#linkTabsWithPanels();
+  }
 
-    if (panels.length === 1) {
-      panels[0].setAttribute('id', `${this.#idPrefix}-panel-${selectedTabIndex + 1}`);
-      panels[0].setAttribute('aria-labelledby', `${this.#idPrefix}-tab-${selectedTabIndex + 1}`);
-      panels[0].setAttribute('aria-hidden', 'false');
-    } else {
-      panels.forEach((panel, index) => {
-        panel.setAttribute('id', `${this.#idPrefix}-panel-${index + 1}`);
+  #linkTabsWithPanels(): void {
+    this.tabs?.forEach((tab, index) => {
+      tab.toggleAttribute('selected', tab === this.selectedTab);
+
+      const panel = this.tabPanels?.at(index);
+
+      if (panel) {
+        tab.setAttribute('aria-controls', `${this.#idPrefix}-panel-${index + 1}`);
+        panel.setAttribute('aria-hidden', tab === this.selectedTab ? 'false' : 'true');
         panel.setAttribute('aria-labelledby', `${this.#idPrefix}-tab-${index + 1}`);
-        panel.setAttribute('aria-hidden', `${panel.getAttribute('id') !== selectedPanelId ? 'true' : 'false'}`);
-      });
-    }
+      } else {
+        tab.removeAttribute('aria-controls');
+      }
+    });
   }
 
   #updateSelectedTab(selectedTab: Tab): void {

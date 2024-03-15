@@ -4453,7 +4453,7 @@
           "name": "getScrollParent",
           "return": {
             "type": {
-              "text": "Element | null"
+              "text": ""
             }
           },
           "parameters": [
@@ -4461,9 +4461,11 @@
               "name": "element",
               "type": {
                 "text": "Element"
-              }
+              },
+              "description": "The element to find the scrollable parent of."
             }
-          ]
+          ],
+          "description": "Returns the first scrollable parent of the given element."
         }
       ],
       "exports": [

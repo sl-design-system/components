@@ -69,6 +69,7 @@
 
   ::slotted(sl-tab) {
     flex-shrink: 1;
+    justify-content: start;
   }
 
   [part='panels'] {

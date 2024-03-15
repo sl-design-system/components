@@ -21,6 +21,7 @@
   cursor: pointer;
   display: inline-flex;
   flex-shrink: 0;
+  justify-content: center;
   min-inline-size: fit-content;
   scroll-snap-align: start;
   transition: background 300ms;

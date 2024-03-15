@@ -23,6 +23,16 @@ export default {
     alignTabs: {
       control: 'inline-radio',
       options: ['start', 'center', 'end', 'stretch']
+    },
+    tabs: {
+      table: {
+        disable: true
+      }
+    },
+    tabPanels: {
+      table: {
+        disable: true
+      }
     }
   },
   render: ({ alignTabs, tabs, tabPanels, vertical }) => {

@@ -127,6 +127,14 @@
             },
             {
               "kind": "field",
+              "name": "menuItems",
+              "type": {
+                "text": "Array<{ tab: Tab; disabled?: boolean; title: string; subtitle?: string }> | undefined"
+              },
+              "description": "The menu items to render when the tabs are overflowing."
+            },
+            {
+              "kind": "field",
               "name": "selectedTab",
               "type": {
                 "text": "Tab | undefined"
@@ -412,6 +420,14 @@
               },
               "default": "false",
               "description": "Determines whether the active tab indicator should animate."
+            },
+            {
+              "kind": "field",
+              "name": "menuItems",
+              "type": {
+                "text": "Array<{ tab: Tab; disabled?: boolean; title: string; subtitle?: string }> | undefined"
+              },
+              "description": "The menu items to render when the tabs are overflowing."
             },
             {
               "kind": "field",

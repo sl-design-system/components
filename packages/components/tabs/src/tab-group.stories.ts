@@ -14,7 +14,7 @@ type Props = Pick<TabGroup, 'vertical' | 'alignTabs'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Tab Group',
+  title: 'Tab group',
   args: {
     alignTabs: 'start',
     vertical: false

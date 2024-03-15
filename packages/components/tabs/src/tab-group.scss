@@ -4,6 +4,9 @@
   --_indicator-animation-duration: var(--sl-animation-duration-slow);
   --_indicator-color: var(--sl-color-button-primary-solid-idle-background);
   --_indicator-size: var(--sl-size-select-indicator);
+  --_menu-button-inline-padding: calc(
+    var(--sl-border-width-focusring-offset) + var(--sl-border-width-focusring-default)
+  );
   --_panel-horizontal-padding: var(--sl-space-tab-content-horizontal-block)
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
@@ -143,6 +146,7 @@ sl-menu-button {
   --sl-menu-min-inline-size: var(--sl-tab-group-menu-min-inline-size, 100px);
 
   align-self: center;
+  padding-inline-start: var(--_menu-button-inline-padding);
   position: relative;
 
   &::before {
@@ -154,6 +158,17 @@ sl-menu-button {
     pointer-events: none;
     position: absolute;
     translate: -100%;
+  }
+}
+
+sl-menu-item {
+  &::part(wrapper) {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .title:has(+ .subtitle) {
+    font: var(--sl-text-tab-title);
   }
 }
 

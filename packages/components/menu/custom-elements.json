@@ -540,6 +540,12 @@
           "kind": "class",
           "description": "Menu item component for use inside a menu.",
           "name": "MenuItem",
+          "cssParts": [
+            {
+              "description": "The wrapper around the menu item content.",
+              "name": "wrapper"
+            }
+          ],
           "slots": [
             {
               "description": "Content to display inside the menu item.",

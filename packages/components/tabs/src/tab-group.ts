@@ -106,6 +106,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** The alignment of tabs within the wrapper. */
   @property({ attribute: 'align-tabs', reflect: true }) alignTabs?: TabsAlignment;
 
+  /** The menu items to render when the tabs are overflowing. */
+  @state() menuItems?: Array<{ tab: Tab; disabled?: boolean; title: string; subtitle?: string }>;
+
   /** The currently selected tab. */
   @state() selectedTab?: Tab;
 
@@ -173,10 +176,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             ? html`
                 <sl-menu-button aria-label=${msg('Show all')} fill="ghost">
                   <sl-icon name="ellipsis" slot="button"></sl-icon>
-                  ${this.tabs?.map(
-                    tab => html`
-                      <sl-menu-item @click=${() => this.#onMenuItemClick(tab)} ?disabled=${tab.disabled}>
-                        ${tab.textContent?.trim()}
+                  ${this.menuItems?.map(
+                    menuItem => html`
+                      <sl-menu-item @click=${() => this.#onMenuItemClick(menuItem.tab)} ?disabled=${menuItem.disabled}>
+                        <div class="title">${menuItem.title}</div>
+                        ${menuItem.subtitle ? html`<div class="subtitle">${menuItem.subtitle}</div>` : nothing}
                       </sl-menu-item>
                     `
                   )}
@@ -329,6 +333,21 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement;
 
     this.showMenu = !this.vertical && tablist.scrollWidth > scroller.offsetWidth;
+    if (this.showMenu) {
+      this.menuItems = this.tabs?.map(tab => {
+        const title = Array.from(tab.childNodes)
+          .filter(node => node instanceof Text || (node instanceof Element && !node.slot))
+          .reduce((acc, node) => acc + node.textContent?.trim() ?? '', '');
+
+        const subtitle = Array.from(tab.childNodes)
+          .filter(node => node instanceof Element && node.slot === 'subtitle')
+          .reduce((acc, node) => acc + node.textContent?.trim() ?? '', '');
+
+        return { tab, disabled: tab.disabled, title, subtitle };
+      });
+    } else {
+      this.menuItems = undefined;
+    }
 
     this.selectedTab?.scrollIntoView();
 

@@ -114,17 +114,17 @@ export const Overflow: Story = {
       <sl-tab>Tab 2</sl-tab>
       <sl-tab>Tab 3</sl-tab>
       <sl-tab>Tab 4</sl-tab>
-      <sl-tab disabled>Tab 5</sl-tab>
+      <sl-tab>Tab 5</sl-tab>
       <sl-tab>Tab 6</sl-tab>
-      <sl-tab disabled>Tab 7</sl-tab>
+      <sl-tab>Tab 7</sl-tab>
       <sl-tab>Tab 8</sl-tab>
       <sl-tab>Tab 9</sl-tab>
       <sl-tab>Tab 10</sl-tab>
       <sl-tab>Tab 11</sl-tab>
       <sl-tab>Tab 12</sl-tab>
-      <sl-tab disabled>Tab 13</sl-tab>
-      <sl-tab>Tab 14</sl-tab>
-      <sl-tab>Tab 15</sl-tab>
+      <sl-tab>Tab 13</sl-tab>
+      <sl-tab disabled>Tab 14</sl-tab>
+      <sl-tab disabled>Tab 15</sl-tab>
       <sl-tab>Tab 16</sl-tab>
       <sl-tab>Tab 17</sl-tab>
       <sl-tab>Tab 18</sl-tab>

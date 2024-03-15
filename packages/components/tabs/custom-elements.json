@@ -279,6 +279,23 @@
             },
             {
               "kind": "method",
+              "name": "#onScroll",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onTabSlotchange",
               "return": {
                 "type": {

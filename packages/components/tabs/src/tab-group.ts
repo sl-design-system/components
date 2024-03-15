@@ -165,10 +165,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     return html`
       <div part="container">
         <div part="wrapper">
-          <div part="scroller">
-            <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
-              <span class="indicator" role="presentation"></span>
-              <slot @slotchange=${this.#onTabSlotchange} name="tabs"></slot>
+          <div class="fade-container">
+            <div class="fade fade-left"></div>
+            <div class="fade fade-right"></div>
+            <div @scroll=${this.#onScroll} part="scroller">
+              <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
+                <span class="indicator" role="presentation"></span>
+                <slot @slotchange=${this.#onTabSlotchange} name="tabs"></slot>
+              </div>
             </div>
           </div>
 
@@ -220,6 +224,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #onMenuItemClick(tab: Tab): void {
     this.#updateSelectedTab(tab);
+  }
+
+  #onScroll(event: Event & { target: HTMLElement }): void {
+    const { clientWidth, scrollLeft, scrollWidth } = event.target,
+      scrollable = scrollWidth > clientWidth;
+
+    this.toggleAttribute('scroll-left', scrollable && scrollLeft > 0);
+    this.toggleAttribute('scroll-right', scrollable && Math.round(scrollLeft + clientWidth) < scrollWidth);
   }
 
   #onTabSlotchange(event: Event & { target: HTMLSlotElement }): void {

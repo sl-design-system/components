@@ -34,7 +34,6 @@ describe('sl-accordion-item', () => {
     it('should have the correct attributes', () => {
       expect(summary).to.have.attribute('aria-controls', 'content');
       expect(summary).to.have.attribute('aria-expanded', 'false');
-      expect(summary).to.have.attribute('aria-disabled', 'false');
     });
 
     it('should not have single attribute by default', () => {
@@ -116,7 +115,6 @@ describe('sl-accordion-item', () => {
       expect(details).not.to.have.attribute('open');
       expect(summary).to.have.attribute('aria-controls', 'content');
       expect(summary).to.have.attribute('aria-expanded', 'false');
-      expect(summary).to.have.attribute('aria-disabled', 'true');
     });
 
     it('should ignore clicks', async () => {

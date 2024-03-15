@@ -34,7 +34,6 @@ export class AccordionItem extends LitElement {
         <summary
           id="summary-id"
           aria-controls="content"
-          aria-disabled=${this.disabled ? 'true' : 'false'}
           aria-expanded=${this.open ? 'true' : 'false'}
           tabindex=${this.disabled ? -1 : 0}
           part="summary"

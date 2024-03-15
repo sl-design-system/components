@@ -116,7 +116,7 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
                   option => html`
                     <sl-checkbox
                       @sl-change=${(event: CustomEvent<boolean>) => this.#onChange(option, event.detail)}
-                      ?checked=${this.value?.includes(option.value?.toString() ?? '')}
+                      .checked=${this.value?.includes(option.value?.toString() ?? '')}
                       .value=${option.value}
                     >
                       ${option.label}

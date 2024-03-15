@@ -304,6 +304,15 @@
             },
             {
               "kind": "method",
+              "name": "#scrollToTop",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
               "name": "#updateSelectedTab",
               "return": {
                 "type": {

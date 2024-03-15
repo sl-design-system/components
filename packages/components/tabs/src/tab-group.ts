@@ -2,7 +2,7 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { MenuButton, MenuItem } from '@sl-design-system/menu';
-import { type EventEmitter, RovingTabindexController, event } from '@sl-design-system/shared';
+import { type EventEmitter, RovingTabindexController, event, getScrollParent } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './tab-group.scss.js';
@@ -144,7 +144,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       // We want to observe the size of the tablist, not the
       // container or wrapper. The tablist is the element that
       // changes size for example when fonts are loaded. The
-      // other elements do not change size when the tablist does.
+      // other elements do not change size while the tablist does.
       this.#resizeObserver.observe(tablist);
     });
   }
@@ -206,8 +206,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       return;
     }
 
-    this.scrollTo({ top: 0 });
     this.#updateSelectedTab(tab);
+    this.#scrollToTop();
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
@@ -217,8 +217,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
       event.stopPropagation();
 
-      this.scrollTo({ top: 0 });
       this.#updateSelectedTab(tab);
+      this.#scrollToTop();
     }
   }
 
@@ -267,6 +267,13 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     });
   }
 
+  #scrollToTop(): void {
+    const { bottom = 0 } = this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() ?? {},
+      { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() ?? {};
+
+    getScrollParent(this)?.scrollBy({ top: top - bottom });
+  }
+
   #updateSelectedTab(selectedTab: Tab): void {
     if (selectedTab === this.selectedTab) {
       return;
@@ -280,8 +287,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
     this.selectedTab = selectedTab;
 
-    const options: ScrollIntoViewOptions = this.vertical ? { block: 'center' } : { inline: 'center' };
-    this.selectedTab.scrollIntoViewIfNeeded?.(options) ?? this.selectedTab.scrollIntoView(options);
+    // const options: ScrollIntoViewOptions = this.vertical ? { block: 'center' } : { inline: 'center' };
+    // this.selectedTab.scrollIntoViewIfNeeded?.(options) ?? this.selectedTab.scrollIntoView(options);
 
     this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
 

@@ -124,6 +124,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/directives/anchor.js"
           }
         },
@@ -4432,6 +4440,39 @@
           "declaration": {
             "name": "anchor",
             "module": "src/directives/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/dom.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getScrollParent",
+          "return": {
+            "type": {
+              "text": "Element | null"
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getScrollParent",
+          "declaration": {
+            "name": "getScrollParent",
+            "module": "src/dom.ts"
           }
         }
       ]

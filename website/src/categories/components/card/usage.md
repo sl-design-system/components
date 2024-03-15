@@ -7,7 +7,9 @@ eleventyNavigation:
 ---
 
 <section>
-  insert live demo
+  
+Insert live demo
+  
 </section>
 
 <section>

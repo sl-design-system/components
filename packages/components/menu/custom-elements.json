@@ -885,8 +885,24 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A menu that can be used as a context menu or as a dropdown menu.",
           "name": "Menu",
+          "cssProperties": [
+            {
+              "description": "The maximum inline size of the menu.",
+              "name": "--sl-menu-max-inline-size"
+            },
+            {
+              "description": "The minimum inline size of the menu.",
+              "name": "--sl-menu-min-inline-size"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The menu's content: menu items or menu item groups.",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "method",

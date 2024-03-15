@@ -39,6 +39,9 @@ let nextUniqueId = 0;
  * @csspart tablist - The tablist element which also contains the active tab indicator
  * @csspart panels - The container for the tab panels.
  *
+ * @cssprop --sl-tab-group-menu-min-inline-size - The minimum inline size of the menu.
+ * @cssprop --sl-tab-group-menu-max-inline-size - The maximum inline size of the menu.
+ *
  * @slot default - Tab panels or other tab content here.
  * @slot tabs - The tabs to display.
  */
@@ -101,7 +104,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #shouldAnimate = false;
 
   /** The alignment of tabs within the wrapper. */
-  @property({ reflect: true, attribute: 'align-tabs' }) alignTabs?: TabsAlignment;
+  @property({ attribute: 'align-tabs', reflect: true }) alignTabs?: TabsAlignment;
 
   /** The currently selected tab. */
   @state() selectedTab?: Tab;

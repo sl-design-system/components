@@ -19,6 +19,8 @@
   display: none;
   flex-direction: column;
   margin: 0;
+  max-inline-size: var(--sl-menu-max-inline-size, auto);
+  min-inline-size: var(--sl-menu-min-inline-size, fit-content);
   opacity: 0;
   overflow: visible auto;
   padding-block: var(--_padding-block);

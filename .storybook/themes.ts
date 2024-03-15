@@ -110,6 +110,19 @@ export const themes: Theme[] = [
     }
   },
   {
+    id: 'my-digital-book',
+    name: 'My Digital Book',
+    fonts: [
+      'https://use.typekit.net/doq6twb.css',
+      '/themes/my-digital-book/fonts.css'
+    ],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/my-digital-book');
+
+      setup();
+    }
+  },
+  {
     id: 'myvanin',
     name: 'My Van In',
     fonts: ['https://use.typekit.net/doq6twb.css'],
@@ -148,6 +161,16 @@ export const themes: Theme[] = [
     ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/sanoma-learning');
+
+      setup();
+    }
+  },
+  {
+    id: 'sanoma-utbildning',
+    name: 'Sanoma Utbildning',
+    fonts: ['https://use.typekit.net/xrr8gdw.css'],
+    setup: async () => {
+      const { setup } = await import('@sl-design-system/sanoma-utbildning');
 
       setup();
     }

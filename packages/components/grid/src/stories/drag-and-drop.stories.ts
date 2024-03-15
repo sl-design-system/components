@@ -1,9 +1,8 @@
-import type { GridItemDropEvent } from '../events.js';
-import type { StoryObj } from '@storybook/web-components';
-import type { Person } from '@sl-design-system/example-data';
-import { getPeople } from '@sl-design-system/example-data';
+import { type Person, getPeople } from '@sl-design-system/example-data';
+import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
+import { type GridItemDropEvent } from '../events.js';
 
 type Story = StoryObj;
 

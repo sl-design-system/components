@@ -1,25 +1,14 @@
 :host {
+  --_arrow-block-size: 6px;
+  --_arrow-inline-size: 16px;
   --_background: var(--sl-color-tooltip-background);
-  --_border: 0;
   --_border-radius: var(--sl-border-radius-default);
+  --_border: 0;
   --_color: var(--sl-color-tooltip-foreground);
   --_font: var(--sl-text-tooltip-text-tip);
   --_max-width: var(--sl-tooltip-max-width, auto);
   --_padding-block: var(--sl-space-tooltip-block);
   --_padding-inline: var(--sl-space-tooltip-inline);
-
-  /* to position */
-  --_arrow-height: 6px;
-  --_arrow-width: 16px;
-  /* the distance from the edge when the arrow is positionend at start or end */
-  --_arrow-start-end-offset: var(--sl-space-tooltip-arrow-offset);
-}
-
-:host {
-  /** This has to be in pixels until we can use @property.
-   *  --_arrow-height + tooltip offset
-   */
-  --sl-popover-offset: 14px;
 
   background: var(--_background);
   border: var(--_border);
@@ -27,101 +16,80 @@
   color: var(--_color);
   font: var(--_font);
   margin: 0;
-  max-width: var(--_max-width);
+  max-inline-size: var(--_max-width);
   opacity: 0;
   overflow: visible;
   overflow-wrap: break-word;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
+  }
+
+  /**
+   * Because of :host and the fact that the element is often not inside a shadow root,
+   * the popover-polyfill can have a higher specificity. We need to use !important
+   * to overwrite the polyfill styling.
+   *
+   * This is only necessary for Firefox < 125 and older browsers that don't support popover
+   */
+  @supports not selector(:popover-open) {
+    background: var(--_background) !important;
+    border: var(--_border) !important;
+    color: var(--_color) !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    padding-block: var(--_padding-block) !important;
+    padding-inline: var(--_padding-inline) !important;
+    position: fixed;
+  }
 }
 
-/* stylelint-disable-next-line selector-class-pattern*/
-:host(:is(:popover-open, .\\:popover-open)) {
+/* stylelint-disable-next-line selector-class-pattern */
+:host(:where(:popover-open, .\\:popover-open)) {
+  /* stylelint-disable-next-line scss/at-rule-no-unknown */
+  @starting-style {
+    display: block;
+    opacity: 0;
+  }
+
   opacity: 1;
-  transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);
 }
 
 :host([actual-placement^='bottom']) .arrow {
-  inset-block-start: calc(var(--_arrow-height) * -1);
-}
-
-:host([actual-placement='bottom']) .arrow {
-  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='bottom-start']) .arrow {
-  inset-inline-start: var(--_arrow-start-end-offset);
-}
-
-:host([actual-placement='bottom-end']) .arrow {
-  inset-inline-end: var(--_arrow-start-end-offset);
+  inset-block-start: calc(var(--_arrow-block-size) * -1);
 }
 
 :host([actual-placement^='left']) .arrow {
-  inset-inline-end: calc(var(--_arrow-height) * -1);
+  inset-inline-end: calc(var(--_arrow-inline-size) * -1);
 
   svg {
     rotate: 90deg;
-    transform-origin: top center;
-    translate: 8px 8px;
+    transform-origin: left;
+    translate: calc(var(--_arrow-block-size) / 2) calc(var(--_arrow-inline-size) / -2);
   }
-}
-
-:host([actual-placement='left']) .arrow {
-  inset-block: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='left-start']) .arrow {
-  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
-:host([actual-placement='left-end']) .arrow {
-  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
 }
 
 :host([actual-placement^='right']) .arrow {
-  inset-inline-start: calc(var(--_arrow-height) * -1);
+  inset-inline-start: calc(var(--_arrow-inline-size) * -1);
 
   svg {
     rotate: -90deg;
-    transform-origin: top center;
-    translate: -8px 8px;
+    transform-origin: right;
+    translate: calc(var(--_arrow-block-size) / -2) calc(var(--_arrow-inline-size) / -2);
   }
 }
 
-:host([actual-placement='right']) .arrow {
-  inset-block: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='right-start']) .arrow {
-  inset-block-start: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
-:host([actual-placement='right-end']) .arrow {
-  inset-block-end: min(var(--_arrow-start-end-offset), calc(50% - var(--_arrow-width) / 2));
-}
-
 :host([actual-placement^='top']) .arrow {
-  inset-block-end: calc(var(--_arrow-height) * -1);
+  inset-block-end: calc(var(--_arrow-block-size) * -1);
   scale: 1 -1;
 }
 
-:host([actual-placement='top']) .arrow {
-  inset-inline-start: calc(50% - var(--_arrow-width) / 2);
-}
-
-:host([actual-placement='top-start']) .arrow {
-  inset-inline-start: var(--_arrow-start-end-offset);
-}
-
-:host([actual-placement='top-end']) .arrow {
-  inset-inline-end: var(--_arrow-start-end-offset);
-}
-
 .arrow {
+  block-size: var(--_arrow-block-size);
   display: flex;
   fill: var(--_background);
-  height: var(--_arrow-width);
+  inline-size: var(--_arrow-inline-size);
   position: absolute;
-  width: var(--_arrow-width);
 }

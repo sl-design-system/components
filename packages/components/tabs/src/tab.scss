@@ -19,9 +19,7 @@
   --_listbox-item-border-radius: var(--sl-border-radius-select-item);
   --_listbox-item-padding: var(--sl-space-select-item-block-lg) var(--sl-space-select-item-inline-lg);
   --_padding: var(--sl-space-tab-block) var(--sl-space-tab-inline);
-}
 
-:host {
   align-items: flex-start;
   background-color: var(--_background);
   color: var(--_color);
@@ -76,6 +74,7 @@ slot[name='subtitle'] {
 
 slot[name='icon']::slotted(sl-icon) {
   block-size: var(--_icon-block-size);
+  fill: var(--_color);
 }
 
 slot[name='badge']::slotted(sl-badge) {
@@ -112,8 +111,4 @@ slot[name='badge']::slotted(sl-badge) {
   inline-size: var(--_indicator-size);
   inset: 0 auto 0 0;
   position: absolute;
-}
-
-:host([disabled]) {
-  color: var(--sl-color-select-item-disabled-foreground);
 }

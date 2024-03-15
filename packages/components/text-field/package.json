@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/text-field",
-  "version": "0.1.14",
+  "version": "0.1.19",
   "description": "Text field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,9 +38,14 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@open-wc/scoped-elements": "^3.0.5",
-    "@sl-design-system/form": "0.0.5",
-    "@sl-design-system/icon": "0.0.7",
-    "@sl-design-system/shared": "0.2.2"
+    "@sl-design-system/form": "0.0.10",
+    "@sl-design-system/icon": "0.0.9",
+    "@sl-design-system/shared": "0.2.6"
+  },
+  "devDependencies": {
+    "@open-wc/scoped-elements": "^3.0.5"
+  },
+  "peerDependencies": {
+    "@open-wc/scoped-elements": "^3.0.5"
   }
 }

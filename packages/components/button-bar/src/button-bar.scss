@@ -1,36 +1,33 @@
 :host {
-  --_align: var(--sl-button-bar-align, start);
-  --_direction: var(--sl-button-bar-direction, row);
-  --gap-h: var(--sl-space-button-bar-gap-inline);
-  --gap-v: var(--sl-space-button-bar-gap-block);
-}
+  --sl-button-bar-align: start;
+  --sl-button-bar-direction: row;
+  --_block-gap: var(--sl-space-button-bar-gap-block);
+  --_inline-gap: var(--sl-space-button-bar-gap-inline);
 
-:host {
   align-items: center;
   display: flex;
-  flex-direction: var(--_direction);
-  flex-wrap: wrap;
-  gap: var(--gap-v) var(--gap-h);
-  justify-content: var(--_align);
+  flex-flow: var(--sl-button-bar-direction) wrap;
+  gap: var(--_block-gap) var(--_inline-gap);
+  justify-content: var(--sl-button-bar-align);
 }
 
 :host([align='center']) {
-  --_align: center;
+  --sl-button-bar-align: center;
 }
 
 :host([align='end']) {
-  --_align: flex-end;
+  --sl-button-bar-align: end;
 }
 
 :host([align='space-between']) {
-  --_align: space-between;
+  --sl-button-bar-align: space-between;
 }
 
 :host([icon-only]) {
-  --gap-h: 0.5rem;
-  --gap-v: 0.25rem;
+  // FIXME: This value shouldn't be hardcoded
+  --_inline-gap: 0.25rem;
 }
 
 :host([reverse]) {
-  --_direction: row-reverse;
+  --sl-button-bar-direction: row-reverse;
 }

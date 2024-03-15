@@ -1,4 +1,5 @@
-import type { StoryObj } from '@storybook/web-components';
+/* eslint-disable lit/attribute-value-entities */
+import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
 
@@ -18,121 +19,119 @@ export const API: Story = {
       options: ['none', 'shimmer', 'sheen', 'pulse']
     }
   },
-  render: ({ effect }) =>
-    html`
-      <style>
-        section {
-          display: flex;
-          flex-direction: column;
-          gap: 24px;
-        }
+  render: ({ effect }) => html`
+    <style>
+      section {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
 
-        .container {
-          display: grid;
-          gap: 1rem;
-          width: 60%;
-        }
+      .container {
+        display: grid;
+        gap: 1rem;
+        width: 60%;
+      }
 
-        .container sl-skeleton {
-          block-size: 1.25rem;
-        }
+      .container sl-skeleton {
+        block-size: 1.25rem;
+      }
 
-        .title {
-          display: grid;
-          grid-template-columns: auto 1fr;
-          align-items: center;
-          gap: 0.5rem;
-        }
+      .title {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 0.5rem;
+      }
 
-        .title sl-skeleton:first-of-type {
-          aspect-ratio: 1;
-          block-size: 2.5rem;
-        }
+      .title sl-skeleton:first-of-type {
+        aspect-ratio: 1;
+        block-size: 2.5rem;
+      }
 
-        .body {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
+      .body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
 
-        .body sl-skeleton {
-          block-size: 1rem;
-          inline-size: 80%;
-        }
+      .body sl-skeleton {
+        block-size: 1rem;
+        inline-size: 80%;
+      }
 
-        .body sl-skeleton:first-of-type {
-          inline-size: 100%;
-        }
+      .body sl-skeleton:first-of-type {
+        inline-size: 100%;
+      }
 
-        .body sl-skeleton:last-of-type {
-          inline-size: 60%;
-        }
+      .body sl-skeleton:last-of-type {
+        inline-size: 60%;
+      }
 
-        .container-images {
-          display: grid;
-          gap: 2rem;
-          grid-auto-columns: 1fr;
-          grid-auto-flow: column;
-          margin-top: 2rem;
-        }
+      .container-images {
+        display: grid;
+        gap: 2rem;
+        grid-auto-columns: 1fr;
+        grid-auto-flow: column;
+        margin-top: 2rem;
+      }
 
-        .container-images sl-skeleton {
-          block-size: 8rem;
-        }
-      </style>
-      <section aria-label="Loading">
-        <div class="container">
-          <div class="title">
-            <sl-skeleton variant="circle" .effect=${effect}></sl-skeleton>
-            <sl-skeleton .effect=${effect}></sl-skeleton>
-          </div>
-          <div class="body">
-            <sl-skeleton .effect=${effect}></sl-skeleton>
-            <sl-skeleton .effect=${effect}></sl-skeleton>
-            <sl-skeleton .effect=${effect}></sl-skeleton>
-          </div>
+      .container-images sl-skeleton {
+        block-size: 8rem;
+      }
+    </style>
+    <section aria-label="Loading">
+      <div class="container">
+        <div class="title">
+          <sl-skeleton variant="circle" .effect=${effect}></sl-skeleton>
+          <sl-skeleton .effect=${effect}></sl-skeleton>
         </div>
-      </section>
-      <section aria-label="Loading pictures">
-        <div class="container-images">
-          <sl-skeleton .effect=${effect}></sl-skeleton>
-          <sl-skeleton .effect=${effect}></sl-skeleton>
+        <div class="body">
           <sl-skeleton .effect=${effect}></sl-skeleton>
           <sl-skeleton .effect=${effect}></sl-skeleton>
           <sl-skeleton .effect=${effect}></sl-skeleton>
         </div>
-      </section>
-    `
+      </div>
+    </section>
+    <section aria-label="Loading pictures">
+      <div class="container-images">
+        <sl-skeleton .effect=${effect}></sl-skeleton>
+        <sl-skeleton .effect=${effect}></sl-skeleton>
+        <sl-skeleton .effect=${effect}></sl-skeleton>
+        <sl-skeleton .effect=${effect}></sl-skeleton>
+        <sl-skeleton .effect=${effect}></sl-skeleton>
+      </div>
+    </section>
+  `
 };
 
 export const All: Story = {
   args: {
     width: '80%'
   },
-  render: ({ width }) =>
-    html`
-      <style>
-        section {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
+  render: ({ width }) => html`
+    <style>
+      section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
 
-        sl-skeleton {
-          height: 1rem;
-        }
-      </style>
-      <section>
-        <h2>No effect</h2>
-        <sl-skeleton effect="none" style="width: ${width};"></sl-skeleton>
-        <h2>Shimmer effect (default)</h2>
-        <sl-skeleton style="width: ${width};"></sl-skeleton>
-        <h2>Sheen effect</h2>
-        <sl-skeleton effect="sheen" style="width: ${width};"></sl-skeleton>
-        <h2>Pulse effect</h2>
-        <sl-skeleton effect="pulse" style="width: ${width};"></sl-skeleton>
-      </section>
-    `
+      sl-skeleton {
+        height: 1rem;
+      }
+    </style>
+    <section>
+      <h2>No effect</h2>
+      <sl-skeleton effect="none" style="width: ${width};"></sl-skeleton>
+      <h2>Shimmer effect (default)</h2>
+      <sl-skeleton style="width: ${width};"></sl-skeleton>
+      <h2>Sheen effect</h2>
+      <sl-skeleton effect="sheen" style="width: ${width};"></sl-skeleton>
+      <h2>Pulse effect</h2>
+      <sl-skeleton effect="pulse" style="width: ${width};"></sl-skeleton>
+    </section>
+  `
 };
 
 export const LoadingImage: Story = {

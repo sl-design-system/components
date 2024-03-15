@@ -1,0 +1,36 @@
+{
+  "name": "@sl-design-system/my-digital-book",
+  "description": "My Digital Book theme for the SL Design System",
+  "version": "0.1.6",
+  "license": "Apache 2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/themes/my-digital-book"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "**/*.css",
+    "**/*.d.ts",
+    "**/*.d.ts.map",
+    "**/*.js",
+    "**/*.js.map",
+    "**/*.json",
+    "**/*.scss",
+    "fonts/*",
+    "CHANGELOG.md"
+  ],
+  "dependencies": {
+    "@sl-design-system/icon": "0.0.9"
+  }
+}

@@ -1,9 +1,8 @@
-import type { Textarea, TextareaSize } from './textarea.js';
-import type { TemplateResult } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/form/register.js';
-import { html } from 'lit';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html } from 'lit';
 import '../register.js';
+import { type Textarea, type TextareaSize } from './textarea.js';
 
 type Props = Pick<
   Textarea,
@@ -22,7 +21,7 @@ type Props = Pick<
 > & {
   hint?: string;
   label?: string;
-  slot?: () => TemplateResult;
+  slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
 

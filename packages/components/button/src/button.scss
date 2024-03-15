@@ -5,10 +5,26 @@ $variants: default, primary, success, warning, danger;
 :host {
   --_animation: var(--sl-animation-button);
   --_background: var(--sl-color-button-default-idle-background);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_transition-duration: var(--sl-animation-button-duration);
   --_transition-easing: var(--sl-animation-button-easing);
-  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+
+  align-items: center;
+  background: var(--_background);
+  border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--_border-radius);
+  color: var(--_color);
+  cursor: pointer;
+  display: inline-flex;
+  font: var(--_font);
+  gap: var(--_label-gap);
+  justify-content: center;
+  outline-color: transparent;
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+  transform: var(--_transform);
+  vertical-align: middle;
 }
 
 @each $fill in $fills {
@@ -50,9 +66,9 @@ $variants: default, primary, success, warning, danger;
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --icon-container-size: var(--sl-size-button-icon-#{$size});
     --_border-radius: var(--sl-border-radius-button-#{$size});
     --_font: var(--sl-text-button-text-#{$size});
+    --_icon-container-size: var(--sl-size-button-icon-#{$size});
     --_label-gap: var(--sl-space-button-gap-#{$size});
   }
 
@@ -74,13 +90,14 @@ $variants: default, primary, success, warning, danger;
   }
 
   :host([size='#{$size}'][icon-only]) {
-    --icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
     --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
+    --_icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
+
     line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
   }
 
   :host([size='#{$size}']) ::slotted(sl-spinner) {
-    --spinner-size: var(--sl-size-spinner-#{$size});
+    --sl-spinner-size: var(--sl-size-spinner-#{$size});
   }
 
   @each $fill in $fills {
@@ -88,29 +105,12 @@ $variants: default, primary, success, warning, danger;
       --_padding-block: var(--sl-space-button-#{$fill}-block-#{$size});
       --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size});
     }
+
     :host([size='#{$size}'][size='#{$size}'][icon-only]) {
       --_padding-block: var(--sl-space-button-#{$fill}-icon-only-#{$size});
       --_padding-inline: var(--sl-space-button-#{$fill}-icon-only-#{$size});
     }
   }
-}
-
-:host {
-  align-items: center;
-  background: var(--_background);
-  border: var(--_border-width) solid var(--_border-color);
-  border-radius: var(--_border-radius);
-  color: var(--_color);
-  cursor: pointer;
-  display: inline-flex;
-  font: var(--_font);
-  gap: var(--_label-gap);
-  justify-content: center;
-  outline-color: transparent;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
-  transform: var(--_transform);
-  vertical-align: top;
 }
 
 :host(:focus-visible) {
@@ -135,5 +135,10 @@ $variants: default, primary, success, warning, danger;
 }
 
 ::slotted(sl-icon) {
+  --sl-icon-container-size: var(--_icon-container-size);
+
   fill: var(--_color);
+
+  // Prevent the icon from ever gaining focus inside the button
+  pointer-events: none;
 }

@@ -3026,21 +3026,21 @@
     "badge": {
       "danger": {
         "background": {
-          "value": "{color.palette.danger.500}",
+          "value": "{color.palette.danger.150}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.500}",
+          "value": "{color.palette.success.300}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       },
@@ -3060,7 +3060,7 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       },
@@ -3076,11 +3076,21 @@
       },
       "primary": {
         "background": {
-          "value": "{color.palette.primary.base}",
+          "value": "{color.palette.primary.300}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
+          "type": "color"
+        }
+      },
+      "info": {
+        "background": {
+          "value": "{color.palette.info.300}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       }
@@ -3625,6 +3635,167 @@
           "value": "{color.palette.black.base}",
           "type": "color"
         }
+      }
+    },
+    "tab": {
+      "default": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.600}",
+          "type": "color"
+        },
+        "indicator": {
+          "value": "{color.palette.primary.base}",
+          "type": "color"
+        }
+      },
+      "hover": {
+        "background": {
+          "value": "rgba({color.palette.primary.400}, {opacity.400})",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.600}",
+          "type": "color"
+        }
+      },
+      "disabled": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.neutral.300}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.600}",
+          "type": "color"
+        }
+      },
+      "tabbar": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.600}",
+          "type": "color"
+        }
+      },
+      "active": {
+        "background": {
+          "value": "rgba({color.palette.primary.400}, {opacity.600})",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.600}",
+          "type": "color"
+        }
+      },
+      "content": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        }
+      }
+    },
+    "card": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.neutral.600}",
+        "type": "color"
+      }
+    },
+    "spinner": {
+      "default": {
+        "value": "{color.palette.primary.300}",
+        "type": "color"
+      },
+      "white": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      },
+      "accent": {
+        "value": "{color.palette.accent.base}",
+        "type": "color"
+      },
+      "info": {
+        "value": "{color.palette.info.300}",
+        "type": "color"
+      },
+      "success": {
+        "value": "{color.palette.success.base}",
+        "type": "color"
+      },
+      "warning": {
+        "value": "{color.palette.warning.base}",
+        "type": "color"
+      },
+      "danger": {
+        "value": "{color.palette.danger.200}",
+        "type": "color"
+      }
+    },
+    "skeleton": {
+      "base": {
+        "value": "{color.palette.neutral.900}",
+        "type": "color",
+        "description": "body.surface.100"
+      },
+      "effect": {
+        "value": "{color.palette.primary.900}",
+        "type": "color",
+        "description": "body.surface.100"
+      },
+      "pulse": {
+        "value": "{color.palette.primary.800}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "alpha",
+              "value": "0.4",
+              "space": "hsl"
+            }
+          }
+        },
+        "description": "body.surface.100"
+      },
+      "shimmer": {
+        "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.effect} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",
+        "type": "color",
+        "description": "body.surface.100"
       }
     }
   },

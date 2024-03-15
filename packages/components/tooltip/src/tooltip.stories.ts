@@ -1,26 +1,43 @@
-import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import { html } from 'lit';
-import { tooltip } from './tooltip-directive.js';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html } from 'lit';
+import { styleMap } from 'lit/directives/style-map.js';
 import '../register.js';
+import { tooltip } from './tooltip-directive.js';
+import { type Tooltip } from './tooltip.js';
+
+type Props = Pick<Tooltip, 'maxWidth' | 'position'> & {
+  alignSelf: string;
+  justifySelf: string;
+  example?(props: Props): TemplateResult;
+  message: string;
+};
+type Story = StoryObj<Props>;
 
 export default {
   title: 'Tooltip',
-  parameters: {
-    layout: 'centered'
-  }
-};
-
-export const API: StoryObj = {
   args: {
-    message: 'Tooltip message',
-    position: 'top',
-    maxWidth: 150
+    alignSelf: 'center',
+    justifySelf: 'center',
+    maxWidth: 150,
+    message: 'This is the tooltip message',
+    position: 'top'
   },
   argTypes: {
-    position: {
+    alignSelf: {
       control: 'inline-radio',
+      options: ['start', 'center', 'end']
+    },
+    example: {
+      table: { disable: true }
+    },
+    justifySelf: {
+      control: 'inline-radio',
+      options: ['start', 'center', 'end']
+    },
+    position: {
+      control: 'select',
       options: [
         'top',
         'top-start',
@@ -37,50 +54,56 @@ export const API: StoryObj = {
       ]
     }
   },
-  render: ({ message, position, maxWidth }) => {
+  render: props => {
+    const { alignSelf, example, justifySelf, message, position, maxWidth } = props;
+
     return html`
-      <sl-button aria-describedby="tooltip" fill="outline">Button element</sl-button>
-      <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}>${message}</sl-tooltip>
+      <style>
+        #root-inner {
+          display: grid;
+          height: calc(100dvh - 2rem);
+          place-items: center;
+        }
+      </style>
+      ${example
+        ? example?.(props)
+        : html`
+            <sl-button
+              aria-describedby="tooltip"
+              style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
+            >
+              Button
+            </sl-button>
+            <sl-tooltip id="tooltip" .position=${position} .maxWidth=${maxWidth}>${message}</sl-tooltip>
+          `}
     `;
+  }
+} satisfies Meta<Props>;
+
+export const Basic: Story = {};
+
+export const Directive: Story = {
+  args: {
+    example: ({ alignSelf, justifySelf, message }) => html`
+      <sl-button ${tooltip(message)} style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
+        Button
+      </sl-button>
+    `
   }
 };
 
-export const Directive: StoryObj = {
-  render: () =>
-    html`<sl-button ${tooltip('This tooltip is from a directive')} fill="outline">I have a tooltip</sl-button>`
-};
-
-export const Overflow: StoryObj = {
-  render: () => html`
-    <section style="display:grid">
-      <p>blaaaaa</p>
-      <p>blaaaaa</p>
-      <p>blaaaaa</p>
-      <p>blaaaaa</p>
-      <p>blaaaaa</p>
-      <p>blaaaaa</p>
-      <figure>
-        <section style="border: 1px solid red; position:relative; padding:40px 100px;">
-          <sl-button aria-describedby="tooltip" fill="outline" style="position: absolute;">Button</sl-button>
-          <div style="overflow: hidden; position: absolute;">
-            <sl-tooltip id="tooltip">This appears outside the overflow parent</sl-tooltip>
-          </div>
-        </section>
-      </figure>
-    </section>
-  `
-};
-
-export const Shared: StoryObj = {
-  render: () => html`
-    <sl-button-bar>
-      <sl-button aria-describedby="tooltip" fill="outline">We</sl-button>
-      <sl-button aria-describedby="tooltip" fill="outline">all</sl-button>
-      <sl-button aria-describedby="tooltip" fill="outline">share</sl-button>
-      <sl-button aria-describedby="tooltip" fill="outline">the</sl-button>
-      <sl-button aria-describedby="tooltip" fill="outline">same</sl-button>
-      <sl-button aria-describedby="tooltip" fill="outline">tooltip</sl-button>
-    </sl-button-bar>
-    <sl-tooltip id="tooltip">I am shared between different elements</sl-tooltip>
-  `
+export const Shared: Story = {
+  args: {
+    example: ({ alignSelf, justifySelf, message }) => html`
+      <sl-button-bar style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
+        <sl-button aria-describedby="tooltip" fill="outline">We</sl-button>
+        <sl-button aria-describedby="tooltip" fill="outline">all</sl-button>
+        <sl-button aria-describedby="tooltip" fill="outline">share</sl-button>
+        <sl-button aria-describedby="tooltip" fill="outline">the</sl-button>
+        <sl-button aria-describedby="tooltip" fill="outline">same</sl-button>
+        <sl-button aria-describedby="tooltip" fill="outline">tooltip</sl-button>
+      </sl-button-bar>
+      <sl-tooltip id="tooltip">${message}</sl-tooltip>
+    `
+  }
 };

@@ -3,8 +3,8 @@ import { type Button } from '@sl-design-system/button';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy, stub } from 'sinon';
-import { Dialog } from './dialog.js';
 import '../register.js';
+import { Dialog } from './dialog.js';
 
 describe('sl-dialog', () => {
   let el: Dialog, dialog: HTMLDialogElement;
@@ -74,7 +74,7 @@ describe('sl-dialog', () => {
 
     it('should not be inert', () => {
       expect(el.inert).to.be.false;
-    })
+    });
 
     it('should have an open dialog', () => {
       expect(dialog).to.have.attribute('open');
@@ -130,7 +130,7 @@ describe('sl-dialog', () => {
       expect(onCancel).to.have.been.calledOnce;
     });
 
-    it('should emit an sl-cancel event when clicking the backdrop', async () => {
+    it('should emit an sl-cancel event when clicking the backdrop', () => {
       stub(dialog, 'getBoundingClientRect').returns({
         top: 400,
         right: 1400,
@@ -255,7 +255,7 @@ describe('sl-dialog', () => {
         expect(onCancel).not.to.have.been.called;
       });
 
-      it('should not cancel the dialog when clicking the backdrop', async () => {
+      it('should not cancel the dialog when clicking the backdrop', () => {
         stub(dialog, 'getBoundingClientRect').returns({
           top: 400,
           right: 1400,

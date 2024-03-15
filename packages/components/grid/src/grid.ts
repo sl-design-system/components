@@ -1,25 +1,30 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { GridSorter, GridSorterChange } from './sorter.js';
-import type { GridFilter, GridFilterChange } from './filter.js';
-import type { GridColumnGroup } from './column-group.js';
-import type { Virtualizer } from '@lit-labs/virtualizer/Virtualizer.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import type { DataSource, EventEmitter } from '@sl-design-system/shared';
+/* eslint-disable lit/prefer-static-styles */
 import { localized } from '@lit/localize';
-import { virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { ArrayDataSource, SelectionController, event, getValueByPath, isSafari } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { type VirtualizerHostElement, virtualize, virtualizerRef } from '@lit-labs/virtualizer/virtualize.js';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {
+  ArrayDataSource,
+  type DataSource,
+  type EventEmitter,
+  SelectionController,
+  event,
+  getValueByPath,
+  isSafari
+} from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { GridViewModel, GridViewModelGroup } from './view-model.js';
+import { type GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
-import styles from './grid.scss.js';
-import { GridSelectionColumn } from './selection-column.js';
 import { GridActiveItemChangeEvent, GridEvent, GridItemDropEvent, GridItemEvent } from './events.js';
 import { GridFilterColumn } from './filter-column.js';
+import { type GridFilter, type GridFilterChange } from './filter.js';
+import styles from './grid.scss.js';
 import { GridGroupHeader } from './group-header.js';
+import { GridSelectionColumn } from './selection-column.js';
 import { GridSortColumn } from './sort-column.js';
+import { type GridSorter, type GridSorterChange } from './sorter.js';
+import { GridViewModel, GridViewModelGroup } from './view-model.js';
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 
@@ -86,9 +91,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The sorters for this grid. */
   #sorters: Array<GridSorter<T>> = [];
-
-  /** The virtualizer instance. */
-  #virtualizer?: Virtualizer;
 
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
@@ -191,11 +193,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
-    this.#virtualizer = this.tbody[
-      virtualizerRef as unknown as keyof HTMLTableSectionElement
-    ] as unknown as Virtualizer;
-    this.#virtualizer.disconnected();
-    this.#virtualizer.connected();
+
+    const virtualizerHost = this.tbody as VirtualizerHostElement;
+    virtualizerHost[virtualizerRef]?.disconnected();
+    virtualizerHost[virtualizerRef]?.connected();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
@@ -219,6 +220,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('dataSource')) {
       this.model.dataSource = this.dataSource;
+      this.selection.size = this.dataSource?.size ?? 0;
 
       this.#applyFilters();
       this.#applySorters();
@@ -264,7 +266,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
               justify-content: ${col.align};
               ${col.renderStyles()?.toString() ?? ''}
             }
-          `;
+            `;
         });
       })}
       ${rows[rows.length - 1].map((col, index) => {
@@ -276,14 +278,14 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ${
               col.sticky
                 ? `
-                  inset-inline-start: ${this.model.getStickyColumnOffset(index)}px;
-                  position: sticky;
-                `
+              inset-inline-start: ${this.model.getStickyColumnOffset(index)}px;
+              position: sticky;
+              `
                 : ''
             }
             ${col.renderStyles()?.toString() ?? ''}
           }
-        `;
+          `;
       })}
     `;
   }
@@ -620,7 +622,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     // Wait for all the columns to update; the column group especially
     // needs time for the slotchange event to fire.
-    await Promise.allSettled(columns.map(async col => col.updateComplete));
+    await Promise.allSettled(columns.map(async col => await col.updateComplete));
 
     this.model.columnDefinitions = columns;
   }

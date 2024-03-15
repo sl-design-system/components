@@ -90,6 +90,16 @@
           "value": "{color.palette.white.base}",
           "type": "color"
         }
+      },
+      "info": {
+        "background": {
+          "value": "{color.palette.info.600}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        }
       }
     },
     "button": {
@@ -3626,6 +3636,167 @@
           "value": "{color.palette.danger.500}",
           "type": "color"
         }
+      }
+    },
+    "tab": {
+      "default": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.400}",
+          "type": "color"
+        },
+        "indicator": {
+          "value": "{color.palette.accent.base}",
+          "type": "color"
+        }
+      },
+      "hover": {
+        "background": {
+          "value": "{color.palette.accent.50}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.tab.default.border}",
+          "type": "color"
+        }
+      },
+      "disabled": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.tab.default.border}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.tab.default.border}",
+          "type": "color"
+        }
+      },
+      "tabbar": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.tab.default.border}",
+          "type": "color"
+        }
+      },
+      "active": {
+        "background": {
+          "value": "{color.palette.accent.100}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.tab.default.border}",
+          "type": "color"
+        }
+      },
+      "content": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        }
+      }
+    },
+    "card": {
+      "background": {
+        "value": "{body.background}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{body.foreground}",
+        "type": "color"
+      },
+      "border": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color"
+      }
+    },
+    "spinner": {
+      "default": {
+        "value": "{color.palette.primary.500}",
+        "type": "color"
+      },
+      "white": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      },
+      "accent": {
+        "value": "{color.palette.accent.500}",
+        "type": "color"
+      },
+      "info": {
+        "value": "{color.palette.info.600}",
+        "type": "color"
+      },
+      "success": {
+        "value": "{color.palette.success.600}",
+        "type": "color"
+      },
+      "warning": {
+        "value": "{color.palette.warning.600}",
+        "type": "color"
+      },
+      "danger": {
+        "value": "{color.palette.danger.base}",
+        "type": "color"
+      }
+    },
+    "skeleton": {
+      "base": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "description": "body.surface.100"
+      },
+      "effect": {
+        "value": "{color.palette.neutral.150}",
+        "type": "color",
+        "description": "body.surface.100"
+      },
+      "pulse": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "$extensions": {
+          "studio.tokens": {
+            "modify": {
+              "type": "alpha",
+              "value": "0.4",
+              "space": "hsl"
+            }
+          }
+        },
+        "description": "body.surface.100"
+      },
+      "shimmer": {
+        "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.effect} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",
+        "type": "color",
+        "description": "body.surface.100"
       }
     }
   },

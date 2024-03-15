@@ -368,8 +368,14 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A form control that allows users to select one option from a list of options.",
           "name": "Select",
+          "slots": [
+            {
+              "description": "Place for `sl-select-option` elements",
+              "name": "default"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -396,6 +402,16 @@
                 "text": "HTMLElement"
               },
               "description": "The listbox element."
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "6",
+              "description": "The default offset of the listbox to the button."
             },
             {
               "kind": "field",
@@ -468,6 +484,16 @@
               },
               "description": "The value for the select, to be used in forms.",
               "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "viewportMargin",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default margin between the tooltip and the viewport."
             }
           ],
           "events": [
@@ -731,6 +757,16 @@
             },
             {
               "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "6",
+              "description": "The default offset of the listbox to the button."
+            },
+            {
+              "kind": "field",
               "name": "scopedElements",
               "type": {
                 "text": "ScopedElementsMap"
@@ -748,6 +784,16 @@
               "static": true,
               "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "viewportMargin",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default margin between the tooltip and the viewport."
             },
             {
               "kind": "field",

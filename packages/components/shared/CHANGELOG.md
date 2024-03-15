@@ -1,5 +1,35 @@
 # @sl-design-system/shared
 
+## 0.2.6
+
+### Patch Changes
+
+- [#1018](https://github.com/sl-design-system/components/pull/1018) [`aaa09ff`](https://github.com/sl-design-system/components/commit/aaa09ffb78db9df6298ce77d51a79b7aed213e59) - Fix 3rd party dependencies to be peerDependencies instead
+
+- [#995](https://github.com/sl-design-system/components/pull/995) [`12b0477`](https://github.com/sl-design-system/components/commit/12b0477da1f7ce615269b228a6fceb7cb8c6b4f5) - Linting fixes due to new eslint configuration
+
+## 0.2.5
+
+### Patch Changes
+
+- [#992](https://github.com/sl-design-system/components/pull/992) [`dbc032b`](https://github.com/sl-design-system/components/commit/dbc032b3a7587dfcbdb6a2118330b039765cf0fb) - Fix npm install problem due to tinykeys dependency
+
+- [#984](https://github.com/sl-design-system/components/pull/984) [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc) - Change `AnchorController` to use the arrow positioning of floating-ui
+
+## 0.2.4
+
+### Patch Changes
+
+- [#974](https://github.com/sl-design-system/components/pull/974) [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf) - Make popover offset and viewportMargin themable
+
+- [#974](https://github.com/sl-design-system/components/pull/974) [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf) - Remove nested barrel files
+
+## 0.2.3
+
+### Patch Changes
+
+- [#939](https://github.com/sl-design-system/components/pull/939) [`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997) - Add ability to group by to DataSource
+
 ## 0.2.2
 
 ### Patch Changes

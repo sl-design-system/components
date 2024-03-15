@@ -48,7 +48,7 @@ The `<sl-form-field>` component fulfills four functions:
 
 ## Layout
 
-The form field component always has a vertical layout. The label is always at the top, followed by the optional hint, the form control itself and at the bottom any error messages.
+The form field component always has a vertical layout. The label is always at the top, followed by the form control itself and at the bottom an optional hint or error message.
 
 The styling of the form field is managed by design tokens and should not be changed manually.
 

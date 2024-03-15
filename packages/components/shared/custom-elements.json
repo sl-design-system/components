@@ -28,7 +28,47 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/controllers/index.js"
+            "package": "./src/controllers/anchor.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/controllers/events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/controllers/focus-group.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/controllers/roving-tabindex.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/controllers/selection.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/controllers/shortcut.js"
           }
         },
         {
@@ -44,7 +84,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/data-source/index.js"
+            "package": "./src/data-source/array-data-source.js"
           }
         },
         {
@@ -52,7 +92,7 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/decorators/index.js"
+            "package": "./src/data-source/data-source.js"
           }
         },
         {
@@ -60,7 +100,31 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/directives/index.js"
+            "package": "./src/decorators/base.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/decorators/event.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/decorators/observe.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/directives/anchor.js"
           }
         },
         {
@@ -235,6 +299,22 @@
           "name": "AnchorController",
           "members": [
             {
+              "kind": "field",
+              "name": "arrowElement",
+              "type": {
+                "text": "string | HTMLElement | undefined"
+              },
+              "description": "The arrow pointing from the popover to the anchor element."
+            },
+            {
+              "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The padding of the arrow."
+            },
+            {
               "kind": "method",
               "name": "hostConnected",
               "return": {
@@ -257,20 +337,24 @@
               "name": "maxWidth",
               "type": {
                 "text": "number | undefined"
-              }
+              },
+              "description": "The max width of the popover."
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The offset of the popover to its anchor."
             },
             {
               "kind": "field",
               "name": "position",
               "type": {
                 "text": "PopoverPosition | undefined"
-              }
-            }
-          ],
-          "attributes": [
-            {
-              "description": " Can be used for styling anchor element, when popover is opened and the anchor is not a sl-button. For sl-button active state styling is used by default.",
-              "name": "popover-opened"
+              },
+              "description": "The main position of the popover relative to the anchor."
             }
           ],
           "methods": [
@@ -291,6 +375,31 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "#getAnchorElement",
+              "return": {
+                "type": {
+                  "text": "Element | null"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "#linkAnchorWithPopover",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "expanded",
+                  "default": "false"
+                }
+              ],
+              "description": "Normally when using the `popovertarget` attribute with popovers,\nthe browser will automatically set the `aria-details` attribute on\nthe anchor element and `aria-expanded` on the trigger. But since we\ncannot use the `popovertarget` attribute in combination with custom\nelements, we need to set these ourselves."
             }
           ],
           "fields": [
@@ -318,7 +427,7 @@
               "type": {
                 "text": "ReactiveControllerHost & HTMLElement"
               },
-              "default": "this.#host"
+              "default": "host"
             },
             {
               "kind": "field",
@@ -332,17 +441,43 @@
             },
             {
               "kind": "field",
-              "name": "position",
+              "name": "arrowElement",
               "type": {
-                "text": "PopoverPosition | undefined"
-              }
+                "text": "string | HTMLElement | undefined"
+              },
+              "description": "The arrow pointing from the popover to the anchor element."
+            },
+            {
+              "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The padding of the arrow."
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The offset of the popover to its anchor."
             },
             {
               "kind": "field",
               "name": "maxWidth",
               "type": {
                 "text": "number | undefined"
-              }
+              },
+              "description": "The max width of the popover."
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "PopoverPosition | undefined"
+              },
+              "description": "The main position of the popover relative to the anchor."
             }
           ]
         }
@@ -1523,53 +1658,6 @@
           "declaration": {
             "name": "FocusGroupController",
             "module": "src/controllers/focus-group.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/controllers/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./anchor.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./events.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./focus-group.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./roving-tabindex.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./selection.js"
           }
         }
       ]
@@ -2919,6 +3007,156 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/controllers/shortcut.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ShortcutController",
+          "members": [
+            {
+              "kind": "method",
+              "name": "bind",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "shortcuts",
+                  "type": {
+                    "text": "KeyBindingMap"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostDisconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unbind",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            }
+          ],
+          "methods": [
+            {
+              "kind": "method",
+              "name": "hostConnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hostDisconnected",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "unbind",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "bind",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "shortcuts",
+                  "type": {
+                    "text": "KeyBindingMap"
+                  }
+                }
+              ]
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#host",
+              "privacy": "private",
+              "type": {
+                "text": "ReactiveControllerHost & HTMLElement"
+              },
+              "default": "host"
+            },
+            {
+              "kind": "field",
+              "name": "#shortcuts",
+              "privacy": "private",
+              "type": {
+                "text": "ShortcutMap | undefined"
+              },
+              "default": "shortcuts"
+            },
+            {
+              "kind": "field",
+              "name": "#target",
+              "privacy": "private",
+              "type": {
+                "text": "ShortcutTarget"
+              },
+              "default": "target"
+            },
+            {
+              "kind": "field",
+              "name": "#unregister",
+              "privacy": "private",
+              "type": {
+                "text": "ReturnType<typeof tinykeys> | undefined"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ShortcutController",
+          "declaration": {
+            "name": "ShortcutController",
+            "module": "src/controllers/shortcut.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/css.ts",
       "declarations": [
         {
@@ -3927,29 +4165,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/data-source/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./array-data-source.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./data-source.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/decorators/base.ts",
       "declarations": [
         {
@@ -3959,7 +4174,7 @@
             {
               "name": "{\n    finisher,\n    descriptor\n  }",
               "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?(property: PropertyKey): PropertyDescriptor;\n  }"
               }
             },
             {
@@ -4105,37 +4320,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/decorators/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./base.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./event.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./observe.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/decorators/observe.ts",
       "declarations": [
         {
@@ -4248,21 +4432,6 @@
           "declaration": {
             "name": "anchor",
             "module": "src/directives/anchor.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/directives/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "./anchor.js"
           }
         }
       ]
@@ -4439,6 +4608,7 @@
             },
             {
               "name": "options",
+              "default": "{}",
               "type": {
                 "text": "PositionPopoverOptions"
               }
@@ -4447,14 +4617,6 @@
         }
       ],
       "exports": [
-        {
-          "kind": "js",
-          "name": "popoverPolyfillStyles",
-          "declaration": {
-            "name": "popoverPolyfillStyles",
-            "module": "src/popover.ts"
-          }
-        },
         {
           "kind": "js",
           "name": "isPopoverOpen",
@@ -4675,6 +4837,112 @@
       "path": "src/types.ts",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/vendor/tinykeys.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "createKeybindingsHandler",
+          "return": {
+            "type": {
+              "text": "EventListener"
+            }
+          },
+          "parameters": [
+            {
+              "name": "keyBindingMap",
+              "type": {
+                "text": "KeyBindingMap"
+              }
+            },
+            {
+              "name": "options",
+              "default": "{}",
+              "type": {
+                "text": "KeyBindingHandlerOptions"
+              }
+            }
+          ],
+          "description": "Creates an event listener for handling keybindings."
+        },
+        {
+          "kind": "function",
+          "name": "parseKeybinding",
+          "return": {
+            "type": {
+              "text": "KeyBindingPress[]"
+            }
+          },
+          "parameters": [
+            {
+              "name": "str",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Parses a \"Key Binding String\" into its parts\n\ngrammar    = `<sequence>`\n<sequence> = `<press> <press> <press> ...`\n<press>    = `<key>` or `<mods>+<key>`\n<mods>     = `<mod>+<mod>+...`"
+        },
+        {
+          "kind": "function",
+          "name": "tinykeys",
+          "return": {
+            "type": {
+              "text": "() => void"
+            }
+          },
+          "parameters": [
+            {
+              "name": "target",
+              "type": {
+                "text": "Window | HTMLElement"
+              }
+            },
+            {
+              "name": "keyBindingMap",
+              "type": {
+                "text": "KeyBindingMap"
+              }
+            },
+            {
+              "name": "options",
+              "default": "{}",
+              "type": {
+                "text": "KeyBindingOptions"
+              }
+            }
+          ],
+          "description": "Subscribes to keybindings.\n\nReturns an unsubscribe method."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "parseKeybinding",
+          "declaration": {
+            "name": "parseKeybinding",
+            "module": "src/vendor/tinykeys.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "createKeybindingsHandler",
+          "declaration": {
+            "name": "createKeybindingsHandler",
+            "module": "src/vendor/tinykeys.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "tinykeys",
+          "declaration": {
+            "name": "tinykeys",
+            "module": "src/vendor/tinykeys.ts"
+          }
+        }
+      ]
     }
   ]
 }

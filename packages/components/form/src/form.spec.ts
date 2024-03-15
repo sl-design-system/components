@@ -1,4 +1,3 @@
-import { type Label } from './label.js';
 import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/text-field/register.js';
 import { sendKeys } from '@web/test-runner-commands';
@@ -6,6 +5,7 @@ import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { Form } from './form.js';
+import { type Label } from './label.js';
 
 describe('sl-form', () => {
   let el: Form;
@@ -60,8 +60,8 @@ describe('sl-form', () => {
       expect(el.valid).to.be.true;
     });
 
-    it('should report validity of all form fields', async () => {
-      const fields = el.querySelectorAll('sl-text-field')!;
+    it('should report validity of all form fields', () => {
+      const fields = el.querySelectorAll('sl-text-field');
 
       fields.forEach(f => spy(f, 'reportValidity'));
 
@@ -83,10 +83,12 @@ describe('sl-form', () => {
       const allRequired = Array.from(el.querySelectorAll('sl-form-field')).every(field => field.mark === 'required');
 
       expect(allRequired).to.be.true;
-    })
+    });
 
-    it('should highlight required fields in the label', async () => {
-      const labels = Array.from(el.querySelectorAll<Label>('sl-label')).map(label => label.shadowRoot?.textContent?.trim());
+    it('should highlight required fields in the label', () => {
+      const labels = Array.from(el.querySelectorAll<Label>('sl-label')).map(label =>
+        label.shadowRoot?.textContent?.trim()
+      );
 
       expect(labels).to.eql(['', '(required)']);
     });
@@ -111,16 +113,18 @@ describe('sl-form', () => {
       `);
     });
 
-    it('should mark optional fields', async () => {
+    it('should mark optional fields', () => {
       const allOptional = Array.from(el.querySelectorAll('sl-form-field')).every(field => field.mark === 'optional');
 
       expect(allOptional).to.be.true;
     });
 
     it('should highlight optional fields in the label', () => {
-      const labels = Array.from(el.querySelectorAll<Label>('sl-label')).map(label => label.shadowRoot?.textContent?.trim());
+      const labels = Array.from(el.querySelectorAll<Label>('sl-label')).map(label =>
+        label.shadowRoot?.textContent?.trim()
+      );
 
       expect(labels).to.eql(['(optional)', '', '']);
-    })
+    });
   });
 });

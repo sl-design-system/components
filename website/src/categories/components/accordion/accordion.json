@@ -1,0 +1,14 @@
+{
+  "layout": "components/components.njk",
+  "tags": "accordion",
+  "componentTagName": [
+    {
+      "name": "Accordion",
+      "selector": "sl-accordion"
+    },
+    {
+      "name": "Accordion item",
+      "selector": "sl-accordion-item"
+    }
+  ]
+}

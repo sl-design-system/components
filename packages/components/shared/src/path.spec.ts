@@ -3,7 +3,6 @@ import { getNameByPath, getStringByPath } from './path.js';
 
 describe('path utils', () => {
   describe('getNameByPath', () => {
-
     it('should fail gracefully when no path is set', () => {
       expect(getNameByPath('')).to.equal('No path set');
     });
@@ -15,14 +14,14 @@ describe('path utils', () => {
   });
 
   describe('getStringByPath', () => {
-    const person = {address: {street:'Main Street'}};
+    const person = { address: { street: 'Main Street' } };
 
     it('should fail gracefully when no path is set', () => {
-      expect(getStringByPath(person,'')).to.equal('');
+      expect(getStringByPath(person, '')).to.equal('');
     });
 
     it('should return the value at the given path', () => {
-      expect(getStringByPath(person,'address.street')).to.equal(person.address.street);
+      expect(getStringByPath(person, 'address.street')).to.equal(person.address.street);
     });
   });
 });

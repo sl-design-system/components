@@ -175,6 +175,16 @@
           ],
           "members": [
             {
+              "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "16",
+              "description": "The default padding of the arrow."
+            },
+            {
               "kind": "method",
               "name": "lazy",
               "static": true,
@@ -195,6 +205,13 @@
                   "type": {
                     "text": "(target: Tooltip) => void"
                   }
+                },
+                {
+                  "name": "options",
+                  "default": "{}",
+                  "type": {
+                    "text": "TooltipOptions"
+                  }
                 }
               ],
               "description": "To attach the `sl-tooltip` to the DOM tree and anchor element"
@@ -205,8 +222,18 @@
               "type": {
                 "text": "number | undefined"
               },
-              "description": "Tooltip max-width.",
+              "description": "The maximum width of the tooltip.",
               "attribute": "max-width"
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "12",
+              "description": "The default offset of the tooltip to its anchor."
             },
             {
               "kind": "field",
@@ -215,8 +242,18 @@
                 "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'top'",
-              "description": "Tooltip position.",
+              "description": "Position of the tooltip relative to its anchor.",
               "attribute": "position"
+            },
+            {
+              "kind": "field",
+              "name": "viewportMargin",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default margin between the tooltip and the viewport."
             }
           ],
           "attributes": [
@@ -225,7 +262,7 @@
               "type": {
                 "text": "number | undefined"
               },
-              "description": "Tooltip max-width.",
+              "description": "The maximum width of the tooltip.",
               "fieldName": "maxWidth"
             },
             {
@@ -234,7 +271,7 @@
                 "text": "'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'"
               },
               "default": "'top'",
-              "description": "Tooltip position.",
+              "description": "Position of the tooltip relative to its anchor.",
               "fieldName": "position"
             }
           ],
@@ -266,6 +303,13 @@
                   "type": {
                     "text": "(target: Tooltip) => void"
                   }
+                },
+                {
+                  "name": "options",
+                  "default": "{}",
+                  "type": {
+                    "text": "TooltipOptions"
+                  }
                 }
               ],
               "description": "To attach the `sl-tooltip` to the DOM tree and anchor element"
@@ -274,9 +318,39 @@
           "fields": [
             {
               "kind": "field",
+              "name": "arrowPadding",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "16",
+              "description": "The default padding of the arrow."
+            },
+            {
+              "kind": "field",
+              "name": "offset",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "12",
+              "description": "The default offset of the tooltip to its anchor."
+            },
+            {
+              "kind": "field",
+              "name": "viewportMargin",
+              "type": {
+                "text": "number"
+              },
+              "static": true,
+              "default": "8",
+              "description": "The default margin between the tooltip and the viewport."
+            },
+            {
+              "kind": "field",
               "name": "#anchor",
               "privacy": "private",
-              "default": "new AnchorController(this, { maxWidth: this.maxWidth })",
+              "default": "new AnchorController(this, {\n    arrowElement: '.arrow',\n    arrowPadding: Tooltip.arrowPadding,\n    offset: Tooltip.offset,\n    viewportMargin: Tooltip.viewportMargin\n  })",
               "description": "Controller for managing anchoring."
             },
             {

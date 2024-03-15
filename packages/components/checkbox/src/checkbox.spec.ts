@@ -2,8 +2,8 @@ import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
-import { Checkbox } from './checkbox.js';
 import '../register.js';
+import { Checkbox } from './checkbox.js';
 
 describe('sl-checkbox', () => {
   let el: Checkbox;
@@ -178,7 +178,7 @@ describe('sl-checkbox', () => {
   });
 
   describe('disabled', () => {
-    beforeEach(async ()=>{
+    beforeEach(async () => {
       el = await fixture(html`<sl-checkbox disabled>Hello world</sl-checkbox>`);
     });
 

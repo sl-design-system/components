@@ -1,23 +1,29 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { FormControlMixin } from '@sl-design-system/form';
-import type { EventEmitter } from '@sl-design-system/shared';
-import { EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
-import { LitElement, html } from 'lit';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { FormControlMixin } from '@sl-design-system/form';
+import { type EventEmitter, EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
-import { SelectOption } from './select-option.js';
-import { SelectOptionGroup } from './select-option-group.js';
-import styles from './select.scss.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { SelectButton } from './select-button.js';
+import { SelectOptionGroup } from './select-option-group.js';
+import { SelectOption } from './select-option.js';
+import styles from './select.scss.js';
 
 export type SelectSize = 'md' | 'lg';
 
+/**
+ * A form control that allows users to select one option from a list of options.
+ *
+ * @slot default - Place for `sl-select-option` elements
+ */
 @localized()
 export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static formAssociated = true;
+
+  /** The default offset of the listbox to the button. */
+  static offset = 6;
 
   /** @private */
   static get scopedElements(): ScopedElementsMap {
@@ -31,6 +37,9 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** The default margin between the tooltip and the viewport. */
+  static viewportMargin = 8;
 
   /** Events controller. */
   #events = new EventsController(this, {
@@ -197,10 +206,16 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     return html`
       <slot name="button"></slot>
       <div
-        ${anchor({ element: this.button, position: 'bottom' })}
+        ${anchor({
+          element: this.button,
+          offset: Select.offset,
+          position: 'bottom-start',
+          viewportMargin: Select.viewportMargin
+        })}
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}
         @toggle=${this.#onToggle}
+        aria-label=${ifDefined(this.placeholder)}
         part="listbox"
         popover
         role="listbox"
@@ -316,7 +331,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** Returns a flattened array of all options (also the options in groups). */
   #getAllOptions(root: Element): Array<SelectOption<T>> {
     if (root instanceof SelectOption) {
-      return [root];
+      return [root] as Array<SelectOption<T>>;
     } else if (root instanceof SelectOptionGroup) {
       return Array.from(root.children).flatMap(child => this.#getAllOptions(child));
     } else {

@@ -61,6 +61,7 @@ packages/components/**/*.d.ts
 packages/components/**/*.d.ts.map
 packages/components/**/*.js
 packages/components/**/*.js.map
+!packages/components/eslint.config.js
 packages/locales/**/*.d.ts
 packages/locales/**/*.d.ts.map
 packages/locales/**/*.js
@@ -69,6 +70,7 @@ packages/themes/**/*.d.ts
 packages/themes/**/*.d.ts.map
 packages/themes/**/*.js
 packages/themes/**/*.js.map
+!packages/themes/eslint.config.js
 website/build
 website/dist
 

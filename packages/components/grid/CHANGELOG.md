@@ -1,5 +1,70 @@
 # @sl-design-system/grid
 
+## 0.1.3
+
+### Patch Changes
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Linting fixes for styling
+
+- [#1027](https://github.com/sl-design-system/components/pull/1027) [`3be7a02`](https://github.com/sl-design-system/components/commit/3be7a02b4bc5218e5dd8f6e3405e6573cbd65c5f) - Cleaner workaround for grid scrolling bug
+
+- Updated dependencies [[`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b), [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b)]:
+  - @sl-design-system/text-field@0.1.19
+  - @sl-design-system/checkbox@0.0.24
+  - @sl-design-system/popover@0.1.7
+  - @sl-design-system/icon@0.0.9
+
+## 0.1.2
+
+### Patch Changes
+
+- [#1018](https://github.com/sl-design-system/components/pull/1018) [`aaa09ff`](https://github.com/sl-design-system/components/commit/aaa09ffb78db9df6298ce77d51a79b7aed213e59) - Fix 3rd party dependencies to be peerDependencies instead
+
+- [#995](https://github.com/sl-design-system/components/pull/995) [`12b0477`](https://github.com/sl-design-system/components/commit/12b0477da1f7ce615269b228a6fceb7cb8c6b4f5) - Linting fixes due to new eslint configuration
+
+- Updated dependencies [[`aaa09ff`](https://github.com/sl-design-system/components/commit/aaa09ffb78db9df6298ce77d51a79b7aed213e59), [`12b0477`](https://github.com/sl-design-system/components/commit/12b0477da1f7ce615269b228a6fceb7cb8c6b4f5)]:
+  - @sl-design-system/text-field@0.1.18
+  - @sl-design-system/checkbox@0.0.23
+  - @sl-design-system/shared@0.2.6
+  - @sl-design-system/icon@0.0.8
+  - @sl-design-system/popover@0.1.6
+
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`dbc032b`](https://github.com/sl-design-system/components/commit/dbc032b3a7587dfcbdb6a2118330b039765cf0fb), [`5da216b`](https://github.com/sl-design-system/components/commit/5da216b3713c328eba06113d77d642462e1f05fc)]:
+  - @sl-design-system/shared@0.2.5
+  - @sl-design-system/popover@0.1.5
+  - @sl-design-system/checkbox@0.0.22
+  - @sl-design-system/text-field@0.1.17
+
+## 0.1.0
+
+### Minor Changes
+
+- [#987](https://github.com/sl-design-system/components/pull/987) [`8ce8ec6`](https://github.com/sl-design-system/components/commit/8ce8ec64aafbc94916adfe7b7c25968a1b0975db) - Fix grid selection with DataSource
+
+### Patch Changes
+
+- Updated dependencies [[`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf), [`216d62e`](https://github.com/sl-design-system/components/commit/216d62eb5a16277b4ea2767ea0530e570bf40abf)]:
+  - @sl-design-system/popover@0.1.4
+  - @sl-design-system/shared@0.2.4
+  - @sl-design-system/checkbox@0.0.21
+  - @sl-design-system/text-field@0.1.16
+
+## 0.0.36
+
+### Patch Changes
+
+- [#939](https://github.com/sl-design-system/components/pull/939) [`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997) - Add support for grouping rows by an item property
+
+- Updated dependencies [[`afc3d60`](https://github.com/sl-design-system/components/commit/afc3d606c20409b4ad2d589ffc0b899d3f853997)]:
+  - @sl-design-system/shared@0.2.3
+  - @sl-design-system/checkbox@0.0.20
+  - @sl-design-system/popover@0.1.3
+  - @sl-design-system/text-field@0.1.15
+
 ## 0.0.35
 
 ### Patch Changes

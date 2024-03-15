@@ -2,18 +2,22 @@ $variants: info, success, warning, danger;
 
 :host {
   --_background: var(--_background-color);
-  --_border: var(--sl-border-width-inline-message-default) solid var(--_border-color);
   --_border-left: var(--sl-border-width-inline-message-start) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-inline-message-default);
+  --_border: var(--sl-border-width-inline-message-default) solid var(--_border-color);
+  --_close-button-spacing: var(--sl-space-button-gap-sm);
+  --_content-gap: var(--sl-space-inline-message-content-gap);
+  --_description-font: var(--sl-text-body-md-normal);
+  --_details-font: var(--sl-text-list-sm-normal);
+  --_gap: var(--sl-space-inline-message-gap);
+  --_icon-block-size: var(--sl-text-typeset-line-height-lg);
   --_padding-block: var(--sl-space-inline-message-block);
   --_padding-inline: calc(var(--sl-space-inline-message-inline-start)) var(--sl-space-inline-message-inline-end);
   --_title-font: var(--sl-text-body-lg-demibold);
-  --_gap: var(--sl-space-inline-message-gap);
-  --_close-button-spacing: var(--sl-space-button-gap-sm);
-  --_icon-block-size: var(--sl-text-typeset-line-height-lg);
-  --_description-font: var(--sl-text-body-md-normal);
-  --_details-font: var(--sl-text-list-sm-normal);
-  --_content-gap: var(--sl-space-inline-message-content-gap);
+
+  display: block;
+  outline: none;
+  text-align: inherit;
 }
 
 @each $variant in $variants {
@@ -26,36 +30,38 @@ $variants: info, success, warning, danger;
   }
 }
 
-:host {
-  display: block;
-  outline: none;
-  text-align: inherit;
-}
-
 .wrapper {
   background: var(--_background-color);
   border: var(--_border);
-  border-left: var(--_border-left);
+  border-inline-start: var(--_border-left);
   border-radius: var(--_border-radius);
   color: var(--_color);
   display: flex;
   flex-direction: column;
-  font: var(--_title-font);
+  font: var(--_description-font);
+  inline-size: auto;
   margin: auto auto 0;
   outline: none;
   overflow: hidden;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   position: relative;
-  width: auto;
 }
 
 .wrapper[close] {
   opacity: 0;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: slide-down 300ms ease-out;
+  }
 }
 
 .wrapper[open] {
   opacity: 1;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: slide-in-up 400ms ease-out;
+  }
 }
 
 .content {
@@ -71,14 +77,15 @@ $variants: info, success, warning, danger;
 
 slot[name='icon'] {
   sl-icon {
-    --fill-default: var(--_icon-fill);
+    --sl-icon-fill-default: var(--_icon-fill);
+
     block-size: var(--_icon-block-size);
     fill: var(--_fill);
   }
 }
 
-slot[name='description'] {
-  font: var(--_description-font);
+slot[name='title'] {
+  font: var(--_title-font);
 }
 
 slot[name='details'] {
@@ -94,16 +101,6 @@ slot[name='close-button'] {
 
 slot[name='close-button']::slotted(*) {
   align-self: baseline;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .wrapper[close] {
-    animation: slide-down 300ms ease-out;
-  }
-
-  .wrapper[open] {
-    animation: slide-in-up 400ms ease-out;
-  }
 }
 
 @keyframes slide-in-up {

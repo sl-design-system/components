@@ -1,18 +1,17 @@
-import type { RadioGroup } from './radio-group.js';
-import type { RadioButtonSize } from './radio.js';
-import type { TemplateResult } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
-import { html } from 'lit';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html } from 'lit';
 import '../register.js';
+import { type RadioGroup } from './radio-group.js';
+import { type RadioButtonSize } from './radio.js';
 
 type Props = Pick<RadioGroup, 'disabled' | 'horizontal' | 'required' | 'size' | 'value'> & {
   hint?: string;
   label?: string;
   options?: TemplateResult;
-  slot?: () => TemplateResult;
+  slot?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
 
@@ -209,22 +208,19 @@ export const All: StoryObj = {
                 <td>${c}</td>
                 ${sizes.map(
                   size =>
-                    html`${states.map(
-                        state =>
-                          html`
-                            <td>
-                              <sl-radio
-                                ?checked=${c === 'checked'}
-                                ?invalid=${state === 'invalid'}
-                                ?required=${state === 'invalid'}
-                                ?valid=${state === 'valid'}
-                                size=${size}
-                                data-mock-state
-                                >Label
-                              </sl-radio>
-                            </td>
-                          `
-                      )}
+                    html` <td>
+                        <sl-radio ?checked=${c === 'checked'} size=${size} data-mock-state>Label </sl-radio>
+                      </td>
+                      <td>
+                        <sl-radio ?checked=${c === 'checked'} show-validity="valid" size=${size} data-mock-state
+                          >Label
+                        </sl-radio>
+                      </td>
+                      <td>
+                        <sl-radio ?checked=${c === 'checked'} show-validity="invalid" size=${size} data-mock-state
+                          >Label
+                        </sl-radio>
+                      </td>
                       <td>
                         <sl-radio ?checked=${c === 'checked'} size=${size} disabled data-mock-state>Label </sl-radio>
                       </td>`

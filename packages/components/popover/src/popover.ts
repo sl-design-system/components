@@ -1,49 +1,53 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { PopoverPosition } from '@sl-design-system/shared';
-import { AnchorController, EventsController, popoverPolyfillStyles } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { AnchorController, type PopoverPosition } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
 
 let nextUniqueId = 0;
 
 /**
- * Base popover web component.
+ * A floating overlay that appears on top of other elements.
  *
  * @csspart container - The container for the popover
+ * @slot default - Body content for the popover
  */
 export class Popover extends LitElement {
+  /** The default padding of the arrow. */
+  static arrowPadding = 16;
+
+  /** The default offset of the popover to its anchor. */
+  static offset = 12;
+
   /** @private */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
   /** @private */
-  static override styles: CSSResultGroup = [popoverPolyfillStyles, styles];
+  static override styles: CSSResultGroup = styles;
 
-  #events = new EventsController(this);
+  /** The default margin between the tooltip and the viewport. */
+  static viewportMargin = 8;
 
   /** Controller for managing anchoring. */
-  #anchor = new AnchorController(this);
+  #anchor = new AnchorController(this, {
+    arrowElement: '.arrow',
+    arrowPadding: Popover.arrowPadding,
+    offset: Popover.offset,
+    viewportMargin: Popover.viewportMargin
+  });
 
-  #popoverId = `sl-popover-${nextUniqueId++}`;
-
-  /** The position of this popover relative to its anchor. */
+  /**
+   * The position of popover relative to its anchor.
+   * @type {'top' | 'right' | 'bottom' | 'left' | 'top-start' | 'top-end' | 'right-start' | 'right-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end'}
+   */
   @property() position?: PopoverPosition = 'bottom';
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#events.listen(this, 'keydown', this.#onKeydown);
-  }
-
-  constructor() {
-    super();
+    this.id ||= `sl-popover-${nextUniqueId++}`;
 
     if (!this.hasAttribute('popover')) {
       this.setAttribute('popover', '');
-    }
-
-    if (!this.hasAttribute('id')) {
-      this.setAttribute('id', this.#popoverId);
     }
   }
 
@@ -88,11 +92,5 @@ export class Popover extends LitElement {
         </svg>
       </div>
     `;
-  }
-
-  #onKeydown(event: KeyboardEvent): void {
-    if (event.code === 'Escape') {
-      this.hidePopover();
-    }
   }
 }

@@ -1,12 +1,9 @@
-import type { TemplateResult } from 'lit-html';
-import type { CSSResultGroup, PropertyValues } from 'lit';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Icon } from '@sl-design-system/icon';
-import { Button } from '@sl-design-system/button';
-import { breakpoints } from '@sl-design-system/shared';
 import { localized, msg } from '@lit/localize';
-import { LitElement, html, nothing } from 'lit';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
+import { Icon } from '@sl-design-system/icon';
+import { breakpoints } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
 
@@ -15,8 +12,8 @@ export type InlineMessageVariant = 'info' | 'success' | 'warning' | 'danger';
 /**
  * An inline message component for displaying additional information/errors.
  *
- * @slot default - title content for the inline message
- * @slot description - slot for additional information and more content for the inline-message
+ * @slot default - slot for the main information of the inline-message
+ * @slot title - title content for the inline message
  * @slot details - slot for more details of the inline-message like list of errors
  * @slot icon - icon shown on the left side of the component
  * @slot close-button - Closing button for the inline message
@@ -37,14 +34,16 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @private */
   @query('.wrapper') wrapper?: HTMLDivElement;
 
-  /** Determines whether closing button (default one) should be shown in the top right corner. */
+  /** Determines whether a (default) closing button should be shown in the top right corner. */
   @property({ type: Boolean, reflect: true }) dismissible = true;
 
   /** Determines whether the icon should be shown on the left side of the component. */
   @property({ type: Boolean, attribute: 'no-icon' }) noIcon?: boolean;
 
-  /** The variant of the inline message.
-   * @type {'info' | 'success' | 'warning' | 'danger'} */
+  /**
+   * The variant of the inline message.
+   * @type {'info' | 'success' | 'warning' | 'danger'}
+   */
   @property({ reflect: true }) variant: InlineMessageVariant = 'info';
 
   /** @private The name of the icon, depending on the variant of the inline message. */
@@ -63,7 +62,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  override async updated(changes: PropertyValues<this>): Promise<void> {
+  override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
     if (changes.has('variant')) {
@@ -77,13 +76,13 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         <div class="content">
           ${this.noIcon
             ? nothing
-            : html`<slot name="icon" part="icon">
+            : html`<slot name="icon">
                 <sl-icon name=${this.iconName} size="md"></sl-icon>
               </slot>`}
           <div class="content-details">
+            <slot name="title"></slot>
             <slot></slot>
-            <slot name="description" part="description"></slot>
-            <slot name="details" part="details"></slot>
+            <slot name="details"></slot>
           </div>
         </div>
         ${this.dismissible

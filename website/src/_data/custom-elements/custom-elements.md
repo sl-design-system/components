@@ -108,9 +108,9 @@
 
 ### Slots
 
-| Name      | Description                                |
-| --------- | ------------------------------------------ |
-| `default` | The place for multiple <sl-accordion-item> |
+| Name      | Description                                  |
+| --------- | -------------------------------------------- |
+| `default` | The place for multiple `<sl-accordion-item>` |
 
 <hr/>
 

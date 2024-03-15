@@ -202,7 +202,7 @@
           "name": "Accordion",
           "slots": [
             {
-              "description": "The place for multiple <sl-accordion-item>",
+              "description": "The place for multiple `<sl-accordion-item>`",
               "name": "default"
             }
           ],

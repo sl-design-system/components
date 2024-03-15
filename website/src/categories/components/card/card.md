@@ -12,6 +12,6 @@ eleventyNavigation:
   parent: Components
   key: Card
   order: 8
-  status: coming
+  status: ready
 ---
 

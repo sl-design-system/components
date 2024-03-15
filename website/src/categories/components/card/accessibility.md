@@ -28,7 +28,7 @@ eleventyNavigation:
 
 |Command|Description|
 |-|-|
-|Tab|Change focus on the card and subsequent actions|
+|`Tab`|Change focus on the card and subsequent actions|
 
 {.ds-table .ds-table-align-top}
 

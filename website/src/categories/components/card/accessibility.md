@@ -23,19 +23,29 @@ eleventyNavigation:
 <section>
 
 ## Keyboard interaction
-  
+
+<div class="ds-table-wrapper">
+
+|Command|Description|
+|-|-|
+|Tab|Change focus on the card and subsequent actions|
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
 </section>
 <section> 
 
 ## WAI-ARIA
 
-WAI-ARIA Roles, States, and Properties for an avatar provide essential information to assistive technologies and screen readers. They convey the avatar's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
+WAI-ARIA Roles, States, and Properties for an card provide essential information to assistive technologies and screen readers. They convey the card's role and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
 <div class="ds-table-wrapper">
 
 |Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
 |-|-|-|-|
-|`aria-label`|string|Combination of name, label and badge text, depending on settings. See [Note 1] below for more explanation|no|
+|`alt`|string|Image alt text, if the image is not decorative. Alt text needs to be different from the card title|yes|
 
 {.ds-table .ds-table-align-top}
 </div>

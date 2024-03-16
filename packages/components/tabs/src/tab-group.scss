@@ -30,12 +30,13 @@
 :host([align-tabs='stretch']) {
   --_tabs-alignment: stretch;
 
-  [part='tablist'] {
-    inline-size: 100%;
-  }
-
+  [part='scroller'],
   ::slotted(sl-tab) {
     flex-grow: 1;
+  }
+
+  [part='tablist'] {
+    inline-size: 100%;
   }
 }
 
@@ -100,6 +101,7 @@
 
 .fade-container {
   display: flex;
+  justify-content: var(--_tabs-alignment);
   min-inline-size: 0;
   position: relative;
 }

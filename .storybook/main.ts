@@ -34,7 +34,7 @@ const config: StorybookConfig = {
     { from: '../packages/themes', to: '/themes' }
   ],
   viteFinal: async config => {
-    const { mergeConfig } = awaitimport('vite');
+    const { mergeConfig } = await import('vite');
 
     return mergeConfig(config, { logLevel: 'warn' });
   }

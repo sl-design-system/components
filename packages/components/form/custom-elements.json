@@ -653,7 +653,7 @@
               "kind": "event",
               "name": "sl-form-field",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlFormFieldEvent>"
               },
               "description": "Emits when the field is added to a form."
             }
@@ -662,7 +662,7 @@
             {
               "name": "formFieldEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlFormFieldEvent>"
               },
               "description": "Emits when the field is added to a form.",
               "fieldName": "formFieldEvent"
@@ -951,7 +951,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
+                    "text": "SlFormFieldEvent"
                   }
                 }
               ]

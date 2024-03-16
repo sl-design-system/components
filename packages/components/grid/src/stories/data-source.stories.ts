@@ -3,7 +3,7 @@ import { ArrayDataSource } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { type GridItemDropEvent } from '../events.js';
+import { type SlDropEvent } from '../grid.js';
 
 type Story = StoryObj;
 
@@ -124,11 +124,11 @@ export const Selection: Story = {
 
 export const SelectionDragAndDrop: Story = {
   render: (_, { loaded: { people } }) => {
-    const onDrop = (event: GridItemDropEvent<Person>): void => {
+    const onDrop = ({ detail: { oldIndex, newIndex } }: SlDropEvent<Person>): void => {
       // Reorder the person in the grid
       const newPeople = [...(people as Person[])],
-        person = newPeople.splice(event.oldIndex, 1)[0];
-      newPeople.splice(event.newIndex, 0, person);
+        person = newPeople.splice(oldIndex, 1)[0];
+      newPeople.splice(newIndex, 0, person);
 
       const dataSource = new ArrayDataSource(newPeople);
       dataSource.update();

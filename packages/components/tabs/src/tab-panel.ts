@@ -1,6 +1,12 @@
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import styles from './tab-panel.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-tab-panel': TabPanel;
+  }
+}
+
 /**
  * A tab panel component - part of the tab group component, place for a tab content.
  *

@@ -2,6 +2,12 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } f
 import { property } from 'lit/decorators.js';
 import styles from './badge.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-badge': Badge;
+  }
+}
+
 export type BadgeSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type BadgeVariant = 'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent';
 

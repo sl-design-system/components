@@ -111,9 +111,7 @@ summary {
     outline: var(--_focus-outline);
     outline-offset: var(--_focus-outline-offset);
     position: relative;
-
-    /** z-index is set to 2 to make sure the outline is above the summary, when that is focused or hovered */
-    z-index: 2;
+    z-index: 2; // Make sure the outline is not clipped by the next accordion item
   }
 
   @media (prefers-reduced-motion: no-preference) {

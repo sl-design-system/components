@@ -3,7 +3,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Breadcrumbs } from './breadcrumbs.js';
 
-type Props = Pick<Breadcrumbs, 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateResult };
+type Props = Pick<Breadcrumbs, 'homeUrl' | 'inverted' | 'noHome'> & { breadcrumbs: TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
@@ -19,8 +19,8 @@ export default {
       }
     }
   },
-  render: ({ breadcrumbs, homeUrl, noHome }) => html`
-    <sl-breadcrumbs .homeUrl=${homeUrl} .noHome=${noHome}>${breadcrumbs}</sl-breadcrumbs>
+  render: ({ breadcrumbs, homeUrl, inverted, noHome }) => html`
+    <sl-breadcrumbs .homeUrl=${homeUrl} .inverted=${inverted} .noHome=${noHome}>${breadcrumbs}</sl-breadcrumbs>
   `
 } satisfies Meta<Props>;
 
@@ -52,6 +52,18 @@ export const HomeUrl: Story = {
   args: {
     ...Basic.args,
     homeUrl: 'https://example.com'
+  }
+};
+
+export const Inverted: Story = {
+  args: {
+    ...Basic.args,
+    inverted: true
+  },
+  parameters: {
+    backgrounds: {
+      default: 'dark'
+    }
   }
 };
 

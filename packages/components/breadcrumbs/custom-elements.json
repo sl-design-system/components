@@ -83,6 +83,16 @@
             },
             {
               "kind": "field",
+              "name": "inverted",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Inverts the colors of the component so it works on a dark/light background.",
+              "attribute": "inverted",
+              "reflects": true
+            },
+            {
+              "kind": "field",
               "name": "noHome",
               "type": {
                 "text": "boolean"
@@ -107,6 +117,14 @@
               "default": "'/'",
               "description": "The url for the home link, defaults to the root url.\n\nBy changing this static property you can change the default value for\nall future instances of the component. Changing the static property\nwon't affect already created instances.",
               "fieldName": "homeUrl"
+            },
+            {
+              "name": "inverted",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Inverts the colors of the component so it works on a dark/light background.",
+              "fieldName": "inverted"
             },
             {
               "name": "no-home",

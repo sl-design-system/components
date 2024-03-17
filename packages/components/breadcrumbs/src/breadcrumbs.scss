@@ -1,7 +1,11 @@
 $md-breakpoint: 600px;
 
 :host {
+  --_color: rgb(var(--sl-color-palette-neutral-base));
+  --_color-inverted: rgb(var(--sl-color-palette-neutral-50));
   --_gap: 0.25rem;
+  --_link-color: rgb(var(--sl-color-palette-accent-base));
+  --_link-color-inverted: rgb(var(--sl-color-palette-accent-50));
   --_link-gap: 0.25rem;
   --_link-decoration: underline;
   --_link-padding-block: 0.375rem;
@@ -10,14 +14,24 @@ $md-breakpoint: 600px;
   --_tooltip-max-inline-size: min(18rem, 50vw);
 
   align-items: center;
+  color: var(--_color);
   display: flex;
   gap: var(--_gap);
+}
+
+:host([inverted]) {
+  --_color: var(--_color-inverted);
+  --_link-color: var(--_link-color-inverted);
 }
 
 a,
 sl-icon,
 ::slotted(sl-icon) {
   flex-shrink: 0;
+}
+
+::slotted(sl-icon) {
+  --sl-icon-fill-default: var(--_color);
 }
 
 a,
@@ -29,6 +43,7 @@ a,
 
 a,
 ::slotted(a) {
+  color: var(--_link-color);
   text-decoration: var(--_link-decoration);
   text-underline-offset: var(--_link-underline-offset, auto);
 }

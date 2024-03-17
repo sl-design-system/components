@@ -64,6 +64,13 @@ const preview: Preview = {
     }
   },
   parameters: {
+    backgrounds: {
+      default: 'light',
+      values: [
+        { name: 'light', value: 'rgba(254 254 254)' },
+        { name: 'dark', value: 'rgba(34 34 34)' }
+      ]
+    },
     options: {
       storySort: {
         method: 'alphabetical'

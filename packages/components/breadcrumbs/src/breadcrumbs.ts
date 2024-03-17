@@ -93,6 +93,9 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    */
   @property({ attribute: 'home-url' }) homeUrl = Breadcrumbs.homeUrl;
 
+  /** Inverts the colors of the component so it works on a dark/light background. */
+  @property({ type: Boolean, reflect: true }) inverted?: boolean;
+
   /**
    * When true doesn't show a home link as the first breadcrumb.
    *

@@ -19,6 +19,7 @@ export class Accordion extends LitElement {
 
   /** Manage the keyboard navigation. */
   #rovingTabindexController = new RovingTabindexController<AccordionItem>(this, {
+    direction: 'vertical',
     focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),
     elements: () => this.items || [],
     isFocusableElement: (el: AccordionItem) => !el.disabled

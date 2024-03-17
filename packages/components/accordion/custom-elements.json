@@ -84,6 +84,26 @@
               "reflects": true
             },
             {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  },
+                  "description": "The options to pass to the focus method"
+                }
+              ],
+              "description": "Focus the summary element.\n\nThis is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
+            },
+            {
               "kind": "field",
               "name": "open",
               "type": {
@@ -125,7 +145,7 @@
                   "type": {
                     "text": "boolean"
                   },
-                  "description": "The state to forceably set the component to"
+                  "description": "The state to forcibly set the component to"
                 }
               ],
               "description": "Toggles the component state between open or closed. If the `force` parameter is\nprovided, the state will be set to the value of the parameter."
@@ -176,6 +196,26 @@
           "methods": [
             {
               "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  },
+                  "description": "The options to pass to the focus method"
+                }
+              ],
+              "description": "Focus the summary element.\n\nThis is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
+            },
+            {
+              "kind": "method",
               "name": "toggle",
               "return": {
                 "type": {
@@ -189,7 +229,7 @@
                   "type": {
                     "text": "boolean"
                   },
-                  "description": "The state to forceably set the component to"
+                  "description": "The state to forcibly set the component to"
                 }
               ],
               "description": "Toggles the component state between open or closed. If the `force` parameter is\nprovided, the state will be set to the value of the parameter."
@@ -249,16 +289,6 @@
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "shadowRootOptions",
-              "type": {
-                "text": "ShadowRootInit"
-              },
-              "static": true,
-              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
-              "privacy": "private"
-            },
             {
               "kind": "field",
               "name": "#shouldAnimate",

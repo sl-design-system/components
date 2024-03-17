@@ -15,9 +15,6 @@ import styles from './accordion-item.scss.js';
 @localized()
 export class AccordionItem extends LitElement {
   /** @private */
-  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
-
-  /** @private */
   static override styles: CSSResultGroup = styles;
 
   /** Whether we should actually animate opening/closing the wrapper. */
@@ -75,10 +72,25 @@ export class AccordionItem extends LitElement {
   }
 
   /**
+   * Focus the summary element.
+   *
+   * This is a workaround for `delegatesFocus` not allowing you to select
+   * any text in the content of the accordion item.
+   * See https://issues.chromium.org/issues/40622041
+   *
+   * @param options - The options to pass to the focus method
+   */
+  override focus(options?: FocusOptions): void {
+    if (!this.disabled) {
+      this.renderRoot.querySelector('summary')?.focus(options);
+    }
+  }
+
+  /**
    * Toggles the component state between open or closed. If the `force` parameter is
    * provided, the state will be set to the value of the parameter.
    *
-   * @param force - The state to forceably set the component to
+   * @param force - The state to forcibly set the component to
    */
   toggle(force?: boolean): void {
     if (typeof force === 'boolean' && force === this.open) {

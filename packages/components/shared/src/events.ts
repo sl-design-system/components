@@ -1,4 +1,3 @@
-export { SlEvent } from './events/event.js';
 export type { SlBlurEvent } from './events/blur.js';
 export type { SlChangeEvent } from './events/change.js';
 export type { SlFocusEvent } from './events/focus.js';

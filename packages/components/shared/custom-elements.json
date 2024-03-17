@@ -4515,14 +4515,6 @@
       "exports": [
         {
           "kind": "js",
-          "name": "SlEvent",
-          "declaration": {
-            "name": "SlEvent",
-            "module": "./events/event.js"
-          }
-        },
-        {
-          "kind": "js",
           "name": "SlBlurEvent",
           "declaration": {
             "name": "SlBlurEvent",
@@ -4574,31 +4566,6 @@
       "path": "src/events/change.ts",
       "declarations": [],
       "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/events/event.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "SlEvent",
-          "superclass": {
-            "name": "Event",
-            "module": "src/events/event.ts"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "SlEvent",
-          "declaration": {
-            "name": "SlEvent",
-            "module": "src/events/event.ts"
-          }
-        }
-      ]
     },
     {
       "kind": "javascript-module",

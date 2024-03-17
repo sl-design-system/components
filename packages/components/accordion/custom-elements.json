@@ -128,7 +128,7 @@
                   "description": "The state to forceably set the component to"
                 }
               ],
-              "description": "Toggles the component state between open or closed. If the `force` parameter is provided,\nthe state will be set to the value of the parameter."
+              "description": "Toggles the component state between open or closed. If the `force` parameter is\nprovided, the state will be set to the value of the parameter."
             }
           ],
           "events": [
@@ -192,7 +192,7 @@
                   "description": "The state to forceably set the component to"
                 }
               ],
-              "description": "Toggles the component state between open or closed. If the `force` parameter is provided,\nthe state will be set to the value of the parameter."
+              "description": "Toggles the component state between open or closed. If the `force` parameter is\nprovided, the state will be set to the value of the parameter."
             },
             {
               "kind": "method",

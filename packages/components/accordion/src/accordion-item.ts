@@ -72,8 +72,8 @@ export class AccordionItem extends LitElement {
   }
 
   /**
-   * Toggles the component state between open or closed. If the `force` parameter is provided,
-   * the state will be set to the value of the parameter.
+   * Toggles the component state between open or closed. If the `force` parameter is
+   * provided, the state will be set to the value of the parameter.
    *
    * @param force - The state to forceably set the component to
    */
@@ -82,7 +82,8 @@ export class AccordionItem extends LitElement {
       return;
     }
 
-    this.#animateState(force ?? !this.open ? 'opening' : 'closing');
+    this.open = force ?? !this.open;
+    this.#animateState(this.open ? 'opening' : 'closing');
   }
 
   #onToggle(event: ToggleEvent): void {

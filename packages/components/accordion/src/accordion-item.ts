@@ -15,6 +15,9 @@ import styles from './accordion-item.scss.js';
 @localized()
 export class AccordionItem extends LitElement {
   /** @private */
+  static override shadowRootOptions: ShadowRootInit = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @private */
   static override styles: CSSResultGroup = styles;
 
   /** Whether we should actually animate opening/closing the wrapper. */

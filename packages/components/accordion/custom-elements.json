@@ -251,6 +251,16 @@
           "fields": [
             {
               "kind": "field",
+              "name": "shadowRootOptions",
+              "type": {
+                "text": "ShadowRootInit"
+              },
+              "static": true,
+              "default": "{ ...LitElement.shadowRootOptions, delegatesFocus: true }",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "#shouldAnimate",
               "privacy": "private",
               "type": {
@@ -326,23 +336,6 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onSlotchange",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event & { target: HTMLSlotElement }"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "#onToggle",
               "return": {
                 "type": {
@@ -360,6 +353,13 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "#rovingTabindexController",
+              "privacy": "private",
+              "default": "new RovingTabindexController<AccordionItem>(this, {\n    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),\n    elements: () => this.items || [],\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
+              "description": "Manage the keyboard navigation."
+            },
             {
               "kind": "field",
               "name": "items",

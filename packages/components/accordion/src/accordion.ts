@@ -1,5 +1,6 @@
+import { RovingTabindexController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property, queryAssignedElements } from 'lit/decorators.js';
 import { AccordionItem } from './accordion-item.js';
 import styles from './accordion.scss.js';
 
@@ -16,20 +17,21 @@ export class Accordion extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** Manage the keyboard navigation. */
+  #rovingTabindexController = new RovingTabindexController<AccordionItem>(this, {
+    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),
+    elements: () => this.items || [],
+    isFocusableElement: (el: AccordionItem) => !el.disabled
+  });
+
   /** The slotted accordion items. */
-  @state() items?: AccordionItem[];
+  @queryAssignedElements({ flatten: true }) items?: AccordionItem[];
 
   /** Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened. */
   @property({ type: Boolean, reflect: true }) single?: boolean;
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotchange} @sl-toggle=${this.#onToggle}></slot>`;
-  }
-
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    this.items = Array.from(event.target.assignedElements({ flatten: true })).filter(
-      (el): el is AccordionItem => el instanceof AccordionItem
-    );
+    return html`<slot @sl-toggle=${this.#onToggle}></slot>`;
   }
 
   #onToggle(event: CustomEvent<boolean>): void {

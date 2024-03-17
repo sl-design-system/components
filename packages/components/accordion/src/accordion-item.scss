@@ -23,6 +23,7 @@
   --_transition-duration: 300ms;
 
   display: flex;
+  outline: 0;
 }
 
 :host([disabled]) {

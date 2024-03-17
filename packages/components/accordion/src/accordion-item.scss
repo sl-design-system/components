@@ -133,6 +133,10 @@ summary {
   }
 }
 
+svg {
+  flex-shrink: 0;
+}
+
 rect {
   fill: var(--_title-color);
   transform-origin: center;

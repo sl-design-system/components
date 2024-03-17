@@ -60,6 +60,10 @@
             {
               "description": "Header element of the accordion-item",
               "name": "summary"
+            },
+            {
+              "description": "The body of the accordion-item",
+              "name": "panel"
             }
           ],
           "slots": [
@@ -93,7 +97,7 @@
               "kind": "event",
               "name": "sl-toggle",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<boolean>"
               },
               "description": "Emits when the accordion item has been toggled."
             },
@@ -105,27 +109,39 @@
               },
               "description": "A text shown in the header - as a title of the accordion item.",
               "attribute": "summary"
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "force",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "description": "The state to forceably set the component to"
+                }
+              ],
+              "description": "Toggles the component state between open or closed. If the `force` parameter is provided,\nthe state will be set to the value of the parameter."
             }
           ],
           "events": [
             {
               "name": "toggleEvent",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<boolean>"
               },
               "description": "Emits when the accordion item has been toggled.",
               "fieldName": "toggleEvent"
             }
           ],
           "attributes": [
-            {
-              "name": "summary",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "A text shown in the header - as a title of the accordion item.",
-              "fieldName": "summary"
-            },
             {
               "name": "disabled",
               "type": {
@@ -141,6 +157,14 @@
               },
               "description": "Whether the details element is opened.",
               "fieldName": "open"
+            },
+            {
+              "name": "summary",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A text shown in the header - as a title of the accordion item.",
+              "fieldName": "summary"
             }
           ],
           "superclass": {
@@ -150,6 +174,26 @@
           "tagName": "sl-accordion-item",
           "customElement": true,
           "methods": [
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "force",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "description": "The state to forceably set the component to"
+                }
+              ],
+              "description": "Toggles the component state between open or closed. If the `force` parameter is provided,\nthe state will be set to the value of the parameter."
+            },
             {
               "kind": "method",
               "name": "#onToggle",
@@ -179,13 +223,43 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event & { target: HTMLElement }"
+                    "text": "Event"
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#animateState",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "state",
+                  "type": {
+                    "text": "'opening' | 'closing'"
+                  },
+                  "description": "The state which we should animate to"
+                }
+              ],
+              "description": "Animate the details opening or closing. This process is done in steps.\n\nOpening:\n1. Add the `open` attribute to the details element, so the wrapper is visible\n2. Add an `animationend` listener that will remove the `opening` class\n3. Add the `opening` class to the details in the next frame (for browser compatibility)\n\nClosing:\n1. Add an `animationend` listener that will remove the `closing` class and `open` attribute\n2. Add the `closing` class to the details in the next frame (for browser compatibility)\n\nThe specific order of adding/removing the `open` attribute is necessary for the animation\nto work. This will also trigger the `toggle` event, which in turn will trigger our own\n`sl-toggle` event."
             }
           ],
-          "fields": []
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#shouldAnimate",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Whether we should actually animate opening/closing the wrapper."
+            }
+          ]
         }
       ],
       "exports": [
@@ -216,6 +290,14 @@
           "members": [
             {
               "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "AccordionItem[] | undefined"
+              },
+              "description": "The slotted accordion items."
+            },
+            {
+              "kind": "field",
               "name": "single",
               "type": {
                 "text": "boolean | undefined"
@@ -244,7 +326,7 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onClick",
+              "name": "#onSlotchange",
               "return": {
                 "type": {
                   "text": "void"
@@ -254,7 +336,24 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
+                    "text": "Event & { target: HTMLSlotElement }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent<boolean>"
                   }
                 }
               ]
@@ -265,9 +364,9 @@
               "kind": "field",
               "name": "items",
               "type": {
-                "text": "AccordionItem[]"
+                "text": "AccordionItem[] | undefined"
               },
-              "privacy": "private"
+              "description": "The slotted accordion items."
             }
           ]
         }

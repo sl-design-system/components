@@ -31,10 +31,6 @@
 
   summary {
     color: var(--_title-color-disabled);
-
-    rect {
-      fill: var(--_title-color-disabled);
-    }
   }
 }
 
@@ -103,19 +99,11 @@ summary {
   &:hover {
     background: var(--_background-hover);
     color: var(--_title-color-hover);
-
-    rect {
-      fill: var(--_title-color-hover);
-    }
   }
 
   &:active {
     background: var(--_background-active);
     color: var(--_title-color-active);
-
-    rect {
-      fill: var(--_title-color-active);
-    }
   }
 
   &:focus-visible {
@@ -138,7 +126,7 @@ svg {
 }
 
 rect {
-  fill: var(--_title-color);
+  fill: currentcolor;
   transform-origin: center;
 
   &.horizontal-line {

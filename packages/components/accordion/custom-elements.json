@@ -357,7 +357,7 @@
               "kind": "field",
               "name": "#rovingTabindexController",
               "privacy": "private",
-              "default": "new RovingTabindexController<AccordionItem>(this, {\n    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),\n    elements: () => this.items || [],\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
+              "default": "new RovingTabindexController<AccordionItem>(this, {\n    direction: 'vertical',\n    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),\n    elements: () => this.items || [],\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
               "description": "Manage the keyboard navigation."
             },
             {

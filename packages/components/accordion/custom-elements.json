@@ -84,26 +84,6 @@
               "reflects": true
             },
             {
-              "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  },
-                  "description": "The options to pass to the focus method"
-                }
-              ],
-              "description": "Focus the summary element.\n\nThis is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
-            },
-            {
               "kind": "field",
               "name": "open",
               "type": {
@@ -196,26 +176,6 @@
           "methods": [
             {
               "kind": "method",
-              "name": "focus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "FocusOptions"
-                  },
-                  "description": "The options to pass to the focus method"
-                }
-              ],
-              "description": "Focus the summary element.\n\nThis is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
-            },
-            {
-              "kind": "method",
               "name": "toggle",
               "return": {
                 "type": {
@@ -236,23 +196,6 @@
             },
             {
               "kind": "method",
-              "name": "#onToggle",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "ToggleEvent"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "#onClick",
               "return": {
                 "type": {
@@ -264,6 +207,33 @@
                   "name": "event",
                   "type": {
                     "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#onFocus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "description": "This is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041\n\nThe requestAnimationFrame wrapper is necessary, otherwise the accordion\nelement won't receive a `focusin` event (no idea why)."
+            },
+            {
+              "kind": "method",
+              "name": "#onToggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "ToggleEvent"
                   }
                 }
               ]
@@ -289,6 +259,13 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "#events",
+              "privacy": "private",
+              "default": "new EventsController(this, { focus: this.#onFocus })",
+              "description": "Manage events."
+            },
             {
               "kind": "field",
               "name": "#shouldAnimate",
@@ -387,7 +364,7 @@
               "kind": "field",
               "name": "#rovingTabindexController",
               "privacy": "private",
-              "default": "new RovingTabindexController<AccordionItem>(this, {\n    direction: 'vertical',\n    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),\n    elements: () => this.items || [],\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
+              "default": "new RovingTabindexController<AccordionItem>(this, {\n    direction: 'vertical',\n    elements: () => this.items || [],\n    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
               "description": "Manage the keyboard navigation."
             },
             {

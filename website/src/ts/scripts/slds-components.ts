@@ -1,5 +1,6 @@
 import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
+import '@sl-design-system/accordion/register.js';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';

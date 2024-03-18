@@ -1,7 +1,7 @@
-import type { Spinner } from './spinner.js';
-import { expect, fixture, should } from '@open-wc/testing';
+import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
+import { type Spinner } from './spinner.js';
 
 describe('sl-spinner', () => {
   let el: Spinner;
@@ -14,8 +14,11 @@ describe('sl-spinner', () => {
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('should have size medium and no variant by default', () => {
-    expect(el).to.have.attribute('size','md');
+  it('should not have a default size', () => {
+    expect(el).not.to.have.attribute('size');
+  });
+
+  it('should not have a default variant', () => {
     expect(el).not.to.have.attribute('variant');
   });
 });

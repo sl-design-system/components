@@ -1,7 +1,7 @@
 @use 'sass:map';
 
 $sizes: 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
-$variants: danger, success, warning, accent, neutral, primary;
+$variants: danger, success, info, warning, accent, neutral, primary;
 $icons: (
   'md': '2xs',
   'lg': '2xs',
@@ -26,10 +26,6 @@ $icons: (
   vertical-align: middle;
 }
 
-::slotted(sl-icon) {
-  margin: var(--_icon-margin);
-}
-
 @each $variant in $variants {
   :host([variant='#{$variant}']) {
     --_badge-background-color: var(--sl-color-badge-#{$variant}-background);
@@ -39,13 +35,19 @@ $icons: (
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_badge-font: var(--sl-text-badge-text-#{$size});
     --_badge-container-size: var(--sl-size-badge-#{$size});
-    --_padding-badge-inline: calc(var(--sl-space-badge-inline-#{$size}) + var(--sl-space-badge-label-inline-#{$size}));
-    --_icon-margin: calc(-1 * var(--sl-space-badge-label-inline-#{$size}));
+    --_badge-font: var(--sl-text-badge-text-#{$size});
     --_gap: calc(2 * var(--sl-space-badge-label-inline-#{$size}));
-
-    --icon-size: var(--sl-size-icon-#{map.get($icons, $size)});
-    --icon-container-size: var(--icon-size);
+    --_icon-container-size: var(--_icon-size);
+    --_icon-margin: calc(-1 * var(--sl-space-badge-label-inline-#{$size}));
+    --_icon-size: var(--sl-size-icon-#{map.get($icons, $size)});
+    --_padding-badge-inline: calc(var(--sl-space-badge-inline-#{$size}) + var(--sl-space-badge-label-inline-#{$size}));
   }
+}
+
+::slotted(sl-icon) {
+  --sl-icon-size: var(--_icon-size);
+  --sl-icon-container-size: var(--_icon-container-size);
+
+  margin: var(--_icon-margin, 0);
 }

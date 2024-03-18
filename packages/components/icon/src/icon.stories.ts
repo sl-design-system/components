@@ -1,15 +1,14 @@
-import type { IconSize } from './icon.js';
-import { addons } from '@storybook/preview-api';
-import Events from '@storybook/core-events';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import { faNarwhal as fadNarwhal } from '@fortawesome/pro-duotone-svg-icons';
 import { faPinata as falPinata } from '@fortawesome/pro-light-svg-icons';
+import { far } from '@fortawesome/pro-regular-svg-icons';
 import { faPinata as fasPinata } from '@fortawesome/pro-solid-svg-icons';
 import { faPinata as fatPinata } from '@fortawesome/pro-thin-svg-icons';
-import { faNarwhal as fadNarwhal } from '@fortawesome/pro-duotone-svg-icons';
-import { far } from '@fortawesome/pro-regular-svg-icons';
+import Events from '@storybook/core-events';
+import { addons } from '@storybook/preview-api';
+import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
-import { Icon } from './icon.js';
 import '../register.js';
+import { Icon, type IconSize } from './icon.js';
 
 interface Props extends Pick<Icon, 'label' | 'name' | 'size'> {
   icons: string[];
@@ -99,8 +98,8 @@ export default {
                     .name=${i}
                     .size=${size}
                     .label=${i}
-                    title="${i}"
-                    @click="${async () => copyIconName(i)}"
+                    title=${i}
+                    @click=${async () => await copyIconName(i)}
                   ></sl-icon>`
               )}
           </section>

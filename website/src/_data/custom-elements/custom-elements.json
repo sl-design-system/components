@@ -4,6 +4,253 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "../packages/components/accordion/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/accordion.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/accordion-item.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/accordion/register.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-accordion",
+          "declaration": {
+            "name": "Accordion",
+            "module": "/packages/components/accordion/src/accordion.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sl-accordion-item",
+          "declaration": {
+            "name": "AccordionItem",
+            "module": "/packages/components/accordion/src/accordion-item.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/accordion/src/accordion-item.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/accordion/src/accordion-item.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/accordion/src/accordion-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An accordion item component.",
+          "name": "AccordionItem",
+          "cssParts": [
+            {
+              "description": "Header element of the accordion-item",
+              "name": "summary"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Body content for the accordion",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the element is disabled.",
+              "attribute": "disabled",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "open",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the details element is opened.",
+              "attribute": "open",
+              "reflects": true
+            },
+            {
+              "kind": "event",
+              "name": "sl-toggle",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the accordion item has been toggled."
+            },
+            {
+              "kind": "field",
+              "name": "summary",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A text shown in the header - as a title of the accordion item.",
+              "attribute": "summary"
+            }
+          ],
+          "events": [
+            {
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<string>"
+              },
+              "description": "Emits when the accordion item has been toggled.",
+              "fieldName": "toggleEvent"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "summary",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A text shown in the header - as a title of the accordion item.",
+              "fieldName": "summary"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the element is disabled.",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "open",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the details element is opened.",
+              "fieldName": "open"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-accordion-item",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AccordionItem",
+          "declaration": {
+            "name": "AccordionItem",
+            "module": "../packages/components/accordion/src/accordion-item.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/accordion/src/accordion.scss.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "module": "../packages/components/accordion/src/accordion.scss.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/accordion/src/accordion.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An accordion component that can contain accordion-items\n\n```html\n  <sl-accordion>...</sl-accordion>\n```",
+          "name": "Accordion",
+          "slots": [
+            {
+              "description": "The place for multiple `<sl-accordion-item>`",
+              "name": "default"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "single",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened.",
+              "attribute": "single",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "single",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether only one accordion item can be opened at once. By default, multiple accordion items can be opened.",
+              "fieldName": "single"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "sl-accordion",
+          "customElement": true,
+          "methods": [],
+          "fields": []
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Accordion",
+          "declaration": {
+            "name": "Accordion",
+            "module": "../packages/components/accordion/src/accordion.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "../packages/components/avatar/index.ts",
       "declarations": [],
       "exports": [
@@ -64,8 +311,8 @@
           "name": "Avatar",
           "cssProperties": [
             {
-              "description": "Max width of the container in vertical mode. If not set it will behave like a regular `display: block` element.",
-              "name": "--max-width"
+              "description": "Max inline-size of the container in vertical mode. If not set it will behave like a regular `display: block` element.",
+              "name": "--sl-avatar-max-inline-size"
             }
           ],
           "members": [
@@ -337,7 +584,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Show totals at a glance or labels contents with a tag.\n\n```html\n<sl-badge> 99+ </sl-badge>\n```",
+          "description": "Show totals at a glance or labels contents with a tag.\n\n```html\n<sl-badge>99+</sl-badge>\n```",
           "name": "Badge",
           "slots": [
             {
@@ -369,7 +616,7 @@
               "attribute": "variant",
               "reflects": true,
               "expandedType": {
-                "text": "'neutral' | 'primary' | 'danger' | 'success' | 'warning' | 'accent'"
+                "text": "'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent'"
               }
             }
           ],
@@ -393,7 +640,7 @@
               "default": "'neutral'",
               "fieldName": "variant",
               "expandedType": {
-                "text": "'neutral' | 'primary' | 'danger' | 'success' | 'warning' | 'accent'"
+                "text": "'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent'"
               }
             }
           ],
@@ -2607,22 +2854,22 @@
             },
             {
               "kind": "field",
+              "name": "dialogRole",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The role for the dialog element.",
+              "attribute": "dialog-role"
+            },
+            {
+              "kind": "field",
               "name": "disableCancel",
               "type": {
                 "text": "boolean | undefined"
               },
               "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
               "attribute": "disable-cancel"
-            },
-            {
-              "kind": "field",
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "attribute": "role"
             },
             {
               "kind": "method",
@@ -2678,21 +2925,21 @@
               "fieldName": "closeButton"
             },
             {
+              "name": "dialog-role",
+              "type": {
+                "text": "'dialog' | 'alertdialog'"
+              },
+              "default": "'dialog'",
+              "description": "The role for the dialog element.",
+              "fieldName": "dialogRole"
+            },
+            {
               "name": "disable-cancel",
               "type": {
                 "text": "boolean | undefined"
               },
               "description": "Disables the ability to cancel the dialog by pressing the Escape key\nor clicking on the backdrop.",
               "fieldName": "disableCancel"
-            },
-            {
-              "name": "role",
-              "type": {
-                "text": "'dialog' | 'alertdialog'"
-              },
-              "default": "'dialog'",
-              "description": "The ARIA role of the dialog.",
-              "fieldName": "role"
             }
           ],
           "mixins": [
@@ -2793,6 +3040,12 @@
           "kind": "class",
           "description": "A drawer component for displaying UI at the side of the screen.",
           "name": "Drawer",
+          "cssProperties": [
+            {
+              "description": "The maximum inline size of the drawer",
+              "name": "--sl-drawer-max-inline-size"
+            }
+          ],
           "slots": [
             {
               "description": "Body content for the drawer",
@@ -11648,16 +11901,20 @@
           "name": "Icon",
           "cssProperties": [
             {
-              "description": "currentColor;",
-              "name": "--fill-default:"
+              "description": "The size of the icon container, defaults to md",
+              "name": "--sl-icon-container-size"
             },
             {
               "description": "Accent color, only used for multicolor icons",
-              "name": "--fill-accent: rgb(var(--sl-color-palette-accent-300))"
+              "name": "--sl-icon-fill-accent"
             },
             {
-              "description": "unset;",
-              "name": "--icon-container-size:"
+              "description": "Default fill color",
+              "name": "--sl-icon-fill-default"
+            },
+            {
+              "description": "The size of the svg element, defaults to md",
+              "name": "--sl-icon-size"
             }
           ],
           "members": [
@@ -11749,8 +12006,7 @@
               "type": {
                 "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
               },
-              "default": "'md'",
-              "description": "The size of the icon",
+              "description": "The size of the icon.",
               "attribute": "size",
               "reflects": true
             }
@@ -11777,8 +12033,7 @@
               "type": {
                 "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
               },
-              "default": "'md'",
-              "description": "The size of the icon",
+              "description": "The size of the icon.",
               "fieldName": "size"
             }
           ],
@@ -14521,7 +14776,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A form control that allows users to select one option from a list of options.",
           "name": "Select",
           "slots": [
             {
@@ -19024,7 +19279,7 @@
             {
               "name": "{\n    finisher,\n    descriptor\n  }",
               "type": {
-                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?: (property: PropertyKey) => PropertyDescriptor;\n  }"
+                "text": "{\n    finisher?: ((ctor: typeof ReactiveElement, property: PropertyKey) => void) | null;\n    descriptor?(property: PropertyKey): PropertyDescriptor;\n  }"
               }
             },
             {
@@ -19918,18 +20173,24 @@
           "kind": "class",
           "description": "Let the user know you are processing their data or that the (part of the) page is loading.\n\n```html\n<sl-spinner></sl-spinner>\n```",
           "name": "Spinner",
+          "cssProperties": [
+            {
+              "description": "The size of the spinner, defaults to md if not set",
+              "name": "--sl-spinner-size"
+            }
+          ],
           "members": [
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "SpinnerSize"
+                "text": "SpinnerSize | undefined"
               },
-              "default": "'md'",
+              "description": "The size of the spinner. Defaults to md in CSS if not set.",
               "attribute": "size",
               "reflects": true,
               "expandedType": {
-                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | undefined"
               }
             },
             {
@@ -19938,6 +20199,7 @@
               "type": {
                 "text": "SpinnerVariant | undefined"
               },
+              "description": "The spinner variant.",
               "attribute": "variant",
               "reflects": true,
               "expandedType": {
@@ -19949,12 +20211,12 @@
             {
               "name": "size",
               "type": {
-                "text": "SpinnerSize"
+                "text": "SpinnerSize | undefined"
               },
-              "default": "'md'",
+              "description": "The size of the spinner. Defaults to md in CSS if not set.",
               "fieldName": "size",
               "expandedType": {
-                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
+                "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | undefined"
               }
             },
             {
@@ -19962,6 +20224,7 @@
               "type": {
                 "text": "SpinnerVariant | undefined"
               },
+              "description": "The spinner variant.",
               "fieldName": "variant",
               "expandedType": {
                 "text": "'accent' | 'info' | 'danger' | 'success' | 'warning' | undefined"
@@ -21929,6 +22192,12 @@
           "kind": "class",
           "description": "Multi line text area component.",
           "name": "Textarea",
+          "cssProperties": [
+            {
+              "description": "The number of rows initially visible in the textarea",
+              "name": "--sl-textarea-rows"
+            }
+          ],
           "slots": [
             {
               "description": "The slot for the textarea element",

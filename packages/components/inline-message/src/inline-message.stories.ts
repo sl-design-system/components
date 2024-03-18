@@ -1,11 +1,10 @@
-import type { InlineMessageVariant } from './inline-message';
-import type { StoryObj } from '@storybook/web-components';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/icon/register.js';
+import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
-import { InlineMessage } from './inline-message';
+import { InlineMessage, type InlineMessageVariant } from './inline-message';
 
 const variants: InlineMessageVariant[] = ['info', 'success', 'warning', 'danger'];
 const dismissible: string[] = ['true', 'false'];
@@ -32,7 +31,7 @@ export const API: StoryObj = {
     variant: 'info',
     noIcon: false,
     bodyContent: 'The main content of the message',
-    title: `Inline message title`,
+    title: 'Inline message title',
     details: 'A place for details like errors list'
   },
   argTypes: {
@@ -79,11 +78,11 @@ export const All: StoryObj = {
     <table>
       <tbody>
         ${variants.map(
-          variant => html`<tr>
-            <td>Variant: <strong>${variant}</strong></td>
-            ${noIcon.map(
-              noIconEl =>
-                html`
+          variant =>
+            html`<tr>
+              <td>Variant: <strong>${variant}</strong></td>
+              ${noIcon.map(
+                noIconEl => html`
                   <td>
                     <sl-inline-message ?no-icon=${noIconEl} ?dismissible=${dismissible} variant=${variant}>
                       <span slot="title">Variant ${variant} inline message title</span>
@@ -92,8 +91,8 @@ export const All: StoryObj = {
                     </sl-inline-message>
                   </td>
                 `
-            )}
-          </tr>`
+              )}
+            </tr>`
         )}
       </tbody>
     </table>

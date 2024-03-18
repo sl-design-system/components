@@ -38,7 +38,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Show totals at a glance or labels contents with a tag.\n\n```html\n<sl-badge> 99+ </sl-badge>\n```",
+          "description": "Show totals at a glance or labels contents with a tag.\n\n```html\n<sl-badge>99+</sl-badge>\n```",
           "name": "Badge",
           "slots": [
             {

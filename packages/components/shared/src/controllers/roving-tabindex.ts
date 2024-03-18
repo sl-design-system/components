@@ -1,5 +1,4 @@
-import type { FocusGroupConfig } from './focus-group.js';
-import { FocusGroupController } from './focus-group.js';
+import { type FocusGroupConfig, FocusGroupController } from './focus-group.js';
 
 export type RovingTabindexConfig<T> = FocusGroupConfig<T>;
 
@@ -53,7 +52,7 @@ export class RovingTabindexController<T extends HTMLElement> extends FocusGroupC
       }
       el.removeAttribute('tabindex');
       const updatable = el as unknown as {
-        requestUpdate?: () => void;
+        requestUpdate?(): void;
       };
       if (updatable.requestUpdate) updatable.requestUpdate();
     });

@@ -1,13 +1,12 @@
-import type { GridActiveItemChangeEvent } from '../events.js';
-import type { Grid } from '../grid.js';
-import type { StoryObj } from '@storybook/web-components';
-import type { Person } from '@sl-design-system/example-data';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
-import type { SelectionController } from '@sl-design-system/shared';
-import { getPeople } from '@sl-design-system/example-data';
+import { type Person, getPeople } from '@sl-design-system/example-data';
+import { type SelectionController } from '@sl-design-system/shared';
+import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
+import { type GridActiveItemChangeEvent } from '../events.js';
+import { type Grid } from '../grid.js';
 
 type Story = StoryObj;
 

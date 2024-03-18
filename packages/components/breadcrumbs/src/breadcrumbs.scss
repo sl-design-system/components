@@ -8,9 +8,7 @@ $md-breakpoint: 600px;
   --_link-padding-inline: 0.5rem;
   --_link-underline-offset: 2px;
   --_tooltip-max-inline-size: min(18rem, 50vw);
-}
 
-:host {
   align-items: center;
   display: flex;
   gap: var(--_gap);
@@ -47,8 +45,7 @@ a {
 
 ::slotted(*) {
   display: block;
-  overflow-x: clip;
-  overflow-y: visible;
+  overflow: clip visible;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

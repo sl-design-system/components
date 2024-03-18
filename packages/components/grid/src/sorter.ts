@@ -1,13 +1,16 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { GridColumn } from './column.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import type { DataSourceSortDirection, DataSourceSortFunction, EventEmitter } from '@sl-design-system/shared';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { EventsController, event } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import {
+  type DataSourceSortDirection,
+  type DataSourceSortFunction,
+  type EventEmitter,
+  EventsController,
+  event
+} from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
+import { type GridColumn } from './column.js';
 import { GridSortDirectionChangeEvent } from './events.js';
 import styles from './sorter.scss.js';
 

@@ -3,7 +3,6 @@ import { camelize, capitalize, classify, dasherize, decamelize, humanize, unders
 
 describe('string utils', () => {
   describe('camelize', () => {
-
     it('should fail gracefully when no string is given', () => {
       expect(camelize('')).to.equal('');
     });
@@ -11,11 +10,11 @@ describe('string utils', () => {
     it('should return the correct string with uppercase in the original string', () => {
       expect(camelize('innerHTML')).to.equal('innerHTML');
     });
-    
+
     it('should return the correct string with _ in the original string', () => {
       expect(camelize('action_name')).to.equal('actionName');
     });
-    
+
     it('should return the correct string with - in the original string', () => {
       expect(camelize('css-class-name')).to.equal('cssClassName');
     });
@@ -45,11 +44,11 @@ describe('string utils', () => {
     it('should return the correct string with uppercase in the original string', () => {
       expect(capitalize('innerHTML')).to.equal('InnerHTML');
     });
-    
+
     it('should return the correct string with _ in the original string', () => {
       expect(capitalize('action_name')).to.equal('Action_name');
     });
-    
+
     it('should return the correct string with - in the original string', () => {
       expect(capitalize('css-class-name')).to.equal('Css-class-name');
     });
@@ -71,11 +70,11 @@ describe('string utils', () => {
     it('should return the correct string with uppercase in the original string', () => {
       expect(classify('innerHTML')).to.equal('InnerHTML');
     });
-    
+
     it('should return the correct string with _ in the original string', () => {
       expect(classify('action_name')).to.equal('ActionName');
     });
-    
+
     it('should return the correct string with - in the original string', () => {
       expect(classify('css-class-name')).to.equal('CssClassName');
     });
@@ -97,11 +96,11 @@ describe('string utils', () => {
     it('should return the correct string with uppercase in the original string', () => {
       expect(dasherize('innerHTML')).to.equal('inner-html');
     });
-    
+
     it('should return the correct string with _ in the original string', () => {
       expect(dasherize('action_name')).to.equal('action-name');
     });
-    
+
     it('should return the correct string with - in the original string', () => {
       expect(dasherize('css-class-name')).to.equal('css-class-name');
     });
@@ -123,11 +122,11 @@ describe('string utils', () => {
     it('should return the correct string with uppercase in the original string', () => {
       expect(decamelize('innerHTML')).to.equal('inner_html');
     });
-    
+
     it('should return the correct string with _ in the original string', () => {
       expect(decamelize('action_name')).to.equal('action_name');
     });
-    
+
     it('should return the correct string with - in the original string', () => {
       expect(decamelize('css-class-name')).to.equal('css-class-name');
     });
@@ -149,11 +148,11 @@ describe('string utils', () => {
     it('should return the correct string with uppercase in the original string', () => {
       expect(humanize('innerHTML')).to.equal('Inner html');
     });
-    
+
     it('should return the correct string with _ in the original string', () => {
       expect(humanize('action_name')).to.equal('Action name');
     });
-    
+
     it('should return the correct string with - in the original string', () => {
       expect(humanize('css-class-name')).to.equal('Css class name');
     });
@@ -168,7 +167,6 @@ describe('string utils', () => {
 
     it('should remove splitting characters at the end of a string', () => {
       expect(humanize('my favorite items-')).to.equal('My favorite items ');
-
     });
   });
 
@@ -180,11 +178,11 @@ describe('string utils', () => {
     it('should return the correct string with uppercase in the original string', () => {
       expect(underscore('innerHTML')).to.equal('inner_html');
     });
-    
+
     it('should return the correct string with _ in the original string', () => {
       expect(underscore('action_name')).to.equal('action_name');
     });
-    
+
     it('should return the correct string with - in the original string', () => {
       expect(underscore('css-class-name')).to.equal('css_class_name');
     });

@@ -1,7 +1,7 @@
-import type { Breadcrumbs } from './breadcrumbs.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
+import { type Breadcrumbs } from './breadcrumbs.js';
 
 type Props = Pick<Breadcrumbs, 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateResult };
 type Story = StoryObj<Props>;

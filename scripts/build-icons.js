@@ -8,7 +8,7 @@ import { fasl } from '@fortawesome/sharp-light-svg-icons';
 import { fasr } from '@fortawesome/sharp-regular-svg-icons';
 import { fass } from '@fortawesome/sharp-solid-svg-icons';
 import { exec } from 'child_process';
-import { ESLint } from 'eslint';
+import pkg from 'eslint/use-at-your-own-risk';
 import fg from 'fast-glob';
 import { promises as fs, existsSync } from 'fs';
 import { basename, join } from 'path';
@@ -16,13 +16,14 @@ import figmaIconPages from './figma-icon-pages.json' assert { type: 'json' };
 
 library.add(fas, far, fal, fat, fad, fass, fasr, fasl);
 
+const { FlatESLint } = pkg
+
 const cwd = new URL('.', import.meta.url).pathname,
-  eslint = new ESLint({ fix: true });
+  eslint = new FlatESLint({ fix: true });
 
 const {
   default: { icon: coreIcons }
 } = await import('../packages/tokens/src/core.json', { assert: { type: 'json' } });
-
 
 const getFormattedIcons = (icons, collection) => {
   return Object.entries(icons).reduce((acc, cur) => {
@@ -90,7 +91,7 @@ const buildIcons = async theme => {
       } = faIcon,
       paths = Array.isArray(path) ? path : [path];
 
-    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
+    const svg = `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">${paths.map((p, i) => `<path d="${p}" fill="var(--sl-icon-fill-${getColorToken(i, 'regular')})"></path>`).join('')}</svg>`;
 
     icons[iconName] = { ...value, svg };
   });
@@ -138,8 +139,8 @@ const buildIcons = async theme => {
     sortedIcons = Object.fromEntries(Object.entries({ ...icons, ...coreCustomIcons, ...iconsCustom }).sort()),
     source = `export const icons = ${JSON.stringify(sortedIcons)};`,
     results = await eslint.lintText(source, { filePath });
-  
-  await ESLint.outputFixes(results);
+
+  await FlatESLint.outputFixes(results);
 
   await fs.writeFile(filePath, results[0].output);
 };

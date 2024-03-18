@@ -1,9 +1,9 @@
-import type { Button, ButtonType } from './button.js';
 import { expect, fixture } from '@open-wc/testing';
 import { a11ySnapshot, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { restore, spy, stub } from 'sinon';
 import '../register.js';
+import { type Button, type ButtonType } from './button.js';
 
 describe('sl-button', () => {
   let el: Button;
@@ -18,7 +18,8 @@ describe('sl-button', () => {
     });
 
     it('should have a button role', async () => {
-      const { role } = await a11ySnapshot({ selector: 'sl-button' }) as any;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-confusing-void-expression
+      const { role } = (await a11ySnapshot({ selector: 'sl-button' })) as any;
 
       expect(role).to.equal('button');
     });
@@ -81,14 +82,17 @@ describe('sl-button', () => {
       });
 
       it('should have an icon the same size as the button', () => {
-        expect(el.querySelector('sl-icon')).to.have.attribute('size','md');
+        expect(el.querySelector('sl-icon')).to.have.attribute('size', 'md');
       });
     });
 
     describe('icon only, wrapped in container', () => {
       beforeEach(async () => {
-        el = await fixture(html`<sl-button><span><sl-icon name="star"></sl-icon></span>
-          </sl-button>`);
+        el = await fixture(html`
+          <sl-button>
+            <span><sl-icon name="star"></sl-icon></span>
+          </sl-button>
+        `);
       });
 
       it('should have an icon-only attribute', () => {
@@ -96,7 +100,7 @@ describe('sl-button', () => {
       });
 
       it('should have an icon the same size as the button', () => {
-        expect(el.querySelector('sl-icon')).to.have.attribute('size','md');
+        expect(el.querySelector('sl-icon')).to.have.attribute('size', 'md');
       });
     });
 
@@ -110,7 +114,7 @@ describe('sl-button', () => {
       });
 
       it('should have an icon the same size as the button', () => {
-        expect(el.querySelector('sl-icon')).to.have.attribute('size','lg');
+        expect(el.querySelector('sl-icon')).to.have.attribute('size', 'lg');
       });
     });
   });
@@ -171,9 +175,10 @@ describe('sl-button', () => {
     afterEach(() => restore());
 
     describe('defaults', () => {
-      beforeEach(async () => setup('button'));
+      beforeEach(async () => await setup('button'));
 
       it('should have the form associated flag', () => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
         expect((el.constructor as any).formAssociated).to.be.true;
       });
 
@@ -183,7 +188,7 @@ describe('sl-button', () => {
     });
 
     describe('button type', () => {
-      beforeEach(async () => setup('button'));
+      beforeEach(async () => await setup('button'));
 
       it('should not interact with the form when clicked', () => {
         const requestSubmit = stub(form, 'requestSubmit').returns(undefined),
@@ -219,7 +224,7 @@ describe('sl-button', () => {
     });
 
     describe('reset type', () => {
-      beforeEach(async () => setup('reset'));
+      beforeEach(async () => await setup('reset'));
 
       it('should call reset() on the form when clicked', () => {
         const reset = stub(form, 'reset').returns(undefined);
@@ -249,7 +254,7 @@ describe('sl-button', () => {
     });
 
     describe('submit type', () => {
-      beforeEach(async () => setup('submit'));
+      beforeEach(async () => await setup('submit'));
 
       it('should call requestSubmit() on the form when clicked', () => {
         const requestSubmit = stub(form, 'requestSubmit').returns(undefined);

@@ -40,14 +40,20 @@
           "kind": "class",
           "description": "Let the user know you are processing their data or that the (part of the) page is loading.\n\n```html\n<sl-spinner></sl-spinner>\n```",
           "name": "Spinner",
+          "cssProperties": [
+            {
+              "description": "The size of the spinner, defaults to md if not set",
+              "name": "--sl-spinner-size"
+            }
+          ],
           "members": [
             {
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "SpinnerSize"
+                "text": "SpinnerSize | undefined"
               },
-              "default": "'md'",
+              "description": "The size of the spinner. Defaults to md in CSS if not set.",
               "attribute": "size",
               "reflects": true
             },
@@ -57,6 +63,7 @@
               "type": {
                 "text": "SpinnerVariant | undefined"
               },
+              "description": "The spinner variant.",
               "attribute": "variant",
               "reflects": true
             }
@@ -65,9 +72,9 @@
             {
               "name": "size",
               "type": {
-                "text": "SpinnerSize"
+                "text": "SpinnerSize | undefined"
               },
-              "default": "'md'",
+              "description": "The size of the spinner. Defaults to md in CSS if not set.",
               "fieldName": "size"
             },
             {
@@ -75,6 +82,7 @@
               "type": {
                 "text": "SpinnerVariant | undefined"
               },
+              "description": "The spinner variant.",
               "fieldName": "variant"
             }
           ],

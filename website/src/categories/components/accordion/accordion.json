@@ -5,6 +5,10 @@
     {
       "name": "Accordion",
       "selector": "sl-accordion"
+    },
+    {
+      "name": "Accordion item",
+      "selector": "sl-accordion-item"
     }
   ]
 }

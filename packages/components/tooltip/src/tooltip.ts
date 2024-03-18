@@ -1,7 +1,5 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { PopoverPosition } from '@sl-design-system/shared';
-import { AnchorController, EventsController } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { AnchorController, EventsController, type PopoverPosition } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
 

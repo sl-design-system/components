@@ -2,18 +2,12 @@
   --_color: var(--sl-color-input-helper-text-invalid);
   --_font: var(--sl-text-input-helper-text-md);
   --_gap: var(--sl-space-input-helper-gap-md);
-}
 
-:host {
   align-items: center;
   color: var(--_color);
   display: flex;
   font: var(--_font);
   gap: var(--_gap);
-}
-
-:host([hidden]) {
-  display: none;
 }
 
 :host([size='sm']) {

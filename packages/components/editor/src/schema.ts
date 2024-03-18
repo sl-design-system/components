@@ -1,4 +1,11 @@
-import type { Attrs, DOMOutputSpec, Mark, MarkSpec, NodeSpec, Node as PMNode } from 'prosemirror-model';
+import {
+  type Attrs,
+  type DOMOutputSpec,
+  type Mark,
+  type MarkSpec,
+  type NodeSpec,
+  type Node as PMNode
+} from 'prosemirror-model';
 
 export declare type EditorMarks =
   | 'link'

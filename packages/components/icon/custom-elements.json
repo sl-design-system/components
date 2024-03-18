@@ -50,16 +50,20 @@
           "name": "Icon",
           "cssProperties": [
             {
-              "description": "currentColor;",
-              "name": "--fill-default:"
+              "description": "The size of the icon container, defaults to md",
+              "name": "--sl-icon-container-size"
             },
             {
               "description": "Accent color, only used for multicolor icons",
-              "name": "--fill-accent: rgb(var(--sl-color-palette-accent-300))"
+              "name": "--sl-icon-fill-accent"
             },
             {
-              "description": "unset;",
-              "name": "--icon-container-size:"
+              "description": "Default fill color",
+              "name": "--sl-icon-fill-default"
+            },
+            {
+              "description": "The size of the svg element, defaults to md",
+              "name": "--sl-icon-size"
             }
           ],
           "members": [
@@ -151,8 +155,7 @@
               "type": {
                 "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
               },
-              "default": "'md'",
-              "description": "The size of the icon",
+              "description": "The size of the icon.",
               "attribute": "size",
               "reflects": true
             }
@@ -179,8 +182,7 @@
               "type": {
                 "text": "'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'"
               },
-              "default": "'md'",
-              "description": "The size of the icon",
+              "description": "The size of the icon.",
               "fieldName": "size"
             }
           ],
@@ -312,14 +314,20 @@
             {
               "kind": "field",
               "name": "iconNotDef",
+              "type": {
+                "text": "string"
+              },
               "privacy": "private",
-              "default": "`<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\" class=\"icon-not-def\"><path d=\"M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z\"/></svg>`"
+              "default": "'<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 384 512\" class=\"icon-not-def\"><path d=\"M64 390.3L153.5 256 64 121.7V390.3zM102.5 448H281.5L192 313.7 102.5 448zm128-192L320 390.3V121.7L230.5 256zM281.5 64H102.5L192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0H336c26.5 0 48 21.5 48 48V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48z\"/></svg>'"
             },
             {
               "kind": "field",
               "name": "iconLoading",
+              "type": {
+                "text": "string"
+              },
               "privacy": "private",
-              "default": "`<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" class=\"icon-loading\"></svg>`"
+              "default": "'<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" class=\"icon-loading\"></svg>'"
             },
             {
               "kind": "field",

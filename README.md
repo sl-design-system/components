@@ -13,7 +13,7 @@ A design system with web components for the various products of Sanoma Learning.
 To launch a local version of the Storybook deploy (runs all storybooks at the same time):
 - `yarn start --watch`
 
-You don't need to run a separate `yarn build --watch` to build the components separately
+You don't need to run a separate `yarn build --watch` to build the components separately.
 
 ### Website
 

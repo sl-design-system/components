@@ -1,9 +1,9 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { CheckboxGroup } from './checkbox-group.js';
-import '../register.js';
 import { spy } from 'sinon';
+import '../register.js';
+import { CheckboxGroup } from './checkbox-group.js';
 
 describe('sl-checkbox-group', () => {
   let el: CheckboxGroup;
@@ -44,7 +44,7 @@ describe('sl-checkbox-group', () => {
     expect(allDisabled).to.be.true;
   });
 
-  it('should be valid', () =>{
+  it('should be valid', () => {
     expect(el.valid).to.equal(true);
   });
 
@@ -113,7 +113,7 @@ describe('sl-checkbox-group', () => {
     expect(onValidate).to.have.been.calledOnce;
   });
 
-it('should not have a validation message', () => {
+  it('should not have a validation message', () => {
     expect(el.validationMessage).to.equal('');
   });
 

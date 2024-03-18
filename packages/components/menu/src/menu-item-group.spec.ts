@@ -1,8 +1,8 @@
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import '../register.js';
-import { type MenuItem } from './menu-item.js';
 import { MenuItemGroup } from './menu-item-group.js';
+import { type MenuItem } from './menu-item.js';
 
 describe('sl-menu-item-group', () => {
   let el: MenuItemGroup;

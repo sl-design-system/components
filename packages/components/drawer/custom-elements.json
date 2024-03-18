@@ -40,6 +40,12 @@
           "kind": "class",
           "description": "A drawer component for displaying UI at the side of the screen.",
           "name": "Drawer",
+          "cssProperties": [
+            {
+              "description": "The maximum inline size of the drawer",
+              "name": "--sl-drawer-max-inline-size"
+            }
+          ],
           "slots": [
             {
               "description": "Body content for the drawer",

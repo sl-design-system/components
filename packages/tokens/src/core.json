@@ -494,6 +494,10 @@
         "value": "{size.4xl}",
         "type": "sizing"
       }
+    },
+    "breacrumb": {
+      "value": "{size.2xl}",
+      "type": "sizing"
     }
   },
   "space": {
@@ -1747,6 +1751,10 @@
         },
         "short": {
           "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "home": {
+          "value": "{space.xs}",
           "type": "spacing"
         }
       }

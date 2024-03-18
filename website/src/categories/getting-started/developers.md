@@ -77,7 +77,7 @@ So if you want to use a `button` component with the Sanoma Learning theme, you d
 
 ## Setup a theme
 
-To start using the SL Design System, you need to setup a theme for your application. The theme determines how your application looks. There is a theme for every major product within Sanoma Learning. 
+To start using the SL Design System, you need to setup a theme for your application. The theme determines how your application looks. There is a theme for every major product within Sanoma Learning.
 
 Please note that the webfonts of your application are not a part of the theme. There are different ways of loading the fonts an application used across the products in Sanoma Learning. If is up to you to load the webfonts in your application.
 
@@ -214,7 +214,7 @@ Another option is not to directly include the css files, but use the SCSS mixins
 For the Sanoma Learning Bitbucket pipelines, there is a common token that you can use to authenticate with the GitHub NPM registry. For your projects' `.npmrc` you can use the following line to authenticate with the GitHub NPM registry:
 
 ```
-//npm.pkg.github.com/:_authToken=$SLDESIGNSYSTEMS_GITHUB_NPM_AUTH_TOKEN
+//npm.pkg.github.com/:_authToken=${SLDESIGNSYSTEMS_GITHUB_NPM_AUTH_TOKEN}
 ```
 
 ### Which versions of Angular are supported?

@@ -2,6 +2,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import styles from './tab.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-tab': Tab;
+  }
+}
+
 /**
  * A tab component - part of the tab group component.
  *

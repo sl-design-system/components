@@ -4,6 +4,12 @@ import { property, state } from 'lit/decorators.js';
 import { type FormControl } from './form-control-mixin.js';
 import styles from './label.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-label': Label;
+  }
+}
+
 export type LabelMark = 'optional' | 'required';
 
 export type LabelSize = 'sm' | 'md' | 'lg';

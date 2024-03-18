@@ -3,6 +3,12 @@ import { property } from 'lit/decorators.js';
 import styles from './select-option.scss.js';
 import { type SelectSize } from './select.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-select-option': SelectOption;
+  }
+}
+
 let nextUniqueId = 0;
 
 export class SelectOption<T = unknown> extends LitElement {

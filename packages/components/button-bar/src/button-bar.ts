@@ -2,6 +2,12 @@ import { type CSSResultGroup, LitElement, ReactiveElement, type TemplateResult, 
 import { property } from 'lit/decorators.js';
 import styles from './button-bar.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-button-bar': ButtonBar;
+  }
+}
+
 export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
 
 /**

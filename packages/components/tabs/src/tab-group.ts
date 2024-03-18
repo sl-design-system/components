@@ -9,6 +9,18 @@ import styles from './tab-group.scss.js';
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
 
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-tab-change': SlTabChangeEvent;
+  }
+
+  interface HTMLElementTagNameMap {
+    'sl-tab-group': TabGroup;
+  }
+}
+
+export type SlTabChangeEvent = CustomEvent<number>;
+
 export type TabsAlignment = 'start' | 'center' | 'end' | 'stretch';
 
 const OBSERVER_OPTIONS: MutationObserverInit = {
@@ -116,7 +128,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   @state() showMenu = false;
 
   /** Emits when the tab has been selected/changed. */
-  @event({ name: 'sl-tab-change' }) tabChangeEvent!: EventEmitter<number>;
+  @event({ name: 'sl-tab-change' }) tabChangeEvent!: EventEmitter<SlTabChangeEvent>;
 
   /** The slotted tabs. */
   @state() tabPanels?: TabPanel[];

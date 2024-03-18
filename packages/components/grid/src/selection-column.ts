@@ -4,7 +4,13 @@ import { EventsController } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
-import { type GridActiveItemChangeEvent } from './events.js';
+import { type SlActiveItemChangeEvent } from './grid.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-grid-selection-column': GridSelectionColumn;
+  }
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectionColumn<T = any> extends GridColumn<T> {
@@ -95,7 +101,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return result;
   }
 
-  #onActiveItemChange({ item, relatedEvent }: GridActiveItemChangeEvent<T>): void {
+  #onActiveItemChange({ detail: { item, relatedEvent } }: SlActiveItemChangeEvent<T>): void {
     const isCheckbox = (relatedEvent?.target as HTMLElement)?.tagName.toLowerCase() === 'sl-checkbox';
 
     if (!this.autoSelect || !item || isCheckbox) {

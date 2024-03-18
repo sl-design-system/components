@@ -241,10 +241,10 @@
 
 ### Fields
 
-| Name      | Privacy | Type           | Default     | Description | Inherited From |
-| --------- | ------- | -------------- | ----------- | ----------- | -------------- |
-| `size`    |         | `BadgeSize`    | `'md'`      |             |                |
-| `variant` |         | `BadgeVariant` | `'neutral'` |             |                |
+| Name      | Privacy | Type           | Default     | Description                      | Inherited From |
+| --------- | ------- | -------------- | ----------- | -------------------------------- | -------------- |
+| `size`    |         | `BadgeSize`    | `'md'`      | The size of the badge component. |                |
+| `variant` |         | `BadgeVariant` | `'neutral'` | The variant of the badge.        |                |
 
 ### Attributes
 

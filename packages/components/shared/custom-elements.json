@@ -720,7 +720,43 @@
                 {
                   "name": "element",
                   "type": {
-                    "text": "Window | Document | HTMLElement | ShadowRoot | MediaQueryList"
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: Element, ev: GlobalEventHandlersEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Window | Document | Element | HTMLElement | ShadowRoot | MediaQueryList"
                   }
                 },
                 {
@@ -956,7 +992,43 @@
                 {
                   "name": "element",
                   "type": {
-                    "text": "Window | Document | HTMLElement | ShadowRoot | MediaQueryList"
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: Element, ev: GlobalEventHandlersEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Window | Document | Element | HTMLElement | ShadowRoot | MediaQueryList"
                   }
                 },
                 {
@@ -4240,7 +4312,7 @@
                 {
                   "name": "value",
                   "type": {
-                    "text": "T"
+                    "text": "T | T['detail']"
                   }
                 },
                 {
@@ -4266,7 +4338,7 @@
                 {
                   "name": "value",
                   "type": {
-                    "text": "T"
+                    "text": "T | T['detail']"
                   }
                 },
                 {
@@ -4478,6 +4550,83 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/events.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SlBlurEvent",
+          "declaration": {
+            "name": "SlBlurEvent",
+            "module": "./events/blur.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlChangeEvent",
+          "declaration": {
+            "name": "SlChangeEvent",
+            "module": "./events/change.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlFocusEvent",
+          "declaration": {
+            "name": "SlFocusEvent",
+            "module": "./events/focus.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlSelectEvent",
+          "declaration": {
+            "name": "SlSelectEvent",
+            "module": "./events/select.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlToggleEvent",
+          "declaration": {
+            "name": "SlToggleEvent",
+            "module": "./events/toggle.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/events/blur.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/events/change.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/events/focus.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/events/select.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/events/toggle.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",

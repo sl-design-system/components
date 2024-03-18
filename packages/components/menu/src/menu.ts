@@ -6,6 +6,7 @@ import {
   RovingTabindexController,
   event
 } from '@sl-design-system/shared';
+import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { MenuItemGroup } from './menu-item-group.js';
@@ -70,7 +71,7 @@ export class Menu extends LitElement {
   @property() position?: PopoverPosition = 'right-start';
 
   /** Emits when the menu item selection changes. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<void>;
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<void>>;
 
   /** Whether this menu has any children that can be selected. */
   @state() selectableChildren?: boolean;

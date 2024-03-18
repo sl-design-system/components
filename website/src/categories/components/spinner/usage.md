@@ -28,7 +28,7 @@ eleventyNavigation:
 <section>
 
 ## When to use
-Radio buttons are best used in situations where users need to make a single selection from multiple options within a defined group. Here are two common scenarios:
+Understanding the appropriate scenarios for using a spinner in your user interface is crucial for providing effective feedback to users. 
 
 ### Feedback for Delays
 If there's a delay in the response time, using a spinner can reassure users that their action is being processed, reducing uncertainty and impatience.
@@ -45,8 +45,7 @@ When content is dynamically loaded or refreshed, a spinner can indicate that the
 <section>
 
 ## When not to use
-
-While radio buttons are a valuable UI element in many situations, there are instances when it's best to avoid using them:
+Recognizing when to avoid spinners is crucial for preserving interface clarity. Here, we explore scenarios where alternative methods may be more appropriate.
 
 ### Predictable Delays
 If the delay is predictable and very short, less than a second, using a spinner might not be necessary and can even be distracting. When action happens instantaneously, like clicking a button that toggles something immediately visible on the interface, it doesn't require a spinner.
@@ -76,7 +75,7 @@ Avoid displaying spinners overly, especially for instantaneous actions or action
 
 ## Sizing
 
-Spinner come in two sizes, to match diferents scenarios:
+Spinner come in six sizes, to match diferents scenarios:
 
   - **Small:** Suitable for displaying spinners in areas with limited space, such as buttons, small form fields, or compact dialog boxes..
 

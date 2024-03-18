@@ -12,14 +12,14 @@ export interface EventOptions {
   name?: string;
 }
 
-export class EventEmitter<T> {
+export class EventEmitter<T extends CustomEvent> {
   constructor(
     private target: HTMLElement,
     private eventName: string,
     private options?: EventOptions
   ) {}
 
-  emit(value: T, options?: EventOptions): boolean {
+  emit(value: T | T['detail'], options?: EventOptions): boolean {
     let event: Event;
 
     if (value instanceof Event) {

@@ -11,12 +11,31 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import { choose } from 'lit/directives/choose.js';
 import { type GridColumn } from './column.js';
-import { GridSortDirectionChangeEvent } from './events.js';
+import { type Grid } from './grid.js';
 import styles from './sorter.scss.js';
 
-export type GridSorterChange = 'added' | 'removed';
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-sorter-change': SlSorterChangeEvent;
+    'sl-sort-direction-change': SlSortDirectionChangeEvent;
+  }
 
-export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
+  interface HTMLElementTagNameMap {
+    'sl-sorter': GridSorter;
+  }
+}
+
+export type SlSorterChangeEvent = CustomEvent<'added' | 'removed'>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlSortDirectionChangeEvent<T = any> = CustomEvent<{
+  grid: Grid;
+  column: GridColumn<T>;
+  direction?: DataSourceSortDirection;
+}>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -42,10 +61,10 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
   @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
 
   /** Emits when the sorter has been added or removed. */
-  @event() sorterChange!: EventEmitter<GridSorterChange>;
+  @event({ name: 'sl-sorter-change' }) sorterChangeEvent!: EventEmitter<SlSorterChangeEvent>;
 
   /** Emits when the direction has changed. */
-  @event() sortDirectionChange!: EventEmitter<GridSortDirectionChangeEvent<T>>;
+  @event({ name: 'sl-sort-direction-change' }) sortDirectionChangeEvent!: EventEmitter<SlSortDirectionChangeEvent<T>>;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -55,7 +74,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
     this.#events.listen(this, 'click', this.#onClick);
     this.#events.listen(this, 'keydown', this.#onKeydown);
 
-    this.sorterChange.emit('added');
+    this.sorterChangeEvent.emit('added');
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -73,7 +92,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
-    this.sorterChange.emit('removed');
+    this.sorterChangeEvent.emit('removed');
 
     super.disconnectedCallback();
   }
@@ -100,7 +119,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
 
   #onClick(): void {
     this.#toggleDirection();
-    this.sortDirectionChange.emit(new GridSortDirectionChangeEvent(this.column, this.direction));
+    this.sortDirectionChangeEvent.emit({ grid: this.column.grid!, column: this.column, direction: this.direction });
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -108,7 +127,7 @@ export class GridSorter<T> extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
 
       this.#toggleDirection();
-      this.sortDirectionChange.emit(new GridSortDirectionChangeEvent(this.column, this.direction));
+      this.sortDirectionChangeEvent.emit({ grid: this.column.grid!, column: this.column, direction: this.direction });
     }
   }
 

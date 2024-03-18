@@ -3,6 +3,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-card': Card;
+  }
+}
+
 export type CardHeightOptions = 'fixed' | 'flex';
 export type CardOrientation = 'horizontal' | 'vertical';
 export type CardMediaPosition = 'start' | 'end';

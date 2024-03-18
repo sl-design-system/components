@@ -1,8 +1,15 @@
 import { Select, SelectOption } from '@sl-design-system/select';
 import { getValueByPath, setValueByPath } from '@sl-design-system/shared';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-grid-select-column': GridSelectColumn;
+  }
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridSelectColumn<T = any> extends GridColumn<T> {
@@ -19,7 +26,7 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
     return html`
       <td part="data select">
         <sl-select
-          @sl-change=${(event: CustomEvent<unknown>) => this.#onChange(event, item)}
+          @sl-change=${(event: SlChangeEvent) => this.#onChange(event, item)}
           .value=${getValueByPath(item, this.path)}
         >
           ${this.options?.map(option =>
@@ -32,7 +39,7 @@ export class GridSelectColumn<T = any> extends GridColumn<T> {
     `;
   }
 
-  #onChange(event: CustomEvent<unknown>, item: T): void {
+  #onChange(event: SlChangeEvent, item: T): void {
     setValueByPath(item, this.path, event.detail);
   }
 }

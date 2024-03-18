@@ -21,7 +21,12 @@ export class Accordion extends LitElement {
   #rovingTabindexController = new RovingTabindexController<AccordionItem>(this, {
     direction: 'vertical',
     elements: () => this.items || [],
-    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),
+    focusInIndex: (elements: AccordionItem[]) => {
+      const index = elements.findIndex(el => !el.disabled && el.open);
+
+      // Return either the first enabled open item or the first enabled item
+      return index !== -1 ? index : elements.findIndex(el => !el.disabled);
+    },
     isFocusableElement: (el: AccordionItem) => !el.disabled
   });
 

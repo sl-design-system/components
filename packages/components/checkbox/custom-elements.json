@@ -105,7 +105,7 @@
               "kind": "event",
               "name": "sl-blur",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlBlurEvent>"
               },
               "description": "Emits when the component loses focus."
             },
@@ -113,7 +113,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<T[]>"
+                "text": "EventEmitter<SlChangeEvent<T[]>>"
               },
               "description": "Emits when the value of the group changes."
             },
@@ -121,7 +121,7 @@
               "kind": "event",
               "name": "sl-focus",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlFocusEvent>"
               },
               "description": "Emits when the component receives focus."
             },
@@ -139,7 +139,7 @@
             {
               "name": "blurEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlBlurEvent>"
               },
               "description": "Emits when the component loses focus.",
               "fieldName": "blurEvent"
@@ -147,7 +147,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<T[]>"
+                "text": "EventEmitter<SlChangeEvent<T[]>>"
               },
               "description": "Emits when the value of the group changes.",
               "fieldName": "changeEvent"
@@ -155,7 +155,7 @@
             {
               "name": "focusEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlFocusEvent>"
               },
               "description": "Emits when the component receives focus.",
               "fieldName": "focusEvent"
@@ -434,7 +434,7 @@
               "kind": "event",
               "name": "sl-blur",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlBlurEvent>"
               },
               "description": "Emits when the component loses focus."
             },
@@ -442,7 +442,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<T | null>"
+                "text": "EventEmitter<SlChangeEvent<T | null>>"
               },
               "description": "Emits when the checked state changes."
             },
@@ -450,7 +450,7 @@
               "kind": "event",
               "name": "sl-focus",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlFocusEvent>"
               },
               "description": "Emits when the component receives focus."
             },
@@ -468,7 +468,7 @@
             {
               "name": "blurEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlBlurEvent>"
               },
               "description": "Emits when the component loses focus.",
               "fieldName": "blurEvent"
@@ -476,7 +476,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<T | null>"
+                "text": "EventEmitter<SlChangeEvent<T | null>>"
               },
               "description": "Emits when the checked state changes.",
               "fieldName": "changeEvent"
@@ -484,7 +484,7 @@
             {
               "name": "focusEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlFocusEvent>"
               },
               "description": "Emits when the component receives focus.",
               "fieldName": "focusEvent"

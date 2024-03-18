@@ -9,6 +9,12 @@ import styles from './menu-button.scss.js';
 import { MenuItem } from './menu-item.js';
 import { Menu } from './menu.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-menu-button': MenuButton;
+  }
+}
+
 /**
  * Custom element that combines a button and a menu and automatically wires them up
  * together.

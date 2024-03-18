@@ -18,7 +18,10 @@ export class Badge extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
+  /** The size of the badge component. */
   @property({ reflect: true }) size: BadgeSize = 'md';
+
+  /** The variant of the badge. */
   @property({ reflect: true }) variant: BadgeVariant = 'neutral';
 
   override render(): TemplateResult | typeof nothing {

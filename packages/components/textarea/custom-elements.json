@@ -170,7 +170,7 @@
               "kind": "event",
               "name": "sl-blur",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlBlurEvent>"
               },
               "description": "Emits when the focus leaves the component."
             },
@@ -178,7 +178,7 @@
               "kind": "event",
               "name": "sl-change",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<SlChangeEvent<string>>"
               },
               "description": "Emits when the value changes."
             },
@@ -186,7 +186,7 @@
               "kind": "event",
               "name": "sl-focus",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlFocusEvent>"
               },
               "description": "Emits when the component gains focus."
             },
@@ -223,7 +223,7 @@
             {
               "name": "blurEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlBlurEvent>"
               },
               "description": "Emits when the focus leaves the component.",
               "fieldName": "blurEvent"
@@ -231,7 +231,7 @@
             {
               "name": "changeEvent",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<SlChangeEvent<string>>"
               },
               "description": "Emits when the value changes.",
               "fieldName": "changeEvent"
@@ -239,7 +239,7 @@
             {
               "name": "focusEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlFocusEvent>"
               },
               "description": "Emits when the component gains focus.",
               "fieldName": "focusEvent"

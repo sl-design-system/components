@@ -68,8 +68,16 @@ export class EventsController implements ReactiveController {
     options?: boolean | AddEventListenerOptions
   ): void;
 
+  listen<K extends keyof GlobalEventHandlersEventMap>(
+    element: Element,
+    type: K,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    listener: (this: Element, ev: GlobalEventHandlersEventMap[K]) => any,
+    options?: boolean | AddEventListenerOptions
+  ): void;
+
   listen(
-    element: Window | Document | HTMLElement | ShadowRoot | MediaQueryList,
+    element: Window | Document | Element | HTMLElement | ShadowRoot | MediaQueryList,
     type: string,
     listener: EventListenerOrEventListenerObject,
     options?: boolean | AddEventListenerOptions

@@ -5,6 +5,10 @@ import styles from './icon.scss.js';
 import { type IconDefinition, type IconLibrary } from './models.js';
 
 declare global {
+  interface HTMLElementTagNameMap {
+    'sl-icon': Icon;
+  }
+
   interface Window {
     SLDS: {
       icons: IconLibrary;

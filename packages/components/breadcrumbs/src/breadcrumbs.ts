@@ -7,9 +7,13 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } f
 import { property, state } from 'lit/decorators.js';
 import styles from './breadcrumbs.scss.js';
 
-// Workaround for missing type in @open-wc/scoped-elements
 declare global {
+  interface HTMLElementTagNameMap {
+    'sl-breadcrumbs': Breadcrumbs;
+  }
+
   interface ShadowRoot {
+    // Workaround for missing type in @open-wc/scoped-elements
     createElement(tagName: string): HTMLElement;
   }
 }

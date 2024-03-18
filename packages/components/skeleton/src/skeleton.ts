@@ -2,6 +2,12 @@ import { type CSSResultGroup, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './skeleton.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-skeleton': Skeleton;
+  }
+}
+
 export type SkeletonEffect = 'none' | 'shimmer' | 'pulse' | 'sheen';
 
 export type SkeletonVariant = 'circle' | 'default';

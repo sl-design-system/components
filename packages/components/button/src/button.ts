@@ -3,6 +3,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import styles from './button.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-button': Button;
+  }
+}
+
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';

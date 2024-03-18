@@ -3,6 +3,12 @@ import { property } from 'lit/decorators.js';
 import styles from './select-option-group.scss.js';
 import { type SelectSize } from './select.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-select-option-group': SelectOptionGroup;
+  }
+}
+
 /**
  * A way to group options together, with or without a heading.
  *

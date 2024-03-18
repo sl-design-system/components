@@ -8,25 +8,53 @@ eleventyNavigation:
 
 <section>
 
-## Usage
+## When to Use
+SECTION_INTRODUCTION
 
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### WHEN_POINT_TITLE
+WHEN_POINT_DESCRIPTION_TEXT
 
-</section>
-
-<section>
-
-## How to use
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### WHEN_POINT_TITLE
+WHEN_POINT_DESCRIPTION_TEXT
 
 </section>
 
+
 <section>
 
-## Content
+## When not to Use
+SECTION_INTRODUCTION
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### WHEN_NOT_POINT_TITLE
+WHEN_POINT_NOT_DESCRIPTION_TEXT
+
+### WHEN_NOT_POINT_TITLE
+WHEN_POINT_NOT_DESCRIPTION_TEXT
+
+</section>
+
+
+<section>
+
+## Variants
+VARIANTS_DESCRIPTION_TEXT
+
+  - **Font Awesome:** ICON_FONT_DESCRIPTION_TEXT
+
+  - **Custom:** CUSTOM_FONT_DESCRIPTION_TEXT
+
+</section>
+
+
+<section>
+
+## Options
+FIGMA_OPTIONS_INTRODUCTION
+
+|Item|Options|Description|
+|-|-|-|
+|Icon|`'on', 'of'`|Toogle to display the subtitle in the tabs. |
+
+{.ds-table .ds-table-align-top}
 
 </section>

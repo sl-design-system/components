@@ -1,8 +1,15 @@
 import { localized } from '@lit/localize';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './accordion-item.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-accordion-item': AccordionItem;
+  }
+}
 
 /**
  * An accordion item component.
@@ -33,7 +40,7 @@ export class AccordionItem extends LitElement {
   @property() summary?: string;
 
   /** Emits when the accordion item has been toggled. */
-  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<boolean>;
+  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);

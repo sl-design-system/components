@@ -7,29 +7,52 @@ eleventyNavigation:
   key: BadgeCode
 ---
 <section>
+<div class="ds-example" style="gap: 3rem;">
+<sl-badge>100</sl-badge>
+<sl-badge size="sm" variant="danger"></sl-badge>
+<sl-badge size="lg" variant="success"></sl-badge>
+<sl-badge size="3xl" variant="warning"><sl-icon name="face-smile"></sl-icon></sl-badge>
+<sl-badge size="3xl" variant="info"><sl-icon name="face-smile"></sl-icon>Student</sl-badge>
+<sl-badge size="2xl" variant="primary">Biology teacher</sl-badge>
+</div>
 
-## Badge code
+<div class="ds-code">
 
-Badge examples
+  ```html
+<sl-badge>100</sl-badge>
+<sl-badge size="sm" variant="danger"></sl-badge>
+<sl-badge size="lg" variant="success"></sl-badge>
+<sl-badge size="3xl" variant="warning"><sl-icon name="face-smile"></sl-icon></sl-badge>
+<sl-badge size="3xl" variant="info"><sl-icon name="face-smile"></sl-icon>Student</sl-badge>
+<sl-badge size="2xl" variant="primary">Biology teacher</sl-badge>
+  ```
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
+</div>
 </section>
 
 <section>
 
-## Code
+## Installation
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+With npm
+
+<div class="ds-code">
+
+  ```bash
+    npm install @sl-design-system/badge
+  ```
+
+</div>
+
+With yarn
+
+<div class="ds-code">
+
+  ```bash
+    yarn add @sl-design-system/badge
+  ```
+</div>
 
 </section>
 
 {% include "../component-table.njk" %}
-
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  

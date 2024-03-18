@@ -7,10 +7,17 @@ import {
   event,
   isPopoverOpen
 } from '@sl-design-system/shared';
+import { SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './menu-item.scss.js';
 import { Menu } from './menu.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-menu-item': MenuItem;
+  }
+}
 
 /**
  * Menu item component for use inside a menu.
@@ -48,7 +55,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Emits when the user toggles the selected state. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<boolean>;
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent>;
 
   /** Whether this menu item has been selected. */
   @property({ type: Boolean, reflect: true }) selected?: boolean;

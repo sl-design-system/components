@@ -1,10 +1,17 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, svg } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './checkbox.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-checkbox': Checkbox;
+  }
+}
 
 export type CheckboxSize = 'sm' | 'md' | 'lg';
 
@@ -39,13 +46,13 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   readonly internals = this.attachInternals();
 
   /** Emits when the component loses focus. */
-  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** Emits when the checked state changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | null>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | null>>;
 
   /** Emits when the component receives focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** Whether the checkbox is checked. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;

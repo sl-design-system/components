@@ -97,7 +97,7 @@
               "kind": "event",
               "name": "sl-toggle",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
               },
               "description": "Emits when the accordion item has been toggled."
             },
@@ -135,7 +135,7 @@
             {
               "name": "toggleEvent",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
               },
               "description": "Emits when the accordion item has been toggled.",
               "fieldName": "toggleEvent"

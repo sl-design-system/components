@@ -17,6 +17,20 @@ import {
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
 
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-cancel': SlCancelEvent;
+    'sl-close': SlCloseEvent;
+  }
+
+  interface HTMLElementTagNameMap {
+    'sl-dialog': Dialog;
+  }
+}
+
+export type SlCancelEvent = CustomEvent<void>;
+export type SlCloseEvent = CustomEvent<void>;
+
 /**
  * A dialog component for displaying modal UI.
  *
@@ -55,10 +69,10 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
    * Emits when the cancel has been cancelled. This happens when the user closes
    * the dialog using the escape key or clicks on the backdrop.
    */
-  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<void>;
+  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
   /** Emits when the dialog has been closed. */
-  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<void>;
+  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<SlCloseEvent>;
 
   /** Determines whether a close button should be shown in the top right corner. */
   @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;

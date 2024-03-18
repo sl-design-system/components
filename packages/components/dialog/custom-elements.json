@@ -145,7 +145,7 @@
               "kind": "event",
               "name": "sl-cancel",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlCancelEvent>"
               },
               "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
             },
@@ -153,7 +153,7 @@
               "kind": "event",
               "name": "sl-close",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlCloseEvent>"
               },
               "description": "Emits when the dialog has been closed."
             }
@@ -162,7 +162,7 @@
             {
               "name": "cancelEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlCancelEvent>"
               },
               "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop.",
               "fieldName": "cancelEvent"
@@ -170,7 +170,7 @@
             {
               "name": "closeEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlCloseEvent>"
               },
               "description": "Emits when the dialog has been closed.",
               "fieldName": "closeEvent"

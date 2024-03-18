@@ -1,25 +1,42 @@
-$variants: default, valid, invalid;
-$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
-$states: unchecked, checked;
-$state-selectors: '', ':where([checked], [indeterminate])';
+@use 'sass:list';
+
 $sizes: sm, md, lg;
+$state-selectors: '', ':where([checked], [indeterminate])';
+$states: unchecked, checked;
+$variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
+$variants: default, valid, invalid;
 
 :host {
-  // these are temporary, until we have actual tokens for the size of the icon in the checkbox.
-  // https://github.com/sl-design-system/components/issues/554
+  /**
+   * FIXME: These are temporary, until we have actual tokens for the
+   * size of the icon in the checkbox.
+   * See: https://github.com/sl-design-system/components/issues/554
+   */
   --_icon-size-md: 16px;
   --_icon-size-lg: 18px;
-
   --_border-radius: var(--sl-border-radius-checkbox);
   --_border-size: var(--sl-border-width-input-border);
-  --_box-shadow: none;
   --_cursor: pointer;
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_path-length: 23;
   --_stroke-dashoffset: var(--_path-length);
-  --_stroke-linecap: round;
   --_transition: 200ms ease-in-out;
+
+  align-items: start;
+  align-self: start;
+  color: var(--_label-color);
+  cursor: var(--_cursor);
+  display: flex;
+  font: var(--_font);
+  gap: var(--_gap);
+  line-height: var(--_line-height);
+  outline: none;
+
+  &:is(:active, :hover) .inner {
+    transition: var(--_transition);
+    transition-property: background, border-color, color, filter;
+  }
 }
 
 @each $size in $sizes {
@@ -35,12 +52,12 @@ $sizes: sm, md, lg;
 }
 
 @each $variant in $variants {
-  $i: index($variants, $variant);
-  $variant-selector: nth($variant-selectors, $i);
+  $i: list.index($variants, $variant);
+  $variant-selector: list.nth($variant-selectors, $i);
 
   @each $state in $states {
-    $j: index($states, $state);
-    $state-selector: nth($state-selectors, $j);
+    $j: list.index($states, $state);
+    $state-selector: list.nth($state-selectors, $j);
 
     :host(#{$variant-selector + $state-selector}) {
       --_background: var(--sl-color-input-option-#{$variant}-#{$state}-default-background);
@@ -79,25 +96,9 @@ $sizes: sm, md, lg;
   }
 }
 
-:host {
-  align-items: start;
-  align-self: start;
-  color: var(--_label-color);
-  cursor: var(--_cursor);
-  display: flex;
-  font: var(--_font);
-  gap: var(--_gap);
-  line-height: var(--_line-height);
-  outline: none;
-
-  &:is(:active, :hover) .inner {
-    transition: var(--_transition);
-    transition-property: background, border-color, box-shadow, color, filter;
-  }
-}
-
 :host([disabled]) {
   --_cursor: default;
+
   pointer-events: none;
 }
 
@@ -121,7 +122,6 @@ $sizes: sm, md, lg;
   background: var(--_background);
   border: var(--_border-size) solid var(--_border-color);
   border-radius: var(--_border-radius);
-  box-shadow: var(--_box-shadow, none);
   display: inline-flex;
   flex-shrink: 0;
   outline-color: transparent;
@@ -155,7 +155,7 @@ path {
   stroke: var(--_stroke);
   stroke-dasharray: var(--_path-length);
   stroke-dashoffset: var(--_stroke-dashoffset);
-  stroke-linecap: var(--_stroke-linecap);
+  stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 3px;
   transition: stroke-dashoffset 0.2s cubic-bezier(0, 0, 0.2, 0.1);

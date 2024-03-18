@@ -1,8 +1,8 @@
-import type { Spinner, SpinnerSize, SpinnerVariant } from './spinner.js';
-import type { ButtonSize, ButtonVariant } from '@sl-design-system/button';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import { type ButtonSize, type ButtonVariant } from '@sl-design-system/button';
+import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
+import { type Spinner, type SpinnerSize, type SpinnerVariant } from './spinner.js';
 
 type Props = Pick<Spinner, 'size' | 'variant'>;
 
@@ -80,21 +80,23 @@ export const InButton: Story = {
         </thead>
         <tbody>
           ${buttonSizes.map(
-            buttonSize => html` <tr>
-              <th>${sizeName(buttonSize)}</th>
-              ${buttonVariants.map(
-                buttonVariant => html`<td>
-                  <sl-button .variant=${buttonVariant} size="${buttonSize}">
-                    <sl-spinner></sl-spinner>
-                    Sending
-                  </sl-button>
-                  <sl-button .variant=${buttonVariant} fill="outline" size="${buttonSize}">
-                    <sl-spinner></sl-spinner>
-                    Sending
-                  </sl-button>
-                </td>`
-              )}
-            </tr>`
+            buttonSize =>
+              html` <tr>
+                <th>${sizeName(buttonSize)}</th>
+                ${buttonVariants.map(
+                  buttonVariant =>
+                    html`<td>
+                      <sl-button .variant=${buttonVariant} size=${buttonSize}>
+                        <sl-spinner></sl-spinner>
+                        Sending
+                      </sl-button>
+                      <sl-button .variant=${buttonVariant} fill="outline" size=${buttonSize}>
+                        <sl-spinner></sl-spinner>
+                        Sending
+                      </sl-button>
+                    </td>`
+                )}
+              </tr>`
           )}
         </tbody>
       </table>
@@ -131,17 +133,19 @@ export const All: Story = {
         </thead>
         <tbody>
           ${sizes.map(
-            size => html` <tr>
-              <th>${sizeName(size)}</th>
-              <td>
-                <sl-spinner .size=${size}></sl-spinner>
-              </td>
-              ${variants.map(
-                variant => html`<td>
-                  <sl-spinner .variant=${variant} .size=${size}></sl-spinner>
-                </td>`
-              )}
-            </tr>`
+            size =>
+              html` <tr>
+                <th>${sizeName(size)}</th>
+                <td>
+                  <sl-spinner .size=${size}></sl-spinner>
+                </td>
+                ${variants.map(
+                  variant =>
+                    html`<td>
+                      <sl-spinner .variant=${variant} .size=${size}></sl-spinner>
+                    </td>`
+                )}
+              </tr>`
           )}
         </tbody>
       </table>

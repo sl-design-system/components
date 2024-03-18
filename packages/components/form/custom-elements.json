@@ -1251,7 +1251,7 @@
               "kind": "field",
               "name": "#observer",
               "privacy": "private",
-              "default": "new MutationObserver(() => void this.#update())",
+              "default": "new MutationObserver(() => this.#update())",
               "description": "Observe the form control for changes to the required attribute."
             }
           ]

@@ -1,9 +1,7 @@
-import type { TemplateResult } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
-import type { Person } from '@sl-design-system/example-data';
 import { Button } from '@sl-design-system/button';
-import { getPeople } from '@sl-design-system/example-data';
-import { html } from 'lit';
+import { type Person, getPeople } from '@sl-design-system/example-data';
+import { type Meta, type StoryObj } from '@storybook/web-components';
+import { type TemplateResult, html } from 'lit';
 import '../../register.js';
 
 type Story = StoryObj;

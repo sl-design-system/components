@@ -12,6 +12,7 @@
     "packages/components/*/node_modules/**/*.ts"
   ],
   "references": [
+    { "path": "./packages/components/accordion" },
     { "path": "./packages/components/avatar" },
     { "path": "./packages/components/button" },
     { "path": "./packages/components/button-bar" },
@@ -33,6 +34,7 @@
     { "path": "./packages/components/text-field"},
     { "path": "./packages/components/textarea" },
     { "path": "./packages/components/tooltip" },
+    { "path": "./packages/locales" },
     { "path": "./packages/themes/bingel" },
     { "path": "./packages/themes/bingel-dc" },
     { "path": "./packages/themes/bingel-int" },

@@ -2,8 +2,8 @@ import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
-import { RadioGroup } from './radio-group.js';
 import '../register.js';
+import { RadioGroup } from './radio-group.js';
 
 describe('sl-radio-group', () => {
   let el: RadioGroup;
@@ -65,7 +65,7 @@ describe('sl-radio-group', () => {
       expect(el).to.have.attribute('required');
     });
 
-    it('should be valid', () =>{
+    it('should be valid', () => {
       expect(el.valid).to.be.true;
     });
 
@@ -330,7 +330,7 @@ describe('sl-radio-group', () => {
       expect(el.value).to.be.undefined;
     });
 
-    it('should reset the checked state of the radios', async () => {
+    it('should reset the checked state of the radios', () => {
       const radio = el.querySelector('sl-radio');
 
       radio?.click();

@@ -1,9 +1,9 @@
-import type { Tab } from './tab.js';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/icon/register.js';
-import type { StoryObj } from '@storybook/web-components';
+import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
+import { type Tab } from './tab.js';
 
 export default {
   title: 'Tab Group',
@@ -101,143 +101,146 @@ export const API: StoryObj = {
 };
 
 export const LongTitles: StoryObj = {
-  render: ({ vertical, alignment }) => html` <sl-tab-group ?vertical=${vertical} .alignment=${alignment}>
-    <sl-tab selected>This is the first tab a very looong example of the tab</sl-tab>
-    <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
+  render: ({ vertical, alignment }) =>
+    html` <sl-tab-group ?vertical=${vertical} .alignment=${alignment}>
+      <sl-tab selected>This is the first tab a very looong example of the tab</sl-tab>
+      <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
 
-    <sl-tab>This is the second tab</sl-tab>
-    <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
+      <sl-tab>This is the second tab</sl-tab>
+      <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
 
-    <sl-tab>This is the third tab</sl-tab>
-    <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
+      <sl-tab>This is the third tab</sl-tab>
+      <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
 
-    <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
-    <sl-tab-panel>Contents tab 4</sl-tab-panel>
+      <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
+      <sl-tab-panel>Contents tab 4</sl-tab-panel>
 
-    <sl-tab>This is the fifth tab</sl-tab>
-    <sl-tab-panel>Contents tab 5</sl-tab-panel>
+      <sl-tab>This is the fifth tab</sl-tab>
+      <sl-tab-panel>Contents tab 5</sl-tab-panel>
 
-    <sl-tab>This is the sixth tab</sl-tab>
-    <sl-tab-panel>Contents tab 6</sl-tab-panel>
+      <sl-tab>This is the sixth tab</sl-tab>
+      <sl-tab-panel>Contents tab 6</sl-tab-panel>
 
-    <sl-tab>This is the seventh tab</sl-tab>
-    <sl-tab-panel>Contents tab 7</sl-tab-panel>
+      <sl-tab>This is the seventh tab</sl-tab>
+      <sl-tab-panel>Contents tab 7</sl-tab-panel>
 
-    <sl-tab>This is the eighth tab</sl-tab>
-    <sl-tab-panel>Contents tab 8</sl-tab-panel>
+      <sl-tab>This is the eighth tab</sl-tab>
+      <sl-tab-panel>Contents tab 8</sl-tab-panel>
 
-    <sl-tab>This is the nineth tab</sl-tab>
-    <sl-tab-panel>Contents tab 9</sl-tab-panel>
+      <sl-tab>This is the nineth tab</sl-tab>
+      <sl-tab-panel>Contents tab 9</sl-tab-panel>
 
-    <sl-tab>This is the tenth tab</sl-tab>
-    <sl-tab-panel>Contents tab 10</sl-tab-panel>
-  </sl-tab-group>`
+      <sl-tab>This is the tenth tab</sl-tab>
+      <sl-tab-panel>Contents tab 10</sl-tab-panel>
+    </sl-tab-group>`
 };
 
 export const StickyTabs: StoryObj = {
-  render: ({ vertical, alignment }) => html` <style>
-      sl-tab-group::part(container) {
-        position: sticky;
-      }
+  render: ({ vertical, alignment }) =>
+    html` <style>
+        sl-tab-group::part(container) {
+          position: sticky;
+        }
 
-      sl-tab-group[vertical]::part(container) {
-        inset-block-start: 16px;
-        align-self: start;
-      }
+        sl-tab-group[vertical]::part(container) {
+          inset-block-start: 16px;
+          align-self: start;
+        }
 
-      sl-tab-group::part(container) {
-        inset-block-start: -4px;
-      }
-    </style>
-    <div class="tab-wrapper">
-      <sl-tab-group ?vertical=${vertical} .alignment=${alignment}>
-        <sl-tab selected>This is the first tab</sl-tab>
-        <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
+        sl-tab-group::part(container) {
+          inset-block-start: -4px;
+        }
+      </style>
+      <div class="tab-wrapper">
+        <sl-tab-group ?vertical=${vertical} .alignment=${alignment}>
+          <sl-tab selected>This is the first tab</sl-tab>
+          <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
 
-        <sl-tab>This is the second tab</sl-tab>
-        <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
+          <sl-tab>This is the second tab</sl-tab>
+          <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
 
-        <sl-tab>This is the third tab</sl-tab>
-        <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
+          <sl-tab>This is the third tab</sl-tab>
+          <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
 
-        <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
-        <sl-tab-panel>Contents tab 4</sl-tab-panel>
+          <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
+          <sl-tab-panel>Contents tab 4</sl-tab-panel>
 
-        <sl-tab>This is the fifth tab</sl-tab>
-        <sl-tab-panel>Contents tab 5</sl-tab-panel>
+          <sl-tab>This is the fifth tab</sl-tab>
+          <sl-tab-panel>Contents tab 5</sl-tab-panel>
 
-        <sl-tab>This is the sixth tab</sl-tab>
-        <sl-tab-panel>Contents tab 6</sl-tab-panel>
+          <sl-tab>This is the sixth tab</sl-tab>
+          <sl-tab-panel>Contents tab 6</sl-tab-panel>
 
-        <sl-tab>This is the seventh tab</sl-tab>
-        <sl-tab-panel>Contents tab 7</sl-tab-panel>
+          <sl-tab>This is the seventh tab</sl-tab>
+          <sl-tab-panel>Contents tab 7</sl-tab-panel>
 
-        <sl-tab>This is the eighth tab</sl-tab>
-        <sl-tab-panel>Contents tab 8</sl-tab-panel>
+          <sl-tab>This is the eighth tab</sl-tab>
+          <sl-tab-panel>Contents tab 8</sl-tab-panel>
 
-        <sl-tab>This is the nineth tab</sl-tab>
-        <sl-tab-panel>Contents tab 9</sl-tab-panel>
+          <sl-tab>This is the nineth tab</sl-tab>
+          <sl-tab-panel>Contents tab 9</sl-tab-panel>
 
-        <sl-tab>This is the tenth tab</sl-tab>
-        <sl-tab-panel>Contents tab 10</sl-tab-panel>
-      </sl-tab-group>
-    </div>`
+          <sl-tab>This is the tenth tab</sl-tab>
+          <sl-tab-panel>Contents tab 10</sl-tab-panel>
+        </sl-tab-group>
+      </div>`
 };
 
 export const VerticalInSmallContainer: StoryObj = {
-  render: ({ alignment }) => html` <style>
-      sl-tab-group {
-        block-size: 300px;
-      }
+  render: ({ alignment }) =>
+    html` <style>
+        sl-tab-group {
+          block-size: 300px;
+        }
 
-      sl-tab-panel {
-        overflow: auto;
-      }
+        sl-tab-panel {
+          overflow: auto;
+        }
 
-      sl-tab-group::part(wrapper) {
-        position: sticky;
-        inset-block-start: 0;
-        align-self: flex-start;
-      }
+        sl-tab-group::part(wrapper) {
+          position: sticky;
+          inset-block-start: 0;
+          align-self: flex-start;
+        }
 
-      .tab-wrapper {
-        border: 4px dashed #c6c6c6;
-        padding: 20px;
-      }
-    </style>
-    <div class="tab-wrapper">
-      <sl-tab-group vertical .alignment=${alignment}>
-        <sl-tab selected>This is the first tab</sl-tab>
-        <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
+        .tab-wrapper {
+          border: 4px dashed #c6c6c6;
+          padding: 20px;
+        }
+      </style>
+      <div class="tab-wrapper">
+        <sl-tab-group vertical .alignment=${alignment}>
+          <sl-tab selected>This is the first tab</sl-tab>
+          <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
 
-        <sl-tab>This is the second tab</sl-tab>
-        <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
+          <sl-tab>This is the second tab</sl-tab>
+          <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
 
-        <sl-tab>This is the third tab</sl-tab>
-        <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
+          <sl-tab>This is the third tab</sl-tab>
+          <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
 
-        <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
-        <sl-tab-panel>Contents tab 4</sl-tab-panel>
+          <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
+          <sl-tab-panel>Contents tab 4</sl-tab-panel>
 
-        <sl-tab>This is the fifth tab</sl-tab>
-        <sl-tab-panel>Contents tab 5</sl-tab-panel>
+          <sl-tab>This is the fifth tab</sl-tab>
+          <sl-tab-panel>Contents tab 5</sl-tab-panel>
 
-        <sl-tab>This is the sixth tab</sl-tab>
-        <sl-tab-panel>Contents tab 6</sl-tab-panel>
+          <sl-tab>This is the sixth tab</sl-tab>
+          <sl-tab-panel>Contents tab 6</sl-tab-panel>
 
-        <sl-tab>This is the seventh tab</sl-tab>
-        <sl-tab-panel>Contents tab 7</sl-tab-panel>
+          <sl-tab>This is the seventh tab</sl-tab>
+          <sl-tab-panel>Contents tab 7</sl-tab-panel>
 
-        <sl-tab>This is the eighth tab</sl-tab>
-        <sl-tab-panel>Contents tab 8</sl-tab-panel>
+          <sl-tab>This is the eighth tab</sl-tab>
+          <sl-tab-panel>Contents tab 8</sl-tab-panel>
 
-        <sl-tab>This is the nineth tab</sl-tab>
-        <sl-tab-panel>Contents tab 9</sl-tab-panel>
+          <sl-tab>This is the nineth tab</sl-tab>
+          <sl-tab-panel>Contents tab 9</sl-tab-panel>
 
-        <sl-tab>This is the tenth tab</sl-tab>
-        <sl-tab-panel>Contents tab 10</sl-tab-panel>
-      </sl-tab-group>
-    </div>`
+          <sl-tab>This is the tenth tab</sl-tab>
+          <sl-tab-panel>Contents tab 10</sl-tab-panel>
+        </sl-tab-group>
+      </div>`
 };
 
 export const ExternalInteraction: StoryObj = {
@@ -250,8 +253,8 @@ export const ExternalInteraction: StoryObj = {
       <sl-tab>Tab 5</sl-tab>
     </sl-tab-group>
     <hr />
-    <sl-button @click="${() => activateTab(1)}"> Activate tab 2</sl-button>
-    <sl-button @click="${() => activateTab(3)}"> Activate tab 4</sl-button>
+    <sl-button @click=${() => activateTab(1)}> Activate tab 2</sl-button>
+    <sl-button @click=${() => activateTab(3)}> Activate tab 4</sl-button>
     <h2 id="output">Active tab:</h2>
   `
 };

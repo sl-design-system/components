@@ -13,14 +13,14 @@ import {
 } from '@fortawesome/pro-regular-svg-icons';
 import { faPeople } from '@fortawesome/pro-solid-svg-icons';
 import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/icon/register.js';
 import { Icon } from '@sl-design-system/icon';
+import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Menu } from './menu.js';
 
-type Props = Pick<Menu, 'selects'> & { menuItems: () => TemplateResult; maxWidth: string };
+type Props = Pick<Menu, 'selects'> & { menuItems(): TemplateResult; maxWidth: string };
 type Story = StoryObj<Props>;
 
 Icon.register(

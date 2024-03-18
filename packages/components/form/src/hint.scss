@@ -1,14 +1,8 @@
 :host {
   --_font: var(--sl-text-input-helper-text-md);
-}
 
-:host {
   display: block;
   font: var(--_font);
-}
-
-:host([hidden]) {
-  display: none;
 }
 
 :host([size='sm']) {

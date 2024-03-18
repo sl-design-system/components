@@ -1,8 +1,8 @@
-import type { Drawer, DrawerAttachment } from './drawer.js';
 import { expect, fixture } from '@open-wc/testing';
 import { html } from 'lit';
 import { SinonSpy, spy, stub } from 'sinon';
 import '../register.js';
+import { type Drawer, type DrawerAttachment } from './drawer.js';
 
 describe('sl-drawer', () => {
   let el: Drawer;
@@ -49,13 +49,12 @@ describe('sl-drawer', () => {
       // dispatch the event ourselves, because waiting for it to come from the actual dialog is too unreliable
       dialog?.dispatchEvent(new Event('close'));
       expect(document.documentElement.style.overflow).to.equal('');
-
     });
 
     it('should not close the drawer when the cancel event is fired but close is disabled', async () => {
       const dialog = el.renderRoot.querySelector('dialog');
       const cancelEvent = new Event('cancel');
-      const cancelEventSpy = spy(cancelEvent,'preventDefault');
+      const cancelEventSpy = spy(cancelEvent, 'preventDefault');
 
       el.disableClose = true;
       el.showModal();
@@ -71,7 +70,7 @@ describe('sl-drawer', () => {
     it('should close the drawer when the cancel event is fired and close isn`t disabled', async () => {
       const dialog = el.renderRoot.querySelector('dialog');
       const cancelEvent = new Event('cancel');
-      const cancelEventSpy = spy(cancelEvent,'preventDefault');
+      const cancelEventSpy = spy(cancelEvent, 'preventDefault');
 
       el.disableClose = false;
       el.showModal();
@@ -84,22 +83,21 @@ describe('sl-drawer', () => {
       expect(cancelEventSpy).not.to.have.been.called;
     });
 
-
     describe('click event', () => {
       let dialog: HTMLDialogElement | null;
       let event: PointerEvent;
       let dialogCloseSpy: SinonSpy;
 
-      beforeEach(()=>{
+      beforeEach(() => {
         el.showModal();
         dialog = el.renderRoot.querySelector('dialog');
         event = new PointerEvent('click');
-        if(dialog){
+        if (dialog) {
           dialogCloseSpy = spy(dialog, 'close');
         }
-      })
+      });
 
-      it('should close the drawer when the close button is clicked', async () => {
+      it('should close the drawer when the close button is clicked', () => {
         const closeButton = el.renderRoot.querySelector('sl-button[sl-dialog-close]');
         stub(event, 'target').value(closeButton as HTMLElement);
 
@@ -108,9 +106,9 @@ describe('sl-drawer', () => {
         expect(dialogCloseSpy).to.have.been.called;
       });
 
-      it('should close the drawer when the backdrop is clicked', async () => {
-        if(dialog){
-          stub(dialog,'getBoundingClientRect').returns({
+      it('should close the drawer when the backdrop is clicked', () => {
+        if (dialog) {
+          stub(dialog, 'getBoundingClientRect').returns({
             top: 0,
             right: 900,
             bottom: 600,
@@ -125,9 +123,9 @@ describe('sl-drawer', () => {
         }
       });
 
-      it('should not close the drawer when there\'s a click in the drawer itself', async () => {
-        if(dialog){
-          stub(dialog,'getBoundingClientRect').returns({
+      it("should not close the drawer when there's a click in the drawer itself", () => {
+        if (dialog) {
+          stub(dialog, 'getBoundingClientRect').returns({
             top: 0,
             right: 900,
             bottom: 600,
@@ -142,6 +140,5 @@ describe('sl-drawer', () => {
         }
       });
     });
-
   });
 });

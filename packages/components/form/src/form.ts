@@ -1,7 +1,6 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import type { FormField } from './form-field.js';
 import { EventsController } from '@sl-design-system/shared';
-import { LitElement, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type FormField } from './form-field.js';
 import styles from './form.scss.js';
 
 declare global {

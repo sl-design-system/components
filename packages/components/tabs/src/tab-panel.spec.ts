@@ -15,6 +15,6 @@ describe('sl-tab-panel', () => {
   });
 
   it('should have the correct attributes', () => {
-    expect(el).to.have.attribute('role','tabpanel');
+    expect(el).to.have.attribute('role', 'tabpanel');
   });
 });

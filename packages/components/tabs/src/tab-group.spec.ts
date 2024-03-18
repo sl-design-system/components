@@ -21,21 +21,23 @@ describe('sl-tab-group', () => {
     });
 
     it('should have start alignment by default', () => {
-      expect(el).to.have.attribute('alignment','start');
+      expect(el).to.have.attribute('alignment', 'start');
     });
   });
 
   describe('multiple panels', () => {
-    describe('no selected, no disabled',()=>{
+    describe('no selected, no disabled', () => {
       beforeEach(async () => {
-        el = await fixture(html`<sl-tab-group>
-          <sl-tab>Tab 1</sl-tab>
-          <sl-tab>Tab 2</sl-tab>
-          <sl-tab>Tab 3</sl-tab>
-          <sl-tab-panel>Panel 1</sl-tab-panel>
-          <sl-tab-panel>Panel 2</sl-tab-panel>
-          <sl-tab-panel>Panel 3</sl-tab-panel>
-        </sl-tab-group>`);
+        el = await fixture(html`
+          <sl-tab-group>
+            <sl-tab>Tab 1</sl-tab>
+            <sl-tab>Tab 2</sl-tab>
+            <sl-tab>Tab 3</sl-tab>
+            <sl-tab-panel>Panel 1</sl-tab-panel>
+            <sl-tab-panel>Panel 2</sl-tab-panel>
+            <sl-tab-panel>Panel 3</sl-tab-panel>
+          </sl-tab-group>
+        `);
       });
 
       it('should render correctly', () => {
@@ -44,14 +46,14 @@ describe('sl-tab-group', () => {
 
       it('should select the first tab by default', () => {
         const tabs = el.querySelectorAll('sl-tab[selected]'),
-              panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 1');
-        expect(tabs[0]).to.have.attribute('aria-controls','sl-tab-group-4-panel-1');
+        expect(tabs[0]).to.have.attribute('aria-controls', 'sl-tab-group-4-panel-1');
         expect(panels.length).to.equal(1);
         expect(panels[0].innerHTML).to.equal('Panel 1');
-        expect(panels[0]).to.have.attribute('aria-labelledby','sl-tab-group-4-tab-1');
+        expect(panels[0]).to.have.attribute('aria-labelledby', 'sl-tab-group-4-tab-1');
       });
 
       it('should handle the selecting of tabs by keyboard correctly', async () => {
@@ -59,7 +61,7 @@ describe('sl-tab-group', () => {
         await sendKeys({ press: 'Space' });
 
         let tabs = el.querySelectorAll('sl-tab[selected]'),
-            panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 2');
@@ -89,12 +91,11 @@ describe('sl-tab-group', () => {
       });
 
       it('should select the right tab on click', async () => {
-
         (el.querySelector('sl-tab:nth-of-type(2)') as HTMLElement).click();
         await el.updateComplete;
 
         const tabs = el.querySelectorAll('sl-tab[selected]'),
-              panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 2');
@@ -103,16 +104,18 @@ describe('sl-tab-group', () => {
       });
     });
 
-    describe('no selected, first disabled',()=>{
+    describe('no selected, first disabled', () => {
       beforeEach(async () => {
-        el = await fixture(html`<sl-tab-group>
-          <sl-tab disabled>Tab 1</sl-tab>
-          <sl-tab>Tab 2</sl-tab>
-          <sl-tab>Tab 3</sl-tab>
-          <sl-tab-panel>Panel 1</sl-tab-panel>
-          <sl-tab-panel>Panel 2</sl-tab-panel>
-          <sl-tab-panel>Panel 3</sl-tab-panel>
-        </sl-tab-group>`);
+        el = await fixture(
+          html`<sl-tab-group>
+            <sl-tab disabled>Tab 1</sl-tab>
+            <sl-tab>Tab 2</sl-tab>
+            <sl-tab>Tab 3</sl-tab>
+            <sl-tab-panel>Panel 1</sl-tab-panel>
+            <sl-tab-panel>Panel 2</sl-tab-panel>
+            <sl-tab-panel>Panel 3</sl-tab-panel>
+          </sl-tab-group>`
+        );
       });
 
       it('should render correctly', () => {
@@ -121,7 +124,7 @@ describe('sl-tab-group', () => {
 
       it('should select the first tab by default', () => {
         const tabs = el.querySelectorAll('sl-tab[selected]'),
-              panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 2');
@@ -129,16 +132,19 @@ describe('sl-tab-group', () => {
         expect(panels[0].innerHTML).to.equal('Panel 2');
       });
     });
-    describe('second selected, last disabled',()=>{
+
+    describe('second selected, last disabled', () => {
       beforeEach(async () => {
-        el = await fixture(html`<sl-tab-group>
-          <sl-tab >Tab 1</sl-tab>
-          <sl-tab selected>Tab 2</sl-tab>
-          <sl-tab disabled>Tab 3</sl-tab>
-          <sl-tab-panel>Panel 1</sl-tab-panel>
-          <sl-tab-panel>Panel 2</sl-tab-panel>
-          <sl-tab-panel>Panel 3</sl-tab-panel>
-        </sl-tab-group>`);
+        el = await fixture(
+          html`<sl-tab-group>
+            <sl-tab>Tab 1</sl-tab>
+            <sl-tab selected>Tab 2</sl-tab>
+            <sl-tab disabled>Tab 3</sl-tab>
+            <sl-tab-panel>Panel 1</sl-tab-panel>
+            <sl-tab-panel>Panel 2</sl-tab-panel>
+            <sl-tab-panel>Panel 3</sl-tab-panel>
+          </sl-tab-group>`
+        );
       });
 
       it('should render correctly', () => {
@@ -147,7 +153,7 @@ describe('sl-tab-group', () => {
 
       it('should select the first tab by default', () => {
         const tabs = el.querySelectorAll('sl-tab[selected]'),
-              panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 2');
@@ -158,14 +164,16 @@ describe('sl-tab-group', () => {
   });
 
   describe('single panel', () => {
-    describe('no selected, no disabled',()=>{
+    describe('no selected, no disabled', () => {
       beforeEach(async () => {
-        el = await fixture(html`<sl-tab-group>
-          <sl-tab>Tab 1</sl-tab>
-          <sl-tab>Tab 2</sl-tab>
-          <sl-tab>Tab 3</sl-tab>
-          <sl-tab-panel>Panel 1</sl-tab-panel>
-        </sl-tab-group>`);
+        el = await fixture(
+          html`<sl-tab-group>
+            <sl-tab>Tab 1</sl-tab>
+            <sl-tab>Tab 2</sl-tab>
+            <sl-tab>Tab 3</sl-tab>
+            <sl-tab-panel>Panel 1</sl-tab-panel>
+          </sl-tab-group>`
+        );
       });
 
       it('should render correctly', () => {
@@ -174,14 +182,14 @@ describe('sl-tab-group', () => {
 
       it('should select the first tab by default', () => {
         const tabs = el.querySelectorAll('sl-tab[selected]'),
-              panels = el.querySelectorAll('sl-tab-panel');
+          panels = el.querySelectorAll('sl-tab-panel');
 
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 1');
-        expect(tabs[0]).to.have.attribute('aria-controls','sl-tab-group-12-panel-1');
+        expect(tabs[0]).to.have.attribute('aria-controls', 'sl-tab-group-12-panel-1');
 
         expect(panels.length).to.equal(1);
-        expect(panels[0]).to.have.attribute('aria-labelledby','sl-tab-group-12-tab-1');
+        expect(panels[0]).to.have.attribute('aria-labelledby', 'sl-tab-group-12-tab-1');
       });
 
       it('should select the right tab on click', async () => {
@@ -189,12 +197,12 @@ describe('sl-tab-group', () => {
         await el.updateComplete;
 
         const tabs = el.querySelectorAll('sl-tab[selected]'),
-              panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
         expect(tabs.length).to.equal(1);
         expect(tabs[0].innerHTML).to.equal('Tab 2');
         expect(panels.length).to.equal(1);
-        expect(panels[0]).to.have.attribute('aria-labelledby','sl-tab-group-13-tab-2');
+        expect(panels[0]).to.have.attribute('aria-labelledby', 'sl-tab-group-13-tab-2');
       });
     });
   });
@@ -205,20 +213,20 @@ describe('sl-tab-group', () => {
 
     const showListbox = async () => {
       await element.updateComplete;
-      return new Promise(resolve => setTimeout(resolve, 700));
-    }
+      return await new Promise(resolve => setTimeout(resolve, 700));
+    };
 
-    describe('with more button in a small container',() => {
+    describe('with more button in a small container', () => {
       beforeEach(async () => {
         element = await fixture(html`
-            <sl-tab-group style="width: 70px">
-              <sl-tab>Tab 1</sl-tab>
-              <sl-tab>Tab 2</sl-tab>
-              <sl-tab>Tab 3</sl-tab>
-              <sl-tab-panel>Panel 1</sl-tab-panel>
-              <sl-tab-panel>Panel 2</sl-tab-panel>
-              <sl-tab-panel>Panel 3</sl-tab-panel>
-            </sl-tab-group>
+          <sl-tab-group style="width: 70px">
+            <sl-tab>Tab 1</sl-tab>
+            <sl-tab>Tab 2</sl-tab>
+            <sl-tab>Tab 3</sl-tab>
+            <sl-tab-panel>Panel 1</sl-tab-panel>
+            <sl-tab-panel>Panel 2</sl-tab-panel>
+            <sl-tab-panel>Panel 3</sl-tab-panel>
+          </sl-tab-group>
         `);
         container = element.shadowRoot?.querySelector('.container') as HTMLElement;
       });
@@ -227,7 +235,7 @@ describe('sl-tab-group', () => {
         expect(element).shadowDom.to.equalSnapshot();
       });
 
-      it('should not show the listbox by default', async () => {
+      it('should not show the listbox by default', () => {
         const popover = element.shadowRoot?.querySelector('[popover]') as HTMLElement;
 
         expect(popover.getBoundingClientRect().width).to.equal(0);
@@ -246,7 +254,7 @@ describe('sl-tab-group', () => {
         await showListbox();
         await element.updateComplete;
         const slBtn = container.querySelector('sl-button'),
-              clickEvent = new Event('click');
+          clickEvent = new Event('click');
 
         slBtn?.dispatchEvent(clickEvent);
 
@@ -276,8 +284,8 @@ describe('sl-tab-group', () => {
         await sendKeys({ press: 'Enter' });
         await element.updateComplete;
 
-        let tabs = element.querySelectorAll('sl-tab[selected]'),
-            panels = element.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+        const tabs = element.querySelectorAll('sl-tab[selected]'),
+          panels = element.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
         await element.updateComplete;
 

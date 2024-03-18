@@ -1,17 +1,13 @@
-import type { CSSResultGroup, PropertyValues, TemplateResult } from 'lit';
-import type { UpdateValidityEvent } from './update-validity-event.js';
-import type { LabelMark } from './label.js';
-import type { ScopedElementsMap } from '@open-wc/scoped-elements/lit-element.js';
-import type { EventEmitter } from '@sl-design-system/shared';
-import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { event } from '@sl-design-system/shared';
-import { LitElement, html, nothing } from 'lit';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { Error } from './error.js';
 import { type FormControl } from './form-control-mixin.js';
 import styles from './form-field.scss.js';
-import { Label } from './label.js';
 import { Hint } from './hint.js';
-import { Error } from './error.js';
+import { Label, type LabelMark } from './label.js';
+import { type UpdateValidityEvent } from './update-validity-event.js';
 
 // Workaround for missing type in @open-wc/scoped-elements
 declare global {

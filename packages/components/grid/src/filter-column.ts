@@ -1,8 +1,6 @@
-import type { TemplateResult } from 'lit';
-import type { DataSourceFilterFunction } from '@sl-design-system/shared';
-import { getNameByPath, getValueByPath } from '@sl-design-system/shared';
 import { localized, msg } from '@lit/localize';
-import { html } from 'lit';
+import { type DataSourceFilterFunction, getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import { type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 import { GridFilter } from './filter.js';

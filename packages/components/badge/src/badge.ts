@@ -1,16 +1,15 @@
-import type { CSSResultGroup, TemplateResult } from 'lit';
-import { LitElement, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './badge.scss.js';
 
 export type BadgeSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-export type BadgeVariant = 'neutral' | 'primary' | 'danger' | 'success' | 'warning' | 'accent';
+export type BadgeVariant = 'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent';
 
 /**
  * Show totals at a glance or labels contents with a tag.
  *
  * ```html
- * <sl-badge> 99+ </sl-badge>
+ * <sl-badge>99+</sl-badge>
  * ```
  *
  * @slot default - Contents of the badge

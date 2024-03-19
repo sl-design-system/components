@@ -4290,6 +4290,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/checklist@workspace:packages/checklist":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/checklist@workspace:packages/checklist"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/shared": "npm:0.2.6"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/chromatic@workspace:chromatic":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/chromatic@workspace:chromatic"

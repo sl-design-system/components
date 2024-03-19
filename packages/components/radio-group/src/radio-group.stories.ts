@@ -18,7 +18,7 @@ type Story = StoryObj<Props>;
 const sizes: RadioButtonSize[] = ['md', 'lg'];
 
 export default {
-  title: 'Radio group',
+  title: 'Components/Radio group',
   args: {
     disabled: false,
     horizontal: false,

@@ -82,7 +82,7 @@ const sizeName = (size: string): string => {
 };
 
 export default {
-  title: 'Avatar',
+  title: 'Components/Avatar',
   args: {
     displayName: 'Rose Nylund',
     pictureUrl:

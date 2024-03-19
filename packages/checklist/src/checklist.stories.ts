@@ -6,6 +6,9 @@ type Story = StoryObj;
 
 export default {
   title: 'Checklist',
+  parameters: {
+    layout: 'centered'
+  },
   render: () => html`<slds-checklist></slds-checklist>`
 } satisfies Meta;
 

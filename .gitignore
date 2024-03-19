@@ -57,6 +57,10 @@ node_modules/
 
 # Dist files & folders
 dist
+packages/checklist/**/*.d.ts
+packages/checklist/**/*.d.ts.map
+packages/checklist/**/*.js
+packages/checklist/**/*.js.map
 packages/components/**/*.d.ts
 packages/components/**/*.d.ts.map
 packages/components/**/*.js

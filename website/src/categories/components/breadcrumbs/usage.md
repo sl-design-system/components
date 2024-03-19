@@ -61,13 +61,16 @@ Users might jump directly from one section to another, use search functionality,
 With these options, you can tweak the appearance of the breadcrumbs in Figma. They are available in the Design Panel so you can compose the breadcrumbs to exactly fit the user experience need for the use case you are working on.
 
 <div class="ds-table-wrapper">
+  
 |Item|Options|Description|
 |-|-|-|
 |item|`option`|Description|
 |item|`option`|Description|
 |item|`option`|Description|
 |item|`option`|Description|
+
 {.ds-table}
+
 </div>
 
 </section>

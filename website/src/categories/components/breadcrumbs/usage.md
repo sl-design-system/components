@@ -61,12 +61,55 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
 
 <div class="ds-table-wrapper">
   
+###  Base settings
+  
 |Item|Options|Description|
 |-|-|-|
+|Type|`desktop` `mobile` `home`|To indicate the sizing of the breadcrumb|
+|Page up to and including 3  |`boolean`|Description|
+|Current|`boolean`|Description|
 |item|`option`|Description|
-|item|`option`|Description|
-|item|`option`|Description|
-|item|`option`|Description|
+
+{.ds-table}
+
+</div>
+
+<div class="ds-table-wrapper">
+  
+###  Home item
+  
+|Item|Options|Description|
+|-|-|-|
+|State|`idle` `hover` `active` `current`|To indicate the state of the home item|
+|Show icon|`boolean`|Indicates if the icon is visible|
+|Show label|`boolean`|Indicates if the label is visible|
+
+{.ds-table}
+
+</div>
+
+<div class="ds-table-wrapper">
+  
+###  Page up to and including 3
+  
+|Item|Options|Description|
+|-|-|-|
+|Overflow|`boolean`|Indicates if the page is visble or truncated |
+|State|`idle` `hover` `active` `current`|Indicates if the icon is visible|
+|Text|`value`|The title of the page|
+
+{.ds-table}
+
+</div>
+
+<div class="ds-table-wrapper">
+  
+###  Menu
+The option below is only shown when the **overflow** option is selected.
+  
+|Item|Options|Description|
+|-|-|-|
+|Menu|`boolean`|Indicates if the menu with truncated pages is open or closed |
 
 {.ds-table}
 

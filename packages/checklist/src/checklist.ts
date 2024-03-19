@@ -46,7 +46,9 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
       <h1>SL Design System Checklist</h1>
       <p>
         Welcome to the Sanoma Learning Design System. You will find a checklist below of the steps described in our
-        <a href="#" target="_blank">getting started for developers guide</a> 🚀.
+        <a href="https://sanomalearning.design/categories/getting-started/developers/" target="_blank"
+          >getting started for developers guide</a
+        >🚀.
       </p>
 
       ${this.items.map(
@@ -64,8 +66,9 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
       <p>
         📚 You can find the documentation for the SL Design System at
         <a href="https://sanomalearning.design" target="_blank">sanomalearning.design</a>. If you have any questions or
-        need help, you can reach out to us on <a href="https://sanoma.slack.com/archives/C03SA9HUUA3">Slack</a> or on
-        <a href="https://github.com/sl-design-system/components/issues">GitHub</a>.
+        need help, you can reach out to us on
+        <a href="https://sanoma.slack.com/archives/C03SA9HUUA3" target="_blank">Slack</a> or
+        <a href="https://github.com/sl-design-system/components/issues" target="_blank">GitHub</a>.
       </p>
     `;
   }
@@ -115,7 +118,8 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
     if (!required.every(family => available.includes(family))) {
       return html`Not all required fonts are available. Your theme uses the font families
       ${required.map((family, index) => html`<code>${family}</code>${index < required.length - 1 ? ' and ' : ''}`)}. The
-      fonts used in the theme are not a part of the theme package. Please make sure the fonts are loaded.`;
+      fonts used in the theme are not a part of the theme package. Please make sure the fonts are loaded and the
+      font-family names match the exact spelling used in the Design System tokens.`;
     }
   }
 

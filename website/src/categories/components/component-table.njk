@@ -31,28 +31,24 @@
                   </thead>
                   <tbody>
                   {%- for member in declaration.members -%}
-                  {%- if member.kind == 'field' -%}
-                    <tr>
-                    <td><code>{{member.name}}</code></td>
-                    <td>
-                    {%- if member.attribute -%}
-                      <code>{{ member.attribute }}</code>
-                    {%- else -%}
-                      -
-                    {%- endif -%}
-                    </td>
-                    <td class="ds-table__type">
-                      {%- if member.expandedType -%}<code>{{member.expandedType.text}}</code>{%- endif -%}
+                    {%- if member.kind == 'field' -%}
+                      <tr>
+                      <td><code>{{member.name | escape}}</code></td>
+                      <td>
+                      {%- if member.attribute -%}<code>{{ member.attribute  | escape}}</code>{%- else -%} - {%- endif -%}
+                      </td>
+                      <td class="ds-table__type">
+                        {%- if member.expandedType -%}<code>{{member.expandedType.text | escape}}</code>{%- endif -%}
 
-                      {%- if member.type and not member.expandedType -%}<code>{{member.type.text | escape}}</code>{%- endif -%}
-                    </td>
-                    <td>
-                      {%- if member.default -%}
-                        <code>{{member.default}}</code>
-                      {%- endif -%}
-                    </td>
-                    <td class="ds-table__description">{{member.description}}</td>
-                    </tr>
+                        {%- if member.type and not member.expandedType -%}<code>{{member.type.text | escape}}</code>{%- endif -%}
+                      </td>
+                      <td>
+                        {%- if member.default -%}
+                          <code>{{member.default | escape}}</code>
+                        {%- endif -%}
+                      </td>
+                      <td class="ds-table__description">{{member.description | escape | nl2br}}</td>
+                      </tr>
                     {%- endif -%}
                   {%- endfor -%}
                   </tbody>
@@ -84,10 +80,10 @@
                     </td>
                     <td>
                       {%- if member.return.type.text -%}
-                        <code>{{member.return.type.text}}</code>
+                        <code>{{member.return.type.text | escape}}</code>
                       {%- endif -%}
                     </td>
-                    <td class="ds-table__description">{{member.description}}</td>
+                    <td class="ds-table__description">{{member.description | escape | nl2br}}</td>
                     </tr>
                   {%- endfor -%}
                   </tbody>
@@ -112,10 +108,10 @@
                         <td><code>{{event.name}}</code></td>
                         <td>
                           {%- if event.type -%}
-                            <code>{{ event.type.text }}</code>
+                            <code>{{ event.type.text | escape}}</code>
                           {%- endif -%}
                         </td>
-                        <td>{{event.description}}</td>
+                        <td>{{event.description | escape | nl2br}}</td>
                       </tr>
                     {%- endif -%}
                   {%- endfor -%}
@@ -137,7 +133,7 @@
                   {%- for slot in declaration.slots -%}
                     <tr>
                       <td><code>{{slot.name}}</code></td>
-                      <td>{{slot.description}}</td>
+                      <td>{{slot.description | escape | nl2br}}</td>
                     </tr>
                   {%- endfor -%}
                   </tbody>
@@ -158,7 +154,7 @@
                   {%- for property in declaration.cssProperties -%}
                     <tr>
                       <td><code>{{property.name}}</code></td>
-                      <td>{{property.description}}</td>
+                      <td>{{property.description | escape | nl2br}}</td>
                     </tr>
                   {%- endfor -%}
                   </tbody>

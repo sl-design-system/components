@@ -14,7 +14,6 @@ const tsEntrypoints = [
   './src/ts/ssr-utils/is-land.ts'
 ];
 const filesPromises = tsEntrypoints.map(async (entry) => tinyGlob(entry));
-console.log(filesPromises);
 const entryPoints = (await Promise.all(filesPromises)).flat();
 
 let config = {

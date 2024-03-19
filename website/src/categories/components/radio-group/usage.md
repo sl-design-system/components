@@ -73,8 +73,8 @@ Radio buttons become less practical as the number of options in a list grows. If
 |1|Field Label |The group label, positioned at the top of a radio group, explains the purpose or meaning of the radio buttons and helps users understand the available choices |no|
 |2|Radio input (unchecked) |This unmarked state signifies that no option within the associated group has been selected by the user yet.|no|
 |3|Radio input (checked) |This marked state indicates that the user has selected a specific option from a group of choices presented in the associated radio button set. |no|
-|4|Label |The label explains the purpose or meaning of the radio button and helps users understand the available choices.
-|5|Radio groups |The radio groups can be displayed with one option, allowing a maximum of five selections. When the list of choices exceeds the limit, it's advisable to consider alternative design solutions like a dropdown menu or combobox. These options provide a more user-friendly way to navigate and select from more extensive choices.
+|4|Label |The label explains the purpose or meaning of the radio button and helps users understand the available choices.|yes|
+|5|Radio groups |The radio groups can be displayed with one option, allowing a maximum of five selections. When the list of choices exceeds the limit, it's advisable to consider alternative design solutions like a dropdown menu or combobox. These options provide a more user-friendly way to navigate and select from more extensive choices.|yes|
 
 {.ds-table}
 

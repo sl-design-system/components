@@ -1,28 +1,85 @@
 :host {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  --_background: var(--sl-color-card-background);
+  --_border-radius: var(--sl-border-radius-2xl);
+  --_border: var(--sl-border-width-card-border) solid var(--sl-color-card-border);
+  --_box-shadow: var(--sl-elevation-shadow-md);
+  --_color: var(--sl-body-foreground);
+  --_correct-color: rgb(var(--sl-color-palette-success-500));
+  --_divider-color: rgb(var(--sl-color-palette-neutral-100));
+  --_header-font: var(--sl-text-dialog-heading);
+  --_incorrect-color: rgb(var(--sl-color-palette-danger-400));
+  --_link-color: rgb(var(--sl-color-palette-info-base));
+  --_link-hover-color: rgb(var(--sl-color-palette-info-500));
+  --_link-active-color: rgb(var(--sl-color-palette-info-600));
+  --_padding: var(--sl-space-2xl);
+  --_paragraph-font: var(--sl-text-body-lg-normal);
+  --_summary-font: var(--sl-text-body-lg-demibold);
+
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  color: var(--_color);
   display: inline-flex;
   flex-direction: column;
+  margin: 1rem;
   max-inline-size: min(80vw, 500px);
-  padding: 1rem;
+  padding: var(--_padding);
+}
+
+h1 {
+  font: var(--_header-font);
+  margin: 0;
+}
+
+p {
+  font: var(--_paragraph-font);
+  margin-block: 1rem;
 }
 
 details {
-  margin-block-start: 0.5rem;
+  border-block-end: 1px solid var(--_divider-color);
+  margin-block-start: 0.75rem;
+  padding-block-end: 0.75rem;
+
+  &[open] {
+    --_icon-color: var(--_incorrect-color);
+  }
 
   p {
     margin-block: 0.5rem;
-    padding-inline-start: 2rem;
+    padding-inline-start: 2.5rem;
   }
 }
 
 summary {
   align-items: center;
   display: flex;
-  gap: 0.5rem;
+  font: var(--_summary-font);
+  gap: 1rem;
 
   &::-webkit-details-marker {
     display: none;
+  }
+}
+
+sl-icon {
+  color: var(--_icon-color, var(--_correct-color));
+}
+
+a {
+  color: var(--_link-color);
+
+  &:visited {
+    color: var(--_link-color);
+  }
+
+  &:hover {
+    color: var(--_link-hover-color);
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: var(--_link-active-color);
   }
 }

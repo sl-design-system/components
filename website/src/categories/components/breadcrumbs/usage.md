@@ -43,10 +43,9 @@ Users might jump directly from one section to another, use search functionality,
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Name	|Description|yes/no|
-|1|Name	|Description|yes/no|
-|1|Name	|Description|yes/no|
-|1|Name	|Description|yes/no|
+|1|Breadcrumbs|Combines a number of ‘breadcrumb items’ and separators|no|
+|2|Breadcrumb item|An a href link, it can include an icon in front of the link|no|
+|3|Separator	|Visual separator that appears after ‘breadcrumb items’|no|
 
 {.ds-table}
 

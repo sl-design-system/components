@@ -593,7 +593,7 @@
               "kind": "event",
               "name": "sl-select",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<SlSelectEvent>"
               },
               "description": "Emits when the user toggles the selected state."
             },
@@ -620,7 +620,7 @@
             {
               "name": "selectEvent",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<SlSelectEvent>"
               },
               "description": "Emits when the user toggles the selected state.",
               "fieldName": "selectEvent"
@@ -947,7 +947,7 @@
               "kind": "event",
               "name": "sl-select",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlSelectEvent<void>>"
               },
               "description": "Emits when the menu item selection changes."
             },
@@ -966,7 +966,7 @@
             {
               "name": "selectEvent",
               "type": {
-                "text": "EventEmitter<void>"
+                "text": "EventEmitter<SlSelectEvent<void>>"
               },
               "description": "Emits when the menu item selection changes.",
               "fieldName": "selectEvent"

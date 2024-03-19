@@ -3,9 +3,16 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './textarea.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-textarea': Textarea;
+  }
+}
 
 export type TextareaSize = 'md' | 'lg';
 
@@ -46,13 +53,13 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   override showExternalValidityIcon = false;
 
   /** Emits when the focus leaves the component. */
-  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
   /** Emits when the component gains focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** The textarea in the light DOM. */
   textarea!: HTMLTextAreaElement;

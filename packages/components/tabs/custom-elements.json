@@ -102,7 +102,7 @@
               "kind": "event",
               "name": "tabChange",
               "type": {
-                "text": "EventEmitter<number>"
+                "text": "EventEmitter<SlTabChangeEvent>"
               },
               "description": "Emits when the tab has been selected/changed."
             },
@@ -129,7 +129,7 @@
             {
               "name": "tabChange",
               "type": {
-                "text": "EventEmitter<number>"
+                "text": "EventEmitter<SlTabChangeEvent>"
               },
               "description": "Emits when the tab has been selected/changed.",
               "fieldName": "tabChange"

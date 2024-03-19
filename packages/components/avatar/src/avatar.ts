@@ -14,6 +14,12 @@ import {
   type UserStatus
 } from './models.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-avatar': Avatar;
+  }
+}
+
 const BORDER_WIDTH = 4; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
 const FOCUS_RING_STROKE_WIDTH = 2;
 const FOCUS_RING_STROKE_OFFSET = 2;

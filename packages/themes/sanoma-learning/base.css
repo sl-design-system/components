@@ -614,11 +614,11 @@
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-input-text-field-font-icon-md: var(--sl-text-typeset-font-weight-icon-solid) 15 /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-icon);
-  --sl-text-slds-checklist-listitem: var(--sl-text-typeset-font-weight-demibold) var(--sl-icon-typeset-font-size-lg) /
+  --sl-text-slds-checklist-listitem: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
   --sl-text-slds-checklist-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
     var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-slds-checklist-heading: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-xl) /
+  --sl-text-slds-checklist-heading: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xl) /
     var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-dialog-subheading: var(--sl-text-typeset-font-weight-demibold) var(--sl-icon-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);

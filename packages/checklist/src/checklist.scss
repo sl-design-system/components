@@ -1,19 +1,19 @@
 :host {
-  --_background: var(--sl-color-card-background);
-  --_border-radius: var(--sl-border-radius-2xl);
-  --_border: var(--sl-border-width-card-border) solid var(--sl-color-card-border);
-  --_box-shadow: var(--sl-elevation-shadow-md);
-  --_color: var(--sl-body-foreground);
-  --_correct-color: rgb(var(--sl-color-palette-success-500));
-  --_divider-color: rgb(var(--sl-color-palette-neutral-100));
-  --_header-font: var(--sl-text-dialog-heading);
-  --_incorrect-color: rgb(var(--sl-color-palette-danger-400));
-  --_link-color: rgb(var(--sl-color-palette-info-base));
-  --_link-hover-color: rgb(var(--sl-color-palette-info-500));
-  --_link-active-color: rgb(var(--sl-color-palette-info-600));
+  --_background: var(--sl-color-slds-checklist-background);
+  --_border-radius: var(--sl-border-radius-slds-checklist);
+  --_border: var(--sl-border-width-slds-checklist) solid var(--sl-color-slds-checklist-border);
+  --_box-shadow: var(--sl-box-shadow-slds-checklist);
+  --_color: var(--sl-color-slds-checklist-foreground);
+  --_correct-color: var(--sl-color-slds-checklist-icon-success);
+  --_divider-color: var(--sl-color-slds-checklist-divider);
+  --_header-font: var(--sl-text-slds-checklist-heading);
+  --_incorrect-color: var(--sl-color-slds-checklist-icon-danger);
+  --_link-color: var(--sl-color-slds-checklist-link-idle);
+  --_link-hover-color: var(--sl-color-slds-checklist-link-hover);
+  --_link-active-color: var(--sl-color-slds-checklist-link-active);
   --_padding: var(--sl-space-2xl);
-  --_paragraph-font: var(--sl-text-body-lg-normal);
-  --_summary-font: var(--sl-text-body-lg-demibold);
+  --_paragraph-font: var(--sl-text-slds-checklist-body);
+  --_summary-font: var(--sl-text-slds-checklist-listitem);
 
   background: var(--_background);
   border: var(--_border);

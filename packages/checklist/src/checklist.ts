@@ -36,9 +36,8 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   @state() items: ChecklistItem[] = [];
 
   override firstUpdated(): void {
-    // Delay the check to the next frame after first render to
-    // give the application time to initialize.
-    requestAnimationFrame(() => setTimeout(() => void this.check(), 100));
+    // Delay the check to give the application time to initialize.
+    setTimeout(() => void this.check(), 500);
   }
 
   override render(): TemplateResult {

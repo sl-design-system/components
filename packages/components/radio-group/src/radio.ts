@@ -4,6 +4,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import styles from './radio.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-radio': Radio;
+  }
+}
+
 export type RadioButtonSize = 'md' | 'lg';
 
 export class Radio<T = unknown> extends LitElement {

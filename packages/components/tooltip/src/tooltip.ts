@@ -3,8 +3,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
 
-// Workaround for missing type in @open-wc/scoped-elements
 declare global {
+  interface HTMLElementTagNameMap {
+    'sl-tooltip': Tooltip;
+  }
+
+  // Workaround for missing type in @open-wc/scoped-elements
   interface ShadowRoot {
     createElement(tagName: string): HTMLElement;
   }

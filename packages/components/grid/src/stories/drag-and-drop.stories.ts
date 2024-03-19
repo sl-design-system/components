@@ -2,7 +2,7 @@ import { type Person, getPeople } from '@sl-design-system/example-data';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { type GridItemDropEvent } from '../events.js';
+import { type SlDropEvent } from '../grid.js';
 
 type Story = StoryObj;
 
@@ -13,13 +13,13 @@ export default {
 export const Basic: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const onDrop = (event: GridItemDropEvent<Person>): void => {
+    const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
       // Reorder the person in the grid
-      const newPeople = [...(event.grid.items as Person[])],
-        person = newPeople.splice(event.oldIndex, 1)[0];
-      newPeople.splice(event.newIndex, 0, person);
+      const newPeople = [...(grid.items as Person[])],
+        person = newPeople.splice(oldIndex, 1)[0];
+      newPeople.splice(newIndex, 0, person);
 
-      event.grid.items = newPeople;
+      grid.items = newPeople;
     };
 
     return html`

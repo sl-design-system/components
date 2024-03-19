@@ -9,6 +9,18 @@ import styles from './tab-group.scss.js';
 import { TabPanel } from './tab-panel.js';
 import { Tab } from './tab.js';
 
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-tab-change': SlTabChangeEvent;
+  }
+
+  interface HTMLElementTagNameMap {
+    'sl-tab-group': TabGroup;
+  }
+}
+
+export type SlTabChangeEvent = CustomEvent<number>;
+
 export type TabsAlignment = 'start' | 'filled';
 
 let nextUniqueId = 0;
@@ -87,7 +99,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   @state() private selectedTabInListbox: Tab | null = this.#initialSelectedTab;
 
   /** Emits when the tab has been selected/changed. */
-  @event() tabChange!: EventEmitter<number>;
+  @event() tabChange!: EventEmitter<SlTabChangeEvent>;
 
   /** Renders the tabs vertically instead of the default horizontal  */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;

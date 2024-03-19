@@ -2,6 +2,7 @@ import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { FormControlMixin } from '@sl-design-system/form';
 import { type EventEmitter, EventsController, anchor, event, isPopoverOpen } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, query, queryAssignedElements, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -9,6 +10,12 @@ import { SelectButton } from './select-button.js';
 import { SelectOptionGroup } from './select-option-group.js';
 import { SelectOption } from './select-option.js';
 import styles from './select.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-select': Select;
+  }
+}
 
 export type SelectSize = 'md' | 'lg';
 
@@ -60,13 +67,13 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   button!: SelectButton;
 
   /** Emits when the focus leaves the component. */
-  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | undefined>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
 
   /** Emits when the component gains focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** @private */
   @queryAssignedElements({ selector: 'sl-select-option-group', flatten: false }) optionGroups?: SelectOptionGroup[];

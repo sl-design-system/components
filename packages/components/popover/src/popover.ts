@@ -3,6 +3,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import styles from './popover.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-popover': Popover;
+  }
+}
+
 let nextUniqueId = 0;
 
 /**

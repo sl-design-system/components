@@ -5,6 +5,12 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit'
 import { property, query } from 'lit/decorators.js';
 import styles from './drawer.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-drawer': Drawer;
+  }
+}
+
 export type DrawerAttachment = 'right' | 'left' | 'top' | 'bottom';
 
 /**

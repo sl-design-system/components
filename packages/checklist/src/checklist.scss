@@ -46,6 +46,10 @@ details {
     --_icon-color: var(--_incorrect-color);
   }
 
+  &:last-of-type {
+    margin-block-end: 1rem;
+  }
+
   p {
     margin-block: 0.5rem;
     padding-inline-start: 2.5rem;
@@ -65,6 +69,13 @@ summary {
 
 sl-icon {
   color: var(--_icon-color, var(--_correct-color));
+}
+
+code {
+  font-family: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono',
+    'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  font-size: 0.9em;
+  font-weight: bolder;
 }
 
 a {

@@ -46,7 +46,7 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
       <h1>SL Design System Checklist</h1>
       <p>
         Welcome to the Sanoma Learning Design System. You will find a checklist below of the steps described in our
-        <a href="#" target="_blank">getting started for developers guide</a>.
+        <a href="#" target="_blank">getting started for developers guide</a> 🚀.
       </p>
 
       ${this.items.map(
@@ -62,9 +62,10 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
       )}
 
       <p>
-        Id reprehenderit cupidatat veniam nisi consequat ad elit. In fugiat commodo aliqua excepteur incididunt. Culpa
-        qui ex qui irure quis Lorem veniam minim ex sint. Excepteur aliqua pariatur exercitation nostrud minim cupidatat
-        eiusmod.
+        📚 You can find the documentation for the SL Design System at
+        <a href="https://sanomalearning.design" target="_blank">sanomalearning.design</a>. If you have any questions or
+        need help, you can reach out to us on <a href="https://sanoma.slack.com/archives/C03SA9HUUA3">Slack</a> or on
+        <a href="https://github.com/sl-design-system/components/issues">GitHub</a>.
       </p>
     `;
   }

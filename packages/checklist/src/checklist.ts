@@ -2,7 +2,7 @@ import { faCircleCheck, faCircleExclamation } from '@fortawesome/pro-solid-svg-i
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { state } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import styles from './checklist.scss.js';
 
 declare global {
@@ -21,6 +21,7 @@ Icon.register(faCircleCheck, faCircleExclamation);
 /**
  * A component to check if the SL Design System has been installed correctly.
  */
+@customElement('slds-checklist')
 export class Checklist extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -48,7 +49,8 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
         Welcome to the Sanoma Learning Design System. You will find a checklist below of the steps described in our
         <a href="https://sanomalearning.design/categories/getting-started/developers/" target="_blank"
           >getting started for developers guide</a
-        >🚀.
+        >
+        🚀.
       </p>
 
       ${this.items.map(

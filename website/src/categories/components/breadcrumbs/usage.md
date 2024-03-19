@@ -66,9 +66,8 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
 |Item|Options|Description|
 |-|-|-|
 |Type|`desktop` `mobile` `home`|To indicate the sizing of the breadcrumb|
-|Page up to and including 3  |`boolean`|Description|
-|Current|`boolean`|Description|
-|item|`option`|Description|
+|Page up to and including 3  |`boolean`|To indicate which pages are visible within the breadcrumb|
+|Current|`boolean`|To indicate if the active page is visible in the end of the breadcrumb |
 
 {.ds-table}
 
@@ -80,7 +79,7 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
   
 |Item|Options|Description|
 |-|-|-|
-|State|`idle` `hover` `active` `current`|To indicate the state of the home item|
+|State|`idle` `hover` `active` `current`|Indicate the state of the home item|
 |Show icon|`boolean`|Indicates if the icon is visible|
 |Show label|`boolean`|Indicates if the label is visible|
 

@@ -242,6 +242,27 @@
   line-height: var(--sl-text-typeset-line-height-sm);
 }
 
+.sl-text-slds-checklist-listitem {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-icon-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-demibold);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+.sl-text-slds-checklist-body {
+  font-family: var(--sl-text-typeset-font-family-body);
+  font-size: var(--sl-text-typeset-font-size-lg);
+  font-weight: var(--sl-text-typeset-font-weight-regular);
+  line-height: var(--sl-text-typeset-line-height-lg);
+}
+
+.sl-text-slds-checklist-heading {
+  font-family: var(--sl-text-typeset-font-family-heading);
+  font-size: var(--sl-text-typeset-font-size-xl);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
+  line-height: var(--sl-text-typeset-line-height-xl);
+}
+
 .sl-text-dialog-subheading {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-icon-typeset-font-size-md);

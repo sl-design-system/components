@@ -4,7 +4,7 @@ import { basename, dirname } from 'path';
 import { compileString } from 'sass';
 import stylelint from 'stylelint';
 
-const files = await fg('./packages/components/*/src/**/*.scss');
+const files = await fg('./packages/{checklist,components}/**/*.scss');
 
 const shared = process.argv.at(3) || '',
   sharedFile = basename(shared),
@@ -27,11 +27,11 @@ await Promise.allSettled(
       let { output } = await stylelint.lint({ code: css, fix: true });
 
       output = output.toString().split('\n').map(str => `  ${str}`.trimEnd()).join('\n');
-      
+
       // Step 3: write CSS to TS template
       await fs.writeFile(`${file}.ts`, `import { css } from 'lit';\n\nexport default css\`\n${output}\`;\n`);
-    } catch (err) { 
-      console.log(err); 
+    } catch (err) {
+      console.log(err);
     }
   })
 );

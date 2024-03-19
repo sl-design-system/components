@@ -48,7 +48,8 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
         Welcome to the Sanoma Learning Design System. You will find a checklist below of the steps described in our
         <a href="https://sanomalearning.design/categories/getting-started/developers/" target="_blank"
           >getting started for developers guide</a
-        >🚀.
+        >
+        🚀.
       </p>
 
       ${this.items.map(

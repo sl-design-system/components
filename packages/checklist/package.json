@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/checlist"
+    "directory": "packages/checklist"
   },
   "homepage": "https://sanomalearning.design/getting-started/developers/",
   "bugs": {
@@ -37,7 +37,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@fortawesome/pro-solid-svg-icons": "^6.1.5",
     "@open-wc/scoped-elements": "^3.0.5",
-    "@sl-design-system/shared": "0.2.6"
+    "@sl-design-system/icon": "0.0.9",
+    "lit": "^3.1.2"
   }
 }

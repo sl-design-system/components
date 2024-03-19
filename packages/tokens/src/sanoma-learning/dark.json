@@ -4111,6 +4111,50 @@
           "type": "color"
         }
       }
+    },
+    "slds": {
+      "checklist": {
+        "backgroud": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.800}",
+          "type": "color"
+        },
+        "divider": {
+          "value": "{color.palette.neutral.800}",
+          "type": "color"
+        },
+        "icon": {
+          "success": {
+            "value": "{color.palette.success.400}",
+            "type": "color"
+          },
+          "danger": {
+            "value": "{color.palette.danger.300}",
+            "type": "color"
+          }
+        },
+        "link": {
+          "idle": {
+            "value": "{color.palette.info.300}",
+            "type": "color"
+          },
+          "hover": {
+            "value": "{color.palette.info.200}",
+            "type": "color"
+          },
+          "active": {
+            "value": "{color.palette.info.150}",
+            "type": "color"
+          }
+        }
+      }
     }
   },
   "boxShadow": {

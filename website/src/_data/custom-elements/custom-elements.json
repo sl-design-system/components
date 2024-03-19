@@ -14084,7 +14084,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is checked.",
+              "description": "Whether the radio button is checked.",
               "attribute": "checked",
               "reflects": true
             },
@@ -14141,7 +14141,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is checked.",
+              "description": "Whether the radio button is checked.",
               "fieldName": "checked"
             },
             {

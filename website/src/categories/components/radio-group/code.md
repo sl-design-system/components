@@ -42,4 +42,4 @@ eleventyNavigation:
 
 <ds-install-info package="radio-group"></ds-install-info>
 
-
+{%- include "../component-table.njk" -%}

@@ -4862,7 +4862,7 @@
     },
     "slds": {
       "checklist": {
-        "backgroud": {
+        "background": {
           "value": "{body.background}",
           "type": "color",
           "failedToResolve": true

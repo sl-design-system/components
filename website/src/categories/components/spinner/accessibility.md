@@ -7,14 +7,14 @@ eleventyNavigation:
 ---
 <section>
 
-"Explore the essential accessibility considerations for the spinner to ensure an inclusive user experience."
+Here are considerations to make the spinner accessible for all users.
 
 </section>
 
 
 <section> 
 
-## Key Points
+## Accessibility Considerations
 
 Here are key considerations to make the spinner usable for all users, including those with disabilities.
 

@@ -28,16 +28,12 @@ eleventyNavigation:
 <section>
 
 ## When to use
-Understanding the appropriate scenarios for using a spinner in your user interface is crucial for providing effective feedback to users. 
 
 ### Feedback for Delays
 If there's a delay in the response time, using a spinner can reassure users that their action is being processed, reducing uncertainty and impatience.
 
-### Asynchronous Operations
+### Processing Actions
 Spinners are particularly useful in asynchronous operations where users might need to wait for a response without the system appearing frozen. This could include actions like submitting a form.
-
-### Dynamic Content Loading
-When content is dynamically loaded or refreshed, a spinner can indicate that the content is being updated. This could be searching in a database and updating the content. Using a spinner during searches gives users immediate feedback that their query is processing. This approach also enhances the perceived responsiveness of the application, even during slower backend operations.
 
 </section>
 
@@ -45,13 +41,12 @@ When content is dynamically loaded or refreshed, a spinner can indicate that the
 <section>
 
 ## When not to use
-Recognizing when to avoid spinners is crucial for preserving interface clarity. Here, we explore scenarios where alternative methods may be more appropriate.
 
 ### Predictable Delays
 If the delay is predictable and very short, less than a second, using a spinner might not be necessary and can even be distracting. When action happens instantaneously, like clicking a button that toggles something immediately visible on the interface, it doesn't require a spinner.
 
-### Minimize Usage
-Avoid displaying spinners overly, especially for instantaneous actions or actions that are inessential to the user experience, such as rapid navigation transitions between pages. This can lead to user frustration and create a perception of reduced application performance. Instead, reserve spinner usage for processes where their presence informs users about ongoing actions or delays.
+### Dynamic Content
+Avoid using a spinner when content is dynamically loaded or refreshed, use a [skeleton](/categories/components/tooltip/) instead. You can use a spinner during searching, which gives users immediate feedback that their action is processing. This enhances the perceived responsiveness of the application, but when it is loading, the new content is the skeleton.
 
 </section>
 
@@ -67,27 +62,6 @@ Avoid displaying spinners overly, especially for instantaneous actions or action
 
 
 {.ds-table .ds-table-align-top}
-
-</section>
-
-
-<section>
-
-## Sizing
-
-Spinner come in six sizes, to match diferents scenarios:
-
-  - **Small:** Suitable for displaying spinners in areas with limited space, such as buttons, small form fields, or compact dialog boxes..
-
-  - **Medium:** Default size spinners fit most applications and interfaces, providing a balanced visual presence without being too overwhelming.
-
-  - **Large:** Ideal for situations where spinners need to be more prominent or easily visible, such as during longer loading times or within larger containers or components.
-
-  - **Extra Large:** Designed to maximize visibility and ensure users can quickly identify ongoing activity, useful for displaying spinners in areas where you need to grab the user's attention quickly.
-
-  - **2 Extra Large:** This size provides even greater visibility, making them suitable for interfaces where users may struggle with smaller elements or a bold visual presence is desired.
-
-  - **3 Extra Large:** The biggest spinner size, offering maximum visibility and ensuring that ongoing activity is unmistakable. This is particularly useful in environments where the user's attention needs to be firmly captured or in interfaces with significant accessibility considerations.
 
 </section>
 
@@ -118,7 +92,7 @@ Spinner come in various versions, each suited for specific situations:
 
 ## Options
 
-With these options, you can tweak the appearance of the radio in Figma. They are available in the Design Panel so you can compose the spinner to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the spinner in Figma. They are available in the Design Panel so you can compose the spinner to exactly fit the user experience need for the use case you are working on.
 
 |Item|Options|Description|
 |-|-|-|

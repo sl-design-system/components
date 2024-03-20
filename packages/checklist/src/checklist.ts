@@ -5,6 +5,7 @@ import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import styles from './checklist.scss.js';
+import theMessageFontFace from './the-message-font-face.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -16,6 +17,8 @@ interface ChecklistItem {
   title: string;
   description: TemplateResult | void;
 }
+
+const SANOMA_LEARNING_TYPEKIT_URL = 'https://use.typekit.net/kes1hoh.css';
 
 Icon.register(faCircleCheck, faCircleExclamation);
 
@@ -38,14 +41,17 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   /** The items in the list. */
   @state() items: ChecklistItem[] = [];
 
-  override firstUpdated(): void {
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    void this.#setupFonts();
+
     // Delay the check to give the application time to initialize.
     setTimeout(() => void this.check(), 2000);
   }
 
   override render(): TemplateResult {
     return html`
-      <link rel="stylesheet" href="https://use.typekit.net/kes1hoh.css" />
       <h1>SL Design System Checklist</h1>
       <p>
         Welcome to the Sanoma Learning Design System. You will find a checklist below of the steps described in our
@@ -132,6 +138,10 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   }
 
   async #checkFonts(): Promise<TemplateResult | void> {
+    if (this.#checkTheme()) {
+      return html`We cannot check the fonts until the CSS Custom Properties are loaded. Please fix this first.`;
+    }
+
     const styles = getComputedStyle(this),
       required = ['--sl-text-typeset-font-family-body', '--sl-text-typeset-font-family-heading'].map(name =>
         styles.getPropertyValue(name)
@@ -160,8 +170,10 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   }
 
   #checkTheme(): TemplateResult | void {
-    const base = !!getComputedStyle(this).getPropertyValue('--sl-color-palette-white-base'),
-      lightOrDark = !!getComputedStyle(this).getPropertyValue('--sl-color-surface-solid-primary-foreground');
+    const base = !!getComputedStyle(this.parentElement!).getPropertyValue('--sl-color-palette-white-base'),
+      lightOrDark = !!getComputedStyle(this.parentElement!).getPropertyValue(
+        '--sl-color-surface-solid-primary-foreground'
+      );
 
     if (base && !lightOrDark) {
       return html`The base theme is set up correctly, but the tokens for the light or dark mode are missing. You likely
@@ -171,6 +183,28 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
         the stylesheets to your application as described in the
         <a href="https://sanomalearning.design/categories/getting-started/developers/#setup-a-theme">setup a theme</a>
         section.`;
+    }
+  }
+
+  async #setupFonts(): Promise<void> {
+    const link = document.querySelector(`link[href="${SANOMA_LEARNING_TYPEKIT_URL}"]`);
+
+    if (!link) {
+      const link = document.createElement('link');
+
+      link.href = SANOMA_LEARNING_TYPEKIT_URL;
+      link.rel = 'stylesheet';
+
+      // Loading web fonts inside of the shadow DOM doesn't work, so we need to add the link to the document head.
+      document.head.appendChild(link);
+    }
+
+    const fonts = await document.fonts.ready;
+    if (![...fonts.keys()].find(ff => ff.family === 'the-message')) {
+      const style = document.createElement('style');
+      style.innerText = theMessageFontFace;
+
+      document.head.appendChild(style);
     }
   }
 }

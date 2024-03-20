@@ -66,6 +66,11 @@
       "dependencies": [
         "build:checklist:package"
       ],
+      "files": [
+        "packages/checklist/**/*.scss",
+        "packages/checklist/**/*.ts",
+        "!packages/checklist/**/*.d.ts"
+      ],
       "output": [
         "packages/checklist/dist/index.js",
         "packages/checklist/dist/index.js.map"

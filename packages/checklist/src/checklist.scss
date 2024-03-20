@@ -1,4 +1,20 @@
+@import '@sl-design-system/sanoma-learning/base';
+@import '@sl-design-system/sanoma-learning/light';
+@import '@sl-design-system/sanoma-learning/dark';
+
 :host {
+  @include sl-theme-base;
+
+  @media (prefers-color-scheme: light) {
+    @include sl-theme-light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @include sl-theme-dark;
+  }
+}
+
+:host(:defined) {
   --_background: var(--sl-color-slds-checklist-background);
   --_border-radius: var(--sl-border-radius-slds-checklist);
   --_border: var(--sl-border-width-slds-checklist) solid var(--sl-color-slds-checklist-border);

@@ -4,7 +4,7 @@ import { html } from 'lit';
 import '../register.js';
 
 export default {
-  title: 'Accordion'
+  title: 'Components/Accordion'
 };
 
 export const API: StoryObj = {

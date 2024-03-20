@@ -1278,6 +1278,37 @@
         "type": "typography"
       }
     },
+    "slds": {
+      "checklist": {
+        "heading": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.heading}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.xl}",
+            "fontSize": "{text.typeset.fontSize.xl}"
+          },
+          "type": "typography"
+        },
+        "body": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "lineHeight": "{text.typeset.lineHeight.lg}"
+          },
+          "type": "typography"
+        },
+        "listitem": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "lineHeight": "{text.typeset.lineHeight.lg}"
+          },
+          "type": "typography"
+        }
+      }
+    },
     "input": {
       "textField": {
         "fontIcon": {
@@ -1879,6 +1910,12 @@
         "value": "{borderRadius.default}",
         "type": "borderRadius"
       }
+    },
+    "slds": {
+      "checklist": {
+        "value": "{border.radius.2xl}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -1999,6 +2036,12 @@
       },
       "card": {
         "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
+      },
+      "slds": {
+        "checklist": {
           "value": "{border.width.xs}",
           "type": "borderWidth"
         }

@@ -1,6 +1,7 @@
 import { faCircleCheck, faCircleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
+import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import styles from './checklist.scss.js';
@@ -26,7 +27,8 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-skeleton': Skeleton
     };
   }
 
@@ -38,7 +40,7 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
 
   override firstUpdated(): void {
     // Delay the check to give the application time to initialize.
-    setTimeout(() => void this.check(), 500);
+    setTimeout(() => void this.check(), 2000);
   }
 
   override render(): TemplateResult {
@@ -53,17 +55,7 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
         🚀.
       </p>
 
-      ${this.items.map(
-        item => html`
-          <details .open=${!!item.description}>
-            <summary @click=${(event: Event) => event.preventDefault()}>
-              <sl-icon .name=${item.description ? 'fas-circle-exclamation' : 'fas-circle-check'} size="xl"></sl-icon>
-              ${item.title}
-            </summary>
-            <p>${item.description}</p>
-          </details>
-        `
-      )}
+      ${this.items?.length ? this.renderItems() : this.renderSkeletons()}
 
       <p>
         📚 You can find the documentation for the SL Design System at
@@ -75,23 +67,52 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  renderItems(): TemplateResult[] {
+    return this.items.map(
+      item => html`
+        <details .open=${!!item.description}>
+          <summary @click=${(event: Event) => event.preventDefault()}>
+            <sl-icon .name=${item.description ? 'fas-circle-exclamation' : 'fas-circle-check'} size="xl"></sl-icon>
+            <span>${item.title}</span>
+          </summary>
+          <p>${item.description}</p>
+        </details>
+      `
+    );
+  }
+
+  renderSkeletons(): TemplateResult {
+    return html`
+      <ul>
+        ${Array.from({ length: 4 }).map(
+          () => html`
+            <li>
+              <sl-skeleton class="icon"></sl-skeleton>
+              <sl-skeleton class="title"></sl-skeleton>
+            </li>
+          `
+        )}
+      </ul>
+    `;
+  }
+
   /** Perform the checks. */
   async check(): Promise<void> {
     this.items = [
       {
-        title: 'CSS Custom Properties present',
+        title: 'Load CSS Custom Properties',
         description: this.#checkTheme()
       },
       {
-        title: 'Webfonts are available',
+        title: 'Load web fonts',
         description: await this.#checkFonts()
       },
       {
-        title: 'Theme is set up correctly',
+        title: 'Set up theme',
         description: this.#checkIcons()
       },
       {
-        title: 'Button web component is loaded',
+        title: 'Load button web component',
         description: this.#checkButton()
       }
     ];

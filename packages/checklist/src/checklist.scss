@@ -37,6 +37,49 @@ p {
   margin-block: 1rem;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  align-items: center;
+  border-block-end: 1px solid var(--_divider-color);
+  display: flex;
+  gap: 1rem;
+  margin-block-start: 0.75rem;
+  padding-block-end: 0.75rem;
+
+  &:first-of-type .title {
+    inline-size: 195px;
+  }
+
+  &:nth-of-type(2) .title {
+    inline-size: 105px;
+  }
+
+  &:nth-of-type(3) .title {
+    inline-size: 91px;
+  }
+
+  &:last-of-type .title {
+    inline-size: 200px;
+  }
+}
+
+sl-skeleton.icon {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: inline-flex;
+  inline-size: var(--sl-size-icon-xl);
+}
+
+sl-skeleton.title {
+  block-size: 1rem;
+  display: flex;
+}
+
 details {
   border-block-end: 1px solid var(--_divider-color);
   margin-block-start: 0.75rem;

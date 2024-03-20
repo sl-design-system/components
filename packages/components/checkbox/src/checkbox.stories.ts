@@ -21,7 +21,7 @@ type Story = StoryObj<Props>;
 const sizes: CheckboxSize[] = ['sm', 'md', 'lg'];
 
 export default {
-  title: 'Checkbox',
+  title: 'Components/Checkbox',
   args: {
     checked: false,
     disabled: false,

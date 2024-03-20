@@ -4,8 +4,8 @@
  */
 :root {
   --sl-box-shadow-none: 0 0 0 0;
-  --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
+  --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
@@ -401,9 +401,9 @@
   --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-500));
+  --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
   --sl-box-shadow-tooltip: [object Object];
   --sl-box-shadow-select-listbox: [object Object];
-  --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
   --sl-color-skeleton-shimmer: linear-gradient
     (
       90deg,

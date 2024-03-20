@@ -3012,7 +3012,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/pro-solid-svg-icons@npm:^6.5.1":
+"@fortawesome/pro-solid-svg-icons@npm:^6.1.5, @fortawesome/pro-solid-svg-icons@npm:^6.5.1":
   version: 6.5.1
   resolution: "@fortawesome/pro-solid-svg-icons@npm:6.5.1::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-solid-svg-icons%2F-%2F6.5.1%2Fpro-solid-svg-icons-6.5.1.tgz"
   dependencies:
@@ -4287,6 +4287,17 @@ __metadata:
     "@sl-design-system/shared": "npm:0.2.6"
   peerDependencies:
     "@lit/localize": ^0.12.1
+  languageName: unknown
+  linkType: soft
+
+"@sl-design-system/checklist@workspace:packages/checklist":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/checklist@workspace:packages/checklist"
+  dependencies:
+    "@fortawesome/pro-solid-svg-icons": "npm:^6.1.5"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/icon": "npm:0.0.9"
+    lit: "npm:^3.1.2"
   languageName: unknown
   linkType: soft
 

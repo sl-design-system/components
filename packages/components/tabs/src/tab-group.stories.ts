@@ -220,18 +220,21 @@ export const Selected: Story = {
 };
 
 export const Sticky: Story = {
-  render: ({ alignTabs }) => html`
+  render: ({ alignTabs, vertical }) => html`
     <style>
-      sl-tab-group::part(container) {
-        position: sticky;
-        inset-block-start: 0;
+      sl-tab-group {
+        &:not([vertical])::part(container),
+        &[vertical]::part(wrapper) {
+          position: sticky;
+          inset-block-start: 0;
+        }
       }
 
       sl-tab-panel {
         block-size: 200vh;
       }
     </style>
-    <sl-tab-group .alignTabs=${alignTabs}>
+    <sl-tab-group .alignTabs=${alignTabs} ?vertical=${vertical}>
       <sl-tab>First tab</sl-tab>
       <sl-tab-panel>Contents tab 1</sl-tab-panel>
 

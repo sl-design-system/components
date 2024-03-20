@@ -24,7 +24,7 @@ eleventyNavigation:
 
 Please follow the steps below when first getting started:
 1. [Make sure you have access](#make-sure-you-have-access)
-2. [Installing the SL Design System package(s)](#installing-the-sl-design-system-packages)
+2. [Installing the SL Design System package(s)](#installing-the-sl-design-system-package(s))
 3. [Setup a theme](#setup-a-theme)
 4. [Add polyfills](#add-polyfills)
 5. [Start using components](#start-using-components)
@@ -71,6 +71,16 @@ So if you want to use a `button` component with the Sanoma Learning theme, you d
 
 </div>
 
+Or if you use `yarn`:
+
+<div class="ds-code">
+
+  ```bash
+  yarn add @sl-design-system/button
+  ```
+
+</div>
+
 </section>
 
 <section>
@@ -79,7 +89,7 @@ So if you want to use a `button` component with the Sanoma Learning theme, you d
 
 To start using the SL Design System, you need to setup a theme for your application. The theme determines how your application looks. There is a theme for every major product within Sanoma Learning.
 
-Please note that the webfonts of your application are not a part of the theme. There are different ways of loading the fonts an application used across the products in Sanoma Learning. If is up to you to load the webfonts in your application.
+Please note that the webfonts of your application are not a part of the theme. There are different ways of loading the fonts an application uses. If is up to you to load the webfonts in your application.
 
 You can install a theme as by installing the NPM package, in this example we use the `sanoma-learning` theme.
 
@@ -87,6 +97,16 @@ You can install a theme as by installing the NPM package, in this example we use
 
   ```bash
   npm add @sl-design-system/sanoma-learning
+  ```
+
+</div>
+
+Or if you use `yarn`:
+
+<div class="ds-code">
+
+  ```bash
+  yarn add @sl-design-system/sanoma-learning
   ```
 
 </div>
@@ -217,10 +237,13 @@ For the Sanoma Learning Bitbucket pipelines, there is a common token that you ca
 //npm.pkg.github.com/:_authToken=${SLDESIGNSYSTEMS_GITHUB_NPM_AUTH_TOKEN}
 ```
 
+### Which browsers are supported?
+
+We support the 2 latest versions of the major browsers Chrome, Edge, Firefox and Safari. For example if the latest version is Chrome 100, we support Chrome 100 and 99.
+
 ### Which versions of Angular are supported?
 
 We support the 2 latest versions of Angular. You can find these version in [the documentation on Angular.io](https://angular.io/guide/releases#actively-supported-versions).
-
 
 ### Do you support SSR?
 

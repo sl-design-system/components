@@ -3839,7 +3839,9 @@
           "type": "color",
           "description": "color.button.info.outline.disabled.foreground"
         }
-      },
+      }
+    },
+    "breadcrumb": {
       "divider": {
         "value": "{color.palette.neutral.200}",
         "type": "color",

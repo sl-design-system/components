@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/switch",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Switch component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

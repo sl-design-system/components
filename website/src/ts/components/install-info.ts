@@ -1,9 +1,10 @@
-import { LitElement, type TemplateResult, css, html } from 'lit';
+import { LitElement, PropertyValues, type TemplateResult, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
 @customElement('ds-install-info')
 export class InstallInfo extends LitElement {
   @property() package?: string;
+  @property({ attribute: 'link-in-navigation', type: Boolean }) linkInNavigation = false;
 
   override render(): TemplateResult {
     return html`
@@ -17,6 +18,17 @@ export class InstallInfo extends LitElement {
         <ds-code-snippet language="bash"> yarn add @sl-design-system/${this.package}</ds-code-snippet>
       </section>
     `;
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('linkInNavigation')) {
+      if (this.linkInNavigation) {
+        this.setAttribute('link-in-navigation-text', 'Installation');
+        this.setAttribute('id', 'installation');
+      }
+    }
   }
 
   static override styles = css`

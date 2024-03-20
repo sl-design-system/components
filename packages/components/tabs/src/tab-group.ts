@@ -195,8 +195,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
                   ${this.menuItems?.map(
                     menuItem => html`
                       <sl-menu-item @click=${() => this.#onMenuItemClick(menuItem.tab)} ?disabled=${menuItem.disabled}>
-                        <div class="title">${menuItem.title}</div>
-                        ${menuItem.subtitle ? html`<div class="subtitle">${menuItem.subtitle}</div>` : nothing}
+                        ${menuItem.title}
                       </sl-menu-item>
                     `
                   )}

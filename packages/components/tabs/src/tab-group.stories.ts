@@ -233,13 +233,15 @@ export const Sticky: Story = {
     </style>
     <sl-tab-group .alignTabs=${alignTabs}>
       <sl-tab>First tab</sl-tab>
-      <sl-tab>Second tab</sl-tab>
-      <sl-tab disabled>Disabled</sl-tab>
-      <sl-tab>Last tab that is longer than the rest</sl-tab>
-
       <sl-tab-panel>Contents tab 1</sl-tab-panel>
+
+      <sl-tab>Second tab</sl-tab>
       <sl-tab-panel>Contents tab 2</sl-tab-panel>
+
+      <sl-tab disabled>Disabled</sl-tab>
       <sl-tab-panel>Contents tab 3</sl-tab-panel>
+
+      <sl-tab>Last tab that is longer than the rest</sl-tab>
       <sl-tab-panel>Contents tab 4</sl-tab-panel>
     </sl-tab-group>
   `

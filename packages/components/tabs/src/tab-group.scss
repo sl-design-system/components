@@ -184,17 +184,6 @@ sl-menu-button {
   position: relative;
 }
 
-sl-menu-item {
-  &::part(wrapper) {
-    align-items: start;
-    flex-direction: column;
-  }
-
-  .title:has(+ .subtitle) {
-    font: var(--sl-text-tab-title);
-  }
-}
-
 [part='panels'] {
   padding: var(--_panel-horizontal-padding);
 }

@@ -298,12 +298,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #scrollToTop(): void {
-    const { bottom = 0 } = this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() ?? {},
+    const { bottom: containerBottom = 0 } =
+        this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() ?? {},
+      { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() ?? {},
       { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() ?? {};
 
     // Scroll to make sure the top of the panel is visible, but don't scroll too far
-    // so the tab container may become unstuck if sticky.
-    getScrollParent(this)?.scrollBy({ top: top - bottom });
+    // so the tab container/wrapper may become unstuck.
+    getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
   }
 
   #updateSelectedTab(selectedTab: Tab): void {

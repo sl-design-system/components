@@ -34,5 +34,14 @@ eleventyNavigation:
 
 </section>
 
+<ds-install-info package="spinner"></ds-install-info>
+
+<section>
+
+## Sizing
+
+The size of the spinner can be set with an attribute on the component, or, on a higher level, with a CSS-property. This will come in handy if you use multiple spinners in the same container that all need to be the same size.
+</section>
+
 {% include "../component-table.njk" %}
 

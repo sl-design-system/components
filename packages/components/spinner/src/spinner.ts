@@ -18,13 +18,13 @@ export type SpinnerVariant = 'accent' | 'info' | 'danger' | 'success' | 'warning
  * <sl-spinner></sl-spinner>
  * ```
  *
- * @cssprop --sl-spinner-size - The size of the spinner, defaults to md if not set
+ * @cssprop --sl-spinner-size - The size of the spinner, defaults to `md` if not set.
  */
 export class Spinner extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** The size of the spinner. Defaults to md in CSS if not set. */
+  /** The size of the spinner. Defaults to `md` with css properties if not attribute is not set. */
   @property({ reflect: true }) size?: SpinnerSize;
 
   /** The spinner variant. */

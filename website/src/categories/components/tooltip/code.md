@@ -36,9 +36,7 @@ eleventyNavigation:
 
 </div>
 </section>
-
 <ds-install-info link-in-navigation package="tooltip"></ds-install-info>
-
 <section>
 
 ## TooltipDirective API

@@ -337,7 +337,7 @@ function selectTab(tab: Element): void {
     observer.observe(tabsContainer as Element);
   }
 
-  const tabSections = tabContent?.querySelectorAll('section[id]');
+  const tabSections = tabContent?.querySelectorAll('section[id], [link-in-navigation][id]');
   tabSections?.forEach(section => {
     section.setAttribute('role', 'tabpanel');
   });

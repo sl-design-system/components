@@ -50,9 +50,7 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 
 </div>
 </section>  
-
 <ds-install-info link-in-navigation package="dialog"></ds-install-info>
-
 <section>
 
 ## Migrating to SLDS Dialog

@@ -36,6 +36,10 @@ export class InstallInfo extends LitElement {
   }
 
   static override styles = css`
+    :host {
+      display: block;
+    }
+
     h2 {
       font: var(--typography-h2);
       margin-block: var(--typography-h2-margin-block);

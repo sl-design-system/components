@@ -62,9 +62,7 @@ eleventyNavigation:
 </div>
 
 </section>
-
 <ds-install-info link-in-navigation package="popover"></ds-install-info>
-
 <section>
 
 ## Opening / closing

@@ -10,7 +10,6 @@ eleventyNavigation:
 ---
 
 <ds-install-info link-in-navigation package="form"></ds-install-info>
-
 <section>
 
 The `<sl-form-field>` component fulfills four functions:

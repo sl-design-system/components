@@ -35,9 +35,7 @@ eleventyNavigation:
 </div>
 
 </section>
-
 <ds-install-info link-in-navigation package="avatar"></ds-install-info>
-
 <section>
 
 ## Avatar shape

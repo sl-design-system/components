@@ -69,9 +69,7 @@ eleventyNavigation:
 </div>
 
 </section>
-
 <ds-install-info link-in-navigation package="skeleton"></ds-install-info>
-
 <section>
 
 ## Sizing

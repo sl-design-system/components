@@ -191,6 +191,8 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
 
   verticalTabsAll.push(...verticalTabs);
 
+  console.log('verticalTabsAll', verticalTabsAll);
+
   verticalTabsAll.forEach(verticalTab => {
     verticalTab.onclick = (event: MouseEvent) => {
       setTimeout(() => {
@@ -386,6 +388,7 @@ function selectVerticalTab(verticalTab: Element): void {
 }
 
 function alignVerticalTabIndicator(tab: Element, currentVerticalTabsContainer: Element): void {
+  console.log('currentVerticalTabsContainer in alignVerticalTabIndicator', currentVerticalTabsContainer);
   const currentVerticalSliderElement = currentVerticalTabsContainer.querySelector(
     '.ds-tabs__vertical-slider'
   ) as HTMLElement;

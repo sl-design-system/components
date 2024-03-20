@@ -44,17 +44,17 @@
 
 ### Events
 
-| Name          | Type                   | Description                                     | Inherited From |
-| ------------- | ---------------------- | ----------------------------------------------- | -------------- |
-| `toggleEvent` | `EventEmitter<string>` | Emits when the accordion item has been toggled. |                |
+| Name          | Type                                  | Description                                     | Inherited From |
+| ------------- | ------------------------------------- | ----------------------------------------------- | -------------- |
+| `toggleEvent` | `EventEmitter<SlToggleEvent<string>>` | Emits when the accordion item has been toggled. |                |
 
 ### Attributes
 
 | Name       | Field    | Inherited From |
 | ---------- | -------- | -------------- |
-| `summary`  | summary  |                |
 | `disabled` | disabled |                |
 | `open`     | open     |                |
+| `summary`  | summary  |                |
 
 ### CSS Parts
 
@@ -638,12 +638,12 @@
 
 ### Events
 
-| Name          | Type                 | Description                                | Inherited From   |
-| ------------- | -------------------- | ------------------------------------------ | ---------------- |
-| `blurEvent`   | `EventEmitter<void>` | Emits when the component loses focus.      |                  |
-| `changeEvent` | `EventEmitter<T[]>`  | Emits when the value of the group changes. |                  |
-| `focusEvent`  | `EventEmitter<void>` | Emits when the component receives focus.   |                  |
-|               | `ValidateEvent`      |                                            | FormControlMixin |
+| Name          | Type                               | Description                                | Inherited From   |
+| ------------- | ---------------------------------- | ------------------------------------------ | ---------------- |
+| `blurEvent`   | `EventEmitter<SlBlurEvent>`        | Emits when the component loses focus.      |                  |
+| `changeEvent` | `EventEmitter<SlChangeEvent<T[]>>` | Emits when the value of the group changes. |                  |
+| `focusEvent`  | `EventEmitter<SlFocusEvent>`       | Emits when the component receives focus.   |                  |
+|               | `ValidateEvent`                    |                                            | FormControlMixin |
 
 ### Attributes
 
@@ -728,12 +728,12 @@
 
 ### Events
 
-| Name          | Type                      | Description                              | Inherited From   |
-| ------------- | ------------------------- | ---------------------------------------- | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`      | Emits when the component loses focus.    |                  |
-| `changeEvent` | `EventEmitter<T \| null>` | Emits when the checked state changes.    |                  |
-| `focusEvent`  | `EventEmitter<void>`      | Emits when the component receives focus. |                  |
-|               | `ValidateEvent`           |                                          | FormControlMixin |
+| Name          | Type                                     | Description                              | Inherited From   |
+| ------------- | ---------------------------------------- | ---------------------------------------- | ---------------- |
+| `blurEvent`   | `EventEmitter<SlBlurEvent>`              | Emits when the component loses focus.    |                  |
+| `changeEvent` | `EventEmitter<SlChangeEvent<T \| null>>` | Emits when the checked state changes.    |                  |
+| `focusEvent`  | `EventEmitter<SlFocusEvent>`             | Emits when the component receives focus. |                  |
+|               | `ValidateEvent`                          |                                          | FormControlMixin |
 
 ### Attributes
 
@@ -821,10 +821,10 @@
 
 ### Events
 
-| Name          | Type                 | Description                                                                                                                                | Inherited From |
-| ------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
-| `cancelEvent` | `EventEmitter<void>` | Emits when the cancel has been cancelled. This happens when the user closes&#xA;the dialog using the escape key or clicks on the backdrop. |                |
-| `closeEvent`  | `EventEmitter<void>` | Emits when the dialog has been closed.                                                                                                     |                |
+| Name          | Type                          | Description                                                                                                                                | Inherited From |
+| ------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
+| `cancelEvent` | `EventEmitter<SlCancelEvent>` | Emits when the cancel has been cancelled. This happens when the user closes&#xA;the dialog using the escape key or clicks on the backdrop. |                |
+| `closeEvent`  | `EventEmitter<SlCloseEvent>`  | Emits when the dialog has been closed.                                                                                                     |                |
 
 ### Attributes
 
@@ -1347,9 +1347,9 @@
 
 ### Events
 
-| Name             | Type                 | Description                              | Inherited From |
-| ---------------- | -------------------- | ---------------------------------------- | -------------- |
-| `formFieldEvent` | `EventEmitter<void>` | Emits when the field is added to a form. |                |
+| Name             | Type                             | Description                              | Inherited From |
+| ---------------- | -------------------------------- | ---------------------------------------- | -------------- |
+| `formFieldEvent` | `EventEmitter<SlFormFieldEvent>` | Emits when the field is added to a form. |                |
 
 ### Attributes
 
@@ -1561,7 +1561,6 @@
 | `js` | `*`  | *           |        | ./src/column.js             |
 | `js` | `*`  | *           |        | ./src/column-group.js       |
 | `js` | `*`  | *           |        | ./src/drag-handle-column.js |
-| `js` | `*`  | *           |        | ./src/events.js             |
 | `js` | `*`  | *           |        | ./src/filter-column.js      |
 | `js` | `*`  | *           |        | ./src/grid.js               |
 | `js` | `*`  | *           |        | ./src/select-column.js      |
@@ -1625,9 +1624,9 @@
 
 ### Events
 
-| Name           | Type                               | Description                                   | Inherited From |
-| -------------- | ---------------------------------- | --------------------------------------------- | -------------- |
-| `columnUpdate` | `EventEmitter<GridColumnEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
+| Name                | Type                                   | Description                                   | Inherited From |
+| ------------------- | -------------------------------------- | --------------------------------------------- | -------------- |
+| `columnUpdateEvent` | `EventEmitter<SlColumnUpdateEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
 
 ### Attributes
 
@@ -1689,9 +1688,9 @@
 
 ### Events
 
-| Name           | Type                               | Description                                   | Inherited From |
-| -------------- | ---------------------------------- | --------------------------------------------- | -------------- |
-| `columnUpdate` | `EventEmitter<GridColumnEvent<T>>` | Emits when the column definition has changed. |                |
+| Name                | Type                                   | Description                                   | Inherited From |
+| ------------------- | -------------------------------------- | --------------------------------------------- | -------------- |
+| `columnUpdateEvent` | `EventEmitter<SlColumnUpdateEvent<T>>` | Emits when the column definition has changed. |                |
 
 ### Attributes
 
@@ -1753,9 +1752,9 @@
 
 ### Events
 
-| Name           | Type                               | Description                                   | Inherited From |
-| -------------- | ---------------------------------- | --------------------------------------------- | -------------- |
-| `columnUpdate` | `EventEmitter<GridColumnEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
+| Name                | Type                                   | Description                                   | Inherited From |
+| ------------------- | -------------------------------------- | --------------------------------------------- | -------------- |
+| `columnUpdateEvent` | `EventEmitter<SlColumnUpdateEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
 
 ### Attributes
 
@@ -1777,90 +1776,6 @@
 | Kind | Name                   | Declaration          | Module                                                | Package |
 | ---- | ---------------------- | -------------------- | ----------------------------------------------------- | ------- |
 | `js` | `GridDragHandleColumn` | GridDragHandleColumn | ../packages/components/grid/src/drag-handle-column.ts |         |
-
-# `../packages/components/grid/src/events.ts`:
-
-## class: `GridActiveItemChangeEvent`
-
-### Superclass
-
-| Name        | Module                                    | Package |
-| ----------- | ----------------------------------------- | ------- |
-| `GridEvent` | ../packages/components/grid/src/events.ts |         |
-
-<hr/>
-
-## class: `GridColumnEvent`
-
-### Superclass
-
-| Name        | Module                                    | Package |
-| ----------- | ----------------------------------------- | ------- |
-| `GridEvent` | ../packages/components/grid/src/events.ts |         |
-
-<hr/>
-
-## class: `GridEvent`
-
-### Superclass
-
-| Name    | Module                                    | Package |
-| ------- | ----------------------------------------- | ------- |
-| `Event` | ../packages/components/grid/src/events.ts |         |
-
-<hr/>
-
-## class: `GridFilterValueChangeEvent`
-
-### Superclass
-
-| Name              | Module                                    | Package |
-| ----------------- | ----------------------------------------- | ------- |
-| `GridColumnEvent` | ../packages/components/grid/src/events.ts |         |
-
-<hr/>
-
-## class: `GridItemDropEvent`
-
-### Superclass
-
-| Name            | Module                                    | Package |
-| --------------- | ----------------------------------------- | ------- |
-| `GridItemEvent` | ../packages/components/grid/src/events.ts |         |
-
-<hr/>
-
-## class: `GridItemEvent`
-
-### Superclass
-
-| Name        | Module                                    | Package |
-| ----------- | ----------------------------------------- | ------- |
-| `GridEvent` | ../packages/components/grid/src/events.ts |         |
-
-<hr/>
-
-## class: `GridSortDirectionChangeEvent`
-
-### Superclass
-
-| Name              | Module                                    | Package |
-| ----------------- | ----------------------------------------- | ------- |
-| `GridColumnEvent` | ../packages/components/grid/src/events.ts |         |
-
-<hr/>
-
-## Exports
-
-| Kind | Name                           | Declaration                  | Module                                    | Package |
-| ---- | ------------------------------ | ---------------------------- | ----------------------------------------- | ------- |
-| `js` | `GridEvent`                    | GridEvent                    | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridItemEvent`                | GridItemEvent                | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridItemDropEvent`            | GridItemDropEvent            | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridActiveItemChangeEvent`    | GridActiveItemChangeEvent    | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridColumnEvent`              | GridColumnEvent              | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridFilterValueChangeEvent`   | GridFilterValueChangeEvent   | ../packages/components/grid/src/events.ts |         |
-| `js` | `GridSortDirectionChangeEvent` | GridSortDirectionChangeEvent | ../packages/components/grid/src/events.ts |         |
 
 # `../packages/components/grid/src/filter-column.ts`:
 
@@ -1906,9 +1821,9 @@
 
 ### Events
 
-| Name           | Type                               | Description                                   | Inherited From |
-| -------------- | ---------------------------------- | --------------------------------------------- | -------------- |
-| `columnUpdate` | `EventEmitter<GridColumnEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
+| Name                | Type                                   | Description                                   | Inherited From |
+| ------------------- | -------------------------------------- | --------------------------------------------- | -------------- |
+| `columnUpdateEvent` | `EventEmitter<SlColumnUpdateEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
 
 ### Attributes
 
@@ -1970,10 +1885,10 @@
 
 ### Events
 
-| Name                | Type                                          | Description                                          | Inherited From |
-| ------------------- | --------------------------------------------- | ---------------------------------------------------- | -------------- |
-| `filterChange`      | `EventEmitter<GridFilterChange>`              | Emits when the filter has been added or removed.     |                |
-| `filterValueChange` | `EventEmitter<GridFilterValueChangeEvent<T>>` | Emits when the value of the this filter has changed. |                |
+| Name                     | Type                                        | Description                                          | Inherited From |
+| ------------------------ | ------------------------------------------- | ---------------------------------------------------- | -------------- |
+| `filterChangeEvent`      | `EventEmitter<SlFilterChangeEvent>`         | Emits when the filter has been added or removed.     |                |
+| `filterValueChangeEvent` | `EventEmitter<SlFilterValueChangeEvent<T>>` | Emits when the value of the this filter has changed. |                |
 
 ### Attributes
 
@@ -2047,14 +1962,13 @@
 
 ### Events
 
-| Name               | Type                                         | Description                                    | Inherited From |
-| ------------------ | -------------------------------------------- | ---------------------------------------------- | -------------- |
-| `activeItemChange` | `EventEmitter<GridActiveItemChangeEvent<T>>` | Emits when the active item changes             |                |
-| `gridDragstart`    | `EventEmitter<GridEvent<T>>`                 | Emits when a drag operation is starting.       |                |
-| `gridDragend`      | `EventEmitter<GridEvent<T>>`                 | Emits when a drag operation has finished.      |                |
-| `gridDrop`         | `EventEmitter<GridEvent<T>>`                 | Emits when an item has been dropped.           |                |
-| `gridItemsChange`  | `EventEmitter<GridEvent<T>>`                 | Emits when the items in the grid have changed. |                |
-| `gridStateChange`  | `EventEmitter<GridEvent<T>>`                 | Emits when the state in the grid has changed.  |                |
+| Name                    | Type                                       | Description                                   | Inherited From |
+| ----------------------- | ------------------------------------------ | --------------------------------------------- | -------------- |
+| `activeItemChangeEvent` | `EventEmitter<SlActiveItemChangeEvent<T>>` | Emits when the active item changes            |                |
+| `dragStartEvent`        | `EventEmitter<SlDragStartEvent<T>>`        | Emits when a drag operation is starting.      |                |
+| `dragEndEvent`          | `EventEmitter<SlDragEndEvent<T>>`          | Emits when a drag operation has finished.     |                |
+| `dropEvent`             | `EventEmitter<SlDropEvent<T>>`             | Emits when an item has been dropped.          |                |
+| `stateChangeEvent`      | `EventEmitter<SlStateChangeEvent<T>>`      | Emits when the state in the grid has changed. |                |
 
 ### Attributes
 
@@ -2110,10 +2024,10 @@
 
 ### Events
 
-| Name          | Type                    | Description                                      | Inherited From |
-| ------------- | ----------------------- | ------------------------------------------------ | -------------- |
-| `selectEvent` | `EventEmitter<boolean>` | Emits when the user changes the group selection. |                |
-| `toggleEvent` | `EventEmitter<boolean>` | Emits when the user collapses/expands the group. |                |
+| Name          | Type                                   | Description                                      | Inherited From |
+| ------------- | -------------------------------------- | ------------------------------------------------ | -------------- |
+| `selectEvent` | `EventEmitter<SlSelectEvent<boolean>>` | Emits when the user changes the group selection. |                |
+| `toggleEvent` | `EventEmitter<SlToggleEvent<boolean>>` | Emits when the user collapses/expands the group. |                |
 
 ### Attributes
 
@@ -2172,9 +2086,9 @@
 
 ### Events
 
-| Name           | Type                               | Description                                   | Inherited From |
-| -------------- | ---------------------------------- | --------------------------------------------- | -------------- |
-| `columnUpdate` | `EventEmitter<GridColumnEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
+| Name                | Type                                   | Description                                   | Inherited From |
+| ------------------- | -------------------------------------- | --------------------------------------------- | -------------- |
+| `columnUpdateEvent` | `EventEmitter<SlColumnUpdateEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
 
 ### Attributes
 
@@ -2241,9 +2155,9 @@
 
 ### Events
 
-| Name           | Type                               | Description                                   | Inherited From |
-| -------------- | ---------------------------------- | --------------------------------------------- | -------------- |
-| `columnUpdate` | `EventEmitter<GridColumnEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
+| Name                | Type                                   | Description                                   | Inherited From |
+| ------------------- | -------------------------------------- | --------------------------------------------- | -------------- |
+| `columnUpdateEvent` | `EventEmitter<SlColumnUpdateEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
 
 ### Attributes
 
@@ -2309,9 +2223,9 @@
 
 ### Events
 
-| Name           | Type                               | Description                                   | Inherited From |
-| -------------- | ---------------------------------- | --------------------------------------------- | -------------- |
-| `columnUpdate` | `EventEmitter<GridColumnEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
+| Name                | Type                                   | Description                                   | Inherited From |
+| ------------------- | -------------------------------------- | --------------------------------------------- | -------------- |
+| `columnUpdateEvent` | `EventEmitter<SlColumnUpdateEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
 
 ### Attributes
 
@@ -2376,10 +2290,10 @@
 
 ### Events
 
-| Name                  | Type                                            | Description                                      | Inherited From |
-| --------------------- | ----------------------------------------------- | ------------------------------------------------ | -------------- |
-| `sorterChange`        | `EventEmitter<GridSorterChange>`                | Emits when the sorter has been added or removed. |                |
-| `sortDirectionChange` | `EventEmitter<GridSortDirectionChangeEvent<T>>` | Emits when the direction has changed.            |                |
+| Name                       | Type                                          | Description                                      | Inherited From |
+| -------------------------- | --------------------------------------------- | ------------------------------------------------ | -------------- |
+| `sorterChangeEvent`        | `EventEmitter<SlSorterChangeEvent>`           | Emits when the sorter has been added or removed. |                |
+| `sortDirectionChangeEvent` | `EventEmitter<SlSortDirectionChangeEvent<T>>` | Emits when the direction has changed.            |                |
 
 ### Attributes
 
@@ -2435,9 +2349,9 @@
 
 ### Events
 
-| Name           | Type                               | Description                                   | Inherited From |
-| -------------- | ---------------------------------- | --------------------------------------------- | -------------- |
-| `columnUpdate` | `EventEmitter<GridColumnEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
+| Name                | Type                                   | Description                                   | Inherited From |
+| ------------------- | -------------------------------------- | --------------------------------------------- | -------------- |
+| `columnUpdateEvent` | `EventEmitter<SlColumnUpdateEvent<T>>` | Emits when the column definition has changed. | GridColumn     |
 
 ### Attributes
 
@@ -2824,9 +2738,9 @@
 
 ### Events
 
-| Name          | Type                    | Description                                     | Inherited From |
-| ------------- | ----------------------- | ----------------------------------------------- | -------------- |
-| `selectEvent` | `EventEmitter<boolean>` | Emits when the user toggles the selected state. |                |
+| Name          | Type                          | Description                                     | Inherited From |
+| ------------- | ----------------------------- | ----------------------------------------------- | -------------- |
+| `selectEvent` | `EventEmitter<SlSelectEvent>` | Emits when the user toggles the selected state. |                |
 
 ### Attributes
 
@@ -2894,9 +2808,9 @@
 
 ### Events
 
-| Name          | Type                 | Description                                 | Inherited From |
-| ------------- | -------------------- | ------------------------------------------- | -------------- |
-| `selectEvent` | `EventEmitter<void>` | Emits when the menu item selection changes. |                |
+| Name          | Type                                | Description                                 | Inherited From |
+| ------------- | ----------------------------------- | ------------------------------------------- | -------------- |
+| `selectEvent` | `EventEmitter<SlSelectEvent<void>>` | Emits when the menu item selection changes. |                |
 
 ### Attributes
 
@@ -3131,12 +3045,12 @@
 
 ### Events
 
-| Name          | Type                           | Description                              | Inherited From   |
-| ------------- | ------------------------------ | ---------------------------------------- | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`           | Emits when the component loses focus.    |                  |
-| `changeEvent` | `EventEmitter<T \| undefined>` | Emits when the value changes.            |                  |
-| `focusEvent`  | `EventEmitter<void>`           | Emits when the component receives focus. |                  |
-|               | `ValidateEvent`                |                                          | FormControlMixin |
+| Name          | Type                                          | Description                              | Inherited From   |
+| ------------- | --------------------------------------------- | ---------------------------------------- | ---------------- |
+| `blurEvent`   | `EventEmitter<SlBlurEvent>`                   | Emits when the component loses focus.    |                  |
+| `changeEvent` | `EventEmitter<SlChangeEvent<T \| undefined>>` | Emits when the value changes.            |                  |
+| `focusEvent`  | `EventEmitter<SlFocusEvent>`                  | Emits when the component receives focus. |                  |
+|               | `ValidateEvent`                               |                                          | FormControlMixin |
 
 ### Attributes
 
@@ -3437,12 +3351,12 @@
 
 ### Events
 
-| Name          | Type                           | Description                                | Inherited From   |
-| ------------- | ------------------------------ | ------------------------------------------ | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`           | Emits when the focus leaves the component. |                  |
-| `changeEvent` | `EventEmitter<T \| undefined>` | Emits when the value changes.              |                  |
-| `focusEvent`  | `EventEmitter<void>`           | Emits when the component gains focus.      |                  |
-|               | `ValidateEvent`                |                                            | FormControlMixin |
+| Name          | Type                                          | Description                                | Inherited From   |
+| ------------- | --------------------------------------------- | ------------------------------------------ | ---------------- |
+| `blurEvent`   | `EventEmitter<SlBlurEvent>`                   | Emits when the focus leaves the component. |                  |
+| `changeEvent` | `EventEmitter<SlChangeEvent<T \| undefined>>` | Emits when the value changes.              |                  |
+| `focusEvent`  | `EventEmitter<SlFocusEvent>`                  | Emits when the component gains focus.      |                  |
+|               | `ValidateEvent`                               |                                            | FormControlMixin |
 
 ### Attributes
 
@@ -3576,16 +3490,17 @@
 
 ### Methods
 
-| Name               | Privacy | Description | Parameters                                                                                                                                                                            | Return | Inherited From |
-| ------------------ | ------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | -------------- |
-| `hostConnected`    |         |             |                                                                                                                                                                                       | `void` |                |
-| `hostDisconnected` |         |             |                                                                                                                                                                                       | `void` |                |
-| `listen`           |         |             | `window: Window, type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                                        | `void` |                |
-| `listen`           |         |             | `document: Document, type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                                | `void` |                |
-| `listen`           |         |             | `element: HTMLElement, type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                        | `void` |                |
-| `listen`           |         |             | `element: ShadowRoot, type: K, listener: (this: ShadowRoot, ev: ShadowRootEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                           | `void` |                |
-| `listen`           |         |             | `element: MediaQueryList, type: K, listener: (this: ShadowRoot, ev: MediaQueryListEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                   | `void` |                |
-| `listen`           |         |             | `element: Window \| Document \| HTMLElement \| ShadowRoot \| MediaQueryList, type: string, listener: EventListenerOrEventListenerObject, options: boolean \| AddEventListenerOptions` | `void` |                |
+| Name               | Privacy | Description | Parameters                                                                                                                                                                                       | Return | Inherited From |
+| ------------------ | ------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------ | -------------- |
+| `hostConnected`    |         |             |                                                                                                                                                                                                  | `void` |                |
+| `hostDisconnected` |         |             |                                                                                                                                                                                                  | `void` |                |
+| `listen`           |         |             | `window: Window, type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                                                   | `void` |                |
+| `listen`           |         |             | `document: Document, type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                                           | `void` |                |
+| `listen`           |         |             | `element: HTMLElement, type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                                   | `void` |                |
+| `listen`           |         |             | `element: ShadowRoot, type: K, listener: (this: ShadowRoot, ev: ShadowRootEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                                      | `void` |                |
+| `listen`           |         |             | `element: MediaQueryList, type: K, listener: (this: ShadowRoot, ev: MediaQueryListEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                              | `void` |                |
+| `listen`           |         |             | `element: Element, type: K, listener: (this: Element, ev: GlobalEventHandlersEventMap[K]) => any, options: boolean \| AddEventListenerOptions`                                                   | `void` |                |
+| `listen`           |         |             | `element: Window \| Document \| Element \| HTMLElement \| ShadowRoot \| MediaQueryList, type: string, listener: EventListenerOrEventListenerObject, options: boolean \| AddEventListenerOptions` | `void` |                |
 
 <hr/>
 
@@ -3894,9 +3809,9 @@
 
 ### Methods
 
-| Name   | Privacy | Description | Parameters                        | Return    | Inherited From |
-| ------ | ------- | ----------- | --------------------------------- | --------- | -------------- |
-| `emit` |         |             | `value: T, options: EventOptions` | `boolean` |                |
+| Name   | Privacy | Description | Parameters                                       | Return    | Inherited From |
+| ------ | ------- | ----------- | ------------------------------------------------ | --------- | -------------- |
+| `emit` |         |             | `value: T \| T['detail'], options: EventOptions` | `boolean` |                |
 
 <hr/>
 
@@ -3965,6 +3880,18 @@
 | ---- | ----------------- | --------------- | ------------------------------------------------------ | ------- |
 | `js` | `AnchorDirective` | AnchorDirective | ../packages/components/shared/src/directives/anchor.ts |         |
 | `js` | `anchor`          | anchor          | ../packages/components/shared/src/directives/anchor.ts |         |
+
+# `../packages/components/shared/src/events.ts`:
+
+## Exports
+
+| Kind | Name            | Declaration   | Module             | Package |
+| ---- | --------------- | ------------- | ------------------ | ------- |
+| `js` | `SlBlurEvent`   | SlBlurEvent   | ./events/blur.js   |         |
+| `js` | `SlChangeEvent` | SlChangeEvent | ./events/change.js |         |
+| `js` | `SlFocusEvent`  | SlFocusEvent  | ./events/focus.js  |         |
+| `js` | `SlSelectEvent` | SlSelectEvent | ./events/select.js |         |
+| `js` | `SlToggleEvent` | SlToggleEvent | ./events/toggle.js |         |
 
 # `../packages/components/shared/src/path.ts`:
 
@@ -4247,12 +4174,12 @@
 
 ### Events
 
-| Name          | Type                      | Description                              | Inherited From   |
-| ------------- | ------------------------- | ---------------------------------------- | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`      | Emits when the component loses focus.    |                  |
-| `changeEvent` | `EventEmitter<T \| null>` | Emits when the checked state changes.    |                  |
-| `focusEvent`  | `EventEmitter<void>`      | Emits when the component receives focus. |                  |
-|               | `ValidateEvent`           |                                          | FormControlMixin |
+| Name          | Type                                     | Description                              | Inherited From   |
+| ------------- | ---------------------------------------- | ---------------------------------------- | ---------------- |
+| `blurEvent`   | `EventEmitter<SlBlurEvent>`              | Emits when the component loses focus.    |                  |
+| `changeEvent` | `EventEmitter<SlChangeEvent<T \| null>>` | Emits when the checked state changes.    |                  |
+| `focusEvent`  | `EventEmitter<SlFocusEvent>`             | Emits when the component receives focus. |                  |
+|               | `ValidateEvent`                          |                                          | FormControlMixin |
 
 ### Attributes
 
@@ -4338,9 +4265,9 @@
 
 ### Events
 
-| Name        | Type                   | Description                                   | Inherited From |
-| ----------- | ---------------------- | --------------------------------------------- | -------------- |
-| `tabChange` | `EventEmitter<number>` | Emits when the tab has been selected/changed. |                |
+| Name        | Type                             | Description                                   | Inherited From |
+| ----------- | -------------------------------- | --------------------------------------------- | -------------- |
+| `tabChange` | `EventEmitter<SlTabChangeEvent>` | Emits when the tab has been selected/changed. |                |
 
 ### Attributes
 
@@ -4530,12 +4457,12 @@
 
 ### Events
 
-| Name          | Type                   | Description                                | Inherited From   |
-| ------------- | ---------------------- | ------------------------------------------ | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`   | Emits when the focus leaves the component. |                  |
-| `changeEvent` | `EventEmitter<string>` | Emits when the value changes.              |                  |
-| `focusEvent`  | `EventEmitter<void>`   | Emits when the component gains focus.      |                  |
-|               | `ValidateEvent`        |                                            | FormControlMixin |
+| Name          | Type                                  | Description                                | Inherited From   |
+| ------------- | ------------------------------------- | ------------------------------------------ | ---------------- |
+| `blurEvent`   | `EventEmitter<SlBlurEvent>`           | Emits when the focus leaves the component. |                  |
+| `changeEvent` | `EventEmitter<SlChangeEvent<string>>` | Emits when the value changes.              |                  |
+| `focusEvent`  | `EventEmitter<SlFocusEvent>`          | Emits when the component gains focus.      |                  |
+|               | `ValidateEvent`                       |                                            | FormControlMixin |
 
 ### Attributes
 
@@ -4660,12 +4587,12 @@
 
 ### Events
 
-| Name          | Type                   | Description                                | Inherited From   |
-| ------------- | ---------------------- | ------------------------------------------ | ---------------- |
-| `blurEvent`   | `EventEmitter<void>`   | Emits when the focus leaves the component. |                  |
-| `changeEvent` | `EventEmitter<string>` | Emits when the value changes.              |                  |
-| `focusEvent`  | `EventEmitter<void>`   | Emits when the component gains focus.      |                  |
-|               | `ValidateEvent`        |                                            | FormControlMixin |
+| Name          | Type                                  | Description                                | Inherited From   |
+| ------------- | ------------------------------------- | ------------------------------------------ | ---------------- |
+| `blurEvent`   | `EventEmitter<SlBlurEvent>`           | Emits when the focus leaves the component. |                  |
+| `changeEvent` | `EventEmitter<SlChangeEvent<string>>` | Emits when the value changes.              |                  |
+| `focusEvent`  | `EventEmitter<SlFocusEvent>`          | Emits when the component gains focus.      |                  |
+|               | `ValidateEvent`                       |                                            | FormControlMixin |
 
 ### Attributes
 

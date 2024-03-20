@@ -90,14 +90,6 @@
               "reflects": true
             },
             {
-              "kind": "event",
-              "name": "sl-toggle",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the accordion item has been toggled."
-            },
-            {
               "kind": "field",
               "name": "summary",
               "type": {
@@ -105,27 +97,27 @@
               },
               "description": "A text shown in the header - as a title of the accordion item.",
               "attribute": "summary"
+            },
+            {
+              "kind": "event",
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<SlToggleEvent<string>>"
+              },
+              "description": "Emits when the accordion item has been toggled."
             }
           ],
           "events": [
             {
               "name": "toggleEvent",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<SlToggleEvent<string>>"
               },
               "description": "Emits when the accordion item has been toggled.",
               "fieldName": "toggleEvent"
             }
           ],
           "attributes": [
-            {
-              "name": "summary",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "A text shown in the header - as a title of the accordion item.",
-              "fieldName": "summary"
-            },
             {
               "name": "disabled",
               "type": {
@@ -141,6 +133,14 @@
               },
               "description": "Whether the details element is opened.",
               "fieldName": "open"
+            },
+            {
+              "name": "summary",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A text shown in the header - as a title of the accordion item.",
+              "fieldName": "summary"
             }
           ],
           "superclass": {
@@ -209,7 +209,7 @@
           "name": "Accordion",
           "slots": [
             {
-              "description": "The place for multiple <sl-accordion-item>",
+              "description": "The place for multiple `<sl-accordion-item>`",
               "name": "default"
             }
           ],

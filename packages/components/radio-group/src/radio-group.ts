@@ -1,10 +1,17 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './radio-group.scss.js';
 import { type Radio, type RadioButtonSize } from './radio.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-radio-group': RadioGroup;
+  }
+}
 
 const OBSERVER_OPTIONS: MutationObserverInit = {
   attributeFilter: ['checked'],
@@ -75,13 +82,13 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
   @queryAssignedElements() radios?: Array<Radio<T>>;
 
   /** Emits when the component loses focus. */
-  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | undefined>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
 
   /** Emits when the component receives focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** Whether the group is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;

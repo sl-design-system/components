@@ -5,6 +5,12 @@ import { property, state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 import { GridFilter } from './filter.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-grid-filter-column': GridFilterColumn;
+  }
+}
+
 export type GridFilterMode = 'select' | 'text';
 
 export interface GridFilterOption {
@@ -15,8 +21,7 @@ export interface GridFilterOption {
 let nextUniqueId = 0;
 
 @localized()
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class GridFilterColumn<T = any> extends GridColumn<T> {
+export class GridFilterColumn<T = unknown> extends GridColumn<T> {
   /** The internal options if none are provided. */
   @state() internalOptions?: GridFilterOption[];
 

@@ -22,7 +22,7 @@ const onClose = (): void => {
 };
 
 export default {
-  title: 'Inline message'
+  title: 'Components/Inline message'
 };
 
 export const API: StoryObj = {

@@ -143,6 +143,7 @@ details {
     --_animation-duration: 0.001ms;
 
     animation-duration: var(--_animation-duration);
+    background: var(--_background);
     display: grid;
     overflow: hidden;
   }

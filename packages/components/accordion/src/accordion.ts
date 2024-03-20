@@ -3,6 +3,12 @@ import { property, queryAssignedElements } from 'lit/decorators.js';
 import { AccordionItem } from './accordion-item.js';
 import styles from './accordion.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-accordion': Accordion;
+  }
+}
+
 /**
  * An accordion component that can contain accordion-items
  *
@@ -10,7 +16,7 @@ import styles from './accordion.scss.js';
  *   <sl-accordion>...</sl-accordion>
  * ```
  *
- * @slot default - The place for multiple <sl-accordion-item>
+ * @slot default - The place for multiple `<sl-accordion-item>`
  */
 export class Accordion extends LitElement {
   /** @private */

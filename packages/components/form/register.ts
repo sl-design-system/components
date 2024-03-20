@@ -9,13 +9,3 @@ customElements.define('sl-form', Form);
 customElements.define('sl-form-field', FormField);
 customElements.define('sl-hint', Hint);
 customElements.define('sl-label', Label);
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'sl-error': Error;
-    'sl-form': Form;
-    'sl-form-field': FormField;
-    'sl-hint': Hint;
-    'sl-label': Label;
-  }
-}

@@ -1,9 +1,16 @@
 import { localized } from '@lit/localize';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import styles from './accordion-item.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-accordion-item': AccordionItem;
+  }
+}
 
 /**
  * An accordion item component.
@@ -16,17 +23,17 @@ export class AccordionItem extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** A text shown in the header - as a title of the accordion item. */
-  @property() summary?: string;
-
   /** Whether the element is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
   /** Whether the details element is opened. */
-  @property({ reflect: true, type: Boolean }) open?: boolean;
+  @property({ type: Boolean, reflect: true }) open?: boolean;
+
+  /** A text shown in the header - as a title of the accordion item. */
+  @property() summary?: string;
 
   /** Emits when the accordion item has been toggled. */
-  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<string>;
+  @event() toggleEvent!: EventEmitter<SlToggleEvent<string>>;
 
   override render(): TemplateResult {
     return html`
@@ -34,7 +41,6 @@ export class AccordionItem extends LitElement {
         <summary
           id="summary-id"
           aria-controls="content"
-          aria-disabled=${this.disabled ? 'true' : 'false'}
           aria-expanded=${this.open ? 'true' : 'false'}
           tabindex=${this.disabled ? -1 : 0}
           part="summary"

@@ -202,7 +202,7 @@
           "name": "Accordion",
           "slots": [
             {
-              "description": "The place for multiple <sl-accordion-item>",
+              "description": "The place for multiple `<sl-accordion-item>`",
               "name": "default"
             }
           ],
@@ -600,6 +600,7 @@
                 "text": "BadgeSize"
               },
               "default": "'md'",
+              "description": "The size of the badge component.",
               "attribute": "size",
               "reflects": true,
               "expandedType": {
@@ -613,6 +614,7 @@
                 "text": "BadgeVariant"
               },
               "default": "'neutral'",
+              "description": "The variant of the badge.",
               "attribute": "variant",
               "reflects": true,
               "expandedType": {
@@ -627,6 +629,7 @@
                 "text": "BadgeSize"
               },
               "default": "'md'",
+              "description": "The size of the badge component.",
               "fieldName": "size",
               "expandedType": {
                 "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'"
@@ -638,6 +641,7 @@
                 "text": "BadgeVariant"
               },
               "default": "'neutral'",
+              "description": "The variant of the badge.",
               "fieldName": "variant",
               "expandedType": {
                 "text": "'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent'"

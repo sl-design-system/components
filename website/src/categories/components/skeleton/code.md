@@ -70,7 +70,7 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="skeleton"></ds-install-info>
+<ds-install-info link-in-navigation package="skeleton"></ds-install-info>
 
 <section>
 

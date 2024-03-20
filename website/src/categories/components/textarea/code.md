@@ -26,5 +26,5 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="textarea"></ds-install-info>
+<ds-install-info link-in-navigation package="textarea"></ds-install-info>
 {% include "../component-table.njk" %}

@@ -50,7 +50,7 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="checkbox"></ds-install-info>
+<ds-install-info link-in-navigation package="checkbox"></ds-install-info>
 
 {% include "../component-table.njk" %}
 

@@ -51,7 +51,7 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 </div>
 </section>  
 
-<ds-install-info package="dialog"></ds-install-info>
+<ds-install-info link-in-navigation package="dialog"></ds-install-info>
 
 <section>
 

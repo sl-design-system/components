@@ -36,7 +36,7 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="avatar"></ds-install-info>
+<ds-install-info link-in-navigation package="avatar"></ds-install-info>
 
 <section>
 

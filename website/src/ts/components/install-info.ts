@@ -9,7 +9,11 @@ export class InstallInfo extends LitElement {
   override render(): TemplateResult {
     return html`
       <section>
-        <h2>Installation</h2>
+        <h2>
+          ${this.linkInNavigation
+            ? html`<a class="header-anchor" href="#installation">Installation</a>`
+            : html`Installation`}
+        </h2>
 
         <p>With npm</p>
         <ds-code-snippet language="bash"> npm install @sl-design-system/${this.package}</ds-code-snippet>
@@ -35,6 +39,12 @@ export class InstallInfo extends LitElement {
     h2 {
       font: var(--typography-h2);
       margin-block: var(--typography-h2-margin-block);
+    }
+
+    a.header-anchor {
+      color: inherit;
+      font-size: inherit;
+      text-decoration: none;
     }
   `;
 }

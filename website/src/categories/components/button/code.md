@@ -32,7 +32,7 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="button"></ds-install-info>
+<ds-install-info link-in-navigation package="button"></ds-install-info>
 
 {% include "../component-table.njk" %}
 

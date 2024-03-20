@@ -26,7 +26,7 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="switch"></ds-install-info>
+<ds-install-info link-in-navigation package="switch"></ds-install-info>
 
 </section>
 

@@ -55,6 +55,6 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="select"></ds-install-info>
+<ds-install-info link-in-navigation package="select"></ds-install-info>
 
 {% include "../component-table.njk" %}

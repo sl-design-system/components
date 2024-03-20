@@ -50,7 +50,7 @@ eleventyNavigation:
 </div>
 </section>
 
-<ds-install-info package="message-dialog"></ds-install-info>
+<ds-install-info link-in-navigation package="message-dialog"></ds-install-info>
 
 <section>
 

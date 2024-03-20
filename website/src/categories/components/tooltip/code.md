@@ -37,7 +37,7 @@ eleventyNavigation:
 </div>
 </section>
 
-<ds-install-info package="tooltip"></ds-install-info>
+<ds-install-info link-in-navigation package="tooltip"></ds-install-info>
 
 <section>
 

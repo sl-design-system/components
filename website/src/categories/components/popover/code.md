@@ -63,7 +63,7 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="popover"></ds-install-info>
+<ds-install-info link-in-navigation package="popover"></ds-install-info>
 
 <section>
 

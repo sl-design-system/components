@@ -40,6 +40,6 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="inline-message"></ds-install-info>
+<ds-install-info link-in-navigation package="inline-message"></ds-install-info>
 
 {% include "../component-table.njk" %}

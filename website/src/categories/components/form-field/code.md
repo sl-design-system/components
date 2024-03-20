@@ -9,7 +9,7 @@ eleventyNavigation:
   key: FormFieldCode
 ---
 
-<ds-install-info package="form"></ds-install-info>
+<ds-install-info link-in-navigation package="form"></ds-install-info>
 
 <section>
 

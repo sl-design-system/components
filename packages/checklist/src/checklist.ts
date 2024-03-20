@@ -146,7 +146,7 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
       required = ['--sl-text-typeset-font-family-body', '--sl-text-typeset-font-family-heading'].map(name =>
         styles.getPropertyValue(name)
       ),
-      available = Array.from((await document.fonts.ready).keys()).map(ff => ff.family);
+      available = await this.#getDocumentFontFamilies();
 
     if (!required.every(family => available.includes(family))) {
       return html`Not all required fonts are available. Your theme uses the font families
@@ -186,6 +186,16 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  async #getDocumentFontFamilies(): Promise<string[]> {
+    const fonts = await document.fonts.ready;
+
+    // Workaround for FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=1729089
+    const families: string[] = [];
+    fonts.forEach(ff => families.push(ff.family));
+
+    return families;
+  }
+
   async #setupFonts(): Promise<void> {
     const link = document.querySelector(`link[href="${SANOMA_LEARNING_TYPEKIT_URL}"]`);
 
@@ -199,8 +209,8 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
       document.head.appendChild(link);
     }
 
-    const fonts = await document.fonts.ready;
-    if (![...fonts.keys()].find(ff => ff.family === 'the-message')) {
+    const families = await this.#getDocumentFontFamilies();
+    if (!families.includes('The Message')) {
       const style = document.createElement('style');
       style.innerText = theMessageFontFace;
 

@@ -16,25 +16,27 @@
     "url": "https://github.com/sl-design-system/components/issues"
   },
   "type": "module",
-  "main": "./index.js",
-  "module": "./index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./index.d.ts",
   "customElements": "custom-elements.json",
   "exports": {
-    ".": "./index.js",
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./index.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "files": [
     "**/*.d.ts",
     "**/*.js",
-    "**/*.js.map",
-    "custom-elements.json"
+    "**/*.js.map"
   ],
   "sideEffects": true,
   "scripts": {
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
-  "dependencies": {
+  "devDependencies": {
     "@fortawesome/pro-solid-svg-icons": "^6.1.5",
     "@open-wc/scoped-elements": "^3.0.5",
     "@sl-design-system/icon": "0.0.9",

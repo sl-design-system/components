@@ -62,6 +62,16 @@
       ]
     },
     "build:checklist": {
+      "command": "esbuild --minify --bundle packages/checklist/index.ts --outdir=packages/checklist/dist --sourcemap",
+      "dependencies": [
+        "build:checklist:package"
+      ],
+      "output": [
+        "packages/checklist/dist/index.js",
+        "packages/checklist/dist/index.js.map"
+      ]
+    },
+    "build:checklist:package": {
       "command": "node scripts/build-packages.js checklist",
       "clean": "if-file-deleted",
       "dependencies": [

@@ -42,9 +42,7 @@ eleventyNavigation:
 |-|-|-|-|
 |`aria-label`|breadcrumb|Provides a label that describes the type of navigation provided in the nav element.|no|
 |`aria-hidden`|true|Hides the separators between breadcrumb items so they are not announced by a screen reader or any other assistive technology.|no|
-|`aria-current`|page|Applied to the last link in the set to indicate that it represents the current page.
-
-Used to inform the assistive technology user what has been indicated via styling.|no|
+|`aria-current`|page|Applied to the last link in the set to indicate that it represents the current page. Used to inform the assistive technology user what has been indicated via styling.|no|
 
 {.ds-table .ds-table-align-top}
 

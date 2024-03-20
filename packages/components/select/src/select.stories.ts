@@ -19,7 +19,7 @@ type Story = StoryObj<Props>;
 const sizes: SelectSize[] = ['md', 'lg'];
 
 export default {
-  title: 'Select',
+  title: 'Components/Select',
   args: {
     disabled: false,
     label: 'Label',

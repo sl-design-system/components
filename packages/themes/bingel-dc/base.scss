@@ -102,7 +102,7 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
-  --sl-text-text-field: [object Object];
+  --sl-text-text-field: [object object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
   --sl-text-typeset-letter-spacing-md: 0%;
@@ -147,7 +147,7 @@
   --sl-text-typeset-font-size-xs: 10px;
   --sl-text-typeset-font-weight-bold: 700;
   --sl-text-typeset-font-weight-regular: 400;
-  --sl-text-typeset-font-weight-icon-solid: Solid;
+  --sl-text-typeset-font-weight-icon-solid: solid;
   --sl-text-typeset-font-weight-icon-regular: 400;
   --sl-text-typeset-font-weight-icon-light: 300;
   --sl-text-typeset-font-weight-icon-thin: 100;
@@ -233,7 +233,9 @@
   --sl-color-palette-primary-150: 129 186 239;
   --sl-color-palette-primary-100: 172 210 245;
   --sl-color-palette-primary-50: 230 241 251;
-  --sl-elevation-shadow-none: 0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0);
+  --sl-box-shadow-slds-checklist: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
+    0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150));
+  --sl-elevation-shadow-none: 0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0%);
   --sl-elevation-shadow-lg: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
     0 8px 16px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
   --sl-elevation-shadow-md: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
@@ -303,8 +305,8 @@
   --sl-icon-typeset-font-size-xs: var(--sl-size-xs);
   --sl-icon-style-solid: var(--sl-text-typeset-font-weight-icon-solid);
   --sl-icon-style-outline: 400;
-  --sl-component-button-md: [object Object];
-  --sl-component-button-lg: [object Object];
+  --sl-component-button-md: [object object];
+  --sl-component-button-lg: [object object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
   --sl-space-tab-content-vertical-gap: var(--sl-space-xl);

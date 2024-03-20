@@ -9,6 +9,7 @@
   "workspaces": [
     "chromatic",
     "packages/angular",
+    "packages/checklist",
     "packages/components/*",
     "packages/locales",
     "packages/themes/*",
@@ -40,6 +41,7 @@
     "build": {
       "dependencies": [
         "build:cem",
+        "build:checklist",
         "build:components",
         "build:locales",
         "build:themes",
@@ -57,6 +59,21 @@
       ],
       "output": [
         "packages/components/*/custom-elements.json"
+      ]
+    },
+    "build:checklist": {
+      "command": "node scripts/build-packages.js checklist",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:scss"
+      ],
+      "files": [
+        "packages/checklist/**/*.ts",
+        "!packages/checklist/**/*.d.ts"
+      ],
+      "output": [
+        "packages/checklist/**/*.js",
+        "packages/checklist/**/*.js.map"
       ]
     },
     "build:components": {
@@ -120,10 +137,10 @@
       "command": "node scripts/build-scss.js",
       "clean": "if-file-deleted",
       "files": [
-        "packages/components/**/*.scss"
+        "packages/{checklist,components}/**/*.scss"
       ],
       "output": [
-        "packages/components/**/*.scss.ts"
+        "packages/{checklist,components}/**/*.scss.ts"
       ]
     },
     "build:themes": {
@@ -203,6 +220,10 @@
       "dependencies": [
         {
           "script": "build:cem",
+          "cascade": false
+        },
+        {
+          "script": "build:checklist",
           "cascade": false
         },
         {

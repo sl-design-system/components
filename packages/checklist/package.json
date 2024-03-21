@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/checklist",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Checklist component if the SL Design System is successfully installed",
   "license": "Apache-2.0",
   "publishConfig": {

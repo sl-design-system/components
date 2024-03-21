@@ -1,5 +1,14 @@
 # @sl-design-system/grid
 
+## 0.1.4
+
+### Patch Changes
+
+- [#1056](https://github.com/sl-design-system/components/pull/1056) [`51a32d1`](https://github.com/sl-design-system/components/commit/51a32d1331298cf1bc6c0a2311ec6204606d1126) - Fixed checkbox checked value;
+  When a grid includes both a selection column and a filter column, a potential issue may arise. If you select a filter and then proceed to check a checkbox in the selection column, subsequently deselecting it, the checked status of the filtered item might not be visible. However, the filtering functionality remains intact.
+
+  Fixed it by changing ?checked to .checked since it should have the same effect, as both the property and attribute control whether the checkbox is checked or not.
+
 ## 0.1.3
 
 ### Patch Changes

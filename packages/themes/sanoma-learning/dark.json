@@ -4859,6 +4859,59 @@
           "failedToResolve": true
         }
       }
+    },
+    "slds": {
+      "checklist": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "border": {
+          "value": "{color.palette.neutral.800}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "divider": {
+          "value": "{color.palette.neutral.800}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "icon": {
+          "success": {
+            "value": "{color.palette.success.400}",
+            "type": "color",
+            "failedToResolve": true
+          },
+          "danger": {
+            "value": "{color.palette.danger.300}",
+            "type": "color",
+            "failedToResolve": true
+          }
+        },
+        "link": {
+          "idle": {
+            "value": "{color.palette.info.300}",
+            "type": "color",
+            "failedToResolve": true
+          },
+          "hover": {
+            "value": "{color.palette.info.200}",
+            "type": "color",
+            "failedToResolve": true
+          },
+          "active": {
+            "value": "{color.palette.info.150}",
+            "type": "color",
+            "failedToResolve": true
+          }
+        }
+      }
     }
   },
   "boxShadow": {

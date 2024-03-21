@@ -1,0 +1,155 @@
+@import '@sl-design-system/sanoma-learning/base';
+@import '@sl-design-system/sanoma-learning/light';
+@import '@sl-design-system/sanoma-learning/dark';
+
+:host {
+  @include sl-theme-base;
+
+  @media (prefers-color-scheme: light) {
+    @include sl-theme-light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @include sl-theme-dark;
+  }
+}
+
+:host(:defined) {
+  --_background: var(--sl-color-slds-checklist-background);
+  --_border-radius: var(--sl-border-radius-slds-checklist);
+  --_border: var(--sl-border-width-slds-checklist) solid var(--sl-color-slds-checklist-border);
+  --_box-shadow: var(--sl-box-shadow-slds-checklist);
+  --_color: var(--sl-color-slds-checklist-foreground);
+  --_correct-color: var(--sl-color-slds-checklist-icon-success);
+  --_divider-color: var(--sl-color-slds-checklist-divider);
+  --_header-font: var(--sl-text-slds-checklist-heading);
+  --_incorrect-color: var(--sl-color-slds-checklist-icon-danger);
+  --_link-color: var(--sl-color-slds-checklist-link-idle);
+  --_link-hover-color: var(--sl-color-slds-checklist-link-hover);
+  --_link-active-color: var(--sl-color-slds-checklist-link-active);
+  --_padding: var(--sl-space-2xl);
+  --_paragraph-font: var(--sl-text-slds-checklist-body);
+  --_summary-font: var(--sl-text-slds-checklist-listitem);
+
+  background: var(--_background);
+  border: var(--_border);
+  border-radius: var(--_border-radius);
+  box-shadow: var(--_box-shadow);
+  color: var(--_color);
+  display: inline-flex;
+  flex-direction: column;
+  margin: 1rem;
+  max-inline-size: min(80vw, 500px);
+  padding: var(--_padding);
+}
+
+h1 {
+  font: var(--_header-font);
+  margin: 0;
+}
+
+p {
+  font: var(--_paragraph-font);
+  margin-block: 1rem;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  align-items: center;
+  border-block-end: 1px solid var(--_divider-color);
+  display: flex;
+  gap: 1rem;
+  margin-block-start: 0.75rem;
+  padding-block-end: 0.75rem;
+
+  &:first-of-type .title {
+    inline-size: 195px;
+  }
+
+  &:nth-of-type(2) .title {
+    inline-size: 105px;
+  }
+
+  &:nth-of-type(3) .title {
+    inline-size: 91px;
+  }
+
+  &:last-of-type .title {
+    inline-size: 200px;
+  }
+}
+
+sl-skeleton.icon {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: inline-flex;
+  inline-size: var(--sl-size-icon-xl);
+}
+
+sl-skeleton.title {
+  block-size: 1rem;
+  display: flex;
+}
+
+details {
+  border-block-end: 1px solid var(--_divider-color);
+  margin-block-start: 0.75rem;
+  padding-block-end: 0.75rem;
+
+  &[open] {
+    --_icon-color: var(--_incorrect-color);
+  }
+
+  &:last-of-type {
+    margin-block-end: 1rem;
+  }
+
+  p {
+    margin-block: 0.5rem;
+    padding-inline-start: 2.5rem;
+  }
+}
+
+summary {
+  align-items: center;
+  display: flex;
+  font: var(--_summary-font);
+  gap: 1rem;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+sl-icon {
+  color: var(--_icon-color, var(--_correct-color));
+}
+
+code {
+  font-family: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono',
+    'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  font-size: 0.9em;
+  font-weight: bolder;
+}
+
+a {
+  color: var(--_link-color);
+
+  &:visited {
+    color: var(--_link-color);
+  }
+
+  &:hover {
+    color: var(--_link-hover-color);
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: var(--_link-active-color);
+  }
+}

@@ -1,5 +1,19 @@
 # @sl-design-system/switch
 
+## 0.0.19
+
+### Patch Changes
+
+- Updated dependencies [[`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad)]:
+  - @sl-design-system/shared@0.2.7
+  - @sl-design-system/form@0.0.11
+
+## 0.0.18
+
+### Patch Changes
+
+- [#1072](https://github.com/sl-design-system/components/pull/1072) [`1192bad`](https://github.com/sl-design-system/components/commit/1192badb7bf12ac09658b12cea6bb93da005d8f2) - Fix missing types.
+
 ## 0.0.17
 
 ### Patch Changes

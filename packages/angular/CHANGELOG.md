@@ -1,5 +1,11 @@
 # @sl-design-system/angular
 
+## 0.1.6
+
+### Patch Changes
+
+- [#1078](https://github.com/sl-design-system/components/pull/1078) [`c682819`](https://github.com/sl-design-system/components/commit/c68281990d696106c99df9aed579ab316e6c7ec9) - Updated Angular peerDependencies
+
 ## 0.1.5
 
 ### Patch Changes

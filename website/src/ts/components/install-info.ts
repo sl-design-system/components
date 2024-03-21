@@ -38,6 +38,7 @@ export class InstallInfo extends LitElement {
   static override styles = css`
     :host {
       display: block;
+      font: var(--typography-body);
     }
 
     h2 {

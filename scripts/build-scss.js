@@ -13,6 +13,8 @@ const shared = process.argv.at(3) || '',
 await Promise.allSettled(
   files.map(async file => {
     try {
+      const loadPaths = ['node_modules'];
+
       // Step 1: compile SCSS to CSS
       const { css } = compileString(
         `
@@ -20,7 +22,7 @@ await Promise.allSettled(
 
           ${await fs.readFile(file, 'utf8')}
         `,
-        { loadPaths: shared ? [sharedDir] : undefined }
+        { loadPaths: shared ? [...loadPaths, sharedDir] : loadPaths }
       );
 
       // Step 2: lint CSS

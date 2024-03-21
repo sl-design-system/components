@@ -10,14 +10,14 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-spinner variant="alert" size="md"></sl-spinner>
+<sl-spinner variant="accent" size="xl"></sl-spinner>
 
 </div>
 
 <div class="ds-code">
   
   ```html
-  <sl-spinner variant="alert" size="xl"></sl-spinner>
+  <sl-spinner variant="accent" size="xl"></sl-spinner>
   ```
 
 </div>

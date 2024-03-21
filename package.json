@@ -151,6 +151,9 @@
     "build:scss": {
       "command": "node scripts/build-scss.js",
       "clean": "if-file-deleted",
+      "dependencies": [
+        "build:tokens"
+      ],
       "files": [
         "packages/{checklist,components}/**/*.scss"
       ],

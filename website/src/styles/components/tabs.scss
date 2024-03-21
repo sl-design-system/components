@@ -123,11 +123,11 @@ $transition-timing: 300ms;
     direction: normal;
     duration: $transition-timing;
     iteration-count: 1;
-    name: tabContent;
+    name: tab-content;
     timing-function: ease-in-out;
   }
 
-  .ds-tabs__tab-container > section {
+  .ds-tabs__tab-container > * {
     scroll-margin-top: 1rem;
 
     &:not(:first-child):not(.no-heading) {
@@ -262,7 +262,7 @@ $transition-timing: 300ms;
   }
 }
 
-@keyframes tabContent {
+@keyframes tab-content {
   from {
     opacity: 0;
     transform: translateY(5%);

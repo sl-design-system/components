@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/button",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Button component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,6 +38,6 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "0.2.6"
+    "@sl-design-system/shared": "0.2.7"
   }
 }

@@ -22,7 +22,7 @@ export class Radio<T = unknown> extends LitElement {
     keydown: this.#onKeydown
   });
 
-  /** Whether the radio is checked. */
+  /** Whether the radio button is checked. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** Whether this radio button is disabled. */

@@ -289,11 +289,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #scrollIntoViewIfNeeded(tab: Tab): void {
     const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
 
-    // Scroll the tab into view if it's not already
-    if (tab.offsetLeft < scroller.scrollLeft) {
-      scroller.scrollTo({ left: tab.offsetLeft });
-    } else if (tab.offsetLeft + tab.offsetWidth > scroller.scrollLeft + scroller.offsetWidth) {
-      scroller.scrollTo({ left: tab.offsetLeft - scroller.offsetWidth + tab.offsetWidth });
+    if (this.vertical) {
+      if (tab.offsetTop < scroller.scrollTop) {
+        scroller.scrollTo({ top: tab.offsetTop });
+      } else if (tab.offsetTop + tab.offsetHeight > scroller.scrollTop + scroller.offsetHeight) {
+        scroller.scrollTo({ top: tab.offsetTop - scroller.offsetHeight + tab.offsetHeight });
+      }
+    } else {
+      if (tab.offsetLeft < scroller.scrollLeft) {
+        scroller.scrollTo({ left: tab.offsetLeft });
+      } else if (tab.offsetLeft + tab.offsetWidth > scroller.scrollLeft + scroller.offsetWidth) {
+        scroller.scrollTo({ left: tab.offsetLeft - scroller.offsetWidth + tab.offsetWidth });
+      }
     }
   }
 

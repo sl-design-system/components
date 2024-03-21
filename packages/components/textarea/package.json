@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/textarea",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "Textarea component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,9 +38,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "0.0.10",
+    "@sl-design-system/form": "0.0.11",
     "@sl-design-system/icon": "0.0.9",
-    "@sl-design-system/shared": "0.2.6"
+    "@sl-design-system/shared": "0.2.7"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5"

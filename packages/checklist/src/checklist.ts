@@ -1,9 +1,11 @@
 import { faCircleCheck, faCircleExclamation } from '@fortawesome/pro-solid-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
+import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import styles from './checklist.scss.js';
+import theMessageFontFace from './the-message-font-face.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -16,6 +18,8 @@ interface ChecklistItem {
   description: TemplateResult | void;
 }
 
+const SANOMA_LEARNING_TYPEKIT_URL = 'https://use.typekit.net/kes1hoh.css';
+
 Icon.register(faCircleCheck, faCircleExclamation);
 
 /**
@@ -26,7 +30,8 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-skeleton': Skeleton
     };
   }
 
@@ -36,14 +41,17 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   /** The items in the list. */
   @state() items: ChecklistItem[] = [];
 
-  override firstUpdated(): void {
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    void this.#setupFonts();
+
     // Delay the check to give the application time to initialize.
-    setTimeout(() => void this.check(), 500);
+    setTimeout(() => void this.check(), 2000);
   }
 
   override render(): TemplateResult {
     return html`
-      <link rel="stylesheet" href="https://use.typekit.net/kes1hoh.css" />
       <h1>SL Design System Checklist</h1>
       <p>
         Welcome to the Sanoma Learning Design System. You will find a checklist below of the steps described in our
@@ -53,17 +61,7 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
         🚀.
       </p>
 
-      ${this.items.map(
-        item => html`
-          <details .open=${!!item.description}>
-            <summary @click=${(event: Event) => event.preventDefault()}>
-              <sl-icon .name=${item.description ? 'fas-circle-exclamation' : 'fas-circle-check'} size="xl"></sl-icon>
-              ${item.title}
-            </summary>
-            <p>${item.description}</p>
-          </details>
-        `
-      )}
+      ${this.items?.length ? this.renderItems() : this.renderSkeletons()}
 
       <p>
         📚 You can find the documentation for the SL Design System at
@@ -75,23 +73,52 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  renderItems(): TemplateResult[] {
+    return this.items.map(
+      item => html`
+        <details .open=${!!item.description}>
+          <summary @click=${(event: Event) => event.preventDefault()}>
+            <sl-icon .name=${item.description ? 'fas-circle-exclamation' : 'fas-circle-check'} size="xl"></sl-icon>
+            <span>${item.title}</span>
+          </summary>
+          <p>${item.description}</p>
+        </details>
+      `
+    );
+  }
+
+  renderSkeletons(): TemplateResult {
+    return html`
+      <ul>
+        ${Array.from({ length: 4 }).map(
+          () => html`
+            <li>
+              <sl-skeleton class="icon"></sl-skeleton>
+              <sl-skeleton class="title"></sl-skeleton>
+            </li>
+          `
+        )}
+      </ul>
+    `;
+  }
+
   /** Perform the checks. */
   async check(): Promise<void> {
     this.items = [
       {
-        title: 'CSS Custom Properties present',
+        title: 'Load CSS Custom Properties',
         description: this.#checkTheme()
       },
       {
-        title: 'Webfonts are available',
+        title: 'Load web fonts',
         description: await this.#checkFonts()
       },
       {
-        title: 'Theme is set up correctly',
+        title: 'Set up theme',
         description: this.#checkIcons()
       },
       {
-        title: 'Button web component is loaded',
+        title: 'Load button web component',
         description: this.#checkButton()
       }
     ];
@@ -111,11 +138,15 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   }
 
   async #checkFonts(): Promise<TemplateResult | void> {
+    if (this.#checkTheme()) {
+      return html`We cannot check the fonts until the CSS Custom Properties are loaded. Please fix this first.`;
+    }
+
     const styles = getComputedStyle(this),
       required = ['--sl-text-typeset-font-family-body', '--sl-text-typeset-font-family-heading'].map(name =>
         styles.getPropertyValue(name)
       ),
-      available = Array.from((await document.fonts.ready).keys()).map(ff => ff.family);
+      available = await this.#getDocumentFontFamilies();
 
     if (!required.every(family => available.includes(family))) {
       return html`Not all required fonts are available. Your theme uses the font families
@@ -139,8 +170,10 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   }
 
   #checkTheme(): TemplateResult | void {
-    const base = !!getComputedStyle(this).getPropertyValue('--sl-color-palette-white-base'),
-      lightOrDark = !!getComputedStyle(this).getPropertyValue('--sl-color-surface-solid-primary-foreground');
+    const base = !!getComputedStyle(this.parentElement!).getPropertyValue('--sl-color-palette-white-base'),
+      lightOrDark = !!getComputedStyle(this.parentElement!).getPropertyValue(
+        '--sl-color-surface-solid-primary-foreground'
+      );
 
     if (base && !lightOrDark) {
       return html`The base theme is set up correctly, but the tokens for the light or dark mode are missing. You likely
@@ -150,6 +183,38 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
         the stylesheets to your application as described in the
         <a href="https://sanomalearning.design/categories/getting-started/developers/#setup-a-theme">setup a theme</a>
         section.`;
+    }
+  }
+
+  async #getDocumentFontFamilies(): Promise<string[]> {
+    const fonts = await document.fonts.ready;
+
+    // Workaround for FF bug https://bugzilla.mozilla.org/show_bug.cgi?id=1729089
+    const families: string[] = [];
+    fonts.forEach(ff => families.push(ff.family));
+
+    return families;
+  }
+
+  async #setupFonts(): Promise<void> {
+    const link = document.querySelector(`link[href="${SANOMA_LEARNING_TYPEKIT_URL}"]`);
+
+    if (!link) {
+      const link = document.createElement('link');
+
+      link.href = SANOMA_LEARNING_TYPEKIT_URL;
+      link.rel = 'stylesheet';
+
+      // Loading web fonts inside of the shadow DOM doesn't work, so we need to add the link to the document head.
+      document.head.appendChild(link);
+    }
+
+    const families = await this.#getDocumentFontFamilies();
+    if (!families.includes('The Message')) {
+      const style = document.createElement('style');
+      style.innerText = theMessageFontFace;
+
+      document.head.appendChild(style);
     }
   }
 }

@@ -1327,7 +1327,7 @@
     --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-base));
     --sl-color-slds-checklist-link-idle: rgb(var(--sl-color-palette-info-400));
     --sl-color-slds-checklist-foreground: var(--sl-body-foreground);
-    --sl-color-slds-checklist-backgroud: var(--sl-body-background);
+    --sl-color-slds-checklist-background: var(--sl-body-background);
     --sl-color-accordion-active-background: var(--sl-body-background);
     --sl-color-accordion-disabled-header: var(--sl-body-background);
     --sl-color-accordion-disabled-background: var(--sl-body-background);
@@ -2137,7 +2137,7 @@
     --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-300));
     --sl-color-slds-checklist-icon-danger: rgb(var(--sl-color-palette-danger-300));
     --sl-color-slds-checklist-foreground: var(--sl-body-foreground);
-    --sl-color-slds-checklist-backgroud: var(--sl-body-background);
+    --sl-color-slds-checklist-background: var(--sl-body-background);
     --sl-color-tab-content-foreground: var(--sl-body-foreground);
     --sl-color-tab-content-background: var(--sl-body-background);
     --sl-color-tab-active-foreground: var(--sl-body-foreground);

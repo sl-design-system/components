@@ -1,5 +1,11 @@
 # @sanomalearning/slds-magister
 
+## 0.1.6
+
+### Patch Changes
+
+- [#1050](https://github.com/sl-design-system/components/pull/1050) [`0332a65`](https://github.com/sl-design-system/components/commit/0332a653889671d9d026e52efc82a3633b94210e) - Tokens fixes
+
 ## 0.1.5
 
 ### Patch Changes

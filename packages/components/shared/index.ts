@@ -14,6 +14,7 @@ export * from './src/decorators/event.js';
 export * from './src/decorators/observe.js';
 export * from './src/dom.js';
 export * from './src/directives/anchor.js';
+export * from './src/events.js';
 export * from './src/path.js';
 export * from './src/popover.js';
 export * from './src/string.js';

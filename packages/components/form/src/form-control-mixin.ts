@@ -131,6 +131,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /** @ignore For internal use only */
     get formControlElement(): FormControlElement {
+      console.log('this.#formControlElement', this.#formControlElement);
       if (this.#formControlElement) {
         return this.#formControlElement;
       } else {

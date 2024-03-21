@@ -57,6 +57,12 @@ import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
     </sl-form>
 
     <pre>{{ formGroup.value | json }}</pre>
+
+    <sl-form [formGroup]="myGroup">
+      <sl-form-field label="Checkbox">
+        <sl-checkbox formControlName="checkbox1" value="checked">Checkbox</sl-checkbox>
+      </sl-form-field>
+    </sl-form>
   `
 })
 export class AllFormControlsReactiveComponent {
@@ -68,6 +74,10 @@ export class AllFormControlsReactiveComponent {
     switch: new FormControl('toggled'),
     checkboxGroup: new FormControl(['2', '1', '0']),
     radioGroup: new FormControl('1')
+  });
+
+  myGroup = new FormGroup({
+    checkbox1: new FormControl('checked')
   });
 }
 

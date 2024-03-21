@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { AfterViewInit, Injectable } from '@angular/core';
 import type { ElementRef, OnDestroy, OnInit } from '@angular/core';
 import type { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from '@angular/forms';
 import type { FormControl } from '@sl-design-system/form';
 
 @Injectable()
 export abstract class FormControlElementDirective<T extends HTMLElement & FormControl>
-  implements ControlValueAccessor, OnDestroy, OnInit, Validator
+  implements ControlValueAccessor, AfterViewInit, OnDestroy, OnInit, Validator
 {
   #onChange = (event: Event): void => {
     this.onChange((event as CustomEvent<T['formValue']>).detail);
@@ -23,6 +23,14 @@ export abstract class FormControlElementDirective<T extends HTMLElement & FormCo
   constructor(protected elementRef: ElementRef<T>) {}
 
   ngOnInit(): void {
+    console.log('this.element', this.element);
+    // this.element.addEventListener('sl-blur', this.onTouched);
+    // this.element.addEventListener('sl-change', this.#onChange);
+    // this.element.addEventListener('sl-validate', this.onValidatorChange);
+  } // TODO: ngAfterViewInit?
+
+  ngAfterViewInit(): void {
+    console.log('this.element in afterviewinit', this.element);
     this.element.addEventListener('sl-blur', this.onTouched);
     this.element.addEventListener('sl-change', this.#onChange);
     this.element.addEventListener('sl-validate', this.onValidatorChange);

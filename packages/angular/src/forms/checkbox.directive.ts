@@ -22,6 +22,7 @@ import { FormControlElementDirective } from './form-control-element.directive';
 export class CheckboxDirective extends FormControlElementDirective<Checkbox> {
   constructor(@Inject(ElementRef) elementRef: ElementRef<Checkbox>) {
     super(elementRef);
+    console.log('elementRef in checkbox', elementRef);
   }
 
   override validate(): ValidationErrors | null {

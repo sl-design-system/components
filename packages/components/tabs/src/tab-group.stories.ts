@@ -107,7 +107,7 @@ export const Links: Story = {
   }
 };
 
-export const Overflow: Story = {
+export const OverflowHorizontal: Story = {
   args: {
     tabs: () => html`
       <sl-tab>Tab 1</sl-tab>
@@ -131,6 +131,13 @@ export const Overflow: Story = {
       <sl-tab>Tab 19</sl-tab>
       <sl-tab>Tab 20</sl-tab>
     `
+  }
+};
+
+export const OverflowVertical: Story = {
+  args: {
+    ...OverflowHorizontal.args,
+    vertical: true
   }
 };
 
@@ -285,60 +292,3 @@ export const Vertical: Story = {
     vertical: true
   }
 };
-
-// export const VerticalInSmallContainer: StoryObj = {
-//   render: ({ alignment }) =>
-//     html` <style>
-//         sl-tab-group {
-//           block-size: 300px;
-//         }
-
-//         sl-tab-panel {
-//           overflow: auto;
-//         }
-
-//         sl-tab-group::part(wrapper) {
-//           position: sticky;
-//           inset-block-start: 0;
-//           align-self: flex-start;
-//         }
-
-//         .tab-wrapper {
-//           border: 4px dashed #c6c6c6;
-//           padding: 20px;
-//         }
-//       </style>
-//       <div class="tab-wrapper">
-//         <sl-tab-group vertical .alignment=${alignment}>
-//           <sl-tab selected>This is the first tab</sl-tab>
-//           <sl-tab-panel>Contents tab 1 ${createLipsumParagraphs(10)}</sl-tab-panel>
-
-//           <sl-tab>This is the second tab</sl-tab>
-//           <sl-tab-panel>Contents tab 2 ${createLipsumParagraphs(3)}</sl-tab-panel>
-
-//           <sl-tab>This is the third tab</sl-tab>
-//           <sl-tab-panel>Contents tab 3 ${createLipsumParagraphs(2)}</sl-tab-panel>
-
-//           <sl-tab disabled>This is the fourth tab (disabled)</sl-tab>
-//           <sl-tab-panel>Contents tab 4</sl-tab-panel>
-
-//           <sl-tab>This is the fifth tab</sl-tab>
-//           <sl-tab-panel>Contents tab 5</sl-tab-panel>
-
-//           <sl-tab>This is the sixth tab</sl-tab>
-//           <sl-tab-panel>Contents tab 6</sl-tab-panel>
-
-//           <sl-tab>This is the seventh tab</sl-tab>
-//           <sl-tab-panel>Contents tab 7</sl-tab-panel>
-
-//           <sl-tab>This is the eighth tab</sl-tab>
-//           <sl-tab-panel>Contents tab 8</sl-tab-panel>
-
-//           <sl-tab>This is the nineth tab</sl-tab>
-//           <sl-tab-panel>Contents tab 9</sl-tab-panel>
-
-//           <sl-tab>This is the tenth tab</sl-tab>
-//           <sl-tab-panel>Contents tab 10</sl-tab-panel>
-//         </sl-tab-group>
-//       </div>`
-// };

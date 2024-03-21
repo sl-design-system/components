@@ -4297,6 +4297,8 @@ __metadata:
     "@fortawesome/pro-solid-svg-icons": "npm:^6.1.5"
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/icon": "npm:0.0.9"
+    "@sl-design-system/skeleton": "npm:0.2.3"
+    "@webcomponents/scoped-custom-element-registry": "npm:^0.0.9"
     lit: "npm:^3.1.2"
   languageName: unknown
   linkType: soft
@@ -4705,7 +4707,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/skeleton@workspace:packages/components/skeleton":
+"@sl-design-system/skeleton@npm:0.2.3, @sl-design-system/skeleton@workspace:packages/components/skeleton":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/skeleton@workspace:packages/components/skeleton"
   dependencies:

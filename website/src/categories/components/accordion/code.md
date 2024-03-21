@@ -100,30 +100,5 @@ eleventyNavigation:
 
 </div>
 </section>  
-
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/accordion
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/accordion
-  ```
-</div>
-
-</section>
-
+<ds-install-info link-in-navigation package="accordion"></ds-install-info>
 {% include "../component-table.njk" %}

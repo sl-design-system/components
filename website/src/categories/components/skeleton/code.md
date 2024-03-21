@@ -69,32 +69,7 @@ eleventyNavigation:
 </div>
 
 </section>
-
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/skeleton
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/skeleton
-  ```
-</div>
-
-</section>
-
+<ds-install-info link-in-navigation package="skeleton"></ds-install-info>
 <section>
 
 ## Sizing

@@ -5,7 +5,7 @@ import '../register.js';
 import { type Drawer } from './drawer.js';
 
 export default {
-  title: 'Drawer',
+  title: 'Components/Drawer',
   args: {
     attachment: 'right',
     buttonSize: 'sm'

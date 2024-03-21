@@ -243,6 +243,8 @@
   --sl-color-palette-primary-150: 151 212 210;
   --sl-color-palette-primary-100: 185 227 225;
   --sl-color-palette-primary-50: 220 241 240;
+  --sl-box-shadow-slds-checklist: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
+    0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150));
   --sl-elevation-shadow-none: 0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0);
   --sl-elevation-shadow-lg: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
     0 8px 16px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
@@ -811,13 +813,13 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
     --sl-body-surface-overlay: rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-700));
     --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
+    --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+    --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
     --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));

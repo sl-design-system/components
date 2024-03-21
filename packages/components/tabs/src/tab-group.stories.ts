@@ -6,7 +6,7 @@ import '../register.js';
 import { type Tab } from './tab.js';
 
 export default {
-  title: 'Tab Group',
+  title: 'Components/Tab Group',
   args: {
     vertical: false,
     alignment: 'start'

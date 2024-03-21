@@ -39,7 +39,7 @@ Icon.register(
 );
 
 export default {
-  title: 'Menu',
+  title: 'Components/Menu',
   args: {
     maxWidth: '200px'
   },

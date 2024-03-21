@@ -8,8 +8,17 @@ import {
 } from '@sl-design-system/shared';
 import { type CSSResult, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { type GridColumnEvent } from './events.js';
 import { type Grid } from './grid.js';
+
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-column-update': SlColumnUpdateEvent;
+  }
+
+  interface HTMLElementTagNameMap {
+    'sl-grid-column': GridColumn;
+  }
+}
 
 /** Custom for aligning the content in the cells. */
 export type GridColumnAlignment = 'start' | 'center' | 'end';
@@ -22,6 +31,9 @@ export type GridColumnDataRenderer<T> = (model: T) => string | undefined | Templ
 
 /** Custom type for providing parts to a cell. */
 export type GridColumnParts<T> = (model: T) => string | undefined;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlColumnUpdateEvent<T = any> = CustomEvent<{ grid: Grid; column: GridColumn<T> }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumn<T = any> extends LitElement {
@@ -51,7 +63,7 @@ export class GridColumn<T = any> extends LitElement {
   @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
 
   /** Emits when the column definition has changed. */
-  @event() columnUpdate!: EventEmitter<GridColumnEvent<T>>;
+  @event() columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
 
   /** The parent grid instance. */
   @property({ attribute: false }) grid?: Grid<T>;
@@ -107,8 +119,7 @@ export class GridColumn<T = any> extends LitElement {
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('grid')) {
       if (this.grid) {
-        this.#events.listen(this.grid, 'sl-grid-items-change', this.itemsChanged);
-        this.#events.listen(this.grid, 'sl-grid-state-change', this.stateChanged);
+        this.#events.listen(this.grid, 'sl-state-change', this.stateChanged);
       }
     }
   }

@@ -9,12 +9,22 @@ import { Hint } from './hint.js';
 import { Label, type LabelMark } from './label.js';
 import { type UpdateValidityEvent } from './update-validity-event.js';
 
-// Workaround for missing type in @open-wc/scoped-elements
 declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-form-field': SlFormFieldEvent;
+  }
+
+  interface HTMLElementTagNameMap {
+    'sl-form-field': FormField;
+  }
+
   interface ShadowRoot {
+    // Workaround for missing type in @open-wc/scoped-elements
     createElement(tagName: string): HTMLElement;
   }
 }
+
+export type SlFormFieldEvent = CustomEvent<void> & { target: FormField };
 
 let nextUniqueId = 0;
 
@@ -53,7 +63,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   @state() error?: string;
 
   /** Emits when the field is added to a form. */
-  @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<void>;
+  @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<SlFormFieldEvent>;
 
   /**
    * A hint that will be shown when there are no validation messages.

@@ -36,32 +36,7 @@ eleventyNavigation:
 
 </div>
 </section>
-
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/tooltip
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/tooltip
-  ```
-</div>
-
-</section>
-
+<ds-install-info link-in-navigation package="tooltip"></ds-install-info>
 <section>
 
 ## TooltipDirective API

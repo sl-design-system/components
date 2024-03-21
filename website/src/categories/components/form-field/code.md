@@ -9,31 +9,7 @@ eleventyNavigation:
   key: FormFieldCode
 ---
 
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```html
-    npm install @sl-design-system/form
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```html
-    yarn add @sl-design-system/form
-  ```
-</div>
-
-</section>
-
+<ds-install-info link-in-navigation package="form"></ds-install-info>
 <section>
 
 The `<sl-form-field>` component fulfills four functions:

@@ -1,5 +1,11 @@
 # @sl-design-system/myvanin
 
+## 0.1.7
+
+### Patch Changes
+
+- [#1041](https://github.com/sl-design-system/components/pull/1041) [`d2aee27`](https://github.com/sl-design-system/components/commit/d2aee279e90ff6f76f9e0db046e9965493448248) - Changed font weight from bold to semi-bold
+
 ## 0.1.6
 
 ### Patch Changes

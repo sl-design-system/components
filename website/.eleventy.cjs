@@ -25,6 +25,10 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
   eleventyConfig.addFilter('search', searchFilter);
+  
+  eleventyConfig.addFilter('nl2br', function(str) {
+    return str.replace(/\r|\n|\r\n/g, '<br />')
+  });
 
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {
     const newValue = value?.replace(/([A-Z])/g, '.$1').trim();

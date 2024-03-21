@@ -178,8 +178,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       <div part="container">
         <div part="wrapper">
           <div class="fade-container">
-            <div class="fade fade-left"></div>
-            <div class="fade fade-right"></div>
+            <div class="fade fade-start"></div>
+            <div class="fade fade-end"></div>
             <div @scroll=${this.#onScroll} part="scroller">
               <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
                 <span class="indicator" role="presentation"></span>
@@ -218,7 +218,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     }
 
     this.#updateSelectedTab(tab);
-    this.#scrollToTop();
+    this.#scrollToTabPanelStart();
   }
 
   #onKeydown(event: KeyboardEvent & { target: HTMLElement }): void {
@@ -229,7 +229,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       event.stopPropagation();
 
       this.#updateSelectedTab(tab);
-      this.#scrollToTop();
+      this.#scrollToTabPanelStart();
     }
   }
 
@@ -238,11 +238,25 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #onScroll(event: Event & { target: HTMLElement }): void {
-    const { clientWidth, scrollLeft, scrollWidth } = event.target,
-      scrollable = scrollWidth > clientWidth;
+    let scrollStart = false,
+      scrollEnd = false;
 
-    this.toggleAttribute('scroll-left', scrollable && scrollLeft > 0);
-    this.toggleAttribute('scroll-right', scrollable && Math.round(scrollLeft + clientWidth) < scrollWidth);
+    if (this.vertical) {
+      const { clientHeight, scrollTop, scrollHeight } = event.target,
+        scrollable = scrollHeight > clientHeight;
+
+      scrollStart = scrollable && scrollTop > 0;
+      scrollEnd = scrollable && Math.round(scrollTop + clientHeight) < scrollHeight;
+    } else {
+      const { clientWidth, scrollLeft, scrollWidth } = event.target,
+        scrollable = scrollWidth > clientWidth;
+
+      scrollStart = scrollable && scrollLeft > 0;
+      scrollEnd = scrollable && Math.round(scrollLeft + clientWidth) < scrollWidth;
+    }
+
+    this.toggleAttribute('scroll-start', scrollStart);
+    this.toggleAttribute('scroll-end', scrollEnd);
   }
 
   #onTabSlotchange(event: Event & { target: HTMLSlotElement }): void {
@@ -287,24 +301,30 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #scrollIntoViewIfNeeded(tab: Tab): void {
-    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
+    const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
+      scrollerRect = scroller.getBoundingClientRect(),
+      tabRect = tab.getBoundingClientRect();
 
     if (this.vertical) {
-      if (tab.offsetTop < scroller.scrollTop) {
-        scroller.scrollTo({ top: tab.offsetTop });
-      } else if (tab.offsetTop + tab.offsetHeight > scroller.scrollTop + scroller.offsetHeight) {
-        scroller.scrollTo({ top: tab.offsetTop - scroller.offsetHeight + tab.offsetHeight });
+      if (tabRect.top < scrollerRect.top) {
+        // The tab is above the top edge of the scroller
+        scroller.scrollBy({ top: tabRect.top - scrollerRect.top });
+      } else if (tabRect.bottom > scrollerRect.bottom) {
+        // The tab is below the bottom edge of the scroller
+        scroller.scrollBy({ top: tabRect.bottom - scrollerRect.bottom });
       }
     } else {
-      if (tab.offsetLeft < scroller.scrollLeft) {
-        scroller.scrollTo({ left: tab.offsetLeft });
-      } else if (tab.offsetLeft + tab.offsetWidth > scroller.scrollLeft + scroller.offsetWidth) {
-        scroller.scrollTo({ left: tab.offsetLeft - scroller.offsetWidth + tab.offsetWidth });
+      if (tabRect.left < scrollerRect.left) {
+        // The tab is to the left of the left edge of the scroller
+        scroller.scrollBy({ left: tabRect.left - scrollerRect.left });
+      } else if (tabRect.right > scrollerRect.right) {
+        // The tab is to the right of the right edge of the scroller
+        scroller.scrollBy({ left: tabRect.right - scrollerRect.right });
       }
     }
   }
 
-  #scrollToTop(): void {
+  #scrollToTabPanelStart(): void {
     const { bottom: containerBottom = 0 } =
         this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() ?? {},
       { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() ?? {},
@@ -316,21 +336,19 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #updateSelectedTab(selectedTab: Tab): void {
-    if (selectedTab === this.selectedTab) {
-      return;
+    if (selectedTab !== this.selectedTab) {
+      this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
+
+      this.querySelectorAll('sl-tab-panel').forEach(panel => {
+        panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
+      });
+
+      this.selectedTab = selectedTab;
+      this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
+      this.#updateSelectionIndicator();
     }
 
-    this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
-
-    this.querySelectorAll('sl-tab-panel').forEach(panel => {
-      panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
-    });
-
-    this.selectedTab = selectedTab;
-    this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
-
     this.#scrollIntoViewIfNeeded(selectedTab);
-    this.#updateSelectionIndicator();
   }
 
   #updateSelectionIndicator(): void {

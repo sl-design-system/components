@@ -1,7 +1,7 @@
 :host {
   --_background: var(--sl-color-tab-default-background);
   --_border: var(--sl-border-width-border-tab) solid var(--sl-color-tab-default-border);
-  --_fade-inline-size: 6rem;
+  --_fade-size: 6rem;
   --_indicator-animation-duration: var(--sl-animation-duration-slow);
   --_indicator-color: var(--sl-color-button-primary-solid-idle-background);
   --_indicator-size: var(--sl-size-select-indicator);
@@ -40,8 +40,8 @@
   }
 }
 
-:host([scroll-left]) .fade-left,
-:host([scroll-right]) .fade-right {
+:host([scroll-start]) .fade-start,
+:host([scroll-end]) .fade-end {
   visibility: visible;
 }
 
@@ -60,6 +60,22 @@
     block-size: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .fade {
+    block-size: var(--_fade-size);
+    inline-size: 100%;
+    inset: auto 0;
+  }
+
+  .fade-start {
+    background: linear-gradient(0deg, transparent, var(--_background));
+    inset-block-start: 0;
+  }
+
+  .fade-end {
+    background: linear-gradient(180deg, transparent, var(--_background));
+    inset-block-end: 0;
   }
 
   sl-menu-button {
@@ -124,7 +140,7 @@
 
 .fade {
   block-size: 100%;
-  inline-size: var(--_fade-inline-size);
+  inline-size: var(--_fade-size);
   inset-block: 0;
   pointer-events: none;
   position: absolute;
@@ -132,12 +148,12 @@
   z-index: 1; // Make sure the fade is above the scroller
 }
 
-.fade-left {
+.fade-start {
   background: linear-gradient(-90deg, transparent, var(--_background));
   inset-inline-start: 0;
 }
 
-.fade-right {
+.fade-end {
   background: linear-gradient(90deg, transparent, var(--_background));
   inset-inline-end: 0;
 }

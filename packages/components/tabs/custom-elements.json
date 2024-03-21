@@ -356,7 +356,7 @@
             },
             {
               "kind": "method",
-              "name": "#scrollToTop",
+              "name": "#scrollToTabPanelStart",
               "return": {
                 "type": {
                   "text": "void"

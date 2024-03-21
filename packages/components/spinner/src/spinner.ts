@@ -34,7 +34,7 @@ export class Spinner extends LitElement {
     super.connectedCallback();
 
     if (!this.hasAttribute('role')) {
-      this.setAttribute('role', 'status');
+      this.setAttribute('role', 'presentation');
     }
   }
 

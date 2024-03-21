@@ -3790,6 +3790,43 @@
         "type": "color",
         "description": "body.surface.100"
       }
+    },
+    "breadcrumb": {
+      "divider": {
+        "value": "{color.palette.neutral.200}",
+        "type": "color",
+        "description": "color.button.info.outline.disabled.foreground"
+      }
+    },
+    "href": {
+      "idle": {
+        "foreground": {
+          "value": "{color.palette.neutral.500}",
+          "type": "color",
+          "description": "color.button.default.outline.idle.foreground"
+        }
+      },
+      "hover": {
+        "foreground": {
+          "value": "{color.palette.accent.base}",
+          "type": "color",
+          "description": "color.button.default.outline.hover.foreground"
+        }
+      },
+      "active": {
+        "foreground": {
+          "value": "{color.palette.accent.900}",
+          "type": "color",
+          "description": "color.button.primary.outline.active.foreground"
+        }
+      },
+      "disabled": {
+        "foreground": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color",
+          "description": "color.button.info.outline.disabled.foreground"
+        }
+      }
     }
   },
   "boxShadow": {

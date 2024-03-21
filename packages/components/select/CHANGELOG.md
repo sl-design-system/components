@@ -1,5 +1,15 @@
 # @sl-design-system/select
 
+## 0.0.24
+
+### Patch Changes
+
+- [#1076](https://github.com/sl-design-system/components/pull/1076) [`1958093`](https://github.com/sl-design-system/components/commit/19580930a666b18051aa0c64dafc7d9c0fdffaf4) - Fix incorrect color when selected & disabled
+
+- Updated dependencies [[`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad)]:
+  - @sl-design-system/shared@0.2.7
+  - @sl-design-system/form@0.0.11
+
 ## 0.0.23
 
 ### Patch Changes

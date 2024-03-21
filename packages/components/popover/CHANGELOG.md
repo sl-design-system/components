@@ -1,5 +1,12 @@
 # @sl-design-system/popover
 
+## 0.1.8
+
+### Patch Changes
+
+- Updated dependencies [[`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad)]:
+  - @sl-design-system/shared@0.2.7
+
 ## 0.1.7
 
 ### Patch Changes

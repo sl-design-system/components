@@ -56,6 +56,21 @@
     max-inline-size: var(--_tablist-vertical-max-width);
   }
 
+  [part='wrapper'] {
+    block-size: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  sl-menu-button {
+    padding-block-start: var(--_menu-button-inline-padding);
+    padding-inline-start: 0;
+
+    &::part(button) {
+      flex: 1;
+    }
+  }
+
   [part='scroller'] {
     border-inline-end: var(--_border);
     display: flex;

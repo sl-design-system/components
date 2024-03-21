@@ -88,6 +88,12 @@
           "kind": "class",
           "description": "Custom element that combines a button and a menu and automatically wires them up\ntogether.",
           "name": "MenuButton",
+          "cssParts": [
+            {
+              "description": "The button element.",
+              "name": "button"
+            }
+          ],
           "slots": [
             {
               "description": "The menu items should be slotted in the default slot.",

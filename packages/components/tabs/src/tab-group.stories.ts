@@ -138,7 +138,15 @@ export const OverflowVertical: Story = {
   args: {
     ...OverflowHorizontal.args,
     vertical: true
-  }
+  },
+  render: ({ alignTabs, tabs, vertical }) => html`
+    <style>
+      sl-tab-group {
+        block-size: calc(100dvh - 2rem);
+      }
+    </style>
+    <sl-tab-group .alignTabs=${alignTabs} .vertical=${vertical}>${tabs?.()}</sl-tab-group>
+  `
 };
 
 export const Responsive: Story = {

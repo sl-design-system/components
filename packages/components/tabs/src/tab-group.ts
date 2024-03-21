@@ -357,7 +357,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement,
       tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement;
 
-    this.showMenu = !this.vertical && tablist.scrollWidth > scroller.offsetWidth;
+    this.showMenu = this.vertical
+      ? tablist.scrollHeight > scroller.offsetHeight
+      : tablist.scrollWidth > scroller.offsetWidth;
+
     if (this.showMenu) {
       this.menuItems = this.tabs?.map(tab => {
         const title = Array.from(tab.childNodes)

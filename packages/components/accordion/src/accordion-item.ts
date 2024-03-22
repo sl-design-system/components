@@ -1,5 +1,5 @@
 import { localized } from '@lit/localize';
-import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -23,9 +23,6 @@ declare global {
 export class AccordionItem extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
-
-  /** Manage events. */
-  #events = new EventsController(this, { focus: this.#onFocus });
 
   /** Whether we should actually animate opening/closing the wrapper. */
   #shouldAnimate = true;
@@ -82,6 +79,15 @@ export class AccordionItem extends LitElement {
   }
 
   /**
+   * This is a workaround for `delegatesFocus` not allowing you to select
+   * any text in the content of the accordion item.
+   * See https://issues.chromium.org/issues/40622041
+   */
+  override focus(options?: FocusOptions): void {
+    this.renderRoot.querySelector('summary')?.focus(options);
+  }
+
+  /**
    * Toggles the component state between open or closed. If the `force` parameter is
    * provided, the state will be set to the value of the parameter.
    *
@@ -107,18 +113,6 @@ export class AccordionItem extends LitElement {
     }
 
     this.#animateState(this.open ? 'closing' : 'opening');
-  }
-
-  /**
-   * This is a workaround for `delegatesFocus` not allowing you to select
-   * any text in the content of the accordion item.
-   * See https://issues.chromium.org/issues/40622041
-   *
-   * The requestAnimationFrame wrapper is necessary, otherwise the accordion
-   * element won't receive a `focusin` event (no idea why).
-   */
-  #onFocus(): void {
-    requestAnimationFrame(() => this.renderRoot.querySelector('summary')?.focus());
   }
 
   #onToggle(event: ToggleEvent): void {

@@ -1,3 +1,4 @@
+import '@sl-design-system/button/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -38,6 +39,7 @@ export const Basic: Story = {
         harsh world. Feel the ground shake as the mighty Stegosaurus lumbers past, its plated back a fortress against
         predators. Explore, learn, and immerse yourself in the wonders of the Mesozoic era — Discovering Dinosaurs: A
         Prehistoric Adventure awaits! 🌎🦕🌿
+        <sl-button>Button</sl-button>
       </sl-accordion-item>
       <sl-accordion-item summary="Geography Safari: Mapping Our World">
         Grab your compass and explore the globe! Discover continents, oceans, mountains, and rainforests. Study maps,

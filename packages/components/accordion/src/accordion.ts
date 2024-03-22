@@ -1,4 +1,4 @@
-import { RovingTabindexController } from '@sl-design-system/shared';
+import { FocusGroupController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { AccordionItem } from './accordion-item.js';
@@ -24,8 +24,7 @@ export class Accordion extends LitElement {
   static override styles: CSSResultGroup = styles;
 
   /** Manage the keyboard navigation. */
-  #rovingTabindexController = new RovingTabindexController<AccordionItem>(this, {
-    direction: 'vertical',
+  #focusGroupController = new FocusGroupController<AccordionItem>(this, {
     elements: () => this.items || [],
     focusInIndex: (elements: AccordionItem[]) => {
       const index = elements.findIndex(el => !el.disabled && el.open);
@@ -43,7 +42,9 @@ export class Accordion extends LitElement {
   @property({ type: Boolean, reflect: true }) single?: boolean;
 
   override render(): TemplateResult {
-    return html`<slot @sl-toggle=${this.#onToggle}></slot>`;
+    return html`
+      <slot @slotchange=${() => this.#focusGroupController.clearElementCache()} @sl-toggle=${this.#onToggle}></slot>
+    `;
   }
 
   #onToggle(event: CustomEvent<boolean>): void {

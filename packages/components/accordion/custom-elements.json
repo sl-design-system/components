@@ -84,6 +84,25 @@
               "reflects": true
             },
             {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "This is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
+            },
+            {
               "kind": "field",
               "name": "open",
               "type": {
@@ -176,6 +195,25 @@
           "methods": [
             {
               "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "This is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
+            },
+            {
+              "kind": "method",
               "name": "toggle",
               "return": {
                 "type": {
@@ -210,16 +248,6 @@
                   }
                 }
               ]
-            },
-            {
-              "kind": "method",
-              "name": "#onFocus",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "description": "This is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041\n\nThe requestAnimationFrame wrapper is necessary, otherwise the accordion\nelement won't receive a `focusin` event (no idea why)."
             },
             {
               "kind": "method",
@@ -259,13 +287,6 @@
             }
           ],
           "fields": [
-            {
-              "kind": "field",
-              "name": "#events",
-              "privacy": "private",
-              "default": "new EventsController(this, { focus: this.#onFocus })",
-              "description": "Manage events."
-            },
             {
               "kind": "field",
               "name": "#shouldAnimate",
@@ -362,9 +383,9 @@
           "fields": [
             {
               "kind": "field",
-              "name": "#rovingTabindexController",
+              "name": "#focusGroupController",
               "privacy": "private",
-              "default": "new RovingTabindexController<AccordionItem>(this, {\n    direction: 'vertical',\n    elements: () => this.items || [],\n    focusInIndex: (elements: AccordionItem[]) => {\n      const index = elements.findIndex(el => !el.disabled && el.open);\n\n      // Return either the first enabled open item or the first enabled item\n      return index !== -1 ? index : elements.findIndex(el => !el.disabled);\n    },\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
+              "default": "new FocusGroupController<AccordionItem>(this, {\n    elements: () => this.items || [],\n    focusInIndex: (elements: AccordionItem[]) => {\n      const index = elements.findIndex(el => !el.disabled && el.open);\n\n      // Return either the first enabled open item or the first enabled item\n      return index !== -1 ? index : elements.findIndex(el => !el.disabled);\n    },\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
               "description": "Manage the keyboard navigation."
             },
             {

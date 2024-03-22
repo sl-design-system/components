@@ -26,12 +26,12 @@ await Promise.allSettled(
       );
 
       // Step 2: lint CSS
-      let { output } = await stylelint.lint({ code: css, fix: true });
+      let { code } = await stylelint.lint({ code: css, fix: true });
 
-      output = output.toString().split('\n').map(str => `  ${str}`.trimEnd()).join('\n');
+      code = code.toString().split('\n').map(str => `  ${str}`.trimEnd()).join('\n');
 
       // Step 3: write CSS to TS template
-      await fs.writeFile(`${file}.ts`, `import { css } from 'lit';\n\nexport default css\`\n${output}\`;\n`);
+      await fs.writeFile(`${file}.ts`, `import { css } from 'lit';\n\nexport default css\`\n${code}\`;\n`);
     } catch (err) {
       console.log(err);
     }

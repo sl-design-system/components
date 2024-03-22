@@ -41,5 +41,5 @@ WAI-ARIA Roles, States, and Properties for an spinner provide essential informat
 
 **Notes:** 
 1. The spinner itself doesn't have meaning for screenreaders; you can't use it to communicate that the loading is complete. Therefore we hide it for screenreaders, but you can set some properties on the container where the content is being loaded. You can for example use `aria-busy=true` on a container that is an `aria-live` region to indicate an element is being modified and that assistive technologies may want to wait until the changes are complete before informing the user about the update. 
-Live regions (even those set to `polite`) should be used sparingly because you don't want to disturb the user too much. They should be used only in important cases where the user is waiting for feedback on an action they carried out, or an error or warning that has an impact on the user experience.
+Live regions (even those set to `polite`) should be used sparingly because you don't want to disturb the user too much. They should be used only in important cases where the user is waiting for feedback on an action they carried out, or when an error or warning that has an impact on the user experience occurs.
 </section>

@@ -326,9 +326,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
 
   #scrollToTabPanelStart(): void {
     const { bottom: containerBottom = 0 } =
-        this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() ?? {},
-      { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() ?? {},
-      { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() ?? {};
+        this.renderRoot.querySelector('[part="container"]')?.getBoundingClientRect() || {},
+      { top: wrapperTop = 0 } = this.renderRoot.querySelector('[part="wrapper"]')?.getBoundingClientRect() || {},
+      { top = 0 } = this.renderRoot.querySelector('[part="panels"]')?.getBoundingClientRect() || {};
 
     // Scroll to make sure the top of the panel is visible, but don't scroll too far
     // so the tab container/wrapper may become unstuck.
@@ -390,11 +390,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.menuItems = this.tabs?.map(tab => {
         const title = Array.from(tab.childNodes)
           .filter(node => node instanceof Text || (node instanceof Element && !node.slot))
-          .reduce((acc, node) => acc + node.textContent?.trim() ?? '', '');
+          .reduce((acc, node) => acc + node.textContent?.trim() || '', '');
 
         const subtitle = Array.from(tab.childNodes)
           .filter(node => node instanceof Element && node.slot === 'subtitle')
-          .reduce((acc, node) => acc + node.textContent?.trim() ?? '', '');
+          .reduce((acc, node) => acc + node.textContent?.trim() || '', '');
 
         return { tab, disabled: tab.disabled, title, subtitle };
       });

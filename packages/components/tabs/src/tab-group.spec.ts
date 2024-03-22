@@ -245,7 +245,7 @@ describe('sl-tab-group', () => {
     });
   });
 
-  describe('overflow', () => {
+  describe('horizontal overflow', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-tab-group style="width: 50px">
@@ -290,6 +290,30 @@ describe('sl-tab-group', () => {
 
       expect(selectedTab).to.have.text('Tab 2');
       expect(selectedPanel).to.have.text('Panel 2');
+    });
+  });
+
+  describe('vertical overflow', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tab-group style="height: 50px" vertical>
+          <sl-tab>Tab 1</sl-tab>
+          <sl-tab>Tab 2</sl-tab>
+          <sl-tab disabled>Tab 3</sl-tab>
+          <sl-tab-panel>Panel 1</sl-tab-panel>
+          <sl-tab-panel>Panel 2</sl-tab-panel>
+          <sl-tab-panel>Panel 3</sl-tab-panel>
+        </sl-tab-group>
+      `);
+
+      // We need to wait for the RovingTabindexController to do its thing
+      await new Promise(resolve => setTimeout(resolve, 10));
+    });
+
+    it('should have a menu button', () => {
+      const menuButton = el.renderRoot.querySelector('sl-menu-button');
+
+      expect(menuButton).to.exist;
     });
   });
 });

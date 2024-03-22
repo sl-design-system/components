@@ -385,7 +385,7 @@
               "kind": "field",
               "name": "#focusGroupController",
               "privacy": "private",
-              "default": "new FocusGroupController<AccordionItem>(this, {\n    elements: () => this.items || [],\n    focusInIndex: (elements: AccordionItem[]) => {\n      const index = elements.findIndex(el => !el.disabled && el.open);\n\n      // Return either the first enabled open item or the first enabled item\n      return index !== -1 ? index : elements.findIndex(el => !el.disabled);\n    },\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
+              "default": "new FocusGroupController<AccordionItem>(this, {\n    elements: () => this.items || [],\n    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
               "description": "Manage the keyboard navigation."
             },
             {

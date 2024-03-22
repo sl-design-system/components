@@ -27,12 +27,7 @@ export class Accordion extends LitElement {
   /** Manage the keyboard navigation. */
   #focusGroupController = new FocusGroupController<AccordionItem>(this, {
     elements: () => this.items || [],
-    focusInIndex: (elements: AccordionItem[]) => {
-      const index = elements.findIndex(el => !el.disabled && el.open);
-
-      // Return either the first enabled open item or the first enabled item
-      return index !== -1 ? index : elements.findIndex(el => !el.disabled);
-    },
+    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),
     isFocusableElement: (el: AccordionItem) => !el.disabled
   });
 

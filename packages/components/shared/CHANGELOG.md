@@ -1,5 +1,13 @@
 # @sl-design-system/shared
 
+## 0.2.8
+
+### Patch Changes
+
+- [#1058](https://github.com/sl-design-system/components/pull/1058) [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da) - Add `getScrollParent()` utility method
+
+- [#1058](https://github.com/sl-design-system/components/pull/1058) [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da) - When calculating the max size of a popover, do not overwrite any existing max size properties if they are present
+
 ## 0.2.7
 
 ### Patch Changes

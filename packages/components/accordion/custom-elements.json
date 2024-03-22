@@ -60,6 +60,10 @@
             {
               "description": "Header element of the accordion-item",
               "name": "summary"
+            },
+            {
+              "description": "The body of the accordion-item",
+              "name": "panel"
             }
           ],
           "slots": [
@@ -80,6 +84,25 @@
               "reflects": true
             },
             {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "This is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
+            },
+            {
               "kind": "field",
               "name": "open",
               "type": {
@@ -88,6 +111,14 @@
               "description": "Whether the details element is opened.",
               "attribute": "open",
               "reflects": true
+            },
+            {
+              "kind": "event",
+              "name": "sl-toggle",
+              "type": {
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
+              },
+              "description": "Emits when the accordion item has been toggled."
             },
             {
               "kind": "field",
@@ -99,19 +130,31 @@
               "attribute": "summary"
             },
             {
-              "kind": "event",
-              "name": "toggleEvent",
-              "type": {
-                "text": "EventEmitter<SlToggleEvent<string>>"
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
               },
-              "description": "Emits when the accordion item has been toggled."
+              "parameters": [
+                {
+                  "name": "force",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "description": "The state to forcibly set the component to"
+                }
+              ],
+              "description": "Toggles the component state between open or closed. If the `force` parameter is\nprovided, the state will be set to the value of the parameter."
             }
           ],
           "events": [
             {
               "name": "toggleEvent",
               "type": {
-                "text": "EventEmitter<SlToggleEvent<string>>"
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
               },
               "description": "Emits when the accordion item has been toggled.",
               "fieldName": "toggleEvent"
@@ -152,6 +195,62 @@
           "methods": [
             {
               "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "This is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "force",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "description": "The state to forcibly set the component to"
+                }
+              ],
+              "description": "Toggles the component state between open or closed. If the `force` parameter is\nprovided, the state will be set to the value of the parameter."
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "#onToggle",
               "return": {
                 "type": {
@@ -169,7 +268,7 @@
             },
             {
               "kind": "method",
-              "name": "#onClick",
+              "name": "#animateState",
               "return": {
                 "type": {
                   "text": "void"
@@ -177,15 +276,28 @@
               },
               "parameters": [
                 {
-                  "name": "event",
+                  "name": "state",
                   "type": {
-                    "text": "Event & { target: HTMLElement }"
-                  }
+                    "text": "'opening' | 'closing'"
+                  },
+                  "description": "The state which we should animate to"
                 }
-              ]
+              ],
+              "description": "Animate the details opening or closing. This process is done in steps.\n\nOpening:\n1. Add the `open` attribute to the details element, so the wrapper is visible\n2. Add an `animationend` listener that will remove the `opening` class\n3. Add the `opening` class to the details in the next frame (for browser compatibility)\n\nClosing:\n1. Add an `animationend` listener that will remove the `closing` class and `open` attribute\n2. Add the `closing` class to the details in the next frame (for browser compatibility)\n\nThe specific order of adding/removing the `open` attribute is necessary for the animation\nto work. This will also trigger the `toggle` event, which in turn will trigger our own\n`sl-toggle` event."
             }
           ],
-          "fields": []
+          "fields": [
+            {
+              "kind": "field",
+              "name": "#shouldAnimate",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Whether we should actually animate opening/closing the wrapper."
+            }
+          ]
         }
       ],
       "exports": [
@@ -216,6 +328,14 @@
           "members": [
             {
               "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "AccordionItem[] | undefined"
+              },
+              "description": "The slotted accordion items."
+            },
+            {
+              "kind": "field",
               "name": "single",
               "type": {
                 "text": "boolean | undefined"
@@ -244,7 +364,7 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onClick",
+              "name": "#onToggle",
               "return": {
                 "type": {
                   "text": "void"
@@ -254,7 +374,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
+                    "text": "SlToggleEvent<boolean>"
                   }
                 }
               ]
@@ -263,11 +383,18 @@
           "fields": [
             {
               "kind": "field",
+              "name": "#focusGroupController",
+              "privacy": "private",
+              "default": "new FocusGroupController<AccordionItem>(this, {\n    elements: () => this.items || [],\n    focusInIndex: (elements: AccordionItem[]) => elements.findIndex(el => !el.disabled),\n    isFocusableElement: (el: AccordionItem) => !el.disabled\n  })",
+              "description": "Manage the keyboard navigation."
+            },
+            {
+              "kind": "field",
               "name": "items",
               "type": {
-                "text": "AccordionItem[]"
+                "text": "AccordionItem[] | undefined"
               },
-              "privacy": "private"
+              "description": "The slotted accordion items."
             }
           ]
         }

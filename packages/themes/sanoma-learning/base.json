@@ -3849,7 +3849,7 @@
         "type": "spacing"
       },
       "block": {
-        "value": "{space.sm}",
+        "value": "{space.md}",
         "type": "spacing"
       },
       "gap": {

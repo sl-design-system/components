@@ -3791,7 +3791,7 @@
     },
     "breadcrumb": {
       "divider": {
-        "value": "{color.palette.neutral.200}",
+        "value": "{color.palette.neutral.500}",
         "type": "color",
         "description": "color.button.info.outline.disabled.foreground"
       }

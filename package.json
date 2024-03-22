@@ -80,7 +80,8 @@
       "command": "node scripts/build-packages.js checklist",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:scss"
+        "build:scss",
+        "build:themes"
       ],
       "files": [
         "packages/checklist/**/*.ts",
@@ -241,7 +242,7 @@
           "cascade": false
         },
         {
-          "script": "build:checklist",
+          "script": "build:checklist:package",
           "cascade": false
         },
         {

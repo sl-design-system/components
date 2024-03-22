@@ -35,6 +35,7 @@ export class Spinner extends LitElement {
 
     if (!this.hasAttribute('role')) {
       this.setAttribute('role', 'presentation');
+      this.setAttribute('aria-hidden', 'true');
     }
   }
 

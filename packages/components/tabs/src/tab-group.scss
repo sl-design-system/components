@@ -49,7 +49,8 @@
   flex-direction: row;
 
   [part='container'] {
-    border: 0;
+    border-block-end: 0;
+    border-inline-end: var(--_border);
     display: inline-flex;
     flex: 0 0 auto;
     flex-direction: column;
@@ -88,7 +89,6 @@
   }
 
   [part='scroller'] {
-    border-inline-end: var(--_border);
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;

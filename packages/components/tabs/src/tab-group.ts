@@ -171,6 +171,18 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.#updateSelectionIndicator();
       this.#shouldAnimate = true;
     }
+
+    // In vertical mode, we need to observe the scroller for changes in size to
+    // determine when we need to show the menu button.
+    if (changes.has('vertical')) {
+      const scroller = this.renderRoot.querySelector('[part="scroller"]') as HTMLElement;
+
+      if (this.vertical) {
+        this.#resizeObserver.observe(scroller);
+      } else {
+        this.#resizeObserver.unobserve(scroller);
+      }
+    }
   }
 
   override render(): TemplateResult {
@@ -385,6 +397,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.showMenu = this.vertical
       ? tablist.scrollHeight > scroller.offsetHeight
       : tablist.scrollWidth > scroller.offsetWidth;
+
+    console.log('update size', this.showMenu);
 
     if (this.showMenu) {
       this.menuItems = this.tabs?.map(tab => {

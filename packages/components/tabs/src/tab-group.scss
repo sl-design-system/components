@@ -103,7 +103,7 @@
   }
 
   .indicator {
-    block-size: 1px;
+    block-size: 100px;
     inline-size: var(--_indicator-size);
     inset: 0 0 auto auto;
     transform-origin: center top;
@@ -187,7 +187,7 @@
 .indicator {
   background: var(--_indicator-color);
   block-size: var(--_indicator-size);
-  inline-size: 1px;
+  inline-size: 100px;
   inset: auto auto 0 0;
   position: absolute;
   transform-origin: center left;

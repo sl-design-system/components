@@ -385,7 +385,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       indicator.style.scale = `1 ${rect.height}`;
       indicator.style.translate = `0 ${start}px`;
     } else {
-      indicator.style.scale = `${rect.width} 1`;
+      indicator.style.scale = `${rect.width / 100} 1`;
       indicator.style.translate = `${start}px`;
     }
   }
@@ -397,8 +397,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.showMenu = this.vertical
       ? tablist.scrollHeight > scroller.offsetHeight
       : tablist.scrollWidth > scroller.offsetWidth;
-
-    console.log('update size', this.showMenu);
 
     if (this.showMenu) {
       this.menuItems = this.tabs?.map(tab => {

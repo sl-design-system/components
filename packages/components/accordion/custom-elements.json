@@ -374,7 +374,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "CustomEvent<boolean>"
+                    "text": "SlToggleEvent<boolean>"
                   }
                 }
               ]

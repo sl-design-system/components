@@ -1,4 +1,5 @@
 import { FocusGroupController } from '@sl-design-system/shared';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { AccordionItem } from './accordion-item.js';
@@ -47,7 +48,7 @@ export class Accordion extends LitElement {
     `;
   }
 
-  #onToggle(event: CustomEvent<boolean>): void {
+  #onToggle(event: SlToggleEvent<boolean>): void {
     // Do nothing if we allow multiple items to be opened at once
     // or if the event is about an item being closed
     if (!this.single || !event.detail) {

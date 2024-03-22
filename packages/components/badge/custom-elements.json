@@ -54,6 +54,7 @@
                 "text": "BadgeSize"
               },
               "default": "'md'",
+              "description": "The size of the badge component.",
               "attribute": "size",
               "reflects": true
             },
@@ -64,6 +65,7 @@
                 "text": "BadgeVariant"
               },
               "default": "'neutral'",
+              "description": "The variant of the badge.",
               "attribute": "variant",
               "reflects": true
             }
@@ -75,6 +77,7 @@
                 "text": "BadgeSize"
               },
               "default": "'md'",
+              "description": "The size of the badge component.",
               "fieldName": "size"
             },
             {
@@ -83,6 +86,7 @@
                 "text": "BadgeVariant"
               },
               "default": "'neutral'",
+              "description": "The variant of the badge.",
               "fieldName": "variant"
             }
           ],

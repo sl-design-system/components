@@ -14,27 +14,30 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-  <sl-label for="radio-group">What animal do you like best?</sl-label>
-  <sl-radio-group id="radio-group">
-    <sl-radio>Dog</sl-radio>
-    <sl-radio>Cat</sl-radio>
-    <sl-radio>Hamster</sl-radio>
-  </sl-radio-group>
+  <sl-form-field label="Which animal do you like best?">
+    <sl-radio-group value="cat">
+      <sl-radio value="dog">Dog</sl-radio>
+      <sl-radio value="cat">Cat</sl-radio>
+      <sl-radio value="hamster">Hamster</sl-radio>
+    </sl-radio-group> 
+  </sl-form-field>
 
 </div>
 
 <div class="ds-code">
 
   ```html 
-    <sl-radio-group>
-      <sl-radio>Dog</sl-radio>
-      <sl-radio>Cat</sl-radio>
-      <sl-radio>Hamster</sl-radio>
-    </sl-radio-group>
+  <sl-form-field label="Which animal do you like best?">
+    <sl-radio-group value="cat">
+      <sl-radio value="dog">Dog</sl-radio>
+      <sl-radio value="cat">Cat</sl-radio>
+      <sl-radio value="hamster">Hamster</sl-radio>
+    </sl-radio-group> 
+  </sl-form-field>
   ```
 
 </div>
 
 </section>
-
+<ds-install-info link-in-navigation package="radio-group"></ds-install-info>
 {%- include "../component-table.njk" -%}

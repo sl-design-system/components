@@ -6,6 +6,12 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } f
 import { property } from 'lit/decorators.js';
 import styles from './message-dialog.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-message-dialog': MessageDialog;
+  }
+}
+
 export interface MessageDialogConfig<T = unknown> {
   title?: string;
   subtitle?: string;

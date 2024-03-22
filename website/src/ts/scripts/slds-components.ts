@@ -1,5 +1,6 @@
 import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
+import '@sl-design-system/accordion/register.js';
 import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/badge/register.js';
 import '@sl-design-system/button/register.js';
@@ -26,7 +27,14 @@ import '@sl-design-system/tooltip/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';
 import { setup } from '@sl-design-system/sanoma-learning';
 import { Icon } from '@sl-design-system/icon';
-import { faBug, faCode, faMessagesQuestion, faPenToSquare, faPencilRuler } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faBug,
+  faCode,
+  faCopy,
+  faMessagesQuestion,
+  faPenToSquare,
+  faPencilRuler
+} from '@fortawesome/pro-regular-svg-icons';
 import { faEnvelope, faHandBackPointUp, faSchool, faScreenUsers } from '@fortawesome/pro-solid-svg-icons';
 import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 
@@ -43,7 +51,8 @@ Icon.register(
   faPencilRuler,
   faSchool,
   faScreenUsers,
-  faSlack
+  faSlack,
+  faCopy
 );
 
 declare global {

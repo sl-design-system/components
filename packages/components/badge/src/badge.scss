@@ -1,7 +1,7 @@
 @use 'sass:map';
 
 $sizes: 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
-$variants: danger, success, warning, accent, neutral, primary;
+$variants: danger, success, info, warning, accent, neutral, primary;
 $icons: (
   'md': '2xs',
   'lg': '2xs',

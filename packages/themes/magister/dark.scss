@@ -4,10 +4,10 @@
  */
 
 @mixin sl-theme-dark {
-  --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
   --sl-body-surface-overlay: rgba(var(--sl-color-palette-primary-700) / var(--sl-opacity-600));
   --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
+  --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-primary-800));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-primary-900));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-900));
@@ -43,16 +43,19 @@
   --sl-color-tooltip-background: rgb(var(--sl-color-palette-primary-700));
   --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-popover-background: rgb(var(--sl-color-palette-black-base));
-  --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-300));
+  --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-300));
   --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-neutral-background: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-accent-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-accent-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-badge-warning-foreground: rgb(var(--sl-color-palette-black-base));
-  --sl-color-badge-success-foreground: rgb(var(--sl-color-palette-white-base));
-  --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-500));
-  --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
-  --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
+  --sl-color-badge-success-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-300));
+  --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-150));
   --sl-color-inline-message-danger-icon: rgb(var(--sl-color-palette-danger-150));
   --sl-color-inline-message-danger-border: rgb(var(--sl-color-palette-danger-150));
   --sl-color-inline-message-danger-foreground: rgb(var(--sl-color-palette-danger-150));
@@ -383,9 +386,9 @@
   --sl-color-button-default-solid-hover-background: rgb(var(--sl-color-palette-primary-100));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-primary-800));
   --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-primary-50));
-  --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
   --sl-body-background: var(--sl-color-surface-solid-primary-background);
+  --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
   --sl-color-skeleton-shimmer: linear-gradient
     (
       90deg,
@@ -420,7 +423,6 @@
   --sl-color-select-selectbox-default-default-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-select-selectbox-default-default-border: var(--sl-color-input-text-field-default-default-border);
   --sl-color-select-item-default-indicator: rgb(var(--sl-color-palette-primary-base));
-  --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
   --sl-color-badge-warning-background: rgb(var(--sl-color-palette-warning-base));
   --sl-color-inline-message-danger-background: rgba(var(--sl-color-palette-danger-base) / var(--sl-opacity-300));
   --sl-color-inline-message-warning-icon: rgb(var(--sl-color-palette-warning-base));
@@ -596,17 +598,17 @@
   --sl-color-select-selectbox-default-active-placeholder: var(--sl-color-input-text-field-default-active-placeholder);
   --sl-color-select-selectbox-default-hover-placeholder: var(--sl-color-input-text-field-default-hover-placeholder);
   --sl-color-select-selectbox-default-hover-border: var(--sl-color-input-text-field-default-hover-border);
-  --sl-color-select-item-disabled-border: rgba(var(--sl-body-background) / 0);
-  --sl-color-select-item-disabled-background: rgba(var(--sl-body-background) / 0);
+  --sl-color-select-item-disabled-border: rgba(var(--sl-body-background) / 0%);
+  --sl-color-select-item-disabled-background: rgba(var(--sl-body-background) / 0%);
   --sl-color-select-item-focus-indicator: var(--sl-color-select-item-default-indicator);
-  --sl-color-select-item-focus-border: rgba(var(--sl-body-background) / 0);
+  --sl-color-select-item-focus-border: rgba(var(--sl-body-background) / 0%);
   --sl-color-select-item-focus-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
   --sl-color-select-item-active-indicator: var(--sl-color-select-item-default-indicator);
-  --sl-color-select-item-active-border: rgba(var(--sl-body-background) / 0);
+  --sl-color-select-item-active-border: rgba(var(--sl-body-background) / 0%);
   --sl-color-select-item-hover-indicator: var(--sl-color-select-item-default-indicator);
-  --sl-color-select-item-hover-border: rgba(var(--sl-body-background) / 0);
-  --sl-color-select-item-default-border: rgba(var(--sl-body-background) / 0);
-  --sl-color-select-item-default-background: rgba(var(--sl-body-background) / 0);
+  --sl-color-select-item-hover-border: rgba(var(--sl-body-background) / 0%);
+  --sl-color-select-item-default-border: rgba(var(--sl-body-background) / 0%);
+  --sl-color-select-item-default-background: rgba(var(--sl-body-background) / 0%);
   --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);

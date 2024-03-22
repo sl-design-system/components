@@ -2,6 +2,12 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html, type nothin
 import { property } from 'lit/decorators.js';
 import styles from './spinner.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-spinner': Spinner;
+  }
+}
+
 export type SpinnerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type SpinnerVariant = 'accent' | 'info' | 'danger' | 'success' | 'warning';
 

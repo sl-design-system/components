@@ -3,6 +3,12 @@ import { TextField } from '@sl-design-system/text-field';
 import { type TemplateResult, html } from 'lit';
 import { GridColumn } from './column.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-grid-text-field-column': GridTextFieldColumn;
+  }
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridTextFieldColumn<T = any> extends GridColumn<T> {
   override connectedCallback(): void {

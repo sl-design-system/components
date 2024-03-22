@@ -1,0 +1,47 @@
+{
+  "name": "@sl-design-system/checklist",
+  "version": "0.0.1",
+  "description": "Checklist component if the SL Design System is successfully installed",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sl-design-system/components.git",
+    "directory": "packages/checklist"
+  },
+  "homepage": "https://sanomalearning.design/getting-started/developers/",
+  "bugs": {
+    "url": "https://github.com/sl-design-system/components/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./index.d.ts",
+  "customElements": "custom-elements.json",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "**/*.d.ts",
+    "**/*.js",
+    "**/*.js.map"
+  ],
+  "sideEffects": true,
+  "scripts": {
+    "test": "npx http-server -o test.html"
+  },
+  "devDependencies": {
+    "@fortawesome/pro-solid-svg-icons": "^6.1.5",
+    "@open-wc/scoped-elements": "^3.0.5",
+    "@sl-design-system/icon": "0.0.9",
+    "@sl-design-system/skeleton": "0.2.3",
+    "@webcomponents/scoped-custom-element-registry": "^0.0.9",
+    "lit": "^3.1.2"
+  }
+}

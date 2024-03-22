@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.2.7
+
+### Patch Changes
+
+- [#1073](https://github.com/sl-design-system/components/pull/1073) [`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad) - Fix missing events types
+
 ## 0.2.6
 
 ### Patch Changes

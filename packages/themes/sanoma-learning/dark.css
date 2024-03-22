@@ -3,13 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
-  --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
-  --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
   --sl-body-surface-overlay: rgba(var(--sl-color-palette-white-base) / var(--sl-opacity-500));
   --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-800));
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-900));
   --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-body-background: rgb(var(--sl-color-palette-black-base));
+  --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+  --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
+  --sl-color-slds-checklist-link-active: rgb(var(--sl-color-palette-info-150));
+  --sl-color-slds-checklist-link-hover: rgb(var(--sl-color-palette-info-200));
+  --sl-color-slds-checklist-link-idle: rgb(var(--sl-color-palette-info-300));
+  --sl-color-slds-checklist-icon-success: rgb(var(--sl-color-palette-success-400));
+  --sl-color-slds-checklist-divider: rgb(var(--sl-color-palette-neutral-800));
+  --sl-color-slds-checklist-border: rgb(var(--sl-color-palette-neutral-800));
   --sl-color-tab-active-border: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-tab-active-background: rgb(var(--sl-color-palette-neutral-800));
   --sl-color-tab-tabbar-border: rgb(var(--sl-color-palette-neutral-200));
@@ -481,8 +487,13 @@
   --sl-color-badge-success-background: rgb(var(--sl-color-palette-success-500));
   --sl-color-badge-danger-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
+  --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
+  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-500));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-accent-300));
+  --sl-color-slds-checklist-icon-danger: rgb(var(--sl-color-palette-danger-300));
+  --sl-color-slds-checklist-foreground: var(--sl-body-foreground);
+  --sl-color-slds-checklist-background: var(--sl-body-background);
   --sl-color-tab-content-foreground: var(--sl-body-foreground);
   --sl-color-tab-content-background: var(--sl-body-background);
   --sl-color-tab-active-foreground: var(--sl-body-foreground);

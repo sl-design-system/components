@@ -245,6 +245,8 @@
   --sl-color-palette-primary-150: 163 195 231;
   --sl-color-palette-primary-100: 179 209 243;
   --sl-color-palette-primary-50: 232 243 255;
+  --sl-box-shadow-slds-checklist: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
+    0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-150));
   --sl-elevation-shadow-none: 0 0 0 0 rgba(var(--sl-color-palette-neutral-base) / 0);
   --sl-elevation-shadow-lg: 0 0 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-100)),
     0 8px 16px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
@@ -309,7 +311,7 @@
   --sl-space-tab-more-block: var(--sl-space-sm);
   --sl-space-tab-more-inline: var(--sl-space-md);
   --sl-space-tab-gap: var(--sl-space-sm);
-  --sl-space-tab-block: var(--sl-space-sm);
+  --sl-space-tab-block: var(--sl-space-md);
   --sl-space-tab-inline: var(--sl-space-xl);
   --sl-space-inline-message-content-gap: var(--sl-space-xs);
   --sl-space-inline-message-gap: var(--sl-space-lg);
@@ -806,13 +808,13 @@
 @media (prefers-color-scheme: light) {
   :root {
     --sl-color-input-option-invalid-unchecked-disabled-background: color.input.option.default.unchecked.disabled.background;
-    --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
-    --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
     --sl-body-surface-overlay: rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-700));
     --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
+    --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+    --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
     --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
@@ -840,6 +842,8 @@
     --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
     --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-white-base));
+    --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-500));
     --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-base));
     --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-white-base));

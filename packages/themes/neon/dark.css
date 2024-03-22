@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
-  --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
-  --sl-box-shadow-focus: 0 0 0 4px rgba(var(--sl-color-palette-info-200) / var(--sl-opacity-500));
   --sl-body-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-body-background: rgb(var(--sl-color-palette-black-base));
+  --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+  --sl-box-shadow-focus: 0 0 0 4px rgba(var(--sl-color-palette-info-200) / var(--sl-opacity-500));
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-700));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-800));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-700));
@@ -433,6 +433,8 @@
   --sl-color-button-default-solid-idle-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-primary-50));
   --sl-color-button-default-solid-idle-background: rgba(var(--sl-color-palette-primary-50) / var(--sl-opacity-200));
+  --sl-color-badge-info-foreground: rgb(var(--sl-color-palette-black-base));
+  --sl-color-badge-info-background: rgb(var(--sl-color-palette-info-base));
   --sl-color-badge-primary-foreground: rgb(var(--sl-color-palette-black-base));
   --sl-color-badge-primary-background: rgb(var(--sl-color-palette-primary-300));
   --sl-color-badge-neutral-foreground: rgb(var(--sl-color-palette-black-base));

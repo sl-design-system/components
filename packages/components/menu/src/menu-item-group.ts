@@ -3,6 +3,12 @@ import { property } from 'lit/decorators.js';
 import styles from './menu-item-group.scss.js';
 import { MenuItem } from './menu-item.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-menu-item-group': MenuItemGroup;
+  }
+}
+
 /**
  * A group of menu items, use this if you want to group menu items in a menu with
  * other menu items.

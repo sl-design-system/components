@@ -9316,5 +9316,15 @@
       "my-digital-book/base": "enabled",
       "my-digital-book/light": "enabled"
     }
+  },
+  {
+    "id": "06d056d2ce141d0046cae5f452cdc7e2ac280d0f",
+    "name": "sanoma-utbildning/light",
+    "$figmaStyleReferences": {},
+    "selectedTokenSets": {
+      "core": "enabled",
+      "sanoma-utbildning/base": "enabled",
+      "sanoma-utbildning/light": "enabled"
+    }
   }
 ]

@@ -2,10 +2,15 @@ import { getNameByPath } from '@sl-design-system/shared';
 import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
-import { GridColumnEvent } from './events.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-grid-column-group': GridColumnGroup;
+  }
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class GridColumnGroup<T = any> extends GridColumn<T> {
+export class GridColumnGroup<T = unknown> extends GridColumn<T> {
   #width?: number;
 
   /** The nested columns in the group. */
@@ -46,6 +51,6 @@ export class GridColumnGroup<T = any> extends GridColumn<T> {
     }, {});
 
     // Notify the grid that the column definition has changed
-    this.columnUpdate.emit(new GridColumnEvent('sl-column-update', this));
+    this.columnUpdateEvent.emit({ grid: this.grid!, column: this });
   }
 }

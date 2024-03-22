@@ -28,7 +28,7 @@ type Story = StoryObj<Props>;
 const sizes: TextareaSize[] = ['md', 'lg'];
 
 export default {
-  title: 'Textarea',
+  title: 'Components/Textarea',
   args: {
     disabled: false,
     label: 'Label',

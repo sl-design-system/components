@@ -62,7 +62,7 @@ slot[name='submenu']::slotted(sl-menu) {
   }
 }
 
-.wrapper {
+[part='wrapper'] {
   align-items: center;
   background: var(--_background);
   border-radius: var(--_border-radius);

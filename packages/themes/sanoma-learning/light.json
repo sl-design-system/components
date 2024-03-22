@@ -63,6 +63,18 @@
       }
     },
     "badge": {
+      "info": {
+        "background": {
+          "value": "{color.palette.info.400}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color",
+          "failedToResolve": true
+        }
+      },
       "danger": {
         "background": {
           "value": "{color.palette.danger.500}",
@@ -4617,6 +4629,59 @@
           "failedToResolve": true
         }
       }
+    },
+    "slds": {
+      "checklist": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "divider": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color",
+          "failedToResolve": true
+        },
+        "icon": {
+          "success": {
+            "value": "{color.palette.success.500}",
+            "type": "color",
+            "failedToResolve": true
+          },
+          "danger": {
+            "value": "{color.palette.danger.400}",
+            "type": "color",
+            "failedToResolve": true
+          }
+        },
+        "link": {
+          "idle": {
+            "value": "{color.palette.info.400}",
+            "type": "color",
+            "failedToResolve": true
+          },
+          "hover": {
+            "value": "{color.palette.info.500}",
+            "type": "color",
+            "failedToResolve": true
+          },
+          "active": {
+            "value": "{color.palette.info.600}",
+            "type": "color",
+            "failedToResolve": true
+          }
+        }
+      }
     }
   },
   "boxShadow": {
@@ -4645,6 +4710,30 @@
       "type": "boxShadow",
       "description": "boxShadow.none",
       "failedToResolve": true
+    },
+    "slds": {
+      "checklist": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.50})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 4,
+            "blur": 8,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.150})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow",
+        "failedToResolve": true
+      }
     }
   }
 }

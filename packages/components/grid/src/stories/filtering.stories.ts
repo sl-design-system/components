@@ -56,6 +56,18 @@ export const EmptyValues: Story = {
   }
 };
 
+export const FilteringWithSelection: Story = {
+  render: (_, { loaded: { people } }) => html`
+    <sl-grid .items=${people}>
+      <sl-grid-selection-column></sl-grid-selection-column>
+      <sl-grid-column path="firstName"></sl-grid-column>
+      <sl-grid-column path="lastName"></sl-grid-column>
+      <sl-grid-filter-column path="status"></sl-grid-filter-column>
+      <sl-grid-filter-column path="membership"></sl-grid-filter-column>
+    </sl-grid>
+  `
+};
+
 export const OutsideGrid: Story = {
   render: (_, { loaded: { people } }) => {
     const dataSource = new ArrayDataSource(people as Person[]);

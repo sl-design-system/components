@@ -7,6 +7,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-inline-message': InlineMessage;
+  }
+}
+
 export type InlineMessageVariant = 'info' | 'success' | 'warning' | 'danger';
 
 /**

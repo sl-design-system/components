@@ -15440,6 +15440,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/path.js"
           }
         },

@@ -12,17 +12,55 @@ layout: base.njk
   </div>
 </header>
 <section>
+  {{ page.templateContent | safe }}
+
   {%- for post in collections.component -%}
-    {% if page.url === post.url %}
+{#    {% if page.url === post.url %}#}
+    {% if page.url.includes(post.url) %}
       <sl-tab-group>
-        <sl-tab selected>Usage</sl-tab>
-        <sl-tab>Code</sl-tab>
-        <sl-tab>Accessibility</sl-tab>
+        {% set testt = collections.usage  %}
+        test url1: {{ testt.url }}
+        test url2: {{ page.url }}
+        post title {{ post.data.title }}
+    {% if page.url.includes(post.url) %}
+    {% endif %}
+
+        {%- for code in collections.code -%}
+          {% if code.url.includes(page.url) %}
+          code-url:  {{ code.url }}
+          {% endif %}
+          {% if code.url == page.url %}
+            code-url-equals:  {{ code.url }}
+          {% endif %}
+        {%- endfor -%}
+
+       ifffff {%- for code in collections.code -%}{% if page.url.includes(post.data.title) %}{{ code.url | url }} {{ page.url.includes(post.data.title) }}{% endif %}{%- endfor -%}
+      post_url:  {{ post.url }}
+        <sl-tab href="{%- for usage in collections.usage -%}{% if usage.url.includes(page.url) %}{{ usage.url | url }}{% endif %}{%- endfor -%}">Usage</sl-tab>
+        <sl-tab href="{%- for code in collections.code -%}{% if code.url.includes(post.url) %}{{ code.url | url }}{% endif %}{%- endfor -%}" {{ code.url }}
+          {%- for code in collections.code -%}
+          {% if code.url == page.url %}
+        selected
+          {% endif %}{%- endfor -%}>Code code-url: {%- for code in collections.code -%}{{ code.url }}{%- endfor -%} page-url: {{ page.url }} post-url: {{ post.url }}</sl-tab>
+        <sl-tab href="#accessibility">Accessibility</sl-tab>
         <sl-tab-panel>
           <div id="myVerticalTabsContent" class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
+              {{ page.templateContent | safe }}
+              {{ page.url }}
+              {{ post.url }}
+
+              {%- for post in collections.all -%}
+                <li>{{ post | safe }}<a href="{{ post.url }}">{{ post.url }} {{ post.title }}</a></li>
+              {%- endfor -%}
+
+
             {%- for usage in collections.usage -%}
+              usage url: {{ usage.url }}
+              page url: {{ page.url }}
               {% if usage.url.includes(page.url) %}
+                usage url: {{ usage.url }}
+                page url: {{ page.url }}
                 {{ usage.templateContent | safe }}
               {% endif %}
             {%- endfor -%}
@@ -46,8 +84,10 @@ layout: base.njk
         <sl-tab-panel>
           <div id="myVerticalTabsContentCode" class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
+              {{ content | safe }}
             {%- for code in collections.code -%}
-              {% if code.url.includes(page.url) %}
+{#              {% if code.url.includes(page.url) %}#}
+              {% if code.url == page.url %}
                 {{ code.templateContent | safe }}
               {% endif %}
             {%- endfor -%}
@@ -120,3 +160,5 @@ layout: base.njk
   {%- endfor -%}
 </section>
 <sl-tooltip id="interactiveexample">Interactive example</sl-tooltip>
+
+{#TODO: all tabs with post.url and content | safe #}

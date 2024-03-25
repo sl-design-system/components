@@ -272,3 +272,9 @@ $transition-timing: 300ms;
     transform: translateY(0%);
   }
 }
+
+sl-tab-group::part(container) {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+} // TODO: background needs to be added in the component?

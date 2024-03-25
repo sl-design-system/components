@@ -15440,6 +15440,14 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/events.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/path.js"
           }
         },
@@ -20177,7 +20185,7 @@
           "name": "Spinner",
           "cssProperties": [
             {
-              "description": "The size of the spinner, defaults to md if not set",
+              "description": "The size of the spinner, defaults to `md` if not set.",
               "name": "--sl-spinner-size"
             }
           ],
@@ -20188,7 +20196,7 @@
               "type": {
                 "text": "SpinnerSize | undefined"
               },
-              "description": "The size of the spinner. Defaults to md in CSS if not set.",
+              "description": "The size of the spinner. Defaults to `md` with css properties if not attribute is not set.",
               "attribute": "size",
               "reflects": true,
               "expandedType": {
@@ -20215,7 +20223,7 @@
               "type": {
                 "text": "SpinnerSize | undefined"
               },
-              "description": "The size of the spinner. Defaults to md in CSS if not set.",
+              "description": "The size of the spinner. Defaults to `md` with css properties if not attribute is not set.",
               "fieldName": "size",
               "expandedType": {
                 "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | undefined"

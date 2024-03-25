@@ -151,7 +151,8 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
   verticalIndicator.classList.add('ds-tabs__vertical-indicator');
   verticalSlider.appendChild(verticalIndicator);
 
-  headerAnchors = verticalTabContent.querySelectorAll('.header-anchor');
+  headerAnchors = verticalTabContent.querySelectorAll('.header-anchor, [link-in-navigation]');
+
   const headerAnchorsParents = Array.from(headerAnchors)
     .map(element => {
       if (element.parentElement?.tagName === 'H2') {
@@ -160,6 +161,8 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
           (element.parentElement.parentNode as Element).id = element.parentElement.id;
         }
         return element.parentElement;
+      } else if (element.hasAttribute('link-in-navigation')) {
+        return element as HTMLElement;
       }
       return;
     })
@@ -171,9 +174,16 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
   headerAnchorsParents.forEach(headerAnchorParent => {
     if (headerAnchorParent) {
       const verticalTab = document.createElement('a');
-      verticalTab.setAttribute('href', `#${headerAnchorParent.id}`);
-      verticalTab.textContent = headerAnchorParent.textContent;
       if (headerAnchorParent.tagName === 'H2') {
+        verticalTab.textContent = headerAnchorParent.textContent;
+        headerAnchorParent?.parentElement?.setAttribute('aria-labelledby', verticalTab.id);
+      } else if (headerAnchorParent.getAttribute('link-in-navigation-text')) {
+        verticalTab.textContent = headerAnchorParent.getAttribute('link-in-navigation-text');
+        headerAnchorParent.setAttribute('aria-labelledby', verticalTab.id);
+      }
+
+      if (headerAnchorParent.tagName === 'H2' || headerAnchorParent.getAttribute('link-in-navigation-text')) {
+        verticalTab.setAttribute('href', `#${headerAnchorParent.id}`);
         verticalTab.classList.add('ds-tab--vertical');
         verticalTab.setAttribute('role', 'tab');
         verticalTab.setAttribute('tabindex', '-1');
@@ -181,7 +191,6 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
         verticalTab.setAttribute('aria-selected', 'false');
         verticalTab.setAttribute('aria-controls', headerAnchorParent.id);
         verticalTabs.push(verticalTab);
-        headerAnchorParent?.parentElement?.setAttribute('aria-labelledby', verticalTab.id);
       }
       verticalTabs[0].classList.add('active');
     }
@@ -333,7 +342,7 @@ function selectTab(tab: Element): void {
     observer.observe(tabsContainer as Element);
   }
 
-  const tabSections = tabContent?.querySelectorAll('section[id]');
+  const tabSections = tabContent?.querySelectorAll('section[id], [link-in-navigation][id]');
   tabSections?.forEach(section => {
     section.setAttribute('role', 'tabpanel');
   });

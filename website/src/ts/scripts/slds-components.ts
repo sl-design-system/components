@@ -19,6 +19,7 @@ import '@sl-design-system/popover/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/skeleton/register.js';
+import '@sl-design-system/spinner/register.js';
 import '@sl-design-system/switch/register.js';
 import '@sl-design-system/tabs/register.js';
 import '@sl-design-system/text-field/register.js';
@@ -27,7 +28,14 @@ import '@sl-design-system/tooltip/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';
 import { setup } from '@sl-design-system/sanoma-learning';
 import { Icon } from '@sl-design-system/icon';
-import { faBug, faCode, faMessagesQuestion, faPenToSquare, faPencilRuler } from '@fortawesome/pro-regular-svg-icons';
+import {
+  faBug,
+  faCode,
+  faCopy,
+  faMessagesQuestion,
+  faPenToSquare,
+  faPencilRuler
+} from '@fortawesome/pro-regular-svg-icons';
 import { faEnvelope, faHandBackPointUp, faSchool, faScreenUsers } from '@fortawesome/pro-solid-svg-icons';
 import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 
@@ -44,7 +52,8 @@ Icon.register(
   faPencilRuler,
   faSchool,
   faScreenUsers,
-  faSlack
+  faSlack,
+  faCopy
 );
 
 declare global {

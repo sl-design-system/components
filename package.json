@@ -62,10 +62,26 @@
       ]
     },
     "build:checklist": {
+      "command": "esbuild --minify --bundle packages/checklist/index.ts --outdir=packages/checklist/dist --sourcemap",
+      "dependencies": [
+        "build:checklist:package"
+      ],
+      "files": [
+        "packages/checklist/**/*.scss",
+        "packages/checklist/**/*.ts",
+        "!packages/checklist/**/*.d.ts"
+      ],
+      "output": [
+        "packages/checklist/dist/index.js",
+        "packages/checklist/dist/index.js.map"
+      ]
+    },
+    "build:checklist:package": {
       "command": "node scripts/build-packages.js checklist",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:scss"
+        "build:scss",
+        "build:themes"
       ],
       "files": [
         "packages/checklist/**/*.ts",
@@ -136,6 +152,9 @@
     "build:scss": {
       "command": "node scripts/build-scss.js",
       "clean": "if-file-deleted",
+      "dependencies": [
+        "build:tokens"
+      ],
       "files": [
         "packages/{checklist,components}/**/*.scss"
       ],
@@ -223,7 +242,7 @@
           "cascade": false
         },
         {
-          "script": "build:checklist",
+          "script": "build:checklist:package",
           "cascade": false
         },
         {
@@ -315,14 +334,14 @@
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@changesets/get-github-info": "^0.6.0",
-    "@custom-elements-manifest/analyzer": "^0.9.3",
+    "@custom-elements-manifest/analyzer": "^0.9.4",
     "@lit/localize-tools": "^0.7.2",
     "@oddbird/popover-polyfill": "^0.4.0",
     "@open-wc/testing": "^4.0.0",
-    "@storybook/addon-a11y": "^8.0.0",
-    "@storybook/addon-essentials": "^8.0.0",
-    "@storybook/addon-storysource": "^8.0.0",
-    "@storybook/web-components-vite": "^8.0.0",
+    "@storybook/addon-a11y": "^8.0.4",
+    "@storybook/addon-essentials": "^8.0.4",
+    "@storybook/addon-storysource": "^8.0.4",
+    "@storybook/web-components-vite": "^8.0.4",
     "@types/chai-as-promised": "^7.1.8",
     "@types/mocha": "^10.0.6",
     "@types/sinon": "^17.0.3",
@@ -333,16 +352,16 @@
     "@webcomponents/scoped-custom-element-registry": "^0.0.9",
     "chai": "npm:@esm-bundle/chai@4.3.4-fix.0",
     "chai-as-promised": "npm:@esm-bundle/chai-as-promised@*",
-    "chromatic": "^11.0.8",
+    "chromatic": "^11.2.0",
     "eslint": "^8.57.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "lit": "^3.1.2",
     "sinon": "^17.0.1",
-    "storybook": "^8.0.0",
-    "stylelint": "^16.2.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.6",
+    "storybook": "^8.0.4",
+    "stylelint": "^16.3.0",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.5",
     "wireit": "^0.14.4"
   }
 }

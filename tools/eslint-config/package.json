@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/eslint-config",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "packageManager": "yarn@4.1.1",
   "description": "ESLint config for SL Design System projects",
   "license": "Apache-2.0",
@@ -36,7 +36,7 @@
     "eslint-plugin-unused-imports": "^3.1.0",
     "eslint-plugin-wc": "^2.0.4",
     "prettier": "^3.2.5",
-    "typescript-eslint": "^7.2.0"
+    "typescript-eslint": "^7.3.1"
   },
   "peerDependencies": {
     "eslint": "^8.57.0",

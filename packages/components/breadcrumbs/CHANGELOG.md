@@ -1,5 +1,21 @@
 # @sl-design-system/breadcrumbs
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da)]:
+  - @sl-design-system/menu@0.0.6
+  - @sl-design-system/tooltip@0.0.23
+
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/menu@0.0.5
+  - @sl-design-system/tooltip@0.0.22
+
 ## 0.0.3
 
 ### Patch Changes

@@ -13,6 +13,8 @@ const shared = process.argv.at(3) || '',
 await Promise.allSettled(
   files.map(async file => {
     try {
+      const loadPaths = ['node_modules'];
+
       // Step 1: compile SCSS to CSS
       const { css } = compileString(
         `
@@ -20,16 +22,16 @@ await Promise.allSettled(
 
           ${await fs.readFile(file, 'utf8')}
         `,
-        { loadPaths: shared ? [sharedDir] : undefined }
+        { loadPaths: shared ? [...loadPaths, sharedDir] : loadPaths }
       );
 
       // Step 2: lint CSS
-      let { output } = await stylelint.lint({ code: css, fix: true });
+      let { code } = await stylelint.lint({ code: css, fix: true });
 
-      output = output.toString().split('\n').map(str => `  ${str}`.trimEnd()).join('\n');
+      code = code.toString().split('\n').map(str => `  ${str}`.trimEnd()).join('\n');
 
       // Step 3: write CSS to TS template
-      await fs.writeFile(`${file}.ts`, `import { css } from 'lit';\n\nexport default css\`\n${output}\`;\n`);
+      await fs.writeFile(`${file}.ts`, `import { css } from 'lit';\n\nexport default css\`\n${code}\`;\n`);
     } catch (err) {
       console.log(err);
     }

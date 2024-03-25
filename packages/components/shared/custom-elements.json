@@ -124,7 +124,23 @@
           "name": "*",
           "declaration": {
             "name": "*",
+            "package": "./src/dom.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
             "package": "./src/directives/anchor.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/events.js"
           }
         },
         {
@@ -4504,6 +4520,41 @@
           "declaration": {
             "name": "anchor",
             "module": "src/directives/anchor.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/dom.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getScrollParent",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              },
+              "description": "The element to find the scrollable parent of."
+            }
+          ],
+          "description": "Returns the first scrollable parent of the given element."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getScrollParent",
+          "declaration": {
+            "name": "getScrollParent",
+            "module": "src/dom.ts"
           }
         }
       ]

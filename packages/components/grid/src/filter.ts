@@ -72,10 +72,10 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ attribute: false }) filter?: DataSourceFilterFunction<T>;
 
   /** Emits when the filter has been added or removed. */
-  @event() filterChangeEvent!: EventEmitter<SlFilterChangeEvent>;
+  @event({ name: 'sl-filter-change' }) filterChangeEvent!: EventEmitter<SlFilterChangeEvent>;
 
   /** Emits when the value of the this filter has changed. */
-  @event() filterValueChangeEvent!: EventEmitter<SlFilterValueChangeEvent<T>>;
+  @event({ name: 'sl-filter-value-change' }) filterValueChangeEvent!: EventEmitter<SlFilterValueChangeEvent<T>>;
 
   /** The mode of the filter. */
   @property({ type: String }) mode?: GridFilterMode;

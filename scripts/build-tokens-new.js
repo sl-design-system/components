@@ -19,6 +19,13 @@ StyleDictionary.registerFileHeader({
   }
 });
 
+StyleDictionary.registerFormat({
+  name: 'sl/scss-mixins',
+  formatter: ({ dictionary, options }) => {
+    return `${options.header}\n${dictionary.allTokens.map(token => `  $sl-${token.name}: ${token.value};`).join('\n')}${options.footer}\n`;
+  }
+});
+
 StyleDictionary.registerTransform({
   name: 'sl/size/lineheight',
   type: 'value',
@@ -67,10 +74,65 @@ const build = async () => {
       }
     }));
 
-  configs.forEach(cfg => {
+  const splitSources = configs.map(({ source }) => {
+    const [core, base, theme] = source,
+      name = theme.split('/').at(-2),
+      mode = theme.match(/.*(light|dark)\.json/)[1];
+
+    return {
+      [name]: {
+        base: [core, base],
+        [mode]: [theme]
+      }
+    };
+  }).reduce((acc, val) => {
+    const [name, sources] = Object.entries(val)[0];
+
+    if (acc[name]) {
+      acc[name] = { ...acc[name], ...sources };
+
+      return acc;
+    } else {
+      return { ...acc, [name]: sources };
+    }
+  }, {});
+
+  const splitConfigs = Object.entries(splitSources).flatMap(([name, { base, light, dark }]) => {
+    return [base, light, dark].filter(Boolean).map((sources, index) => {
+      const variant = sources.at(-1)?.match(/.*(light|dark)\.json/)?.at(1) ?? 'base',
+        destination = `dist/${name}/scss/${variant}.scss`;
+
+      return {
+        source: sources,
+        platforms: {
+          css: {
+            transformGroup: 'tokens-studio',
+            transforms: ['name/kebab', 'sl/size/lineheight', 'sl/size/css/paragraphspacing'],
+            files: [
+              {
+                destination,
+                format: 'css/variables',
+                options: {
+                  // header: `@mixin sl-theme-${variant} {`,
+                  // footer: '}',
+                  outputReferences: true,
+                  selector: `@mixin sl-theme-${variant}`
+                }
+              }
+            ]
+          }
+        }
+      };
+    });
+  });
+
+  console.log(splitConfigs.at(-14));
+
+  // [...configs, ...splitConfigs].forEach(cfg => {
+  [splitConfigs.at(-14)].forEach(cfg => {
     const sd = new StyleDictionary(cfg);
 
-    sd.cleanAllPlatforms();
+    // sd.cleanAllPlatforms();
     sd.buildAllPlatforms();
   });
 };

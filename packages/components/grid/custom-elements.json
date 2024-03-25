@@ -2388,22 +2388,6 @@
               "description": "The custom filter"
             },
             {
-              "kind": "event",
-              "name": "filterChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlFilterChangeEvent>"
-              },
-              "description": "Emits when the filter has been added or removed."
-            },
-            {
-              "kind": "event",
-              "name": "filterValueChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
-              },
-              "description": "Emits when the value of the this filter has changed."
-            },
-            {
               "kind": "field",
               "name": "mode",
               "type": {
@@ -2428,6 +2412,22 @@
               },
               "description": "The path to the field to filter on.",
               "attribute": "path"
+            },
+            {
+              "kind": "event",
+              "name": "sl-filter-change",
+              "type": {
+                "text": "EventEmitter<SlFilterChangeEvent>"
+              },
+              "description": "Emits when the filter has been added or removed."
+            },
+            {
+              "kind": "event",
+              "name": "sl-filter-value-change",
+              "type": {
+                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
+              },
+              "description": "Emits when the value of the this filter has changed."
             },
             {
               "kind": "field",

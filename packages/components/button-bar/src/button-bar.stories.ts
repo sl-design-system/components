@@ -49,3 +49,23 @@ export const IconOnly: Story = {
     `
   }
 };
+
+export const Vertical: Story = {
+  render: ({ align, buttons, reverse }) => html`
+    <style>
+      sl-button-bar {
+        @media (width <= 600px) {
+          --sl-button-bar-vertical: ;
+        }
+      }
+    </style>
+    <sl-button-bar .align=${align} .reverse=${reverse}>
+      ${buttons ??
+      html`
+        <sl-button>Foo</sl-button>
+        <sl-button>Bar</sl-button>
+        <sl-button>Baz</sl-button>
+      `}
+    </sl-button-bar>
+  `
+};

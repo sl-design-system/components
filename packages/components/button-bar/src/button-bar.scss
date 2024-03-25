@@ -4,9 +4,9 @@
   --_block-gap: var(--sl-space-button-bar-gap-block);
   --_inline-gap: var(--sl-space-button-bar-gap-inline);
 
-  align-items: center;
+  align-items: var(--sl-button-bar-vertical, center) stretch;
   display: flex;
-  flex-flow: var(--sl-button-bar-direction) wrap;
+  flex-flow: var(--sl-button-bar-vertical, row wrap) column wrap;
   gap: var(--_block-gap) var(--_inline-gap);
   justify-content: var(--sl-button-bar-align);
 }

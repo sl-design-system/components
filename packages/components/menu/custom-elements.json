@@ -88,6 +88,12 @@
           "kind": "class",
           "description": "Custom element that combines a button and a menu and automatically wires them up\ntogether.",
           "name": "MenuButton",
+          "cssParts": [
+            {
+              "description": "The button element.",
+              "name": "button"
+            }
+          ],
           "slots": [
             {
               "description": "The menu items should be slotted in the default slot.",
@@ -288,15 +294,7 @@
                 "type": {
                   "text": "void"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "event",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
+              }
             },
             {
               "kind": "method",
@@ -540,6 +538,12 @@
           "kind": "class",
           "description": "Menu item component for use inside a menu.",
           "name": "MenuItem",
+          "cssParts": [
+            {
+              "description": "The wrapper around the menu item content.",
+              "name": "wrapper"
+            }
+          ],
           "slots": [
             {
               "description": "Content to display inside the menu item.",
@@ -885,8 +889,24 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A menu that can be used as a context menu or as a dropdown menu.",
           "name": "Menu",
+          "cssProperties": [
+            {
+              "description": "The maximum inline size of the menu.",
+              "name": "--sl-menu-max-inline-size"
+            },
+            {
+              "description": "The minimum inline size of the menu.",
+              "name": "--sl-menu-min-inline-size"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The menu's content: menu items or menu item groups.",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "method",

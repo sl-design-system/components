@@ -1,5 +1,17 @@
 # @sl-design-system/grid
 
+## 0.1.6
+
+### Patch Changes
+
+- [#1081](https://github.com/sl-design-system/components/pull/1081) [`8da4a25`](https://github.com/sl-design-system/components/commit/8da4a251ccc588987850738e52c5b94ddd554a51) - Revert breaking event naming changes from #1061
+
+- Updated dependencies [[`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`0d641dc`](https://github.com/sl-design-system/components/commit/0d641dcaa3a288111c3c6bf4862d3f6bed5a2cc3)]:
+  - @sl-design-system/shared@0.2.8
+  - @sl-design-system/popover@0.1.9
+  - @sl-design-system/checkbox@0.0.26
+  - @sl-design-system/text-field@0.1.21
+
 ## 0.1.5
 
 ### Patch Changes

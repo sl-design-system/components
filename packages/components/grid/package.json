@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/grid",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Grid components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

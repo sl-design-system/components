@@ -1,5 +1,11 @@
 # @sl-design-system/grid
 
+## 0.1.7
+
+### Patch Changes
+
+- [#1084](https://github.com/sl-design-system/components/pull/1084) [`a323fde`](https://github.com/sl-design-system/components/commit/a323fdea3595304caac520fa05c111d015f7d5fd) - Fix incorrect filter event names
+
 ## 0.1.6
 
 ### Patch Changes

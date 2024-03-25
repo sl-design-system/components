@@ -197,18 +197,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "columns",
               "type": {
@@ -384,6 +372,18 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "event",
+              "name": "sl-column-update",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -779,14 +779,6 @@
               "attribute": "auto-width"
             },
             {
-              "kind": "event",
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed."
-            },
-            {
               "kind": "method",
               "name": "getParts",
               "return": {
@@ -909,6 +901,14 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid."
+            },
+            {
+              "kind": "event",
+              "name": "sl-column-update",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed."
             },
             {
               "kind": "method",
@@ -1190,18 +1190,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "getParts",
               "return": {
@@ -1368,6 +1356,18 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "event",
+              "name": "sl-column-update",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1762,18 +1762,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "filter",
               "type": {
@@ -1973,6 +1961,18 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "event",
+              "name": "sl-column-update",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -2388,22 +2388,6 @@
               "description": "The custom filter"
             },
             {
-              "kind": "event",
-              "name": "filterChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlFilterChangeEvent>"
-              },
-              "description": "Emits when the filter has been added or removed."
-            },
-            {
-              "kind": "event",
-              "name": "filterValueChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
-              },
-              "description": "Emits when the value of the this filter has changed."
-            },
-            {
               "kind": "field",
               "name": "mode",
               "type": {
@@ -2428,6 +2412,22 @@
               },
               "description": "The path to the field to filter on.",
               "attribute": "path"
+            },
+            {
+              "kind": "event",
+              "name": "sl-filter-change",
+              "type": {
+                "text": "EventEmitter<SlFilterChangeEvent>"
+              },
+              "description": "Emits when the filter has been added or removed."
+            },
+            {
+              "kind": "event",
+              "name": "sl-filter-value-change",
+              "type": {
+                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
+              },
+              "description": "Emits when the value of the this filter has changed."
             },
             {
               "kind": "field",
@@ -2645,36 +2645,12 @@
               "description": "The active item in the grid."
             },
             {
-              "kind": "event",
-              "name": "activeItemChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
-              },
-              "description": "Emits when the active item changes"
-            },
-            {
               "kind": "field",
               "name": "dataSource",
               "type": {
                 "text": "DataSource<T> | undefined"
               },
               "description": "Provide your own implementation for getting the data."
-            },
-            {
-              "kind": "event",
-              "name": "dragEndEvent",
-              "type": {
-                "text": "EventEmitter<SlDragEndEvent<T>>"
-              },
-              "description": "Emits when a drag operation has finished."
-            },
-            {
-              "kind": "event",
-              "name": "dragStartEvent",
-              "type": {
-                "text": "EventEmitter<SlDragStartEvent<T>>"
-              },
-              "description": "Emits when a drag operation is starting."
             },
             {
               "kind": "field",
@@ -2684,14 +2660,6 @@
               },
               "description": "Whether you can drag rows in the grid. If you use the drag-handle column,\nthen this property is automatically set by the column to 'between'.",
               "attribute": "draggable-rows"
-            },
-            {
-              "kind": "event",
-              "name": "dropEvent",
-              "type": {
-                "text": "EventEmitter<SlDropEvent<T>>"
-              },
-              "description": "Emits when an item has been dropped."
             },
             {
               "kind": "field",
@@ -2854,7 +2822,39 @@
             },
             {
               "kind": "event",
-              "name": "stateChangeEvent",
+              "name": "sl-active-item-change",
+              "type": {
+                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
+              },
+              "description": "Emits when the active item changes"
+            },
+            {
+              "kind": "event",
+              "name": "sl-grid-dragend",
+              "type": {
+                "text": "EventEmitter<SlDragEndEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished."
+            },
+            {
+              "kind": "event",
+              "name": "sl-grid-dragstart",
+              "type": {
+                "text": "EventEmitter<SlDragStartEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting."
+            },
+            {
+              "kind": "event",
+              "name": "sl-grid-drop",
+              "type": {
+                "text": "EventEmitter<SlDropEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped."
+            },
+            {
+              "kind": "event",
+              "name": "sl-grid-state-change",
               "type": {
                 "text": "EventEmitter<SlStateChangeEvent<T>>"
               },
@@ -3790,18 +3790,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "getParts",
               "return": {
@@ -3977,6 +3965,18 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "event",
+              "name": "sl-column-update",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -4394,18 +4394,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "getParts",
               "return": {
@@ -4603,6 +4591,18 @@
               },
               "description": "When true, all items are selected.",
               "attribute": "select-all"
+            },
+            {
+              "kind": "event",
+              "name": "sl-column-update",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
             },
             {
               "kind": "method",
@@ -5067,18 +5067,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "direction",
               "type": {
@@ -5254,6 +5242,18 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "event",
+              "name": "sl-column-update",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -5865,18 +5865,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "getParts",
               "return": {
@@ -6043,6 +6031,18 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "event",
+              "name": "sl-column-update",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"

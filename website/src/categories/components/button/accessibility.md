@@ -58,7 +58,7 @@ WAI-ARIA Roles, States, and Properties for a button provide essential informatio
 |`role`	|`'button'`|Makes it clear that our custom component is a button |no|
 |`aria-labelledby`|string| When different element serves as the label, for example in the case of an icon-only button that has a label outside the button, this property can be set to the `id` of that element|yes|
 |`aria-label`|string|To be used when the button is icon-only|yes|
-|`aria-describedby`|string| When the button needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation| yes|
+|`aria-describedby`|string| When the button needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation.| yes|
 |`aria-disabled`| boolean| Announces the button as disabled with a screenreader. See [Note 2] below for more explanation| yes|
 |`aria-pressed`| boolean | When the button is used as a toggle and is toggled on, the value of this state is true, and when toggled off, the state is false.| yes|
 

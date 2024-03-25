@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/checklist",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Checklist component if the SL Design System is successfully installed",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -37,7 +37,7 @@
     "test": "npx http-server -o test.html"
   },
   "devDependencies": {
-    "@fortawesome/pro-solid-svg-icons": "^6.1.5",
+    "@fortawesome/pro-solid-svg-icons": "^6.5.1",
     "@open-wc/scoped-elements": "^3.0.5",
     "@sl-design-system/icon": "0.0.9",
     "@sl-design-system/skeleton": "0.2.3",

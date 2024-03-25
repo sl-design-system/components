@@ -249,7 +249,7 @@
               "description": "color.button.default.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.info.500}",
+              "value": "{color.palette.info.base}",
               "type": "color",
               "description": "color.button.default.outline.idle.foreground"
             },
@@ -283,7 +283,7 @@
               "description": "color.button.default.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.info.500}",
+              "value": "{color.palette.info.600}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground"
             },

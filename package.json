@@ -40,25 +40,12 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "build:cem",
         "build:checklist",
         "build:components",
         "build:locales",
+        "build:metadata",
         "build:themes",
         "build:types"
-      ]
-    },
-    "build:cem": {
-      "command": "node scripts/build-cem.js",
-      "dependencies": [
-        "build:scss"
-      ],
-      "files": [
-        "packages/components/**/*.ts",
-        "!packages/components/**/*.{d,spec,stories}.ts"
-      ],
-      "output": [
-        "packages/components/*/custom-elements.json"
       ]
     },
     "build:checklist": {
@@ -147,6 +134,19 @@
       ],
       "output": [
         "packages/locales/src/*.ts"
+      ]
+    },
+    "build:metadata": {
+      "command": "node scripts/build-cem.js",
+      "dependencies": [
+        "build:scss"
+      ],
+      "files": [
+        "packages/components/**/*.ts",
+        "!packages/components/**/*.{d,spec,stories}.ts"
+      ],
+      "output": [
+        "packages/components/*/custom-elements.json"
       ]
     },
     "build:scss": {
@@ -238,7 +238,7 @@
       ],
       "dependencies": [
         {
-          "script": "build:cem",
+          "script": "build:metadata",
           "cascade": false
         },
         {

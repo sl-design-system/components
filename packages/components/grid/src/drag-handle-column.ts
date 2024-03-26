@@ -3,6 +3,12 @@ import { Icon } from '@sl-design-system/icon';
 import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { GridColumn } from './column.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-grid-drag-handle-column': GridDragHandleColumn;
+  }
+}
+
 Icon.register(faGripDotsVertical);
 
 export class GridDragHandleColumn extends GridColumn {

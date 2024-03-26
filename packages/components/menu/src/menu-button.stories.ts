@@ -18,7 +18,7 @@ type Story = StoryObj<Props>;
 Icon.register(faGear, faList, faRectanglesMixed, faTableCells);
 
 export default {
-  title: 'Menu button',
+  title: 'Components/Menu button',
   args: {
     alignSelf: 'center',
     body: 'Button',

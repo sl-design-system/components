@@ -4,6 +4,12 @@ import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 import { GridSorter } from './sorter.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-grid-sort-column': GridSortColumn;
+  }
+}
+
 let nextUniqueId = 0;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

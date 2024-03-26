@@ -2585,7 +2585,8 @@
       },
       "gap": {
         "value": "{space.xs}",
-        "type": "spacing"
+        "type": "spacing",
+        "description": "space.popover.gap"
       }
     },
     "card": {
@@ -3738,7 +3739,7 @@
         "type": "spacing"
       },
       "block": {
-        "value": "{space.sm}",
+        "value": "{space.md}",
         "type": "spacing"
       },
       "gap": {
@@ -4311,6 +4312,31 @@
             "blur": 0,
             "spread": 0,
             "color": "rgba({color.palette.neutral.base} , {opacity.transparent})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
+      }
+    }
+  },
+  "boxShadow": {
+    "slds": {
+      "checklist": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.50})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 4,
+            "blur": 8,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.150})",
             "type": "dropShadow"
           }
         ],

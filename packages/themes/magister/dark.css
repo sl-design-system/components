@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 :root {
-  --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
   --sl-body-surface-overlay: rgba(var(--sl-color-palette-primary-700) / var(--sl-opacity-600));
   --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
   --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
+  --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-primary-800));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-primary-900));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-900));
@@ -421,9 +421,9 @@
   --sl-color-button-default-solid-hover-background: rgb(var(--sl-color-palette-primary-100));
   --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-primary-800));
   --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-primary-50));
-  --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
   --sl-body-background: var(--sl-color-surface-solid-primary-background);
+  --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
   --sl-color-skeleton-shimmer: linear-gradient
     (
       90deg,

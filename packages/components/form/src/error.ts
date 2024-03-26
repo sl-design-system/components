@@ -4,6 +4,12 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } f
 import { property } from 'lit/decorators.js';
 import styles from './error.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-error': Error;
+  }
+}
+
 export type ErrorSize = 'sm' | 'md' | 'lg';
 
 /**

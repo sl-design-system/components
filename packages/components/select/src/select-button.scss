@@ -50,7 +50,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   :host(#{$variant-selector}[disabled]) {
     --_background: var(--sl-color-select-selectbox-#{$variant}-disabled-background);
     --_border-color: var(--sl-color-select-selectbox-#{$variant}-disabled-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-disabled-foreground);
+    --_color: var(--sl-color-select-selectbox-#{$variant}-disabled-input-text);
     --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-disabled-placeholder);
   }
 }
@@ -60,6 +60,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
+  color: var(--_color);
   display: flex;
   flex: 1;
   font: var(--_font);

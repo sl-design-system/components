@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/editor",
-  "version": "0.0.22",
+  "version": "0.0.24",
   "description": "Editor components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,18 +38,18 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "0.0.10",
-    "@sl-design-system/shared": "0.2.6"
+    "@sl-design-system/form": "0.0.12",
+    "@sl-design-system/shared": "0.2.8"
   },
   "devDependencies": {
     "prosemirror-commands": "^1.5.2",
-    "prosemirror-history": "^1.3.2",
+    "prosemirror-history": "^1.4.0",
     "prosemirror-inputrules": "^1.4.0",
     "prosemirror-keymap": "^1.2.2",
     "prosemirror-model": "^1.19.4",
     "prosemirror-schema-list": "^1.3.0",
     "prosemirror-state": "^1.4.3",
-    "prosemirror-view": "^1.33.1"
+    "prosemirror-view": "^1.33.3"
   },
   "peerDependencies": {
     "prosemirror-commands": "^1.5.2",

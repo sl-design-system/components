@@ -1530,6 +1530,37 @@
         "type": "typography"
       }
     },
+    "slds": {
+      "checklist": {
+        "heading": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.heading}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "lineHeight": "{text.typeset.lineHeight.xl}",
+            "fontSize": "{text.typeset.fontSize.xl}"
+          },
+          "type": "typography"
+        },
+        "body": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.regular}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "lineHeight": "{text.typeset.lineHeight.lg}"
+          },
+          "type": "typography"
+        },
+        "listitem": {
+          "value": {
+            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
+            "fontSize": "{text.typeset.fontSize.lg}",
+            "lineHeight": "{text.typeset.lineHeight.lg}"
+          },
+          "type": "typography"
+        }
+      }
+    },
     "input": {
       "textField": {
         "fontIcon": {
@@ -1970,6 +2001,34 @@
         },
         "type": "typography"
       }
+    },
+    "accordion": {
+      "title": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.xl}",
+          "fontSize": "{text.typeset.fontSize.xl}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "textCase": "{text.typeset.textCase.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}"
+        },
+        "type": "typography"
+      },
+      "body": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.md}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "textCase": "{text.typeset.textCase.none}"
+        },
+        "type": "typography"
+      }
     }
   },
   "borderRadius": {
@@ -2100,6 +2159,12 @@
         "value": "{borderRadius.default}",
         "type": "borderRadius"
       }
+    },
+    "slds": {
+      "checklist": {
+        "value": "{border.radius.2xl}",
+        "type": "borderRadius"
+      }
     }
   },
   "border": {
@@ -2220,6 +2285,12 @@
       },
       "card": {
         "border": {
+          "value": "{border.width.xs}",
+          "type": "borderWidth"
+        }
+      },
+      "slds": {
+        "checklist": {
           "value": "{border.width.xs}",
           "type": "borderWidth"
         }
@@ -2441,6 +2512,11 @@
         "type": "Icons",
         "description": "icon.core.chevron-down"
       },
+      "chevron-right": {
+        "value": "chevron-right",
+        "type": "Icons",
+        "description": "icon.core.chevron-right"
+      },
       "check": {
         "value": "check",
         "type": "Icons",
@@ -2470,6 +2546,16 @@
         "value": "ellipsis",
         "type": "Icons",
         "description": "icon.core.ellipsis"
+      },
+      "house": {
+        "value": "house",
+        "type": "Icons",
+        "description": "icon.core.house"
+      },
+      "angle-down": {
+        "value": "angle-down",
+        "type": "Icons",
+        "description": "icon.core.angle-down"
       }
     },
     "typeset": {
@@ -2663,6 +2749,44 @@
         }
       }
     },
+    "accordion": {
+      "content": {
+        "inline": {
+          "value": "{space.3xl}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "title": {
+        "inline": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "inline": {
+        "value": "{space.3xl}",
+        "type": "spacing"
+      },
+      "block": {
+        "value": "{space.lg}",
+        "type": "spacing"
+      },
+      "gap": {
+        "value": "{space.md}",
+        "type": "spacing"
+      }
+    },
     "none": {
       "value": 0,
       "type": "spacing",
@@ -2702,6 +2826,11 @@
       "value": 30,
       "type": "spacing",
       "description": "space.2xl"
+    },
+    "3xl": {
+      "value": 40,
+      "type": "spacing",
+      "description": "space.3xl"
     },
     "button": {
       "solid": {
@@ -3883,6 +4012,14 @@
         "type": "sizing"
       }
     },
+    "accordion": {
+      "icon": {
+        "height": {
+          "value": 28,
+          "type": "sizing"
+        }
+      }
+    },
     "none": {
       "value": 0,
       "type": "sizing",
@@ -4301,6 +4438,31 @@
             "blur": 0,
             "spread": 0,
             "color": "rgba({color.palette.neutral.base} , {opacity.transparent})",
+            "type": "dropShadow"
+          }
+        ],
+        "type": "boxShadow"
+      }
+    }
+  },
+  "boxShadow": {
+    "slds": {
+      "checklist": {
+        "value": [
+          {
+            "x": 0,
+            "y": 0,
+            "blur": 4,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.50})",
+            "type": "dropShadow"
+          },
+          {
+            "x": 0,
+            "y": 4,
+            "blur": 8,
+            "spread": 0,
+            "color": "rgba({color.palette.neutral.base} , {opacity.150})",
             "type": "dropShadow"
           }
         ],

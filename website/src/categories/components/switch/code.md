@@ -25,30 +25,7 @@ eleventyNavigation:
 </div>
 
 </section>
-
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/switch
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/switch
-  ```
-</div>
-
+<ds-install-info link-in-navigation package="switch"></ds-install-info>
 </section>
 
 {% include "../component-table.njk" %}

@@ -14,6 +14,12 @@ import { buildKeymap, buildListKeymap } from './keymap.js';
 import { type EditorMarks, type EditorNodes, marks, nodes } from './schema.js';
 import { createContentNode, getHTML } from './utils.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-editor': Editor;
+  }
+}
+
 export class Editor extends FormControlMixin(LitElement) {
   /** @private */
   static formAssociated = true;

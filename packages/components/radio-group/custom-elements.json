@@ -65,6 +65,22 @@
           "members": [
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | undefined>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean | undefined"
@@ -72,6 +88,14 @@
               "description": "Whether the group is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",
@@ -112,30 +136,6 @@
               "attribute": "size"
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<T | undefined>"
-              },
-              "description": "Emits when the value changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus."
-            },
-            {
               "kind": "field",
               "name": "value",
               "type": {
@@ -143,32 +143,6 @@
               },
               "description": "The value for the radio group, to be used in forms.",
               "attribute": "value"
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<T | undefined>"
-              },
-              "description": "Emits when the value changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus.",
-              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
@@ -357,6 +331,30 @@
                 "text": "Array<Radio<T>> | undefined"
               },
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | undefined>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             }
           ]
         }
@@ -387,7 +385,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is checked.",
+              "description": "Whether the radio button is checked.",
               "attribute": "checked",
               "reflects": true
             },
@@ -438,7 +436,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is checked.",
+              "description": "Whether the radio button is checked.",
               "fieldName": "checked"
             },
             {

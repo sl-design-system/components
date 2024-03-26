@@ -1,3 +1,7 @@
+:host {
+  display: block;
+}
+
 :host([aria-hidden='true']) {
   display: none;
   pointer-events: none;

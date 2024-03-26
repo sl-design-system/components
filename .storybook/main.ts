@@ -1,11 +1,10 @@
-import type { StorybookConfig } from '@storybook/web-components-vite';
+import { type StorybookConfig } from '@storybook/web-components-vite';
 import { argv } from 'node:process';
-import { mergeConfig } from 'vite';
 
 const devMode = !argv.includes('build');
 
 const config: StorybookConfig = {
-  stories: ['../packages/components/**/*.stories.ts'],
+  stories: ['../packages/{checklist,components}/**/*.stories.ts'],
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-actions',
@@ -34,7 +33,11 @@ const config: StorybookConfig = {
   staticDirs: [
     { from: '../packages/themes', to: '/themes' }
   ],
-  viteFinal: config => mergeConfig(config, { logLevel: 'warn' })
+  viteFinal: async config => {
+    const { mergeConfig } = await import('vite');
+
+    return mergeConfig(config, { logLevel: 'warn' });
+  }
 };
 
 export default config;

@@ -54,11 +54,19 @@ export const positionPopover = (
         padding: options.viewportMargin,
         apply: ({ availableWidth, availableHeight }) => {
           // Make sure that the overlay is contained by the visible page.
-          const maxHeight = Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight));
+          const maxBlockSize =
+              Math.max(MIN_OVERLAY_HEIGHT, Math.floor(availableHeight)) - (options.viewportMargin ?? 0),
+            maxInlineSize = options.maxWidth ?? Math.floor(availableWidth);
 
+          const style = getComputedStyle(element),
+            currentMaxBlockSize = parseInt(style.maxBlockSize) ?? 0,
+            currentMaxInlineSize = parseInt(style.maxInlineSize) ?? 0;
+
+          // If the element already has a max inline or block size that is smaller
+          // than the available space, don't override it.
           Object.assign(element.style, {
-            maxWidth: `${options.maxWidth ?? Math.floor(availableWidth)}px`,
-            maxHeight: `${maxHeight - (options.viewportMargin ?? 0)}px`
+            maxInlineSize: maxInlineSize > currentMaxInlineSize ? '' : `${maxInlineSize}px`,
+            maxBlockSize: maxBlockSize > currentMaxBlockSize ? '' : `${maxBlockSize}px`
           });
         }
       })
@@ -87,8 +95,8 @@ export const positionPopover = (
 
       if (arrow && arrowElement) {
         Object.assign(arrowElement.style, {
-          'inset-inline-start': typeof arrow.x === 'number' ? `${roundByDPR(arrow.x)}px` : '',
-          'inset-block-start': typeof arrow.y === 'number' ? `${roundByDPR(arrow.y)}px` : ''
+          insetInlineStart: typeof arrow.x === 'number' ? `${roundByDPR(arrow.x)}px` : '',
+          insetBlockStart: typeof arrow.y === 'number' ? `${roundByDPR(arrow.y)}px` : ''
         });
       }
     });

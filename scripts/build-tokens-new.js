@@ -5,9 +5,7 @@ import StyleDictionary from 'style-dictionary';
 
 const cwd = new URL('.', import.meta.url).pathname;
 
-registerTransforms(StyleDictionary, {
-  // options here if needed
-});
+registerTransforms(StyleDictionary);
 
 StyleDictionary.registerFileHeader({
   name: 'sl/legal',
@@ -120,7 +118,6 @@ const build = async () => {
     });
 
   configs.forEach(cfg => {
-  // [configs.at(-9)].forEach(cfg => {
     // const sd = new StyleDictionary(cfg, { verbosity: 'silent' });
     const sd = new StyleDictionary(cfg);
 

@@ -22,6 +22,7 @@
   ],
   "scripts": {
     "build": "wireit",
+    "build:tokens": "wireit",
     "build-storybook": "wireit",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
     "chromatic-components": "yarn workspace @sl-design-system/chromatic components",
@@ -175,17 +176,21 @@
       ]
     },
     "build:tokens": {
-      "command": "node scripts/build-tokens.js",
+      "command": "stylelint --fix \"packages/themes/**/*.{css,scss}\"",
+      "dependencies": [
+        "build:tokens:sd"
+      ]
+    },
+    "build:tokens:sd": {
+      "command": "node scripts/build-tokens-new.js",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-tokens.js",
+        "scripts/build-tokens-new.js",
         "packages/tokens/src/**/*.json"
       ],
       "output": [
-        "packages/themes/**/*.{css,json,scss}",
-        "!packages/themes/*/fonts.css",
-        "!packages/themes/*/{package,tsconfig}.json",
-        "!packages/themes/tsconfig.json"
+        "packages/themes/**/*.{css,scss}",
+        "!packages/themes/*/fonts.css"
       ]
     },
     "build:types": {
@@ -214,10 +219,22 @@
       ]
     },
     "lint:components:code": {
-      "command": "eslint --config packages/components/eslint.config.mjs packages/components/*"
+      "command": "eslint --config packages/components/eslint.config.mjs \"packages/components/**/*.ts\""
     },
     "lint:components:styles": {
-      "command": "stylelint --quiet-deprecation-warnings packages/components/*"
+      "command": "stylelint \"packages/components/**/*.{css,scss}\""
+    },
+    "lint:themes": {
+      "dependencies": [
+        "lint:themes:code",
+        "lint:themes:styles"
+      ]
+    },
+    "lint:themes:code": {
+      "command": "eslint --config packages/themes/eslint.config.mjs \"packages/themes/**/*.ts\""
+    },
+    "lint:themes:styles": {
+      "command": "stylelint \"packages/themes/**/*.{css,scss}\""
     },
     "release": {
       "command": "yarn changeset publish",

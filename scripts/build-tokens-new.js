@@ -48,16 +48,16 @@ const build = async () => {
     return files.some(file => filePath.endsWith(file));
   };
 
+  const themeBase = join(cwd, '../packages/themes');
+
   const configs = Object
     .entries(permutateThemes($themes))
     .map(([name, tokensets]) => {
       const [theme, variant] = name.split('/');
 
-      console.log(`Building ${theme}/${variant}`);
-
       const files = [
         {
-          destination: `dist/${theme}/${variant}.css`,
+          destination: `${themeBase}/${theme}/${variant}.css`,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
@@ -65,7 +65,7 @@ const build = async () => {
           }
         },
         {
-          destination: `dist/${theme}/css/base.css`,
+          destination: `${themeBase}/${theme}/css/base.css`,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
@@ -74,7 +74,7 @@ const build = async () => {
           filter: filterFiles(['core.json', 'base.json'])
         },
         {
-          destination: `dist/${theme}/scss/base.scss`,
+          destination: `${themeBase}/${theme}/scss/base.scss`,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
@@ -84,7 +84,7 @@ const build = async () => {
           filter: filterFiles(['core.json', 'base.json'])
         },
         {
-          destination: `dist/${theme}/css/${variant}.css`,
+          destination: `${themeBase}/${theme}/css/${variant}.css`,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
@@ -93,7 +93,7 @@ const build = async () => {
           filter: filterFiles([`${variant}.json`])
         },
         {
-          destination: `dist/${theme}/scss/${variant}.scss`,
+          destination: `${themeBase}/${theme}/scss/${variant}.scss`,
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
@@ -105,7 +105,8 @@ const build = async () => {
       ];
 
       return {
-        source: tokensets.map(tokenset => `../packages/tokens/src/${tokenset}.json`),
+        // source: tokensets.map(tokenset => `../packages/tokens/src/${tokenset}.json`),
+        source: tokensets.map(tokenset => `packages/tokens/src/${tokenset}.json`),
         platforms: {
           css: {
             transformGroup: 'tokens-studio',

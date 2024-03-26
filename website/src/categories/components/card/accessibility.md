@@ -10,13 +10,12 @@ eleventyNavigation:
 ## Accessibility considerations
 
 - Wrap your cards in a list to group your cards. Each list item `<li>` represents a card.
-- Each Card has a Heading level of the same level because they belong to a flat list hierarchy
 - If the cards are part of a specific group, add an appropriate heading or use `aria-label` to describe the group.
-- Update the heading level based on the content of the page to make sure card headings are in the correct, logical order
-- Avoid having 2 links to the same URL (in the same Card) like one for the Title and another for the action (in that way we reduce the tab stops)
-- When creating a tab order for the different parts of the card, remember to put the headline before the image or media so that screen-reader users get the context before the image alt tag
+- Update the heading level based on the content of the page to make sure card headings are in the correct, logical order. The heading will always look the same, so the heading level chosen will affect only the semantic meaning, so make sure that is logical in the context of the page.
+- Each Card has a Heading level of the same level because they belong to a flat list hierarchy.
+- Avoid having 2 links to the same URL (in the same Card) like one for the Title and another for the action (in that way we reduce the tab stops).
 - Avoid nesting interactive elements, such as placing a button inside a link or a link inside a button.
-- Don't wrap the whole card in a Link, use the expand prop to make it interactive
+- Don't wrap the whole card in a Link, use the expand prop to make it interactive.
   
 </section>
 
@@ -28,7 +27,7 @@ eleventyNavigation:
 
 |Command|Description|
 |-|-|
-|`Tab`|Change focus on the card and subsequent actions|
+|`Tab`|Change focus on elements inside the card and subsequent actions. The card itself cannot be focused.|
 
 {.ds-table .ds-table-align-top}
 

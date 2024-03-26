@@ -26,7 +26,9 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-card style="--sl-card-media-aspect-ratio:1/1; --sl-card-horizontal-breakpoint:500px;">
+  <sl-card style="
+      --sl-card-media-aspect-ratio:1/1; 
+      --sl-card-horizontal-breakpoint:500px;">
     <img slot="media" src="images/open-graph-card.jpg" />
     <h2>Fun adventures...</h2>
     <span slot="header">

@@ -382,7 +382,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     indicator.style.transitionDuration = this.#shouldAnimate ? '' : '0s';
 
     if (this.vertical) {
-      indicator.style.scale = `1 ${rect.height}`;
+      indicator.style.scale = `1 ${rect.height / 100}`;
       indicator.style.translate = `0 ${start}px`;
     } else {
       indicator.style.scale = `${rect.width / 100} 1`;

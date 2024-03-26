@@ -19,13 +19,6 @@ StyleDictionary.registerFileHeader({
   }
 });
 
-StyleDictionary.registerFormat({
-  name: 'sl/scss-mixins',
-  formatter: ({ dictionary, options }) => {
-    return `${options.header}\n${dictionary.allTokens.map(token => `  $sl-${token.name}: ${token.value};`).join('\n')}${options.footer}\n`;
-  }
-});
-
 StyleDictionary.registerTransform({
   name: 'sl/size/lineheight',
   type: 'value',
@@ -51,88 +44,86 @@ StyleDictionary.registerTransform({
 const build = async () => {
   const $themes = JSON.parse(await readFile(join(cwd, '../packages/tokens/src/$themes.json'), 'utf8'));
 
+  const filterFiles = files => async token => {
+    const filePath = token.filePath ?? token.attributes.filePath;
+
+    return files.some(file => filePath.endsWith(file));
+  };
+
   const configs = Object
     .entries(permutateThemes($themes))
-    .map(([name, tokensets]) => ({
-      source: tokensets.map(tokenset => `../packages/tokens/src/${tokenset}.json`),
-      platforms: {
-        css: {
-          transformGroup: 'tokens-studio',
-          transforms: ['name/kebab', 'sl/size/lineheight', 'sl/size/css/paragraphspacing'],
-          prefix: 'sl',
-          files: [
-            {
-              destination: `dist/${name}.css`,
-              format: 'css/variables',
-              options: {
-                fileHeader: 'sl/legal',
-                outputReferences: true
-              }
-            }
-          ]
+    .map(([name, tokensets]) => {
+      const [theme, variant] = name.split('/');
+
+      console.log(`Building ${theme}/${variant}`);
+
+      const files = [
+        {
+          destination: `dist/${theme}/${variant}.css`,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true
+          }
+        },
+        {
+          destination: `dist/${theme}/css/base.css`,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true
+          },
+          filter: filterFiles(['core.json', 'base.json'])
+        },
+        {
+          destination: `dist/${theme}/scss/base.scss`,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true,
+            selector: '@mixin sl-theme-base'
+          },
+          filter: filterFiles(['core.json', 'base.json'])
+        },
+        {
+          destination: `dist/${theme}/css/${variant}.css`,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true
+          },
+          filter: filterFiles([`${variant}.json`])
+        },
+        {
+          destination: `dist/${theme}/scss/${variant}.scss`,
+          format: 'css/variables',
+          options: {
+            fileHeader: 'sl/legal',
+            outputReferences: true,
+            selector: `@mixin sl-theme-${variant}`
+          },
+          filter: filterFiles([`${variant}.json`])
         }
-      }
-    }));
-
-  const splitSources = configs.map(({ source }) => {
-    const [core, base, theme] = source,
-      name = theme.split('/').at(-2),
-      mode = theme.match(/.*(light|dark)\.json/)[1];
-
-    return {
-      [name]: {
-        base: [core, base],
-        [mode]: [theme]
-      }
-    };
-  }).reduce((acc, val) => {
-    const [name, sources] = Object.entries(val)[0];
-
-    if (acc[name]) {
-      acc[name] = { ...acc[name], ...sources };
-
-      return acc;
-    } else {
-      return { ...acc, [name]: sources };
-    }
-  }, {});
-
-  const splitConfigs = Object.entries(splitSources).flatMap(([name, { base, light, dark }]) => {
-    return [base, light, dark].filter(Boolean).map((sources, index) => {
-      const variant = sources.at(-1)?.match(/.*(light|dark)\.json/)?.at(1) ?? 'base',
-        destination = `dist/${name}/scss/${variant}.scss`;
+      ];
 
       return {
-        source: sources,
+        source: tokensets.map(tokenset => `../packages/tokens/src/${tokenset}.json`),
         platforms: {
           css: {
             transformGroup: 'tokens-studio',
             transforms: ['name/kebab', 'sl/size/lineheight', 'sl/size/css/paragraphspacing'],
-            files: [
-              {
-                destination,
-                format: 'css/variables',
-                options: {
-                  // header: `@mixin sl-theme-${variant} {`,
-                  // footer: '}',
-                  outputReferences: true,
-                  selector: `@mixin sl-theme-${variant}`
-                }
-              }
-            ]
+            prefix: 'sl',
+            files
           }
         }
       };
     });
-  });
 
-  console.log(splitConfigs.at(-14));
-
-  // [...configs, ...splitConfigs].forEach(cfg => {
-  [splitConfigs.at(-14)].forEach(cfg => {
+  configs.forEach(cfg => {
+  // [configs.at(-9)].forEach(cfg => {
+    // const sd = new StyleDictionary(cfg, { verbosity: 'silent' });
     const sd = new StyleDictionary(cfg);
 
-    // sd.cleanAllPlatforms();
     sd.buildAllPlatforms();
   });
 };

@@ -28,9 +28,9 @@ import { GridViewModel, GridViewModelGroup } from './view-model.js';
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-active-item-change': SlActiveItemChangeEvent;
-    'sl-drag-start': SlDragStartEvent;
-    'sl-drag-end': SlDragEndEvent;
-    'sl-drop': SlDropEvent;
+    'sl-grid-dragstart': SlDragStartEvent;
+    'sl-grid-dragend': SlDragEndEvent;
+    'sl-grid-drop': SlDropEvent;
     'sl-state-change': SlStateChangeEvent;
   }
 
@@ -127,7 +127,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   @state() activeItem?: T;
 
   /** Emits when the active item changes */
-  @event() activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
+  @event({ name: 'sl-active-item-change' }) activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
 
   /** Provide your own implementation for getting the data. */
   @property({ attribute: false }) dataSource?: DataSource<T>;
@@ -139,13 +139,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ attribute: 'draggable-rows' }) draggableRows?: GridDraggableRows;
 
   /** Emits when a drag operation is starting. */
-  @event() dragStartEvent!: EventEmitter<SlDragStartEvent<T>>;
+  @event({ name: 'sl-grid-dragstart' }) dragStartEvent!: EventEmitter<SlDragStartEvent<T>>;
 
   /** Emits when a drag operation has finished. */
-  @event() dragEndEvent!: EventEmitter<SlDragEndEvent<T>>;
+  @event({ name: 'sl-grid-dragend' }) dragEndEvent!: EventEmitter<SlDragEndEvent<T>>;
 
   /** Emits when an item has been dropped. */
-  @event() dropEvent!: EventEmitter<SlDropEvent<T>>;
+  @event({ name: 'sl-grid-drop' }) dropEvent!: EventEmitter<SlDropEvent<T>>;
 
   /**
    * Determines if or what kind of drop target the given item is:
@@ -174,7 +174,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
 
   /** Emits when the state in the grid has changed. */
-  @event() stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
+  @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
 
   /** Uses alternating background colors for the rows when set. */
   @property({ type: Boolean, reflect: true }) striped?: boolean;

@@ -165,10 +165,10 @@
       ]
     },
     "build:themes:styles": {
-      "command": "node scripts/build-tokens-new.js",
+      "command": "node scripts/build-tokens.js",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-tokens-new.js",
+        "scripts/build-tokens.js",
         "packages/tokens/src/**/*.json"
       ],
       "output": [

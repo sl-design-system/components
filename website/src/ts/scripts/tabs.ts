@@ -7,6 +7,8 @@ const mediaQueryList: MediaQueryList = window.matchMedia('(min-width: 900px)'),
   verticalTabsWrapperAll: Element[] = [],
   verticalTabsAll: HTMLElement[] = [];
 
+const slTabs = document.querySelectorAll('sl-tab') as NodeListOf<HTMLElement>;
+
 let tabsContainer = document.querySelector('.ds-tabs'),
   slider = tabsContainer?.querySelector('.ds-tabs__slider') as HTMLElement,
   indicator = slider?.querySelector('.ds-tabs__indicator') as HTMLElement,
@@ -55,6 +57,21 @@ window.onresize = () => {
 
 window.onkeydown = (event: KeyboardEvent) => {
   onKeydown(event);
+};
+
+window.onscroll = () => {
+  // if (!tabSections || !verticalTabs || !tabContent) {
+  //   return;
+  // }
+  const verticalTabs = currentContent?.querySelectorAll('.ds-tab--vertical');
+  slTabs.forEach((section, i) => {
+    console.log('sectiond and i in window onscroll', section, i);
+    const rect = section.getBoundingClientRect().y;
+    if (rect < window.innerHeight) {
+      // TODO: I'm not sure if this is ok?
+      selectVerticalTab(verticalTabs[i]); // causes last vertical tab selected at the beginning ... verticalTabs[0]
+    }
+  });
 };
 
 function generateTabsElements(): void {
@@ -124,7 +141,11 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
     return;
   }
 
-  console.log('verticalTabContent in tabs script - generateVerticalTabs', verticalTabContent);
+  console.log(
+    'verticalTabContent in tabs script - generateVerticalTabs',
+    verticalTabContent,
+    verticalTabContent.parentElement
+  );
 
   const verticalTabsContainers = document.createElement('div');
   verticalTabsContainers.setAttribute('vertical', '');
@@ -153,6 +174,8 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
 
   headerAnchors = verticalTabContent.querySelectorAll('.header-anchor, [link-in-navigation]');
 
+  // console.log('headerAnchors in vertical', headerAnchors);
+
   const headerAnchorsParents = Array.from(headerAnchors)
     .map(element => {
       if (element.parentElement?.tagName === 'H2') {
@@ -168,6 +191,8 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
     })
     .filter(element => element !== undefined);
   headerAnchorsParentsAll.push(...headerAnchorsParents);
+
+  console.log('headerAnchors in vertical - parents', headerAnchorsParentsAll);
 
   const verticalTabs: HTMLElement[] = [];
 
@@ -202,11 +227,19 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
 
   console.log('verticalTabsAll', verticalTabsAll);
 
+  // currentContent = verticalTabContent.parentElement.getAttribute('aria-hidden') == 'false' ? verticalTabContent : null;
+
+  if (verticalTabContent.parentElement && verticalTabContent.parentElement.getAttribute('aria-hidden') == 'false') {
+    currentContent = verticalTabContent;
+  }
+
+  selectVerticalTab(verticalTabs[0]);
+
   verticalTabsAll.forEach(verticalTab => {
     verticalTab.onclick = (event: MouseEvent) => {
       setTimeout(() => {
         selectVerticalTab(event.target as Element);
-      }, 500);
+      }, 100);
     };
   });
 }
@@ -382,8 +415,48 @@ function alignTabIndicator(tab: Element): void {
   indicator.style.width = `${tab.getBoundingClientRect().width}px`;
 }
 
+// slTabs.forEach(tab =>
+//   tab.addEventListener('click', event => {
+//     const verticalTabs = currentContent?.querySelectorAll('.ds-tab--vertical');
+//     console.log('event on sl-tab-change slTabs', event, verticalTabs);
+//     selectVerticalTab(verticalTabs[0]);
+//   })
+// );
+
+// slTabs.forEach(tab => {
+//   tab.onclick = event => {
+//     // selectTab(event.target as Element);
+//     const verticalTabs = currentContent?.querySelectorAll('.ds-tab--vertical');
+//     console.log('event on sl-tab-change slTabs', event, verticalTabs);
+//     requestAnimationFrame(() => {
+//       selectVerticalTab(verticalTabs[0]);
+//     });
+//     // selectVerticalTab(verticalTabs[0]);
+//   };
+// });
+
 function selectVerticalTab(verticalTab: Element): void {
+  console.log('slTabs', slTabs);
+  // TODO: tabs container parameter
+  const verticalTabContent = document.querySelector('sl-tab-panel[aria-hidden="false"]') as Element;
+  console.log('verticalTabContent_verticalTabContent', verticalTabContent);
+  // if (verticalTabContent.parentElement && verticalTabContent.parentElement.getAttribute('aria-hidden') == 'false') {
+  currentContent = verticalTabContent;
+  // }
+  console.log(
+    'verticalTab in selectVerticalTab',
+    verticalTab,
+    currentVerticalTabsContainer,
+    currentContent,
+    verticalTabContent
+  );
   currentVerticalTabsContainer = currentContent.querySelector('.ds-tabs[vertical]')?.firstChild as Element;
+  console.log('currentVerticalTabsContainer', currentContent, currentVerticalTabsContainer, currentVerticalTabLink);
+  if (!verticalTab) {
+    verticalTab = currentVerticalTabsContainer.querySelector('a.ds-tab--vertical') as Element;
+    console.log('verticalTab in selectVerticalTab in if', !verticalTab, verticalTab, currentVerticalTabsContainer);
+  }
+  console.log('currentVerticalTabsContainer in select', currentVerticalTabsContainer);
   currentVerticalTabLink?.setAttribute('aria-selected', 'false');
   verticalTab.setAttribute('aria-selected', 'true');
   currentVerticalTabLink?.setAttribute('tabindex', '-1');

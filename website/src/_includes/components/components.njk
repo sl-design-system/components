@@ -12,12 +12,12 @@ layout: base.njk
   </div>
 </header>
 <section>
-  {{ page.templateContent | safe }}
+  {#{{ page.templateContent | safe }}#}
 
   {%- for post in collections.component -%}
 {#    {% if page.url === post.url %}#}
     {% if page.url.includes(post.url) %}
-      <sl-tab-group>
+      <sl-tab-group> {#class="ds-tabs__container--sticky"#}
 {#        {% set testt = collections.usage  %}#}
 {#        test url1: {{ testt.url }}#}
 {#        test url2: {{ page.url }}#}
@@ -55,9 +55,9 @@ layout: base.njk
         <sl-tab-panel>
           <div id="myVerticalTabsContent" class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
-              {{ page.templateContent | safe }}
-              {{ page.url }}
-              {{ post.url }}
+{#              {{ page.templateContent | safe }}#}
+{#              {{ page.url }}#}
+{#              {{ post.url }}#}
 
 {#              {%- for post in collections.all -%}#}
 {#                <li>{{ post | safe }}<a href="{{ post.url }}">{{ post.url }} {{ post.title }}</a></li>#}

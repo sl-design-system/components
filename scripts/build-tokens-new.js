@@ -105,8 +105,10 @@ const build = async () => {
       ];
 
       return {
-        // source: tokensets.map(tokenset => `../packages/tokens/src/${tokenset}.json`),
-        source: tokensets.map(tokenset => `packages/tokens/src/${tokenset}.json`),
+        log: {
+          warnings: 'disabled'
+        },
+        source: tokensets.map(tokenset => join(cwd, `../packages/tokens/src/${tokenset}.json`)),
         platforms: {
           css: {
             transformGroup: 'tokens-studio',
@@ -118,12 +120,11 @@ const build = async () => {
       };
     });
 
-  configs.forEach(cfg => {
-    // const sd = new StyleDictionary(cfg, { verbosity: 'silent' });
+  for (const cfg of configs) {
     const sd = new StyleDictionary(cfg);
 
-    sd.buildAllPlatforms();
-  });
+    await sd.buildAllPlatforms();
+  }
 };
 
 build();

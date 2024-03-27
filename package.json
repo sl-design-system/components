@@ -176,12 +176,6 @@
       ]
     },
     "build:tokens": {
-      "command": "stylelint --fix \"packages/themes/**/*.{css,scss}\"",
-      "dependencies": [
-        "build:tokens:sd"
-      ]
-    },
-    "build:tokens:sd": {
       "command": "node scripts/build-tokens-new.js",
       "clean": "if-file-deleted",
       "files": [
@@ -376,7 +370,7 @@
     "lit": "^3.1.2",
     "sinon": "^17.0.1",
     "storybook": "^8.0.4",
-    "stylelint": "^16.3.0",
+    "stylelint": "^16.3.1",
     "typescript": "^5.4.3",
     "vite": "^5.2.5",
     "wireit": "^0.14.4"

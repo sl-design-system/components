@@ -33,9 +33,9 @@
     "stylelint-use-logical": "^2.1.2"
   },
   "devDependencies": {
-    "stylelint": "^16.3.0"
+    "stylelint": "^16.3.1"
   },
   "peerDependencies": {
-    "stylelint": "^16.2.1"
+    "stylelint": "^16.3.1"
   }
 }

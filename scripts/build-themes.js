@@ -3,7 +3,8 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 import StyleDictionary from 'style-dictionary';
 
-const cwd = new URL('.', import.meta.url).pathname;
+const cwd = new URL('.', import.meta.url).pathname,
+  mathPresent = /^(?!calc|rgb|hsl).*\s[\+\-\*\/]\s.*/;
 
 registerTransforms(StyleDictionary);
 
@@ -50,11 +51,10 @@ StyleDictionary.registerTransform({
   name: 'sl/wrapMathInCalc',
   type: 'value',
   transitive: true,
-  matcher: token => typeof token.attributes?.original?.value === 'string',
-  transformer: (token, config, options) => {
-    if (token.attributes.original.value.match(/^(?!calc|rgb|hsl).*\s[\+\-\*\/]\s.*/)) {
-      token.attributes.original.value = `calc(${token.attributes.original.value})`;
-    }
+  matcher: token => typeof token.attributes?.original?.value === 'string' &&
+    mathPresent.test(token.attributes.original.value),
+  transformer: token => {
+    token.attributes.original.value = `calc(${token.attributes.original.value})`;
 
     return token.$value ?? token.value;
   }
@@ -147,11 +147,11 @@ const build = async () => {
       };
     });
 
-  // for (const cfg of configs) {
-    const sd = new StyleDictionary(configs[13]);
+  for (const cfg of configs) {
+    const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();
-  // }
+  }
 };
 
 build();

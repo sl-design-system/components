@@ -22,19 +22,18 @@
   ],
   "scripts": {
     "build": "wireit",
-    "build:tokens": "wireit",
-    "build-storybook": "wireit",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
     "chromatic-components": "yarn workspace @sl-design-system/chromatic components",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
     "extract-i18n": "lit-localize extract",
-    "lint:components": "wireit",
+    "dist": "wireit",
+    "import-icons": "wireit",
+    "lint": "wireit",
     "postinstall": "husky || true",
     "release": "wireit",
     "start": "wireit",
     "storybook": "wireit",
     "test": "wireit",
-    "transform-tokens": "wireit",
     "version": "wireit",
     "website": "wireit"
   },
@@ -68,7 +67,7 @@
       "command": "node scripts/build-packages.js checklist",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:scss",
+        "build:styles",
         "build:themes"
       ],
       "files": [
@@ -84,7 +83,7 @@
       "command": "node scripts/build-packages.js components",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:scss"
+        "build:styles"
       ],
       "files": [
         "packages/components/**/*.ts",
@@ -93,23 +92,6 @@
       "output": [
         "packages/components/**/*.js",
         "packages/components/**/*.js.map"
-      ]
-    },
-    "build:icons": {
-      "command": "node scripts/build-icons.js",
-      "clean": false,
-      "dependencies": [
-        "build:tokens"
-      ],
-      "files": [
-        "scripts/build-icons.js",
-        "scripts/figma-icon-pages.json",
-        "packages/tokens/src/core.json",
-        "packages/tokens/src/*/base.json"
-      ],
-      "output": [
-        "packages/themes/*/icons.ts",
-        "packages/themes/*/icons/*.svg"
       ]
     },
     "build:locales": {
@@ -138,9 +120,10 @@
       ]
     },
     "build:metadata": {
-      "command": "node scripts/build-cem.js",
+      "command": "node scripts/build-metadata.js",
+      "clean": "if-file-deleted",
       "dependencies": [
-        "build:scss"
+        "build:styles"
       ],
       "files": [
         "packages/components/**/*.ts",
@@ -150,11 +133,11 @@
         "packages/components/*/custom-elements.json"
       ]
     },
-    "build:scss": {
-      "command": "node scripts/build-scss.js",
+    "build:styles": {
+      "command": "node scripts/build-styles.js",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:tokens"
+        "build:themes:styles"
       ],
       "files": [
         "packages/{checklist,components}/**/*.scss"
@@ -164,6 +147,12 @@
       ]
     },
     "build:themes": {
+      "dependencies": [
+        "build:themes:code",
+        "build:themes:styles"
+      ]
+    },
+    "build:themes:code": {
       "command": "node scripts/build-packages.js themes",
       "clean": "if-file-deleted",
       "files": [
@@ -175,7 +164,7 @@
         "packages/themes/**/*.js.map"
       ]
     },
-    "build:tokens": {
+    "build:themes:styles": {
       "command": "node scripts/build-tokens-new.js",
       "clean": "if-file-deleted",
       "files": [
@@ -192,7 +181,7 @@
       "clean": "if-file-deleted",
       "dependencies": [
         "build:locales",
-        "build:scss"
+        "build:styles"
       ],
       "files": [
         "tsconfig.all.json",
@@ -206,7 +195,33 @@
         "!packages/{components,themes}/*/node_modules/**"
       ]
     },
-    "lint:components": {
+    "dist": {
+      "dependencies": [
+        "build",
+        "dist:themes"
+      ]
+    },
+    "dist:themes": {
+      "command": "echo minify themes",
+      "dependencies": [
+        "build:themes:styles"
+      ]
+    },
+    "import-icons": {
+      "command": "node scripts/import-icons.js",
+      "clean": false,
+      "files": [
+        "scripts/figma-icon-pages.json",
+        "scripts/import-icons.js",
+        "packages/tokens/src/core.json",
+        "packages/tokens/src/*/base.json"
+      ],
+      "output": [
+        "packages/themes/*/icons.ts",
+        "packages/themes/*/icons/*.svg"
+      ]
+    },
+    "lint": {
       "dependencies": [
         "lint:components:code",
         "lint:components:styles"
@@ -218,22 +233,10 @@
     "lint:components:styles": {
       "command": "stylelint \"packages/components/**/*.{css,scss}\""
     },
-    "lint:themes": {
-      "dependencies": [
-        "lint:themes:code",
-        "lint:themes:styles"
-      ]
-    },
-    "lint:themes:code": {
-      "command": "eslint --config packages/themes/eslint.config.mjs \"packages/themes/**/*.ts\""
-    },
-    "lint:themes:styles": {
-      "command": "stylelint \"packages/themes/**/*.{css,scss}\""
-    },
     "release": {
       "command": "yarn changeset publish",
       "dependencies": [
-        "build",
+        "dist",
         "./packages/angular:release"
       ]
     },
@@ -249,10 +252,6 @@
       ],
       "dependencies": [
         {
-          "script": "build:metadata",
-          "cascade": false
-        },
-        {
           "script": "build:checklist:package",
           "cascade": false
         },
@@ -265,15 +264,15 @@
           "cascade": false
         },
         {
-          "script": "build:scss",
+          "script": "build:metadata",
+          "cascade": false
+        },
+        {
+          "script": "build:styles",
           "cascade": false
         },
         {
           "script": "build:themes",
-          "cascade": false
-        },
-        {
-          "script": "build:tokens",
           "cascade": false
         },
         {
@@ -290,13 +289,6 @@
     },
     "storybook:build": {
       "command": "storybook build -o dist --quiet",
-      "dependencies": [
-        "build:components",
-        "build:themes"
-      ]
-    },
-    "build-storybook": {
-      "command": "storybook build",
       "dependencies": [
         "build:components",
         "build:themes"
@@ -320,12 +312,6 @@
     },
     "test:setup": {
       "command": "playwright install --with-deps"
-    },
-    "transform-tokens": {
-      "dependencies": [
-        "build:icons",
-        "build:tokens"
-      ]
     },
     "version": {
       "command": "yarn install --no-immutable",

@@ -2914,59 +2914,59 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma-export/cli@npm:^4.7.0":
-  version: 4.7.0
-  resolution: "@figma-export/cli@npm:4.7.0"
+"@figma-export/cli@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@figma-export/cli@npm:5.0.1"
   dependencies:
-    "@figma-export/core": "npm:^4.7.0"
-    "@figma-export/types": "npm:^4.7.0"
+    "@figma-export/core": "npm:^5.0.1"
+    "@figma-export/types": "npm:^5.0.1"
     ora: "npm:~5.4.1"
     sade: "npm:~1.8.1"
   bin:
     figma-export: bin/run
-  checksum: 10c0/cb57ac779f7625cc3b28075b717da0fb1216ba8f5546ac58ab31dde7fa881b968d6c499791f5756555f0768ecb11af17230b6d23ccd53506afd5bc1b61a597e8
+  checksum: 10c0/4caf5f3a3e4e3f5f3c5c1793954c78527bf9e5c33a4d40211ca6f31de4057497b31bbbee06df39c591361a14b3e9738db426b4e00bf8b0b067825a5afa27b95f
   languageName: node
   linkType: hard
 
-"@figma-export/core@npm:^4.7.0":
-  version: 4.7.0
-  resolution: "@figma-export/core@npm:4.7.0"
+"@figma-export/core@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@figma-export/core@npm:5.0.1"
   dependencies:
-    "@figma-export/types": "npm:^4.7.0"
-    axios: "npm:~0.27.2"
+    "@figma-export/types": "npm:^5.0.1"
+    axios: "npm:^1.6.7"
     figma-js: "npm:~1.16.0"
     p-limit: "npm:^3.1.0"
     p-retry: "npm:^4.6.2"
-  checksum: 10c0/81cf06e8d4f0bbae9b59a46ef865f7a03ff827b1101e19b3110a768dcda2070d5a2aede5571612b1d5a3082c4161436b164a1bee89d492d4ad29aee7845b4309
+  checksum: 10c0/ea9ddb21a5608e9e2349321a6cbef068dd0fed54ef3d4923ad8da3f75ae606d597c7d351692bf7b9c67952db3a7eba3b15b558c71aa3e0f66824f424c4a94ca8
   languageName: node
   linkType: hard
 
-"@figma-export/output-components-as-svg@npm:^4.7.0":
-  version: 4.7.0
-  resolution: "@figma-export/output-components-as-svg@npm:4.7.0"
+"@figma-export/output-components-as-svg@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@figma-export/output-components-as-svg@npm:5.0.1"
   dependencies:
-    "@figma-export/types": "npm:^4.7.0"
-  checksum: 10c0/542da8ebd38802296795acc91c5adc02c955e526ebb748d8dffb8b5e1da7a34f3409df3945468efa1daf0633bc7559cb4e120c4f486441427180445b5430c4d8
+    "@figma-export/types": "npm:^5.0.1"
+  checksum: 10c0/17498a05333a0e2e8994d7b2867a87401e361bb2657c41cacc8f5ef7cd77f238cacaf803a060205f9b9de73043c7dd0bb3f8bbf6c8f6aa302147b8d84bb0397c
   languageName: node
   linkType: hard
 
-"@figma-export/transform-svg-with-svgo@npm:^4.7.0":
-  version: 4.7.0
-  resolution: "@figma-export/transform-svg-with-svgo@npm:4.7.0"
+"@figma-export/transform-svg-with-svgo@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@figma-export/transform-svg-with-svgo@npm:5.0.1"
   dependencies:
-    "@figma-export/types": "npm:^4.7.0"
+    "@figma-export/types": "npm:^5.0.1"
     "@types/svgo": "npm:~2.6.4"
-    svgo: "npm:~2.8.0"
-  checksum: 10c0/718e210f68fc993a5d98743248b96dcdd154d1ce12490fae733e681db209d58e473731efc9e0ae36ddf0b9ef3e865c9d026616a7581ffc0b084b481a09b682cf
+    svgo: "npm:~3.2.0"
+  checksum: 10c0/62037b88461e0651b93ab8296482df3ac0907c18307baaf175a1175439328a19f3746d5383c63081aadab8969b24dd551b545110e27c57172d4ec2a7d18b7e43
   languageName: node
   linkType: hard
 
-"@figma-export/types@npm:^4.7.0":
-  version: 4.7.0
-  resolution: "@figma-export/types@npm:4.7.0"
+"@figma-export/types@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "@figma-export/types@npm:5.0.1"
   dependencies:
     figma-js: "npm:~1.16.0"
-  checksum: 10c0/1e3d753cffa4fd1df92fa7bee622f92d3956d1337d02d6cd1b4f976356875c2831df956563eff16d578c89098b66ac48ff3df2ee77c677d3d869fd90f6be9222
+  checksum: 10c0/d53c00b78e81f874caa2ad435f98eb34c478a33bbc71f4fd5e1e3b9b6865b6212465cdd1ef9a5e765e80823d0deab0750c9db30d5c60504dd9da0780449e6290
   languageName: node
   linkType: hard
 
@@ -4713,9 +4713,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/scripts@workspace:scripts"
   dependencies:
-    "@figma-export/cli": "npm:^4.7.0"
-    "@figma-export/output-components-as-svg": "npm:^4.7.0"
-    "@figma-export/transform-svg-with-svgo": "npm:^4.7.0"
+    "@figma-export/cli": "npm:^5.0.1"
+    "@figma-export/output-components-as-svg": "npm:^5.0.1"
+    "@figma-export/transform-svg-with-svgo": "npm:^5.0.1"
     "@fortawesome/fontawesome-svg-core": "npm:^6.5.1"
     "@fortawesome/free-brands-svg-icons": "npm:^6.5.1"
     "@fortawesome/pro-duotone-svg-icons": "npm:^6.5.1"
@@ -4731,8 +4731,6 @@ __metadata:
     fast-glob: "npm:^3.3.2"
     sass: "npm:^1.72.0"
     style-dictionary: "npm:^4.0.0-prerelease.22"
-    stylelint: "npm:^16.3.1"
-    token-transformer: "npm:^0.0.33"
   languageName: unknown
   linkType: soft
 
@@ -8046,13 +8044,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:~0.27.2":
-  version: 0.27.2
-  resolution: "axios@npm:0.27.2"
+"axios@npm:^1.6.7":
+  version: 1.6.8
+  resolution: "axios@npm:1.6.8"
   dependencies:
-    follow-redirects: "npm:^1.14.9"
+    follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.0"
-  checksum: 10c0/76d673d2a90629944b44d6f345f01e58e9174690f635115d5ffd4aca495d99bcd8f95c590d5ccb473513f5ebc1d1a6e8934580d0c57cdd0498c3a101313ef771
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 10c0/0f22da6f490335479a89878bc7d5a1419484fbb437b564a80c34888fc36759ae4f56ea28d55a191695e5ed327f0bad56e7ff60fb6770c14d1be6501505d47ab9
   languageName: node
   linkType: hard
 
@@ -9786,16 +9785,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-tree@npm:^1.1.2, css-tree@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "css-tree@npm:1.1.3"
-  dependencies:
-    mdn-data: "npm:2.0.14"
-    source-map: "npm:^0.6.1"
-  checksum: 10c0/499a507bfa39b8b2128f49736882c0dd636b0cd3370f2c69f4558ec86d269113286b7df469afc955de6a68b0dba00bc533e40022a73698081d600072d5d83c1c
-  languageName: node
-  linkType: hard
-
 "css-tree@npm:^2.3.1":
   version: 2.3.1
   resolution: "css-tree@npm:2.3.1"
@@ -9803,6 +9792,16 @@ __metadata:
     mdn-data: "npm:2.0.30"
     source-map-js: "npm:^1.0.1"
   checksum: 10c0/6f8c1a11d5e9b14bf02d10717fc0351b66ba12594166f65abfbd8eb8b5b490dd367f5c7721db241a3c792d935fc6751fbc09f7e1598d421477ad9fadc30f4f24
+  languageName: node
+  linkType: hard
+
+"css-tree@npm:~2.2.0":
+  version: 2.2.1
+  resolution: "css-tree@npm:2.2.1"
+  dependencies:
+    mdn-data: "npm:2.0.28"
+    source-map-js: "npm:^1.0.1"
+  checksum: 10c0/47e87b0f02f8ac22f57eceb65c58011dd142d2158128882a0bf963cf2eabb81a4ebbc2e3790c8289be7919fa8b83750c7b69272bd66772c708143b772ba3c186
   languageName: node
   linkType: hard
 
@@ -9822,12 +9821,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csso@npm:^4.2.0":
-  version: 4.2.0
-  resolution: "csso@npm:4.2.0"
+"csso@npm:^5.0.5":
+  version: 5.0.5
+  resolution: "csso@npm:5.0.5"
   dependencies:
-    css-tree: "npm:^1.1.2"
-  checksum: 10c0/f8c6b1300efaa0f8855a7905ae3794a29c6496e7f16a71dec31eb6ca7cfb1f058a4b03fd39b66c4deac6cb06bf6b4ba86da7b67d7320389cb9994d52b924b903
+    css-tree: "npm:~2.2.0"
+  checksum: 10c0/ab4beb1e97dd7e207c10e9925405b45f15a6cd1b4880a8686ad573aa6d476aed28b4121a666cffd26c37a26179f7b54741f7c257543003bfb244d06a62ad569b
   languageName: node
   linkType: hard
 
@@ -12129,7 +12128,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.14.9":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.15.6":
   version: 1.15.6
   resolution: "follow-redirects@npm:1.15.6"
   peerDependenciesMeta:
@@ -15948,10 +15947,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdn-data@npm:2.0.14":
-  version: 2.0.14
-  resolution: "mdn-data@npm:2.0.14"
-  checksum: 10c0/67241f8708c1e665a061d2b042d2d243366e93e5bf1f917693007f6d55111588b952dcbfd3ea9c2d0969fb754aad81b30fdcfdcc24546495fc3b24336b28d4bd
+"mdn-data@npm:2.0.28":
+  version: 2.0.28
+  resolution: "mdn-data@npm:2.0.28"
+  checksum: 10c0/20000932bc4cd1cde9cba4e23f08cc4f816398af4c15ec81040ed25421d6bf07b5cf6b17095972577fb498988f40f4cb589e3169b9357bb436a12d8e07e5ea7b
   languageName: node
   linkType: hard
 
@@ -20668,13 +20667,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stable@npm:^0.1.8":
-  version: 0.1.8
-  resolution: "stable@npm:0.1.8"
-  checksum: 10c0/df74b5883075076e78f8e365e4068ecd977af6c09da510cfc3148a303d4b87bc9aa8f7c48feb67ed4ef970b6140bd9eabba2129e28024aa88df5ea0114cba39d
-  languageName: node
-  linkType: hard
-
 "static-extend@npm:^0.1.1":
   version: 0.1.2
   resolution: "static-extend@npm:0.1.2"
@@ -21176,20 +21168,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svgo@npm:~2.8.0":
-  version: 2.8.0
-  resolution: "svgo@npm:2.8.0"
+"svgo@npm:~3.2.0":
+  version: 3.2.0
+  resolution: "svgo@npm:3.2.0"
   dependencies:
     "@trysound/sax": "npm:0.2.0"
     commander: "npm:^7.2.0"
-    css-select: "npm:^4.1.3"
-    css-tree: "npm:^1.1.3"
-    csso: "npm:^4.2.0"
+    css-select: "npm:^5.1.0"
+    css-tree: "npm:^2.3.1"
+    css-what: "npm:^6.1.0"
+    csso: "npm:^5.0.5"
     picocolors: "npm:^1.0.0"
-    stable: "npm:^0.1.8"
   bin:
-    svgo: bin/svgo
-  checksum: 10c0/0741f5d5cad63111a90a0ce7a1a5a9013f6d293e871b75efe39addb57f29a263e45294e485a4d2ff9cc260a5d142c8b5937b2234b4ef05efdd2706fb2d360ecc
+    svgo: ./bin/svgo
+  checksum: 10c0/28fa9061ccbcf2e3616d48d1feb613aaa05f8f290a329beb0e585914f1864385152934a7d4d683a4609fafbae3d51666633437c359c5c5ef74fb58ad09092a7c
   languageName: node
   linkType: hard
 
@@ -21558,17 +21550,6 @@ __metadata:
   version: 1.0.0
   resolution: "token-stream@npm:1.0.0"
   checksum: 10c0/c1924a89686fc035d579cbe856da12306571d5fe7408eeeebe80df7c25c5cc644b8ae102d5cbc0f085d0e105f391d1a48dc0e568520434c5b444ea6c7de2b822
-  languageName: node
-  linkType: hard
-
-"token-transformer@npm:^0.0.33":
-  version: 0.0.33
-  resolution: "token-transformer@npm:0.0.33"
-  dependencies:
-    yargs: "npm:^17.6.2"
-  bin:
-    token-transformer: cli.js
-  checksum: 10c0/fd71ddb18d2451b0e3653f0f20a12c5784ec92a465b73145e618ac55963cb52becedee3c184d06b312acb9eb9d9e26df46b1eea1795d9adaa438e5b81c46684f
   languageName: node
   linkType: hard
 
@@ -23162,7 +23143,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:17.7.2, yargs@npm:^17.2.1, yargs@npm:^17.6.2, yargs@npm:^17.7.1":
+"yargs@npm:17.7.2, yargs@npm:^17.2.1, yargs@npm:^17.7.1":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:

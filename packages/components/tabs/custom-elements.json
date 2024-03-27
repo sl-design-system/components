@@ -151,8 +151,8 @@
               "description": "Whether the menu button needs to be shown."
             },
             {
-              "kind": "event",
-              "name": "sl-tab-change",
+              "kind": "field",
+              "name": "tabChangeEvent",
               "type": {
                 "text": "EventEmitter<SlTabChangeEvent>"
               },
@@ -183,16 +183,6 @@
               "description": "Renders the tabs vertically instead of the default horizontal",
               "attribute": "vertical",
               "reflects": true
-            }
-          ],
-          "events": [
-            {
-              "name": "tabChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlTabChangeEvent>"
-              },
-              "description": "Emits when the tab has been selected/changed.",
-              "fieldName": "tabChangeEvent"
             }
           ],
           "attributes": [
@@ -462,6 +452,14 @@
               },
               "default": "false",
               "description": "Whether the menu button needs to be shown."
+            },
+            {
+              "kind": "field",
+              "name": "tabChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlTabChangeEvent>"
+              },
+              "description": "Emits when the tab has been selected/changed."
             },
             {
               "kind": "field",

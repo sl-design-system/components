@@ -18,14 +18,14 @@ StyleDictionary.registerFileHeader({
 });
 
 StyleDictionary.registerTransform({
-  name: 'sl/name/fontfamilies',
+  name: 'sl/name/css/fontFamilies',
   type: 'value',
   matcher: token => (token.$type ?? token.type) === 'fontFamilies',
   transformer: token => (token.$value ?? token.value).replace(/\s+/g, '-').toLowerCase()
 });
 
 StyleDictionary.registerTransform({
-  name: 'sl/size/lineheight',
+  name: 'sl/size/css/lineHeight',
   type: 'value',
   matcher: token => (token.$type ?? token.type) === 'lineHeights',
   transformer: token => {
@@ -36,13 +36,27 @@ StyleDictionary.registerTransform({
 });
 
 StyleDictionary.registerTransform({
-  name: 'sl/size/css/paragraphspacing',
+  name: 'sl/size/css/paragraphSpacing',
   type: 'value',
   matcher: token => (token.$type ?? token.type) === 'paragraphSpacing',
   transformer: token => {
     const value = token.$value ?? token.value;
 
     return typeof value === 'string' && !value.endsWith('px') ? `${value}px` : value;
+  }
+});
+
+StyleDictionary.registerTransform({
+  name: 'sl/wrapMathInCalc',
+  type: 'value',
+  transitive: true,
+  matcher: token => typeof token.attributes?.original?.value === 'string',
+  transformer: (token, config, options) => {
+    if (token.attributes.original.value.match(/^(?!calc|rgb|hsl).*\s[\+\-\*\/]\s.*/)) {
+      token.attributes.original.value = `calc(${token.attributes.original.value})`;
+    }
+
+    return token.$value ?? token.value;
   }
 });
 
@@ -121,9 +135,10 @@ const build = async () => {
             transformGroup: 'tokens-studio',
             transforms: [
               'name/kebab',
-              'sl/name/fontfamilies',
-              'sl/size/lineheight',
-              'sl/size/css/paragraphspacing'
+              'sl/name/css/fontFamilies',
+              'sl/size/css/lineHeight',
+              'sl/size/css/paragraphSpacing',
+              'sl/wrapMathInCalc'
             ],
             prefix: 'sl',
             files
@@ -132,11 +147,11 @@ const build = async () => {
       };
     });
 
-  for (const cfg of configs) {
-    const sd = new StyleDictionary(cfg);
+  // for (const cfg of configs) {
+    const sd = new StyleDictionary(configs[13]);
 
     await sd.buildAllPlatforms();
-  }
+  // }
 };
 
 build();

@@ -212,7 +212,7 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
     const families = await this.#getDocumentFontFamilies();
     if (!families.includes('The Message')) {
       const style = document.createElement('style');
-      style.innerText = theMessageFontFace;
+      style.innerText = theMessageFontFace.replaceAll('\n', '');
 
       document.head.appendChild(style);
     }

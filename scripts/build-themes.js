@@ -18,6 +18,13 @@ StyleDictionary.registerFileHeader({
 });
 
 StyleDictionary.registerTransform({
+  name: 'sl/name/fontfamilies',
+  type: 'value',
+  matcher: token => (token.$type ?? token.type) === 'fontFamilies',
+  transformer: token => (token.$value ?? token.value).replace(/\s+/g, '-').toLowerCase()
+});
+
+StyleDictionary.registerTransform({
   name: 'sl/size/lineheight',
   type: 'value',
   matcher: token => (token.$type ?? token.type) === 'lineHeights',
@@ -112,7 +119,12 @@ const build = async () => {
         platforms: {
           css: {
             transformGroup: 'tokens-studio',
-            transforms: ['name/kebab', 'sl/size/lineheight', 'sl/size/css/paragraphspacing'],
+            transforms: [
+              'name/kebab',
+              'sl/name/fontfamilies',
+              'sl/size/lineheight',
+              'sl/size/css/paragraphspacing'
+            ],
             prefix: 'sl',
             files
           }

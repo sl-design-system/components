@@ -40,43 +40,12 @@
   "wireit": {
     "build": {
       "dependencies": [
-        "build:checklist",
         "build:components",
         "build:locales",
         "build:metadata",
+        "build:styles",
         "build:themes",
         "build:types"
-      ]
-    },
-    "build:checklist": {
-      "command": "esbuild --minify --bundle packages/checklist/index.ts --outdir=packages/checklist/dist --sourcemap",
-      "dependencies": [
-        "build:checklist:package"
-      ],
-      "files": [
-        "packages/checklist/**/*.scss",
-        "packages/checklist/**/*.ts",
-        "!packages/checklist/**/*.d.ts"
-      ],
-      "output": [
-        "packages/checklist/dist/index.js",
-        "packages/checklist/dist/index.js.map"
-      ]
-    },
-    "build:checklist:package": {
-      "command": "node scripts/build-packages.js checklist",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "build:styles",
-        "build:themes"
-      ],
-      "files": [
-        "packages/checklist/**/*.ts",
-        "!packages/checklist/**/*.d.ts"
-      ],
-      "output": [
-        "packages/checklist/**/*.js",
-        "packages/checklist/**/*.js.map"
       ]
     },
     "build:components": {
@@ -198,7 +167,39 @@
     "dist": {
       "dependencies": [
         "build",
+        "dist:checklist",
         "dist:themes"
+      ]
+    },
+    "dist:checklist": {
+      "command": "esbuild --minify --bundle packages/checklist/index.ts --outdir=packages/checklist/dist --sourcemap",
+      "dependencies": [
+        "dist:checklist:code"
+      ],
+      "files": [
+        "packages/checklist/**/*.scss",
+        "packages/checklist/**/*.ts",
+        "!packages/checklist/**/*.d.ts"
+      ],
+      "output": [
+        "packages/checklist/dist/index.js",
+        "packages/checklist/dist/index.js.map"
+      ]
+    },
+    "dist:checklist:code": {
+      "command": "node scripts/build-packages.js checklist",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:styles",
+        "build:themes"
+      ],
+      "files": [
+        "packages/checklist/**/*.ts",
+        "!packages/checklist/**/*.d.ts"
+      ],
+      "output": [
+        "packages/checklist/**/*.js",
+        "packages/checklist/**/*.js.map"
       ]
     },
     "dist:themes": {
@@ -251,10 +252,6 @@
         ".storybook/main.ts"
       ],
       "dependencies": [
-        {
-          "script": "build:checklist:package",
-          "cascade": false
-        },
         {
           "script": "build:components",
           "cascade": false

@@ -1,6 +1,6 @@
-@import '@sl-design-system/sanoma-learning/base';
-@import '@sl-design-system/sanoma-learning/light';
-@import '@sl-design-system/sanoma-learning/dark';
+@import '@sl-design-system/sanoma-learning/scss/base';
+@import '@sl-design-system/sanoma-learning/scss/light';
+@import '@sl-design-system/sanoma-learning/scss/dark';
 
 :host {
   @include sl-theme-base;

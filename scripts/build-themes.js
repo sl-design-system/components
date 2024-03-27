@@ -3,8 +3,8 @@ import { readFile } from 'fs/promises';
 import { join } from 'path';
 import StyleDictionary from 'style-dictionary';
 
-const cwd = new URL('.', import.meta.url).pathname,
-  mathPresent = /^(?!calc|rgb|hsl).*\s[\+\-\*\/]\s.*/;
+// Match math expressions that are not wrapped in a `calc`, `rgb` or `hsl` function.
+const mathPresent = /^(?!calc|rgb|hsl).*\s[\+\-\*\/]\s.*/;
 
 registerTransforms(StyleDictionary);
 
@@ -18,6 +18,7 @@ StyleDictionary.registerFileHeader({
   }
 });
 
+// Transform font families to kebab-case
 StyleDictionary.registerTransform({
   name: 'sl/name/css/fontFamilies',
   type: 'value',
@@ -25,6 +26,7 @@ StyleDictionary.registerTransform({
   transformer: token => (token.$value ?? token.value).replace(/\s+/g, '-').toLowerCase()
 });
 
+// Transform line heights to px if they are not percentages
 StyleDictionary.registerTransform({
   name: 'sl/size/css/lineHeight',
   type: 'value',
@@ -36,6 +38,7 @@ StyleDictionary.registerTransform({
   }
 });
 
+// Transform paragraph spacings to px
 StyleDictionary.registerTransform({
   name: 'sl/size/css/paragraphSpacing',
   type: 'value',
@@ -47,6 +50,7 @@ StyleDictionary.registerTransform({
   }
 });
 
+// Wrap math expressions in a `calc` function
 StyleDictionary.registerTransform({
   name: 'sl/wrapMathInCalc',
   type: 'value',
@@ -61,7 +65,8 @@ StyleDictionary.registerTransform({
 });
 
 const build = async () => {
-  const $themes = JSON.parse(await readFile(join(cwd, '../packages/tokens/src/$themes.json'), 'utf8'));
+  const cwd = new URL('.', import.meta.url).pathname,
+    $themes = JSON.parse(await readFile(join(cwd, '../packages/tokens/src/$themes.json'), 'utf8'));
 
   const filterFiles = files => async token => {
     const filePath = token.filePath ?? token.attributes.filePath;

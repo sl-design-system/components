@@ -109,6 +109,7 @@
         "build:themes:styles"
       ],
       "files": [
+        "scripts/build-styles.js",
         "packages/{checklist,components}/**/*.scss"
       ],
       "output": [

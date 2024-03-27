@@ -34,6 +34,7 @@ await Promise.allSettled(
       await fs.writeFile(`${file}.ts`, `import { css } from 'lit';\n\nexport default css\`\n${code}\`;\n`);
     } catch (err) {
       console.log(err);
+      process.exitCode = 1;
     }
   })
 );

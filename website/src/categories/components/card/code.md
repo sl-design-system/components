@@ -46,7 +46,7 @@ eleventyNavigation:
 
 </section>
 
-<ds-install-info package="spinner" link-in-navigation></ds-install-info>
+<ds-install-info package="card" link-in-navigation></ds-install-info>
 
 <section>
 

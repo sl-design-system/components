@@ -126,7 +126,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       ${this.noHome
         ? nothing
         : html`
-            <a href=${this.homeUrl}><sl-icon name="house"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
+            <a href=${this.homeUrl}><sl-icon name="home-blank"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
             <sl-icon name="slash-forward"></sl-icon>
           `}
       ${this.breadcrumbs.length > this.collapseThreshold
@@ -141,7 +141,6 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
             </sl-menu-button>
           `
         : nothing}
-      <sl-button fill="link">...</sl-button>
       <slot @slotchange=${this.#onSlotchange}></slot>
     `;
   }

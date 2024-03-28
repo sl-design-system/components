@@ -241,6 +241,7 @@
   --sl-color-button-danger-outline-hover-background: rgb(var(--sl-color-palette-danger-base));
   --sl-color-button-danger-outline-idle-border: rgb(var(--sl-color-palette-danger-base));
   --sl-color-button-danger-outline-idle-foreground: rgb(var(--sl-color-palette-danger-base));
+  --sl-color-button-danger-outline-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-danger-solid-disabled-border: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-danger-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-danger-solid-disabled-background: rgb(var(--sl-color-palette-neutral-300));
@@ -288,6 +289,7 @@
   --sl-color-button-warning-outline-hover-background: rgb(var(--sl-color-palette-warning-700));
   --sl-color-button-warning-outline-idle-border: rgb(var(--sl-color-palette-warning-700));
   --sl-color-button-warning-outline-idle-foreground: rgb(var(--sl-color-palette-warning-700));
+  --sl-color-button-warning-outline-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-warning-solid-disabled-border: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-warning-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-warning-solid-disabled-background: rgb(var(--sl-color-palette-neutral-300));
@@ -334,6 +336,7 @@
   --sl-color-button-success-outline-hover-background: rgb(var(--sl-color-palette-success-base));
   --sl-color-button-success-outline-idle-border: rgb(var(--sl-color-palette-success-base));
   --sl-color-button-success-outline-idle-foreground: rgb(var(--sl-color-palette-success-base));
+  --sl-color-button-success-outline-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-success-solid-disabled-border: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-success-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-success-solid-disabled-background: rgb(var(--sl-color-palette-neutral-300));
@@ -381,6 +384,7 @@
   --sl-color-button-primary-outline-hover-background: rgb(var(--sl-color-palette-accent-base));
   --sl-color-button-primary-outline-idle-border: rgb(var(--sl-color-palette-accent-base));
   --sl-color-button-primary-outline-idle-foreground: rgb(var(--sl-color-palette-accent-base));
+  --sl-color-button-primary-outline-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-primary-solid-disabled-border: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-primary-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-primary-solid-disabled-background: rgb(var(--sl-color-palette-neutral-300));
@@ -428,7 +432,7 @@
   --sl-color-button-default-outline-hover-background: rgb(var(--sl-color-palette-primary-700));
   --sl-color-button-default-outline-idle-border: rgb(var(--sl-color-palette-primary-700));
   --sl-color-button-default-outline-idle-foreground: rgb(var(--sl-color-palette-primary-700));
-  --sl-color-button-default-outline-idle-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-button-default-outline-idle-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-button-default-solid-disabled-border: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-default-solid-disabled-foreground: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-button-default-solid-disabled-background: rgb(var(--sl-color-palette-neutral-300));
@@ -650,11 +654,7 @@
   --sl-color-input-option-default-unchecked-active-label: var(--sl-body-foreground);
   --sl-color-input-option-default-unchecked-hover-label: var(--sl-body-foreground);
   --sl-color-input-option-default-unchecked-default-label: var(--sl-body-foreground);
-  --sl-color-button-danger-outline-idle-background: var(--sl-body-background);
-  --sl-color-button-warning-outline-idle-background: var(--sl-body-background);
   --sl-color-button-success-ghost-hover-background: rgba(var(--sl-body-background) / var(--sl-opacity-100));
-  --sl-color-button-success-outline-idle-background: var(--sl-body-background);
-  --sl-color-button-primary-outline-idle-background: var(--sl-body-background);
   --sl-color-avatar-subheader: var(--sl-body-foreground);
   --sl-color-avatar-header: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);

@@ -23,7 +23,7 @@ export const icons = {
     description: 'icon.core.chevron-right',
     svg: '<svg viewBox="0 0 320 512" xmlns="http://www.w3.org/2000/svg"><path d="M305 239c9.4 9.4 9.4 24.6 0 33.9L113 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L79 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L305 239z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
-  circle: { svg: '<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="8"/></svg>' },
+  circle: { svg: '<svg/>' },
   'circle-check-solid': {
     value: 'circle-check',
     type: 'Icons',
@@ -60,9 +60,7 @@ export const icons = {
     description: 'icon.core.house',
     svg: '<svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path d="M272.5 5.7c9-7.6 22.1-7.6 31.1 0l264 224c10.1 8.6 11.4 23.7 2.8 33.8s-23.7 11.3-33.8 2.8L512 245.5V432c0 44.2-35.8 80-80 80H144c-44.2 0-80-35.8-80-80V245.5L39.5 266.3c-10.1 8.6-25.3 7.3-33.8-2.8s-7.3-25.3 2.8-33.8l264-224zM288 55.5L112 204.8V432c0 17.7 14.3 32 32 32h48V312c0-22.1 17.9-40 40-40H344c22.1 0 40 17.9 40 40V464h48c17.7 0 32-14.3 32-32V204.8L288 55.5zM240 464h96V320H240V464z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
-  info: {
-    svg: '<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16ZM9.125 4.005a1.125 1.125 0 1 1-2.25 0 1.125 1.125 0 0 1 2.25 0ZM8 6.505a1 1 0 0 1 1 1v4.5a1 1 0 1 1-2 0v-4.5a1 1 0 0 1 1-1Z"/></svg>'
-  },
+  info: { svg: '<svg/>' },
   menu: {
     value: 'bars',
     type: 'Icons',

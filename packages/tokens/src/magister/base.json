@@ -1701,7 +1701,7 @@
       "title": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.heading}",
-          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "fontWeight": "{text.typeset.fontWeight.medium}",
           "lineHeight": "{text.typeset.lineHeight.xl}",
           "fontSize": "{text.typeset.fontSize.xl}",
           "textDecoration": "{text.typeset.textDecoration.none}",

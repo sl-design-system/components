@@ -3840,39 +3840,39 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.600}",
           "type": "color"
         }
       },
       "hover": {
         "background": {
-          "value": "{body.background}",
+          "value": "rgba({color.palette.primary.400}, {opacity.300})",
           "type": "color"
         },
         "header": {
-          "value": "{color.palette.accent.50}",
+          "value": "rgba({color.palette.primary.400}, {opacity.300})",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.accent.500}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.accent.500}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.600}",
           "type": "color"
         }
       },
       "disabled": {
         "background": {
-          "value": "{body.background}",
+          "value": "rgba({color.palette.neutral.400}, {opacity.700})",
           "type": "color"
         },
         "header": {
-          "value": "{body.background}",
+          "value": "rgba({color.palette.neutral.400}, {opacity.700})",
           "type": "color"
         },
         "foreground": {
@@ -3884,29 +3884,29 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.600}",
           "type": "color"
         }
       },
       "active": {
         "background": {
-          "value": "{body.background}",
+          "value": "rgba({color.palette.primary.400}, {opacity.600})",
           "type": "color"
         },
         "header": {
-          "value": "{color.palette.accent.150}",
+          "value": "rgba({color.palette.primary.400}, {opacity.600})",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.accent.800}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.accent.800}",
+          "value": "{color.palette.white.base}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.600}",
           "type": "color"
         }
       }

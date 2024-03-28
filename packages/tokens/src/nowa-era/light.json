@@ -424,7 +424,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.primary.50}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.outline.idle.background"
             },
@@ -744,7 +744,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.success.outline.idle.background"
             },
@@ -1064,7 +1064,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.warning.150}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.warning.outline.idle.background"
             },
@@ -1414,7 +1414,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.danger.150}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.danger.outline.idle.background"
             },
@@ -1734,7 +1734,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.info.150}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.info.outline.idle.background"
             },

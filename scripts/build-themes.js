@@ -1,4 +1,4 @@
-import { permutateThemes, registerTransforms, transformLineHeight } from '@tokens-studio/sd-transforms';
+import { permutateThemes, registerTransforms, transformDimension, transformLineHeight } from '@tokens-studio/sd-transforms';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import StyleDictionary from 'style-dictionary';
@@ -50,15 +50,34 @@ StyleDictionary.registerTransform({
   }
 });
 
+// Overwrite the 'ts/size/px` transform to append 'px' to '0' values
+StyleDictionary.registerTransform({
+  name: 'sl/size/css/px',
+  type: 'value',
+  matcher: token => {
+    const type = token.$type ?? token.type;
+    return (
+      typeof type === 'string' &&
+      ['sizing', 'spacing', 'borderRadius', 'borderWidth', 'fontSizes', 'dimension'].includes(
+        type,
+      )
+    );
+  },
+  transformer: token => {
+    const value = token.$value ?? token.value;
+
+    return parseFloat(value) === 0 ? `${value}px` : transformDimension(value);
+  }
+});
+
 // Wrap math expressions in a `calc` function
 StyleDictionary.registerTransform({
   name: 'sl/wrapMathInCalc',
   type: 'value',
   transitive: true,
-  matcher: token => typeof token.attributes?.original?.value === 'string' &&
-    mathPresent.test(token.attributes.original.value),
+  matcher: token => typeof token.original?.value === 'string' && mathPresent.test(token.original.value),
   transformer: token => {
-    token.attributes.original.value = `calc(${token.attributes.original.value})`;
+    token.original.value = `calc(${token.original.value})`;
 
     return token.$value ?? token.value;
   }
@@ -143,6 +162,7 @@ const build = async () => {
               'sl/name/css/fontFamilies',
               'sl/size/css/lineHeight',
               'sl/size/css/paragraphSpacing',
+              'sl/size/css/px',
               'sl/wrapMathInCalc'
             ],
             prefix: 'sl',

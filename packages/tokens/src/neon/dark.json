@@ -3681,7 +3681,7 @@
       },
       "hover": {
         "background": {
-          "value": "rgba( {color.palette.primary.100} ,{opacity.400})",
+          "value": "rgba( {color.palette.primary.400} ,{opacity.400})",
           "type": "color"
         },
         "foreground": {
@@ -3723,7 +3723,7 @@
       },
       "active": {
         "background": {
-          "value": "rgba( {color.palette.primary.100} ,{opacity.600})",
+          "value": "rgba( {color.palette.primary.400} ,{opacity.600})",
           "type": "color"
         },
         "foreground": {
@@ -3840,29 +3840,29 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
       "hover": {
         "background": {
-          "value": "rgba({color.palette.primary.400}, {opacity.300})",
+          "value": "rgba( {color.palette.primary.400} , {opacity.200})",
           "type": "color"
         },
         "header": {
-          "value": "rgba({color.palette.primary.400}, {opacity.300})",
+          "value": "rgba( {color.palette.primary.400} , {opacity.200})",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.primary.100}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.primary.100}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
@@ -3884,7 +3884,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
@@ -3898,15 +3898,15 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.primary.100}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.primary.100}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       }

@@ -40,19 +40,21 @@
   "wireit": {
     "build": {
       "dependencies": [
+        "build:checklist",
         "build:components",
         "build:locales",
-        "build:metadata",
-        "build:styles",
         "build:themes",
         "build:types"
       ]
+    },
+    "build:checklist": {
+      "command": "node scripts/build-styles.js \"packages/checklist/src/checklist.scss\""
     },
     "build:components": {
       "command": "node scripts/build-packages.js components",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:styles"
+        "build:components:styles"
       ],
       "files": [
         "packages/components/**/*.ts",
@@ -63,10 +65,21 @@
         "packages/components/**/*.js.map"
       ]
     },
+    "build:components:styles": {
+      "command": "node scripts/build-styles.js \"packages/components/**/*.scss\"",
+      "clean": "if-file-deleted",
+      "files": [
+        "scripts/build-styles.js",
+        "packages/components/**/*.scss"
+      ],
+      "output": [
+        "packages/components/**/*.scss.ts"
+      ]
+    },
     "build:locales": {
       "command": "node scripts/build-packages.js locales",
       "dependencies": [
-        "build:lit-localize"
+        "build:locales:code"
       ],
       "files": [
         "packages/locales/**/*.ts",
@@ -77,7 +90,7 @@
         "packages/locales/**/*.js.map"
       ]
     },
-    "build:lit-localize": {
+    "build:locales:code": {
       "command": "lit-localize build && eslint --fix \"packages/locales/src/*.ts\"",
       "clean": false,
       "files": [
@@ -86,34 +99,6 @@
       ],
       "output": [
         "packages/locales/src/*.ts"
-      ]
-    },
-    "build:metadata": {
-      "command": "node scripts/build-metadata.js",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "build:styles"
-      ],
-      "files": [
-        "packages/components/**/*.ts",
-        "!packages/components/**/*.{d,spec,stories}.ts"
-      ],
-      "output": [
-        "packages/components/*/custom-elements.json"
-      ]
-    },
-    "build:styles": {
-      "command": "node scripts/build-styles.js",
-      "clean": "if-file-deleted",
-      "dependencies": [
-        "build:themes:styles"
-      ],
-      "files": [
-        "scripts/build-styles.js",
-        "packages/{checklist,components}/**/*.scss"
-      ],
-      "output": [
-        "packages/{checklist,components}/**/*.scss.ts"
       ]
     },
     "build:themes": {
@@ -150,8 +135,9 @@
       "command": "tsc --build tsconfig.all.json --pretty",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:locales",
-        "build:styles"
+        "build:checklist",
+        "build:components:styles",
+        "build:locales"
       ],
       "files": [
         "tsconfig.all.json",
@@ -169,6 +155,7 @@
       "dependencies": [
         "build",
         "dist:checklist",
+        "dist:components",
         "dist:themes"
       ]
     },
@@ -191,8 +178,7 @@
       "command": "node scripts/build-packages.js checklist",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:styles",
-        "dist:themes"
+        "dist:checklist:styles"
       ],
       "files": [
         "packages/checklist/**/*.ts",
@@ -203,9 +189,33 @@
         "packages/checklist/**/*.js.map"
       ]
     },
+    "dist:checklist:styles": {
+      "command": "node scripts/build-styles.js \"packages/checklist/**/*.scss\"",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "dist:themes"
+      ],
+      "output": [
+        "packages/checklist/**/*.scss.ts"
+      ]
+    },
+    "dist:components": {
+      "command": "node scripts/build-metadata.js",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:components:styles"
+      ],
+      "files": [
+        "packages/components/**/*.ts",
+        "!packages/components/**/*.{d,spec,stories}.ts"
+      ],
+      "output": [
+        "packages/components/*/custom-elements.json"
+      ]
+    },
     "dist:themes": {
       "command": "node scripts/build-themes.js --production",
-      "clean": true,
+      "clean": "if-file-deleted",
       "output": [
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/fonts.css"
@@ -261,14 +271,6 @@
         },
         {
           "script": "build:locales",
-          "cascade": false
-        },
-        {
-          "script": "build:metadata",
-          "cascade": false
-        },
-        {
-          "script": "build:styles",
           "cascade": false
         },
         {

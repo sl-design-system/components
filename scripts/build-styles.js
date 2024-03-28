@@ -1,28 +1,18 @@
 import fg from 'fast-glob';
 import { promises as fs } from 'fs';
-import { basename, dirname } from 'path';
+import { argv } from 'node:process';
 import { compileString } from 'sass';
 import stylelint from 'stylelint';
 
-const files = await fg('./packages/{checklist,components}/**/*.scss');
-
-const shared = process.argv.at(3) || '',
-  sharedFile = basename(shared),
-  sharedDir = dirname(shared);
+const files = await fg(argv.at(2) || '**/*.scss');
 
 await Promise.allSettled(
   files.map(async file => {
     try {
-      const loadPaths = ['node_modules'];
-
       // Step 1: compile SCSS to CSS
       const { css } = compileString(
-        `
-          ${shared ? `@import '${sharedFile}';` : ''}
-
-          ${await fs.readFile(file, 'utf8')}
-        `,
-        { loadPaths: shared ? [...loadPaths, sharedDir] : loadPaths }
+        `${await fs.readFile(file, 'utf8')}`,
+        { loadPaths: ['node_modules'] }
       );
 
       // Step 2: lint CSS

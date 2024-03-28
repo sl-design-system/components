@@ -58,7 +58,7 @@
           "description": "color.palette.primary.900"
         },
         "base": {
-          "value": "{color.palette.primary.400}",
+          "value": "{color.palette.primary.300}",
           "type": "color"
         }
       },

@@ -4682,7 +4682,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4694,22 +4694,22 @@
           "failedToResolve": true
         },
         "header": {
-          "value": "{color.palette.accent.50}",
+          "value": "{color.palette.primary.50}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.accent.500}",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "failedToResolve": true
         },
         "icon": {
-          "value": "{color.palette.accent.500}",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4721,22 +4721,22 @@
           "failedToResolve": true
         },
         "header": {
-          "value": "{body.background}",
+          "value": "{color.palette.neutral.100}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.400}",
           "type": "color",
           "failedToResolve": true
         },
         "icon": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.400}",
           "type": "color",
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4748,22 +4748,22 @@
           "failedToResolve": true
         },
         "header": {
-          "value": "{color.palette.accent.150}",
+          "value": "{color.palette.primary.100}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.accent.800}",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "failedToResolve": true
         },
         "icon": {
-          "value": "{color.palette.accent.800}",
+          "value": "{color.palette.primary.base}",
           "type": "color",
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         }

@@ -3846,19 +3846,19 @@
       },
       "disabled": {
         "background": {
-          "value": "{body.background}",
+          "value": "{color.palette.neutral.300}",
           "type": "color"
         },
         "header": {
-          "value": "{body.background}",
+          "value": "{color.palette.neutral.300}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.500}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.500}",
           "type": "color"
         },
         "border": {

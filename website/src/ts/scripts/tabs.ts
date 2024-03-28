@@ -38,9 +38,28 @@ window.onload = () => {
     };
   }
 
+  const verticalTabContent = document.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;
+  verticalTabContent.onscroll = event => {
+    onScroll(event);
+  };
+
   tabs?.forEach(tab => {
     tab.onclick = (event: MouseEvent) => {
       selectTab(event.target as Element);
+    };
+  });
+
+  console.log('slTabs onload', slTabs, tabsWrapper);
+
+  slTabs.forEach(tab => {
+    tab.onclick = event => {
+      // selectTab(event.target as Element);
+      const verticalTabs = currentContent?.querySelectorAll('.ds-tab--vertical');
+      console.log('event on sl-tab-change slTabs', event, verticalTabs);
+      // requestAnimationFrame(() => {
+      //   selectVerticalTab(verticalTabs[0]);
+      // });
+      // selectVerticalTab(verticalTabs[0]);
     };
   });
 };
@@ -69,7 +88,8 @@ window.onscroll = () => {
     const rect = section.getBoundingClientRect().y;
     if (rect < window.innerHeight) {
       // TODO: I'm not sure if this is ok?
-      selectVerticalTab(verticalTabs[i]); // causes last vertical tab selected at the beginning ... verticalTabs[0]
+      // selectVerticalTab(verticalTabs[i]); // causes last vertical tab selected at the beginning ... verticalTabs[0]
+      selectVerticalTab(verticalTabs[0]);
     }
   });
 };
@@ -242,6 +262,27 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
       }, 100);
     };
   });
+
+  const tabSections = verticalTabContent?.querySelectorAll('section[id], [link-in-navigation][id]');
+
+  window.onscroll = () => {
+    if (!tabSections || !verticalTabs || !verticalTabContent) {
+      return;
+    }
+    console.log(
+      'tabSections-tabSections-tabSections',
+      tabSections,
+      verticalTabContent,
+      verticalTabContent.parentElement,
+      verticalTabContent.parentElement?.getAttribute('aria-hidden') == 'false' // TODO: sth wrong here
+    );
+    tabSections.forEach((section, i) => {
+      const rect = section.getBoundingClientRect().y;
+      if (rect < window.innerHeight) {
+        selectVerticalTab(verticalTabs[i]);
+      }
+    });
+  };
 }
 
 function showComponentName(
@@ -397,6 +438,7 @@ function selectTab(tab: Element): void {
     if (!tabSections || !verticalTabs || !tabContent) {
       return;
     }
+    console.log('tabSections-tabSections-tabSections', tabSections);
     tabSections.forEach((section, i) => {
       const rect = section.getBoundingClientRect().y;
       if (rect < window.innerHeight) {
@@ -428,9 +470,9 @@ function alignTabIndicator(tab: Element): void {
 //     // selectTab(event.target as Element);
 //     const verticalTabs = currentContent?.querySelectorAll('.ds-tab--vertical');
 //     console.log('event on sl-tab-change slTabs', event, verticalTabs);
-//     requestAnimationFrame(() => {
-//       selectVerticalTab(verticalTabs[0]);
-//     });
+//     // requestAnimationFrame(() => {
+//     //   selectVerticalTab(verticalTabs[0]);
+//     // });
 //     // selectVerticalTab(verticalTabs[0]);
 //   };
 // });
@@ -519,6 +561,7 @@ function onKeydown(event: KeyboardEvent, vertical = false, verticalTabs?: NodeLi
 }
 
 function onScroll(event: Event): void {
+  console.log('onScroll function event', event);
   slider.scrollTo({ left: (event.target as HTMLElement).scrollLeft });
   if (!current || !tabsWrapper) {
     return;

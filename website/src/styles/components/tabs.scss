@@ -257,6 +257,7 @@ $transition-timing: 300ms;
 
   .ds-tabs[vertical] {
     padding-block-start: 2.4rem;
+
     .ds-tabs__container {
       justify-content: start;
     }
@@ -281,12 +282,17 @@ sl-tab-group {
 }
 
 sl-tab-group::part(container) {
-  position: sticky;
+  inline-size: 88rem;
+
   // inset-block-start: 0;
   inset-block-start: -0.1rem;
-  inline-size: 88rem;
+  position: sticky;
   z-index: 2;
 } // TODO: background needs to be added in the component?
+
+sl-tab-group::part(panels) {
+  padding-inline: 0;
+}
 
 // .ds-tabs__tab-container {
 //  display: grid;

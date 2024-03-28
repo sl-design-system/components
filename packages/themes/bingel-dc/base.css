@@ -43,6 +43,7 @@
   --sl-size-3xs: 4px;
   --sl-size-4xs: 2px;
   --sl-size-none: 0px;
+  --sl-size-accordion-icon-height: 28px;
   --sl-icon-typeset-font-size-2xs: 10px;
   --sl-icon-core-angle-down: angle-down;
   --sl-icon-core-house: house;
@@ -480,6 +481,14 @@
   --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
+  --sl-space-accordion-gap: var(--sl-space-md);
+  --sl-space-accordion-block: var(--sl-space-lg);
+  --sl-space-accordion-inline: var(--sl-space-3xl);
+  --sl-space-accordion-title-gap: var(--sl-space-sm);
+  --sl-space-accordion-title-block: var(--sl-space-lg);
+  --sl-space-accordion-title-inline: var(--sl-space-sm);
+  --sl-space-accordion-content-block: var(--sl-space-lg);
+  --sl-space-accordion-content-inline: var(--sl-space-3xl);
   --sl-space-card-slotheader-badges-gap: var(--sl-space-sm);
   --sl-space-card-slotheader-badges-block: var(--sl-space-xs);
   --sl-space-card-slotheader-badges-inline: var(--sl-space-none);
@@ -539,6 +548,10 @@
   --sl-border-radius-button-md: var(--sl-border-radius-full);
   --sl-border-radius-button-sm: var(--sl-border-radius-full);
   --sl-border-radius-badge-full: var(--sl-border-radius-full);
+  --sl-text-accordion-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-accordion-title: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-card-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-card-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /

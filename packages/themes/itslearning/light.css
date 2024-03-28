@@ -7,6 +7,20 @@
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
   --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
   --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-500) / var(--sl-opacity-700));
+  --sl-color-accordion-active-border: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-accordion-active-icon: rgb(var(--sl-color-palette-accent-700));
+  --sl-color-accordion-active-foreground: rgb(var(--sl-color-palette-accent-700));
+  --sl-color-accordion-active-header: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-accordion-disabled-border: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-accordion-disabled-icon: rgb(var(--sl-color-palette-neutral-500));
+  --sl-color-accordion-disabled-foreground: rgb(var(--sl-color-palette-neutral-500));
+  --sl-color-accordion-disabled-header: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-accordion-disabled-background: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-accordion-hover-border: rgb(var(--sl-color-palette-neutral-300));
+  --sl-color-accordion-hover-icon: rgb(var(--sl-color-palette-accent-700));
+  --sl-color-accordion-hover-foreground: rgb(var(--sl-color-palette-accent-700));
+  --sl-color-accordion-hover-header: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-accordion-default-border: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-150));
@@ -457,6 +471,12 @@
   --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-base));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-primary-100));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-base));
+  --sl-color-accordion-active-background: var(--sl-body-background);
+  --sl-color-accordion-hover-background: var(--sl-body-background);
+  --sl-color-accordion-default-icon: var(--sl-body-foreground);
+  --sl-color-accordion-default-foreground: var(--sl-body-foreground);
+  --sl-color-accordion-default-header: var(--sl-body-background);
+  --sl-color-accordion-default-background: var(--sl-body-background);
   --sl-color-skeleton-shimmer: linear-gradient
     (
       90deg,

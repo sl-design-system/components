@@ -38,11 +38,11 @@ export const Collapse: Story = {
   args: {
     breadcrumbs: html`
       <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
+      <a href="http://sanomalearning.design">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
       <a href="javascript:void(0)">Sit</a>
       <a href="javascript:void(0)">Amet</a>
-      <a href="javascript:void(0)">Foo</a>
+      <a href="http://sanomalearning.design">Foo</a>
       <span>Bar</span>
     `
   }

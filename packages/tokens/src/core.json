@@ -2116,6 +2116,11 @@
         "value": "angle-down",
         "type": "Icons",
         "description": "icon.core.angle-down"
+      },
+      "slash-forward": {
+        "value": "slash-forward",
+        "type": "Icons",
+        "description": "icon.core.slash-forward"
       }
     },
     "typeset": {

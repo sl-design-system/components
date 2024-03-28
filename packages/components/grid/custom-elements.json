@@ -198,6 +198,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "columns",
               "type": {
                 "text": "Array<GridColumn<T>>"
@@ -378,18 +390,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-column-update",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "stateChanged",
               "return": {
@@ -531,20 +531,6 @@
               },
               "description": "Width of the cells for this column in pixels.",
               "fieldName": "width",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -702,6 +688,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -777,6 +775,14 @@
               },
               "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
               "attribute": "auto-width"
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed."
             },
             {
               "kind": "method",
@@ -903,14 +909,6 @@
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid."
             },
             {
-              "kind": "event",
-              "name": "sl-column-update",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed."
-            },
-            {
               "kind": "method",
               "name": "stateChanged",
               "return": {
@@ -938,16 +936,6 @@
               },
               "description": "Width of the cells for this column in pixels.",
               "attribute": "width"
-            }
-          ],
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent"
             }
           ],
           "attributes": [
@@ -1117,6 +1105,14 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed."
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -1184,6 +1180,18 @@
               },
               "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
               "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1362,18 +1370,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-column-update",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "stateChanged",
               "return": {
@@ -1515,20 +1511,6 @@
               },
               "description": "Width of the cells for this column in pixels.",
               "fieldName": "width",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1677,6 +1659,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -1756,6 +1750,18 @@
               },
               "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
               "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -1961,18 +1967,6 @@
                 "text": "Record<string, typeof HTMLElement> | undefined"
               },
               "description": "The custom elements used for rendering this column. Since the rendering the column cells is done\nin the parent grid component, the custom elements need to be registered in the parent grid.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
-              "kind": "event",
-              "name": "sl-column-update",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -2151,20 +2145,6 @@
           },
           "tagName": "sl-grid-filter-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -2314,6 +2294,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -2389,6 +2381,22 @@
             },
             {
               "kind": "field",
+              "name": "filterChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlFilterChangeEvent>"
+              },
+              "description": "Emits when the filter has been added or removed."
+            },
+            {
+              "kind": "field",
+              "name": "filterValueChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
+              },
+              "description": "Emits when the value of the this filter has changed."
+            },
+            {
+              "kind": "field",
               "name": "mode",
               "type": {
                 "text": "GridFilterMode | undefined"
@@ -2414,46 +2422,12 @@
               "attribute": "path"
             },
             {
-              "kind": "event",
-              "name": "sl-filter-change",
-              "type": {
-                "text": "EventEmitter<SlFilterChangeEvent>"
-              },
-              "description": "Emits when the filter has been added or removed."
-            },
-            {
-              "kind": "event",
-              "name": "sl-filter-value-change",
-              "type": {
-                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
-              },
-              "description": "Emits when the value of the this filter has changed."
-            },
-            {
               "kind": "field",
               "name": "value",
               "type": {
                 "text": "string | string[] | undefined"
               },
               "attribute": "value"
-            }
-          ],
-          "events": [
-            {
-              "name": "filterChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlFilterChangeEvent>"
-              },
-              "description": "Emits when the filter has been added or removed.",
-              "fieldName": "filterChangeEvent"
-            },
-            {
-              "name": "filterValueChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
-              },
-              "description": "Emits when the value of the this filter has changed.",
-              "fieldName": "filterValueChangeEvent"
             }
           ],
           "attributes": [
@@ -2607,6 +2581,22 @@
             },
             {
               "kind": "field",
+              "name": "filterChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlFilterChangeEvent>"
+              },
+              "description": "Emits when the filter has been added or removed."
+            },
+            {
+              "kind": "field",
+              "name": "filterValueChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
+              },
+              "description": "Emits when the value of the this filter has changed."
+            },
+            {
+              "kind": "field",
               "name": "options",
               "type": {
                 "text": "GridFilterOption[] | undefined"
@@ -2646,11 +2636,35 @@
             },
             {
               "kind": "field",
+              "name": "activeItemChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
+              },
+              "description": "Emits when the active item changes"
+            },
+            {
+              "kind": "field",
               "name": "dataSource",
               "type": {
                 "text": "DataSource<T> | undefined"
               },
               "description": "Provide your own implementation for getting the data."
+            },
+            {
+              "kind": "field",
+              "name": "dragEndEvent",
+              "type": {
+                "text": "EventEmitter<SlDragEndEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished."
+            },
+            {
+              "kind": "field",
+              "name": "dragStartEvent",
+              "type": {
+                "text": "EventEmitter<SlDragStartEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting."
             },
             {
               "kind": "field",
@@ -2660,6 +2674,14 @@
               },
               "description": "Whether you can drag rows in the grid. If you use the drag-handle column,\nthen this property is automatically set by the column to 'between'.",
               "attribute": "draggable-rows"
+            },
+            {
+              "kind": "field",
+              "name": "dropEvent",
+              "type": {
+                "text": "EventEmitter<SlDropEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped."
             },
             {
               "kind": "field",
@@ -2821,40 +2843,8 @@
               "description": "Selection manager."
             },
             {
-              "kind": "event",
-              "name": "sl-active-item-change",
-              "type": {
-                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
-              },
-              "description": "Emits when the active item changes"
-            },
-            {
-              "kind": "event",
-              "name": "sl-grid-dragend",
-              "type": {
-                "text": "EventEmitter<SlDragEndEvent<T>>"
-              },
-              "description": "Emits when a drag operation has finished."
-            },
-            {
-              "kind": "event",
-              "name": "sl-grid-dragstart",
-              "type": {
-                "text": "EventEmitter<SlDragStartEvent<T>>"
-              },
-              "description": "Emits when a drag operation is starting."
-            },
-            {
-              "kind": "event",
-              "name": "sl-grid-drop",
-              "type": {
-                "text": "EventEmitter<SlDropEvent<T>>"
-              },
-              "description": "Emits when an item has been dropped."
-            },
-            {
-              "kind": "event",
-              "name": "sl-grid-state-change",
+              "kind": "field",
+              "name": "stateChangeEvent",
               "type": {
                 "text": "EventEmitter<SlStateChangeEvent<T>>"
               },
@@ -2885,48 +2875,6 @@
                 "text": "HTMLTableSectionElement"
               },
               "description": "The `<thead>` element."
-            }
-          ],
-          "events": [
-            {
-              "name": "activeItemChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
-              },
-              "description": "Emits when the active item changes",
-              "fieldName": "activeItemChangeEvent"
-            },
-            {
-              "name": "dragStartEvent",
-              "type": {
-                "text": "EventEmitter<SlDragStartEvent<T>>"
-              },
-              "description": "Emits when a drag operation is starting.",
-              "fieldName": "dragStartEvent"
-            },
-            {
-              "name": "dragEndEvent",
-              "type": {
-                "text": "EventEmitter<SlDragEndEvent<T>>"
-              },
-              "description": "Emits when a drag operation has finished.",
-              "fieldName": "dragEndEvent"
-            },
-            {
-              "name": "dropEvent",
-              "type": {
-                "text": "EventEmitter<SlDropEvent<T>>"
-              },
-              "description": "Emits when an item has been dropped.",
-              "fieldName": "dropEvent"
-            },
-            {
-              "name": "stateChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlStateChangeEvent<T>>"
-              },
-              "description": "Emits when the state in the grid has changed.",
-              "fieldName": "stateChangeEvent"
             }
           ],
           "attributes": [
@@ -3514,11 +3462,43 @@
             },
             {
               "kind": "field",
+              "name": "activeItemChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
+              },
+              "description": "Emits when the active item changes"
+            },
+            {
+              "kind": "field",
               "name": "dataSource",
               "type": {
                 "text": "DataSource<T> | undefined"
               },
               "description": "Provide your own implementation for getting the data."
+            },
+            {
+              "kind": "field",
+              "name": "dragStartEvent",
+              "type": {
+                "text": "EventEmitter<SlDragStartEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting."
+            },
+            {
+              "kind": "field",
+              "name": "dragEndEvent",
+              "type": {
+                "text": "EventEmitter<SlDragEndEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished."
+            },
+            {
+              "kind": "field",
+              "name": "dropEvent",
+              "type": {
+                "text": "EventEmitter<SlDropEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped."
             },
             {
               "kind": "field",
@@ -3541,6 +3521,14 @@
               "name": "model",
               "default": "new GridViewModel<T>(this)",
               "description": "The model used for rendering the grid."
+            },
+            {
+              "kind": "field",
+              "name": "stateChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlStateChangeEvent<T>>"
+              },
+              "description": "Emits when the state in the grid has changed."
             },
             {
               "kind": "field",
@@ -3602,6 +3590,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<boolean>>"
+              },
+              "description": "Emits when the user changes the group selection."
+            },
+            {
+              "kind": "field",
               "name": "selectable",
               "type": {
                 "text": "boolean | undefined"
@@ -3620,38 +3616,12 @@
               "attribute": "selected"
             },
             {
-              "kind": "event",
-              "name": "sl-select",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent<boolean>>"
-              },
-              "description": "Emits when the user changes the group selection."
-            },
-            {
-              "kind": "event",
-              "name": "sl-toggle",
-              "type": {
-                "text": "EventEmitter<SlToggleEvent<boolean>>"
-              },
-              "description": "Emits when the user collapses/expands the group."
-            }
-          ],
-          "events": [
-            {
-              "name": "selectEvent",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent<boolean>>"
-              },
-              "description": "Emits when the user changes the group selection.",
-              "fieldName": "selectEvent"
-            },
-            {
+              "kind": "field",
               "name": "toggleEvent",
               "type": {
                 "text": "EventEmitter<SlToggleEvent<boolean>>"
               },
-              "description": "Emits when the user collapses/expands the group.",
-              "fieldName": "toggleEvent"
+              "description": "Emits when the user collapses/expands the group."
             }
           ],
           "attributes": [
@@ -3738,6 +3708,22 @@
               "static": true,
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<boolean>>"
+              },
+              "description": "Emits when the user changes the group selection."
+            },
+            {
+              "kind": "field",
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
+              },
+              "description": "Emits when the user collapses/expands the group."
             }
           ]
         }
@@ -3784,6 +3770,18 @@
               },
               "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
               "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -3971,18 +3969,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-column-update",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "stateChanged",
               "return": {
@@ -4138,20 +4124,6 @@
           },
           "tagName": "sl-grid-select-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -4300,6 +4272,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -4388,6 +4372,18 @@
               },
               "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
               "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -4593,18 +4589,6 @@
               "attribute": "select-all"
             },
             {
-              "kind": "event",
-              "name": "sl-column-update",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "stateChanged",
               "return": {
@@ -4768,20 +4752,6 @@
           },
           "tagName": "sl-grid-selection-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -4982,6 +4952,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -5061,6 +5043,18 @@
               },
               "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
               "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -5248,18 +5242,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-column-update",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "field",
               "name": "sorter",
               "type": {
@@ -5423,20 +5405,6 @@
           },
           "tagName": "sl-grid-sort-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -5570,6 +5538,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -5664,20 +5644,12 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-sort-direction-change",
+              "kind": "field",
+              "name": "sortDirectionChangeEvent",
               "type": {
                 "text": "EventEmitter<SlSortDirectionChangeEvent<T>>"
               },
               "description": "Emits when the direction has changed."
-            },
-            {
-              "kind": "event",
-              "name": "sl-sorter-change",
-              "type": {
-                "text": "EventEmitter<SlSorterChangeEvent>"
-              },
-              "description": "Emits when the sorter has been added or removed."
             },
             {
               "kind": "field",
@@ -5686,24 +5658,14 @@
                 "text": "DataSourceSortFunction<T> | undefined"
               },
               "description": "An optional custom sort function."
-            }
-          ],
-          "events": [
+            },
             {
+              "kind": "field",
               "name": "sorterChangeEvent",
               "type": {
                 "text": "EventEmitter<SlSorterChangeEvent>"
               },
-              "description": "Emits when the sorter has been added or removed.",
-              "fieldName": "sorterChangeEvent"
-            },
-            {
-              "name": "sortDirectionChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlSortDirectionChangeEvent<T>>"
-              },
-              "description": "Emits when the direction has changed.",
-              "fieldName": "sortDirectionChangeEvent"
+              "description": "Emits when the sorter has been added or removed."
             }
           ],
           "attributes": [
@@ -5813,6 +5775,22 @@
                 "text": "DataSourceSortFunction<T> | undefined"
               },
               "description": "An optional custom sort function."
+            },
+            {
+              "kind": "field",
+              "name": "sorterChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlSorterChangeEvent>"
+              },
+              "description": "Emits when the sorter has been added or removed."
+            },
+            {
+              "kind": "field",
+              "name": "sortDirectionChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlSortDirectionChangeEvent<T>>"
+              },
+              "description": "Emits when the direction has changed."
             }
           ]
         }
@@ -5859,6 +5837,18 @@
               },
               "description": "Automatically sets the width of the column based on the column contents when this is set to `true`.\n\nFor performance reasons the column width is calculated automatically only once when the grid items\nare rendered for the first time and the calculation only considers the rows which are currently\nrendered in DOM (a bit more than what is currently visible). If the grid is scrolled, or the cell\ncontent changes, the column width might not match the contents anymore.\n\nHidden columns are ignored in the calculation and their widths are not automatically updated when\nyou show a column that was initially hidden.\n\nYou can manually trigger the auto sizing behavior again by calling `grid.recalculateColumnWidths()`.\n\nThe column width may still grow larger when `grow` is not 0.",
               "attribute": "auto-width",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"
@@ -6037,18 +6027,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-column-update",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            },
-            {
               "kind": "method",
               "name": "stateChanged",
               "return": {
@@ -6196,20 +6174,6 @@
               }
             }
           ],
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -6351,6 +6315,18 @@
                 "text": "number | undefined"
               },
               "description": "Actual width of the column.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"

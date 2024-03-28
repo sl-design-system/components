@@ -113,14 +113,6 @@
               "reflects": true
             },
             {
-              "kind": "event",
-              "name": "sl-toggle",
-              "type": {
-                "text": "EventEmitter<SlToggleEvent<boolean>>"
-              },
-              "description": "Emits when the accordion item has been toggled."
-            },
-            {
               "kind": "field",
               "name": "summary",
               "type": {
@@ -148,16 +140,14 @@
                 }
               ],
               "description": "Toggles the component state between open or closed. If the `force` parameter is\nprovided, the state will be set to the value of the parameter."
-            }
-          ],
-          "events": [
+            },
             {
+              "kind": "field",
               "name": "toggleEvent",
               "type": {
                 "text": "EventEmitter<SlToggleEvent<boolean>>"
               },
-              "description": "Emits when the accordion item has been toggled.",
-              "fieldName": "toggleEvent"
+              "description": "Emits when the accordion item has been toggled."
             }
           ],
           "attributes": [
@@ -296,6 +286,14 @@
               },
               "default": "true",
               "description": "Whether we should actually animate opening/closing the wrapper."
+            },
+            {
+              "kind": "field",
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
+              },
+              "description": "Emits when the accordion item has been toggled."
             }
           ]
         }

@@ -3681,7 +3681,7 @@
       },
       "hover": {
         "background": {
-          "value": "rgba( {color.palette.primary.400} ,{opacity.400})",
+          "value": "rgba( {color.palette.primary.400} ,{opacity.200})",
           "type": "color"
         },
         "foreground": {

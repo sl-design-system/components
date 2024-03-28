@@ -34,7 +34,7 @@ describe('sl-breadcrumbs', () => {
       expect(homeLink).to.exist;
       expect(homeLink).to.have.attribute('href', '/');
       expect(homeLink).to.have.text('Home');
-      expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'house');
+      expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'home-blank');
     });
 
     it('should not render a home link when noHome is set', async () => {
@@ -55,14 +55,14 @@ describe('sl-breadcrumbs', () => {
       const separator = el.renderRoot.querySelector('a + sl-icon')!;
 
       expect(separator).to.exist;
-      expect(separator).to.have.attribute('name', 'chevron-right');
+      expect(separator).to.have.attribute('name', 'slash-forward');
     });
 
     it('should render icon separators between the links', () => {
       expect(
         Array.from(el.querySelectorAll('a'))
           .map(link => link.nextElementSibling as Icon)
-          .every(icon => icon.tagName === 'SL-ICON' && icon.name === 'chevron-right')
+          .every(icon => icon.tagName === 'SL-ICON' && icon.name === 'slash-forward')
       ).to.be.true;
 
       expect(el.querySelector('span')).to.match(':last-child');

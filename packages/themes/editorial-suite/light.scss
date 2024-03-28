@@ -376,6 +376,11 @@
   --sl-color-badge-danger-background: rgb(var(--sl-color-palette-danger-500));
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-500));
+  --sl-color-href-disabled-foreground: var(--sl-color-button-default-link-disabled-foreground);
+  --sl-color-href-active-foreground: var(--sl-color-button-default-link-active-foreground);
+  --sl-color-href-hover-foreground: var(--sl-color-button-default-link-hover-foreground);
+  --sl-color-href-idle-foreground: var(--sl-color-button-default-link-idle-foreground);
+  --sl-color-breadcrumb-divider: rgb(var(--sl-color-palette-neutral-600));
   --sl-color-skeleton-shimmer: linear-gradient
     (
       90deg,

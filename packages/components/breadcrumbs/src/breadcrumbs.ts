@@ -126,8 +126,8 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       ${this.noHome
         ? nothing
         : html`
-            <a href=${this.homeUrl}><sl-icon name="house"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
-            <sl-icon name="chevron-right"></sl-icon>
+            <a href=${this.homeUrl}><sl-icon name="home-blank"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
+            <sl-icon name="slash-forward"></sl-icon>
           `}
       ${this.breadcrumbs.length > this.collapseThreshold
         ? html`
@@ -165,7 +165,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       }
 
       const icon = this.shadowRoot!.createElement('sl-icon') as Icon;
-      icon.name = 'chevron-right';
+      icon.name = 'slash-forward';
 
       element.after(icon);
     });

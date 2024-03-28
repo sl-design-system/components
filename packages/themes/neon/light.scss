@@ -15,6 +15,7 @@
     0 4px 8px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-400));
   --sl-elevation-shadow-sm: 0 0 6px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-50)),
     0 2px 4px 0 rgba(var(--sl-color-palette-neutral-base) / var(--sl-opacity-200));
+  --sl-color-breadcrumb-divider: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-150));
@@ -486,6 +487,10 @@
   --sl-color-avatar-foreground: rgb(var(--sl-color-palette-white-base));
   --sl-color-avatar-background: rgb(var(--sl-color-palette-primary-400));
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
+  --sl-color-href-disabled-foreground: var(--sl-color-button-default-link-disabled-foreground);
+  --sl-color-href-active-foreground: var(--sl-color-button-default-link-active-foreground);
+  --sl-color-href-hover-foreground: var(--sl-color-button-default-link-hover-foreground);
+  --sl-color-href-idle-foreground: var(--sl-color-button-default-link-idle-foreground);
   --sl-color-skeleton-shimmer: linear-gradient
     (
       90deg,

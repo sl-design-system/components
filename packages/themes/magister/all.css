@@ -52,6 +52,7 @@
   --sl-size-4xs: 2px;
   --sl-size-none: 0px;
   --sl-icon-typeset-font-size-2xs: 10px;
+  --sl-icon-core-slash-forward: slash-forward;
   --sl-icon-core-angle-down: angle-down;
   --sl-icon-core-house: house;
   --sl-icon-core-ellipsis: ellipsis;
@@ -258,6 +259,7 @@
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
   --sl-opacity-spinner-shadow: 0.32;
+  --sl-size-breacrumb: var(--sl-size-2xl);
   --sl-size-spinner-4xl: var(--sl-size-4xl);
   --sl-size-spinner-3xl: var(--sl-size-3xl);
   --sl-size-spinner-2xl: var(--sl-size-2xl);
@@ -321,6 +323,15 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-breadcrumb-gap-home: var(--sl-space-xs);
+  --sl-space-breadcrumb-gap-short: var(--sl-space-sm);
+  --sl-space-breadcrumb-gap-full: var(--sl-space-lg);
+  --sl-space-menu-item-gap: var(--sl-space-sm);
+  --sl-space-menu-item-inline: var(--sl-space-sm);
+  --sl-space-menu-item-block: var(--sl-space-sm);
+  --sl-space-menu-container-gap: var(--sl-space-xs);
+  --sl-space-menu-container-inline: var(--sl-space-sm);
+  --sl-space-menu-container-block: var(--sl-space-sm);
   --sl-space-tab-content-vertical-gap: var(--sl-space-xl);
   --sl-space-tab-content-vertical-block: var(--sl-space-sm);
   --sl-space-tab-content-vertical-inline: var(--sl-space-xl);
@@ -555,6 +566,42 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-sm);
   --sl-border-radius-button-md: var(--sl-border-radius-sm);
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
+  --sl-text-href-disabled-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-disabled-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-disabled-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-active-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-active-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-active-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-hover-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-hover-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-hover-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-idle-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-idle-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-idle-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-lg: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-md: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-sm: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-breadcrumb-disabled: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-breadcrumb-current: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-breadcrumb-link: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
   --sl-text-card-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-card-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
@@ -815,6 +862,7 @@
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+    --sl-color-breadcrumb-divider: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
@@ -1188,6 +1236,10 @@
     --sl-color-button-default-solid-idle-foreground: rgb(var(--sl-color-palette-primary-800));
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-primary-50));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
+    --sl-color-href-disabled-foreground: var(--sl-color-button-default-link-disabled-foreground);
+    --sl-color-href-active-foreground: var(--sl-color-button-default-link-active-foreground);
+    --sl-color-href-hover-foreground: var(--sl-color-button-default-link-hover-foreground);
+    --sl-color-href-idle-foreground: var(--sl-color-button-default-link-idle-foreground);
     --sl-color-skeleton-shimmer: linear-gradient
       (
         90deg,
@@ -1589,6 +1641,7 @@
     --sl-body-surface-200: rgb(var(--sl-color-palette-neutral-150));
     --sl-body-surface-100: rgb(var(--sl-color-palette-neutral-100));
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
+    --sl-color-breadcrumb-divider: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-primary-800));
     --sl-color-skeleton-effect: rgb(var(--sl-color-palette-primary-900));
     --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-900));
@@ -1970,6 +2023,10 @@
     --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
     --sl-body-background: var(--sl-color-surface-solid-primary-background);
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
+    --sl-color-href-disabled-foreground: var(--sl-color-button-default-link-disabled-foreground);
+    --sl-color-href-active-foreground: var(--sl-color-button-default-link-active-foreground);
+    --sl-color-href-hover-foreground: var(--sl-color-button-default-link-hover-foreground);
+    --sl-color-href-idle-foreground: var(--sl-color-button-default-link-idle-foreground);
     --sl-color-skeleton-shimmer: linear-gradient
       (
         90deg,

@@ -7,6 +7,7 @@
   --sl-box-shadow-none: 0 0 0 0;
   --sl-body-background: rgb(var(--sl-color-palette-white-base));
   --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-300) / var(--sl-opacity-800));
+  --sl-color-breadcrumb-divider: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
   --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
@@ -405,6 +406,10 @@
   --sl-body-foreground: var(--sl-color-surface-solid-primary-foreground);
   --sl-box-shadow-tooltip: [object object];
   --sl-box-shadow-select-listbox: [object object];
+  --sl-color-href-disabled-foreground: var(--sl-color-button-default-link-disabled-foreground);
+  --sl-color-href-active-foreground: var(--sl-color-button-default-link-active-foreground);
+  --sl-color-href-hover-foreground: var(--sl-color-button-default-link-hover-foreground);
+  --sl-color-href-idle-foreground: var(--sl-color-button-default-link-idle-foreground);
   --sl-color-skeleton-shimmer: linear-gradient
     (
       90deg,

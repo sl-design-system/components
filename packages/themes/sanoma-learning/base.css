@@ -30,7 +30,6 @@
   --sl-size-3xs: 4px;
   --sl-size-4xs: 2px;
   --sl-size-none: 0px;
-  --sl-size-accordion-icon-height: 28px;
   --sl-size-tabbar-vertical-maxwidth: 200px;
   --sl-opacity-transparent: 0;
   --sl-opacity-1000: 1;
@@ -63,6 +62,7 @@
   --sl-space-2xs: 2px;
   --sl-space-none: 0px;
   --sl-icon-typeset-font-size-2xs: 10px;
+  --sl-icon-core-slash-forward: slash-forward;
   --sl-icon-core-angle-down: angle-down;
   --sl-icon-core-house: house;
   --sl-icon-core-ellipsis: ellipsis;
@@ -103,6 +103,9 @@
   --sl-border-width-xs: 1px;
   --sl-border-width-2xs: 0.5px;
   --sl-border-width-none: 0px;
+  --sl-text-card-body: Regular 14/20 Source Sans Pro;
+  --sl-text-card-subtitle: Regular 16/24 Source Sans Pro;
+  --sl-text-card-title: Regular 18/28 The Message;
   --sl-text-text-field: [object Object];
   --sl-text-typeset-letter-spacing-xl: 2%;
   --sl-text-typeset-letter-spacing-lg: 1%;
@@ -249,6 +252,7 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-size-breacrumb: var(--sl-size-2xl);
   --sl-size-spinner-4xl: var(--sl-size-4xl);
   --sl-size-spinner-3xl: var(--sl-size-3xl);
   --sl-size-spinner-2xl: var(--sl-size-2xl);
@@ -298,6 +302,15 @@
   --sl-dialog-footer-justify-content: var(--sl-justify-content-end);
   --sl-dialog-footer-flex-direction: var(--sl-flex-direction-row);
   --sl-dialog-header-flex-direction: var(--sl-flex-direction-column);
+  --sl-space-breadcrumb-gap-home: var(--sl-space-xs);
+  --sl-space-breadcrumb-gap-short: var(--sl-space-sm);
+  --sl-space-breadcrumb-gap-full: var(--sl-space-lg);
+  --sl-space-menu-item-gap: var(--sl-space-sm);
+  --sl-space-menu-item-inline: var(--sl-space-sm);
+  --sl-space-menu-item-block: var(--sl-space-sm);
+  --sl-space-menu-container-gap: var(--sl-space-xs);
+  --sl-space-menu-container-inline: var(--sl-space-sm);
+  --sl-space-menu-container-block: var(--sl-space-sm);
   --sl-space-tab-content-vertical-gap: var(--sl-space-xl);
   --sl-space-tab-content-vertical-block: var(--sl-space-sm);
   --sl-space-tab-content-vertical-inline: var(--sl-space-xl);
@@ -470,14 +483,6 @@
   --sl-space-button-solid-block-lg: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-md: calc(var(--sl-space-sm) - var(--sl-border-width-button-solid));
   --sl-space-button-solid-block-sm: calc(var(--sl-space-xs) - var(--sl-border-width-button-solid));
-  --sl-space-accordion-gap: var(--sl-space-md);
-  --sl-space-accordion-block: var(--sl-space-lg);
-  --sl-space-accordion-inline: var(--sl-space-3xl);
-  --sl-space-accordion-title-gap: var(--sl-space-sm);
-  --sl-space-accordion-title-block: var(--sl-space-lg);
-  --sl-space-accordion-title-inline: var(--sl-space-sm);
-  --sl-space-accordion-content-block: var(--sl-space-lg);
-  --sl-space-accordion-content-inline: var(--sl-space-3xl);
   --sl-space-card-slotheader-badges-gap: var(--sl-space-sm);
   --sl-space-card-slotheader-badges-block: var(--sl-space-xs);
   --sl-space-card-slotheader-badges-inline: var(--sl-space-none);
@@ -552,16 +557,36 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-3xs);
   --sl-border-radius-button-md: var(--sl-border-radius-3xs);
   --sl-border-radius-button-sm: var(--sl-border-radius-3xs);
-  --sl-text-accordion-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-accordion-title: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl) /
-    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
-  --sl-text-card-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
-    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-card-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
-    var(--sl-text-typeset-line-height-lg) var(--sl-text-typeset-font-family-body);
-  --sl-text-card-title: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl) /
-    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
+  --sl-text-href-disabled-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-disabled-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-disabled-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-active-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-active-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-active-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-hover-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-hover-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-hover-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-idle-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-idle-md: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-idle-sm: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-lg: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
+    var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-md: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-href-sm: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-popover-text-text: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
@@ -627,6 +652,12 @@
   --sl-text-tooltip-text-title: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-sm) /
     var(--sl-text-typeset-line-height-sm) var(--sl-text-typeset-font-family-body);
   --sl-text-tooltip-text-tip: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-sm) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-breadcrumb-disabled: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-breadcrumb-current: var(--sl-text-typeset-font-weight-demibold) var(--sl-text-typeset-font-size-md) /
+    var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-breadcrumb-link: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-button-label-md) var(--sl-text-typeset-font-family-body);
   --sl-text-button-link-disabled-lg: var(--sl-text-typeset-font-weight-bold) var(--sl-text-typeset-font-size-lg) /
     var(--sl-button-label-lg) var(--sl-text-typeset-font-family-body);

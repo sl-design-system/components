@@ -44,6 +44,7 @@
   --sl-opacity-100: 0.04;
   --sl-opacity-50: 0.02;
   --sl-icon-typeset-font-size-2xs: 10px;
+  --sl-icon-core-slash-forward: slash-forward;
   --sl-icon-core-angle-down: angle-down;
   --sl-icon-core-house: house;
   --sl-icon-core-ellipsis: ellipsis;
@@ -253,6 +254,7 @@
   --sl-button-label-lg: var(--sl-text-typeset-line-height-lg);
   --sl-button-label-md: var(--sl-text-typeset-line-height-sm);
   --sl-button-label-sm: var(--sl-text-typeset-line-height-sm);
+  --sl-size-breacrumb: var(--sl-size-2xl);
   --sl-size-spinner-4xl: var(--sl-size-4xl);
   --sl-size-spinner-3xl: var(--sl-size-3xl);
   --sl-size-spinner-2xl: var(--sl-size-2xl);
@@ -312,6 +314,15 @@
   --sl-component-button-lg: [object Object];
   --sl-animation-button-easing: var(--sl-animation-easing-ease-in-out);
   --sl-animation-button-duration: var(--sl-animation-duration-normal);
+  --sl-space-breadcrumb-gap-home: var(--sl-space-xs);
+  --sl-space-breadcrumb-gap-short: var(--sl-space-sm);
+  --sl-space-breadcrumb-gap-full: var(--sl-space-lg);
+  --sl-space-menu-item-gap: var(--sl-space-sm);
+  --sl-space-menu-item-inline: var(--sl-space-sm);
+  --sl-space-menu-item-block: var(--sl-space-sm);
+  --sl-space-menu-container-gap: var(--sl-space-xs);
+  --sl-space-menu-container-inline: var(--sl-space-sm);
+  --sl-space-menu-container-block: var(--sl-space-sm);
   --sl-space-card-slotheader-badges-gap: var(--sl-space-sm);
   --sl-space-card-slotheader-badges-block: var(--sl-space-xs);
   --sl-space-card-slotheader-badges-inline: var(--sl-space-none);

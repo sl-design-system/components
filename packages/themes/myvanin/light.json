@@ -291,7 +291,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.info.500}",
+              "value": "{color.palette.info.base}",
               "type": "color",
               "description": "color.button.default.outline.idle.foreground",
               "failedToResolve": true
@@ -331,7 +331,7 @@
               "failedToResolve": true
             },
             "foreground": {
-              "value": "{color.palette.info.500}",
+              "value": "{color.palette.info.600}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground",
               "failedToResolve": true
@@ -4657,6 +4657,48 @@
         "type": "color",
         "description": "body.surface.100",
         "failedToResolve": true
+      }
+    },
+    "breadcrumb": {
+      "divider": {
+        "value": "{color.palette.neutral.400}",
+        "type": "color",
+        "description": "color.button.info.outline.disabled.foreground",
+        "failedToResolve": true
+      }
+    },
+    "href": {
+      "idle": {
+        "foreground": {
+          "value": "{color.button.default.link.idle.foreground}",
+          "type": "color",
+          "description": "color.button.default.outline.idle.foreground",
+          "failedToResolve": true
+        }
+      },
+      "hover": {
+        "foreground": {
+          "value": "{color.button.default.link.hover.foreground}",
+          "type": "color",
+          "description": "color.button.default.outline.hover.foreground",
+          "failedToResolve": true
+        }
+      },
+      "active": {
+        "foreground": {
+          "value": "{color.button.default.link.active.foreground}",
+          "type": "color",
+          "description": "color.button.primary.outline.active.foreground",
+          "failedToResolve": true
+        }
+      },
+      "disabled": {
+        "foreground": {
+          "value": "{color.button.default.link.disabled.foreground}",
+          "type": "color",
+          "description": "color.button.info.outline.disabled.foreground",
+          "failedToResolve": true
+        }
       }
     }
   },

@@ -566,7 +566,7 @@
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
   --sl-text-accordion-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
-  --sl-text-accordion-title: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-xl) /
+  --sl-text-accordion-title: var(--sl-text-typeset-font-weight-medium) var(--sl-text-typeset-font-size-xl) /
     var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-card-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
@@ -828,18 +828,20 @@
     --sl-body-foreground: rgb(var(--sl-color-palette-black-base));
     --sl-body-background: rgb(var(--sl-color-palette-white-base));
     --sl-box-shadow-none: 0 0 0 0 rgb(var(--sl-color-palette-transparent-base));
-    --sl-color-accordion-active-border: rgb(var(--sl-color-palette-neutral-100));
-    --sl-color-accordion-active-icon: rgb(var(--sl-color-palette-accent-800));
-    --sl-color-accordion-active-foreground: rgb(var(--sl-color-palette-accent-800));
-    --sl-color-accordion-active-header: rgb(var(--sl-color-palette-accent-150));
-    --sl-color-accordion-disabled-border: rgb(var(--sl-color-palette-neutral-100));
-    --sl-color-accordion-disabled-icon: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-accordion-disabled-foreground: rgb(var(--sl-color-palette-neutral-200));
-    --sl-color-accordion-hover-border: rgb(var(--sl-color-palette-neutral-100));
-    --sl-color-accordion-hover-icon: rgb(var(--sl-color-palette-accent-500));
-    --sl-color-accordion-hover-foreground: rgb(var(--sl-color-palette-accent-500));
-    --sl-color-accordion-hover-header: rgb(var(--sl-color-palette-accent-50));
-    --sl-color-accordion-default-border: rgb(var(--sl-color-palette-neutral-100));
+    --sl-color-accordion-active-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-accordion-active-icon: rgb(var(--sl-color-palette-primary-700));
+    --sl-color-accordion-active-foreground: rgb(var(--sl-color-palette-primary-700));
+    --sl-color-accordion-active-header: rgb(var(--sl-color-palette-primary-100));
+    --sl-color-accordion-disabled-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-accordion-disabled-icon: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-accordion-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-accordion-disabled-header: rgb(var(--sl-color-palette-neutral-100));
+    --sl-color-accordion-disabled-background: rgb(var(--sl-color-palette-neutral-100));
+    --sl-color-accordion-hover-border: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-accordion-hover-icon: rgb(var(--sl-color-palette-primary-700));
+    --sl-color-accordion-hover-foreground: rgb(var(--sl-color-palette-primary-700));
+    --sl-color-accordion-hover-header: rgb(var(--sl-color-palette-primary-50));
+    --sl-color-accordion-default-border: rgb(var(--sl-color-palette-neutral-200));
     --sl-color-skeleton-pulse: rgb(var(--sl-color-palette-neutral-100));
     --sl-color-skeleton-effect: rgb(var(--sl-color-palette-neutral-150));
     --sl-color-skeleton-base: rgb(var(--sl-color-palette-neutral-100));
@@ -1214,8 +1216,6 @@
     --sl-color-button-default-solid-idle-background: rgb(var(--sl-color-palette-primary-50));
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-500));
     --sl-color-accordion-active-background: var(--sl-body-background);
-    --sl-color-accordion-disabled-header: var(--sl-body-background);
-    --sl-color-accordion-disabled-background: var(--sl-body-background);
     --sl-color-accordion-hover-background: var(--sl-body-background);
     --sl-color-accordion-default-icon: var(--sl-body-foreground);
     --sl-color-accordion-default-foreground: var(--sl-body-foreground);

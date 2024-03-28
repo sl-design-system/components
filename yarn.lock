@@ -4726,7 +4726,7 @@ __metadata:
     "@fortawesome/sharp-light-svg-icons": "npm:^6.5.1"
     "@fortawesome/sharp-regular-svg-icons": "npm:^6.5.1"
     "@fortawesome/sharp-solid-svg-icons": "npm:^6.5.1"
-    "@tokens-studio/sd-transforms": "npm:^0.15.1"
+    "@tokens-studio/sd-transforms": "npm:^0.15.2"
     esbuild: "npm:^0.20.2"
     fast-glob: "npm:^3.3.2"
     sass: "npm:^1.72.0"
@@ -5777,9 +5777,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tokens-studio/sd-transforms@npm:^0.15.1":
-  version: 0.15.1
-  resolution: "@tokens-studio/sd-transforms@npm:0.15.1"
+"@tokens-studio/sd-transforms@npm:^0.15.2":
+  version: 0.15.2
+  resolution: "@tokens-studio/sd-transforms@npm:0.15.2"
   dependencies:
     "@tokens-studio/types": "npm:^0.4.0"
     color2k: "npm:^2.0.1"
@@ -5789,7 +5789,7 @@ __metadata:
     is-mergeable-object: "npm:^1.1.1"
     postcss-calc-ast-parser: "npm:^0.1.4"
     style-dictionary: "npm:^4.0.0-prerelease.22"
-  checksum: 10c0/4767b9934f6efbda60d8e537a01e5dff8fdd766a6852f1b600f418f0046d30f61cf6a6252e31879fe857d80223ee25d8e40fec66a07ac65fd0029a8305cc2bce
+  checksum: 10c0/c061f35f3d603950e1f4fdb99e15070cc2d37ff40cb5e268c845147d1e4f53c9193e240b0fa1a0206563bec847763bdddb01ba5456fb768aa947e94d1a149a03
   languageName: node
   linkType: hard
 

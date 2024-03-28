@@ -1,10 +1,11 @@
 import { permutateThemes, registerTransforms, transformDimension, transformLineHeight } from '@tokens-studio/sd-transforms';
 import { readFile } from 'fs/promises';
+import { argv } from 'node:process';
 import { join } from 'path';
 import StyleDictionary from 'style-dictionary';
 
 // Match math expressions that are not wrapped in a `calc`, `rgb` or `hsl` function.
-const mathPresent = /^(?!calc|rgb|hsl).*\s[\+\-\*\/]\s.*/;
+const mathPresent = /^(?!calc|color-mix|rgb|hsl).*\s[\+\-\*\/]\s.*/;
 
 registerTransforms(StyleDictionary);
 
@@ -15,6 +16,23 @@ StyleDictionary.registerFileHeader({
       `Copyright ${new Date().getFullYear()} Sanoma Learning`,
       'SPDX-License-Identifier: Apache-2.0'
     ];
+  }
+});
+
+// Convert `rgba` functions into `color-mix` so it works with hex colors
+StyleDictionary.registerTransform({
+  name: 'sl/color/transparentColorMix',
+  type: 'value',
+  transitive: true,
+  matcher: token => token.type === 'color' && token.original?.value?.startsWith('rgba'),
+  transformer: token => {
+    const [_, color, opacity] = token.original?.value?.match(/rgba\((\S+)\s*,\s*(\S+)\)/) ?? [];
+
+    if (color && opacity) {
+      token.original.value = `color-mix(in srgb, ${color}, transparent calc(${opacity} * 100%))`;
+    }
+
+    return token.$value ?? token.value;
   }
 });
 
@@ -83,7 +101,7 @@ StyleDictionary.registerTransform({
   }
 });
 
-const build = async () => {
+const build = async (production = false) => {
   const cwd = new URL('.', import.meta.url).pathname,
     $themes = JSON.parse(await readFile(join(cwd, '../packages/tokens/src/$themes.json'), 'utf8'));
 
@@ -106,48 +124,53 @@ const build = async () => {
           format: 'css/variables',
           options: {
             fileHeader: 'sl/legal',
-            outputReferences: true
+            outputReferences: !production
           }
-        },
-        {
-          destination: `${themeBase}/${theme}/css/base.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles(['core.json', 'base.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/base.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: '@mixin sl-theme-base'
-          },
-          filter: filterFiles(['core.json', 'base.json'])
-        },
-        {
-          destination: `${themeBase}/${theme}/css/${variant}.css`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true
-          },
-          filter: filterFiles([`${variant}.json`])
-        },
-        {
-          destination: `${themeBase}/${theme}/scss/${variant}.scss`,
-          format: 'css/variables',
-          options: {
-            fileHeader: 'sl/legal',
-            outputReferences: true,
-            selector: `@mixin sl-theme-${variant}`
-          },
-          filter: filterFiles([`${variant}.json`])
         }
       ];
+
+      if (production) {
+        files.push(
+          {
+            destination: `${themeBase}/${theme}/css/base.css`,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true
+            },
+            filter: filterFiles(['core.json', 'base.json'])
+          },
+          {
+            destination: `${themeBase}/${theme}/scss/base.scss`,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true,
+              selector: '@mixin sl-theme-base'
+            },
+            filter: filterFiles(['core.json', 'base.json'])
+          },
+          {
+            destination: `${themeBase}/${theme}/css/${variant}.css`,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true
+            },
+            filter: filterFiles([`${variant}.json`])
+          },
+          {
+            destination: `${themeBase}/${theme}/scss/${variant}.scss`,
+            format: 'css/variables',
+            options: {
+              fileHeader: 'sl/legal',
+              outputReferences: true,
+              selector: `@mixin sl-theme-${variant}`
+            },
+            filter: filterFiles([`${variant}.json`])
+          }
+        );
+      }
 
       return {
         log: {
@@ -163,8 +186,9 @@ const build = async () => {
               'sl/size/css/lineHeight',
               'sl/size/css/paragraphSpacing',
               'sl/size/css/px',
-              'sl/wrapMathInCalc'
-            ],
+              production ? undefined : 'sl/color/transparentColorMix',
+              production ? undefined : 'sl/wrapMathInCalc'
+            ].filter(Boolean),
             prefix: 'sl',
             files
           }
@@ -179,4 +203,4 @@ const build = async () => {
   }
 };
 
-build();
+build(argv.includes('--production'));

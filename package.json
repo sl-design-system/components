@@ -192,7 +192,7 @@
       "clean": "if-file-deleted",
       "dependencies": [
         "build:styles",
-        "build:themes"
+        "dist:themes"
       ],
       "files": [
         "packages/checklist/**/*.ts",
@@ -204,9 +204,11 @@
       ]
     },
     "dist:themes": {
-      "command": "echo minify themes",
-      "dependencies": [
-        "build:themes:styles"
+      "command": "node scripts/build-themes.js --production",
+      "clean": true,
+      "output": [
+        "packages/themes/**/*.{css,scss}",
+        "!packages/themes/*/fonts.css"
       ]
     },
     "import-icons": {

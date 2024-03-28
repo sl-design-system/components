@@ -3914,10 +3914,10 @@
         "type": "Icons",
         "description": "icon.core.ellipsis"
       },
-      "house": {
-        "value": "house",
+      "home-blank": {
+        "value": "home-blank",
         "type": "Icons",
-        "description": "icon.core.house"
+        "description": "icon.core.home-blank"
       },
       "angle-down": {
         "value": "angle-down",

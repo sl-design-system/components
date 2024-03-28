@@ -3973,11 +3973,11 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.primary.base}",
+          "value": "{color.palette.primary.500}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.primary.base}",
+          "value": "{color.palette.primary.500}",
           "type": "color"
         },
         "border": {
@@ -3987,7 +3987,7 @@
       },
       "disabled": {
         "background": {
-          "value": "{body.background}",
+          "value": "{color.palette.neutral.100}",
           "type": "color"
         },
         "header": {
@@ -4017,11 +4017,11 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.primary.base}",
+          "value": "{color.palette.primary.500}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.primary.base}",
+          "value": "{color.palette.primary.500}",
           "type": "color"
         },
         "border": {

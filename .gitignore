@@ -70,10 +70,12 @@ packages/locales/**/*.d.ts
 packages/locales/**/*.d.ts.map
 packages/locales/**/*.js
 packages/locales/**/*.js.map
+packages/themes/**/*.css
 packages/themes/**/*.d.ts
 packages/themes/**/*.d.ts.map
 packages/themes/**/*.js
 packages/themes/**/*.js.map
+packages/themes/**/*.scss
 !packages/themes/eslint.config.js
 website/build
 website/dist

@@ -7,7 +7,6 @@ import config from '../../eslint.config.mjs';
 export default [
   {
     ignores: [
-      'packages/themes/**/*.js',
       'packages/themes/**/*.d.ts',
       'packages/themes/core**/*'
     ]

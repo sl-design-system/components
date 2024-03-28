@@ -93,12 +93,9 @@
       ]
     },
     "copy-tokens": {
-      "command": "cpx '../packages/themes/sanoma-learning/base.json' 'src/_data/tokens/'",
-      "dependencies": [
-        "..:transform-tokens"
-      ],
+      "command": "cpx '../packages/tokens/sanoma-learning/base.json' 'src/_data/tokens/'",
       "files": [
-        "../packages/themes/sanoma-learning/base.json"
+        "../packages/tokens/sanoma-learning/base.json"
       ],
       "output": [
         "src/_data/tokens/base.json"

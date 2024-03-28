@@ -16,5 +16,5 @@ const buildPackages = async (packageType) => {
 
 const packageType = argv.at(-1);
 if (['checklist', 'components', 'locales', 'themes'].includes(packageType)) {
-  buildPackages(packageType);
+  await buildPackages(packageType);
 }

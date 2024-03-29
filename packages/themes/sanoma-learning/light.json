@@ -4232,7 +4232,7 @@
         "failedToResolve": true
       },
       "border": {
-        "value": "{color.palette.neutral.500}",
+        "value": "{color.palette.neutral.200}",
         "type": "color",
         "failedToResolve": true
       }

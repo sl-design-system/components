@@ -44,7 +44,8 @@
       },
       "dependencies": [
         "analyze",
-        "copy-tokens"
+        "copy-tokens",
+        "..:build:themes:styles"
       ],
       "files": [
         ".eleventy.cjs",

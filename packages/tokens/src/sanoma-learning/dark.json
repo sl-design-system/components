@@ -4175,7 +4175,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.700}",
+          "value": "{color.palette.neutral.800}",
           "type": "color"
         }
       },

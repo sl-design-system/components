@@ -3797,6 +3797,96 @@
         "type": "color",
         "description": "body.surface.100"
       }
+    },
+    "accordion": {
+      "default": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "header": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.600}",
+          "type": "color"
+        }
+      },
+      "hover": {
+        "background": {
+          "value": "rgba({color.palette.primary.400}, {opacity.300})",
+          "type": "color"
+        },
+        "header": {
+          "value": "rgba({color.palette.primary.400}, {opacity.300})",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.600}",
+          "type": "color"
+        }
+      },
+      "disabled": {
+        "background": {
+          "value": "rgba({color.palette.neutral.400}, {opacity.700})",
+          "type": "color"
+        },
+        "header": {
+          "value": "rgba({color.palette.neutral.400}, {opacity.700})",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.600}",
+          "type": "color"
+        }
+      },
+      "active": {
+        "background": {
+          "value": "rgba({color.palette.primary.400}, {opacity.600})",
+          "type": "color"
+        },
+        "header": {
+          "value": "rgba({color.palette.primary.400}, {opacity.600})",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.white.base}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.600}",
+          "type": "color"
+        }
+      }
     }
   },
   "boxShadow": {

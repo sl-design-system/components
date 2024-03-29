@@ -3939,6 +3939,96 @@
         "type": "color",
         "description": "body.surface.100"
       }
+    },
+    "accordion": {
+      "default": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "header": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      },
+      "hover": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "header": {
+          "value": "{color.palette.primary.50}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.primary.base}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.primary.base}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      },
+      "disabled": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "header": {
+          "value": "{color.palette.neutral.100}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.neutral.400}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.neutral.400}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      },
+      "active": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "header": {
+          "value": "{color.palette.primary.100}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.primary.base}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.primary.base}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      }
     }
   },
   "boxShadow": {

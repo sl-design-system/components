@@ -4515,7 +4515,7 @@
         "failedToResolve": true
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.200}",
         "type": "color",
         "failedToResolve": true
       }
@@ -4543,7 +4543,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.200}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4570,24 +4570,24 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.accordion.default.border}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "disabled": {
         "background": {
-          "value": "{body.background}",
+          "value": "{color.palette.neutral.100}",
           "type": "color",
           "failedToResolve": true
         },
         "header": {
-          "value": "{body.background}",
+          "value": "{color.palette.neutral.100}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.400}",
           "type": "color",
           "failedToResolve": true
         },
@@ -4597,7 +4597,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.accordion.default.border}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4624,7 +4624,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.accordion.default.border}",
           "type": "color",
           "failedToResolve": true
         }

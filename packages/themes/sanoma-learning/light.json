@@ -3514,7 +3514,7 @@
             "failedToResolve": true
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground",
             "failedToResolve": true
@@ -3534,7 +3534,7 @@
             "failedToResolve": true
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground",
             "failedToResolve": true
@@ -3552,7 +3552,7 @@
       "item": {
         "default": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{body.background}",
             "type": "color",
             "failedToResolve": true
           },
@@ -3640,29 +3640,29 @@
         },
         "disabled": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{color.palette.neutral.100}",
             "type": "color",
             "failedToResolve": true
           },
           "foreground": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "failedToResolve": true
           },
           "border": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{color.palette.neutral.100}",
             "type": "color",
             "failedToResolve": true
           },
           "indicator": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.200}",
             "type": "color",
             "failedToResolve": true
           }
         },
         "divider": {
           "line": {
-            "value": "{color.palette.neutral.100}",
+            "value": "{color.palette.neutral.200}",
             "type": "color",
             "failedToResolve": true
           }
@@ -4165,7 +4165,7 @@
       },
       "listbox": {
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.select.selectbox.default.default.border}",
           "type": "color",
           "failedToResolve": true
         },

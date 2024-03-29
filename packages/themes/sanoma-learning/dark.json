@@ -59,36 +59,36 @@
     "badge": {
       "info": {
         "background": {
-          "value": "{color.palette.info.500}",
+          "value": "{color.palette.info.300}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "danger": {
         "background": {
-          "value": "{color.palette.danger.500}",
+          "value": "{color.palette.danger.base}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "success": {
         "background": {
-          "value": "{color.palette.success.500}",
+          "value": "{color.palette.success.base}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
@@ -107,19 +107,19 @@
       },
       "accent": {
         "background": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.accent.300}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
       },
       "neutral": {
         "background": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.400}",
           "type": "color",
           "failedToResolve": true
         },
@@ -131,12 +131,12 @@
       },
       "primary": {
         "background": {
-          "value": "{color.palette.primary.base}",
+          "value": "{color.palette.primary.50}",
           "type": "color",
           "failedToResolve": true
         },
         "foreground": {
-          "value": "{color.palette.white.base}",
+          "value": "{color.palette.black.base}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4936,7 +4936,7 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.neutral.700}",
+          "value": "{color.palette.neutral.800}",
           "type": "color",
           "failedToResolve": true
         }

@@ -48,7 +48,7 @@
       ]
     },
     "build:checklist": {
-      "command": "node scripts/build-styles.js \"packages/checklist/src/checklist.scss\""
+      "command": "node scripts/build-styles.js 'packages/checklist/src/checklist.scss'"
     },
     "build:components": {
       "command": "node scripts/build-packages.js components",
@@ -66,7 +66,7 @@
       ]
     },
     "build:components:styles": {
-      "command": "node scripts/build-styles.js \"packages/components/**/*.scss\"",
+      "command": "node scripts/build-styles.js 'packages/components/**/*.scss'",
       "clean": "if-file-deleted",
       "files": [
         "scripts/build-styles.js",
@@ -91,7 +91,7 @@
       ]
     },
     "build:locales:code": {
-      "command": "lit-localize build && eslint --fix \"packages/locales/src/*.ts\"",
+      "command": "lit-localize build && eslint --fix 'packages/locales/src/*.ts'",
       "clean": false,
       "files": [
         "lit-localize.json",
@@ -190,7 +190,7 @@
       ]
     },
     "dist:checklist:styles": {
-      "command": "node scripts/build-styles.js \"packages/checklist/**/*.scss\"",
+      "command": "node scripts/build-styles.js 'packages/checklist/**/*.scss'",
       "clean": "if-file-deleted",
       "dependencies": [
         "dist:themes"
@@ -242,10 +242,10 @@
       ]
     },
     "lint:components:code": {
-      "command": "eslint --config packages/components/eslint.config.mjs \"packages/components/**/*.ts\""
+      "command": "eslint --config packages/components/eslint.config.mjs 'packages/components/**/*.ts'"
     },
     "lint:components:styles": {
-      "command": "stylelint \"packages/components/**/*.{css,scss}\""
+      "command": "stylelint 'packages/components/**/*.{css,scss}'"
     },
     "release": {
       "command": "yarn changeset publish",

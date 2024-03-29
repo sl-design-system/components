@@ -2992,7 +2992,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3009,7 +3009,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3025,7 +3025,7 @@
       "item": {
         "default": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{body.background}",
             "type": "color"
           },
           "foreground": {
@@ -3097,25 +3097,25 @@
         },
         "disabled": {
           "background": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{color.palette.neutral.100}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.400}",
             "type": "color"
           },
           "border": {
-            "value": "rgba({body.background} , {opacity.transparent})",
+            "value": "{color.palette.neutral.100}",
             "type": "color"
           },
           "indicator": {
-            "value": "{color.palette.neutral.300}",
+            "value": "{color.palette.neutral.200}",
             "type": "color"
           }
         },
         "divider": {
           "line": {
-            "value": "{color.palette.neutral.100}",
+            "value": "{color.palette.neutral.200}",
             "type": "color"
           }
         },
@@ -3526,7 +3526,7 @@
       },
       "listbox": {
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.select.selectbox.default.default.border}",
           "type": "color"
         },
         "background": {

@@ -1678,14 +1678,14 @@
     --sl-box-shadow-focus: 0 0 0 3px rgba(var(--sl-color-palette-info-base) / var(--sl-opacity-800));
     --sl-color-accordion-active-icon: rgb(var(--sl-color-palette-accent-200));
     --sl-color-accordion-active-foreground: rgb(var(--sl-color-palette-accent-200));
-    --sl-color-accordion-active-header: rgba(var(--sl-color-palette-accent-base) / var(--sl-opacity-600));
-    --sl-color-accordion-disabled-icon: rgb(var(--sl-color-palette-neutral-200));
+    --sl-color-accordion-active-header: rgba(var(--sl-color-palette-accent-base) / var(--sl-opacity-400));
+    --sl-color-accordion-disabled-icon: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-accordion-disabled-foreground: rgb(var(--sl-color-palette-neutral-400));
-    --sl-color-accordion-disabled-header: rgb(var(--sl-color-palette-neutral-100));
+    --sl-color-accordion-disabled-header: rgb(var(--sl-color-palette-neutral-900));
     --sl-color-accordion-disabled-background: rgb(var(--sl-color-palette-neutral-900));
     --sl-color-accordion-hover-icon: rgb(var(--sl-color-palette-accent-200));
     --sl-color-accordion-hover-foreground: rgb(var(--sl-color-palette-accent-200));
-    --sl-color-accordion-hover-header: rgb(var(--sl-color-palette-accent-900));
+    --sl-color-accordion-hover-header: rgba(var(--sl-color-palette-accent-base) / var(--sl-opacity-200));
     --sl-color-accordion-default-border: rgb(var(--sl-color-palette-neutral-700));
     --sl-color-slds-checklist-link-active: rgb(var(--sl-color-palette-info-150));
     --sl-color-slds-checklist-link-hover: rgb(var(--sl-color-palette-info-200));

@@ -292,7 +292,7 @@
     "storybook:build": {
       "command": "storybook build -o dist --quiet",
       "dependencies": [
-        "build"
+        "dist"
       ]
     },
     "test": {

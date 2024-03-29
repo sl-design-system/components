@@ -4185,7 +4185,7 @@
           "type": "color"
         },
         "header": {
-          "value": "{color.palette.accent.900}",
+          "value": "rgba({color.palette.accent.base} , {opacity.200})",
           "type": "color"
         },
         "foreground": {
@@ -4207,7 +4207,7 @@
           "type": "color"
         },
         "header": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.900}",
           "type": "color"
         },
         "foreground": {
@@ -4215,7 +4215,7 @@
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.400}",
           "type": "color"
         },
         "border": {
@@ -4229,7 +4229,7 @@
           "type": "color"
         },
         "header": {
-          "value": "rgba({color.palette.accent.base} , {opacity.600})",
+          "value": "rgba({color.palette.accent.base} , {opacity.400})",
           "type": "color"
         },
         "foreground": {

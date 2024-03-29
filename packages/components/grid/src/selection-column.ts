@@ -1,6 +1,7 @@
 import { msg, str } from '@lit/localize';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { EventsController } from '@sl-design-system/shared';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
@@ -50,7 +51,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return html`
       <th part="header selection">
         <sl-checkbox
-          @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelectAll(detail)}
+          @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelectAll(detail)}
           .checked=${checked}
           .indeterminate=${indeterminate}
           aria-label=${msg('Select all')}
@@ -76,7 +77,7 @@ export class GridSelectionColumn<T = any> extends GridColumn<T> {
     return html`
       <td part="data selection">
         <sl-checkbox
-          @sl-change=${({ detail }: CustomEvent<boolean>) => this.#onToggleSelect(item, detail)}
+          @sl-change=${({ detail }: SlChangeEvent<boolean>) => this.#onToggleSelect(item, detail)}
           .checked=${checked}
           class="selection-toggle"
           size="sm"

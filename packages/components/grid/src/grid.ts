@@ -11,9 +11,11 @@ import {
   getValueByPath,
   isSafari
 } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { type GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
 import { GridFilterColumn } from './filter-column.js';
@@ -336,11 +338,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
               ${rows.at(-1)?.[0].renderHeader()} ${(rows.at(-1)?.[0] as GridSelectionColumn<T>).renderSelectionHeader()}
             </tr>
           `
-        : html`
-            <tr>
-              ${rows.at(-1)?.map(col => col.renderHeader())}
-            </tr>
-          `}
+        : nothing}
+      <tr style=${styleMap({ display: showSelectionHeader ? 'none' : '' })}>
+        ${rows.at(-1)?.map(col => col.renderHeader())}
+      </tr>
     `;
   }
 
@@ -604,7 +605,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applyFilters();
   }
 
-  #onGroupSelect(event: CustomEvent<boolean>, group: GridViewModelGroup): void {
+  #onGroupSelect(event: SlSelectEvent<boolean>, group: GridViewModelGroup): void {
     const items = this.dataSource?.filteredItems ?? [],
       groupItems = items.filter(item => getValueByPath(item, this.itemsGroupBy) === group.value);
 
@@ -615,7 +616,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onGroupToggle(event: CustomEvent<boolean>, group: GridViewModelGroup): void {
+  #onGroupToggle(event: SlToggleEvent<boolean>, group: GridViewModelGroup): void {
     this.model.toggleGroup(group.value, event.detail);
   }
 

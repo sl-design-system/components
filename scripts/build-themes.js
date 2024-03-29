@@ -29,7 +29,7 @@ StyleDictionary.registerTransform({
     const [_, color, opacity] = token.original?.value?.match(/rgba\((\S+)\s*,\s*(\S+)\)/) ?? [];
 
     if (color && opacity) {
-      token.original.value = `color-mix(in srgb, ${color}, transparent calc(${opacity} * 100%))`;
+      token.original.value = `color-mix(in srgb, ${color}  calc(${opacity} * 100%), transparent)`;
     }
 
     return token.$value ?? token.value;

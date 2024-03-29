@@ -3233,7 +3233,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "CustomEvent<boolean>"
+                    "text": "SlSelectEvent<boolean>"
                   }
                 },
                 {
@@ -3256,7 +3256,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "CustomEvent<boolean>"
+                    "text": "SlToggleEvent<boolean>"
                   }
                 },
                 {

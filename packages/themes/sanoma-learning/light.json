@@ -4178,7 +4178,7 @@
     },
     "tooltip": {
       "background": {
-        "value": "{color.palette.accent.600}",
+        "value": "{color.palette.accent.900}",
         "type": "color",
         "failedToResolve": true
       },
@@ -4232,7 +4232,7 @@
         "failedToResolve": true
       },
       "border": {
-        "value": "{color.palette.neutral.150}",
+        "value": "{color.palette.neutral.500}",
         "type": "color",
         "failedToResolve": true
       }
@@ -4272,12 +4272,12 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.success.base}",
+          "value": "{color.palette.success.500}",
           "type": "color",
           "failedToResolve": true
         },
         "icon": {
-          "value": "{color.palette.success.base}",
+          "value": "{color.palette.success.500}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4294,12 +4294,12 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.warning.base}",
+          "value": "{color.palette.warning.600}",
           "type": "color",
           "failedToResolve": true
         },
         "icon": {
-          "value": "{color.palette.warning.400}",
+          "value": "{color.palette.warning.500}",
           "type": "color",
           "failedToResolve": true
         }
@@ -4316,12 +4316,12 @@
           "failedToResolve": true
         },
         "border": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.400}",
           "type": "color",
           "failedToResolve": true
         },
         "icon": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.400}",
           "type": "color",
           "failedToResolve": true
         }

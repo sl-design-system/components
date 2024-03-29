@@ -2,4 +2,4 @@
 "@sl-design-system/shared": patch
 ---
 
-Add missing even type
+Add missing event type

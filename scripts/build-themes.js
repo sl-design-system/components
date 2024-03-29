@@ -1,7 +1,9 @@
 import { permutateThemes, registerTransforms, transformDimension, transformLineHeight } from '@tokens-studio/sd-transforms';
-import { readFile } from 'fs/promises';
+import cssnano from 'cssnano';
+import { readFile, writeFile } from 'fs/promises';
 import { argv } from 'node:process';
 import { join } from 'path';
+import postcss from 'postcss';
 import StyleDictionary from 'style-dictionary';
 
 // Match math expressions that are not wrapped in a `calc`, `rgb` or `hsl` function.
@@ -192,7 +194,9 @@ const build = async (production = false) => {
             prefix: 'sl',
             files
           }
-        }
+        },
+        theme,
+        variant
       };
     });
 
@@ -200,6 +204,18 @@ const build = async (production = false) => {
     const sd = new StyleDictionary(cfg);
 
     await sd.buildAllPlatforms();
+
+    if (production) {
+      const from = join(themeBase, cfg.theme, cfg.variant + '.css'),
+        to = join(themeBase, cfg.theme, cfg.variant + '.min.css'),
+        css = await readFile(from, 'utf8');
+
+      const result = await postcss([
+        cssnano({ preset: 'default' })
+      ]).process(css, { from, to });
+
+      await writeFile(to, result.css, 'utf8');
+    }
   }
 };
 

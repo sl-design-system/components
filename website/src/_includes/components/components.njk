@@ -72,11 +72,14 @@ layout: base.njk
 {#                usage url: {{ usage.url }}#}
 {#                page url: {{ page.url }}#}
                 {{ usage.templateContent | safe }}
+                {#<ds-vertical-tabs link-in-navigation package="avatar"></ds-vertical-tabs>#}
+{#                <ds-vertical-tabs link-in-navigation package="avatar" verticalTabContent="{{ usage.templateContent | safe }}"></ds-vertical-tabs>#}
               {% endif %}
             {%- endfor -%}
             </div>
 {#          generateVerticalTabs(tabContent);#}
 {#          {% include "partials/modules/module-two-column--stacked-cards.njk" %}#}
+            <ds-vertical-tabs link-in-navigation package="avatar"></ds-vertical-tabs>
           <script type="module">
             import { generateVerticalTabs } from '/js/scripts/tabs.js';
             requestAnimationFrame(() => {

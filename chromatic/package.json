@@ -18,8 +18,7 @@
     "build-storybook": {
       "command": "storybook build",
       "dependencies": [
-        "..:build:components",
-        "..:build:themes"
+        "..:build"
       ]
     },
     "start": {

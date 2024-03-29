@@ -93,9 +93,24 @@
       ]
     },
     "copy-tokens": {
-      "command": "cpx '../packages/tokens/sanoma-learning/base.json' 'src/_data/tokens/'",
+      "dependencies": [
+        "copy-tokens:core",
+        "copy-tokens:base"
+      ]
+    },
+    "copy-tokens:core": {
+      "command": "cpx '../packages/tokens/src/core.json' 'src/_data/tokens/'",
       "files": [
-        "../packages/tokens/sanoma-learning/base.json"
+        "../packages/tokens/src/core.json"
+      ],
+      "output": [
+        "src/_data/tokens/core.json"
+      ]
+    },
+    "copy-tokens:base": {
+      "command": "cpx '../packages/tokens/src/sanoma-learning/base.json' 'src/_data/tokens/'",
+      "files": [
+        "../packages/tokens/src/sanoma-learning/base.json"
       ],
       "output": [
         "src/_data/tokens/base.json"

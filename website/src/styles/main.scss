@@ -4,23 +4,32 @@
 /* deprecated; use new tokens */
 @import 'dark-light-mode';
 @import 'variables';
+
 @import 'tokens-core';
 @import 'tokens-dark';
 @import 'tokens-light';
+
 @import 'components/cards';
 @import 'components/code';
 @import 'components/table';
 @import 'components/tabs';
+
 @import 'categories/design-tokens/base-tokens';
+
 @import 'layout/content';
 @import 'layout/navigation';
+
 @import 'typography';
 @import 'elements';
+
 @import 'homepage/hero-block';
 @import 'homepage/explore';
 @import 'homepage/call-to-action';
 @import 'homepage/contact-block';
+
 @import 'categories/components';
+
 @import 'basic';
+
 @import 'slds-sanoma-learning/light.css' screen;
 @import 'slds-sanoma-learning/dark.css' screen and (prefers-color-scheme: dark);

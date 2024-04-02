@@ -41,7 +41,7 @@ export const verticalTabsStyles = css`
     display: flex;
     flex-direction: row-reverse;
     inset-block-start: 15%;
-    justify-content: center;
+    justify-content: start; //center; // TODO: center in other media query
     margin: auto;
     overflow: hidden;
     padding-block-start: 0;
@@ -64,5 +64,32 @@ export const verticalTabsStyles = css`
   .ds-tabs__vertical-slider {
     background-color: var(--vertical-slider-background);
     position: relative;
+  }
+
+  .ds-tab--vertical {
+    background: none;
+    border: 0;
+    color: var(--tab-color);
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 2rem;
+    padding: 0.6rem 0 0.6rem 0.8rem;
+    text-decoration: none;
+    transition: color $transition-timing linear;
+
+    &.active:not(:focus-visible) {
+      color: var(--highlight-color);
+    }
+
+    &:hover {
+      color: var(--highlight-color);
+    }
+
+    &:focus-visible {
+      border-radius: 0.6rem;
+      box-shadow: inset var(--focus-box-shadow);
+      outline: none;
+    }
   }
 `;

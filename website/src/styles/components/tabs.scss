@@ -252,7 +252,7 @@ $transition-timing: 300ms;
   .ds-tabs__tab-content {
     display: grid;
     grid-column-gap: 7.2rem;
-    grid-template-columns: calc(88rem - 2.4rem) 1fr; // 88rem 1fr; // TODO: 2.4rem is 24px padding from token of panels im tab-group component
+    grid-template-columns: 88rem 1fr; // calc(88rem - 2.4rem) 1fr; // 88rem 1fr; // TODO: 2.4rem is 24px padding from token of panels im tab-group component
   }
 
   .ds-tabs[vertical] {

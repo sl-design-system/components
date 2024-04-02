@@ -79,8 +79,8 @@ layout: base.njk
             </div>
 {#          generateVerticalTabs(tabContent);#}
 {#          {% include "partials/modules/module-two-column--stacked-cards.njk" %}#}
-            <ds-vertical-tabs link-in-navigation package="avatar"></ds-vertical-tabs>
-          <script type="module">
+            <ds-vertical-tabs></ds-vertical-tabs>
+{#          <script type="module">
             import { generateVerticalTabs } from '/js/scripts/tabs.js';
             requestAnimationFrame(() => {
               const verticalTabContent = document.getElementById('myVerticalTabsContent');
@@ -90,7 +90,7 @@ layout: base.njk
             // const verticalTabContent = document.getElementById('myVerticalTabsContent');
             // console.log('verticalTabContent', verticalTabContent);
             // generateVerticalTabs(verticalTabContent);
-          </script>
+          </script>#}
           </div>
           // TODO: content is not wrapped by ds-tabs__tab-container, why??
         </sl-tab-panel>

@@ -10,7 +10,7 @@ export class VerticalTabs extends LitElement {
 
   // @property() package?: string;
 
-  @property({ attribute: 'link-in-navigation', type: Boolean }) linkInNavigation = false;
+  // @property({ attribute: 'link-in-navigation', type: Boolean }) linkInNavigation = false;
 
   @property() verticalTabContent?: HTMLElement;
 
@@ -53,7 +53,9 @@ export class VerticalTabs extends LitElement {
   }
 
   override render(): TemplateResult {
-    const headerAnchorsParents = Array.from(this.parentElement?.querySelectorAll('.header-anchor') || [])
+    const headerAnchorsParents = Array.from(
+      this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || []
+    )
       .map(element => {
         if (element.parentElement?.tagName === 'H2') {
           console.log('element h2?', element);
@@ -66,29 +68,45 @@ export class VerticalTabs extends LitElement {
         }
         return;
       })
-      .filter(element => element !== undefined) as HTMLElement[];
-    this.headerAnchorsParentsAll.push(...headerAnchorsParents);
+      .filter(element => element !== undefined); // as HTMLElement[];
+    this.headerAnchorsParentsAll.push(...(headerAnchorsParents as HTMLElement[]));
 
     console.log(
       'verticalTabContent in render',
       this.verticalTabContent,
       this.headerAnchorsParentsAll,
-      this.parentElement?.querySelectorAll('.header-anchor')
+      this.parentElement?.querySelectorAll('.header-anchor'),
+      headerAnchorsParents
     );
+    const test = Array.from(this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || []).map(
+      element => {
+        if (element.parentElement?.tagName === 'H2') {
+          console.log('element h2?', element);
+          if (element.parentElement.parentNode) {
+            (element.parentElement.parentNode as Element).id = element.parentElement.id;
+          }
+          return element.parentElement as Element;
+        } else if (element.hasAttribute('link-in-navigation')) {
+          return element as Element;
+        }
+        return null;
+      }
+    );
+    console.log('test in render', test);
     return html`
       <div vertical="" class="ds-tabs">
         <div class="ds-tabs__container">
           <div class="ds-tabs-wrapper" role="tablist" aria-orientation="vertical">
-            ${this.headerAnchorsParentsAll.map(item => {
+            ${headerAnchorsParents.map(item => {
               html` <a
-                href=${`#${item.id}`}
+                href=${`#${item?.id}`}
                 class="ds-tab--vertical active"
                 role="tab"
                 tabindex="0"
                 id=${`ds-vertical-tab-${this.nextUniqueId++}`}
                 aria-selected="true"
                 aria-controls="when-to-use"
-                >${item.textContent}</a
+                >${item?.textContent}</a
               >`;
             })}
             ${this.headerAnchorsParentsAll.map(item => {
@@ -103,8 +121,8 @@ export class VerticalTabs extends LitElement {
                 >${item.textContent}</a
               >`;
             })}
-            ${Array.from(this.parentElement?.querySelectorAll('.header-anchor') || []).map(
-              (variant: Element) =>
+            ${test.map(
+              (variant: Element | null) =>
                 html` <a
                   href=${(variant as HTMLAnchorElement)?.hash}
                   class="ds-tab--vertical"
@@ -118,7 +136,7 @@ export class VerticalTabs extends LitElement {
                 >`
             )}
             <div>${this.parentElement?.querySelector('.header-anchor')?.textContent}</div>
-            ${Array.from(this.parentElement?.querySelectorAll('.header-anchor') || []).map(
+            ${Array.from(this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || []).map(
               (variant: Element) => html`<div style="color: #2351db;">${(variant as HTMLElement)?.textContent}</div>`
             )}
             <a
@@ -167,10 +185,45 @@ export class VerticalTabs extends LitElement {
     `;
   }
 
+  // href=${(variant as HTMLElement).(firstChild as HTMLAnchorElement)?.hash}
+
   // TODO: onclick select verticaltab
 
-  #onClick(event: Event): void {
-    console.log('onclick on verticaltab in component', event);
+  // TODO: on scroll
+
+  #onClick(event: Event & { target: HTMLElement }): void {
+    const verticalTab = event.target;
+    console.log('onclick on verticaltab in component', event, event.target);
+    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]');
+
+    currentVerticalTabLink?.setAttribute('aria-selected', 'false');
+    verticalTab.setAttribute('aria-selected', 'true');
+    currentVerticalTabLink?.setAttribute('tabindex', '-1');
+    verticalTab.setAttribute('tabindex', '0');
+
+    const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
+    verticalTabs.forEach(v => v.classList.remove('active'));
+    this.#alignVerticalTabIndicator(verticalTab);
+    verticalTab.classList.add('active');
+    // currentVerticalTabLink = verticalTab;
+  }
+
+  #alignVerticalTabIndicator(tab: Element): void {
+    // console.log('currentVerticalTabsContainer in alignVerticalTabIndicator', currentVerticalTabsContainer);
+    const currentVerticalSliderElement = this.renderRoot.querySelector('.ds-tabs__vertical-slider') as HTMLElement;
+    const currentVerticalIndicatorElement = this.renderRoot.querySelector(
+      '.ds-tabs__vertical-indicator'
+    ) as HTMLElement;
+
+    console.log('currentVerticalIndicatorElement', currentVerticalIndicatorElement);
+
+    if (!currentVerticalSliderElement || !currentVerticalIndicatorElement) {
+      return;
+    }
+    currentVerticalIndicatorElement.style.top = `${
+      tab.getBoundingClientRect().top - this.getBoundingClientRect().top
+    }px`;
+    currentVerticalIndicatorElement.style.height = `${tab.getBoundingClientRect().height}px`;
   }
 
   // ${this.headerAnchorsParentsAll?.map(variant => html`<div>${variant}</div>`)}
@@ -194,12 +247,12 @@ export class VerticalTabs extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    if (changes.has('linkInNavigation')) {
-      if (this.linkInNavigation) {
-        this.setAttribute('link-in-navigation-text', 'Installation');
-        this.setAttribute('id', 'installation');
-      }
-    }
+    // if (changes.has('linkInNavigation')) {
+    //   if (this.linkInNavigation) {
+    //     this.setAttribute('link-in-navigation-text', 'Installation');
+    //     this.setAttribute('id', 'installation');
+    //   }
+    // }
   }
 
   // static override styles = css`

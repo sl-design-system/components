@@ -38,30 +38,30 @@ window.onload = () => {
     };
   }
 
-  const verticalTabContent = document.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;
-  verticalTabContent.onscroll = event => {
-    onScroll(event);
-  };
-
-  tabs?.forEach(tab => {
-    tab.onclick = (event: MouseEvent) => {
-      selectTab(event.target as Element);
-    };
-  });
-
-  console.log('slTabs onload', slTabs, tabsWrapper);
-
-  slTabs.forEach(tab => {
-    tab.onclick = event => {
-      // selectTab(event.target as Element);
-      const verticalTabs = currentContent?.querySelectorAll('.ds-tab--vertical');
-      console.log('event on sl-tab-change slTabs', event, verticalTabs);
-      // requestAnimationFrame(() => {
-      //   selectVerticalTab(verticalTabs[0]);
-      // });
-      // selectVerticalTab(verticalTabs[0]);
-    };
-  });
+  // const verticalTabContent = document.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;
+  // verticalTabContent.onscroll = event => {
+  //   onScroll(event);
+  // };
+  //
+  // tabs?.forEach(tab => {
+  //   tab.onclick = (event: MouseEvent) => {
+  //     selectTab(event.target as Element);
+  //   };
+  // });
+  //
+  // console.log('slTabs onload', slTabs, tabsWrapper);
+  //
+  // slTabs.forEach(tab => {
+  //   tab.onclick = event => {
+  //     // selectTab(event.target as Element);
+  //     const verticalTabs = currentContent?.querySelectorAll('.ds-tab--vertical');
+  //     console.log('event on sl-tab-change slTabs', event, verticalTabs);
+  //     // requestAnimationFrame(() => {
+  //     //   selectVerticalTab(verticalTabs[0]);
+  //     // });
+  //     // selectVerticalTab(verticalTabs[0]);
+  //   };
+  // });
 };
 
 window.onresize = () => {
@@ -78,21 +78,21 @@ window.onkeydown = (event: KeyboardEvent) => {
   onKeydown(event);
 };
 
-window.onscroll = () => {
-  // if (!tabSections || !verticalTabs || !tabContent) {
-  //   return;
-  // }
-  const verticalTabs = currentContent?.querySelectorAll('.ds-tab--vertical');
-  slTabs.forEach((section, i) => {
-    console.log('sectiond and i in window onscroll', section, i);
-    const rect = section.getBoundingClientRect().y;
-    if (rect < window.innerHeight) {
-      // TODO: I'm not sure if this is ok?
-      // selectVerticalTab(verticalTabs[i]); // causes last vertical tab selected at the beginning ... verticalTabs[0]
-      selectVerticalTab(verticalTabs[0]);
-    }
-  });
-};
+// window.onscroll = () => {
+//   // if (!tabSections || !verticalTabs || !tabContent) {
+//   //   return;
+//   // }
+//   const verticalTabs = currentContent?.querySelectorAll('.ds-tab--vertical');
+//   slTabs.forEach((section, i) => {
+//     console.log('sectiond and i in window onscroll', section, i);
+//     const rect = section.getBoundingClientRect().y;
+//     if (rect < window.innerHeight) {
+//       // TODO: I'm not sure if this is ok?
+//       // selectVerticalTab(verticalTabs[i]); // causes last vertical tab selected at the beginning ... verticalTabs[0]
+//       selectVerticalTab(verticalTabs[0]);
+//     }
+//   });
+// };
 
 function generateTabsElements(): void {
   horizontalTabsContainer = document.querySelector('.ds-tabs[horizontal]');
@@ -161,7 +161,7 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
     return;
   }
 
-  console.log(
+  /*  console.log(
     'verticalTabContent in tabs script - generateVerticalTabs',
     verticalTabContent,
     verticalTabContent.parentElement
@@ -253,36 +253,36 @@ export function generateVerticalTabs(verticalTabContent: Element): void {
     currentContent = verticalTabContent;
   }
 
-  selectVerticalTab(verticalTabs[0]);
+  // selectVerticalTab(verticalTabs[0]);
+  //
+  // verticalTabsAll.forEach(verticalTab => {
+  //   verticalTab.onclick = (event: MouseEvent) => {
+  //     setTimeout(() => {
+  //       selectVerticalTab(event.target as Element);
+  //     }, 100);
+  //   };
+  // });
 
-  verticalTabsAll.forEach(verticalTab => {
-    verticalTab.onclick = (event: MouseEvent) => {
-      setTimeout(() => {
-        selectVerticalTab(event.target as Element);
-      }, 100);
-    };
-  });
+  const tabSections = verticalTabContent?.querySelectorAll('section[id], [link-in-navigation][id]');*/
 
-  const tabSections = verticalTabContent?.querySelectorAll('section[id], [link-in-navigation][id]');
-
-  window.onscroll = () => {
-    if (!tabSections || !verticalTabs || !verticalTabContent) {
-      return;
-    }
-    console.log(
-      'tabSections-tabSections-tabSections',
-      tabSections,
-      verticalTabContent,
-      verticalTabContent.parentElement,
-      verticalTabContent.parentElement?.getAttribute('aria-hidden') == 'false' // TODO: sth wrong here
-    );
-    tabSections.forEach((section, i) => {
-      const rect = section.getBoundingClientRect().y;
-      if (rect < window.innerHeight) {
-        selectVerticalTab(verticalTabs[i]);
-      }
-    });
-  };
+  // window.onscroll = () => {
+  //   if (!tabSections || !verticalTabs || !verticalTabContent) {
+  //     return;
+  //   }
+  //   console.log(
+  //     'tabSections-tabSections-tabSections',
+  //     tabSections,
+  //     verticalTabContent,
+  //     verticalTabContent.parentElement,
+  //     verticalTabContent.parentElement?.getAttribute('aria-hidden') == 'false' // TODO: sth wrong here
+  //   );
+  //   tabSections.forEach((section, i) => {
+  //     const rect = section.getBoundingClientRect().y;
+  //     if (rect < window.innerHeight) {
+  //       selectVerticalTab(verticalTabs[i]);
+  //     }
+  //   });
+  // };
 }
 
 function showComponentName(
@@ -430,22 +430,22 @@ function selectTab(tab: Element): void {
       })
   );
 
-  if (verticalTabs) {
-    selectVerticalTab(verticalTabs[0]);
-  }
-
-  window.onscroll = () => {
-    if (!tabSections || !verticalTabs || !tabContent) {
-      return;
-    }
-    console.log('tabSections-tabSections-tabSections', tabSections);
-    tabSections.forEach((section, i) => {
-      const rect = section.getBoundingClientRect().y;
-      if (rect < window.innerHeight) {
-        selectVerticalTab(verticalTabs[i]);
-      }
-    });
-  };
+  // if (verticalTabs) {
+  //   selectVerticalTab(verticalTabs[0]);
+  // }
+  //
+  // window.onscroll = () => {
+  //   if (!tabSections || !verticalTabs || !tabContent) {
+  //     return;
+  //   }
+  //   console.log('tabSections-tabSections-tabSections', tabSections);
+  //   tabSections.forEach((section, i) => {
+  //     const rect = section.getBoundingClientRect().y;
+  //     if (rect < window.innerHeight) {
+  //       selectVerticalTab(verticalTabs[i]);
+  //     }
+  //   });
+  // };
 }
 
 function alignTabIndicator(tab: Element): void {

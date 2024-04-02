@@ -135,7 +135,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
                 ${this.options?.map(
                   option => html`
                     <sl-checkbox
-                      @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(option, event.detail)}
+                      @sl-change=${(event: SlChangeEvent & { target: Checkbox }) => this.#onChange(event, option)}
                       .checked=${this.value?.includes(option.value?.toString() ?? '')}
                       .value=${option.value}
                     >
@@ -159,12 +159,12 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onChange(option: GridFilterOption, checked: boolean): void {
+  #onChange(event: SlChangeEvent & { target: Checkbox }, option: GridFilterOption): void {
     if (!Array.isArray(this.value)) {
       return;
     }
 
-    if (checked) {
+    if (event.target.checked) {
       this.value = [...this.value, option.value?.toString() ?? ''];
     } else {
       this.value = this.value.filter(value => value !== option.value?.toString());

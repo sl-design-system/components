@@ -2477,15 +2477,15 @@
               },
               "parameters": [
                 {
-                  "name": "option",
+                  "name": "event",
                   "type": {
-                    "text": "GridFilterOption"
+                    "text": "SlChangeEvent & { target: Checkbox }"
                   }
                 },
                 {
-                  "name": "checked",
+                  "name": "option",
                   "type": {
-                    "text": "boolean"
+                    "text": "GridFilterOption"
                   }
                 }
               ]

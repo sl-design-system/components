@@ -1,5 +1,15 @@
 # @sl-design-system/tabs
 
+## 0.1.8
+
+### Patch Changes
+
+- [#1086](https://github.com/sl-design-system/components/pull/1086) [`276fd1c`](https://github.com/sl-design-system/components/commit/276fd1ceab3d7054e6ade999245d74f86ff551be) - Fix size of active tab indicator with vertical orientation
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+  - @sl-design-system/menu@0.0.7
+
 ## 0.1.7
 
 ### Patch Changes

@@ -3418,13 +3418,25 @@
     },
     "buttonBar": {
       "gap": {
-        "block": {
-          "value": "{space.sm}",
-          "type": "spacing"
+        "default": {
+          "block": {
+            "value": "{space.sm}",
+            "type": "spacing"
+          },
+          "inline": {
+            "value": "{space.buttonBar.gap.default.block}",
+            "type": "spacing"
+          }
         },
-        "inline": {
-          "value": "{space.buttonBar.gap.block}",
-          "type": "spacing"
+        "ghostIcon": {
+          "block": {
+            "value": "{space.xs}",
+            "type": "spacing"
+          },
+          "inline": {
+            "value": "space.buttonBar.gap.ghostIcon.block",
+            "type": "spacing"
+          }
         }
       }
     },

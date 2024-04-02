@@ -51,6 +51,7 @@
   --sl-space-badge-gap-md: 3px;
   --sl-space-badge-inline-3xl: 3px;
   --sl-space-badge-inline-md: 1px;
+  --sl-space-button-bar-gap-ghost-icon-inline: space.buttonBar.gap.ghostIcon.block;
   --sl-space-3xl: 40px;
   --sl-space-2xl: 30px;
   --sl-space-xl: 24px;
@@ -371,7 +372,8 @@
   --sl-space-group-lg: var(--sl-space-sm);
   --sl-space-group-md: var(--sl-space-xs);
   --sl-space-group-sm: var(--sl-space-2xs);
-  --sl-space-button-bar-gap-block: var(--sl-space-sm);
+  --sl-space-button-bar-gap-ghost-icon-block: var(--sl-space-xs);
+  --sl-space-button-bar-gap-default-block: var(--sl-space-sm);
   --sl-space-dialog-gap-header: var(--sl-space-none);
   --sl-space-dialog-subtitle-padding-bottom: var(--sl-space-xs);
   --sl-space-dialog-mobile-body-gap: var(--sl-space-xl);
@@ -745,7 +747,7 @@
   --sl-space-select-selectbox-inline-md: var(--sl-space-input-text-field-inline-md);
   --sl-space-select-selectbox-block-lg: var(--sl-space-input-text-field-block-lg);
   --sl-space-select-selectbox-block-md: var(--sl-space-input-text-field-block-md);
-  --sl-space-button-bar-gap-inline: var(--sl-space-button-bar-gap-block);
+  --sl-space-button-bar-gap-default-inline: var(--sl-space-button-bar-gap-default-block);
   --sl-space-input-switch-padding-row-lg: calc(
     var(--sl-space-input-switch-margin-left) + var(--sl-size-input-switch-controller-width-lg) +
       (var(--sl-space-input-switch-padding-container) * 2)

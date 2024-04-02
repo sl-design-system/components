@@ -37,6 +37,25 @@ export const Filtered: Story = {
   `
 };
 
+export const FilteredDataSource: Story = {
+  render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.addFilter('filter-profession', 'profession', 'Endo');
+    dataSource.addFilter('filter-status', 'status', 'Available');
+    dataSource.addFilter('filter-membership', 'membership', ['Regular', 'Premium']);
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-filter-column id="filter-profession" mode="text" path="profession"></sl-grid-filter-column>
+        <sl-grid-filter-column id="filter-status" path="status"></sl-grid-filter-column>
+        <sl-grid-filter-column id="filter-membership" path="membership"></sl-grid-filter-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const EmptyValues: Story = {
   render: () => {
     const items = [

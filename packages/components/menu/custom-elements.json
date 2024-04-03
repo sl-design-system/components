@@ -294,7 +294,15 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLElement }"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",

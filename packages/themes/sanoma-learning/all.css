@@ -1808,6 +1808,8 @@
     --sl-color-input-switch-default-unchecked-default-handle: rgb(var(--sl-color-palette-white-base));
     --sl-color-input-switch-default-unchecked-default-icon: rgb(var(--sl-color-palette-black-base));
     --sl-color-input-switch-default-unchecked-default-background: rgb(var(--sl-color-palette-neutral-300));
+    --sl-color-input-option-valid-checked-disabled-icon: rgb(var(--sl-color-palette-neutral-400));
+    --sl-color-input-option-valid-checked-disabled-label: rgb(var(--sl-color-palette-neutral-400));
     --sl-color-input-option-valid-checked-active-background: rgb(var(--sl-color-palette-success-200));
     --sl-color-input-option-valid-checked-default-background: rgb(var(--sl-color-palette-success-400));
     --sl-color-input-option-valid-unchecked-active-border: rgb(var(--sl-color-palette-success-400));
@@ -2285,8 +2287,6 @@
     --sl-color-input-switch-default-unchecked-hover-icon: var(--sl-color-input-switch-default-unchecked-default-icon);
     --sl-color-input-switch-default-unchecked-hover-text: var(--sl-body-background);
     --sl-color-input-switch-default-unchecked-default-text: var(--sl-body-background);
-    --sl-color-input-option-valid-checked-disabled-icon: var(--sl-color-input-option-default-checked-disabled-icon);
-    --sl-color-input-option-valid-checked-disabled-label: var(--sl-color-input-option-default-checked-disabled-label);
     --sl-color-input-option-valid-checked-disabled-background: var(
       --sl-color-input-option-default-checked-disabled-background
     );

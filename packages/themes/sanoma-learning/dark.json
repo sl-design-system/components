@@ -3026,13 +3026,13 @@
                 "failedToResolve": true
               },
               "label": {
-                "value": "{color.input.option.default.checked.disabled.label}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground",
                 "failedToResolve": true
               },
               "icon": {
-                "value": "{color.input.option.default.checked.disabled.icon}",
+                "value": "{color.palette.neutral.400}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true

@@ -362,10 +362,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   renderHeader(): TemplateResult {
     const rows = this.view.headerRows,
+      selectionColumn = rows.at(-1)?.find((col): col is GridSelectionColumn => col instanceof GridSelectionColumn),
       showSelectionHeader =
+        selectionColumn &&
         this.selection.size > 0 &&
-        (this.selection.areSomeSelected() || this.selection.areAllSelected()) &&
-        rows.at(-1)?.[0] instanceof GridSelectionColumn;
+        (this.selection.areSomeSelected() || this.selection.areAllSelected());
+
+    console.log({ selectionColumn });
 
     return html`
       ${rows.slice(0, -1).map(
@@ -378,7 +381,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       ${showSelectionHeader
         ? html`
             <tr>
-              ${rows.at(-1)?.[0].renderHeader()} ${(rows.at(-1)?.[0] as GridSelectionColumn<T>).renderSelectionHeader()}
+              ${selectionColumn.renderHeader()} ${selectionColumn.renderSelectionHeader()}
             </tr>
           `
         : nothing}

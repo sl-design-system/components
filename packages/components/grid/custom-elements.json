@@ -2720,12 +2720,6 @@
             },
             {
               "kind": "field",
-              "name": "model",
-              "default": "new GridViewModel<T>(this)",
-              "description": "The model used for rendering the grid."
-            },
-            {
-              "kind": "field",
               "name": "noBorder",
               "type": {
                 "text": "boolean | undefined"
@@ -2875,6 +2869,12 @@
                 "text": "HTMLTableSectionElement"
               },
               "description": "The `<thead>` element."
+            },
+            {
+              "kind": "field",
+              "name": "view",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
             }
           ],
           "attributes": [
@@ -3518,12 +3518,6 @@
             },
             {
               "kind": "field",
-              "name": "model",
-              "default": "new GridViewModel<T>(this)",
-              "description": "The model used for rendering the grid."
-            },
-            {
-              "kind": "field",
               "name": "stateChangeEvent",
               "type": {
                 "text": "EventEmitter<SlStateChangeEvent<T>>"
@@ -3545,6 +3539,12 @@
                 "text": "HTMLTableSectionElement"
               },
               "description": "The `<thead>` element."
+            },
+            {
+              "kind": "field",
+              "name": "view",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
             }
           ]
         }

@@ -166,9 +166,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Custom parts to be set on the `<tr>` so it can be styled externally. */
   @property({ attribute: false }) itemParts?: GridItemParts<T>;
 
-  /** The model used for rendering the grid. */
-  @property({ attribute: false }) model = new GridViewModel<T>(this);
-
   /** Hide the border around the grid when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-border' }) noBorder?: boolean;
 
@@ -186,6 +183,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** The `<thead>` element. */
   @query('thead') thead!: HTMLTableSectionElement;
+
+  /** The model used for rendering the grid. */
+  @property({ attribute: false }) view = new GridViewModel<T>(this);
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -229,7 +229,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('items')) {
       this.dataSource = this.items ? new ArrayDataSource(this.items) : undefined;
-      this.model.dataSource = this.dataSource;
+      this.view.dataSource = this.dataSource;
       this.selection.size = this.dataSource?.size ?? 0;
     }
 
@@ -246,7 +246,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('dataSource')) {
-      this.model.dataSource = this.dataSource;
+      this.view.dataSource = this.dataSource;
       this.selection.size = this.dataSource?.size ?? 0;
 
       this.#applyFilters();
@@ -272,7 +272,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         </thead>
         <tbody @visibilityChanged=${this.#onVisibilityChanged} part="tbody">
           ${virtualize({
-            items: this.model.rows,
+            items: this.view.rows,
             renderItem: (item, index) => this.renderItem(item, index)
           })}
         </tbody>
@@ -281,7 +281,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderStyles(): TemplateResult {
-    const rows = this.model.headerRows;
+    const rows = this.view.headerRows;
 
     return html`
       ${rows.slice(0, -1).map((row, rowIndex) => {
@@ -305,7 +305,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             ${
               col.sticky
                 ? `
-              inset-inline-start: ${this.model.getStickyColumnOffset(index)}px;
+              inset-inline-start: ${this.view.getStickyColumnOffset(index)}px;
               position: sticky;
               `
                 : ''
@@ -318,7 +318,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderHeader(): TemplateResult {
-    const rows = this.model.headerRows,
+    const rows = this.view.headerRows,
       showSelectionHeader =
         this.selection.size > 0 &&
         (this.selection.areSomeSelected() || this.selection.areAllSelected()) &&
@@ -350,7 +350,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderItemRow(item: T, index: number): TemplateResult {
-    const rows = this.model.headerRows,
+    const rows = this.view.headerRows,
       selected = this.selection.isSelected(item),
       parts = [
         'row',
@@ -377,9 +377,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderGroupRow(group: GridViewModelGroup): TemplateResult {
-    const expanded = this.model.getGroupState(group.value),
-      selectable = !!this.model.columns.find(col => col instanceof GridSelectionColumn),
-      selected = this.model.getGroupSelection(group.value);
+    const expanded = this.view.getGroupState(group.value),
+      selectable = !!this.view.columns.find(col => col instanceof GridSelectionColumn),
+      selected = this.view.getGroupSelection(group.value);
 
     return html`
       <tr part="group">
@@ -402,12 +402,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Do not remove, this is needed; not sure why
     await this.updateComplete;
 
-    const rows = this.model.headerRows;
+    const rows = this.view.headerRows;
 
     rows[rows.length - 1]
       .filter(col => !col.hidden && col.autoWidth)
       .forEach(col => {
-        const index = this.model.columns.indexOf(col),
+        const index = this.view.columns.indexOf(col),
           cells = this.renderRoot.querySelectorAll<HTMLElement>(`:where(td, th):nth-child(${index + 1})`);
 
         col.width = Array.from(cells).reduce((acc, cur) => {
@@ -425,7 +425,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Since we set an explicit width for the `<thead>` and `<tbody>`, we also need
     // to set an explicit width for all the `<tr>` elements. Otherwise, the sticky columns
     // will not be sticky when you scroll horizontally.
-    const rowWidth = this.model.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
+    const rowWidth = this.view.columns.reduce((acc, cur) => acc + Number(cur?.width ?? 0), 0);
     this.style.setProperty('--sl-grid-row-width', `${rowWidth}px`);
 
     this.requestUpdate();
@@ -617,7 +617,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onGroupToggle(event: SlToggleEvent<boolean>, group: GridViewModelGroup): void {
-    this.model.toggleGroup(group.value, event.detail);
+    this.view.toggleGroup(group.value, event.detail);
   }
 
   async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
@@ -650,7 +650,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // needs time for the slotchange event to fire.
     await Promise.allSettled(columns.map(async col => await col.updateComplete));
 
-    this.model.columnDefinitions = columns;
+    this.view.columnDefinitions = columns;
   }
 
   #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {

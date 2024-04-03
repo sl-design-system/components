@@ -24,7 +24,7 @@ jobs:
       - name: Publish to Chromatic - Components
         uses: chromaui/action@v1
         with:
-          buildScriptName: chromatic
+          buildScriptName: components
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           workingDir: chromatic

@@ -542,7 +542,7 @@
   --sl-border-width-popover-border: var(--sl-border-width-xs);
   --sl-border-width-popover-none: var(--sl-border-width-none);
   --sl-border-width-focusring-offset: var(--sl-border-width-sm);
-  --sl-border-width-focusring-default: var(--sl-border-width-xs);
+  --sl-border-width-focusring-default: var(--sl-border-width-md);
   --sl-border-width-input-option: var(--sl-border-width-xs);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-button-link: var(--sl-border-width-xs);
@@ -893,7 +893,7 @@
     --sl-color-select-item-default-foreground: rgb(var(--sl-color-palette-neutral-900));
     --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-600));
     --sl-color-popover-background: rgb(var(--sl-color-palette-white-base));
-    --sl-color-focusring-default: rgb(var(--sl-color-palette-primary-base));
+    --sl-color-focusring-default: rgb(var(--sl-color-palette-primary-500));
     --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
     --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-white-base));
     --sl-color-tooltip-background: rgb(var(--sl-color-palette-black-base));

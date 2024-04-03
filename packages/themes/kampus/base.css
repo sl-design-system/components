@@ -534,7 +534,7 @@
   --sl-border-width-popover-border: var(--sl-border-width-xs);
   --sl-border-width-popover-none: var(--sl-border-width-none);
   --sl-border-width-focusring-offset: var(--sl-border-width-sm);
-  --sl-border-width-focusring-default: var(--sl-border-width-xs);
+  --sl-border-width-focusring-default: var(--sl-border-width-md);
   --sl-border-width-input-option: var(--sl-border-width-xs);
   --sl-border-width-input-none: var(--sl-border-width-none);
   --sl-border-width-button-link: var(--sl-border-width-xs);

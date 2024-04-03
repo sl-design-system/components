@@ -1,5 +1,13 @@
 # @sl-design-system/radio-group
 
+## 0.0.26
+
+### Patch Changes
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+  - @sl-design-system/form@0.0.13
+
 ## 0.0.25
 
 ### Patch Changes

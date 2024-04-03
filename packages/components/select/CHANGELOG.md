@@ -1,5 +1,15 @@
 # @sl-design-system/select
 
+## 0.0.26
+
+### Patch Changes
+
+- [#1109](https://github.com/sl-design-system/components/pull/1109) [`f71aaee`](https://github.com/sl-design-system/components/commit/f71aaee7c5b18cc35c2729daad9308988329c1cd) - Fix missing border-radius on dropdown
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+  - @sl-design-system/form@0.0.13
+
 ## 0.0.25
 
 ### Patch Changes

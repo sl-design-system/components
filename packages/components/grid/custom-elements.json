@@ -3468,6 +3468,15 @@
             },
             {
               "kind": "field",
+              "name": "#virtualizerHost",
+              "privacy": "private",
+              "type": {
+                "text": "VirtualizerHostElement | undefined"
+              },
+              "description": "The `<tbody>` element, which is the virtualizer host element."
+            },
+            {
+              "kind": "field",
               "name": "selection",
               "readonly": true,
               "default": "new SelectionController<T>(this)",

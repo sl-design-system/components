@@ -125,6 +125,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The sorters for this grid. */
   #sorters: Array<GridSorter<T>> = [];
 
+  /** The `<tbody>` element, which is the virtualizer host element. */
+  #virtualizerHost?: VirtualizerHostElement;
+
   /** Selection manager. */
   readonly selection = new SelectionController<T>(this);
 
@@ -224,12 +227,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Workaround for https://github.com/lit/lit/issues/4232
     await new Promise(resolve => requestAnimationFrame(resolve));
 
-    const virtualizerHost = this.tbody as VirtualizerHostElement;
-    virtualizerHost[virtualizerRef]?.disconnected();
-    virtualizerHost[virtualizerRef]?.connected();
+    this.#virtualizerHost = this.tbody as VirtualizerHostElement;
+    this.#virtualizerHost[virtualizerRef]?.disconnected();
+    this.#virtualizerHost[virtualizerRef]?.connected();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {
+    if (changes.has('dataSource')) {
+      if (this.dataSource?.groupBy) {
+        this.itemsGroupBy = this.dataSource.groupBy.path;
+      } else {
+        this.itemsGroupBy = undefined;
+      }
+    }
+
     if (changes.has('items')) {
       this.dataSource = this.items ? new ArrayDataSource(this.items) : undefined;
       if (this.itemsGroupBy) {
@@ -629,6 +640,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onGroupToggle(event: SlToggleEvent<boolean>, group: GridViewModelGroup): void {
     this.view.toggleGroup(group.value, event.detail);
+
+    // Below is a hack to force the virtualizer to recalculate the size of the `<tbody>` element
+
+    // @ts-expect-error This is a hack
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    this.#virtualizerHost![virtualizerRef]?._layout?._metricsCache?.clear();
   }
 
   async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {

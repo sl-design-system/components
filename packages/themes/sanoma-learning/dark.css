@@ -72,8 +72,7 @@
   --sl-color-inline-message-info-border: rgb(var(--sl-color-palette-info-base));
   --sl-color-inline-message-info-foreground: rgb(var(--sl-color-palette-info-150));
   --sl-color-inline-message-info-background: rgb(var(--sl-color-palette-info-900));
-  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-700));
-  --sl-color-popover-background: rgb(var(--sl-color-palette-neutral-900));
+  --sl-color-popover-border: rgb(var(--sl-color-palette-neutral-400));
   --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-300));
   --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-black-base));
@@ -507,6 +506,7 @@
   --sl-color-select-item-default-border: rgba(var(--sl-body-background) / 0);
   --sl-color-select-item-default-background: rgba(var(--sl-body-background) / 0);
   --sl-color-popover-foreground: var(--sl-body-foreground);
+  --sl-color-popover-background: var(--sl-body-background);
   --sl-color-dialog-border: var(--sl-body-background);
   --sl-color-dialog-foreground: var(--sl-body-foreground);
   --sl-color-dialog-background: var(--sl-body-background);

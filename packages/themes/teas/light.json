@@ -3537,7 +3537,7 @@
         "select": {
           "hover": {
             "background": {
-              "value": "{color.palette.accent.100}",
+              "value": "{color.palette.primary.100}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground",
               "failedToResolve": true
@@ -3676,7 +3676,7 @@
               "failedToResolve": true
             },
             "bacground-copy": {
-              "value": "{color.palette.neutral.100}",
+              "value": "{color.palette.neutral.700}",
               "type": "color",
               "failedToResolve": true
             }
@@ -3727,14 +3727,14 @@
             "failedToResolve": true
           },
           "indicator": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.palette.primary.base}",
             "type": "color",
             "failedToResolve": true
           }
         },
         "hover": {
           "background": {
-            "value": "{color.palette.accent.50}",
+            "value": "{color.palette.primary.50}",
             "type": "color",
             "failedToResolve": true
           },
@@ -3749,14 +3749,14 @@
             "failedToResolve": true
           },
           "indicator": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.palette.primary.base}",
             "type": "color",
             "failedToResolve": true
           }
         },
         "active": {
           "background": {
-            "value": "{color.palette.accent.100}",
+            "value": "{color.palette.primary.100}",
             "type": "color",
             "failedToResolve": true
           },
@@ -3771,7 +3771,7 @@
             "failedToResolve": true
           },
           "indicator": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.palette.primary.base}",
             "type": "color",
             "failedToResolve": true
           }
@@ -3793,7 +3793,7 @@
             "failedToResolve": true
           },
           "indicator": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.palette.primary.base}",
             "type": "color",
             "failedToResolve": true
           }
@@ -4325,7 +4325,7 @@
       },
       "listbox": {
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.700}",
           "type": "color",
           "failedToResolve": true
         },

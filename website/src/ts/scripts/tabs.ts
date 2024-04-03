@@ -28,15 +28,15 @@ let tabsContainer = document.querySelector('.ds-tabs'),
 window.onload = () => {
   generateTabsElements();
 
-  setScrollable();
+  // setScrollable();
 
   selectTab(current);
 
-  if (tabsWrapper) {
-    (tabsWrapper as HTMLElement).onscroll = event => {
-      onScroll(event);
-    };
-  }
+  // if (tabsWrapper) {
+  //   (tabsWrapper as HTMLElement).onscroll = event => {
+  //     onScroll(event);
+  //   };
+  // }
 
   // const verticalTabContent = document.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;
   // verticalTabContent.onscroll = event => {
@@ -69,7 +69,7 @@ window.onresize = () => {
     return;
   }
 
-  setScrollable();
+  // setScrollable();
 
   selectTab(current);
 };
@@ -532,32 +532,33 @@ function alignVerticalTabIndicator(tab: Element, currentVerticalTabsContainer: E
 }
 
 function onKeydown(event: KeyboardEvent, vertical = false, verticalTabs?: NodeListOf<Element>): void {
-  if (event.code === 'Space' && vertical) {
-    selectVerticalTab(event.target as Element);
-    window.scrollTo({ top: (event.target as Element).scrollTop });
-  }
-
-  const keys = vertical ? ['ArrowUp', 'ArrowDown'] : ['ArrowLeft', 'ArrowRight'];
-
-  if (!keys.includes(event.key)) {
-    return;
-  }
-
-  if (keys && vertical) {
-    event.preventDefault();
-  }
-
-  const focusedTab = getActiveElement(event.target as Node) as HTMLElement;
-
-  const navTabs = verticalTabs ? (verticalTabs as NodeListOf<HTMLElement>) : tabs;
-  let index: number = Array.from(navTabs).indexOf(focusedTab);
-  index += event.key === keys[0] ? -1 : 1;
-  index = index % navTabs.length;
-
-  const nextTab = navTabs[index];
-  if (nextTab) {
-    nextTab.focus();
-  }
+  console.log(event, vertical, verticalTabs);
+  // if (event.code === 'Space' && vertical) {
+  //   selectVerticalTab(event.target as Element);
+  //   window.scrollTo({ top: (event.target as Element).scrollTop });
+  // }
+  //
+  // const keys = vertical ? ['ArrowUp', 'ArrowDown'] : ['ArrowLeft', 'ArrowRight'];
+  //
+  // if (!keys.includes(event.key)) {
+  //   return;
+  // }
+  //
+  // if (keys && vertical) {
+  //   event.preventDefault();
+  // }
+  //
+  // const focusedTab = getActiveElement(event.target as Node) as HTMLElement;
+  //
+  // const navTabs = verticalTabs ? (verticalTabs as NodeListOf<HTMLElement>) : tabs;
+  // let index: number = Array.from(navTabs).indexOf(focusedTab);
+  // index += event.key === keys[0] ? -1 : 1;
+  // index = index % navTabs.length;
+  //
+  // const nextTab = navTabs[index];
+  // if (nextTab) {
+  //   nextTab.focus();
+  // }
 }
 
 function onScroll(event: Event): void {

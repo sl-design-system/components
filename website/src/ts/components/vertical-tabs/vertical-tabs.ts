@@ -18,8 +18,51 @@ export class VerticalTabs extends LitElement {
 
   nextUniqueId = 0;
 
+  observer = new IntersectionObserver(entries => {
+    console.log('entries in observer', entries);
+    const cards = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+    let entry: IntersectionObserverEntry | undefined;
+    if (entries.length > 0) {
+      const maxRatio = Math.max(...entries.map(e => e.intersectionRatio));
+      entry = entries.find(e => e.intersectionRatio === maxRatio);
+    } else {
+      entry = entries[0];
+    }
+    console.log('cards entry.target', cards, entry?.target);
+    if ((entry?.intersectionRatio ?? 0) > 0) {
+      const card = cards.find(card => entry?.target === card),
+        buttons = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')),
+        index = buttons.findIndex(b => (b as HTMLElement).dataset.id === card?.id); // TODO: improve this one
+      console.log('card buttons index', card, buttons, index);
+      const tabBar = this.renderRoot.querySelector('.ds-tabs');
+      if (tabBar) {
+        // tabBar.selected = index;
+        this.#alignVerticalTabIndicator(buttons[index]);
+      }
+    }
+  });
+
+  //   setTimeout(() => {
+  //   document.querySelectorAll('dna-card').forEach(card => observer.observe(card));
+  // })
+
+  onTabActivate = (
+    event: Event & {
+      target: HTMLElement;
+    }
+  ): void => {
+    const card = document.getElementById(event.target.dataset.id ?? '') as HTMLElement,
+      top = card.offsetTop - 16;
+    window.scrollTo({
+      top,
+      behavior: 'smooth'
+    });
+  };
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
+
+    this.parentElement?.querySelectorAll('section').forEach(section => this.observer.observe(section));
 
     /** generates nav links from parentElement content */
     console.log('verticalTabContent in firstUpdated', this.verticalTabContent, this.parentElement);
@@ -50,7 +93,16 @@ export class VerticalTabs extends LitElement {
 
       console.log('headerAnchors in vertical - parents component', this.headerAnchorsParentsAll);
     }
+
+    const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
+    console.log('verticalTabs in firstUpdated', verticalTabs, verticalTabs.length);
+    if (verticalTabs.length) {
+      // TODO: should work with http://localhost:8000/categories/components/accordion/code/#sl-accordion and scroll to it
+      this.#alignVerticalTabIndicator(verticalTabs[0]);
+    }
   }
+
+  // TODO: H2 as parameter
 
   override render(): TemplateResult {
     const headerAnchorsParents = Array.from(
@@ -69,7 +121,7 @@ export class VerticalTabs extends LitElement {
         return;
       })
       .filter(element => element !== undefined); // as HTMLElement[];
-    this.headerAnchorsParentsAll.push(...(headerAnchorsParents as HTMLElement[]));
+    // this.headerAnchorsParentsAll.push(...(headerAnchorsParents as HTMLElement[]));
 
     console.log(
       'verticalTabContent in render',
@@ -78,8 +130,8 @@ export class VerticalTabs extends LitElement {
       this.parentElement?.querySelectorAll('.header-anchor'),
       headerAnchorsParents
     );
-    const test = Array.from(this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || []).map(
-      element => {
+    const test = Array.from(this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || [])
+      .map(element => {
         if (element.parentElement?.tagName === 'H2') {
           console.log('element h2?', element);
           if (element.parentElement.parentNode) {
@@ -90,16 +142,39 @@ export class VerticalTabs extends LitElement {
           return element as Element;
         }
         return null;
-      }
-    );
+      })
+      .filter(element => element !== null);
     console.log('test in render', test);
     return html`
       <div vertical="" class="ds-tabs">
         <div class="ds-tabs__container">
           <div class="ds-tabs-wrapper" role="tablist" aria-orientation="vertical">
-            ${headerAnchorsParents.map(item => {
-              html` <a
-                href=${`#${item?.id}`}
+            ${test.map(
+              (variant: Element | null) =>
+                html` <a
+                  href=${`#${variant?.id}`}
+                  class="ds-tab--vertical"
+                  role="tab"
+                  tabindex="0"
+                  id=${`ds-vertical-tab-${this.nextUniqueId++}`}
+                  aria-selected="false"
+                  aria-controls=${(variant as HTMLElement)?.id}
+                  @click=${this.#onClick}
+                  >${(variant as HTMLElement)?.textContent || variant?.getAttribute('link-in-navigation-text')}</a
+                >`
+            )}
+          </div>
+          <div class="ds-tabs__vertical-slider">
+            <div class="ds-tabs__vertical-indicator"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  } // style="top: 23px; height: 32px;"
+
+  /*  ${headerAnchorsParents.map(item => {
+  html` <a
+    href=${`#${item?.id}`}
                 class="ds-tab--vertical active"
                 role="tab"
                 tabindex="0"
@@ -108,10 +183,10 @@ export class VerticalTabs extends LitElement {
                 aria-controls="when-to-use"
                 >${item?.textContent}</a
               >`;
-            })}
-            ${this.headerAnchorsParentsAll.map(item => {
-              html` <a
-                href=${`#${item.id}`}
+})}
+${this.headerAnchorsParentsAll.map(item => {
+  html` <a
+    href=${`#${item.id}`}
                 class="ds-tab--vertical"
                 role="tab"
                 tabindex="0"
@@ -120,26 +195,13 @@ export class VerticalTabs extends LitElement {
                 aria-controls="when-to-use"
                 >${item.textContent}</a
               >`;
-            })}
-            ${test.map(
-              (variant: Element | null) =>
-                html` <a
-                  href=${(variant as HTMLAnchorElement)?.hash}
-                  class="ds-tab--vertical"
-                  role="tab"
-                  tabindex="0"
-                  id=${`ds-vertical-tab-${this.nextUniqueId++}`}
-                  aria-selected="false"
-                  aria-controls=${(variant as HTMLElement)?.id}
-                  @click=${this.#onClick}
-                  >${(variant as HTMLElement)?.textContent} active class only first on firstUpdated</a
-                >`
-            )}
+})}
             <div>${this.parentElement?.querySelector('.header-anchor')?.textContent}</div>
             ${Array.from(this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || []).map(
               (variant: Element) => html`<div style="color: #2351db;">${(variant as HTMLElement)?.textContent}</div>`
             )}
-            <a
+
+                        <a
               href="#when-to-use"
               class="ds-tab--vertical active"
               role="tab"
@@ -176,14 +238,12 @@ export class VerticalTabs extends LitElement {
               aria-controls="options"
               >Options</a
             >
-          </div>
-          <div class="ds-tabs__vertical-slider">
-            <div class="ds-tabs__vertical-indicator" style="top: 23px; height: 32px;"></div>
-          </div>
-        </div>
-      </div>
-    `;
-  }
+
+*/
+
+  // TODO: rovingTabIndex
+
+  // TODO: vertical tabs position fixed
 
   // href=${(variant as HTMLElement).(firstChild as HTMLAnchorElement)?.hash}
 
@@ -214,14 +274,20 @@ export class VerticalTabs extends LitElement {
     const currentVerticalIndicatorElement = this.renderRoot.querySelector(
       '.ds-tabs__vertical-indicator'
     ) as HTMLElement;
+    const tabsWrapper = this.renderRoot.querySelector('.ds-tabs-wrapper');
 
-    console.log('currentVerticalIndicatorElement', currentVerticalIndicatorElement);
+    console.log(
+      'currentVerticalIndicatorElement',
+      currentVerticalIndicatorElement,
+      tab.getBoundingClientRect().top,
+      this.renderRoot.querySelector('.ds-tabs-wrapper')?.getBoundingClientRect().top
+    );
 
-    if (!currentVerticalSliderElement || !currentVerticalIndicatorElement) {
+    if (!currentVerticalSliderElement || !currentVerticalIndicatorElement || !tabsWrapper) {
       return;
     }
     currentVerticalIndicatorElement.style.top = `${
-      tab.getBoundingClientRect().top - this.getBoundingClientRect().top
+      tab.getBoundingClientRect().top - tabsWrapper.getBoundingClientRect().top
     }px`;
     currentVerticalIndicatorElement.style.height = `${tab.getBoundingClientRect().height}px`;
   }

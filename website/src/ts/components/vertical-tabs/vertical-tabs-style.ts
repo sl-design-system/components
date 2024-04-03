@@ -17,6 +17,14 @@ export const verticalTabsStyles = css`
     text-decoration: none;
   }
 
+  .ds-tabs {
+    // align-self: flex-start;
+    // flex-shrink: 0;
+    position: sticky;
+    // top: 1rem;
+    inset-block-start: 15%;
+  }
+
   .ds-tabs-wrapper {
     column-gap: 0.4rem;
     display: flex;
@@ -91,5 +99,15 @@ export const verticalTabsStyles = css`
       box-shadow: inset var(--focus-box-shadow);
       outline: none;
     }
+  }
+
+  .ds-tabs__container {
+    background-color: var(--background-color);
+    inset-block-start: -0.1rem;
+    margin: auto -2.4rem;
+    overflow-x: hidden;
+    padding-block-start: 1.6rem;
+    position: sticky;
+    transition: padding-top $transition-timing;
   }
 `;

@@ -105,17 +105,18 @@ layout: base.njk
               {% endif %}
             {%- endfor -%}
             </div>
-            <script type="module">
-              import { generateVerticalTabs } from '/js/scripts/tabs.js';
-              requestAnimationFrame(() => {
-                const verticalTabContent = document.getElementById('myVerticalTabsContentCode');
-                console.log('verticalTabContent', verticalTabContent);
-                generateVerticalTabs(verticalTabContent);
-              });
-              // const verticalTabContent = document.getElementById('myVerticalTabsContent');
-              // console.log('verticalTabContent', verticalTabContent);
-              // generateVerticalTabs(verticalTabContent);
-            </script>
+            <ds-vertical-tabs></ds-vertical-tabs>
+{#            <script type="module">#}
+{#              import { generateVerticalTabs } from '/js/scripts/tabs.js';#}
+{#              requestAnimationFrame(() => {#}
+{#                const verticalTabContent = document.getElementById('myVerticalTabsContentCode');#}
+{#                console.log('verticalTabContent', verticalTabContent);#}
+{#                generateVerticalTabs(verticalTabContent);#}
+{#              });#}
+{#              // const verticalTabContent = document.getElementById('myVerticalTabsContent');#}
+{#              // console.log('verticalTabContent', verticalTabContent);#}
+{#              // generateVerticalTabs(verticalTabContent);#}
+{#            </script>#}
           </div>
         </sl-tab-panel>
         <sl-tab-panel>
@@ -127,7 +128,8 @@ layout: base.njk
               {% endif %}
             {%- endfor -%}
             </div>
-            <script type="module">
+            <ds-vertical-tabs></ds-vertical-tabs>
+{#            <script type="module">
               import { generateVerticalTabs } from '/js/scripts/tabs.js';
               requestAnimationFrame(() => {
                 const verticalTabContent = document.getElementById('myVerticalTabsContentAccessibility');
@@ -137,7 +139,7 @@ layout: base.njk
               // const verticalTabContent = document.getElementById('myVerticalTabsContent');
               // console.log('verticalTabContent', verticalTabContent);
               // generateVerticalTabs(verticalTabContent);
-            </script>
+            </script>#}
           </divb>
         </sl-tab-panel>
       </sl-tab-group>
@@ -175,3 +177,5 @@ layout: base.njk
 <sl-tooltip id="interactiveexample">Interactive example</sl-tooltip>
 
 {#TODO: all tabs with post.url and content | safe #}
+
+{#TODO: tabs are not working properly on keyboard nav change#}

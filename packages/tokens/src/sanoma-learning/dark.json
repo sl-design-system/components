@@ -3395,7 +3395,7 @@
     },
     "popover": {
       "background": {
-        "value": "{color.palette.neutral.900}",
+        "value": "{body.background}",
         "type": "color"
       },
       "foreground": {
@@ -3403,7 +3403,7 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.palette.neutral.700}",
+        "value": "{color.palette.neutral.400}",
         "type": "color"
       }
     },

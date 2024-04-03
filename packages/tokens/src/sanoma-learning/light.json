@@ -3537,7 +3537,7 @@
     },
     "tooltip": {
       "background": {
-        "value": "{color.palette.accent.900}",
+        "value": "{color.palette.black.base}",
         "type": "color"
       },
       "foreground": {

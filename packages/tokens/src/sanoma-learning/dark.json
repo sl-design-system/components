@@ -3575,7 +3575,7 @@
         },
         "divider": {
           "line": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.700}",
             "type": "color"
           }
         },
@@ -3986,11 +3986,11 @@
       },
       "listbox": {
         "border": {
-          "value": "{color.palette.neutral.600}",
+          "value": "{color.palette.neutral.400}",
           "type": "color"
         },
         "background": {
-          "value": "{color.palette.neutral.900}",
+          "value": "{body.background}",
           "type": "color"
         }
       }
@@ -4037,7 +4037,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         },
         "indicator": {
@@ -4055,21 +4055,21 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
       "disabled": {
         "background": {
-          "value": "{body.background}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.400}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
@@ -4083,7 +4083,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
@@ -4097,7 +4097,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.200}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },
@@ -4175,7 +4175,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.800}",
+          "value": "{color.palette.neutral.700}",
           "type": "color"
         }
       },

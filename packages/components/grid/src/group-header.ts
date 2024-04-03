@@ -1,4 +1,3 @@
-import { faChevronRight } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox } from '@sl-design-system/checkbox';
@@ -14,8 +13,6 @@ declare global {
     'sl-grid-group-header': GridGroupHeader;
   }
 }
-
-Icon.register(faChevronRight);
 
 export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -51,12 +48,12 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <sl-button @click=${this.#onClick} fill="ghost">
-        <sl-icon name="far-chevron-right"></sl-icon>
+        <sl-icon name="chevron-right"></sl-icon>
       </sl-button>
       ${this.selectable
         ? html`
             <sl-checkbox
-              @sl-change=${this.#onToggle}
+              @sl-change=${this.#onChange}
               .checked=${this.selected === 'all'}
               .indeterminate=${this.selected === 'some'}
               size="sm"
@@ -67,12 +64,12 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  #onChange(event: SlChangeEvent<boolean>): void {
+    this.selectEvent.emit(event.detail);
+  }
+
   #onClick(): void {
     this.expanded = !this.expanded;
     this.toggleEvent.emit(this.expanded);
-  }
-
-  #onToggle(event: SlChangeEvent<boolean>): void {
-    this.selectEvent.emit(event.detail);
   }
 }

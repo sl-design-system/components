@@ -1,4 +1,4 @@
-import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
+import { faFilter } from '@fortawesome/pro-regular-svg-icons';
 import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
@@ -36,7 +36,7 @@ export type SlFilterValueChangeEvent<T = any> = CustomEvent<{
   value?: string | string[];
 }>;
 
-Icon.register(faFilter, faFilterSolid, faXmark);
+Icon.register(faFilter, faFilterSolid);
 
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -126,7 +126,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
             ${msg('Filter by')} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>
           </h1>
           <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
-            <sl-icon name="far-xmark"></sl-icon>
+            <sl-icon name="xmark"></sl-icon>
           </sl-button>
         </header>
         ${this.mode === 'select'

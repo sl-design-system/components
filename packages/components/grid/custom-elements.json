@@ -3673,16 +3673,7 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onToggle",
+              "name": "#onChange",
               "return": {
                 "type": {
                   "text": "void"
@@ -3696,6 +3687,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [

@@ -10,7 +10,8 @@ export class GridViewModelGroup {
   ) {}
 }
 
-export class GridViewModel<T = unknown> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridViewModel<T = any> {
   #columnDefinitions: Array<GridColumn<T>> = [];
   #columns: Array<GridColumn<T>> = [];
   #dataSource?: DataSource<T>;
@@ -98,7 +99,7 @@ export class GridViewModel<T = unknown> {
       this.#rows = this.#dataSource?.filteredItems ?? [];
     }
 
-    this.#grid.requestUpdate('model');
+    this.#grid.requestUpdate('view');
   };
 
   constructor(grid: Grid<T>) {

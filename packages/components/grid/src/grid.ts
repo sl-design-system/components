@@ -385,8 +385,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       <tr part="group">
         <td part="group-header">
           <sl-grid-group-header
-            @sl-select=${(event: CustomEvent<boolean>) => this.#onGroupSelect(event, group)}
-            @sl-toggle=${(event: CustomEvent<boolean>) => this.#onGroupToggle(event, group)}
+            @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, group)}
+            @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, group)}
             .expanded=${expanded}
             .heading=${group.value}
             .selectable=${selectable}

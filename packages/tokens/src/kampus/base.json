@@ -1891,11 +1891,11 @@
       },
       "focusring": {
         "default": {
-          "value": "{border.width.lg}",
+          "value": "{border.width.xs}",
           "type": "borderWidth"
         },
         "offset": {
-          "value": "{border.width.none}",
+          "value": "{border.width.sm}",
           "type": "borderWidth"
         }
       },

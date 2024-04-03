@@ -85,6 +85,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The item being dragged. */
   #dragItem?: T;
 
+  /** The view index where the drag started. */
+  #dragStartIndex?: number;
+
   /** The placeholder element where the drag item will be dropped. */
   #dropPlaceholder?: HTMLElement;
 
@@ -229,6 +232,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('items')) {
       this.dataSource = this.items ? new ArrayDataSource(this.items) : undefined;
+      if (this.itemsGroupBy) {
+        this.dataSource?.setGroupBy(this.itemsGroupBy);
+      }
+
       this.view.dataSource = this.dataSource;
       this.selection.size = this.dataSource?.size ?? 0;
     }
@@ -346,7 +353,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderItem(item: T, index: number): TemplateResult {
-    return item instanceof GridViewModelGroup ? this.renderGroupRow(item) : this.renderItemRow(item, index);
+    return item instanceof GridViewModelGroup ? this.renderGroupRow(item, index) : this.renderItemRow(item, index);
   }
 
   renderItemRow(item: T, index: number): TemplateResult {
@@ -376,13 +383,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderGroupRow(group: GridViewModelGroup): TemplateResult {
+  renderGroupRow(group: GridViewModelGroup, index: number): TemplateResult {
     const expanded = this.view.getGroupState(group.value),
       selectable = !!this.view.columns.find(col => col instanceof GridSelectionColumn),
       selected = this.view.getGroupSelection(group.value);
 
     return html`
-      <tr part="group">
+      <tr part="group" index=${index}>
         <td part="group-header">
           <sl-grid-group-header
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, group)}
@@ -465,6 +472,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     event.dataTransfer!.setDragImage(row, event.clientX - rowRect.left, event.clientY - rowRect.top);
 
     this.#dragItem = item;
+    this.#dragStartIndex = this.dataSource?.items.indexOf(item);
     this.#dropPlaceholder!.style.height = `${rowRect.height}px`;
 
     this.dragStartEvent.emit({ grid: this, item: item });
@@ -544,7 +552,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       .querySelector('tr:where(.drop-target, .drop-target-above, .drop-target-below)')
       ?.classList.remove('drop-target', 'drop-target-above', 'drop-target-below');
 
-    this.#dragItem = undefined;
+    this.#dragItem = this.#dragStartIndex = undefined;
     this.#dropPlaceholder?.remove();
 
     this.dragEndEvent.emit({ grid: this, item });
@@ -575,10 +583,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDropOnPlaceholder(): void {
-    const oldIndex = this.dataSource!.filteredItems.indexOf(this.#dragItem!);
+    const oldIndex = this.#dragStartIndex!;
 
     let newIndex = -1;
-    if (this.#dropPlaceholder!.previousElementSibling) {
+    if (this.#dropPlaceholder!.previousElementSibling?.getAttribute('part')?.includes('row')) {
       newIndex = parseInt(this.#dropPlaceholder!.previousElementSibling.getAttribute('index')!) + 1;
     } else if (this.#dropPlaceholder!.nextElementSibling) {
       newIndex = parseInt(this.#dropPlaceholder!.nextElementSibling.getAttribute('index')!);
@@ -587,6 +595,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     if (oldIndex < newIndex) {
       newIndex--;
     }
+
+    // Convert the view index to the data source index
+    newIndex = this.dataSource?.items.indexOf(this.view.getItemAtIndex(newIndex)) ?? -1;
 
     this.dropEvent.emit({ grid: this, item: this.#dragItem!, oldIndex, newIndex });
   }

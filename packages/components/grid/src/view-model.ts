@@ -143,6 +143,10 @@ export class GridViewModel<T = any> {
     return value ? this.#groups.get(value) ?? true : true;
   }
 
+  getItemAtIndex(index: number): T {
+    return this.#rows[index];
+  }
+
   /** Returns the left offset, taking any sticky columns into account. */
   getStickyColumnOffset(index: number): number {
     return this.#columnDefinitions

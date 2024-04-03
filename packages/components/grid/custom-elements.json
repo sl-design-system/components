@@ -2762,6 +2762,12 @@
                   "type": {
                     "text": "GridViewModelGroup"
                   }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
                 }
               ]
             },
@@ -3017,6 +3023,12 @@
                   "name": "group",
                   "type": {
                     "text": "GridViewModelGroup"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -3382,6 +3394,15 @@
                 "text": "T | undefined"
               },
               "description": "The item being dragged."
+            },
+            {
+              "kind": "field",
+              "name": "#dragStartIndex",
+              "privacy": "private",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The view index where the drag started."
             },
             {
               "kind": "field",
@@ -6455,6 +6476,23 @@
             },
             {
               "kind": "method",
+              "name": "getItemAtIndex",
+              "return": {
+                "type": {
+                  "text": "T"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "getStickyColumnOffset",
               "return": {
                 "type": {
@@ -6634,6 +6672,23 @@
                 }
               ],
               "description": "Returns true if the group is expanded, false if collapsed."
+            },
+            {
+              "kind": "method",
+              "name": "getItemAtIndex",
+              "return": {
+                "type": {
+                  "text": "T"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",

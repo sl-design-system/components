@@ -80,6 +80,10 @@ tr {
     --_cell-border: 0;
   }
 
+  &[part~='group'] {
+    z-index: 1; // Ensure drag handles don't "shine through" group headers
+  }
+
   &[part~='selected'] {
     --_cell-background: var(--_selected-background);
   }

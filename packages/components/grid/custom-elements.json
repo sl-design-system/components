@@ -3624,7 +3624,8 @@
                 "text": "boolean | undefined"
               },
               "description": "Wether you can select the entire group.",
-              "attribute": "selectable"
+              "attribute": "selectable",
+              "reflects": true
             },
             {
               "kind": "field",

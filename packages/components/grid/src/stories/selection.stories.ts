@@ -118,3 +118,19 @@ export const MultipleWithCustomHeader: Story = {
     `;
   }
 };
+
+export const Grouped: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    return html`
+      <sl-grid items-group-by="membership" .items=${people}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="membership"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};

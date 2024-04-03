@@ -34,7 +34,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   @property() heading?: string;
 
   /** Wether you can select the entire group. */
-  @property({ type: Boolean }) selectable?: boolean;
+  @property({ type: Boolean, reflect: true }) selectable?: boolean;
 
   /** Whether the group is selected. */
   @property() selected: 'all' | 'some' | 'none' = 'none';

@@ -1,4 +1,6 @@
 :host {
+  --_heading-indent: 0.5rem;
+
   align-items: center;
   display: flex;
   font: var(--sl-text-body-md-normal);
@@ -7,6 +9,10 @@
 
 :host([expanded]) sl-icon {
   rotate: 90deg;
+}
+
+:host([selectable]) {
+  --_heading-indent: 1.5rem;
 }
 
 sl-button {
@@ -24,5 +30,5 @@ sl-checkbox {
 
 .heading {
   font-weight: 600;
-  margin-inline-start: 1.5rem;
+  margin-inline-start: var(--_heading-indent);
 }

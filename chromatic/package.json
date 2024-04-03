@@ -10,7 +10,7 @@
   },
   "type": "module",
   "scripts": {
-    "chromatic": "chromatic --build-script-name build-storybook -o storybook-static --exit-zero-on-changes",
+    "chromatic": "chromatic --build-script-name storybook -o storybook-static --exit-zero-on-changes",
     "build-storybook": "wireit",
     "start": "wireit"
   },

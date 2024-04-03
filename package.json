@@ -284,10 +284,9 @@
       ]
     },
     "chromatic-components": {
-      "command": "storybook build",
+      "command": "storybook build -o dist",
       "dependencies": [
-        "build:components",
-        "build:themes"
+        "dist"
       ]
     },
     "storybook": {

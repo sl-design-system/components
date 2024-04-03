@@ -77,7 +77,7 @@
   --sl-color-focusring-default: rgb(var(--sl-color-palette-accent-300));
   --sl-color-tooltip-border: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-tooltip-foreground: rgb(var(--sl-color-palette-black-base));
-  --sl-color-tooltip-background: rgb(var(--sl-color-palette-accent-200));
+  --sl-color-tooltip-background: rgb(var(--sl-color-palette-white-base));
   --sl-color-input-field-label-icon-disabled: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-input-field-label-text-disabled: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-input-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-200));

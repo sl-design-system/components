@@ -23,7 +23,7 @@
   "scripts": {
     "build": "wireit",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
-    "chromatic-components": "yarn workspace @sl-design-system/chromatic components",
+    "chromatic-components": "chromatic --build-script-name storybook -o storybook-static --exit-zero-on-changes",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
     "extract-i18n": "lit-localize extract",
     "dist": "wireit",

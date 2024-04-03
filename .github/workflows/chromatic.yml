@@ -31,7 +31,7 @@ jobs:
       - name: Publish to Chromatic - Themes
         uses: chromaui/action@v1
         with:
-          buildScriptName: chromatic-themes
+          buildScriptName: themes
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           workingDir: chromatic

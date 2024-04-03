@@ -11,7 +11,7 @@
   "type": "module",
   "scripts": {
     "chromatic": "chromatic --build-script-name storybook -o storybook-static --exit-zero-on-changes",
-    "components": "chromatic --build-script-name storybook -o storybook-static --exit-zero-on-changes",
+    "components": "wireit",
     "storybook": "wireit",
     "start": "wireit"
   },
@@ -20,6 +20,13 @@
       "command": "storybook build",
       "dependencies": [
         "..:build"
+      ]
+    },
+    "components": {
+      "command": "storybook build",
+      "dependencies": [
+        "..:build:components",
+        "..:build:themes"
       ]
     },
     "start": {

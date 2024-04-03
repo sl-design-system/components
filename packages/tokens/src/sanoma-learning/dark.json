@@ -3291,12 +3291,12 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.200}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
           "invalid": {
-            "value": "{color.input.textField.invalid.default.icon}",
+            "value": "{color.palette.danger.200}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }
@@ -3308,12 +3308,12 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.200}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
           "invalid": {
-            "value": "{color.input.textField.invalid.default.icon}",
+            "value": "{color.palette.danger.200}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }
@@ -3327,12 +3327,12 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.200}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
           "invalid": {
-            "value": "{color.input.textField.invalid.default.icon}",
+            "value": "{color.palette.danger.200}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }
@@ -3344,12 +3344,12 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "disabled": {
-            "value": "{color.palette.neutral.200}",
+            "value": "{color.palette.neutral.400}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
           "invalid": {
-            "value": "{color.input.textField.invalid.default.icon}",
+            "value": "{color.palette.danger.200}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }

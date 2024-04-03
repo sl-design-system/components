@@ -286,8 +286,8 @@
     "chromatic-components": {
       "command": "storybook build",
       "dependencies": [
-        "..:build:components",
-        "..:build:themes"
+        "build:components",
+        "build:themes"
       ]
     },
     "storybook": {

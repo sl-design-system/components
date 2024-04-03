@@ -1,7 +1,8 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { Popover } from '@sl-design-system/popover';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -67,9 +68,9 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon,
-      'sl-menu-button': MenuButton,
-      'sl-menu-item': MenuItem,
-      'sl-tooltip': Tooltip
+      'sl-tooltip': Tooltip,
+      'sl-popover': Popover,
+      'sl-button': Button
     };
   }
 
@@ -131,19 +132,23 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           `}
       ${this.breadcrumbs.length > this.collapseThreshold
         ? html`
-            <sl-menu-button fill="link">
-              <sl-icon name="ellipsis" slot="button"></sl-icon>
+            <sl-button fill="link" id="button" @click=${this.#onClick} icon-only aria-label=${msg('More breadcrumbs')}>
+              <sl-icon name="ellipsis"></sl-icon>
+            </sl-button>
+            <sl-popover anchor="button">
               ${this.breadcrumbs
                 .slice(0, -this.collapseThreshold)
-                .map(
-                  ({ element, label }) => html`<sl-menu-item @click=${() => element.click()}>${label}</sl-menu-item>`
-                )}
-            </sl-menu-button>
+                .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : html`${label}`))}
+            </sl-popover>
           `
         : nothing}
       <slot @slotchange=${this.#onSlotchange}></slot>
     `;
   }
+
+  #onClick = (): void => {
+    this.renderRoot.querySelector<Popover>('sl-popover')?.togglePopover();
+  };
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     this.breadcrumbs = event.target

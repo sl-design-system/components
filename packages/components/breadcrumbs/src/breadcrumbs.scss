@@ -1,11 +1,12 @@
 $md-breakpoint: 600px;
 
 :host {
-  --_gap: var(--sl-space-breadcrumb-gap-full);
+  --_gap: calc(var(--sl-space-breadcrumb-gap-full) / 2);
   --_link-gap: var(--sl-space-breadcrumb-gap-home);
   --_link-color: var(--sl-color-href-idle-foreground);
   --_link-decoration: underline;
-  --_link-padding-block: 0.375rem;
+  --_link-padding-block: calc(var(--sl-space-breadcrumb-gap-full) / 2);
+  --_link-padding-inline: calc(var(--sl-space-breadcrumb-gap-full) / 2);
   --_link-underline-offset: 2px;
   --_tooltip-max-inline-size: min(18rem, 50vw);
   --_divider-color: var(--sl-color-breadcrumb-divider) align-items: center;
@@ -24,6 +25,7 @@ a,
 ::slotted(a),
 ::slotted(:last-child) {
   padding-block: var(--_link-padding-block);
+  padding-inline: var(--_link-padding-inline);
 }
 
 a,
@@ -31,18 +33,21 @@ a,
   color: var(--_link-color);
   text-decoration: var(--_link-decoration);
   text-underline-offset: var(--_link-underline-offset, auto);
+}
 
-  &:hover {
-    --_link-color: var(--sl-color-href-hover-foreground);
-  }
+a:visited,
+::slotted(a:visited) {
+  --_link-color: var(--sl-color-href-idle-foreground);
+}
 
-  &:active {
-    --_link-color: var(--sl-color-href-active-foreground);
-  }
+a:hover,
+::slotted(a:hover) {
+  --_link-color: var(--sl-color-href-hover-foreground);
+}
 
-  &:visited {
-    --_link-color: var(--sl-color-href-disabled-foreground);
-  }
+a:active,
+::slotted(a:active) {
+  --_link-color: var(--sl-color-href-active-foreground);
 }
 
 a {
@@ -55,6 +60,10 @@ a {
   }
 }
 
+sl-popover a {
+  display: flex;
+}
+
 sl-icon[name='slash-forward'] {
   color: var(--_divider-color);
 }
@@ -63,7 +72,7 @@ sl-icon[name='slash-forward'] {
   --sl-icon-fill-default: var(--_divider-color);
 }
 
-::slotted(*):not(sl-icon) {
+::slotted(*:not(sl-icon)) {
   display: block;
   overflow: clip visible;
   text-overflow: ellipsis;

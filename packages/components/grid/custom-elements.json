@@ -2693,6 +2693,14 @@
             },
             {
               "kind": "field",
+              "name": "groupHeaderRenderer",
+              "type": {
+                "text": "GridGroupHeaderRenderer | undefined"
+              },
+              "description": "Custom renderer for group headers."
+            },
+            {
+              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
@@ -2834,6 +2842,14 @@
                   "text": "TemplateResult"
                 }
               }
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this grid. This can be used if you want to render\ncustom elements in the group header. Custom elements that you want to render in the columns\ncan be registered via the `scopedElements` property on the column."
             },
             {
               "kind": "field",
@@ -3349,9 +3365,10 @@
               },
               "parameters": [
                 {
-                  "name": "col",
+                  "name": "scopedElements",
+                  "optional": true,
                   "type": {
-                    "text": "GridColumn<T>"
+                    "text": "Record<string, typeof HTMLElement>"
                   }
                 }
               ]
@@ -3540,11 +3557,27 @@
             },
             {
               "kind": "field",
+              "name": "groupHeaderRenderer",
+              "type": {
+                "text": "GridGroupHeaderRenderer | undefined"
+              },
+              "description": "Custom renderer for group headers."
+            },
+            {
+              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
               },
               "description": "Custom parts to be set on the `<tr>` so it can be styled externally."
+            },
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this grid. This can be used if you want to render\ncustom elements in the group header. Custom elements that you want to render in the columns\ncan be registered via the `scopedElements` property on the column."
             },
             {
               "kind": "field",
@@ -3611,15 +3644,6 @@
             },
             {
               "kind": "field",
-              "name": "heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The group heading.",
-              "attribute": "heading"
-            },
-            {
-              "kind": "field",
               "name": "selectEvent",
               "type": {
                 "text": "EventEmitter<SlSelectEvent<boolean>>"
@@ -3663,14 +3687,6 @@
               },
               "description": "Whether the group is expanded or collapsed.",
               "fieldName": "expanded"
-            },
-            {
-              "name": "heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The group heading.",
-              "fieldName": "heading"
             },
             {
               "name": "selectable",

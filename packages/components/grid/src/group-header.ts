@@ -30,9 +30,6 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** Whether the group is expanded or collapsed. */
   @property({ type: Boolean, reflect: true }) expanded?: boolean;
 
-  /** The group heading. */
-  @property() heading?: string;
-
   /** Wether you can select the entire group. */
   @property({ type: Boolean, reflect: true }) selectable?: boolean;
 
@@ -60,7 +57,9 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
             ></sl-checkbox>
           `
         : nothing}
-      <span class="heading">${this.heading}</span>
+      <div part="wrapper">
+        <slot></slot>
+      </div>
     `;
   }
 

@@ -173,6 +173,10 @@ td[part~='text-field'] {
   padding-inline: 0;
 }
 
+[part='group-heading'] {
+  font-weight: 600;
+}
+
 .selection-count {
   font-weight: normal;
 }

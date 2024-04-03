@@ -54,6 +54,17 @@ export type GridDraggableRows = 'between' | 'on-top' | 'between-or-on-top' | 'on
 
 export type GridDropFilter<T> = (item: T) => boolean | 'between' | 'on-top';
 
+export interface GridGroupHeaderRendererOptions {
+  expanded?: boolean;
+  selectable?: boolean;
+  selected: 'all' | 'some' | 'none';
+}
+
+export type GridGroupHeaderRenderer = (
+  group: GridViewModelGroup,
+  options?: GridGroupHeaderRendererOptions
+) => TemplateResult;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlActiveItemChangeEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T; relatedEvent?: Event }>;
 
@@ -163,6 +174,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ attribute: false }) dropFilter?: GridDropFilter<T>;
 
+  /** Custom renderer for group headers. */
+  @property({ attribute: false }) groupHeaderRenderer?: GridGroupHeaderRenderer;
+
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
 
@@ -177,6 +191,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Hides the border between rows when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
+
+  /**
+   * The custom elements used for rendering this grid. This can be used if you want to render
+   * custom elements in the group header. Custom elements that you want to render in the columns
+   * can be registered via the `scopedElements` property on the column.
+   */
+  @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
 
   /** Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
@@ -269,6 +290,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       this.#applyFilters();
       this.#applySorters();
+    }
+
+    if (changes.has('scopedElements')) {
+      this.#addScopedElements(this.scopedElements);
     }
   }
 
@@ -406,10 +431,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
             @sl-select=${(event: SlSelectEvent<boolean>) => this.#onGroupSelect(event, group)}
             @sl-toggle=${(event: SlToggleEvent<boolean>) => this.#onGroupToggle(event, group)}
             .expanded=${expanded}
-            .heading=${group.value}
             .selectable=${selectable}
             .selected=${selected}
-          ></sl-grid-group-header>
+          >
+            ${this.groupHeaderRenderer?.(group) ?? html`<span part="group-heading">${group.value}</span>`}
+          </sl-grid-group-header>
         </td>
       </tr>
     `;
@@ -455,7 +481,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
-    this.#addScopedElements(event.target);
+    this.#addScopedElements(event.target.scopedElements);
   }
 
   #onDragstart(event: DragEvent, item: T): void {
@@ -655,7 +681,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       columns = elements.filter((el): el is GridColumn<T> => el instanceof GridColumn);
 
     columns.forEach(col => {
-      this.#addScopedElements(col);
+      this.#addScopedElements(col.scopedElements);
 
       col.grid = this;
 
@@ -706,9 +732,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #addScopedElements(col: GridColumn<T>): void {
-    if (col.scopedElements) {
-      for (const [tagName, klass] of Object.entries(col.scopedElements)) {
+  #addScopedElements(scopedElements?: Record<string, typeof HTMLElement>): void {
+    if (scopedElements) {
+      for (const [tagName, klass] of Object.entries(scopedElements)) {
         if (!this.registry?.get(tagName)) {
           this.registry?.define(tagName, klass);
         }

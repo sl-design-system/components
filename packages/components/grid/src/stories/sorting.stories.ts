@@ -48,6 +48,20 @@ export const Custom: Story = {
   }
 };
 
+export const Grouped: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    return html`
+      <sl-grid items-group-by="membership" .items=${people}>
+        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="membership"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const Sorted: Story = {
   render: (_, { loaded: { people } }) => {
     return html`

@@ -1832,7 +1832,7 @@
                 "failedToResolve": true
               },
               "border": {
-                "value": "{color.palette.neutral.400}",
+                "value": "{color.palette.neutral.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background",
                 "failedToResolve": true
@@ -3672,7 +3672,7 @@
     },
     "tooltip": {
       "background": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.black.base}",
         "type": "color",
         "failedToResolve": true
       },
@@ -3706,7 +3706,7 @@
         "failedToResolve": true
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.500}",
         "type": "color",
         "failedToResolve": true
       }
@@ -4328,7 +4328,7 @@
       },
       "listbox": {
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.500}",
           "type": "color",
           "failedToResolve": true
         },

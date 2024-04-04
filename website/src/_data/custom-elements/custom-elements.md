@@ -3357,7 +3357,6 @@
 | `js` | `*`  | *           |        | ./src/decorators/observe.js            |
 | `js` | `*`  | *           |        | ./src/dom.js                           |
 | `js` | `*`  | *           |        | ./src/directives/anchor.js             |
-| `js` | `*`  | *           |        | ./src/events.js                        |
 | `js` | `*`  | *           |        | ./src/path.js                          |
 | `js` | `*`  | *           |        | ./src/popover.js                       |
 | `js` | `*`  | *           |        | ./src/string.js                        |

@@ -9,7 +9,7 @@ interface Props {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Editor',
+  title: 'In progress/Editor',
   render: ({ value }) => {
     return html`<sl-editor .value=${value}></sl-editor>`;
   }

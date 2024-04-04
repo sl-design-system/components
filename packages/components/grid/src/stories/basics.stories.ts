@@ -93,6 +93,7 @@ export const CustomRenderers: Story = {
     return html`
       <sl-grid .items=${people}>
         <sl-grid-column
+          grow="3"
           header="Person"
           .renderer=${avatarRenderer}
           .scopedElements=${{

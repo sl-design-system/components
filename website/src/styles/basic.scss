@@ -12,11 +12,11 @@ html {
   font-size: 62.5%;
 
   @media (min-height: $sticky-breakpoint) {
-    scroll-padding-top: 100px;
+    // scroll-padding-top: 100px;
 
     /* stylelint-disable-next-line max-nesting-depth */
     @media screen and (min-width: $lg-breakpoint) {
-      scroll-padding-top: 90px;
+      //  scroll-padding-top: 90px;
     }
   }
 }

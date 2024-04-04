@@ -2,8 +2,18 @@ import { css } from 'lit';
 
 export const verticalTabsStyles = css`
   :host {
-    display: block;
-    font: var(--typography-body);
+    display: none;
+
+    .ds-tabs__container {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    :host {
+      display: block;
+      font: var(--typography-body);
+    }
   }
 
   h2 {
@@ -106,8 +116,8 @@ export const verticalTabsStyles = css`
     inset-block-start: -0.1rem;
     margin: auto -2.4rem;
     overflow-x: hidden;
-    padding-block-start: 1.6rem;
-    position: sticky;
+    /* padding-block-start: 1.6rem; */
+    /* position: sticky; */
     transition: padding-top $transition-timing;
   }
 `;

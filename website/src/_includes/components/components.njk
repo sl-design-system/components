@@ -79,7 +79,11 @@ layout: base.njk
             </div>
 {#          generateVerticalTabs(tabContent);#}
 {#          {% include "partials/modules/module-two-column--stacked-cards.njk" %}#}
+            {%- for usage in collections.usage -%}
+            {% if usage.url == page.url %}
             <ds-vertical-tabs></ds-vertical-tabs>
+            {% endif %}
+            {%- endfor -%}
 {#          <script type="module">
             import { generateVerticalTabs } from '/js/scripts/tabs.js';
             requestAnimationFrame(() => {
@@ -92,7 +96,6 @@ layout: base.njk
             // generateVerticalTabs(verticalTabContent);
           </script>#}
           </div>
-          // TODO: content is not wrapped by ds-tabs__tab-container, why??
         </sl-tab-panel>
         <sl-tab-panel>
           <div id="myVerticalTabsContentCode" class="ds-tabs__tab-content">
@@ -105,7 +108,11 @@ layout: base.njk
               {% endif %}
             {%- endfor -%}
             </div>
+            {%- for code in collections.code -%}
+            {% if code.url == page.url %}
             <ds-vertical-tabs></ds-vertical-tabs>
+            {% endif %}
+            {%- endfor -%}
 {#            <script type="module">#}
 {#              import { generateVerticalTabs } from '/js/scripts/tabs.js';#}
 {#              requestAnimationFrame(() => {#}
@@ -120,7 +127,7 @@ layout: base.njk
           </div>
         </sl-tab-panel>
         <sl-tab-panel>
-          <divb id="myVerticalTabsContentAccessibility" class="ds-tabs__tab-content">
+          <div id="myVerticalTabsContentAccessibility" class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
             {%- for accessibility in collections.accessibility -%}
               {% if accessibility.url.includes(page.url) %}
@@ -128,7 +135,11 @@ layout: base.njk
               {% endif %}
             {%- endfor -%}
             </div>
+            {%- for accessibility in collections.accessibility -%}
+            {% if accessibility.url.includes(page.url) %}
             <ds-vertical-tabs></ds-vertical-tabs>
+            {% endif %}
+            {%- endfor -%}
 {#            <script type="module">
               import { generateVerticalTabs } from '/js/scripts/tabs.js';
               requestAnimationFrame(() => {
@@ -140,7 +151,7 @@ layout: base.njk
               // console.log('verticalTabContent', verticalTabContent);
               // generateVerticalTabs(verticalTabContent);
             </script>#}
-          </divb>
+          </div>
         </sl-tab-panel>
       </sl-tab-group>
 {#      <div horizontal class="ds-tabs" role="tablist">#}

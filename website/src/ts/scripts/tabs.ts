@@ -330,6 +330,7 @@ const config = {
 const observer = new IntersectionObserver(
   entries =>
     entries.forEach(({ target, intersectionRatio }) => {
+      console.log('entries in tabs.ts', entries);
       const topNavigation = document.querySelector('.ds-top-navigation');
       const tabsContainer = target.previousSibling as Element;
       if (!tabsContainer) {

@@ -2052,7 +2052,7 @@
     "border": {
       "width": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.md}",
           "type": "borderWidth",
           "description": "Conceptual Theme Border Token"
         }

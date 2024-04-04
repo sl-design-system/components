@@ -123,6 +123,10 @@ th {
   text-align: start;
 }
 
+th[part~='active-selection'] {
+  flex-grow: 1;
+}
+
 th[part~='filter'] {
   padding: 0;
 }

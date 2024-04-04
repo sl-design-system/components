@@ -43,6 +43,7 @@
   --sl-size-3xs: 4px;
   --sl-size-4xs: 2px;
   --sl-size-none: 0px;
+  --sl-size-accordion-icon-height: 28px;
   --sl-icon-typeset-font-size-2xs: 10px;
   --sl-icon-core-angle-down: angle-down;
   --sl-icon-core-house: house;
@@ -442,6 +443,14 @@
   --sl-space-input-option-block-lg: var(--sl-space-xs);
   --sl-space-input-option-block-md: var(--sl-space-xs);
   --sl-space-input-option-block-sm: var(--sl-space-none);
+  --sl-space-accordion-gap: var(--sl-space-md);
+  --sl-space-accordion-block: var(--sl-space-lg);
+  --sl-space-accordion-inline: var(--sl-space-3xl);
+  --sl-space-accordion-title-gap: var(--sl-space-sm);
+  --sl-space-accordion-title-block: var(--sl-space-lg);
+  --sl-space-accordion-title-inline: var(--sl-space-sm);
+  --sl-space-accordion-content-block: var(--sl-space-lg);
+  --sl-space-accordion-content-inline: var(--sl-space-3xl);
   --sl-space-card-slotheader-badges-gap: var(--sl-space-sm);
   --sl-space-card-slotheader-badges-block: var(--sl-space-xs);
   --sl-space-card-slotheader-badges-inline: var(--sl-space-none);
@@ -547,6 +556,10 @@
   --sl-border-radius-button-lg: var(--sl-border-radius-sm);
   --sl-border-radius-button-md: var(--sl-border-radius-sm);
   --sl-border-radius-button-sm: var(--sl-border-radius-2xs);
+  --sl-text-accordion-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
+    var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
+  --sl-text-accordion-title: var(--sl-text-typeset-font-weight-medium) var(--sl-text-typeset-font-size-xl) /
+    var(--sl-text-typeset-line-height-xl) var(--sl-text-typeset-font-family-heading);
   --sl-text-card-body: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-md) /
     var(--sl-text-typeset-line-height-md) var(--sl-text-typeset-font-family-body);
   --sl-text-card-subtitle: var(--sl-text-typeset-font-weight-regular) var(--sl-text-typeset-font-size-lg) /
@@ -731,7 +744,7 @@
   --sl-color-palette-warning-base: 255 209 15;
   --sl-color-palette-success-base: 19 196 163;
   --sl-color-palette-info-base: 31 151 249;
-  --sl-color-palette-primary-base: 31 151 249;
+  --sl-color-palette-primary-base: 71 170 250;
   --sl-size-input-option-checkbox-icon-lg: var(--sl-size-icon-lg);
   --sl-size-input-option-checkbox-icon-md: var(--sl-size-icon-md);
   --sl-size-input-option-checkbox-icon-sm: var(--sl-size-icon-xs);

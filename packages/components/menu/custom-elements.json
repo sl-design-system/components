@@ -294,7 +294,15 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event & { target: HTMLElement }"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
@@ -567,6 +575,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent>"
+              },
+              "description": "Emits when the user toggles the selected state."
+            },
+            {
+              "kind": "field",
               "name": "selectable",
               "type": {
                 "text": "boolean | undefined"
@@ -594,14 +610,6 @@
               "attribute": "shortcut"
             },
             {
-              "kind": "event",
-              "name": "sl-select",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent>"
-              },
-              "description": "Emits when the user toggles the selected state."
-            },
-            {
               "kind": "field",
               "name": "submenu",
               "type": {
@@ -618,16 +626,6 @@
               "static": true,
               "default": "0",
               "description": "The default offset of the submenu to the menu item."
-            }
-          ],
-          "events": [
-            {
-              "name": "selectEvent",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent>"
-              },
-              "description": "Emits when the user toggles the selected state.",
-              "fieldName": "selectEvent"
             }
           ],
           "attributes": [
@@ -863,6 +861,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent>"
+              },
+              "description": "Emits when the user toggles the selected state."
+            },
+            {
+              "kind": "field",
               "name": "submenu",
               "type": {
                 "text": "Menu | undefined"
@@ -948,6 +954,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<void>>"
+              },
+              "description": "Emits when the menu item selection changes."
+            },
+            {
+              "kind": "field",
               "name": "selectableChildren",
               "type": {
                 "text": "boolean | undefined"
@@ -964,14 +978,6 @@
               "attribute": "selects"
             },
             {
-              "kind": "event",
-              "name": "sl-select",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent<void>>"
-              },
-              "description": "Emits when the menu item selection changes."
-            },
-            {
               "kind": "field",
               "name": "viewportMargin",
               "type": {
@@ -980,16 +986,6 @@
               "static": true,
               "default": "8",
               "description": "The default margin between the menu and the viewport."
-            }
-          ],
-          "events": [
-            {
-              "name": "selectEvent",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent<void>>"
-              },
-              "description": "Emits when the menu item selection changes.",
-              "fieldName": "selectEvent"
             }
           ],
           "attributes": [
@@ -1164,6 +1160,14 @@
                 "text": "number | undefined"
               },
               "description": "The offset of the menu to its anchor. This is a property on this instance so\nthat it can be overridden by the menu item in case of a nested menu. You\nshould not need to set this property yourself."
+            },
+            {
+              "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<void>>"
+              },
+              "description": "Emits when the menu item selection changes."
             },
             {
               "kind": "field",

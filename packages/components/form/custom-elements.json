@@ -624,6 +624,14 @@
             },
             {
               "kind": "field",
+              "name": "formFieldEvent",
+              "type": {
+                "text": "EventEmitter<SlFormFieldEvent>"
+              },
+              "description": "Emits when the field is added to a form."
+            },
+            {
+              "kind": "field",
               "name": "hint",
               "type": {
                 "text": "string | undefined"
@@ -648,24 +656,6 @@
               },
               "description": "How to mark this field depending if it is required or not.",
               "attribute": "mark"
-            },
-            {
-              "kind": "event",
-              "name": "sl-form-field",
-              "type": {
-                "text": "EventEmitter<SlFormFieldEvent>"
-              },
-              "description": "Emits when the field is added to a form."
-            }
-          ],
-          "events": [
-            {
-              "name": "formFieldEvent",
-              "type": {
-                "text": "EventEmitter<SlFormFieldEvent>"
-              },
-              "description": "Emits when the field is added to a form.",
-              "fieldName": "formFieldEvent"
             }
           ],
           "attributes": [
@@ -856,6 +846,14 @@
               },
               "description": "The validation message that will be displayed when the field is in an invalid state.",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "formFieldEvent",
+              "type": {
+                "text": "EventEmitter<SlFormFieldEvent>"
+              },
+              "description": "Emits when the field is added to a form."
             }
           ]
         }

@@ -12,7 +12,7 @@ export default {
 };
 
 export const Basic: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
+  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
     const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
       const items = [...grid.items!],
@@ -62,7 +62,7 @@ export const Partial: Story = {
 };
 
 export const Grouping: Story = {
-  loaders: [async () => ({ people: (await getPeople()).people })],
+  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
     const dataSource = new ArrayDataSource(people as Person[]);
     dataSource.setGroupBy('membership');

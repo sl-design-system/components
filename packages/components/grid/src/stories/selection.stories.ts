@@ -1,7 +1,7 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { type SelectionController } from '@sl-design-system/shared';
+import { ArrayDataSource, type SelectionController } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
@@ -122,8 +122,11 @@ export const MultipleWithCustomHeader: Story = {
 export const Grouped: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.setGroupBy('membership');
+
     return html`
-      <sl-grid items-group-by="membership" .items=${people}>
+      <sl-grid .dataSource=${dataSource}>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

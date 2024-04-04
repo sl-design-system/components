@@ -33,7 +33,7 @@ declare global {
     'sl-grid-dragstart': SlDragStartEvent;
     'sl-grid-dragend': SlDragEndEvent;
     'sl-grid-drop': SlDropEvent;
-    'sl-state-change': SlStateChangeEvent;
+    'sl-grid-state-change': SlStateChangeEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -180,9 +180,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
 
-  /** The path to the attribute to group the items on. */
-  @property({ reflect: true, attribute: 'items-group-by' }) itemsGroupBy?: string;
-
   /** Custom parts to be set on the `<tr>` so it can be styled externally. */
   @property({ attribute: false }) itemParts?: GridItemParts<T>;
 
@@ -205,10 +202,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** Uses alternating background colors for the rows when set. */
   @property({ type: Boolean, reflect: true }) striped?: boolean;
 
-  /** The `<tbody>` element. */
+  /** The table body element. */
   @query('tbody') tbody!: HTMLTableSectionElement;
 
-  /** The `<thead>` element. */
+  /** The table head element. */
   @query('thead') thead!: HTMLTableSectionElement;
 
   /** The model used for rendering the grid. */
@@ -255,41 +252,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('dataSource')) {
-      if (this.dataSource?.groupBy) {
-        this.itemsGroupBy = this.dataSource.groupBy.path;
-      } else {
-        this.itemsGroupBy = undefined;
-      }
+      this.#updateDataSource(this.dataSource);
     }
 
     if (changes.has('items')) {
-      this.dataSource = this.items ? new ArrayDataSource(this.items) : undefined;
-      if (this.itemsGroupBy) {
-        this.dataSource?.setGroupBy(this.itemsGroupBy);
-      }
-
-      this.view.dataSource = this.dataSource;
-      this.selection.size = this.dataSource?.size ?? 0;
-    }
-
-    if (changes.has('itemsGroupBy')) {
-      if (this.itemsGroupBy) {
-        this.dataSource?.setGroupBy(this.itemsGroupBy);
+      if (this.dataSource) {
+        this.dataSource.items = this.items ?? [];
       } else {
-        this.dataSource?.removeGroupBy();
+        this.dataSource = this.items ? new ArrayDataSource(this.items) : undefined;
       }
-    }
-  }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('dataSource')) {
-      this.view.dataSource = this.dataSource;
-      this.selection.size = this.dataSource?.size ?? 0;
-
-      this.#applyFilters();
-      this.#applySorters();
+      this.#updateDataSource(this.dataSource);
     }
 
     if (changes.has('scopedElements')) {
@@ -647,16 +620,16 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.#filters = this.#filters.filter(filter => filter !== target);
     }
 
-    this.#applyFilters();
+    this.#applyFilters(true);
   }
 
   #onFilterValueChange(): void {
-    this.#applyFilters();
+    this.#applyFilters(true);
   }
 
   #onGroupSelect(event: SlSelectEvent<boolean>, group: GridViewModelGroup): void {
     const items = this.dataSource?.filteredItems ?? [],
-      groupItems = items.filter(item => getValueByPath(item, this.itemsGroupBy) === group.value);
+      groupItems = items.filter(item => getValueByPath(item, group.path) === group.value);
 
     if (event.detail) {
       groupItems.forEach(item => this.selection.select(item));
@@ -712,7 +685,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onSortDirectionChange({ target }: Event & { target: GridSorter<T> }): void {
     this.#sorters.filter(sorter => sorter !== target).forEach(sorter => sorter.reset());
-    this.#applySorters();
+    this.#applySorters(true);
   }
 
   #onSorterChange({ detail, target }: SlSorterChangeEvent & { target: GridSorter<T> }): void {
@@ -722,7 +695,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       this.#sorters = this.#sorters.filter(sorter => sorter !== target);
     }
 
-    this.#applySorters();
+    this.#applySorters(true);
   }
 
   #onVisibilityChanged(): void {
@@ -743,11 +716,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #applyFilters(): void {
-    if (!this.dataSource) {
-      return;
-    }
-
+  #applyFilters(update = false): void {
     this.#filters.forEach(f => {
       const id = f.column.id,
         empty = (Array.isArray(f.value) && f.value.length === 0) || !f.value;
@@ -759,27 +728,40 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       }
     });
 
-    this.dataSource.update();
-    this.requestUpdate();
-    this.stateChangeEvent.emit({ grid: this });
+    if (update) {
+      // Update the data source in the next frame to avoid multiple Lit update cycles
+      requestAnimationFrame(() => this.dataSource?.update());
+
+      this.stateChangeEvent.emit({ grid: this });
+    }
   }
 
-  #applySorters(): void {
-    if (!this.dataSource) {
-      return;
-    }
-
-    const { id } = this.dataSource.sort ?? {},
+  #applySorters(update = false): void {
+    const { id } = this.dataSource?.sort ?? {},
       sorter = this.#sorters.find(sorter => !!sorter.direction);
 
     if (sorter) {
-      this.dataSource.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction!);
+      this.dataSource?.setSort(sorter.column.id, sorter.path! || sorter.sorter!, sorter.direction!);
     } else if (id && this.#sorters.find(s => s.column.id === id)) {
-      this.dataSource.removeSort();
+      this.dataSource?.removeSort();
     }
 
-    this.dataSource.update();
-    this.requestUpdate();
+    if (update) {
+      // Update the data source in the next frame to avoid multiple Lit update cycles
+      requestAnimationFrame(() => this.dataSource?.update());
+
+      this.stateChangeEvent.emit({ grid: this });
+    }
+  }
+
+  #updateDataSource(dataSource?: DataSource<T>): void {
+    this.view.dataSource = dataSource;
+    this.selection.size = dataSource?.size ?? 0;
+
+    this.#applyFilters();
+    this.#applySorters();
+
+    dataSource?.update();
     this.stateChangeEvent.emit({ grid: this });
   }
 }

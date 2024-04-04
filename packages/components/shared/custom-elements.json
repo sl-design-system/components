@@ -3353,7 +3353,6 @@
               "type": {
                 "text": "T[]"
               },
-              "readonly": true,
               "description": "The array of all items.",
               "inheritedFrom": {
                 "name": "DataSource",
@@ -3712,7 +3711,6 @@
               "type": {
                 "text": "T[]"
               },
-              "readonly": true,
               "description": "The array of all items.",
               "inheritedFrom": {
                 "name": "DataSource",
@@ -3892,7 +3890,6 @@
               "type": {
                 "text": "T[]"
               },
-              "readonly": true,
               "description": "The array of all items."
             },
             {
@@ -4217,7 +4214,6 @@
               "type": {
                 "text": "T[]"
               },
-              "readonly": true,
               "description": "The array of all items."
             },
             {

@@ -59,7 +59,7 @@ export abstract class DataSource<T = any> extends EventTarget {
   abstract readonly filteredItems: T[];
 
   /** The array of all items. */
-  abstract readonly items: T[];
+  abstract items: T[];
 
   /** Total number of items in this data source. */
   abstract readonly size: number;

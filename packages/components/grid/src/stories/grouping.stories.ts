@@ -17,8 +17,11 @@ export default {
 export const Basic: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.setGroupBy('membership');
+
     return html`
-      <sl-grid items-group-by="membership" .items=${people}>
+      <sl-grid .dataSource=${dataSource}>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
         <sl-grid-column path="email"></sl-grid-column>

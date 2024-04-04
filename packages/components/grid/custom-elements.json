@@ -2426,8 +2426,7 @@
               "name": "value",
               "type": {
                 "text": "string | string[] | undefined"
-              },
-              "attribute": "value"
+              }
             }
           ],
           "attributes": [
@@ -2446,13 +2445,6 @@
               },
               "description": "The path to the field to filter on.",
               "fieldName": "path"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string | string[] | undefined"
-              },
-              "fieldName": "value"
             }
           ],
           "mixins": [
@@ -2602,6 +2594,13 @@
                 "text": "GridFilterOption[] | undefined"
               },
               "description": "The filter options."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | string[] | undefined"
+              }
             }
           ]
         }
@@ -2715,16 +2714,6 @@
               },
               "description": "An array of items to be displayed in the grid.",
               "attribute": "items"
-            },
-            {
-              "kind": "field",
-              "name": "itemsGroupBy",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The path to the attribute to group the items on.",
-              "attribute": "items-group-by",
-              "reflects": true
             },
             {
               "kind": "field",
@@ -2882,7 +2871,7 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<tbody>` element."
+              "description": "The table body element."
             },
             {
               "kind": "field",
@@ -2890,7 +2879,7 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<thead>` element."
+              "description": "The table head element."
             },
             {
               "kind": "field",
@@ -2915,14 +2904,6 @@
               },
               "description": "An array of items to be displayed in the grid.",
               "fieldName": "items"
-            },
-            {
-              "name": "items-group-by",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The path to the attribute to group the items on.",
-              "fieldName": "itemsGroupBy"
             },
             {
               "name": "no-border",
@@ -3380,7 +3361,13 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "update",
+                  "default": "false"
+                }
+              ]
             },
             {
               "kind": "method",
@@ -3389,7 +3376,31 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "update",
+                  "default": "false"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateDataSource",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "dataSource",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSource<T>"
+                  }
+                }
+              ]
             }
           ],
           "fields": [
@@ -3593,7 +3604,7 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<tbody>` element."
+              "description": "The table body element."
             },
             {
               "kind": "field",
@@ -3601,7 +3612,7 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<thead>` element."
+              "description": "The table head element."
             },
             {
               "kind": "field",

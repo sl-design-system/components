@@ -97,7 +97,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
     this.requestUpdate('value');
   }
 
-  @property({ type: String })
+  @property({ attribute: false })
   get value(): string | string[] | undefined {
     return this.#value;
   }
@@ -109,6 +109,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
+    // FIXME: This event is not emitted when the component is removed from the DOM.
     this.filterChangeEvent.emit('removed');
 
     super.disconnectedCallback();
@@ -147,8 +148,8 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
             `
           : html`
               <sl-text-field
-                @keydown=${this.#onKeydown}
                 @input=${this.#onInput}
+                @keydown=${this.#onKeydown}
                 .placeholder=${msg('Type here to filter')}
                 .value=${this.value?.toString() ?? ''}
                 aria-labelledby="title"

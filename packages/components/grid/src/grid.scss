@@ -68,7 +68,7 @@ tbody {
   border-start-start-radius: 0;
   max-inline-size: var(--sl-grid-width);
   min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
-  overflow-x: auto;
+  overflow: auto clip;
 }
 
 tr {

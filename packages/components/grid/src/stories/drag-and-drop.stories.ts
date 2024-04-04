@@ -1,4 +1,5 @@
 import { type Person, getPeople } from '@sl-design-system/example-data';
+import { ArrayDataSource } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
@@ -38,6 +39,9 @@ export const Basic: Story = {
 export const Grouping: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.setGroupBy('membership');
+
     const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
       // Reorder the person in the grid
       const newPeople = [...(grid.items as Person[])],
@@ -48,7 +52,7 @@ export const Grouping: Story = {
     };
 
     return html`
-      <sl-grid @sl-grid-drop=${onDrop} items-group-by="membership" .items=${people}>
+      <sl-grid @sl-grid-drop=${onDrop} .dataSource=${dataSource}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>

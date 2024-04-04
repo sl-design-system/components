@@ -1,5 +1,6 @@
 import { Button } from '@sl-design-system/button';
 import { type Person, getPeople } from '@sl-design-system/example-data';
+import { ArrayDataSource } from '@sl-design-system/shared';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../../register.js';
@@ -23,7 +24,7 @@ export const Basic: Story = {
   }
 };
 
-export const Custom: Story = {
+export const CustomColumnSorter: Story = {
   render: (_, { loaded: { people } }) => {
     const renderer = ({ firstName, lastName }: Person): TemplateResult => {
       return html`<sl-button>${firstName} ${lastName}</sl-button>`;
@@ -48,11 +49,40 @@ export const Custom: Story = {
   }
 };
 
+export const CustomDataSourceSorter: Story = {
+  render: (_, { loaded: { people } }) => {
+    const sorter = (a: Person, b: Person): number => {
+      const lastNameCmp = a.lastName.localeCompare(b.lastName);
+
+      if (lastNameCmp === 0) {
+        return a.firstName.localeCompare(b.firstName);
+      } else {
+        return lastNameCmp;
+      }
+    };
+
+    const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.setSort('custom', sorter, 'asc');
+
+    return html`
+      <p>This grid sorts people by last name, then first name, via a custom sorter on the data directly.</p>
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
+        <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
+        <sl-grid-column path="email"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
 export const Grouped: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.setGroupBy('membership');
+
     return html`
-      <sl-grid items-group-by="membership" .items=${people}>
+      <sl-grid .dataSource=${dataSource}>
         <sl-grid-sort-column path="firstName"></sl-grid-sort-column>
         <sl-grid-sort-column path="lastName"></sl-grid-sort-column>
         <sl-grid-column path="email"></sl-grid-column>

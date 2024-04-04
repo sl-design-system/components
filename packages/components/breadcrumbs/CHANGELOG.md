@@ -1,5 +1,13 @@
 # @sl-design-system/breadcrumbs
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/menu@0.0.7
+  - @sl-design-system/tooltip@0.0.24
+
 ## 0.0.5
 
 ### Patch Changes

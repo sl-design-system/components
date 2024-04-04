@@ -145,7 +145,7 @@ td {
   border-block-end: var(--_cell-border);
 }
 
-td[part~='drag-handle'] {
+td[part~='drag-handle']:not([part~='fixed']) {
   cursor: grab;
 }
 

@@ -603,12 +603,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       newIndex = parseInt(this.#dropPlaceholder!.nextElementSibling.getAttribute('index')!);
     }
 
+    // Convert the view index to the data source index
+    newIndex = this.dataSource?.items.indexOf(this.view.getItemAtIndex(newIndex)) ?? -1;
+
     if (oldIndex < newIndex) {
       newIndex--;
     }
-
-    // Convert the view index to the data source index
-    newIndex = this.dataSource?.items.indexOf(this.view.getItemAtIndex(newIndex)) ?? -1;
 
     this.dropEvent.emit({ grid: this, item: this.#dragItem!, oldIndex, newIndex });
   }

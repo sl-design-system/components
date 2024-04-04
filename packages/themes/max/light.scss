@@ -66,8 +66,8 @@
   --sl-color-select-listbox-border: rgb(var(--sl-color-palette-neutral-500));
   --sl-color-select-selectbox-default-focus-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-select-selectbox-default-active-border: rgb(var(--sl-color-palette-primary-base));
-  --sl-color-select-item-group-title-foreground: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-select-item-divider-line: rgb(var(--sl-color-palette-neutral-100));
+  --sl-color-select-item-group-title-foreground: rgb(var(--sl-color-palette-neutral-600));
+  --sl-color-select-item-divider-line: rgb(var(--sl-color-palette-neutral-200));
   --sl-color-select-item-disabled-indicator: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-select-item-disabled-foreground: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-select-item-focus-indicator: rgb(var(--sl-color-palette-accent-base));
@@ -88,38 +88,24 @@
   --sl-color-input-field-label-text-disabled: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-helper-icon-disabled: rgb(var(--sl-color-palette-neutral-300));
   --sl-color-input-helper-text-disabled: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-text-field-valid-disabled-icon: rgb(var(--sl-color-palette-success-150));
-  --sl-color-input-text-field-valid-disabled-label: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-text-field-valid-disabled-background: rgb(var(--sl-color-palette-transparent-base));
   --sl-color-input-text-field-valid-focus-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-text-field-valid-active-border: rgb(var(--sl-color-palette-primary-base));
-  --sl-color-input-text-field-valid-active-background: rgba(
-    var(--sl-color-palette-success-base) / var(--sl-opacity-100)
-  );
-  --sl-color-input-text-field-valid-hover-background: rgba(
-    var(--sl-color-palette-success-base) / var(--sl-opacity-300)
-  );
+  --sl-color-input-text-field-valid-active-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-input-text-field-valid-hover-background: rgb(var(--sl-color-palette-success-100));
   --sl-color-input-text-field-valid-default-icon: rgb(var(--sl-color-palette-success-500));
-  --sl-color-input-text-field-valid-default-background: rgb(var(--sl-color-palette-transparent-base));
-  --sl-color-input-text-field-invalid-disabled-placeholder: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-text-field-invalid-disabled-icon: rgb(var(--sl-color-palette-danger-150));
-  --sl-color-input-text-field-invalid-disabled-label: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-text-field-invalid-disabled-border: rgb(var(--sl-color-palette-danger-150));
-  --sl-color-input-text-field-invalid-disabled-background: rgb(var(--sl-color-palette-transparent-base));
-  --sl-color-input-text-field-invalid-active-background: rgba(
-    var(--sl-color-palette-danger-base) / var(--sl-opacity-100)
-  );
-  --sl-color-input-text-field-invalid-hover-background: rgba(
-    var(--sl-color-palette-danger-base) / var(--sl-opacity-300)
-  );
+  --sl-color-input-text-field-valid-default-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-input-text-field-invalid-active-border: rgb(var(--sl-color-palette-danger-700));
+  --sl-color-input-text-field-invalid-active-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-input-text-field-invalid-hover-background: rgb(var(--sl-color-palette-danger-100));
   --sl-color-input-text-field-invalid-default-icon: rgb(var(--sl-color-palette-danger-600));
   --sl-color-input-text-field-invalid-default-border: rgb(var(--sl-color-palette-danger-600));
-  --sl-color-input-text-field-invalid-default-background: rgb(var(--sl-color-palette-transparent-base));
-  --sl-color-input-text-field-default-disabled-placeholder: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-text-field-default-disabled-input-text: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-text-field-default-disabled-icon: rgb(var(--sl-color-palette-neutral-200));
-  --sl-color-input-text-field-default-disabled-label: rgb(var(--sl-color-palette-neutral-300));
-  --sl-color-input-text-field-default-disabled-border: rgb(var(--sl-color-palette-neutral-200));
+  --sl-color-input-text-field-invalid-default-background: rgb(var(--sl-color-palette-white-base));
+  --sl-color-input-text-field-default-disabled-placeholder: rgb(var(--sl-color-palette-neutral-400));
+  --sl-color-input-text-field-default-disabled-input-text: rgb(var(--sl-color-palette-neutral-400));
+  --sl-color-input-text-field-default-disabled-icon: rgb(var(--sl-color-palette-neutral-400));
+  --sl-color-input-text-field-default-disabled-label: rgb(var(--sl-color-palette-neutral-400));
+  --sl-color-input-text-field-default-disabled-border: rgb(var(--sl-color-palette-neutral-400));
+  --sl-color-input-text-field-default-disabled-background: rgb(var(--sl-color-palette-neutral-100));
   --sl-color-input-text-field-default-focus-border: rgb(var(--sl-color-palette-primary-base));
   --sl-color-input-text-field-default-active-border: rgb(var(--sl-color-palette-accent-base));
   --sl-color-input-text-field-default-active-background: rgba(
@@ -520,22 +506,13 @@
   --sl-color-dialog-background: var(--sl-body-background);
   --sl-color-popover-foreground: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-placeholder: var(--sl-color-input-text-field-default-disabled-placeholder);
-  --sl-color-select-selectbox-valid-disabled-icon: var(--sl-color-input-text-field-valid-disabled-icon);
-  --sl-color-select-selectbox-valid-disabled-label: var(--sl-color-input-text-field-valid-disabled-label);
-  --sl-color-select-selectbox-valid-disabled-background: var(--sl-color-input-text-field-valid-disabled-background);
   --sl-color-select-selectbox-valid-focus-border: var(--sl-color-input-text-field-valid-focus-border);
   --sl-color-select-selectbox-valid-active-border: var(--sl-color-input-text-field-valid-active-border);
   --sl-color-select-selectbox-valid-active-background: var(--sl-color-input-text-field-valid-active-background);
   --sl-color-select-selectbox-valid-hover-background: var(--sl-color-input-text-field-valid-hover-background);
   --sl-color-select-selectbox-valid-default-icon: var(--sl-color-input-text-field-valid-default-icon);
   --sl-color-select-selectbox-valid-default-background: var(--sl-color-input-text-field-valid-default-background);
-  --sl-color-select-selectbox-invalid-disabled-placeholder: var(
-    --sl-color-input-text-field-invalid-disabled-placeholder
-  );
-  --sl-color-select-selectbox-invalid-disabled-icon: var(--sl-color-input-text-field-invalid-disabled-icon);
-  --sl-color-select-selectbox-invalid-disabled-label: var(--sl-color-input-text-field-invalid-disabled-label);
-  --sl-color-select-selectbox-invalid-disabled-border: var(--sl-color-input-text-field-invalid-disabled-border);
-  --sl-color-select-selectbox-invalid-disabled-background: var(--sl-color-input-text-field-invalid-disabled-background);
+  --sl-color-select-selectbox-invalid-active-border: var(--sl-color-input-text-field-invalid-active-border);
   --sl-color-select-selectbox-invalid-active-background: var(--sl-color-input-text-field-invalid-active-background);
   --sl-color-select-selectbox-invalid-hover-background: var(--sl-color-input-text-field-invalid-hover-background);
   --sl-color-select-selectbox-invalid-default-icon: var(--sl-color-input-text-field-invalid-default-icon);
@@ -548,6 +525,7 @@
   --sl-color-select-selectbox-default-disabled-icon: var(--sl-color-input-text-field-default-disabled-icon);
   --sl-color-select-selectbox-default-disabled-label: var(--sl-color-input-text-field-default-disabled-label);
   --sl-color-select-selectbox-default-disabled-border: var(--sl-color-input-text-field-default-disabled-border);
+  --sl-color-select-selectbox-default-disabled-background: var(--sl-color-input-text-field-default-disabled-background);
   --sl-color-select-selectbox-default-active-background: var(--sl-color-input-text-field-default-active-background);
   --sl-color-select-selectbox-default-hover-icon: var(--sl-color-input-text-field-default-hover-icon);
   --sl-color-select-selectbox-default-hover-background: var(--sl-color-input-text-field-default-hover-background);
@@ -571,7 +549,10 @@
   --sl-color-input-helper-text-invalid: var(--sl-color-input-text-field-invalid-default-icon);
   --sl-color-input-helper-text-default: var(--sl-body-foreground);
   --sl-color-input-text-field-valid-disabled-input-text: var(--sl-color-input-text-field-default-disabled-input-text);
+  --sl-color-input-text-field-valid-disabled-icon: var(--sl-color-input-text-field-default-disabled-icon);
+  --sl-color-input-text-field-valid-disabled-label: var(--sl-color-input-text-field-default-disabled-label);
   --sl-color-input-text-field-valid-disabled-border: var(--sl-color-input-text-field-default-disabled-border);
+  --sl-color-input-text-field-valid-disabled-background: var(--sl-color-input-text-field-default-disabled-background);
   --sl-color-input-text-field-valid-focus-icon: var(--sl-color-input-text-field-valid-default-icon);
   --sl-color-input-text-field-valid-focus-label: var(--sl-body-foreground);
   --sl-color-input-text-field-valid-focus-background: var(--sl-color-input-text-field-valid-active-background);
@@ -581,7 +562,14 @@
   --sl-color-input-text-field-valid-hover-label: var(--sl-body-foreground);
   --sl-color-input-text-field-valid-default-label: var(--sl-body-foreground);
   --sl-color-input-text-field-valid-default-border: var(--sl-color-input-text-field-default-default-border);
+  --sl-color-input-text-field-invalid-disabled-placeholder: var(
+    --sl-color-input-text-field-default-disabled-placeholder
+  );
   --sl-color-input-text-field-invalid-disabled-input-text: var(--sl-color-input-text-field-default-disabled-input-text);
+  --sl-color-input-text-field-invalid-disabled-icon: var(--sl-color-input-text-field-default-disabled-icon);
+  --sl-color-input-text-field-invalid-disabled-label: var(--sl-color-input-text-field-default-disabled-label);
+  --sl-color-input-text-field-invalid-disabled-border: var(--sl-color-input-text-field-default-disabled-border);
+  --sl-color-input-text-field-invalid-disabled-background: var(--sl-color-input-text-field-default-disabled-background);
   --sl-color-input-text-field-invalid-focus-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-input-text-field-invalid-focus-icon: var(--sl-color-input-text-field-invalid-default-icon);
   --sl-color-input-text-field-invalid-focus-label: var(--sl-body-foreground);
@@ -590,14 +578,12 @@
   --sl-color-input-text-field-invalid-active-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-input-text-field-invalid-active-icon: var(--sl-color-input-text-field-invalid-default-icon);
   --sl-color-input-text-field-invalid-active-label: var(--sl-body-foreground);
-  --sl-color-input-text-field-invalid-active-border: var(--sl-color-input-text-field-invalid-default-border);
   --sl-color-input-text-field-invalid-hover-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-input-text-field-invalid-hover-icon: var(--sl-color-input-text-field-invalid-default-icon);
   --sl-color-input-text-field-invalid-hover-label: var(--sl-body-foreground);
   --sl-color-input-text-field-invalid-hover-border: var(--sl-color-input-text-field-invalid-default-border);
   --sl-color-input-text-field-invalid-default-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-input-text-field-invalid-default-label: var(--sl-body-foreground);
-  --sl-color-input-text-field-default-disabled-background: rgba(var(--sl-body-background) / var(--sl-opacity-200));
   --sl-color-input-text-field-default-focus-placeholder: var(--sl-color-input-text-field-default-default-placeholder);
   --sl-color-input-text-field-default-focus-icon: var(--sl-body-foreground);
   --sl-color-input-text-field-default-focus-label: var(--sl-body-foreground);
@@ -687,7 +673,10 @@
   --sl-color-avatar-subheader: var(--sl-body-foreground);
   --sl-color-avatar-header: var(--sl-body-foreground);
   --sl-color-select-selectbox-valid-disabled-input-text: var(--sl-color-input-text-field-valid-disabled-input-text);
+  --sl-color-select-selectbox-valid-disabled-icon: var(--sl-color-input-text-field-valid-disabled-icon);
+  --sl-color-select-selectbox-valid-disabled-label: var(--sl-color-input-text-field-valid-disabled-label);
   --sl-color-select-selectbox-valid-disabled-border: var(--sl-color-input-text-field-valid-disabled-border);
+  --sl-color-select-selectbox-valid-disabled-background: var(--sl-color-input-text-field-valid-disabled-background);
   --sl-color-select-selectbox-valid-focus-placeholder: var(--sl-color-input-text-field-invalid-default-placeholder);
   --sl-color-select-selectbox-valid-focus-icon: var(--sl-color-input-text-field-valid-focus-icon);
   --sl-color-select-selectbox-valid-focus-label: var(--sl-color-input-text-field-valid-focus-label);
@@ -701,7 +690,14 @@
   --sl-color-select-selectbox-valid-default-placeholder: var(--sl-color-input-text-field-invalid-default-placeholder);
   --sl-color-select-selectbox-valid-default-label: var(--sl-color-input-text-field-valid-default-label);
   --sl-color-select-selectbox-valid-default-border: var(--sl-color-input-text-field-valid-default-border);
+  --sl-color-select-selectbox-invalid-disabled-placeholder: var(
+    --sl-color-input-text-field-invalid-disabled-placeholder
+  );
   --sl-color-select-selectbox-invalid-disabled-input-text: var(--sl-color-input-text-field-invalid-disabled-input-text);
+  --sl-color-select-selectbox-invalid-disabled-icon: var(--sl-color-input-text-field-invalid-disabled-icon);
+  --sl-color-select-selectbox-invalid-disabled-label: var(--sl-color-input-text-field-invalid-disabled-label);
+  --sl-color-select-selectbox-invalid-disabled-border: var(--sl-color-input-text-field-invalid-disabled-border);
+  --sl-color-select-selectbox-invalid-disabled-background: var(--sl-color-input-text-field-invalid-disabled-background);
   --sl-color-select-selectbox-invalid-focus-placeholder: var(--sl-color-input-text-field-invalid-focus-placeholder);
   --sl-color-select-selectbox-invalid-focus-icon: var(--sl-color-input-text-field-invalid-focus-icon);
   --sl-color-select-selectbox-invalid-focus-label: var(--sl-color-input-text-field-invalid-focus-label);
@@ -710,14 +706,12 @@
   --sl-color-select-selectbox-invalid-active-placeholder: var(--sl-color-input-text-field-invalid-active-placeholder);
   --sl-color-select-selectbox-invalid-active-icon: var(--sl-color-input-text-field-invalid-active-icon);
   --sl-color-select-selectbox-invalid-active-label: var(--sl-color-input-text-field-invalid-active-label);
-  --sl-color-select-selectbox-invalid-active-border: var(--sl-color-input-text-field-invalid-active-border);
   --sl-color-select-selectbox-invalid-hover-placeholder: var(--sl-color-input-text-field-invalid-hover-placeholder);
   --sl-color-select-selectbox-invalid-hover-icon: var(--sl-color-input-text-field-invalid-hover-icon);
   --sl-color-select-selectbox-invalid-hover-label: var(--sl-color-input-text-field-invalid-hover-label);
   --sl-color-select-selectbox-invalid-hover-border: var(--sl-color-input-text-field-invalid-hover-border);
   --sl-color-select-selectbox-invalid-default-placeholder: var(--sl-color-input-text-field-invalid-default-placeholder);
   --sl-color-select-selectbox-invalid-default-label: var(--sl-color-input-text-field-invalid-default-label);
-  --sl-color-select-selectbox-default-disabled-background: var(--sl-color-input-text-field-default-disabled-background);
   --sl-color-select-selectbox-default-focus-placeholder: var(--sl-color-input-text-field-default-focus-placeholder);
   --sl-color-select-selectbox-default-focus-icon: var(--sl-color-input-text-field-default-focus-icon);
   --sl-color-select-selectbox-default-focus-label: var(--sl-color-input-text-field-default-focus-label);

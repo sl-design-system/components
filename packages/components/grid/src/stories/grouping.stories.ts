@@ -63,7 +63,7 @@ export const CustomHeader: Story = {
     const groupHeaderRenderer: GridGroupHeaderRenderer = (group: GridViewModelGroup) => {
       return html`
         <span part="group-heading">${group.value}</span>
-        <sl-menu-button fill="ghost">
+        <sl-menu-button fill="ghost" size="sm" style="margin: 4px;">
           <sl-icon name="ellipsis" slot="button"></sl-icon>
           <sl-menu-item>Option 1</sl-menu-item>
           <sl-menu-item>Option 2</sl-menu-item>

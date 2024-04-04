@@ -175,7 +175,9 @@
     },
     "dist": {
       "dependencies": [
-        "build",
+        "build:components",
+        "build:locales",
+        "build:types",
         "dist:checklist",
         "dist:components",
         "dist:themes"

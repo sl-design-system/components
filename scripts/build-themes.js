@@ -43,7 +43,7 @@ StyleDictionary.registerTransform({
   name: 'sl/name/css/fontFamilies',
   type: 'value',
   matcher: token => (token.$type ?? token.type) === 'fontFamilies',
-  transformer: token => (token.$value ?? token.value).replace(/\s+/g, '-').toLowerCase()
+  transformer: token => (token.$value ?? token.value).replace(/\s+/g, '-').replaceAll('\'', '').toLowerCase()
 });
 
 // Transform line heights to px if they are not percentages

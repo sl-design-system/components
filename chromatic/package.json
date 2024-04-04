@@ -35,12 +35,12 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^8.0.4",
-    "@storybook/addon-essentials": "^8.0.4",
-    "@storybook/addon-storysource": "^8.0.4",
-    "@storybook/web-components-vite": "^8.0.4",
+    "@storybook/addon-a11y": "^8.0.5",
+    "@storybook/addon-essentials": "^8.0.5",
+    "@storybook/addon-storysource": "^8.0.5",
+    "@storybook/web-components-vite": "^8.0.5",
     "lit": "^3.1.2",
-    "storybook": "^8.0.4",
+    "storybook": "^8.0.5",
     "tslib": "^2.6.2",
     "typescript": "^5.4.3",
     "wireit": "^0.14.4"

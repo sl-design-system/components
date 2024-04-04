@@ -12,16 +12,9 @@
   "scripts": {
     "chromatic": "chromatic --build-script-name storybook -o storybook-static --exit-zero-on-changes",
     "themes": "wireit",
-    "storybook": "wireit",
     "start": "wireit"
   },
   "wireit": {
-    "storybook": {
-      "command": "storybook build",
-      "dependencies": [
-        "..:build"
-      ]
-    },
     "themes": {
       "command": "storybook build",
       "dependencies": [

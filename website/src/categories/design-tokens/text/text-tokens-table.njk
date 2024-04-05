@@ -7,7 +7,7 @@
  <th>Token</th>
 </tr></thead>
 <tbody>
-{% for text in tokens.base.text -%}{% if text[0] == 'typeset' %}{% for textProperties in text[1] -%}{% for textType in textProperties[1] -%}{% if textType[0] | notContainsIconValue %}{% if textType[1].value %}
+{% for text in tokens.core.text -%}{% if text[0] == 'typeset' %}{% for textProperties in text[1] -%}{% for textType in textProperties[1] -%}{% if textType[0] | notContainsIconValue %}{% if textType[1].value %}
 <tr>
 <td>
 {% if textType[1].type != 'paragraphSpacing' %}

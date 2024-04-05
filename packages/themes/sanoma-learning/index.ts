@@ -1,7 +1,5 @@
-import type { IconLibrary } from '@sl-design-system/icon';
-import { Icon } from '@sl-design-system/icon';
-import type { ConfigSettings } from '@sl-design-system/shared';
-import { Config } from '@sl-design-system/shared';
+import { Icon, type IconLibrary } from '@sl-design-system/icon';
+import { Config, type ConfigSettings } from '@sl-design-system/shared';
 import { icons } from './icons.js';
 
 // export const setup = (): void => {

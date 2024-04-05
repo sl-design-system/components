@@ -3969,15 +3969,15 @@
           "type": "color"
         },
         "header": {
-          "value": "{color.palette.primary.50}",
+          "value": "{color.palette.neutral.100}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.primary.500}",
+          "value": "{color.accordion.default.foreground}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.primary.500}",
+          "value": "{color.accordion.default.icon}",
           "type": "color"
         },
         "border": {
@@ -4013,15 +4013,15 @@
           "type": "color"
         },
         "header": {
-          "value": "{color.palette.primary.100}",
+          "value": "{color.palette.neutral.150}",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.primary.500}",
+          "value": "{color.accordion.default.foreground}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.primary.500}",
+          "value": "{color.accordion.default.icon}",
           "type": "color"
         },
         "border": {

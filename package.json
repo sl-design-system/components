@@ -178,6 +178,7 @@
         "build:components",
         "build:locales",
         "build:types",
+        "build:themes:code",
         "dist:checklist",
         "dist:components",
         "dist:themes"

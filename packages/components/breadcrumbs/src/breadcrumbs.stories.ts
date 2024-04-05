@@ -43,7 +43,7 @@ export const Collapse: Story = {
       <a href="javascript:void(0)">Sit</a>
       <a href="javascript:void(0)">Amet</a>
       <a href="http://sanomalearning.design">Foo</a>
-      <span>Bar</span>
+      <a href="javascript:void(0)">Bar</a>
     `
   }
 };

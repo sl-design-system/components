@@ -1565,7 +1565,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.neutral.400}",
+                "value": "{color.palette.neutral.500}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -3127,7 +3127,7 @@
     },
     "tooltip": {
       "background": {
-        "value": "{color.palette.accent.base}",
+        "value": "{color.palette.black.base}",
         "type": "color"
       },
       "foreground": {
@@ -3155,7 +3155,7 @@
         "type": "color"
       },
       "border": {
-        "value": "{color.palette.neutral.100}",
+        "value": "{color.palette.neutral.500}",
         "type": "color"
       }
     },
@@ -3664,7 +3664,7 @@
       },
       "listbox": {
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.palette.neutral.500}",
           "type": "color"
         },
         "background": {

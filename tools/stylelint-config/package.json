@@ -27,7 +27,7 @@
     "postcss-lit": "^1.1.1",
     "prettier": "^3.2.5",
     "stylelint-config-standard": "^36.0.0",
-    "stylelint-config-standard-scss": "^13.0.0",
+    "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-order": "^6.0.4",
     "stylelint-prettier": "^5.0.0",
     "stylelint-use-logical": "^2.1.2"

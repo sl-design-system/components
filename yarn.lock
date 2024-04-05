@@ -4241,7 +4241,7 @@ __metadata:
     rxjs: "npm:~7.8.1"
     storybook: "npm:^8.0.5"
     tslib: "npm:^2.6.2"
-    typescript: "npm:~5.4.3"
+    typescript: "npm:~5.4.4"
     wireit: "npm:^0.14.4"
     zone.js: "npm:~0.14.4"
   languageName: unknown
@@ -4369,7 +4369,7 @@ __metadata:
     lit: "npm:^3.1.2"
     storybook: "npm:^8.0.5"
     tslib: "npm:^2.6.2"
-    typescript: "npm:^5.4.3"
+    typescript: "npm:^5.4.4"
     wireit: "npm:^0.14.4"
   languageName: unknown
   linkType: soft
@@ -4635,7 +4635,7 @@ __metadata:
     sinon: "npm:^17.0.1"
     storybook: "npm:^8.0.5"
     stylelint: "npm:^16.3.1"
-    typescript: "npm:^5.4.3"
+    typescript: "npm:^5.4.4"
     vite: "npm:^5.2.8"
     wireit: "npm:^0.14.4"
   languageName: unknown
@@ -4792,7 +4792,7 @@ __metadata:
     prettier: "npm:^3.2.5"
     stylelint: "npm:^16.3.1"
     stylelint-config-standard: "npm:^36.0.0"
-    stylelint-config-standard-scss: "npm:^13.0.0"
+    stylelint-config-standard-scss: "npm:^13.1.0"
     stylelint-order: "npm:^6.0.4"
     stylelint-prettier: "npm:^5.0.0"
     stylelint-use-logical: "npm:^2.1.2"
@@ -4902,11 +4902,11 @@ __metadata:
     markdown-it: "npm:^14.1.0"
     markdown-it-anchor: "npm:^8.6.7"
     markdown-it-attrs: "npm:^4.1.6"
-    octokit: "npm:^3.1.2"
+    octokit: "npm:^3.2.0"
     sass: "npm:^1.74.1"
     slugify: "npm:^1.6.6"
     tiny-glob: "npm:^0.2.9"
-    typescript: "npm:^5.4.3"
+    typescript: "npm:^5.4.4"
     wireit: "npm:^0.14.4"
   languageName: unknown
   linkType: soft
@@ -6936,32 +6936,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web/dev-server@npm:^0.4.0":
-  version: 0.4.3
-  resolution: "@web/dev-server@npm:0.4.3"
-  dependencies:
-    "@babel/code-frame": "npm:^7.12.11"
-    "@types/command-line-args": "npm:^5.0.0"
-    "@web/config-loader": "npm:^0.3.0"
-    "@web/dev-server-core": "npm:^0.7.1"
-    "@web/dev-server-rollup": "npm:^0.6.1"
-    camelcase: "npm:^6.2.0"
-    command-line-args: "npm:^5.1.1"
-    command-line-usage: "npm:^7.0.1"
-    debounce: "npm:^1.2.0"
-    deepmerge: "npm:^4.2.2"
-    ip: "npm:^2.0.1"
-    nanocolors: "npm:^0.2.1"
-    open: "npm:^8.0.2"
-    portfinder: "npm:^1.0.32"
-  bin:
-    wds: dist/bin.js
-    web-dev-server: dist/bin.js
-  checksum: 10c0/3a756de015a931e7ad368abc4cedf10ada00958d5a2c48a5a64288c08a67d28be9b8012ee4c63cf6f570737133f0e1bbfba798c064e1b747f6c059b76686b1fd
-  languageName: node
-  linkType: hard
-
-"@web/dev-server@npm:^0.4.4":
+"@web/dev-server@npm:^0.4.0, @web/dev-server@npm:^0.4.4":
   version: 0.4.4
   resolution: "@web/dev-server@npm:0.4.4"
   dependencies:
@@ -17546,9 +17521,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"octokit@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "octokit@npm:3.1.2"
+"octokit@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "octokit@npm:3.2.0"
   dependencies:
     "@octokit/app": "npm:^14.0.2"
     "@octokit/core": "npm:^5.0.0"
@@ -17560,7 +17535,7 @@ __metadata:
     "@octokit/plugin-throttling": "npm:^8.0.0"
     "@octokit/request-error": "npm:^5.0.0"
     "@octokit/types": "npm:^12.0.0"
-  checksum: 10c0/8d9b1847c1c5295fed2b9ea574213ae55f9a12d75913bc77575f48382b8d1998446adeea32095d4866591b224678b0ffa4b6c8ccdb2c4dcd2ec679033a1dc696
+  checksum: 10c0/ee33b74eb1b76979fbbccd1b6eb58f9193a36d4ac1edd647fce81bcadf9485be8c3dd69e788840b308d5268c8b2aae190472f3feda50350e58bb52bb6fca9dfa
   languageName: node
   linkType: hard
 
@@ -20296,20 +20271,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.69.5":
-  version: 1.72.0
-  resolution: "sass@npm:1.72.0"
-  dependencies:
-    chokidar: "npm:>=3.0.0 <4.0.0"
-    immutable: "npm:^4.0.0"
-    source-map-js: "npm:>=0.6.2 <2.0.0"
-  bin:
-    sass: sass.js
-  checksum: 10c0/7df1bb470648edc4b528976b1b165c78d4c6731f680afac7cdc8324142f1ef4304598d317d98dac747a2ae8eee17271d760def90bba072021a8b19b459336ccd
-  languageName: node
-  linkType: hard
-
-"sass@npm:^1.74.1":
+"sass@npm:^1.69.5, sass@npm:^1.74.1":
   version: 1.74.1
   resolution: "sass@npm:1.74.1"
   dependencies:
@@ -21411,19 +21373,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint-config-standard-scss@npm:^13.0.0":
-  version: 13.0.0
-  resolution: "stylelint-config-standard-scss@npm:13.0.0"
+"stylelint-config-standard-scss@npm:^13.1.0":
+  version: 13.1.0
+  resolution: "stylelint-config-standard-scss@npm:13.1.0"
   dependencies:
     stylelint-config-recommended-scss: "npm:^14.0.0"
     stylelint-config-standard: "npm:^36.0.0"
   peerDependencies:
     postcss: ^8.3.3
-    stylelint: ^16.1.0
+    stylelint: ^16.3.1
   peerDependenciesMeta:
     postcss:
       optional: true
-  checksum: 10c0/4abf317676184f4aaace6ce72b9fc9e2dffe051d43dd5637afc5803b062ea381e2807ae983c045dff22e96af58388a8b1fe9a8bdda9f97bc3660280cf24fb4d3
+  checksum: 10c0/d07cae806ee8b3e77684f019a8b22cc32642373da8053e6ae7ed716f8ddbe6ea1f7323633a6a1bbc9aa08c6a3dceb1dcf053d83fdd10d076b5a01da6e86801ae
   languageName: node
   linkType: hard
 
@@ -22304,13 +22266,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.4.3, typescript@npm:~5.4.2, typescript@npm:~5.4.3":
-  version: 5.4.3
-  resolution: "typescript@npm:5.4.3"
+"typescript@npm:^5.4.4, typescript@npm:~5.4.2, typescript@npm:~5.4.4":
+  version: 5.4.4
+  resolution: "typescript@npm:5.4.4"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/22443a8760c3668e256c0b34b6b45c359ef6cecc10c42558806177a7d500ab1a7d7aac1f976d712e26989ddf6731d2fbdd3212b7c73290a45127c1c43ba2005a
+  checksum: 10c0/4d8de0291204ed61ca97ad0cba2ce064e09c4988ca1c451c787e4653ba76296ba35177a52694e8a00cf4ef899d0ee83338663b926d8b7d55167ff0ba81549999
   languageName: node
   linkType: hard
 
@@ -22334,13 +22296,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.4.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.4.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.4.3#optional!builtin<compat/typescript>":
-  version: 5.4.3
-  resolution: "typescript@patch:typescript@npm%3A5.4.3#optional!builtin<compat/typescript>::version=5.4.3&hash=5adc0c"
+"typescript@patch:typescript@npm%3A^5.4.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.4.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.4.4#optional!builtin<compat/typescript>":
+  version: 5.4.4
+  resolution: "typescript@patch:typescript@npm%3A5.4.4#optional!builtin<compat/typescript>::version=5.4.4&hash=5adc0c"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/6e51f8b7e6ec55b897b9e56b67e864fe8f44e30f4a14357aad5dc0f7432db2f01efc0522df0b6c36d361c51f2dc3dcac5c832efd96a404cfabf884e915d38828
+  checksum: 10c0/1fa41b9964a9ff0ed913b339c90b46031b2d2da3cb1a192af516610733f7f1d5f7f9754a8e22b9ac7076d3d8aedd2c4f84db3f113bad060eac3a95962443a1bf
   languageName: node
   linkType: hard
 

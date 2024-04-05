@@ -428,21 +428,21 @@
 @mixin sl-text-input-field-label-label-lg {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-xl);
-  font-weight: var(--sl-text-typeset-font-weight-semibold);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-lg);
 }
 
 @mixin sl-text-input-field-label-label-md {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-lg);
-  font-weight: var(--sl-text-typeset-font-weight-semibold);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-lg);
 }
 
 @mixin sl-text-input-field-label-label-sm {
   font-family: var(--sl-text-typeset-font-family-body);
   font-size: var(--sl-text-typeset-font-size-md);
-  font-weight: var(--sl-text-typeset-font-weight-semibold);
+  font-weight: var(--sl-text-typeset-font-weight-bold);
   line-height: var(--sl-text-typeset-line-height-sm);
 }
 

@@ -51,7 +51,7 @@ export class Tab extends LitElement {
 
   override render(): TemplateResult {
     return this.href
-      ? html`<a href=${this.href}>${this.renderContent()}</a>`
+      ? html`<a @click="#onClick" href=${this.href}>${this.renderContent()}</a>`
       : html`<div class="wrapper">${this.renderContent()}</div>`;
   }
 
@@ -71,9 +71,22 @@ export class Tab extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
+    console.log('changes in updated in tab', changes, this.renderRoot, this.renderRoot.querySelector('a'));
+
     if (changes.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+      // if (this.href) {
+      // }
+      // this.#onClick(this);
+
+      // if (this.renderRoot.querySelector('a')) {
+      //   this.renderRoot.querySelector('a').click(); // TODO: trigger href change
+      // }
     }
+  }
+
+  #onClick(event): void {
+    console.log('event', event);
   }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {

@@ -5,6 +5,7 @@ eleventyNavigation:
   parent: Select
   key: SelectUsage
 ---
+
 <section class="no-heading">
 <div class="ds-example">
 <sl-select value="2" style="inline-size: 20rem;" aria-label="Subjects list">
@@ -154,6 +155,6 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 
 {.ds-table}
 
-
+</div>
 
 </section>

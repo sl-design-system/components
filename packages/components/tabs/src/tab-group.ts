@@ -237,8 +237,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const tab = event.target.closest('sl-tab');
 
     if (tab && ['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-      event.stopPropagation();
+      // event.preventDefault();
+      // event.stopPropagation();
+
+      console.log('tab in onkeydown in component', tab);
 
       this.#updateSelectedTab(tab);
       this.#scrollToTabPanelStart();
@@ -414,7 +416,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.menuItems = undefined;
     }
 
-    this.selectedTab?.scrollIntoView();
+    // this.selectedTab?.scrollIntoView();
 
     this.#updateSelectionIndicator();
   }

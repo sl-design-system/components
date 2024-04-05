@@ -60,6 +60,8 @@ export class VerticalTabs extends LitElement {
   // ,
   // { root: this.parentElement, rootMargin: '-44px' }
 
+  // TODO: on scroll active tabs needs to be changed
+
   // , threshold: [0, 0.25, 0.5, 1]
 
   //   setTimeout(() => {
@@ -126,16 +128,21 @@ export class VerticalTabs extends LitElement {
       this.headerAnchorsParentsAll.push(...headerAnchorsParents);
 
       console.log('headerAnchors in vertical - parents component', this.headerAnchorsParentsAll);
+
+      // window.scrollTo({
+      //   top: 0,
+      //   behavior: 'smooth'
+      // });
     }
 
     setTimeout(() => {
       // const currentContent = document.parentElement.getAttribute('aria-hidden') == 'false';
       const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
       console.log('sections in firstupdated', sections, this.parentElement);
-      if (sections.length) {
-        sections.forEach(section => this.observer.observe(section));
-      }
-    });
+      // if (sections.length) {
+      //   sections.forEach(section => this.observer.observe(section));
+      // }
+    }, 100);
 
     const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
     console.log('verticalTabs in firstUpdated', verticalTabs, verticalTabs.length);
@@ -200,6 +207,12 @@ export class VerticalTabs extends LitElement {
       })
       .filter(element => element !== null);
     console.log('test in render', test);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
     return html`
       <div vertical class="ds-tabs">
         <div class="ds-tabs__container">
@@ -310,6 +323,10 @@ ${this.headerAnchorsParentsAll.map(item => {
     const verticalTab = event.target;
     console.log('onclick on verticaltab in component', event, event.target);
     this.#setActiveTab(verticalTab);
+
+    // setTimeout(() => {
+    //   this.onTabActivate(verticalTab as HTMLElement);
+    // });
     /*    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]');
 
     currentVerticalTabLink?.setAttribute('aria-selected', 'false');
@@ -367,9 +384,9 @@ ${this.headerAnchorsParentsAll.map(item => {
     currentVerticalIndicatorElement.style.height = `${tab.getBoundingClientRect().height}px`;
 
     if (scroll) {
-      setTimeout(() => {
-        this.onTabActivate(tab as HTMLElement);
-      });
+      // setTimeout(() => {
+      //   this.onTabActivate(tab as HTMLElement);
+      // });
     }
   }
 

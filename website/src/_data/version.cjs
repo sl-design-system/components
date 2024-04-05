@@ -36,7 +36,7 @@ module.exports = async function() {
     });
     const versionData = await Promise.all(versions);
     const latestVersions = versionData.map(d => d.data[0]);
-    
+
     let releases = {};
     gitpackages.data.forEach(p => {
       releases = {
@@ -45,6 +45,8 @@ module.exports = async function() {
       }
     });
   await asset.save(releases, "json");
+
+  console.log('releases', releases);
 
   return releases;
 };

@@ -4,7 +4,7 @@ layout: base.njk
 
 <header class="ds-component__heading">
   <div class="ds-component__heading-wrapper">
-    {% if version[packageName] %}<a href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F{{packageName}}%40{{version[packageName]}}"><span class="ds-badge">v{{version[packageName]}}</span></a>{% endif %}
+    {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {% if version[post.data.packageName] %}<a href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F{{post.data.packageName}}%40{{version[post.data.packageName]}}"><span class="ds-badge">v{{version[post.data.packageName]}}</span></a>{% endif %}{% endif %}{%- endfor -%}
     <h1 class="ds-heading-1">
      {# {{ title }}#} {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.title }} {% endif %}{%- endfor -%}
     </h1>
@@ -103,7 +103,8 @@ layout: base.njk
 {#              {{ content | safe }}#}
             {%- for code in collections.code -%}
 {#              {% if code.url.includes(page.url) %}#}
-              {% if code.url == page.url %}
+              {% if code.url.includes(page.url) %}
+{#              {% if code.url == page.url %}#}
                 {{ code.templateContent | safe }}
               {% endif %}
             {%- endfor -%}

@@ -120,20 +120,21 @@ $transition-timing: 300ms;
 .ds-tabs__tab-content {
   // .ds-tabs__tab-content--active
   display: block;
-  animation: {
-    direction: normal;
-    duration: $transition-timing;
-    iteration-count: 1;
-    name: tab-content;
-    timing-function: ease-in-out;
-  }
-
-  // .ds-tabs__tab-container > * {
-  //  scroll-margin-top: 1rem;
-  //  &:not(:first-child, .no-heading) {
-  //    margin-block-start: var(--scale-1200-scale);
-  //  }
+  // animation: {
+  //  direction: normal;
+  //  duration: $transition-timing;
+  //  iteration-count: 1;
+  //  name: tab-content;
+  //  timing-function: ease-in-out;
   // }
+
+  .ds-tabs__tab-container > * {
+    //  scroll-margin-top: 1rem;
+
+    &:not(:first-child, .no-heading) {
+      margin-block-start: var(--scale-1200-scale);
+    }
+  }
 
   h3 {
     margin-block-start: var(--scale-400-scale);

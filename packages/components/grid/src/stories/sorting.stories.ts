@@ -8,7 +8,7 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Sorting',
+  title: 'In progress/Grid/Sorting',
   loaders: [async () => ({ people: (await getPeople()).people })]
 } satisfies Meta;
 

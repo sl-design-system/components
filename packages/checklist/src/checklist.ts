@@ -5,6 +5,7 @@ import { Skeleton } from '@sl-design-system/skeleton';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import styles from './checklist.scss.js';
+import theme from './sanoma-learning-theme.scss.js';
 import theMessageFontFace from './the-message-font-face.js';
 
 declare global {
@@ -36,7 +37,7 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
   }
 
   /** @internal */
-  static override styles: CSSResultGroup = styles;
+  static override styles: CSSResultGroup = [theme, styles];
 
   /** The items in the list. */
   @state() items: ChecklistItem[] = [];
@@ -212,7 +213,7 @@ export class Checklist extends ScopedElementsMixin(LitElement) {
     const families = await this.#getDocumentFontFamilies();
     if (!families.includes('The Message')) {
       const style = document.createElement('style');
-      style.innerText = theMessageFontFace;
+      style.innerText = theMessageFontFace.replaceAll('\n', '');
 
       document.head.appendChild(style);
     }

@@ -10,7 +10,7 @@ import { type GridColumnDataRenderer } from '../column.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Basics'
+  title: 'In progress/Grid/Basics'
 };
 
 export const Simple: Story = {

@@ -7,7 +7,7 @@
   <th>Token</th>
 </tr></thead>
 <tbody>
-{% for border in tokens.base.border.width -%}
+{% for border in tokens.core.border.width -%}
 {% for widthValue in border -%}
 {% if widthValue.value %}
 <tr>
@@ -23,7 +23,7 @@
 {% endif %}
 {% endfor -%}
 {% endfor -%}
-{% for border in tokens.base.border.radius -%}
+{% for border in tokens.core.border.radius -%}
 {% for widthValue in border -%}
 {% if widthValue.value %}
 <tr>

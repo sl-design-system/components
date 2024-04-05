@@ -8,7 +8,7 @@ import { type SlDropEvent } from '../grid.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Data Source',
+  title: 'In progress/Grid/Data Source',
   loaders: [async () => ({ people: (await getPeople()).people })]
 };
 

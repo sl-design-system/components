@@ -550,7 +550,7 @@
   --sl-border-radius-dialog-mobile: var(--sl-border-radius-none);
   --sl-border-radius-dialog-desktop: var(--sl-border-radius-3xl);
   --sl-border-radius-focusring-full: var(--sl-border-radius-full);
-  --sl-border-radius-checkbox: var(--sl-border-radius-2xs);
+  --sl-border-radius-checkbox: var(--sl-border-radius-3xs);
   --sl-border-radius-circle: var(--sl-border-radius-full);
   --sl-border-radius-default: var(--sl-border-radius-2xs);
   --sl-border-radius-button-icon-only-lg: var(--sl-border-radius-full);

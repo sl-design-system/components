@@ -1887,7 +1887,7 @@
       "title": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
           "lineHeight": "{text.typeset.lineHeight.md}",
           "fontSize": "{text.typeset.fontSize.lg}"
         },

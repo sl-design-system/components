@@ -1403,11 +1403,11 @@
           "type": "spacing"
         },
         "2xl": {
-          "value": "{space.xs}+ {space.2xs}",
+          "value": "{space.xs} + {space.2xs}",
           "type": "spacing"
         },
         "3xl": {
-          "value": "{space.xs}+ {space.2xs}",
+          "value": "{space.xs} + {space.2xs}",
           "type": "spacing"
         }
       },
@@ -1576,7 +1576,7 @@
       },
       "inline": {
         "start": {
-          "value": "{space.lg}+{border.width.inline-message.start}",
+          "value": "{space.lg} + {border.width.inline-message.start}",
           "type": "spacing",
           "description": "space.button.solid.inline.md"
         },

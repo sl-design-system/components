@@ -22,25 +22,24 @@
   ],
   "scripts": {
     "build": "wireit",
-    "build-storybook": "wireit",
     "chromatic": "yarn workspace @sl-design-system/chromatic chromatic",
-    "chromatic-components": "yarn workspace @sl-design-system/chromatic components",
+    "chromatic-components": "wireit",
     "chromatic-themes": "yarn workspace @sl-design-system/chromatic themes",
     "extract-i18n": "lit-localize extract",
-    "lint:components": "wireit",
+    "dist": "wireit",
+    "import-icons": "wireit",
+    "lint": "wireit",
     "postinstall": "husky || true",
     "release": "wireit",
     "start": "wireit",
     "storybook": "wireit",
     "test": "wireit",
-    "transform-tokens": "wireit",
     "version": "wireit",
     "website": "wireit"
   },
   "wireit": {
     "build": {
       "dependencies": [
-        "build:cem",
         "build:checklist",
         "build:components",
         "build:locales",
@@ -48,40 +47,11 @@
         "build:types"
       ]
     },
-    "build:cem": {
-      "command": "node scripts/build-cem.js",
-      "dependencies": [
-        "build:scss"
-      ],
-      "files": [
-        "packages/components/**/*.ts",
-        "!packages/components/**/*.{d,spec,stories}.ts"
-      ],
-      "output": [
-        "packages/components/*/custom-elements.json"
-      ]
-    },
     "build:checklist": {
-      "command": "esbuild --minify --bundle packages/checklist/index.ts --outdir=packages/checklist/dist --sourcemap",
-      "dependencies": [
-        "build:checklist:package"
-      ],
-      "files": [
-        "packages/checklist/**/*.scss",
-        "packages/checklist/**/*.ts",
-        "!packages/checklist/**/*.d.ts"
-      ],
-      "output": [
-        "packages/checklist/dist/index.js",
-        "packages/checklist/dist/index.js.map"
-      ]
-    },
-    "build:checklist:package": {
       "command": "node scripts/build-packages.js checklist",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:scss",
-        "build:themes"
+        "build:checklist:styles"
       ],
       "files": [
         "packages/checklist/**/*.ts",
@@ -92,11 +62,21 @@
         "packages/checklist/**/*.js.map"
       ]
     },
+    "build:checklist:styles": {
+      "command": "node scripts/build-styles.js 'packages/checklist/src/checklist.scss'",
+      "clean": "if-file-deleted",
+      "files": [
+        "packages/checklist/src/checklist.scss"
+      ],
+      "output": [
+        "packages/checklist/src/checklist.scss.ts"
+      ]
+    },
     "build:components": {
       "command": "node scripts/build-packages.js components",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:scss"
+        "build:components:styles"
       ],
       "files": [
         "packages/components/**/*.ts",
@@ -107,27 +87,21 @@
         "packages/components/**/*.js.map"
       ]
     },
-    "build:icons": {
-      "command": "node scripts/build-icons.js",
-      "clean": false,
-      "dependencies": [
-        "build:tokens"
-      ],
+    "build:components:styles": {
+      "command": "node scripts/build-styles.js 'packages/components/**/*.scss'",
+      "clean": "if-file-deleted",
       "files": [
-        "scripts/build-icons.js",
-        "scripts/figma-icon-pages.json",
-        "packages/tokens/src/core.json",
-        "packages/tokens/src/*/base.json"
+        "scripts/build-styles.js",
+        "packages/components/**/*.scss"
       ],
       "output": [
-        "packages/themes/*/icons.ts",
-        "packages/themes/*/icons/*.svg"
+        "packages/components/**/*.scss.ts"
       ]
     },
     "build:locales": {
       "command": "node scripts/build-packages.js locales",
       "dependencies": [
-        "build:lit-localize"
+        "build:locales:code"
       ],
       "files": [
         "packages/locales/**/*.ts",
@@ -138,8 +112,8 @@
         "packages/locales/**/*.js.map"
       ]
     },
-    "build:lit-localize": {
-      "command": "lit-localize build && eslint --fix \"packages/locales/src/*.ts\"",
+    "build:locales:code": {
+      "command": "lit-localize build && eslint --fix 'packages/locales/src/*.ts'",
       "clean": false,
       "files": [
         "lit-localize.json",
@@ -149,20 +123,13 @@
         "packages/locales/src/*.ts"
       ]
     },
-    "build:scss": {
-      "command": "node scripts/build-scss.js",
-      "clean": "if-file-deleted",
+    "build:themes": {
       "dependencies": [
-        "build:tokens"
-      ],
-      "files": [
-        "packages/{checklist,components}/**/*.scss"
-      ],
-      "output": [
-        "packages/{checklist,components}/**/*.scss.ts"
+        "build:themes:code",
+        "build:themes:styles"
       ]
     },
-    "build:themes": {
+    "build:themes:code": {
       "command": "node scripts/build-packages.js themes",
       "clean": "if-file-deleted",
       "files": [
@@ -174,55 +141,141 @@
         "packages/themes/**/*.js.map"
       ]
     },
-    "build:tokens": {
-      "command": "node scripts/build-tokens.js",
+    "build:themes:styles": {
+      "command": "node scripts/build-themes.js",
       "clean": "if-file-deleted",
       "files": [
-        "scripts/build-tokens.js",
+        "scripts/build-themes.js",
         "packages/tokens/src/**/*.json"
       ],
       "output": [
-        "packages/themes/**/*.{css,json,scss}",
-        "!packages/themes/*/fonts.css",
-        "!packages/themes/*/{package,tsconfig}.json",
-        "!packages/themes/tsconfig.json"
+        "packages/themes/**/*.{css,scss}",
+        "!packages/themes/*/fonts.css"
       ]
     },
     "build:types": {
       "command": "tsc --build tsconfig.all.json --pretty",
       "clean": "if-file-deleted",
       "dependencies": [
-        "build:locales",
-        "build:scss"
+        "build:checklist:styles",
+        "build:components:styles",
+        "build:locales"
       ],
       "files": [
         "tsconfig.all.json",
-        "packages/{components,themes}/**/*.ts",
-        "!packages/{components,themes}/**/*.d.ts",
-        "!packages/{components,themes}/*/node_modules/**/*.ts"
+        "packages/{checklist,components,themes}/**/*.ts",
+        "!packages/{checklist,components,themes}/**/*.d.ts",
+        "!packages/{checklist,components,themes}/*/node_modules/**/*.ts"
       ],
       "output": [
-        "packages/{components,themes}/**/tsconfig.tsbuildinfo",
-        "packages/{components,themes}/**/*.d.ts",
-        "!packages/{components,themes}/*/node_modules/**"
+        "packages/{checklist,components,themes}/**/tsconfig.tsbuildinfo",
+        "packages/{checklist,components,themes}/**/*.d.ts",
+        "!packages/{checklist,components,themes}/*/node_modules/**"
       ]
     },
-    "lint:components": {
+    "dist": {
+      "dependencies": [
+        "build:components",
+        "build:locales",
+        "build:types",
+        "build:themes:code",
+        "dist:checklist",
+        "dist:components",
+        "dist:themes"
+      ]
+    },
+    "dist:checklist": {
+      "command": "esbuild --minify --bundle packages/checklist/index.ts --outdir=packages/checklist/dist --sourcemap",
+      "dependencies": [
+        "dist:checklist:code"
+      ],
+      "files": [
+        "packages/checklist/**/*.scss",
+        "packages/checklist/**/*.ts",
+        "!packages/checklist/**/*.d.ts"
+      ],
+      "output": [
+        "packages/checklist/dist/index.js",
+        "packages/checklist/dist/index.js.map"
+      ]
+    },
+    "dist:checklist:code": {
+      "command": "node scripts/build-packages.js checklist",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "dist:checklist:styles"
+      ],
+      "files": [
+        "packages/checklist/**/*.ts",
+        "!packages/checklist/**/*.d.ts"
+      ],
+      "output": [
+        "packages/checklist/**/*.js",
+        "packages/checklist/**/*.js.map"
+      ]
+    },
+    "dist:checklist:styles": {
+      "command": "node scripts/build-styles.js 'packages/checklist/**/*.scss'",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "dist:themes"
+      ],
+      "output": [
+        "packages/checklist/**/*.scss.ts"
+      ]
+    },
+    "dist:components": {
+      "command": "node scripts/build-metadata.js",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:components:styles"
+      ],
+      "files": [
+        "packages/components/**/*.ts",
+        "!packages/components/**/*.{d,spec,stories}.ts"
+      ],
+      "output": [
+        "packages/components/*/custom-elements.json"
+      ]
+    },
+    "dist:themes": {
+      "command": "node scripts/build-themes.js --production",
+      "clean": "if-file-deleted",
+      "output": [
+        "packages/themes/**/*.{css,scss}",
+        "!packages/themes/*/fonts.css"
+      ]
+    },
+    "import-icons": {
+      "command": "node scripts/import-icons.js",
+      "clean": false,
+      "files": [
+        "scripts/figma-icon-pages.json",
+        "scripts/import-icons.js",
+        "packages/tokens/src/core.json",
+        "packages/tokens/src/*/base.json"
+      ],
+      "output": [
+        "packages/themes/*/icons.ts",
+        "packages/themes/*/icons/*.svg"
+      ]
+    },
+    "lint": {
       "dependencies": [
         "lint:components:code",
         "lint:components:styles"
       ]
     },
     "lint:components:code": {
-      "command": "eslint --config packages/components/eslint.config.mjs packages/components/*"
+      "command": "eslint --config packages/components/eslint.config.mjs 'packages/components/**/*.ts'"
     },
     "lint:components:styles": {
-      "command": "stylelint --quiet-deprecation-warnings packages/components/*"
+      "command": "stylelint 'packages/components/**/*.{css,scss}'"
     },
     "release": {
       "command": "yarn changeset publish",
       "dependencies": [
-        "build",
+        "dist",
         "./packages/angular:release"
       ]
     },
@@ -238,11 +291,7 @@
       ],
       "dependencies": [
         {
-          "script": "build:cem",
-          "cascade": false
-        },
-        {
-          "script": "build:checklist:package",
+          "script": "build:checklist",
           "cascade": false
         },
         {
@@ -254,21 +303,19 @@
           "cascade": false
         },
         {
-          "script": "build:scss",
-          "cascade": false
-        },
-        {
           "script": "build:themes",
-          "cascade": false
-        },
-        {
-          "script": "build:tokens",
           "cascade": false
         },
         {
           "script": "build:types",
           "cascade": false
         }
+      ]
+    },
+    "chromatic-components": {
+      "command": "storybook build",
+      "dependencies": [
+        "build"
       ]
     },
     "storybook": {
@@ -280,15 +327,7 @@
     "storybook:build": {
       "command": "storybook build -o dist --quiet",
       "dependencies": [
-        "build:components",
-        "build:themes"
-      ]
-    },
-    "build-storybook": {
-      "command": "storybook build",
-      "dependencies": [
-        "build:components",
-        "build:themes"
+        "dist"
       ]
     },
     "test": {
@@ -310,12 +349,6 @@
     "test:setup": {
       "command": "playwright install --with-deps"
     },
-    "transform-tokens": {
-      "dependencies": [
-        "build:icons",
-        "build:tokens"
-      ]
-    },
     "version": {
       "command": "yarn install --no-immutable",
       "dependencies": [
@@ -336,12 +369,12 @@
     "@changesets/get-github-info": "^0.6.0",
     "@custom-elements-manifest/analyzer": "^0.9.4",
     "@lit/localize-tools": "^0.7.2",
-    "@oddbird/popover-polyfill": "^0.4.0",
+    "@oddbird/popover-polyfill": "^0.4.1",
     "@open-wc/testing": "^4.0.0",
-    "@storybook/addon-a11y": "^8.0.4",
-    "@storybook/addon-essentials": "^8.0.4",
-    "@storybook/addon-storysource": "^8.0.4",
-    "@storybook/web-components-vite": "^8.0.4",
+    "@storybook/addon-a11y": "^8.0.5",
+    "@storybook/addon-essentials": "^8.0.5",
+    "@storybook/addon-storysource": "^8.0.5",
+    "@storybook/web-components-vite": "^8.0.5",
     "@types/chai-as-promised": "^7.1.8",
     "@types/mocha": "^10.0.6",
     "@types/sinon": "^17.0.3",
@@ -352,16 +385,16 @@
     "@webcomponents/scoped-custom-element-registry": "^0.0.9",
     "chai": "npm:@esm-bundle/chai@4.3.4-fix.0",
     "chai-as-promised": "npm:@esm-bundle/chai-as-promised@*",
-    "chromatic": "^11.2.0",
+    "chromatic": "^11.3.0",
     "eslint": "^8.57.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "lit": "^3.1.2",
     "sinon": "^17.0.1",
-    "storybook": "^8.0.4",
-    "stylelint": "^16.3.0",
-    "typescript": "^5.4.3",
-    "vite": "^5.2.5",
+    "storybook": "^8.0.5",
+    "stylelint": "^16.3.1",
+    "typescript": "^5.4.4",
+    "vite": "^5.2.8",
     "wireit": "^0.14.4"
   }
 }

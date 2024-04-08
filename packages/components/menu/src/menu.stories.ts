@@ -39,7 +39,7 @@ Icon.register(
 );
 
 export default {
-  title: 'Components/Menu',
+  title: 'In progress/Menu',
   args: {
     maxWidth: '200px'
   },

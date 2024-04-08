@@ -1,5 +1,17 @@
 # @sl-design-system/grid
 
+## 0.1.8
+
+### Patch Changes
+
+- [#1110](https://github.com/sl-design-system/components/pull/1110) [`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b) - Fix filter being reset after selection
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+  - @sl-design-system/checkbox@0.0.27
+  - @sl-design-system/popover@0.1.10
+  - @sl-design-system/text-field@0.1.22
+
 ## 0.1.7
 
 ### Patch Changes

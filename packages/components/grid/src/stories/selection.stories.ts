@@ -10,7 +10,7 @@ import { type SlActiveItemChangeEvent } from '../grid.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Selection'
+  title: 'In progress/Grid/Selection'
 };
 
 export const Single: Story = {

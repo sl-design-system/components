@@ -1,0 +1,15 @@
+@import '@sl-design-system/sanoma-learning/scss/base';
+@import '@sl-design-system/sanoma-learning/scss/light';
+@import '@sl-design-system/sanoma-learning/scss/dark';
+
+:host {
+  @include sl-theme-base;
+
+  @media (prefers-color-scheme: light) {
+    @include sl-theme-light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @include sl-theme-dark;
+  }
+}

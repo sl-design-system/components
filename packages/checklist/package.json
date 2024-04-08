@@ -37,7 +37,7 @@
     "test": "npx http-server -o test.html"
   },
   "devDependencies": {
-    "@fortawesome/pro-solid-svg-icons": "^6.5.1",
+    "@fortawesome/pro-solid-svg-icons": "^6.5.2",
     "@open-wc/scoped-elements": "^3.0.5",
     "@sl-design-system/icon": "0.0.9",
     "@sl-design-system/skeleton": "0.2.3",

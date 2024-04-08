@@ -2595,32 +2595,32 @@
           },
           "disabled": {
             "background": {
-              "value": "rgba({body.background} , {opacity.200})",
+              "value": "{color.palette.neutral.100}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "label": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.neutral.200}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "inputText": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             },
             "placeholder": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.palette.neutral.400}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             }
@@ -2629,7 +2629,7 @@
         "invalid": {
           "default": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2661,7 +2661,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.danger.base} , {opacity.300})",
+              "value": "{color.palette.danger.100}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2693,12 +2693,12 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.danger.base} , {opacity.100})",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.input.textField.invalid.default.border}",
+              "value": "{color.palette.danger.700}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2757,22 +2757,22 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.input.textField.default.disabled.background}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.danger.150}",
+              "value": "{color.input.textField.default.disabled.border}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
             "label": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.input.textField.default.disabled.label}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.danger.150}",
+              "value": "{color.input.textField.default.disabled.icon}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2782,7 +2782,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "placeholder": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.input.textField.default.disabled.placeholder}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             }
@@ -2791,7 +2791,7 @@
         "valid": {
           "default": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2818,7 +2818,7 @@
           },
           "hover": {
             "background": {
-              "value": "rgba({color.palette.success.base} , {opacity.300})",
+              "value": "{color.palette.success.100}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2845,7 +2845,7 @@
           },
           "active": {
             "background": {
-              "value": "rgba({color.palette.success.base} , {opacity.100})",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2899,7 +2899,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.input.textField.default.disabled.background}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -2909,12 +2909,12 @@
               "description": "color.surface.solid.primary.background"
             },
             "label": {
-              "value": "{color.palette.neutral.300}",
+              "value": "{color.input.textField.default.disabled.label}",
               "type": "color",
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.input.textField.default.disabled.icon}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3113,13 +3113,13 @@
         },
         "divider": {
           "line": {
-            "value": "{color.palette.neutral.100}",
+            "value": "{color.palette.neutral.200}",
             "type": "color"
           }
         },
         "group-title": {
           "foreground": {
-            "value": "{color.palette.neutral.200}",
+            "value": "{color.palette.neutral.600}",
             "type": "color"
           }
         }

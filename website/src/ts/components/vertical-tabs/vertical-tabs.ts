@@ -31,12 +31,23 @@ export class VerticalTabs extends LitElement {
     console.log('cards entry.target', cards, entry?.target);
     if ((entry?.intersectionRatio ?? 0) > 0) {
       const card = cards.find(card => entry?.target === card),
-        buttons = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')),
-        index = buttons.findIndex(b => (b as HTMLElement).innerText.toLowerCase() === card?.id.toLowerCase()),
+        buttons = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[],
+        // index = cards.findIndex(b => {
+        //   return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
+        // }),
+        index = cards.findIndex(b => {
+          return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
+        }),
         tab = buttons.find(b => (b as HTMLAnchorElement).hash === `#${card?.id.toLowerCase()}`) as HTMLElement; // TODO: improve this one
 
       console.log(
         'card buttons index',
+        cards.findIndex(b => {
+          return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
+        }),
+        buttons.findIndex(el => el.id === (card as HTMLElement).getAttribute('id')),
+        Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical') ?? []).indexOf(card as Element),
+        (card as HTMLElement).getAttribute('id'),
         cards,
         card,
         buttons,
@@ -45,14 +56,25 @@ export class VerticalTabs extends LitElement {
         card?.id,
         entry?.target,
         buttons[index],
-        tab
+        tab,
+        index,
+        'buttons index:::',
+        buttons[index]
       );
+
+      // if (card) {
+      //   const buttons2 = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical'));
+      //   const index2 = buttons.indexOf(card as HTMLElement);
+      //
+      //   console.log('Index using indexOf:', index2, Array.prototype.indexOf.call(buttons2, card));
+      // }
       // const tabBar = this.renderRoot.querySelector('.ds-tabs');
-      if (tab) {
+
+      if (/*tab*/ buttons[index]) {
         // tabBar.selected = index;
         console.log('buttons[index]', buttons[index]);
         // this.#alignVerticalTabIndicator(tab);
-        this.#setActiveTab(tab);
+        this.#setActiveTab(buttons[index] /*tab*/);
         // this.onTabActivate(buttons[index] as HTMLElement);
       }
     }
@@ -116,7 +138,7 @@ export class VerticalTabs extends LitElement {
           if (element.parentElement?.tagName === 'H2') {
             console.log('element h2?', element);
             if (element.parentElement.parentNode) {
-              (element.parentElement.parentNode as Element).id = element.parentElement.id;
+              (element.parentElement.parentNode as Element).id = `${element.parentElement.id}-section`;
             }
             return element.parentElement;
           } else if (element.hasAttribute('link-in-navigation')) {
@@ -140,7 +162,7 @@ export class VerticalTabs extends LitElement {
       const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
       console.log('sections in firstupdated', sections, this.parentElement);
       // if (sections.length) {
-      //   sections.forEach(section => this.observer.observe(section));
+      sections.forEach(section => this.observer.observe(section));
       // }
     }, 100);
 
@@ -347,8 +369,8 @@ ${this.headerAnchorsParentsAll.map(item => {
 
     currentVerticalTabLink?.setAttribute('aria-selected', 'false');
     verticalTab.setAttribute('aria-selected', 'true');
-    currentVerticalTabLink?.setAttribute('tabindex', '-1');
-    verticalTab.setAttribute('tabindex', '0');
+    // currentVerticalTabLink?.setAttribute('tabindex', '-1');
+    // verticalTab.setAttribute('tabindex', '0');
 
     const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
     verticalTabs.forEach(v => v.classList.remove('active'));

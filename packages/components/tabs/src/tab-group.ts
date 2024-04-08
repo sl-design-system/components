@@ -237,8 +237,8 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const tab = event.target.closest('sl-tab');
 
     if (tab && ['Enter', ' '].includes(event.key)) {
-      // event.preventDefault();
-      // event.stopPropagation();
+      event.preventDefault();
+      event.stopPropagation();
 
       console.log('tab in onkeydown in component', tab);
 
@@ -352,6 +352,10 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   #updateSelectedTab(selectedTab: Tab): void {
     if (selectedTab !== this.selectedTab) {
       this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
+
+      if (selectedTab.renderRoot.querySelector('a[href]')) {
+        (selectedTab.renderRoot.querySelector('a[href]') as HTMLAnchorElement).click();
+      }
 
       this.querySelectorAll('sl-tab-panel').forEach(panel => {
         panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');

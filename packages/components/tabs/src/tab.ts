@@ -51,9 +51,9 @@ export class Tab extends LitElement {
 
   override render(): TemplateResult {
     return this.href
-      ? html`<a @click="#onClick" href=${this.href}>${this.renderContent()}</a>`
+      ? html`<a href=${this.href}>${this.renderContent()}</a>`
       : html`<div class="wrapper">${this.renderContent()}</div>`;
-  }
+  } // @click="#onClick"
 
   renderContent(): TemplateResult {
     return html`
@@ -71,12 +71,32 @@ export class Tab extends LitElement {
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    console.log('changes in updated in tab', changes, this.renderRoot, this.renderRoot.querySelector('a'));
+    console.log(
+      'changes in updated in tab',
+      changes,
+      this.renderRoot,
+      this.renderRoot.querySelector('[href]'),
+      this.selected
+    );
 
     if (changes.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
-      // if (this.href) {
-      // }
+      /*      if (
+        this.renderRoot.querySelector('[href]') &&
+        this.selected &&
+        this.getAttribute('aria-selected') === 'true' &&
+        this.href
+      ) {
+        console.log(
+          'changes in updated in tab --- in selected',
+          this.renderRoot.querySelector('[href]'),
+          (this.renderRoot.querySelector('[href]') as HTMLAnchorElement).hash,
+          changes['selected'],
+          this.selected,
+          this.renderRoot.querySelector('[href]') instanceof HTMLAnchorElement
+        );
+        // (this.renderRoot.querySelector('[href]') as HTMLAnchorElement).click();
+      }*/
       // this.#onClick(this);
 
       // if (this.renderRoot.querySelector('a')) {
@@ -85,9 +105,9 @@ export class Tab extends LitElement {
     }
   }
 
-  #onClick(event): void {
-    console.log('event', event);
-  }
+  // #onClick(event: Event): void {
+  //   console.log('event', event);
+  // }
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     const nodes = event.target.assignedNodes({ flatten: true }),

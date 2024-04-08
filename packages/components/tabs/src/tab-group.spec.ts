@@ -76,7 +76,8 @@ describe('sl-tab-group', () => {
       expect(tablist).to.have.attribute('role', 'tablist');
     });
 
-    it('should not have a menu button', () => {
+    it('should not have a menu button', async () => {
+      await el.updateComplete;
       const menuButton = el.renderRoot.querySelector('sl-menu-button');
 
       expect(menuButton).not.to.exist;
@@ -259,7 +260,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should have a menu button', () => {
@@ -307,10 +308,11 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
-    it('should have a menu button', () => {
+    it('should have a menu button', async () => {
+      await el.updateComplete;
       const menuButton = el.renderRoot.querySelector('sl-menu-button');
 
       expect(menuButton).to.exist;

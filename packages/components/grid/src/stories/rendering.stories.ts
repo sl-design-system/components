@@ -7,7 +7,7 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Rendering'
+  title: 'In progress/Grid/Rendering'
 };
 
 export const ColumnRenderer: Story = {

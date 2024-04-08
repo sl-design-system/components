@@ -3,12 +3,12 @@ import { configureLocalization } from '@lit/localize';
 import * as locales from '@sl-design-system/locales';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { Preview } from '@storybook/angular';
-import { updateTheme, themes } from '../../../.storybook/themes';
+import { themes, updateTheme } from '../../../.storybook/themes';
 
 const { setLocale } = configureLocalization({
   sourceLocale: locales.sourceLocale,
   targetLocales: locales.targetLocales,
-  loadLocale: locale => Promise.resolve(locales[locale as typeof locales.targetLocales[number]])
+  loadLocale: locale => Promise.resolve(locales[locale as (typeof locales.targetLocales)[number]])
 });
 
 const preview: Preview = {
@@ -44,8 +44,8 @@ const preview: Preview = {
         icon: 'mirror',
         items: [
           { value: 'light', left: '🌞', title: 'Light mode' },
-          { value: 'dark', left: '🌛', title: 'Dark mode' },
-        ],
+          { value: 'dark', left: '🌛', title: 'Dark mode' }
+        ]
       }
     },
     locale: {

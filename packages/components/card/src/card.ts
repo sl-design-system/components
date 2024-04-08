@@ -38,7 +38,7 @@ export class Card extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Observe the grid width. */
+  /** Observe the card width. */
   #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
     this.#setOrientation();
   });
@@ -68,7 +68,6 @@ export class Card extends LitElement {
 
   override disconnectedCallback(): void {
     this.#resizeObserver?.disconnect();
-    this.#resizeObserver = undefined;
 
     super.disconnectedCallback();
   }

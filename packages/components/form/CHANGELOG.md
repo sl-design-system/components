@@ -1,5 +1,12 @@
 # @sl-design-system/form
 
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+
 ## 0.0.12
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import { type SlDropEvent } from '../grid.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Drag and drop'
+  title: 'In progress/Grid/Drag and drop'
 };
 
 export const Basic: Story = {

@@ -1837,11 +1837,11 @@
     },
     "focusring": {
       "default": {
-        "value": "{borderRadius.default} + 1px",
+        "value": "{borderRadius.default}",
         "type": "borderRadius"
       },
       "checkbox": {
-        "value": "{borderRadius.checkbox} + 1px",
+        "value": "{borderRadius.checkbox}",
         "type": "borderRadius"
       },
       "full": {
@@ -2049,7 +2049,7 @@
     "border": {
       "width": {
         "default": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "Conceptual Theme Border Token"
         }

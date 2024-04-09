@@ -3,7 +3,7 @@
 $transition-timing: 300ms;
 
 .ds-container {
-  animation: $transition-timing FadeIn;
+  animation: 100ms fade-in;
   background-color: var(--background-color);
 
   margin-left: 0;
@@ -12,7 +12,10 @@ $transition-timing: 300ms;
   -webkit-scroll-behavior: smooth;
   scroll-behavior: smooth;
   transform: translateX(0);
-  transition: transform $transition-timing, background $transition-timing ease-in-out, opacity $transition-timing;
+  transition:
+    transform $transition-timing,
+    background $transition-timing ease-in-out,
+    opacity $transition-timing;
   width: 100%;
 
   @media screen and (min-width: $lg-breakpoint) {
@@ -89,7 +92,7 @@ a.header-anchor {
   }
 }
 
-@keyframes FadeIn {
+@keyframes fade-in {
   0% {
     opacity: 0;
   }

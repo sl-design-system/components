@@ -1,5 +1,11 @@
 # @sl-design-system/card
 
+## 0.0.5
+
+### Patch Changes
+
+- [#1054](https://github.com/sl-design-system/components/pull/1054) [`e3b3e4f`](https://github.com/sl-design-system/components/commit/e3b3e4f1a90fde0fa46d6f65c87d652348eecaee) - Fix responsiveness not working when element had been hidden or rerendered.
+
 ## 0.0.4
 
 ### Patch Changes

@@ -8,17 +8,17 @@ $transition-timing: 300ms;
 
 .ds-tabs__container {
   background-color: var(--background-color);
+  inset-block-start: -0.1rem;
   margin: auto -2.4rem;
   overflow-x: hidden;
-  padding-top: 1.6rem;
+  padding-block-start: 1.6rem;
   position: sticky;
-  top: -0.1rem;
   transition: padding-top $transition-timing;
 }
 
 .ds-tabs__container--sticky {
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-  padding-top: calc(7.8rem + 0.1rem);
+  box-shadow: 0 3px 5px rgb(0 0 0 / 5%);
+  padding-block-start: calc(7.8rem + 0.1rem);
   z-index: 2;
 }
 
@@ -81,7 +81,7 @@ $transition-timing: 300ms;
   flex-direction: row;
   justify-content: flex-start;
   overflow-x: scroll;
-  padding-left: 2.4rem;
+  padding-inline-start: 2.4rem;
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
@@ -99,12 +99,12 @@ $transition-timing: 300ms;
 
   .ds-tabs__indicator {
     background-color: var(--tab-indicator-background);
+    block-size: 0.2rem;
     border-radius: 0.1rem;
-    height: 0.2rem;
-    max-width: 100%;
+    inline-size: 5rem;
+    max-inline-size: 100%;
     position: relative;
     transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
-    width: 5rem;
   }
 }
 
@@ -130,13 +130,13 @@ $transition-timing: 300ms;
   .ds-tabs__tab-container > * {
     scroll-margin-top: 1rem;
 
-    &:not(:first-child):not(.no-heading) {
-      margin-top: var(--scale-1200-scale);
+    &:not(:first-child, .no-heading) {
+      margin-block-start: var(--scale-1200-scale);
     }
   }
 
   h3 {
-    margin-top: var(--scale-400-scale);
+    margin-block-start: var(--scale-400-scale);
   }
 
   li {
@@ -168,27 +168,26 @@ $transition-timing: 300ms;
 @media screen and (min-width: $lg-breakpoint) {
   .ds-tabs-wrapper {
     justify-content: flex-start;
-    padding-left: 2.4rem;
+    padding-inline-start: 2.4rem;
   }
 
   .ds-tabs__container {
+    inset-block-start: -0.1rem;
     margin: auto -2.4rem;
-    padding-top: 2.4rem;
-    top: -0.1rem;
+    padding-block-start: 2.4rem;
   }
 
   .ds-tabs__container--sticky {
-    padding-top: 0.1rem;
+    padding-block-start: 0.1rem;
 
     &.ds-tabs__container {
-      padding-bottom: 0.8rem;
-      padding-top: 2.4rem;
+      padding-block: 2.4rem 0.8rem;
     }
 
     .ds-top-navigation__component-name {
       font-size: 2.4rem;
       line-height: 2.4rem;
-      padding-bottom: 0.4rem;
+      padding-block-end: 0.4rem;
     }
   }
 }
@@ -201,7 +200,7 @@ $transition-timing: 300ms;
   }
 
   .ds-tabs-wrapper {
-    padding-left: 7.2rem;
+    padding-inline-start: 7.2rem;
   }
 
   .ds-tabs__container {
@@ -213,7 +212,7 @@ $transition-timing: 300ms;
 
     .ds-tabs-wrapper {
       flex-direction: column;
-      padding-left: 0;
+      padding-inline-start: 0;
     }
 
     .ds-tabs-wrapper::before {
@@ -222,28 +221,28 @@ $transition-timing: 300ms;
       font-size: 1.2rem;
       font-weight: 600;
       line-height: 1.5rem;
-      margin-bottom: 0.8rem;
-      margin-left: 0.8rem;
+      margin-block-end: 0.8rem;
+      margin-inline-start: 0.8rem;
     }
 
     .ds-tabs__container {
       display: flex;
       flex-direction: row-reverse;
+      inset-block-start: 15%;
       justify-content: center;
       margin: auto;
       overflow: hidden;
-      padding-top: 0;
-      top: 15%;
+      padding-block-start: 0;
     }
 
     .ds-tabs__vertical-indicator {
       background-color: var(--tab-indicator-background);
+      block-size: 100%;
       border-radius: 0.1rem;
-      height: 100%;
+      inline-size: 0.2rem;
+      inset-block-start: 2.3rem;
       position: relative;
-      top: 2.3rem;
       transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
-      width: 0.2rem;
     }
   }
 }

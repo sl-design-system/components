@@ -228,7 +228,7 @@
                 "text": "ResizeObserver | undefined"
               },
               "default": "new ResizeObserver(() => {\n    this.#setOrientation();\n  })",
-              "description": "Observe the grid width."
+              "description": "Observe the card width."
             },
             {
               "kind": "field",

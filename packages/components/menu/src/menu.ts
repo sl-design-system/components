@@ -19,6 +19,14 @@ declare global {
   }
 }
 
+/**
+ * A menu that can be used as a context menu or as a dropdown menu.
+ *
+ * @cssprop --sl-menu-max-inline-size - The maximum inline size of the menu.
+ * @cssprop --sl-menu-min-inline-size - The minimum inline size of the menu.
+ *
+ * @slot - The menu's content: menu items or menu item groups.
+ */
 export class Menu extends LitElement {
   /** The default offset of the menu to its anchor. */
   static offset = 4;

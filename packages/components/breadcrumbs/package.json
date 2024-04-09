@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/breadcrumbs",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "Breadcrumbs component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@sl-design-system/icon": "0.0.9",
-    "@sl-design-system/menu": "0.0.5",
-    "@sl-design-system/tooltip": "0.0.22"
+    "@sl-design-system/menu": "0.0.7",
+    "@sl-design-system/tooltip": "0.0.24"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.1",

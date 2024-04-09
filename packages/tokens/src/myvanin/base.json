@@ -944,7 +944,7 @@
           "sm": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{text.typeset.lineHeight.sm}",
               "fontSize": "{text.typeset.fontSize.md}"
             },
@@ -954,7 +954,7 @@
           "md": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{text.typeset.lineHeight.lg}",
               "fontSize": "{text.typeset.fontSize.lg}"
             },
@@ -964,7 +964,7 @@
           "lg": {
             "value": {
               "fontFamily": "{text.typeset.fontFamily.body}",
-              "fontWeight": "{text.typeset.fontWeight.demibold}",
+              "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{text.typeset.lineHeight.lg}",
               "fontSize": "{text.typeset.fontSize.xl}"
             },
@@ -1635,7 +1635,7 @@
       "title": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.demibold}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
           "lineHeight": "{text.typeset.lineHeight.md}",
           "fontSize": "{text.typeset.fontSize.lg}"
         },
@@ -1675,6 +1675,34 @@
           "paragraphSpacing": "{text.typeset.paragraphSpacing.lg}",
           "textDecoration": "{text.typeset.textDecoration.none}",
           "textCase": "{text.typeset.textCase.none}"
+        },
+        "type": "typography"
+      },
+      "body": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.body}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.md}",
+          "fontSize": "{text.typeset.fontSize.md}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.md}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "textCase": "{text.typeset.textCase.none}"
+        },
+        "type": "typography"
+      }
+    },
+    "accordion": {
+      "title": {
+        "value": {
+          "fontFamily": "{text.typeset.fontFamily.heading}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
+          "lineHeight": "{text.typeset.lineHeight.xl}",
+          "fontSize": "{text.typeset.fontSize.xl}",
+          "textDecoration": "{text.typeset.textDecoration.none}",
+          "textCase": "{text.typeset.textCase.none}",
+          "paragraphSpacing": "{text.typeset.paragraphSpacing.none}",
+          "letterSpacing": "{text.typeset.letterSpacing.md}"
         },
         "type": "typography"
       },
@@ -1739,7 +1767,7 @@
       "description": "borderRadius.button"
     },
     "checkbox": {
-      "value": "{border.radius.2xs}",
+      "value": "{border.radius.3xs}",
       "type": "borderRadius"
     },
     "focusring": {
@@ -1861,7 +1889,7 @@
           "description": "border.width.button.outline"
         },
         "option": {
-          "value": "{border.width.xs}",
+          "value": "{border.width.sm}",
           "type": "borderWidth",
           "description": "border.width.button.outline"
         }
@@ -2117,6 +2145,44 @@
           "type": "spacing"
         }
       }
+    },
+    "accordion": {
+      "content": {
+        "inline": {
+          "value": "{space.3xl}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      },
+      "title": {
+        "inline": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "inline": {
+        "value": "{space.3xl}",
+        "type": "spacing"
+      },
+      "block": {
+        "value": "{space.lg}",
+        "type": "spacing"
+      },
+      "gap": {
+        "value": "{space.md}",
+        "type": "spacing"
+      }
     }
   },
   "size": {
@@ -2124,6 +2190,14 @@
       "indicator": {
         "value": "{size.3xs}",
         "type": "sizing"
+      }
+    },
+    "accordion": {
+      "icon": {
+        "height": {
+          "value": "28",
+          "type": "sizing"
+        }
       }
     }
   },

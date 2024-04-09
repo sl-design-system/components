@@ -197,7 +197,7 @@
               }
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "columnUpdateEvent",
               "type": {
                 "text": "EventEmitter<SlColumnUpdateEvent<T>>"
@@ -537,20 +537,6 @@
               }
             }
           ],
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -702,6 +688,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -779,7 +777,7 @@
               "attribute": "auto-width"
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "columnUpdateEvent",
               "type": {
                 "text": "EventEmitter<SlColumnUpdateEvent<T>>"
@@ -938,16 +936,6 @@
               },
               "description": "Width of the cells for this column in pixels.",
               "attribute": "width"
-            }
-          ],
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent"
             }
           ],
           "attributes": [
@@ -1117,6 +1105,14 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed."
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -1190,7 +1186,7 @@
               }
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "columnUpdateEvent",
               "type": {
                 "text": "EventEmitter<SlColumnUpdateEvent<T>>"
@@ -1521,20 +1517,6 @@
               }
             }
           ],
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -1677,6 +1659,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -1762,7 +1756,7 @@
               }
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "columnUpdateEvent",
               "type": {
                 "text": "EventEmitter<SlColumnUpdateEvent<T>>"
@@ -2151,20 +2145,6 @@
           },
           "tagName": "sl-grid-filter-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -2314,6 +2294,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -2388,7 +2380,7 @@
               "description": "The custom filter"
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "filterChangeEvent",
               "type": {
                 "text": "EventEmitter<SlFilterChangeEvent>"
@@ -2396,7 +2388,7 @@
               "description": "Emits when the filter has been added or removed."
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "filterValueChangeEvent",
               "type": {
                 "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
@@ -2436,24 +2428,6 @@
                 "text": "string | string[] | undefined"
               },
               "attribute": "value"
-            }
-          ],
-          "events": [
-            {
-              "name": "filterChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlFilterChangeEvent>"
-              },
-              "description": "Emits when the filter has been added or removed.",
-              "fieldName": "filterChangeEvent"
-            },
-            {
-              "name": "filterValueChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
-              },
-              "description": "Emits when the value of the this filter has changed.",
-              "fieldName": "filterValueChangeEvent"
             }
           ],
           "attributes": [
@@ -2607,6 +2581,22 @@
             },
             {
               "kind": "field",
+              "name": "filterChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlFilterChangeEvent>"
+              },
+              "description": "Emits when the filter has been added or removed."
+            },
+            {
+              "kind": "field",
+              "name": "filterValueChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
+              },
+              "description": "Emits when the value of the this filter has changed."
+            },
+            {
+              "kind": "field",
               "name": "options",
               "type": {
                 "text": "GridFilterOption[] | undefined"
@@ -2645,7 +2635,7 @@
               "description": "The active item in the grid."
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "activeItemChangeEvent",
               "type": {
                 "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
@@ -2661,7 +2651,7 @@
               "description": "Provide your own implementation for getting the data."
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "dragEndEvent",
               "type": {
                 "text": "EventEmitter<SlDragEndEvent<T>>"
@@ -2669,7 +2659,7 @@
               "description": "Emits when a drag operation has finished."
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "dragStartEvent",
               "type": {
                 "text": "EventEmitter<SlDragStartEvent<T>>"
@@ -2686,7 +2676,7 @@
               "attribute": "draggable-rows"
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "dropEvent",
               "type": {
                 "text": "EventEmitter<SlDropEvent<T>>"
@@ -2853,7 +2843,7 @@
               "description": "Selection manager."
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "stateChangeEvent",
               "type": {
                 "text": "EventEmitter<SlStateChangeEvent<T>>"
@@ -2885,48 +2875,6 @@
                 "text": "HTMLTableSectionElement"
               },
               "description": "The `<thead>` element."
-            }
-          ],
-          "events": [
-            {
-              "name": "activeItemChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
-              },
-              "description": "Emits when the active item changes",
-              "fieldName": "activeItemChangeEvent"
-            },
-            {
-              "name": "dragStartEvent",
-              "type": {
-                "text": "EventEmitter<SlDragStartEvent<T>>"
-              },
-              "description": "Emits when a drag operation is starting.",
-              "fieldName": "dragStartEvent"
-            },
-            {
-              "name": "dragEndEvent",
-              "type": {
-                "text": "EventEmitter<SlDragEndEvent<T>>"
-              },
-              "description": "Emits when a drag operation has finished.",
-              "fieldName": "dragEndEvent"
-            },
-            {
-              "name": "dropEvent",
-              "type": {
-                "text": "EventEmitter<SlDropEvent<T>>"
-              },
-              "description": "Emits when an item has been dropped.",
-              "fieldName": "dropEvent"
-            },
-            {
-              "name": "stateChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlStateChangeEvent<T>>"
-              },
-              "description": "Emits when the state in the grid has changed.",
-              "fieldName": "stateChangeEvent"
             }
           ],
           "attributes": [
@@ -3285,7 +3233,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "CustomEvent<boolean>"
+                    "text": "SlSelectEvent<boolean>"
                   }
                 },
                 {
@@ -3308,7 +3256,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "CustomEvent<boolean>"
+                    "text": "SlToggleEvent<boolean>"
                   }
                 },
                 {
@@ -3514,11 +3462,43 @@
             },
             {
               "kind": "field",
+              "name": "activeItemChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
+              },
+              "description": "Emits when the active item changes"
+            },
+            {
+              "kind": "field",
               "name": "dataSource",
               "type": {
                 "text": "DataSource<T> | undefined"
               },
               "description": "Provide your own implementation for getting the data."
+            },
+            {
+              "kind": "field",
+              "name": "dragStartEvent",
+              "type": {
+                "text": "EventEmitter<SlDragStartEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting."
+            },
+            {
+              "kind": "field",
+              "name": "dragEndEvent",
+              "type": {
+                "text": "EventEmitter<SlDragEndEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished."
+            },
+            {
+              "kind": "field",
+              "name": "dropEvent",
+              "type": {
+                "text": "EventEmitter<SlDropEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped."
             },
             {
               "kind": "field",
@@ -3541,6 +3521,14 @@
               "name": "model",
               "default": "new GridViewModel<T>(this)",
               "description": "The model used for rendering the grid."
+            },
+            {
+              "kind": "field",
+              "name": "stateChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlStateChangeEvent<T>>"
+              },
+              "description": "Emits when the state in the grid has changed."
             },
             {
               "kind": "field",
@@ -3602,6 +3590,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<boolean>>"
+              },
+              "description": "Emits when the user changes the group selection."
+            },
+            {
+              "kind": "field",
               "name": "selectable",
               "type": {
                 "text": "boolean | undefined"
@@ -3620,38 +3616,12 @@
               "attribute": "selected"
             },
             {
-              "kind": "event",
-              "name": "sl-select",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent<boolean>>"
-              },
-              "description": "Emits when the user changes the group selection."
-            },
-            {
-              "kind": "event",
-              "name": "sl-toggle",
-              "type": {
-                "text": "EventEmitter<SlToggleEvent<boolean>>"
-              },
-              "description": "Emits when the user collapses/expands the group."
-            }
-          ],
-          "events": [
-            {
-              "name": "selectEvent",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent<boolean>>"
-              },
-              "description": "Emits when the user changes the group selection.",
-              "fieldName": "selectEvent"
-            },
-            {
+              "kind": "field",
               "name": "toggleEvent",
               "type": {
                 "text": "EventEmitter<SlToggleEvent<boolean>>"
               },
-              "description": "Emits when the user collapses/expands the group.",
-              "fieldName": "toggleEvent"
+              "description": "Emits when the user collapses/expands the group."
             }
           ],
           "attributes": [
@@ -3738,6 +3708,22 @@
               "static": true,
               "privacy": "private",
               "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<boolean>>"
+              },
+              "description": "Emits when the user changes the group selection."
+            },
+            {
+              "kind": "field",
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
+              },
+              "description": "Emits when the user collapses/expands the group."
             }
           ]
         }
@@ -3790,7 +3776,7 @@
               }
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "columnUpdateEvent",
               "type": {
                 "text": "EventEmitter<SlColumnUpdateEvent<T>>"
@@ -4138,20 +4124,6 @@
           },
           "tagName": "sl-grid-select-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -4300,6 +4272,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -4394,7 +4378,7 @@
               }
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "columnUpdateEvent",
               "type": {
                 "text": "EventEmitter<SlColumnUpdateEvent<T>>"
@@ -4768,20 +4752,6 @@
           },
           "tagName": "sl-grid-selection-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -4982,6 +4952,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -5067,7 +5049,7 @@
               }
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "columnUpdateEvent",
               "type": {
                 "text": "EventEmitter<SlColumnUpdateEvent<T>>"
@@ -5423,20 +5405,6 @@
           },
           "tagName": "sl-grid-sort-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -5570,6 +5538,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -5664,20 +5644,12 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-sort-direction-change",
+              "kind": "field",
+              "name": "sortDirectionChangeEvent",
               "type": {
                 "text": "EventEmitter<SlSortDirectionChangeEvent<T>>"
               },
               "description": "Emits when the direction has changed."
-            },
-            {
-              "kind": "event",
-              "name": "sl-sorter-change",
-              "type": {
-                "text": "EventEmitter<SlSorterChangeEvent>"
-              },
-              "description": "Emits when the sorter has been added or removed."
             },
             {
               "kind": "field",
@@ -5686,24 +5658,14 @@
                 "text": "DataSourceSortFunction<T> | undefined"
               },
               "description": "An optional custom sort function."
-            }
-          ],
-          "events": [
+            },
             {
+              "kind": "field",
               "name": "sorterChangeEvent",
               "type": {
                 "text": "EventEmitter<SlSorterChangeEvent>"
               },
-              "description": "Emits when the sorter has been added or removed.",
-              "fieldName": "sorterChangeEvent"
-            },
-            {
-              "name": "sortDirectionChangeEvent",
-              "type": {
-                "text": "EventEmitter<SlSortDirectionChangeEvent<T>>"
-              },
-              "description": "Emits when the direction has changed.",
-              "fieldName": "sortDirectionChangeEvent"
+              "description": "Emits when the sorter has been added or removed."
             }
           ],
           "attributes": [
@@ -5813,6 +5775,22 @@
                 "text": "DataSourceSortFunction<T> | undefined"
               },
               "description": "An optional custom sort function."
+            },
+            {
+              "kind": "field",
+              "name": "sorterChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlSorterChangeEvent>"
+              },
+              "description": "Emits when the sorter has been added or removed."
+            },
+            {
+              "kind": "field",
+              "name": "sortDirectionChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlSortDirectionChangeEvent<T>>"
+              },
+              "description": "Emits when the direction has changed."
             }
           ]
         }
@@ -5865,7 +5843,7 @@
               }
             },
             {
-              "kind": "event",
+              "kind": "field",
               "name": "columnUpdateEvent",
               "type": {
                 "text": "EventEmitter<SlColumnUpdateEvent<T>>"
@@ -6196,20 +6174,6 @@
               }
             }
           ],
-          "events": [
-            {
-              "name": "columnUpdateEvent",
-              "type": {
-                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdateEvent",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -6351,6 +6315,18 @@
                 "text": "number | undefined"
               },
               "description": "Actual width of the column.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
                 "name": "GridColumn",
                 "module": "src/column.ts"

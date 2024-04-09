@@ -10,10 +10,6 @@ import { property } from 'lit/decorators.js';
 import styles from './group-header.scss.js';
 
 declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-toggle': SlToggleEvent;
-  }
-
   interface HTMLElementTagNameMap {
     'sl-grid-group-header': GridGroupHeader;
   }

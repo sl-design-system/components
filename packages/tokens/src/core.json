@@ -613,17 +613,17 @@
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.outline}",
+            "value": "{space.lg} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.outline}",
+            "value": "{space.xl} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.outline}",
+            "value": "{space.xl} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
@@ -663,17 +663,17 @@
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.ghost}",
+            "value": "{space.lg} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.ghost}",
+            "value": "{space.xl} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.ghost}",
+            "value": "{space.xl} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
@@ -1411,11 +1411,11 @@
           "type": "spacing"
         },
         "2xl": {
-          "value": "{space.xs}+ {space.2xs}",
+          "value": "{space.xs} + {space.2xs}",
           "type": "spacing"
         },
         "3xl": {
-          "value": "{space.xs}+ {space.2xs}",
+          "value": "{space.xs} + {space.2xs}",
           "type": "spacing"
         }
       },
@@ -1569,7 +1569,8 @@
       },
       "gap": {
         "value": "{space.xs}",
-        "type": "spacing"
+        "type": "spacing",
+        "description": "space.popover.gap"
       },
       "offset": {
         "value": "{space.xs}",
@@ -1584,7 +1585,7 @@
       },
       "inline": {
         "start": {
-          "value": "{space.lg}+{border.width.inline-message.start}",
+          "value": "{space.lg} + {border.width.inline-message.start}",
           "type": "spacing",
           "description": "space.button.solid.inline.md"
         },
@@ -1611,7 +1612,7 @@
         "type": "spacing"
       },
       "block": {
-        "value": "{space.sm}",
+        "value": "{space.md}",
         "type": "spacing"
       },
       "gap": {

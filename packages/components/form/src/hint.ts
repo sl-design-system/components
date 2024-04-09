@@ -2,6 +2,12 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit'
 import { property } from 'lit/decorators.js';
 import styles from './hint.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-hint': Hint;
+  }
+}
+
 export type HintSize = 'sm' | 'md' | 'lg';
 
 /**

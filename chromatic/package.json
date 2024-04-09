@@ -10,12 +10,12 @@
   },
   "type": "module",
   "scripts": {
-    "chromatic": "chromatic --build-script-name build-storybook -o storybook-static --exit-zero-on-changes",
-    "build-storybook": "wireit",
+    "chromatic": "chromatic --build-script-name storybook -o storybook-static --exit-zero-on-changes",
+    "themes": "wireit",
     "start": "wireit"
   },
   "wireit": {
-    "build-storybook": {
+    "themes": {
       "command": "storybook build",
       "dependencies": [
         "..:build:components",
@@ -35,16 +35,14 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.6.17",
-    "@storybook/addon-essentials": "^7.6.17",
-    "@storybook/addon-storysource": "^7.6.17",
-    "@storybook/web-components-vite": "^7.6.17",
+    "@storybook/addon-a11y": "^8.0.5",
+    "@storybook/addon-essentials": "^8.0.5",
+    "@storybook/addon-storysource": "^8.0.5",
+    "@storybook/web-components-vite": "^8.0.5",
     "lit": "^3.1.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "storybook": "^7.6.17",
+    "storybook": "^8.0.5",
     "tslib": "^2.6.2",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.4",
     "wireit": "^0.14.4"
   }
 }

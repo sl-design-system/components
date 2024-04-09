@@ -1,299 +1,321 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import { spy } from 'sinon';
 import '../register.js';
-import { TabGroup } from './tab-group.js';
+import { TabGroup, type TabsAlignment } from './tab-group.js';
 
 describe('sl-tab-group', () => {
   let el: TabGroup;
 
-  describe('empty', () => {
+  describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-tab-group></sl-tab-group>`);
+      el = await fixture(html`
+        <sl-tab-group>
+          <sl-tab>Tab 1</sl-tab>
+          <sl-tab>Tab 2</sl-tab>
+          <sl-tab disabled>Tab 3</sl-tab>
+          <sl-tab-panel>Panel 1</sl-tab-panel>
+          <sl-tab-panel>Panel 2</sl-tab-panel>
+          <sl-tab-panel>Panel 3</sl-tab-panel>
+        </sl-tab-group>
+      `);
+
+      // We need to wait for the RovingTabindexController to do its thing
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should not break', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
-    it('should have horizontal layout by default', () => {
+    it('should have a horizontal layout', () => {
       expect(el).not.to.have.attribute('vertical');
+      expect(el.vertical).not.to.be.true;
     });
 
-    it('should have start alignment by default', () => {
-      expect(el).to.have.attribute('alignment', 'start');
+    it('should have a vertical layout when set', async () => {
+      el.vertical = true;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('vertical');
     });
-  });
 
-  describe('multiple panels', () => {
-    describe('no selected, no disabled', () => {
-      beforeEach(async () => {
-        el = await fixture(html`
-          <sl-tab-group>
-            <sl-tab>Tab 1</sl-tab>
-            <sl-tab>Tab 2</sl-tab>
-            <sl-tab>Tab 3</sl-tab>
-            <sl-tab-panel>Panel 1</sl-tab-panel>
-            <sl-tab-panel>Panel 2</sl-tab-panel>
-            <sl-tab-panel>Panel 3</sl-tab-panel>
-          </sl-tab-group>
-        `);
-      });
+    it('should align tabs to start', () => {
+      expect(el).not.to.have.attribute('align-tabs');
+      expect(el).to.have.style('--_tabs-alignment', 'start');
+      expect(el.alignTabs).to.be.undefined;
+    });
 
-      it('should render correctly', () => {
-        expect(el).shadowDom.to.equalSnapshot();
-      });
-
-      it('should select the first tab by default', () => {
-        const tabs = el.querySelectorAll('sl-tab[selected]'),
-          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
-
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 1');
-        expect(tabs[0]).to.have.attribute('aria-controls', 'sl-tab-group-4-panel-1');
-        expect(panels.length).to.equal(1);
-        expect(panels[0].innerHTML).to.equal('Panel 1');
-        expect(panels[0]).to.have.attribute('aria-labelledby', 'sl-tab-group-4-tab-1');
-      });
-
-      it('should handle the selecting of tabs by keyboard correctly', async () => {
-        (el.querySelector('sl-tab:nth-of-type(2)') as HTMLElement)?.focus();
-        await sendKeys({ press: 'Space' });
-
-        let tabs = el.querySelectorAll('sl-tab[selected]'),
-          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
-
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 2');
-        expect(panels.length).to.equal(1);
-        expect(panels[0].innerHTML).to.equal('Panel 2');
-
-        (el.querySelector('sl-tab:nth-of-type(3)') as HTMLElement)?.focus();
-        await sendKeys({ press: 'Enter' });
-
-        tabs = el.querySelectorAll('sl-tab[selected]');
-        panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
-
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 3');
-        expect(panels.length).to.equal(1);
-        expect(panels[0].innerHTML).to.equal('Panel 3');
-
-        (el.querySelector('sl-tab:nth-of-type(1)') as HTMLElement)?.focus();
-        await sendKeys({ press: 'r' });
-
-        tabs = el.querySelectorAll('sl-tab[selected]');
-        panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 3');
-        expect(panels.length).to.equal(1);
-        expect(panels[0].innerHTML).to.equal('Panel 3');
-      });
-
-      it('should select the right tab on click', async () => {
-        (el.querySelector('sl-tab:nth-of-type(2)') as HTMLElement).click();
+    ['start', 'center', 'end', 'stretch'].forEach(align => {
+      it(`should support ${align} alignment of tabs`, async () => {
+        el.alignTabs = align as TabsAlignment;
         await el.updateComplete;
 
-        const tabs = el.querySelectorAll('sl-tab[selected]'),
-          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
-
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 2');
-        expect(panels.length).to.equal(1);
-        expect(panels[0].innerHTML).to.equal('Panel 2');
+        expect(el).to.have.attribute('align-tabs', align);
+        expect(el).to.have.style('--_tabs-alignment', align);
       });
     });
 
-    describe('no selected, first disabled', () => {
-      beforeEach(async () => {
-        el = await fixture(
-          html`<sl-tab-group>
-            <sl-tab disabled>Tab 1</sl-tab>
-            <sl-tab>Tab 2</sl-tab>
-            <sl-tab>Tab 3</sl-tab>
-            <sl-tab-panel>Panel 1</sl-tab-panel>
-            <sl-tab-panel>Panel 2</sl-tab-panel>
-            <sl-tab-panel>Panel 3</sl-tab-panel>
-          </sl-tab-group>`
-        );
-      });
+    it('should link the tabs to the panels', () => {
+      const tabs = el.querySelectorAll('sl-tab'),
+        panels = el.querySelectorAll('sl-tab-panel');
 
-      it('should render correctly', () => {
-        expect(el).shadowDom.to.equalSnapshot();
-      });
-
-      it('should select the first tab by default', () => {
-        const tabs = el.querySelectorAll('sl-tab[selected]'),
-          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
-
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 2');
-        expect(panels.length).to.equal(1);
-        expect(panels[0].innerHTML).to.equal('Panel 2');
+      tabs.forEach((tab, i) => {
+        expect(tab).to.have.attribute('id');
+        expect(tab).to.have.attribute('aria-controls', panels[i].id);
+        expect(panels[i]).to.have.attribute('id');
+        expect(panels[i]).to.have.attribute('aria-labelledby', tab.id);
       });
     });
 
-    describe('second selected, last disabled', () => {
-      beforeEach(async () => {
-        el = await fixture(
-          html`<sl-tab-group>
-            <sl-tab>Tab 1</sl-tab>
-            <sl-tab selected>Tab 2</sl-tab>
-            <sl-tab disabled>Tab 3</sl-tab>
-            <sl-tab-panel>Panel 1</sl-tab-panel>
-            <sl-tab-panel>Panel 2</sl-tab-panel>
-            <sl-tab-panel>Panel 3</sl-tab-panel>
-          </sl-tab-group>`
-        );
+    it('should have a tablist with role tablist', () => {
+      const tablist = el.renderRoot.querySelector('[part="tablist"]');
+
+      expect(tablist).to.exist;
+      expect(tablist).to.have.attribute('role', 'tablist');
+    });
+
+    it('should not have a menu button', async () => {
+      await el.updateComplete;
+      const menuButton = el.renderRoot.querySelector('sl-menu-button');
+
+      expect(menuButton).not.to.exist;
+    });
+
+    it('should select the first tab by default', () => {
+      const tabs = el.querySelectorAll('sl-tab[selected]'),
+        panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+
+      expect(tabs).to.have.lengthOf(1);
+      expect(tabs[0]).to.have.text('Tab 1');
+      expect(panels).to.have.lengthOf(1);
+      expect(panels[0]).to.have.text('Panel 1');
+    });
+
+    it('should select the second tab when clicked', () => {
+      el.querySelector<HTMLElement>('sl-tab:nth-of-type(2)')?.click();
+
+      const tabs = el.querySelectorAll('sl-tab[selected]'),
+        panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+
+      expect(tabs).to.have.lengthOf(1);
+      expect(tabs[0]).to.have.text('Tab 2');
+      expect(panels).to.have.lengthOf(1);
+      expect(panels[0]).to.have.text('Panel 2');
+    });
+
+    it('should emit an sl-tab-change event when the tab changes', () => {
+      const onTabChange = spy();
+
+      let selectedTabIndex = -1;
+      el.addEventListener('sl-tab-change', event => {
+        onTabChange();
+
+        selectedTabIndex = event.detail;
       });
 
-      it('should render correctly', () => {
-        expect(el).shadowDom.to.equalSnapshot();
-      });
+      el.querySelector<HTMLElement>('sl-tab:nth-of-type(2)')?.click();
 
-      it('should select the first tab by default', () => {
-        const tabs = el.querySelectorAll('sl-tab[selected]'),
-          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+      expect(onTabChange).to.have.been.calledOnce;
+      expect(selectedTabIndex).to.equal(1);
+    });
 
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 2');
-        expect(panels.length).to.equal(1);
-        expect(panels[0].innerHTML).to.equal('Panel 2');
-      });
+    it('should support keyboard navigation using the arrow keys', async () => {
+      const tabs = el.querySelectorAll('sl-tab');
+
+      tabs[0].focus();
+      expect(document.activeElement).to.equal(tabs[0]);
+
+      await sendKeys({ press: 'ArrowRight' });
+      expect(document.activeElement).to.equal(tabs[1]);
+
+      // Third tab is disabled, so it should be skipped
+      await sendKeys({ press: 'ArrowRight' });
+      expect(document.activeElement).to.equal(tabs[0]);
+
+      // Third tab is disabled, so it should be skipped
+      await sendKeys({ press: 'ArrowLeft' });
+      expect(document.activeElement).to.equal(tabs[1]);
+    });
+
+    it('should select a different tab when pressing the Enter key', async () => {
+      const first = el.querySelector<HTMLElement>('sl-tab:first-of-type');
+
+      first?.focus();
+
+      await sendKeys({ press: 'ArrowRight' });
+      await sendKeys({ press: 'Enter' });
+      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
+
+      const selectedTab = el.querySelector('sl-tab[selected]') as HTMLElement,
+        selectedPanel = el.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;
+
+      expect(selectedTab).to.have.text('Tab 2');
+      expect(selectedPanel).to.have.text('Panel 2');
+    });
+
+    it('should select a different tab when pressing the Space key', async () => {
+      const first = el.querySelector<HTMLElement>('sl-tab:first-of-type');
+
+      first?.focus();
+
+      await sendKeys({ press: 'ArrowLeft' });
+      await sendKeys({ press: 'Space' });
+
+      const selectedTab = el.querySelector('sl-tab[selected]') as HTMLElement,
+        selectedPanel = el.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;
+
+      expect(selectedTab).to.have.text('Tab 2');
+      expect(selectedPanel).to.have.text('Panel 2');
     });
   });
 
-  describe('single panel', () => {
-    describe('no selected, no disabled', () => {
-      beforeEach(async () => {
-        el = await fixture(
-          html`<sl-tab-group>
-            <sl-tab>Tab 1</sl-tab>
-            <sl-tab>Tab 2</sl-tab>
-            <sl-tab>Tab 3</sl-tab>
-            <sl-tab-panel>Panel 1</sl-tab-panel>
-          </sl-tab-group>`
-        );
-      });
+  describe('disabled', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tab-group>
+          <sl-tab disabled>Tab 1</sl-tab>
+          <sl-tab>Tab 2</sl-tab>
+          <sl-tab>Tab 3</sl-tab>
+          <sl-tab-panel>Panel 1</sl-tab-panel>
+          <sl-tab-panel>Panel 2</sl-tab-panel>
+          <sl-tab-panel>Panel 3</sl-tab-panel>
+        </sl-tab-group>
+      `);
+    });
 
-      it('should render correctly', () => {
-        expect(el).shadowDom.to.equalSnapshot();
-      });
-
-      it('should select the first tab by default', () => {
-        const tabs = el.querySelectorAll('sl-tab[selected]'),
-          panels = el.querySelectorAll('sl-tab-panel');
-
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 1');
-        expect(tabs[0]).to.have.attribute('aria-controls', 'sl-tab-group-12-panel-1');
-
-        expect(panels.length).to.equal(1);
-        expect(panels[0]).to.have.attribute('aria-labelledby', 'sl-tab-group-12-tab-1');
-      });
-
-      it('should select the right tab on click', async () => {
-        (el.querySelector('sl-tab:nth-of-type(2)') as HTMLElement).click();
-        await el.updateComplete;
-
-        const tabs = el.querySelectorAll('sl-tab[selected]'),
-          panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
-
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 2');
-        expect(panels.length).to.equal(1);
-        expect(panels[0]).to.have.attribute('aria-labelledby', 'sl-tab-group-13-tab-2');
-      });
+    it('should select the second tab by default', () => {
+      expect(el.querySelector('sl-tab[selected]')).to.have.text('Tab 2');
+      expect(el.querySelector('sl-tab-panel[aria-hidden="false"]')).to.have.text('Panel 2');
     });
   });
 
-  describe('with dropdown menu', () => {
-    let element: TabGroup;
-    let container: HTMLElement;
+  describe('selected', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tab-group>
+          <sl-tab>Tab 1</sl-tab>
+          <sl-tab selected>Tab 2</sl-tab>
+          <sl-tab>Tab 3</sl-tab>
+          <sl-tab-panel>Panel 1</sl-tab-panel>
+          <sl-tab-panel>Panel 2</sl-tab-panel>
+          <sl-tab-panel>Panel 3</sl-tab-panel>
+        </sl-tab-group>
+      `);
+    });
 
-    const showListbox = async () => {
-      await element.updateComplete;
-      return await new Promise(resolve => setTimeout(resolve, 700));
-    };
+    it('should select the second tab by default', () => {
+      expect(el.querySelector('sl-tab[selected]')).to.have.text('Tab 2');
+      expect(el.querySelector('sl-tab-panel[aria-hidden="false"]')).to.have.text('Panel 2');
+    });
+  });
 
-    describe('with more button in a small container', () => {
-      beforeEach(async () => {
-        element = await fixture(html`
-          <sl-tab-group style="width: 70px">
-            <sl-tab>Tab 1</sl-tab>
-            <sl-tab>Tab 2</sl-tab>
-            <sl-tab>Tab 3</sl-tab>
-            <sl-tab-panel>Panel 1</sl-tab-panel>
-            <sl-tab-panel>Panel 2</sl-tab-panel>
-            <sl-tab-panel>Panel 3</sl-tab-panel>
-          </sl-tab-group>
-        `);
-        container = element.shadowRoot?.querySelector('.container') as HTMLElement;
-      });
+  describe('links', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tab-group>
+          <sl-tab href="javascript:void(0)">Tab 1</sl-tab>
+          <sl-tab>Tab 2</sl-tab>
+        </sl-tab-group>
+      `);
+    });
 
-      it('should render correctly', () => {
-        expect(element).shadowDom.to.equalSnapshot();
-      });
+    it('should wrap the tabs content in a link tag with href', () => {
+      const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')?.href);
 
-      it('should not show the listbox by default', () => {
-        const popover = element.shadowRoot?.querySelector('[popover]') as HTMLElement;
+      expect(tabs).to.eql(['javascript:void(0)', undefined]);
+    });
+  });
 
-        expect(popover.getBoundingClientRect().width).to.equal(0);
-        expect(popover.getBoundingClientRect().height).to.equal(0);
-      });
+  describe('only tabs', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tab-group>
+          <sl-tab>Tab 1</sl-tab>
+          <sl-tab>Tab 2</sl-tab>
+        </sl-tab-group>
+      `);
+    });
 
-      it('should show the more button', async () => {
-        await showListbox();
-        await element.updateComplete;
-        const slBtn = container.querySelector('sl-button');
+    it('should not have put aria-controls attributes on the tabs', () => {
+      const noControls = Array.from(el.querySelectorAll('sl-tab')).every(tab => !tab.hasAttribute('aria-controls'));
 
-        expect(slBtn).to.exist;
-      });
+      expect(noControls).to.be.true;
+    });
+  });
 
-      it('should show the listbox on click on the more button', async () => {
-        await showListbox();
-        await element.updateComplete;
-        const slBtn = container.querySelector('sl-button'),
-          clickEvent = new Event('click');
+  describe('horizontal overflow', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tab-group style="width: 50px">
+          <sl-tab>Tab 1</sl-tab>
+          <sl-tab>Tab 2</sl-tab>
+          <sl-tab disabled>Tab 3</sl-tab>
+          <sl-tab-panel>Panel 1</sl-tab-panel>
+          <sl-tab-panel>Panel 2</sl-tab-panel>
+          <sl-tab-panel>Panel 3</sl-tab-panel>
+        </sl-tab-group>
+      `);
 
-        slBtn?.dispatchEvent(clickEvent);
+      // We need to wait for the RovingTabindexController to do its thing
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
 
-        const popover = element.shadowRoot?.querySelector('[popover]') as HTMLElement;
+    it('should have a menu button', () => {
+      const menuButton = el.renderRoot.querySelector('sl-menu-button');
 
-        expect(popover.getBoundingClientRect().width).not.to.equal(0);
-        expect(popover.getBoundingClientRect().height).not.to.equal(0);
-      });
+      expect(menuButton).to.exist;
+    });
 
-      it('should handle the selecting of tabs by keyboard in the listbox correctly', async () => {
-        await showListbox();
-        await element.updateComplete;
-        const slBtn = container.querySelector('sl-button'),
-          clickEvent = new Event('click');
+    it('should have menu items for all the tabs', () => {
+      const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(menuItem =>
+        menuItem.textContent?.trim()
+      );
 
-        slBtn?.dispatchEvent(clickEvent);
+      expect(menuItems).to.eql(['Tab 1', 'Tab 2', 'Tab 3']);
+    });
 
-        await new Promise(resolve => setTimeout(resolve, 800));
+    it('should disable the menu items for disabled tabs', () => {
+      const menuItems = Array.from(el.renderRoot.querySelectorAll('sl-menu-item')).map(menuItem => menuItem.disabled);
 
-        const popover = element.shadowRoot?.querySelector('[popover]') as HTMLElement;
+      expect(menuItems).to.eql([false, false, true]);
+    });
 
-        (popover.querySelector('sl-tab:nth-of-type(2)') as HTMLElement)?.focus();
+    it('should select the tab when clicking a menu item', () => {
+      el.renderRoot.querySelector<HTMLElement>('sl-menu-item:nth-of-type(2)')?.click();
 
-        await sendKeys({ press: 'ArrowRight' });
-        await element.updateComplete;
+      const selectedTab = el.querySelector('sl-tab[selected]') as HTMLElement,
+        selectedPanel = el.querySelector('sl-tab-panel[aria-hidden="false"]') as HTMLElement;
 
-        await sendKeys({ press: 'Enter' });
-        await element.updateComplete;
+      expect(selectedTab).to.have.text('Tab 2');
+      expect(selectedPanel).to.have.text('Panel 2');
+    });
+  });
 
-        const tabs = element.querySelectorAll('sl-tab[selected]'),
-          panels = element.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
+  describe('vertical overflow', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-tab-group style="height: 50px" vertical>
+          <sl-tab>Tab 1</sl-tab>
+          <sl-tab>Tab 2</sl-tab>
+          <sl-tab disabled>Tab 3</sl-tab>
+          <sl-tab-panel>Panel 1</sl-tab-panel>
+          <sl-tab-panel>Panel 2</sl-tab-panel>
+          <sl-tab-panel>Panel 3</sl-tab-panel>
+        </sl-tab-group>
+      `);
 
-        await element.updateComplete;
+      // We need to wait for the RovingTabindexController to do its thing
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
 
-        expect(tabs.length).to.equal(1);
-        expect(tabs[0].innerHTML).to.equal('Tab 2');
-        expect(panels.length).to.equal(1);
-        expect(panels[0].innerHTML).to.equal('Panel 2');
-      });
+    it('should have a menu button', async () => {
+      await el.updateComplete;
+      const menuButton = el.renderRoot.querySelector('sl-menu-button');
+
+      expect(menuButton).to.exist;
     });
   });
 });

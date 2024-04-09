@@ -25,6 +25,7 @@ $variants: default, valid, invalid;
 div {
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--_border-radius);
   box-shadow: var(--sl-elevation-shadow-md);
   box-sizing: border-box;
   display: none;

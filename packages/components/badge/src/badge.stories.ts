@@ -37,7 +37,7 @@ const sizeName = (size: string): string => {
 };
 
 export default {
-  title: 'Badge',
+  title: 'Components/Badge',
   args: {
     text: '99+',
     size: 'md',

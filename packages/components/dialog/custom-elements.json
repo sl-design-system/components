@@ -96,6 +96,14 @@
           ],
           "members": [
             {
+              "kind": "field",
+              "name": "cancelEvent",
+              "type": {
+                "text": "EventEmitter<SlCancelEvent>"
+              },
+              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
+            },
+            {
               "kind": "method",
               "name": "close",
               "return": {
@@ -112,6 +120,14 @@
               },
               "description": "Determines whether a close button should be shown in the top right corner.",
               "attribute": "close-button"
+            },
+            {
+              "kind": "field",
+              "name": "closeEvent",
+              "type": {
+                "text": "EventEmitter<SlCloseEvent>"
+              },
+              "description": "Emits when the dialog has been closed."
             },
             {
               "kind": "field",
@@ -140,40 +156,6 @@
                   "text": "void"
                 }
               }
-            },
-            {
-              "kind": "event",
-              "name": "sl-cancel",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
-            },
-            {
-              "kind": "event",
-              "name": "sl-close",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the dialog has been closed."
-            }
-          ],
-          "events": [
-            {
-              "name": "cancelEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop.",
-              "fieldName": "cancelEvent"
-            },
-            {
-              "name": "closeEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the dialog has been closed.",
-              "fieldName": "closeEvent"
             }
           ],
           "attributes": [
@@ -335,6 +317,22 @@
                 "text": "HTMLDialogElement | undefined"
               },
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "cancelEvent",
+              "type": {
+                "text": "EventEmitter<SlCancelEvent>"
+              },
+              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
+            },
+            {
+              "kind": "field",
+              "name": "closeEvent",
+              "type": {
+                "text": "EventEmitter<SlCloseEvent>"
+              },
+              "description": "Emits when the dialog has been closed."
             }
           ]
         }

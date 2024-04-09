@@ -4,9 +4,16 @@ import { Button } from '@sl-design-system/button';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlChangeEvent, type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './group-header.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-grid-group-header': GridGroupHeader;
+  }
+}
 
 Icon.register(faChevronRight);
 
@@ -36,10 +43,10 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   @property() selected: 'all' | 'some' | 'none' = 'none';
 
   /** Emits when the user changes the group selection. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<boolean>;
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<boolean>>;
 
   /** Emits when the user collapses/expands the group. */
-  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<boolean>;
+  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   override render(): TemplateResult {
     return html`
@@ -65,7 +72,7 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
     this.toggleEvent.emit(this.expanded);
   }
 
-  #onToggle(event: CustomEvent<boolean>): void {
+  #onToggle(event: SlChangeEvent<boolean>): void {
     this.selectEvent.emit(event.detail);
   }
 }

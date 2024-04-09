@@ -1,5 +1,29 @@
 # @sl-design-system/message-dialog
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.26
+  - @sl-design-system/dialog@0.0.15
+
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.25
+  - @sl-design-system/dialog@0.0.14
+
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.24
+  - @sl-design-system/dialog@0.0.13
+
 ## 0.0.5
 
 ### Patch Changes

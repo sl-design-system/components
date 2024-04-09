@@ -11,20 +11,35 @@ import {
   getValueByPath,
   isSafari
 } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type SlSelectEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { type GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
-import { GridActiveItemChangeEvent, GridEvent, GridItemDropEvent, GridItemEvent } from './events.js';
 import { GridFilterColumn } from './filter-column.js';
-import { type GridFilter, type GridFilterChange } from './filter.js';
+import { type GridFilter, type SlFilterChangeEvent } from './filter.js';
 import styles from './grid.scss.js';
 import { GridGroupHeader } from './group-header.js';
 import { GridSelectionColumn } from './selection-column.js';
 import { GridSortColumn } from './sort-column.js';
-import { type GridSorter, type GridSorterChange } from './sorter.js';
+import { type GridSorter, type SlSorterChangeEvent } from './sorter.js';
 import { GridViewModel, GridViewModelGroup } from './view-model.js';
+
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-active-item-change': SlActiveItemChangeEvent;
+    'sl-grid-dragstart': SlDragStartEvent;
+    'sl-grid-dragend': SlDragEndEvent;
+    'sl-grid-drop': SlDropEvent;
+    'sl-state-change': SlStateChangeEvent;
+  }
+
+  interface HTMLElementTagNameMap {
+    'sl-grid': Grid;
+  }
+}
 
 export type GridItemParts<T> = (model: T) => string | undefined;
 
@@ -38,6 +53,21 @@ export type GridItemParts<T> = (model: T) => string | undefined;
 export type GridDraggableRows = 'between' | 'on-top' | 'between-or-on-top' | 'on-grid';
 
 export type GridDropFilter<T> = (item: T) => boolean | 'between' | 'on-top';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlActiveItemChangeEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T; relatedEvent?: Event }>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlDragStartEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T }>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlDragEndEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T }>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlDropEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T; oldIndex: number; newIndex: number }>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
 
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -99,7 +129,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   @state() activeItem?: T;
 
   /** Emits when the active item changes */
-  @event() activeItemChange!: EventEmitter<GridActiveItemChangeEvent<T>>;
+  @event({ name: 'sl-active-item-change' }) activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
 
   /** Provide your own implementation for getting the data. */
   @property({ attribute: false }) dataSource?: DataSource<T>;
@@ -110,6 +140,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ attribute: 'draggable-rows' }) draggableRows?: GridDraggableRows;
 
+  /** Emits when a drag operation is starting. */
+  @event({ name: 'sl-grid-dragstart' }) dragStartEvent!: EventEmitter<SlDragStartEvent<T>>;
+
+  /** Emits when a drag operation has finished. */
+  @event({ name: 'sl-grid-dragend' }) dragEndEvent!: EventEmitter<SlDragEndEvent<T>>;
+
+  /** Emits when an item has been dropped. */
+  @event({ name: 'sl-grid-drop' }) dropEvent!: EventEmitter<SlDropEvent<T>>;
+
   /**
    * Determines if or what kind of drop target the given item is:
    * - boolean: the item is valid drop target based on the draggableRows value
@@ -117,21 +156,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    * - 'on-top': the item is a valid drop target to drop on top of
    */
   @property({ attribute: false }) dropFilter?: GridDropFilter<T>;
-
-  /** Emits when a drag operation is starting. */
-  @event() gridDragstart!: EventEmitter<GridEvent<T>>;
-
-  /** Emits when a drag operation has finished. */
-  @event() gridDragend!: EventEmitter<GridEvent<T>>;
-
-  /** Emits when an item has been dropped. */
-  @event() gridDrop!: EventEmitter<GridEvent<T>>;
-
-  /** Emits when the items in the grid have changed. */
-  @event() gridItemsChange!: EventEmitter<GridEvent<T>>;
-
-  /** Emits when the state in the grid has changed. */
-  @event() gridStateChange!: EventEmitter<GridEvent<T>>;
 
   /** An array of items to be displayed in the grid. */
   @property({ type: Array }) items?: T[];
@@ -150,6 +174,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Hides the border between rows when true. */
   @property({ type: Boolean, reflect: true, attribute: 'no-row-border' }) noRowBorder?: boolean;
+
+  /** Emits when the state in the grid has changed. */
+  @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
 
   /** Uses alternating background colors for the rows when set. */
   @property({ type: Boolean, reflect: true }) striped?: boolean;
@@ -311,11 +338,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
               ${rows.at(-1)?.[0].renderHeader()} ${(rows.at(-1)?.[0] as GridSelectionColumn<T>).renderSelectionHeader()}
             </tr>
           `
-        : html`
-            <tr>
-              ${rows.at(-1)?.map(col => col.renderHeader())}
-            </tr>
-          `}
+        : nothing}
+      <tr style=${styleMap({ display: showSelectionHeader ? 'none' : '' })}>
+        ${rows.at(-1)?.map(col => col.renderHeader())}
+      </tr>
     `;
   }
 
@@ -407,7 +433,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
   #onClickRow(event: Event, item: T): void {
     this.activeItem = item;
-    this.activeItemChange.emit(new GridActiveItemChangeEvent(this, this.activeItem, event));
+    this.activeItemChangeEvent.emit({ grid: this, item: this.activeItem, relatedEvent: event });
   }
 
   #onColumnUpdate(event: Event & { target: GridColumn<T> }): void {
@@ -441,7 +467,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dragItem = item;
     this.#dropPlaceholder!.style.height = `${rowRect.height}px`;
 
-    this.gridDragstart.emit(new GridItemEvent('sl-grid-dragstart', this, item));
+    this.dragStartEvent.emit({ grid: this, item: item });
   }
 
   #onDragenter(event: DragEvent, item: T): void {
@@ -521,7 +547,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dragItem = undefined;
     this.#dropPlaceholder?.remove();
 
-    this.gridDragend.emit(new GridItemEvent('sl-grid-dragend', this, item));
+    this.dragEndEvent.emit({ grid: this, item });
   }
 
   #onDrop(event: DragEvent, item: T): void {
@@ -545,7 +571,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       newIndex--;
     }
 
-    this.gridDrop.emit(new GridItemDropEvent(this, item, oldIndex, newIndex));
+    this.dropEvent.emit({ grid: this, item, oldIndex, newIndex });
   }
 
   #onDropOnPlaceholder(): void {
@@ -562,10 +588,10 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       newIndex--;
     }
 
-    this.gridDrop.emit(new GridItemDropEvent(this, this.#dragItem!, oldIndex, newIndex));
+    this.dropEvent.emit({ grid: this, item: this.#dragItem!, oldIndex, newIndex });
   }
 
-  #onFilterChange({ detail, target }: CustomEvent<GridFilterChange> & { target: GridFilter<T> }): void {
+  #onFilterChange({ detail, target }: SlFilterChangeEvent & { target: GridFilter<T> }): void {
     if (detail === 'added') {
       this.#filters = [...this.#filters, target];
     } else {
@@ -579,7 +605,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applyFilters();
   }
 
-  #onGroupSelect(event: CustomEvent<boolean>, group: GridViewModelGroup): void {
+  #onGroupSelect(event: SlSelectEvent<boolean>, group: GridViewModelGroup): void {
     const items = this.dataSource?.filteredItems ?? [],
       groupItems = items.filter(item => getValueByPath(item, this.itemsGroupBy) === group.value);
 
@@ -590,7 +616,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onGroupToggle(event: CustomEvent<boolean>, group: GridViewModelGroup): void {
+  #onGroupToggle(event: SlToggleEvent<boolean>, group: GridViewModelGroup): void {
     this.model.toggleGroup(group.value, event.detail);
   }
 
@@ -632,7 +658,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#applySorters();
   }
 
-  #onSorterChange({ detail, target }: CustomEvent<GridSorterChange> & { target: GridSorter<T> }): void {
+  #onSorterChange({ detail, target }: SlSorterChangeEvent & { target: GridSorter<T> }): void {
     if (detail === 'added') {
       this.#sorters = [...this.#sorters, target];
     } else {
@@ -678,7 +704,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.dataSource.update();
     this.requestUpdate();
-    this.gridStateChange.emit(new GridEvent('sl-grid-state-change', this));
+    this.stateChangeEvent.emit({ grid: this });
   }
 
   #applySorters(): void {
@@ -697,6 +723,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
     this.dataSource.update();
     this.requestUpdate();
-    this.gridStateChange.emit(new GridEvent('sl-grid-state-change', this));
+    this.stateChangeEvent.emit({ grid: this });
   }
 }

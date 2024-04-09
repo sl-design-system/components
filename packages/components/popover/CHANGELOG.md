@@ -1,5 +1,28 @@
 # @sl-design-system/popover
 
+## 0.1.10
+
+### Patch Changes
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+
+## 0.1.9
+
+### Patch Changes
+
+- [#1082](https://github.com/sl-design-system/components/pull/1082) [`0d641dc`](https://github.com/sl-design-system/components/commit/0d641dcaa3a288111c3c6bf4862d3f6bed5a2cc3) - Fix popover positioning in FF and Safari
+
+- Updated dependencies [[`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da)]:
+  - @sl-design-system/shared@0.2.8
+
+## 0.1.8
+
+### Patch Changes
+
+- Updated dependencies [[`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad)]:
+  - @sl-design-system/shared@0.2.7
+
 ## 0.1.7
 
 ### Patch Changes

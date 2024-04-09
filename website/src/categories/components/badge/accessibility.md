@@ -7,32 +7,32 @@ eleventyNavigation:
 ---
 <section>
 
-## Badge accessibility content
-
-This is the accessibility content of the card component
-
-</section>
-
-<section>
-
-## Accessibility content section
-
-Another section
-
-</section>
-
-<section> 
-
-## Accessibility details
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+## Context and clarity
+When using badges, pair them with a single item avoid confusion. Make sure the badge is clearly connected to the specific content it represents.
 
 </section>
 
 <section>
 
-## Behaviour
+## Color independence
+Don’t use color alone to provide information. Some users may have color vision deficiencies or rely on screen readers.
+Ensure that the badge’s meaning is clear even without color cues.
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</section>
+
+<section>
+
+## WAI-ARIA
+
+<div class="ds-table-wrapper">
+
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`role`|`'status'`|For badges that represent live status updates. This helps screen readers announce the badge appropriately.|yes|
+|`aria-label`|string|Description of the badge, you can add it when needed and contains important information. Sometimes adding `tabindex` can be necessary, when you want to make it tabbable.|yes|
+
+{.ds-table .ds-table-align-top}
+
+</div>
 
 </section>

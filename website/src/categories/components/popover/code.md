@@ -62,32 +62,7 @@ eleventyNavigation:
 </div>
 
 </section>
-
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/popover
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/popover
-  ```
-</div>
-
-</section>
-
+<ds-install-info link-in-navigation package="popover"></ds-install-info>
 <section>
 
 ## Opening / closing

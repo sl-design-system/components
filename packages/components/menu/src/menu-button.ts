@@ -9,9 +9,17 @@ import styles from './menu-button.scss.js';
 import { MenuItem } from './menu-item.js';
 import { Menu } from './menu.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-menu-button': MenuButton;
+  }
+}
+
 /**
  * Custom element that combines a button and a menu and automatically wires them up
  * together.
+ *
+ * @csspart button - The button element.
  *
  * @slot default - The menu items should be slotted in the default slot.
  * @slot button - Any content for the button should be slotted here.
@@ -83,6 +91,7 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
         .fill=${this.fill}
         .size=${this.size}
         .variant=${this.variant}
+        part="button"
       >
         <slot name="button"></slot>
         ${this.selects && this.selected ? html`<span class="selected">${this.selected}</span>` : nothing}
@@ -119,8 +128,9 @@ export class MenuButton extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onMenuClick(event: Event): void {
-    if (event.target instanceof MenuItem) {
+  #onMenuClick(event: Event & { target: HTMLElement }): void {
+    // Only hide the menu if the user clicked on a menu item
+    if (event.composedPath().find(el => el instanceof MenuItem)) {
       this.menu.hidePopover();
     }
   }

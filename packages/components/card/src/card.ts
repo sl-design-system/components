@@ -3,6 +3,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './card.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-card': Card;
+  }
+}
+
 export type CardHeightOptions = 'fixed' | 'flex';
 export type CardOrientation = 'horizontal' | 'vertical';
 export type CardMediaPosition = 'start' | 'end';
@@ -32,7 +38,7 @@ export class Card extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Observe the grid width. */
+  /** Observe the card width. */
   #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
     this.#setOrientation();
   });
@@ -62,7 +68,6 @@ export class Card extends LitElement {
 
   override disconnectedCallback(): void {
     this.#resizeObserver?.disconnect();
-    this.#resizeObserver = undefined;
 
     super.disconnectedCallback();
   }

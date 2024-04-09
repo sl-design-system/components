@@ -5,22 +5,18 @@ import { type SelectionController } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { type GridActiveItemChangeEvent } from '../events.js';
-import { type Grid } from '../grid.js';
+import { type SlActiveItemChangeEvent } from '../grid.js';
 
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Selection'
+  title: 'In progress/Grid/Selection'
 };
 
 export const Single: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const onActiveItemChange = ({
-      item,
-      target: grid
-    }: GridActiveItemChangeEvent<Person> & { target: Grid<Person> }): void => {
+    const onActiveItemChange = ({ detail: { item, grid } }: SlActiveItemChangeEvent<Person>): void => {
       grid.selection.select(item);
     };
 

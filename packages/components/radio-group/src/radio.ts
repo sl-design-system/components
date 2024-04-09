@@ -4,6 +4,12 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import styles from './radio.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-radio': Radio;
+  }
+}
+
 export type RadioButtonSize = 'md' | 'lg';
 
 export class Radio<T = unknown> extends LitElement {
@@ -16,7 +22,7 @@ export class Radio<T = unknown> extends LitElement {
     keydown: this.#onKeydown
   });
 
-  /** Whether the radio is checked. */
+  /** Whether the radio button is checked. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
 
   /** Whether this radio button is disabled. */

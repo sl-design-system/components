@@ -65,6 +65,22 @@
           "members": [
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T[]>>"
+              },
+              "description": "Emits when the value of the group changes."
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean | undefined"
@@ -72,6 +88,14 @@
               "description": "Whether the group is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "method",
@@ -102,30 +126,6 @@
               "attribute": "size"
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<T[]>"
-              },
-              "description": "Emits when the value of the group changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus."
-            },
-            {
               "kind": "field",
               "name": "value",
               "type": {
@@ -133,32 +133,6 @@
               },
               "description": "The value of the group.",
               "attribute": "value"
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<T[]>"
-              },
-              "description": "Emits when the value of the group changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus.",
-              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
@@ -333,6 +307,30 @@
                 "text": "Array<Checkbox<T>> | undefined"
               },
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T[]>>"
+              },
+              "description": "Emits when the value of the group changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             }
           ]
         }
@@ -365,6 +363,22 @@
           "members": [
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | null>>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "field",
               "name": "checked",
               "type": {
                 "text": "boolean | undefined"
@@ -382,6 +396,14 @@
               "description": "Whether the checkbox is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",
@@ -431,30 +453,6 @@
               "reflects": true
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<T | null>"
-              },
-              "description": "Emits when the checked state changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus."
-            },
-            {
               "kind": "field",
               "name": "value",
               "type": {
@@ -462,32 +460,6 @@
               },
               "description": "The value of the checkbox when the checkbox is checked.\nSee the formValue property for easy access.",
               "attribute": "value"
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<T | null>"
-              },
-              "description": "Emits when the checked state changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus.",
-              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
@@ -676,6 +648,30 @@
               "name": "internals",
               "readonly": true,
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | null>>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",

@@ -96,7 +96,7 @@
 </trans-unit>
 <trans-unit id="sf677da98fa27f9b6">
   <source>More breadcrumbs</source>
-  <source>Meer links</source>
+  <target>Meer links</target>
 </trans-unit>
 </body>
 </file>

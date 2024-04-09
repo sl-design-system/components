@@ -67,10 +67,10 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-icon': Icon,
-      'sl-tooltip': Tooltip,
       'sl-popover': Popover,
-      'sl-button': Button
+      'sl-tooltip': Tooltip
     };
   }
 
@@ -128,11 +128,11 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
         ? nothing
         : html`
             <a href=${this.homeUrl}><sl-icon name="home-blank"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
-            <sl-icon name="slash-forward"></sl-icon>
+            <sl-icon name="breadcrumb-separator"></sl-icon>
           `}
       ${this.breadcrumbs.length > this.collapseThreshold
         ? html`
-            <sl-button fill="link" id="button" @click=${this.#onClick} icon-only aria-label=${msg('More breadcrumbs')}>
+            <sl-button fill="link" id="button" @click=${this.#onClick} aria-label=${msg('More breadcrumbs')}>
               <sl-icon name="ellipsis"></sl-icon>
             </sl-button>
             <sl-popover anchor="button">
@@ -147,7 +147,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick = (): void => {
-    this.renderRoot.querySelector<Popover>('sl-popover')?.togglePopover();
+    this.renderRoot.querySelector('sl-popover')?.togglePopover();
   };
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
@@ -173,7 +173,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       }
 
       const icon = this.shadowRoot!.createElement('sl-icon') as Icon;
-      icon.name = 'slash-forward';
+      icon.name = 'breadcrumb-separator';
 
       element.after(icon);
     });

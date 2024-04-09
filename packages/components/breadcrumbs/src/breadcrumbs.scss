@@ -1,15 +1,17 @@
 $md-breakpoint: 600px;
 
 :host {
+  --_divider-color: var(--sl-color-breadcrumb-divider);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_gap: calc(var(--sl-space-breadcrumb-gap-full) / 2);
-  --_link-gap: var(--sl-space-breadcrumb-gap-home);
   --_link-color: var(--sl-color-href-idle-foreground);
   --_link-decoration: underline;
+  --_link-gap: var(--sl-space-breadcrumb-gap-home);
   --_link-padding-block: calc(var(--sl-space-breadcrumb-gap-full) / 2);
   --_link-padding-inline: calc(var(--sl-space-breadcrumb-gap-full) / 2);
   --_link-underline-offset: 2px;
   --_tooltip-max-inline-size: min(18rem, 50vw);
-  --_divider-color: var(--sl-color-breadcrumb-divider);
 
   align-items: center;
   display: flex;
@@ -52,6 +54,12 @@ a:active,
   --_link-color: var(--sl-color-href-active-foreground);
 }
 
+a:focus-visible,
+::slotted(a:focus-visible) {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
+}
+
 a {
   align-items: center;
   display: inline-flex;
@@ -65,6 +73,7 @@ a {
 a[aria-current='page'],
 ::slotted(a[aria-current='page']) {
   --_link-color: var(--sl-color-href-active-foreground);
+
   font: var(--sl-text-breadcrumb-current);
   text-decoration: none;
 }
@@ -73,7 +82,7 @@ sl-popover a {
   display: flex;
 }
 
-sl-icon[name='slash-forward'] {
+sl-icon[name='breadcrumb-separator'] {
   color: var(--_divider-color);
 }
 

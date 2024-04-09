@@ -2361,6 +2361,13 @@
     }
   },
   "icon": {
+    "themeIcons": {
+      "breadcrumb-separator": {
+        "value": "chevron-right",
+        "type": "Icons",
+        "description": "icon.core.breadcrumb-separator"
+      }
+    },
     "style": {
       "outline": {
         "value": "{text.typeset.fontWeight.icon-regular}",

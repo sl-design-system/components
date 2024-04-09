@@ -1837,11 +1837,11 @@
     },
     "focusring": {
       "default": {
-        "value": "{borderRadius.default}",
+        "value": "{borderRadius.default} - 1",
         "type": "borderRadius"
       },
       "checkbox": {
-        "value": "{borderRadius.checkbox}",
+        "value": "{borderRadius.checkbox} - 1",
         "type": "borderRadius"
       },
       "full": {

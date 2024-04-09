@@ -423,51 +423,51 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.accent.500}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.solid.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "description": "color.button.primary.solid.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.accent.500}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "description": "color.button.primary.default.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.accent.700}",
+              "value": "{color.palette.accent.50}",
               "type": "color",
               "description": "color.button.primary.solid.active.background"
             },
             "foreground": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.accent.500}",
               "type": "color",
               "description": "color.button.primary.solid.active.foreground"
             },
             "border": {
-              "value": "{color.palette.accent.700}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "description": "color.button.primary.default.active.border"
             }
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.accent.200}",
+              "value": "{color.button.default.solid.disabled.background}",
               "type": "color",
               "description": "color.button.primary.solid.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.accent.100}",
+              "value": "{color.button.default.solid.disabled.foreground}",
               "type": "color",
               "description": "color.button.primary.solid.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.accent.200}",
+              "value": "{color.button.default.solid.disabled.border}",
               "type": "color",
               "description": "color.button.primary.default.disabled.border"
             }
@@ -476,7 +476,7 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.outline.idle.background"
             },
@@ -493,51 +493,51 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.accent.50}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.accent.150}",
+              "value": "{color.palette.accent.500}",
               "type": "color",
               "description": "color.button.primary.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.accent.500}",
               "type": "color",
               "description": "color.button.primary.outline.active.border"
             }
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.outline.disabled.background}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.accent.200}",
+              "value": "{color.button.default.outline.disabled.foreground}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.accent.200}",
+              "value": "{color.button.default.outline.disabled.border}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.border"
             }
@@ -563,51 +563,51 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.accent.50}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.accent.base}",
               "type": "color",
               "description": "color.button.primary.outline.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.accent.150}",
+              "value": "{color.palette.accent.500}",
               "type": "color",
               "description": "color.button.primary.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.accent.500}",
               "type": "color",
               "description": "color.button.primary.outline.active.border"
             }
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.ghost.disabled.background}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.accent.200}",
+              "value": "{color.button.default.ghost.disabled.foreground}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.ghost.disabled.border}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.border"
             }
@@ -638,7 +638,7 @@
               "description": "color.button.primary.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.accent.500}",
               "type": "color",
               "description": "color.button.primary.outline.hover.foreground"
             },
@@ -655,7 +655,7 @@
               "description": "color.button.primary.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.accent.600}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground"
             },
@@ -667,17 +667,17 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.link.disabled.background}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.accent.200}",
+              "value": "{color.button.default.link.disabled.foreground}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.link.disabled.border}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.border"
             }
@@ -688,68 +688,68 @@
         "solid": {
           "idle": {
             "background": {
-              "value": "{color.palette.success.200}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.solid.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.success.solid.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.success.200}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.solid.idle.border"
             }
           },
           "hover": {
             "background": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.success.solid.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.solid.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.solid.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.success.100}",
+              "value": "{color.palette.success.50}",
               "type": "color",
               "description": "color.button.success.solid.active.background"
             },
             "foreground": {
-              "value": "{color.palette.black.base}",
+              "value": "{color.palette.success.600}",
               "type": "color",
               "description": "color.button.success.solid.active.foreground"
             },
             "border": {
-              "value": "{color.palette.success.100}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.solid.active.border"
             }
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.button.default.solid.disabled.background}",
               "type": "color",
               "description": "color.button.success.solid.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.success.300}",
+              "value": "{color.button.default.solid.disabled.foreground}",
               "type": "color",
               "description": "color.button.success.solid.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.button.default.solid.disabled.border}",
               "type": "color",
               "description": "color.button.success.solid.disabled.border"
             }
@@ -758,68 +758,68 @@
         "outline": {
           "idle": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.success.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.success.600}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.outline.idle.foreground"
             },
             "border": {
-              "value": "{color.palette.success.200}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.outline.idle.border"
             }
           },
           "hover": {
             "background": {
-              "value": "{color.palette.success.50}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.success.800}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.success.outline.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.success.300}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.outline.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.palette.success.600}",
               "type": "color",
               "description": "color.button.success.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.success.900}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.success.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.success.300}",
+              "value": "{color.palette.success.600}",
               "type": "color",
               "description": "color.button.success.outline.active.border"
             }
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.outline.disabled.background}",
               "type": "color",
               "description": "color.button.success.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.button.default.outline.disabled.foreground}",
               "type": "color",
               "description": "color.button.success.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.button.default.outline.disabled.border}",
               "type": "color",
               "description": "color.button.success.outline.disabled.border"
             }
@@ -833,7 +833,7 @@
               "description": "color.button.success.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.success.600}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.outline.idle.foreground"
             },
@@ -845,51 +845,51 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.success.50}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.success.800}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.success.outline.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.outline.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.palette.success.600}",
               "type": "color",
               "description": "color.button.success.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.success.900}",
+              "value": "{color.palette.white.base}",
               "type": "color",
               "description": "color.button.success.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.palette.success.600}",
               "type": "color",
               "description": "color.button.success.outline.active.border"
             }
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.ghost.disabled.background}",
               "type": "color",
               "description": "color.button.success.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.button.default.ghost.disabled.foreground}",
               "type": "color",
               "description": "color.button.success.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.ghost.disabled.border}",
               "type": "color",
               "description": "color.button.success.outline.disabled.border"
             }
@@ -903,7 +903,7 @@
               "description": "color.button.success.outline.idle.background"
             },
             "foreground": {
-              "value": "{color.palette.success.600}",
+              "value": "{color.palette.success.500}",
               "type": "color",
               "description": "color.button.success.outline.idle.foreground"
             },
@@ -920,7 +920,7 @@
               "description": "color.button.success.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.success.800}",
+              "value": "{color.palette.success.600}",
               "type": "color",
               "description": "color.button.success.outline.hover.foreground"
             },
@@ -937,7 +937,7 @@
               "description": "color.button.success.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.success.900}",
+              "value": "{color.palette.success.700}",
               "type": "color",
               "description": "color.button.success.outline.active.foreground"
             },
@@ -949,17 +949,17 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.link.disabled.background}",
               "type": "color",
               "description": "color.button.success.outline.disabled.background"
             },
             "foreground": {
-              "value": "{color.palette.success.150}",
+              "value": "{color.button.default.link.disabled.foreground}",
               "type": "color",
               "description": "color.button.success.outline.disabled.foreground"
             },
             "border": {
-              "value": "{color.palette.transparent.base}",
+              "value": "{color.button.default.link.disabled.border}",
               "type": "color",
               "description": "color.button.success.outline.disabled.border"
             }

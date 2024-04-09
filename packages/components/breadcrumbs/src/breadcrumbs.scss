@@ -9,8 +9,9 @@ $md-breakpoint: 600px;
   --_link-padding-inline: calc(var(--sl-space-breadcrumb-gap-full) / 2);
   --_link-underline-offset: 2px;
   --_tooltip-max-inline-size: min(18rem, 50vw);
-  --_divider-color: var(--sl-color-breadcrumb-divider) align-items: center;
+  --_divider-color: var(--sl-color-breadcrumb-divider);
 
+  align-items: center;
   display: flex;
   gap: var(--_gap);
 }
@@ -31,6 +32,7 @@ a,
 a,
 ::slotted(a) {
   color: var(--_link-color);
+  font: var(--sl-text-breadcrumb-link);
   text-decoration: var(--_link-decoration);
   text-underline-offset: var(--_link-underline-offset, auto);
 }

@@ -155,6 +155,9 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       .assignedElements({ flatten: true })
       .filter((element): element is HTMLElement => !(element instanceof Icon || element instanceof Tooltip))
       .map(element => {
+        if (element.matches(':last-of-type')) {
+          element.setAttribute('aria-current', 'page');
+        }
         return {
           element,
           label: element.textContent?.trim() || '',

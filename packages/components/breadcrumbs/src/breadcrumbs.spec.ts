@@ -2,7 +2,6 @@ import { expect, fixture } from '@open-wc/testing';
 import { Icon } from '@sl-design-system/icon';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { spy } from 'sinon';
 import '../register.js';
 import { Breadcrumbs } from './breadcrumbs.js';
 
@@ -15,7 +14,7 @@ describe('sl-breadcrumbs', () => {
         <sl-breadcrumbs>
           <a href="/docs">Docs</a>
           <a href="/docs/getting-started">Getting Started</a>
-          <span>Developers</span>
+          <a href="/docs/getting-started/developers">Developers</a>
         </sl-breadcrumbs>
       `);
     });
@@ -60,12 +59,12 @@ describe('sl-breadcrumbs', () => {
 
     it('should render icon separators between the links', () => {
       expect(
-        Array.from(el.querySelectorAll('a'))
+        Array.from(el.querySelectorAll('a:not(:last-of-type)'))
           .map(link => link.nextElementSibling as Icon)
           .every(icon => icon.tagName === 'SL-ICON' && icon.name === 'slash-forward')
       ).to.be.true;
 
-      expect(el.querySelector('span')).to.match(':last-child');
+      expect(el.querySelector('a[aria-current="page"]')).to.match(':last-child');
     });
 
     it('should not have a menu button', () => {
@@ -81,7 +80,7 @@ describe('sl-breadcrumbs', () => {
         <sl-breadcrumbs>
           <a href="/docs">Docs</a>
           <a href="/docs/getting-started">Getting Started</a>
-          <span>Developers</span>
+          <a href="/docs/getting-started/developers">Developers</a>
         </sl-breadcrumbs>
       `);
     });
@@ -101,7 +100,7 @@ describe('sl-breadcrumbs', () => {
         <sl-breadcrumbs>
           <a href="/docs">Docs</a>
           <a href="/docs/getting-started">Getting Started</a>
-          <span>Developers</span>
+          <a href="/docs/getting-started/developers">Developers</a>
         </sl-breadcrumbs>
       `);
     });
@@ -122,13 +121,13 @@ describe('sl-breadcrumbs', () => {
           <a href="javascript:void(0)">3</a>
           <a href="javascript:void(0)">4</a>
           <a href="javascript:void(0)">5</a>
-          <span>6</span>
+          <a href="javascript:void(0)">6</a>
         </sl-breadcrumbs>
       `);
     });
 
     it('should have all links with separators in the DOM', () => {
-      expect(el.querySelectorAll('a')).to.have.length(5);
+      expect(el.querySelectorAll('a')).to.have.length(6);
       expect(el.querySelectorAll('sl-icon')).to.have.length(5);
     });
 
@@ -146,12 +145,12 @@ describe('sl-breadcrumbs', () => {
       expect(children[7]).to.be.displayed; // <sl-icon>
       expect(children[8]).to.be.displayed; // <a>5</a>
       expect(children[9]).to.be.displayed; // <sl-icon>
-      expect(children[10]).to.be.displayed; // <span>6</span>
+      expect(children[10]).to.be.displayed; // <a>6</a>
     });
 
     it('should have a menu button to show the rest of the breadcrumbs', () => {
-      const menuButton = el.renderRoot.querySelector('sl-menu-button'),
-        menuItems = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []);
+      const menuButton = el.renderRoot.querySelector('sl-button'),
+        menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
 
       expect(menuButton).to.exist;
       expect(menuButton).to.have.attribute('fill', 'link');
@@ -161,18 +160,6 @@ describe('sl-breadcrumbs', () => {
       expect(menuItems[0]).to.have.text('1');
       expect(menuItems[1]).to.have.text('2');
       expect(menuItems[2]).to.have.text('3');
-    });
-
-    it('should click the link when clicking on the menu item', () => {
-      const onClick = spy();
-
-      el.querySelector('a')?.addEventListener('click', onClick);
-
-      const menuButton = el.renderRoot.querySelector<HTMLElement>('sl-menu-button');
-      menuButton?.click();
-      menuButton?.querySelector<HTMLElement>('sl-menu-item')?.click();
-
-      expect(onClick).to.have.been.calledOnce;
     });
   });
 
@@ -188,7 +175,7 @@ describe('sl-breadcrumbs', () => {
           <a href="javascript:void(0)">3</a>
           <a href="javascript:void(0)">4</a>
           <a href="javascript:void(0)">5</a>
-          <span>6</span>
+          <a href="javascript:void(0)">6</a>
         </sl-breadcrumbs>
       `);
 
@@ -217,12 +204,12 @@ describe('sl-breadcrumbs', () => {
       expect(children[7]).to.be.displayed; // <sl-icon>
       expect(children[8]).to.be.displayed; // <a>5</a>
       expect(children[9]).to.be.displayed; // <sl-icon>
-      expect(children[10]).to.be.displayed; // <span>6</span>
+      expect(children[10]).to.be.displayed; // <a>6</a>
     });
 
     it('should show all hidden links in the menu', () => {
-      const menuButton = el.renderRoot.querySelector('sl-menu-button'),
-        menuItems = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []);
+      const menuButton = el.renderRoot.querySelector('sl-button'),
+        menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
 
       expect(menuButton).to.exist;
       expect(menuButton).to.have.attribute('fill', 'link');

@@ -60,6 +60,13 @@ a {
   }
 }
 
+a[aria-current='page'],
+::slotted(a[aria-current='page']) {
+  --_link-color: var(--sl-color-href-active-foreground);
+  font: var(--sl-text-breadcrumb-current);
+  text-decoration: none;
+}
+
 sl-popover a {
   display: flex;
 }

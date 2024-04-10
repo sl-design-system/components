@@ -1567,6 +1567,16 @@
       "offset": {
         "value": "{space.xs}",
         "type": "spacing"
+      },
+      "links": {
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        }
       }
     },
     "inline-message": {

@@ -3,7 +3,7 @@ import { ArrayDataSource } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { type SlDropEvent } from '../grid.js';
+import { type GridDropFilter, type SlDropEvent } from '../grid.js';
 
 type Story = StoryObj;
 
@@ -11,7 +11,7 @@ export default {
   title: 'In progress/Grid/Drag and drop'
 };
 
-export const Basic: Story = {
+export const Between: Story = {
   loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
     const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
@@ -35,10 +35,34 @@ export const Basic: Story = {
   }
 };
 
-export const Partial: Story = {
+export const BetweenOrOnTop: Story = {};
+
+export const OnGrid: Story = {};
+
+export const OnTop: Story = {
   loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
-    (people as Array<Person & { draggable: boolean }>).forEach((person, index) => (person.draggable = index <= 6));
+    const dropFilter: GridDropFilter<Person> = ({ membership }) => membership !== 'Regular';
+
+    return html`
+      <sl-grid draggable-rows="on-top" .dropFilter=${dropFilter} .items=${people}>
+        <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="membership"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
+};
+
+export const Fixed: Story = {
+  loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
+  render: (_, { loaded: { people } }) => {
+    (people as Array<Person & { draggable: boolean }>).forEach(
+      (person, index) => (person.draggable = index > 0 && index <= 6)
+    );
 
     const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
       const items = [...grid.items!],

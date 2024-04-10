@@ -44,8 +44,8 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
     // of `mousedown` and `touchstart`. See https://bugs.webkit.org/show_bug.cgi?id=267852
     return html`
       <td
-        @mousedown=${this.#onStartDrag}
-        @touchstart=${this.#onStartDrag}
+        @mousedown=${(event: Event) => this.#onStartDrag(event, item)}
+        @touchstart=${(event: Event) => this.#onStartDrag(event, item)}
         part="data drag-handle ${draggable ? '' : 'fixed'}"
       >
         ${draggable ? html`<sl-icon name="fas-grip-dots-vertical"></sl-icon>` : nothing}
@@ -53,7 +53,9 @@ export class GridDragHandleColumn<T = any> extends GridColumn<T> {
     `;
   }
 
-  #onStartDrag(event: Event & { target: HTMLElement }): void {
-    event.target.closest('tr')?.setAttribute('draggable', 'true');
+  #onStartDrag(event: Event & { target: HTMLElement }, item: T): void {
+    if (!this.path || getValueByPath(item, this.path)) {
+      event.target.closest('tr')?.setAttribute('draggable', 'true');
+    }
   }
 }

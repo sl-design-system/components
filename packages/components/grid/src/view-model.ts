@@ -106,6 +106,12 @@ export class GridViewModel<T = any> {
     this.#grid = grid;
   }
 
+  refresh(): void {
+    this.#rows = [...this.#rows];
+
+    this.#grid.requestUpdate('view');
+  }
+
   /** Toggle the visibility of the column. */
   toggleColumn(id: string, visible?: boolean): void {
     const column = this.#columnDefinitions.find(col => col.id === id);

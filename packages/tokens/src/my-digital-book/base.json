@@ -1714,7 +1714,7 @@
       "current": {
         "value": {
           "fontFamily": "{text.typeset.fontFamily.body}",
-          "fontWeight": "{text.typeset.fontWeight.semibold}",
+          "fontWeight": "{text.typeset.fontWeight.regular}",
           "lineHeight": "{button.label.md}",
           "fontSize": "{text.typeset.fontSize.md}",
           "textDecoration": "{text.typeset.textDecoration.none}"

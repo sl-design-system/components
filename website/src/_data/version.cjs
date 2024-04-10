@@ -19,6 +19,7 @@ module.exports = async function() {
     const gitpackages = await octokit.request('GET /orgs/sl-design-system/packages', {
       org: 'sl-design-system',
       package_type: 'npm',
+      per_page:100,
       headers: {
         'X-GitHub-Api-Version': '2022-11-28'
       }

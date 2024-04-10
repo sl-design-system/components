@@ -13,7 +13,7 @@ $short-transition-timing: 200ms;
 }
 
 .ds-top-navigation--sticky {
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+  // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
 }
 
 .ds-top-navigation--not-sticky {
@@ -48,7 +48,9 @@ $short-transition-timing: 200ms;
   height: 3.2rem;
   opacity: 0.8;
   /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-transition: background-color $transition-timing ease-in, background-image 1ms;
+  -webkit-transition:
+    background-color $transition-timing ease-in,
+    background-image 1ms;
   transition: background-color $transition-timing ease-in;
   width: 3.2rem;
   z-index: 3;
@@ -80,7 +82,9 @@ $short-transition-timing: 200ms;
   padding-left: 2.4rem;
   position: absolute;
   text-decoration: none;
-  transition: backround $transition-timing, color $transition-timing;
+  transition:
+    backround $transition-timing,
+    color $transition-timing;
 
   &:hover {
     background-image: var(--help-icon-hover);
@@ -141,13 +145,13 @@ $short-transition-timing: 200ms;
 }
 
 .ds-top-navigation__component-name {
-  animation: appendAnimate $short-transition-timing linear;
+  animation: append-animate $short-transition-timing linear;
   color: var(--table-text-color);
   font-size: 2rem;
   line-height: 3.2rem;
 }
 
-@keyframes appendAnimate {
+@keyframes append-animate {
   from {
     opacity: 0;
     transform: translateY(-1rem);
@@ -159,7 +163,7 @@ $short-transition-timing: 200ms;
   }
 }
 
-@keyframes appendAnimateUp {
+@keyframes append-animate-up {
   from {
     opacity: 0;
     transform: translateY(1rem);
@@ -172,7 +176,7 @@ $short-transition-timing: 200ms;
 }
 
 .ds-top-navigation__logo {
-  animation: appendAnimateUp $short-transition-timing linear;
+  animation: append-animate-up $short-transition-timing linear;
   background-image: var(--logo);
   background-position: left;
   background-repeat: no-repeat;
@@ -207,7 +211,7 @@ $short-transition-timing: 200ms;
   }
 
   .ds-menu--expanded {
-    animation: slideDown 200ms ease-in-out forwards;
+    animation: slide-down 200ms ease-in-out forwards;
     transform-origin: top center;
   }
 }
@@ -228,7 +232,9 @@ $short-transition-timing: 200ms;
   line-height: 2rem;
   margin: 0 2.4rem 2.4rem;
   padding: 0.8rem 1.6rem 0.8rem 4rem;
-  transition: box-shadow 200ms linear, background-color $transition-timing linear;
+  transition:
+    box-shadow 200ms linear,
+    background-color $transition-timing linear;
 
   &::placeholder {
     color: var(--search-color);
@@ -440,6 +446,21 @@ $short-transition-timing: 200ms;
 
 @media screen and (min-width: $lg-breakpoint) {
   .ds-top-navigation {
+    // background: #1f97f9;
+    display: none;
+  }
+
+  // .ds-top-navigation--sticky {
+  //  display: block;
+  // }
+
+  .sticky {
+    display: block;
+    // background: #1f97f9;
+    padding-block: 0.8rem 0; // 2.4rem 0; // 2.4rem 0.8rem;
+  }
+
+  .ds-top-navigation__hamburger {
     display: none;
   }
 
@@ -472,11 +493,12 @@ $short-transition-timing: 200ms;
 
 @media screen and (min-width: $xl-breakpoint) {
   .ds-top-navigation__component-name {
-    padding-left: 7.2rem;
+    // padding-left: 7.2rem;
+    padding-left: calc(28rem + 7.2rem - 2.4rem);
   }
 }
 
-@keyframes slideDown {
+@keyframes slide-down {
   0% {
     opacity: 0;
     transform: translateY(-2rem);

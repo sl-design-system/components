@@ -7,7 +7,9 @@ const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   submenus = document.querySelectorAll('.ds-sublist'),
   links = document.querySelectorAll('.ds-sidebar-nav__link'),
   arrows = document.querySelectorAll('.ds-sidebar-nav__arrow'),
-  linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu');
+  linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu'),
+  heading = document.querySelector('header') as Element,
+  title = heading.querySelector('h1') as HTMLElement;
 
 let previouslyOpened: Element, previouslyOpenedSubmenu: Element;
 
@@ -189,3 +191,38 @@ function closeSubmenus(): void {
     }
   });
 }
+
+// const headerEl = document.querySelector('.header')
+//const sentinalEl = document.querySelector('.sentinal');
+
+const handler = (entries: IntersectionObserverEntry[]) => {
+  const componentNameHeading = document.createElement('h1');
+  componentNameHeading.textContent = title.innerText;
+  componentNameHeading.classList.add('ds-top-navigation__component-name');
+  const slTabsGroup = document.querySelector('sl-tab-group');
+  console.log('entries navigation', entries);
+  // entries is an array of observed dom nodes
+  // we're only interested in the first one at [0]
+  // because that's our .sentinal node.
+  // Here observe whether or not that node is in the viewport
+  if (!entries[0].isIntersecting) {
+    topNavigation.classList.add('sticky');
+    topNavigation.insertAdjacentElement('afterbegin', componentNameHeading);
+    slTabsGroup?.classList.add('sticky-tabs');
+  } else {
+    topNavigation.classList.remove('sticky');
+    slTabsGroup?.classList.remove('sticky-tabs');
+    const oldComponentName = topNavigation.querySelector('.ds-top-navigation__component-name');
+    oldComponentName?.remove();
+  }
+};
+
+// create the observer
+const observer = new window.IntersectionObserver(handler, {
+  rootMargin: '-48px' // Add your desired rootMargin here
+});
+console.log('heading', heading, title.innerText);
+// give the observer some dom nodes to keep an eye on
+observer.observe(heading);
+
+// TODO: make it working on resizeobserver as well, when changing resolution

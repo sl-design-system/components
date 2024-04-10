@@ -56,6 +56,7 @@ a:active,
 
 a:focus-visible,
 ::slotted(a:focus-visible) {
+  border-radius: var(--sl-border-radius-button-md);
   outline: var(--_focus-outline);
   outline-offset: var(--_focus-outline-offset);
 }
@@ -78,8 +79,11 @@ a[aria-current='page'],
   text-decoration: none;
 }
 
-sl-popover a {
+sl-popover::part(container) {
   display: flex;
+  flex-direction: column;
+  gap: var(--sl-space-popover-links-gap);
+  padding: var(--sl-space-popover-links-block) 0;
 }
 
 sl-icon[name='breadcrumb-separator'] {

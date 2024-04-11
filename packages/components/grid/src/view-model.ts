@@ -1,6 +1,7 @@
 import { type DataSource, getStringByPath, getValueByPath } from '@sl-design-system/shared';
 import { GridColumnGroup } from './column-group.js';
 import { type GridColumn } from './column.js';
+import { GridDragHandleColumn } from './drag-handle-column.js';
 import { type Grid } from './grid.js';
 
 export class GridViewModelGroup {
@@ -161,6 +162,34 @@ export class GridViewModel<T = any> {
       .reduce((acc, { width = 0 }) => {
         return acc + width;
       }, 0);
+  }
+
+  /** Returns whether the item is fixed (not draggable). */
+  isFixedItem(item: T): boolean {
+    const column = this.columns.find(col => col instanceof GridDragHandleColumn);
+
+    return !!column && !getValueByPath(item, column.path);
+  }
+
+  /**
+   * Reorder the item in the view model.
+   * @param item The item to reorder.
+   * @param relativeItem The item to reorder relative to.
+   * @param position The position relative to the relativeItem.
+   */
+  reorderItem(item: T, relativeItem: T | undefined, position: 'before' | 'after'): void {
+    const rows = this.#rows,
+      from = rows.indexOf(item),
+      to = (relativeItem ? rows.indexOf(relativeItem) : -1) + (position === 'before' ? 0 : 1);
+
+    if (from === -1 || to === -1 || from === to) {
+      return;
+    }
+
+    rows.splice(from, 1);
+    rows.splice(to + (from < to ? -1 : 0), 0, item);
+
+    this.#rows = [...rows];
   }
 
   #getHeaderRows(columns: Array<GridColumn<T>>): Array<Array<GridColumn<T>>> {

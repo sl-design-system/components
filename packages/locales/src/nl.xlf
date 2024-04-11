@@ -11,7 +11,7 @@
   <target>Type hier om te filteren</target>
 </trans-unit>
 <trans-unit id="s58bfb494feb8eb02">
-  <source><x id="0" equiv-text="${count}"/> selected</source>
+  <source><x id="0" equiv-text="${this.getSelectedCount()}"/> selected</source>
   <target><x id="0" equiv-text="${count}"/> geselecteerd</target>
 </trans-unit>
 <trans-unit id="s629576c6b305d539">
@@ -93,6 +93,10 @@
 <trans-unit id="s864c948d4629240f">
   <source>Show all</source>
   <target>Toon alles</target>
+</trans-unit>
+<trans-unit id="sf677da98fa27f9b6">
+  <source>More breadcrumbs</source>
+  <target>Meer links</target>
 </trans-unit>
 </body>
 </file>

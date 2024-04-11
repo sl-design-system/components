@@ -168,7 +168,7 @@ export class GridViewModel<T = any> {
   isFixedItem(item: T): boolean {
     const column = this.columns.find(col => col instanceof GridDragHandleColumn);
 
-    return !!column && !getValueByPath(item, column.path);
+    return !!column?.path && !getValueByPath(item, column.path);
   }
 
   /**

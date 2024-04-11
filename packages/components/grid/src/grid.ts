@@ -19,7 +19,6 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { type Virtualizer } from 'node_modules/@lit-labs/virtualizer/Virtualizer.js';
 import { type GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
-import { GridDragHandleColumn } from './drag-handle-column.js';
 import { GridFilterColumn } from './filter-column.js';
 import { type GridFilter, type SlFilterChangeEvent } from './filter.js';
 import styles from './grid.scss.js';
@@ -80,7 +79,12 @@ export type SlDragStartEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T }>;
 export type SlDragEndEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T }>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type SlDropEvent<T = any> = CustomEvent<{ grid: Grid<T>; item: T; oldIndex: number; newIndex: number }>;
+export type SlDropEvent<T = any> = CustomEvent<{
+  grid: Grid<T>;
+  item: T;
+  relativeItem?: T;
+  position: 'before' | 'after' | 'on-grid' | 'on-top';
+}>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SlStateChangeEvent<T = any> = CustomEvent<{ grid: Grid<T> }>;
@@ -161,7 +165,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-active-item-change' }) activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
 
   /** Provide your own implementation for getting the data. */
-  @property({ attribute: false }) dataSource?: DataSource<T>;
+  @property({ attribute: false }) dataSource?: DataSource;
 
   /**
    * Whether you can drag rows in the grid. If you use the drag-handle column,
@@ -176,7 +180,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   @event({ name: 'sl-grid-dragend' }) dragEndEvent!: EventEmitter<SlDragEndEvent<T>>;
 
   /** Emits when an item has been dropped. */
-  @event({ name: 'sl-grid-drop' }) dropEvent!: EventEmitter<SlDropEvent<T>>;
+  @event({ name: 'sl-grid-drop', cancelable: true }) dropEvent!: EventEmitter<SlDropEvent<T>>;
 
   /**
    * Determines if or what kind of drop target the given item is:
@@ -379,9 +383,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         'row',
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
-        ...(this.#isDraggable(item) ? [] : ['fixed']),
         ...(this.#dragItem === item ? ['dragging'] : []),
-        ...(this.itemParts?.(item)?.split(' ') || [])
+        ...(this.itemParts?.(item)?.split(' ') || []),
+        ...(this.view.isFixedItem(item) ? ['fixed'] : [])
       ];
 
     return html`
@@ -512,7 +516,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDragEnter(event: DragEvent, item: T): void {
-    if (this.#dragItem === item || !this.#isDraggable(event)) {
+    if (this.#dragItem === item || this.view.isFixedItem(item)) {
       return;
     }
 
@@ -532,13 +536,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDragOver(event: DragEvent, item: T): void {
+    event.preventDefault();
+
     if (this.#dragItem === item) {
       return;
     }
 
     const { draggableRows, dropFilter } = this;
-
-    event.preventDefault();
 
     // Reset any drop targets
     this.renderRoot.querySelectorAll('.drop-target').forEach(el => el.classList.remove('drop-target'));
@@ -571,6 +575,8 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   #onDragEnd(event: DragEvent, item: T): void {
+    window.removeEventListener('dragover', this.#onWindowDragOver);
+
     event
       .composedPath()
       .find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement)
@@ -579,9 +585,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Reset any drop targets
     this.renderRoot.querySelectorAll('.drop-target').forEach(el => el.classList.remove('drop-target'));
 
-    this.#dragItem = this.#itemBeforeDragItem = undefined;
-
-    window.removeEventListener('dragover', this.#onWindowDragOver);
+    this.#dragItem = this.#dropTargetMode = this.#itemBeforeDragItem = undefined;
 
     // Force rerender
     requestAnimationFrame(() => this.view.refresh());
@@ -589,28 +593,48 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dragEndEvent.emit({ grid: this, item });
   }
 
-  #onDrop(event: DragEvent, _item: T): void {
-    const row = event.composedPath().find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement),
-      oldIndex = this.dataSource!.filteredItems.indexOf(this.#dragItem!);
+  #onDrop(_event: DragEvent, item: T): void {
+    let cancelled = false;
 
-    let newIndex = parseInt(row!.getAttribute('index')!);
+    if (this.draggableRows === 'on-grid') {
+      cancelled = !this.dropEvent.emit({ grid: this, item: this.#dragItem!, position: 'on-grid' });
 
-    if (
+      if (!cancelled) {
+        // Insert item at the end of the grid.
+      }
+    } else if (
+      this.draggableRows === 'on-top' ||
+      (this.draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'on-top')
+    ) {
+      cancelled = !this.dropEvent.emit({ grid: this, item: this.#dragItem!, relativeItem: item, position: 'on-top' });
+
+      if (!cancelled) {
+        // Insert item at the top of the group.
+      }
+    } else if (
       this.draggableRows === 'between' ||
       (this.draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'between')
     ) {
-      const { top, height } = row!.getBoundingClientRect(),
-        y = event.clientY;
+      const index = this.view.rows.indexOf(this.#dragItem!);
 
-      // If the cursor is in the bottom half of the row, increase the index by 1
-      newIndex += y < top + height / 2 ? 0 : 1;
+      let relativeItem: T | undefined;
+      if (index === 0 && this.view.rows.length > 1) {
+        relativeItem = this.view.rows.at(index + 1);
+      } else if (index > 0 && index < this.view.rows.length) {
+        relativeItem = this.view.rows.at(index - 1);
+      }
+
+      cancelled = !this.dropEvent.emit({
+        grid: this,
+        item: this.#dragItem!,
+        relativeItem,
+        position: 'after'
+      });
+
+      if (!cancelled) {
+        this.dataSource?.reorder(this.#dragItem!, relativeItem!, index === 0 ? 'before' : 'after');
+      }
     }
-
-    if (oldIndex < newIndex) {
-      newIndex--;
-    }
-
-    // this.dropEvent.emit({ grid: this, item, oldIndex, newIndex });
   }
 
   #onFilterChange({ detail, target }: SlFilterChangeEvent & { target: GridFilter<T> }): void {
@@ -632,9 +656,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       groupItems = items.filter(item => getValueByPath(item, group.path) === group.value);
 
     if (event.detail) {
-      groupItems.forEach(item => this.selection.select(item));
+      groupItems.forEach(item => this.selection.select(item as T));
     } else {
-      groupItems.forEach(item => this.selection.deselect(item));
+      groupItems.forEach(item => this.selection.deselect(item as T));
     }
   }
 
@@ -751,21 +775,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       requestAnimationFrame(() => this.dataSource?.update());
 
       this.stateChangeEvent.emit({ grid: this });
-    }
-  }
-
-  #isDraggable(event: Event): boolean;
-  #isDraggable(item: T): boolean;
-  #isDraggable(eventOrItem: Event | T): boolean {
-    if (eventOrItem instanceof Event) {
-      return !eventOrItem
-        .composedPath()
-        .find((el): el is HTMLTableRowElement => el instanceof HTMLTableRowElement)
-        ?.classList?.contains('fixed');
-    } else {
-      const column = this.view.columns.find(col => col instanceof GridDragHandleColumn);
-
-      return !column?.path || !!getValueByPath(eventOrItem, column.path);
     }
   }
 

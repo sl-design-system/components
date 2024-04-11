@@ -3,7 +3,7 @@ import { ArrayDataSource } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { type GridDropFilter, type SlDropEvent } from '../grid.js';
+import { type GridDropFilter } from '../grid.js';
 
 type Story = StoryObj;
 
@@ -14,16 +14,8 @@ export default {
 export const Between: Story = {
   loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
-    const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
-      const items = [...grid.items!],
-        person = items.splice(oldIndex, 1)[0];
-      items.splice(newIndex, 0, person);
-
-      grid.items = items;
-    };
-
     return html`
-      <sl-grid @sl-grid-drop=${onDrop} .items=${people}>
+      <sl-grid .items=${people}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
@@ -64,16 +56,8 @@ export const Fixed: Story = {
       (person, index) => (person.draggable = index > 0 && index <= 6)
     );
 
-    const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
-      const items = [...grid.items!],
-        person = items.splice(oldIndex, 1)[0];
-      items.splice(newIndex, 0, person);
-
-      grid.items = items;
-    };
-
     return html`
-      <sl-grid @sl-grid-drop=${onDrop} .items=${people}>
+      <sl-grid .items=${people}>
         <sl-grid-drag-handle-column path="draggable"></sl-grid-drag-handle-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>
@@ -91,23 +75,23 @@ export const Grouping: Story = {
     const dataSource = new ArrayDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
 
-    const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
-      console.log('Dropped', oldIndex, newIndex);
+    // const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
+    //   console.log('Dropped', oldIndex, newIndex);
 
-      // Reorder the person in the grid
-      const items = [...dataSource.items],
-        person = items.splice(oldIndex, 1)[0];
-      items.splice(newIndex, 0, person);
+    //   // Reorder the person in the grid
+    //   const items = [...dataSource.items],
+    //     person = items.splice(oldIndex, 1)[0];
+    //   items.splice(newIndex, 0, person);
 
-      console.log(items.at(newIndex - 1));
-      console.log(items.at(newIndex));
-      console.log(items.at(newIndex + 1));
+    //   console.log(items.at(newIndex - 1));
+    //   console.log(items.at(newIndex));
+    //   console.log(items.at(newIndex + 1));
 
-      grid.items = items;
-    };
+    //   grid.items = items;
+    // };
 
     return html`
-      <sl-grid @sl-grid-drop=${onDrop} .dataSource=${dataSource}>
+      <sl-grid .dataSource=${dataSource}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-selection-column></sl-grid-selection-column>
         <sl-grid-column path="firstName"></sl-grid-column>

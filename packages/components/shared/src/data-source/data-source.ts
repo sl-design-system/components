@@ -121,26 +121,24 @@ export abstract class DataSource<T = any> extends EventTarget {
   }
 
   /**
-   * Reorder the items in the data source.
+   * Reorder the item in the data source.
    * @param item The item to reorder.
    * @param relativeItem The item to reorder relative to.
    * @param position The position relative to the relativeItem.
    * @returns True if the items were reordered, false if not.
    */
-  reorder(item: T, relativeItem: T, position: 'before' | 'after'): boolean {
+  reorder(item: T, relativeItem: T, position: 'before' | 'after'): void {
     const items = this.items,
       from = items.indexOf(item),
       to = items.indexOf(relativeItem) + (position === 'before' ? 0 : 1);
 
     if (from === -1 || to === -1 || from === to) {
-      return false;
+      return;
     }
 
     items.splice(from, 1);
-    items.splice(to, 0, item);
+    items.splice(to + (from < to ? -1 : 0), 0, item);
 
     this.update();
-
-    return true;
   }
 }

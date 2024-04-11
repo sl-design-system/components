@@ -19,6 +19,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { type Virtualizer } from 'node_modules/@lit-labs/virtualizer/Virtualizer.js';
 import { type GridColumnGroup } from './column-group.js';
 import { GridColumn } from './column.js';
+import { GridDragHandleColumn } from './drag-handle-column.js';
 import { GridFilterColumn } from './filter-column.js';
 import { type GridFilter, type SlFilterChangeEvent } from './filter.js';
 import styles from './grid.scss.js';
@@ -368,6 +369,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         'row',
         index % 2 === 0 ? 'odd' : 'even',
         ...(selected ? ['selected'] : []),
+        ...(this.#isDraggable(item) ? ['draggable'] : []),
         ...(this.#dragItem === item ? ['dragging'] : []),
         ...(this.itemParts?.(item)?.split(' ') || [])
       ];
@@ -742,6 +744,12 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
 
       this.stateChangeEvent.emit({ grid: this });
     }
+  }
+
+  #isDraggable(item: T): boolean {
+    const column = this.view.columns.find(col => col instanceof GridDragHandleColumn);
+
+    return !!column && !!getValueByPath(item, column.path);
   }
 
   #updateDataSource(dataSource?: DataSource<T>): void {

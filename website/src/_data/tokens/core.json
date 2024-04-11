@@ -1708,6 +1708,52 @@
           }
         }
       }
+    },
+    "menu": {
+      "container": {
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "inline": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        }
+      },
+      "item": {
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "inline": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
+    },
+    "breadcrumb": {
+      "gap": {
+        "full": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "short": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "home": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        }
+      }
     }
   },
   "text": {
@@ -2057,15 +2103,20 @@
         "type": "Icons",
         "description": "icon.core.ellipsis"
       },
-      "house": {
-        "value": "house",
+      "home-blank": {
+        "value": "home-blank",
         "type": "Icons",
-        "description": "icon.core.house"
+        "description": "icon.core.home-blank"
       },
       "angle-down": {
         "value": "angle-down",
         "type": "Icons",
         "description": "icon.core.angle-down"
+      },
+      "slash-forward": {
+        "value": "slash-forward",
+        "type": "Icons",
+        "description": "icon.core.slash-forward"
       }
     },
     "typeset": {
@@ -2142,6 +2193,10 @@
         "type": "other",
         "description": "animation.easing.ease-in-out"
       }
+    },
+    "breacrumb": {
+      "value": "{size.2xl}",
+      "type": "sizing"
     }
   },
   "button": {

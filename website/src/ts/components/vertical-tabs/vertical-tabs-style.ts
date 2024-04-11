@@ -114,7 +114,7 @@ export const verticalTabsStyles = css`
   .ds-tabs__container {
     background-color: var(--background-color);
     inset-block-start: -0.1rem;
-    margin: auto -2.4rem;
+    // margin: auto -2.4rem;
     overflow-x: hidden;
     /* padding-block-start: 1.6rem; */
     /* position: sticky; */

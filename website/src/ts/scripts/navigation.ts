@@ -9,7 +9,7 @@ const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   arrows = document.querySelectorAll('.ds-sidebar-nav__arrow'),
   linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu'),
   heading = document.querySelector('header') as Element,
-  title = heading.querySelector('h1') as HTMLElement;
+  title = heading?.querySelector('h1') as HTMLElement;
 
 let previouslyOpened: Element, previouslyOpenedSubmenu: Element;
 
@@ -64,29 +64,39 @@ function showMenu(): void {
 }
 
 function handleWidthChange(matches: boolean): void {
-  if (matches && menu.classList.contains('ds-sidebar--closed')) {
-    topNavigation.style.display = 'none';
+  if (matches && menu.classList.contains('ds-sidebar--closed') && !topNavigation.classList.contains('sticky')) {
+    console.log('handleWidthChange if');
+    //   topNavigation.style.display = 'none';
   } else if (matches && menu.classList.contains('ds-sidebar--opened')) {
-    topNavigation.style.display = 'none';
+    console.log('handleWidthChange else if');
+    //  topNavigation.style.display = 'none';
     toggleMenu();
     showMenu();
   } else {
+    console.log('handleWidthChange else');
     toggleMenu();
     setActiveItem();
   }
 }
 
 function toggleMenu(open = false): void {
+  console.log('togglemeny open', open);
   if (open) {
     menuButton.setAttribute('aria-expanded', 'true');
-    topNavigation.style.display = 'none';
+    // if (!topNavigation.classList.contains('sticky')) {
+    //   topNavigation.style.display = 'none';
+    // }
     menu.classList.remove('ds-sidebar--closed');
     menu.classList.add('ds-sidebar--opened');
+    topNavigation.classList.add('ds-menu--opened');
     closeButton.setAttribute('tabindex', '1');
     closeButton.focus();
   } else {
     menuButton.setAttribute('aria-expanded', 'false');
-    topNavigation.style.display = 'flex';
+    // if (topNavigation.classList.contains('sticky')) {
+    //   topNavigation.style.display = 'flex';
+    // }
+    topNavigation.classList.remove('ds-menu--opened');
     menu.classList.remove('ds-sidebar--opened');
     menu.classList.add('ds-sidebar--closed');
     menuButton.focus();
@@ -221,8 +231,10 @@ const handler = (entries: IntersectionObserverEntry[]) => {
 const observer = new window.IntersectionObserver(handler, {
   rootMargin: '-48px' // Add your desired rootMargin here
 });
-console.log('heading', heading, title.innerText);
+console.log('heading', heading, title?.innerText);
 // give the observer some dom nodes to keep an eye on
-observer.observe(heading);
+if (heading) {
+  observer.observe(heading);
+}
 
 // TODO: make it working on resizeobserver as well, when changing resolution

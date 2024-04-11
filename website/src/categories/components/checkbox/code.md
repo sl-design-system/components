@@ -18,8 +18,8 @@ eleventyNavigation:
   <sl-checkbox value="yes">Checkbox</sl-checkbox>
   <sl-checkbox disabled value="yes">Disabled</sl-checkbox>
   <sl-checkbox checked disabled value="yes" >Disabled checked</sl-checkbox>
-  <sl-checkbox checked valid value="yes">Valid</sl-checkbox>
-  <sl-checkbox checked invalid required value="yes">Invalid</sl-checkbox>
+  <sl-checkbox show-validity="valid" checked valid value="yes">Valid</sl-checkbox>
+  <sl-checkbox show-validity="invalid" checked invalid required value="yes">Invalid</sl-checkbox>
 </form>
 
 </div>
@@ -37,10 +37,10 @@ eleventyNavigation:
     <sl-checkbox checked disabled value="yes">
       Disabled checked
     </sl-checkbox>
-    <sl-checkbox checked valid value="yes">
+    <sl-checkbox show-validity="valid" checked valid value="yes">
       Valid
     </sl-checkbox>
-    <sl-checkbox checked invalid required value="yes">
+    <sl-checkbox show-validity="invalid" checked invalid required value="yes">
       Invalid
     </sl-checkbox>
   </form>

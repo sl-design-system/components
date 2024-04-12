@@ -154,16 +154,19 @@ Make sure you include the polyfills before you include the SLDS components. This
 The following web standards require polyfills at this time:
 - [Popover](https://caniuse.com/mdn-api_htmlelement_popover)
 - [Scoped Custom Element Registry](https://github.com/WICG/webcomponents/blob/gh-pages/proposals/Scoped-Custom-Element-Registries.md)
+- [Element Internals](https://caniuse.com/mdn-api_elementinternals)
 
 To use these polyfills, you need to install the following packages:
 - `@oddbird/popover-polyfill`
 - `@webcomponents/scoped-custom-element-registry`
+- `element-internals-polyfill`
 
 Once installed you need to import the polyfills in your application. You can do this by importing the polyfills in your main JS file:
 
 ```js
 import '@oddbird/popover-polyfill';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
+import 'element-internals-polyfill';
 ```
 
 Another option is to include them in your HTML:
@@ -171,6 +174,7 @@ Another option is to include them in your HTML:
 ```html
 <script src="./node_modules/@oddbird/popover-polyfill/dist/popover.min.js"></script>
 <script src="./node_modules/@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js"></script>
+<script src="./node_modules/element-internals-polyfill"></script>
 ```
 
 </section>

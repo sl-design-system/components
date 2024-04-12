@@ -119,7 +119,7 @@ export class GridColumn<T = any> extends LitElement {
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('grid')) {
       if (this.grid) {
-        this.#events.listen(this.grid, 'sl-state-change', this.stateChanged);
+        this.#events.listen(this.grid, 'sl-grid-state-change', this.stateChanged);
       }
     }
   }

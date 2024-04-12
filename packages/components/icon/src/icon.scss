@@ -2,7 +2,7 @@ $sizes: 2xs, xs, sm, md, lg, xl, 2xl, 3xl, 4xl;
 
 :host {
   --sl-icon-container-size: var(--sl-size-icon-md);
-  --sl-icon-fill-accent: rgb(var(--sl-color-palette-accent-300));
+  --sl-icon-fill-accent: var(--sl-color-palette-accent-300);
   --sl-icon-fill-default: currentcolor;
   --sl-icon-size: var(--sl-size-icon-md);
 

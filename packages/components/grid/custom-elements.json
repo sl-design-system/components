@@ -2426,8 +2426,7 @@
               "name": "value",
               "type": {
                 "text": "string | string[] | undefined"
-              },
-              "attribute": "value"
+              }
             }
           ],
           "attributes": [
@@ -2446,13 +2445,6 @@
               },
               "description": "The path to the field to filter on.",
               "fieldName": "path"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string | string[] | undefined"
-              },
-              "fieldName": "value"
             }
           ],
           "mixins": [
@@ -2477,15 +2469,15 @@
               },
               "parameters": [
                 {
-                  "name": "option",
+                  "name": "event",
                   "type": {
-                    "text": "GridFilterOption"
+                    "text": "SlChangeEvent & { target: Checkbox }"
                   }
                 },
                 {
-                  "name": "checked",
+                  "name": "option",
                   "type": {
-                    "text": "boolean"
+                    "text": "GridFilterOption"
                   }
                 }
               ]
@@ -2602,6 +2594,13 @@
                 "text": "GridFilterOption[] | undefined"
               },
               "description": "The filter options."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | string[] | undefined"
+              }
             }
           ]
         }
@@ -2693,6 +2692,14 @@
             },
             {
               "kind": "field",
+              "name": "groupHeaderRenderer",
+              "type": {
+                "text": "GridGroupHeaderRenderer | undefined"
+              },
+              "description": "Custom renderer for group headers."
+            },
+            {
+              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
@@ -2707,22 +2714,6 @@
               },
               "description": "An array of items to be displayed in the grid.",
               "attribute": "items"
-            },
-            {
-              "kind": "field",
-              "name": "itemsGroupBy",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The path to the attribute to group the items on.",
-              "attribute": "items-group-by",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "model",
-              "default": "new GridViewModel<T>(this)",
-              "description": "The model used for rendering the grid."
             },
             {
               "kind": "field",
@@ -2767,6 +2758,12 @@
                   "name": "group",
                   "type": {
                     "text": "GridViewModelGroup"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -2837,6 +2834,14 @@
             },
             {
               "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this grid. This can be used if you want to render\ncustom elements in the group header. Custom elements that you want to render in the columns\ncan be registered via the `scopedElements` property on the column."
+            },
+            {
+              "kind": "field",
               "name": "selection",
               "readonly": true,
               "default": "new SelectionController<T>(this)",
@@ -2866,7 +2871,7 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<tbody>` element."
+              "description": "The table body element."
             },
             {
               "kind": "field",
@@ -2874,7 +2879,13 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<thead>` element."
+              "description": "The table head element."
+            },
+            {
+              "kind": "field",
+              "name": "view",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
             }
           ],
           "attributes": [
@@ -2893,14 +2904,6 @@
               },
               "description": "An array of items to be displayed in the grid.",
               "fieldName": "items"
-            },
-            {
-              "name": "items-group-by",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The path to the attribute to group the items on.",
-              "fieldName": "itemsGroupBy"
             },
             {
               "name": "no-border",
@@ -3017,6 +3020,12 @@
                   "name": "group",
                   "type": {
                     "text": "GridViewModelGroup"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -3337,9 +3346,10 @@
               },
               "parameters": [
                 {
-                  "name": "col",
+                  "name": "scopedElements",
+                  "optional": true,
                   "type": {
-                    "text": "GridColumn<T>"
+                    "text": "Record<string, typeof HTMLElement>"
                   }
                 }
               ]
@@ -3351,7 +3361,13 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "update",
+                  "default": "false"
+                }
+              ]
             },
             {
               "kind": "method",
@@ -3360,7 +3376,31 @@
                 "type": {
                   "text": "void"
                 }
-              }
+              },
+              "parameters": [
+                {
+                  "name": "update",
+                  "default": "false"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "#updateDataSource",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "dataSource",
+                  "optional": true,
+                  "type": {
+                    "text": "DataSource<T>"
+                  }
+                }
+              ]
             }
           ],
           "fields": [
@@ -3382,6 +3422,15 @@
                 "text": "T | undefined"
               },
               "description": "The item being dragged."
+            },
+            {
+              "kind": "field",
+              "name": "#dragStartIndex",
+              "privacy": "private",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "The view index where the drag started."
             },
             {
               "kind": "field",
@@ -3444,6 +3493,15 @@
               },
               "default": "[]",
               "description": "The sorters for this grid."
+            },
+            {
+              "kind": "field",
+              "name": "#virtualizerHost",
+              "privacy": "private",
+              "type": {
+                "text": "VirtualizerHostElement | undefined"
+              },
+              "description": "The `<tbody>` element, which is the virtualizer host element."
             },
             {
               "kind": "field",
@@ -3510,6 +3568,14 @@
             },
             {
               "kind": "field",
+              "name": "groupHeaderRenderer",
+              "type": {
+                "text": "GridGroupHeaderRenderer | undefined"
+              },
+              "description": "Custom renderer for group headers."
+            },
+            {
+              "kind": "field",
               "name": "itemParts",
               "type": {
                 "text": "GridItemParts<T> | undefined"
@@ -3518,9 +3584,11 @@
             },
             {
               "kind": "field",
-              "name": "model",
-              "default": "new GridViewModel<T>(this)",
-              "description": "The model used for rendering the grid."
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this grid. This can be used if you want to render\ncustom elements in the group header. Custom elements that you want to render in the columns\ncan be registered via the `scopedElements` property on the column."
             },
             {
               "kind": "field",
@@ -3536,7 +3604,7 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<tbody>` element."
+              "description": "The table body element."
             },
             {
               "kind": "field",
@@ -3544,7 +3612,13 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<thead>` element."
+              "description": "The table head element."
+            },
+            {
+              "kind": "field",
+              "name": "view",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
             }
           ]
         }
@@ -3581,15 +3655,6 @@
             },
             {
               "kind": "field",
-              "name": "heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The group heading.",
-              "attribute": "heading"
-            },
-            {
-              "kind": "field",
               "name": "selectEvent",
               "type": {
                 "text": "EventEmitter<SlSelectEvent<boolean>>"
@@ -3603,7 +3668,8 @@
                 "text": "boolean | undefined"
               },
               "description": "Wether you can select the entire group.",
-              "attribute": "selectable"
+              "attribute": "selectable",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -3632,14 +3698,6 @@
               },
               "description": "Whether the group is expanded or collapsed.",
               "fieldName": "expanded"
-            },
-            {
-              "name": "heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The group heading.",
-              "fieldName": "heading"
             },
             {
               "name": "selectable",
@@ -3673,16 +3731,7 @@
           "methods": [
             {
               "kind": "method",
-              "name": "#onClick",
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "#onToggle",
+              "name": "#onChange",
               "return": {
                 "type": {
                   "text": "void"
@@ -3696,6 +3745,15 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "#onClick",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
             }
           ],
           "fields": [
@@ -6455,6 +6513,23 @@
             },
             {
               "kind": "method",
+              "name": "getItemAtIndex",
+              "return": {
+                "type": {
+                  "text": "T"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "getStickyColumnOffset",
               "return": {
                 "type": {
@@ -6634,6 +6709,23 @@
                 }
               ],
               "description": "Returns true if the group is expanded, false if collapsed."
+            },
+            {
+              "kind": "method",
+              "name": "getItemAtIndex",
+              "return": {
+                "type": {
+                  "text": "T"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",

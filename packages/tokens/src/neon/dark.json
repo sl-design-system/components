@@ -1806,12 +1806,12 @@
             },
             "disabled": {
               "background": {
-                "value": "rgba({body.background} / {opacity.200})",
+                "value": "{color.palette.neutral.800}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.neutral.200}",
+                "value": "{color.palette.neutral.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1821,7 +1821,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{color.palette.neutral.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -1845,7 +1845,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -1867,7 +1867,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -1911,14 +1911,14 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
             },
             "disabled": {
               "background": {
-                "value": "{color.palette.neutral.base}",
+                "value": "{color.palette.neutral.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -1933,7 +1933,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{color.palette.neutral.800}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2042,7 +2042,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "label": {
-                "value": "{color.palette.neutral.300}",
+                "value": "{color.palette.neutral.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
@@ -2071,7 +2071,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2093,7 +2093,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2115,7 +2115,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2137,7 +2137,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2154,12 +2154,12 @@
                 "description": "color.surface.solid.primary.background"
               },
               "label": {
-                "value": "{color.palette.neutral.300}",
+                "value": "{color.palette.neutral.base}",
                 "type": "color",
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{color.palette.neutral.800}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2273,7 +2273,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{color.palette.neutral.800}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2297,7 +2297,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2319,7 +2319,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2341,7 +2341,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2363,7 +2363,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{body.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2385,7 +2385,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.input.option.default.unchecked.default.icon}",
+                "value": "{color.palette.neutral.800}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }

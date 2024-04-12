@@ -704,7 +704,7 @@
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.sm}",
-            "fontSize": "{text.typeset.fontSize.sm}"
+            "fontSize": "{text.typeset.fontSize.md}"
           },
           "type": "typography"
         },
@@ -722,7 +722,7 @@
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.bold}",
             "lineHeight": "{button.label.lg}",
-            "fontSize": "{text.typeset.fontSize.lg}"
+            "fontSize": "{text.typeset.fontSize.md}"
           },
           "type": "typography"
         }
@@ -731,7 +731,7 @@
         "sm": {
           "value": {
             "lineHeight": "{text.typeset.lineHeight.xxs}",
-            "fontSize": "13"
+            "fontSize": "{text.typeset.fontSize.md}"
           },
           "type": "typography"
         },
@@ -745,7 +745,7 @@
         "lg": {
           "value": {
             "lineHeight": "{text.typeset.lineHeight.sm}",
-            "fontSize": "{text.typeset.fontSize.lg}"
+            "fontSize": "{text.typeset.fontSize.md}"
           },
           "type": "typography"
         }
@@ -757,7 +757,7 @@
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.sm}",
-              "fontSize": "{text.typeset.fontSize.sm}",
+              "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.none}"
             },
             "type": "typography"
@@ -777,7 +777,7 @@
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.lg}",
-              "fontSize": "{text.typeset.fontSize.lg}",
+              "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.none}"
             },
             "type": "typography"
@@ -789,7 +789,7 @@
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.sm}",
-              "fontSize": "{text.typeset.fontSize.sm}",
+              "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
             },
             "type": "typography"
@@ -809,7 +809,7 @@
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.lg}",
-              "fontSize": "{text.typeset.fontSize.lg}",
+              "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
             },
             "type": "typography"
@@ -821,7 +821,7 @@
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.sm}",
-              "fontSize": "{text.typeset.fontSize.sm}",
+              "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
             },
             "type": "typography"
@@ -841,7 +841,7 @@
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.lg}",
-              "fontSize": "{text.typeset.fontSize.lg}",
+              "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.underline}"
             },
             "type": "typography"
@@ -853,7 +853,7 @@
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.sm}",
-              "fontSize": "{text.typeset.fontSize.sm}",
+              "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.none}"
             },
             "type": "typography"
@@ -873,7 +873,7 @@
               "fontFamily": "{text.typeset.fontFamily.body}",
               "fontWeight": "{text.typeset.fontWeight.bold}",
               "lineHeight": "{button.label.lg}",
-              "fontSize": "{text.typeset.fontSize.lg}",
+              "fontSize": "{text.typeset.fontSize.md}",
               "textDecoration": "{text.typeset.textDecoration.none}"
             },
             "type": "typography"

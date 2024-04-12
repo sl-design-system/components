@@ -12,8 +12,26 @@ $short-transition-timing: 200ms;
   z-index: 1;
 }
 
-.ds-top-navigation--sticky {
-  // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+.ds-top-navigation--sticky:not(.sticky) {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+}
+
+.sticky {
+  // display: block;
+
+  // background: #1f97f9;
+  // padding-block: 0.8rem 0; // 2.4rem 0; // 2.4rem 0.8rem;
+  // padding: 3.2rem 2.4rem 1.4rem;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+
+  .ds-top-navigation__logo {
+    display: none;
+  }
+}
+
+.has-tabs {
+  // padding: 0.8rem 0 0;
+  box-shadow: none;
 }
 
 .ds-top-navigation--not-sticky {
@@ -124,7 +142,7 @@ $short-transition-timing: 200ms;
   backdrop-filter: blur(2px);
   background-color: var(--filter-color);
   content: '';
-  inset: 0;
+  inset: 7.8rem 0; // 0;
   position: absolute;
   z-index: 1; // 2;
 }
@@ -453,7 +471,17 @@ $short-transition-timing: 200ms;
   display: none;
 }
 
+// .sticky {
+//  .ds-top-navigation__logo {
+//    display: none;
+//  }
+// }
+
 @media screen and (min-width: $lg-breakpoint) {
+  .ds-menu--opened::before {
+    content: none;
+  }
+
   .ds-top-navigation {
     // background: #1f97f9;
     display: none;
@@ -467,7 +495,14 @@ $short-transition-timing: 200ms;
     display: block;
 
     // background: #1f97f9;
-    padding-block: 0.8rem 0; // 2.4rem 0; // 2.4rem 0.8rem;
+    // padding-block: 0.8rem 0; // 2.4rem 0; // 2.4rem 0.8rem;
+    padding: 3.2rem 2.4rem 1.4rem;
+    // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .has-tabs {
+    padding: 0.8rem 0 0;
+    // box-shadow: none;
   }
 
   .ds-top-navigation__hamburger {
@@ -504,14 +539,14 @@ $short-transition-timing: 200ms;
 @media screen and (min-width: $lg-breakpoint) {
   .ds-top-navigation__component-name {
     // padding-left: 7.2rem;
-    padding-inline-start: calc(28rem);
+    padding-inline-start: calc(28rem + 2.4rem);
   }
 }
 
 @media screen and (min-width: $xl-breakpoint) {
   .ds-top-navigation__component-name {
     // padding-left: 7.2rem;
-    padding-inline-start: calc(28rem + 7.2rem - 2.4rem);
+    padding-inline-start: calc(28rem + 7.2rem);
   }
 }
 

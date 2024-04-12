@@ -58,11 +58,18 @@ export const verticalTabsStyles = css`
   .ds-tabs__container {
     display: flex;
     flex-direction: row-reverse;
-    inset-block-start: 15%;
+    // inset-block-start: 15%;
     justify-content: start; //center; // TODO: center in other media query
     margin: auto;
     overflow: hidden;
     padding-block-start: 0;
+    background-color: var(--background-color);
+    inset-block-start: -0.1rem;
+    // margin: auto -2.4rem;
+    overflow-x: hidden;
+    /* padding-block-start: 1.6rem; */
+    /* position: sticky; */
+    transition: padding-top 300ms;
   }
 
   .ds-tabs__vertical-indicator {
@@ -111,13 +118,13 @@ export const verticalTabsStyles = css`
     }
   }
 
-  .ds-tabs__container {
-    background-color: var(--background-color);
-    inset-block-start: -0.1rem;
-    // margin: auto -2.4rem;
-    overflow-x: hidden;
-    /* padding-block-start: 1.6rem; */
-    /* position: sticky; */
-    transition: padding-top $transition-timing;
-  }
+  // .ds-tabs__container {
+  //   background-color: var(--background-color);
+  //   inset-block-start: -0.1rem;
+  //   // margin: auto -2.4rem;
+  //   overflow-x: hidden;
+  //   /* padding-block-start: 1.6rem; */
+  //   /* position: sticky; */
+  //   transition: padding-top $transition-timing;
+  // }
 `;

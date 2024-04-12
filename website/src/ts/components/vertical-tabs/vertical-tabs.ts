@@ -335,3 +335,5 @@ declare global {
     'ds-vertical-tabs': VerticalTabs;
   }
 }
+
+// TODO: problem with intersection bserver entries running when click on vertical tab

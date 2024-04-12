@@ -9,7 +9,8 @@ const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   arrows = document.querySelectorAll('.ds-sidebar-nav__arrow'),
   linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu'),
   heading = document.querySelector('header') as Element,
-  title = heading?.querySelector('h1') as HTMLElement;
+  title = heading?.querySelector('h1') as HTMLElement,
+  slTabs = document?.querySelector('sl-tab-group');
 
 let previouslyOpened: Element, previouslyOpenedSubmenu: Element;
 
@@ -211,28 +212,29 @@ const handler = (entries: IntersectionObserverEntry[]) => {
   componentNameHeading.classList.add('ds-top-navigation__component-name');
   const slTabsGroup = document.querySelector('sl-tab-group');
   console.log('entries navigation', entries);
-  // entries is an array of observed dom nodes
-  // we're only interested in the first one at [0]
-  // because that's our .sentinal node.
-  // Here observe whether or not that node is in the viewport
   if (!entries[0].isIntersecting) {
     topNavigation.classList.add('sticky');
-    topNavigation.insertAdjacentElement('afterbegin', componentNameHeading);
-    slTabsGroup?.classList.add('sticky-tabs');
+    topNavigation.insertAdjacentElement('beforeend', componentNameHeading);
+    if (slTabsGroup) {
+      slTabsGroup.classList.add('sticky-tabs');
+      topNavigation.classList.add('has-tabs');
+    }
   } else {
     topNavigation.classList.remove('sticky');
-    slTabsGroup?.classList.remove('sticky-tabs');
+    if (slTabsGroup) {
+      slTabsGroup.classList.remove('sticky-tabs');
+      topNavigation.classList.remove('has-tabs');
+    }
     const oldComponentName = topNavigation.querySelector('.ds-top-navigation__component-name');
     oldComponentName?.remove();
   }
 };
 
-// create the observer
 const observer = new window.IntersectionObserver(handler, {
   rootMargin: '-48px' // Add your desired rootMargin here
 });
-console.log('heading', heading, title?.innerText);
-// give the observer some dom nodes to keep an eye on
+// console.log('heading', heading, title?.innerText);
+
 if (heading) {
   observer.observe(heading);
 }

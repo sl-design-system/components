@@ -6,6 +6,26 @@ eleventyNavigation:
   key: IconUsage
 ---
 
+<section>  
+<div class="ds-example" style="gap: 3rem;">
+  <sl-icon name="angle-down" size="2xs"></sl-icon>
+  <sl-icon name="face-smile"></sl-icon>
+  <sl-icon name="triangle-exclamation-solid" size="xl" style="color:var(--sl-color-palette-danger-500)"></sl-icon>
+  <sl-icon name="pinata" size="4xl"></sl-icon>
+</div>
+
+<div class="ds-code">
+
+  ```html
+  <sl-icon name="angle-down" size="2xs"></sl-icon>
+  <sl-icon name="face-smile"></sl-icon>
+  <sl-icon name="triangle-exclamation-solid" size="xl" style="color:red"></sl-icon>
+  <sl-icon name="pinata" size="4xl"></sl-icon>
+  ```
+</div>
+
+</section>
+
 <section>
 
 ## When to Use

@@ -11860,7 +11860,8 @@
                 "text": "string | undefined"
               },
               "description": "The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma.",
-              "attribute": "name"
+              "attribute": "name",
+              "reflects": true
             },
             {
               "kind": "method",

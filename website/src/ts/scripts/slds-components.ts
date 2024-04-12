@@ -34,7 +34,8 @@ import {
   faCopy,
   faMessagesQuestion,
   faPenToSquare,
-  faPencilRuler
+  faPencilRuler,
+  faTruckFast
 } from '@fortawesome/pro-regular-svg-icons';
 import { faEnvelope, faHandBackPointUp, faSchool, faScreenUsers } from '@fortawesome/pro-solid-svg-icons';
 import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
@@ -53,7 +54,8 @@ Icon.register(
   faSchool,
   faScreenUsers,
   faSlack,
-  faCopy
+  faCopy,
+  faTruckFast
 );
 
 declare global {

@@ -2813,7 +2813,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2823,7 +2823,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.input.option.valid.checked.default.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2835,7 +2835,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2845,7 +2845,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.success.600}",
+                "value": "{color.input.option.valid.checked.hover.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2857,7 +2857,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2867,7 +2867,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.success.800}",
+                "value": "{color.input.option.valid.checked.active.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2879,7 +2879,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2889,7 +2889,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.input.option.valid.checked.focus.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2920,7 +2920,7 @@
           "checked": {
             "default": {
               "background": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2942,7 +2942,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.palette.success.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2964,7 +2964,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.success.600}",
+                "value": "{color.palette.success.800}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2986,7 +2986,7 @@
             },
             "focus": {
               "background": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },

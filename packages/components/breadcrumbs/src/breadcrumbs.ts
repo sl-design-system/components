@@ -1,7 +1,8 @@
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { MenuButton, MenuItem } from '@sl-design-system/menu';
+import { Popover } from '@sl-design-system/popover';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -66,9 +67,9 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
+      'sl-button': Button,
       'sl-icon': Icon,
-      'sl-menu-button': MenuButton,
-      'sl-menu-item': MenuItem,
+      'sl-popover': Popover,
       'sl-tooltip': Tooltip
     };
   }
@@ -126,30 +127,37 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       ${this.noHome
         ? nothing
         : html`
-            <a href=${this.homeUrl}><sl-icon name="house"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
-            <sl-icon name="chevron-right"></sl-icon>
+            <a href=${this.homeUrl}><sl-icon name="home-blank"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
+            <sl-icon name="breadcrumb-separator"></sl-icon>
           `}
       ${this.breadcrumbs.length > this.collapseThreshold
         ? html`
-            <sl-menu-button fill="link">
-              <sl-icon name="ellipsis" slot="button"></sl-icon>
+            <sl-button fill="link" id="button" @click=${this.#onClick} aria-label=${msg('More breadcrumbs')}>
+              <sl-icon name="ellipsis"></sl-icon>
+            </sl-button>
+            <sl-popover anchor="button">
               ${this.breadcrumbs
                 .slice(0, -this.collapseThreshold)
-                .map(
-                  ({ element, label }) => html`<sl-menu-item @click=${() => element.click()}>${label}</sl-menu-item>`
-                )}
-            </sl-menu-button>
+                .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : html`${label}`))}
+            </sl-popover>
           `
         : nothing}
       <slot @slotchange=${this.#onSlotchange}></slot>
     `;
   }
 
+  #onClick = (): void => {
+    this.renderRoot.querySelector('sl-popover')?.togglePopover();
+  };
+
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
     this.breadcrumbs = event.target
       .assignedElements({ flatten: true })
       .filter((element): element is HTMLElement => !(element instanceof Icon || element instanceof Tooltip))
       .map(element => {
+        if (element.matches(':last-of-type')) {
+          element.setAttribute('aria-current', 'page');
+        }
         return {
           element,
           label: element.textContent?.trim() || '',
@@ -165,7 +173,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
       }
 
       const icon = this.shadowRoot!.createElement('sl-icon') as Icon;
-      icon.name = 'chevron-right';
+      icon.name = 'breadcrumb-separator';
 
       element.after(icon);
     });

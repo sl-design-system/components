@@ -494,6 +494,10 @@
         "value": "{size.4xl}",
         "type": "sizing"
       }
+    },
+    "breacrumb": {
+      "value": "{size.2xl}",
+      "type": "sizing"
     }
   },
   "space": {
@@ -613,17 +617,17 @@
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.outline}",
+            "value": "{space.lg} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.outline}",
+            "value": "{space.xl} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.outline}",
+            "value": "{space.xl} - {border.width.button.outline}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
@@ -663,17 +667,17 @@
         },
         "inline": {
           "sm": {
-            "value": "{space.sm} - {border.width.button.ghost}",
+            "value": "{space.lg} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.sm"
           },
           "md": {
-            "value": "{space.sm} - {border.width.button.ghost}",
+            "value": "{space.xl} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.md"
           },
           "lg": {
-            "value": "{space.md} - {border.width.button.ghost}",
+            "value": "{space.xl} - {border.width.button.ghost}",
             "type": "spacing",
             "description": "space.button.solid.inline.lg"
           }
@@ -1557,11 +1561,22 @@
       },
       "gap": {
         "value": "{space.xs}",
-        "type": "spacing"
+        "type": "spacing",
+        "description": "space.popover.gap"
       },
       "offset": {
         "value": "{space.xs}",
         "type": "spacing"
+      },
+      "links": {
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "block": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        }
       }
     },
     "inline-message": {
@@ -1706,6 +1721,52 @@
             "value": "{space.sm}",
             "type": "spacing"
           }
+        }
+      }
+    },
+    "menu": {
+      "container": {
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "inline": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        }
+      },
+      "item": {
+        "block": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "inline": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      }
+    },
+    "breadcrumb": {
+      "gap": {
+        "full": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        },
+        "short": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        },
+        "home": {
+          "value": "{space.xs}",
+          "type": "spacing"
         }
       }
     }
@@ -2057,15 +2118,20 @@
         "type": "Icons",
         "description": "icon.core.ellipsis"
       },
-      "house": {
-        "value": "house",
+      "home-blank": {
+        "value": "home-blank",
         "type": "Icons",
-        "description": "icon.core.house"
+        "description": "icon.core.home-blank"
       },
       "angle-down": {
         "value": "angle-down",
         "type": "Icons",
         "description": "icon.core.angle-down"
+      },
+      "breadcrumb-separator": {
+        "value": "slash-forward",
+        "type": "Icons",
+        "description": "icon.core.slash-forward"
       }
     },
     "typeset": {

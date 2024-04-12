@@ -27,18 +27,12 @@ export const Between: Story = {
   }
 };
 
-export const BetweenOrOnTop: Story = {};
-
-export const OnGrid: Story = {};
-
 export const OnTop: Story = {
   loaders: [async () => ({ people: (await getPeople({ count: 10 })).people })],
   render: (_, { loaded: { people } }) => {
     const dropFilter: GridDropFilter<Person> = ({ membership }) => membership !== 'Regular';
 
     const onDrop = (event: SlDropEvent<Person>): void => {
-      // event.preventDefault();
-
       console.log('Dropped', event.detail.item, event.detail.relativeItem);
     };
 
@@ -80,21 +74,6 @@ export const Grouping: Story = {
   render: (_, { loaded: { people } }) => {
     const dataSource = new ArrayDataSource(people as Person[]);
     dataSource.setGroupBy('membership');
-
-    // const onDrop = ({ detail: { grid, oldIndex, newIndex } }: SlDropEvent<Person>): void => {
-    //   console.log('Dropped', oldIndex, newIndex);
-
-    //   // Reorder the person in the grid
-    //   const items = [...dataSource.items],
-    //     person = items.splice(oldIndex, 1)[0];
-    //   items.splice(newIndex, 0, person);
-
-    //   console.log(items.at(newIndex - 1));
-    //   console.log(items.at(newIndex));
-    //   console.log(items.at(newIndex + 1));
-
-    //   grid.items = items;
-    // };
 
     return html`
       <sl-grid .dataSource=${dataSource}>

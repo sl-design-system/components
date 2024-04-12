@@ -3,7 +3,7 @@ import { ArrayDataSource } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { type GridDropFilter } from '../grid.js';
+import { type GridDropFilter, type SlDropEvent } from '../grid.js';
 
 type Story = StoryObj;
 
@@ -36,8 +36,14 @@ export const OnTop: Story = {
   render: (_, { loaded: { people } }) => {
     const dropFilter: GridDropFilter<Person> = ({ membership }) => membership !== 'Regular';
 
+    const onDrop = (event: SlDropEvent<Person>): void => {
+      // event.preventDefault();
+
+      console.log('Dropped', event.detail.item, event.detail.relativeItem);
+    };
+
     return html`
-      <sl-grid draggable-rows="on-top" .dropFilter=${dropFilter} .items=${people}>
+      <sl-grid @sl-grid-drop=${onDrop} draggable-rows="on-top" .dropFilter=${dropFilter} .items=${people}>
         <sl-grid-drag-handle-column></sl-grid-drag-handle-column>
         <sl-grid-column path="firstName"></sl-grid-column>
         <sl-grid-column path="lastName"></sl-grid-column>

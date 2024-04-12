@@ -105,9 +105,6 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The item being dragged. */
   #dragItem?: T;
 
-  /** The mode if the drag item is dropped on the current target. */
-  #dropTargetMode?: 'between' | 'on-top';
-
   /** The filters for this grid. */
   #filters: Array<GridFilter<T>> = [];
 
@@ -189,6 +186,9 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    * - 'on-top': the item is a valid drop target to drop on top of
    */
   @property({ attribute: false }) dropFilter?: GridDropFilter;
+
+  /** @internal Provides clarity when 'between-or-on-top' is the active draggableRows value. */
+  @property({ reflect: true, attribute: 'drop-target-mode' }) dropTargetMode?: 'between' | 'on-grid' | 'on-top';
 
   /** Custom renderer for group headers. */
   @property({ attribute: false }) groupHeaderRenderer?: GridGroupHeaderRenderer;
@@ -504,10 +504,15 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.#dragItem = item;
     this.#itemBeforeDragItem = this.view.rows.at(this.view.rows.indexOf(item) - 1);
 
+    // Update styles in the next frame, after the drag image has been created
     requestAnimationFrame(() => {
       row.style.removeProperty('--_cell-background');
       row.style.removeProperty('border');
       row.style.removeProperty('opacity');
+
+      if (this.draggableRows !== 'between-or-on-top') {
+        this.dropTargetMode = this.draggableRows;
+      }
 
       this.view.refresh();
     });
@@ -515,32 +520,20 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     this.dragStartEvent.emit({ grid: this, item: item });
   }
 
-  #onDragEnter(event: DragEvent, item: T): void {
+  #onDragEnter(_event: DragEvent, item: T): void {
     if (this.#dragItem === item || this.view.isFixedItem(item)) {
       return;
     }
 
-    if (this.draggableRows !== 'on-grid') {
+    if (this.draggableRows === 'between-or-on-top') {
       const dropFilter = this.dropFilter?.(item) ?? true;
-      if (!dropFilter) {
-        // Prevent the item from being dropped here
-        event.preventDefault();
-      }
 
-      if (this.draggableRows === 'between-or-on-top') {
-        this.#dropTargetMode = typeof dropFilter === 'boolean' ? 'between' : dropFilter;
-      } else {
-        this.#dropTargetMode = this.draggableRows;
-      }
+      this.dropTargetMode = typeof dropFilter === 'boolean' ? 'between' : dropFilter;
     }
   }
 
   #onDragOver(event: DragEvent, item: T): void {
     event.preventDefault();
-
-    if (this.#dragItem === item) {
-      return;
-    }
 
     const { draggableRows, dropFilter } = this;
 
@@ -557,7 +550,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         return;
       } else if (
         draggableRows === 'between' ||
-        (draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'between')
+        (draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
       ) {
         const { top, height } = row.getBoundingClientRect();
 
@@ -567,9 +560,11 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
         this.requestUpdate('view');
       } else if (
         draggableRows === 'on-top' ||
-        (draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'on-top')
+        (draggableRows === 'between-or-on-top' && this.dropTargetMode === 'on-top')
       ) {
-        row?.classList.add('drop-target');
+        if (dropFilter?.(item)) {
+          row?.classList.add('drop-target');
+        }
       }
     }
   }
@@ -585,7 +580,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
     // Reset any drop targets
     this.renderRoot.querySelectorAll('.drop-target').forEach(el => el.classList.remove('drop-target'));
 
-    this.#dragItem = this.#dropTargetMode = this.#itemBeforeDragItem = undefined;
+    this.#dragItem = this.dropTargetMode = this.#itemBeforeDragItem = undefined;
 
     // Force rerender
     requestAnimationFrame(() => this.view.refresh());
@@ -604,16 +599,17 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
       }
     } else if (
       this.draggableRows === 'on-top' ||
-      (this.draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'on-top')
+      (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'on-top')
     ) {
       cancelled = !this.dropEvent.emit({ grid: this, item: this.#dragItem!, relativeItem: item, position: 'on-top' });
 
       if (!cancelled) {
         // Insert item at the top of the group.
+        console.log('Item dropped on top of', this.#dragItem, item);
       }
     } else if (
       this.draggableRows === 'between' ||
-      (this.draggableRows === 'between-or-on-top' && this.#dropTargetMode === 'between')
+      (this.draggableRows === 'between-or-on-top' && this.dropTargetMode === 'between')
     ) {
       const index = this.view.rows.indexOf(this.#dragItem!);
 

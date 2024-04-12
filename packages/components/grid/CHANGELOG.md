@@ -1,5 +1,29 @@
 # @sl-design-system/grid
 
+## 0.1.9
+
+### Patch Changes
+
+- [#1116](https://github.com/sl-design-system/components/pull/1116) [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537) - Various improvements and bug fixes:
+  - Add missing select dependency
+  - Fix issue with filter column not working with zero `0`
+  - Fix drag & drop in combination with grouping
+  - Add more stories with groupby combinations
+  - Add hack to remove the "extra padding" at bottom of the body when using groups
+  - Remove custom icons that are already part of the theme
+  - Fix rendering of selection header when first column is a drag handle
+  - Add ability to slot custom content in the group header (with example story)
+  - Fix filter & sorter `change-in-update` Lit warning
+  - Fix broken filter due to event naming regression
+  - Refactor `groupBy` functionality to a single API in dataSource; previously you could also set group by using the `items-group-by` attribute/property, leading to unnecessary complexity
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537)]:
+  - @sl-design-system/shared@0.2.10
+  - @sl-design-system/icon@0.0.10
+  - @sl-design-system/checkbox@0.0.28
+  - @sl-design-system/popover@0.1.11
+  - @sl-design-system/select@0.0.27
+  - @sl-design-system/text-field@0.1.23
+
 ## 0.1.8
 
 ### Patch Changes

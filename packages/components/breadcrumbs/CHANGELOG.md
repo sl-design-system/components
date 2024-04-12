@@ -1,5 +1,16 @@
 # @sl-design-system/breadcrumbs
 
+## 0.0.7
+
+### Patch Changes
+
+- [#1092](https://github.com/sl-design-system/components/pull/1092) [`b4aeccc`](https://github.com/sl-design-system/components/commit/b4aeccc033b8827d1d0bfa80a410c3290bf9fb94) - Added breadcrumbs component
+
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`9961697`](https://github.com/sl-design-system/components/commit/99616972eaef783779417d65c1b237dff801ad1f), [`9961697`](https://github.com/sl-design-system/components/commit/99616972eaef783779417d65c1b237dff801ad1f)]:
+  - @sl-design-system/icon@0.0.10
+  - @sl-design-system/menu@0.0.8
+  - @sl-design-system/tooltip@0.0.25
+
 ## 0.0.6
 
 ### Patch Changes

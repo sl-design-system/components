@@ -203,6 +203,11 @@
               "kind": "field",
               "name": "noHome",
               "description": "When true doesn't show a home link as the first breadcrumb.\n\nIf you want to change the default value for all future instances of the component,\nyou can change the static property. If you want to change the property of an already\ncreated instance, you need to change this property."
+            },
+            {
+              "kind": "field",
+              "name": "#onClick",
+              "privacy": "private"
             }
           ]
         }

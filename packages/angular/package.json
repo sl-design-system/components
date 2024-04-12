@@ -68,7 +68,7 @@
     "@angular/forms": "^17.3.1",
     "@angular/platform-browser": "^17.3.1",
     "@angular/platform-browser-dynamic": "^17.3.1",
-    "@sl-design-system/locales": "0.0.6",
+    "@sl-design-system/locales": "0.0.7",
     "@storybook/addon-essentials": "^8.0.5",
     "@storybook/addon-links": "^8.0.5",
     "@storybook/angular": "^8.0.5",

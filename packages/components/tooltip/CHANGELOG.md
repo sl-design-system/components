@@ -1,5 +1,12 @@
 # @sl-design-system/tooltip
 
+## 0.0.25
+
+### Patch Changes
+
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537)]:
+  - @sl-design-system/shared@0.2.10
+
 ## 0.0.24
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @sl-design-system/inline-message
 
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537)]:
+  - @sl-design-system/shared@0.2.10
+  - @sl-design-system/icon@0.0.10
+  - @sl-design-system/button@0.0.27
+
 ## 0.2.6
 
 ### Patch Changes

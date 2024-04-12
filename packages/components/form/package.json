@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/form",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Form components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,7 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "0.2.9"
+    "@sl-design-system/shared": "0.2.10"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.1",

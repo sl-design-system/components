@@ -4,6 +4,28 @@ import { html } from 'lit';
 import '../register.js';
 import { type Avatar } from './avatar.js';
 
+const users = [
+  {
+    name: 'Yousef van der Schaaf',
+    picture: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
+  },
+  {
+    name: 'Chester Reid',
+    picture: 'https://randomuser.me/api/portraits/thumb/men/19.jpg'
+  },
+  {
+    name: 'Emma Henderson - Van Deursen',
+    picture: 'https://randomuser.me/api/portraits/thumb/women/19.jpg'
+  },
+  {
+    name: 'Johnni Sullivan'
+  },
+  {
+    name: 'Non Existing',
+    picture: 'https://sanomalearning.design/nonexistingavatar.jpg'
+  }
+];
+
 describe('sl-avatar', () => {
   let el: Avatar;
 
@@ -16,28 +38,6 @@ describe('sl-avatar', () => {
 
   Config.setConfig(config);
 
-  const users = [
-    {
-      name: 'Yousef van der Schaaf',
-      picture: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
-    },
-    {
-      name: 'Chester Reid',
-      picture: 'https://randomuser.me/api/portraits/thumb/men/19.jpg'
-    },
-    {
-      name: 'Emma Henderson - Van Deursen',
-      picture: 'https://randomuser.me/api/portraits/thumb/women/19.jpg'
-    },
-    {
-      name: 'Johnni Sullivan'
-    },
-    {
-      name: 'Non Existing',
-      picture: 'https://sanomalearning.design/nonexistingavatar.jpg'
-    }
-  ];
-
   describe('header', () => {
     let name: Element | null, subheader: Element | null;
 
@@ -45,7 +45,7 @@ describe('sl-avatar', () => {
       el = await fixture(html`<sl-avatar .displayName=${users[3].name}>Straight A student</sl-avatar>`);
       await el.updateComplete;
       await new Promise(resolve => setTimeout(resolve));
-      name = el.renderRoot.querySelector('.header');
+      name = el.renderRoot.querySelector('[part="name"]');
       subheader = el.renderRoot.querySelector('.subheader');
     });
 
@@ -59,11 +59,23 @@ describe('sl-avatar', () => {
       el.size = 'sm';
       await el.updateComplete;
 
-      name = el.renderRoot.querySelector('.header');
+      name = el.renderRoot.querySelector('[part="name"]');
       subheader = el.renderRoot.querySelector('.subheader');
 
       expect(name).to.have.text('Johnni Sullivan');
+      expect(name).to.match('span');
       expect(subheader).not.to.exist;
+    });
+
+    it('should render the name in a link if href is set', async () => {
+      el.href = 'https://www.example.com';
+      await el.updateComplete;
+
+      name = el.renderRoot.querySelector('[part="name"]');
+
+      expect(name).to.have.attribute('href', 'https://www.example.com');
+      expect(name).to.have.text('Johnni Sullivan');
+      expect(name).to.match('a');
     });
   });
 
@@ -72,7 +84,7 @@ describe('sl-avatar', () => {
 
     beforeEach(async () => {
       el = await fixture(html`<sl-avatar .displayName=${users[3].name}></sl-avatar>`);
-      name = el.renderRoot.querySelector('.header');
+      name = el.renderRoot.querySelector('[part="name"]');
       svg = el.renderRoot.querySelector('svg');
     });
 
@@ -84,7 +96,7 @@ describe('sl-avatar', () => {
     });
 
     it('should not render initials but an icon when no image is provided and fallback is set to icon', async () => {
-      el.setAttribute('fallback', 'icon');
+      el.setAttribute('fallback', 'image');
       await el.updateComplete;
 
       const avatarIcon = svg?.querySelector('use');

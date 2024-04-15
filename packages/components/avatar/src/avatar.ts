@@ -98,9 +98,6 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** The avatar configuration settings from the current theme. */
   #config?: AvatarConfig;
 
-  /** Whether the display name is wider than the available width. */
-  #hasOverflow = false;
-
   /** Observe the avatar width. */
   #observer = new ResizeObserver(() => this.#checkOverflow());
 
@@ -208,10 +205,6 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       await this.#setBaseValues();
     }
 
-    if (changes.has('displayName')) {
-      this.#checkOverflow();
-    }
-
     if (changes.has('pictureUrl')) {
       await this.#setBaseValues();
       this.errorLoadingImage = false;
@@ -227,10 +220,10 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   #renderAvatar(): TemplateResult {
     return html`
       ${this.image ? this.#renderPicture() : nothing}
-      <sl-tooltip id="avatar-tooltip">${this.displayName}</sl-tooltip>
       ${this.imageOnly
         ? nothing
         : html`
+            <sl-tooltip id="avatar-tooltip">${this.displayName}</sl-tooltip>
             <span part="name">${this.displayName}</span>
             ${this.size === 'sm' && !this.vertical ? nothing : html`<slot class="subheader"></slot>`}
           `}
@@ -475,8 +468,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
     const element = this.renderRoot.querySelector<HTMLElement>('[part="name"]')!;
 
-    this.#hasOverflow = element.offsetWidth < element.scrollWidth || element.offsetHeight + 4 < element.scrollHeight;
-    if (this.#hasOverflow) {
+    if (element.offsetWidth < element.scrollWidth || element.offsetHeight + 4 < element.scrollHeight) {
       element.setAttribute('aria-describedby', 'avatar-tooltip');
     } else {
       element.removeAttribute('aria-describedby');

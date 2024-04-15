@@ -71,11 +71,12 @@ describe('sl-avatar', () => {
       el.href = 'https://www.example.com';
       await el.updateComplete;
 
+      const wrapper = el.renderRoot.querySelector('[part="wrapper"]');
       name = el.renderRoot.querySelector('[part="name"]');
 
-      expect(name).to.have.attribute('href', 'https://www.example.com');
+      expect(wrapper).to.have.attribute('href', 'https://www.example.com');
+      expect(wrapper).to.match('a');
       expect(name).to.have.text('Johnni Sullivan');
-      expect(name).to.match('a');
     });
   });
 

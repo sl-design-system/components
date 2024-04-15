@@ -42,7 +42,7 @@ Icons enhance usability, facilitating a quick understanding by providing a visua
 ## When not to Use
 Our focus is on functionality and accessibility, ensuring icons convey meaningful information and enhance usability.
 
-### No for Decoration
+### Not for Decoration
 Avoid using the icon component for purely decorative purposes. The main objective is to enhance the user's understanding of the actions within the interactive elements. When icons are utilized solely for ornamentation without contributing to the clarity or functionality of the interface, it can lead to visual clutter and detract from the overall usability of the interface. Use icons to convey meaningful information or facilitate user interactions to maintain usability and effectiveness.
 
 </section>

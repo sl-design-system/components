@@ -24,7 +24,7 @@ The label only needs to be set when there is no accompanying text with the icon,
 |-|-|-|-|
 |`aria-label`|string|Set by using the `label` property on the element.|no|
 |`aria-hidden`|boolean|When no `label` is set we assume the icon is purely presentational and we hide it from assistive technology. |no|
-|`role`|`'img'`|When a `label` is set this means the icon will be part of the accessibility and thus we need to declare it as an icon. |no|
+|`role`|`'img', undefined`|When a `label` is set this means the icon will be part of the accessibility tree and thus we need to declare it as an icon. |no|
 
 {.ds-table .ds-table-align-top}
 

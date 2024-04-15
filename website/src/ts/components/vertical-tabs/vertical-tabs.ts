@@ -33,11 +33,8 @@ export class VerticalTabs extends LitElement {
   observer = new IntersectionObserver(
     entries => {
       let updated = false;
-      const sections2 = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []),
-        links2 = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
-      // index = cards.findIndex(b => {
-      //   return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
-      // }),
+      const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []),
+        links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
 
       entries.forEach(entry => {
         if (updated) {
@@ -46,18 +43,18 @@ export class VerticalTabs extends LitElement {
         let activeBlock: Element | null | undefined;
         console.log('entry.isIntersecting', entry.isIntersecting, entry);
         if (!entry.isIntersecting) {
-          if (this.isInViewport(entry.target.nextElementSibling)) {
+          if (this.#isInViewport(entry.target.nextElementSibling)) {
             activeBlock = entry.target.nextElementSibling;
-          } else if (this.isInViewport(entry.target.previousElementSibling)) {
+          } else if (this.#isInViewport(entry.target.previousElementSibling)) {
             activeBlock = entry.target.previousElementSibling;
-            while (this.isInViewport(activeBlock?.previousElementSibling)) {
+            while (this.#isInViewport(activeBlock?.previousElementSibling)) {
               activeBlock = activeBlock?.previousElementSibling;
             }
           }
         } else {
-          if (!this.isInViewport(entry.target.nextElementSibling)) {
+          if (!this.#isInViewport(entry.target.nextElementSibling)) {
             return;
-          } else if (!this.isInViewport(entry.target.previousElementSibling)) {
+          } else if (!this.#isInViewport(entry.target.previousElementSibling)) {
             // ||entry.target.previousElementSibling?.hasAttribute('id'
             activeBlock = entry.target;
           }
@@ -74,21 +71,21 @@ export class VerticalTabs extends LitElement {
           return;
         }
 
-        let index2 = sections2.findIndex(b => {
+        let index = sections.findIndex(b => {
           return (b as HTMLElement).id.toLowerCase() == (activeBlock as HTMLElement).getAttribute('id')?.toLowerCase();
         });
 
-        console.log('activeBlock in observer', activeBlock, index2, links2[index2], activeBlock.hasAttribute('id'));
+        console.log('activeBlock in observer', activeBlock, index, links[index], activeBlock.hasAttribute('id'));
 
         // index2 = -1 ? 0 : index2;
 
-        if (links2[index2]) {
-          console.log('activeBlock in observer-------in if', activeBlock, index2, links2[index2]);
-          this.#setActiveTab(links2[index2]);
-          this.#alignVerticalTabIndicator(links2[index2]);
+        if (links[index]) {
+          console.log('activeBlock in observer-------in if', activeBlock, index, links[index]);
+          this.#setActiveTab(links[index]);
+          this.#alignVerticalTabIndicator(links[index]);
         } else if (!activeBlock.hasAttribute('id')) {
-          this.#setActiveTab(links2[0]);
-          this.#alignVerticalTabIndicator(links2[0]);
+          this.#setActiveTab(links[0]);
+          this.#alignVerticalTabIndicator(links[0]);
         }
 
         // const id = activeBlock.getAttribute('id');
@@ -159,7 +156,7 @@ export class VerticalTabs extends LitElement {
 
   // , threshold: [0, 0.25, 0.5, 1]
 
-  isInViewport(element: Element | null | undefined) {
+  #isInViewport(element: Element | null | undefined) {
     if (!element) {
       return false;
     }
@@ -171,41 +168,6 @@ export class VerticalTabs extends LitElement {
     super.firstUpdated(changes);
 
     console.log('changes in firstUpdated', changes, this.tagElement);
-
-    // setTimeout(() => {
-    //   this.parentElement?.querySelectorAll('section').forEach(section => this.observer.observe(section));
-    // });
-
-    /** generates nav links from parentElement content */
-    //  console.log('verticalTabContent in firstUpdated', this.verticalTabContent, this.parentElement);
-
-    // headerAnchorsParentsAll: Array<HTMLElement | undefined> = [];
-    //  if (this.parentElement) {
-    // const headerAnchors = this.verticalTabContent.querySelectorAll('.header-anchor') as NodeListOf<Element>; // , [link-in-navigation]
-    //const headerAnchors = this.parentElement.querySelectorAll('.header-anchor') as NodeListOf<Element>;
-    // console.log('headerAnchors in vertical', headerAnchors);
-    // const headerAnchorsParents = Array.from(headerAnchors)
-    //   .map(element => {
-    //     if (element.parentElement?.tagName === 'H2') {
-    //       console.log('element h2?', element);
-    //       if (element.parentElement.parentNode) {
-    //         (element.parentElement.parentNode as Element).id = `${element.parentElement.id}-section`;
-    //       }
-    //       return element.parentElement;
-    //     } else if (element.hasAttribute('link-in-navigation')) {
-    //       return element as HTMLElement;
-    //     }
-    //     return;
-    //   })
-    //   .filter(element => element !== undefined) as HTMLElement[];
-    // this.headerAnchorsParentsAll.push(...headerAnchorsParents);
-    //
-    // console.log('headerAnchors in vertical - parents component', this.headerAnchorsParentsAll);
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: 'smooth'
-    // });
-    //}
 
     requestAnimationFrame(() => {
       // const currentContent = document.parentElement.getAttribute('aria-hidden') == 'false';
@@ -233,6 +195,7 @@ export class VerticalTabs extends LitElement {
   }
 
   override render(): TemplateResult {
+    /** generates nav links from parentElement content */
     const links = Array.from(this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || [])
       .map(element => {
         if (element.parentElement?.tagName === this.tagElement) {
@@ -275,29 +238,6 @@ export class VerticalTabs extends LitElement {
     `;
   }
 
-  /*  #onClick(event: Event & { target: HTMLElement }): void {
-    // event.preventDefault();
-    const verticalTab = event.target;
-    console.log('onclick on verticaltab in component', event, event.target);
-    this.#setActiveTab(verticalTab);
-
-    // setTimeout(() => {
-    //  this.onTabActivate(verticalTab as HTMLElement);
-    // });
-    /!*    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]');
-
-    currentVerticalTabLink?.setAttribute('aria-selected', 'false');
-    verticalTab.setAttribute('aria-selected', 'true');
-    currentVerticalTabLink?.setAttribute('tabindex', '-1');
-    verticalTab.setAttribute('tabindex', '0');
-
-    const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
-    verticalTabs.forEach(v => v.classList.remove('active'));
-    this.#alignVerticalTabIndicator(verticalTab);
-    verticalTab.classList.add('active');
-    // currentVerticalTabLink = verticalTab;*!/
-  }*/
-
   #setActiveTab(verticalTab: HTMLElement): void {
     console.log('verticalTab in setActiveTab', verticalTab);
     const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]');
@@ -305,16 +245,10 @@ export class VerticalTabs extends LitElement {
 
     currentVerticalTabLink?.setAttribute('aria-selected', 'false');
     verticalTab.setAttribute('aria-selected', 'true');
-    // currentVerticalTabLink?.setAttribute('tabindex', '-1');
-    // verticalTab.setAttribute('tabindex', '0');
 
     const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
     verticalTabs.forEach(v => v.classList.remove('active'));
     verticalTab.classList.add('active');
-    // setTimeout(() => {
-    //   this.#alignVerticalTabIndicator(verticalTab, !!currentVerticalTabLink);
-    // }, 800);
-    // currentVerticalTabLink = verticalTab;
   }
 
   #alignVerticalTabIndicator(tab: Element, scroll = true): void {

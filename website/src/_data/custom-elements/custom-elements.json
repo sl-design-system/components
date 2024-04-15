@@ -11884,50 +11884,6 @@
               "description": "Add icon(s) to the icon registry"
             },
             {
-              "kind": "method",
-              "name": "register",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "icons",
-                  "type": {
-                    "text": "IconLibrary"
-                  },
-                  "description": "The IconLibrary of the theme"
-                }
-              ],
-              "description": "Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.\nIs run in the setup method of each theme."
-            },
-            {
-              "kind": "method",
-              "name": "register",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "icon",
-                  "type": {
-                    "text": "IconDefinition | IconLibrary"
-                  }
-                },
-                {
-                  "name": "icons",
-                  "type": {
-                    "text": "IconDefinition[]"
-                  }
-                }
-              ]
-            },
-            {
               "kind": "field",
               "name": "size",
               "type": {
@@ -11990,50 +11946,6 @@
                 }
               ],
               "description": "Add icon(s) to the icon registry"
-            },
-            {
-              "kind": "method",
-              "name": "register",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "icons",
-                  "type": {
-                    "text": "IconLibrary"
-                  },
-                  "description": "The IconLibrary of the theme"
-                }
-              ],
-              "description": "Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.\nIs run in the setup method of each theme."
-            },
-            {
-              "kind": "method",
-              "name": "register",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "icon",
-                  "type": {
-                    "text": "IconDefinition | IconLibrary"
-                  }
-                },
-                {
-                  "name": "icons",
-                  "type": {
-                    "text": "IconDefinition[]"
-                  }
-                }
-              ]
             }
           ],
           "fields": []

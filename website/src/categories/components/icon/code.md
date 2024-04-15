@@ -48,9 +48,9 @@ The icons need to be registered in order for them to load and be available in yo
 
 <ds-code-snippet language="javascript">import { faTruckFast } from '@fortawesome/pro-regular-svg-icons';</ds-code-snippet>
 
-To add the icon to the registry that is used in the browser you use the function on the Icon component:
+To add the icon<sup>[2]</sup> to the registry that is used in the browser you use the function on the Icon component:
 
-<ds-code-snippet language="javascript">Icon.Register(faTruckFast);</ds-code-snippet>
+<ds-code-snippet language="javascript">Icon.register(faTruckFast);</ds-code-snippet>
 
 These two steps will make the Truck Fast icon from the regular (outline) style available. Because you can use a mixture of icons from different styles in one page Font Awesome uses a prefix per style to avoid conflicts. This causes the name of the icon you need to use in the `sl-icon` component to slightly differ from the icon you imported in previous step. There is [an overview of which style uses which prefix](https://docs.fontawesome.com/web/dig-deeper/kit-package-api/#prefix) available on the Font Awesome website.
 
@@ -65,15 +65,8 @@ Where you import and register the icon is up to you, but it is advised to do thi
 
 **Notes**
 1. There is a Sanoma wide Pro-license available in order to use the whole library. You will need a token both locally and in your build environment. Contact us via Slack or email to obtain this token.
+1. It is also possible to pass multiple icons into the register function at once: `Icon.register(faTruckFast, faPinata);`
 
 </section>
 
 {% include "../component-table.njk" %}
-
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>

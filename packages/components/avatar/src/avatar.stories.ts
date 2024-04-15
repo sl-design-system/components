@@ -1,6 +1,7 @@
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Avatar } from './avatar.js';
 import { type AvatarSize } from './models.js';
@@ -20,6 +21,7 @@ type Props = Pick<
   | 'vertical'
 > & {
   subheading?: string;
+  tabIndex?: number;
 };
 type Story = StoryObj<Props>;
 
@@ -67,6 +69,7 @@ export default {
     size,
     status,
     subheading,
+    tabIndex,
     vertical
   }) => {
     return html`
@@ -83,6 +86,7 @@ export default {
           .status=${status}
           ?image-only=${imageOnly}
           ?vertical=${vertical}
+          tabindex=${ifDefined(tabIndex)}
           >${subheading}</sl-avatar
         >
       </div>
@@ -101,7 +105,8 @@ export const Badge: Story = {
 
 export const Href: Story = {
   args: {
-    href: 'https://example.com'
+    href: 'https://example.com',
+    subheading: '30 May'
   }
 };
 
@@ -112,9 +117,11 @@ export const ImageFallback: Story = {
   }
 };
 
-export const ImageOnly: Story = {
+export const ImageOnlyWithFocus: Story = {
   args: {
-    imageOnly: true
+    imageOnly: true,
+    size: 'xl',
+    tabIndex: 0
   }
 };
 
@@ -128,13 +135,16 @@ export const InitialsFallback: Story = {
 export const Initials: Story = {
   args: {
     displayInitials: 'SLDS',
-    pictureUrl: undefined
+    displayName: 'SL Design System',
+    pictureUrl: undefined,
+    size: 'xl'
   }
 };
 
 export const Overflow: Story = {
   args: {
-    displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden'
+    displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden',
+    subheading: 'Ipsum adipisicing exercitation amet et anim consectetur.'
   }
 };
 
@@ -154,13 +164,13 @@ export const Subheading: Story = {
 export const Vertical: Story = {
   args: {
     displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden',
-    size: 'xl',
+    size: '2xl',
     vertical: true
   }
 };
 
 export const All: StoryObj = {
-  render: ({ badgeText }) => {
+  render: () => {
     const sizeName = (size: string): string => {
       switch (size) {
         case 'sm':
@@ -220,92 +230,98 @@ export const All: StoryObj = {
         th,
         td {
           padding: 4px 8px;
-          vertical-align: top;
+          vertical-align: middle;
           --max-width: 100px;
         }
       </style>
       <table>
         <thead>
           <tr>
-            <th>Size</th>
-            <th>With name</th>
-            <th>With subheader</th>
-            <th>Vertical</th>
-            <th>With placeholder</th>
-            <th>With initials</th>
-            <th>Image only</th>
-            <th>empty badge</th>
-            <th>number badge</th>
-            <th>active</th>
+            <th></th>
+            ${sizes.map(size => html`<th>${sizeName(size)}</th>`)}
           </tr>
         </thead>
         <tbody>
-          ${sizes.map(
-            size => html`
-              <tr>
-                <th>${sizeName(size)}</th>
+          <tr>
+            <td>Basic</td>
+            ${sizes.map(
+              size => html`
                 <td>
-                  <sl-avatar display-name=${users[0].name} .pictureUrl=${users[0].picture} .size=${size}></sl-avatar>
+                  <sl-avatar .displayName=${users[0].name} .pictureUrl=${users[0].picture} .size=${size}></sl-avatar>
                 </td>
+              `
+            )}
+          </tr>
+          <tr>
+            <td>Subheader</td>
+            ${sizes.map(
+              size => html`
                 <td>
-                  <sl-avatar display-name=${users[2].name} .pictureUrl=${users[2].picture} .size=${size}
+                  <sl-avatar .displayName=${users[2].name} .pictureUrl=${users[2].picture} .size=${size}
                     >Subheader</sl-avatar
                   >
                 </td>
+              `
+            )}
+          </tr>
+          <tr>
+            <td>Image fallback</td>
+            ${sizes.map(size => html`<td><sl-avatar .displayName=${users[4].name} .size=${size}></sl-avatar></td>`)}
+          </tr>
+          <tr>
+            <td>Initials fallback</td>
+            ${sizes.map(
+              size =>
+                html`<td><sl-avatar .displayName=${users[3].name} .size=${size} fallback="initials"></sl-avatar></td>`
+            )}
+          </tr>
+          <tr>
+            <td>Link</td>
+            ${sizes.map(
+              size => html`
+                <td>
+                  <sl-avatar .displayName=${users[3].name} .size=${size} href="https://example.com"></sl-avatar>
+                </td>
+              `
+            )}
+          </tr>
+          <tr>
+            <td>Image only</td>
+            ${sizes.map(
+              size => html`
                 <td>
                   <sl-avatar
-                    display-name=${users[2].name}
-                    .pictureUrl=${users[2].picture}
-                    .size=${size}
-                    orientation="vertical"
-                    >Subheader
-                  </sl-avatar>
-                </td>
-                <td>
-                  <sl-avatar display-name=${users[4].name} .size=${size} fallback="image"></sl-avatar>
-                </td>
-                <td><sl-avatar display-name=${users[3].name} .size=${size}></sl-avatar></td>
-                <td>
-                  <sl-avatar
-                    display-name=${users[2].name}
-                    .pictureUrl=${users[2].picture}
-                    .size=${size}
-                    image-only
-                  ></sl-avatar>
-                </td>
-                <td>
-                  <sl-avatar
-                    display-name=${users[1].name}
+                    .displayName=${users[3].name}
                     .pictureUrl=${users[1].picture}
                     .size=${size}
                     image-only
-                    status="success"
                   ></sl-avatar>
                 </td>
+              `
+            )}
+          </tr>
+          <tr>
+            <td>Status</td>
+            ${sizes.map(
+              size => html`
                 <td>
-                  <sl-avatar
-                    display-name=${users[0].name}
-                    .pictureUrl=${users[0].picture}
-                    .size=${size}
-                    image-only
-                    badge-text=${badgeText}
-                  ></sl-avatar>
+                  <sl-avatar .displayName=${users[3].name} .size=${size} image-only status="success"></sl-avatar>
                 </td>
+              `
+            )}
+          </tr>
+          <tr>
+            <td>Badge</td>
+            ${sizes.map(
+              size => html`
                 <td>
-                  <sl-avatar
-                    display-name=${users[5].name}
-                    .size=${size}
-                    image-only
-                    badge-text=${badgeText}
-                    active
-                  ></sl-avatar>
+                  <sl-avatar .displayName=${users[3].name} .size=${size} image-only badge-text="34"></sl-avatar>
                 </td>
-              </tr>
-            `
-          )}
-        </tr>
-      </tbody>
-    </table>
+              `
+            )}
+          </tr>
+        </tbody>
+      </table>
     `;
   }
 };

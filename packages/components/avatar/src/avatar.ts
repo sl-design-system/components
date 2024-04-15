@@ -77,6 +77,8 @@ const OFFSET_SQUARE: Record<AvatarSize, number> = {
  * ```
  *
  * @csspart name - The display name, either a <span> or <a> if `href` is set.
+ * @csspart wrapper - The wrapper element around the image and name.
+ *
  * @cssprop --sl-avatar-max-inline-size - Max inline-size of the container in vertical mode. If not set it will behave like a regular `display: block` element.
  */
 export class Avatar extends ScopedElementsMixin(LitElement) {
@@ -217,18 +219,20 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    return this.href
+      ? html`<a href=${this.href} part="wrapper">${this.#renderAvatar()}</a>`
+      : html`<div part="wrapper">${this.#renderAvatar()}</div>`;
+  }
+
+  #renderAvatar(): TemplateResult {
     return html`
       ${this.image ? this.#renderPicture() : nothing}
       <sl-tooltip id="avatar-tooltip">${this.displayName}</sl-tooltip>
       ${this.imageOnly
         ? nothing
         : html`
-            <div>
-              ${this.href
-                ? html`<a part="name" href=${this.href}>${this.displayName}</a>`
-                : html`<span part="name">${this.displayName}</span>`}
-              ${this.size === 'sm' && !this.vertical ? nothing : html`<slot class="subheader"></slot>`}
-            </div>
+            <span part="name">${this.displayName}</span>
+            ${this.size === 'sm' && !this.vertical ? nothing : html`<slot class="subheader"></slot>`}
           `}
     `;
   }
@@ -312,7 +316,6 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
                 rx=${this.badge.radius}
                 fill="var(--_badge-background)"
                 aria-hidden="true"
-                class="badge"
               ></rect>
               ${
                 this.badgeText && this.size != 'sm'
@@ -322,7 +325,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
                       y=${this.badge.textY}
                       fill="var(--_badge-color)"
                       aria-hidden="true"
-                      class="badge-text"
+                      class="badge"
                     >${this.badgeText}</text>
                   `
                   : nothing
@@ -439,7 +442,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
     if (this.badgeText) {
       await this.updateComplete;
 
-      const svgtxt = await this.#waitForElement('text.badge-text');
+      const svgtxt = await this.#waitForElement('text.badge');
       if (svgtxt) {
         setTimeout(() => {
           // timeout because we need to wait for the render to have finished

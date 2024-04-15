@@ -13,7 +13,7 @@ $short-transition-timing: 200ms;
 }
 
 .ds-top-navigation--sticky:not(.sticky) {
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 5px rgb(0 0 0 / 5%);
 }
 
 .sticky {
@@ -22,7 +22,7 @@ $short-transition-timing: 200ms;
   // background: #1f97f9;
   // padding-block: 0.8rem 0; // 2.4rem 0; // 2.4rem 0.8rem;
   // padding: 3.2rem 2.4rem 1.4rem;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 5px rgb(0 0 0 / 5%);
 
   .ds-top-navigation__logo {
     display: none;
@@ -496,12 +496,13 @@ $short-transition-timing: 200ms;
 
     // background: #1f97f9;
     // padding-block: 0.8rem 0; // 2.4rem 0; // 2.4rem 0.8rem;
-    padding: 3.2rem 2.4rem 1.4rem;
+    padding: 3.2rem 0 1.4rem; // 3.2rem 2.4rem 1.4rem;
     // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
   }
 
   .has-tabs {
     padding: 0.8rem 0 0;
+
     // box-shadow: none;
   }
 

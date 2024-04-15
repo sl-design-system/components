@@ -1,4 +1,4 @@
-import { LitElement, CSSResultGroup, PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { LitElement, CSSResultGroup, PropertyValues, type TemplateResult, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { verticalTabsStyles } from './vertical-tabs-style';
 
@@ -30,59 +30,128 @@ export class VerticalTabs extends LitElement {
 
   nextUniqueId = 0;
 
-  observer = new IntersectionObserver(entries => {
-    console.log('entries in observer', entries);
-    /** source to observe*/
-    const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
-    let entry: IntersectionObserverEntry | undefined;
-    if (entries.length > 0) {
-      const maxRatio = Math.max(...entries.map(e => e.intersectionRatio));
-      entry = entries.find(e => e.intersectionRatio === maxRatio);
-    } else {
-      entry = entries[0];
-    }
-    console.log('cards entry.target', sections, entry?.target);
-    if ((entry?.intersectionRatio ?? 0) > 0) {
-      const card = sections.find(card => entry?.target === card),
-        links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[],
-        // index = cards.findIndex(b => {
-        //   return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
-        // }),
-        index = sections.findIndex(b => {
-          return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
-        }),
-        tab = links.find(b => (b as HTMLAnchorElement).hash === `#${card?.id.toLowerCase()}`) as HTMLElement; // TODO: improve this one
+  observer = new IntersectionObserver(
+    entries => {
+      let updated = false;
+      const sections2 = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []),
+        links2 = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
+      // index = cards.findIndex(b => {
+      //   return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
+      // }),
 
-      console.log(
-        'card buttons index links',
-        sections.findIndex(b => {
-          return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
-        }),
-        links.findIndex(el => el.id === (card as HTMLElement).getAttribute('id')),
-        Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical') ?? []).indexOf(card as Element),
-        (card as HTMLElement).getAttribute('id'),
-        sections,
-        card,
-        links,
-        index,
-        (links[0] as HTMLElement).innerText,
-        card?.id,
-        entry?.target,
-        links[index],
-        tab,
-        index,
-        'links index:::',
-        links[index]
-      );
+      entries.forEach(entry => {
+        if (updated) {
+          return;
+        }
+        let activeBlock: Element | null | undefined;
+        console.log('entry.isIntersecting', entry.isIntersecting, entry);
+        if (!entry.isIntersecting) {
+          if (this.isInViewport(entry.target.nextElementSibling)) {
+            activeBlock = entry.target.nextElementSibling;
+          } else if (this.isInViewport(entry.target.previousElementSibling)) {
+            activeBlock = entry.target.previousElementSibling;
+            while (this.isInViewport(activeBlock?.previousElementSibling)) {
+              activeBlock = activeBlock?.previousElementSibling;
+            }
+          }
+        } else {
+          if (!this.isInViewport(entry.target.nextElementSibling)) {
+            return;
+          } else if (!this.isInViewport(entry.target.previousElementSibling)) {
+            // ||entry.target.previousElementSibling?.hasAttribute('id'
+            activeBlock = entry.target;
+          }
+        }
+        // navElement.querySelectorAll('a.active').forEach(aEl => {
+        //   aEl.classList.remove('active');
+        // });
 
-      // TODO: change cards and buttons and remove tab???
+        // let index2 = sections2.findIndex(b => {
+        //   return (b as HTMLElement).id.toLowerCase() == (activeBlock as HTMLElement).getAttribute('id')?.toLowerCase();
+        // });
 
-      if (links[index]) {
-        console.log('buttons[index]', links[index]);
-        this.#setActiveTab(links[index]);
-      }
-    }
-  });
+        if (!activeBlock) {
+          return;
+        }
+
+        let index2 = sections2.findIndex(b => {
+          return (b as HTMLElement).id.toLowerCase() == (activeBlock as HTMLElement).getAttribute('id')?.toLowerCase();
+        });
+
+        console.log('activeBlock in observer', activeBlock, index2, links2[index2], activeBlock.hasAttribute('id'));
+
+        // index2 = -1 ? 0 : index2;
+
+        if (links2[index2]) {
+          console.log('activeBlock in observer-------in if', activeBlock, index2, links2[index2]);
+          this.#setActiveTab(links2[index2]);
+          this.#alignVerticalTabIndicator(links2[index2]);
+        } else if (!activeBlock.hasAttribute('id')) {
+          this.#setActiveTab(links2[0]);
+          this.#alignVerticalTabIndicator(links2[0]);
+        }
+
+        // const id = activeBlock.getAttribute('id');
+        // document.querySelector(`[href="#${id}"]`).classList.add('active');
+        updated = true;
+      });
+
+      console.log('entries in observer', entries);
+      /** source to observe*/
+      // const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+      // let entry: IntersectionObserverEntry | undefined;
+      // console.log('entry.isIntersecting', entry?.isIntersecting);
+      // if (entries.length > 0) {
+      //   const maxRatio = Math.max(...entries.map(e => e.intersectionRatio));
+      //   entry = entries.find(e => e.intersectionRatio === maxRatio);
+      // } else {
+      //   entry = entries[0];
+      // }
+      // console.log('cards entry.target', sections, entry?.target);
+      // if ((entry?.intersectionRatio ?? 0) > 0) {
+      //   const card = sections.find(card => entry?.target === card),
+      //     links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[],
+      //     // index = cards.findIndex(b => {
+      //     //   return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
+      //     // }),
+      //     index = sections.findIndex(b => {
+      //       return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
+      //     }),
+      //     tab = links.find(b => (b as HTMLAnchorElement).hash === `#${card?.id.toLowerCase()}`) as HTMLElement; // TODO: improve this one
+      //
+      //   console.log(
+      //     'card buttons index links',
+      //     sections.findIndex(b => {
+      //       return (b as HTMLElement).id.toLowerCase() == (card as HTMLElement).getAttribute('id')?.toLowerCase();
+      //     }),
+      //     links.findIndex(el => el.id === (card as HTMLElement).getAttribute('id')),
+      //     Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical') ?? []).indexOf(card as Element),
+      //     (card as HTMLElement).getAttribute('id'),
+      //     sections,
+      //     card,
+      //     links,
+      //     index,
+      //     (links[0] as HTMLElement).innerText,
+      //     card?.id,
+      //     entry?.target,
+      //     links[index],
+      //     tab,
+      //     index,
+      //     'links index:::',
+      //     links[index]
+      //   );
+      //
+      //   // TODO: change cards and buttons and remove tab???
+      //
+      //   if (links[index]) {
+      //     console.log('buttons[index]', links[index]);
+      //     // this.#setActiveTab(links[index]);
+      //     // this.#alignVerticalTabIndicator(links[index]);
+      //   }
+      // }
+    },
+    { rootMargin: '-140px' }
+  );
   // ,
   // { root: this.parentElement, rootMargin: '-44px' }
 
@@ -90,32 +159,13 @@ export class VerticalTabs extends LitElement {
 
   // , threshold: [0, 0.25, 0.5, 1]
 
-  //   setTimeout(() => {
-  //   document.querySelectorAll('dna-card').forEach(card => observer.observe(card));
-  // })
-
-  onTabActivate = (target: HTMLElement): void => {
-    console.log('event.target on tabactivate-111111', target);
-    const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
-    const linked = target.getAttribute('aria-controls');
-    const card = sections.find(card => card.id === linked),
-      top = card === sections[0] ? 0 : (card as HTMLElement).offsetTop - 44; //(card as HTMLElement).getBoundingClientRect().top; //(card as HTMLElement).offsetTop - 44; // - 265;
-    console.log(
-      'event.target on tabactivate',
-      target,
-      card,
-      (card as HTMLElement).offsetTop,
-      (card as HTMLElement).getBoundingClientRect().top,
-      (card as HTMLElement).getBoundingClientRect().y,
-      card === sections[0]
-    );
-    window.scrollTo({
-      top,
-      behavior: 'smooth'
-    });
-  };
-
-  // TODO: on tab activated not scroll to bottom?
+  isInViewport(element: Element | null | undefined) {
+    if (!element) {
+      return false;
+    }
+    const rect = element.getBoundingClientRect();
+    return rect.bottom >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight);
+  }
 
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
@@ -130,35 +180,36 @@ export class VerticalTabs extends LitElement {
     //  console.log('verticalTabContent in firstUpdated', this.verticalTabContent, this.parentElement);
 
     // headerAnchorsParentsAll: Array<HTMLElement | undefined> = [];
-    if (this.parentElement) {
-      // const headerAnchors = this.verticalTabContent.querySelectorAll('.header-anchor') as NodeListOf<Element>; // , [link-in-navigation]
-      //const headerAnchors = this.parentElement.querySelectorAll('.header-anchor') as NodeListOf<Element>;
-      // console.log('headerAnchors in vertical', headerAnchors);
-      // const headerAnchorsParents = Array.from(headerAnchors)
-      //   .map(element => {
-      //     if (element.parentElement?.tagName === 'H2') {
-      //       console.log('element h2?', element);
-      //       if (element.parentElement.parentNode) {
-      //         (element.parentElement.parentNode as Element).id = `${element.parentElement.id}-section`;
-      //       }
-      //       return element.parentElement;
-      //     } else if (element.hasAttribute('link-in-navigation')) {
-      //       return element as HTMLElement;
-      //     }
-      //     return;
-      //   })
-      //   .filter(element => element !== undefined) as HTMLElement[];
-      // this.headerAnchorsParentsAll.push(...headerAnchorsParents);
-      //
-      // console.log('headerAnchors in vertical - parents component', this.headerAnchorsParentsAll);
-      // window.scrollTo({
-      //   top: 0,
-      //   behavior: 'smooth'
-      // });
-    }
+    //  if (this.parentElement) {
+    // const headerAnchors = this.verticalTabContent.querySelectorAll('.header-anchor') as NodeListOf<Element>; // , [link-in-navigation]
+    //const headerAnchors = this.parentElement.querySelectorAll('.header-anchor') as NodeListOf<Element>;
+    // console.log('headerAnchors in vertical', headerAnchors);
+    // const headerAnchorsParents = Array.from(headerAnchors)
+    //   .map(element => {
+    //     if (element.parentElement?.tagName === 'H2') {
+    //       console.log('element h2?', element);
+    //       if (element.parentElement.parentNode) {
+    //         (element.parentElement.parentNode as Element).id = `${element.parentElement.id}-section`;
+    //       }
+    //       return element.parentElement;
+    //     } else if (element.hasAttribute('link-in-navigation')) {
+    //       return element as HTMLElement;
+    //     }
+    //     return;
+    //   })
+    //   .filter(element => element !== undefined) as HTMLElement[];
+    // this.headerAnchorsParentsAll.push(...headerAnchorsParents);
+    //
+    // console.log('headerAnchors in vertical - parents component', this.headerAnchorsParentsAll);
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: 'smooth'
+    // });
+    //}
 
     requestAnimationFrame(() => {
       // const currentContent = document.parentElement.getAttribute('aria-hidden') == 'false';
+      /** Source to observe */
       const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
       console.log('sections in firstupdated', sections, this.parentElement);
       // if (sections.length) {
@@ -173,11 +224,6 @@ export class VerticalTabs extends LitElement {
       // this.#alignVerticalTabIndicator(verticalTabs[0]);
       this.#setActiveTab(verticalTabs[0] as HTMLElement);
     }
-
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: 'smooth'
-    // });
   }
 
   override disconnectedCallback(): void {
@@ -187,32 +233,7 @@ export class VerticalTabs extends LitElement {
   }
 
   override render(): TemplateResult {
-    /*    const headerAnchorsParents = Array.from(
-      this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || []
-    )
-      .map(element => {
-        if (element.parentElement?.tagName === 'H2') {
-          console.log('element h2?', element);
-          if (element.parentElement.parentNode) {
-            (element.parentElement.parentNode as Element).id = element.parentElement.id;
-          }
-          return element.parentElement;
-        } else if (element.hasAttribute('link-in-navigation')) {
-          return element as HTMLElement;
-        }
-        return;
-      })
-      .filter(element => element !== undefined); // as HTMLElement[];*/
-    // this.headerAnchorsParentsAll.push(...(headerAnchorsParents as HTMLElement[]));
-
-    // console.log(
-    //   'verticalTabContent in render',
-    //   // this.verticalTabContent,
-    //   this.headerAnchorsParentsAll,
-    //   this.parentElement?.querySelectorAll('.header-anchor'),
-    //   headerAnchorsParents
-    // );
-    const test = Array.from(this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || [])
+    const links = Array.from(this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || [])
       .map(element => {
         if (element.parentElement?.tagName === this.tagElement) {
           console.log('element h2?', element);
@@ -226,18 +247,13 @@ export class VerticalTabs extends LitElement {
         return null;
       })
       .filter(element => element !== null);
-    console.log('test in render', test);
-
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: 'smooth'
-    // });
+    console.log('links in render', links);
 
     return html`
       <div vertical class="ds-tabs">
         <div class="ds-tabs__container">
           <div class="ds-tabs-wrapper" role="tablist" aria-orientation="vertical">
-            ${test.map(
+            ${links.map(
               (variant: Element | null) =>
                 html` <a
                   href=${`#${variant?.id}`}
@@ -247,7 +263,6 @@ export class VerticalTabs extends LitElement {
                   id=${`ds-vertical-tab-${this.nextUniqueId++}`}
                   aria-selected="false"
                   aria-controls=${(variant as HTMLElement)?.id}
-                  @click=${this.#onClick}
                   >${(variant as HTMLElement)?.textContent || variant?.getAttribute('link-in-navigation-text')}</a
                 >`
             )}
@@ -258,13 +273,10 @@ export class VerticalTabs extends LitElement {
         </div>
       </div>
     `;
-  } // style="top: 23px; height: 32px;"
+  }
 
-  // TODO: vertical tabs position fixed
-
-  // href=${(variant as HTMLElement).(firstChild as HTMLAnchorElement)?.hash}
-
-  #onClick(event: Event & { target: HTMLElement }): void {
+  /*  #onClick(event: Event & { target: HTMLElement }): void {
+    // event.preventDefault();
     const verticalTab = event.target;
     console.log('onclick on verticaltab in component', event, event.target);
     this.#setActiveTab(verticalTab);
@@ -272,7 +284,7 @@ export class VerticalTabs extends LitElement {
     // setTimeout(() => {
     //  this.onTabActivate(verticalTab as HTMLElement);
     // });
-    /*    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]');
+    /!*    const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]');
 
     currentVerticalTabLink?.setAttribute('aria-selected', 'false');
     verticalTab.setAttribute('aria-selected', 'true');
@@ -283,10 +295,11 @@ export class VerticalTabs extends LitElement {
     verticalTabs.forEach(v => v.classList.remove('active'));
     this.#alignVerticalTabIndicator(verticalTab);
     verticalTab.classList.add('active');
-    // currentVerticalTabLink = verticalTab;*/
-  }
+    // currentVerticalTabLink = verticalTab;*!/
+  }*/
 
   #setActiveTab(verticalTab: HTMLElement): void {
+    console.log('verticalTab in setActiveTab', verticalTab);
     const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]');
     console.log('currentVerticalTabLink', currentVerticalTabLink);
 
@@ -298,9 +311,9 @@ export class VerticalTabs extends LitElement {
     const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
     verticalTabs.forEach(v => v.classList.remove('active'));
     verticalTab.classList.add('active');
-    //setTimeout(() => {
-    this.#alignVerticalTabIndicator(verticalTab, !!currentVerticalTabLink);
-    //}, 300);
+    // setTimeout(() => {
+    //   this.#alignVerticalTabIndicator(verticalTab, !!currentVerticalTabLink);
+    // }, 800);
     // currentVerticalTabLink = verticalTab;
   }
 
@@ -335,5 +348,3 @@ declare global {
     'ds-vertical-tabs': VerticalTabs;
   }
 }
-
-// TODO: problem with intersection bserver entries running when click on vertical tab

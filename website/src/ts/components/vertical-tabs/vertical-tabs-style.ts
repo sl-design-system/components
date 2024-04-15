@@ -28,10 +28,7 @@ export const verticalTabsStyles = css`
   }
 
   .ds-tabs {
-    // align-self: flex-start;
-    // flex-shrink: 0;
     position: sticky;
-    // top: 1rem;
     inset-block-start: 15%;
   }
 
@@ -58,14 +55,12 @@ export const verticalTabsStyles = css`
   .ds-tabs__container {
     display: flex;
     flex-direction: row-reverse;
-    // inset-block-start: 15%;
-    justify-content: start; //center; // TODO: center in other media query
+    justify-content: start; // TODO: center in other media query
     margin: auto;
     overflow: hidden;
     padding-block-start: 0;
     background-color: var(--background-color);
     inset-block-start: -0.1rem;
-    // margin: auto -2.4rem;
     overflow-x: hidden;
     /* padding-block-start: 1.6rem; */
     /* position: sticky; */
@@ -79,6 +74,7 @@ export const verticalTabsStyles = css`
     inline-size: 0.2rem;
     inset-block-start: 2.3rem;
     position: relative;
+    height: 32px;
     transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
   }
 
@@ -117,14 +113,4 @@ export const verticalTabsStyles = css`
       outline: none;
     }
   }
-
-  // .ds-tabs__container {
-  //   background-color: var(--background-color);
-  //   inset-block-start: -0.1rem;
-  //   // margin: auto -2.4rem;
-  //   overflow-x: hidden;
-  //   /* padding-block-start: 1.6rem; */
-  //   /* position: sticky; */
-  //   transition: padding-top $transition-timing;
-  // }
 `;

@@ -15,7 +15,7 @@ export class CodeSnippet extends LitElement {
   override render(): TemplateResult {
     return html`
       <pre class="language-${this.language}"><code class="language-${this.language}"><slot></slot></code></pre>
-      <sl-button size="md" icon-only @click=${this.#copyCode} aria-label="Copy the code">
+      <sl-button size="md" fill="outline" icon-only @click=${this.#copyCode} aria-label="Copy the code">
         <sl-icon name="far-copy"></sl-icon>
       </sl-button>
     `;

@@ -15,16 +15,21 @@ module.exports = async function() {
       auth: process.env.GITHUB_API_TOKEN
     })
 
+    const pages = [1,2,3];
 
-    const gitpackages = await octokit.request('GET /orgs/sl-design-system/packages', {
+    const gitpackages = await pages.map(async page => octokit.request('GET /orgs/sl-design-system/packages', {
       org: 'sl-design-system',
       package_type: 'npm',
+      page,
       headers: {
         'X-GitHub-Api-Version': '2022-11-28'
       }
-    });
+    }));
 
-    const versions = await gitpackages.data.map(async p => {
+    const gitpackagesData = await Promise.all(gitpackages);
+    const packages = gitpackagesData.flatMap(page => page.data);
+
+    const versions = await packages.map(async p => {
       return octokit.request(`GET /orgs/sl-design-system/packages/npm/${p.name}/versions`, {
         package_type: 'npm',
         package_name: p.name,
@@ -38,7 +43,7 @@ module.exports = async function() {
     const latestVersions = versionData.map(d => d.data[0]);
 
     let releases = {};
-    gitpackages.data.forEach(p => {
+    packages.forEach(p => {
       releases = {
         ...releases,
         [p.name]:latestVersions.find(version => version.package_html_url === p.html_url).name

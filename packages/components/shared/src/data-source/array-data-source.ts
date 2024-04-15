@@ -14,6 +14,11 @@ export class ArrayDataSource<T = any> extends DataSource<T> {
     return this.#items;
   }
 
+  set items(items: T[]) {
+    this.#items = items;
+    this.update();
+  }
+
   get size(): number {
     return this.#items.length;
   }

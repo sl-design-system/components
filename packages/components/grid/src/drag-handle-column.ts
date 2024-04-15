@@ -1,6 +1,7 @@
 import { faGripDotsVertical } from '@fortawesome/pro-solid-svg-icons';
 import { Icon } from '@sl-design-system/icon';
-import { type PropertyValues, type TemplateResult, html } from 'lit';
+import { getValueByPath } from '@sl-design-system/shared';
+import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { GridColumn } from './column.js';
 
 declare global {
@@ -11,7 +12,8 @@ declare global {
 
 Icon.register(faGripDotsVertical);
 
-export class GridDragHandleColumn extends GridColumn {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridDragHandleColumn<T = any> extends GridColumn<T> {
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -31,17 +33,29 @@ export class GridDragHandleColumn extends GridColumn {
     return html`<th part="header drag-handle"></th>`;
   }
 
-  override renderData(): TemplateResult {
+  override renderData(item: T): TemplateResult {
+    let draggable = true;
+
+    if (this.path) {
+      draggable = !!getValueByPath(item, this.path);
+    }
+
     // FIXME: Once `pointerdown` works properly in WebKit, use that instead
     // of `mousedown` and `touchstart`. See https://bugs.webkit.org/show_bug.cgi?id=267852
     return html`
-      <td @mousedown=${this.#onStartDrag} @touchstart=${this.#onStartDrag} part="data drag-handle">
-        <sl-icon name="fas-grip-dots-vertical" class="drag-handle"></sl-icon>
+      <td
+        @mousedown=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item)}
+        @touchstart=${(event: Event & { target: HTMLElement }) => this.#onStartDrag(event, item)}
+        part="data drag-handle ${draggable ? '' : 'fixed'}"
+      >
+        ${draggable ? html`<sl-icon name="fas-grip-dots-vertical"></sl-icon>` : nothing}
       </td>
     `;
   }
 
-  #onStartDrag(event: Event & { target: HTMLElement }): void {
-    event.target.closest('tr')?.setAttribute('draggable', 'true');
+  #onStartDrag(event: Event & { target: HTMLElement }, item: T): void {
+    if (!this.path || getValueByPath(item, this.path)) {
+      event.target.closest('tr')?.setAttribute('draggable', 'true');
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
+import { faFilter } from '@fortawesome/pro-regular-svg-icons';
 import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
@@ -36,7 +36,7 @@ export type SlFilterValueChangeEvent<T = any> = CustomEvent<{
   value?: string | string[];
 }>;
 
-Icon.register(faFilter, faFilterSolid, faXmark);
+Icon.register(faFilter, faFilterSolid);
 
 @localized()
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -97,7 +97,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
     this.requestUpdate('value');
   }
 
-  @property({ type: String })
+  @property({ attribute: false })
   get value(): string | string[] | undefined {
     return this.#value;
   }
@@ -109,6 +109,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
+    // FIXME: This event is not emitted when the component is removed from the DOM.
     this.filterChangeEvent.emit('removed');
 
     super.disconnectedCallback();
@@ -126,7 +127,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
             ${msg('Filter by')} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>
           </h1>
           <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
-            <sl-icon name="far-xmark"></sl-icon>
+            <sl-icon name="xmark"></sl-icon>
           </sl-button>
         </header>
         ${this.mode === 'select'
@@ -135,7 +136,7 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
                 ${this.options?.map(
                   option => html`
                     <sl-checkbox
-                      @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(option, event.detail)}
+                      @sl-change=${(event: SlChangeEvent & { target: Checkbox }) => this.#onChange(event, option)}
                       .checked=${this.value?.includes(option.value?.toString() ?? '')}
                       .value=${option.value}
                     >
@@ -147,8 +148,8 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
             `
           : html`
               <sl-text-field
-                @keydown=${this.#onKeydown}
                 @input=${this.#onInput}
+                @keydown=${this.#onKeydown}
                 .placeholder=${msg('Type here to filter')}
                 .value=${this.value?.toString() ?? ''}
                 aria-labelledby="title"
@@ -159,12 +160,12 @@ export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onChange(option: GridFilterOption, checked: boolean): void {
+  #onChange(event: SlChangeEvent & { target: Checkbox }, option: GridFilterOption): void {
     if (!Array.isArray(this.value)) {
       return;
     }
 
-    if (checked) {
+    if (event.target.checked) {
       this.value = [...this.value, option.value?.toString() ?? ''];
     } else {
       this.value = this.value.filter(value => value !== option.value?.toString());

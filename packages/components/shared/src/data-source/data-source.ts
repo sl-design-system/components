@@ -59,7 +59,7 @@ export abstract class DataSource<T = any> extends EventTarget {
   abstract readonly filteredItems: T[];
 
   /** The array of all items. */
-  abstract readonly items: T[];
+  abstract items: T[];
 
   /** Total number of items in this data source. */
   abstract readonly size: number;
@@ -118,5 +118,27 @@ export abstract class DataSource<T = any> extends EventTarget {
 
   removeSort(): void {
     this.#sort = undefined;
+  }
+
+  /**
+   * Reorder the item in the data source.
+   * @param item The item to reorder.
+   * @param relativeItem The item to reorder relative to.
+   * @param position The position relative to the relativeItem.
+   * @returns True if the items were reordered, false if not.
+   */
+  reorder(item: T, relativeItem: T, position: 'before' | 'after'): void {
+    const items = this.items,
+      from = items.indexOf(item),
+      to = items.indexOf(relativeItem) + (position === 'before' ? 0 : 1);
+
+    if (from === -1 || to === -1 || from === to) {
+      return;
+    }
+
+    items.splice(from, 1);
+    items.splice(to + (from < to ? -1 : 0), 0, item);
+
+    this.update();
   }
 }

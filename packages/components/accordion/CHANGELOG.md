@@ -1,5 +1,16 @@
 # @sl-design-system/accordion
 
+## 0.0.5
+
+### Patch Changes
+
+- [#1107](https://github.com/sl-design-system/components/pull/1107) [`ee7d9f7`](https://github.com/sl-design-system/components/commit/ee7d9f79ced5d189c8d1a54055535211222c00d4) - Tokens changes - improved color contrast
+
+- [#1107](https://github.com/sl-design-system/components/pull/1107) [`ee7d9f7`](https://github.com/sl-design-system/components/commit/ee7d9f79ced5d189c8d1a54055535211222c00d4) - Fixed background color
+
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537)]:
+  - @sl-design-system/shared@0.2.10
+
 ## 0.0.4
 
 ### Patch Changes

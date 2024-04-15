@@ -40,8 +40,7 @@ export const positionPopover = (
 ): (() => void) => {
   // Reset element to top left to prevent layout interference
   // See https://floating-ui.com/docs/computePosition#initial-layout
-  element.style.insetBlockStart = '0px';
-  element.style.insetInlineStart = '0px';
+  element.style.insetBlockStart = element.style.insetInlineStart = '0px';
 
   const cleanup = autoUpdate(anchor, element, () => {
     // Offset should come first, according to floating-ui docs
@@ -51,6 +50,8 @@ export const positionPopover = (
       flip(),
       options.viewportMargin !== undefined ? shift({ padding: options.viewportMargin }) : undefined,
       size({
+        // With popover, we no longer need to worry about any clipping ancestors
+        boundary: document.documentElement,
         padding: options.viewportMargin,
         apply: ({ availableWidth, availableHeight }) => {
           // Make sure that the overlay is contained by the visible page.

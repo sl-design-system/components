@@ -76,10 +76,13 @@ const getIconPrefixFromStyle = style => {
 const buildIcons = async theme => {
   // 1. Get icon tokens from `base.json`
   const {
-    default: { icon: { style }, text }
-  } = await import(`../packages/themes/${theme}/base.json`, { assert: { type: 'json' } });
+    default: { icon: { style, themeIcons }, text }
+  } = await import(`../packages/tokens/src/${theme}/base.json`, { assert: { type: 'json' } });
 
-  const icons = getFormattedIcons(coreIcons, 'core');
+  const icons = {
+    ...getFormattedIcons(coreIcons, 'core'),
+    ...themeIcons?getFormattedIcons({themeIcons},'themeIcons'):{}
+  };
 
   // fetch all FA tokens and store these
   Object.entries(icons).map(([iconName, value]) => {
@@ -154,7 +157,7 @@ const buildAllIcons = async () => {
 const exportCoreIcons = async () => {
   const iconsFolderPath = join(cwd, `../packages/themes/core/icons/`);
   if (!existsSync(iconsFolderPath)) {
-    await fs.mkdir(iconsFolderPath);
+    await fs.mkdir(iconsFolderPath,{ recursive: true });
   }
 
   for (const file of await fs.readdir(iconsFolderPath)) {

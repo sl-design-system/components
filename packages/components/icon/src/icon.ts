@@ -105,7 +105,7 @@ export class Icon extends LitElement {
   @property() label?: string;
 
   /** The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma. */
-  @property() name?: string;
+  @property({ reflect: true }) name?: string;
 
   /**
    * The size of the icon.
@@ -139,8 +139,8 @@ export class Icon extends LitElement {
     this.iconHTML = this.#getIconHTML();
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('name')) {
       this.iconHTML = this.#getIconHTML();

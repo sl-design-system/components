@@ -1,7 +1,11 @@
-import { getPeople } from '@sl-design-system/example-data';
+import { Avatar } from '@sl-design-system/avatar';
+import { type Person, getPeople } from '@sl-design-system/example-data';
+import { Icon } from '@sl-design-system/icon';
+import { MenuButton, MenuItem } from '@sl-design-system/menu';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
+import { type GridColumnDataRenderer } from '../column.js';
 
 type Story = StoryObj;
 
@@ -61,4 +65,48 @@ export const ColumnGroups: Story = {
       </sl-grid-column-group>
     </sl-grid>
   `
+};
+
+export const CustomRenderers: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    const avatarRenderer: GridColumnDataRenderer<Person> = ({ firstName, lastName }) => {
+      return html`<sl-avatar .displayName=${[firstName, lastName].join(' ')} size="sm"></sl-avatar>`;
+    };
+
+    const menuButtonRenderer: GridColumnDataRenderer<Person> = person => {
+      const onClick = () => {
+        console.log('Menu item for person clicked', person);
+      };
+
+      return html`
+        <sl-menu-button fill="ghost">
+          <sl-icon slot="button" name="ellipsis"></sl-icon>
+          <sl-menu-item @click=${onClick}>Do something with this person</sl-menu-item>
+          <sl-menu-item @click=${onClick}>Something else</sl-menu-item>
+          <hr />
+          <sl-menu-item @click=${onClick}>Delete person</sl-menu-item>
+        </sl-menu-button>
+      `;
+    };
+
+    return html`
+      <sl-grid .items=${people}>
+        <sl-grid-column
+          grow="3"
+          header="Person"
+          .renderer=${avatarRenderer}
+          .scopedElements=${{
+            'sl-avatar': Avatar,
+            'sl-icon': Icon,
+            'sl-menu-button': MenuButton,
+            'sl-menu-item': MenuItem
+          }}
+        ></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="profession"></sl-grid-column>
+        <sl-grid-column grow="0" header="" .renderer=${menuButtonRenderer} width="64"></sl-grid-column>
+      </sl-grid>
+    `;
+  }
 };

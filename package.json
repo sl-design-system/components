@@ -386,7 +386,7 @@
     "chai": "npm:@esm-bundle/chai@4.3.4-fix.0",
     "chai-as-promised": "npm:@esm-bundle/chai-as-promised@*",
     "chromatic": "^11.3.0",
-    "eslint": "^9.0.0",
+    "eslint": "8.57.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "lit": "^3.1.2",

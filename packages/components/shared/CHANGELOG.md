@@ -1,5 +1,13 @@
 # @sl-design-system/shared
 
+## 0.2.10
+
+### Patch Changes
+
+- [#1116](https://github.com/sl-design-system/components/pull/1116) [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537) - Add ability to update the items in a `DataSource`
+
+- [#1116](https://github.com/sl-design-system/components/pull/1116) [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537) - With popover we no longer need to worry about clipping ancestors when positioning
+
 ## 0.2.9
 
 ### Patch Changes

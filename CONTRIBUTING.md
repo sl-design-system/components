@@ -55,7 +55,7 @@ When you finish the branch and want to get your changes merged into `main`, plea
 
 When you create a PR, please make sure the PR is associated with the issue. You can do this by either typing "Fixes #123" in the body of the PR, or by manually associating an issue with a PR.
 
-Please run `yarn changeset` locally to create an entry for `CHANGELOG.md`.
+Please run `yarn changeset` locally to create an entry for `CHANGELOG.md` (note that this is not needed when you make changes to the website only).
 
 ## Linting
 

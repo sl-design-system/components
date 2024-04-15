@@ -140,8 +140,8 @@ export class Icon extends LitElement {
     this.iconHTML = this.#getIconHTML();
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('name')) {
       this.iconHTML = this.#getIconHTML();

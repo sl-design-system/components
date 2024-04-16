@@ -1148,7 +1148,7 @@
             "type": "spacing"
           },
           "inline": {
-            "value": "space.buttonBar.gap.ghostIcon.block",
+            "value": "{space.buttonBar.gap.ghostIcon.block}",
             "type": "spacing"
           }
         }

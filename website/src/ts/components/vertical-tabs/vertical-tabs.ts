@@ -59,13 +59,6 @@ export class VerticalTabs extends LitElement {
             activeBlock = entry.target;
           }
         }
-        // navElement.querySelectorAll('a.active').forEach(aEl => {
-        //   aEl.classList.remove('active');
-        // });
-
-        // let index2 = sections2.findIndex(b => {
-        //   return (b as HTMLElement).id.toLowerCase() == (activeBlock as HTMLElement).getAttribute('id')?.toLowerCase();
-        // });
 
         if (!activeBlock) {
           return;
@@ -88,8 +81,6 @@ export class VerticalTabs extends LitElement {
           this.#alignVerticalTabIndicator(links[0]);
         }
 
-        // const id = activeBlock.getAttribute('id');
-        // document.querySelector(`[href="#${id}"]`).classList.add('active');
         updated = true;
       });
 

@@ -4,9 +4,9 @@ export const verticalTabsStyles = css`
   :host {
     display: none;
 
-    .ds-tabs__container {
-      display: none;
-    }
+    // .ds-tabs__container {
+    //   display: none;
+    // }
   }
 
   @media screen and (min-width: 1200px) {
@@ -40,6 +40,10 @@ export const verticalTabsStyles = css`
     overflow-x: scroll;
     padding-inline-start: 0;
     scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .ds-tabs-wrapper::before {

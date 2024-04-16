@@ -6,7 +6,7 @@ layout: base.njk
   <div class="ds-component__heading-wrapper">
     {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {% if version[post.data.packageName] %}<a href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F{{post.data.packageName}}%40{{version[post.data.packageName]}}"><span class="ds-badge">v{{version[post.data.packageName]}}</span></a>{% endif %}{% endif %}{%- endfor -%}
     <h1 class="ds-heading-1">
-     {# {{ title }}#} {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.title }} {% endif %}{%- endfor -%}
+     {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.title }} {% endif %}{%- endfor -%}
     </h1>
     <p class="ds-component__heading-description">{#{{ description }}#} {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.description }} {% endif %}{%- endfor -%}</p>
   </div>
@@ -55,9 +55,6 @@ layout: base.njk
         <sl-tab-panel>
           <div id="myVerticalTabsContent" class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
-{#              {{ page.templateContent | safe }}#}
-{#              {{ page.url }}#}
-{#              {{ post.url }}#}
 
 {#              {%- for post in collections.all -%}#}
 {#                <li>{{ post | safe }}<a href="{{ post.url }}">{{ post.url }} {{ post.title }}</a></li>#}
@@ -77,24 +74,11 @@ layout: base.njk
               {% endif %}
             {%- endfor -%}
             </div>
-{#          generateVerticalTabs(tabContent);#}
-{#          {% include "partials/modules/module-two-column--stacked-cards.njk" %}#}
             {%- for usage in collections.usage -%}
             {% if usage.url == page.url %}
             <ds-vertical-tabs></ds-vertical-tabs>
             {% endif %}
             {%- endfor -%}
-{#          <script type="module">
-            import { generateVerticalTabs } from '/js/scripts/tabs.js';
-            requestAnimationFrame(() => {
-              const verticalTabContent = document.getElementById('myVerticalTabsContent');
-              console.log('verticalTabContent', verticalTabContent);
-              generateVerticalTabs(verticalTabContent);
-            });
-            // const verticalTabContent = document.getElementById('myVerticalTabsContent');
-            // console.log('verticalTabContent', verticalTabContent);
-            // generateVerticalTabs(verticalTabContent);
-          </script>#}
           </div>
         </sl-tab-panel>
         <sl-tab-panel>

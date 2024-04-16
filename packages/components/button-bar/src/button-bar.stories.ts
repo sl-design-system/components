@@ -20,19 +20,40 @@ export default {
       options: ['start', 'center', 'end', 'space-between']
     }
   },
+  parameters: {
+    viewport: {
+      defaultViewport: 'default'
+    }
+  },
   render: ({ align, buttons, reverse }) => html`
+    <style>
+      @media (max-width: 600px) {
+        sl-button-bar {
+          --sl-button-bar-direction: column;
+        }
+      }
+    </style>
     <sl-button-bar .align=${align} .reverse=${reverse}>
       ${buttons ??
       html`
-        <sl-button>Foo</sl-button>
-        <sl-button>Bar</sl-button>
-        <sl-button>Baz</sl-button>
+        <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
+        <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
+        <sl-button><sl-icon name="smile"></sl-icon> Baz</sl-button>
       `}
     </sl-button-bar>
   `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const Mobile: Story = {
+  ...Basic,
+  parameters: {
+    viewport: {
+      defaultViewport: 'iphone5'
+    }
+  }
+};
 
 export const IconOnly: Story = {
   args: {

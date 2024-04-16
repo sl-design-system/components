@@ -1,8 +1,8 @@
 :host {
   --sl-button-bar-align: start;
   --sl-button-bar-direction: row;
-  --_block-gap: var(--sl-space-button-bar-gap-block);
-  --_inline-gap: var(--sl-space-button-bar-gap-inline);
+  --_block-gap: var(--sl-space-button-bar-gap-default-block);
+  --_inline-gap: var(--sl-space-button-bar-gap-default-inline);
 
   align-items: center;
   display: flex;
@@ -24,8 +24,8 @@
 }
 
 :host([icon-only]) {
-  // FIXME: This value shouldn't be hardcoded
-  --_inline-gap: 0.25rem;
+  --_inline-gap: var(--sl-space-button-bar-gap-ghost-icon-inline);
+  --_block-gap: var(--sl-space-button-bar-gap-ghost-icon-block);
 }
 
 :host([reverse]) {

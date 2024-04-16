@@ -55,6 +55,9 @@ export default {
     status: {
       control: 'inline-radio',
       options: ['danger', 'success', 'warning', 'accent', 'neutral', 'primary']
+    },
+    vertical: {
+      control: 'boolean'
     }
   },
   render: ({

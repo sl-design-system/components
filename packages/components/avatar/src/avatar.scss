@@ -15,6 +15,7 @@ $statuses: danger, success, warning, accent, neutral, primary;
   --_max-inline-size: var(--sl-avatar-max-inline-size, 20rem);
   --_outline: var(--sl-border-width-focusring-default) solid var(--sl-color-focusring-default);
   --_outline-offset: 4px;
+  --_outline-radius: var(--sl-border-radius-focusring-default);
 
   display: inline-flex;
   max-inline-size: 100%;
@@ -80,7 +81,7 @@ $statuses: danger, success, warning, accent, neutral, primary;
 
 [part='wrapper'] {
   align-items: center;
-  border-radius: var(--sl-border-radius-button-md);
+  border-radius: var(--_outline-radius);
   display: grid;
   grid-template: 'picture spacer name' auto 'picture spacer subheader' auto / auto var(--_gap-inline) 1fr;
 }
@@ -89,7 +90,6 @@ a {
   --_color: var(--_link-color);
   --_text-decoration: underline;
 
-  border-radius: var(--_border-radius);
   color: currentcolor;
   text-decoration: none;
 

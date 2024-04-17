@@ -41,5 +41,4 @@ export interface AvatarIcon {
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 export type AvatarFallbackType = 'initials' | 'image';
-export type AvatarOrientation = 'horizontal' | 'vertical';
 export type UserStatus = 'danger' | 'success' | 'warning' | 'accent' | 'neutral' | 'primary';

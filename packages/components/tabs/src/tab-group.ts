@@ -418,7 +418,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.menuItems = undefined;
     }
 
-    // this.selectedTab?.scrollIntoView();
+    // this.selectedTab?.scrollIntoView(); // TODO: causes unnecessary scrolling down on tab change when there is a sticky element
 
     this.#updateSelectionIndicator();
   }

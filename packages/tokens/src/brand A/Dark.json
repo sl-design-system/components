@@ -1,0 +1,220 @@
+{
+  "color": {
+    "primary": {
+      "50": {
+        "value": "#233243",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "100": {
+        "value": "#0b385c",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "150": {
+        "value": "#04579a",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "200": {
+        "value": "#056dc2",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "300": {
+        "value": "#0683ea",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "400": {
+        "value": "#47aafa",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "500": {
+        "value": "#b7defd",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "600": {
+        "value": "#97cffc",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "700": {
+        "value": "#b7defd",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "800": {
+        "value": "#ddeffe",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "900": {
+        "value": "#fefefe",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      }
+    },
+    "accent": {
+      "50": {
+        "value": "#4d2f21",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "100": {
+        "value": "#70402a",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "150": {
+        "value": "#894c2e",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "200": {
+        "value": "#a65832",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "300": {
+        "value": "#c86434",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "400": {
+        "value": "#ee7233",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "500": {
+        "value": "#ff8f59",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "600": {
+        "value": "#fdb491",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "700": {
+        "value": "#fbd4c1",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "800": {
+        "value": "#faebe4",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "900": {
+        "value": "#fefefe",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      }
+    },
+    "neutral": {
+      "50": {
+        "value": "#262626",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "100": {
+        "value": "#3e3d3d",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "150": {
+        "value": "#4e4e4e",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "200": {
+        "value": "#605f5f",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "300": {
+        "value": "#737373",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "400": {
+        "value": "#898989",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "500": {
+        "value": "#a2a1a1",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "600": {
+        "value": "#bcbcbc",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "700": {
+        "value": "#d5d5d5",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "800": {
+        "value": "#eaeaea",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      },
+      "900": {
+        "value": "#fefefe",
+        "type": "color",
+        "parent": "brand A/Dark",
+        "description": ""
+      }
+    },
+    "black": {
+      "value": "#fefefe",
+      "type": "color",
+      "parent": "brand A/Dark",
+      "description": ""
+    },
+    "white": {
+      "value": "#233243",
+      "type": "color",
+      "parent": "brand A/Dark",
+      "description": ""
+    }
+  }
+}

@@ -14,7 +14,7 @@ $statuses: danger, success, warning, accent, neutral, primary;
   --_text-decoration: none;
   --_max-inline-size: var(--sl-avatar-max-inline-size, 20rem);
   --_outline: var(--sl-border-width-focusring-default) solid var(--sl-color-focusring-default);
-  --_outline-offset: 4px;
+  --_outline-offset: calc(var(--sl-border-width-focusring-offset) * 2);
   --_outline-radius: var(--sl-border-radius-focusring-default);
 
   display: inline-flex;
@@ -48,7 +48,7 @@ $statuses: danger, success, warning, accent, neutral, primary;
 
 :host(:focus-visible) {
   outline: var(--_outline);
-  outline-offset: 2px;
+  outline-offset: var(--sl-border-width-focusring-offset);
 }
 
 :host([image-only][shape='circle']) {

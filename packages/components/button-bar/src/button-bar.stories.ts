@@ -29,7 +29,7 @@ export default {
     <style>
       @media (max-width: 600px) {
         sl-button-bar {
-          --sl-button-bar-direction: column;
+          --sl-button-bar-vertical: var(--sl-ON);
         }
       }
     </style>
@@ -58,14 +58,14 @@ export const Mobile: Story = {
 export const IconOnly: Story = {
   args: {
     buttons: html`
-      <sl-button fill="ghost">
+      <sl-button>
+        <sl-icon name="home-blank"></sl-icon>
+      </sl-button>
+      <sl-button>
         <sl-icon name="pinata"></sl-icon>
       </sl-button>
-      <sl-button fill="ghost">
-        <sl-icon name="pinata"></sl-icon>
-      </sl-button>
-      <sl-button fill="ghost">
-        <sl-icon name="pinata"></sl-icon>
+      <sl-button>
+        <sl-icon name="smile"></sl-icon>
       </sl-button>
     `
   }

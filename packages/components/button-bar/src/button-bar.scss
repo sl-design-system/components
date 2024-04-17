@@ -1,12 +1,23 @@
 :host {
+  // TODO: remove this "hack" when style queries are possible.
+  --sl-ON: initial; // property gets fallback value
+  --sl-OFF: var(--sl-button-bar-direction-row);
+  --sl-button-bar-vertical: var(--sl-OFF);
+  --sl-button-bar-direction-row: row;
   --sl-button-bar-align: start;
-  --sl-button-bar-direction: row;
+  --sl-button-bar-align-items: center;
+  --_align: var(--sl-button-bar-align-items);
+  /* stylelint-disable-next-line declaration-block-no-duplicate-custom-properties */
+  --_align: var(--sl-button-bar-vertical, stretch);
+  --_direction: var(--sl-button-bar-direction-row, row);
+  /* stylelint-disable-next-line declaration-block-no-duplicate-custom-properties */
+  --_direction: var(--sl-button-bar-vertical, var(--sl-button-bar-direction-column, column));
   --_block-gap: var(--sl-space-button-bar-gap-default-block);
   --_inline-gap: var(--sl-space-button-bar-gap-default-inline);
 
-  align-items: center;
+  align-items: var(--_align);
   display: flex;
-  flex-flow: var(--sl-button-bar-direction) wrap;
+  flex-flow: var(--_direction) wrap;
   gap: var(--_block-gap) var(--_inline-gap);
   justify-content: var(--sl-button-bar-align);
 }
@@ -29,5 +40,6 @@
 }
 
 :host([reverse]) {
-  --sl-button-bar-direction: row-reverse;
+  --sl-button-bar-direction-row: row-reverse;
+  --sl-button-bar-direction-column: column-reverse;
 }

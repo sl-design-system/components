@@ -4225,7 +4225,15 @@ __metadata:
     "@angular/forms": "npm:^17.3.4"
     "@angular/platform-browser": "npm:^17.3.4"
     "@angular/platform-browser-dynamic": "npm:^17.3.4"
+    "@sl-design-system/checkbox": "npm:0.0.28"
+    "@sl-design-system/form": "npm:0.0.14"
+    "@sl-design-system/icon": "npm:0.0.10"
     "@sl-design-system/locales": "npm:0.0.7"
+    "@sl-design-system/radio-group": "npm:0.0.27"
+    "@sl-design-system/select": "npm:0.0.27"
+    "@sl-design-system/switch": "npm:0.0.22"
+    "@sl-design-system/text-field": "npm:0.1.23"
+    "@sl-design-system/textarea": "npm:0.1.23"
     "@storybook/addon-essentials": "npm:^8.0.8"
     "@storybook/addon-links": "npm:^8.0.8"
     "@storybook/angular": "npm:^8.0.8"
@@ -4682,7 +4690,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/radio-group@workspace:packages/components/radio-group":
+"@sl-design-system/radio-group@npm:0.0.27, @sl-design-system/radio-group@workspace:packages/components/radio-group":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/radio-group@workspace:packages/components/radio-group"
   dependencies:
@@ -4802,7 +4810,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/switch@workspace:packages/components/switch":
+"@sl-design-system/switch@npm:0.0.22, @sl-design-system/switch@workspace:packages/components/switch":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/switch@workspace:packages/components/switch"
   dependencies:
@@ -4851,7 +4859,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/textarea@workspace:packages/components/textarea":
+"@sl-design-system/textarea@npm:0.1.23, @sl-design-system/textarea@workspace:packages/components/textarea":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/textarea@workspace:packages/components/textarea"
   dependencies:

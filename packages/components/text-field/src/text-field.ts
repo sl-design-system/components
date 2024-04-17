@@ -178,7 +178,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && event.key === 'Enter') {
-      this.form?.requestSubmit(this.input);
+      this.form?.requestSubmit();
     }
   }
 

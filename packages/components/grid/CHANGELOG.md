@@ -1,5 +1,12 @@
 # @sl-design-system/grid
 
+## 0.1.10
+
+### Patch Changes
+
+- Updated dependencies [[`244d50f`](https://github.com/sl-design-system/components/commit/244d50f46ee4c87aab26e167c8ca5b200c1d30c2)]:
+  - @sl-design-system/text-field@0.1.24
+
 ## 0.1.9
 
 ### Patch Changes

@@ -130,7 +130,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   @property() fallback?: AvatarFallbackType = 'initials';
 
   /** An optional URL that will be used for linking the display name. */
-  @property({ reflect: true }) href?: string;
+  @property() href?: string;
 
   /** @internal The icon. */
   @state() icon?: AvatarIcon;

@@ -51,9 +51,10 @@ describe('sl-button-bar', () => {
   describe('icon only', () => {
     beforeEach(async () => {
       el = await fixture(
+        // the button component is not actually loaded, so it doesn't add the icon-only attribute automatically
         html`<sl-button-bar>
-          <sl-button fill="ghost"><sl-icon name="close"></sl-icon></sl-button>
-          <sl-button fill="ghost"><sl-icon name="full-screen"></sl-icon></sl-button>
+          <sl-button fill="ghost" icon-only><sl-icon name="close"></sl-icon></sl-button>
+          <sl-button fill="ghost" icon-only><sl-icon name="full-screen"></sl-icon></sl-button>
         </sl-button-bar>`
       );
       await el.updateComplete;
@@ -61,6 +62,40 @@ describe('sl-button-bar', () => {
 
     it('should render correctly', () => {
       expect(el).to.have.attribute('icon-only');
+    });
+  });
+
+  describe('icon only with non-ghost button', () => {
+    beforeEach(async () => {
+      el = await fixture(
+        // the button component is not actually loaded, so it doesn't add the icon-only attribute automatically
+        html`<sl-button-bar>
+          <sl-button icon-only><sl-icon name="close"></sl-icon></sl-button>
+          <sl-button fill="ghost" icon-only><sl-icon name="full-screen"></sl-icon></sl-button>
+        </sl-button-bar>`
+      );
+      await el.updateComplete;
+    });
+
+    it('should render correctly', () => {
+      expect(el).not.to.have.attribute('icon-only');
+    });
+  });
+
+  describe('mix of icon only and buttons with text', () => {
+    beforeEach(async () => {
+      el = await fixture(
+        // the button component is not actually loaded, so it doesn't add the icon-only attribute automatically
+        html`<sl-button-bar>
+          <sl-button fill="ghost">Foo</sl-button>
+          <sl-button fill="ghost" icon-only><sl-icon name="full-screen"></sl-icon></sl-button>
+        </sl-button-bar>`
+      );
+      await el.updateComplete;
+    });
+
+    it('should render correctly', () => {
+      expect(el).not.to.have.attribute('icon-only');
     });
   });
 });

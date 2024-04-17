@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/angular",
   "description": "Angular support for the SL Design System",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "publishConfig": {
     "directory": "dist",
     "registry": "https://npm.pkg.github.com"
@@ -75,7 +75,7 @@
     "@sl-design-system/radio-group": "0.0.27",
     "@sl-design-system/select": "0.0.27",
     "@sl-design-system/switch": "0.0.22",
-    "@sl-design-system/text-field": "0.1.23",
+    "@sl-design-system/text-field": "0.1.24",
     "@sl-design-system/textarea": "0.1.23",
     "@storybook/addon-essentials": "^8.0.8",
     "@storybook/addon-links": "^8.0.8",

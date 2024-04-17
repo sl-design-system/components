@@ -4232,7 +4232,7 @@ __metadata:
     "@sl-design-system/radio-group": "npm:0.0.27"
     "@sl-design-system/select": "npm:0.0.27"
     "@sl-design-system/switch": "npm:0.0.22"
-    "@sl-design-system/text-field": "npm:0.1.23"
+    "@sl-design-system/text-field": "npm:0.1.24"
     "@sl-design-system/textarea": "npm:0.1.23"
     "@storybook/addon-essentials": "npm:^8.0.8"
     "@storybook/addon-links": "npm:^8.0.8"
@@ -4508,7 +4508,7 @@ __metadata:
     "@sl-design-system/popover": "npm:0.1.11"
     "@sl-design-system/select": "npm:0.0.27"
     "@sl-design-system/shared": "npm:0.2.10"
-    "@sl-design-system/text-field": "npm:0.1.23"
+    "@sl-design-system/text-field": "npm:0.1.24"
   peerDependencies:
     "@lit-labs/virtualizer": ^2.0.12
     "@lit/localize": ^0.12.1
@@ -4846,7 +4846,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-field@npm:0.1.23, @sl-design-system/text-field@workspace:packages/components/text-field":
+"@sl-design-system/text-field@npm:0.1.24, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:

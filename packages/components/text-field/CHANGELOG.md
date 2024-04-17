@@ -1,5 +1,11 @@
 # @sl-design-system/text-field
 
+## 0.1.24
+
+### Patch Changes
+
+- [#1194](https://github.com/sl-design-system/components/pull/1194) [`244d50f`](https://github.com/sl-design-system/components/commit/244d50f46ee4c87aab26e167c8ca5b200c1d30c2) - Fix "The specified element is not a submit button." error when pressing Enter.
+
 ## 0.1.23
 
 ### Patch Changes

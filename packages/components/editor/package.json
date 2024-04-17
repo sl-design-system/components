@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/editor",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "Editor components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

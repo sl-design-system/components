@@ -1,5 +1,11 @@
 # @sl-design-system/avatar
 
+## 0.2.8
+
+### Patch Changes
+
+- [#1188](https://github.com/sl-design-system/components/pull/1188) [`e457ed2`](https://github.com/sl-design-system/components/commit/e457ed26449cc2dc4cbddb778403d77198c7d43c) - Add ability to use avatar to link to a URL using the new `href` property
+
 ## 0.2.7
 
 ### Patch Changes

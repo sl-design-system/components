@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/text-field",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "description": "Text field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

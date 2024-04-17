@@ -254,3 +254,7 @@ We support the 2 latest versions of Angular. You can find these version in [the 
 Server-side rendered web components is a hard problem and the web standards related to this continue to evolve. At the moment we do not support this, but we may look at this again in the future.
 
 </section>
+
+</div>
+<ds-vertical-tabs></ds-vertical-tabs>
+</section>

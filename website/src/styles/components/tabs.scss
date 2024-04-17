@@ -1,11 +1,9 @@
 @import './../breakpoints';
 
 .ds-tabs__tab-content {
-  // .ds-tabs__tab-content--active
   display: block;
 
-  .ds-tabs__tab-container /*> **/ {
-    // display: grid;
+  .ds-tabs__tab-container {
     display: flex;
     flex-direction: column;
     gap: var(--scale-700-scale);
@@ -29,58 +27,7 @@
   display: none;
 }
 
-@media screen and (min-width: $lg-breakpoint) {
-  .ds-tabs-wrapper {
-    justify-content: flex-start;
-    padding-inline-start: 2.4rem;
-  }
-
-  .ds-tabs__container--sticky {
-    padding-block-start: 0.1rem;
-
-    &.ds-tabs__container {
-      padding-block: 2.4rem 0.8rem;
-    }
-
-    .ds-top-navigation__component-name {
-      font-size: 2.4rem;
-      line-height: 2.4rem;
-      padding-block-end: 0.4rem;
-    }
-  }
-}
-
-@media screen and (min-width: $xl-breakpoint) {
-  .ds-tabs__tab-content {
-    display: grid;
-    grid-column-gap: 7.2rem;
-    grid-template-columns: minmax(20px, 6fr) 1fr;
-    inline-size: 100%;
-  }
-}
-
-@media screen and (min-width: $xxl-breakpoint) {
-  .ds-tabs__tab-content {
-    display: grid;
-    grid-column-gap: 7.2rem;
-    grid-template-columns: 88rem 1fr; // calc(88rem - 2.4rem) 1fr; // 88rem 1fr; // TODO: 2.4rem is 24px padding from token of panels im tab-group component
-  }
-}
-
-@keyframes tab-content {
-  from {
-    opacity: 0;
-    transform: translateY(5%);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-
 sl-tab-group {
-  // margin: auto -2.4rem auto -7.2rem;
   padding-block-start: 2.4rem;
 }
 
@@ -103,23 +50,15 @@ sl-tab-group::part(container) {
 
 @media screen and (min-width: $lg-breakpoint) {
   sl-tab-group {
-    // margin: auto -2.4rem auto -7.2rem;
     padding-block-start: 2.4rem;
   }
 
   sl-tab-group::part(container) {
-    // display: block;
-    // position: sticky;
     inset-block-start: 4rem;
-
-    // z-index: 2;
   }
 
   .sticky-tabs::part(container) {
-    // inline-size: 100vw;
     margin-inline-start: -7.2rem;
-
-    // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
   }
 
   .sticky-tabs::part(wrapper) {
@@ -128,48 +67,41 @@ sl-tab-group::part(container) {
 }
 
 @media screen and (min-width: $xl-breakpoint) {
-  sl-tab-group::part(container) {
-    border-block-end: transparent; // var(--_border);
+  .ds-tabs__tab-content {
     display: grid;
-    gap: 7.2rem;
-    grid-template-columns: 6fr 1fr;
-
-    // inline-size: 88rem;
-
-    // inset-block-start: 0;
-    // inset-block-start: -0.1rem;
-    // inset-block-start: 4rem; // 5.6rem; // 6.4rem; // 7.8rem;
-    // position: sticky;
-    // margin-inline-start: -7.2rem;
-    // z-index: 2;
-    // background: #6FBCFB ;
+    grid-column-gap: 7.2rem;
+    grid-template-columns: minmax(20px, 6fr) 1fr;
     inline-size: 100%;
   }
 
-  // TODO: background needs to be added in the component?
+  sl-tab-group::part(container) {
+    border-block-end: transparent;
+    display: grid;
+    gap: 7.2rem;
+    grid-template-columns: 6fr 1fr;
+    inline-size: 100%;
+  }
 
   sl-tab-group::part(wrapper) {
     border-block-end: var(--_border);
-
-    // .fade-container {
-    //  margin-left: 7.2rem;
-    // }
   }
 
   .sticky-tabs::part(container) {
-    // inline-size: 100vw;
-    // margin-inline-start: -7.2rem;
-    // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
     border-block-end: var(--_border);
   }
 
   .sticky-tabs::part(wrapper) {
-    // margin-inline-start: 7.2rem;
-    border-block-end: none; // var(--_border);
+    border-block-end: none;
   }
 }
 
 @media screen and (min-width: $xxl-breakpoint) {
+  .ds-tabs__tab-content {
+    display: grid;
+    grid-column-gap: 7.2rem;
+    grid-template-columns: 88rem 1fr;
+  }
+
   sl-tab-group::part(container) {
     border-block-end: var(--_border);
     display: flex;

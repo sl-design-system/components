@@ -12,11 +12,12 @@
   font-size: 1.6rem;
   font-weight: 600;
   gap: 8px;
+  inline-size: fit-content;
   line-height: 2.4rem;
   padding: 8px 12px;
   position: relative;
   text-decoration: none;
-  width: fit-content;
+  transition: background-color 200ms linear;
 
   &:hover {
     --_background: var(--control-color-state-accent-container-hover-state);

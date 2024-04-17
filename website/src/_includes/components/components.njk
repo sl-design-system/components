@@ -8,34 +8,13 @@ layout: base.njk
     <h1 class="ds-heading-1">
      {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.title }} {% endif %}{%- endfor -%}
     </h1>
-    <p class="ds-component__heading-description">{#{{ description }}#} {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.description }} {% endif %}{%- endfor -%}</p>
+    <p class="ds-component__heading-description">{%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.description }} {% endif %}{%- endfor -%}</p>
   </div>
 </header>
 <section>
-  {#{{ page.templateContent | safe }}#}
-
   {%- for post in collections.component -%}
-{#    {% if page.url === post.url %}#}
     {% if page.url.includes(post.url) %}
-      <sl-tab-group> {#class="ds-tabs__container--sticky"#}
-{#        {% set testt = collections.usage  %}#}
-{#        test url1: {{ testt.url }}#}
-{#        test url2: {{ page.url }}#}
-{#        post title {{ post.data.title }}#}
-{#    {% if page.url.includes(post.url) %}#}
-{#    {% endif %}#}
-
-{#        {%- for code in collections.code -%}#}
-{#          {% if code.url.includes(page.url) %}#}
-{#          code-url:  {{ code.url }}#}
-{#          {% endif %}#}
-{#          {% if code.url == page.url %}#}
-{#            code-url-equals:  {{ code.url }}#}
-{#          {% endif %}#}
-{#        {%- endfor -%}#}
-
-{#       ifffff {%- for code in collections.code -%}{% if page.url.includes(post.data.title) %}{{ code.url | url }} {{ page.url.includes(post.data.title) }}{% endif %}{%- endfor -%}#}
-{#      post_url:  {{ post.url }}#}
+      <sl-tab-group>
         <sl-tab href="{%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}{%- endfor -%}"
           {%- for usage in collections.usage -%}
           {% if usage.url == page.url %}
@@ -46,7 +25,7 @@ layout: base.njk
           {%- for code in collections.code -%}
           {% if code.url == page.url %}
         selected
-          {% endif %}{%- endfor -%}>Code {#page-url: {{ page.url }} post-url: {{ post.url }}#}</sl-tab>
+          {% endif %}{%- endfor -%}>Code</sl-tab>
         {%- for accessibility in collections.accessibility -%}{% if accessibility.url.includes(post.url) %}<sl-tab href="{% if accessibility.url.includes(post.url) %}{{ accessibility.url | url }}{% endif %}"
           {% if accessibility.url == page.url %}
           selected
@@ -55,22 +34,9 @@ layout: base.njk
         <sl-tab-panel>
           <div id="myVerticalTabsContent" class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
-
-{#              {%- for post in collections.all -%}#}
-{#                <li>{{ post | safe }}<a href="{{ post.url }}">{{ post.url }} {{ post.title }}</a></li>#}
-{#              {%- endfor -%}#}
-
-
             {%- for usage in collections.usage -%}
-{#              usage url: {{ usage.url }}#}
-{#              page url: {{ page.url }}#}
-{#              {% if usage.url.includes(page.url) %}#}
               {% if usage.url == page.url %}
-{#                usage url: {{ usage.url }}#}
-{#                page url: {{ page.url }}#}
                 {{ usage.templateContent | safe }}
-                {#<ds-vertical-tabs link-in-navigation package="avatar"></ds-vertical-tabs>#}
-{#                <ds-vertical-tabs link-in-navigation package="avatar" verticalTabContent="{{ usage.templateContent | safe }}"></ds-vertical-tabs>#}
               {% endif %}
             {%- endfor -%}
             </div>
@@ -84,11 +50,8 @@ layout: base.njk
         <sl-tab-panel>
           <div id="myVerticalTabsContentCode" class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
-{#              {{ content | safe }}#}
             {%- for code in collections.code -%}
-{#              {% if code.url.includes(page.url) %}#}
               {% if code.url.includes(page.url) %}
-{#              {% if code.url == page.url %}#}
                 {{ code.templateContent | safe }}
               {% endif %}
             {%- endfor -%}
@@ -98,17 +61,6 @@ layout: base.njk
             <ds-vertical-tabs></ds-vertical-tabs>
             {% endif %}
             {%- endfor -%}
-{#            <script type="module">#}
-{#              import { generateVerticalTabs } from '/js/scripts/tabs.js';#}
-{#              requestAnimationFrame(() => {#}
-{#                const verticalTabContent = document.getElementById('myVerticalTabsContentCode');#}
-{#                console.log('verticalTabContent', verticalTabContent);#}
-{#                generateVerticalTabs(verticalTabContent);#}
-{#              });#}
-{#              // const verticalTabContent = document.getElementById('myVerticalTabsContent');#}
-{#              // console.log('verticalTabContent', verticalTabContent);#}
-{#              // generateVerticalTabs(verticalTabContent);#}
-{#            </script>#}
           </div>
         </sl-tab-panel>
         <sl-tab-panel>
@@ -125,53 +77,10 @@ layout: base.njk
             <ds-vertical-tabs></ds-vertical-tabs>
             {% endif %}
             {%- endfor -%}
-{#            <script type="module">
-              import { generateVerticalTabs } from '/js/scripts/tabs.js';
-              requestAnimationFrame(() => {
-                const verticalTabContent = document.getElementById('myVerticalTabsContentAccessibility');
-                console.log('verticalTabContent', verticalTabContent);
-                generateVerticalTabs(verticalTabContent);
-              });
-              // const verticalTabContent = document.getElementById('myVerticalTabsContent');
-              // console.log('verticalTabContent', verticalTabContent);
-              // generateVerticalTabs(verticalTabContent);
-            </script>#}
           </div>
         </sl-tab-panel>
       </sl-tab-group>
-{#      <div horizontal class="ds-tabs" role="tablist">#}
-{#        <button class="ds-tab">Usage</button>#}
-{#        <button class="ds-tab">Code</button>#}
-{#        <button class="ds-tab">Accessibility</button>#}
-{#        <div class="ds-tabs__tab-content-wrapper">#}
-{#          <div class="ds-tabs__tab-content">#}
-{#            {%- for usage in collections.usage -%}#}
-{#              {% if usage.url.includes(page.url) %}#}
-{#                {{ usage.templateContent | safe }}#}
-{#              {% endif %}#}
-{#            {%- endfor -%}#}
-{#          </div>#}
-{#          <div class="ds-tabs__tab-content">#}
-{#            {%- for code in collections.code -%}#}
-{#              {% if code.url.includes(page.url) %}#}
-{#                {{ code.templateContent | safe }}#}
-{#              {% endif %}#}
-{#            {%- endfor -%}#}
-{#          </div>#}
-{#          <div class="ds-tabs__tab-content">#}
-{#            {%- for accessibility in collections.accessibility -%}#}
-{#              {% if accessibility.url.includes(page.url) %}#}
-{#                {{ accessibility.templateContent | safe }}#}
-{#              {% endif %}#}
-{#            {%- endfor -%}#}
-{#          </div>#}
-{#        </div>#}
-{#      </div>#}
     {% endif %}
   {%- endfor -%}
 </section>
 <sl-tooltip id="interactiveexample">Interactive example</sl-tooltip>
-
-{#TODO: all tabs with post.url and content | safe #}
-
-{#TODO: tabs are not working properly on keyboard nav change#}

@@ -240,8 +240,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       event.preventDefault();
       event.stopPropagation();
 
-      console.log('tab in onkeydown in component', tab);
-
       this.#updateSelectedTab(tab);
       this.#scrollToTabPanelStart();
     }

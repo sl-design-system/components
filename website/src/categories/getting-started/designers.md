@@ -66,5 +66,6 @@ Congratulations! You're now equipped to seamlessly integrate the Sanoma Learning
 
 </section>
 </div>
+<ds-vertical-tabs></ds-vertical-tabs>
 
 </section>

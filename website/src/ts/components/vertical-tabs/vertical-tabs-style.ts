@@ -3,10 +3,6 @@ import { css } from 'lit';
 export const verticalTabsStyles = css`
   :host {
     display: none;
-
-    // .ds-tabs__container {
-    //   display: none;
-    // }
   }
 
   @media screen and (min-width: 1200px) {
@@ -59,15 +55,13 @@ export const verticalTabsStyles = css`
   .ds-tabs__container {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: start; // TODO: center in other media query
+    justify-content: start;
     margin: auto;
     overflow: hidden;
     padding-block-start: 0;
     background-color: var(--background-color);
     inset-block-start: -0.1rem;
     overflow-x: hidden;
-    /* padding-block-start: 1.6rem; */
-    /* position: sticky; */
     transition: padding-top 300ms;
   }
 

@@ -1,0 +1,548 @@
+{
+  "color": {
+    "palette": {
+      "primary": {
+        "50": {
+          "value": "#fefefe",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.50"
+        },
+        "100": {
+          "value": "#eaeaea",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.100"
+        },
+        "150": {
+          "value": "#d5d5d5",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.150"
+        },
+        "200": {
+          "value": "#bcbcbc",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.200"
+        },
+        "300": {
+          "value": "#a2a1a1",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.300"
+        },
+        "400": {
+          "value": "#898989",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.400"
+        },
+        "500": {
+          "value": "#737373",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.500"
+        },
+        "600": {
+          "value": "#605f5f",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.600"
+        },
+        "700": {
+          "value": "#4e4e4e",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.700"
+        },
+        "800": {
+          "value": "#3e3d3d",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.800"
+        },
+        "900": {
+          "value": "#262626",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.900"
+        },
+        "base": {
+          "value": "#222222",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.primary.base"
+        }
+      },
+      "accent": {
+        "50": {
+          "value": "#edf2fc",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.50"
+        },
+        "100": {
+          "value": "#e0eaff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.100"
+        },
+        "150": {
+          "value": "#ccdbff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.150"
+        },
+        "200": {
+          "value": "#9ebaff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.200"
+        },
+        "300": {
+          "value": "#5985ff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.300"
+        },
+        "400": {
+          "value": "{color.palette.accent.base}",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.400"
+        },
+        "500": {
+          "value": "#2351db",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.500"
+        },
+        "600": {
+          "value": "#1138ad",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.600"
+        },
+        "700": {
+          "value": "#09298e",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.700"
+        },
+        "800": {
+          "value": "#00175f",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.800"
+        },
+        "900": {
+          "value": "#000d33",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.900"
+        },
+        "base": {
+          "value": "#3366ff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.accent.base"
+        }
+      },
+      "neutral": {
+        "50": {
+          "value": "#f3f3f3",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.50"
+        },
+        "100": {
+          "value": "#eaeaea",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.100"
+        },
+        "150": {
+          "value": "#d5d5d5",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.150"
+        },
+        "200": {
+          "value": "#bcbcbc",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.200"
+        },
+        "300": {
+          "value": "#a2a1a1",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.300"
+        },
+        "400": {
+          "value": "#898989",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.400"
+        },
+        "500": {
+          "value": "#737373",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.500"
+        },
+        "600": {
+          "value": "#605f5f",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.600"
+        },
+        "700": {
+          "value": "#4e4e4e",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.700"
+        },
+        "800": {
+          "value": "#3e3d3d",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.800"
+        },
+        "900": {
+          "value": "#2e2e2e",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.900"
+        },
+        "base": {
+          "value": "#222222",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.neutral.base"
+        }
+      },
+      "info": {
+        "50": {
+          "value": "#f0f5ff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.50"
+        },
+        "100": {
+          "value": "#e0eaff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.100"
+        },
+        "150": {
+          "value": "#ccdbff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.150"
+        },
+        "200": {
+          "value": "#9ebaff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.200"
+        },
+        "300": {
+          "value": "#5985ff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.300"
+        },
+        "400": {
+          "value": "{color.palette.info.base}",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.400"
+        },
+        "500": {
+          "value": "#2351db",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.500"
+        },
+        "600": {
+          "value": "#1138ad",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.600"
+        },
+        "700": {
+          "value": "#09298e",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.700"
+        },
+        "800": {
+          "value": "#00175f",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.800"
+        },
+        "900": {
+          "value": "#000d33",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.900"
+        },
+        "base": {
+          "value": "#3366ff",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.info.base"
+        }
+      },
+      "success": {
+        "50": {
+          "value": "#ebf5ee",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.50"
+        },
+        "100": {
+          "value": "#d7f5e1",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.100"
+        },
+        "150": {
+          "value": "#aeebc4",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": ""
+        },
+        "200": {
+          "value": "#70e09d",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.200"
+        },
+        "300": {
+          "value": "{color.palette.success.base}",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.300"
+        },
+        "400": {
+          "value": "#39b26c",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.400"
+        },
+        "500": {
+          "value": "#28854e",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.500"
+        },
+        "600": {
+          "value": "#1b6137",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.600"
+        },
+        "700": {
+          "value": "#114224",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.700"
+        },
+        "800": {
+          "value": "#0b331a",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.800"
+        },
+        "900": {
+          "value": "#082613",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.900"
+        },
+        "base": {
+          "value": "#45cc80",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.success.base"
+        }
+      },
+      "warning": {
+        "50": {
+          "value": "#fffdfd",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.50"
+        },
+        "100": {
+          "value": "#ffeae0",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.100"
+        },
+        "150": {
+          "value": "#ffd5c2",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.150"
+        },
+        "200": {
+          "value": "#ffb796",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.200"
+        },
+        "300": {
+          "value": "#ff9667",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.300"
+        },
+        "400": {
+          "value": "#ff6d2c",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.400"
+        },
+        "500": {
+          "value": "#f04a00",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.500"
+        },
+        "600": {
+          "value": "#cf4000",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.600"
+        },
+        "700": {
+          "value": "#b03600",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.700"
+        },
+        "800": {
+          "value": "#942e00",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.800"
+        },
+        "900": {
+          "value": "#6f2200",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.900"
+        },
+        "base": {
+          "value": "#ff8650",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.warning.base"
+        }
+      },
+      "danger": {
+        "50": {
+          "value": "#ffedeb",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.50"
+        },
+        "100": {
+          "value": "#ffd6d1",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.100"
+        },
+        "150": {
+          "value": "#ffbcb8",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.150"
+        },
+        "200": {
+          "value": "#ff8e8a",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.200"
+        },
+        "300": {
+          "value": "{color.palette.danger.base}",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.300"
+        },
+        "400": {
+          "value": "#e5454a",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.400"
+        },
+        "500": {
+          "value": "#c73434",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.500"
+        },
+        "600": {
+          "value": "#992224",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.600"
+        },
+        "700": {
+          "value": "#6b1313",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.700"
+        },
+        "800": {
+          "value": "#470d0d",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.800"
+        },
+        "900": {
+          "value": "#260808",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.900"
+        },
+        "base": {
+          "value": "#ff575c",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.danger.base"
+        }
+      },
+      "black": {
+        "base": {
+          "value": "#222222",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.black.base"
+        }
+      },
+      "white": {
+        "base": {
+          "value": "#fefefe",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.white.base"
+        }
+      },
+      "transparent": {
+        "base": {
+          "value": "#00000000",
+          "type": "color",
+          "parent": "sanoma-learning/light",
+          "description": "color.palette.transparent.base"
+        }
+      }
+    }
+  }
+}

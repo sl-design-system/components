@@ -1,11 +1,12 @@
 {
   "tokenSetOrder": [
-    "core",
-    "themes/brand A",
-    "themes/brand B",
-    "brand A/Light",
-    "brand A/Dark",
-    "brand B/Light",
-    "brand B/Dark"
+    "-core/-core",
+    "sanoma-learning/base",
+    "sanoma-learning/light",
+    "sanoma-learning/dark",
+    "bingle-dc/light",
+    "bingle-dc/dark",
+    "max/light",
+    "max/dark"
   ]
 }

@@ -1,0 +1,36 @@
+{
+  "body": {
+    "background": {
+      "value": "{color.palette.white.base}",
+      "type": "color",
+      "parent": "sanoma-learning/light",
+      "description": "color.body.default.background"
+    },
+    "foreground": {
+      "value": "{color.palette.primary.base}",
+      "type": "color",
+      "parent": "sanoma-learning/light",
+      "description": "color.body.default.foreground"
+    },
+    "surface": {
+      "100": {
+        "value": "{color.palette.neutral.100}",
+        "type": "color",
+        "parent": "sanoma-learning/light",
+        "description": "color.body.default.foreground"
+      },
+      "200": {
+        "value": "{color.palette.neutral.150}",
+        "type": "color",
+        "parent": "sanoma-learning/light",
+        "description": "color.body.default.foreground"
+      },
+      "overlay": {
+        "value": "#ffffff",
+        "type": "color",
+        "parent": "sanoma-learning/light",
+        "description": "body.surface.200"
+      }
+    }
+  }
+}

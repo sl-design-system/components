@@ -1,0 +1,252 @@
+{
+  "border": {
+    "radius": {
+      "none": {
+        "value": "0rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.none"
+      },
+      "3xs": {
+        "value": "0.125rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.3xs"
+      },
+      "2xs": {
+        "value": "0.25rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.2xs"
+      },
+      "xs": {
+        "value": "0.375rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.xs"
+      },
+      "sm": {
+        "value": "0.5rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.sm"
+      },
+      "md": {
+        "value": "0.625rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.md"
+      },
+      "lg": {
+        "value": "0.75rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.lg"
+      },
+      "xl": {
+        "value": "0.875rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.xl"
+      },
+      "2xl": {
+        "value": "1rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": ""
+      },
+      "3xl": {
+        "value": "1.125rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.3xl"
+      },
+      "full": {
+        "value": "50rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.radius.full"
+      }
+    },
+    "width": {
+      "none": {
+        "value": "0rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.width.none"
+      },
+      "2xs": {
+        "value": "0.03125rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "2xs"
+      },
+      "xs": {
+        "value": "0.0625rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.width.xs"
+      },
+      "sm": {
+        "value": "0.125rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.width.sm"
+      },
+      "md": {
+        "value": "0.1875rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.width.md"
+      },
+      "lg": {
+        "value": "0.25rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.width.lg"
+      },
+      "xl": {
+        "value": "0.3125rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.width.xl"
+      },
+      "2xl": {
+        "value": "0.375rem",
+        "type": "dimension",
+        "parent": "-core/-core",
+        "description": "border.width.2xl"
+      }
+    }
+  },
+  "size": {
+    "none": {
+      "value": "0rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.none"
+    },
+    "4xs": {
+      "value": "0.125rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.4xs"
+    },
+    "3xs": {
+      "value": "0.25rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.3xs"
+    },
+    "2xs": {
+      "value": "0.5rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.2xs"
+    },
+    "xs": {
+      "value": "0.75rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.xs"
+    },
+    "sm": {
+      "value": "0.875rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.sm"
+    },
+    "md": {
+      "value": "1rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.md"
+    },
+    "lg": {
+      "value": "1.25rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.lg"
+    },
+    "xl": {
+      "value": "1.5rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.xl"
+    },
+    "2xl": {
+      "value": "2rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.2xl"
+    },
+    "3xl": {
+      "value": "3rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.3xl"
+    },
+    "4xl": {
+      "value": "4rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "size.4xl"
+    }
+  },
+  "space": {
+    "none": {
+      "value": "0rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "space.none"
+    },
+    "2xs": {
+      "value": "0.125rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "space.2xs"
+    },
+    "xs": {
+      "value": "0.25rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "space.xs"
+    },
+    "sm": {
+      "value": "0.5rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "space.sm"
+    },
+    "md": {
+      "value": "0.75rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "space.md"
+    },
+    "lg": {
+      "value": "1rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "space.lg"
+    },
+    "xl": {
+      "value": "1.5rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "space.xl"
+    },
+    "2xl": {
+      "value": "1.875rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "space.2xl"
+    },
+    "3xl": {
+      "value": "2.5rem",
+      "type": "dimension",
+      "parent": "-core/-core",
+      "description": "space.3xl"
+    }
+  }
+}

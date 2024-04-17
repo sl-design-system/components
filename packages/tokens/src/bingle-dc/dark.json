@@ -1,0 +1,562 @@
+{
+  "body": {
+    "background": {
+      "value": "{color.palette.black.base}",
+      "type": "color",
+      "parent": "bingle-dc/dark",
+      "description": "color.body.background"
+    },
+    "foreground": {
+      "value": "{color.palette.white.base}",
+      "type": "color",
+      "parent": "bingle-dc/dark",
+      "description": "color.body.foreground"
+    }
+  },
+  "color": {
+    "palette": {
+      "primary": {
+        "50": {
+          "value": "#e6f1fb",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.50"
+        },
+        "100": {
+          "value": "#acd2f5",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.100"
+        },
+        "150": {
+          "value": "#81baef",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.150"
+        },
+        "200": {
+          "value": "#56a3ea",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.200"
+        },
+        "300": {
+          "value": "#2b8be4",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.300"
+        },
+        "400": {
+          "value": "{color.palette.primary.base}",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.400"
+        },
+        "500": {
+          "value": "#0060b9",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.500"
+        },
+        "600": {
+          "value": "#004d94",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.600"
+        },
+        "700": {
+          "value": "#002f62",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.700"
+        },
+        "800": {
+          "value": "#002649",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.800"
+        },
+        "900": {
+          "value": "#001223",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.900"
+        },
+        "base": {
+          "value": "#0074df",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.primary.base"
+        }
+      },
+      "accent": {
+        "50": {
+          "value": "#e6f1fb",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.50"
+        },
+        "100": {
+          "value": "#acd2f5",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.100"
+        },
+        "150": {
+          "value": "#81baef",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.150"
+        },
+        "200": {
+          "value": "#56a3ea",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.200"
+        },
+        "300": {
+          "value": "#2b8be4",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.300"
+        },
+        "400": {
+          "value": "#0074df",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.400"
+        },
+        "500": {
+          "value": "#0060b9",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.500"
+        },
+        "600": {
+          "value": "#004d94",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.600"
+        },
+        "700": {
+          "value": "{color.palette.accent.base}",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.700"
+        },
+        "800": {
+          "value": "#002649",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.800"
+        },
+        "900": {
+          "value": "#001223",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.900"
+        },
+        "base": {
+          "value": "#002f62",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.accent.base"
+        }
+      },
+      "neutral": {
+        "50": {
+          "value": "#f2f3f5",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.50"
+        },
+        "100": {
+          "value": "#e3e6ea",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.100"
+        },
+        "150": {
+          "value": "#d5d9de",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.150"
+        },
+        "200": {
+          "value": "#c7cdd3",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.200"
+        },
+        "300": {
+          "value": "#b8c0c8",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.300"
+        },
+        "400": {
+          "value": "{color.palette.neutral.base}",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.400"
+        },
+        "500": {
+          "value": "#8d959d",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.500"
+        },
+        "600": {
+          "value": "#71777d",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.600"
+        },
+        "700": {
+          "value": "#54585d",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.700"
+        },
+        "800": {
+          "value": "#373a3e",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.800"
+        },
+        "900": {
+          "value": "#1b1c1e",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.900"
+        },
+        "base": {
+          "value": "#aab3bd",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.neutral.base"
+        }
+      },
+      "info": {
+        "50": {
+          "value": "{color.palette.info.base}",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.50"
+        },
+        "100": {
+          "value": "#acd2f5",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.100"
+        },
+        "150": {
+          "value": "#81baef",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.150"
+        },
+        "200": {
+          "value": "#56a3ea",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.200"
+        },
+        "300": {
+          "value": "#2b8be4",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.300"
+        },
+        "400": {
+          "value": "#0074df",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.400"
+        },
+        "500": {
+          "value": "#0060b9",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.500"
+        },
+        "600": {
+          "value": "#004d94",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.600"
+        },
+        "700": {
+          "value": "#002f62",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.700"
+        },
+        "800": {
+          "value": "#002649",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.800"
+        },
+        "900": {
+          "value": "#001223",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.900"
+        },
+        "base": {
+          "value": "#e6f1fb",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.info.base"
+        }
+      },
+      "success": {
+        "50": {
+          "value": "#e2f2d7",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.50"
+        },
+        "100": {
+          "value": "#c3e4ac",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.100"
+        },
+        "150": {
+          "value": "#a4d681",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.150"
+        },
+        "200": {
+          "value": "#84c856",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.200"
+        },
+        "300": {
+          "value": "#65ba2b",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.300"
+        },
+        "400": {
+          "value": "{color.palette.success.base}",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.400"
+        },
+        "500": {
+          "value": "#3a8f00",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.500"
+        },
+        "600": {
+          "value": "#2e7200",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.600"
+        },
+        "700": {
+          "value": "#235500",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.700"
+        },
+        "800": {
+          "value": "#173800",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.800"
+        },
+        "900": {
+          "value": "#0b1b00",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.900"
+        },
+        "base": {
+          "value": "#46ac00",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.success.base"
+        }
+      },
+      "warning": {
+        "50": {
+          "value": "#fff0d7",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.50"
+        },
+        "100": {
+          "value": "#ffdfac",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.100"
+        },
+        "150": {
+          "value": "#ffcf81",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.150"
+        },
+        "200": {
+          "value": "#ffbe56",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.200"
+        },
+        "300": {
+          "value": "#ffae2b",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.300"
+        },
+        "400": {
+          "value": "{color.palette.warning.base}",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.400"
+        },
+        "500": {
+          "value": "#d48300",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.500"
+        },
+        "600": {
+          "value": "#a96800",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.600"
+        },
+        "700": {
+          "value": "#7e4e00",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.700"
+        },
+        "800": {
+          "value": "#533300",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.800"
+        },
+        "900": {
+          "value": "#281900",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.900"
+        },
+        "base": {
+          "value": "#ff9d00",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.warning.base"
+        }
+      },
+      "danger": {
+        "50": {
+          "value": "#fbd9dd",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.50"
+        },
+        "100": {
+          "value": "#f6afb9",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.100"
+        },
+        "150": {
+          "value": "#f18694",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.150"
+        },
+        "200": {
+          "value": "#ec5d70",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.200"
+        },
+        "300": {
+          "value": "#e8334b",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.300"
+        },
+        "400": {
+          "value": "{color.palette.danger.base}",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.400"
+        },
+        "500": {
+          "value": "#bd0820",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.500"
+        },
+        "600": {
+          "value": "#96071a",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.600"
+        },
+        "700": {
+          "value": "#700513",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.700"
+        },
+        "800": {
+          "value": "#4a030d",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.800"
+        },
+        "900": {
+          "value": "#240206",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.900"
+        },
+        "base": {
+          "value": "#e30a27",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.danger.base"
+        }
+      },
+      "black": {
+        "base": {
+          "value": "{color.palette.primary.800}",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.black.base"
+        }
+      },
+      "white": {
+        "base": {
+          "value": "#ffffff",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.white.base"
+        }
+      },
+      "transparent": {
+        "base": {
+          "value": "#00000000",
+          "type": "color",
+          "parent": "bingle-dc/dark",
+          "description": "color.palette.transparent.base"
+        }
+      }
+    }
+  }
+}

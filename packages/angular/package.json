@@ -21,7 +21,7 @@
     "build": {
       "command": "ng build",
       "dependencies": [
-        "../..:build"
+        "../..:dist"
       ],
       "files": [
         "src/**/*"

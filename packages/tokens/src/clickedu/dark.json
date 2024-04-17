@@ -1,10 +1,14 @@
 {
-  "color": {
-    "focusring": {
-      "default": {
-        "value": "{color.palette.accent.300}",
-        "type": "color"
-      }
+  "body": {
+    "background": {
+      "value": "{color.palette.white.base}",
+      "type": "color",
+      "description": "color.body.background"
+    },
+    "foreground": {
+      "value": "{color.palette.black.base}",
+      "type": "color",
+      "description": "color.body.foreground"
     }
   }
 }

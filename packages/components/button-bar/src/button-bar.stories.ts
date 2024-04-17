@@ -46,6 +46,26 @@ export default {
 
 export const Basic: Story = {};
 
+export const Alignment: Story = {
+  render: () => {
+    const buttons = html`
+      <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
+      <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
+      <sl-button><sl-icon name="smile"></sl-icon> Baz</sl-button>
+    `;
+    return html`
+      <p>Start:</p>
+      <sl-button-bar style="--sl-button-bar-align: start;"> ${buttons} </sl-button-bar>
+      <p>End:</p>
+      <sl-button-bar style="--sl-button-bar-align: end;"> ${buttons} </sl-button-bar>
+      <p>Center:</p>
+      <sl-button-bar style="--sl-button-bar-align: center;"> ${buttons} </sl-button-bar>
+      <p>Space between:</p>
+      <sl-button-bar style="--sl-button-bar-align: space-between;"> ${buttons} </sl-button-bar>
+    `;
+  }
+};
+
 export const Mobile: Story = {
   ...Basic,
   parameters: {

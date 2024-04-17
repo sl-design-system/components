@@ -3,9 +3,6 @@
 
 import { str } from '@lit/localize';
 
-/* eslint-disable no-irregular-whitespace */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export const templates = {
   s091d3d07b5b3076f: 'Ok',
   s2ceb11be2290bb1b: 'Annuleren',
@@ -29,5 +26,6 @@ export const templates = {
   sd0b6082239185272: 'Selecteer alles',
   sd244b51f6d7de8e2: 'Voer een waarde in volgens het gevraagde patroon.',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
-  sf1ec4acb8d744ed9: 'Mededeling'
+  sf1ec4acb8d744ed9: 'Mededeling',
+  sf677da98fa27f9b6: 'Meer links'
 };

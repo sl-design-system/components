@@ -74,6 +74,10 @@
             {
               "description": "Header element of the accordion-item",
               "name": "summary"
+            },
+            {
+              "description": "The body of the accordion-item",
+              "name": "panel"
             }
           ],
           "slots": [
@@ -94,6 +98,25 @@
               "reflects": true
             },
             {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "This is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
+            },
+            {
               "kind": "field",
               "name": "open",
               "type": {
@@ -104,14 +127,6 @@
               "reflects": true
             },
             {
-              "kind": "event",
-              "name": "sl-toggle",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the accordion item has been toggled."
-            },
-            {
               "kind": "field",
               "name": "summary",
               "type": {
@@ -119,27 +134,37 @@
               },
               "description": "A text shown in the header - as a title of the accordion item.",
               "attribute": "summary"
-            }
-          ],
-          "events": [
+            },
             {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "force",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "description": "The state to forcibly set the component to"
+                }
+              ],
+              "description": "Toggles the component state between open or closed. If the `force` parameter is\nprovided, the state will be set to the value of the parameter."
+            },
+            {
+              "kind": "field",
               "name": "toggleEvent",
               "type": {
-                "text": "EventEmitter<string>"
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
               },
-              "description": "Emits when the accordion item has been toggled.",
-              "fieldName": "toggleEvent"
+              "description": "Emits when the accordion item has been toggled."
             }
           ],
           "attributes": [
-            {
-              "name": "summary",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "A text shown in the header - as a title of the accordion item.",
-              "fieldName": "summary"
-            },
             {
               "name": "disabled",
               "type": {
@@ -155,6 +180,14 @@
               },
               "description": "Whether the details element is opened.",
               "fieldName": "open"
+            },
+            {
+              "name": "summary",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A text shown in the header - as a title of the accordion item.",
+              "fieldName": "summary"
             }
           ],
           "superclass": {
@@ -163,8 +196,57 @@
           },
           "tagName": "sl-accordion-item",
           "customElement": true,
-          "methods": [],
-          "fields": []
+          "methods": [
+            {
+              "kind": "method",
+              "name": "focus",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "FocusOptions"
+                  }
+                }
+              ],
+              "description": "This is a workaround for `delegatesFocus` not allowing you to select\nany text in the content of the accordion item.\nSee https://issues.chromium.org/issues/40622041"
+            },
+            {
+              "kind": "method",
+              "name": "toggle",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "force",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean"
+                  },
+                  "description": "The state to forcibly set the component to"
+                }
+              ],
+              "description": "Toggles the component state between open or closed. If the `force` parameter is\nprovided, the state will be set to the value of the parameter."
+            }
+          ],
+          "fields": [
+            {
+              "kind": "field",
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
+              },
+              "description": "Emits when the accordion item has been toggled."
+            }
+          ]
         }
       ],
       "exports": [
@@ -209,6 +291,14 @@
           "members": [
             {
               "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "AccordionItem[] | undefined"
+              },
+              "description": "The slotted accordion items."
+            },
+            {
+              "kind": "field",
               "name": "single",
               "type": {
                 "text": "boolean | undefined"
@@ -235,7 +325,16 @@
           "tagName": "sl-accordion",
           "customElement": true,
           "methods": [],
-          "fields": []
+          "fields": [
+            {
+              "kind": "field",
+              "name": "items",
+              "type": {
+                "text": "AccordionItem[] | undefined"
+              },
+              "description": "The slotted accordion items."
+            }
+          ]
         }
       ],
       "exports": [
@@ -1515,6 +1614,22 @@
           "members": [
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T[]>>"
+              },
+              "description": "Emits when the value of the group changes."
+            },
+            {
+              "kind": "field",
               "name": "customValidity",
               "type": {
                 "text": "string | undefined"
@@ -1535,6 +1650,14 @@
               "description": "Whether the group is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",
@@ -1698,30 +1821,6 @@
               "attribute": "size"
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<T[]>"
-              },
-              "description": "Emits when the value of the group changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus."
-            },
-            {
               "kind": "field",
               "name": "valid",
               "type": {
@@ -1781,41 +1880,6 @@
               },
               "description": "The value of the group.",
               "attribute": "value",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<T[]>"
-              },
-              "description": "Emits when the value of the group changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus.",
-              "fieldName": "focusEvent"
-            },
-            {
-              "type": {
-                "text": "ValidateEvent"
-              },
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -1904,6 +1968,17 @@
           },
           "tagName": "sl-checkbox-group",
           "customElement": true,
+          "events": [
+            {
+              "type": {
+                "text": "ValidateEvent"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            }
+          ],
           "methods": [
             {
               "kind": "method",
@@ -1958,6 +2033,30 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T[]>>"
+              },
+              "description": "Emits when the value of the group changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
+            },
             {
               "kind": "field",
               "name": "showValid",
@@ -2118,6 +2217,22 @@
           "members": [
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | null>>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "field",
               "name": "checked",
               "type": {
                 "text": "boolean | undefined"
@@ -2148,6 +2263,14 @@
               "description": "Whether the checkbox is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",
@@ -2327,30 +2450,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<T | null>"
-              },
-              "description": "Emits when the checked state changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus."
-            },
-            {
               "kind": "field",
               "name": "valid",
               "type": {
@@ -2410,41 +2509,6 @@
               },
               "description": "The value of the checkbox when the checkbox is checked.\nSee the formValue property for easy access.",
               "attribute": "value",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<T | null>"
-              },
-              "description": "Emits when the checked state changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus.",
-              "fieldName": "focusEvent"
-            },
-            {
-              "type": {
-                "text": "ValidateEvent"
-              },
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -2561,6 +2625,17 @@
           },
           "tagName": "sl-checkbox",
           "customElement": true,
+          "events": [
+            {
+              "type": {
+                "text": "ValidateEvent"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            }
+          ],
           "methods": [
             {
               "kind": "method",
@@ -2615,6 +2690,30 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | null>>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
+            },
             {
               "kind": "field",
               "name": "formValue",
@@ -2839,6 +2938,14 @@
           ],
           "members": [
             {
+              "kind": "field",
+              "name": "cancelEvent",
+              "type": {
+                "text": "EventEmitter<SlCancelEvent>"
+              },
+              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
+            },
+            {
               "kind": "method",
               "name": "close",
               "return": {
@@ -2855,6 +2962,14 @@
               },
               "description": "Determines whether a close button should be shown in the top right corner.",
               "attribute": "close-button"
+            },
+            {
+              "kind": "field",
+              "name": "closeEvent",
+              "type": {
+                "text": "EventEmitter<SlCloseEvent>"
+              },
+              "description": "Emits when the dialog has been closed."
             },
             {
               "kind": "field",
@@ -2883,40 +2998,6 @@
                   "text": "void"
                 }
               }
-            },
-            {
-              "kind": "event",
-              "name": "sl-cancel",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
-            },
-            {
-              "kind": "event",
-              "name": "sl-close",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the dialog has been closed."
-            }
-          ],
-          "events": [
-            {
-              "name": "cancelEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop.",
-              "fieldName": "cancelEvent"
-            },
-            {
-              "name": "closeEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the dialog has been closed.",
-              "fieldName": "closeEvent"
             }
           ],
           "attributes": [
@@ -2978,7 +3059,24 @@
               }
             }
           ],
-          "fields": []
+          "fields": [
+            {
+              "kind": "field",
+              "name": "cancelEvent",
+              "type": {
+                "text": "EventEmitter<SlCancelEvent>"
+              },
+              "description": "Emits when the cancel has been cancelled. This happens when the user closes\nthe dialog using the escape key or clicks on the backdrop."
+            },
+            {
+              "kind": "field",
+              "name": "closeEvent",
+              "type": {
+                "text": "EventEmitter<SlCloseEvent>"
+              },
+              "description": "Emits when the dialog has been closed."
+            }
+          ]
         }
       ],
       "exports": [
@@ -5171,6 +5269,14 @@
             },
             {
               "kind": "field",
+              "name": "formFieldEvent",
+              "type": {
+                "text": "EventEmitter<SlFormFieldEvent>"
+              },
+              "description": "Emits when the field is added to a form."
+            },
+            {
+              "kind": "field",
               "name": "hint",
               "type": {
                 "text": "string | undefined"
@@ -5198,24 +5304,6 @@
               "expandedType": {
                 "text": "'optional' | 'required' | undefined"
               }
-            },
-            {
-              "kind": "event",
-              "name": "sl-form-field",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the field is added to a form."
-            }
-          ],
-          "events": [
-            {
-              "name": "formFieldEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the field is added to a form.",
-              "fieldName": "formFieldEvent"
             }
           ],
           "attributes": [
@@ -5268,6 +5356,14 @@
                 "text": "HTMLElement & FormControl | undefined"
               },
               "description": "The form control element."
+            },
+            {
+              "kind": "field",
+              "name": "formFieldEvent",
+              "type": {
+                "text": "EventEmitter<SlFormFieldEvent>"
+              },
+              "description": "Emits when the field is added to a form."
             }
           ]
         }
@@ -5755,14 +5851,6 @@
           "name": "*",
           "declaration": {
             "name": "*",
-            "package": "./src/events.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
             "package": "./src/filter-column.js"
           }
         },
@@ -5927,10 +6015,10 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdate",
+              "kind": "field",
+              "name": "columnUpdateEvent",
               "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -6270,20 +6358,6 @@
               }
             }
           ],
-          "events": [
-            {
-              "name": "columnUpdate",
-              "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdate",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "../packages/components/grid/src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -6395,6 +6469,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -6475,10 +6561,10 @@
               "attribute": "auto-width"
             },
             {
-              "kind": "event",
-              "name": "columnUpdate",
+              "kind": "field",
+              "name": "columnUpdateEvent",
               "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
               },
               "description": "Emits when the column definition has changed."
             },
@@ -6636,16 +6722,6 @@
               "attribute": "width"
             }
           ],
-          "events": [
-            {
-              "name": "columnUpdate",
-              "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdate"
-            }
-          ],
           "attributes": [
             {
               "name": "align",
@@ -6801,6 +6877,14 @@
           "fields": [
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed."
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -6877,10 +6961,10 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdate",
+              "kind": "field",
+              "name": "columnUpdateEvent",
               "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -7211,20 +7295,6 @@
               }
             }
           ],
-          "events": [
-            {
-              "name": "columnUpdate",
-              "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdate",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "../packages/components/grid/src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -7327,6 +7397,18 @@
           "fields": [
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -7377,133 +7459,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "../packages/components/grid/src/events.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "GridActiveItemChangeEvent",
-          "superclass": {
-            "name": "GridEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "GridColumnEvent",
-          "superclass": {
-            "name": "GridEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "GridEvent",
-          "superclass": {
-            "name": "Event",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "GridFilterValueChangeEvent",
-          "superclass": {
-            "name": "GridColumnEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "GridItemDropEvent",
-          "superclass": {
-            "name": "GridItemEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "GridItemEvent",
-          "superclass": {
-            "name": "GridEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "GridSortDirectionChangeEvent",
-          "superclass": {
-            "name": "GridColumnEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "GridEvent",
-          "declaration": {
-            "name": "GridEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "GridItemEvent",
-          "declaration": {
-            "name": "GridItemEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "GridItemDropEvent",
-          "declaration": {
-            "name": "GridItemDropEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "GridActiveItemChangeEvent",
-          "declaration": {
-            "name": "GridActiveItemChangeEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "GridColumnEvent",
-          "declaration": {
-            "name": "GridColumnEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "GridFilterValueChangeEvent",
-          "declaration": {
-            "name": "GridFilterValueChangeEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "GridSortDirectionChangeEvent",
-          "declaration": {
-            "name": "GridSortDirectionChangeEvent",
-            "module": "../packages/components/grid/src/events.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "../packages/components/grid/src/filter-column.ts",
       "declarations": [
         {
@@ -7542,10 +7497,10 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdate",
+              "kind": "field",
+              "name": "columnUpdateEvent",
               "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -7934,20 +7889,6 @@
           },
           "tagName": "sl-grid-filter-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdate",
-              "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdate",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "../packages/components/grid/src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -8074,6 +8015,18 @@
             },
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -8162,18 +8115,18 @@
               "description": "The custom filter"
             },
             {
-              "kind": "event",
-              "name": "filterChange",
+              "kind": "field",
+              "name": "filterChangeEvent",
               "type": {
-                "text": "EventEmitter<GridFilterChange>"
+                "text": "EventEmitter<SlFilterChangeEvent>"
               },
               "description": "Emits when the filter has been added or removed."
             },
             {
-              "kind": "event",
-              "name": "filterValueChange",
+              "kind": "field",
+              "name": "filterValueChangeEvent",
               "type": {
-                "text": "EventEmitter<GridFilterValueChangeEvent<T>>"
+                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
               },
               "description": "Emits when the value of the this filter has changed."
             },
@@ -8213,24 +8166,6 @@
                 "text": "string | string[] | undefined"
               },
               "attribute": "value"
-            }
-          ],
-          "events": [
-            {
-              "name": "filterChange",
-              "type": {
-                "text": "EventEmitter<GridFilterChange>"
-              },
-              "description": "Emits when the filter has been added or removed.",
-              "fieldName": "filterChange"
-            },
-            {
-              "name": "filterValueChange",
-              "type": {
-                "text": "EventEmitter<GridFilterValueChangeEvent<T>>"
-              },
-              "description": "Emits when the value of the this filter has changed.",
-              "fieldName": "filterValueChange"
             }
           ],
           "attributes": [
@@ -8292,6 +8227,22 @@
             },
             {
               "kind": "field",
+              "name": "filterChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlFilterChangeEvent>"
+              },
+              "description": "Emits when the filter has been added or removed."
+            },
+            {
+              "kind": "field",
+              "name": "filterValueChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlFilterValueChangeEvent<T>>"
+              },
+              "description": "Emits when the value of the this filter has changed."
+            },
+            {
+              "kind": "field",
               "name": "options",
               "type": {
                 "text": "GridFilterOption[] | undefined"
@@ -8344,10 +8295,10 @@
               "description": "The active item in the grid."
             },
             {
-              "kind": "event",
-              "name": "activeItemChange",
+              "kind": "field",
+              "name": "activeItemChangeEvent",
               "type": {
-                "text": "EventEmitter<GridActiveItemChangeEvent<T>>"
+                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
               },
               "description": "Emits when the active item changes"
             },
@@ -8358,6 +8309,22 @@
                 "text": "DataSource<T> | undefined"
               },
               "description": "Provide your own implementation for getting the data."
+            },
+            {
+              "kind": "field",
+              "name": "dragEndEvent",
+              "type": {
+                "text": "EventEmitter<SlDragEndEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished."
+            },
+            {
+              "kind": "field",
+              "name": "dragStartEvent",
+              "type": {
+                "text": "EventEmitter<SlDragStartEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting."
             },
             {
               "kind": "field",
@@ -8373,51 +8340,19 @@
             },
             {
               "kind": "field",
+              "name": "dropEvent",
+              "type": {
+                "text": "EventEmitter<SlDropEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped."
+            },
+            {
+              "kind": "field",
               "name": "dropFilter",
               "type": {
                 "text": "GridDropFilter<T> | undefined"
               },
               "description": "Determines if or what kind of drop target the given item is:\n- boolean: the item is valid drop target based on the draggableRows value\n- 'between': the item is a valid drop target between\n- 'on-top': the item is a valid drop target to drop on top of"
-            },
-            {
-              "kind": "event",
-              "name": "gridDragend",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when a drag operation has finished."
-            },
-            {
-              "kind": "event",
-              "name": "gridDragstart",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when a drag operation is starting."
-            },
-            {
-              "kind": "event",
-              "name": "gridDrop",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when an item has been dropped."
-            },
-            {
-              "kind": "event",
-              "name": "gridItemsChange",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when the items in the grid have changed."
-            },
-            {
-              "kind": "event",
-              "name": "gridStateChange",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when the state in the grid has changed."
             },
             {
               "kind": "field",
@@ -8572,6 +8507,14 @@
             },
             {
               "kind": "field",
+              "name": "stateChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlStateChangeEvent<T>>"
+              },
+              "description": "Emits when the state in the grid has changed."
+            },
+            {
+              "kind": "field",
               "name": "striped",
               "type": {
                 "text": "boolean | undefined"
@@ -8595,56 +8538,6 @@
                 "text": "HTMLTableSectionElement"
               },
               "description": "The `<thead>` element."
-            }
-          ],
-          "events": [
-            {
-              "name": "activeItemChange",
-              "type": {
-                "text": "EventEmitter<GridActiveItemChangeEvent<T>>"
-              },
-              "description": "Emits when the active item changes",
-              "fieldName": "activeItemChange"
-            },
-            {
-              "name": "gridDragstart",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when a drag operation is starting.",
-              "fieldName": "gridDragstart"
-            },
-            {
-              "name": "gridDragend",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when a drag operation has finished.",
-              "fieldName": "gridDragend"
-            },
-            {
-              "name": "gridDrop",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when an item has been dropped.",
-              "fieldName": "gridDrop"
-            },
-            {
-              "name": "gridItemsChange",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when the items in the grid have changed.",
-              "fieldName": "gridItemsChange"
-            },
-            {
-              "name": "gridStateChange",
-              "type": {
-                "text": "EventEmitter<GridEvent<T>>"
-              },
-              "description": "Emits when the state in the grid has changed.",
-              "fieldName": "gridStateChange"
             }
           ],
           "attributes": [
@@ -8823,11 +8716,43 @@
             },
             {
               "kind": "field",
+              "name": "activeItemChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlActiveItemChangeEvent<T>>"
+              },
+              "description": "Emits when the active item changes"
+            },
+            {
+              "kind": "field",
               "name": "dataSource",
               "type": {
                 "text": "DataSource<T> | undefined"
               },
               "description": "Provide your own implementation for getting the data."
+            },
+            {
+              "kind": "field",
+              "name": "dragStartEvent",
+              "type": {
+                "text": "EventEmitter<SlDragStartEvent<T>>"
+              },
+              "description": "Emits when a drag operation is starting."
+            },
+            {
+              "kind": "field",
+              "name": "dragEndEvent",
+              "type": {
+                "text": "EventEmitter<SlDragEndEvent<T>>"
+              },
+              "description": "Emits when a drag operation has finished."
+            },
+            {
+              "kind": "field",
+              "name": "dropEvent",
+              "type": {
+                "text": "EventEmitter<SlDropEvent<T>>"
+              },
+              "description": "Emits when an item has been dropped."
             },
             {
               "kind": "field",
@@ -8850,6 +8775,14 @@
               "name": "model",
               "default": "new GridViewModel<T>(this)",
               "description": "The model used for rendering the grid."
+            },
+            {
+              "kind": "field",
+              "name": "stateChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlStateChangeEvent<T>>"
+              },
+              "description": "Emits when the state in the grid has changed."
             },
             {
               "kind": "field",
@@ -8925,6 +8858,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<boolean>>"
+              },
+              "description": "Emits when the user changes the group selection."
+            },
+            {
+              "kind": "field",
               "name": "selectable",
               "type": {
                 "text": "boolean | undefined"
@@ -8943,38 +8884,12 @@
               "attribute": "selected"
             },
             {
-              "kind": "event",
-              "name": "sl-select",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the user changes the group selection."
-            },
-            {
-              "kind": "event",
-              "name": "sl-toggle",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the user collapses/expands the group."
-            }
-          ],
-          "events": [
-            {
-              "name": "selectEvent",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the user changes the group selection.",
-              "fieldName": "selectEvent"
-            },
-            {
+              "kind": "field",
               "name": "toggleEvent",
               "type": {
-                "text": "EventEmitter<boolean>"
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
               },
-              "description": "Emits when the user collapses/expands the group.",
-              "fieldName": "toggleEvent"
+              "description": "Emits when the user collapses/expands the group."
             }
           ],
           "attributes": [
@@ -9024,7 +8939,24 @@
           },
           "customElement": true,
           "methods": [],
-          "fields": []
+          "fields": [
+            {
+              "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<boolean>>"
+              },
+              "description": "Emits when the user changes the group selection."
+            },
+            {
+              "kind": "field",
+              "name": "toggleEvent",
+              "type": {
+                "text": "EventEmitter<SlToggleEvent<boolean>>"
+              },
+              "description": "Emits when the user collapses/expands the group."
+            }
+          ]
         }
       ],
       "exports": [
@@ -9078,10 +9010,10 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdate",
+              "kind": "field",
+              "name": "columnUpdateEvent",
               "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -9429,20 +9361,6 @@
           },
           "tagName": "sl-grid-select-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdate",
-              "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdate",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "../packages/components/grid/src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -9545,6 +9463,18 @@
           "fields": [
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -9642,10 +9572,10 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdate",
+              "kind": "field",
+              "name": "columnUpdateEvent",
               "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -10019,20 +9949,6 @@
           },
           "tagName": "sl-grid-selection-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdate",
-              "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdate",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "../packages/components/grid/src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -10153,6 +10069,18 @@
           "fields": [
             {
               "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
+            {
+              "kind": "field",
               "name": "grid",
               "type": {
                 "text": "Grid<T> | undefined"
@@ -10241,10 +10169,10 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdate",
+              "kind": "field",
+              "name": "columnUpdateEvent",
               "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -10606,20 +10534,6 @@
           },
           "tagName": "sl-grid-sort-column",
           "customElement": true,
-          "events": [
-            {
-              "name": "columnUpdate",
-              "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdate",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "../packages/components/grid/src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -10727,6 +10641,18 @@
                 "text": "DataSourceSortFunction<T> | undefined"
               },
               "description": "If you want to provide a custom sort function, you can via this property."
+            },
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
             },
             {
               "kind": "field",
@@ -10841,10 +10767,10 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sortDirectionChange",
+              "kind": "field",
+              "name": "sortDirectionChangeEvent",
               "type": {
-                "text": "EventEmitter<GridSortDirectionChangeEvent<T>>"
+                "text": "EventEmitter<SlSortDirectionChangeEvent<T>>"
               },
               "description": "Emits when the direction has changed."
             },
@@ -10857,30 +10783,12 @@
               "description": "An optional custom sort function."
             },
             {
-              "kind": "event",
-              "name": "sorterChange",
+              "kind": "field",
+              "name": "sorterChangeEvent",
               "type": {
-                "text": "EventEmitter<GridSorterChange>"
+                "text": "EventEmitter<SlSorterChangeEvent>"
               },
               "description": "Emits when the sorter has been added or removed."
-            }
-          ],
-          "events": [
-            {
-              "name": "sorterChange",
-              "type": {
-                "text": "EventEmitter<GridSorterChange>"
-              },
-              "description": "Emits when the sorter has been added or removed.",
-              "fieldName": "sorterChange"
-            },
-            {
-              "name": "sortDirectionChange",
-              "type": {
-                "text": "EventEmitter<GridSortDirectionChangeEvent<T>>"
-              },
-              "description": "Emits when the direction has changed.",
-              "fieldName": "sortDirectionChange"
             }
           ],
           "attributes": [
@@ -10942,6 +10850,22 @@
                 "text": "DataSourceSortFunction<T> | undefined"
               },
               "description": "An optional custom sort function."
+            },
+            {
+              "kind": "field",
+              "name": "sorterChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlSorterChangeEvent>"
+              },
+              "description": "Emits when the sorter has been added or removed."
+            },
+            {
+              "kind": "field",
+              "name": "sortDirectionChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlSortDirectionChangeEvent<T>>"
+              },
+              "description": "Emits when the direction has changed."
             }
           ]
         }
@@ -10997,10 +10921,10 @@
               }
             },
             {
-              "kind": "event",
-              "name": "columnUpdate",
+              "kind": "field",
+              "name": "columnUpdateEvent",
               "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
               },
               "description": "Emits when the column definition has changed.",
               "inheritedFrom": {
@@ -11331,20 +11255,6 @@
               }
             }
           ],
-          "events": [
-            {
-              "name": "columnUpdate",
-              "type": {
-                "text": "EventEmitter<GridColumnEvent<T>>"
-              },
-              "description": "Emits when the column definition has changed.",
-              "fieldName": "columnUpdate",
-              "inheritedFrom": {
-                "name": "GridColumn",
-                "module": "../packages/components/grid/src/column.ts"
-              }
-            }
-          ],
           "methods": [
             {
               "kind": "method",
@@ -11445,6 +11355,18 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "columnUpdateEvent",
+              "type": {
+                "text": "EventEmitter<SlColumnUpdateEvent<T>>"
+              },
+              "description": "Emits when the column definition has changed.",
+              "inheritedFrom": {
+                "name": "GridColumn",
+                "module": "../packages/components/grid/src/column.ts"
+              }
+            },
             {
               "kind": "field",
               "name": "grid",
@@ -12395,6 +12317,12 @@
           "kind": "class",
           "description": "Custom element that combines a button and a menu and automatically wires them up\ntogether.",
           "name": "MenuButton",
+          "cssParts": [
+            {
+              "description": "The button element.",
+              "name": "button"
+            }
+          ],
           "slots": [
             {
               "description": "The menu items should be slotted in the default slot.",
@@ -12746,6 +12674,12 @@
           "kind": "class",
           "description": "Menu item component for use inside a menu.",
           "name": "MenuItem",
+          "cssParts": [
+            {
+              "description": "The wrapper around the menu item content.",
+              "name": "wrapper"
+            }
+          ],
           "slots": [
             {
               "description": "Content to display inside the menu item.",
@@ -12766,6 +12700,14 @@
               "description": "Whether this menu item is disabled.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent>"
+              },
+              "description": "Emits when the user toggles the selected state."
             },
             {
               "kind": "field",
@@ -12796,14 +12738,6 @@
               "attribute": "shortcut"
             },
             {
-              "kind": "event",
-              "name": "sl-select",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the user toggles the selected state."
-            },
-            {
               "kind": "field",
               "name": "submenu",
               "type": {
@@ -12820,16 +12754,6 @@
               "static": true,
               "default": "0",
               "description": "The default offset of the submenu to the menu item."
-            }
-          ],
-          "events": [
-            {
-              "name": "selectEvent",
-              "type": {
-                "text": "EventEmitter<boolean>"
-              },
-              "description": "Emits when the user toggles the selected state.",
-              "fieldName": "selectEvent"
             }
           ],
           "attributes": [
@@ -12892,6 +12816,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent>"
+              },
+              "description": "Emits when the user toggles the selected state."
+            },
+            {
+              "kind": "field",
               "name": "submenu",
               "type": {
                 "text": "Menu | undefined"
@@ -12932,8 +12864,24 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A menu that can be used as a context menu or as a dropdown menu.",
           "name": "Menu",
+          "cssProperties": [
+            {
+              "description": "The maximum inline size of the menu.",
+              "name": "--sl-menu-max-inline-size"
+            },
+            {
+              "description": "The minimum inline size of the menu.",
+              "name": "--sl-menu-min-inline-size"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The menu's content: menu items or menu item groups.",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "method",
@@ -12978,6 +12926,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<void>>"
+              },
+              "description": "Emits when the menu item selection changes."
+            },
+            {
+              "kind": "field",
               "name": "selectableChildren",
               "type": {
                 "text": "boolean | undefined"
@@ -12994,14 +12950,6 @@
               "attribute": "selects"
             },
             {
-              "kind": "event",
-              "name": "sl-select",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the menu item selection changes."
-            },
-            {
               "kind": "field",
               "name": "viewportMargin",
               "type": {
@@ -13010,16 +12958,6 @@
               "static": true,
               "default": "8",
               "description": "The default margin between the menu and the viewport."
-            }
-          ],
-          "events": [
-            {
-              "name": "selectEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the menu item selection changes.",
-              "fieldName": "selectEvent"
             }
           ],
           "attributes": [
@@ -13088,6 +13026,14 @@
                 "text": "number | undefined"
               },
               "description": "The offset of the menu to its anchor. This is a property on this instance so\nthat it can be overridden by the menu item in case of a nested menu. You\nshould not need to set this property yourself."
+            },
+            {
+              "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<void>>"
+              },
+              "description": "Emits when the menu item selection changes."
             },
             {
               "kind": "field",
@@ -13614,6 +13560,22 @@
           "members": [
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | undefined>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
               "name": "customValidity",
               "type": {
                 "text": "string | undefined"
@@ -13634,6 +13596,14 @@
               "description": "Whether the group is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",
@@ -13811,30 +13781,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<T | undefined>"
-              },
-              "description": "Emits when the value changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus."
-            },
-            {
               "kind": "field",
               "name": "valid",
               "type": {
@@ -13894,41 +13840,6 @@
               },
               "description": "The value for the radio group, to be used in forms.",
               "attribute": "value",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<T | undefined>"
-              },
-              "description": "Emits when the value changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus.",
-              "fieldName": "focusEvent"
-            },
-            {
-              "type": {
-                "text": "ValidateEvent"
-              },
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -14036,6 +13947,17 @@
           },
           "tagName": "sl-radio-group",
           "customElement": true,
+          "events": [
+            {
+              "type": {
+                "text": "ValidateEvent"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            }
+          ],
           "methods": [
             {
               "kind": "method",
@@ -14090,6 +14012,30 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | undefined>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
+            },
             {
               "kind": "field",
               "name": "formValue",
@@ -14235,7 +14181,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is checked.",
+              "description": "Whether the radio button is checked.",
               "attribute": "checked",
               "reflects": true
             },
@@ -14292,7 +14238,7 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Whether the radio is checked.",
+              "description": "Whether the radio button is checked.",
               "fieldName": "checked"
             },
             {
@@ -14791,11 +14737,27 @@
           "members": [
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "field",
               "name": "button",
               "type": {
                 "text": "SelectButton"
               },
               "description": "The button in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | undefined>>"
+              },
+              "description": "Emits when the value changes."
             },
             {
               "kind": "field",
@@ -14819,6 +14781,14 @@
               "description": "Whether the select is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",
@@ -15015,30 +14985,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the focus leaves the component."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<T | undefined>"
-              },
-              "description": "Emits when the value changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component gains focus."
-            },
-            {
               "kind": "field",
               "name": "valid",
               "type": {
@@ -15112,41 +15058,6 @@
               "static": true,
               "default": "8",
               "description": "The default margin between the tooltip and the viewport."
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the focus leaves the component.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<T | undefined>"
-              },
-              "description": "Emits when the value changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component gains focus.",
-              "fieldName": "focusEvent"
-            },
-            {
-              "type": {
-                "text": "ValidateEvent"
-              },
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
-              }
             }
           ],
           "attributes": [
@@ -15255,6 +15166,17 @@
           },
           "tagName": "sl-select",
           "customElement": true,
+          "events": [
+            {
+              "type": {
+                "text": "ValidateEvent"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            }
+          ],
           "methods": [
             {
               "kind": "method",
@@ -15336,6 +15258,30 @@
                 "text": "SelectButton"
               },
               "description": "The button in the light DOM."
+            },
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | undefined>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",
@@ -15576,6 +15522,14 @@
           "declaration": {
             "name": "*",
             "package": "./src/decorators/observe.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "package": "./src/dom.js"
           }
         },
         {
@@ -16120,7 +16074,43 @@
                 {
                   "name": "element",
                   "type": {
-                    "text": "Window | Document | HTMLElement | ShadowRoot | MediaQueryList"
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: Element, ev: GlobalEventHandlersEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Window | Document | Element | HTMLElement | ShadowRoot | MediaQueryList"
                   }
                 },
                 {
@@ -16356,7 +16346,43 @@
                 {
                   "name": "element",
                   "type": {
-                    "text": "Window | Document | HTMLElement | ShadowRoot | MediaQueryList"
+                    "text": "Element"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: Element, ev: GlobalEventHandlersEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "element",
+                  "type": {
+                    "text": "Window | Document | Element | HTMLElement | ShadowRoot | MediaQueryList"
                   }
                 },
                 {
@@ -19341,7 +19367,7 @@
                 {
                   "name": "value",
                   "type": {
-                    "text": "T"
+                    "text": "T | T['detail']"
                   }
                 },
                 {
@@ -19367,7 +19393,7 @@
                 {
                   "name": "value",
                   "type": {
-                    "text": "T"
+                    "text": "T | T['detail']"
                   }
                 },
                 {
@@ -19499,6 +19525,118 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/dom.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "getScrollParent",
+          "return": {
+            "type": {
+              "text": ""
+            }
+          },
+          "parameters": [
+            {
+              "name": "element",
+              "type": {
+                "text": "Element"
+              },
+              "description": "The element to find the scrollable parent of."
+            }
+          ],
+          "description": "Returns the first scrollable parent of the given element."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "getScrollParent",
+          "declaration": {
+            "name": "getScrollParent",
+            "module": "../packages/components/shared/src/dom.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/events.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SlBlurEvent",
+          "declaration": {
+            "name": "SlBlurEvent",
+            "module": "./events/blur.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlChangeEvent",
+          "declaration": {
+            "name": "SlChangeEvent",
+            "module": "./events/change.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlFocusEvent",
+          "declaration": {
+            "name": "SlFocusEvent",
+            "module": "./events/focus.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlSelectEvent",
+          "declaration": {
+            "name": "SlSelectEvent",
+            "module": "./events/select.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlToggleEvent",
+          "declaration": {
+            "name": "SlToggleEvent",
+            "module": "./events/toggle.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/events/blur.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/events/change.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/events/focus.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/events/select.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../packages/components/shared/src/events/toggle.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -20179,7 +20317,7 @@
           "name": "Spinner",
           "cssProperties": [
             {
-              "description": "The size of the spinner, defaults to md if not set",
+              "description": "The size of the spinner, defaults to `md` if not set.",
               "name": "--sl-spinner-size"
             }
           ],
@@ -20190,7 +20328,7 @@
               "type": {
                 "text": "SpinnerSize | undefined"
               },
-              "description": "The size of the spinner. Defaults to md in CSS if not set.",
+              "description": "The size of the spinner. Defaults to `md` with css properties if not attribute is not set.",
               "attribute": "size",
               "reflects": true,
               "expandedType": {
@@ -20217,7 +20355,7 @@
               "type": {
                 "text": "SpinnerSize | undefined"
               },
-              "description": "The size of the spinner. Defaults to md in CSS if not set.",
+              "description": "The size of the spinner. Defaults to `md` with css properties if not attribute is not set.",
               "fieldName": "size",
               "expandedType": {
                 "text": "'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | undefined"
@@ -20317,6 +20455,22 @@
           "members": [
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | null>>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "field",
               "name": "checked",
               "type": {
                 "text": "boolean | undefined"
@@ -20347,6 +20501,14 @@
               "description": "Whether the switch is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
             },
             {
               "kind": "field",
@@ -20535,30 +20697,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<T | null>"
-              },
-              "description": "Emits when the checked state changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus."
-            },
-            {
               "kind": "field",
               "name": "valid",
               "type": {
@@ -20618,41 +20756,6 @@
               },
               "description": "The value of the switch when the switch is checked.\nSee the formValue property for easy access.",
               "attribute": "value",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component loses focus.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<T | null>"
-              },
-              "description": "Emits when the checked state changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component receives focus.",
-              "fieldName": "focusEvent"
-            },
-            {
-              "type": {
-                "text": "ValidateEvent"
-              },
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -20773,6 +20876,17 @@
           },
           "tagName": "sl-switch",
           "customElement": true,
+          "events": [
+            {
+              "type": {
+                "text": "ValidateEvent"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            }
+          ],
           "methods": [
             {
               "kind": "method",
@@ -20827,6 +20941,30 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the component loses focus."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<T | null>>"
+              },
+              "description": "Emits when the checked state changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component receives focus."
+            },
             {
               "kind": "field",
               "name": "formValue",
@@ -21038,44 +21176,104 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A tab group component that can contain tabs and tab panels.\n\n```html\n   <sl-tab-group>\n        <sl-tab selected>First tab</sl-tab>\n        <sl-tab-panel>Content of the tab 1</sl-tab-panel>\n\n        <sl-tab>Second tab</sl-tab>\n        <sl-tab-panel>Content of the tab 2</sl-tab-panel>\n   </sl-tab-group>\n```",
+          "description": "A tab group component that can contain tabs and tab panels.\n\n```html\n  <sl-tab-group>\n    <sl-tab>First tab</sl-tab>\n    <sl-tab selected>Second tab</sl-tab>\n\n    <sl-tab-panel>Content of tab 1</sl-tab-panel>\n    <sl-tab-panel>Content of tab 2</sl-tab-panel>\n  </sl-tab-group>\n```",
           "name": "TabGroup",
+          "cssProperties": [
+            {
+              "description": "The minimum inline size of the menu.",
+              "name": "--sl-tab-group-menu-min-inline-size"
+            },
+            {
+              "description": "The maximum inline size of the menu.",
+              "name": "--sl-tab-group-menu-max-inline-size"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The container for the tabs.",
+              "name": "container"
+            },
+            {
+              "description": "Wraps the scroll container and menu button.",
+              "name": "wrapper"
+            },
+            {
+              "description": "The scroll container of the tabs.",
+              "name": "scroller"
+            },
+            {
+              "description": "The tablist element which also contains the active tab indicator",
+              "name": "tablist"
+            },
+            {
+              "description": "The container for the tab panels.",
+              "name": "panels"
+            }
+          ],
           "slots": [
             {
-              "description": "a place for the tab group content.",
+              "description": "Tab panels or other tab content here.",
               "name": "default"
+            },
+            {
+              "description": "The tabs to display.",
+              "name": "tabs"
             }
           ],
           "members": [
             {
               "kind": "field",
-              "name": "alignment",
+              "name": "alignTabs",
               "type": {
-                "text": "TabsAlignment"
+                "text": "TabsAlignment | undefined"
               },
-              "default": "'start'",
-              "description": "The alignment of tabs inside sl-tab-group",
-              "attribute": "alignment",
+              "description": "The alignment of tabs within the wrapper.",
+              "attribute": "align-tabs",
               "reflects": true,
               "expandedType": {
-                "text": "'start' | 'filled'"
+                "text": "'start' | 'center' | 'end' | 'stretch' | undefined"
               }
             },
             {
               "kind": "field",
-              "name": "listbox",
+              "name": "menuItems",
               "type": {
-                "text": "HTMLElement"
+                "text": "Array<{ tab: Tab; disabled?: boolean; title: string; subtitle?: string }> | undefined"
               },
-              "description": "The listbox element with all tabs list."
+              "description": "The menu items to render when the tabs are overflowing."
             },
             {
-              "kind": "event",
-              "name": "tabChange",
+              "kind": "field",
+              "name": "selectedTab",
               "type": {
-                "text": "EventEmitter<number>"
+                "text": "Tab | undefined"
+              },
+              "description": "The currently selected tab."
+            },
+            {
+              "kind": "field",
+              "name": "showMenu",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the menu button needs to be shown."
+            },
+            {
+              "kind": "field",
+              "name": "tabChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlTabChangeEvent>"
               },
               "description": "Emits when the tab has been selected/changed."
+            },
+            {
+              "kind": "field",
+              "name": "tabPanels",
+              "type": {
+                "text": "TabPanel[] | undefined"
+              },
+              "description": "The slotted tabs."
             },
             {
               "kind": "field",
@@ -21096,17 +21294,18 @@
               "reflects": true
             }
           ],
-          "events": [
-            {
-              "name": "tabChange",
-              "type": {
-                "text": "EventEmitter<number>"
-              },
-              "description": "Emits when the tab has been selected/changed.",
-              "fieldName": "tabChange"
-            }
-          ],
           "attributes": [
+            {
+              "name": "align-tabs",
+              "type": {
+                "text": "TabsAlignment | undefined"
+              },
+              "description": "The alignment of tabs within the wrapper.",
+              "fieldName": "alignTabs",
+              "expandedType": {
+                "text": "'start' | 'center' | 'end' | 'stretch' | undefined"
+              }
+            },
             {
               "name": "vertical",
               "type": {
@@ -21114,18 +21313,6 @@
               },
               "description": "Renders the tabs vertically instead of the default horizontal",
               "fieldName": "vertical"
-            },
-            {
-              "name": "alignment",
-              "type": {
-                "text": "TabsAlignment"
-              },
-              "default": "'start'",
-              "description": "The alignment of tabs inside sl-tab-group",
-              "fieldName": "alignment",
-              "expandedType": {
-                "text": "'start' | 'filled'"
-              }
             }
           ],
           "mixins": [
@@ -21144,19 +21331,52 @@
           "fields": [
             {
               "kind": "field",
-              "name": "tabs",
+              "name": "menuItems",
               "type": {
-                "text": "Tab[] | undefined"
+                "text": "Array<{ tab: Tab; disabled?: boolean; title: string; subtitle?: string }> | undefined"
+              },
+              "description": "The menu items to render when the tabs are overflowing."
+            },
+            {
+              "kind": "field",
+              "name": "selectedTab",
+              "type": {
+                "text": "Tab | undefined"
+              },
+              "description": "The currently selected tab."
+            },
+            {
+              "kind": "field",
+              "name": "showMenu",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the menu button needs to be shown."
+            },
+            {
+              "kind": "field",
+              "name": "tabChangeEvent",
+              "type": {
+                "text": "EventEmitter<SlTabChangeEvent>"
+              },
+              "description": "Emits when the tab has been selected/changed."
+            },
+            {
+              "kind": "field",
+              "name": "tabPanels",
+              "type": {
+                "text": "TabPanel[] | undefined"
               },
               "description": "The slotted tabs."
             },
             {
               "kind": "field",
-              "name": "listbox",
+              "name": "tabs",
               "type": {
-                "text": "HTMLElement"
+                "text": "Tab[] | undefined"
               },
-              "description": "The listbox element with all tabs list."
+              "description": "The slotted tabs."
             }
           ]
         }
@@ -21192,7 +21412,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A tab panel component - part of the tab group component, place for a tab content.\n\n```html\n     <sl-tab-panel>\n       Content of the tab\n     </sl-tab-panel>\n```",
+          "description": "A tab panel component, to be used with the tab group component for your tab content.\n\n```html\n  <sl-tab-panel>Content of the tab</sl-tab-panel>\n```",
           "name": "TabPanel",
           "slots": [
             {
@@ -21240,7 +21460,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A tab component - part of the tab group component.\n\n```html\n     <sl-tab>\n        <sl-icon slot=\"icon\" name=\"star\" size=\"md\"></sl-icon>\n        Tab label\n        <span slot=\"subtitle\">Tab subtitle</span>\n        <sl-badge slot=\"badge\" size=\"lg\" variant=\"danger\">4</sl-badge>\n     </sl-tab>\n```",
+          "description": "A tab component - part of the tab group component.\n\n```html\n  <sl-tab>\n    <sl-icon slot=\"icon\" name=\"star\" size=\"md\"></sl-icon>\n    Tab label\n    <span slot=\"subtitle\">Tab subtitle</span>\n    <sl-badge slot=\"badge\" size=\"lg\" variant=\"danger\">4</sl-badge>\n  </sl-tab>\n```",
           "name": "Tab",
           "slots": [
             {
@@ -21265,31 +21485,36 @@
               "kind": "field",
               "name": "disabled",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the tab item is disabled",
               "attribute": "disabled",
               "reflects": true
             },
             {
+              "kind": "field",
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "When set, it will render the tab contents in a link tag. Use this when\nyou want to render the tab contents using a router and to make the tab\nnavigatable by URL.",
+              "attribute": "href"
+            },
+            {
               "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
+              "name": "renderContent",
               "return": {
                 "type": {
-                  "text": "void"
+                  "text": "TemplateResult"
                 }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+              }
             },
             {
               "kind": "field",
               "name": "selected",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the tab item is selected",
               "attribute": "selected",
               "reflects": true
@@ -21297,22 +21522,28 @@
           ],
           "attributes": [
             {
-              "name": "selected",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
-              "description": "Whether the tab item is selected",
-              "fieldName": "selected"
-            },
-            {
               "name": "disabled",
               "type": {
-                "text": "boolean"
+                "text": "boolean | undefined"
               },
-              "default": "false",
               "description": "Whether the tab item is disabled",
               "fieldName": "disabled"
+            },
+            {
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "When set, it will render the tab contents in a link tag. Use this when\nyou want to render the tab contents using a router and to make the tab\nnavigatable by URL.",
+              "fieldName": "href"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Whether the tab item is selected",
+              "fieldName": "selected"
             }
           ],
           "superclass": {
@@ -21324,14 +21555,12 @@
           "methods": [
             {
               "kind": "method",
-              "name": "handleSelectionChange",
-              "privacy": "protected",
+              "name": "renderContent",
               "return": {
                 "type": {
-                  "text": "void"
+                  "text": "TemplateResult"
                 }
-              },
-              "description": "Apply accessible attributes and values to the tab button.\nObserve the selected property if it changes"
+              }
             }
           ],
           "fields": []
@@ -21432,6 +21661,22 @@
             },
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<string>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
               "name": "customValidity",
               "type": {
                 "text": "string | undefined"
@@ -21452,6 +21697,14 @@
               "description": "Whether the text field is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",
@@ -21675,30 +21928,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the focus leaves the component."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the value changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component gains focus."
-            },
-            {
               "kind": "field",
               "name": "type",
               "type": {
@@ -21769,41 +21998,6 @@
               "description": "The value for the input, to be used in forms.",
               "default": "''",
               "attribute": "value",
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the focus leaves the component.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the value changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component gains focus.",
-              "fieldName": "focusEvent"
-            },
-            {
-              "type": {
-                "text": "ValidateEvent"
-              },
               "inheritedFrom": {
                 "name": "FormControlMixin",
                 "module": "../packages/components/form/src/form-control-mixin.ts"
@@ -21966,6 +22160,17 @@
           },
           "tagName": "sl-text-field",
           "customElement": true,
+          "events": [
+            {
+              "type": {
+                "text": "ValidateEvent"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            }
+          ],
           "methods": [
             {
               "kind": "method",
@@ -22020,6 +22225,30 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<string>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component gains focus."
+            },
             {
               "kind": "field",
               "name": "input",
@@ -22220,6 +22449,22 @@
             },
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<string>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
               "name": "customValidity",
               "type": {
                 "text": "string | undefined"
@@ -22240,6 +22485,14 @@
               "description": "Whether the textarea is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",
@@ -22467,30 +22720,6 @@
               }
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the focus leaves the component."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the value changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component gains focus."
-            },
-            {
               "kind": "field",
               "name": "textarea",
               "type": {
@@ -22575,41 +22804,6 @@
               "attribute": "wrap",
               "expandedType": {
                 "text": "'soft' | 'hard'"
-              }
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the focus leaves the component.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<string>"
-              },
-              "description": "Emits when the value changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<void>"
-              },
-              "description": "Emits when the component gains focus.",
-              "fieldName": "focusEvent"
-            },
-            {
-              "type": {
-                "text": "ValidateEvent"
-              },
-              "inheritedFrom": {
-                "name": "FormControlMixin",
-                "module": "../packages/components/form/src/form-control-mixin.ts"
               }
             }
           ],
@@ -22784,6 +22978,17 @@
           },
           "tagName": "sl-textarea",
           "customElement": true,
+          "events": [
+            {
+              "type": {
+                "text": "ValidateEvent"
+              },
+              "inheritedFrom": {
+                "name": "FormControlMixin",
+                "module": "../packages/components/form/src/form-control-mixin.ts"
+              }
+            }
+          ],
           "methods": [
             {
               "kind": "method",
@@ -22838,6 +23043,30 @@
             }
           ],
           "fields": [
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<string>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component gains focus."
+            },
             {
               "kind": "field",
               "name": "textarea",

@@ -14,7 +14,7 @@ describe('sl-tab-panel', () => {
     expect(el).shadowDom.to.equalSnapshot();
   });
 
-  it('should have the correct attributes', () => {
+  it('should have a tabpanel role', () => {
     expect(el).to.have.attribute('role', 'tabpanel');
   });
 });

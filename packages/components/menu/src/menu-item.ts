@@ -22,6 +22,8 @@ declare global {
 /**
  * Menu item component for use inside a menu.
  *
+ * @csspart wrapper - The wrapper around the menu item content.
+ *
  * @slot default - Content to display inside the menu item.
  * @slot submenu - The menu items that will be displayed when the menu item is shown.
  */
@@ -95,7 +97,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div aria-hidden="true" class="safe-triangle"></div>
-      <div class="wrapper">
+      <div part="wrapper">
         ${this.selected ? html`<sl-icon name="check"></sl-icon>` : nothing}
         <slot></slot>
         ${this.shortcut ? html`<kbd>${this.#shortcut.render(this.shortcut)}</kbd>` : nothing}
@@ -114,7 +116,19 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
     }
 
     if (this.submenu) {
-      this.#showSubMenu();
+      event.preventDefault();
+      event.stopPropagation();
+
+      /**
+       * At the moment, we cannot prevent the submenu from closing when clicking
+       * on this menu item. In the future when `beforetoggle` has a `relatedTarget`
+       * attribute, we can detect if the user clicks on this menuitem and prevent
+       * the submenu from closing.
+       *
+       * We need to delay the submenu opening because it may also be closing at
+       * this time.
+       */
+      setTimeout(() => this.#showSubMenu(), 100);
     } else if (this.selectable) {
       this.selected = !this.selected;
       this.selectEvent.emit(this.selected);

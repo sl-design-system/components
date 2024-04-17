@@ -1,5 +1,11 @@
 # @sl-design-system/icon
 
+## 0.0.10
+
+### Patch Changes
+
+- [#1116](https://github.com/sl-design-system/components/pull/1116) [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537) - Fix updating state in updated lifecycle callback (change-in-update Lit warning)
+
 ## 0.0.9
 
 ### Patch Changes

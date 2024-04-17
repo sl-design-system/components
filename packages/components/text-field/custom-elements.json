@@ -72,6 +72,22 @@
             },
             {
               "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<string>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
               "name": "disabled",
               "type": {
                 "text": "boolean | undefined"
@@ -79,6 +95,14 @@
               "description": "Whether the text field is disabled; when set no interaction is possible.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "method",
@@ -174,30 +198,6 @@
               "reflects": true
             },
             {
-              "kind": "event",
-              "name": "sl-blur",
-              "type": {
-                "text": "EventEmitter<SlBlurEvent>"
-              },
-              "description": "Emits when the focus leaves the component."
-            },
-            {
-              "kind": "event",
-              "name": "sl-change",
-              "type": {
-                "text": "EventEmitter<SlChangeEvent<string>>"
-              },
-              "description": "Emits when the value changes."
-            },
-            {
-              "kind": "event",
-              "name": "sl-focus",
-              "type": {
-                "text": "EventEmitter<SlFocusEvent>"
-              },
-              "description": "Emits when the component gains focus."
-            },
-            {
               "kind": "field",
               "name": "type",
               "type": {
@@ -216,32 +216,6 @@
               "default": "''",
               "description": "The value for the input, to be used in forms.",
               "attribute": "value"
-            }
-          ],
-          "events": [
-            {
-              "name": "blurEvent",
-              "type": {
-                "text": "EventEmitter<SlBlurEvent>"
-              },
-              "description": "Emits when the focus leaves the component.",
-              "fieldName": "blurEvent"
-            },
-            {
-              "name": "changeEvent",
-              "type": {
-                "text": "EventEmitter<SlChangeEvent<string>>"
-              },
-              "description": "Emits when the value changes.",
-              "fieldName": "changeEvent"
-            },
-            {
-              "name": "focusEvent",
-              "type": {
-                "text": "EventEmitter<SlFocusEvent>"
-              },
-              "description": "Emits when the component gains focus.",
-              "fieldName": "focusEvent"
             }
           ],
           "attributes": [
@@ -469,6 +443,30 @@
               },
               "default": "false",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "blurEvent",
+              "type": {
+                "text": "EventEmitter<SlBlurEvent>"
+              },
+              "description": "Emits when the focus leaves the component."
+            },
+            {
+              "kind": "field",
+              "name": "changeEvent",
+              "type": {
+                "text": "EventEmitter<SlChangeEvent<string>>"
+              },
+              "description": "Emits when the value changes."
+            },
+            {
+              "kind": "field",
+              "name": "focusEvent",
+              "type": {
+                "text": "EventEmitter<SlFocusEvent>"
+              },
+              "description": "Emits when the component gains focus."
             },
             {
               "kind": "field",

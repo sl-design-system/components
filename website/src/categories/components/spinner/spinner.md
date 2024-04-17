@@ -12,6 +12,6 @@ eleventyNavigation:
   parent: Components
   key: Spinner
   order: 23
-  status: coming
+  status: ready
 ---
 

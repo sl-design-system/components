@@ -1,5 +1,40 @@
 # @sl-design-system/tabs
 
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`9961697`](https://github.com/sl-design-system/components/commit/99616972eaef783779417d65c1b237dff801ad1f), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`9961697`](https://github.com/sl-design-system/components/commit/99616972eaef783779417d65c1b237dff801ad1f)]:
+  - @sl-design-system/shared@0.2.10
+  - @sl-design-system/icon@0.0.10
+  - @sl-design-system/menu@0.0.8
+
+## 0.1.8
+
+### Patch Changes
+
+- [#1086](https://github.com/sl-design-system/components/pull/1086) [`276fd1c`](https://github.com/sl-design-system/components/commit/276fd1ceab3d7054e6ade999245d74f86ff551be) - Fix size of active tab indicator with vertical orientation
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+  - @sl-design-system/menu@0.0.7
+
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [[`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da)]:
+  - @sl-design-system/shared@0.2.8
+  - @sl-design-system/menu@0.0.6
+
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad)]:
+  - @sl-design-system/shared@0.2.7
+  - @sl-design-system/button@0.0.24
+
 ## 0.1.5
 
 ### Patch Changes

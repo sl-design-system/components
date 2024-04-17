@@ -1,4 +1,3 @@
-import { faChevronRight } from '@fortawesome/pro-regular-svg-icons';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Checkbox } from '@sl-design-system/checkbox';
@@ -10,16 +9,10 @@ import { property } from 'lit/decorators.js';
 import styles from './group-header.scss.js';
 
 declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-toggle': SlToggleEvent;
-  }
-
   interface HTMLElementTagNameMap {
     'sl-grid-group-header': GridGroupHeader;
   }
 }
-
-Icon.register(faChevronRight);
 
 export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** @private */
@@ -37,11 +30,8 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** Whether the group is expanded or collapsed. */
   @property({ type: Boolean, reflect: true }) expanded?: boolean;
 
-  /** The group heading. */
-  @property() heading?: string;
-
   /** Wether you can select the entire group. */
-  @property({ type: Boolean }) selectable?: boolean;
+  @property({ type: Boolean, reflect: true }) selectable?: boolean;
 
   /** Whether the group is selected. */
   @property() selected: 'all' | 'some' | 'none' = 'none';
@@ -55,28 +45,30 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <sl-button @click=${this.#onClick} fill="ghost">
-        <sl-icon name="far-chevron-right"></sl-icon>
+        <sl-icon name="chevron-right"></sl-icon>
       </sl-button>
       ${this.selectable
         ? html`
             <sl-checkbox
-              @sl-change=${this.#onToggle}
+              @sl-change=${this.#onChange}
               .checked=${this.selected === 'all'}
               .indeterminate=${this.selected === 'some'}
               size="sm"
             ></sl-checkbox>
           `
         : nothing}
-      <span class="heading">${this.heading}</span>
+      <div part="wrapper">
+        <slot></slot>
+      </div>
     `;
+  }
+
+  #onChange(event: SlChangeEvent<boolean>): void {
+    this.selectEvent.emit(event.detail);
   }
 
   #onClick(): void {
     this.expanded = !this.expanded;
     this.toggleEvent.emit(this.expanded);
-  }
-
-  #onToggle(event: SlChangeEvent<boolean>): void {
-    this.selectEvent.emit(event.detail);
   }
 }

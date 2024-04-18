@@ -45,7 +45,7 @@ The following guidance describes when not to use the text area component.
 
 ### Single-line input
 
-If the input is expected to be short and concise, consider using a [text field](/categories/components/text-field/) component instead of a Text Area.
+If the input is expected to be short and concise, consider using a [text field](/categories/components/text-field/usage) component instead of a Text Area.
 For instance, when collecting a username or password a single-line input is more appropriate.
 
 </section>

@@ -26,6 +26,5 @@ eleventyNavigation:
 
 </section>
 <ds-install-info link-in-navigation package="switch"></ds-install-info>
-</section>
 
 {% include "../component-table.njk" %}

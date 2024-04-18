@@ -78,6 +78,6 @@ Do not use the form component if you only have one form field. Usually this indi
 
 ## Related components
 
-- [Form field](/categories/components/form-field/)
+- [Form field](/categories/components/form-field/usage)
 
 </section>

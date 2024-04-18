@@ -15,40 +15,30 @@ layout: base.njk
   {%- for post in collections.component -%}
     {% if page.url.includes(post.url) %}
       <sl-tab-group>
-        <sl-tab href="{%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}{%- endfor -%}"
-          {%- for usage in collections.usage -%}
-          {% if usage.url == page.url %}
-            selected
-          {% endif %}{%- endfor -%}>
-        Usage</sl-tab>
-        <sl-tab href="{%- for code in collections.code -%}{% if code.url.includes(post.url) %}{{ code.url | url }}{% endif %}{%- endfor -%}" {{ code.url }}
-          {%- for code in collections.code -%}
-          {% if code.url == page.url %}
-        selected
-          {% endif %}{%- endfor -%}>Code</sl-tab>
+        {%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}<sl-tab href="{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}"
+        {% if usage.url.includes(page.url) %}selected{% endif %}>Usage</sl-tab>{% endif %}{%- endfor -%}
+        {%- for code in collections.code -%}{% if code.url.includes(post.url) %}<sl-tab href="{% if code.url.includes(post.url) %}{{ code.url | url }}{% endif %}"
+          {% if code.url == page.url %}selected{% endif %}>Code</sl-tab>{% endif %}{%- endfor -%}
         {%- for accessibility in collections.accessibility -%}{% if accessibility.url.includes(post.url) %}<sl-tab href="{% if accessibility.url.includes(post.url) %}{{ accessibility.url | url }}{% endif %}"
-          {% if accessibility.url == page.url %}
-          selected
-          {% endif %}>
-            Accessibility</sl-tab>{% endif %}{%- endfor -%}
+          {% if accessibility.url == page.url %}selected{% endif %}>Accessibility</sl-tab>{% endif %}{%- endfor -%}
         <sl-tab-panel>
-          <div id="myVerticalTabsContent" class="ds-tabs__tab-content">
+          <div class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
             {%- for usage in collections.usage -%}
-              {% if usage.url == page.url %}
+              {% if usage.url.includes(page.url) %}
                 {{ usage.templateContent | safe }}
               {% endif %}
             {%- endfor -%}
             </div>
             {%- for usage in collections.usage -%}
-            {% if usage.url == page.url %}
+              {% if usage.url.includes(page.url) %}
             <ds-vertical-tabs></ds-vertical-tabs>
             {% endif %}
             {%- endfor -%}
           </div>
         </sl-tab-panel>
         <sl-tab-panel>
-          <div id="myVerticalTabsContentCode" class="ds-tabs__tab-content">
+          <div class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
             {%- for code in collections.code -%}
               {% if code.url.includes(page.url) %}
@@ -57,14 +47,14 @@ layout: base.njk
             {%- endfor -%}
             </div>
             {%- for code in collections.code -%}
-            {% if code.url == page.url %}
+              {% if code.url.includes(page.url) %}
             <ds-vertical-tabs></ds-vertical-tabs>
             {% endif %}
             {%- endfor -%}
           </div>
         </sl-tab-panel>
         <sl-tab-panel>
-          <div id="myVerticalTabsContentAccessibility" class="ds-tabs__tab-content">
+          <div class="ds-tabs__tab-content">
             <div class="ds-tabs__tab-container">
             {%- for accessibility in collections.accessibility -%}
               {% if accessibility.url.includes(page.url) %}

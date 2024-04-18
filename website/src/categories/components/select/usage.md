@@ -5,19 +5,21 @@ eleventyNavigation:
   parent: Select
   key: SelectUsage
 ---
-
 <section class="no-heading">
+
 <div class="ds-example">
-<sl-select value="2" style="inline-size: 20rem;" aria-label="Subjects list">
-    <sl-select-option value="1">Biology</sl-select-option>
-    <sl-select-option value="2">Mathematics</sl-select-option>
-    <sl-select-option value="3">English</sl-select-option>
-    <sl-select-option value="4">Music</sl-select-option>
-    <sl-select-option value="5">Geography</sl-select-option>
-    <sl-select-option value="6">History</sl-select-option>
-    <sl-select-option value="7">Physics</sl-select-option>
-    <sl-select-option value="8">Chemistry</sl-select-option>
-</sl-select>
+
+  <sl-select value="2" style="inline-size: 20rem;" aria-label="Subjects list">
+      <sl-select-option value="1">Biology</sl-select-option>
+      <sl-select-option value="2">Mathematics</sl-select-option>
+      <sl-select-option value="3">English</sl-select-option>
+      <sl-select-option value="4">Music</sl-select-option>
+      <sl-select-option value="5">Geography</sl-select-option>
+      <sl-select-option value="6">History</sl-select-option>
+      <sl-select-option value="7">Physics</sl-select-option>
+      <sl-select-option value="8">Chemistry</sl-select-option>
+  </sl-select>
+
 </div>
 
 <div class="ds-code">

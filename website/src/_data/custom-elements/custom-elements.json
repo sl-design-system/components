@@ -414,6 +414,16 @@
               "name": "--sl-avatar-max-inline-size"
             }
           ],
+          "cssParts": [
+            {
+              "description": "The display name, either a <span> or <a> if `href` is set.",
+              "name": "name"
+            },
+            {
+              "description": "The wrapper element around the image and name.",
+              "name": "wrapper"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -454,6 +464,15 @@
             },
             {
               "kind": "field",
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "An optional URL that will be used for linking the display name.",
+              "attribute": "href"
+            },
+            {
+              "kind": "field",
               "name": "imageOnly",
               "type": {
                 "text": "boolean | undefined"
@@ -464,6 +483,14 @@
             },
             {
               "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "label",
               "type": {
                 "text": "string"
@@ -471,17 +498,6 @@
               "default": "''",
               "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText. For example to show \"6 unread messages\", where 6 is also shown in the badge.",
               "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the avatar.",
-              "attribute": "orientation",
-              "reflects": true
             },
             {
               "kind": "field",
@@ -512,6 +528,16 @@
               "description": "Optional user status to show.",
               "attribute": "status",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "vertical",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "If true, will display the name below the image.",
+              "attribute": "vertical",
+              "reflects": true
             }
           ],
           "attributes": [
@@ -524,6 +550,22 @@
               "fieldName": "badgeText"
             },
             {
+              "name": "display-initials",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
+              "fieldName": "displayInitials"
+            },
+            {
+              "name": "display-name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name that needs to be displayed.",
+              "fieldName": "displayName"
+            },
+            {
               "name": "fallback",
               "type": {
                 "text": "'initials' | 'image'"
@@ -531,6 +573,14 @@
               "default": "'initials'",
               "description": "The fallback to use when there is no user image present.",
               "fieldName": "fallback"
+            },
+            {
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "An optional URL that will be used for linking the display name.",
+              "fieldName": "href"
             },
             {
               "name": "image-only",
@@ -550,13 +600,12 @@
               "fieldName": "label"
             },
             {
-              "name": "orientation",
+              "name": "picture-url",
               "type": {
-                "text": "'horizontal' | 'vertical'"
+                "text": "string | undefined"
               },
-              "default": "'horizontal'",
-              "description": "The orientation of the avatar.",
-              "fieldName": "orientation"
+              "description": "The url of the avatar image.",
+              "fieldName": "pictureUrl"
             },
             {
               "name": "size",
@@ -576,28 +625,12 @@
               "fieldName": "status"
             },
             {
-              "name": "display-name",
+              "name": "vertical",
               "type": {
-                "text": "string | undefined"
+                "text": "boolean | undefined"
               },
-              "description": "The name that needs to be displayed.",
-              "fieldName": "displayName"
-            },
-            {
-              "name": "display-initials",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
-              "fieldName": "displayInitials"
-            },
-            {
-              "name": "picture-url",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The url of the avatar image.",
-              "fieldName": "pictureUrl"
+              "description": "If true, will display the name below the image.",
+              "fieldName": "vertical"
             }
           ],
           "mixins": [
@@ -613,7 +646,16 @@
           "tagName": "sl-avatar",
           "customElement": true,
           "methods": [],
-          "fields": []
+          "fields": [
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [

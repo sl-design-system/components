@@ -83,11 +83,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    */
   #mutationObserver = new MutationObserver(entries => {
     entries.forEach(entry => {
-      if (entry.attributeName === 'selected' && entry.oldValue === null) {
+      if (entry.attributeName === 'selected' && entry.oldValue === null && entry.target instanceof Tab) {
         this.#mutationObserver?.disconnect();
 
         // Update the selected tab with the observer turned off to avoid loops
-        this.#updateSelectedTab(entry.target as Tab);
+        this.#updateSelectedTab(entry.target);
 
         this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
       }

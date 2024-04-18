@@ -116,7 +116,6 @@ export class VerticalTabs extends LitElement {
     const links = Array.from(this.parentElement?.querySelectorAll('.header-anchor, [link-in-navigation]') || [])
       .map(element => {
         if (element.parentElement?.tagName === this.tagElement) {
-          console.log('element h2?', element);
           if (element.parentElement.parentNode) {
             (element.parentElement.parentNode as Element).id = element.parentElement.id;
           }

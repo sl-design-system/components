@@ -51,7 +51,5 @@ module.exports = async function() {
     });
   await asset.save(releases, "json");
 
-  console.log('releases', releases);
-
   return releases;
 };

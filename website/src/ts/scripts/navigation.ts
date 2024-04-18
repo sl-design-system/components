@@ -8,9 +8,8 @@ const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   links = document.querySelectorAll('.ds-sidebar-nav__link'),
   arrows = document.querySelectorAll('.ds-sidebar-nav__arrow'),
   linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu'),
-  heading = document.querySelector('header') as Element,
-  title = heading?.querySelector('h1') as HTMLElement,
-  slTabs = document?.querySelector('sl-tab-group');
+  heading = document.querySelector('header:not(.ds-top-navigation)'),
+  title = heading?.querySelector('h1') as HTMLElement;
 
 let previouslyOpened: Element, previouslyOpenedSubmenu: Element;
 
@@ -65,28 +64,18 @@ function showMenu(): void {
 }
 
 function handleWidthChange(matches: boolean): void {
-  if (matches && menu.classList.contains('ds-sidebar--closed') && !topNavigation.classList.contains('sticky')) {
-    console.log('handleWidthChange if');
-    //   topNavigation.style.display = 'none';
-  } else if (matches && menu.classList.contains('ds-sidebar--opened')) {
-    console.log('handleWidthChange else if');
-    //  topNavigation.style.display = 'none';
+  if (matches && menu.classList.contains('ds-sidebar--opened')) {
     toggleMenu();
     showMenu();
   } else {
-    console.log('handleWidthChange else');
     toggleMenu();
     setActiveItem();
   }
 }
 
 function toggleMenu(open = false): void {
-  console.log('togglemeny open', open);
   if (open) {
     menuButton.setAttribute('aria-expanded', 'true');
-    // if (!topNavigation.classList.contains('sticky')) {
-    //   topNavigation.style.display = 'none';
-    // }
     menu.classList.remove('ds-sidebar--closed');
     menu.classList.add('ds-sidebar--opened');
     topNavigation.classList.add('ds-menu--opened');
@@ -94,9 +83,6 @@ function toggleMenu(open = false): void {
     closeButton.focus();
   } else {
     menuButton.setAttribute('aria-expanded', 'false');
-    // if (topNavigation.classList.contains('sticky')) {
-    //   topNavigation.style.display = 'flex';
-    // }
     topNavigation.classList.remove('ds-menu--opened');
     menu.classList.remove('ds-sidebar--opened');
     menu.classList.add('ds-sidebar--closed');
@@ -203,15 +189,12 @@ function closeSubmenus(): void {
   });
 }
 
-// const headerEl = document.querySelector('.header')
-//const sentinalEl = document.querySelector('.sentinal');
-
 const handler = (entries: IntersectionObserverEntry[]) => {
   const componentNameHeading = document.createElement('h1');
-  componentNameHeading.textContent = title.innerText;
+  componentNameHeading.textContent = title?.innerText;
   componentNameHeading.classList.add('ds-top-navigation__component-name');
   const slTabsGroup = document.querySelector('sl-tab-group');
-  console.log('entries navigation', entries);
+
   if (!entries[0].isIntersecting) {
     topNavigation.classList.add('sticky');
     topNavigation.insertAdjacentElement('beforeend', componentNameHeading);
@@ -231,12 +214,9 @@ const handler = (entries: IntersectionObserverEntry[]) => {
 };
 
 const observer = new window.IntersectionObserver(handler, {
-  rootMargin: '-48px' // Add your desired rootMargin here
+  rootMargin: '-48px'
 });
-// console.log('heading', heading, title?.innerText);
 
 if (heading) {
   observer.observe(heading);
 }
-
-// TODO: make it working on resizeobserver as well, when changing resolution

@@ -111,10 +111,10 @@ export class AnchorController implements ReactiveController {
 
     if (anchorElement && !this.#host.hasAttribute('aria-details')) {
       anchorElement.id ||= `sl-anchor-${nextUniqueId++}`;
+      this.#host.id ||= `sl-popover-${nextUniqueId++}`;
 
-      this.#host.setAttribute('aria-details', anchorElement.id);
+      anchorElement?.setAttribute('aria-details', this.#host.id);
     }
-
     anchorElement?.setAttribute('aria-expanded', expanded.toString());
 
     // If the anchor element is a button, we need to set the `popover-opened` attribute

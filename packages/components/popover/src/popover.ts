@@ -70,7 +70,7 @@ export class Popover extends LitElement {
       <div class="container" part="container">
         <slot></slot>
       </div>
-      <div class="arrow">
+      <div class="arrow" aria-hidden="true">
         <svg viewBox="410.746 247 16 6" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient

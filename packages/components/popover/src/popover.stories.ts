@@ -103,7 +103,7 @@ export const RichContent: Story = {
           <hr color="#D9D9D9" />
         </section>
         <sl-button-bar align="end">
-          <sl-button @click=${onClose} autofocus size="sm">Cancel</sl-button>
+          <sl-button @click=${onClose} size="sm">Cancel</sl-button>
           <sl-button @click=${onClose} size="sm" variant="primary">Confirm</sl-button>
         </sl-button-bar>
       `;

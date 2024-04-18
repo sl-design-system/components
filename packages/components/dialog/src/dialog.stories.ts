@@ -83,7 +83,7 @@ export const FooterButtons: Story = {
         @media (min-width: 600px) {
           sl-dialog::part(footer-bar) {
             --sl-button-bar-align: space-between;
-            ${reverse ? '--sl-button-bar-direction: row-reverse;' : ''}
+            ${reverse ? '--sl-button-bar-direction-row: row-reverse;' : ''}
           }
           sl-button:first-of-type {
             margin-inline-${reverse ? 'start' : 'end'}: auto;

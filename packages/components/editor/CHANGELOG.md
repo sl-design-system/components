@@ -1,5 +1,11 @@
 # @sl-design-system/editor
 
+## 0.0.27
+
+### Patch Changes
+
+- [#1185](https://github.com/sl-design-system/components/pull/1185) [`d377313`](https://github.com/sl-design-system/components/commit/d377313f5e5a9c3b3931732a5aa0f598ceabb29d) - Update dependencies
+
 ## 0.0.26
 
 ### Patch Changes

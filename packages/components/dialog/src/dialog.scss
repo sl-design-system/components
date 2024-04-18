@@ -6,8 +6,9 @@ $md-breakpoint: 600px;
   --_border-radius: var(--sl-border-radius-dialog-mobile);
   --_border: var(--sl-border-width-dialog-default) solid var(--sl-color-dialog-border);
   --_color: var(--sl-color-dialog-foreground);
-  --_footer-align: var(--sl-dialog-footer-justify-content);
-  --_footer-direction: column-reverse;
+
+  // --_footer-align: var(--sl-dialog-footer-justify-content);
+  // --_footer-direction: column-reverse;
   --_header-gap: var(--sl-space-dialog-gap-header);
   --_heading-direction: var(--sl-dialog-header-flex-direction);
   --_heading-gap: var(--sl-space-dialog-gap-header);
@@ -20,6 +21,9 @@ $md-breakpoint: 600px;
   --_padding-inline: var(--sl-space-dialog-mobile-body-inline);
   --_subtitle-font: var(--sl-text-dialog-subheading);
   --_title-font: var(--sl-text-dialog-heading);
+  --sl-button-bar-vertical: var(--sl-ON);
+
+  // --sl-button-bar-direction-column: column-reverse;
 
   display: block;
 }
@@ -100,9 +104,8 @@ slot:not([name]) {
 }
 
 slot[name='footer'] sl-button-bar {
-  --sl-button-bar-direction: var(--_footer-direction);
-
-  align-items: stretch;
+  --sl-button-bar-vertical: var(--sl-ON);
+  --sl-button-bar-direction-column: column-reverse;
 }
 
 // This is for the non-mobile styling. The default styling is for mobile.
@@ -110,13 +113,17 @@ slot[name='footer'] sl-button-bar {
   :host {
     --_body-gap: var(--sl-space-dialog-desktop-body-gap);
     --_border-radius: var(--sl-border-radius-dialog-desktop);
-    --_footer-direction: var(--sl-dialog-footer-flex-direction);
     --_margin-bottom-container: var(--sl-space-dialog-desktop-container-padding-bottom);
     --_margin-container-inline: var(--sl-space-dialog-desktop-container-inline);
     --_margin-top-container: var(--sl-space-dialog-desktop-container-padding-top);
     --_max-inline-size: var(--sl-dialog-max-inline-size, var(--sl-size-dialog-max));
     --_padding-block: var(--sl-space-dialog-desktop-body-block);
     --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
+  }
+
+  slot[name='footer'] sl-button-bar {
+    --sl-button-bar-vertical: var(--sl-OFF);
+    --sl-button-bar-align: end;
   }
 
   dialog {
@@ -130,10 +137,6 @@ slot[name='footer'] sl-button-bar {
       100% - 2 * var(--_margin-container-inline) - 2 * var(--_padding-inline)
     );
     min-inline-size: var(--_min-inline-size);
-  }
-
-  slot[name='footer'] sl-button-bar {
-    --sl-button-bar-align: var(--_footer-align);
   }
 }
 

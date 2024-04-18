@@ -179,9 +179,16 @@
         "build:locales",
         "build:types",
         "build:themes:code",
+        "dist:angular",
         "dist:checklist",
         "dist:components",
         "dist:themes"
+      ]
+    },
+    "dist:angular": {
+      "command": "node scripts/build-angular.js",
+      "dependencies": [
+        "dist:components"
       ]
     },
     "dist:checklist": {

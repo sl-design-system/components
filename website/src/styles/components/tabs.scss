@@ -33,7 +33,7 @@ sl-tab-group {
 
 sl-tab-group::part(container) {
   display: block;
-  inset-block-start: 7rem;
+  inset-block-start: 7.8rem;
   position: sticky;
   z-index: 2;
 }
@@ -42,10 +42,6 @@ sl-tab-group::part(container) {
   box-shadow: 0 3px 5px rgb(0 0 0 / 5%);
   inline-size: 100vw;
   margin-inline-start: -2.4rem;
-}
-
-.sticky-tabs::part(wrapper) {
-  margin-inline-start: 2.4rem;
 }
 
 @media screen and (min-width: $lg-breakpoint) {

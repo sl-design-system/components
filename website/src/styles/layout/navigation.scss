@@ -17,11 +17,6 @@ $short-transition-timing: 200ms;
 }
 
 .sticky {
-  // display: block;
-
-  // background: #1f97f9;
-  // padding-block: 0.8rem 0; // 2.4rem 0; // 2.4rem 0.8rem;
-  // padding: 3.2rem 2.4rem 1.4rem;
   box-shadow: 0 3px 5px rgb(0 0 0 / 5%);
 
   .ds-top-navigation__logo {
@@ -30,7 +25,6 @@ $short-transition-timing: 200ms;
 }
 
 .has-tabs {
-  // padding: 0.8rem 0 0;
   box-shadow: none;
 }
 
@@ -132,8 +126,6 @@ $short-transition-timing: 200ms;
   content: '';
   inset: 0;
   position: absolute;
-
-  // z-index: 2;
 }
 
 .ds-sidebar--opened + .ds-container::before {
@@ -142,9 +134,9 @@ $short-transition-timing: 200ms;
   backdrop-filter: blur(2px);
   background-color: var(--filter-color);
   content: '';
-  inset: 7.8rem 0; // 0;
+  inset: 7.8rem 0;
   position: absolute;
-  z-index: 1; // 2;
+  z-index: 1;
 }
 
 .ds-top-navigation__hamburger {
@@ -471,39 +463,22 @@ $short-transition-timing: 200ms;
   display: none;
 }
 
-// .sticky {
-//  .ds-top-navigation__logo {
-//    display: none;
-//  }
-// }
-
 @media screen and (min-width: $lg-breakpoint) {
   .ds-menu--opened::before {
     content: none;
   }
 
   .ds-top-navigation {
-    // background: #1f97f9;
     display: none;
   }
 
-  // .ds-top-navigation--sticky {
-  //  display: block;
-  // }
-
   .sticky {
     display: block;
-
-    // background: #1f97f9;
-    // padding-block: 0.8rem 0; // 2.4rem 0; // 2.4rem 0.8rem;
-    padding: 3.2rem 0 1.4rem; // 3.2rem 2.4rem 1.4rem;
-    // box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+    padding: 3.2rem 0 1.4rem;
   }
 
   .has-tabs {
     padding: 0.8rem 0 0;
-
-    // box-shadow: none;
   }
 
   .ds-top-navigation__hamburger {
@@ -539,14 +514,12 @@ $short-transition-timing: 200ms;
 
 @media screen and (min-width: $lg-breakpoint) {
   .ds-top-navigation__component-name {
-    // padding-left: 7.2rem;
     padding-inline-start: calc(28rem + 2.4rem);
   }
 }
 
 @media screen and (min-width: $xl-breakpoint) {
   .ds-top-navigation__component-name {
-    // padding-left: 7.2rem;
     padding-inline-start: calc(28rem + 7.2rem);
   }
 }

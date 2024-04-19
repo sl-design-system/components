@@ -9,7 +9,8 @@ const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   arrows = document.querySelectorAll('.ds-sidebar-nav__arrow'),
   linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu'),
   heading = document.querySelector('header:not(.ds-top-navigation)'),
-  title = heading?.querySelector('h1') as HTMLElement;
+  title = heading?.querySelector('h1') as HTMLElement,
+  slTabs = document.querySelector('sl-tab-group') as HTMLElement | null;
 
 let previouslyOpened: Element, previouslyOpenedSubmenu: Element;
 
@@ -71,6 +72,8 @@ function handleWidthChange(matches: boolean): void {
     toggleMenu();
     setActiveItem();
   }
+
+  setTabsAlignment(matches);
 }
 
 function toggleMenu(open = false): void {
@@ -220,3 +223,17 @@ const observer = new window.IntersectionObserver(handler, {
 if (heading) {
   observer.observe(heading);
 }
+
+function setTabsAlignment(matches: boolean): void {
+  if (!slTabs) {
+    return;
+  }
+
+  if (!matches) {
+    slTabs.setAttribute('align-tabs', 'stretch');
+  } else {
+    slTabs.removeAttribute('align-tabs');
+  }
+}
+
+setTabsAlignment(mediaQueryList.matches);

@@ -3422,7 +3422,7 @@
             }
           }
         },
-        "hint-copy": {
+        "hint": {
           "default": {
             "value": "{color.input.fieldLabel.text.default}",
             "type": "color",

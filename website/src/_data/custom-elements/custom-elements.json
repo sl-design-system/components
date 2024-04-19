@@ -414,6 +414,16 @@
               "name": "--sl-avatar-max-inline-size"
             }
           ],
+          "cssParts": [
+            {
+              "description": "The display name, either a <span> or <a> if `href` is set.",
+              "name": "name"
+            },
+            {
+              "description": "The wrapper element around the image and name.",
+              "name": "wrapper"
+            }
+          ],
           "members": [
             {
               "kind": "field",
@@ -454,6 +464,15 @@
             },
             {
               "kind": "field",
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "An optional URL that will be used for linking the display name.",
+              "attribute": "href"
+            },
+            {
+              "kind": "field",
               "name": "imageOnly",
               "type": {
                 "text": "boolean | undefined"
@@ -464,6 +483,14 @@
             },
             {
               "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
               "name": "label",
               "type": {
                 "text": "string"
@@ -471,17 +498,6 @@
               "default": "''",
               "description": "Used for the aria-label on the image. You can use `{{badgeText}}` in the string\nto have it replaced by the value set in the badgeText. For example to show \"6 unread messages\", where 6 is also shown in the badge.",
               "attribute": "label"
-            },
-            {
-              "kind": "field",
-              "name": "orientation",
-              "type": {
-                "text": "'horizontal' | 'vertical'"
-              },
-              "default": "'horizontal'",
-              "description": "The orientation of the avatar.",
-              "attribute": "orientation",
-              "reflects": true
             },
             {
               "kind": "field",
@@ -512,6 +528,16 @@
               "description": "Optional user status to show.",
               "attribute": "status",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "vertical",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "If true, will display the name below the image.",
+              "attribute": "vertical",
+              "reflects": true
             }
           ],
           "attributes": [
@@ -524,6 +550,22 @@
               "fieldName": "badgeText"
             },
             {
+              "name": "display-initials",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
+              "fieldName": "displayInitials"
+            },
+            {
+              "name": "display-name",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "The name that needs to be displayed.",
+              "fieldName": "displayName"
+            },
+            {
               "name": "fallback",
               "type": {
                 "text": "'initials' | 'image'"
@@ -531,6 +573,14 @@
               "default": "'initials'",
               "description": "The fallback to use when there is no user image present.",
               "fieldName": "fallback"
+            },
+            {
+              "name": "href",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "An optional URL that will be used for linking the display name.",
+              "fieldName": "href"
             },
             {
               "name": "image-only",
@@ -550,13 +600,12 @@
               "fieldName": "label"
             },
             {
-              "name": "orientation",
+              "name": "picture-url",
               "type": {
-                "text": "'horizontal' | 'vertical'"
+                "text": "string | undefined"
               },
-              "default": "'horizontal'",
-              "description": "The orientation of the avatar.",
-              "fieldName": "orientation"
+              "description": "The url of the avatar image.",
+              "fieldName": "pictureUrl"
             },
             {
               "name": "size",
@@ -576,28 +625,12 @@
               "fieldName": "status"
             },
             {
-              "name": "display-name",
+              "name": "vertical",
               "type": {
-                "text": "string | undefined"
+                "text": "boolean | undefined"
               },
-              "description": "The name that needs to be displayed.",
-              "fieldName": "displayName"
-            },
-            {
-              "name": "display-initials",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The initials that need to be displayed. If none are set they are determined based on the displayName .",
-              "fieldName": "displayInitials"
-            },
-            {
-              "name": "picture-url",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The url of the avatar image.",
-              "fieldName": "pictureUrl"
+              "description": "If true, will display the name below the image.",
+              "fieldName": "vertical"
             }
           ],
           "mixins": [
@@ -613,7 +646,16 @@
           "tagName": "sl-avatar",
           "customElement": true,
           "methods": [],
-          "fields": []
+          "fields": [
+            {
+              "kind": "field",
+              "name": "initials",
+              "type": {
+                "text": "string"
+              },
+              "readonly": true
+            }
+          ]
         }
       ],
       "exports": [
@@ -8164,8 +8206,7 @@
               "name": "value",
               "type": {
                 "text": "string | string[] | undefined"
-              },
-              "attribute": "value"
+              }
             }
           ],
           "attributes": [
@@ -8187,13 +8228,6 @@
               },
               "description": "The path to the field to filter on.",
               "fieldName": "path"
-            },
-            {
-              "name": "value",
-              "type": {
-                "text": "string | string[] | undefined"
-              },
-              "fieldName": "value"
             }
           ],
           "mixins": [
@@ -8248,6 +8282,13 @@
                 "text": "GridFilterOption[] | undefined"
               },
               "description": "The filter options."
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string | string[] | undefined"
+              }
             }
           ]
         }
@@ -8306,7 +8347,7 @@
               "kind": "field",
               "name": "dataSource",
               "type": {
-                "text": "DataSource<T> | undefined"
+                "text": "DataSource | undefined"
               },
               "description": "Provide your own implementation for getting the data."
             },
@@ -8350,9 +8391,17 @@
               "kind": "field",
               "name": "dropFilter",
               "type": {
-                "text": "GridDropFilter<T> | undefined"
+                "text": "GridDropFilter | undefined"
               },
               "description": "Determines if or what kind of drop target the given item is:\n- boolean: the item is valid drop target based on the draggableRows value\n- 'between': the item is a valid drop target between\n- 'on-top': the item is a valid drop target to drop on top of"
+            },
+            {
+              "kind": "field",
+              "name": "groupHeaderRenderer",
+              "type": {
+                "text": "GridGroupHeaderRenderer | undefined"
+              },
+              "description": "Custom renderer for group headers."
             },
             {
               "kind": "field",
@@ -8370,22 +8419,6 @@
               },
               "description": "An array of items to be displayed in the grid.",
               "attribute": "items"
-            },
-            {
-              "kind": "field",
-              "name": "itemsGroupBy",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The path to the attribute to group the items on.",
-              "attribute": "items-group-by",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "model",
-              "default": "new GridViewModel<T>(this)",
-              "description": "The model used for rendering the grid."
             },
             {
               "kind": "field",
@@ -8430,6 +8463,12 @@
                   "name": "group",
                   "type": {
                     "text": "GridViewModelGroup"
+                  }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
                   }
                 }
               ]
@@ -8500,6 +8539,14 @@
             },
             {
               "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this grid. This can be used if you want to render\ncustom elements in the group header. Custom elements that you want to render in the columns\ncan be registered via the `scopedElements` property on the column."
+            },
+            {
+              "kind": "field",
               "name": "selection",
               "readonly": true,
               "default": "new SelectionController<T>(this)",
@@ -8529,7 +8576,7 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<tbody>` element."
+              "description": "The table body element."
             },
             {
               "kind": "field",
@@ -8537,7 +8584,13 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<thead>` element."
+              "description": "The table head element."
+            },
+            {
+              "kind": "field",
+              "name": "view",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
             }
           ],
           "attributes": [
@@ -8559,14 +8612,6 @@
               },
               "description": "An array of items to be displayed in the grid.",
               "fieldName": "items"
-            },
-            {
-              "name": "items-group-by",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The path to the attribute to group the items on.",
-              "fieldName": "itemsGroupBy"
             },
             {
               "name": "no-border",
@@ -8684,6 +8729,12 @@
                   "type": {
                     "text": "GridViewModelGroup"
                   }
+                },
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
                 }
               ]
             },
@@ -8726,7 +8777,7 @@
               "kind": "field",
               "name": "dataSource",
               "type": {
-                "text": "DataSource<T> | undefined"
+                "text": "DataSource | undefined"
               },
               "description": "Provide your own implementation for getting the data."
             },
@@ -8758,9 +8809,17 @@
               "kind": "field",
               "name": "dropFilter",
               "type": {
-                "text": "GridDropFilter<T> | undefined"
+                "text": "GridDropFilter | undefined"
               },
               "description": "Determines if or what kind of drop target the given item is:\n- boolean: the item is valid drop target based on the draggableRows value\n- 'between': the item is a valid drop target between\n- 'on-top': the item is a valid drop target to drop on top of"
+            },
+            {
+              "kind": "field",
+              "name": "groupHeaderRenderer",
+              "type": {
+                "text": "GridGroupHeaderRenderer | undefined"
+              },
+              "description": "Custom renderer for group headers."
             },
             {
               "kind": "field",
@@ -8772,9 +8831,11 @@
             },
             {
               "kind": "field",
-              "name": "model",
-              "default": "new GridViewModel<T>(this)",
-              "description": "The model used for rendering the grid."
+              "name": "scopedElements",
+              "type": {
+                "text": "Record<string, typeof HTMLElement> | undefined"
+              },
+              "description": "The custom elements used for rendering this grid. This can be used if you want to render\ncustom elements in the group header. Custom elements that you want to render in the columns\ncan be registered via the `scopedElements` property on the column."
             },
             {
               "kind": "field",
@@ -8790,7 +8851,7 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<tbody>` element."
+              "description": "The table body element."
             },
             {
               "kind": "field",
@@ -8798,7 +8859,13 @@
               "type": {
                 "text": "HTMLTableSectionElement"
               },
-              "description": "The `<thead>` element."
+              "description": "The table head element."
+            },
+            {
+              "kind": "field",
+              "name": "view",
+              "default": "new GridViewModel<T>(this)",
+              "description": "The model used for rendering the grid."
             }
           ]
         }
@@ -8849,15 +8916,6 @@
             },
             {
               "kind": "field",
-              "name": "heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The group heading.",
-              "attribute": "heading"
-            },
-            {
-              "kind": "field",
               "name": "selectEvent",
               "type": {
                 "text": "EventEmitter<SlSelectEvent<boolean>>"
@@ -8871,7 +8929,8 @@
                 "text": "boolean | undefined"
               },
               "description": "Wether you can select the entire group.",
-              "attribute": "selectable"
+              "attribute": "selectable",
+              "reflects": true
             },
             {
               "kind": "field",
@@ -8900,14 +8959,6 @@
               },
               "description": "Whether the group is expanded or collapsed.",
               "fieldName": "expanded"
-            },
-            {
-              "name": "heading",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "The group heading.",
-              "fieldName": "heading"
             },
             {
               "name": "selectable",
@@ -11490,6 +11541,23 @@
             },
             {
               "kind": "method",
+              "name": "getItemAtIndex",
+              "return": {
+                "type": {
+                  "text": "T"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "getStickyColumnOffset",
               "return": {
                 "type": {
@@ -11521,6 +11589,66 @@
                 "text": "Array<Array<GridColumn<T>>>"
               },
               "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "isFixedItem",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "description": "Returns whether the item is fixed (not draggable)."
+            },
+            {
+              "kind": "method",
+              "name": "refresh",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reorderItem",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder."
+                },
+                {
+                  "name": "relativeItem",
+                  "type": {
+                    "text": "T | undefined"
+                  },
+                  "description": "The item to reorder relative to."
+                },
+                {
+                  "name": "position",
+                  "type": {
+                    "text": "'before' | 'after'"
+                  },
+                  "description": "The position relative to the relativeItem."
+                }
+              ],
+              "description": "Reorder the item in the view model."
             },
             {
               "kind": "field",
@@ -11582,6 +11710,15 @@
             }
           ],
           "methods": [
+            {
+              "kind": "method",
+              "name": "refresh",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              }
+            },
             {
               "kind": "method",
               "name": "toggleColumn",
@@ -11672,6 +11809,23 @@
             },
             {
               "kind": "method",
+              "name": "getItemAtIndex",
+              "return": {
+                "type": {
+                  "text": "T"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "getStickyColumnOffset",
               "return": {
                 "type": {
@@ -11687,6 +11841,57 @@
                 }
               ],
               "description": "Returns the left offset, taking any sticky columns into account."
+            },
+            {
+              "kind": "method",
+              "name": "isFixedItem",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  }
+                }
+              ],
+              "description": "Returns whether the item is fixed (not draggable)."
+            },
+            {
+              "kind": "method",
+              "name": "reorderItem",
+              "return": {
+                "type": {
+                  "text": "void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder."
+                },
+                {
+                  "name": "relativeItem",
+                  "type": {
+                    "text": "T | undefined"
+                  },
+                  "description": "The item to reorder relative to."
+                },
+                {
+                  "name": "position",
+                  "type": {
+                    "text": "'before' | 'after'"
+                  },
+                  "description": "The position relative to the relativeItem."
+                }
+              ],
+              "description": "Reorder the item in the view model."
             }
           ],
           "fields": [
@@ -11860,7 +12065,8 @@
                 "text": "string | undefined"
               },
               "description": "The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma.",
-              "attribute": "name"
+              "attribute": "name",
+              "reflects": true
             },
             {
               "kind": "method",
@@ -18494,7 +18700,6 @@
               "type": {
                 "text": "T[]"
               },
-              "readonly": true,
               "description": "The array of all items.",
               "inheritedFrom": {
                 "name": "DataSource",
@@ -18544,6 +18749,43 @@
                   "text": "void"
                 }
               },
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "reorder",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder."
+                },
+                {
+                  "name": "relativeItem",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder relative to."
+                },
+                {
+                  "name": "position",
+                  "type": {
+                    "text": "'before' | 'after'"
+                  },
+                  "description": "The position relative to the relativeItem."
+                }
+              ],
+              "description": "Reorder the item in the data source.",
               "inheritedFrom": {
                 "name": "DataSource",
                 "module": "../packages/components/shared/src/data-source/data-source.ts"
@@ -18813,6 +19055,43 @@
                 "name": "DataSource",
                 "module": "../packages/components/shared/src/data-source/data-source.ts"
               }
+            },
+            {
+              "kind": "method",
+              "name": "reorder",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder."
+                },
+                {
+                  "name": "relativeItem",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder relative to."
+                },
+                {
+                  "name": "position",
+                  "type": {
+                    "text": "'before' | 'after'"
+                  },
+                  "description": "The position relative to the relativeItem."
+                }
+              ],
+              "description": "Reorder the item in the data source.",
+              "inheritedFrom": {
+                "name": "DataSource",
+                "module": "../packages/components/shared/src/data-source/data-source.ts"
+              }
             }
           ],
           "fields": [
@@ -18835,7 +19114,6 @@
               "type": {
                 "text": "T[]"
               },
-              "readonly": true,
               "description": "The array of all items.",
               "inheritedFrom": {
                 "name": "DataSource",
@@ -18975,7 +19253,6 @@
               "type": {
                 "text": "T[]"
               },
-              "readonly": true,
               "description": "The array of all items."
             },
             {
@@ -19013,6 +19290,39 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "reorder",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder."
+                },
+                {
+                  "name": "relativeItem",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder relative to."
+                },
+                {
+                  "name": "position",
+                  "type": {
+                    "text": "'before' | 'after'"
+                  },
+                  "description": "The position relative to the relativeItem."
+                }
+              ],
+              "description": "Reorder the item in the data source."
             },
             {
               "kind": "method",
@@ -19230,6 +19540,39 @@
                   "text": "void"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "reorder",
+              "return": {
+                "type": {
+                  "text": ""
+                }
+              },
+              "parameters": [
+                {
+                  "name": "item",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder."
+                },
+                {
+                  "name": "relativeItem",
+                  "type": {
+                    "text": "T"
+                  },
+                  "description": "The item to reorder relative to."
+                },
+                {
+                  "name": "position",
+                  "type": {
+                    "text": "'before' | 'after'"
+                  },
+                  "description": "The position relative to the relativeItem."
+                }
+              ],
+              "description": "Reorder the item in the data source."
             }
           ],
           "fields": [
@@ -19272,7 +19615,6 @@
               "type": {
                 "text": "T[]"
               },
-              "readonly": true,
               "description": "The array of all items."
             },
             {

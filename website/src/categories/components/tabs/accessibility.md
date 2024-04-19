@@ -44,14 +44,35 @@ Typically, users can navigate to the tabs using the "Tab" key, once they're in t
 WAI-ARIA Roles, States, and Properties for tabs provide essential information to assistive technologies and screen readers. They convey the tabs's role, state (checked, unchecked, valid and invalid), and additional properties to ensure accessibility and a better user experience for individuals using assistive technology.
 
 <sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>
-### Radio Group  
+
+### Tab Group
+
+<div class="ds-table-wrapper">
+
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
 |-|-|-|-|
-|`role`	|`'radiogroup'`|Makes it clear that our custom component is a radio group |no|
-|`aria-labelledby`|string| When different element serves as the label this property can be set to the `id` of that element|yes|
-|`aria-describedby`|string| When the radio group needs extra explanation or description you can reference this element here by the `id`. See [Note 1] below for more explanation| yes|
-|`aria-disabled`| boolean| Announces the radio group as disabled with a screenreader. See [Note 2] below for more explanation| yes|
+|`role`	|`'tablist'`|Makes it clear that element is a container for a set of tabs.|no|
+|`aria-labelledby`|string| The purpose of tabs - can be set to the `id` of labelling element.|yes|
 
 {.ds-table .ds-table-align-top}
+
+</div>
+
+### Tab
+
+<div class="ds-table-wrapper">
+
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
+|-|-|-|-|
+|`role`|`'tab'`|Declare our group of custom checkbox components as a checkbox group.|no|
+|`aria-selected`|string|Can be added when there is no label or header that could be described by.|yes|
+|`aria-controls`|string|Used to describe (link with) hint (helper text) and/or error message.|no|
+|`aria-labelledby`|string|Used to connect with single header that describes checkbox group, when there is no label component connected to.|yes|
+
+{.ds-table .ds-table-align-top}
+
+</div>
+
+// TODO: tab and tab panel?
 
 </section>

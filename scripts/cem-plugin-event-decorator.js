@@ -34,7 +34,7 @@ function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
 
 export function eventDecoratorPlugin() {
   return {
-    name: 'event-plugin',
+    name: 'event-decorator-plugin',
     analyzePhase({ ts, node, moduleDoc }) {
       switch (node.kind) {
         case ts.SyntaxKind.ClassDeclaration:

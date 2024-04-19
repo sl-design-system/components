@@ -1,35 +1,25 @@
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
+import { camelize, dasherize } from './utils.js';
 
-const STRING_DASHERIZE_REGEXP = /[ _]/g,
-  STRING_DECAMELIZE_REGEXP = /([a-z\d])([A-Z])/g;
+function getComponentEvents(component, eventMap) {
+  return component.members
+    .filter(member => member.kind === 'field' && !member.privacy && member.name.endsWith('Event'))
+    .map(member => {
+      const matches = member.type.text.match(/EventEmitter\<(\w+)(\<(.+)\>)?\>/),
+        type = matches?.[1],
+        name = camelize(member.name.replace('Event', '')),
+        event = `${component.name}['${name}']`,
+        code = `  @Output() ${name} = new EventEmitter<${type ?? 'void'}>();`
 
-function dasherize(str) {
-  return decamelize(str).replace(STRING_DASHERIZE_REGEXP, '-');
-}
+      console.log(type, eventMap.get(type));
 
-function decamelize(str) {
-  return str.replace(STRING_DECAMELIZE_REGEXP, '$1_$2').toLowerCase();
-}
-
-function getComponentEvents(components, events) {
-  return components.flatMap(component => {
-    return component.members
-      .filter(member => member.kind === 'field' && !member.privacy && member.name.endsWith('Event'))
-      .map(member => {
-        const type = member.type.text;
-        const name = member.name.replace('Event', '');
-        const event = `${component.name}['${name}']`;
-
-        events.push(`  @Output() ${name} = new EventEmitter<${type}>();`);
-
-        return { type, name, event };
-      });
-  });
+      return { type, name, event, code };
+    });
 };
 
 function generateComponent(imports, component, events) {
-  return `import { Directive, Input, Output } from '@angular/core';
+  return `import { Directive, ${events.length ? 'EventEmitter, ' : ''}Input${events.length ? ', Output' : ''} } from '@angular/core';
 ${imports.join('\n')}
 import { CePassthrough } from './ce-passthrough';
 
@@ -41,6 +31,7 @@ export class ${component.name}Directive extends CePassthrough<${component.name}>
 ${component.members
   .filter(member => member.kind === 'field' && !member.privacy && !member.name.endsWith('Event'))
   .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`).join('\n')}
+${events.map(event => event.code).join('\n')}
 }
 `;
 };
@@ -49,6 +40,14 @@ const generateComponents = async (modules, exclude, outDir) => {
   const ceMap = new Map(
     modules.flatMap(m => m.exports
       .filter(exp => exp.kind === 'custom-element-definition')
+      .map(exp => ({ ...exp, package: `@sl-design-system/${m.path?.replace('packages/components/', '').split('/')[0]}` }))
+      .map(exp => [exp.name, exp])
+    )
+  );
+
+  const eventMap = new Map(
+    modules.flatMap(m => m.exports
+      .filter(exp => exp.name.endsWith('Event'))
       .map(exp => ({ ...exp, package: `@sl-design-system/${m.path?.replace('packages/components/', '').split('/')[0]}` }))
       .map(exp => [exp.name, exp])
     )
@@ -68,9 +67,7 @@ const generateComponents = async (modules, exclude, outDir) => {
       `import '${ce.package}/register.js';`
     ];
 
-    const events = [];
-
-    console.log(getComponentEvents(components, events));
+    const events = getComponentEvents(component, eventMap);
 
     const componentSrc = await generateComponent(imports, component, events);
 

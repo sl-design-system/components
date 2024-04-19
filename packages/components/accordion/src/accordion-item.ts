@@ -36,7 +36,7 @@ export class AccordionItem extends LitElement {
   /** A text shown in the header - as a title of the accordion item. */
   @property() summary?: string;
 
-  /** Emits when the accordion item has been toggled. */
+  /** @internal Emits when the accordion item has been toggled. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   override firstUpdated(changes: PropertyValues<this>): void {

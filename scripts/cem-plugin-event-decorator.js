@@ -32,7 +32,7 @@ function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
     });
 }
 
-export function eventPlugin() {
+export function eventDecoratorPlugin() {
   return {
     name: 'event-plugin',
     analyzePhase({ ts, node, moduleDoc }) {

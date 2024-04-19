@@ -1,3 +1,4 @@
+import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -82,29 +83,32 @@ export const Basic: Story = {};
 export const RichContent: Story = {
   args: {
     body: () => {
-      const onClose = (event: Event & { target: HTMLElement }): void => {
-        event.target.closest('sl-popover')?.hidePopover();
+      const onClick = (): void => {
+        return;
       };
 
       return html`
         <style>
-          header {
-            font: var(--sl-text-popover-text-title);
+          section {
+            margin: 16px 0;
           }
-
-          hr {
-            margin: 8px 0;
+          sl-popover {
+            max-width: 300px;
           }
         </style>
-        <header>Please confirm</header>
+        <header>
+          <sl-avatar
+            display-name="Yousef van der Schaaf"
+            picture-url="https://randomuser.me/api/portraits/thumb/men/19.jpg"
+          ></sl-avatar>
+        </header>
         <section>
-          <hr color="#D9D9D9" />
-          Are you sure you want to continue?
-          <hr color="#D9D9D9" />
+          <p>Our longest serving math teacher, but also responsible for several extracurricular activities.</p>
+          <p><strong>Manager:</strong> Anna Johansson</p>
         </section>
         <sl-button-bar align="end">
-          <sl-button @click=${onClose} size="sm">Cancel</sl-button>
-          <sl-button @click=${onClose} size="sm" variant="primary">Confirm</sl-button>
+          <sl-button @click=${onClick} size="sm" variant="primary" fill="outline">Send email</sl-button>
+          <sl-button @click=${onClick} size="sm" variant="primary">Send Slack message</sl-button>
         </sl-button-bar>
       `;
     }

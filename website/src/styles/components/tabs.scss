@@ -40,8 +40,8 @@ sl-tab-group::part(container) {
 
 .sticky-tabs::part(container) {
   box-shadow: 0 3px 5px rgb(0 0 0 / 5%);
-  inline-size: 100vw;
-  margin-inline-start: -2.4rem;
+  inline-size: auto;
+  margin: 0 -2.4rem;
 }
 
 @media screen and (min-width: $lg-breakpoint) {
@@ -54,11 +54,13 @@ sl-tab-group::part(container) {
   }
 
   .sticky-tabs::part(container) {
-    margin-inline-start: -7.2rem;
+    margin-inline-start: -2.4rem;
+    margin-inline-end: -2.4rem;
+    inline-size: auto;
   }
 
-  .sticky-tabs::part(wrapper) {
-    margin-inline-start: 7.2rem;
+  .sticky-tabs::part(tablist) {
+    margin-inline-start: 2.4rem;
   }
 }
 
@@ -84,10 +86,17 @@ sl-tab-group::part(container) {
 
   .sticky-tabs::part(container) {
     border-block-end: var(--_border);
+    margin-inline-start: -7.2rem;
+    margin-inline-end: -2.4rem;
+    inline-size: auto;
   }
 
   .sticky-tabs::part(wrapper) {
     border-block-end: none;
+  }
+
+  .sticky-tabs::part(tablist) {
+    margin-inline-start: 7.2rem;
   }
 }
 

@@ -36,56 +36,77 @@ export class VerticalTabs extends LitElement {
       const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []),
         links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
 
+      console.log('sections', sections);
+
       entries.forEach(entry => {
+        console.log('entry', entry, updated, entry.isIntersecting);
         if (updated) {
           return;
         }
         let section: Element | null | undefined;
         if (!entry.isIntersecting) {
-          if (this.#isInViewport(entry.target.nextElementSibling)) {
-            section = entry.target.nextElementSibling;
-          } else if (this.#isInViewport(entry.target.previousElementSibling)) {
-            section = entry.target.previousElementSibling;
-            while (this.#isInViewport(section?.previousElementSibling)) {
-              section = section?.previousElementSibling;
-            }
-          }
+          // if (this.#isInViewport(entry.target.nextElementSibling)) {
+          //   section = entry.target.nextElementSibling;
+          // } else if (this.#isInViewport(entry.target.previousElementSibling)) {
+          //   section = entry.target.previousElementSibling;
+          //   while (this.#isInViewport(section?.previousElementSibling)) {
+          //     section = section?.previousElementSibling;
+          //   }
+          // }
         } else {
-          if (!this.#isInViewport(entry.target.nextElementSibling)) {
-            return;
-          } else if (!this.#isInViewport(entry.target.previousElementSibling)) {
-            section = entry.target;
+          section = entry.target;
+          let index = sections.findIndex(b => {
+            return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
+          });
+
+          if (links[index]) {
+            this.#setActiveTab(links[index]);
+            this.#alignVerticalTabIndicator(links[index]);
           }
+          // if (!this.#isInViewport(entry.target.nextElementSibling)) {
+          //   return;
+          // } else if (!this.#isInViewport(entry.target.previousElementSibling)) {
+          //   section = entry.target;
+          // }
         }
 
-        if (!section) {
-          return;
-        }
-
-        let index = sections.findIndex(b => {
-          return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
-        });
-
-        if (links[index]) {
-          this.#setActiveTab(links[index]);
-          this.#alignVerticalTabIndicator(links[index]);
-        } else if (!section.hasAttribute('id')) {
-          this.#setActiveTab(links[0]);
-          this.#alignVerticalTabIndicator(links[0]);
-        }
+        // if (!section) {
+        //   return;
+        // }
+        //
+        // let index = sections.findIndex(b => {
+        //   return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
+        // });
+        //
+        // if (links[index]) {
+        //   this.#setActiveTab(links[index]);
+        //   this.#alignVerticalTabIndicator(links[index]);
+        // } else if (!section.hasAttribute('id')) {
+        //   this.#setActiveTab(links[0]);
+        //   this.#alignVerticalTabIndicator(links[0]);
+        // }
 
         updated = true;
       });
     },
-    { rootMargin: '-140px' }
+    { rootMargin: '-85px 0px 0px 0px', threshold: 0.5 }
   );
 
   #isInViewport(section: Element | null | undefined) {
-    if (!section) {
+    const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+    console.log('sections.find(el => el == section)', section, sections.find(el => el == section));
+
+   const isObserved = sections.find(el => el == section);
+
+   console.log('isObserved', isObserved);
+
+    if (!section /*|| !isObserved*/) {
       return false;
     }
     const sectionRect = section.getBoundingClientRect();
-    return sectionRect.bottom >= 0 && sectionRect.top <= (window.innerHeight || document.documentElement.clientHeight);
+    console.log('sectionRect', sectionRect, sectionRect.bottom, sectionRect.top, window.innerHeight, document.documentElement.clientHeight );
+    // return sectionRect.bottom >= 0 && sectionRect.top <= (window.innerHeight || document.documentElement.clientHeight);
+    return true;
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -94,6 +115,7 @@ export class VerticalTabs extends LitElement {
     requestAnimationFrame(() => {
       /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
       const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+      console.log('sections to observe', sections);
       if (sections.length) {
         sections.forEach(section => this.observer.observe(section));
       }

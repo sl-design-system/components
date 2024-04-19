@@ -8,7 +8,6 @@ eleventyNavigation:
   parent: Form
   key: FormCode
 ---
-
 <ds-install-info link-in-navigation package="form"></ds-install-info>
 <section>
 
@@ -19,7 +18,6 @@ The `<sl-form>` component fulfills four functions:
 3. It allows you to query the state of the form.
 
 </section>
-
 <section>
 
 ## Layout

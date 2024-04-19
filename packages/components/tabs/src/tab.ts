@@ -1,3 +1,4 @@
+import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tab.scss.js';
@@ -28,6 +29,11 @@ declare global {
 export class Tab extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
+
+  /** Event controller. */
+  #events = new EventsController(this, {
+    keydown: this.#onKeydown
+  });
 
   /** Whether the tab item is disabled */
   @property({ reflect: true, type: Boolean }) disabled?: boolean;
@@ -73,6 +79,14 @@ export class Tab extends LitElement {
 
     if (changes.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      if (this.href) {
+        (this.renderRoot.querySelector('a[href]') as HTMLAnchorElement).click();
+      }
     }
   }
 

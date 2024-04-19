@@ -351,10 +351,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     if (selectedTab !== this.selectedTab) {
       this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
 
-      if (selectedTab.renderRoot.querySelector('a[href]')) {
-        (selectedTab.renderRoot.querySelector('a[href]') as HTMLAnchorElement).click();
-      }
-
       this.querySelectorAll('sl-tab-panel').forEach(panel => {
         panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
       });
@@ -418,7 +414,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.menuItems = undefined;
     }
 
-    // this.selectedTab?.scrollIntoView(); // TODO: causes unnecessary scrolling down on tab change when there is a sticky element
+    this.selectedTab?.scrollIntoView(false);
 
     this.#updateSelectionIndicator();
   }

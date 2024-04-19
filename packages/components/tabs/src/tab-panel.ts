@@ -8,19 +8,17 @@ declare global {
 }
 
 /**
- * A tab panel component - part of the tab group component, place for a tab content.
+ * A tab panel component, to be used with the tab group component for your tab content.
  *
  * ```html
- *      <sl-tab-panel>
- *        Content of the tab
- *      </sl-tab-panel>
+ *   <sl-tab-panel>Content of the tab</sl-tab-panel>
  * ```
  *
  * @slot default - a place for the tab panel content.
  *
  */
 export class TabPanel extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   override render(): TemplateResult {
@@ -29,6 +27,7 @@ export class TabPanel extends LitElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
+
     this.setAttribute('role', 'tabpanel');
   }
 }

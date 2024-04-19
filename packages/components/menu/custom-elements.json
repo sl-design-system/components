@@ -88,6 +88,12 @@
           "kind": "class",
           "description": "Custom element that combines a button and a menu and automatically wires them up\ntogether.",
           "name": "MenuButton",
+          "cssParts": [
+            {
+              "description": "The button element.",
+              "name": "button"
+            }
+          ],
           "slots": [
             {
               "description": "The menu items should be slotted in the default slot.",
@@ -293,7 +299,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "Event"
+                    "text": "Event & { target: HTMLElement }"
                   }
                 }
               ]
@@ -540,6 +546,12 @@
           "kind": "class",
           "description": "Menu item component for use inside a menu.",
           "name": "MenuItem",
+          "cssParts": [
+            {
+              "description": "The wrapper around the menu item content.",
+              "name": "wrapper"
+            }
+          ],
           "slots": [
             {
               "description": "Content to display inside the menu item.",
@@ -560,6 +572,14 @@
               "description": "Whether this menu item is disabled.",
               "attribute": "disabled",
               "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent>"
+              },
+              "description": "Emits when the user toggles the selected state."
             },
             {
               "kind": "field",
@@ -590,14 +610,6 @@
               "attribute": "shortcut"
             },
             {
-              "kind": "event",
-              "name": "sl-select",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent>"
-              },
-              "description": "Emits when the user toggles the selected state."
-            },
-            {
               "kind": "field",
               "name": "submenu",
               "type": {
@@ -614,16 +626,6 @@
               "static": true,
               "default": "0",
               "description": "The default offset of the submenu to the menu item."
-            }
-          ],
-          "events": [
-            {
-              "name": "selectEvent",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent>"
-              },
-              "description": "Emits when the user toggles the selected state.",
-              "fieldName": "selectEvent"
             }
           ],
           "attributes": [
@@ -859,6 +861,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent>"
+              },
+              "description": "Emits when the user toggles the selected state."
+            },
+            {
+              "kind": "field",
               "name": "submenu",
               "type": {
                 "text": "Menu | undefined"
@@ -885,8 +895,24 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "A menu that can be used as a context menu or as a dropdown menu.",
           "name": "Menu",
+          "cssProperties": [
+            {
+              "description": "The maximum inline size of the menu.",
+              "name": "--sl-menu-max-inline-size"
+            },
+            {
+              "description": "The minimum inline size of the menu.",
+              "name": "--sl-menu-min-inline-size"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The menu's content: menu items or menu item groups.",
+              "name": ""
+            }
+          ],
           "members": [
             {
               "kind": "method",
@@ -928,6 +954,14 @@
             },
             {
               "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<void>>"
+              },
+              "description": "Emits when the menu item selection changes."
+            },
+            {
+              "kind": "field",
               "name": "selectableChildren",
               "type": {
                 "text": "boolean | undefined"
@@ -944,14 +978,6 @@
               "attribute": "selects"
             },
             {
-              "kind": "event",
-              "name": "sl-select",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent<void>>"
-              },
-              "description": "Emits when the menu item selection changes."
-            },
-            {
               "kind": "field",
               "name": "viewportMargin",
               "type": {
@@ -960,16 +986,6 @@
               "static": true,
               "default": "8",
               "description": "The default margin between the menu and the viewport."
-            }
-          ],
-          "events": [
-            {
-              "name": "selectEvent",
-              "type": {
-                "text": "EventEmitter<SlSelectEvent<void>>"
-              },
-              "description": "Emits when the menu item selection changes.",
-              "fieldName": "selectEvent"
             }
           ],
           "attributes": [
@@ -1144,6 +1160,14 @@
                 "text": "number | undefined"
               },
               "description": "The offset of the menu to its anchor. This is a property on this instance so\nthat it can be overridden by the menu item in case of a nested menu. You\nshould not need to set this property yourself."
+            },
+            {
+              "kind": "field",
+              "name": "selectEvent",
+              "type": {
+                "text": "EventEmitter<SlSelectEvent<void>>"
+              },
+              "description": "Emits when the menu item selection changes."
             },
             {
               "kind": "field",

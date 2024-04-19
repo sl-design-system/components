@@ -63,7 +63,7 @@ export class GridColumn<T = any> extends LitElement {
   @property({ type: Boolean, attribute: 'auto-width' }) autoWidth?: boolean;
 
   /** Emits when the column definition has changed. */
-  @event() columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
+  @event({ name: 'sl-column-update' }) columnUpdateEvent!: EventEmitter<SlColumnUpdateEvent<T>>;
 
   /** The parent grid instance. */
   @property({ attribute: false }) grid?: Grid<T>;
@@ -119,7 +119,7 @@ export class GridColumn<T = any> extends LitElement {
   override willUpdate(changes: PropertyValues<this>): void {
     if (changes.has('grid')) {
       if (this.grid) {
-        this.#events.listen(this.grid, 'sl-state-change', this.stateChanged);
+        this.#events.listen(this.grid, 'sl-grid-state-change', this.stateChanged);
       }
     }
   }

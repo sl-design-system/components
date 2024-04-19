@@ -3,7 +3,7 @@ import { html } from 'lit';
 import '../register.js';
 import { type Badge } from './badge.js';
 
-describe('dna-badge', () => {
+describe('sl-badge', () => {
   let el: Badge;
 
   beforeEach(async () => {

@@ -50,32 +50,7 @@ magna duis. Voluptate tempor amet cupidatat officia labore ipsum ad do.
 
 </div>
 </section>  
-
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/dialog
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/dialog
-  ```
-</div>
-
-</section>
-
+<ds-install-info link-in-navigation package="dialog"></ds-install-info>
 <section>
 
 ## Migrating to SLDS Dialog

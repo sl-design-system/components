@@ -92,6 +92,7 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   override disconnectedCallback(): void {
+    // FIXME: This event is not emitted when the component is removed from the DOM.
     this.sorterChangeEvent.emit('removed');
 
     super.disconnectedCallback();

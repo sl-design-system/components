@@ -1,15 +1,6 @@
 import config from '@sl-design-system/stylelint-config';
 
 export default {
-  ignoreFiles: [
-    '**/*.js',
-    '**/*.json',
-    '**/*.map',
-    '**/*.mjs',
-    '**/*.md',
-    '**/*.ts',
-    '**/*.tsbuildinfo'
-  ],
   ...config,
   overrides: [
     ...config.overrides,

@@ -1,5 +1,43 @@
 # @sl-design-system/editor
 
+## 0.0.27
+
+### Patch Changes
+
+- [#1185](https://github.com/sl-design-system/components/pull/1185) [`d377313`](https://github.com/sl-design-system/components/commit/d377313f5e5a9c3b3931732a5aa0f598ceabb29d) - Update dependencies
+
+## 0.0.26
+
+### Patch Changes
+
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537)]:
+  - @sl-design-system/shared@0.2.10
+  - @sl-design-system/form@0.0.14
+
+## 0.0.25
+
+### Patch Changes
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+  - @sl-design-system/form@0.0.13
+
+## 0.0.24
+
+### Patch Changes
+
+- Updated dependencies [[`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da)]:
+  - @sl-design-system/shared@0.2.8
+  - @sl-design-system/form@0.0.12
+
+## 0.0.23
+
+### Patch Changes
+
+- Updated dependencies [[`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad)]:
+  - @sl-design-system/shared@0.2.7
+  - @sl-design-system/form@0.0.11
+
 ## 0.0.22
 
 ### Patch Changes

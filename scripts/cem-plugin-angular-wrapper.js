@@ -5,16 +5,15 @@ import { camelize, dasherize } from './utils.js';
 function getComponentEvents(component, eventMap) {
   return component.events
     ?.map(event => {
-      console.log(event);
       const matches = event.type.text.match(/(\w+)(\<(.+)\>)?/),
         type = matches[1],
-        name = camelize(event.name),
-        code = `  @Output() ${name} = new EventEmitter<${type ?? 'void'}>();`,
+        angularName = camelize(event.name),
+        code = `  @Output() ${angularName} = new EventEmitter<${type ?? 'void'}>();`,
         { declaration } = eventMap.get(type),
         pkgName = declaration.module.replace('packages/components/', '').split('/')[0],
         path = `@sl-design-system/${pkgName === 'shared' ? 'shared/events.js' : pkgName}`;
 
-      return { name, type, code, path };
+      return { name: event.name, angularName, type, code, path };
     });
 };
 
@@ -29,7 +28,7 @@ import { CePassthrough } from './ce-passthrough';
   template: '<ng-content/>',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ${component.name}Component extends CePassthrough<${component.name}> {
+export class ${component.name}Component extends CePassthrough<${component.name}> {${events.length ? `\n  static override eventMap = {\n${events.map(event => `    '${event.name}': '${event.angularName}'`).join(',\n')}\n  };\n` : ''}
 ${component.members
   .filter(member => member.kind === 'field' && !member.privacy && !member.name.endsWith('Event'))
   .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`).join('\n')}

@@ -18,15 +18,14 @@ function getComponentEvents(component, eventMap) {
 };
 
 function generateComponent(imports, component, events) {
-  return `import { CUSTOM_ELEMENTS_SCHEMA, Component, ${events.length ? 'EventEmitter, ' : ''}Input${events.length ? ', Output' : ''} } from '@angular/core';
+  return `import { Component, ${events.length ? 'EventEmitter, ' : ''}Input${events.length ? ', Output' : ''} } from '@angular/core';
 ${imports.join('\n')}
 import { CePassthrough } from './ce-passthrough';
 
 @Component({
   selector: '${component.tagName}',
   standalone: true,
-  template: '<ng-content/>',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  template: '<ng-content/>'
 })
 export class ${component.name}Component extends CePassthrough<${component.name}> {${events.length ? `\n  static override eventMap = {\n${events.map(event => `    '${event.name}': '${event.angularName}'`).join(',\n')}\n  };\n` : ''}
 ${component.members

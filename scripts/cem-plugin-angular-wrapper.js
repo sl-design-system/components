@@ -3,18 +3,17 @@ import { join } from 'path';
 import { camelize, dasherize } from './utils.js';
 
 function getComponentEvents(component, eventMap) {
-  return component.members
-    .filter(member => member.kind === 'field' && !member.privacy && member.name.endsWith('Event'))
-    .map(member => {
-      const matches = member.type.text.match(/EventEmitter\<(\w+)(\<(.+)\>)?\>/),
-        type = matches?.[1],
-        name = camelize(member.name.replace('Event', '')),
-        event = `${component.name}['${name}']`,
-        code = `  @Output() ${name} = new EventEmitter<${type ?? 'void'}>();`
+  return component.events
+    ?.map(event => {
+      console.log(event);
+      const matches = event.type.text.match(/(\w+)(\<(.+)\>)?/),
+        type = matches[1],
+        name = camelize(event.name),
+        code = `  @Output() ${name} = new EventEmitter<${type ?? 'void'}>();`,
+        { declaration } = eventMap.get(type),
+        path = declaration.module.replace('packages/components/', '').split('/')[0];
 
-      console.log(type, eventMap.get(type));
-
-      return { type, name, event, code };
+      return { name, type, code, path };
     });
 };
 
@@ -57,17 +56,17 @@ const generateComponents = async (modules, exclude, outDir) => {
 
   for (const component of components) {
     const ce = ceMap.get(component.tagName);
-
     if (!ce?.package) {
       continue;
     }
 
+    const events = getComponentEvents(component, eventMap) ?? [];
+
     const imports = [
       `import { ${component.name} } from '${ce.package}';`,
-      `import '${ce.package}/register.js';`
+      `import '${ce.package}/register.js';`,
+      ...events.map(event => `import { ${event.type} } from '${event.path}';`)
     ];
-
-    const events = getComponentEvents(component, eventMap);
 
     const componentSrc = await generateComponent(imports, component, events);
 

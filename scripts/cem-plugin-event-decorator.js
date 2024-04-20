@@ -1,7 +1,23 @@
-import { decorator } from '@custom-elements-manifest/analyzer/src/utils/index.js';
+import ts from 'typescript';
 import { createAttribute } from '@custom-elements-manifest/analyzer/src/features/analyse-phase/creators/createAttribute.js';
-import { extractMixinNodes, isMixin } from '@custom-elements-manifest/analyzer/src/utils/mixins.js';
 import { handleName } from '@custom-elements-manifest/analyzer/src/features/analyse-phase/creators/createMixin.js';
+import { decorator } from '@custom-elements-manifest/analyzer/src/utils/index.js';
+import { extractMixinNodes, isMixin } from '@custom-elements-manifest/analyzer/src/utils/mixins.js';
+
+function handleEventDeclaration(node, moduleDoc) {
+  const name = node.name.getText();
+
+  if (node.modifiers?.at(0)?.kind === ts.SyntaxKind.ExportKeyword && name.endsWith('Event')) {
+    moduleDoc.exports.push({
+      kind: 'js',
+      name,
+      declaration: {
+        name,
+        module: moduleDoc.path
+      }
+    });
+  }
+}
 
 function handleEventDecorator(classNode, moduleDoc, mixinName = null) {
   const className = mixinName || classNode?.name?.getText(),
@@ -48,6 +64,9 @@ export function eventDecoratorPlugin() {
 
             handleEventDecorator(mixinClass, moduleDoc, name);
           }
+          break;
+        case ts.SyntaxKind.TypeAliasDeclaration:
+          handleEventDeclaration(node, moduleDoc);
           break;
       }
     }

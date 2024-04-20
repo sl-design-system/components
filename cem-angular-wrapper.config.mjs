@@ -9,7 +9,6 @@ export default {
   packagejson: false,
   plugins: [
     eventDecoratorPlugin(),
-    // moduleFileExtensionsPlugin(),
-    // angularWrapperPlugin({ outDir: 'packages/angular/src/wrappers/' })
+    angularWrapperPlugin({ outDir: 'packages/angular/src/wrappers/' })
   ]
 };

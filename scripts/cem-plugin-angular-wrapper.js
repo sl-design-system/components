@@ -11,27 +11,29 @@ function getComponentEvents(component, eventMap) {
         name = camelize(event.name),
         code = `  @Output() ${name} = new EventEmitter<${type ?? 'void'}>();`,
         { declaration } = eventMap.get(type),
-        path = declaration.module.replace('packages/components/', '').split('/')[0];
+        pkgName = declaration.module.replace('packages/components/', '').split('/')[0],
+        path = `@sl-design-system/${pkgName === 'shared' ? 'shared/events.js' : pkgName}`;
 
       return { name, type, code, path };
     });
 };
 
 function generateComponent(imports, component, events) {
-  return `import { Directive, ${events.length ? 'EventEmitter, ' : ''}Input${events.length ? ', Output' : ''} } from '@angular/core';
+  return `import { CUSTOM_ELEMENTS_SCHEMA, Component, ${events.length ? 'EventEmitter, ' : ''}Input${events.length ? ', Output' : ''} } from '@angular/core';
 ${imports.join('\n')}
 import { CePassthrough } from './ce-passthrough';
 
-@Directive({
+@Component({
   selector: '${component.tagName}',
-  standalone: true
+  standalone: true,
+  template: '<ng-content/>',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class ${component.name}Directive extends CePassthrough<${component.name}> {
+export class ${component.name}Component extends CePassthrough<${component.name}> {
 ${component.members
   .filter(member => member.kind === 'field' && !member.privacy && !member.name.endsWith('Event'))
   .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`).join('\n')}
-${events.map(event => event.code).join('\n')}
-}
+${events.length ? `\n${events.map(event => event.code).join('\n')}\n` : ''}}
 `;
 };
 
@@ -70,7 +72,7 @@ const generateComponents = async (modules, exclude, outDir) => {
 
     const componentSrc = await generateComponent(imports, component, events);
 
-    await writeFile(join(outDir, `${dasherize(component.name)}.directive.ts`), componentSrc, 'utf8');
+    await writeFile(join(outDir, `${dasherize(component.name)}.component.ts`), componentSrc, 'utf8');
   }
 };
 

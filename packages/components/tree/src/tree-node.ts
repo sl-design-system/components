@@ -53,6 +53,12 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   /** Indeterminate state of the checkbox. Used when not all children are checked. */
   @property({ type: Boolean }) indeterminate?: boolean;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('role', 'treeitem');
+  }
+
   override render(): TemplateResult {
     return html`
       ${this.expandable

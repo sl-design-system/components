@@ -4891,8 +4891,8 @@ __metadata:
   resolution: "@sl-design-system/tree@workspace:packages/components/tree"
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/icon": "npm:0.0.9"
-    "@sl-design-system/shared": "npm:0.2.9"
+    "@sl-design-system/icon": "npm:0.0.10"
+    "@sl-design-system/shared": "npm:0.2.10"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown

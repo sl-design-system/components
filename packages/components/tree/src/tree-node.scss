@@ -1,0 +1,22 @@
+:host {
+  --_expander-indent: calc(var(--_expander-size) * clamp(0, calc(var(--_level)), 1));
+  --_expander-size: 1.5rem;
+  --_gap: 0.25rem;
+  --_level-indent: 0.25rem;
+  --_padding-block: 0.25rem;
+  --_padding-inline: 0.5rem;
+
+  align-items: center;
+  display: flex;
+  gap: var(--_gap);
+  inline-size: 100%;
+  padding-block: var(--_padding-block);
+  padding-inline: calc(var(--_expander-indent) + var(--_padding-inline) + var(--_level-indent) * var(--_level, 0));
+}
+
+[part='wrapper'] {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  gap: var(--_gap);
+}

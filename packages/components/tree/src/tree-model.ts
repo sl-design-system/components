@@ -1,15 +1,23 @@
-export abstract class TreeControl<T> {
+/**
+ * Abstract class used to provide a common interface for tree data.
+ */
+export abstract class TreeModel<T> {
   dataNodes?: T[];
 
+  /** Returns whether the given node is expanded. */
   isExpanded(_dataNode: T): boolean {
     return false;
   }
 
+  /** Returns whether the given node is expandable. */
   isExpandable(_dataNode: T): boolean {
     return false;
   }
 
   abstract getDescendants(_dataNode: T): T[];
+  abstract getIcon(_dataNode: T): T[keyof T] | undefined;
+  abstract getLabel(_dataNode: T): T[keyof T];
+
   getLevel(_dataNode: T): number {
     return 0;
   }

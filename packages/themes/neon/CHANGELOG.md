@@ -1,5 +1,16 @@
 # @sanomalearning/slds-neon
 
+## 0.1.7
+
+### Patch Changes
+
+- [#1141](https://github.com/sl-design-system/components/pull/1141) [`d46ea29`](https://github.com/sl-design-system/components/commit/d46ea294dd5da531a1ff0a748961d2ed7551465b) - Updated button padding and background
+
+- [#1092](https://github.com/sl-design-system/components/pull/1092) [`b4aeccc`](https://github.com/sl-design-system/components/commit/b4aeccc033b8827d1d0bfa80a410c3290bf9fb94) - Added breadcrumbs component
+
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537)]:
+  - @sl-design-system/icon@0.0.10
+
 ## 0.1.6
 
 ### Patch Changes

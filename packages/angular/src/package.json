@@ -13,11 +13,13 @@
   "peerDependencies": {
     "@angular/core": "^16.0.0 || ^17.0.0",
     "@angular/forms": "^16.0.0 || ^17.0.0",
-    "@sl-design-system/form": "0.0.11",
-    "@sl-design-system/icon": "0.0.9",
-    "@sl-design-system/checkbox": "0.0.25",
-    "@sl-design-system/text-field": "0.1.20",
-    "@sl-design-system/radio-group": "0.0.24",
-    "@sl-design-system/textarea": "0.1.20"
+    "@sl-design-system/form": "*",
+    "@sl-design-system/icon": "*",
+    "@sl-design-system/checkbox": "*",
+    "@sl-design-system/select": "*",
+    "@sl-design-system/text-field": "*",
+    "@sl-design-system/radio-group": "*",
+    "@sl-design-system/switch": "*",
+    "@sl-design-system/textarea": "*"
   }
 }

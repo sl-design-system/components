@@ -1,5 +1,13 @@
 # @sl-design-system/angular
 
+## 0.1.7
+
+### Patch Changes
+
+- [#1185](https://github.com/sl-design-system/components/pull/1185) [`d377313`](https://github.com/sl-design-system/components/commit/d377313f5e5a9c3b3931732a5aa0f598ceabb29d) - Update dependencies
+
+- [#1194](https://github.com/sl-design-system/components/pull/1194) [`244d50f`](https://github.com/sl-design-system/components/commit/244d50f46ee4c87aab26e167c8ca5b200c1d30c2) - Fix missing dependencies on web components
+
 ## 0.1.6
 
 ### Patch Changes

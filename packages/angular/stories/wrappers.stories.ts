@@ -12,7 +12,9 @@ import {
   CheckboxComponent,
   CheckboxGroupComponent,
   DialogComponent,
+  IconComponent,
   InlineMessageComponent,
+  PopoverComponent,
   RadioComponent,
   RadioGroupComponent,
   SelectComponent,
@@ -20,6 +22,9 @@ import {
   SkeletonComponent,
   SpinnerComponent,
   SwitchComponent,
+  TabComponent,
+  TabGroupComponent,
+  TabPanelComponent,
   TextFieldComponent,
   TextareaComponent,
   TooltipComponent
@@ -41,7 +46,9 @@ export default {
         CheckboxComponent,
         CheckboxGroupComponent,
         DialogComponent,
+        IconComponent,
         InlineMessageComponent,
+        PopoverComponent,
         RadioComponent,
         RadioGroupComponent,
         SelectComponent,
@@ -49,6 +56,9 @@ export default {
         SkeletonComponent,
         SpinnerComponent,
         SwitchComponent,
+        TabComponent,
+        TabGroupComponent,
+        TabPanelComponent,
         TextFieldComponent,
         TextareaComponent,
         TooltipComponent
@@ -156,6 +166,12 @@ export const Dialog: StoryObj = {
   }
 };
 
+export const Icon: StoryObj = {
+  render: () => ({
+    template: '<sl-icon name="face-smile"></sl-icon>'
+  })
+};
+
 export const InlineMessage: StoryObj = {
   render: () => ({
     props: {
@@ -168,6 +184,24 @@ export const InlineMessage: StoryObj = {
       </sl-inline-message>
     `
   })
+};
+
+export const Popover: StoryObj = {
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }) => {
+      (event.target.nextElementSibling as HTMLElement).showPopover();
+    };
+
+    return {
+      props: { onClick },
+      template: `
+        <sl-button (click)="onClick($event)" id="button">Open popover</sl-button>
+        <sl-popover anchor="button" style="width: 300px">
+          Consectetur qui ut occaecat excepteur id. Eu reprehenderit mollit aliquip ullamco ex fugiat mollit. Dolore adipisicing laboris et nostrud enim irure nisi ea.
+        </sl-popover>
+      `
+    };
+  }
 };
 
 export const RadioGroup: StoryObj = {
@@ -209,6 +243,21 @@ export const Spinner: StoryObj = {
 export const Switch: StoryObj = {
   render: () => ({
     template: '<sl-switch></sl-switch>'
+  })
+};
+
+export const Tabs: StoryObj = {
+  render: () => ({
+    template: `
+      <sl-tab-group>
+        <sl-tab>First tab</sl-tab>
+        <sl-tab>Second tab</sl-tab>
+        <sl-tab disabled>Disabled</sl-tab>
+        <sl-tab-panel>Contents tab 1</sl-tab-panel>
+        <sl-tab-panel>Contents tab 2</sl-tab-panel>
+        <sl-tab-panel>Contents tab 3</sl-tab-panel>
+      </sl-tab-group>
+    `
   })
 };
 

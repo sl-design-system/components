@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Inject, forwardRef } from '@angular/core';
-import type { ValidationErrors } from '@angular/forms';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { CheckboxGroup } from '@sl-design-system/checkbox';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, type ValidationErrors } from '@angular/forms';
+import { type CheckboxGroup } from '@sl-design-system/checkbox';
 import { FormControlElementDirective } from './form-control-element.directive';
 
 @Directive({
   selector: 'sl-checkbox-group',
+  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

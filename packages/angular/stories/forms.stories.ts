@@ -1,9 +1,4 @@
-import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/form/register.js';
-import '@sl-design-system/inline-message/register.js';
-import { CUSTOM_ELEMENTS_SCHEMA, Component, type ElementRef, ViewChild } from '@angular/core';
+import { Component, type ElementRef, ViewChild } from '@angular/core';
 import {
   type AbstractControl,
   FormControl,
@@ -13,7 +8,32 @@ import {
   type ValidationErrors
 } from '@angular/forms';
 import { type Form } from '@sl-design-system/form';
-import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
+import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
+import {
+  CheckboxDirective,
+  CheckboxGroupDirective,
+  RadioGroupDirective,
+  SelectDirective,
+  SwitchDirective,
+  TextFieldDirective,
+  TextareaDirective
+} from '../src/forms/index';
+import {
+  ButtonBarComponent,
+  ButtonComponent,
+  CheckboxComponent,
+  CheckboxGroupComponent,
+  FormComponent,
+  FormFieldComponent,
+  InlineMessageComponent,
+  RadioComponent,
+  RadioGroupComponent,
+  SelectComponent,
+  SelectOptionComponent,
+  SwitchComponent,
+  TextFieldComponent,
+  TextareaComponent
+} from '../src/wrappers';
 
 @Component({
   selector: 'sla-all-form-controls-reactive',
@@ -359,8 +379,31 @@ export default {
         AllFormControlsEmptyTemplateComponent,
         LoginFormComponent
       ],
-      imports: [CoreFormsModule, FormsModule, ReactiveFormsModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      imports: [
+        ButtonComponent,
+        ButtonBarComponent,
+        CheckboxComponent,
+        CheckboxDirective,
+        CheckboxGroupComponent,
+        CheckboxGroupDirective,
+        FormComponent,
+        FormFieldComponent,
+        FormsModule,
+        InlineMessageComponent,
+        RadioComponent,
+        RadioGroupComponent,
+        RadioGroupDirective,
+        ReactiveFormsModule,
+        SelectComponent,
+        SelectDirective,
+        SelectOptionComponent,
+        SwitchComponent,
+        SwitchDirective,
+        TextFieldComponent,
+        TextFieldDirective,
+        TextareaComponent,
+        TextareaDirective
+      ]
     })
   ],
   args: {}

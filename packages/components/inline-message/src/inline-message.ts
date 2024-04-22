@@ -2,18 +2,24 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { breakpoints } from '@sl-design-system/shared';
+import { type EventEmitter, breakpoints, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './inline-message.scss.js';
 
 declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-dismiss': SlDismissEvent;
+  }
+
   interface HTMLElementTagNameMap {
     'sl-inline-message': InlineMessage;
   }
 }
 
 export type InlineMessageVariant = 'info' | 'success' | 'warning' | 'danger';
+
+export type SlDismissEvent = CustomEvent<void>;
 
 /**
  * An inline message component for displaying additional information/errors.
@@ -39,6 +45,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   /** @private */
   @query('.wrapper') wrapper?: HTMLDivElement;
+
+  /** Emits when the inline message is dismissed. */
+  @event({ name: 'sl-dismiss' }) dismissEvent!: EventEmitter<SlDismissEvent>;
 
   /** Determines whether a (default) closing button should be shown in the top right corner. */
   @property({ type: Boolean, reflect: true }) dismissible = true;
@@ -115,6 +124,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       this.wrapper?.addEventListener(
         'animationend',
         () => {
+          this.dismissEvent.emit();
           this.remove();
         },
         { once: true }

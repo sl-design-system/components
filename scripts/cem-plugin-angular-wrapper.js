@@ -29,10 +29,16 @@ import { CePassthrough } from './ce-passthrough';
 })
 export class ${component.name}Component extends CePassthrough<${component.name}> {${events.length ? `\n  static override eventMap = {\n${events.map(event => `    '${event.name}': '${event.angularName}'`).join(',\n')}\n  };\n` : ''}
 ${component.members
-  .filter(member => member.kind === 'field' && !member.privacy && !member.name.endsWith('Event'))
+  .filter(member => member.kind === 'field' && !member.privacy && !member.static && !member.name.endsWith('Event'))
   .map(member => `  @Input() ${member.name}!: ${component.name}['${member.name}'];`).join('\n')}
 ${events.length ? `\n${events.map(event => event.code).join('\n')}\n` : ''}}
 `;
+};
+
+const generateIndex = async (components, outDir) => {
+  const indexSrc = components.map(component => `export * from './${dasherize(component.name)}.component';`).join('\n');
+
+  await writeFile(join(outDir, 'index.ts'), indexSrc, 'utf8');
 };
 
 const generateComponents = async (modules, exclude, outDir) => {
@@ -52,15 +58,13 @@ const generateComponents = async (modules, exclude, outDir) => {
     )
   );
 
-  const components = modules.flatMap(m => m.declarations.filter(decl => !exclude.includes(decl.name) && decl.customElement || decl.tagName));
+  const components = modules
+    .flatMap(m => m.declarations.filter(decl => !exclude.includes(decl.name) && decl.customElement || decl.tagName))
+    .filter(({ tagName }) => ceMap.has(tagName) && ceMap.get(tagName).package);
 
   for (const component of components) {
-    const ce = ceMap.get(component.tagName);
-    if (!ce?.package) {
-      continue;
-    }
-
-    const events = getComponentEvents(component, eventMap) ?? [];
+    const ce = ceMap.get(component.tagName),
+      events = getComponentEvents(component, eventMap) ?? [];
 
     const imports = [
       `import { ${component.name} } from '${ce.package}';`,
@@ -72,6 +76,8 @@ const generateComponents = async (modules, exclude, outDir) => {
 
     await writeFile(join(outDir, `${dasherize(component.name)}.component.ts`), componentSrc, 'utf8');
   }
+
+  await generateIndex(components, outDir);
 };
 
 export default function plugin({
@@ -79,7 +85,7 @@ export default function plugin({
   outDir = 'dist'
 } = {}) {
   return {
-    name: 'angular-wrapper',
+    name: 'angular-wrapper-plugin',
     async packageLinkPhase({ customElementsManifest }) {
       const { modules } = customElementsManifest;
 

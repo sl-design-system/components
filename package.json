@@ -186,7 +186,7 @@
       ]
     },
     "dist:angular": {
-      "command": "node scripts/build-angular.js",
+      "command": "cem analyze --config cem-angular-wrapper.config.mjs",
       "dependencies": [
         "dist:components"
       ]

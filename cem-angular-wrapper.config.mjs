@@ -5,7 +5,6 @@ export default {
   globs: ['./packages/components/**/*.ts'],
   exclude: ['./packages/components/**/*.{d,spec,stories}.ts'],
   litelement: true,
-  outdir: 'test',
   packagejson: false,
   plugins: [
     eventDecoratorPlugin(),

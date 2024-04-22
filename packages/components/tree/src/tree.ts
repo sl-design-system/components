@@ -1,6 +1,7 @@
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
+import { SelectionController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { TreeModel } from './tree-model.js';
@@ -45,6 +46,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** Custom renderer function for tree items. */
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
+
+  /** Selection manager. */
+  readonly selection = new SelectionController<T>(this);
 
   /** If you are able to select one or more tree items (at the same time). */
   @property() selects?: 'single' | 'multiple';

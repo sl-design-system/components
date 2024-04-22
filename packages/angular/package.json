@@ -68,7 +68,6 @@
     "@angular/forms": "^17.3.4",
     "@angular/platform-browser": "^17.3.4",
     "@angular/platform-browser-dynamic": "^17.3.4",
-    "@compodoc/compodoc": "^1.1.23",
     "@sl-design-system/checkbox": "0.0.28",
     "@sl-design-system/form": "0.0.14",
     "@sl-design-system/icon": "0.0.10",

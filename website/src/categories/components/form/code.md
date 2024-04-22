@@ -8,7 +8,9 @@ eleventyNavigation:
   parent: Form
   key: FormCode
 ---
+<div style="display: none;"></div>
 <ds-install-info link-in-navigation package="form"></ds-install-info>
+
 <section>
 
 The `<sl-form>` component fulfills four functions:

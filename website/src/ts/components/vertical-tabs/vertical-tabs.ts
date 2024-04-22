@@ -37,9 +37,84 @@ export class VerticalTabs extends LitElement {
         links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
 
       console.log('sections', sections);
+      // entries.length
+      // entries.filter(entry => entry.isIntersecting).length
+      console.log('length', entries.length, entries.filter(entry => entry.isIntersecting).length);
+
+      if (links.length === entries.filter(entry => entry.isIntersecting).length) {
+        // const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
+        // if (verticalTabs.length) {
+        //   this.#setActiveTab(verticalTabs[0] as HTMLElement);
+        // }
+        return;
+      }
+
+/*      let entry: IntersectionObserverEntry | undefined;
+      console.log('entries', entries);
+      if (entries.length > 0) {
+        const maxRatio = Math.max(...entries.map(e => e.intersectionRatio));
+        entry = entries.find(e => e.intersectionRatio === maxRatio);
+      } else {
+        entry = entries[0];
+      }
+
+      if ((entry?.intersectionRatio ?? 0) > 0) {
+        if (!entry) {
+          return;
+        }
+        let section: Element | null | undefined;
+        if (!entry.isIntersecting) {
+          // if (this.#isInViewport(entry.target.nextElementSibling)) {
+          //   section = entry.target.nextElementSibling;
+          // } else if (this.#isInViewport(entry.target.previousElementSibling)) {
+          //   section = entry.target.previousElementSibling;
+          //   while (this.#isInViewport(section?.previousElementSibling)) {
+          //     section = section?.previousElementSibling;
+          //   }
+          // }
+        } else if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          section = entry.target;
+          let index = sections.findIndex(b => {
+            return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
+          });
+
+          if (links[index]) {
+            console.log('links[index]', links[index]);
+            links[index].click();
+            // this.#setActiveTab(links[index]);
+            // this.#alignVerticalTabIndicator(links[index]);
+          } /!*else if (!section.hasAttribute('id')) {
+              this.#setActiveTab(links[0]);
+              this.#alignVerticalTabIndicator(links[0]);
+            }*!/
+          // if (!this.#isInViewport(entry.target.nextElementSibling)) {
+          //   return;
+          // } else if (!this.#isInViewport(entry.target.previousElementSibling)) {
+          //   section = entry.target;
+          // }
+        }
+
+        // if (!section) {
+        //   return;
+        // }
+        //
+        // let index = sections.findIndex(b => {
+        //   return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
+        // });
+        //
+        // if (links[index]) {
+        //   this.#setActiveTab(links[index]);
+        //   this.#alignVerticalTabIndicator(links[index]);
+        // } else if (!section.hasAttribute('id')) {
+        //   this.#setActiveTab(links[0]);
+        //   this.#alignVerticalTabIndicator(links[0]);
+        // }
+
+       // updated = true;
+      }*/
 
       entries.forEach(entry => {
-        console.log('entry', entry, updated, entry.isIntersecting);
+        console.log('entry', entry, updated, entry.isIntersecting, entry.rootBounds);
         if (updated) {
           return;
         }
@@ -53,16 +128,21 @@ export class VerticalTabs extends LitElement {
           //     section = section?.previousElementSibling;
           //   }
           // }
-        } else {
+        } else if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
           section = entry.target;
           let index = sections.findIndex(b => {
             return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
           });
 
           if (links[index]) {
-            this.#setActiveTab(links[index]);
-            this.#alignVerticalTabIndicator(links[index]);
-          }
+            console.log('links[index]', links[index]);
+            links[index].click();
+            // this.#setActiveTab(links[index]);
+            // this.#alignVerticalTabIndicator(links[index]);
+          } /*else if (!section.hasAttribute('id')) {
+              this.#setActiveTab(links[0]);
+              this.#alignVerticalTabIndicator(links[0]);
+            }*/
           // if (!this.#isInViewport(entry.target.nextElementSibling)) {
           //   return;
           // } else if (!this.#isInViewport(entry.target.previousElementSibling)) {
@@ -89,7 +169,7 @@ export class VerticalTabs extends LitElement {
         updated = true;
       });
     },
-    { rootMargin: '-85px 0px 0px 0px', threshold: 0.5 }
+    { rootMargin: '-86px 0px 0px 0px', threshold: 0.5 }
   );
 
   #isInViewport(section: Element | null | undefined) {
@@ -109,22 +189,49 @@ export class VerticalTabs extends LitElement {
     return true;
   }
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+
+    requestAnimationFrame(() => {
+    /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
+    const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+    console.log('sections to observe', sections);
+      const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
+      if (verticalTabs.length) {
+        this.#setActiveTab(verticalTabs[0] as HTMLElement);
+        window.scrollTo(0, 0);
+      }
+
+    // if (sections.length) {
+    //   sections.forEach(section => this.observer.observe(section));
+    // }
+    });
+
+    // const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
+    // if (verticalTabs.length) {
+    //   this.#setActiveTab(verticalTabs[0] as HTMLElement);
+    // }
+  }
+
   override firstUpdated(changes: PropertyValues<this>): void {
     super.firstUpdated(changes);
 
-    requestAnimationFrame(() => {
-      /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
-      const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
-      console.log('sections to observe', sections);
-      if (sections.length) {
-        sections.forEach(section => this.observer.observe(section));
-      }
-    });
+    console.log('first updated?', 'needs to work when scroll starts or onclick');
 
-    const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
-    if (verticalTabs.length) {
-      this.#setActiveTab(verticalTabs[0] as HTMLElement);
-    }
+    // // requestAnimationFrame(() => {
+    //   /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
+    //   const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+    //   console.log('sections to observe', sections);
+    //   if (sections.length) {
+    //     sections.forEach(section => this.observer.observe(section));
+    //   }
+    // // });
+    //
+    // const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
+    // if (verticalTabs.length) {
+    //   this.#setActiveTab(verticalTabs[0] as HTMLElement);
+    // }
   }
 
   override disconnectedCallback(): void {
@@ -163,19 +270,79 @@ export class VerticalTabs extends LitElement {
                   id=${`ds-vertical-tab-${this.nextUniqueId++}`}
                   aria-selected="false"
                   aria-controls=${(variant as HTMLElement)?.id}
+                  @click=${this.#onClick}
                   >${(variant as HTMLElement)?.textContent || variant?.getAttribute('link-in-navigation-text')}</a
                 >`
             )}
           </div>
           <div class="ds-tabs__vertical-slider">
-            <div class="ds-tabs__vertical-indicator"></div>
+            <div class="ds-tabs__vertical-indicator" @transitionend=${this.#onAnimationend}></div>
           </div>
         </div>
       </div>
     `;
   }
 
+  #onClick(event: Event) {
+    console.log('event onclick', event, event.target);
+  //  event.preventDefault();
+
+    this.observer?.disconnect();
+
+    const links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
+    // let index = sections.findIndex(b => {
+    //   return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
+    // });
+    const link = event.target as HTMLElement;
+    console.log('links link', links.indexOf(link));
+    this.#setActiveTab(link);
+    this.#alignVerticalTabIndicator(link);
+    // if (links.indexOf(link) === 0) {
+     // window.scrollTo(0, 0);
+    // }
+
+    // requestAnimationFrame(() => {
+      /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
+      const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+      console.log('sections to observe', sections);
+      // if (sections.length) {
+      //   sections.forEach(section => this.observer.observe(section));
+      // }
+    // });
+
+    console.log('indicator', this.renderRoot.querySelector('.ds-tabs__vertical-indicator'));
+
+    const indicator = this.renderRoot.querySelector('.ds-tabs__vertical-indicator');
+
+    indicator?.addEventListener(
+      'transitionend',
+      () => {
+        console.log('indicator onclick animationend');
+        const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+        // if (sections.length) {
+        //   sections.forEach(section => this.observer.observe(section));
+        // }
+      })
+
+    this.addEventListener(
+      'transitionend',
+      () => {
+        console.log('onclick animationend');
+      })
+  }
+
+  #onAnimationend(event: TransitionEvent) {
+    console.log('event on animationend', event);
+    setTimeout(() => {
+      const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+      if (sections.length) {
+        sections.forEach(section => this.observer.observe(section));
+      }
+    }, 400);
+  }
+
   #setActiveTab(verticalTab: HTMLElement): void {
+    console.log('verticalTab in setActiveTab', verticalTab);
     const currentVerticalTabLink = this.renderRoot.querySelector('[aria-selected="true"]'),
       verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
 

@@ -15,7 +15,7 @@ interface Props extends Pick<Button, 'disabled' | 'fill' | 'size' | 'variant'> {
 type Story = StoryObj<Props>;
 
 const fills: ButtonFill[] = ['solid', 'outline', 'link', 'ghost'];
-const variants: ButtonVariant[] = ['default', 'primary', 'success', 'warning', 'danger'];
+const variants: ButtonVariant[] = ['default', 'primary', 'success', 'info', 'warning', 'danger'];
 const disabledStates = [false, true];
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
 

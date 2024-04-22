@@ -1,6 +1,6 @@
 $fills: solid, outline, link, ghost;
 $sizes: sm, md, lg;
-$variants: default, primary, success, warning, danger;
+$variants: default, primary, success, info, warning, danger;
 
 :host {
   --_animation: var(--sl-animation-button);

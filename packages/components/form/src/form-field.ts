@@ -61,7 +61,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
    */
   @state() error?: string;
 
-  /** Emits when the field is added to a form. */
+  /** @internal Emits when the field is added to a form. */
   @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<SlFormFieldEvent>;
 
   /**

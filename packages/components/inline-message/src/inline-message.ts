@@ -46,7 +46,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @private */
   @query('.wrapper') wrapper?: HTMLDivElement;
 
-  /** Emits when the inline message is dismissed. */
+  /** @internal Emits when the inline message is dismissed. */
   @event({ name: 'sl-dismiss' }) dismissEvent!: EventEmitter<SlDismissEvent>;
 
   /** Determines whether a (default) closing button should be shown in the top right corner. */

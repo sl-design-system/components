@@ -1,7 +1,6 @@
 $variants: info, success, warning, danger;
 
 :host {
-  --_background: var(--_background-color);
   --_border-left: var(--sl-border-width-inline-message-start) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-inline-message-default);
   --_border: var(--sl-border-width-inline-message-default) solid var(--_border-color);
@@ -16,72 +15,60 @@ $variants: info, success, warning, danger;
   --_title-font: var(--sl-text-body-lg-demibold);
 
   display: block;
-  outline: none;
-  text-align: inherit;
 }
 
 @each $variant in $variants {
   :host([variant='#{$variant}']) {
-    --_background-color: var(--sl-color-inline-message-#{$variant}-background);
+    --_background: var(--sl-color-inline-message-#{$variant}-background);
     --_border-color: var(--sl-color-inline-message-#{$variant}-border);
-    --_icon-fill: var(--sl-color-inline-message-#{$variant}-icon);
-    --_fill: var(--sl-color-inline-message-#{$variant}-icon);
     --_color: var(--sl-color-inline-message-#{$variant}-foreground);
+    --_fill: var(--sl-color-inline-message-#{$variant}-icon);
+    --_icon-fill: var(--sl-color-inline-message-#{$variant}-icon);
   }
 }
 
 .wrapper {
-  background: var(--_background-color);
+  background: var(--_background);
   border: var(--_border);
   border-inline-start: var(--_border-left);
   border-radius: var(--_border-radius);
   color: var(--_color);
   display: flex;
-  flex-direction: column;
   font: var(--_description-font);
-  inline-size: auto;
-  margin: auto auto 0;
-  outline: none;
-  overflow: hidden;
+  gap: var(--_gap);
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   position: relative;
-}
 
-.wrapper[close] {
-  opacity: 0;
+  &[close] {
+    opacity: 0;
 
-  @media (prefers-reduced-motion: no-preference) {
-    animation: slide-down 300ms ease-out;
+    @media (prefers-reduced-motion: no-preference) {
+      animation: slide-down 300ms ease-out;
+    }
   }
-}
 
-.wrapper[open] {
-  opacity: 1;
+  &[open] {
+    opacity: 1;
 
-  @media (prefers-reduced-motion: no-preference) {
-    animation: slide-in-up 400ms ease-out;
+    @media (prefers-reduced-motion: no-preference) {
+      animation: slide-in-up 400ms ease-out;
+    }
   }
 }
 
 .content {
   display: flex;
-  gap: var(--_gap);
-}
-
-.content-details {
-  display: flex;
   flex-direction: column;
   gap: var(--_content-gap);
 }
 
-slot[name='icon'] {
-  sl-icon {
-    --sl-icon-fill-default: var(--_icon-fill);
+slot[name='icon'] sl-icon,
+slot[name='icon']::slotted(*) {
+  --sl-icon-fill-default: var(--_icon-fill);
 
-    block-size: var(--_icon-block-size);
-    fill: var(--_fill);
-  }
+  block-size: var(--_icon-block-size);
+  fill: var(--_fill);
 }
 
 slot[name='title'] {
@@ -92,15 +79,10 @@ slot[name='details'] {
   font: var(--_details-font);
 }
 
-slot[name='close-button'] {
-  display: block;
+sl-button {
   inset-block-start: var(--_close-button-spacing);
   inset-inline-end: var(--_close-button-spacing);
   position: absolute;
-}
-
-slot[name='close-button']::slotted(*) {
-  align-self: baseline;
 }
 
 @keyframes slide-in-up {

@@ -7,69 +7,74 @@ import { InlineMessage } from './inline-message.js';
 describe('sl-inline-message', () => {
   let el: InlineMessage;
 
-  describe('defaults', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-inline-message>
-          <span slot="title">Inline message title</span>
-        </sl-inline-message>
-      `);
-    });
+  beforeEach(async () => {
+    el = await fixture(html`
+      <sl-inline-message>
+        <span slot="title">Inline message title</span>
+      </sl-inline-message>
+    `);
+  });
 
-    it('should render correctly', () => {
-      expect(el).shadowDom.to.equalSnapshot();
-    });
+  it('should render correctly', () => {
+    expect(el).shadowDom.to.equalSnapshot();
+  });
 
-    it('should have the info variant by default', () => {
-      expect(el).to.have.attribute('variant', 'info');
-      expect(el.variant).to.equal('info');
-    });
+  it('should be dismissible', () => {
+    expect(el.indismissible).not.to.be.true;
+  });
 
-    it('should not be indismissible by default', () => {
-      expect(el.indismissible).not.to.be.true;
-    });
+  it('should have the info variant', () => {
+    expect(el).to.have.attribute('variant', 'info');
+    expect(el.variant).to.equal('info');
+  });
 
-    it('should have success variant when set', async () => {
-      el.variant = 'success';
-      await el.updateComplete;
+  it('should have success variant when set', async () => {
+    el.variant = 'success';
+    await el.updateComplete;
 
-      expect(el).to.have.attribute('variant', 'success');
-    });
+    expect(el).to.have.attribute('variant', 'success');
+  });
 
-    it('should not have a close button when indismissible', async () => {
-      el.indismissible = true;
-      await el.updateComplete;
+  it('should have a close button', () => {
+    const button = el.renderRoot.querySelector('sl-button');
 
-      expect(el.renderRoot.querySelector('slot[name="close-button"] sl-button')).not.to.exist;
-    });
+    expect(button).to.exist;
+    expect(button).to.contain('sl-icon[name="xmark"]');
+  });
 
-    it('should remove itself when the close button is clicked', async () => {
-      const removeSpy = spy(el, 'remove');
+  it('should not have a close button when indismissible', async () => {
+    el.indismissible = true;
+    await el.updateComplete;
 
-      el.renderRoot.querySelector<HTMLElement>('slot[name="close-button"] sl-button')?.click();
+    expect(el.renderRoot.querySelector('sl-button')).not.to.exist;
+  });
 
-      // Wait for the next frame
-      await el.updateComplete;
+  it('should remove itself when the close button is clicked', async () => {
+    const removeSpy = spy(el, 'remove');
 
-      // Dispatch the animationend event
-      el.renderRoot.querySelector('.wrapper')?.dispatchEvent(new AnimationEvent('animationend'));
+    el.renderRoot.querySelector('sl-button')?.click();
 
-      expect(removeSpy).to.have.been.calledOnce;
-    });
+    // Wait for the next frame
+    await el.updateComplete;
 
-    it('should emit an sl-dismiss event after clicking the close button', async () => {
-      const onDismiss = spy();
+    // Dispatch the animationend event
+    el.renderRoot.querySelector('.wrapper')?.dispatchEvent(new AnimationEvent('animationend'));
 
-      el.addEventListener('sl-dismiss', onDismiss);
-      el.renderRoot.querySelector<HTMLElement>('slot[name="close-button"] sl-button')?.click();
+    expect(removeSpy).to.have.been.calledOnce;
+  });
 
-      // Wait for the next frame
-      await el.updateComplete;
+  it('should emit an sl-dismiss event after clicking the close button', async () => {
+    const onDismiss = spy();
 
-      // Dispatch the animationend event
-      el.renderRoot.querySelector('.wrapper')?.dispatchEvent(new AnimationEvent('animationend'));
+    el.addEventListener('sl-dismiss', onDismiss);
+    el.renderRoot.querySelector('sl-button')?.click();
 
-      expect(onDismiss).to.have.been.calledOnce;
-    });
+    // Wait for the next frame
+    await el.updateComplete;
+
+    // Dispatch the animationend event
+    el.renderRoot.querySelector('.wrapper')?.dispatchEvent(new AnimationEvent('animationend'));
+
+    expect(onDismiss).to.have.been.calledOnce;
   });
 });

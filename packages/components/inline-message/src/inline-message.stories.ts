@@ -122,6 +122,16 @@ export const Overflow: Story = {
   }
 };
 
+export const CustomIcon: Story = {
+  args: {
+    ...Basic.args,
+    body: html`
+      <sl-icon slot="icon" name="face-smile"></sl-icon>
+      The main content of the message
+    `
+  }
+};
+
 export const All: StoryObj = {
   render: () => html`
     <style>

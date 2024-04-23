@@ -13,70 +13,80 @@ $md-breakpoint: 600px;
   --_link-underline-offset: 2px;
   --_tooltip-max-inline-size: min(18rem, 50vw);
 
+  display: block;
+}
+
+ul {
   align-items: center;
   display: flex;
   gap: var(--_gap);
+  margin: 0;
+  padding: 0;
 }
 
-a,
-sl-icon,
-::slotted(sl-icon) {
-  flex-shrink: 0;
-}
+li {
+  display: block;
+  list-style: none;
+  overflow: clip visible;
 
-a,
-::slotted(a),
-::slotted(:last-child) {
-  padding-block: var(--_link-padding-block);
-  padding-inline: var(--_link-padding-inline);
-}
+  &.home {
+    flex-shrink: 0;
 
-a,
-::slotted(a) {
-  color: var(--_link-color);
-  font: var(--sl-text-breadcrumb-link);
-  text-decoration: var(--_link-decoration);
-  text-underline-offset: var(--_link-underline-offset, auto);
-}
+    a {
+      align-items: center;
+      display: flex;
+      gap: var(--_link-gap);
+    }
+  }
 
-a:visited,
-::slotted(a:visited) {
-  --_link-color: var(--sl-color-href-idle-foreground);
-}
-
-a:hover,
-::slotted(a:hover) {
-  --_link-color: var(--sl-color-href-hover-foreground);
-}
-
-a:active,
-::slotted(a:active) {
-  --_link-color: var(--sl-color-href-active-foreground);
-}
-
-a:focus-visible,
-::slotted(a:focus-visible) {
-  border-radius: var(--sl-border-radius-button-md);
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
+  > :not(sl-icon) {
+    padding-block: var(--_link-padding-block);
+    padding-inline: var(--_link-padding-inline);
+  }
 }
 
 a {
-  align-items: center;
-  display: inline-flex;
-  gap: var(--_link-gap);
+  color: var(--_link-color);
+  display: block;
+  font: var(--sl-text-breadcrumb-link);
+  overflow: clip visible;
+  text-decoration: var(--_link-decoration);
+  text-overflow: ellipsis;
+  text-underline-offset: var(--_link-underline-offset, auto);
+  white-space: nowrap;
+
+  &:visited {
+    --_link-color: var(--sl-color-href-idle-foreground);
+  }
+
+  &:hover {
+    --_link-color: var(--sl-color-href-hover-foreground);
+  }
+
+  &:active {
+    --_link-color: var(--sl-color-href-active-foreground);
+  }
+
+  &:focus-visible {
+    border-radius: var(--sl-border-radius-button-md);
+    outline: var(--_focus-outline);
+    outline-offset: var(--_focus-outline-offset);
+  }
+
+  &[aria-current='page'] {
+    --_link-color: var(--sl-color-href-active-foreground);
+
+    font: var(--sl-text-breadcrumb-current);
+    text-decoration: none;
+  }
 
   @media (width <= $md-breakpoint) {
     padding-block: var(--_link-padding-inline);
   }
 }
 
-a[aria-current='page'],
-::slotted(a[aria-current='page']) {
-  --_link-color: var(--sl-color-href-active-foreground);
-
-  font: var(--sl-text-breadcrumb-current);
-  text-decoration: none;
+sl-icon[name='breadcrumb-separator'] {
+  color: var(--_divider-color);
 }
 
 sl-popover::part(container) {
@@ -84,36 +94,6 @@ sl-popover::part(container) {
   flex-direction: column;
   gap: var(--sl-space-popover-links-gap);
   padding: var(--sl-space-popover-links-block) 0;
-}
-
-sl-icon[name='breadcrumb-separator'] {
-  color: var(--_divider-color);
-}
-
-::slotted(*) {
-  --sl-icon-fill-default: var(--_divider-color);
-}
-
-::slotted(*:not(sl-icon)) {
-  display: block;
-  overflow: clip visible;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-// If there are more than 3 items, hide all items except the last 3
-// items. We multiply by 2 because of the icons in between the items.
-// Note that we cannot use CSS custom properties here, so the value
-// needs to be hardcoded.
-::slotted(:not(:nth-last-child(-n + 6))) {
-  display: none;
-}
-
-// On mobile, only show the last 2 items
-@media (width <= $md-breakpoint) {
-  ::slotted(:not(:nth-last-child(-n + 4))) {
-    display: none;
-  }
 }
 
 sl-tooltip {

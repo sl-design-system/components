@@ -4,7 +4,7 @@ import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { Tooltip } from '@sl-design-system/tooltip';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './breadcrumbs.scss.js';
 
@@ -20,7 +20,7 @@ declare global {
 }
 
 export interface Breadcrumb {
-  element: HTMLElement;
+  collapsed?: boolean;
   label: string;
   tooltip?: boolean | Tooltip;
   url?: string;
@@ -64,7 +64,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
    */
   static noHome = false;
 
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -74,7 +74,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /**
@@ -124,26 +124,58 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      ${this.noHome
-        ? nothing
-        : html`
-            <a href=${this.homeUrl}><sl-icon name="home-blank"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
-            <sl-icon name="breadcrumb-separator"></sl-icon>
-          `}
-      ${this.breadcrumbs.length > this.collapseThreshold
-        ? html`
-            <sl-button fill="link" id="button" @click=${this.#onClick} aria-label=${msg('More breadcrumbs')}>
-              <sl-icon name="ellipsis"></sl-icon>
-            </sl-button>
-            <sl-popover anchor="button">
-              ${this.breadcrumbs
-                .slice(0, -this.collapseThreshold)
-                .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : html`${label}`))}
-            </sl-popover>
-          `
-        : nothing}
-      <slot @slotchange=${this.#onSlotchange}></slot>
+      <ul>
+        ${this.noHome
+          ? nothing
+          : html`
+              <li class="home">
+                <a href=${this.homeUrl}><sl-icon name="home-blank"></sl-icon>${isMobile() ? '' : msg('Home')}</a>
+              </li>
+              <sl-icon name="breadcrumb-separator"></sl-icon>
+            `}
+        ${this.breadcrumbs.length > this.collapseThreshold
+          ? html`
+              <li>
+                <sl-button @click=${this.#onClick} aria-label=${msg('More breadcrumbs')} fill="link" id="button">
+                  <sl-icon name="ellipsis"></sl-icon>
+                </sl-button>
+                <sl-popover anchor="button">
+                  ${this.breadcrumbs
+                    .slice(0, -this.collapseThreshold)
+                    .map(({ url, label }) => (url ? html`<a href=${url}>${label}</a>` : html`${label}`))}
+                </sl-popover>
+              </li>
+              <sl-icon name="breadcrumb-separator"></sl-icon>
+            `
+          : nothing}
+        ${this.breadcrumbs
+          .filter(({ collapsed }) => !collapsed)
+          .map(({ url, label }, index) =>
+            url
+              ? html`
+                  <li><a href=${url}>${label}</a></li>
+                  ${index < this.breadcrumbs.length - 1
+                    ? html`<sl-icon name="breadcrumb-separator"></sl-icon>`
+                    : nothing}
+                `
+              : html`<li>${label}</li>`
+          )}
+      </ul>
+      <slot @slotchange=${this.#onSlotchange} style="display:none"></slot>
     `;
+  }
+
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
+
+    if (changes.has('breadcrumbs') || changes.has('collapseThreshold')) {
+      this.breadcrumbs = this.breadcrumbs.map((breadcrumb, index) => {
+        const collapsed =
+          this.breadcrumbs.length > this.collapseThreshold && index < this.breadcrumbs.length - this.collapseThreshold;
+
+        return { ...breadcrumb, collapsed };
+      });
+    }
   }
 
   #onClick = (): void => {
@@ -151,56 +183,36 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
   };
 
   #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
-    this.breadcrumbs = event.target
-      .assignedElements({ flatten: true })
-      .filter((element): element is HTMLElement => !(element instanceof Icon || element instanceof Tooltip))
-      .map(element => {
-        if (element.matches(':last-of-type')) {
-          element.setAttribute('aria-current', 'page');
-        }
-        return {
-          element,
-          label: element.textContent?.trim() || '',
-          url: element.hasAttribute('href') ? element.getAttribute('href') ?? undefined : undefined
-        };
-      });
-
-    this.breadcrumbs.forEach(({ element }, index) => {
-      // Make sure we stop inserting separators when there is already one there
-      // Otherwise we trigger an infinite loop with the slotchange event
-      if (index === this.breadcrumbs.length - 1 || element.nextElementSibling instanceof Icon) {
-        return;
-      }
-
-      const icon = this.shadowRoot!.createElement('sl-icon') as Icon;
-      icon.name = 'breadcrumb-separator';
-
-      element.after(icon);
+    this.breadcrumbs = event.target.assignedElements({ flatten: true }).map(element => {
+      return {
+        label: element.textContent?.trim() || '',
+        url: element.getAttribute('href') ?? undefined
+      };
     });
   }
 
   #update(): void {
     this.collapseThreshold = isMobile() ? MOBILE_COLLAPSE_THRESHOLD : COLLAPSE_THRESHOLD;
 
-    this.breadcrumbs.forEach(breadcrumb => {
-      const element = breadcrumb.element;
+    this.renderRoot.querySelectorAll<HTMLAnchorElement>('li:not(.home) > a').forEach(link => {
+      const breadcrumb = this.breadcrumbs.find(el => el.label === link.textContent?.trim())!;
 
-      if (!breadcrumb.tooltip && element.offsetWidth < element.scrollWidth) {
+      if (!breadcrumb.tooltip && link.offsetWidth < link.scrollWidth) {
         breadcrumb.tooltip = true;
 
         Tooltip.lazy(
-          element,
+          link,
           tooltip => {
             breadcrumb.tooltip = tooltip;
             tooltip.position = 'bottom';
-            tooltip.textContent = breadcrumb.label;
+            tooltip.textContent = link.textContent?.trim() || '';
           },
-          { context: this.shadowRoot!, parentNode: this.shadowRoot! }
+          { context: this.shadowRoot! }
         );
-      } else if (breadcrumb.tooltip && element.offsetWidth >= element.scrollWidth) {
-        breadcrumb.element.removeAttribute('aria-describedby');
+      } else if (breadcrumb.tooltip && link.offsetWidth >= link.scrollWidth) {
+        link.removeAttribute('aria-describedby');
 
-        if (typeof breadcrumb.tooltip !== 'boolean') {
+        if (typeof breadcrumb.tooltip != 'boolean') {
           breadcrumb.tooltip.remove();
           breadcrumb.tooltip = undefined;
         }

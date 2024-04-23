@@ -33,14 +33,17 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   /** The fields in the form. */
   fields: FormField[] = [];
 
+  /** Indicates whether to show validity state. */
   get showValidity(): boolean {
     return this.#showValidity;
   }
 
+  /** Whether all the fields in the form are valid. */
   get valid(): boolean {
     return this.fields.map(f => f.control?.valid).every(Boolean);
   }
 
+  /** The aggregated value of all form fields. */
   get value(): T {
     return Object.fromEntries(
       this.fields
@@ -56,6 +59,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
+  /** Calls `reportValidity()` on all form fields. */
   reportValidity(): boolean {
     this.#showValidity = true;
 

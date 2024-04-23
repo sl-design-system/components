@@ -1,10 +1,6 @@
-import {
-  eventPlugin,
-  methodAndFieldPlugin,
-  noPrivateFieldsPlugin,
-  sortMembersPlugin
-} from '@sl-design-system/scripts/cem-plugins.js';
-import { getTsProgram, expandTypesPlugin } from "cem-plugin-expanded-types";
+import { getTsProgram, expandTypesPlugin } from 'cem-plugin-expanded-types';
+import { methodAndFieldPlugin, noPrivateFieldsPlugin, sortMembersPlugin } from '../scripts/cem-plugins.js';
+import { eventDecoratorPlugin } from '../scripts/cem-plugin-event-decorator.js';
 
 export default {
   globs: ['../packages/components/**/*.ts'],
@@ -12,17 +8,19 @@ export default {
   outdir: 'src/_data/custom-elements',
   litelement: true,
   plugins: [
+    eventDecoratorPlugin(),
     noPrivateFieldsPlugin(),
-    eventPlugin(),
     methodAndFieldPlugin('method'),
     methodAndFieldPlugin('field'),
     sortMembersPlugin(),
     expandTypesPlugin()
   ],
-  
+
   /** Overrides default module creation: */
-  overrideModuleCreation: ({ts, globs}) => {
-    const program = getTsProgram(ts, globs, "tsconfig.cem.json");
-    return program.getSourceFiles().filter(sf => globs.find(glob => sf.fileName.includes(glob.replace('../',''))));
-  },
+  overrideModuleCreation: ({ ts, globs }) => {
+    const program = getTsProgram(ts, globs, 'tsconfig.cem.json');
+
+    return program.getSourceFiles()
+      .filter(sf => globs.find(glob => sf.fileName.includes(glob.replace('../',''))));
+  }
 }

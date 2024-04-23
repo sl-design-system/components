@@ -55,13 +55,13 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** @private The slotted checkboxes. */
   @queryAssignedElements() boxes?: Array<Checkbox<T>>;
 
-  /** Emits when the component loses focus. */
+  /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the value of the group changes. */
+  /** @internal Emits when the value of the group changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T[]>>;
 
-  /** Emits when the component receives focus. */
+  /** @internal Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** Whether the group is disabled; when set no interaction is possible. */

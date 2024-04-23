@@ -40,23 +40,15 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   /** @internal */
   @query('.wrapper') wrapper?: HTMLDivElement;
 
-  /** Determines whether a (default) closing button should be shown in the top right corner. */
-  @property({ type: Boolean, reflect: true }) dismissible = true;
+  /** Will hide the close button if set. */
+  @property({ type: Boolean }) indismissible?: boolean;
 
-  /** Determines whether the icon should be shown on the left side of the component. */
-  @property({ type: Boolean, attribute: 'no-icon' }) noIcon?: boolean;
-
-  /**
-   * The variant of the inline message.
-   * @type {'info' | 'success' | 'warning' | 'danger'}
-   */
+  /** The variant of the inline message. */
   @property({ reflect: true }) variant: InlineMessageVariant = 'info';
 
-  /** @internal The name of the icon, depending on the variant of the inline message. */
+  /** @internal The name of the icon, depending on the variant. */
   get iconName(): string {
     switch (this.variant) {
-      case 'info':
-        return 'info';
       case 'success':
         return 'circle-check-solid';
       case 'warning':
@@ -80,28 +72,24 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     return html`
       <div @animationend=${this.#closeOnAnimationend} class="wrapper" open>
         <div class="content">
-          ${this.noIcon
-            ? nothing
-            : html`
-                <slot name="icon">
-                  <sl-icon .name=${this.iconName} size="md"></sl-icon>
-                </slot>
-              `}
+          <slot name="icon">
+            <sl-icon .name=${this.iconName} size="md"></sl-icon>
+          </slot>
           <div class="content-details">
             <slot name="title"></slot>
             <slot></slot>
             <slot name="details"></slot>
           </div>
         </div>
-        ${this.dismissible
-          ? html`
+        ${this.indismissible
+          ? nothing
+          : html`
               <slot @click=${this.#closeOnAnimationend} name="close-button">
                 <sl-button aria-label=${msg('Close')} fill="ghost" size="sm" .variant=${this.variant}>
                   <sl-icon name="xmark"></sl-icon>
                 </sl-button>
               </slot>
-            `
-          : nothing}
+            `}
       </div>
     `;
   }

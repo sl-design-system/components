@@ -40,8 +40,8 @@ describe('sl-inline-message', () => {
       expect(el).to.have.attribute('variant', 'success');
     });
 
-    it('should not be dismissible when set', async () => {
-      el.dismissible = false;
+    it('should not indismissible when set', async () => {
+      el.indismissible = true;
       await el.updateComplete;
 
       expect(el?.shadowRoot?.querySelector('slot[name="close-button"] sl-button')).to.be.null;

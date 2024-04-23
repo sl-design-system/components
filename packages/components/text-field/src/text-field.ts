@@ -44,13 +44,13 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @private Hides the external validity icon. */
   override showExternalValidityIcon = false;
 
-  /** Emits when the focus leaves the component. */
+  /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the value changes. */
+  /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
-  /** Emits when the component gains focus. */
+  /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** The input element in the light DOM. */
@@ -178,7 +178,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && event.key === 'Enter') {
-      this.form?.requestSubmit(this.input);
+      this.form?.requestSubmit();
     }
   }
 

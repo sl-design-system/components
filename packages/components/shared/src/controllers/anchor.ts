@@ -108,14 +108,19 @@ export class AnchorController implements ReactiveController {
    */
   #linkAnchorWithPopover(expanded = false): void {
     const anchorElement = this.#getAnchorElement();
+    this.#host.id ||= `sl-popover-${nextUniqueId++}`;
 
     if (anchorElement && !this.#host.hasAttribute('aria-details')) {
       anchorElement.id ||= `sl-anchor-${nextUniqueId++}`;
-      this.#host.id ||= `sl-popover-${nextUniqueId++}`;
 
       anchorElement?.setAttribute('aria-details', this.#host.id);
     }
     anchorElement?.setAttribute('aria-expanded', expanded.toString());
+
+    const hasRichContent =
+      Array.from(this.#host.childNodes)
+        .map((n: ChildNode) => n.nodeType)
+        .filter(t => t === 1).length > 0;
 
     // If the anchor element is a button, we need to set the `popover-opened` attribute
     // TODO: Figure out whether we want to keep doing this. And if so, perhaps not just
@@ -123,8 +128,12 @@ export class AnchorController implements ReactiveController {
     if (anchorElement?.tagName === 'SL-BUTTON') {
       if (expanded) {
         anchorElement.setAttribute('popover-opened', '');
+        if (!hasRichContent && !this.#host.hasAttribute('no-describedby')) {
+          anchorElement?.setAttribute('aria-describedby', this.#host.id);
+        }
       } else {
         anchorElement.removeAttribute('popover-opened');
+        anchorElement?.removeAttribute('aria-describedby');
       }
     }
   }

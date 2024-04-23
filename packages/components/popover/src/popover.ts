@@ -47,6 +47,13 @@ export class Popover extends LitElement {
    */
   @property() position?: PopoverPosition = 'bottom';
 
+  /**
+   * When the contents of a popover is plain text the opener refers to the popover with 'aria-describedby'
+   * so the contents is read by screenreaders. When the contents of your popover is too long to be read
+   * inline this should be set to true so the user can navigate to the popover content themselves.
+   */
+  @property({ type: Boolean, attribute: 'no-describedby' }) noDescribedby?: boolean;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -71,29 +78,11 @@ export class Popover extends LitElement {
         <slot></slot>
       </div>
       <div class="arrow" aria-hidden="true">
-        <svg viewBox="410.746 247 16 6" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient
-              gradientUnits="userSpaceOnUse"
-              x1="418.746"
-              y1="252.5"
-              x2="418.746"
-              y2="253"
-              id="gradient-1"
-            >
-              <stop offset="0" style="stop-color: var(--_border-color);" />
-              <stop offset="1" style="stop-color: var(--_background);" />
-            </linearGradient>
-          </defs>
+        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" clip-rule="evenodd" viewBox="0 0 16 6">
           <path
-            d="M 425.226 252.411 C 425.322 252.505 425.429 252.588 425.543 252.661 C 425.658 252.733 425.782 252.795 425.911 252.845 C 426.041 252.896 426.177 252.934 426.317 252.96 C 426.457 252.987 426.601 253 426.746 253 L 422.746 253 L 418.746 253 L 414.746 253 L 410.746 253 C 410.891 253 411.035 252.987 411.175 252.96 C 411.315 252.934 411.45 252.896 411.58 252.845 C 411.709 252.795 411.833 252.733 411.948 252.661 C 412.062 252.588 412.169 252.505 412.265 252.411 L 413.504 251.206 L 414.744 250 L 415.983 248.795 L 417.222 247.589 C 417.424 247.393 417.665 247.246 417.925 247.148 C 418.186 247.049 418.466 247 418.746 247 C 419.026 247 419.306 247.049 419.566 247.148 C 419.827 247.246 420.067 247.393 420.269 247.589 L 421.508 248.795 L 422.747 250 L 423.986 251.206 L 425.226 252.411"
-            style="isolation:isolate"
-            transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, 0, 2.842170943040401e-14)"
-            stroke-miterlimit="5.4"
-            filter="none"
-            paint-order="stroke"
-            stroke-opacity=".92"
-            stroke="url(#gradient-1)"
+            fill="var(--_background)"
+            stroke="var(--_border-color)"
+            d="M14.48 5.911c.196.191.429.338.685.434.266.104.549.156.835.155H0c.424.002.841-.116 1.202-.339.114-.073.221-.156.317-.25l1.239-1.205L3.998 3.5l1.239-1.205 1.239-1.206c.202-.196.443-.343.703-.441C7.441.549 7.72.499 8 .5c.28 0 .56.049.82.148.261.098.501.245.703.441l1.239 1.206L12.001 3.5l1.239 1.206 1.24 1.205"
           />
         </svg>
       </div>

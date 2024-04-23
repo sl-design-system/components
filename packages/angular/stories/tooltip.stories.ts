@@ -11,7 +11,7 @@ export default {
   ]
 } as Meta;
 
-export const Basic: StoryObj = {
+export const Directive: StoryObj = {
   render: () => ({
     template: '<sl-button slTooltip="Hello World">Hover me</sl-button>'
   })

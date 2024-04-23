@@ -125,27 +125,28 @@ export const Overflow: Story = {
 export const All: StoryObj = {
   render: () => html`
     <style>
-      div {
+      #root-inner {
         display: grid;
         gap: 1rem;
         grid-template-columns: 1fr 1fr;
       }
+      span[slot='title']:first-letter {
+        text-transform: capitalize;
+      }
     </style>
-    <div>
-      ${variants.map(
-        variant => html`
-          <sl-inline-message variant=${variant}>
-            <span slot="title">Variant ${variant} inline message title</span>
-            The main content of the message
-            <span slot="details">A place fore more details like errors list</span>
-          </sl-inline-message>
-          <sl-inline-message dismissible variant=${variant}>
-            <span slot="title">Variant ${variant} inline message title</span>
-            The main content of the message
-            <span slot="details">A place fore more details like errors list</span>
-          </sl-inline-message>
-        `
-      )}
-    </div>
+    ${variants.map(
+      variant => html`
+        <sl-inline-message variant=${variant}>
+          <span slot="title">${variant} inline message title</span>
+          The main content of the message
+          <span slot="details">A place fore more details like errors list</span>
+        </sl-inline-message>
+        <sl-inline-message indismissible variant=${variant}>
+          <span slot="title">${variant} inline message title</span>
+          The main content of the message
+          <span slot="details">A place fore more details like errors list</span>
+        </sl-inline-message>
+      `
+    )}
   `
 };

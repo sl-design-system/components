@@ -26,7 +26,7 @@ export type InlineMessageVariant = 'info' | 'success' | 'warning' | 'danger';
  */
 @localized()
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-button': Button,
@@ -34,10 +34,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = [breakpoints, styles];
 
-  /** @private */
+  /** @internal */
   @query('.wrapper') wrapper?: HTMLDivElement;
 
   /** Determines whether a (default) closing button should be shown in the top right corner. */
@@ -52,7 +52,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
    */
   @property({ reflect: true }) variant: InlineMessageVariant = 'info';
 
-  /** @private The name of the icon, depending on the variant of the inline message. */
+  /** @internal The name of the icon, depending on the variant of the inline message. */
   get iconName(): string {
     switch (this.variant) {
       case 'info':
@@ -78,13 +78,15 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div class="wrapper" open @animationend=${this.#closeOnAnimationend}>
+      <div @animationend=${this.#closeOnAnimationend} class="wrapper" open>
         <div class="content">
           ${this.noIcon
             ? nothing
-            : html`<slot name="icon">
-                <sl-icon name=${this.iconName} size="md"></sl-icon>
-              </slot>`}
+            : html`
+                <slot name="icon">
+                  <sl-icon .name=${this.iconName} size="md"></sl-icon>
+                </slot>
+              `}
           <div class="content-details">
             <slot name="title"></slot>
             <slot></slot>
@@ -93,13 +95,8 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
         </div>
         ${this.dismissible
           ? html`
-              <slot name="close-button" @click=${this.#closeOnAnimationend}>
-                <sl-button
-                  fill="ghost"
-                  variant=${this.variant === 'info' ? 'primary' : this.variant}
-                  size="sm"
-                  aria-label=${msg('Close')}
-                >
+              <slot @click=${this.#closeOnAnimationend} name="close-button">
+                <sl-button aria-label=${msg('Close')} fill="ghost" size="sm" .variant=${this.variant}>
                   <sl-icon name="xmark"></sl-icon>
                 </sl-button>
               </slot>

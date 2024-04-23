@@ -5,6 +5,7 @@ import { FormControlElementDirective } from './form-control-element.directive';
 
 @Directive({
   selector: 'sl-switch',
+  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

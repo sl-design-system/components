@@ -115,6 +115,7 @@ export class AnchorController implements ReactiveController {
 
       anchorElement?.setAttribute('aria-details', this.#host.id);
     }
+
     anchorElement?.setAttribute('aria-expanded', expanded.toString());
 
     const hasRichContent =

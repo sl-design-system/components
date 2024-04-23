@@ -3,11 +3,10 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { Error } from './error.js';
-import { type FormControl } from './form-control-mixin.js';
+import { type FormControl, type SlUpdateValidityEvent } from './form-control-mixin.js';
 import styles from './form-field.scss.js';
 import { Hint } from './hint.js';
 import { Label, type LabelMark } from './label.js';
-import { type UpdateValidityEvent } from './update-validity-event.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
@@ -62,7 +61,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
    */
   @state() error?: string;
 
-  /** Emits when the field is added to a form. */
+  /** @internal Emits when the field is added to a form. */
   @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<SlFormFieldEvent>;
 
   /**
@@ -235,12 +234,12 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onUpdateValidity(event: UpdateValidityEvent): void {
+  #onUpdateValidity({ detail: { showValidity, validationMessage } }: SlUpdateValidityEvent): void {
     if (this.#error && !this.error) {
       // Do nothing if there is a custom error message slotted
       return;
     }
 
-    this.error = event.showValidity ? event.validationMessage : undefined;
+    this.error = showValidity ? validationMessage : undefined;
   }
 }

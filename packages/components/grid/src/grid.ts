@@ -158,7 +158,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
   /** The active item in the grid. */
   @state() activeItem?: T;
 
-  /** Emits when the active item changes */
+  /** @internal Emits when the active item changes */
   @event({ name: 'sl-active-item-change' }) activeItemChangeEvent!: EventEmitter<SlActiveItemChangeEvent<T>>;
 
   /** Provide your own implementation for getting the data. */
@@ -170,13 +170,13 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ attribute: 'draggable-rows' }) draggableRows?: GridDraggableRows;
 
-  /** Emits when a drag operation is starting. */
+  /** @internal Emits when a drag operation is starting. */
   @event({ name: 'sl-grid-dragstart' }) dragStartEvent!: EventEmitter<SlDragStartEvent<T>>;
 
-  /** Emits when a drag operation has finished. */
+  /** @internal Emits when a drag operation has finished. */
   @event({ name: 'sl-grid-dragend' }) dragEndEvent!: EventEmitter<SlDragEndEvent<T>>;
 
-  /** Emits when an item has been dropped. */
+  /** @internal Emits when an item has been dropped. */
   @event({ name: 'sl-grid-drop', cancelable: true }) dropEvent!: EventEmitter<SlDropEvent<T>>;
 
   /**
@@ -212,7 +212,7 @@ export class Grid<T = any> extends ScopedElementsMixin(LitElement) {
    */
   @property({ attribute: false }) scopedElements?: Record<string, typeof HTMLElement>;
 
-  /** Emits when the state in the grid has changed. */
+  /** @internal Emits when the state in the grid has changed. */
   @event({ name: 'sl-grid-state-change' }) stateChangeEvent!: EventEmitter<SlStateChangeEvent<T>>;
 
   /** Uses alternating background colors for the rows when set. */

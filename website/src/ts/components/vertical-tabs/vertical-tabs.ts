@@ -36,12 +36,13 @@ export class VerticalTabs extends LitElement {
       const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []),
         links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
 
-      console.log('sections', sections);
+      console.log('sections', sections, window.location.hash, window.location);
       // entries.length
       // entries.filter(entry => entry.isIntersecting).length
-      console.log('length', entries.length, entries.filter(entry => entry.isIntersecting).length);
+      console.log('length', entries, entries.length, entries.filter(entry => entry.intersectionRatio === 1).length);
 
-      if (links.length === entries.filter(entry => entry.isIntersecting).length) {
+      if (links.length === entries.filter(entry => entry.intersectionRatio === 1).length || (!window.location.hash && entries.length === links.length)) {
+        console.log('observer return');
         // const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
         // if (verticalTabs.length) {
         //   this.#setActiveTab(verticalTabs[0] as HTMLElement);
@@ -115,7 +116,8 @@ export class VerticalTabs extends LitElement {
 
       entries.forEach(entry => {
         console.log('entry', entry, updated, entry.isIntersecting, entry.rootBounds);
-        if (updated) {
+        console.log('updated', updated, window.location.hash, entry.target.id);
+        if (updated /*|| !window.location.hash.includes(entry.target.id)*/) {
           return;
         }
         let section: Element | null | undefined;
@@ -128,15 +130,20 @@ export class VerticalTabs extends LitElement {
           //     section = section?.previousElementSibling;
           //   }
           // }
-        } else if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+        } else if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
           section = entry.target;
           let index = sections.findIndex(b => {
             return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
           });
 
+          if (index === 0) {
+            // first item
+          }
+
           if (links[index]) {
             console.log('links[index]', links[index]);
             links[index].click();
+            // updated = true;
             // this.#setActiveTab(links[index]);
             // this.#alignVerticalTabIndicator(links[index]);
           } /*else if (!section.hasAttribute('id')) {
@@ -169,7 +176,7 @@ export class VerticalTabs extends LitElement {
         updated = true;
       });
     },
-    { rootMargin: '-86px 0px 0px 0px', threshold: 0.5 }
+    { root: null, rootMargin: '-86px 0px 0px 0px', threshold: 0.1 }
   );
 
   #isInViewport(section: Element | null | undefined) {
@@ -198,20 +205,45 @@ export class VerticalTabs extends LitElement {
     const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
     console.log('sections to observe', sections);
       const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
-      if (verticalTabs.length) {
+      if (verticalTabs.length /*&& !window.location.hash*/) {
         this.#setActiveTab(verticalTabs[0] as HTMLElement);
         window.scrollTo(0, 0);
       }
 
-    // if (sections.length) {
-    //   sections.forEach(section => this.observer.observe(section));
-    // }
+    if (sections.length) {
+      sections.forEach(section => this.observer.observe(section));
+    }
     });
 
     // const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
     // if (verticalTabs.length) {
     //   this.#setActiveTab(verticalTabs[0] as HTMLElement);
     // }
+
+    let timeout: NodeJS.Timeout;
+
+    window.addEventListener('hashchange',  (e) => {
+      const links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
+      let index = links.findIndex(link => {
+        return (link as HTMLAnchorElement).hash == window.location.hash;
+      });
+      const articleToShow =
+        document.querySelector(window.location.hash) ||
+        document.querySelector('article');
+      console.log('articleToShow', articleToShow, e, links, window.location.hash, index);
+      clearTimeout(timeout);
+      timeout =
+      setTimeout(() => {
+        links[index].click();
+       // articleToShow?.scrollIntoView();
+
+        const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+        if (sections.length) {
+          sections.forEach(section => this.observer.observe(section));
+        }
+      }, 600);
+      // e.preventDefault();
+    }, false);
   }
 
   override firstUpdated(changes: PropertyValues<this>): void {
@@ -288,6 +320,7 @@ export class VerticalTabs extends LitElement {
   //  event.preventDefault();
 
     this.observer?.disconnect();
+    // this.observer.unobserve()
 
     const links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
     // let index = sections.findIndex(b => {
@@ -318,10 +351,12 @@ export class VerticalTabs extends LitElement {
       'transitionend',
       () => {
         console.log('indicator onclick animationend');
-        const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+        // setTimeout(() => {
+        // const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
         // if (sections.length) {
         //   sections.forEach(section => this.observer.observe(section));
         // }
+        // }, 500);
       })
 
     this.addEventListener(
@@ -332,13 +367,13 @@ export class VerticalTabs extends LitElement {
   }
 
   #onAnimationend(event: TransitionEvent) {
-    console.log('event on animationend', event);
-    setTimeout(() => {
-      const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
-      if (sections.length) {
-        sections.forEach(section => this.observer.observe(section));
-      }
-    }, 400);
+    console.log('event on animationend', event, event.target);
+    // setTimeout(() => {
+    //   const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
+    //   if (sections.length) {
+    //     // sections.forEach(section => this.observer.observe(section));
+    //   }
+    // }, 500);
   }
 
   #setActiveTab(verticalTab: HTMLElement): void {

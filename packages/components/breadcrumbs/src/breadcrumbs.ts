@@ -6,6 +6,7 @@ import { Popover } from '@sl-design-system/popover';
 import { Tooltip } from '@sl-design-system/tooltip';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './breadcrumbs.scss.js';
 
 declare global {
@@ -150,13 +151,15 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
           : nothing}
         ${this.breadcrumbs
           .filter(({ collapsed }) => !collapsed)
-          .map(({ url, label }, index) =>
+          .map(({ url, label }, index, array) =>
             url
               ? html`
-                  <li><a href=${url}>${label}</a></li>
-                  ${index < this.breadcrumbs.length - 1
-                    ? html`<sl-icon name="breadcrumb-separator"></sl-icon>`
-                    : nothing}
+                  <li>
+                    <a aria-current=${ifDefined(index === array.length - 1 ? 'page' : undefined)} href=${url}>
+                      ${label}
+                    </a>
+                  </li>
+                  ${index < array.length - 1 ? html`<sl-icon name="breadcrumb-separator"></sl-icon>` : nothing}
                 `
               : html`<li>${label}</li>`
           )}

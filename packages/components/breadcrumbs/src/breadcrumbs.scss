@@ -27,7 +27,7 @@ ul {
 li {
   display: block;
   list-style: none;
-  overflow: clip visible;
+  min-inline-size: 0;
 
   &.home {
     flex-shrink: 0;
@@ -39,7 +39,7 @@ li {
     }
   }
 
-  > :not(sl-icon) {
+  &:not(:has(a)) {
     padding-block: var(--_link-padding-block);
     padding-inline: var(--_link-padding-inline);
   }
@@ -50,6 +50,8 @@ a {
   display: block;
   font: var(--sl-text-breadcrumb-link);
   overflow: clip visible;
+  padding-block: var(--_link-padding-block);
+  padding-inline: var(--_link-padding-inline);
   text-decoration: var(--_link-decoration);
   text-overflow: ellipsis;
   text-underline-offset: var(--_link-underline-offset, auto);

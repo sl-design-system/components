@@ -52,13 +52,13 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   /** @private Hides the external validity icon. */
   override showExternalValidityIcon = false;
 
-  /** Emits when the focus leaves the component. */
+  /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the value changes. */
+  /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
-  /** Emits when the component gains focus. */
+  /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** The textarea in the light DOM. */

@@ -942,7 +942,7 @@
           "lg": {
             "value": "{space.md}",
             "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "description": "{space.button.gap.md}"
           },
           "none": {
             "value": "{space.none}",

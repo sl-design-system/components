@@ -2318,6 +2318,32 @@
         "value": "{space.md}",
         "type": "spacing"
       }
+    },
+    "input": {
+      "fieldLabel": {
+        "paddingBottom": {
+          "sm": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "md": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.md}"
+          },
+          "lg": {
+            "value": "{space.xs}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          },
+          "none": {
+            "value": "{space.none}",
+            "type": "spacing",
+            "description": "{space.button.gap.lg}"
+          }
+        }
+      }
     }
   },
   "animation": {

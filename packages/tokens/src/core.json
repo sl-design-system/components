@@ -940,7 +940,7 @@
             "description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.md}",
+            "value": "{space.sm}",
             "type": "spacing",
             "description": "{space.button.gap.md}"
           },

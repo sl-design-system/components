@@ -1604,7 +1604,7 @@
           "description": "space.button.solid.inline.md"
         },
         "end": {
-          "value": "{space.2xl}",
+          "value": "{space.lg}",
           "type": "spacing",
           "description": "space.button.solid.inline.md"
         }

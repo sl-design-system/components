@@ -1,6 +1,6 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { Error } from './error.js';
 import { type FormControl, type SlUpdateValidityEvent } from './form-control-mixin.js';
@@ -143,11 +143,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     return html`
       <slot name="label" @slotchange=${this.#onLabelSlotchange}></slot>
       <div class="wrapper" part="wrapper">
+        <slot @slotchange=${this.#onHintSlotchange} name="hint"></slot>
         <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity}></slot>
         <slot @slotchange=${this.#onErrorSlotchange} name="error"></slot>
-        ${this.#customError || this.#error
-          ? nothing
-          : html`<slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>`}
       </div>
     `;
   }

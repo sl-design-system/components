@@ -15,7 +15,7 @@ import { type Form } from './form.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Form/Examples'
+  title: 'Form/Form'
 };
 
 export const Basic: Story = {
@@ -138,19 +138,19 @@ export const All: Story = {
 
     return html`
       <sl-form>
-        <sl-form-field label="Text field">
+        <sl-form-field hint="Hint text" label="Text field">
           <sl-text-field name="input" placeholder="Placeholder" required></sl-text-field>
         </sl-form-field>
 
-        <sl-form-field label="Textarea">
+        <sl-form-field hint="Hint text" label="Textarea">
           <sl-textarea name="textarea" placeholder="Placeholder" required></sl-textarea>
         </sl-form-field>
 
-        <sl-form-field label="Checkbox">
+        <sl-form-field hint="Hint text" label="Checkbox">
           <sl-checkbox name="checkbox" required value="checked">Checkbox</sl-checkbox>
         </sl-form-field>
 
-        <sl-form-field label="Select">
+        <sl-form-field hint="Hint text" label="Select">
           <sl-select name="select" required>
             <sl-select-option value="1">Option 1</sl-select-option>
             <sl-select-option value="2">Option 2</sl-select-option>
@@ -158,11 +158,11 @@ export const All: Story = {
           </sl-select>
         </sl-form-field>
 
-        <sl-form-field label="Switch">
+        <sl-form-field hint="Hint text" label="Switch">
           <sl-switch name="switch" reverse value="toggled">Toggle me</sl-switch>
         </sl-form-field>
 
-        <sl-form-field label="Checkbox group">
+        <sl-form-field hint="Hint text" label="Checkbox group">
           <sl-checkbox-group name="checkboxGroup" required>
             <sl-checkbox value="0">Check me</sl-checkbox>
             <sl-checkbox value="1">No me</sl-checkbox>
@@ -170,7 +170,7 @@ export const All: Story = {
           </sl-checkbox-group>
         </sl-form-field>
 
-        <sl-form-field label="Radio group">
+        <sl-form-field hint="Hint text" label="Radio group">
           <sl-radio-group name="radioGroup" required>
             <sl-radio value="1">One</sl-radio>
             <sl-radio value="2">Two</sl-radio>
@@ -195,19 +195,19 @@ export const AllInvalid: Story = {
 
     return html`
       <sl-form>
-        <sl-form-field label="Text field">
+        <sl-form-field hint="Hint text" label="Text field">
           <sl-text-field name="input" placeholder="Placeholder" required></sl-text-field>
         </sl-form-field>
 
-        <sl-form-field label="Textarea">
+        <sl-form-field hint="Hint text" label="Textarea">
           <sl-textarea name="textarea" placeholder="Placeholder" required></sl-textarea>
         </sl-form-field>
 
-        <sl-form-field label="Checkbox">
+        <sl-form-field hint="Hint text" label="Checkbox">
           <sl-checkbox name="checkbox" required value="checked">Checkbox</sl-checkbox>
         </sl-form-field>
 
-        <sl-form-field label="Select">
+        <sl-form-field hint="Hint text" label="Select">
           <sl-select name="select" required>
             <sl-select-option value="1">Option 1</sl-select-option>
             <sl-select-option value="2">Option 2</sl-select-option>
@@ -215,11 +215,11 @@ export const AllInvalid: Story = {
           </sl-select>
         </sl-form-field>
 
-        <sl-form-field label="Switch">
+        <sl-form-field hint="Hint text" label="Switch">
           <sl-switch name="switch" reverse value="toggled">Toggle me</sl-switch>
         </sl-form-field>
 
-        <sl-form-field label="Checkbox group">
+        <sl-form-field hint="Hint text" label="Checkbox group">
           <sl-checkbox-group name="checkboxGroup" required>
             <sl-checkbox value="0">Check me</sl-checkbox>
             <sl-checkbox value="1">No me</sl-checkbox>
@@ -227,7 +227,7 @@ export const AllInvalid: Story = {
           </sl-checkbox-group>
         </sl-form-field>
 
-        <sl-form-field label="Radio group">
+        <sl-form-field hint="Hint text" label="Radio group">
           <sl-radio-group name="radioGroup" required>
             <sl-radio value="1">One</sl-radio>
             <sl-radio value="2">Two</sl-radio>

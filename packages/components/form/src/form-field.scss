@@ -1,5 +1,5 @@
 :host {
-  --_control-gap: var(--sl-space-input-helper-gap-md);
+  --_control-gap: var(--sl-space-input-helper-gap-md, 4px);
   --_label-gap: var(--sl-space-input-field-label-padding-bottom-md);
 
   display: flex;

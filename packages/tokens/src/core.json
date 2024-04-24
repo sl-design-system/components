@@ -870,7 +870,7 @@
             "description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "{space.button.gap.lg}"
           }
@@ -887,7 +887,7 @@
             "description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "{space.button.gap.lg}"
           },
@@ -940,9 +940,9 @@
             "description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.md}",
+            "value": "{space.sm}",
             "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "description": "{space.button.gap.md}"
           },
           "none": {
             "value": "{space.none}",

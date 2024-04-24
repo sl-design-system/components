@@ -4,16 +4,51 @@ $variants: info, success, warning, danger;
   --_border-left: var(--sl-border-width-inline-message-start) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-inline-message-default);
   --_border: var(--sl-border-width-inline-message-default) solid var(--_border-color);
-  --_close-button-spacing: var(--sl-space-button-gap-sm);
+  --_button-size: calc(
+    var(--sl-space-button-ghost-icon-only-lg) * 2 + var(--sl-border-width-button-ghost) * 2 +
+      var(--sl-size-button-icon-container-icon-only-lg)
+  );
+  --_header-block-size: var(--sl-text-typeset-line-height-lg);
+  --_header-padding-block-start: calc((var(--_button-size) - var(--_header-block-size)) / 2);
   --_content-gap: var(--sl-space-inline-message-content-gap);
   --_description-font: var(--sl-text-body-md-normal);
   --_gap: var(--sl-space-inline-message-gap);
   --_icon-block-size: var(--sl-text-typeset-line-height-lg);
-  --_padding-block: var(--sl-space-inline-message-block);
-  --_padding-inline: calc(var(--sl-space-inline-message-inline-start)) var(--sl-space-inline-message-inline-end);
+  --_padding-block: calc(
+    var(--sl-space-inline-message-block) - ((var(--_button-size) - var(--_header-block-size)) / 2)
+  );
+  --_padding-inline-start: var(--sl-space-inline-message-inline-end);
+  --_padding-inline-end: var(--_padding-block);
   --_title-font: var(--sl-text-body-lg-demibold);
 
   display: block;
+}
+
+:host([indismissible]) {
+  --_header-padding-block-start: 0;
+  --_padding-block-start: var(--sl-space-inline-message-block);
+  --_padding-block-end: var(--sl-space-inline-message-block);
+}
+
+:host([no-title]) {
+  [part='title'] {
+    display: none;
+  }
+
+  [part='content'] {
+    grid-area: 1 / 2;
+    padding-block: var(--_header-padding-block-start) 0;
+  }
+}
+
+:host([indismissible][no-title]) [part='content'] {
+  padding-block-start: calc((1lh - var(--_padding-block-start)) / 2);
+}
+
+:host([wrap-action]) [part='action'] {
+  align-self: auto;
+  grid-area: auto / 2;
+  margin-block-start: 0;
 }
 
 @each $variant in $variants {
@@ -37,7 +72,7 @@ $variants: info, success, warning, danger;
   gap: 0 var(--_gap);
   grid-template-columns: auto 1fr auto;
   padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  padding-inline: var(--_padding-inline-start) var(--_padding-inline-end);
   position: relative;
 
   &[close] {
@@ -60,26 +95,40 @@ $variants: info, success, warning, danger;
 [part='icon'] {
   --sl-icon-fill-default: var(--_icon-fill);
 
-  align-self: center;
+  align-items: center;
+  block-size: var(--_header-block-size);
+  display: inline-flex;
   fill: var(--_fill);
+  padding-block-start: var(--_header-padding-block-start);
 }
 
 [part='title'] {
-  align-self: center;
   font: var(--_title-font);
+  grid-area: 1 / 2;
+  padding-block-start: var(--_header-padding-block-start);
+
+  slot {
+    display: block;
+  }
 }
 
 [part='action'] {
-  align-self: center;
+  align-self: start;
+  margin-block-start: var(--_header-padding-block-start);
 }
 
 sl-button {
-  align-self: center;
+  align-self: start;
   grid-area: 1 / 4;
 }
 
 [part='content'] {
   grid-area: 2 / 2 / 2 / -1;
+  padding-block-end: var(--_padding-block);
+
+  slot {
+    display: block;
+  }
 }
 
 @keyframes slide-in-up {

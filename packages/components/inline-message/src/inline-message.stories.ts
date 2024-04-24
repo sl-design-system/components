@@ -39,7 +39,7 @@ export default {
   },
   render: ({ body, button, indismissible, title, variant }) => html`
     <sl-inline-message ?indismissible=${indismissible} .variant=${variant}>
-      <span slot="title">${title}</span>
+      ${title ? html`<span slot="title">${title}</span>` : nothing}
       ${button ? html`<sl-button fill="outline" size="sm" slot="action" variant="info">${button}</sl-button>` : nothing}
       ${body}
     </sl-inline-message>
@@ -116,13 +116,6 @@ export const Dynamic: Story = {
   }
 };
 
-export const Indismissible: Story = {
-  args: {
-    ...Basic.args,
-    indismissible: true
-  }
-};
-
 export const NoTitle: Story = {
   args: {
     ...Basic.args,
@@ -152,11 +145,13 @@ export const All: StoryObj = {
   render: () => html`
     <style>
       #root-inner {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         gap: 1rem;
-        grid-template-columns: 1fr 1fr;
+        margin: 0 auto;
+        max-inline-size: min(600px, 80vw);
       }
-      span[slot='title']:first-letter {
+      sl-inline-message::part(title):first-letter {
         text-transform: capitalize;
       }
     </style>
@@ -164,10 +159,38 @@ export const All: StoryObj = {
       variant => html`
         <sl-inline-message variant=${variant}>
           <span slot="title">${variant} inline message title</span>
+          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
           The main content of the message
+        </sl-inline-message>
+        <sl-inline-message variant=${variant}>
+          <span slot="title"
+            >${variant} inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu culpa
+            irure.</span
+          >
+          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
+          Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
+          consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
         </sl-inline-message>
         <sl-inline-message indismissible variant=${variant}>
           <span slot="title">${variant} inline message title</span>
+          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
+          The main content of the message
+        </sl-inline-message>
+        <sl-inline-message variant=${variant}>
+          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
+          The main content of the message
+        </sl-inline-message>
+        <sl-inline-message variant=${variant}>
+          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
+          Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est
+          sunt. Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
+        </sl-inline-message>
+        <sl-inline-message indismissible variant=${variant}>
+          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
+          The main content of the message
+        </sl-inline-message>
+        <sl-inline-message indismissible variant=${variant}>
+          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
           The main content of the message
         </sl-inline-message>
       `

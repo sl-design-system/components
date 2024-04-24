@@ -208,6 +208,23 @@ export const TextOverflow: Story = {
   }
 };
 
+export const WordBreak: Story = {
+  args: {
+    slot: () => html`
+      <style>
+        sl-select {
+          width: 7em;
+        }
+      </style>
+      <sl-select value="2">
+        <sl-select-option value="1" lang="nl">Schoenenborstel</sl-select-option>
+        <sl-select-option value="2" lang="en">1. MBO Paragraphcomponent</sl-select-option>
+        <sl-select-option value="3" lang="en">Disproportionate</sl-select-option>
+      </sl-select>
+    `
+  }
+};
+
 export const Valid: Story = {
   args: {
     hint: 'After clicking the button, this field will show it is valid.'

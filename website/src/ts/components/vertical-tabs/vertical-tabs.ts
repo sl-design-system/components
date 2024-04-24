@@ -30,6 +30,8 @@ export class VerticalTabs extends LitElement {
 
   nextUniqueId = 0;
 
+ // updated = false;
+
   observer = new IntersectionObserver(
     entries => {
       let updated = false;
@@ -116,7 +118,7 @@ export class VerticalTabs extends LitElement {
 
       entries.forEach(entry => {
         console.log('entry', entry, updated, entry.isIntersecting, entry.rootBounds);
-        console.log('updated', updated, window.location.hash, entry.target.id);
+        console.log('updated', updated, window.location.hash, entry.target.id, window.location.hash.includes(entry.target.id));
         if (updated /*|| !window.location.hash.includes(entry.target.id)*/) {
           return;
         }
@@ -130,7 +132,7 @@ export class VerticalTabs extends LitElement {
           //     section = section?.previousElementSibling;
           //   }
           // }
-        } else if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+        } else if (entry.isIntersecting && entry.intersectionRatio > 0) { // entry.intersectionRatio > 0.1
           section = entry.target;
           let index = sections.findIndex(b => {
             return (b as HTMLElement).id.toLowerCase() == (section as HTMLElement).getAttribute('id')?.toLowerCase();
@@ -176,8 +178,8 @@ export class VerticalTabs extends LitElement {
         updated = true;
       });
     },
-    { root: null, rootMargin: '-86px 0px 0px 0px', threshold: 0.1 }
-  );
+    { root: null, rootMargin: '-86px 0px 0px 0px' }
+  ); // , threshold: 0.1
 
   #isInViewport(section: Element | null | undefined) {
     const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);

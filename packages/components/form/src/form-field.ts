@@ -92,7 +92,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         if (this.error) {
           this.#error ??= this.shadowRoot?.createElement('sl-error') as Error;
           this.#error.innerText = this.error;
-          this.#error.noIcon = !this.control?.showExternalValidityIcon;
 
           if (!this.#error.parentElement) {
             this.append(this.#error);
@@ -159,7 +158,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     } else if (error) {
       this.#error = error;
       this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
-      this.#error.noIcon = !this.control?.showExternalValidityIcon;
 
       if (this.control) {
         this.control.formControlElement.setAttribute('aria-describedby', this.#error.id);

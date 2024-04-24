@@ -1,6 +1,6 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './error.scss.js';
 
@@ -31,12 +31,6 @@ export class Error extends ScopedElementsMixin(LitElement) {
   /** The light DOM slot. */
   #slot?: HTMLSlotElement;
 
-  /**
-   * Whether the icon should be hidden. This can be useful when the form control
-   * already shows an icon inside the component itself.
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'no-icon' }) noIcon?: boolean;
-
   /** The size at which the error is displayed. */
   @property({ reflect: true }) size: ErrorSize = 'md';
 
@@ -55,7 +49,7 @@ export class Error extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      ${this.noIcon ? nothing : html`<sl-icon name="triangle-exclamation-solid" size="lg"></sl-icon>`}
+      <sl-icon name="triangle-exclamation-solid"></sl-icon>
       <slot></slot>
     `;
   }

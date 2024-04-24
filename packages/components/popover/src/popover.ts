@@ -48,9 +48,9 @@ export class Popover extends LitElement {
   @property() position?: PopoverPosition = 'bottom';
 
   /**
-   * When the contents of a popover is plain text the opener refers to the popover with 'aria-describedby'
-   * so the contents is read by screenreaders. When the contents of your popover is too long to be read
-   * inline this should be set to true so the user can navigate to the popover content themselves.
+   * When the contents of your popover is too long to be read inline this should be set to true so the user can navigate to the popover content themselves.
+   * aria-details is always set, regardless of this property.
+   * Read more about this on the accessibility tab.
    */
   @property({ type: Boolean, attribute: 'no-describedby' }) noDescribedby?: boolean;
 

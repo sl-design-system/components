@@ -36,6 +36,12 @@ export const icons = {
     description: 'icon.core.circle-check-solid',
     svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
+  'circle-exclamation-solid': {
+    value: 'circle-exclamation',
+    type: 'Icons',
+    description: 'icon.core.circle-exclamation-solid',
+    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
+  },
   ellipsis: {
     value: 'ellipsis',
     type: 'Icons',
@@ -105,12 +111,6 @@ export const icons = {
   },
   star: {
     svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M10.493 5.107 8.616.896H7.384l-1.792 4.21-4.567.488-.373 1.174 3.6 3.037-1.193 4.554 1.002.745 3.925-2.442 3.924 2.442 1.003-.745-1.217-4.44 3.652-3.15-.373-1.175zm-2.507-1.63L6.86 6.317l-.444.322-3.1.272 2.488 2.001.172.544-.856 3.039 2.594-1.662h.568l2.595 1.662-.901-2.94.172-.544 2.507-2.1-3-.272-.445-.321z" clip-rule="evenodd"/></svg>'
-  },
-  'triangle-exclamation-solid': {
-    value: 'triangle-exclamation',
-    type: 'Icons',
-    description: 'icon.core.triangle-exclamation-solid',
-    svg: '<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" fill="var(--sl-icon-fill-default)"></path></svg>'
   },
   xmark: {
     value: 'xmark',

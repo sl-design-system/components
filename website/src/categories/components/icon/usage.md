@@ -34,8 +34,10 @@ Icons are important for user understanding and interaction
 ### Intuitive Content
 Icons enhance usability, facilitating a quick understanding by providing a visual representation of information. They can communicate complex messages to the user effectively in a simple and concise manner, resulting in a more intuitive and user-friendly experience.
 
-</section>
+### Labeling Icons
+It is challenging to find icons that are universally understood without some form of textual explanation. Therefore, it is best practice to add a label in combination with an icon. Incorporating labels can enhance usability, and a larger clickable area reduces interaction costs. Some icons, such as the save icon <sl-icon name="far-floppy-disk" size="sm"></sl-icon> or the close icon <sl-icon name="far-xmark" size="sm"></sl-icon> are so common that they can be used without a label if there is no space for one.
 
+</section>
 
 <section>
 

@@ -32,10 +32,12 @@ import {
   faBug,
   faCode,
   faCopy,
+  faFloppyDisk,
   faMessagesQuestion,
   faPenToSquare,
   faPencilRuler,
-  faTruckFast
+  faTruckFast,
+  faXmark
 } from '@fortawesome/pro-regular-svg-icons';
 import { faEnvelope, faHandBackPointUp, faSchool, faScreenUsers } from '@fortawesome/pro-solid-svg-icons';
 import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
@@ -45,7 +47,9 @@ setup();
 Icon.register(
   faBug,
   faCode,
+  faCopy,
   faEnvelope,
+  faFloppyDisk,
   faGithub,
   faHandBackPointUp,
   faMessagesQuestion,
@@ -54,8 +58,8 @@ Icon.register(
   faSchool,
   faScreenUsers,
   faSlack,
-  faCopy,
-  faTruckFast
+  faTruckFast,
+  faXmark
 );
 
 declare global {

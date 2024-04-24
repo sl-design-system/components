@@ -1781,6 +1781,12 @@
           "type": "spacing"
         }
       }
+    },
+    "form": {
+      "gap": {
+        "value": "{space.xl}",
+        "type": "spacing"
+      }
     }
   },
   "text": {

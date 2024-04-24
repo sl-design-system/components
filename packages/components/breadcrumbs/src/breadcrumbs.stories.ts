@@ -40,11 +40,11 @@ export const Collapse: Story = {
   args: {
     breadcrumbs: html`
       <a href="javascript:void(0)">Lorem</a>
-      <a href="http://sanomalearning.design">Ipsum</a>
+      <a href="javascript:void(0)">Ipsum</a>
       <a href="javascript:void(0)">Dolar</a>
       <a href="javascript:void(0)">Sit</a>
       <a href="javascript:void(0)">Amet</a>
-      <a href="http://sanomalearning.design">Foo</a>
+      <a href="javascript:void(0)">Foo</a>
       <a href="javascript:void(0)">Bar</a>
     `
   }
@@ -63,6 +63,16 @@ export const Mobile: Story = {
     viewport: {
       defaultViewport: 'iphone5'
     }
+  }
+};
+
+export const NoCurrentPage: Story = {
+  args: {
+    breadcrumbs: html`
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <span>Dolar</span>
+    `
   }
 };
 

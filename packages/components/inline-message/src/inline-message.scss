@@ -7,7 +7,6 @@ $variants: info, success, warning, danger;
   --_close-button-spacing: var(--sl-space-button-gap-sm);
   --_content-gap: var(--sl-space-inline-message-content-gap);
   --_description-font: var(--sl-text-body-md-normal);
-  --_details-font: var(--sl-text-list-sm-normal);
   --_gap: var(--sl-space-inline-message-gap);
   --_icon-block-size: var(--sl-text-typeset-line-height-lg);
   --_padding-block: var(--sl-space-inline-message-block);
@@ -33,9 +32,10 @@ $variants: info, success, warning, danger;
   border-inline-start: var(--_border-left);
   border-radius: var(--_border-radius);
   color: var(--_color);
-  display: flex;
+  display: grid;
   font: var(--_description-font);
-  gap: var(--_gap);
+  gap: 0 var(--_gap);
+  grid-template-columns: auto 1fr auto;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   position: relative;
@@ -57,32 +57,29 @@ $variants: info, success, warning, danger;
   }
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--_content-gap);
-}
-
-slot[name='icon'] sl-icon,
-slot[name='icon']::slotted(*) {
+[part='icon'] {
   --sl-icon-fill-default: var(--_icon-fill);
 
-  block-size: var(--_icon-block-size);
+  align-self: center;
   fill: var(--_fill);
 }
 
-slot[name='title'] {
+[part='title'] {
+  align-self: center;
   font: var(--_title-font);
 }
 
-slot[name='details'] {
-  font: var(--_details-font);
+[part='action'] {
+  align-self: center;
 }
 
 sl-button {
-  inset-block-start: var(--_close-button-spacing);
-  inset-inline-end: var(--_close-button-spacing);
-  position: absolute;
+  align-self: center;
+  grid-area: 1 / 4;
+}
+
+[part='content'] {
+  grid-area: 2 / 2 / 2 / -1;
 }
 
 @keyframes slide-in-up {

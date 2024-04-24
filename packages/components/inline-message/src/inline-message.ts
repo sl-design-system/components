@@ -76,13 +76,16 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <div @animationend=${this.#closeOnAnimationend} class="wrapper" open>
-        <slot name="icon">
-          <sl-icon .name=${this.iconName} size="md"></sl-icon>
-        </slot>
-        <div class="content">
+        <div part="icon">
+          <slot name="icon">
+            <sl-icon .name=${this.iconName} size="md"></sl-icon>
+          </slot>
+        </div>
+        <div part="title">
           <slot name="title"></slot>
-          <slot></slot>
-          <slot name="details"></slot>
+        </div>
+        <div part="action">
+          <slot name="action"></slot>
         </div>
         ${this.indismissible
           ? nothing
@@ -92,11 +95,14 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
                 .variant=${this.variant}
                 aria-label=${msg('Close')}
                 fill="ghost"
-                size="sm"
+                size="md"
               >
                 <sl-icon name="xmark"></sl-icon>
               </sl-button>
             `}
+        <div part="content">
+          <slot></slot>
+        </div>
       </div>
     `;
   }

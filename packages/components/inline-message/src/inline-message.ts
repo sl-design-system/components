@@ -166,8 +166,6 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
       const { height } = heading.getBoundingClientRect(),
         lineHeight = parseInt(getComputedStyle(heading).getPropertyValue('line-height') ?? '1000');
 
-      console.log(height, lineHeight);
-
       this.wrapAction = height > lineHeight;
     }
   }

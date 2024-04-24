@@ -189,10 +189,6 @@ export const All: StoryObj = {
           <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
           The main content of the message
         </sl-inline-message>
-        <sl-inline-message indismissible variant=${variant}>
-          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
-          The main content of the message
-        </sl-inline-message>
       `
     )}
   `

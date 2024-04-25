@@ -3,15 +3,12 @@ import { Button } from '@sl-design-system/button';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tree-node.scss.js';
 
 declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-expand': SlExpandEvent;
-  }
-
   interface HTMLElementTagNameMap {
     'sl-tree-item': TreeNode;
   }
@@ -35,9 +32,6 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   /** Indicates whether the node is expanded or collapsed. */
   @property({ type: Boolean, reflect: true }) expanded?: boolean;
 
-  /** @internal Emits when the expanded state changes. */
-  @event({ name: 'sl-expand' }) expandEvent!: EventEmitter<SlExpandEvent>;
-
   /** If true, will render an indicator whether the node is expanded or collapsed. */
   @property({ type: Boolean }) expandable?: boolean;
 
@@ -53,6 +47,9 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   /** Indeterminate state of the checkbox. Used when not all children are checked. */
   @property({ type: Boolean }) indeterminate?: boolean;
 
+  /** @internal Emits when the expanded state changes. */
+  @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -63,7 +60,7 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
     return html`
       ${this.expandable
         ? html`
-            <sl-button @click=${this.#onToggle} fill="ghost" size="sm">
+            <sl-button @click=${this.#onToggle} class="toggle" fill="ghost" size="sm">
               <sl-icon name="chevron-right"></sl-icon>
             </sl-button>
           `
@@ -90,6 +87,6 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
 
   #onToggle(): void {
     this.expanded = !this.expanded;
-    this.expandEvent.emit(this.expanded);
+    this.toggleEvent.emit(this.expanded);
   }
 }

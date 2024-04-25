@@ -1,13 +1,10 @@
+import { type SelectionController } from '@sl-design-system/shared';
+
 /**
  * Abstract class used to provide a common interface for tree data.
  */
 export abstract class TreeModel<T> {
-  dataNodes?: T[];
-
-  /** Returns whether the given node is expanded. */
-  isExpanded(_dataNode: T): boolean {
-    return false;
-  }
+  dataNodes: T[] = [];
 
   /** Returns whether the given node is expandable. */
   isExpandable(_dataNode: T): boolean {
@@ -32,4 +29,7 @@ export abstract class TreeModel<T> {
   toggleDescendants(_dataNode: T): void {}
   expandDescendants(_dataNode: T): void {}
   collapseDescendants(_dataNode: T): void {}
+
+  /** Flattens the tree to an array based on the expansion state. */
+  abstract toArray(expansion: SelectionController<T>): T[];
 }

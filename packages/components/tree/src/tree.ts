@@ -3,11 +3,10 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Icon } from '@sl-design-system/icon';
 import { SelectionController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { TreeModel } from './tree-model.js';
 import { TreeNode } from './tree-node.js';
 import styles from './tree.scss.js';
-import { modelToList } from './utils.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -38,8 +37,8 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** The tree model flattened to an array. */
-  @state() nodes?: T[];
+  /** Contains the expanded state for the tree. */
+  readonly expansion = new SelectionController<T>(this, { multiple: true });
 
   /** The model for the tree. */
   @property({ attribute: false }) model?: TreeModel<T>;
@@ -47,7 +46,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   /** Custom renderer function for tree items. */
   @property({ attribute: false }) renderer?: TreeItemRenderer<T>;
 
-  /** Selection manager. */
+  /** Contains the selection state for the tree when `selects` is defined. */
   readonly selection = new SelectionController<T>(this);
 
   /** If you are able to select one or more tree items (at the same time). */
@@ -62,16 +61,18 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('model')) {
-      this.nodes = modelToList(this.model);
+    if (changes.has('selects')) {
+      this.selection.multiple = this.selects === 'multiple';
     }
   }
 
   override render(): TemplateResult {
+    const items = this.model?.toArray(this.expansion) ?? [];
+
     return html`
       <div part="wrapper">
         ${virtualize({
-          items: this.nodes,
+          items,
           renderItem: (item: T) => this.renderItem(item)
         })}
       </div>
@@ -81,12 +82,18 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   renderItem(item: T): TemplateResult {
     const model = this.model!,
       expandable = model.isExpandable(item),
-      expanded = expandable && model.isExpanded(item),
+      expanded = expandable && this.expansion.isSelected(item),
       icon = model.getIcon(item),
       level = model.getLevel(item);
 
     return html`
-      <sl-tree-node ?expanded=${expanded} ?expandable=${expandable} ?selectable=${!!this.selects} .level=${level}>
+      <sl-tree-node
+        @sl-toggle=${() => this.#onToggle(item)}
+        ?expanded=${expanded}
+        ?expandable=${expandable}
+        ?selectable=${!!this.selects}
+        .level=${level}
+      >
         ${this.renderer
           ? this.renderer(item, { level, expanded, expandable })
           : html`
@@ -95,5 +102,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
             `}
       </sl-tree-node>
     `;
+  }
+
+  #onToggle(item: T): void {
+    this.expansion.toggle(item);
   }
 }

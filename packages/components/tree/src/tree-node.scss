@@ -14,9 +14,18 @@
   padding-inline: calc(var(--_expander-indent) + var(--_padding-inline) + var(--_level-indent) * var(--_level, 0));
 }
 
+:host([expanded]) .toggle sl-icon {
+  rotate: 90deg;
+}
+
 [part='wrapper'] {
   align-items: center;
   display: flex;
   flex: 1;
   gap: var(--_gap);
+}
+
+.toggle sl-icon {
+  rotate: 0deg;
+  transition: rotate 100ms ease-in-out;
 }

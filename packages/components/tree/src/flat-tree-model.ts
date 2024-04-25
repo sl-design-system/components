@@ -1,3 +1,4 @@
+import { SelectionController } from '@sl-design-system/shared';
 import { TreeModel } from './tree-model.js';
 
 export class FlatTreeModel<T> extends TreeModel<T> {
@@ -36,5 +37,27 @@ export class FlatTreeModel<T> extends TreeModel<T> {
 
       return this.getLevel(nextNode) > this.getLevel(dataNode);
     }
+  }
+
+  override toArray(expansion: SelectionController<T>): T[] {
+    let currentLevel = 0;
+
+    return this.dataNodes.reduce((nodes: T[], node) => {
+      const level = this.getLevel(node);
+
+      if (level === currentLevel) {
+        if (expansion.isSelected(node)) {
+          currentLevel++;
+        }
+
+        return [...nodes, node];
+      } else {
+        if (level < currentLevel) {
+          currentLevel = level;
+        }
+
+        return nodes;
+      }
+    }, []);
   }
 }

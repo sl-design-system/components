@@ -1,3 +1,4 @@
+import { type SelectionController } from '@sl-design-system/shared';
 import { TreeModel } from './tree-model.js';
 
 export class NestedTreeModel<T> extends TreeModel<T> {
@@ -20,5 +21,9 @@ export class NestedTreeModel<T> extends TreeModel<T> {
 
   override getLabel(_dataNode: T): T[keyof T] {
     return _dataNode[this.labelKey];
+  }
+
+  override toArray(_expansion: SelectionController<T>): T[] {
+    return this.dataNodes;
   }
 }

@@ -4,27 +4,19 @@ import { TreeModel } from './tree-model.js';
 export class FlatTreeModel<T> extends TreeModel<T> {
   constructor(
     public override dataNodes: T[],
-    public levelKey: keyof T,
-    public labelKey: keyof T,
-    public iconKey?: keyof T
+    public override getLevel: TreeModel<T>['getLevel'],
+    public override getLabel: TreeModel<T>['getLabel'],
+    getIcon?: TreeModel<T>['getIcon']
   ) {
     super();
+
+    if (getIcon) {
+      this.getIcon = getIcon;
+    }
   }
 
   getDescendants(_dataNode: T): T[] {
     return [];
-  }
-
-  override getIcon(dataNode: T): T[keyof T] | undefined {
-    return this.iconKey ? dataNode[this.iconKey] : undefined;
-  }
-
-  override getLabel(dataNode: T): T[keyof T] {
-    return dataNode[this.labelKey];
-  }
-
-  override getLevel(dataNode: T): number {
-    return dataNode[this.levelKey] as number;
   }
 
   override isExpandable(dataNode: T): boolean {

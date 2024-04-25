@@ -1,4 +1,4 @@
-import { faFile, faFolder } from '@fortawesome/pro-regular-svg-icons';
+import { faFile, faFolder, faFolderOpen } from '@fortawesome/pro-regular-svg-icons';
 import { Icon } from '@sl-design-system/icon';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
@@ -10,68 +10,56 @@ import { type Tree } from './tree.js';
 type Props = Pick<Tree, 'model' | 'selects'>;
 type Story = StoryObj<Props>;
 
-Icon.register(faFile, faFolder);
+Icon.register(faFile, faFolder, faFolderOpen);
 
 const flatData = [
   {
     level: 0,
-    name: 'tree',
-    icon: 'far-folder'
+    name: 'tree'
   },
   {
     level: 1,
-    name: 'src',
-    icon: 'far-folder'
+    name: 'src'
   },
   {
     level: 2,
-    name: 'flat-tree-model.ts',
-    icon: 'far-file'
+    name: 'flat-tree-model.ts'
   },
   {
     level: 2,
-    name: 'nested-tree-model.ts',
-    icon: 'far-file'
+    name: 'nested-tree-model.ts'
   },
   {
     level: 2,
-    name: 'tree-model.ts',
-    icon: 'far-file'
+    name: 'tree-model.ts'
   },
   {
     level: 2,
-    name: 'tree-node.scss',
-    icon: 'far-file'
+    name: 'tree-node.scss'
   },
   {
     level: 2,
-    name: 'tree-node.ts',
-    icon: 'far-file'
+    name: 'tree-node.ts'
   },
   {
     level: 2,
-    name: 'tree.ts',
-    icon: 'far-file'
+    name: 'tree.ts'
   },
   {
     level: 2,
-    name: 'utils.ts',
-    icon: 'far-file'
+    name: 'utils.ts'
   },
   {
     level: 1,
-    name: 'index.ts',
-    icon: 'far-file'
+    name: 'index.ts'
   },
   {
     level: 1,
-    name: 'package.json',
-    icon: 'far-file'
+    name: 'package.json'
   },
   {
     level: 1,
-    name: 'register.ts',
-    icon: 'far-file'
+    name: 'register.ts'
   }
 ];
 
@@ -115,7 +103,12 @@ export default {
 
 export const Flat: Story = {
   args: {
-    model: new FlatTreeModel(flatData, 'level', 'name', 'icon')
+    model: new FlatTreeModel(
+      flatData,
+      ({ level }) => level,
+      ({ name }) => name,
+      ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`)
+    )
   }
 };
 

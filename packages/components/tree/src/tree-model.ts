@@ -12,11 +12,11 @@ export abstract class TreeModel<T> {
   }
 
   abstract getDescendants(_dataNode: T): T[];
-  abstract getIcon(_dataNode: T): T[keyof T] | undefined;
   abstract getLabel(_dataNode: T): T[keyof T];
+  abstract getLevel(_dataNode: T): number;
 
-  getLevel(_dataNode: T): number {
-    return 0;
+  getIcon(_dataNode: T, _expanded?: boolean): T[keyof T] | undefined {
+    return undefined;
   }
 
   toggle(_dataNode: T): void {}

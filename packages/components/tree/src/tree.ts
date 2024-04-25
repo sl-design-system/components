@@ -83,7 +83,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     const model = this.model!,
       expandable = model.isExpandable(item),
       expanded = expandable && this.expansion.isSelected(item),
-      icon = model.getIcon(item),
+      icon = model.getIcon(item, expanded),
       level = model.getLevel(item);
 
     return html`

@@ -60,7 +60,7 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
     return html`
       ${this.expandable
         ? html`
-            <sl-button @click=${this.#onToggle} class="toggle" fill="ghost" size="sm">
+            <sl-button @click=${this.#onToggle} fill="ghost" size="sm">
               <sl-icon name="chevron-right"></sl-icon>
             </sl-button>
           `

@@ -1,23 +1,12 @@
 ---
 title: Designers
+description: This guide will walk you through the process of integrating the component library into your Figma workflow, utilizing its components effectively, understanding the component structure, and making the most of the light and dark themes.
+layout: "categories/getting-started.njk"
 eleventyNavigation:
   parent: Getting Started
   key: Designers
   order: 1
 ---
-<header class="ds-tokens__main-heading">
-<div class="ds-tokens__heading-wrapper">
-  <h1 class="ds-heading-1">{{title}}</h1>
-  <p class="ds-tokens__heading-description">
-  This guide will walk you through the process of integrating the component library into your Figma workflow, utilizing its components effectively, understanding the component structure, and making the most of the light and dark themes.
-  </p>
-</div>
-</header>
-
-<section class="ds-subpage-section">
-
-<div class="ds-subpage-section__wrapper">
-
 <section>
 
 ## Loading the SL Design System Library
@@ -63,9 +52,5 @@ The Sanoma Learning Design System supports both light and dark themes. To switch
 1. Theme Toggle: In the 'View' menu, navigate to 'Themes.' Here, you can toggle between 'Light' and 'Dark' themes. Choose the one that aligns with your design or user preferences.
 
 Congratulations! You're now equipped to seamlessly integrate the Sanoma Learning Design System components into your Figma projects. Whether you're creating educational materials or interactive interfaces, these components will empower you to design with consistency and efficiency. Happy designing!
-
-</section>
-</div>
-<ds-vertical-tabs></ds-vertical-tabs>
 
 </section>

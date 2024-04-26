@@ -144,10 +144,10 @@ export class VerticalTabs extends LitElement {
 
           if (links[index]) {
             console.log('links[index]', links[index]);
-            links[index].click();
+            // links[index].click();
             // updated = true;
-            // this.#setActiveTab(links[index]);
-            // this.#alignVerticalTabIndicator(links[index]);
+            this.#setActiveTab(links[index]);
+            this.#alignVerticalTabIndicator(links[index]);
           } /*else if (!section.hasAttribute('id')) {
               this.#setActiveTab(links[0]);
               this.#alignVerticalTabIndicator(links[0]);
@@ -181,7 +181,7 @@ export class VerticalTabs extends LitElement {
     { root: null, rootMargin: '-86px 0px 0px 0px' }
   ); // , threshold: 0.1
 
-  #isInViewport(section: Element | null | undefined) {
+/*  #isInViewport(section: Element | null | undefined) {
     const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
     console.log('sections.find(el => el == section)', section, sections.find(el => el == section));
 
@@ -189,14 +189,14 @@ export class VerticalTabs extends LitElement {
 
    console.log('isObserved', isObserved);
 
-    if (!section /*|| !isObserved*/) {
+    if (!section /!*|| !isObserved*!/) {
       return false;
     }
     const sectionRect = section.getBoundingClientRect();
     console.log('sectionRect', sectionRect, sectionRect.bottom, sectionRect.top, window.innerHeight, document.documentElement.clientHeight );
     // return sectionRect.bottom >= 0 && sectionRect.top <= (window.innerHeight || document.documentElement.clientHeight);
     return true;
-  }
+  }*/
 
   override connectedCallback(): void {
     super.connectedCallback();

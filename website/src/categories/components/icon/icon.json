@@ -1,5 +1,5 @@
 {
-  "layout": "components/components.njk",
+  "layout": "categories/components/components.njk",
   "tags": "icon",
   "componentTagName": [
     {

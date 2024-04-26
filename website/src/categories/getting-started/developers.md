@@ -1,23 +1,12 @@
 ---
 title: Developers
+description: This guide will walk you through the process of gaining access to the private GitHub NPM repository, installing the SL Design System packages and using them in your application.
+layout: "categories/getting-started.njk"
 eleventyNavigation:
   parent: Getting Started
   key: Developers
   order: 2
 ---
-<header class="ds-tokens__main-heading">
-  <div class="ds-tokens__heading-wrapper">
-    <h1 class="ds-heading-1">{{title}}</h1>
-    <p class="ds-tokens__heading-description">
-    This guide will walk you through the process of gaining access to the private GitHub NPM repository, installing the SL Design System packages and using them in your application.
-    </p>
-  </div>
-</header>
-
-<section class="ds-subpage-section">
-
-<div class="ds-subpage-section__wrapper">
-
 <section>
 
 ## Steps
@@ -253,8 +242,4 @@ We support the 2 latest versions of Angular. You can find these version in [the 
 
 Server-side rendered web components is a hard problem and the web standards related to this continue to evolve. At the moment we do not support this, but we may look at this again in the future.
 
-</section>
-
-</div>
-<ds-vertical-tabs></ds-vertical-tabs>
 </section>

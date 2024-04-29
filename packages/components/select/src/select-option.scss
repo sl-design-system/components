@@ -11,9 +11,12 @@ $sizes: md, lg;
   cursor: pointer;
   display: block;
   font: var(--_font);
+  hyphens: auto;
+  overflow-wrap: break-word;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   position: relative;
+  word-break: auto-phrase;
 }
 
 @each $size in $sizes {

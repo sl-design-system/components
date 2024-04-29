@@ -198,6 +198,8 @@ const handler = (entries: IntersectionObserverEntry[]) => {
   componentNameHeading.classList.add('ds-top-navigation__component-name');
   const slTabsGroup = document.querySelector('sl-tab-group');
 
+  console.log('entries[0].isIntersecting', entries[0].isIntersecting);
+
   if (!entries[0].isIntersecting) {
     topNavigation.classList.add('sticky');
     topNavigation.insertAdjacentElement('beforeend', componentNameHeading);
@@ -216,12 +218,14 @@ const handler = (entries: IntersectionObserverEntry[]) => {
   }
 };
 
-const observer = new window.IntersectionObserver(handler, {
+const headingObserver = new window.IntersectionObserver(handler, {
   rootMargin: '-48px'
 });
 
 if (heading) {
-  observer.observe(heading);
+  headingObserver.observe(heading);
+} else {
+  headingObserver?.disconnect;
 }
 
 function setTabsAlignment(matches: boolean): void {
@@ -229,11 +233,21 @@ function setTabsAlignment(matches: boolean): void {
     return;
   }
 
-  if (!matches) {
-    slTabs.setAttribute('align-tabs', 'stretch');
-  } else {
-    slTabs.removeAttribute('align-tabs');
-  }
+  console.log('matches', matches);
+
+  requestAnimationFrame(() => {
+    if (!matches) {
+      slTabs.setAttribute('align-tabs', 'stretch');
+    } else {
+      slTabs.removeAttribute('align-tabs');
+    }
+  });
+
+  // if (!matches) {
+  //   slTabs.setAttribute('align-tabs', 'stretch');
+  // } else {
+  //   slTabs.removeAttribute('align-tabs');
+  // }
 }
 
 setTabsAlignment(mediaQueryList.matches);

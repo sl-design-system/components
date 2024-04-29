@@ -1,7 +1,6 @@
 $variants: info, success, warning, danger;
 
 :host {
-  --_border-left: var(--sl-border-width-inline-message-start) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-inline-message-default);
   --_border: var(--sl-border-width-inline-message-default) solid var(--_border-color);
   --_button-size: calc(
@@ -17,7 +16,7 @@ $variants: info, success, warning, danger;
   --_padding-block: calc(
     var(--sl-space-inline-message-block) - ((var(--_button-size) - var(--_header-block-size)) / 2)
   );
-  --_padding-inline-start: var(--sl-space-inline-message-inline-end);
+  --_padding-inline-start: var(--sl-space-inline-message-inline-start);
   --_padding-inline-end: var(--_padding-block);
   --_title-font: var(--sl-text-body-lg-demibold);
 
@@ -64,7 +63,6 @@ $variants: info, success, warning, danger;
 .wrapper {
   background: var(--_background);
   border: var(--_border);
-  border-inline-start: var(--_border-left);
   border-radius: var(--_border-radius);
   color: var(--_color);
   display: grid;
@@ -74,6 +72,14 @@ $variants: info, success, warning, danger;
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline-start) var(--_padding-inline-end);
   position: relative;
+
+  &::before {
+    background: var(--_border-color);
+    content: '';
+    inline-size: var(--sl-border-width-inline-message-start);
+    inset: 0 auto 0 0;
+    position: absolute;
+  }
 
   &[close] {
     opacity: 0;

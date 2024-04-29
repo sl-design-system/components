@@ -6,27 +6,72 @@ eleventyNavigation:
   key: IconUsage
 ---
 
-<section>
+<section>  
+<div class="ds-example" style="gap: 3rem;">
+  <sl-icon name="angle-down" size="2xs"></sl-icon>
+  <sl-icon name="face-smile"></sl-icon>
+  <sl-icon name="triangle-exclamation-solid" size="xl" style="color:var(--sl-color-palette-danger-500)"></sl-icon>
+  <sl-icon name="pinata" size="4xl"></sl-icon>
+</div>
 
-## Usage
+<div class="ds-code">
 
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  ```html
+  <sl-icon name="angle-down" size="2xs"></sl-icon>
+  <sl-icon name="face-smile"></sl-icon>
+  <sl-icon name="triangle-exclamation-solid" size="xl" style="color:red"></sl-icon>
+  <sl-icon name="pinata" size="4xl"></sl-icon>
+  ```
+</div>
 
 </section>
 
 <section>
 
-## How to use
+## When to Use
+Icons are important for user understanding and interaction
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Intuitive Content
+Icons enhance usability, facilitating a quick understanding by providing a visual representation of information. They can communicate complex messages to the user effectively in a simple and concise manner, resulting in a more intuitive and user-friendly experience.
+
+### Labeling Icons
+It is challenging to find icons that are universally understood without some form of textual explanation. Therefore, it is best practice to add a label in combination with an icon. Incorporating labels can enhance usability, and a larger clickable area reduces interaction costs. Some icons, such as the save icon <sl-icon name="far-floppy-disk" size="sm"></sl-icon> or the close icon <sl-icon name="far-xmark" size="sm"></sl-icon> are so common that they can be used without a label if there is no space for one.
 
 </section>
 
 <section>
 
-## Content
+## When not to Use
+Our focus is on functionality and accessibility, ensuring icons convey meaningful information and enhance usability.
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Not for Decoration
+Avoid using the icon component for purely decorative purposes. The main objective is to enhance the user's understanding of the actions within the interactive elements. When icons are utilized solely for ornamentation without contributing to the clarity or functionality of the interface, it can lead to visual clutter and detract from the overall usability of the interface. Use icons to convey meaningful information or facilitate user interactions to maintain usability and effectiveness.
+
+</section>
+
+
+<section>
+
+## Variants
+We use the icons library Font Awesome to ensure that all the icons look similar and are easy to use. However, it is possible to implement custom icons.
+
+  - **Font Awesome:**  By default, we provide the Font Awesome icons library to choose the icons from them. You only need to check and copy the icon name to the icon layer.
+
+  - **Custom:** You can also create specific SVG icons, but we encourage using Font Awesome. If it is necessary to have a custom icon because it's mandatory for your app, contact us to tell you the next steps.
+
+</section>
+
+
+<section>
+
+## Options
+With these options, you can tweak the appearance of the icon in Figma. They are available in the Design Panel so you can compose the icon to exactly fit the user experience need for the use case you are working on.
+
+|Item|Options|Description|
+|-|-|-|
+|Icon|`'fa', 'svg'`|Choose the variant of the icon, Font Awesome or Custom (SVG). |
+|FontAwesome|`'Icon Name'`|Write down the name of the icon from Font Awesome. |
+
+{.ds-table .ds-table-align-top}
 
 </section>

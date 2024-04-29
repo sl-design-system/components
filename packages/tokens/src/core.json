@@ -495,7 +495,7 @@
         "type": "sizing"
       }
     },
-    "breacrumb": {
+    "breadcrumb": {
       "value": "{size.2xl}",
       "type": "sizing"
     }

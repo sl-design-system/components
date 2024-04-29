@@ -1,3 +1,4 @@
+import '@sl-design-system/avatar/register.js';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
@@ -9,6 +10,7 @@ import { type Popover } from './popover.js';
 type Props = Pick<Popover, 'position'> & {
   alignSelf: string;
   body: string | (() => TemplateResult);
+  noDescribedby: boolean;
   justifySelf: string;
 };
 type Story = StoryObj<Props>;
@@ -51,7 +53,7 @@ export default {
       ]
     }
   },
-  render: ({ alignSelf, justifySelf, body, position }) => {
+  render: ({ alignSelf, justifySelf, body, position, noDescribedby }) => {
     const onClick = (): void => {
       const popover = document.querySelector('sl-popover') as HTMLElement;
       popover.togglePopover();
@@ -72,39 +74,55 @@ export default {
         style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}
         >Toggle</sl-button
       >
-      <sl-popover anchor="button" .position=${position}>${typeof body === 'string' ? body : body()}</sl-popover>
+      <sl-popover anchor="button" ?no-describedby=${noDescribedby} .position=${position}
+        >${typeof body === 'string' ? body : body()}</sl-popover
+      >
     `;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
 
+export const NoDescribedBy: Story = {
+  args: {
+    noDescribedby: true,
+    body: () => {
+      return html`Lorem ipsum dolor sit amet, qui deserunt esse minim cillum nostrud exercitation veniam consequat
+      pariatur exercitation laborum nostrud culpa sunt exercitation pariatur. Nisi ipsum est ullamco nostrud sit
+      pariatur. Ex nisi ipsum et est nulla ex ex.`;
+    }
+  }
+};
+
 export const RichContent: Story = {
   args: {
     body: () => {
-      const onClose = (event: Event & { target: HTMLElement }): void => {
-        event.target.closest('sl-popover')?.hidePopover();
+      const onClick = (): void => {
+        return;
       };
 
       return html`
         <style>
-          header {
-            font: var(--sl-text-popover-text-title);
+          section {
+            margin: 16px 0;
           }
-
-          hr {
-            margin: 8px 0;
+          sl-popover {
+            max-width: 300px;
           }
         </style>
-        <header>Please confirm</header>
+        <header>
+          <sl-avatar
+            display-name="Yousef van der Schaaf"
+            picture-url="https://randomuser.me/api/portraits/thumb/men/19.jpg"
+          ></sl-avatar>
+        </header>
         <section>
-          <hr color="#D9D9D9" />
-          Are you sure you want to continue?
-          <hr color="#D9D9D9" />
+          <p>Our longest serving math teacher, but also responsible for several extracurricular activities.</p>
+          <p><strong>Manager:</strong> Anna Johansson</p>
         </section>
         <sl-button-bar align="end">
-          <sl-button @click=${onClose} autofocus size="sm">Cancel</sl-button>
-          <sl-button @click=${onClose} size="sm" variant="primary">Confirm</sl-button>
+          <sl-button @click=${onClick} size="sm" variant="primary" fill="outline">Send email</sl-button>
+          <sl-button @click=${onClick} size="sm" variant="primary">Send Slack message</sl-button>
         </sl-button-bar>
       `;
     }

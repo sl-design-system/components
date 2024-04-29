@@ -68,10 +68,11 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /**
    * Emits when the cancel has been cancelled. This happens when the user closes
    * the dialog using the escape key or clicks on the backdrop.
+   * @internal
    */
   @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
-  /** Emits when the dialog has been closed. */
+  /** @internal Emits when the dialog has been closed. */
   @event({ name: 'sl-close' }) closeEvent!: EventEmitter<SlCloseEvent>;
 
   /** Determines whether a close button should be shown in the top right corner. */

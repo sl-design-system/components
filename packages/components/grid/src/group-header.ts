@@ -36,10 +36,10 @@ export class GridGroupHeader extends ScopedElementsMixin(LitElement) {
   /** Whether the group is selected. */
   @property() selected: 'all' | 'some' | 'none' = 'none';
 
-  /** Emits when the user changes the group selection. */
+  /** @internal Emits when the user changes the group selection. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<boolean>>;
 
-  /** Emits when the user collapses/expands the group. */
+  /** @internal Emits when the user collapses/expands the group. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
 
   override render(): TemplateResult {

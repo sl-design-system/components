@@ -66,13 +66,13 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** The button in the light DOM. */
   button!: SelectButton;
 
-  /** Emits when the focus leaves the component. */
+  /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the value changes. */
+  /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
 
-  /** Emits when the component gains focus. */
+  /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** @private */

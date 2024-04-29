@@ -70,7 +70,7 @@ export class Menu extends LitElement {
   /** The position of the menu relative to its anchor. */
   @property() position?: PopoverPosition = 'right-start';
 
-  /** Emits when the menu item selection changes. */
+  /** @internal Emits when the menu item selection changes. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<void>>;
 
   /** Whether this menu has any children that can be selected. */

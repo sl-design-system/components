@@ -127,7 +127,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** Whether the menu button needs to be shown. */
   @state() showMenu = false;
 
-  /** Emits when the tab has been selected/changed. */
+  /** @internal Emits when the tab has been selected/changed. */
   @event({ name: 'sl-tab-change' }) tabChangeEvent!: EventEmitter<SlTabChangeEvent>;
 
   /** The slotted tabs. */

@@ -56,7 +56,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** Whether this menu item is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
-  /** Emits when the user toggles the selected state. */
+  /** @internal Emits when the user toggles the selected state. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent>;
 
   /** Whether this menu item has been selected. */

@@ -1,3 +1,5 @@
+import {VerticalTabs} from "../components/vertical-tabs/vertical-tabs";
+
 const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   container = document.querySelector('.ds-container') as Element,
   mediaQueryList: MediaQueryList = window.matchMedia('(min-width: 900px)'),
@@ -198,7 +200,7 @@ const handler = (entries: IntersectionObserverEntry[]) => {
   componentNameHeading.classList.add('ds-top-navigation__component-name');
   const slTabsGroup = document.querySelector('sl-tab-group');
 
-  console.log('entries[0].isIntersecting', entries[0].isIntersecting);
+  console.log('entries[0].isIntersecting', entries[0].isIntersecting, entries[0]);
 
   if (!entries[0].isIntersecting) {
     topNavigation.classList.add('sticky');
@@ -218,8 +220,8 @@ const handler = (entries: IntersectionObserverEntry[]) => {
   }
 };
 
-const headingObserver = new window.IntersectionObserver(handler, {
-  rootMargin: '-48px'
+const headingObserver = new IntersectionObserver(handler, {
+  rootMargin: '-50px' // TODO: 78px for mobile?
 });
 
 if (heading) {
@@ -233,21 +235,11 @@ function setTabsAlignment(matches: boolean): void {
     return;
   }
 
-  console.log('matches', matches);
-
-  requestAnimationFrame(() => {
-    if (!matches) {
-      slTabs.setAttribute('align-tabs', 'stretch');
-    } else {
-      slTabs.removeAttribute('align-tabs');
-    }
-  });
-
-  // if (!matches) {
-  //   slTabs.setAttribute('align-tabs', 'stretch');
-  // } else {
-  //   slTabs.removeAttribute('align-tabs');
-  // }
+  if (!matches) {
+    slTabs.setAttribute('align-tabs', 'stretch');
+  } else {
+    slTabs.removeAttribute('align-tabs');
+  }
 }
 
 setTabsAlignment(mediaQueryList.matches);

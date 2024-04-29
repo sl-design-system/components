@@ -20,6 +20,8 @@ import { verticalTabsStyles } from './vertical-tabs-style';
  * </div>
  * */
 
+const isMobileOrTablet = (): boolean => matchMedia('(width < 1200px)').matches;
+
 @customElement('ds-vertical-tabs')
 export class VerticalTabs extends LitElement {
   /** @private */
@@ -66,14 +68,19 @@ export class VerticalTabs extends LitElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    if (isMobileOrTablet()) {
+      return;
+    }
+
 
     requestAnimationFrame(() => {
     /** Source to observe - `sections` with `id` elements and `link-in-navigation` with `id` elements */
     const sections = Array.from(this.parentElement?.querySelectorAll('section[id], [link-in-navigation][id]') || []);
       const verticalTabs = this.renderRoot.querySelectorAll('.ds-tab--vertical');
+      console.log('verticalTabs', verticalTabs);
       if (verticalTabs.length && !window.location.hash) {
         this.#setActiveTab(verticalTabs[0] as HTMLElement);
-        window.scrollTo(0, 0);
+       window.scrollTo(0, 0);
       } else if (window.location.hash) {
         setTimeout(() => {
           const targetElement = document.querySelector(window.location.hash),
@@ -94,6 +101,7 @@ export class VerticalTabs extends LitElement {
     });
 
     window.addEventListener('hashchange',  () => {
+      console.log('onhashchange', window.location.hash);
       const links = Array.from(this.renderRoot.querySelectorAll('.ds-tab--vertical')) as HTMLElement[];
       let index = links.findIndex(link => {
         return (link as HTMLAnchorElement).hash == window.location.hash;
@@ -152,6 +160,7 @@ export class VerticalTabs extends LitElement {
   }
 
   #onClick(event: Event) {
+    console.log(event);
     this.observer?.disconnect();
 
     const link = event.target as HTMLElement;

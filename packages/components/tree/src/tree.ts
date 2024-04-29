@@ -15,7 +15,6 @@ declare global {
 }
 
 export interface TreeItemRendererOptions {
-  level: number;
   expanded: boolean;
   expandable: boolean;
   selected?: boolean;
@@ -83,8 +82,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
     const model = this.model!,
       expandable = model.isExpandable(item),
       expanded = expandable && this.expansion.isSelected(item),
-      icon = model.getIcon(item, expanded),
-      level = model.getLevel(item);
+      icon = model.getIcon(item, expanded);
 
     return html`
       <sl-tree-node
@@ -92,10 +90,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
         ?expanded=${expanded}
         ?expandable=${expandable}
         ?selectable=${!!this.selects}
-        .level=${level}
       >
         ${this.renderer
-          ? this.renderer(item, { level, expanded, expandable })
+          ? this.renderer(item, { expanded, expandable })
           : html`
               ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
               <span>${model.getLabel(item)}</span>

@@ -10,6 +10,11 @@ import { type Tree } from './tree.js';
 type Props = Pick<Tree, 'model' | 'selects'>;
 type Story = StoryObj<Props>;
 
+interface NestedDataNode {
+  name: string;
+  children?: NestedDataNode[];
+}
+
 Icon.register(faFile, faFolder, faFolderOpen);
 
 const flatData = [
@@ -63,7 +68,7 @@ const flatData = [
   }
 ];
 
-const nestedData = [
+const nestedData: NestedDataNode[] = [
   {
     name: 'tree',
     children: [
@@ -114,7 +119,11 @@ export const Flat: Story = {
 
 export const Nested: Story = {
   args: {
-    model: new NestedTreeModel(nestedData, 'children', 'name')
+    model: new NestedTreeModel(
+      nestedData,
+      dataNode => dataNode.children,
+      dataNode => dataNode.name
+    )
   }
 };
 

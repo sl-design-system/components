@@ -11,9 +11,7 @@ export abstract class TreeModel<T> {
     return false;
   }
 
-  abstract getDescendants(_dataNode: T): T[];
   abstract getLabel(_dataNode: T): T[keyof T];
-  abstract getLevel(_dataNode: T): number;
 
   getIcon(_dataNode: T, _expanded?: boolean): T[keyof T] | undefined {
     return undefined;

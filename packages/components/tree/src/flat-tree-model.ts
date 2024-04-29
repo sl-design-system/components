@@ -4,7 +4,7 @@ import { TreeModel } from './tree-model.js';
 export class FlatTreeModel<T> extends TreeModel<T> {
   constructor(
     public override dataNodes: T[],
-    public override getLevel: TreeModel<T>['getLevel'],
+    public getLevel: (dataNode: T) => number,
     public override getLabel: TreeModel<T>['getLabel'],
     getIcon?: TreeModel<T>['getIcon']
   ) {
@@ -13,10 +13,6 @@ export class FlatTreeModel<T> extends TreeModel<T> {
     if (getIcon) {
       this.getIcon = getIcon;
     }
-  }
-
-  getDescendants(_dataNode: T): T[] {
-    return [];
   }
 
   override isExpandable(dataNode: T): boolean {

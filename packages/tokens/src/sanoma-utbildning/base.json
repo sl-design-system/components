@@ -2187,6 +2187,10 @@
           "value": "{border.width.xs}",
           "type": "borderWidth"
         }
+      },
+      "dividerr": {
+        "value": "{border.width.xs}",
+        "type": "borderWidth"
       }
     }
   },

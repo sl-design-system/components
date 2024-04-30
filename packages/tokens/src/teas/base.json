@@ -2319,7 +2319,7 @@
           "type": "borderWidth"
         }
       },
-      "dividerr": {
+      "divider": {
         "value": "{border.width.xs}",
         "type": "borderWidth"
       }

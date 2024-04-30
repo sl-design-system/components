@@ -16,4 +16,15 @@
 "@sl-design-system/teas": patch
 ---
 
-Change tokens related to moving the hint above the form-field.
+Change tokens related to moving the hint above the form-field:
+- Included hint colors tokens
+- Include hint font tokens in all themes
+- Fix token naming for hints
+- Fix label font sizing and spacing
+- Fix helper (validation message) fonts sizing and spacing
+- Fix field label (label & tag) fonts sizing in all themes
+- Fix helper (validation message) font sizes
+- Fix Magister font tokens for label and tags
+- Update MAX field label padding bottom to 4px and padding bottom lg to 8px in CORE
+- Change field label padding bottom to 8px (sm)
+- New gap form token (24px)

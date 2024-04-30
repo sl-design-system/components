@@ -270,16 +270,6 @@ describe('sl-textarea', () => {
       expect(onUpdateValidity).to.have.been.calledOnce;
     });
 
-    it('should have an invalid icon after reporting', async () => {
-      el.reportValidity();
-      await el.updateComplete;
-
-      const icon = el.renderRoot.querySelector('sl-icon');
-
-      expect(icon).to.exist;
-      expect(icon).to.have.class('invalid-icon');
-    });
-
     it('should be valid after typing', async () => {
       el.focus();
       await sendKeys({ type: 'asdf ' });
@@ -323,16 +313,6 @@ describe('sl-textarea', () => {
       expect(el.validationMessage).to.equal(
         'Please lengthen this text to 3 characters or more (you are currently using 1 character).'
       );
-    });
-
-    it('should have an invalid icon after reporting', async () => {
-      el.reportValidity();
-      await el.updateComplete;
-
-      const icon = el.renderRoot.querySelector('sl-icon');
-
-      expect(icon).to.exist;
-      expect(icon).to.have.class('invalid-icon');
     });
 
     it('should be valid after typing', async () => {

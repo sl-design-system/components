@@ -1,6 +1,8 @@
 :host {
+  --_color: var(--sl-color-input-field-label-hint-default);
   --_font: var(--sl-text-input-helper-text-md);
 
+  color: var(--_color);
   display: block;
   font: var(--_font);
 }

@@ -2116,10 +2116,10 @@
         "type": "Icons",
         "description": "icon.core.xmark"
       },
-      "triangle-exclamation-solid": {
-        "value": "triangle-exclamation",
+      "circle-exclamation-solid": {
+        "value": "circle-exclamation",
         "type": "Icons",
-        "description": "icon.core.triangle-exclamation-solid"
+        "description": "icon.core.circle-exclamation-solid"
       },
       "octagon-exclamation-solid": {
         "value": "octagon-exclamation",

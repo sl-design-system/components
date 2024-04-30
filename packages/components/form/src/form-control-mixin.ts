@@ -48,7 +48,6 @@ export interface FormControl {
   readonly labels: NodeListOf<HTMLLabelElement> | null;
   readonly nativeFormValue: FormValue;
   readonly required?: boolean;
-  readonly showExternalValidityIcon: boolean;
   readonly showValidity: FormControlShowValidity;
   readonly valid: boolean;
   readonly validationMessage: string;
@@ -111,9 +110,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /** @ignore Whether the form control should report the validity of the control. */
     report?: boolean;
-
-    /** @ignore This determines whether the `<sl-error>` component displays an icon or not. */
-    showExternalValidityIcon = true;
 
     /** Optional property to indicate the valid state should be shown. */
     showValid = false;

@@ -8,33 +8,49 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 <sl-tab-group>
-<sl-tab >Tab 1</sl-tab>
-<sl-tab selected>Tab 2</sl-tab>
-<sl-tab disabled>Tab 3</sl-tab>
-<sl-tab>Tab 4</sl-tab>
-<sl-tab>Tab 5</sl-tab>
-<sl-tab-panel>Panel 1</sl-tab-panel>
-<sl-tab-panel>Panel 2</sl-tab-panel>
-<sl-tab-panel>Panel 3</sl-tab-panel>
-<sl-tab-panel>Panel 4</sl-tab-panel>
-<sl-tab-panel>Panel 5</sl-tab-panel>
+ <sl-tab>Personal information</sl-tab>
+ <sl-tab>Education</sl-tab>
+ <sl-tab disabled>Projects</sl-tab>
+ <sl-tab-panel>
+   <div>
+   <h2>Personal information</h2>
+   <sl-avatar display-name="Tim Jenssen" picture-url="/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg" size="lg"></sl-avatar>
+   </div>
+ </sl-tab-panel>
+ <sl-tab-panel>
+   <div>
+   <h2>Education history of Tim Jenssen</h2>
+   2020 - 2023 Da Vinci International School
+   </div>
+ </sl-tab-panel>
+ <sl-tab-panel>
+   List of projects
+ </sl-tab-panel>
 </sl-tab-group>
+
+  <small style="position: absolute; bottom:0; right:var(--scale-150-scale)">
+
+Photo by [Xia Yang](https://unsplash.com/@imrxia?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
+  </small>
 </div>
 
 <div class="ds-code">
 
   ```html
 <sl-tab-group>
-    <sl-tab >Tab 1</sl-tab>
-    <sl-tab selected>Tab 2</sl-tab>
-    <sl-tab disabled>Tab 3</sl-tab>
-    <sl-tab>Tab 4</sl-tab>
-    <sl-tab>Tab 5</sl-tab>
-    <sl-tab-panel>Panel 1</sl-tab-panel>
-    <sl-tab-panel>Panel 2</sl-tab-panel>
-    <sl-tab-panel>Panel 3</sl-tab-panel>
-    <sl-tab-panel>Panel 4</sl-tab-panel>
-    <sl-tab-panel>Panel 5</sl-tab-panel>
+    <sl-tab>Personal information</sl-tab>
+    <sl-tab>Education</sl-tab>
+    <sl-tab disabled>Projects</sl-tab>
+    <sl-tab-panel>
+      Personal information...
+    </sl-tab-panel>
+    <sl-tab-panel>
+      Education history of...
+    </sl-tab-panel>
+    <sl-tab-panel>
+      ...
+    </sl-tab-panel>
 </sl-tab-group>
   ```
 

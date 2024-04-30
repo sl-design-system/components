@@ -4265,7 +4265,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.accordion.default.border}",
           "type": "color"
         }
       },
@@ -4287,7 +4287,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.accordion.default.border}",
           "type": "color"
         }
       },
@@ -4309,7 +4309,7 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.neutral.100}",
+          "value": "{color.accordion.default.border}",
           "type": "color"
         }
       }

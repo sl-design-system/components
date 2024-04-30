@@ -1,5 +1,3 @@
-import {VerticalTabs} from "../components/vertical-tabs/vertical-tabs";
-
 const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   container = document.querySelector('.ds-container') as Element,
   mediaQueryList: MediaQueryList = window.matchMedia('(min-width: 900px)'),
@@ -11,8 +9,7 @@ const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   arrows = document.querySelectorAll('.ds-sidebar-nav__arrow'),
   linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu'),
   heading = document.querySelector('header:not(.ds-top-navigation)'),
-  title = heading?.querySelector('h1') as HTMLElement,
-  slTabs = document.querySelector('sl-tab-group') as HTMLElement | null;
+  title = heading?.querySelector('h1') as HTMLElement;
 
 let previouslyOpened: Element, previouslyOpenedSubmenu: Element;
 
@@ -74,8 +71,6 @@ function handleWidthChange(matches: boolean): void {
     toggleMenu();
     setActiveItem();
   }
-
-  setTabsAlignment(matches);
 }
 
 function toggleMenu(open = false): void {
@@ -200,8 +195,6 @@ const handler = (entries: IntersectionObserverEntry[]) => {
   componentNameHeading.classList.add('ds-top-navigation__component-name');
   const slTabsGroup = document.querySelector('sl-tab-group');
 
-  console.log('entries[0].isIntersecting', entries[0].isIntersecting, entries[0]);
-
   if (!entries[0].isIntersecting) {
     topNavigation.classList.add('sticky');
     topNavigation.insertAdjacentElement('beforeend', componentNameHeading);
@@ -221,7 +214,7 @@ const handler = (entries: IntersectionObserverEntry[]) => {
 };
 
 const headingObserver = new IntersectionObserver(handler, {
-  rootMargin: '-50px' // TODO: 78px for mobile?
+  rootMargin: mediaQueryList.matches ? '-32px' : '-68px'
 });
 
 if (heading) {
@@ -229,17 +222,3 @@ if (heading) {
 } else {
   headingObserver?.disconnect;
 }
-
-function setTabsAlignment(matches: boolean): void {
-  if (!slTabs) {
-    return;
-  }
-
-  if (!matches) {
-    slTabs.setAttribute('align-tabs', 'stretch');
-  } else {
-    slTabs.removeAttribute('align-tabs');
-  }
-}
-
-setTabsAlignment(mediaQueryList.matches);

@@ -44,6 +44,10 @@ sl-tab-group::part(container) {
   margin: 0 -2.4rem;
 }
 
+.sticky-tabs::part(tablist) {
+  margin-inline-start: 2.4rem;
+}
+
 @media screen and (min-width: $lg-breakpoint) {
   sl-tab-group {
     padding-block-start: 2.4rem;
@@ -54,9 +58,8 @@ sl-tab-group::part(container) {
   }
 
   .sticky-tabs::part(container) {
-    margin-inline-start: -2.4rem;
-    margin-inline-end: -2.4rem;
     inline-size: auto;
+    margin-inline: -2.4rem -2.4rem;
   }
 
   .sticky-tabs::part(tablist) {
@@ -86,9 +89,8 @@ sl-tab-group::part(container) {
 
   .sticky-tabs::part(container) {
     border-block-end: var(--_border);
-    margin-inline-start: -7.2rem;
-    margin-inline-end: -2.4rem;
     inline-size: auto;
+    margin-inline: -7.2rem -2.4rem;
   }
 
   .sticky-tabs::part(wrapper) {

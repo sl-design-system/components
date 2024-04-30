@@ -1,50 +1,37 @@
 import { SelectionController } from '@sl-design-system/shared';
-import { TreeModel } from './tree-model.js';
+import { TreeModel, type TreeModelArrayItem, type TreeModelOptions } from './tree-model.js';
 
 export class FlatTreeModel<T> extends TreeModel<T> {
   constructor(
     public override dataNodes: T[],
+    public getLabel: TreeModel<T>['getLabel'],
     public getLevel: (dataNode: T) => number,
-    public override getLabel: TreeModel<T>['getLabel'],
-    getIcon?: TreeModel<T>['getIcon']
+    public isExpandable: TreeModel<T>['isExpandable'],
+    options: Partial<TreeModelOptions<T>> = {}
   ) {
-    super();
-
-    if (getIcon) {
-      this.getIcon = getIcon;
-    }
+    super(options);
   }
 
-  override isExpandable(dataNode: T): boolean {
-    const index = this.dataNodes.indexOf(dataNode);
-
-    if (index === this.dataNodes.length - 1) {
-      return false;
-    } else {
-      const nextNode = this.dataNodes[index + 1];
-
-      return this.getLevel(nextNode) > this.getLevel(dataNode);
-    }
-  }
-
-  override toArray(expansion: SelectionController<T>): T[] {
+  override toArray(expansion: SelectionController<T>): Array<TreeModelArrayItem<T>> {
     let currentLevel = 0;
 
-    return this.dataNodes.reduce((nodes: T[], node) => {
-      const level = this.getLevel(node);
+    return this.dataNodes.reduce((dataNodes: Array<TreeModelArrayItem<T>>, dataNode) => {
+      const expanded = expansion.isSelected(dataNode),
+        expandable = this.isExpandable(dataNode),
+        level = this.getLevel(dataNode);
 
       if (level === currentLevel) {
-        if (expansion.isSelected(node)) {
+        if (expanded) {
           currentLevel++;
         }
 
-        return [...nodes, node];
+        return [...dataNodes, { dataNode, expandable, expanded, level }];
       } else {
         if (level < currentLevel) {
           currentLevel = level;
         }
 
-        return nodes;
+        return dataNodes;
       }
     }, []);
   }

@@ -19,50 +19,62 @@ Icon.register(faFile, faFolder, faFolderOpen);
 
 const flatData = [
   {
+    expandable: true,
     level: 0,
     name: 'tree'
   },
   {
+    expandable: true,
     level: 1,
     name: 'src'
   },
   {
+    expandable: false,
     level: 2,
     name: 'flat-tree-model.ts'
   },
   {
+    expandable: false,
     level: 2,
     name: 'nested-tree-model.ts'
   },
   {
+    expandable: false,
     level: 2,
     name: 'tree-model.ts'
   },
   {
+    expandable: false,
     level: 2,
     name: 'tree-node.scss'
   },
   {
+    expandable: false,
     level: 2,
     name: 'tree-node.ts'
   },
   {
+    expandable: false,
     level: 2,
     name: 'tree.ts'
   },
   {
+    expandable: false,
     level: 2,
     name: 'utils.ts'
   },
   {
+    expandable: false,
     level: 1,
     name: 'index.ts'
   },
   {
+    expandable: false,
     level: 1,
     name: 'package.json'
   },
   {
+    expandable: false,
     level: 1,
     name: 'register.ts'
   }
@@ -110,9 +122,12 @@ export const Flat: Story = {
   args: {
     model: new FlatTreeModel(
       flatData,
-      ({ level }) => level,
       ({ name }) => name,
-      ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`)
+      ({ level }) => level,
+      ({ expandable }) => expandable,
+      {
+        getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`)
+      }
     )
   }
 };
@@ -122,7 +137,8 @@ export const Nested: Story = {
     model: new NestedTreeModel(
       nestedData,
       dataNode => dataNode.children,
-      dataNode => dataNode.name
+      dataNode => dataNode.name,
+      dataNode => !!dataNode.children
     )
   }
 };

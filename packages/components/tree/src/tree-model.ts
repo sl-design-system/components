@@ -1,19 +1,43 @@
 import { type SelectionController } from '@sl-design-system/shared';
 
+export interface TreeModelArrayItem<T> {
+  dataNode: T;
+  expanded: boolean;
+  expandable: boolean;
+  level: number;
+}
+
+export interface TreeModelOptions<T> {
+  getIcon: TreeModel<T>['getIcon'];
+  trackBy: string;
+}
+
 /**
  * Abstract class used to provide a common interface for tree data.
  */
 export abstract class TreeModel<T> {
+  /** The nodes of the tree. */
   dataNodes: T[] = [];
 
-  /** Returns whether the given node is expandable. */
-  isExpandable(_dataNode: T): boolean {
-    return false;
+  /** Used during rendering to determine if a tree node needs to be rerendered. */
+  trackBy?: string;
+
+  constructor(options: Partial<TreeModelOptions<T>> = {}) {
+    if (options.getIcon) {
+      this.getIcon = options.getIcon;
+    }
+
+    this.trackBy = options.trackBy;
   }
 
-  abstract getLabel(_dataNode: T): T[keyof T];
+  /** Returns whether the given node is expandable. */
+  abstract isExpandable(dataNode: T): boolean;
 
-  getIcon(_dataNode: T, _expanded?: boolean): T[keyof T] | undefined {
+  /** Returns a string that is used as the label for the treenode. */
+  abstract getLabel(dataNode: T): string;
+
+  /** Optional method for returning a custom icon for a treenode. */
+  getIcon(_dataNode: T, _expanded?: boolean): string | undefined {
     return undefined;
   }
 
@@ -29,5 +53,5 @@ export abstract class TreeModel<T> {
   collapseDescendants(_dataNode: T): void {}
 
   /** Flattens the tree to an array based on the expansion state. */
-  abstract toArray(expansion: SelectionController<T>): T[];
+  abstract toArray(expansion: SelectionController<T>): Array<TreeModelArrayItem<T>>;
 }

@@ -4,7 +4,7 @@ import { Icon } from '@sl-design-system/icon';
 import { SelectionController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import { TreeModel } from './tree-model.js';
+import { TreeModel, type TreeModelArrayItem } from './tree-model.js';
 import { TreeNode } from './tree-node.js';
 import styles from './tree.scss.js';
 
@@ -72,30 +72,29 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       <div part="wrapper">
         ${virtualize({
           items,
-          renderItem: (item: T) => this.renderItem(item)
+          renderItem: (item: TreeModelArrayItem<T>) => this.renderItem(item)
         })}
       </div>
     `;
   }
 
-  renderItem(item: T): TemplateResult {
-    const model = this.model!,
-      expandable = model.isExpandable(item),
-      expanded = expandable && this.expansion.isSelected(item),
-      icon = model.getIcon(item, expanded);
+  renderItem(item: TreeModelArrayItem<T>): TemplateResult {
+    const { dataNode, expandable, expanded, level } = item,
+      icon = this.model!.getIcon(dataNode, expanded);
 
     return html`
       <sl-tree-node
-        @sl-toggle=${() => this.#onToggle(item)}
+        @sl-toggle=${() => this.#onToggle(dataNode)}
         ?expanded=${expanded}
         ?expandable=${expandable}
         ?selectable=${!!this.selects}
+        .level=${level}
       >
         ${this.renderer
-          ? this.renderer(item, { expanded, expandable })
+          ? this.renderer(dataNode, { expanded, expandable })
           : html`
               ${icon ? html`<sl-icon .name=${icon}></sl-icon>` : nothing}
-              <span>${model.getLabel(item)}</span>
+              <span>${this.model!.getLabel(dataNode)}</span>
             `}
       </sl-tree-node>
     `;

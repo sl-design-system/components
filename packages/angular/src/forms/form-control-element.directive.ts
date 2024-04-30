@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
-import type { ElementRef, OnDestroy, OnInit } from '@angular/core';
-import type { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from '@angular/forms';
-import type { FormControl } from '@sl-design-system/form';
+import { type ElementRef, Injectable, type OnDestroy, type OnInit } from '@angular/core';
+import { type AbstractControl, type ControlValueAccessor, type ValidationErrors, type Validator } from '@angular/forms';
+import { type FormControl } from '@sl-design-system/form';
 
 @Injectable()
 export abstract class FormControlElementDirective<T extends HTMLElement & FormControl>

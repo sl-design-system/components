@@ -60,10 +60,10 @@ export class GridSorter<T = any> extends ScopedElementsMixin(LitElement) {
   /** An optional custom sort function. */
   @property({ attribute: false }) sorter?: DataSourceSortFunction<T>;
 
-  /** Emits when the sorter has been added or removed. */
+  /** @internal Emits when the sorter has been added or removed. */
   @event({ name: 'sl-sorter-change' }) sorterChangeEvent!: EventEmitter<SlSorterChangeEvent>;
 
-  /** Emits when the direction has changed. */
+  /** @internal Emits when the direction has changed. */
   @event({ name: 'sl-sort-direction-change' }) sortDirectionChangeEvent!: EventEmitter<SlSortDirectionChangeEvent<T>>;
 
   override connectedCallback(): void {

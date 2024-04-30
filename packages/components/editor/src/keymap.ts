@@ -68,7 +68,7 @@ export const buildListKeymap = (schema: Schema<EditorNodes, EditorMarks>): { [ke
   const keys: { [key: string]: Command } = {};
 
   if (schema.nodes.listItem) {
-    keys.Enter = splitListItemKeepMarks(schema.nodes.listItem);
+    keys['Enter'] = splitListItemKeepMarks(schema.nodes.listItem);
   }
 
   return keys;

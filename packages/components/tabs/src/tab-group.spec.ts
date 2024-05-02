@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import '../register.js';
 import { TabGroup, type TabsAlignment } from './tab-group.js';
 
@@ -226,6 +226,30 @@ describe('sl-tab-group', () => {
       const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')?.href);
 
       expect(tabs).to.eql(['javascript:void(0)', undefined]);
+    });
+
+    it('should activate url when pressing Enter', async () => {
+      const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')),
+        link = tabs[0];
+
+      link.focus();
+
+      const linkClick = stub(link, 'click');
+      await sendKeys({ press: 'Enter' });
+
+      expect(linkClick).to.have.been.calledOnce;
+    });
+
+    it('should activate url when pressing the Space', async () => {
+      const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')),
+        link = tabs[0];
+
+      link.focus();
+
+      const linkClick = stub(link, 'click');
+      await sendKeys({ press: 'Space' });
+
+      expect(linkClick).to.have.been.calledOnce;
     });
   });
 

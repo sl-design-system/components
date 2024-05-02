@@ -232,6 +232,10 @@ describe('sl-tab-group', () => {
       const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')),
         link = tabs[0];
 
+      if (!link) {
+        throw new Error('There is no link inside');
+      }
+
       link.focus();
 
       const linkClick = stub(link, 'click');
@@ -243,6 +247,10 @@ describe('sl-tab-group', () => {
     it('should activate url when pressing the Space', async () => {
       const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')),
         link = tabs[0];
+
+      if (!link) {
+        throw new Error('There is no link inside');
+      }
 
       link.focus();
 

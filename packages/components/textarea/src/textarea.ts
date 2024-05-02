@@ -49,16 +49,13 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     requestAnimationFrame(() => this.#setSize());
   });
 
-  /** @private Hides the external validity icon. */
-  override showExternalValidityIcon = false;
-
-  /** Emits when the focus leaves the component. */
+  /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the value changes. */
+  /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
-  /** Emits when the component gains focus. */
+  /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** The textarea in the light DOM. */
@@ -163,9 +160,6 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     return html`
       <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
       <slot name="suffix">
-        ${this.showValidity === 'invalid'
-          ? html`<sl-icon .size=${this.size} class="invalid-icon" name="triangle-exclamation-solid"></sl-icon>`
-          : nothing}
         ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}

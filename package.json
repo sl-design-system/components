@@ -179,9 +179,16 @@
         "build:locales",
         "build:types",
         "build:themes:code",
+        "dist:angular",
         "dist:checklist",
         "dist:components",
         "dist:themes"
+      ]
+    },
+    "dist:angular": {
+      "command": "cem analyze --config cem-angular-wrapper.config.mjs",
+      "dependencies": [
+        "dist:components"
       ]
     },
     "dist:checklist": {

@@ -81,13 +81,13 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** @private The slotted radios. */
   @queryAssignedElements() radios?: Array<Radio<T>>;
 
-  /** Emits when the component loses focus. */
+  /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the value changes. */
+  /** @internal Emits when the value changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
 
-  /** Emits when the component receives focus. */
+  /** @internal Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** Whether the group is disabled; when set no interaction is possible. */

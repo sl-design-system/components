@@ -495,7 +495,7 @@
         "type": "sizing"
       }
     },
-    "breacrumb": {
+    "breadcrumb": {
       "value": "{size.2xl}",
       "type": "sizing"
     }
@@ -870,7 +870,7 @@
             "description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "{space.button.gap.lg}"
           }
@@ -887,7 +887,7 @@
             "description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.sm}",
+            "value": "{space.xs}",
             "type": "spacing",
             "description": "{space.button.gap.lg}"
           },
@@ -940,9 +940,9 @@
             "description": "{space.button.gap.md}"
           },
           "lg": {
-            "value": "{space.md}",
+            "value": "{space.sm}",
             "type": "spacing",
-            "description": "{space.button.gap.lg}"
+            "description": "{space.button.gap.md}"
           },
           "none": {
             "value": "{space.none}",
@@ -1781,6 +1781,12 @@
           "type": "spacing"
         }
       }
+    },
+    "form": {
+      "gap": {
+        "value": "{space.xl}",
+        "type": "spacing"
+      }
     }
   },
   "text": {
@@ -2110,10 +2116,10 @@
         "type": "Icons",
         "description": "icon.core.xmark"
       },
-      "triangle-exclamation-solid": {
-        "value": "triangle-exclamation",
+      "circle-exclamation-solid": {
+        "value": "circle-exclamation",
         "type": "Icons",
-        "description": "icon.core.triangle-exclamation-solid"
+        "description": "icon.core.circle-exclamation-solid"
       },
       "octagon-exclamation-solid": {
         "value": "octagon-exclamation",

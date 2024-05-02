@@ -1,15 +1,39 @@
-import type { Meta, StoryFn } from '@storybook/angular';
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/form/register.js';
-import '@sl-design-system/inline-message/register.js';
-import type { AbstractControl, ValidationErrors } from '@angular/forms';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import type { ElementRef } from '@angular/core';
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ViewChild } from '@angular/core';
-import type { Form } from '@sl-design-system/form';
-import { moduleMetadata } from '@storybook/angular';
-import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
+import { Component, type ElementRef, ViewChild } from '@angular/core';
+import {
+  type AbstractControl,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  type ValidationErrors
+} from '@angular/forms';
+import { type Form } from '@sl-design-system/form';
+import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
+import {
+  CheckboxDirective,
+  CheckboxGroupDirective,
+  RadioGroupDirective,
+  SelectDirective,
+  SwitchDirective,
+  TextFieldDirective,
+  TextareaDirective
+} from '../src/forms/index';
+import {
+  ButtonBarComponent,
+  ButtonComponent,
+  CheckboxComponent,
+  CheckboxGroupComponent,
+  FormComponent,
+  FormFieldComponent,
+  InlineMessageComponent,
+  RadioComponent,
+  RadioGroupComponent,
+  SelectComponent,
+  SelectOptionComponent,
+  SwitchComponent,
+  TextFieldComponent,
+  TextareaComponent
+} from '../src/wrappers';
 
 @Component({
   selector: 'sla-all-form-controls-reactive',
@@ -345,7 +369,7 @@ export class LoginFormComponent {
 }
 
 export default {
-  title: 'Forms/Examples',
+  title: 'Forms',
   decorators: [
     moduleMetadata({
       declarations: [
@@ -355,29 +379,52 @@ export default {
         AllFormControlsEmptyTemplateComponent,
         LoginFormComponent
       ],
-      imports: [CoreFormsModule, FormsModule, ReactiveFormsModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      imports: [
+        ButtonComponent,
+        ButtonBarComponent,
+        CheckboxComponent,
+        CheckboxDirective,
+        CheckboxGroupComponent,
+        CheckboxGroupDirective,
+        FormComponent,
+        FormFieldComponent,
+        FormsModule,
+        InlineMessageComponent,
+        RadioComponent,
+        RadioGroupComponent,
+        RadioGroupDirective,
+        ReactiveFormsModule,
+        SelectComponent,
+        SelectDirective,
+        SelectOptionComponent,
+        SwitchComponent,
+        SwitchDirective,
+        TextFieldComponent,
+        TextFieldDirective,
+        TextareaComponent,
+        TextareaDirective
+      ]
     })
   ],
   args: {}
 } as Meta;
 
 export const AllReactive: StoryFn = () => ({
-  template: `<sla-all-form-controls-reactive></sla-all-form-controls-reactive>`
+  template: '<sla-all-form-controls-reactive></sla-all-form-controls-reactive>'
 });
 
 export const AllEmptyReactive: StoryFn = () => ({
-  template: `<sla-all-form-controls-empty-reactive></sla-all-form-controls-empty-reactive>`
+  template: '<sla-all-form-controls-empty-reactive></sla-all-form-controls-empty-reactive>'
 });
 
 export const AllTemplate: StoryFn = () => ({
-  template: `<sla-all-form-controls-template></sla-all-form-controls-template>`
+  template: '<sla-all-form-controls-template></sla-all-form-controls-template>'
 });
 
 export const AllEmptyTemplate: StoryFn = () => ({
-  template: `<sla-all-form-controls-empty-template></sla-all-form-controls-empty-template>`
+  template: '<sla-all-form-controls-empty-template></sla-all-form-controls-empty-template>'
 });
 
 export const Login: StoryFn = () => ({
-  template: `<sla-login-form></sla-login-form>`
+  template: '<sla-login-form></sla-login-form>'
 });

@@ -6,29 +6,28 @@ eleventyNavigation:
   key: IconAccessibility
 ---
 
-<section> 
+<section>
 
-## Accessibility
+## Label
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
+The label only needs to be set when there is no accompanying text with the icon, as the assistive technology will read this label as well as the accompanying text. It can however be used in the rare cases the icon adds additional information to the label.
 </section>
+
 
 <section>
 
-## Interaction
+## WAI-ARIA
 
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi.
-- Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris.
-- Maecenas vitae mattis tellus. Nullam quis imperdiet augue, vestibulum auctor ornare leo.
-- Non suscipit magna interdum eu.
+<div class="ds-table-wrapper">
 
-</section>
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`aria-label`|string|Set by using the `label` property on the element.|no|
+|`aria-hidden`|boolean|When no `label` is set we assume the icon is purely presentational and we hide it from assistive technology. |no|
+|`role`|`'img', undefined`|When a `label` is set this means the icon will be part of the accessibility tree and thus we need to declare it as an icon. |no|
 
-<section>
+{.ds-table .ds-table-align-top}
 
-## Behaviour
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
 </section>

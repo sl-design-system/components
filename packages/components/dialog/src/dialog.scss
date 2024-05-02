@@ -6,9 +6,6 @@ $md-breakpoint: 600px;
   --_border-radius: var(--sl-border-radius-dialog-mobile);
   --_border: var(--sl-border-width-dialog-default) solid var(--sl-color-dialog-border);
   --_color: var(--sl-color-dialog-foreground);
-
-  // --_footer-align: var(--sl-dialog-footer-justify-content);
-  // --_footer-direction: column-reverse;
   --_header-gap: var(--sl-space-dialog-gap-header);
   --_heading-direction: var(--sl-dialog-header-flex-direction);
   --_heading-gap: var(--sl-space-dialog-gap-header);
@@ -22,8 +19,6 @@ $md-breakpoint: 600px;
   --_subtitle-font: var(--sl-text-dialog-subheading);
   --_title-font: var(--sl-text-dialog-heading);
   --sl-button-bar-vertical: var(--sl-ON);
-
-  // --sl-button-bar-direction-column: column-reverse;
 
   display: block;
 }

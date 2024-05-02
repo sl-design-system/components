@@ -45,13 +45,13 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   /** @private */
   readonly internals = this.attachInternals();
 
-  /** Emits when the component loses focus. */
+  /** @internal Emits when the component loses focus. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the checked state changes. */
+  /** @internal Emits when the checked state changes. */
   @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | null>>;
 
-  /** Emits when the component receives focus. */
+  /** @internal Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** Whether the checkbox is checked. */

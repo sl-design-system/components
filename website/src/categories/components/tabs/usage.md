@@ -7,14 +7,14 @@ eleventyNavigation:
 ---
 <section>
 <div class="ds-example">
-<sl-tab-group>
+<sl-tab-group style="background: var(--sl-color-tab-default-background); inline-size: 500px">
  <sl-tab>Personal information</sl-tab>
  <sl-tab>Education</sl-tab>
  <sl-tab disabled>Projects</sl-tab>
  <sl-tab-panel>
    <div>
    <h2>Personal information</h2>
-   <sl-avatar display-name="Tim Jenssen" picture-url="/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg" size="lg"></sl-avatar>
+   <sl-avatar display-name="Tim Jenssen" picture-url="/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg" size="xl"></sl-avatar>
    </div>
  </sl-tab-panel>
  <sl-tab-panel>
@@ -38,7 +38,7 @@ Photo by [Xia Yang](https://unsplash.com/@imrxia?utm_content=creditCopyText&utm_
 <div class="ds-code">
 
   ```html
-<sl-tab-group>
+<sl-tab-group style="background: var(--sl-color-tab-default-background); inline-size: 500px">
     <sl-tab>Personal information</sl-tab>
     <sl-tab>Education</sl-tab>
     <sl-tab disabled>Projects</sl-tab>

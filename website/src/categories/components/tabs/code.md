@@ -9,7 +9,7 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<sl-tab-group>
+<sl-tab-group align-tabs="stretch" style="background: var(--sl-color-tab-default-background); inline-size: 650px">
 <sl-tab >Tab 1</sl-tab>
 <sl-tab selected>Tab 2</sl-tab>
 <sl-tab disabled>Tab 3</sl-tab>
@@ -26,7 +26,8 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-<sl-tab-group>
+<sl-tab-group align-tabs="stretch" 
+        style="background: var(--sl-color-tab-default-background); inline-size: 650px">
     <sl-tab >Tab 1</sl-tab>
     <sl-tab selected>Tab 2</sl-tab>
     <sl-tab disabled>Tab 3</sl-tab>

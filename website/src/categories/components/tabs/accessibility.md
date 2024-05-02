@@ -26,10 +26,10 @@ Avoid using all caps for tab labels. It's harder to read. Use consistent capital
 Keyboard interactions within a tabs group allow users to navigate options using arrow keys or the Tab key, facilitating efficient selection and ensuring accessibility for those who rely on keyboard navigation.
 Typically, users can navigate to the tabs using the "Tab" key, once they're in the first tab they can focus the different options with Arrow keys. Then they can select a new tab with the "Spacebar" or "Enter" key. Keyboard interaction ensures that individuals who rely on keyboard navigation or assistive technologies can easily control tabs within a user interface.
 
-|Key| Description |
-|---|-------------|
-|Tab|	Shifts focus to the first radio option in a tab list. Or when a tabs is focused the focus will go the the active tab in the page when the tab key is pressed|
-|Space/Enter | Selects the currently focused tab or open the overflow menu|
+|Key| Description                                                                                                                                                                                                                                                              |
+|---|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Tab| 	Shifts focus to the first tab control in a tab list. Or when a tabs is focuse the focus will go the the active tab in the page when the tab key is pressed                                                                                                              |
+|Space/Enter | Activates the currently focused tab or open the overflow menu                                                                                                                                                                                                            |
 |Arrow Keys	| Once you are "in" a tabs list you can navigate to the next tab by using the right or down arrow key. You can navigate back to the previous tab with left or up. The focus indicator loops, so when you are at the last tab and press "down" it will focus the first tab. |
 
 {.ds-table .ds-table-align-top}
@@ -64,15 +64,25 @@ WAI-ARIA Roles, States, and Properties for tabs provide essential information to
 
 |Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
 |-|-|-|-|
-|`role`|`'tab'`|Declare our group of custom checkbox components as a checkbox group.|no|
-|`aria-selected`|string|Can be added when there is no label or header that could be described by.|yes|
-|`aria-controls`|string|Used to describe (link with) hint (helper text) and/or error message.|no|
-|`aria-labelledby`|string|Used to connect with single header that describes checkbox group, when there is no label component connected to.|yes|
+|`role`|`'tab'`|Declare element as a tab control.|no|
+|`aria-selected`|string|Indicates the tab control is activated or not and its associated panel is displayed or not as well. Set to `true` when a user activates a tab.|no|
+|`aria-controls`|string|It contains `id` of the tab panel element associated with the tab.|no|
 
 {.ds-table .ds-table-align-top}
 
 </div>
 
-// TODO: tab and tab panel?
+### Tab panel
+
+<div class="ds-table-wrapper">
+
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon>|
+|-|-|-|-|
+|`role`|`'tabpanel'`|Declare the element as a container for tab panel content.|no|
+|`aria-labelledby`|string|Used to connect tab control with tab panel. Refers to the tab element that controls the panel; contains `id` of the tab control.|no|
+
+{.ds-table .ds-table-align-top}
+
+</div>
 
 </section>

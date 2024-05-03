@@ -1,5 +1,4 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
@@ -23,14 +22,16 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
-      'sl-button': Button,
       'sl-checkbox': Checkbox,
       'sl-icon': Icon
     };
   }
 
   /** Event controller. */
-  #events = new EventsController(this, { keydown: this.#onKeydown });
+  #events = new EventsController(this, {
+    click: this.#onClick,
+    keydown: this.#onKeydown
+  });
 
   /** Whether the node is disabled. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
@@ -67,9 +68,9 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
     return html`
       ${this.expandable
         ? html`
-            <sl-button @click=${() => this.toggle()} fill="ghost" size="sm" tabindex="-1">
-              <sl-icon name="chevron-right"></sl-icon>
-            </sl-button>
+            <div class="expander">
+              <sl-icon name="chevron-right" size="xs"></sl-icon>
+            </div>
           `
         : nothing}
       <div part="wrapper">
@@ -96,6 +97,12 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;
     this.toggleEvent.emit(this.expanded);
+  }
+
+  #onClick(): void {
+    if (this.expandable) {
+      this.toggle();
+    }
   }
 
   #onKeydown(event: KeyboardEvent): void {

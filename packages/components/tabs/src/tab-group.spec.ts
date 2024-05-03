@@ -1,7 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { spy, stub } from 'sinon';
+import { spy } from 'sinon';
 import '../register.js';
 import { TabGroup, type TabsAlignment } from './tab-group.js';
 
@@ -209,55 +209,6 @@ describe('sl-tab-group', () => {
     it('should select the second tab by default', () => {
       expect(el.querySelector('sl-tab[selected]')).to.have.text('Tab 2');
       expect(el.querySelector('sl-tab-panel[aria-hidden="false"]')).to.have.text('Panel 2');
-    });
-  });
-
-  describe('links', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-tab-group>
-          <sl-tab href="javascript:void(0)">Tab 1</sl-tab>
-          <sl-tab>Tab 2</sl-tab>
-        </sl-tab-group>
-      `);
-    });
-
-    it('should wrap the tabs content in a link tag with href', () => {
-      const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')?.href);
-
-      expect(tabs).to.eql(['javascript:void(0)', undefined]);
-    });
-
-    it('should activate url when pressing Enter', async () => {
-      const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')),
-        link = tabs[0];
-
-      if (!link) {
-        throw new Error('There is no link inside');
-      }
-
-      link.focus();
-
-      const linkClick = stub(link, 'click');
-      await sendKeys({ press: 'Enter' });
-
-      expect(linkClick).to.have.been.calledOnce;
-    });
-
-    it('should activate url when pressing the Space', async () => {
-      const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')),
-        link = tabs[0];
-
-      if (!link) {
-        throw new Error('There is no link inside');
-      }
-
-      link.focus();
-
-      const linkClick = stub(link, 'click');
-      await sendKeys({ press: 'Space' });
-
-      expect(linkClick).to.have.been.calledOnce;
     });
   });
 

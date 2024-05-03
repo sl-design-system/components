@@ -237,9 +237,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const tab = event.target.closest('sl-tab');
 
     if (tab && ['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-      event.stopPropagation();
-
       this.#updateSelectedTab(tab);
       this.#scrollToTabPanelStart();
     }

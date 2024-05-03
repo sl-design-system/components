@@ -9,7 +9,7 @@ export interface TreeModelArrayItem<T> {
 
 export interface TreeModelOptions<T> {
   getIcon: TreeModel<T>['getIcon'];
-  trackBy: string;
+  trackBy(dataNode: T, index: number): unknown;
 }
 
 /**
@@ -20,7 +20,7 @@ export abstract class TreeModel<T> {
   dataNodes: T[] = [];
 
   /** Used during rendering to determine if a tree node needs to be rerendered. */
-  trackBy?: string;
+  trackBy?(dataNode: T, index: number): unknown;
 
   constructor(options: Partial<TreeModelOptions<T>> = {}) {
     if (options.getIcon) {

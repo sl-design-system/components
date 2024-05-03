@@ -1,7 +1,7 @@
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
-import { SelectionController } from '@sl-design-system/shared';
+import { RovingTabindexController, SelectionController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { TreeModel, type TreeModelArrayItem } from './tree-model.js';
@@ -35,6 +35,13 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
   /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Manage keyboard navigation between tabs. */
+  #rovingTabindexController = new RovingTabindexController<TreeNode>(this, {
+    focusInIndex: (elements: TreeNode[]) => elements.findIndex(el => !el.disabled),
+    elements: () => Array.from(this.renderRoot.querySelectorAll('sl-tree-node')) || [],
+    isFocusableElement: (el: TreeNode) => !el.disabled
+  });
 
   /** Contains the expanded state for the tree. */
   readonly expansion = new SelectionController<T>(this, { multiple: true });
@@ -72,6 +79,9 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
       <div part="wrapper">
         ${virtualize({
           items,
+          keyFunction: this.model?.trackBy
+            ? (item: TreeModelArrayItem<T>, index: number) => this.model!.trackBy!(item.dataNode, index)
+            : undefined,
           renderItem: (item: TreeModelArrayItem<T>) => this.renderItem(item)
         })}
       </div>

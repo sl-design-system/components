@@ -2,7 +2,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
-import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -29,6 +29,12 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
     };
   }
 
+  /** Event controller. */
+  #events = new EventsController(this, { keydown: this.#onKeydown });
+
+  /** Whether the node is disabled. */
+  @property({ type: Boolean, reflect: true }) disabled?: boolean;
+
   /** Indicates whether the node is expanded or collapsed. */
   @property({ type: Boolean, reflect: true }) expanded?: boolean;
 
@@ -54,13 +60,14 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
     super.connectedCallback();
 
     this.setAttribute('role', 'treeitem');
+    this.tabIndex = 0;
   }
 
   override render(): TemplateResult {
     return html`
       ${this.expandable
         ? html`
-            <sl-button @click=${this.#onToggle} fill="ghost" size="sm">
+            <sl-button @click=${() => this.toggle()} fill="ghost" size="sm" tabindex="-1">
               <sl-icon name="chevron-right"></sl-icon>
             </sl-button>
           `
@@ -81,12 +88,21 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
     super.updated(changes);
 
     if (changes.has('level')) {
+      this.toggleAttribute('root', this.level === 0);
       this.style.setProperty('--_level', this.level?.toString());
     }
   }
 
-  #onToggle(): void {
-    this.expanded = !this.expanded;
+  toggle(expanded = !this.expanded): void {
+    this.expanded = expanded;
     this.toggleEvent.emit(this.expanded);
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (!this.expandable) {
+      return;
+    } else if ((event.key === 'ArrowRight' && !this.expanded) || (event.key === 'ArrowLeft' && this.expanded)) {
+      this.toggle();
+    }
   }
 }

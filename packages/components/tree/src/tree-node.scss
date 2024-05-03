@@ -1,21 +1,49 @@
 :host {
-  --_expander-indent: calc(var(--_expander-size) * clamp(0, calc(var(--_level)), 1));
-  --_expander-size: 1.5rem;
+  --_background: #fff;
+  --_background-hover: #f7f7f7;
+  --_expander-indent: 0px;
+  --_expander-size: 1.75rem;
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-radius: var(--sl-border-radius-focusring-default);
   --_gap: 0.25rem;
   --_level-indent: 0.25rem;
   --_padding-block: 0.25rem;
   --_padding-inline: 0.5rem;
 
   align-items: center;
+  background: var(--_background);
+  cursor: pointer;
   display: flex;
   gap: var(--_gap);
   inline-size: 100%;
   padding-block: var(--_padding-block);
-  padding-inline: calc(var(--_expander-indent) + var(--_padding-inline) + var(--_level-indent) * var(--_level, 0));
+  padding-inline: calc(var(--_padding-inline) + var(--_expander-indent) + var(--_level-indent) * var(--_level, 0))
+    var(--_padding-inline);
+}
+
+:host(:not([expandable])) {
+  --_expander-indent: var(--_expander-size);
 }
 
 :host([expanded]) sl-icon {
   rotate: 90deg;
+}
+
+:host(:focus-visible) {
+  border-radius: var(--_focus-radius);
+  outline: var(--_focus-outline);
+  outline-offset: calc(var(--_focus-outline-offset) * -1);
+  z-index: 1;
+}
+
+:host(:hover) {
+  background: var(--_background-hover);
+}
+
+:host([disabled]) {
+  cursor: default;
+  pointer-events: none;
 }
 
 [part='wrapper'] {
@@ -23,6 +51,14 @@
   display: flex;
   flex: 1;
   gap: var(--_gap);
+}
+
+::slotted(*) {
+  flex: 1;
+}
+
+::slotted(sl-icon) {
+  flex: 0 1;
 }
 
 sl-icon {

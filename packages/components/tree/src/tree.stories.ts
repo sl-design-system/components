@@ -19,64 +19,100 @@ Icon.register(faFile, faFolder, faFolderOpen);
 
 const flatData = [
   {
+    id: 0,
+    expandable: true,
+    level: 0,
+    name: 'textarea'
+  },
+  {
+    id: 1,
+    expandable: true,
+    level: 0,
+    name: 'tooltip'
+  },
+  {
+    id: 2,
     expandable: true,
     level: 0,
     name: 'tree'
   },
   {
+    id: 3,
     expandable: true,
     level: 1,
     name: 'src'
   },
   {
+    id: 4,
     expandable: false,
     level: 2,
     name: 'flat-tree-model.ts'
   },
   {
+    id: 5,
     expandable: false,
     level: 2,
     name: 'nested-tree-model.ts'
   },
   {
+    id: 6,
     expandable: false,
     level: 2,
     name: 'tree-model.ts'
   },
   {
+    id: 7,
     expandable: false,
     level: 2,
     name: 'tree-node.scss'
   },
   {
+    id: 8,
     expandable: false,
     level: 2,
     name: 'tree-node.ts'
   },
   {
+    id: 9,
     expandable: false,
     level: 2,
     name: 'tree.ts'
   },
   {
+    id: 10,
     expandable: false,
     level: 2,
     name: 'utils.ts'
   },
   {
+    id: 11,
     expandable: false,
     level: 1,
     name: 'index.ts'
   },
   {
+    id: 12,
     expandable: false,
     level: 1,
     name: 'package.json'
   },
   {
+    id: 13,
     expandable: false,
     level: 1,
     name: 'register.ts'
+  },
+  {
+    id: 14,
+    expandable: false,
+    level: 0,
+    name: 'eslint.config.mjs'
+  },
+  {
+    id: 15,
+    expandable: false,
+    level: 0,
+    name: 'stylelint.config.mjs'
   }
 ];
 
@@ -126,7 +162,8 @@ export const Flat: Story = {
       ({ level }) => level,
       ({ expandable }) => expandable,
       {
-        getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`)
+        getIcon: ({ name }, expanded) => (name.includes('.') ? 'far-file' : `far-folder${expanded ? '-open' : ''}`),
+        trackBy: item => item.id
       }
     )
   }

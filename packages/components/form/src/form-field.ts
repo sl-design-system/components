@@ -1,6 +1,6 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { Error } from './error.js';
 import { type FormControl, type SlUpdateValidityEvent } from './form-control-mixin.js';
@@ -92,7 +92,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         if (this.error) {
           this.#error ??= this.shadowRoot?.createElement('sl-error') as Error;
           this.#error.innerText = this.error;
-          this.#error.noIcon = !this.control?.showExternalValidityIcon;
 
           if (!this.#error.parentElement) {
             this.append(this.#error);
@@ -143,11 +142,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     return html`
       <slot name="label" @slotchange=${this.#onLabelSlotchange}></slot>
       <div class="wrapper" part="wrapper">
+        <slot @slotchange=${this.#onHintSlotchange} name="hint"></slot>
         <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity}></slot>
         <slot @slotchange=${this.#onErrorSlotchange} name="error"></slot>
-        ${this.#customError || this.#error
-          ? nothing
-          : html`<slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>`}
       </div>
     `;
   }
@@ -161,7 +158,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     } else if (error) {
       this.#error = error;
       this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
-      this.#error.noIcon = !this.control?.showExternalValidityIcon;
 
       if (this.control) {
         this.control.formControlElement.setAttribute('aria-describedby', this.#error.id);

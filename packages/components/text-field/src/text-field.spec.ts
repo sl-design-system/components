@@ -249,15 +249,6 @@ describe('sl-text-field', () => {
 
       expect(onUpdateValidity).to.have.been.calledOnce;
     });
-
-    it('should show a warning icon when reported', async () => {
-      el.reportValidity();
-      await el.updateComplete;
-
-      const icon = el.renderRoot.querySelector('sl-icon');
-      expect(icon).to.exist;
-      expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
-    });
   });
 
   describe('valid', () => {

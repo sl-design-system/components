@@ -41,9 +41,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** @private Hides the external validity icon. */
-  override showExternalValidityIcon = false;
-
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
@@ -145,9 +142,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       <slot name="prefix"></slot>
       <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
       <slot name="suffix">
-        ${this.showValidity === 'invalid'
-          ? html`<sl-icon .size=${this.size} class="invalid-icon" name="triangle-exclamation-solid"></sl-icon>`
-          : nothing}
         ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}

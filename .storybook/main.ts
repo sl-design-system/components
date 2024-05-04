@@ -4,7 +4,10 @@ import { argv } from 'node:process';
 const devMode = !argv.includes('build');
 
 const config: StorybookConfig = {
-  stories: ['../packages/{checklist,components}/**/*.stories.ts'],
+  stories: [
+    './stories/**/*.stories.ts',
+    '../packages/{checklist,components}/**/*.stories.ts'
+  ],
   addons: [
     '@storybook/addon-a11y',
     '@storybook/addon-actions',

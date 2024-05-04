@@ -71,3 +71,9 @@ sl-icon {
   rotate: 0deg;
   transition: rotate 100ms ease-in-out;
 }
+
+sl-checkbox::part(label) {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--_gap);
+}

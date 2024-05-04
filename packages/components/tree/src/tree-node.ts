@@ -2,7 +2,7 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
-import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
+import { type SlChangeEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { IndentGuides } from './indent-guides.js';
@@ -13,8 +13,6 @@ declare global {
     'sl-tree-item': TreeNode;
   }
 }
-
-export type SlExpandEvent = CustomEvent<boolean>;
 
 export class TreeNode extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -111,7 +109,12 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
       <div part="wrapper">
         ${this.selects === 'multiple'
           ? html`
-              <sl-checkbox ?checked=${this.checked} ?indeterminate=${this.indeterminate} size="sm">
+              <sl-checkbox
+                @sl-change=${this.#onChange}
+                ?checked=${this.checked}
+                ?indeterminate=${this.indeterminate}
+                size="sm"
+              >
                 <slot></slot>
               </sl-checkbox>
             `
@@ -123,6 +126,11 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   toggle(expanded = !this.expanded): void {
     this.expanded = expanded;
     this.toggleEvent.emit(this.expanded);
+  }
+
+  #onChange(event: SlChangeEvent<boolean>): void {
+    this.checked = event.detail;
+    this.indeterminate = false;
   }
 
   #onClick(): void {

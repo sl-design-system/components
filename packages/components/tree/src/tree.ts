@@ -2,6 +2,7 @@ import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Icon } from '@sl-design-system/icon';
 import { RovingTabindexController, SelectionController } from '@sl-design-system/shared';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { TreeModel, type TreeModelArrayItem } from './tree-model.js';
@@ -97,6 +98,7 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
 
     return html`
       <sl-tree-node
+        @sl-change=${(event: SlChangeEvent<boolean>) => this.#onChange(event, dataNode)}
         @sl-toggle=${() => this.#onToggle(dataNode)}
         ?expandable=${expandable}
         ?expanded=${expanded}
@@ -113,6 +115,10 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
             `}
       </sl-tree-node>
     `;
+  }
+
+  #onChange(event: SlChangeEvent<boolean>, item: T): void {
+    console.log('event', event, event.detail, item);
   }
 
   #onToggle(item: T): void {

@@ -18,6 +18,8 @@ export type CheckboxSize = 'sm' | 'md' | 'lg';
 /**
  * A checkbox with 3 states; unchecked, checked and intermediate.
  *
+ * @csspart label - The label of the checkbox.
+ *
  * @slot default - Text label of the checkbox. Technically there are no limits what can be put here; text, images, icons etc.
  */
 @localized()
@@ -141,7 +143,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
           </svg>
         </div>
       </div>
-      <span class="label">
+      <span part="label">
         <slot @slotchange=${() => this.#updateNoLabel()}></slot>
       </span>
     `;

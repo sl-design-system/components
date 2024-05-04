@@ -135,7 +135,7 @@ $variants: default, valid, invalid;
   }
 }
 
-.label {
+[part='label'] {
   line-height: var(--_line-height);
   margin-block-start: calc((var(--_size) + var(--_padding-block) * 2 - var(--_line-height)) / 2);
 }

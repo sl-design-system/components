@@ -1,0 +1,37 @@
+:host {
+  --_expander-indent: 1.125rem;
+  --_guide-color: var(--sl-color-palette-neutral-100);
+  --_guide-size: 1px;
+  --_level-indent: 0.75rem;
+
+  align-items: stretch;
+  display: flex;
+  padding-inline-end: var(--_expander-indent);
+}
+
+:host([expandable]) {
+  --_expander-indent: 0px;
+}
+
+:host([last-node-in-level]) [part='guide']:last-child {
+  align-self: start;
+  block-size: 25%;
+  position: relative;
+
+  &::before {
+    block-size: 100%;
+    border-block-end: var(--_guide-size) solid var(--_guide-color);
+    border-end-start-radius: 4px;
+    border-inline-start: var(--_guide-size) solid var(--_guide-color);
+    content: '';
+    inline-size: 0.25rem;
+    inset: 100% auto auto 0;
+    position: absolute;
+  }
+}
+
+[part='guide'] {
+  background: var(--_guide-color);
+  inline-size: var(--_guide-size);
+  margin-inline-start: var(--_level-indent);
+}

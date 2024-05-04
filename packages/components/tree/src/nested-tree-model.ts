@@ -34,11 +34,12 @@ export class NestedTreeModel<T> extends TreeModel<T> {
       return [];
     }
 
-    return children.reduce((dataNodes: Array<TreeModelArrayItem<T>>, childNode) => {
+    return children.reduce((dataNodes: Array<TreeModelArrayItem<T>>, childNode, index, array) => {
       const expanded = expansion.isSelected(dataNode),
-        expandable = this.isExpandable(dataNode);
+        expandable = this.isExpandable(dataNode),
+        lastNodeInLevel = index === array.length - 1;
 
-      dataNodes.push({ dataNode: childNode, expandable, expanded, level });
+      dataNodes.push({ dataNode: childNode, expandable, expanded, lastNodeInLevel, level });
 
       if (expandable && expanded) {
         dataNodes.push(...this.nestedToArray(expansion, childNode, level + 1));

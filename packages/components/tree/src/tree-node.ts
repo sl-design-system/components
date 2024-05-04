@@ -3,8 +3,9 @@ import { Checkbox } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { IndentGuides } from './indent-guides.js';
 import styles from './tree-node.scss.js';
 
 declare global {
@@ -23,7 +24,8 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-checkbox': Checkbox,
-      'sl-icon': Icon
+      'sl-icon': Icon,
+      'sl-indent-guides': IndentGuides
     };
   }
 
@@ -43,16 +45,22 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
   @property({ type: Boolean }) expandable?: boolean;
 
   /** The depth level of this node, 0 being the root of the tree. */
-  @property({ type: Number }) level = 0;
+  @property({ type: Number, reflect: true }) level = 0;
 
   /** Will render a checkbox if true. */
-  @property({ type: Boolean }) selectable?: boolean;
+  @property({ type: Boolean }) checkable?: boolean;
 
   /** Determines whether the checkbox is checked or not. */
   @property({ type: Boolean }) checked?: boolean;
 
   /** Indeterminate state of the checkbox. Used when not all children are checked. */
   @property({ type: Boolean }) indeterminate?: boolean;
+
+  /** Whether this node is the last one on this level; used for styling. */
+  @property({ type: Boolean, attribute: 'last-node-in-level' }) lastNodeInLevel?: boolean;
+
+  /** Whether the node is currently selected. */
+  @property({ type: Boolean }) selected?: boolean;
 
   /** @internal Emits when the expanded state changes. */
   @event({ name: 'sl-toggle' }) toggleEvent!: EventEmitter<SlToggleEvent<boolean>>;
@@ -66,6 +74,11 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
+      <sl-indent-guides
+        ?expandable=${this.expandable}
+        .lastNodeInLevel=${this.lastNodeInLevel}
+        .level=${this.level}
+      ></sl-indent-guides>
       ${this.expandable
         ? html`
             <div class="expander">
@@ -74,7 +87,7 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
           `
         : nothing}
       <div part="wrapper">
-        ${this.selectable
+        ${this.checkable
           ? html`
               <sl-checkbox ?checked=${this.checked} ?indeterminate=${this.indeterminate} size="sm">
                 <slot></slot>
@@ -83,15 +96,6 @@ export class TreeNode extends ScopedElementsMixin(LitElement) {
           : html`<slot></slot>`}
       </div>
     `;
-  }
-
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('level')) {
-      this.toggleAttribute('root', this.level === 0);
-      this.style.setProperty('--_level', this.level?.toString());
-    }
   }
 
   toggle(expanded = !this.expanded): void {

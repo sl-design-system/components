@@ -92,15 +92,17 @@ export class Tree<T = any> extends ScopedElementsMixin(LitElement) {
   }
 
   renderItem(item: TreeModelArrayItem<T>): TemplateResult {
-    const { dataNode, expandable, expanded, level } = item,
+    const { dataNode, expandable, expanded, lastNodeInLevel, level } = item,
       icon = this.model!.getIcon(dataNode, expanded);
 
     return html`
       <sl-tree-node
         @sl-toggle=${() => this.#onToggle(dataNode)}
+        ?checkable=${this.selects === 'multiple'}
         ?expandable=${expandable}
         ?expanded=${expanded}
-        ?selectable=${!!this.selects}
+        ?selected=${this.selection.isSelected(dataNode)}
+        .lastNodeInLevel=${lastNodeInLevel}
         .level=${level}
       >
         ${this.renderer

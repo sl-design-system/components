@@ -15,17 +15,18 @@ export class FlatTreeModel<T> extends TreeModel<T> {
   override toArray(expansion: SelectionController<T>): Array<TreeModelArrayItem<T>> {
     let currentLevel = 0;
 
-    return this.dataNodes.reduce((dataNodes: Array<TreeModelArrayItem<T>>, dataNode) => {
+    return this.dataNodes.reduce((dataNodes: Array<TreeModelArrayItem<T>>, dataNode, index, array) => {
       const expanded = expansion.isSelected(dataNode),
         expandable = this.isExpandable(dataNode),
-        level = this.getLevel(dataNode);
+        level = this.getLevel(dataNode),
+        nextLevel = index < array.length - 1 ? this.getLevel(array[index + 1]) : level;
 
       if (level === currentLevel) {
         if (expanded) {
           currentLevel++;
         }
 
-        return [...dataNodes, { dataNode, expandable, expanded, level }];
+        return [...dataNodes, { dataNode, expandable, expanded, lastNodeInLevel: level > nextLevel, level }];
       } else {
         if (level < currentLevel) {
           currentLevel = level;

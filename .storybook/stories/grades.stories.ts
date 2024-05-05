@@ -67,9 +67,12 @@ export const Default: Story = {
     return html`
       <style>
         #root-inner {
-          display: flex;
-          flex-direction: column;
-          min-block-size: 100dvh;
+          display: grid;
+          grid-template-areas: 'breadcrumbs breadcrumbs'
+          'heading heading'
+          'nav nav'
+          'filter grades';
+          block-size: 100dvh;
         }
 
         h1, h2, h3 {
@@ -77,6 +80,7 @@ export const Default: Story = {
         }
 
         sl-breadcrumbs {
+          grid-area: breadcrumbs;
           padding: 1rem 1rem 0rem 1rem;
         }
 
@@ -84,6 +88,7 @@ export const Default: Story = {
           background: #fff;
           border-block-end: 1px solid var(--sl-color-palette-neutral-100);
           font: var(--sl-text-dialog-heading);
+          grid-area: heading;
           padding: 0 1rem 0.25rem 1rem;
           position: sticky;
           inset-block-start: 0;
@@ -95,15 +100,11 @@ export const Default: Story = {
           border-bottom: 1px solid var(--sl-color-palette-neutral-100);
           display: flex;
           gap: 1rem;
+          grid-area: nav;
           inset-block-start: 39px;
           padding: 0.5rem 1rem;
           position: sticky;
           z-index: 1;
-        }
-
-        main {
-          display: flex;
-          flex: 1;
         }
 
         section {
@@ -117,15 +118,20 @@ export const Default: Story = {
         }
 
         .filter {
+          block-size: calc(100dvh - 136px);
           border-right: 1px solid var(--sl-color-palette-neutral-100);
-          inline-size: 250px;
+          grid-area: filter;
+          inset-block-start: 96px;
+          overflow: auto;
+          position: sticky;
 
           p {
             margin-bottom: 0.5rem;
           }
 
           sl-text-field {
-            inset-block-start: 96px;
+            flex-shrink: 0;
+            inset-block-start: 4px;
             position: sticky;
             z-index: 1;
           }
@@ -136,7 +142,7 @@ export const Default: Story = {
         }
 
         .grades {
-          flex: 1;
+          grid-area: grades;
 
           header {
             align-items: center;
@@ -167,35 +173,33 @@ export const Default: Story = {
 
         <sl-switch checked reverse>Show organisation layout</sl-switch>
       </nav>
-      <main>
-        <section class="filter">
-          <h3>Studies</h3>
-          <p>9 studies for all locations</p>
-          <sl-text-field placeholder="Filter by study or course"></sl-text-field>
-          <sl-tree .model=${model}></sl-tree>
-        </section>
+      <section class="filter">
+        <h3>Studies</h3>
+        <p>9 studies for all locations</p>
+        <sl-text-field placeholder="Filter by study or course"></sl-text-field>
+        <sl-tree .model=${model}></sl-tree>
+      </section>
 
-        <section class="grades">
-          <header>
-            <div class="heading">
-              <h2>Dutch</h2>
-              <p>HAVO 3</p>
-            </div>
-            <sl-switch reverse>Show only PTA exams</sl-switch>
-            <sl-button variant="primary">
-              <sl-icon name="far-plus"></sl-icon>
-              New grade column
-            </sl-button>
-          </header>
-          <sl-grid .items=${people}>
-            <sl-grid-column path="firstName"></sl-grid-column>
-            <sl-grid-column path="lastName"></sl-grid-column>
-            <sl-grid-column path="email"></sl-grid-column>
-            <sl-grid-column path="address.phone"></sl-grid-column>
-            <sl-grid-column path="profession"></sl-grid-column>
-          </sl-grid>
-        </section>
-      </main>
+      <section class="grades">
+        <header>
+          <div class="heading">
+            <h2>Dutch</h2>
+            <p>HAVO 3</p>
+          </div>
+          <sl-switch reverse>Show only PTA exams</sl-switch>
+          <sl-button variant="primary">
+            <sl-icon name="far-plus"></sl-icon>
+            New grade column
+          </sl-button>
+        </header>
+        <sl-grid .items=${people}>
+          <sl-grid-column path="firstName"></sl-grid-column>
+          <sl-grid-column path="lastName"></sl-grid-column>
+          <sl-grid-column path="email"></sl-grid-column>
+          <sl-grid-column path="address.phone"></sl-grid-column>
+          <sl-grid-column path="profession"></sl-grid-column>
+        </sl-grid>
+      </section>
     `;
   }
 };

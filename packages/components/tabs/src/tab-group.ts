@@ -146,7 +146,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => {
       const tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
 
-      this.#mutationObserver.observe(this.renderRoot, OBSERVER_OPTIONS);
+      this.#mutationObserver.observe(tablist, OBSERVER_OPTIONS);
 
       // We want to observe the size of the tablist, not the
       // container or wrapper. The tablist is the element that

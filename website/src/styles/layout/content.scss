@@ -5,8 +5,8 @@ $transition-timing: 300ms;
 .ds-container {
   animation: 100ms fade-in;
   background-color: var(--background-color);
-
-  margin-left: 0;
+  inline-size: 100%;
+  margin-inline-start: 0;
   padding: 8.8rem 2.4rem 0;
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-scroll-behavior: smooth;
@@ -16,13 +16,12 @@ $transition-timing: 300ms;
     transform $transition-timing,
     background $transition-timing ease-in-out,
     opacity $transition-timing;
-  width: 100%;
 
   @media screen and (min-width: $lg-breakpoint) {
+    inline-size: calc(100% - 28rem);
     padding: 3.2rem 2.4rem 0;
     transform: translateX(28rem);
     transition: none;
-    width: calc(100% - 28rem);
   }
 
   @media screen and (min-width: $xl-breakpoint) {
@@ -32,12 +31,11 @@ $transition-timing: 300ms;
 
 .ds-container .ds-homepage-wrapper {
   align-items: start;
-  align-items: start;
   display: grid;
   grid-auto-columns: 100%;
   grid-template-rows: max-content max-content 1fr max-content;
-  min-height: 100%;
-  min-width: 100%;
+  min-block-size: 100%;
+  min-inline-size: 100%;
 }
 
 .ds-subpage-section__wrapper {
@@ -88,7 +86,7 @@ a.header-anchor {
   }
 
   h2 {
-    margin-top: 2.4rem;
+    margin-block-start: 2.4rem;
   }
 }
 
@@ -103,5 +101,5 @@ a.header-anchor {
 }
 
 img {
-  max-width: 100%;
+  max-inline-size: 100%;
 }

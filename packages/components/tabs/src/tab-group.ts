@@ -82,16 +82,22 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Selected changes made by the user are handled by the click event listener.
    */
   #mutationObserver = new MutationObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.attributeName === 'selected' && entry.oldValue === null && entry.target instanceof Tab) {
+    entries
+      .filter(
+        entry =>
+          entry.attributeName === 'selected' &&
+          entry.oldValue === null &&
+          entry.target instanceof Tab &&
+          entry.target.parentElement === this
+      )
+      .forEach(entry => {
         this.#mutationObserver?.disconnect();
 
         // Update the selected tab with the observer turned off to avoid loops
-        this.#updateSelectedTab(entry.target);
+        this.#updateSelectedTab(entry.target as Tab);
 
         this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
-      }
-    });
+      });
   });
 
   /**

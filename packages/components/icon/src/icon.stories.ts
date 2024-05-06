@@ -49,19 +49,19 @@ export default {
   args: {
     icons: Object.keys(window.SLDS?.icons)
   },
+  argTypes: {
+    icons: {
+      table: {
+        disable: true
+      }
+    }
+  },
   decorators: [
     (story, storyProperties) => {
       storyId = storyProperties.id;
       return story();
     }
   ],
-  argTypes: {
-    icons: {
-      control: {
-        type: null
-      }
-    }
-  },
   render: ({ icons }) => {
     icons = ['info', 'star', 'chevron-right', 'home-blank'];
     return html`

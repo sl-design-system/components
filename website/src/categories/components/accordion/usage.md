@@ -1,5 +1,6 @@
 ---
 title: Accordion usage
+layout: "categories/components/components.njk"
 tags: usage
 eleventyNavigation:
   parent: Accordion

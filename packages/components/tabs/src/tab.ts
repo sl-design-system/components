@@ -1,3 +1,4 @@
+import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tab.scss.js';
@@ -26,8 +27,14 @@ declare global {
  * @slot subtitle - subtitle of the tab, containing additional information
  */
 export class Tab extends LitElement {
-  /** @private */
+  /** @internal */
+  static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
+
+  /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Event controller. */
+  #events = new EventsController(this, { keydown: this.#onKeydown });
 
   /** Whether the tab item is disabled */
   @property({ reflect: true, type: Boolean }) disabled?: boolean;
@@ -52,7 +59,7 @@ export class Tab extends LitElement {
   override render(): TemplateResult {
     return this.href
       ? html`<a href=${this.href}>${this.renderContent()}</a>`
-      : html`<div class="wrapper">${this.renderContent()}</div>`;
+      : html`<div .tabIndex=${this.selected ? 0 : -1} class="wrapper">${this.renderContent()}</div>`;
   }
 
   renderContent(): TemplateResult {
@@ -73,6 +80,17 @@ export class Tab extends LitElement {
 
     if (changes.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
+    }
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    if (!this.href || this.disabled) {
+      return;
+    } else if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+
+      // Enter automatically triggers a click event, but space does not
+      this.renderRoot.querySelector<HTMLElement>('a[href]')?.click();
     }
   }
 

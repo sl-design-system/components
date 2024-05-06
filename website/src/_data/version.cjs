@@ -41,7 +41,7 @@ module.exports = async function() {
     });
     const versionData = await Promise.all(versions);
     const latestVersions = versionData.map(d => d.data[0]);
-    
+
     let releases = {};
     packages.forEach(p => {
       releases = {

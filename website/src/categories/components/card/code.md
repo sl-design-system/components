@@ -45,9 +45,7 @@ eleventyNavigation:
 </div>
 
 </section>
-
 <ds-install-info package="card" link-in-navigation></ds-install-info>
-
 <section>
 
 ## CSS Variables

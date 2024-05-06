@@ -83,11 +83,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    */
   #mutationObserver = new MutationObserver(entries => {
     entries.forEach(entry => {
-      if (entry.attributeName === 'selected' && entry.oldValue === null) {
+      if (entry.attributeName === 'selected' && entry.oldValue === null && entry.target instanceof Tab) {
         this.#mutationObserver?.disconnect();
 
         // Update the selected tab with the observer turned off to avoid loops
-        this.#updateSelectedTab(entry.target as Tab);
+        this.#updateSelectedTab(entry.target);
 
         this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
       }
@@ -237,9 +237,6 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     const tab = event.target.closest('sl-tab');
 
     if (tab && ['Enter', ' '].includes(event.key)) {
-      event.preventDefault();
-      event.stopPropagation();
-
       this.#updateSelectedTab(tab);
       this.#scrollToTabPanelStart();
     }
@@ -414,7 +411,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       this.menuItems = undefined;
     }
 
-    this.selectedTab?.scrollIntoView();
+    this.selectedTab?.scrollIntoView(false);
 
     this.#updateSelectionIndicator();
   }

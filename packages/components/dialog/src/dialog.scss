@@ -30,7 +30,6 @@ dialog {
   color: var(--_color);
   display: flex;
   flex-direction: column;
-  gap: var(--_body-gap);
   margin: auto auto 0;
   max-block-size: min(
     100%,
@@ -39,8 +38,7 @@ dialog {
   max-inline-size: var(--_max-inline-size);
   opacity: 0;
   overflow: visible;
-  padding-block: var(--_padding-block);
-  padding-inline: var(--_padding-inline);
+  padding: 0;
 }
 
 dialog,
@@ -67,21 +65,19 @@ dialog[open]:not([closing]) {
   }
 }
 
-slot[name='header'] {
+[part='header'] {
   align-items: start;
   display: flex;
   justify-content: space-between;
+  padding-block-start: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
 }
 
-.titles {
+[part='titles'] {
   align-items: start;
   display: flex;
   flex-direction: var(--_heading-direction);
   gap: var(--_heading-gap);
-}
-
-slot[name='subtitle']::slotted(*) {
-  font: var(--_subtitle-font);
 }
 
 slot[name='title']::slotted(*) {
@@ -89,18 +85,28 @@ slot[name='title']::slotted(*) {
   text-wrap: balance;
 }
 
+slot[name='subtitle']::slotted(*) {
+  font: var(--_subtitle-font);
+}
+
 slot[name='header-actions'] sl-button-bar {
   flex-shrink: 0;
 }
 
-slot:not([name]) {
-  display: block;
+[part='body'] {
   overflow: auto;
+  padding-block: var(--_body-gap);
+  padding-inline: var(--_padding-inline);
 }
 
-slot[name='footer'] sl-button-bar {
-  --sl-button-bar-vertical: var(--sl-ON);
-  --sl-button-bar-direction-column: column-reverse;
+[part='footer'] {
+  padding-block-end: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+
+  sl-button-bar {
+    --sl-button-bar-vertical: var(--sl-ON);
+    --sl-button-bar-direction-column: column-reverse;
+  }
 }
 
 // This is for the non-mobile styling. The default styling is for mobile.
@@ -116,7 +122,7 @@ slot[name='footer'] sl-button-bar {
     --_padding-inline: var(--sl-space-dialog-desktop-body-inline);
   }
 
-  slot[name='footer'] sl-button-bar {
+  [part='footer'] sl-button-bar {
     --sl-button-bar-vertical: var(--sl-OFF);
     --sl-button-bar-align: end;
   }

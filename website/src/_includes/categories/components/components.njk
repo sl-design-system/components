@@ -1,0 +1,76 @@
+---
+layout: base.njk
+---
+
+<header class="ds-component__heading">
+  <div class="ds-component__heading-wrapper">
+    {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {% if version[post.data.packageName] %}<a href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F{{post.data.packageName}}%40{{version[post.data.packageName]}}"><span class="ds-badge">v{{version[post.data.packageName]}}</span></a>{% endif %}{% endif %}{%- endfor -%}
+    <h1 class="ds-heading-1">
+     {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.title }} {% endif %}{%- endfor -%}
+    </h1>
+    <p class="ds-component__heading-description">{%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.description }} {% endif %}{%- endfor -%}</p>
+  </div>
+</header>
+<section>
+  {%- for post in collections.component -%}
+    {% if page.url.includes(post.url) %}
+      <sl-tab-group>
+        {%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}<sl-tab href="{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}"
+        {% if usage.url.includes(page.url) %}selected{% endif %}>Usage</sl-tab>{% endif %}{%- endfor -%}
+        {%- for code in collections.code -%}{% if code.url.includes(post.url) %}<sl-tab href="{% if code.url.includes(post.url) %}{{ code.url | url }}{% endif %}"
+          {% if code.url == page.url %}selected{% endif %}>Code</sl-tab>{% endif %}{%- endfor -%}
+        {%- for accessibility in collections.accessibility -%}{% if accessibility.url.includes(post.url) %}<sl-tab href="{% if accessibility.url.includes(post.url) %}{{ accessibility.url | url }}{% endif %}"
+          {% if accessibility.url == page.url %}selected{% endif %}>Accessibility</sl-tab>{% endif %}{%- endfor -%}
+        <sl-tab-panel>
+          <div class="ds-tabs__tab-content">
+            <div class="ds-tabs__tab-container">
+            {%- for usage in collections.usage -%}
+              {% if usage.url.includes(page.url) %}
+                {{ usage.templateContent | safe }}
+              {% endif %}
+            {%- endfor -%}
+            </div>
+            {%- for usage in collections.usage -%}
+              {% if usage.url.includes(page.url) %}
+            <ds-vertical-tabs></ds-vertical-tabs>
+            {% endif %}
+            {%- endfor -%}
+          </div>
+        </sl-tab-panel>
+        <sl-tab-panel>
+          <div class="ds-tabs__tab-content">
+            <div class="ds-tabs__tab-container">
+            {%- for code in collections.code -%}
+              {% if code.url.includes(page.url) %}
+                {{ code.templateContent | safe }}
+              {% endif %}
+            {%- endfor -%}
+            </div>
+            {%- for code in collections.code -%}
+              {% if code.url.includes(page.url) %}
+            <ds-vertical-tabs></ds-vertical-tabs>
+            {% endif %}
+            {%- endfor -%}
+          </div>
+        </sl-tab-panel>
+        <sl-tab-panel>
+          <div class="ds-tabs__tab-content">
+            <div class="ds-tabs__tab-container">
+            {%- for accessibility in collections.accessibility -%}
+              {% if accessibility.url.includes(page.url) %}
+                {{ accessibility.templateContent | safe }}
+              {% endif %}
+            {%- endfor -%}
+            </div>
+            {%- for accessibility in collections.accessibility -%}
+            {% if accessibility.url.includes(page.url) %}
+            <ds-vertical-tabs></ds-vertical-tabs>
+            {% endif %}
+            {%- endfor -%}
+          </div>
+        </sl-tab-panel>
+      </sl-tab-group>
+    {% endif %}
+  {%- endfor -%}
+</section>
+<sl-tooltip id="interactiveexample">Interactive example</sl-tooltip>

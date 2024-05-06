@@ -23,7 +23,7 @@ eleventyNavigation:
       </sl-checkbox-group>
     </sl-form-field>
     <sl-button-bar align="end">
-      <sl-button>Cancel</sl-button>
+      <sl-button fill="outline">Cancel</sl-button>
       <sl-button variant="primary">Create course</sl-button>
     </sl-button-bar>
   </sl-form>
@@ -48,7 +48,7 @@ eleventyNavigation:
     </sl-form-field>
 
     <sl-button-bar align="end">
-      <sl-button>Cancel</sl-button>
+      <sl-button fill="outline">Cancel</sl-button>
       <sl-button variant="primary">Create course</sl-button>
     </sl-button-bar>
   </sl-form>
@@ -78,6 +78,6 @@ Do not use the form component if you only have one form field. Usually this indi
 
 ## Related components
 
-- [Form field](/categories/components/form-field/)
+- [Form field](/categories/components/form-field/usage)
 
 </section>

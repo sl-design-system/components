@@ -11,6 +11,7 @@
   --_panel-horizontal-padding: var(--sl-space-tab-content-horizontal-block)
     var(--sl-space-tab-content-horizontal-inline) var(--sl-space-tab-content-horizontal-block);
   --_panel-vertical-padding: var(--sl-space-tab-content-vertical-block) var(--sl-space-tab-content-vertical-inline);
+  --_tablist-background: var(--sl-color-tab-tabbar-background);
   --_tablist-vertical-max-width: var(--sl-size-tabbar-vertical-maxwidth, 200px);
   --_tabs-alignment: start;
 
@@ -120,6 +121,7 @@
 }
 
 [part='container'] {
+  background: var(--_tablist-background);
   border-block-end: var(--_border);
   display: flex;
   inline-size: 100%;

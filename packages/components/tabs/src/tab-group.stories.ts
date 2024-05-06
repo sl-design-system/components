@@ -94,10 +94,10 @@ export const Lazy: Story = {
 export const Links: Story = {
   args: {
     tabs: () => html`
-      <sl-tab href="javascript:void(0)">First tab</sl-tab>
-      <sl-tab href="javascript:void(0)">Second tab</sl-tab>
-      <sl-tab disabled href="javascript:void(0)">Disabled</sl-tab>
-      <sl-tab href="javascript:void(0)">Last tab that is longer than the rest</sl-tab>
+      <sl-tab href="javascript:alert('clicked')">First tab</sl-tab>
+      <sl-tab href="javascript:alert('clicked')">Second tab</sl-tab>
+      <sl-tab disabled href="javascript:alert('clicked')">Disabled</sl-tab>
+      <sl-tab href="javascript:alert('clicked')">Last tab that is longer than the rest</sl-tab>
       <p>
         The tabs in this example all have links. There are no tab panels present in this example. If you right click a
         tab, you will notice the browser will prompt you to open the link in a new tab. This can be useful if you want

@@ -8,7 +8,7 @@ eleventyNavigation:
 <section>
 <div class="ds-example">
 <sl-tab-group style="background: var(--sl-color-tab-default-background); inline-size: 500px">
- <sl-tab>Personal information</sl-tab>
+ <sl-tab selected>Personal information</sl-tab>
  <sl-tab>Education</sl-tab>
  <sl-tab disabled>Projects</sl-tab>
  <sl-tab-panel>
@@ -39,7 +39,7 @@ Photo by [Xia Yang](https://unsplash.com/@imrxia?utm_content=creditCopyText&utm_
 
   ```html
 <sl-tab-group style="background: var(--sl-color-tab-default-background); inline-size: 500px">
-    <sl-tab>Personal information</sl-tab>
+    <sl-tab selected>Personal information</sl-tab>
     <sl-tab>Education</sl-tab>
     <sl-tab disabled>Projects</sl-tab>
     <sl-tab-panel>

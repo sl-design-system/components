@@ -193,7 +193,7 @@ const handler = (entries: IntersectionObserverEntry[]) => {
   const componentNameHeading = document.createElement('h1');
   componentNameHeading.textContent = title?.innerText;
   componentNameHeading.classList.add('ds-top-navigation__component-name');
-  const slTabsGroup = document.querySelector('sl-tab-group');
+  const slTabsGroup = document.querySelector('sl-tab-group.ds-tab-group');
 
   if (!entries[0].isIntersecting) {
     topNavigation.classList.add('sticky');

@@ -348,9 +348,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     if (selectedTab !== this.selectedTab) {
       this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
 
-      this.querySelectorAll('sl-tab-panel').forEach(panel => {
-        panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
-      });
+      selectedTab
+        .closest('sl-tab-group')
+        ?.querySelectorAll('sl-tab-panel')
+        .forEach(panel => {
+          panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
+        });
 
       this.selectedTab = selectedTab;
       this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
@@ -361,12 +364,14 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #updateSelectionIndicator(): void {
-    if (!this.selectedTab) {
+    const group = this.selectedTab?.closest('sl-tab-group') as TabGroup;
+
+    if (!this.selectedTab || !group) {
       return;
     }
 
-    const indicator = this.renderRoot.querySelector('.indicator') as HTMLElement,
-      tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
+    const indicator = group.renderRoot.querySelector('.indicator') as HTMLElement,
+      tablist = group.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
       rect = this.selectedTab.getBoundingClientRect();
 
     let start = 0;

@@ -14,7 +14,7 @@ layout: base.njk
 <section>
   {%- for post in collections.component -%}
     {% if page.url.includes(post.url) %}
-      <sl-tab-group>
+      <sl-tab-group class="ds-tab-group">
         {%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}<sl-tab href="{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}"
         {% if usage.url.includes(page.url) %}selected{% endif %}>Usage</sl-tab>{% endif %}{%- endfor -%}
         {%- for code in collections.code -%}{% if code.url.includes(post.url) %}<sl-tab href="{% if code.url.includes(post.url) %}{{ code.url | url }}{% endif %}"

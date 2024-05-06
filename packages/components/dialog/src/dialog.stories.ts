@@ -1,15 +1,17 @@
 import { faBurst } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { type Dialog } from './dialog.js';
 
 type Props = Pick<Dialog, 'closeButton' | 'disableCancel'> & {
-  body: string;
+  body: string | TemplateResult;
   footerButtons?(props: Props): TemplateResult;
   headerButtons?(props: Props): TemplateResult;
   maxWidth: string;
@@ -96,6 +98,42 @@ export const FooterButtons: Story = {
     `,
     reverse: false,
     title: 'Dialog with extra footer buttons'
+  }
+};
+
+export const Form: Story = {
+  args: {
+    body: html`
+      <sl-form>
+        <sl-form-field label="First name">
+          <sl-text-field autofocus name="firstName" required></sl-text-field>
+        </sl-form-field>
+        <sl-form-field label="Last name">
+          <sl-text-field name="lastName" required></sl-text-field>
+        </sl-form-field>
+        <sl-form-field label="Email">
+          <sl-text-field></sl-text-field>
+        </sl-form-field>
+      </sl-form>
+    `,
+    closeButton: false,
+    footerButtons: () => {
+      const onSave = () => {
+        const form = document.querySelector('sl-form')!;
+
+        if (form.reportValidity()) {
+          document.querySelector('sl-dialog')?.close();
+        } else {
+          console.log('invalid');
+        }
+      };
+
+      return html`
+        <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
+        <sl-button @click=${onSave} slot="actions" variant="primary">Save</sl-button>
+      `;
+    },
+    title: 'Form'
   }
 };
 

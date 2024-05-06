@@ -82,16 +82,22 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Selected changes made by the user are handled by the click event listener.
    */
   #mutationObserver = new MutationObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.attributeName === 'selected' && entry.oldValue === null && entry.target instanceof Tab) {
+    entries
+      .filter(
+        entry =>
+          entry.attributeName === 'selected' &&
+          entry.oldValue === null &&
+          entry.target instanceof Tab &&
+          entry.target.parentElement === this
+      )
+      .forEach(entry => {
         this.#mutationObserver?.disconnect();
 
         // Update the selected tab with the observer turned off to avoid loops
-        this.#updateSelectedTab(entry.target);
+        this.#updateSelectedTab(entry.target as Tab);
 
         this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
-      }
-    });
+      });
   });
 
   /**
@@ -142,11 +148,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
+
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
       const tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
-
-      this.#mutationObserver.observe(tablist, OBSERVER_OPTIONS);
 
       // We want to observe the size of the tablist, not the
       // container or wrapper. The tablist is the element that

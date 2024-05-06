@@ -3,7 +3,7 @@ title: Breadcrumbs
 description: Breadcrumbs component description
 componentType: action
 shortDescription: We are still working on the breadcrumbs component
-layout: "components/components.njk"
+layout: "categories/components/components.njk"
 tags: component
 packageName: breadcrumbs
 eleventyNavigation:

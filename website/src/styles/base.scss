@@ -1,3 +1,5 @@
+@import './breakpoints';
+
 :root {
   --font-color: var(--text-color);
 }
@@ -11,6 +13,12 @@ html {
   scroll-behavior: smooth;
 }
 
+@media screen and (min-width: $xl-breakpoint) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 @media screen and (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -21,10 +29,10 @@ body {
   background-color: var(--background-color);
   color: var(--font-color);
   display: flex;
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 1.4rem;
   margin: 0;
-  min-height: 100vh;
+  min-block-size: 100vh;
 }
 
 button {

@@ -77,10 +77,10 @@ Use popovers for actions or interactions related to an element. For instance, a 
 ## When not to use
 
 ### Brief tips or hints
-Avoid using popovers for brief tips or hints, use a [tooltip](/categories/components/tooltip/) instead. Popovers go beyond hints and can include detailed information. Popovers can be more verbose, with headers and multiple lines of text. They may even contain buttons or other interactive elements.
+Avoid using popovers for brief tips or hints, use a [tooltip](/categories/components/tooltip/usage) instead. Popovers go beyond hints and can include detailed information. Popovers can be more verbose, with headers and multiple lines of text. They may even contain buttons or other interactive elements.
 
 ### Long content or many interactions
-If your popover content becomes too lengthy or contains many interactions, it’s better to switch to a [dialog](/categories/components/dialog/) or a separate page. Popovers are designed for concise information, so when complexity increases, consider alternative UI patterns.
+If your popover content becomes too lengthy or contains many interactions, it’s better to switch to a [dialog](/categories/components/dialog/usage) or a separate page. Popovers are designed for concise information, so when complexity increases, consider alternative UI patterns.
 
 </section>
 

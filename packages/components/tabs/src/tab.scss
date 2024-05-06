@@ -23,6 +23,7 @@
   flex-shrink: 0;
   justify-content: center;
   min-inline-size: fit-content;
+  outline: 0;
   scroll-snap-align: start;
   transition: background 300ms;
 }
@@ -35,13 +36,6 @@
 
 :host(:active) {
   background: var(--_background-active);
-}
-
-:host(:focus-visible) {
-  border-radius: var(--_focus-radius);
-  outline: var(--_focus-outline);
-  outline-offset: calc(var(--_focus-outline-offset) * -1);
-  z-index: 1;
 }
 
 :host([disabled]) {
@@ -64,7 +58,15 @@ a,
   display: flex;
   gap: var(--_gap);
   justify-content: center;
+  outline: 0;
   padding: var(--_padding);
+
+  &:focus-visible {
+    border-radius: var(--_focus-radius);
+    outline: var(--_focus-outline);
+    outline-offset: calc(var(--_focus-outline-offset) * -1);
+    z-index: 1;
+  }
 }
 
 a {

@@ -142,11 +142,11 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#mutationObserver.observe(this, OBSERVER_OPTIONS);
-
     // We need to wait for the next frame so the element has time to render
     requestAnimationFrame(() => {
       const tablist = this.renderRoot.querySelector('[part="tablist"]') as Element;
+
+      this.#mutationObserver.observe(this.renderRoot, OBSERVER_OPTIONS);
 
       // We want to observe the size of the tablist, not the
       // container or wrapper. The tablist is the element that
@@ -348,12 +348,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     if (selectedTab !== this.selectedTab) {
       this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
 
-      selectedTab
-        .closest('sl-tab-group')
-        ?.querySelectorAll('sl-tab-panel')
-        .forEach(panel => {
-          panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
-        });
+      this.querySelectorAll('sl-tab-panel').forEach(panel => {
+        panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
+      });
 
       this.selectedTab = selectedTab;
       this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
@@ -364,14 +361,12 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   }
 
   #updateSelectionIndicator(): void {
-    const group = this.selectedTab?.closest('sl-tab-group') as TabGroup;
-
-    if (!this.selectedTab || !group) {
+    if (!this.selectedTab) {
       return;
     }
 
-    const indicator = group.renderRoot.querySelector('.indicator') as HTMLElement,
-      tablist = group.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
+    const indicator = this.renderRoot.querySelector('.indicator') as HTMLElement,
+      tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
       rect = this.selectedTab.getBoundingClientRect();
 
     let start = 0;

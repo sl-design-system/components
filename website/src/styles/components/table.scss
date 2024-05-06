@@ -2,13 +2,14 @@
   border-collapse: collapse;
   color: var(--table-text-color);
   font-size: 1.6rem;
+  inline-size: 100%;
   line-height: 2.4rem;
-  width: 100%;
+  margin-block: var(--scale-400-scale);
 
   thead {
     line-height: 1.4rem;
     padding: 0.8rem 1.6rem;
-    text-align: left;
+    text-align: start;
   }
 
   th,
@@ -19,7 +20,7 @@
   tbody {
     /* stylelint-disable-next-line max-nesting-depth */
     tr {
-      border-top: 1px solid var(--table-separator);
+      border-block-start: 1px solid var(--table-separator);
       position: relative;
     }
 
@@ -36,7 +37,7 @@
       /* stylelint-disable-next-line property-no-vendor-prefix */
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
-      font-family: 'source-code-pro', monospace;
+      font-family: source-code-pro, monospace;
       font-size: 1.2rem;
       line-height: 1.6rem;
       overflow-wrap: break-word;
@@ -53,12 +54,12 @@
 
   sl-icon {
     fill: var(--table-text-color);
-    margin-left: 0.2rem;
+    margin-inline-start: 0.2rem;
   }
 }
 
 .ds-table-component-description {
-  margin-top: 2.4rem;
+  margin-block-start: 2.4rem;
 }
 
 .ds-table-wrapper {
@@ -67,11 +68,11 @@
 }
 
 .ds-table__type {
-  max-width: 15rem;
+  max-inline-size: 15rem;
 }
 
 .ds-table__description {
-  min-width: 18rem;
+  min-inline-size: 18rem;
 }
 
 .ds-table-align-top td {

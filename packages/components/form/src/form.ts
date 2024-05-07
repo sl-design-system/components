@@ -33,9 +33,19 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   /** The fields in the form. */
   fields: FormField[] = [];
 
+  /** A form is marked dirty when the user has modified a form control. */
+  get dirty(): boolean {
+    return this.fields.map(f => f.control?.dirty).some(Boolean);
+  }
+
   /** Whether the form is invalid. */
   get invalid(): boolean {
     return !this.valid;
+  }
+
+  /** A form is marked pristine as long as the user hasn't modified anything in the form. */
+  get pristine(): boolean {
+    return !this.dirty;
   }
 
   /** Indicates whether to show validity state. */
@@ -43,9 +53,19 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return this.#showValidity;
   }
 
+  /** A form is marked touched once the user has triggered a blur event on a form control. */
+  get touched(): boolean {
+    return this.fields.map(f => f.control?.touched).some(Boolean);
+  }
+
   /** Whether the form is valid. */
   get valid(): boolean {
     return this.fields.map(f => f.control?.valid).every(Boolean);
+  }
+
+  /** A form is marked untouched as long as the user hasn't trigger a blur event on a form control. */
+  get untouched(): boolean {
+    return !this.touched;
   }
 
   /** The aggregated value of all form fields. */

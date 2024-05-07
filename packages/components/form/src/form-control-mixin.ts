@@ -311,15 +311,21 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @internal
      */
     updateState({ dirty, touched }: { dirty?: boolean; touched?: boolean }): void {
+      let emitEvent = false;
+
       if (dirty !== undefined) {
+        emitEvent = this.dirty !== dirty;
         this.dirty = dirty;
       }
 
       if (touched !== undefined) {
+        emitEvent = this.touched !== touched;
         this.touched = touched;
       }
 
-      this.updateStateEvent.emit();
+      if (emitEvent) {
+        this.updateStateEvent.emit();
+      }
     }
 
     /**

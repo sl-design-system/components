@@ -6,14 +6,26 @@ $short-transition-timing: 200ms;
 .ds-top-navigation {
   background: var(--top-navbar-color);
   display: flex;
+  inline-size: 100vw;
   padding: 3.2rem 2.4rem 1.4rem;
   position: fixed;
-  width: 100vw;
   z-index: 1;
 }
 
-.ds-top-navigation--sticky {
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+.ds-top-navigation--sticky:not(.sticky) {
+  box-shadow: 0 3px 5px rgb(0 0 0 / 5%);
+}
+
+.sticky {
+  box-shadow: 0 3px 5px rgb(0 0 0 / 5%);
+
+  .ds-top-navigation__logo {
+    display: none;
+  }
+}
+
+.has-tabs {
+  box-shadow: none;
 }
 
 .ds-top-navigation--not-sticky {
@@ -22,15 +34,15 @@ $short-transition-timing: 200ms;
 
 .ds-sidebar {
   background: var(--second-background-color);
+  block-size: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  inline-size: 28rem;
   justify-content: space-between;
   overflow-y: auto;
   position: fixed;
   transform: translateX(-28rem);
   transition: transform 400ms;
-  width: 28rem;
   z-index: 1;
 }
 
@@ -44,13 +56,15 @@ $short-transition-timing: 200ms;
   aspect-ratio: 1;
   background: transparent var(--close-icon) no-repeat center;
   background-size: cover;
+  block-size: 3.2rem;
   border: 0;
-  height: 3.2rem;
+  inline-size: 3.2rem;
   opacity: 0.8;
   /* stylelint-disable-next-line property-no-vendor-prefix */
-  -webkit-transition: background-color $transition-timing ease-in, background-image 1ms;
+  -webkit-transition:
+    background-color $transition-timing ease-in,
+    background-image 1ms;
   transition: background-color $transition-timing ease-in;
-  width: 3.2rem;
   z-index: 3;
 
   &:hover {
@@ -72,24 +86,26 @@ $short-transition-timing: 200ms;
   background-position: left;
   background-repeat: no-repeat;
   background-size: 2rem;
-  bottom: 1.8rem;
-  color: rgba(var(--help-color), 0.64);
+  color: rgb(var(--help-color) 0.64);
   font-size: 1.6rem;
+  inset-block-end: 1.8rem;
   line-height: 3.4rem;
-  margin-left: 4rem;
-  padding-left: 2.4rem;
+  margin-inline-start: 4rem;
+  padding-inline-start: 2.4rem;
   position: absolute;
   text-decoration: none;
-  transition: backround $transition-timing, color $transition-timing;
+  transition:
+    backround $transition-timing,
+    color $transition-timing;
 
   &:hover {
     background-image: var(--help-icon-hover);
-    color: rgba(var(--help-color), 1);
+    color: rgb(var(--help-color) 1);
   }
 }
 
 .ds-sidebar--opened {
-  left: 0;
+  inset-inline-start: 0;
   transform: translateX(0);
 }
 
@@ -102,18 +118,25 @@ $short-transition-timing: 200ms;
   }
 }
 
+.ds-menu--opened::before {
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  background-color: var(--filter-color);
+  content: '';
+  inset: 0;
+  position: absolute;
+}
+
 .ds-sidebar--opened + .ds-container::before {
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   background-color: var(--filter-color);
-  bottom: 0;
   content: '';
-  left: 0;
+  inset: 7.8rem 0;
   position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 2;
+  z-index: 1;
 }
 
 .ds-top-navigation__hamburger {
@@ -123,12 +146,12 @@ $short-transition-timing: 200ms;
   background-position: left;
   background-repeat: no-repeat;
   background-size: contain;
+  block-size: 3.2rem;
   border: 0;
   cursor: pointer;
-  height: 3.2rem;
-  margin-right: 0.8rem;
+  inline-size: 3.2rem;
+  margin-inline-end: 0.8rem;
   transition: $transition-timing linear;
-  width: 3.2rem;
 
   &:hover {
     background-color: var(--menu-button-hover);
@@ -141,13 +164,13 @@ $short-transition-timing: 200ms;
 }
 
 .ds-top-navigation__component-name {
-  animation: appendAnimate $short-transition-timing linear;
+  animation: append-animate $short-transition-timing linear;
   color: var(--table-text-color);
   font-size: 2rem;
   line-height: 3.2rem;
 }
 
-@keyframes appendAnimate {
+@keyframes append-animate {
   from {
     opacity: 0;
     transform: translateY(-1rem);
@@ -159,7 +182,7 @@ $short-transition-timing: 200ms;
   }
 }
 
-@keyframes appendAnimateUp {
+@keyframes append-animate-up {
   from {
     opacity: 0;
     transform: translateY(1rem);
@@ -172,14 +195,14 @@ $short-transition-timing: 200ms;
 }
 
 .ds-top-navigation__logo {
-  animation: appendAnimateUp $short-transition-timing linear;
+  animation: append-animate-up $short-transition-timing linear;
   background-image: var(--logo);
   background-position: left;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 3.2rem;
+  block-size: 3.2rem;
+  inline-size: 100%;
   margin: auto;
-  width: 100%;
 
   &:focus-visible {
     border-radius: 0.6rem;
@@ -193,8 +216,8 @@ $short-transition-timing: 200ms;
   box-shadow: var(--sidebar-border);
   display: flex;
   flex-direction: column;
-  margin-bottom: 6.4rem;
-  width: 100%;
+  inline-size: 100%;
+  margin-block-end: 6.4rem;
 
   .ds-sublist {
     display: none;
@@ -207,7 +230,7 @@ $short-transition-timing: 200ms;
   }
 
   .ds-menu--expanded {
-    animation: slideDown 200ms ease-in-out forwards;
+    animation: slide-down 200ms ease-in-out forwards;
     transform-origin: top center;
   }
 }
@@ -219,16 +242,18 @@ $short-transition-timing: 200ms;
   background-position-x: 1.6rem;
   background-repeat: no-repeat;
   background-size: 1.6rem;
-  border: 1px solid rgba(var(--ds-color-light-grey), 0.6);
+  block-size: 4rem;
+  border: 1px solid rgb(var(--ds-color-light-grey) 0.6);
   border-radius: 0.6rem;
   color: var(--search-color);
   font-size: 1.6rem;
   font-weight: 400;
-  height: 4rem;
   line-height: 2rem;
   margin: 0 2.4rem 2.4rem;
   padding: 0.8rem 1.6rem 0.8rem 4rem;
-  transition: box-shadow 200ms linear, background-color $transition-timing linear;
+  transition:
+    box-shadow 200ms linear,
+    background-color $transition-timing linear;
 
   &::placeholder {
     color: var(--search-color);
@@ -260,7 +285,7 @@ $short-transition-timing: 200ms;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-block-end: 12px;
   position: relative;
 }
 
@@ -269,22 +294,22 @@ $short-transition-timing: 200ms;
   color: var(--menu-font-color);
   display: flex;
   font-weight: 600;
+  inline-size: 100%;
   justify-content: space-between;
   line-height: 3.4rem;
   padding: 0.3rem 3.2rem;
   transition: color 200ms linear;
-  width: 100%;
 }
 
 .ds-sublist__link {
   align-items: center;
   color: var(--menu-font-color);
   display: flex;
+  inline-size: 100%;
   justify-content: space-between;
   line-height: 3.2rem;
   padding: 0.8rem 3.2rem 0.8rem 4rem;
   transition: color 200ms linear;
-  width: 100%;
 }
 
 .ds-sublist__link:active {
@@ -308,12 +333,12 @@ $short-transition-timing: 200ms;
 
 .ds-sidebar-nav__link--active::before {
   background: var(--highlight-color);
+  block-size: 4rem;
   content: '';
-  height: 4rem;
-  left: 0;
+  inline-size: 4px;
+  inset-block-start: 0;
+  inset-inline-start: 0;
   position: absolute;
-  top: 0;
-  width: 4px;
 }
 
 .ds-sidebar-nav__link,
@@ -350,7 +375,7 @@ $short-transition-timing: 200ms;
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.8rem;
+  margin-block-end: 0.8rem;
   position: relative;
 }
 
@@ -359,9 +384,9 @@ $short-transition-timing: 200ms;
   background-position: left;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 3.2rem;
+  block-size: 3.2rem;
+  inline-size: 100%;
   margin: auto 0.8rem;
-  width: 100%;
 
   &:focus-visible {
     border-radius: 0.6rem;
@@ -374,12 +399,12 @@ $short-transition-timing: 200ms;
   background-image: var(--angle);
   background-position: left;
   background-repeat: no-repeat;
+  block-size: 3.4rem;
   display: inline-flex;
-  height: 3.4rem;
+  inline-size: 0.8rem;
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-transition: transform $transition-timing ease-in-out;
   transition: transform $transition-timing ease-in-out;
-  width: 0.8rem;
 }
 
 .ds-sidebar-nav__arrow--active {
@@ -420,7 +445,7 @@ $short-transition-timing: 200ms;
 }
 
 .ds-sidebar-nav__results::-webkit-scrollbar {
-  width: 1.2rem;
+  inline-size: 1.2rem;
 }
 
 .ds-sidebar-nav__results::-webkit-scrollbar-track {
@@ -439,17 +464,34 @@ $short-transition-timing: 200ms;
 }
 
 @media screen and (min-width: $lg-breakpoint) {
+  .ds-menu--opened::before {
+    content: none;
+  }
+
   .ds-top-navigation {
     display: none;
   }
 
+  .sticky {
+    display: block;
+    padding: 3.2rem 0 1.4rem;
+  }
+
+  .has-tabs {
+    padding: 0.8rem 0 0;
+  }
+
+  .ds-top-navigation__hamburger {
+    display: none;
+  }
+
   .ds-top-navigation__component-name {
-    padding-left: 2.4rem;
+    padding-inline-start: 2.4rem;
   }
 
   .ds-sidebar {
     box-shadow: var(--sidebar-border);
-    left: 0;
+    inset-inline-start: 0;
     transform: translateX(0);
     transition: transform 400ms;
   }
@@ -470,13 +512,19 @@ $short-transition-timing: 200ms;
   }
 }
 
-@media screen and (min-width: $xl-breakpoint) {
+@media screen and (min-width: $lg-breakpoint) {
   .ds-top-navigation__component-name {
-    padding-left: 7.2rem;
+    padding-inline-start: calc(28rem + 2.4rem);
   }
 }
 
-@keyframes slideDown {
+@media screen and (min-width: $xl-breakpoint) {
+  .ds-top-navigation__component-name {
+    padding-inline-start: calc(28rem + 7.2rem);
+  }
+}
+
+@keyframes slide-down {
   0% {
     opacity: 0;
     transform: translateY(-2rem);

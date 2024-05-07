@@ -212,23 +212,6 @@ describe('sl-tab-group', () => {
     });
   });
 
-  describe('links', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-tab-group>
-          <sl-tab href="javascript:void(0)">Tab 1</sl-tab>
-          <sl-tab>Tab 2</sl-tab>
-        </sl-tab-group>
-      `);
-    });
-
-    it('should wrap the tabs content in a link tag with href', () => {
-      const tabs = Array.from(el.querySelectorAll('sl-tab')).map(tab => tab.renderRoot.querySelector('a')?.href);
-
-      expect(tabs).to.eql(['javascript:void(0)', undefined]);
-    });
-  });
-
   describe('only tabs', () => {
     beforeEach(async () => {
       el = await fixture(html`

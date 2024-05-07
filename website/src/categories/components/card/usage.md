@@ -83,9 +83,9 @@ Use cards for simple content presentation, but avoid them for complex layouts or
 |1|Card Container	|The placeholder of the card|no|
 |2|Card image	|The image of the card|yes|
 |3|Card header	|The title of the card|no|
-|3|More button	|To display secondary actions related to the content|yes|
-|4|Card body	|The content of the card |no|
-|4|Card footer	|Displays actions related to subject|yes|
+|4|More button	|To display secondary actions related to the content|yes|
+|5|Card body	|The content of the card |no|
+|6|Card footer	|Displays actions related to subject|yes|
 
 {.ds-table}
 

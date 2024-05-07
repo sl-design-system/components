@@ -118,6 +118,6 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 
 ## Related components
 
-- [Form](/categories/components/form/)
+- [Form](/categories/components/form/usage)
 
 </section>

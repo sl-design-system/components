@@ -48,7 +48,7 @@ Text fields may not be the best choice in the following scenarios:
 For handling sensitive or confidential information, such as passwords or credit card numbers, it's advisable to utilize specialized secure input fields designed to obscure the entered data for enhanced security.
 
 ### Longer text responses
-Consider using a [text area](/categories/components/textarea/) when you anticipate the input length will exceed the width of a text field or when you encourage users to provide longer text responses.
+Consider using a [text area](/categories/components/textarea/usage) when you anticipate the input length will exceed the width of a text field or when you encourage users to provide longer text responses.
   
 </section>
 

@@ -46,7 +46,7 @@ Spinners are particularly useful in asynchronous operations where users might ne
 If the delay is predictable and very short, less than a second, using a spinner might not be necessary and can even be distracting. When action happens instantaneously, like clicking a button that toggles something immediately visible on the interface, it doesn't require a spinner.
 
 ### Dynamic Content
-Avoid using a spinner when content is dynamically loaded or refreshed, use a [skeleton](/categories/components/tooltip/) instead. You can use a spinner during searching, which gives users immediate feedback that their action is processing. This enhances the perceived responsiveness of the application, but when it is loading, the new content is the skeleton.
+Avoid using a spinner when content is dynamically loaded or refreshed, use a [skeleton](/categories/components/skeleton/usage) instead. You can use a spinner during searching, which gives users immediate feedback that their action is processing. This enhances the perceived responsiveness of the application, but when it is loading, the new content is the skeleton.
 
 </section>
 

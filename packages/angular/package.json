@@ -77,10 +77,10 @@
     "@sl-design-system/switch": "0.0.22",
     "@sl-design-system/text-field": "0.1.24",
     "@sl-design-system/textarea": "0.1.23",
-    "@storybook/addon-essentials": "^8.0.8",
-    "@storybook/addon-links": "^8.0.8",
-    "@storybook/angular": "^8.0.8",
-    "@storybook/blocks": "^8.0.8",
+    "@storybook/addon-essentials": "^8.0.10",
+    "@storybook/addon-links": "^8.0.10",
+    "@storybook/angular": "^8.0.10",
+    "@storybook/blocks": "^8.0.10",
     "@types/jasmine": "~5.1.4",
     "jasmine-core": "~5.1.2",
     "karma": "~6.4.3",
@@ -90,11 +90,11 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^17.3.0",
     "rxjs": "~7.8.1",
-    "storybook": "^8.0.8",
+    "storybook": "^8.0.10",
     "tslib": "^2.6.2",
     "typescript": "~5.4.5",
     "wireit": "^0.14.4",
-    "zone.js": "~0.14.4"
+    "zone.js": "~0.14.5"
   },
   "installConfig": {
     "hoistingLimits": "workspaces"

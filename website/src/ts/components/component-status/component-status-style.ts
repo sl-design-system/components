@@ -2,7 +2,10 @@ import { css } from 'lit';
 
 export const componentStatusStyles = css`
   :host {
-    display: none;
+    //display: none;
+    display: block:
+    height: 200px;
+    background-color: #AACBE9;
   }
 
   @media screen and (min-width: 1200px) {

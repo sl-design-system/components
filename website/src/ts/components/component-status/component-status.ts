@@ -23,10 +23,12 @@ import { componentStatusStyles } from './component-status-style';
 
 const isMobileOrTablet = (): boolean => matchMedia('(width < 1200px)').matches;
 
-@customElement('ds-vertical-tabs')
+@customElement('ds-component-status')
 export class ComponentStatus extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = componentStatusStyles;
+
+  @property() componentName = '';
 
   /** Used to render vertical links content - tagElement is a source of links text, H2 is the default */
   @property() tagElement = 'H2';
@@ -133,7 +135,10 @@ export class ComponentStatus extends LitElement {
       .filter(element => element !== null);
 
     return html`
-            <div><slot></slot></div>
+            <div>
+              <div>${this.componentName}</div>
+              <slot></slot>
+            </div>
     `;
   }
 

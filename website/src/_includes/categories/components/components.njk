@@ -11,9 +11,10 @@ layout: base.njk
     <p class="ds-component__heading-description">{%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.description }} {% endif %}{%- endfor -%}</p>
   </div>
 </header>
-<section>
+<section>v
   {%- for post in collections.component -%}
     {% if page.url.includes(post.url) %}
+      <ds-component-status componentName="{{post.data.packageName}}">test {{post.data.status}} {{post.data.componentStatus}}</ds-component-status>
       <sl-tab-group class="ds-tab-group">
         {%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}<sl-tab href="{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}"
         {% if usage.url.includes(page.url) %}selected{% endif %}>Usage</sl-tab>{% endif %}{%- endfor -%}

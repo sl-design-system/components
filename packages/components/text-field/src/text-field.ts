@@ -163,9 +163,15 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return super.getLocalizedValidationMessage();
   }
 
+  #onBlur(): void {
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  }
+
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
     this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
     this.updateValidity();
   }
 
@@ -183,7 +189,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (input) {
       this.input = input;
-      this.input.addEventListener('blur', () => this.blurEvent.emit());
+      this.input.addEventListener('blur', () => this.#onBlur());
       this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncInput(this.input);
 

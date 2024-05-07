@@ -187,6 +187,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
   }
 
   #onSlotchange(): void {
@@ -211,6 +212,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
     }
 
     this.#updateValueAndValidity();

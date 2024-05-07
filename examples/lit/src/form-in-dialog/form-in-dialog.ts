@@ -2,8 +2,10 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { Button } from '@sl-design-system/button';
 import { Dialog } from '@sl-design-system/dialog';
 import { Form, FormController, FormField } from '@sl-design-system/form';
+import { InlineMessage } from '@sl-design-system/inline-message';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { query } from 'lit/decorators.js';
 import styles from './form-in-dialog.scss.js';
 
 export class FormInDialog extends ScopedElementsMixin(LitElement) {
@@ -14,6 +16,7 @@ export class FormInDialog extends ScopedElementsMixin(LitElement) {
       'sl-dialog': Dialog,
       'sl-form': Form,
       'sl-form-field': FormField,
+      'sl-inline-message': InlineMessage,
       'sl-text-field': TextField
     };
   }
@@ -24,10 +27,15 @@ export class FormInDialog extends ScopedElementsMixin(LitElement) {
   /** Controller for managing form state. */
   #form = new FormController(this);
 
+  @query('sl-dialog') dialog!: Dialog;
+
   override render(): TemplateResult {
     return html`
       <sl-dialog>
         <span slot="title">Title</span>
+        ${this.#form.showValidity
+          ? html`<sl-inline-message variant="danger">The form has errors.</sl-inline-message>`
+          : nothing}
         <sl-form>
           <sl-form-field label="First name">
             <sl-text-field autofocus name="firstName" required></sl-text-field>
@@ -51,10 +59,12 @@ export class FormInDialog extends ScopedElementsMixin(LitElement) {
   }
 
   showModal(): void {
-    this.renderRoot.querySelector('sl-dialog')?.showModal();
+    this.dialog.showModal();
   }
 
   #onSave(): void {
-    console.log('onSave');
+    if (this.#form.reportValidity()) {
+      this.dialog.close();
+    }
   }
 }

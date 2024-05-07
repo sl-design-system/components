@@ -258,6 +258,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
   }
 
   #onKeydown(event: KeyboardEvent): void {
@@ -361,6 +362,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
     }
 
     this.#updateValueAndValidity();

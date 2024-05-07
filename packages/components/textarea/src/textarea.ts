@@ -181,8 +181,14 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     return super.getLocalizedValidationMessage();
   }
 
+  #onBlur(): void {
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  }
+
   #onInput({ target }: Event & { target: HTMLTextAreaElement }): void {
     this.value = target.value;
+    this.updateState({ dirty: true });
     this.updateValidity();
     this.#setSize();
     this.changeEvent.emit(this.value);
@@ -195,7 +201,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     // Handle the scenario where a custom textarea is being slotted after `connectedCallback`
     if (textarea) {
       this.textarea = textarea;
-      this.textarea.addEventListener('blur', () => this.blurEvent.emit());
+      this.textarea.addEventListener('blur', () => this.#onBlur());
       this.textarea.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncTextarea(this.textarea);
 

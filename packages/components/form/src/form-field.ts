@@ -76,6 +76,22 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** How to mark this field depending if it is required or not. */
   @property() mark?: LabelMark;
 
+  get dirty(): boolean {
+    return this.control?.dirty ?? false;
+  }
+
+  get pristine(): boolean {
+    return !this.dirty;
+  }
+
+  get touched(): boolean {
+    return this.control?.touched ?? false;
+  }
+
+  get untouched(): boolean {
+    return !this.touched;
+  }
+
   override connectedCallback(): void {
     super.connectedCallback();
 

@@ -14,6 +14,18 @@ export class FormController implements ReactiveController {
     return this.#form;
   }
 
+  get invalid() {
+    return this.#form?.invalid;
+  }
+
+  get showValidity() {
+    return this.#form?.showValidity;
+  }
+
+  get valid() {
+    return this.#form?.valid;
+  }
+
   get value() {
     return this.#form?.value;
   }
@@ -24,8 +36,10 @@ export class FormController implements ReactiveController {
     this.#selector = options.selector ?? 'sl-form';
   }
 
+  /** @internal */
   hostConnected(): void {}
 
+  /** @internal */
   hostUpdated(): void {
     this.#form ??= this.#host.renderRoot.querySelector(this.#selector) as Form;
     if (!this.#form) {
@@ -35,5 +49,10 @@ export class FormController implements ReactiveController {
     console.log(this.#form);
   }
 
+  /** @internal */
   hostDisconnected(): void {}
+
+  reportValidity(): boolean {
+    return this.#form?.reportValidity() ?? false;
+  }
 }

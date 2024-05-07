@@ -39,6 +39,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   #observer = new MutationObserver(() => {
     this.value = this.boxes?.map(box => box.formValue).filter((v): v is T => v !== null) ?? [];
     this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
     this.#updateValidity();
   });
 
@@ -152,6 +153,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
   }
 
   #onSlotchange(): void {

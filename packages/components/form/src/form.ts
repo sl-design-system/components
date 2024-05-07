@@ -33,12 +33,17 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   /** The fields in the form. */
   fields: FormField[] = [];
 
+  /** Whether the form is invalid. */
+  get invalid(): boolean {
+    return !this.valid;
+  }
+
   /** Indicates whether to show validity state. */
   get showValidity(): boolean {
     return this.#showValidity;
   }
 
-  /** Whether all the fields in the form are valid. */
+  /** Whether the form is valid. */
   get valid(): boolean {
     return this.fields.map(f => f.control?.valid).every(Boolean);
   }

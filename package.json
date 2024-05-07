@@ -8,6 +8,7 @@
   },
   "workspaces": [
     "chromatic",
+    "examples/lit",
     "packages/angular",
     "packages/checklist",
     "packages/components/*",
@@ -42,6 +43,7 @@
       "dependencies": [
         "build:checklist",
         "build:components",
+        "build:examples",
         "build:locales",
         "build:themes",
         "build:types"
@@ -96,6 +98,17 @@
       ],
       "output": [
         "packages/components/**/*.scss.ts"
+      ]
+    },
+    "build:examples": {
+      "command": "node scripts/build-styles.js 'examples/lit/**/*.scss'",
+      "clean": "if-file-deleted",
+      "files": [
+        "scripts/build-styles.js",
+        "examples/lit/**/*.scss"
+      ],
+      "output": [
+        "examples/lit/**/*.scss.ts"
       ]
     },
     "build:locales": {
@@ -163,11 +176,15 @@
       ],
       "files": [
         "tsconfig.all.json",
+        "examples/lit/**/*.ts",
+        "!examples/lit/**/*.d.ts",
         "packages/{checklist,components,themes}/**/*.ts",
         "!packages/{checklist,components,themes}/**/*.d.ts",
         "!packages/{checklist,components,themes}/*/node_modules/**/*.ts"
       ],
       "output": [
+        "examples/lit/**/tsconfig.tsbuildinfo",
+        "examples/lit/**/*.d.ts",
         "packages/{checklist,components,themes}/**/tsconfig.tsbuildinfo",
         "packages/{checklist,components,themes}/**/*.d.ts",
         "!packages/{checklist,components,themes}/*/node_modules/**"
@@ -303,6 +320,10 @@
         },
         {
           "script": "build:components",
+          "cascade": false
+        },
+        {
+          "script": "build:examples",
           "cascade": false
         },
         {

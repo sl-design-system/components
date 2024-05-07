@@ -12,6 +12,7 @@
     "packages/components/*/node_modules/**/*.ts"
   ],
   "references": [
+    { "path": "./examples/lit" },
     { "path": "./packages/checklist" },
     { "path": "./packages/components/accordion" },
     { "path": "./packages/components/avatar" },

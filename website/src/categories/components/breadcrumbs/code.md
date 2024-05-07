@@ -9,27 +9,23 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<sl-breadcrumbs homeUrl="/">
-  <a href="javascript:void(0)">Lorem</a>
-  <a href="javascript:void(0)">Ipsum</a>
-  <a href="javascript:void(0)">Dolor</a>
-  <a href="javascript:void(0)">Sit</a>
-  <a href="javascript:void(0)">Amet</a>
-  <a href="javascript:void(0)">Foo</a>
-  <a href="javascript:void(0)">Bar</a>
+<sl-breadcrumbs>
+  <a href="javascript:void(0)">Learning and Teaching</a>
+  <a href="javascript:void(0)">Pupils</a>
+  <a href="javascript:void(0)">Class Pages</a>
+  <a href="javascript:void(0)">Year 1</a>
+  <a href="javascript:void(0)">Learning Materials</a>
 </sl-breadcrumbs>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-breadcrumbs homeUrl="/">
-      <a href="...">Lorem</a>
-      <a href="...">Ipsum</a>
-      <a href="...">Dolor</a>
-      <a href="...">Sit</a>
-      <a href="...">...</a>
+    <sl-breadcrumbs>
+      <a href="...">Learning and Teaching</a>
+      <a href="...">Pupils</a>
       ...
+      <a href="...">Learning Materials</a>
     </sl-breadcrumbs>
   ```
 

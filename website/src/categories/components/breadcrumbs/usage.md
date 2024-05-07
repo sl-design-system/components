@@ -8,7 +8,7 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-<sl-breadcrumbs homeUrl="/">
+<sl-breadcrumbs>
   <a href="javascript:void(0)">Settings</a>
   <a href="javascript:void(0)">My profile</a>
   <a href="javascript:void(0)">Details</a>
@@ -18,7 +18,7 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-breadcrumbs homeUrl="/">
+    <sl-breadcrumbs>
       <a href="...">Settings</a>
       <a href="...">My profile</a>
       <a href="...">Details</a>

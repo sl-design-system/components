@@ -27,42 +27,42 @@
   display: none;
 }
 
-sl-tab-group {
+sl-tab-group.ds-tab-group {
   padding-block-start: 2.4rem;
 }
 
-sl-tab-group::part(container) {
+sl-tab-group.ds-tab-group::part(container) {
   display: block;
   inset-block-start: 7.8rem;
   position: sticky;
   z-index: 2;
 }
 
-.sticky-tabs::part(container) {
+.sticky-tabs.ds-tab-group::part(container) {
   box-shadow: 0 3px 5px rgb(0 0 0 / 5%);
   inline-size: auto;
   margin: 0 -2.4rem;
 }
 
-.sticky-tabs::part(tablist) {
+.sticky-tabs.ds-tab-group::part(tablist) {
   margin-inline-start: 2.4rem;
 }
 
 @media screen and (min-width: $lg-breakpoint) {
-  sl-tab-group {
+  sl-tab-group.ds-tab-group {
     padding-block-start: 2.4rem;
   }
 
-  sl-tab-group::part(container) {
+  sl-tab-group.ds-tab-group::part(container) {
     inset-block-start: 4rem;
   }
 
-  .sticky-tabs::part(container) {
+  .sticky-tabs.ds-tab-group::part(container) {
     inline-size: auto;
     margin-inline: -2.4rem -2.4rem;
   }
 
-  .sticky-tabs::part(tablist) {
+  .sticky-tabs.ds-tab-group::part(tablist) {
     margin-inline-start: 2.4rem;
   }
 }
@@ -75,7 +75,7 @@ sl-tab-group::part(container) {
     inline-size: 100%;
   }
 
-  sl-tab-group::part(container) {
+  sl-tab-group.ds-tab-group::part(container) {
     border-block-end: transparent;
     display: grid;
     gap: 7.2rem;
@@ -83,21 +83,21 @@ sl-tab-group::part(container) {
     inline-size: 100%;
   }
 
-  sl-tab-group::part(wrapper) {
+  sl-tab-group.ds-tab-group::part(wrapper) {
     border-block-end: var(--_border);
   }
 
-  .sticky-tabs::part(container) {
+  .sticky-tabs.ds-tab-group::part(container) {
     border-block-end: var(--_border);
     inline-size: auto;
     margin-inline: -7.2rem -2.4rem;
   }
 
-  .sticky-tabs::part(wrapper) {
+  .sticky-tabs.ds-tab-group::part(wrapper) {
     border-block-end: none;
   }
 
-  .sticky-tabs::part(tablist) {
+  .sticky-tabs.ds-tab-group::part(tablist) {
     margin-inline-start: 7.2rem;
   }
 }
@@ -109,21 +109,23 @@ sl-tab-group::part(container) {
     grid-template-columns: 88rem 1fr;
   }
 
-  sl-tab-group::part(container) {
+  sl-tab-group.ds-tab-group::part(container) {
     border-block-end: var(--_border);
     display: flex;
     inline-size: 88rem;
   }
 
-  sl-tab-group::part(wrapper) {
+  sl-tab-group.ds-tab-group::part(wrapper) {
     border-block-end: none;
   }
 }
 
-.fade-container {
-  margin-inline-start: 7.2rem;
+.ds-tab-group {
+  .fade-container {
+    margin-inline-start: 7.2rem;
+  }
 }
 
-sl-tab-group::part(panels) {
+sl-tab-group.ds-tab-group::part(panels) {
   padding-inline: 0;
 }

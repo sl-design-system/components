@@ -5,11 +5,27 @@ eleventyNavigation:
   parent: Breadcrumbs
   key: CardUsage
 ---
-<section>
+<section class="no-heading">
 
-## Live demo
+<div class="ds-example">
+<sl-breadcrumbs homeUrl="/">
+  <a href="javascript:void(0)">Settings</a>
+  <a href="javascript:void(0)">My profile</a>
+  <a href="javascript:void(0)">Details</a>
+</sl-breadcrumbs>
+</div>
 
-Insert demo
+<div class="ds-code">
+
+  ```html
+    <sl-breadcrumbs homeUrl="/">
+      <a href="...">Settings</a>
+      <a href="...">My profile</a>
+      <a href="...">Details</a>
+    </sl-breadcrumbs>
+  ```
+
+</div>
 
 </section>
 

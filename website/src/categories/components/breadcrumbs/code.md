@@ -6,30 +6,36 @@ eleventyNavigation:
   parent: Breadcrumbs
   key: BreadcrumbsCode
 ---
-<section>
+<section class="no-heading">
 
-## Breadcrumbs code
+<div class="ds-example">
+<sl-breadcrumbs homeUrl="/">
+  <a href="javascript:void(0)">Lorem</a>
+  <a href="javascript:void(0)">Ipsum</a>
+  <a href="javascript:void(0)">Dolor</a>
+  <a href="javascript:void(0)">Sit</a>
+  <a href="javascript:void(0)">Amet</a>
+  <a href="javascript:void(0)">Foo</a>
+  <a href="javascript:void(0)">Bar</a>
+</sl-breadcrumbs>
+</div>
 
-Breadcrumbs examples
+<div class="ds-code">
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  ```html
+    <sl-breadcrumbs homeUrl="/">
+      <a href="...">Lorem</a>
+      <a href="...">Ipsum</a>
+      <a href="...">Dolor</a>
+      <a href="...">Sit</a>
+      <a href="...">...</a>
+      ...
+    </sl-breadcrumbs>
+  ```
+
+</div>
 
 </section>
-
-<section>
-
-## Code
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>
+<ds-install-info link-in-navigation package="breadcrumbs"></ds-install-info>
 
 {% include "../component-table.njk" %}
-
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  

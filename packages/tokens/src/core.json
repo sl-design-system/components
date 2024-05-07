@@ -1599,7 +1599,7 @@
       },
       "inline": {
         "start": {
-          "value": "{space.lg} + {border.width.inline-message.start}",
+          "value": "{space.lg} + {size.inline-message.start}",
           "type": "spacing",
           "description": "space.button.solid.inline.md"
         },

@@ -2431,6 +2431,12 @@
           "type": "sizing"
         }
       }
+    },
+    "inline-message": {
+      "start": {
+        "value": "{size.3xs}",
+        "type": "sizing"
+      }
     }
   },
   "opacity": {

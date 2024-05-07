@@ -1,9 +1,20 @@
 import { localized, msg } from '@lit/localize';
-import { type DataSourceFilterFunction, getNameByPath, getValueByPath } from '@sl-design-system/shared';
+import {
+  type DataSource,
+  type DataSourceFilterFunction,
+  getNameByPath,
+  getValueByPath
+} from '@sl-design-system/shared';
 import { type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { GridColumn } from './column.js';
 import { GridFilter } from './filter.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-grid-filter-column': GridFilterColumn;
+  }
+}
 
 export type GridFilterMode = 'select' | 'text';
 
@@ -53,8 +64,10 @@ export class GridFilterColumn<T = any> extends GridColumn<T> {
     super.itemsChanged();
 
     if (this.mode !== 'text' && typeof this.options === 'undefined') {
+      const dataSource = this.grid?.dataSource as DataSource<T> | undefined;
+
       // No options were provided, so we'll create a list of options based on the column's values
-      this.internalOptions = this.grid?.dataSource?.items
+      this.internalOptions = dataSource?.items
         ?.reduce((acc, item) => {
           let value = getValueByPath(item, this.path),
             label = value?.toString() ?? '';

@@ -3,43 +3,107 @@ $shapes: circle, square;
 $statuses: danger, success, warning, accent, neutral, primary;
 
 :host {
-  --_avatar-background: var(--sl-color-avatar-background);
-  --_avatar-foreground: var(--sl-color-avatar-foreground);
-  --_avatar-badge-background-color: var(--sl-color-badge-danger-background);
-  --_avatar-badge-text-color: var(--sl-color-badge-danger-foreground);
-  --_focusring-color: transparent;
+  --_background: var(--sl-color-avatar-background);
+  --_color: currentcolor;
+  --_foreground: var(--sl-color-avatar-foreground);
+  --_badge-background: var(--sl-color-badge-danger-background);
+  --_badge-color: var(--sl-color-badge-danger-foreground);
+  --_link-color: var(--sl-color-href-idle-foreground);
+  --_link-color-active: var(--sl-color-href-active-foreground);
+  --_link-color-hover: var(--sl-color-href-hover-foreground);
+  --_text-decoration: none;
   --_max-inline-size: var(--sl-avatar-max-inline-size, 20rem);
+  --_outline: var(--sl-border-width-focusring-default) solid var(--sl-color-focusring-default);
+  --_outline-offset: calc(var(--sl-border-width-focusring-offset) * 2);
+  --_outline-radius: var(--sl-border-radius-focusring-default);
 
-  align-items: center;
   display: inline-flex;
-  gap: var(--_gap);
   max-inline-size: 100%;
-}
-
-:host(:focus-visible) {
-  --_focusring-color: var(--sl-color-focusring-default);
+  outline: 0;
 }
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_badge-font: var(--sl-text-badge-text-#{$size});
-    --_initials-font: var(--sl-text-avatar-initials-#{$size});
+    --_gap-block: var(--sl-space-avatar-block-#{$size});
+    --_gap-inline: var(--sl-space-avatar-inline-#{$size});
     --_header-font: var(--sl-text-avatar-header-#{$size});
+    --_initials-font: var(--sl-text-avatar-initials-#{$size});
     --_subheader-font: var(--sl-text-avatar-subheader-#{$size});
-    --_gap: var(--sl-space-avatar-block-#{$size}) var(--sl-space-avatar-inline-#{$size});
   }
 }
 
 @each $shape in $shapes {
   :host([shape='#{$shape}']) {
-    --_avatar_border-radius: var(--sl-border-radius-avatar-#{$shape});
+    --_border-radius: var(--sl-border-radius-avatar-#{$shape});
   }
 }
 
 @each $status in $statuses {
   :host([status='#{$status}']) {
-    --_avatar-badge-background-color: var(--sl-color-badge-#{$status}-background);
-    --_avatar-badge-text-color: var(--sl-color-badge-#{$status}-foreground);
+    --_badge-background: var(--sl-color-badge-#{$status}-background);
+    --_badge-color: var(--sl-color-badge-#{$status}-foreground);
+  }
+}
+
+:host(:focus-visible) {
+  outline: var(--_outline);
+  outline-offset: var(--sl-border-width-focusring-offset);
+}
+
+:host([image-only][shape='circle']) {
+  border-radius: 50%;
+}
+
+:host([image-only]) [part='wrapper'] {
+  grid-template: 'picture' auto;
+}
+
+:host([size='sm']) [part='wrapper'] {
+  grid-template: 'picture spacer name' auto / auto var(--_gap-inline) 1fr;
+
+  [part='name'] {
+    align-self: center;
+  }
+}
+
+:host([vertical]) [part='wrapper'] {
+  grid-template: 'picture' auto 'spacer' var(--_gap-block) 'name' auto 'subheader' auto / 1fr;
+  justify-items: center;
+  max-inline-size: var(--_max-inline-size);
+  text-align: center;
+
+  [part='name'] {
+    white-space: initial;
+    word-break: break-word;
+  }
+}
+
+[part='wrapper'] {
+  align-items: center;
+  border-radius: var(--_outline-radius);
+  display: grid;
+  grid-template: 'picture spacer name' auto 'picture spacer subheader' auto / auto var(--_gap-inline) 1fr;
+}
+
+a {
+  --_color: var(--_link-color);
+  --_text-decoration: underline;
+
+  color: currentcolor;
+  text-decoration: none;
+
+  &:hover {
+    --_color: var(--_link-color-hover);
+  }
+
+  &:active {
+    --_color: var(--_link-color-active);
+  }
+
+  &:focus-visible {
+    outline: var(--_outline);
+    outline-offset: var(--_outline-offset);
   }
 }
 
@@ -47,6 +111,7 @@ picture {
   block-size: var(--_picture-size);
   display: grid;
   flex: 0 0 var(--_picture-size);
+  grid-area: picture;
   inline-size: var(--_picture-size);
   place-content: center;
   position: relative;
@@ -56,62 +121,38 @@ picture {
     pointer-events: none;
   }
 
-  text.badge-text {
-    font: var(--_badge-font);
+  text {
     text-anchor: middle;
     text-transform: uppercase;
   }
 
-  text.initials {
+  .badge {
+    font: var(--_badge-font);
+  }
+
+  .initials {
     font: var(--_initials-font);
-    text-anchor: middle;
-    text-transform: uppercase;
   }
 }
 
-div {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  font: var(--_subheader-font);
+slot,
+[part='name'] {
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  span,
-  slot {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  span.header {
-    font: var(--_header-font);
-  }
 }
 
-:host([orientation='vertical']) {
-  flex-direction: column;
-  max-inline-size: var(--_max-inline-size);
-  text-align: center;
+[part='name'] {
+  align-self: end;
+  color: var(--_color);
+  font: var(--_header-font);
+  grid-area: name;
+  text-decoration: var(--_text-decoration);
+}
 
-  .header {
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-box-orient: vertical;
-    /* stylelint-disable-next-line value-no-vendor-prefix */
-    display: -webkit-box;
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-line-clamp: 2;
-    max-inline-size: var(--_max-inline-size);
-    overflow: hidden;
-    white-space: initial;
-    word-break: break-word;
-  }
-
-  slot {
-    display: block;
-    max-inline-size: var(--_max-inline-size);
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+slot {
+  align-self: start;
+  font: var(--_subheader-font);
+  grid-area: subheader;
 }

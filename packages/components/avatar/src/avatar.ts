@@ -9,10 +9,15 @@ import {
   type AvatarFallbackType,
   type AvatarIcon,
   type AvatarImage,
-  type AvatarOrientation,
   type AvatarSize,
   type UserStatus
 } from './models.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-avatar': Avatar;
+  }
+}
 
 const BORDER_WIDTH = 4; //has to be double the desired "gap"; the stroke is centered on the path, so only half of is it outside the badge rect.
 const FOCUS_RING_STROKE_WIDTH = 2;
@@ -71,51 +76,67 @@ const OFFSET_SQUARE: Record<AvatarSize, number> = {
  *   <sl-avatar display-name="Lynn Smith" picture="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
  * ```
  *
+ * @csspart name - The display name, either a <span> or <a> if `href` is set.
+ * @csspart wrapper - The wrapper element around the image and name.
+ *
  * @cssprop --sl-avatar-max-inline-size - Max inline-size of the container in vertical mode. If not set it will behave like a regular `display: block` element.
  */
 export class Avatar extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-tooltip': Tooltip
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** Border width for calculations in the svg. */
+  #borderWidth = BORDER_WIDTH;
 
   /** The avatar configuration settings from the current theme. */
   #config?: AvatarConfig;
 
   /** Observe the avatar width. */
-  #resizeObserver?: ResizeObserver = new ResizeObserver(() => {
-    this.#checkOverflow();
-  });
+  #observer = new ResizeObserver(() => this.#checkOverflow());
 
-  #hasOverflow = false;
+  /** Offset of the badge for calculations in the svg. */
+  #offset = OFFSET_CIRCLE;
 
-  /** @private The badge. */
+  /** @internal The badge. */
   @state() badge?: AvatarBadge;
 
-  /** @private State for when loading of the image has failed. */
-  @state() errorLoadingImage?: boolean;
-
-  /** @private The icon. */
-  @state() icon?: AvatarIcon;
-
-  /** @private The image. */
-  @state() image?: AvatarImage;
-
-  /** Text to show on the badge in the top right corner of the avatar.
+  /**
+   * Text to show on the badge in the top right corner of the avatar.
    * Be aware this text should not be more then a few characters.
    * Typically this option is used to show a number, for example unread messages.
-   * */
+   */
   @property({ attribute: 'badge-text' }) badgeText?: string;
 
-  /** The fallback to use when there is no user image present.
+  /** The initials that need to be displayed. If none are set they are determined based on the displayName .*/
+  @property({ attribute: 'display-initials' }) displayInitials?: string;
+
+  /** The name that needs to be displayed. */
+  @property({ attribute: 'display-name' }) displayName?: string;
+
+  /** @internal State for when loading of the image has failed. */
+  @state() errorLoadingImage?: boolean;
+
+  /**
+   * The fallback to use when there is no user image present.
    * @type {'initials' | 'image'}
    */
   @property() fallback?: AvatarFallbackType = 'initials';
+
+  /** An optional URL that will be used for linking the display name. */
+  @property() href?: string;
+
+  /** @internal The icon. */
+  @state() icon?: AvatarIcon;
+
+  /** @internal The image. */
+  @state() image?: AvatarImage;
 
   /** This hides the name when set to true. */
   @property({ type: Boolean, reflect: true, attribute: 'image-only' }) imageOnly?: boolean;
@@ -126,66 +147,51 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
    */
   @property() label = '';
 
-  /** The orientation of the avatar.
-   * @type {'horizontal' | 'vertical'}
-   */
-  @property({ reflect: true }) orientation: AvatarOrientation = 'horizontal';
+  /** The url of the avatar image. */
+  @property({ attribute: 'picture-url' }) pictureUrl?: string;
 
-  /** The size of the avatar.
+  /**
+   * The size of the avatar.
    * @type {'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'}
    */
   @property({ reflect: true }) size: AvatarSize = 'md';
 
-  /** Optional user status to show.
+  /**
+   * Optional user status to show.
    * @type {'danger' | 'success' | 'warning' | 'accent' | 'neutral' | 'primary'}
    */
   @property({ reflect: true }) status?: UserStatus;
 
-  /** The name that needs to be displayed. */
-  @property({ attribute: 'display-name' }) displayName?: string;
+  /** If true, will display the name below the image. */
+  @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
-  /** The initials that need to be displayed. If none are set they are determined based on the displayName .*/
-  @property({ attribute: 'display-initials' }) displayInitials?: string;
-
-  /** The url of the avatar image. */
-  @property({ attribute: 'picture-url' }) pictureUrl?: string;
-
-  /** @private initials to render in the fallback avatar. */
+  /** @internals initials to render in the fallback avatar. */
   get initials(): string {
     if (this.displayInitials) {
       return this.displayInitials;
-    }
-    if (this.displayName) {
+    } else if (this.displayName) {
       const names = this.displayName.split(' ');
+
       return names[0].substring(0, 1) + names[names.length - 1].substring(0, 1);
     }
+
     return '';
   }
-
-  /** @private border width for calculations in the svg. */
-  borderWidth = BORDER_WIDTH;
-
-  /** @private offset of the badge for calculations in the svg. */
-  offset = OFFSET_CIRCLE;
-
-  /** @private offset of the badge for calculations in the svg. */
-  profileName = '';
 
   override async connectedCallback(): Promise<void> {
     super.connectedCallback();
 
     this.#config = await Config.getConfigSetting<AvatarConfig>('avatar');
-    this.borderWidth = this.#config?.badgeGapWidth * 2;
+    this.#borderWidth = this.#config?.badgeGapWidth * 2;
     this.setAttribute('shape', this.#config.shape);
 
-    this.#resizeObserver?.observe(this);
+    this.#observer.observe(this);
 
     await this.#setBaseValues();
   }
 
   override disconnectedCallback(): void {
-    this.#resizeObserver?.disconnect();
-    this.#resizeObserver = undefined;
+    this.#observer.disconnect();
 
     super.disconnectedCallback();
   }
@@ -199,10 +205,6 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
       await this.#setBaseValues();
     }
 
-    if (changes.has('displayName')) {
-      this.#checkOverflow();
-    }
-
     if (changes.has('pictureUrl')) {
       await this.#setBaseValues();
       this.errorLoadingImage = false;
@@ -210,19 +212,20 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    return this.href
+      ? html`<a href=${this.href} part="wrapper">${this.#renderAvatar()}</a>`
+      : html`<div part="wrapper">${this.#renderAvatar()}</div>`;
+  }
+
+  #renderAvatar(): TemplateResult {
     return html`
       ${this.image ? this.#renderPicture() : nothing}
-      <sl-tooltip id="avatar-tooltip">${this.displayName}</sl-tooltip>
       ${this.imageOnly
         ? nothing
         : html`
-            <div>
-              <span class="header">${this.displayName}</span>
-
-              ${this.size === 'sm' && this.orientation === 'horizontal'
-                ? nothing
-                : html`<slot class="subheader"></slot>`}
-            </div>
+            <sl-tooltip id="avatar-tooltip">${this.displayName}</sl-tooltip>
+            <span part="name">${this.displayName}</span>
+            ${this.size === 'sm' && !this.vertical ? nothing : html`<slot class="subheader"></slot>`}
           `}
     `;
   }
@@ -252,7 +255,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
           <defs>
             <symbol id="fallback-icon" viewBox="0 0 28 33">
               <path
-                fill="var(--_avatar-foreground)"
+                fill="var(--_foreground)"
                 d="M19 9c0-1.75-1-3.375-2.5-4.313-1.563-.875-3.5-.875-5 0C9.937 5.625 9 7.25 9 9c0 1.813.938 3.438 2.5 4.375 1.5.875 3.438.875 5 0C18 12.437 19 10.812 19 9ZM6 9c0-2.813 1.5-5.438 4-6.875 2.438-1.438 5.5-1.438 8 0C20.438 3.563 22 6.188 22 9c0 2.875-1.563 5.5-4 6.938-2.5 1.437-5.563 1.437-8 0A7.953 7.953 0 0 1 6 9ZM3.062 30h21.813c-.563-3.938-3.938-7-8.063-7h-5.687c-4.125 0-7.5 3.063-8.063 7ZM0 31.188C0 25 4.938 20 11.125 20h5.688C23 20 28 25 28 31.188c0 1-.875 1.812-1.875 1.812H1.812A1.814 1.814 0 0 1 0 31.187Z"
               />
             </symbol>
@@ -267,7 +270,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
                       height=${this.badge.height}
                       rx=${this.badge.radius}
                       fill="black"
-                      stroke-width=${this.borderWidth}
+                      stroke-width=${this.#borderWidth}
                       stroke="black"
                       class="badge"
                     ></rect>
@@ -304,9 +307,8 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
                 width=${this.badge.width}
                 height=${this.badge.height}
                 rx=${this.badge.radius}
-                fill="var(--_avatar-badge-background-color)"
+                fill="var(--_badge-background)"
                 aria-hidden="true"
-                class="badge"
               ></rect>
               ${
                 this.badgeText && this.size != 'sm'
@@ -314,9 +316,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
                     <text
                       x=${this.badge.textX}
                       y=${this.badge.textY}
-                      fill="var(--_avatar-badge-text-color)"
+                      fill="var(--_badge-color)"
                       aria-hidden="true"
-                      class="badge-text"
+                      class="badge"
                     >${this.badgeText}</text>
                   `
                   : nothing
@@ -346,21 +348,21 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
           preserveAspectRatio="xMidYMid slice"
         ></image>
       `;
-    } else if (this.initials && this.fallback === 'initials') {
+    } else if (this.initials && this.fallback !== 'image') {
       return svg`
         <rect
           x=${x}
           y=${y}
           width=${size}
           height=${size}
-          fill="var(--_avatar-background)"
+          fill="var(--_background)"
           mask="url(#circle)"
         ></rect>
         <text
           x=${size / 2 + x}
           y=${size / 2 + y}
           dominant-baseline="central"
-          fill="var(--_avatar-foreground)"
+          fill="var(--_foreground)"
           class="initials"
         >${this.initials}</text>
       `;
@@ -371,7 +373,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
           y=${y}
           width=${size}
           height=${size}
-          fill="var(--_avatar-background)"
+          fill="var(--_background)"
           mask="url(#circle)"
         ></rect>
         <use
@@ -386,13 +388,13 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   }
 
   async #setBaseValues(): Promise<void> {
-    const radius = parseFloat(getComputedStyle(this).getPropertyValue('--_avatar_border-radius')) ?? 0;
+    const radius = parseFloat(getComputedStyle(this).getPropertyValue('--_border-radius')) ?? 0;
 
-    this.offset = this.#config?.shape === 'square' ? OFFSET_SQUARE : OFFSET_CIRCLE; //or offset for square
+    this.#offset = this.#config?.shape === 'square' ? OFFSET_SQUARE : OFFSET_CIRCLE; //or offset for square
 
     const focusRingPadding = FOCUS_RING_STROKE_WIDTH + FOCUS_RING_STROKE_OFFSET;
     const badgeOffset =
-      this.offset[this.size] < 0 ? Math.max(focusRingPadding, this.offset[this.size] * -1) : focusRingPadding;
+      this.#offset[this.size] < 0 ? Math.max(focusRingPadding, this.#offset[this.size] * -1) : focusRingPadding;
 
     this.style.setProperty('--_margin-top', `${badgeOffset * -1}px`);
     this.style.setProperty('--_margin-right', `${badgeOffset * -1}px`);
@@ -417,14 +419,14 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
     if (this.status || this.badgeText) {
       // base is the right edge of the badge, so we can easily detract the width of the badge to get the actual x value
-      const badgeBaseX = focusRingPadding + IMAGE_SIZES[this.size] - this.offset[this.size];
+      const badgeBaseX = focusRingPadding + IMAGE_SIZES[this.size] - this.#offset[this.size];
 
       this.badge = {
         ...this.badge,
         height: BADGE_SIZES[this.size],
         width: BADGE_SIZES[this.size],
         radius: BADGE_SIZES[this.size] / 2,
-        badgeY: focusRingPadding + this.offset[this.size],
+        badgeY: focusRingPadding + this.#offset[this.size],
         badgeX: badgeBaseX - BADGE_SIZES[this.size],
         badgeBaseX
       };
@@ -433,7 +435,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
     if (this.badgeText) {
       await this.updateComplete;
 
-      const svgtxt = await this.#waitForElement('text.badge-text');
+      const svgtxt = await this.#waitForElement('text.badge');
       if (svgtxt) {
         setTimeout(() => {
           // timeout because we need to wait for the render to have finished
@@ -451,7 +453,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
             ...this.badge,
             width,
             badgeX: this.badge.badgeBaseX - width,
-            textX: focusRingPadding + IMAGE_SIZES[this.size] - width / 2 - this.offset[this.size],
+            textX: focusRingPadding + IMAGE_SIZES[this.size] - width / 2 - this.#offset[this.size],
             textY: fontSize + textPaddingVertical + this.badge.badgeY
           };
         }, 100);
@@ -460,10 +462,13 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   }
 
   #checkOverflow(): void {
-    const element = this.renderRoot.querySelector('.header') as HTMLElement;
-    if (!element) return;
-    this.#hasOverflow = element.offsetWidth < element.scrollWidth || element.offsetHeight + 4 < element.scrollHeight;
-    if (this.#hasOverflow) {
+    if (this.imageOnly) {
+      return;
+    }
+
+    const element = this.renderRoot.querySelector<HTMLElement>('[part="name"]')!;
+
+    if (element.offsetWidth < element.scrollWidth || element.offsetHeight + 4 < element.scrollHeight) {
       element.setAttribute('aria-describedby', 'avatar-tooltip');
     } else {
       element.removeAttribute('aria-describedby');

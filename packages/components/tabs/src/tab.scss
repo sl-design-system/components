@@ -14,32 +14,33 @@
   --_font-subtitle: var(--sl-text-tab-subtitle);
   --_gap: var(--sl-space-tab-gap);
   --_icon-block-size: var(--sl-text-typeset-line-height-md);
-  --_listbox-color: var(--sl-color-select-item-default-foreground);
-  --_listbox-font: var(--sl-text-select-selectbox-text-lg);
-  --_listbox-item-border-radius: var(--sl-border-radius-select-item);
-  --_listbox-item-padding: var(--sl-space-select-item-block-lg) var(--sl-space-select-item-inline-lg);
   --_padding: var(--sl-space-tab-block) var(--sl-space-tab-inline);
 
-  align-items: flex-start;
-  background-color: var(--_background);
+  background: var(--_background);
   color: var(--_color);
   cursor: pointer;
-  display: flex;
-  font: var(--_font);
-  gap: var(--_gap);
+  display: inline-flex;
+  flex-shrink: 0;
   justify-content: center;
-  padding: var(--_padding);
-  position: relative;
+  min-inline-size: fit-content;
+  outline: 0;
   scroll-snap-align: start;
   transition: background 300ms;
 }
 
-slot[name='subtitle'] {
-  font: var(--_font-subtitle);
+:host(:hover) {
+  background: var(--_background-hover);
+  position: relative;
+  z-index: 1; // Ensure the hover state is on top of any menu-button gradient
+}
+
+:host(:active) {
+  background: var(--_background-active);
 }
 
 :host([disabled]) {
-  color: var(--_color-disabled);
+  --_color: var(--_color-disabled);
+
   pointer-events: none;
 
   slot[name='icon']::slotted(sl-icon) {
@@ -47,19 +48,40 @@ slot[name='subtitle'] {
   }
 }
 
-:host(:hover) {
-  background-color: var(--_background-hover);
+:host([has-subtitle]) .title {
+  font: var(--_font);
 }
 
-:host(:active) {
-  background-color: var(--_background-active);
+a,
+.wrapper {
+  align-items: start;
+  display: flex;
+  gap: var(--_gap);
+  justify-content: center;
+  outline: 0;
+  padding: var(--_padding);
+
+  &:focus-visible {
+    border-radius: var(--_focus-radius);
+    outline: var(--_focus-outline);
+    outline-offset: calc(var(--_focus-outline-offset) * -1);
+    z-index: 1;
+  }
 }
 
-:host(:focus-visible) {
-  border-radius: var(--_focus-radius);
-  outline: var(--_focus-outline);
-  outline-offset: var(--_focus-outline-offset);
-  z-index: 1;
+a {
+  color: var(--_color);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--_color);
+    text-decoration: none;
+  }
+}
+
+slot[name='icon']::slotted(sl-icon) {
+  block-size: var(--_icon-block-size);
+  fill: var(--_color);
 }
 
 .content {
@@ -68,17 +90,17 @@ slot[name='subtitle'] {
 }
 
 .title {
+  font: var(--_font-subtitle);
   inline-size: fit-content;
   position: relative;
 }
 
-slot[name='icon']::slotted(sl-icon) {
-  block-size: var(--_icon-block-size);
-  fill: var(--_color);
-}
-
 slot[name='badge']::slotted(sl-badge) {
   transform: translate(var(--_badge-translateX), var(--_badge-translateY));
+}
+
+slot[name='subtitle'] {
+  font: var(--_font-subtitle);
 }
 
 :host(.listbox-tab) {

@@ -3,9 +3,16 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './text-field.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-text-field': TextField;
+  }
+}
 
 export type TextFieldSize = 'md' | 'lg';
 
@@ -34,17 +41,14 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** @private Hides the external validity icon. */
-  override showExternalValidityIcon = false;
+  /** @internal Emits when the focus leaves the component. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the focus leaves the component. */
-  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+  /** @internal Emits when the value changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
-  /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
-
-  /** Emits when the component gains focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+  /** @internal Emits when the component gains focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
@@ -138,9 +142,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       <slot name="prefix"></slot>
       <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
       <slot name="suffix">
-        ${this.showValidity === 'invalid'
-          ? html`<sl-icon .size=${this.size} class="invalid-icon" name="triangle-exclamation-solid"></sl-icon>`
-          : nothing}
         ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}
@@ -171,7 +172,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   #onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && event.key === 'Enter') {
-      this.form?.requestSubmit(this.input);
+      this.form?.requestSubmit();
     }
   }
 

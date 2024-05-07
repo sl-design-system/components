@@ -1,11 +1,11 @@
 import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { type FormField } from './form-field.js';
+import { type FormField, type SlFormFieldEvent } from './form-field.js';
 import styles from './form.scss.js';
 
 declare global {
-  interface GlobalEventHandlersEventMap {
-    'sl-form-field': CustomEvent;
+  interface HTMLElementTagNameMap {
+    'sl-form': Form;
   }
 }
 
@@ -33,14 +33,17 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   /** The fields in the form. */
   fields: FormField[] = [];
 
+  /** Indicates whether to show validity state. */
   get showValidity(): boolean {
     return this.#showValidity;
   }
 
+  /** Whether all the fields in the form are valid. */
   get valid(): boolean {
     return this.fields.map(f => f.control?.valid).every(Boolean);
   }
 
+  /** The aggregated value of all form fields. */
   get value(): T {
     return Object.fromEntries(
       this.fields
@@ -56,22 +59,21 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
+  /** Calls `reportValidity()` on all form fields. */
   reportValidity(): boolean {
     this.#showValidity = true;
 
     return this.fields.map(f => f.control?.reportValidity()).every(Boolean);
   }
 
-  async #onFormField(event: Event): Promise<void> {
+  async #onFormField(event: SlFormFieldEvent): Promise<void> {
     event.preventDefault();
     event.stopPropagation();
 
-    const formField = event.target as FormField;
-
-    this.fields = [...this.fields, formField];
+    this.fields = [...this.fields, event.target];
 
     // Give the form field time to set the control
-    await formField.updateComplete;
+    await event.target.updateComplete;
     this.#updateMarkedFields();
   }
 

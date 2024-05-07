@@ -8,31 +8,8 @@ eleventyNavigation:
   parent: Form
   key: FormCode
 ---
-
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```html
-    npm install @sl-design-system/form
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```html
-    yarn add @sl-design-system/form
-  ```
-</div>
-
-</section>
+<div style="display: none;">Added to prevent rendering additional paragraph around, which causes navigation problems</div>
+<ds-install-info link-in-navigation package="form"></ds-install-info>
 
 <section>
 
@@ -43,7 +20,6 @@ The `<sl-form>` component fulfills four functions:
 3. It allows you to query the state of the form.
 
 </section>
-
 <section>
 
 ## Layout

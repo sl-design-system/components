@@ -7,7 +7,12 @@
   --_cell-border: 1px solid #eee;
   --_cell-padding-block: 0.5rem;
   --_cell-padding-inline: 1rem;
-  --_drop-target-background: rgb(255 105 180);
+  --_drag-handle-inline-size: 28px;
+  --_dragging-background: #ddeffe;
+  --_dragging-border: var(--_border-width) solid #056dc2;
+  --_dragging-opacity: 0.8;
+  --_drop-target-outline: 2px solid #056dc2;
+  --_drop-target-outline-offset: -2px;
   --_font: var(--sl-text-body-md-normal);
   --_group-background: #eee;
   --_header-background: #f9f9f9;
@@ -67,7 +72,20 @@ tbody {
   border-start-start-radius: 0;
   max-inline-size: var(--sl-grid-width);
   min-block-size: calc(var(--sl-grid-tbody-min-height) + var(--_border-width));
-  overflow-x: auto;
+  overflow: auto clip;
+
+  &.drop-target {
+    position: relative;
+
+    &::before {
+      border: var(--_drop-target-outline);
+      content: '';
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 1; // Ensure drop target outline is above the rows
+    }
+  }
 }
 
 tr {
@@ -79,16 +97,32 @@ tr {
     --_cell-border: 0;
   }
 
+  &[draggable] {
+    cursor: grabbing;
+  }
+
+  &[part~='group'] {
+    z-index: 1; // Ensure drag handles don't "shine through" group headers
+  }
+
+  &[part~='dragging'] {
+    position: relative;
+
+    & ::before {
+      background: #eaeaea;
+      content: '';
+      inset: 0;
+      position: absolute;
+    }
+  }
+
   &[part~='selected'] {
     --_cell-background: var(--_selected-background);
   }
 
   &.drop-target {
-    z-index: 1;
-  }
-
-  &.drop-target-on-top {
-    --_cell-background: var(--_drop-target-background);
+    outline: var(--_drop-target-outline);
+    outline-offset: var(--_drop-target-outline-offset);
   }
 }
 
@@ -102,7 +136,7 @@ td {
   overflow: hidden;
   padding: var(--_cell-padding-block) var(--_cell-padding-inline);
 
-  &:first-of-type {
+  &:first-of-type:not([part~='drag-handle']) {
     padding-inline-start: calc(var(--_cell-padding-inline) + var(--_first-cell-padding-inline-start, 0px));
   }
 
@@ -123,6 +157,15 @@ th {
   text-align: start;
 }
 
+th[part~='drag-handle'] {
+  inline-size: var(--_drag-handle-inline-size);
+  padding-inline: 0;
+}
+
+th[part~='active-selection'] {
+  flex-grow: 1;
+}
+
 th[part~='filter'] {
   padding: 0;
 }
@@ -131,9 +174,8 @@ td {
   border-block-end: var(--_cell-border);
 }
 
-td[part~='drag-handle'] {
+td[part~='drag-handle']:not([part~='fixed']) {
   cursor: grab;
-  justify-content: center;
 }
 
 td[part~='group-header'] {
@@ -152,6 +194,16 @@ td[part~='text-field'] {
   sl-text-field {
     flex-grow: 1;
   }
+}
+
+[part~='drag-handle'] {
+  inline-size: var(--_drag-handle-inline-size);
+  justify-content: end;
+  padding-inline: 0;
+}
+
+[part='group-heading'] {
+  font-weight: 600;
 }
 
 .selection-count {

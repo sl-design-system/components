@@ -5,6 +5,10 @@ import styles from './icon.scss.js';
 import { type IconDefinition, type IconLibrary } from './models.js';
 
 declare global {
+  interface HTMLElementTagNameMap {
+    'sl-icon': Icon;
+  }
+
   interface Window {
     SLDS: {
       icons: IconLibrary;
@@ -49,13 +53,14 @@ export class Icon extends LitElement {
   static register(...icons: IconDefinition[]): void;
 
   /**
-   * Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.
+   * @ignore Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.
    * Is run in the setup method of each theme.
    *
    * @param {IconLibrary} icons The IconLibrary of the theme
    */
   static register(icons: IconLibrary): void;
 
+  /** @ignore */
   static register(icon: IconDefinition | IconLibrary, ...icons: IconDefinition[]): void {
     // TODO: find a better (and more universal) way to only log these kind of warnings in dev mode
     const isDevMode = location.hostname === 'localhost';
@@ -101,7 +106,7 @@ export class Icon extends LitElement {
   @property() label?: string;
 
   /** The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma. */
-  @property() name?: string;
+  @property({ reflect: true }) name?: string;
 
   /**
    * The size of the icon.
@@ -135,8 +140,8 @@ export class Icon extends LitElement {
     this.iconHTML = this.#getIconHTML();
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('name')) {
       this.iconHTML = this.#getIconHTML();

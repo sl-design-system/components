@@ -5,10 +5,12 @@ eleventyNavigation:
   parent: Card
   key: CardUsage
 ---
-<section class="no-heading">
+
+<section>
+  
 <div class="ds-example">
   <div class="ds-example__code-wrapper">
-    <sl-card style="--sl-card-media-aspect-ratio:1/1;">
+    <sl-card style="--sl-card-media-aspect-ratio:1/1; --sl-card-horizontal-breakpoint:500px;">
         <img slot="media" src="https://sanomalearning.design/assets/images/open-graph-card.jpg" />
         <h2>Fun adventures in digital learning</h2>
         <span slot="header"><sl-badge variant="accent">new</sl-badge> written by: Lynn</span>
@@ -24,7 +26,9 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  <sl-card style="--sl-card-media-aspect-ratio:1/1;">
+  <sl-card style="
+      --sl-card-media-aspect-ratio:1/1; 
+      --sl-card-horizontal-breakpoint:500px;">
     <img slot="media" src="images/open-graph-card.jpg" />
     <h2>Fun adventures...</h2>
     <span slot="header">
@@ -41,29 +45,75 @@ eleventyNavigation:
   ```
 
 </div>
-
-</section>
-<section>
-
-## Usage
-
-Lorem ipsum dolor sit amet
-Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
+  
 </section>
 
 <section>
 
-## How to use
+## When to use
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Content Grouping
+Cards are great for putting similar content together. Use them when you want to show information about one specific thing.
+
+### Visual Hierarchy
+Cards help organize information clearly. They make it easy for users to scan and identify important information.
+
+### Modularity
+When you need a modular design that can be reused across different parts of your application, cards are a great choice.
 
 </section>
 
 <section>
 
-## Content
+## When not to use
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+### Complexity
+Use cards for simple content presentation, but avoid them for complex layouts or intricate interactions.
+
+</section>
+
+<section>
+
+## Anatomy
+
+<div class="ds-table-wrapper">
+
+|Item|Name| Description | Optional|
+|-|-|-|-|
+|1|Card Container	|The placeholder of the card|no|
+|2|Card image	|The image of the card|yes|
+|3|Card header	|The title of the card|no|
+|4|More button	|To display secondary actions related to the content|yes|
+|5|Card body	|The content of the card |no|
+|6|Card footer	|Displays actions related to subject|yes|
+
+{.ds-table}
+
+</div>
+
+</section>
+
+<section>
+
+## Options
+
+With these options, you can tweak the appearance of the card in Figma. They are available in the Design Panel so you can compose the card to exactly fit the user experience need for the use case you are working on.
+
+<div class="ds-table-wrapper">
+  
+|Item|Options|Description|
+|-|-|-|
+|Orientation|`horizontal` `vertical`|Indicates the orientation of the card|
+|Media margin|`1/2` `1/2` `none`|Indicates if there is margin around the media or not|
+|Ratio| Depends on the orientation |Indicates the ratio between the card body and media|
+|Truncation|`boolean`|Indicates if the text of the card body is truncated|
+|Media position|`top` `left` `right` `none`|Indicates the position of the media|
+|Card icon|`boolean`|Indicates if there is an icon in front of the header|
+|More button|`boolean`|Indicates if there is more button|
+|Body text|`value`|To insert the text of the card|
+
+
+{.ds-table}
+</div>
 
 </section>

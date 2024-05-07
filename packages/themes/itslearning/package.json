@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/itslearning",
   "description": "Itslearning theme for the SL Design System",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -31,6 +31,6 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@sl-design-system/icon": "0.0.9"
+    "@sl-design-system/icon": "0.0.10"
   }
 }

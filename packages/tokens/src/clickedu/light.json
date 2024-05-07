@@ -228,7 +228,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.background"
             },
@@ -510,7 +510,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.primary.outline.disabled.background"
             },
@@ -792,7 +792,7 @@
           },
           "disabled": {
             "background": {
-              "value": "{color.palette.white.base}",
+              "value": "{color.palette.transparent.base}",
               "type": "color",
               "description": "color.button.success.outline.disabled.background"
             },
@@ -1485,6 +1485,288 @@
             },
             "foreground": {
               "value": "{color.palette.danger.800}",
+              "type": "color",
+              "description": "color.button.primary.outline.active.foreground"
+            },
+            "border": {
+              "value": "{color.button.default.link.idle.background}",
+              "type": "color",
+              "description": "color.button.default.outline.active.border"
+            }
+          },
+          "disabled": {
+            "background": {
+              "value": "{color.button.default.link.idle.background}",
+              "type": "color",
+              "description": "color.button.info.outline.disabled.background"
+            },
+            "foreground": {
+              "value": "{color.palette.neutral.200}",
+              "type": "color",
+              "description": "color.button.info.outline.disabled.foreground"
+            },
+            "border": {
+              "value": "{color.button.default.link.idle.background}",
+              "type": "color",
+              "description": "color.button.info.outline.disabled.border"
+            }
+          }
+        }
+      },
+      "info": {
+        "solid": {
+          "idle": {
+            "background": {
+              "value": "{color.palette.info.150}",
+              "type": "color",
+              "description": "color.button.info.solid.idle.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.900}",
+              "type": "color",
+              "description": "color.button.info.solid.idle.foreground"
+            },
+            "border": {
+              "value": "{color.palette.info.150}",
+              "type": "color",
+              "description": "color.button.info.solid.idle.border"
+            }
+          },
+          "hover": {
+            "background": {
+              "value": "{color.palette.info.200}",
+              "type": "color",
+              "description": "color.button.info.solid.hover.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.900}",
+              "type": "color",
+              "description": "color.button.info.solid.hover.foreground"
+            },
+            "border": {
+              "value": "{color.palette.info.200}",
+              "type": "color",
+              "description": "color.button.info.solid.hover.border"
+            }
+          },
+          "active": {
+            "background": {
+              "value": "{color.palette.info.300}",
+              "type": "color",
+              "description": "color.button.info.solid.active.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.900}",
+              "type": "color",
+              "description": "color.button.info.solid.active.foreground"
+            },
+            "border": {
+              "value": "{color.palette.info.300}",
+              "type": "color",
+              "description": "color.button.info.solid.active.border"
+            }
+          },
+          "disabled": {
+            "background": {
+              "value": "{color.palette.neutral.200}",
+              "type": "color",
+              "description": "color.button.info.solid.disabled.background"
+            },
+            "foreground": {
+              "value": "{color.palette.white.base}",
+              "type": "color",
+              "description": "color.button.info.solid.disabled.foreground"
+            },
+            "border": {
+              "value": "{color.palette.neutral.200}",
+              "type": "color",
+              "description": "color.button.info.solid.disabled.border"
+            }
+          }
+        },
+        "outline": {
+          "idle": {
+            "background": {
+              "value": "{color.palette.transparent.base}",
+              "type": "color",
+              "description": "color.button.info.outline.idle.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.info.outline.idle.foreground"
+            },
+            "border": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.info.outline.idle.border"
+            }
+          },
+          "hover": {
+            "background": {
+              "value": "{color.palette.info.50}",
+              "type": "color",
+              "description": "color.button.info.outline.hover.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.info.outline.hover.foreground"
+            },
+            "border": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.info.outline.hover.border"
+            }
+          },
+          "active": {
+            "background": {
+              "value": "{color.palette.info.100}",
+              "type": "color",
+              "description": "color.button.info.outline.active.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.info.outline.active.foreground"
+            },
+            "border": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.info.outline.active.border"
+            }
+          },
+          "disabled": {
+            "background": {
+              "value": "{color.palette.transparent.base}",
+              "type": "color",
+              "description": "color.button.info.outline.disabled.background"
+            },
+            "foreground": {
+              "value": "{color.palette.neutral.200}",
+              "type": "color",
+              "description": "color.button.info.outline.disabled.foreground"
+            },
+            "border": {
+              "value": "{color.palette.neutral.200}",
+              "type": "color",
+              "description": "color.button.info.outline.disabled.border"
+            }
+          }
+        },
+        "ghost": {
+          "idle": {
+            "background": {
+              "value": "{color.palette.transparent.base}",
+              "type": "color",
+              "description": "color.button.default.outline.idle.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.default.outline.idle.foreground"
+            },
+            "border": {
+              "value": "{color.palette.transparent.base}",
+              "type": "color",
+              "description": "color.button.default.outline.idle.border"
+            }
+          },
+          "hover": {
+            "background": {
+              "value": "{color.palette.info.50}",
+              "type": "color",
+              "description": "color.button.default.outline.hover.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.default.outline.hover.foreground"
+            },
+            "border": {
+              "value": "{color.palette.transparent.base}",
+              "type": "color",
+              "description": "color.button.default.outline.hover.border"
+            }
+          },
+          "active": {
+            "background": {
+              "value": "{color.palette.info.100}",
+              "type": "color",
+              "description": "color.button.default.outline.active.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.primary.outline.active.foreground"
+            },
+            "border": {
+              "value": "{color.palette.transparent.base}",
+              "type": "color",
+              "description": "color.button.default.outline.active.border"
+            }
+          },
+          "disabled": {
+            "background": {
+              "value": "{color.palette.transparent.base}",
+              "type": "color",
+              "description": "color.button.info.outline.disabled.background"
+            },
+            "foreground": {
+              "value": "{color.palette.neutral.200}",
+              "type": "color",
+              "description": "color.button.info.outline.disabled.foreground"
+            },
+            "border": {
+              "value": "{color.palette.transparent.base}",
+              "type": "color",
+              "description": "color.button.info.outline.disabled.border"
+            }
+          }
+        },
+        "link": {
+          "idle": {
+            "background": {
+              "value": "{color.button.default.link.idle.background}",
+              "type": "color",
+              "description": "color.button.default.outline.idle.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.700}",
+              "type": "color",
+              "description": "color.button.default.outline.idle.foreground"
+            },
+            "border": {
+              "value": "{color.button.default.link.idle.background}",
+              "type": "color",
+              "description": "color.button.default.outline.idle.border"
+            }
+          },
+          "hover": {
+            "background": {
+              "value": "{color.button.default.link.idle.background}",
+              "type": "color",
+              "description": "color.button.default.outline.hover.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.800}",
+              "type": "color",
+              "description": "color.button.default.outline.hover.foreground"
+            },
+            "border": {
+              "value": "{color.button.default.link.idle.background}",
+              "type": "color",
+              "description": "color.button.default.outline.hover.border"
+            }
+          },
+          "active": {
+            "background": {
+              "value": "{color.button.default.link.idle.background}",
+              "type": "color",
+              "description": "color.button.default.outline.active.background"
+            },
+            "foreground": {
+              "value": "{color.palette.info.900}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground"
             },
@@ -2531,7 +2813,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2541,7 +2823,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.input.option.valid.checked.default.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2553,7 +2835,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2563,7 +2845,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.success.600}",
+                "value": "{color.input.option.valid.checked.hover.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2575,7 +2857,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2585,7 +2867,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.success.800}",
+                "value": "{color.input.option.valid.checked.active.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2597,7 +2879,7 @@
                 "description": "color.surface.solid.primary.background"
               },
               "border": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2607,7 +2889,7 @@
                 "description": "color.surface.solid.primary.foreground"
               },
               "icon": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.input.option.valid.checked.focus.background}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               }
@@ -2638,7 +2920,7 @@
           "checked": {
             "default": {
               "background": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.600}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2660,7 +2942,7 @@
             },
             "hover": {
               "background": {
-                "value": "{color.palette.success.500}",
+                "value": "{color.palette.success.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2682,7 +2964,7 @@
             },
             "active": {
               "background": {
-                "value": "{color.palette.success.600}",
+                "value": "{color.palette.success.800}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -2704,7 +2986,7 @@
             },
             "focus": {
               "background": {
-                "value": "{color.palette.success.base}",
+                "value": "{color.palette.success.700}",
                 "type": "color",
                 "description": "color.surface.solid.primary.background"
               },
@@ -3510,6 +3792,23 @@
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }
+        },
+        "hint": {
+          "default": {
+            "value": "{color.input.fieldLabel.text.default}",
+            "type": "color",
+            "description": "color.surface.solid.primary.foreground"
+          },
+          "disabled": {
+            "value": "{color.input.fieldLabel.text.disabled}",
+            "type": "color",
+            "description": "color.surface.solid.primary.foreground"
+          },
+          "invalid": {
+            "value": "{color.input.fieldLabel.text.invalid}",
+            "type": "color",
+            "description": "color.surface.solid.primary.foreground"
+          }
         }
       }
     },
@@ -3797,6 +4096,133 @@
         "value": "linear-gradient (90deg, {color.skeleton.base} 0%, {color.skeleton.base} 10%, {color.skeleton.effect} 50%, {color.skeleton.base} 90%, {color.skeleton.base} 100%)",
         "type": "color",
         "description": "body.surface.100"
+      }
+    },
+    "accordion": {
+      "default": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "header": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{body.foreground}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      },
+      "hover": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "header": {
+          "value": "{color.palette.accent.50}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.accent.600}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.accent.600}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      },
+      "disabled": {
+        "background": {
+          "value": "{color.palette.neutral.50}",
+          "type": "color"
+        },
+        "header": {
+          "value": "{color.palette.neutral.50}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      },
+      "active": {
+        "background": {
+          "value": "{body.background}",
+          "type": "color"
+        },
+        "header": {
+          "value": "{color.palette.accent.100}",
+          "type": "color"
+        },
+        "foreground": {
+          "value": "{color.palette.accent.600}",
+          "type": "color"
+        },
+        "icon": {
+          "value": "{color.palette.accent.600}",
+          "type": "color"
+        },
+        "border": {
+          "value": "{color.palette.neutral.200}",
+          "type": "color"
+        }
+      }
+    },
+    "breadcrumb": {
+      "divider": {
+        "value": "{color.palette.neutral.400}",
+        "type": "color",
+        "description": "color.button.info.outline.disabled.foreground"
+      }
+    },
+    "href": {
+      "idle": {
+        "foreground": {
+          "value": "{color.button.default.link.idle.foreground}",
+          "type": "color",
+          "description": "color.button.default.outline.idle.foreground"
+        }
+      },
+      "hover": {
+        "foreground": {
+          "value": "{color.button.default.link.hover.foreground}",
+          "type": "color",
+          "description": "color.button.default.outline.hover.foreground"
+        }
+      },
+      "active": {
+        "foreground": {
+          "value": "{color.button.default.link.active.foreground}",
+          "type": "color",
+          "description": "color.button.primary.outline.active.foreground"
+        }
+      },
+      "disabled": {
+        "foreground": {
+          "value": "{color.button.default.link.disabled.foreground}",
+          "type": "color",
+          "description": "color.button.info.outline.disabled.foreground"
+        }
       }
     }
   },

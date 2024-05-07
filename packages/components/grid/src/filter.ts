@@ -1,4 +1,4 @@
-import { faFilter, faXmark } from '@fortawesome/pro-regular-svg-icons';
+import { faFilter } from '@fortawesome/pro-regular-svg-icons';
 import { faFilter as faFilterSolid } from '@fortawesome/pro-solid-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
@@ -7,20 +7,40 @@ import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Icon } from '@sl-design-system/icon';
 import { Popover } from '@sl-design-system/popover';
 import { type DataSourceFilterFunction, type EventEmitter, event, getNameByPath } from '@sl-design-system/shared';
+import { type SlChangeEvent } from '@sl-design-system/shared/events.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type GridColumn } from './column.js';
-import { GridFilterValueChangeEvent } from './events.js';
 import { type GridFilterMode, type GridFilterOption } from './filter-column.js';
 import styles from './filter.scss.js';
+import { type Grid } from './grid.js';
 
-export type GridFilterChange = 'added' | 'removed';
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-filter-change': SlFilterChangeEvent;
+    'sl-filter-value-change': SlFilterValueChangeEvent;
+  }
 
-Icon.register(faFilter, faFilterSolid, faXmark);
+  interface HTMLElementTagNameMap {
+    'sl-grid-filter': GridFilter;
+  }
+}
+
+export type SlFilterChangeEvent = CustomEvent<'added' | 'removed'>;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type SlFilterValueChangeEvent<T = any> = CustomEvent<{
+  grid: Grid;
+  column: GridColumn<T>;
+  value?: string | string[];
+}>;
+
+Icon.register(faFilter, faFilterSolid);
 
 @localized()
-export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class GridFilter<T = any> extends ScopedElementsMixin(LitElement) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -51,11 +71,11 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
   /** The custom filter */
   @property({ attribute: false }) filter?: DataSourceFilterFunction<T>;
 
-  /** Emits when the filter has been added or removed. */
-  @event() filterChange!: EventEmitter<GridFilterChange>;
+  /** @internal Emits when the filter has been added or removed. */
+  @event({ name: 'sl-filter-change' }) filterChangeEvent!: EventEmitter<SlFilterChangeEvent>;
 
-  /** Emits when the value of the this filter has changed. */
-  @event() filterValueChange!: EventEmitter<GridFilterValueChangeEvent<T>>;
+  /** @internal Emits when the value of the this filter has changed. */
+  @event({ name: 'sl-filter-value-change' }) filterValueChangeEvent!: EventEmitter<SlFilterValueChangeEvent<T>>;
 
   /** The mode of the filter. */
   @property({ type: String }) mode?: GridFilterMode;
@@ -77,7 +97,7 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
     this.requestUpdate('value');
   }
 
-  @property({ type: String })
+  @property({ attribute: false })
   get value(): string | string[] | undefined {
     return this.#value;
   }
@@ -85,11 +105,12 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.filterChange.emit('added');
+    this.filterChangeEvent.emit('added');
   }
 
   override disconnectedCallback(): void {
-    this.filterChange.emit('removed');
+    // FIXME: This event is not emitted when the component is removed from the DOM.
+    this.filterChangeEvent.emit('removed');
 
     super.disconnectedCallback();
   }
@@ -106,7 +127,7 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
             ${msg('Filter by')} <span>${this.column.header?.toString() || getNameByPath(this.column.path)}</span>
           </h1>
           <sl-button @click=${this.#onHide} aria-label=${msg('Close')} fill="link" size="sm">
-            <sl-icon name="far-xmark"></sl-icon>
+            <sl-icon name="xmark"></sl-icon>
           </sl-button>
         </header>
         ${this.mode === 'select'
@@ -115,7 +136,7 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
                 ${this.options?.map(
                   option => html`
                     <sl-checkbox
-                      @sl-change=${(event: CustomEvent<boolean>) => this.#onChange(option, event.detail)}
+                      @sl-change=${(event: SlChangeEvent & { target: Checkbox }) => this.#onChange(event, option)}
                       .checked=${this.value?.includes(option.value?.toString() ?? '')}
                       .value=${option.value}
                     >
@@ -127,8 +148,8 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
             `
           : html`
               <sl-text-field
-                @keydown=${this.#onKeydown}
                 @input=${this.#onInput}
+                @keydown=${this.#onKeydown}
                 .placeholder=${msg('Type here to filter')}
                 .value=${this.value?.toString() ?? ''}
                 aria-labelledby="title"
@@ -139,18 +160,18 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onChange(option: GridFilterOption, checked: boolean): void {
+  #onChange(event: SlChangeEvent & { target: Checkbox }, option: GridFilterOption): void {
     if (!Array.isArray(this.value)) {
       return;
     }
 
-    if (checked) {
+    if (event.target.checked) {
       this.value = [...this.value, option.value?.toString() ?? ''];
     } else {
       this.value = this.value.filter(value => value !== option.value?.toString());
     }
 
-    this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
+    this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
   }
 
   #onClick(): void {
@@ -170,6 +191,6 @@ export class GridFilter<T> extends ScopedElementsMixin(LitElement) {
 
   #onInput(event: Event & { target: HTMLInputElement }): void {
     this.value = event.target.value.trim();
-    this.filterValueChange.emit(new GridFilterValueChangeEvent(this.column, this.value));
+    this.filterValueChangeEvent.emit({ grid: this.column.grid!, column: this.column, value: this.value });
   }
 }

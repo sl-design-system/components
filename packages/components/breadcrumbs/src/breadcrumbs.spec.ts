@@ -1,8 +1,6 @@
 import { expect, fixture } from '@open-wc/testing';
-import { Icon } from '@sl-design-system/icon';
 import { setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { spy } from 'sinon';
 import '../register.js';
 import { Breadcrumbs } from './breadcrumbs.js';
 
@@ -15,7 +13,7 @@ describe('sl-breadcrumbs', () => {
         <sl-breadcrumbs>
           <a href="/docs">Docs</a>
           <a href="/docs/getting-started">Getting Started</a>
-          <span>Developers</span>
+          <a href="/docs/getting-started/developers">Developers</a>
         </sl-breadcrumbs>
       `);
     });
@@ -28,48 +26,50 @@ describe('sl-breadcrumbs', () => {
       expect(el).to.have.attribute('aria-label', 'Breadcrumb trail');
     });
 
+    it('should render a list of breadcrumbs', () => {
+      const listItems = Array.from(el.renderRoot.querySelectorAll('ul > li'));
+
+      expect(listItems).to.have.length(4);
+      expect(listItems.at(0)).to.have.class('home');
+    });
+
     it('should render a home link', () => {
       const homeLink = el.renderRoot.querySelector('a')!;
 
       expect(homeLink).to.exist;
       expect(homeLink).to.have.attribute('href', '/');
       expect(homeLink).to.have.text('Home');
-      expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'house');
+      expect(homeLink.querySelector('sl-icon')).to.have.attribute('name', 'home-blank');
     });
 
     it('should not render a home link when noHome is set', async () => {
       el.noHome = true;
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('a')).not.to.exist;
+      expect(el.renderRoot.querySelector('li.home')).not.to.exist;
     });
 
     it('should support a custom home link', async () => {
       el.homeUrl = '/custom-home';
       await el.updateComplete;
 
-      expect(el.renderRoot.querySelector('a')).to.have.attribute('href', '/custom-home');
+      expect(el.renderRoot.querySelector('li.home > a')).to.have.attribute('href', '/custom-home');
     });
 
-    it('should have a separator after the home link', () => {
-      const separator = el.renderRoot.querySelector('a + sl-icon')!;
+    it('should have a separator after each list item except the last one', () => {
+      const separators = el.renderRoot.querySelectorAll('li + sl-icon[name="breadcrumb-separator"]');
 
-      expect(separator).to.exist;
-      expect(separator).to.have.attribute('name', 'chevron-right');
+      expect(separators).to.have.length(3);
     });
 
-    it('should render icon separators between the links', () => {
-      expect(
-        Array.from(el.querySelectorAll('a'))
-          .map(link => link.nextElementSibling as Icon)
-          .every(icon => icon.tagName === 'SL-ICON' && icon.name === 'chevron-right')
-      ).to.be.true;
+    it('should make the last link as the current page', () => {
+      const link = el.renderRoot.querySelector('li:last-of-type a');
 
-      expect(el.querySelector('span')).to.match(':last-child');
+      expect(link).to.have.attribute('aria-current', 'page');
     });
 
-    it('should not have a menu button', () => {
-      expect(el.renderRoot.querySelector('sl-menu-button')).not.to.exist;
+    it('should not have an expand button', () => {
+      expect(el.renderRoot.querySelector('sl-button')).not.to.exist;
     });
   });
 
@@ -81,7 +81,7 @@ describe('sl-breadcrumbs', () => {
         <sl-breadcrumbs>
           <a href="/docs">Docs</a>
           <a href="/docs/getting-started">Getting Started</a>
-          <span>Developers</span>
+          <a href="/docs/getting-started/developers">Developers</a>
         </sl-breadcrumbs>
       `);
     });
@@ -89,7 +89,7 @@ describe('sl-breadcrumbs', () => {
     afterEach(() => (Breadcrumbs.noHome = false));
 
     it('should not have a home link', () => {
-      expect(el.renderRoot.querySelector('a')).not.to.exist;
+      expect(el.renderRoot.querySelector('li.home')).not.to.exist;
     });
   });
 
@@ -101,7 +101,7 @@ describe('sl-breadcrumbs', () => {
         <sl-breadcrumbs>
           <a href="/docs">Docs</a>
           <a href="/docs/getting-started">Getting Started</a>
-          <span>Developers</span>
+          <a href="/docs/getting-started/developers">Developers</a>
         </sl-breadcrumbs>
       `);
     });
@@ -109,7 +109,7 @@ describe('sl-breadcrumbs', () => {
     afterEach(() => (Breadcrumbs.homeUrl = '/'));
 
     it('should not have a home link', () => {
-      expect(el.renderRoot.querySelector('a')).to.have.attribute('href', '/custom-home');
+      expect(el.renderRoot.querySelector('li.home a')).to.have.attribute('href', '/custom-home');
     });
   });
 
@@ -122,57 +122,43 @@ describe('sl-breadcrumbs', () => {
           <a href="javascript:void(0)">3</a>
           <a href="javascript:void(0)">4</a>
           <a href="javascript:void(0)">5</a>
-          <span>6</span>
+          <a href="javascript:void(0)">6</a>
         </sl-breadcrumbs>
       `);
     });
 
     it('should have all links with separators in the DOM', () => {
-      expect(el.querySelectorAll('a')).to.have.length(5);
-      expect(el.querySelectorAll('sl-icon')).to.have.length(5);
+      // Home link + 6 slotted links
+      expect(el.renderRoot.querySelectorAll('a')).to.have.length(7);
+
+      // Separator after home link, button and 2 visible links
+      expect(el.renderRoot.querySelectorAll('sl-icon[name="breadcrumb-separator"]')).to.have.length(4);
     });
 
     it('should only show the last 3 breadcrumbs', () => {
-      const children = Array.from(el.children);
+      const children = Array.from(el.renderRoot.querySelectorAll('li > *'));
 
-      expect(children).to.have.length(5 + 5 + 1);
-      expect(children[0]).to.not.be.displayed; // <a>1</a>
-      expect(children[1]).to.not.be.displayed; // <sl-icon>
-      expect(children[2]).to.not.be.displayed; // <a>2</a>
-      expect(children[3]).to.not.be.displayed; // <sl-icon>
-      expect(children[4]).to.not.be.displayed; // <a>3</a>
-      expect(children[5]).to.be.displayed; // <sl-icon>
-      expect(children[6]).to.be.displayed; // <a>4</a>
-      expect(children[7]).to.be.displayed; // <sl-icon>
-      expect(children[8]).to.be.displayed; // <a>5</a>
-      expect(children[9]).to.be.displayed; // <sl-icon>
-      expect(children[10]).to.be.displayed; // <span>6</span>
+      expect(children).to.have.length(6);
+      expect(children[0]).to.have.trimmed.text('Home');
+      expect(children[1]).to.match('sl-button');
+      expect(children[2]).to.match('sl-popover');
+      expect(children[3]).to.have.trimmed.text('4');
+      expect(children[4]).to.have.trimmed.text('5');
+      expect(children[5]).to.have.trimmed.text('6');
     });
 
-    it('should have a menu button to show the rest of the breadcrumbs', () => {
-      const menuButton = el.renderRoot.querySelector('sl-menu-button'),
-        menuItems = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []);
+    it('should have an expand button to show the rest of the breadcrumbs', () => {
+      const button = el.renderRoot.querySelector('sl-button'),
+        menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
 
-      expect(menuButton).to.exist;
-      expect(menuButton).to.have.attribute('fill', 'link');
-      expect(menuButton?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
+      expect(button).to.exist;
+      expect(button).to.have.attribute('fill', 'link');
+      expect(button?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
 
       expect(menuItems).to.have.length(3);
       expect(menuItems[0]).to.have.text('1');
       expect(menuItems[1]).to.have.text('2');
       expect(menuItems[2]).to.have.text('3');
-    });
-
-    it('should click the link when clicking on the menu item', () => {
-      const onClick = spy();
-
-      el.querySelector('a')?.addEventListener('click', onClick);
-
-      const menuButton = el.renderRoot.querySelector<HTMLElement>('sl-menu-button');
-      menuButton?.click();
-      menuButton?.querySelector<HTMLElement>('sl-menu-item')?.click();
-
-      expect(onClick).to.have.been.calledOnce;
     });
   });
 
@@ -188,7 +174,7 @@ describe('sl-breadcrumbs', () => {
           <a href="javascript:void(0)">3</a>
           <a href="javascript:void(0)">4</a>
           <a href="javascript:void(0)">5</a>
-          <span>6</span>
+          <a href="javascript:void(0)">6</a>
         </sl-breadcrumbs>
       `);
 
@@ -204,29 +190,23 @@ describe('sl-breadcrumbs', () => {
     });
 
     it('should only show the last 2 breadcrumbs', () => {
-      const children = Array.from(el.children);
+      const children = Array.from(el.renderRoot.querySelectorAll('li > *'));
 
-      expect(children).to.have.length(5 + 5 + 1);
-      expect(children[0]).to.not.be.displayed; // <a>1</a>
-      expect(children[1]).to.not.be.displayed; // <sl-icon>
-      expect(children[2]).to.not.be.displayed; // <a>2</a>
-      expect(children[3]).to.not.be.displayed; // <sl-icon>
-      expect(children[4]).to.not.be.displayed; // <a>3</a>
-      expect(children[5]).to.not.be.displayed; // <sl-icon>
-      expect(children[6]).to.not.be.displayed; // <a>4</a>
-      expect(children[7]).to.be.displayed; // <sl-icon>
-      expect(children[8]).to.be.displayed; // <a>5</a>
-      expect(children[9]).to.be.displayed; // <sl-icon>
-      expect(children[10]).to.be.displayed; // <span>6</span>
+      expect(children).to.have.length(5);
+      expect(children[0]).to.have.trimmed.text('');
+      expect(children[1]).to.match('sl-button');
+      expect(children[2]).to.match('sl-popover');
+      expect(children[3]).to.have.trimmed.text('5');
+      expect(children[4]).to.have.trimmed.text('6');
     });
 
-    it('should show all hidden links in the menu', () => {
-      const menuButton = el.renderRoot.querySelector('sl-menu-button'),
-        menuItems = Array.from(menuButton?.querySelectorAll('sl-menu-item') ?? []);
+    it('should show all hidden links in the popover', () => {
+      const button = el.renderRoot.querySelector('sl-button'),
+        menuItems = Array.from(el.renderRoot.querySelectorAll('sl-popover a') ?? []);
 
-      expect(menuButton).to.exist;
-      expect(menuButton).to.have.attribute('fill', 'link');
-      expect(menuButton?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
+      expect(button).to.exist;
+      expect(button).to.have.attribute('fill', 'link');
+      expect(button?.querySelector('sl-icon')).to.have.attribute('name', 'ellipsis');
 
       expect(menuItems).to.have.length(4);
       expect(menuItems[0]).to.have.text('1');

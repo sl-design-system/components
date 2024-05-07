@@ -5,6 +5,7 @@ eleventyNavigation:
   parent: Avatar
   key: AvatarUsage
 ---
+
 <section>  
 <div class="ds-example" style="justify-content: space-evenly">
   <sl-avatar display-name="Anna Jenssen" picture-url="/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg" size="3xl" orientation="vertical"></sl-avatar>

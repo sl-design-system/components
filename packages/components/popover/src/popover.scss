@@ -9,6 +9,7 @@
   --_box-shadow: var(--sl-elevation-shadow-md);
   --_color: var(--sl-color-popover-foreground);
   --_font: var(--sl-text-popover-text-text);
+  --_max-width: var(--sl-popover-max-width, 80vw);
   --_padding-block: var(--sl-space-popover-block);
   --_padding-inline: var(--sl-space-popover-inline);
 
@@ -18,6 +19,7 @@
   box-shadow: var(--_box-shadow);
   color: var(--_color);
   font: var(--_font);
+  margin: 0;
   max-inline-size: var(--_max-width);
   opacity: 0;
   overflow: visible;

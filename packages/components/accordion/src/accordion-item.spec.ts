@@ -10,7 +10,6 @@ describe('sl-accordion-item', () => {
   describe('defaults', () => {
     let details: HTMLDetailsElement;
     let summary: HTMLElement;
-    let wrapper: HTMLDivElement;
 
     beforeEach(async () => {
       el = await fixture(
@@ -19,7 +18,6 @@ describe('sl-accordion-item', () => {
 
       details = el.renderRoot.querySelector('details') as HTMLDetailsElement;
       summary = el.renderRoot.querySelector('summary') as HTMLElement;
-      wrapper = el.renderRoot.querySelector('.wrapper') as HTMLDivElement;
     });
 
     it('should render correctly', () => {
@@ -36,13 +34,9 @@ describe('sl-accordion-item', () => {
       expect(summary).to.have.attribute('aria-expanded', 'false');
     });
 
-    it('should not have single attribute by default', () => {
-      expect(el).not.to.have.attribute('single');
-    });
-
     it('should open on click', async () => {
       summary.click();
-      await el.updateComplete;
+
       await new Promise(resolve => setTimeout(resolve));
 
       expect(details).to.have.attribute('open');
@@ -52,8 +46,8 @@ describe('sl-accordion-item', () => {
     it('should open on Enter', async () => {
       summary.focus();
       await sendKeys({ press: 'Enter' });
+
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve));
 
       expect(details).to.have.attribute('open');
       expect(summary).to.have.attribute('aria-expanded', 'true');
@@ -62,29 +56,51 @@ describe('sl-accordion-item', () => {
     it('should open on Space', async () => {
       summary.focus();
       await sendKeys({ press: 'Space' });
+
       await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve));
 
       expect(details).to.have.attribute('open');
       expect(summary).to.have.attribute('aria-expanded', 'true');
     });
 
-    it('should toggle the closing class during closing', async () => {
+    it('should animate opening and closing the details on click', async () => {
       summary.click();
-      await el.updateComplete;
-      await new Promise(resolve => setTimeout(resolve));
 
+      // Open attribute is immediately set
       expect(details).to.have.attribute('open');
 
-      summary.click();
-      await el.updateComplete;
+      // Wait for the next frame
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(wrapper).to.have.class('closing');
+      expect(details).to.have.class('opening');
 
-      wrapper.dispatchEvent(new Event('animationend'));
+      // Trigger the animationend event
+      details.dispatchEvent(new Event('animationend'));
 
-      expect(wrapper).not.to.have.class('closing');
+      expect(details).not.to.have.class('opening');
+
+      // Wait for the toggle event to be emitted
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.open).to.be.true;
+
+      summary.click();
+
+      // Wait for the next frame
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(details).to.have.class('closing');
+
+      // Trigger the animationend event
+      details.dispatchEvent(new Event('animationend'));
+
+      expect(details).not.to.have.attribute('open');
+      expect(details).not.to.have.class('closing');
+
+      // Wait for the toggle event to be emitted
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.open).to.be.false;
     });
   });
 

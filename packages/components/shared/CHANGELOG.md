@@ -1,5 +1,33 @@
 # @sl-design-system/shared
 
+## 0.2.10
+
+### Patch Changes
+
+- [#1116](https://github.com/sl-design-system/components/pull/1116) [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537) - Add ability to update the items in a `DataSource`
+
+- [#1116](https://github.com/sl-design-system/components/pull/1116) [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537) - With popover we no longer need to worry about clipping ancestors when positioning
+
+## 0.2.9
+
+### Patch Changes
+
+- [#1110](https://github.com/sl-design-system/components/pull/1110) [`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b) - Add missing event type
+
+## 0.2.8
+
+### Patch Changes
+
+- [#1058](https://github.com/sl-design-system/components/pull/1058) [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da) - Add `getScrollParent()` utility method
+
+- [#1058](https://github.com/sl-design-system/components/pull/1058) [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da) - When calculating the max size of a popover, do not overwrite any existing max size properties if they are present
+
+## 0.2.7
+
+### Patch Changes
+
+- [#1073](https://github.com/sl-design-system/components/pull/1073) [`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad) - Fix missing events types
+
 ## 0.2.6
 
 ### Patch Changes

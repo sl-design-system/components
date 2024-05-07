@@ -1,9 +1,14 @@
 import { msg } from '@lit/localize';
-import { type Constructor } from '@sl-design-system/shared';
+import { type Constructor, type EventEmitter, event } from '@sl-design-system/shared';
 import { type PropertyValues, type ReactiveElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import { UpdateValidityEvent } from './update-validity-event.js';
-import { ValidateEvent } from './validate-event.js';
+
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-update-validity': SlUpdateValidityEvent;
+    'sl-validate': SlValidateEvent;
+  }
+}
 
 // Handle differences in the first argument of setFormValue between typescript versions
 export type FormValue = Parameters<ElementInternals['setFormValue']>[0];
@@ -29,13 +34,20 @@ export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
 
 export type FormControlValidityState = 'valid' | 'invalid' | 'pending';
 
+export type SlUpdateValidityEvent = CustomEvent<{
+  valid: boolean;
+  validationMessage: string;
+  showValidity: FormControlShowValidity;
+}>;
+
+export type SlValidateEvent = CustomEvent<void>;
+
 export interface FormControl {
   readonly form: HTMLFormElement | null;
   readonly formControlElement: FormControlElement;
   readonly labels: NodeListOf<HTMLLabelElement> | null;
   readonly nativeFormValue: FormValue;
   readonly required?: boolean;
-  readonly showExternalValidityIcon: boolean;
   readonly showValidity: FormControlShowValidity;
   readonly valid: boolean;
   readonly validationMessage: string;
@@ -99,9 +111,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /** @ignore Whether the form control should report the validity of the control. */
     report?: boolean;
 
-    /** @ignore This determines whether the `<sl-error>` component displays an icon or not. */
-    showExternalValidityIcon = true;
-
     /** Optional property to indicate the valid state should be shown. */
     showValid = false;
 
@@ -114,10 +123,17 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
 
-    /** Whether to show the validity state.
+    /**
+     * Whether to show the validity state.
      * @type {'valid' | 'invalid' | undefined }
      */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
+
+    /** @internal Emits when the validity of the form control changes. */
+    @event({ name: 'sl-update-validity' }) updateValidityEvent!: EventEmitter<SlUpdateValidityEvent>;
+
+    /** @internal Emits when the form control can be validated. */
+    @event({ name: 'sl-validate' }) validateEvent!: EventEmitter<SlValidateEvent>;
 
     /** The value used when submitting the form. */
     get formValue(): unknown {
@@ -285,7 +301,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     updateValidity(emitValidateEvent = true): void {
       if (emitValidateEvent) {
         // Emit the validate event so custom validation can be run at the right time
-        this.dispatchEvent(new ValidateEvent());
+        this.validateEvent.emit();
       }
 
       if (this.report) {
@@ -296,7 +312,11 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         }
       }
 
-      this.#emitValidityUpdate();
+      this.updateValidityEvent.emit({
+        valid: this.valid,
+        validationMessage: this.getLocalizedValidationMessage(),
+        showValidity: this.showValidity
+      });
     }
 
     /**
@@ -376,11 +396,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);
-    }
-
-    /** Emits an event so the form-field can update itself. */
-    #emitValidityUpdate(): void {
-      this.dispatchEvent(new UpdateValidityEvent(this.valid, this.getLocalizedValidationMessage(), this.showValidity));
     }
   }
 

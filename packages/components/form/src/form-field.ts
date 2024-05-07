@@ -1,20 +1,29 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { type EventEmitter, event } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { Error } from './error.js';
-import { type FormControl } from './form-control-mixin.js';
+import { type FormControl, type SlUpdateValidityEvent } from './form-control-mixin.js';
 import styles from './form-field.scss.js';
 import { Hint } from './hint.js';
 import { Label, type LabelMark } from './label.js';
-import { type UpdateValidityEvent } from './update-validity-event.js';
 
-// Workaround for missing type in @open-wc/scoped-elements
 declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-form-field': SlFormFieldEvent;
+  }
+
+  interface HTMLElementTagNameMap {
+    'sl-form-field': FormField;
+  }
+
   interface ShadowRoot {
+    // Workaround for missing type in @open-wc/scoped-elements
     createElement(tagName: string): HTMLElement;
   }
 }
+
+export type SlFormFieldEvent = CustomEvent<void> & { target: FormField };
 
 let nextUniqueId = 0;
 
@@ -52,8 +61,8 @@ export class FormField extends ScopedElementsMixin(LitElement) {
    */
   @state() error?: string;
 
-  /** Emits when the field is added to a form. */
-  @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<void>;
+  /** @internal Emits when the field is added to a form. */
+  @event({ name: 'sl-form-field' }) formFieldEvent!: EventEmitter<SlFormFieldEvent>;
 
   /**
    * A hint that will be shown when there are no validation messages.
@@ -83,7 +92,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
         if (this.error) {
           this.#error ??= this.shadowRoot?.createElement('sl-error') as Error;
           this.#error.innerText = this.error;
-          this.#error.noIcon = !this.control?.showExternalValidityIcon;
 
           if (!this.#error.parentElement) {
             this.append(this.#error);
@@ -134,11 +142,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     return html`
       <slot name="label" @slotchange=${this.#onLabelSlotchange}></slot>
       <div class="wrapper" part="wrapper">
+        <slot @slotchange=${this.#onHintSlotchange} name="hint"></slot>
         <slot @slotchange=${this.#onSlotchange} @sl-update-validity=${this.#onUpdateValidity}></slot>
         <slot @slotchange=${this.#onErrorSlotchange} name="error"></slot>
-        ${this.#customError || this.#error
-          ? nothing
-          : html`<slot name="hint" @slotchange=${this.#onHintSlotchange}></slot>`}
       </div>
     `;
   }
@@ -152,7 +158,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     } else if (error) {
       this.#error = error;
       this.#error.id ||= `sl-form-field-error-${nextUniqueId++}`;
-      this.#error.noIcon = !this.control?.showExternalValidityIcon;
 
       if (this.control) {
         this.control.formControlElement.setAttribute('aria-describedby', this.#error.id);
@@ -225,12 +230,12 @@ export class FormField extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  #onUpdateValidity(event: UpdateValidityEvent): void {
+  #onUpdateValidity({ detail: { showValidity, validationMessage } }: SlUpdateValidityEvent): void {
     if (this.#error && !this.error) {
       // Do nothing if there is a custom error message slotted
       return;
     }
 
-    this.error = event.showValidity ? event.validationMessage : undefined;
+    this.error = showValidity ? validationMessage : undefined;
   }
 }

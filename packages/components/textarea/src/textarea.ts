@@ -3,9 +3,16 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './textarea.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-textarea': Textarea;
+  }
+}
 
 export type TextareaSize = 'md' | 'lg';
 
@@ -42,17 +49,14 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     requestAnimationFrame(() => this.#setSize());
   });
 
-  /** @private Hides the external validity icon. */
-  override showExternalValidityIcon = false;
+  /** @internal Emits when the focus leaves the component. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the focus leaves the component. */
-  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+  /** @internal Emits when the value changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
 
-  /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<string>;
-
-  /** Emits when the component gains focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+  /** @internal Emits when the component gains focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** The textarea in the light DOM. */
   textarea!: HTMLTextAreaElement;
@@ -156,9 +160,6 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     return html`
       <slot @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="textarea"></slot>
       <slot name="suffix">
-        ${this.showValidity === 'invalid'
-          ? html`<sl-icon .size=${this.size} class="invalid-icon" name="triangle-exclamation-solid"></sl-icon>`
-          : nothing}
         ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`
           : nothing}

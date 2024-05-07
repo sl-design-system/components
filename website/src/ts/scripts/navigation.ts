@@ -7,7 +7,9 @@ const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   submenus = document.querySelectorAll('.ds-sublist'),
   links = document.querySelectorAll('.ds-sidebar-nav__link'),
   arrows = document.querySelectorAll('.ds-sidebar-nav__arrow'),
-  linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu');
+  linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu'),
+  heading = document.querySelector('header:not(.ds-top-navigation)'),
+  title = heading?.querySelector('h1') as HTMLElement;
 
 let previouslyOpened: Element, previouslyOpenedSubmenu: Element;
 
@@ -62,10 +64,7 @@ function showMenu(): void {
 }
 
 function handleWidthChange(matches: boolean): void {
-  if (matches && menu.classList.contains('ds-sidebar--closed')) {
-    topNavigation.style.display = 'none';
-  } else if (matches && menu.classList.contains('ds-sidebar--opened')) {
-    topNavigation.style.display = 'none';
+  if (matches && menu.classList.contains('ds-sidebar--opened')) {
     toggleMenu();
     showMenu();
   } else {
@@ -77,14 +76,14 @@ function handleWidthChange(matches: boolean): void {
 function toggleMenu(open = false): void {
   if (open) {
     menuButton.setAttribute('aria-expanded', 'true');
-    topNavigation.style.display = 'none';
     menu.classList.remove('ds-sidebar--closed');
     menu.classList.add('ds-sidebar--opened');
+    topNavigation.classList.add('ds-menu--opened');
     closeButton.setAttribute('tabindex', '1');
     closeButton.focus();
   } else {
     menuButton.setAttribute('aria-expanded', 'false');
-    topNavigation.style.display = 'flex';
+    topNavigation.classList.remove('ds-menu--opened');
     menu.classList.remove('ds-sidebar--opened');
     menu.classList.add('ds-sidebar--closed');
     menuButton.focus();
@@ -188,4 +187,38 @@ function closeSubmenus(): void {
       closeSubmenu(submenu);
     }
   });
+}
+
+const handler = (entries: IntersectionObserverEntry[]) => {
+  const componentNameHeading = document.createElement('h1');
+  componentNameHeading.textContent = title?.innerText;
+  componentNameHeading.classList.add('ds-top-navigation__component-name');
+  const slTabsGroup = document.querySelector('sl-tab-group.ds-tab-group');
+
+  if (!entries[0].isIntersecting) {
+    topNavigation.classList.add('sticky');
+    topNavigation.insertAdjacentElement('beforeend', componentNameHeading);
+    if (slTabsGroup) {
+      slTabsGroup.classList.add('sticky-tabs');
+      topNavigation.classList.add('has-tabs');
+    }
+  } else {
+    topNavigation.classList.remove('sticky');
+    if (slTabsGroup) {
+      slTabsGroup.classList.remove('sticky-tabs');
+      topNavigation.classList.remove('has-tabs');
+    }
+    const oldComponentName = topNavigation.querySelector('.ds-top-navigation__component-name');
+    oldComponentName?.remove();
+  }
+};
+
+const headingObserver = new IntersectionObserver(handler, {
+  rootMargin: mediaQueryList.matches ? '-32px' : '-68px'
+});
+
+if (heading) {
+  headingObserver.observe(heading);
+} else {
+  headingObserver?.disconnect;
 }

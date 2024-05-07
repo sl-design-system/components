@@ -1,10 +1,17 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './checkbox-group.scss.js';
 import { type Checkbox, type CheckboxSize } from './checkbox.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-checkbox-group': CheckboxGroup;
+  }
+}
 
 const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], attributeOldValue: true, subtree: true };
 
@@ -48,14 +55,14 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** @private The slotted checkboxes. */
   @queryAssignedElements() boxes?: Array<Checkbox<T>>;
 
-  /** Emits when the component loses focus. */
-  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+  /** @internal Emits when the component loses focus. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the value of the group changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T[]>;
+  /** @internal Emits when the value of the group changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T[]>>;
 
-  /** Emits when the component receives focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+  /** @internal Emits when the component receives focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** Whether the group is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;

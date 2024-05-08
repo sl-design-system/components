@@ -24,8 +24,8 @@ button {
   font-family: source-sans-pro, sans-serif;
 
   --typography-body: 1.6rem/2.4rem 'source-sans-pro', sans-serif;
-  --typography-h2: 600 1.8rem/1 'the-message', sans-serif;
-  --typography-h2-margin-block: var(--scale-400-scale) var(--scale-100-scale);
+  --typography-h2: 600 2.4rem/1 'the-message', sans-serif;
+  --typography-h2-margin-block: var(--scale-none-scale) var(--scale-150-scale);
 }
 
 h1,
@@ -58,8 +58,8 @@ h3,
   margin-block-end: var(--scale-100-scale);
 }
 
-p + h3 {
-  margin-block-start: var(--scale-400-scale);
+p + h3:first-of-type {
+  margin-block-start: var(--scale-600-scale);
 }
 
 h4,
@@ -75,7 +75,7 @@ li {
 }
 
 p {
-  margin-block: var(--scale-150-scale);
+  margin-block: var(--scale-100-scale);
 }
 
 small p {

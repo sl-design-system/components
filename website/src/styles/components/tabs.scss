@@ -6,7 +6,7 @@
   .ds-tabs__tab-container {
     display: flex;
     flex-direction: column;
-    gap: var(--scale-700-scale);
+    gap: var(--scale-1200-scale, 6.4rem);
   }
 
   h3 {
@@ -15,11 +15,18 @@
 
   li {
     font-size: 1.6rem;
+    margin-block: 0.8rem;
   }
 
   svg,
   .ds-cards {
-    margin: var(--scale-400-scale) 0;
+    margin: var(--scale-400-scale) 0 0;
+  }
+
+  section[id]:not(:last-of-type),
+  ds-install-info {
+    border-block-end: 1px solid var(--control-color-border-200-border);
+    padding-block-end: var(--scale-1200-scale, 6.4rem);
   }
 }
 
@@ -127,5 +134,6 @@ sl-tab-group.ds-tab-group::part(container) {
 }
 
 sl-tab-group.ds-tab-group::part(panels) {
+  padding-block: 4rem;
   padding-inline: 0;
 }

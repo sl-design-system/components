@@ -225,6 +225,12 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       this.control = formControl as HTMLElement & FormControl;
       this.control.id ||= `sl-form-field-control-${nextUniqueId++}`;
 
+      if (this.control.name) {
+        this.setAttribute('name', this.control.name);
+      } else {
+        this.removeAttribute('name');
+      }
+
       if (this.control.showValidity) {
         this.error = this.control.getLocalizedValidationMessage();
       }

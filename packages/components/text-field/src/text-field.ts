@@ -169,6 +169,10 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return super.getLocalizedValidationMessage();
   }
 
+  override focus(): void {
+    this.input.focus();
+  }
+
   #onBlur(): void {
     this.blurEvent.emit();
     this.updateState({ touched: true });

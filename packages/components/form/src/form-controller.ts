@@ -15,9 +15,7 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
 
   #onUpdate = () => {
     this.#host.requestUpdate();
-
-    // Notify the `FormValidationErrors` component that the form state has changed
-    this.dispatchEvent(new Event('sl-update'));
+    this.#emitUpdateEvent();
   };
 
   get dirty() {
@@ -74,7 +72,7 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
     this.#form.addEventListener('sl-update-state', this.#onUpdate);
     this.#form.addEventListener('sl-update-validity', this.#onUpdate);
 
-    this.dispatchEvent(new Event('sl-update'));
+    this.#emitUpdateEvent();
   }
 
   /** @internal */
@@ -86,5 +84,13 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
 
   reportValidity(): boolean {
     return this.#form?.reportValidity() ?? false;
+  }
+
+  /**
+   * Notify the `FormValidationErrors` component that the form state has changed.
+   * Emit the event in the next frame, so the form controls have to time to update.
+   */
+  #emitUpdateEvent(): void {
+    requestAnimationFrame(() => this.dispatchEvent(new Event('sl-update')));
   }
 }

@@ -32,7 +32,8 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
         this.controller?.element?.controls
           .filter(control => !control.valid)
           .reduce((acc, control) => {
-            const label = control.labels?.[0]?.textContent?.trim() || control.name!;
+            const label =
+              control.labels?.[0]?.textContent?.trim() || control.getAttribute('aria-label') || control.name!;
 
             return { ...acc, [label]: control };
           }, {}) ?? {};
@@ -66,6 +67,7 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
 
     if (changes.has('validity')) {
       if (this.validity === 'valid' && changes.get('validity') === 'invalid') {
+        // If the validity switch from invalid to valid, we want to show the success message
         this.variant = 'success';
       } else if (this.validity === 'invalid') {
         this.variant = 'danger';
@@ -85,12 +87,18 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
               ${msg('The following fields have errors:')}
               <ul>
                 ${Object.entries(this.invalidControls).map(
-                  ([label, control]) => html`<li><a href="#${control.id}">${label}</a></li>`
+                  ([label, control]) => html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`
                 )}
               </ul>
             `
           : msg('All fields are valid.')}
       </sl-inline-message>
     `;
+  }
+
+  #onClick(event: Event & { target: HTMLAnchorElement }): void {
+    event.preventDefault();
+
+    (this.getRootNode() as HTMLElement).querySelector<HTMLElement>(event.target.hash)?.focus();
   }
 }

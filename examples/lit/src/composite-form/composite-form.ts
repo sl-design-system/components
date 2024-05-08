@@ -38,7 +38,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
     return html`
       <sl-form>
         <sl-form-field label="First name">
-          <sl-text-field autofocus name="firstName" required></sl-text-field>
+          <sl-text-field name="firstName" required></sl-text-field>
         </sl-form-field>
 
         <sl-form-field label="Last name">
@@ -67,6 +67,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
             input-size="8"
             name="otherAge"
             placeholder="Your age"
+            required
           ></sl-text-field>
         </sl-form-field>
 

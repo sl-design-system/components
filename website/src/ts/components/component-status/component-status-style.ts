@@ -2,17 +2,39 @@ import { css } from 'lit';
 
 export const componentStatusStyles = css`
   :host {
+    display: grid;
+    grid-column-gap: 7.2rem;
+    grid-template-columns: 88rem 1fr;
     //display: none;
-    display: block:
-    height: 200px;
-    background-color: #AACBE9;
+    // display: block:
+    // height: 200px;
+    // border: 4px solid #AACBE9;
+  }
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: #AACBE9;
+  }
+
+  h4,
+  .ds-heading-4 {
+    font-family: 'the-message', sans-serif;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    margin-block-end: var(--scale-50-scale);
+    font-weight: 600;
   }
 
   @media screen and (min-width: 1200px) {
-    :host {
-      display: block;
-      font: var(--typography-body);
-    }
+    // :host {
+    //   display: block;
+    //   font: var(--typography-body);
+    // }
+
+     .wrapper {
+        grid-template-columns: 1fr 1fr;
+      }
   }
 
   h2 {

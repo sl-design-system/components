@@ -3,6 +3,8 @@ import { customElement, property } from 'lit/decorators.js';
 // import { verticalTabsStyles } from './vertical-tabs-style';
 import { componentStatusStyles } from './component-status-style';
 
+export type StatusType = 'planned' | 'draft' | 'preview' | 'new' | 'stable' | 'deprecated';
+
 /**
  * Vertical tabs are getting parentElement as a source of tabs - `sections` with `h2` elements or `link-in-navigation` with `h2` elements.
  *
@@ -30,8 +32,29 @@ export class ComponentStatus extends LitElement {
 
   @property() componentName = '';
 
+  @property() status: StatusType = 'planned';
+
+  @property() version = '';
+
   /** Used to render vertical links content - tagElement is a source of links text, H2 is the default */
   @property() tagElement = 'H2';
+
+
+
+  // get iconName(): string { // TODO: badgeVariant
+  //   switch (this.variant) {
+  //     case 'info':
+  //       return 'info';
+  //     case 'success':
+  //       return 'circle-check-solid';
+  //     case 'warning':
+  //       return 'octagon-exclamation-solid';
+  //     case 'danger':
+  //       return 'triangle-exclamation-solid';
+  //     default:
+  //       return 'info';
+  //   }
+  // }
 
   nextUniqueId = 0;
 
@@ -135,12 +158,23 @@ export class ComponentStatus extends LitElement {
       .filter(element => element !== null);
 
     return html`
+      <div class="wrapper">
+      <div>${this.componentName}</div>
             <div>
-              <div>${this.componentName}</div>
+              <div class="ds-heading-4">Status</span> <sl-badge size="3xl" variant="success">${this.status}</sl-badge>
+              <div class="ds-heading-4">Version</div> <a href="/">v${this.version}</a>
+              <sl-button fill="outline"><sl-icon name="github"></sl-icon>View changelog</sl-button>
+              <sl-button fill="outline"><sl-icon name="github"></sl-icon>View code</sl-button>
+              <sl-button fill="outline"><sl-icon name="storybook"></sl-icon>View Storybook</sl-button>
               <slot></slot>
             </div>
+              <div>
+                status: ${this.status}
+                version: ${this.version}
+              </div>
+            </div>
     `;
-  }
+  } // TODO: badge  variant depending on status type
 
   // #onClick(event: Event) {
   //   this.observer?.disconnect();

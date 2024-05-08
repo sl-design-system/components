@@ -80,7 +80,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
         </sl-form-field>
 
         <sl-form-field>
-          <sl-checkbox aria-label="Terms and conditions" name="terms" required>
+          <sl-checkbox aria-label="Terms and conditions" name="termsAndConditions" required>
             I agree to all terms and conditions
           </sl-checkbox>
         </sl-form-field>

@@ -1,5 +1,6 @@
 import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { type FormField, type SlFormFieldEvent } from './form-field.js';
 import styles from './form.scss.js';
 
@@ -25,17 +26,21 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** Events controller. */
   #events = new EventsController(this, {
+    'sl-form-control': this.#onFormControl,
     'sl-form-field': this.#onFormField
   });
 
   #showValidity = false;
+
+  /** The controls in the form; not necessarily the same amount as the fields. */
+  controls: Array<HTMLElement & FormControl> = [];
 
   /** The fields in the form. */
   fields: FormField[] = [];
 
   /** A form is marked dirty when the user has modified a form control. */
   get dirty(): boolean {
-    return this.fields.map(f => f.control?.dirty).some(Boolean);
+    return this.controls.map(c => c.dirty).some(Boolean);
   }
 
   /** Whether the form is invalid. */
@@ -55,12 +60,12 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** A form is marked touched once the user has triggered a blur event on a form control. */
   get touched(): boolean {
-    return this.fields.map(f => f.control?.touched).some(Boolean);
+    return this.controls.map(c => c.touched).some(Boolean);
   }
 
   /** Whether the form is valid. */
   get valid(): boolean {
-    return this.fields.map(f => f.control?.valid).every(Boolean);
+    return this.controls.map(c => c.valid).every(Boolean);
   }
 
   /** A form is marked untouched as long as the user hasn't trigger a blur event on a form control. */
@@ -71,8 +76,8 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   /** The aggregated value of all form fields. */
   get value(): T {
     return Object.fromEntries(
-      this.fields
-        .map(f => (f.control ? [f.control.name, f.control.formValue] : null))
+      this.controls
+        .map(control => [control.name, control.formValue])
         .filter(
           (entry): entry is [keyof T, T[keyof T]] =>
             entry != null && !!entry[0] && entry[1] != null && entry[1] !== undefined
@@ -89,6 +94,13 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     this.#showValidity = true;
 
     return this.fields.map(f => f.control?.reportValidity()).every(Boolean);
+  }
+
+  #onFormControl(event: SlFormControlEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.controls = [...this.controls, event.target];
   }
 
   async #onFormField(event: SlFormFieldEvent): Promise<void> {

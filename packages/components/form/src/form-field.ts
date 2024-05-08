@@ -76,22 +76,6 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** How to mark this field depending if it is required or not. */
   @property() mark?: LabelMark;
 
-  get dirty(): boolean {
-    return this.control?.dirty ?? false;
-  }
-
-  get pristine(): boolean {
-    return !this.dirty;
-  }
-
-  get touched(): boolean {
-    return this.control?.touched ?? false;
-  }
-
-  get untouched(): boolean {
-    return !this.touched;
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -225,6 +209,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
       this.control = formControl as HTMLElement & FormControl;
       this.control.id ||= `sl-form-field-control-${nextUniqueId++}`;
 
+      // Set the form control name as attribute for styling purposes
       if (this.control.name) {
         this.setAttribute('name', this.control.name);
       } else {

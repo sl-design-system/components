@@ -5,6 +5,7 @@ import { property } from 'lit/decorators.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
+    'sl-form-control': SlFormControlEvent;
     'sl-update-state': SlUpdateStateEvent;
     'sl-update-validity': SlUpdateValidityEvent;
     'sl-validate': SlValidateEvent;
@@ -35,15 +36,17 @@ export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
 
 export type FormControlValidityState = 'valid' | 'invalid' | 'pending';
 
-export type SlUpdateStateEvent = CustomEvent<void>;
+export type SlFormControlEvent = CustomEvent<void> & { target: HTMLElement & FormControl };
+
+export type SlUpdateStateEvent = CustomEvent<void> & { target: HTMLElement & FormControl };
 
 export type SlUpdateValidityEvent = CustomEvent<{
   valid: boolean;
   validationMessage: string;
   showValidity: FormControlShowValidity;
-}>;
+}> & { target: HTMLElement & FormControl };
 
-export type SlValidateEvent = CustomEvent<void>;
+export type SlValidateEvent = CustomEvent<void> & { target: HTMLElement & FormControl };
 
 export interface FormControl {
   readonly form: HTMLFormElement | null;
@@ -131,6 +134,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
 
     /** The error message to display when the control is invalid. */
     @property({ attribute: 'custom-validity' }) customValidity?: string;
+
+    /** @internal Emits when the form control is added to the DOM. */
+    @event({ name: 'sl-form-control' }) formControlEvent!: EventEmitter<SlFormControlEvent>;
 
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
@@ -247,6 +253,13 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      */
     get validityState(): FormControlValidityState {
       return this.#customValidityPromise ? 'pending' : this.valid ? 'valid' : 'invalid';
+    }
+
+    /** @internal */
+    override connectedCallback(): void {
+      super.connectedCallback();
+
+      this.formControlEvent.emit();
     }
 
     /** @internal */

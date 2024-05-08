@@ -1,11 +1,10 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
-import { Form, FormController, FormField } from '@sl-design-system/form';
-import { InlineMessage } from '@sl-design-system/inline-message';
+import { Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
 import { Radio, RadioGroup } from '@sl-design-system/radio-group';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import styles from './composite-form.scss.js';
 
 export class CompositeForm extends ScopedElementsMixin(LitElement) {
@@ -16,7 +15,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
       'sl-button-bar': ButtonBar,
       'sl-form': Form,
       'sl-form-field': FormField,
-      'sl-inline-message': InlineMessage,
+      'sl-form-validation-errors': FormValidationErrors,
       'sl-radio': Radio,
       'sl-radio-group': RadioGroup,
       'sl-text-field': TextField
@@ -27,13 +26,16 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Controller for managing form state. */
-  #form = new FormController(this);
+  #form = new FormController<{
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    age: 'under-10' | 'under-12' | 'under-18' | 'other';
+    otherAge: string;
+  }>(this);
 
   override render(): TemplateResult {
     return html`
-      ${this.#form.showValidity
-        ? html`<sl-inline-message variant="danger">The form has errors.</sl-inline-message>`
-        : nothing}
       <sl-form>
         <sl-form-field label="First name">
           <sl-text-field autofocus name="firstName" required></sl-text-field>
@@ -61,16 +63,20 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
           </sl-radio-group>
           <sl-text-field
             ?disabled=${this.#form.value?.age !== 'other'}
+            aria-label="Your own age"
+            input-size="8"
             name="otherAge"
-            placeholder="Enter your age"
+            placeholder="Your age"
           ></sl-text-field>
         </sl-form-field>
+
+        <sl-form-validation-errors .controller=${this.#form}></sl-form-validation-errors>
 
         <sl-button-bar align="end">
           <sl-button @click=${this.#onSave} variant="primary">Save</sl-button>
         </sl-button-bar>
       </sl-form>
-      <pre>${JSON.stringify(this.#form.value)}</pre>
+      <pre>${JSON.stringify(this.#form.value, null, 2)}</pre>
     `;
   }
 

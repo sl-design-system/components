@@ -11,7 +11,9 @@ sl-form {
 }
 
 sl-button-bar,
-sl-form-field[name='emailAddress'] {
+sl-form-field[name='age'],
+sl-form-field[name='emailAddress'],
+sl-form-validation-errors {
   grid-column: span 2;
 }
 

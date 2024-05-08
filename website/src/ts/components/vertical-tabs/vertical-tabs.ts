@@ -62,7 +62,7 @@ export class VerticalTabs extends LitElement {
          updated = true;
       });
     },
-    { root: null, rootMargin: '-86px 0px 0px 0px' }
+    { root: null, rootMargin: '-96px 0px 0px 0px' }
   );
 
   override connectedCallback(): void {

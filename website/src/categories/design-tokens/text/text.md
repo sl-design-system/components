@@ -15,6 +15,6 @@ eleventyNavigation:
 </div>
 </header>
 
-<section class="ds-tokens__wrapper">
+<section class="ds-subpage-section ds-tokens__wrapper">
 {% include "./text-tokens-table.njk" %}
 </section>

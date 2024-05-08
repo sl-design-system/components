@@ -39,7 +39,24 @@ $transition-timing: 300ms;
 }
 
 .ds-subpage-section__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--scale-1200-scale, 6.4rem);
   overflow: hidden;
+
+  section:not(:last-of-type) {
+    border-block-end: 1px solid var(--control-color-border-200-border);
+    padding-block-end: var(--scale-1200-scale, 6.4rem);
+  }
+
+  h3 {
+    margin-block-start: var(--scale-400-scale);
+  }
+
+  li {
+    font-size: 1.6rem;
+    margin-block: 0.8rem;
+  }
 }
 
 *:where(.ds-subpage-section, .ds-tabs__tab-container) {
@@ -75,7 +92,7 @@ a.header-anchor {
   display: grid;
   grid-column-gap: 7.2rem;
   grid-template-columns: 1fr;
-  margin: 2.4rem 0;
+  margin: 4rem 0;
 
   @media screen and (min-width: $xl-breakpoint) {
     grid-template-columns: 6fr 1fr;
@@ -83,10 +100,6 @@ a.header-anchor {
 
   @media screen and (min-width: $xxl-breakpoint) {
     grid-template-columns: 88rem 1fr;
-  }
-
-  h2 {
-    margin-block-start: 2.4rem;
   }
 }
 

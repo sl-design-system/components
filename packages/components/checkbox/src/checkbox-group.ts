@@ -135,6 +135,10 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
     `;
   }
 
+  override focus(): void {
+    this.#rovingTabindexController.focus();
+  }
+
   override reportValidity(): boolean {
     this.boxes?.forEach(box => box.reportValidity());
 

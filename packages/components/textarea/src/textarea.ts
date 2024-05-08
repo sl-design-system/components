@@ -167,6 +167,10 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     `;
   }
 
+  override focus(): void {
+    this.textarea.focus();
+  }
+
   override getLocalizedValidationMessage(): string {
     if (this.validity.tooShort) {
       const length = this.value.length;

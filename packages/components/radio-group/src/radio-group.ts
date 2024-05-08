@@ -181,6 +181,10 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
+  override focus(): void {
+    this.#rovingTabindexController.focus();
+  }
+
   #onFocusin(): void {
     this.focusEvent.emit();
   }

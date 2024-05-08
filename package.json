@@ -193,6 +193,7 @@
     "dist": {
       "dependencies": [
         "build:components",
+        "build:examples",
         "build:locales",
         "build:types",
         "build:themes:code",

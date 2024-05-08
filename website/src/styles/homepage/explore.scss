@@ -3,24 +3,25 @@
 $transition-timing: 300ms;
 
 .ds-explore {
-  margin-top: 3.2rem;
+  margin-block-start: 3.2rem;
 
   @media screen and (min-width: $md-breakpoint) {
-    margin-top: 4rem;
+    margin-block-start: 4rem;
   }
 
   @media screen and (min-width: $xl-breakpoint) {
-    margin-right: 4.8rem;
-    margin-top: 4.8rem;
-    max-width: 88rem;
+    margin-block-start: 4.8rem;
+    margin-inline-end: 4.8rem;
+    max-inline-size: 88rem;
   }
 
   .ds-heading-1 {
-    margin-bottom: 2.4rem;
+    margin-block-end: 2.4rem;
   }
 
   .ds-heading-2 {
-    margin-bottom: 0.8rem;
+    font-size: 1.8rem;
+    margin-block-end: 0.8rem;
     transition: color $transition-timing linear;
 
     /* stylelint-disable-next-line max-nesting-depth */
@@ -31,12 +32,12 @@ $transition-timing: 300ms;
 
       /* stylelint-disable-next-line max-nesting-depth */
       &::before {
+        block-size: 100%;
         content: '';
-        height: 100%;
-        left: 0;
+        inline-size: 100%;
+        inset-block-start: 0;
+        inset-inline-start: 0;
         position: absolute;
-        top: 0;
-        width: 100%;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
@@ -47,7 +48,7 @@ $transition-timing: 300ms;
   }
 
   h3 {
-    margin-bottom: 0.8rem;
+    margin-block-end: 0.8rem;
   }
 }
 
@@ -97,31 +98,7 @@ $transition-timing: 300ms;
       color: var(--card-color--active);
     }
   }
-}
 
-.ds-explore__card-image {
-  align-items: center;
-  background-color: var(--card-background);
-  border-radius: 8px;
-  display: flex;
-  height: 22rem;
-  justify-content: center;
-  margin-bottom: 1.6rem;
-  overflow: hidden;
-  position: relative;
-
-  svg {
-    overflow: visible;
-    transition: $transition-timing ease-in-out;
-
-    /* stylelint-disable-next-line max-nesting-depth */
-    @media screen and (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
-  }
-}
-
-.ds-explore__card {
   &:hover,
   &:focus-within {
     svg {
@@ -132,7 +109,7 @@ $transition-timing: 300ms;
     @media (prefers-reduced-motion: no-preference) {
       /* stylelint-disable-next-line max-nesting-depth */
       .ds-explore__design-tokens-dot {
-        animation: scaleAnimationDot 700ms ease-in-out;
+        animation: scale-animation-dot 700ms ease-in-out;
         transform-origin: bottom;
 
         /* stylelint-disable-next-line max-nesting-depth */
@@ -153,19 +130,19 @@ $transition-timing: 300ms;
 
       /* stylelint-disable-next-line max-nesting-depth */
       .ds-explore__components-part {
-        animation: scalePuzzleAnimation 700ms ease-in-out;
+        animation: scale-puzzle-animation 700ms ease-in-out;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
       .ds-explore__guidelines-part {
-        animation: rotateAnimation 700ms ease-in-out;
+        animation: rotate-animation 700ms ease-in-out;
         transform-box: fill-box;
         transform-origin: center;
       }
 
       /* stylelint-disable-next-line max-nesting-depth */
       .ds-explore__whats-new-eye-left {
-        animation: blinkEyeAnimation 700ms ease-in-out;
+        animation: blink-eye-animation 700ms ease-in-out;
         animation-delay: 0.2s;
         transform-origin: 90.6px 30.2px;
       }
@@ -173,7 +150,29 @@ $transition-timing: 300ms;
   }
 }
 
-@keyframes scalePuzzleAnimation {
+.ds-explore__card-image {
+  align-items: center;
+  background-color: var(--card-background);
+  block-size: 22rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  margin-block-end: 1.6rem;
+  overflow: hidden;
+  position: relative;
+
+  svg {
+    overflow: visible;
+    transition: $transition-timing ease-in-out;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    @media screen and (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+}
+
+@keyframes scale-puzzle-animation {
   30% {
     transform: scale(1);
   }
@@ -187,7 +186,7 @@ $transition-timing: 300ms;
   }
 }
 
-@keyframes scaleAnimationDot {
+@keyframes scale-animation-dot {
   30% {
     transform: scale3d(1, 1, 1);
   }
@@ -201,7 +200,7 @@ $transition-timing: 300ms;
   }
 }
 
-@keyframes scaleAnimationRotate {
+@keyframes scale-animation-rotate {
   30% {
     transform: scale3d(1, 1, 1) rotate(0);
   }
@@ -215,7 +214,7 @@ $transition-timing: 300ms;
   }
 }
 
-@keyframes rotateAnimation {
+@keyframes rotate-animation {
   30% {
     transform: rotate(0);
   }
@@ -229,7 +228,7 @@ $transition-timing: 300ms;
   }
 }
 
-@keyframes blinkEyeAnimation {
+@keyframes blink-eye-animation {
   30% {
     transform: rotateZ(0deg) scale3d(1, 1, 1);
   }

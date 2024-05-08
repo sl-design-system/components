@@ -21,12 +21,14 @@ eleventyNavigation:
 
 <section>
 
-
 ## The Checkbox documentation is now live!
 <small>08-11-2023</small>
 
 Dive into the details on when and how to effectively use checkboxes, and discover accessible implementation techniques. Explore [the guide](/categories/components/checkbox) to ensure seamless integration and a good user experience.
 
+</section>
+
+<section>
 
 ## We released a pilot version of our first component!
 <small>10-10-2023</small>

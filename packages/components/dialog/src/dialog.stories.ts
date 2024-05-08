@@ -102,42 +102,6 @@ export const FooterButtons: Story = {
   }
 };
 
-export const Form: Story = {
-  args: {
-    body: html`
-      <sl-form>
-        <sl-form-field label="First name">
-          <sl-text-field autofocus name="firstName" required></sl-text-field>
-        </sl-form-field>
-        <sl-form-field label="Last name">
-          <sl-text-field name="lastName" required></sl-text-field>
-        </sl-form-field>
-        <sl-form-field label="Email">
-          <sl-text-field></sl-text-field>
-        </sl-form-field>
-      </sl-form>
-    `,
-    closeButton: false,
-    footerButtons: () => {
-      const onSave = () => {
-        const form = document.querySelector('sl-form')!;
-
-        if (form.reportValidity()) {
-          document.querySelector('sl-dialog')?.close();
-        } else {
-          console.log('invalid');
-        }
-      };
-
-      return html`
-        <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
-        <sl-button @click=${onSave} slot="actions" variant="primary">Save</sl-button>
-      `;
-    },
-    title: 'Form'
-  }
-};
-
 export const HeaderButtons: Story = {
   args: {
     headerButtons: () => {

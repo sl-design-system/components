@@ -1,7 +1,7 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
-import { Checkbox } from '@sl-design-system/checkbox';
+import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
 import { Radio, RadioGroup } from '@sl-design-system/radio-group';
 import { TextField } from '@sl-design-system/text-field';
@@ -16,6 +16,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
       'sl-checkbox': Checkbox,
+      'sl-checkbox-group': CheckboxGroup,
       'sl-form': Form,
       'sl-form-field': FormField,
       'sl-form-validation-errors': FormValidationErrors,
@@ -79,10 +80,16 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
           <sl-textarea name="remarks" placeholder="Enter any remarks here" required></sl-textarea>
         </sl-form-field>
 
-        <sl-form-field>
-          <sl-checkbox aria-label="Terms and conditions" name="termsAndConditions" required>
-            I agree to all terms and conditions
-          </sl-checkbox>
+        <sl-form-field label="Subscriptions">
+          <sl-checkbox-group name="subscription" required>
+            <sl-checkbox value="newsletter">Newsletter</sl-checkbox>
+            <sl-checkbox value="promotions">Promotions</sl-checkbox>
+            <sl-checkbox value="updates">Product updates</sl-checkbox>
+          </sl-checkbox-group>
+        </sl-form-field>
+
+        <sl-form-field label="Terms and conditions">
+          <sl-checkbox name="termsAndConditions" required> I agree to all terms and conditions </sl-checkbox>
         </sl-form-field>
 
         <sl-form-validation-errors .controller=${this.#form}></sl-form-validation-errors>

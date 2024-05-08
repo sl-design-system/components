@@ -138,6 +138,11 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       this.#syncInput(this.input);
     }
 
+    if (changes.has('disabled')) {
+      // We need to wait for the disabled state to propagate to the input before updating the validity
+      requestAnimationFrame(() => this.updateValidity());
+    }
+
     if (changes.has('value') && this.value !== this.input.value) {
       this.input.value = this.value?.toString() || '';
     }

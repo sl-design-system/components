@@ -89,11 +89,11 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
-  /** Calls `reportValidity()` on all form fields. */
+  /** Calls `reportValidity()` on all form controls. */
   reportValidity(): boolean {
     this.#showValidity = true;
 
-    return this.fields.map(f => f.control?.reportValidity()).every(Boolean);
+    return this.controls.map(c => c.reportValidity()).every(Boolean);
   }
 
   #onFormControl(event: SlFormControlEvent): void {

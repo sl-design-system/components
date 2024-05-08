@@ -2,6 +2,8 @@ import { css } from 'lit';
 
 export const componentStatusStyles = css`
   :host {
+    --sl-button-bar-vertical: var(--sl-ON);
+
     display: grid;
     grid-column-gap: 7.2rem;
     grid-template-columns: 88rem 1fr;
@@ -12,9 +14,12 @@ export const componentStatusStyles = css`
   }
 
   .wrapper {
-    display: grid;
-    grid-template-columns: 1fr;
+    // display: grid;
+    // grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     background: #AACBE9;
+    margin-block-start: var(--scale-400-scale);
   }
 
   h4,
@@ -26,6 +31,31 @@ export const componentStatusStyles = css`
     font-weight: 600;
   }
 
+  .component-info {
+    display: flex;
+    align-items: center;
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--scale-50-scale);
+  }
+
+  .info:first-of-type {
+    border-right: 1px solid #BCBCBC; // TODO: needs to be changed to token
+  }
+
+    sl-button-bar {
+    --sl-button-bar-vertical: var(--sl-ON);
+    --sl-button-bar-direction-column: column-reverse;
+  }
+
   @media screen and (min-width: 1200px) {
     // :host {
     //   display: block;
@@ -33,7 +63,15 @@ export const componentStatusStyles = css`
     // }
 
      .wrapper {
-        grid-template-columns: 1fr 1fr;
+        // grid-template-columns: 1fr 1fr;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      sl-button-bar {
+        --sl-button-bar-vertical: var(--sl-OFF);
+        --sl-button-bar-align: end;
       }
   }
 

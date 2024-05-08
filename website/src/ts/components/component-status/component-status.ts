@@ -157,22 +157,33 @@ export class ComponentStatus extends LitElement {
       })
       .filter(element => element !== null);
 
+    // status: ${this.status}
+    //   version: ${this.version}
+    //     ${this.componentName}
+
+      console.log('status etc.', 'status:', this.status, 'version:', this.version, this.componentName);
+
     return html`
       <div class="wrapper">
-      <div>${this.componentName}</div>
-            <div>
-              <div class="ds-heading-4">Status</span> <sl-badge size="3xl" variant="success">${this.status}</sl-badge>
-              <div class="ds-heading-4">Version</div> <a href="/">v${this.version}</a>
-              <sl-button fill="outline"><sl-icon name="github"></sl-icon>View changelog</sl-button>
-              <sl-button fill="outline"><sl-icon name="github"></sl-icon>View code</sl-button>
-              <sl-button fill="outline"><sl-icon name="storybook"></sl-icon>View Storybook</sl-button>
+            <div class="component-info">
+              <div class="ds-heading-4 info">
+                Status
+                <sl-badge size="3xl" variant="success">${this.status}</sl-badge>
+              </div>
+              <div class="ds-heading-4 info">
+                Version
+                <a href="/">v${this.version}</a>
+              </div>
               <slot></slot>
             </div>
-              <div>
-                status: ${this.status}
-                version: ${this.version}
-              </div>
+            <div class="links">
+              <sl-button-bar>
+                <sl-button fill="outline" size="lg"><sl-icon name="github"></sl-icon>View changelog</sl-button>
+                <sl-button fill="outline" size="lg"><sl-icon name="github"></sl-icon>View code</sl-button>
+                <sl-button fill="outline" size="lg"><sl-icon name="storybook"></sl-icon>View Storybook</sl-button>
+              </sl-button-bar>
             </div>
+      </div>
     `;
   } // TODO: badge  variant depending on status type
 

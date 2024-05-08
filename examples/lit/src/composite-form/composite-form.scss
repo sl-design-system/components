@@ -8,13 +8,15 @@ sl-form {
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr 1fr;
+
+  > * {
+    grid-column: span 2;
+  }
 }
 
-sl-button-bar,
-sl-form-field[name='age'],
-sl-form-field[name='emailAddress'],
-sl-form-validation-errors {
-  grid-column: span 2;
+sl-form-field[name='firstName'],
+sl-form-field[name='lastName'] {
+  grid-column: span 1;
 }
 
 sl-text-field[name='otherAge'] {

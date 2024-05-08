@@ -1,9 +1,11 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { ButtonBar } from '@sl-design-system/button-bar';
+import { Checkbox } from '@sl-design-system/checkbox';
 import { Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
 import { Radio, RadioGroup } from '@sl-design-system/radio-group';
 import { TextField } from '@sl-design-system/text-field';
+import { Textarea } from '@sl-design-system/textarea';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import styles from './composite-form.scss.js';
 
@@ -13,12 +15,14 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
     return {
       'sl-button': Button,
       'sl-button-bar': ButtonBar,
+      'sl-checkbox': Checkbox,
       'sl-form': Form,
       'sl-form-field': FormField,
       'sl-form-validation-errors': FormValidationErrors,
       'sl-radio': Radio,
       'sl-radio-group': RadioGroup,
-      'sl-text-field': TextField
+      'sl-text-field': TextField,
+      'sl-textarea': Textarea
     };
   }
 
@@ -69,6 +73,16 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
             placeholder="Your age"
             required
           ></sl-text-field>
+        </sl-form-field>
+
+        <sl-form-field label="Remarks">
+          <sl-textarea name="remarks" placeholder="Enter any remarks here" required></sl-textarea>
+        </sl-form-field>
+
+        <sl-form-field>
+          <sl-checkbox aria-label="Terms and conditions" name="terms" required>
+            I agree to all terms and conditions
+          </sl-checkbox>
         </sl-form-field>
 
         <sl-form-validation-errors .controller=${this.#form}></sl-form-validation-errors>

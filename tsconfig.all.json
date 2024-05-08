@@ -5,9 +5,11 @@
     "emitDeclarationOnly": false
   },
   "include": [
+    "examples/**/*.ts",
     "packages/components/**/*.ts"
   ],
   "exclude": [
+    "examples/**/*.d.ts",
     "packages/components/**/*.d.ts",
     "packages/components/*/node_modules/**/*.ts"
   ],

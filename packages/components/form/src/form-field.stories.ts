@@ -1,10 +1,8 @@
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/icon/register.js';
-import { type RadioGroup as RadioGroupComponent } from '@sl-design-system/radio-group';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
-import { type TextField as TextFieldComponent } from '@sl-design-system/text-field';
 import '@sl-design-system/text-field/register.js';
 import '@sl-design-system/textarea/register.js';
 import '@sl-design-system/tooltip/register.js';
@@ -77,61 +75,6 @@ export const RadioGroup: Story = {
         <sl-radio value="3">Radio 3</sl-radio>
       </sl-radio-group>
     `
-  }
-};
-
-export const RadioGroupComposite: Story = {
-  args: {
-    slot: () => {
-      const toggleError = (textField: TextFieldComponent, valid: boolean): void => {
-        let error = document.querySelector('sl-error');
-
-        if (valid) {
-          error?.remove();
-        } else if (!error && textField.showValidity === 'invalid') {
-          error = document.createElement('sl-error');
-          error.textContent = 'Please enter a value';
-          textField.after(error);
-        }
-      };
-
-      const onRadioGroupChange = (event: Event & { target: RadioGroupComponent }) => {
-        const textField = event.target.nextElementSibling as TextFieldComponent;
-
-        if (event.target.formValue === 'other') {
-          textField.disabled = false;
-          toggleError(textField, !!textField.value);
-        } else {
-          textField.disabled = true;
-          toggleError(textField, true);
-        }
-      };
-
-      const onTextFieldChange = (event: Event & { target: TextFieldComponent }) => {
-        toggleError(event.target, !!event.target.value);
-      };
-
-      return html`
-        <style>
-          sl-text-field {
-            inline-size: 200px;
-            margin-inline-start: 2rem;
-          }
-        </style>
-        <sl-radio-group @sl-change=${onRadioGroupChange} name="radio" required>
-          <sl-radio value="1">Option 1</sl-radio>
-          <sl-radio value="2">Option 2</sl-radio>
-          <sl-radio value="other">Other</sl-radio>
-        </sl-radio-group>
-        <sl-text-field
-          @sl-change=${onTextFieldChange}
-          disabled
-          name="other"
-          placeholder="Enter your own option"
-          required
-        ></sl-text-field>
-      `;
-    }
   }
 };
 

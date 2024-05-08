@@ -1,10 +1,9 @@
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Dialog } from '@sl-design-system/dialog';
-import { Form, FormController, FormField } from '@sl-design-system/form';
-import { InlineMessage } from '@sl-design-system/inline-message';
+import { Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
 import { TextField } from '@sl-design-system/text-field';
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { query } from 'lit/decorators.js';
 import styles from './form-in-dialog.scss.js';
 
@@ -16,7 +15,7 @@ export class FormInDialog extends ScopedElementsMixin(LitElement) {
       'sl-dialog': Dialog,
       'sl-form': Form,
       'sl-form-field': FormField,
-      'sl-inline-message': InlineMessage,
+      'sl-form-validation-errors': FormValidationErrors,
       'sl-text-field': TextField
     };
   }
@@ -34,9 +33,6 @@ export class FormInDialog extends ScopedElementsMixin(LitElement) {
     return html`
       <sl-dialog>
         <span slot="title">Title</span>
-        ${this.#form.invalid && this.#form.showValidity
-          ? html`<sl-inline-message variant="danger">The form has errors.</sl-inline-message>`
-          : nothing}
         <sl-form>
           <sl-form-field label="First name">
             <sl-text-field autofocus name="firstName" required></sl-text-field>
@@ -44,6 +40,8 @@ export class FormInDialog extends ScopedElementsMixin(LitElement) {
           <sl-form-field label="Last name">
             <sl-text-field name="lastName" required></sl-text-field>
           </sl-form-field>
+
+          <sl-form-validation-errors .controller=${this.#form}></sl-form-validation-errors>
         </sl-form>
         <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
         <sl-button @click=${this.#onSave} slot="actions" variant="primary">Save</sl-button>

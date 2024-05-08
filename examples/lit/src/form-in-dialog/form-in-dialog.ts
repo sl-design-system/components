@@ -27,13 +27,14 @@ export class FormInDialog extends ScopedElementsMixin(LitElement) {
   /** Controller for managing form state. */
   #form = new FormController(this);
 
+  /** The dialog component. */
   @query('sl-dialog') dialog!: Dialog;
 
   override render(): TemplateResult {
     return html`
       <sl-dialog>
         <span slot="title">Title</span>
-        ${this.#form.showValidity
+        ${this.#form.invalid && this.#form.showValidity
           ? html`<sl-inline-message variant="danger">The form has errors.</sl-inline-message>`
           : nothing}
         <sl-form>
@@ -41,15 +42,7 @@ export class FormInDialog extends ScopedElementsMixin(LitElement) {
             <sl-text-field autofocus name="firstName" required></sl-text-field>
           </sl-form-field>
           <sl-form-field label="Last name">
-            <sl-text-field
-              ?disabled=${!this.#form.value?.firstName}
-              name="lastName"
-              placeholder="Enter a first name first"
-              required
-            ></sl-text-field>
-          </sl-form-field>
-          <sl-form-field label="Email">
-            <sl-text-field></sl-text-field>
+            <sl-text-field name="lastName" required></sl-text-field>
           </sl-form-field>
         </sl-form>
         <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>

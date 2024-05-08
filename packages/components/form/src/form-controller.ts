@@ -12,6 +12,7 @@ export class FormController implements ReactiveController {
 
   #onUpdate = () => {
     console.log('onUpdate');
+    this.#host.requestUpdate();
   };
 
   get element() {
@@ -37,14 +38,7 @@ export class FormController implements ReactiveController {
   constructor(host: ReactiveControllerHost & LitElement, options: Partial<FormControllerOptions> = {}) {
     this.#host = host;
     this.#host.addController(this);
-    console.log('HOHOHO');
-
     this.#selector = options.selector ?? 'sl-form';
-  }
-
-  /** @internal */
-  hostConnected(): void {
-    console.log('hostConnected');
   }
 
   /** @internal */
@@ -58,8 +52,6 @@ export class FormController implements ReactiveController {
 
     this.#form.addEventListener('sl-update-state', this.#onUpdate);
     this.#form.addEventListener('sl-update-validity', this.#onUpdate);
-
-    console.log(this.#form);
   }
 
   /** @internal */

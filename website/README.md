@@ -439,3 +439,10 @@ After creating a Pull Request you can preview website with your changes:
 <img alt="image" src="https://user-images.githubusercontent.com/111562742/214502361-7743ad97-28ab-45f8-b041-e811d41a724e.png">
 
 
+# How to change component status in the navigation?
+
+There are available following statuses:
+- `coming` - old one
+- `planned`
+- `new`
+

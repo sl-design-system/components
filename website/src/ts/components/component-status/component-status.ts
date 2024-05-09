@@ -41,20 +41,22 @@ export class ComponentStatus extends LitElement {
 
 
 
-  // get iconName(): string { // TODO: badgeVariant
-  //   switch (this.variant) {
-  //     case 'info':
-  //       return 'info';
-  //     case 'success':
-  //       return 'circle-check-solid';
-  //     case 'warning':
-  //       return 'octagon-exclamation-solid';
-  //     case 'danger':
-  //       return 'triangle-exclamation-solid';
-  //     default:
-  //       return 'info';
-  //   }
-  // }
+  get badgeVariant(): string { // TODO: badgeVariant
+    switch (this.status) {
+      case 'planned':
+        return 'primary';
+      case 'draft':
+        return 'neutral';
+      case 'preview':
+        return 'info';
+      case 'stable':
+        return 'success';
+      case 'deprecated':
+        return 'danger';
+      default:
+        return 'primary';
+    }
+  }
 
   nextUniqueId = 0;
 
@@ -168,11 +170,16 @@ export class ComponentStatus extends LitElement {
             <div class="component-info">
               <div class="ds-heading-4 info">
                 Status
-                <sl-badge size="3xl" variant="success">${this.status}</sl-badge>
+                <sl-badge size="3xl" variant=${this.badgeVariant}>${this.status}</sl-badge>
               </div>
               <div class="ds-heading-4 info">
                 Version
-                <a href="/">v${this.version}</a>
+                <span class="link">
+                  <a href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F${this.componentName}%40${this.version}" target="_blank">
+                      v${this.version}
+                  </a>
+                  <sl-icon name="far-arrow-up-right-from-square"></sl-icon>
+                </span>
               </div>
               <slot></slot>
             </div>
@@ -186,6 +193,7 @@ export class ComponentStatus extends LitElement {
       </div>
     `;
   } // TODO: badge  variant depending on status type
+  // TODO: aria-hidden or label to sl-icon?
 
   // #onClick(event: Event) {
   //   this.observer?.disconnect();

@@ -6,7 +6,7 @@ export const componentStatusStyles = css`
 
     display: grid;
     grid-column-gap: 7.2rem;
-    grid-template-columns: 88rem 1fr;
+    grid-template-columns: 1fr; //88rem 1fr;
     //display: none;
     // display: block:
     // height: 200px;
@@ -18,7 +18,7 @@ export const componentStatusStyles = css`
     // grid-template-columns: 1fr;
     display: flex;
     flex-direction: column;
-    background: #AACBE9;
+    background: #FFFFED; // #AACBE9;
     margin-block-start: var(--scale-400-scale);
   }
 
@@ -32,47 +32,106 @@ export const componentStatusStyles = css`
   }
 
   .component-info {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    // display: flex;
+    // align-items: center;
+    border-bottom: 1px solid #C4C4C4;
+    padding-block-end: 24px;
+
+    sl-badge {
+      width: fit-content;
+    }
   }
 
   .links {
-    display: flex;
-    align-items: center;
+    display: block;
+    // display: flex;
+    // align-items: center;
+    padding-block-start: 24px;
   }
 
   .info {
     display: flex;
     flex-direction: column;
     gap: var(--scale-50-scale);
+    padding-inline-start: 1.6rem;
   }
 
   .info:first-of-type {
+    padding-inline-end: 1.6rem;
     border-right: 1px solid #BCBCBC; // TODO: needs to be changed to token
   }
 
     sl-button-bar {
     --sl-button-bar-vertical: var(--sl-ON);
-    --sl-button-bar-direction-column: column-reverse;
+    --sl-button-bar-direction-column: column; // column-reverse;
+  }
+
+  .link {
+    display: flex;
+    gap: var(--scale-50-scale);
+    align-items: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .component-info {
+      display: flex;
+      align-items: center;
+      border-bottom: none;
+    }
+
+    sl-button-bar {
+        --sl-button-bar-vertical: var(--sl-OFF);
+        --sl-button-bar-align: end;
+
+        sl-button {
+          flex-grow: 1;
+        }
+      }
+
+     .links {
+        padding-block-start: 0;
+     }
   }
 
   @media screen and (min-width: 1200px) {
-    // :host {
+    :host {
     //   display: block;
     //   font: var(--typography-body);
-    // }
+         grid-template-columns: 6fr 1fr;
+    }
 
      .wrapper {
         // grid-template-columns: 1fr 1fr;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
       }
 
       sl-button-bar {
         --sl-button-bar-vertical: var(--sl-OFF);
         --sl-button-bar-align: end;
+
+        sl-button {
+          flex-grow: 0;
+        }
       }
+
+      .component-info {
+        padding-block-end: 0;
+      }
+
+      .links {
+        padding-block-start: 0;
+      }
+  }
+
+  @media screen and (min-width: 1600px) {
+    :host {
+      grid-template-columns: 88rem 1fr;
+    }
   }
 
   h2 {

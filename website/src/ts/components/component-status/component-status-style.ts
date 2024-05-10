@@ -18,7 +18,7 @@ export const componentStatusStyles = css`
     // grid-template-columns: 1fr;
     display: flex;
     flex-direction: column;
-    background: #FFFFED; // #AACBE9;
+   // background: #FFFFED; // #AACBE9;
     margin-block-start: var(--scale-400-scale);
   }
 
@@ -74,6 +74,82 @@ export const componentStatusStyles = css`
     align-items: center;
   }
 
+    a:not(.ds-button) {
+    color: var(--link-color);
+    cursor: pointer;
+    transition: transform $transition-timing;
+
+    &:active {
+      color: var(--link-active-color);
+    }
+
+    &:visited {
+      color: var(--link-visited-color);
+    }
+
+    &:hover {
+    color: var(--link-hover-color);
+    }
+
+    &.header-anchor {
+      color: var(--font-color);
+    }
+
+    }
+
+  .ds-button {
+  --_background: var(--color-button-default-outline-idle-background); //var(--control-color-state-accent-container-default-state);
+  --_border-color: var(--control-color-text-base-text); //var(--control-color-state-accent-border-default-state);
+  --_color: var(--helper-text); //var(--color-button-default-outline-idle-foreground); //var(--control-color-state-accent-font-default-state);
+
+  align-items: center;
+  justify-content: center;
+  background: var(--_background);
+  border: 1px solid var(--_border-color);
+  border-radius: 2px;
+  color: var(--_color);
+  display: inline-flex;
+  font-size: 1.4rem;
+  font-weight: 600;
+  gap: 8px;
+  // inline-size: fit-content;
+  line-height: 2.4rem;
+  padding: 0.7rem 1.2rem;
+  position: relative;
+  text-decoration: none;
+  transition: background-color 200ms linear;
+
+  * {
+    color: var(--_color);
+  }
+
+  sl-icon {
+      fill: var(--_color);
+    }
+
+  &:hover {
+    --_background: var(--control-color-text-base-text); //var(--control-color-state-accent-container-hover-state);
+    --_border-color: var(--control-color-state-accent-border-hover-state);
+    --_color: var(--control-color-state-accent-border-hover-state); //var(--ds-color-faux-white); //var(--control-color-state-accent-font-hover-state);
+
+    sl-icon {
+      fill: var(--_color);
+    }
+  }
+
+  &:active {
+    --_background: var(--control-color-visuals-component-text); //var(--control-color-state-accent-container-active-state);
+    --_border-color: var(--control-color-state-accent-border-active-state);
+    --_color: var(--control-color-state-accent-border-hover-state); //var(--helper-text); //var(--ds-color-faux-white); //var(--control-color-state-accent-font-active-state);
+  }
+
+  &:focus-visible {
+    border-radius: 2px;
+    outline: 2px solid var(--control-color-focus-accent-focus);
+    outline-offset: 2px;
+  }
+}
+
   @media screen and (min-width: 750px) {
     .component-info {
       display: flex;
@@ -85,9 +161,15 @@ export const componentStatusStyles = css`
         --sl-button-bar-vertical: var(--sl-OFF);
         --sl-button-bar-align: end;
 
-        sl-button {
-          flex-grow: 1;
-        }
+        // sl-button {
+        //   flex-grow: 1;
+        // }
+      }
+
+      .ds-button {
+          justify-content: center;
+           flex-grow: 1;
+           inline-size: fit-content;
       }
 
      .links {

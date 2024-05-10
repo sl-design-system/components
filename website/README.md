@@ -443,16 +443,18 @@ After creating a Pull Request you can preview website with your changes:
 
 There are available following statuses:
 - `planned` - similar to `coming` - old one. There is `PLANNED` badge shown in the sidebar and there is no active link to the documentation.
-- `new` - there is `NEW` badge shown in the sidebar
-- `ready` - there is no badge shown in the sidebar
+- `new` - there is `NEW` badge shown in the sidebar and a link to the documentation is available in the sidebar.
+- `ready` - there is no badge shown in the sidebar and a link to the documentation is available in the sidebar.
 
 ## Where to change the sidebar's component status?
 
-Please find the component directory, and then **<component>.md** file, like:
+Please find the **component_name** directory, and then **component_name.md** file, like:
+
 directory: `tooltip`
+
 md file: `tooltip.md`
 
-There you can find following structure and `status` that you need to set:
+There you can find following structure and `status` that you need to set/change:
 
 ```markdown
 eleventyNavigation:

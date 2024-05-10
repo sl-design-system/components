@@ -12,5 +12,5 @@ eleventyNavigation:
   parent: Components
   key: Button
   order: 6
-  status: planned
+  status: ready
 ---

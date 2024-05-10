@@ -442,7 +442,23 @@ After creating a Pull Request you can preview website with your changes:
 # How to change component status in the navigation?
 
 There are available following statuses:
-- `coming` - old one
-- `planned`
-- `new`
+- `planned` - similar to `coming` - old one. There is `PLANNED` badge shown in the sidebar and there is no active link to the documentation.
+- `new` - there is `NEW` badge shown in the sidebar
+- `ready` - there is no badge shown in the sidebar
+
+## Where to change the sidebar's component status?
+
+Please find the component directory, and then **<component>.md** file, like:
+directory: `tooltip`
+md file: `tooltip.md`
+
+There you can find following structure and `status` that you need to set:
+
+```markdown
+eleventyNavigation:
+  parent: Components
+  key: Tooltip
+  order: 28
+  status: planned
+```
 

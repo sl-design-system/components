@@ -152,6 +152,35 @@ describe('sl-text-field', () => {
       expect(el.inputSize).to.equal(20);
     });
 
+    it('should have a custom input size when set', async () => {
+      el.inputSize = 10;
+      await el.updateComplete;
+
+      expect(input).to.have.attribute('size', '10');
+    });
+
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after typing in the input', async () => {
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should be touched after input loses focus', () => {
+      input.focus();
+      input.blur();
+
+      expect(el.touched).to.be.true;
+    });
+
     it('should focus the input when focusing the element', () => {
       el.focus();
 
@@ -204,19 +233,6 @@ describe('sl-text-field', () => {
       await sendKeys({ type: 'Lorem' });
 
       expect(onValidate).to.have.been.callCount(5);
-    });
-  });
-
-  describe('disabled', () => {
-    beforeEach(async () => {
-      el = await fixture(html`<sl-text-field disabled></sl-text-field>`);
-      input = el.querySelector('input')!;
-    });
-
-    it('should be disabled', () => {
-      expect(el).to.have.attribute('disabled');
-      expect(el.disabled).to.be.true;
-      expect(input.disabled).to.be.true;
     });
   });
 

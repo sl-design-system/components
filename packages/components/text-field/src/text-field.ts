@@ -233,12 +233,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       input.type = this.type;
     }
 
-    if (typeof this.inputSize === 'number') {
-      input.setAttribute('size', this.inputSize.toString());
-    } else {
-      input.removeAttribute('size');
-    }
-
     if (typeof this.maxLength === 'number') {
       input.setAttribute('maxlength', this.maxLength.toString());
     } else {

@@ -202,6 +202,19 @@ describe('sl-text-field', () => {
     });
   });
 
+  describe('disabled', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-text-field disabled></sl-text-field>`);
+      input = el.querySelector('input')!;
+    });
+
+    it('should be disabled', () => {
+      expect(el).to.have.attribute('disabled');
+      expect(el.disabled).to.be.true;
+      expect(input.disabled).to.be.true;
+    });
+  });
+
   describe('invalid', () => {
     beforeEach(async () => {
       el = await fixture(html`<sl-text-field required></sl-text-field>`);

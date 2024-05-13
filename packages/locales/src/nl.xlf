@@ -98,6 +98,14 @@
   <source>More breadcrumbs</source>
   <target>Meer links</target>
 </trans-unit>
+<trans-unit id="sd711c88b851db6c9">
+  <source>The following fields have errors:</source>
+  <target>De volgende velden zijn incorrect:</target>
+</trans-unit>
+<trans-unit id="s4f6434b4c6326f21">
+  <source>All fields are valid.</source>
+  <target>Alle velden zijn correct.</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

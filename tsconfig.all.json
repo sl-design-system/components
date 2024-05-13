@@ -5,16 +5,17 @@
     "emitDeclarationOnly": false
   },
   "include": [
-    "examples/**/*.ts",
-    "packages/components/**/*.ts"
+    "packages/checklist/**/*.ts",
+    "packages/components/**/*.ts",
+    "packages/themes/**/*.ts"
   ],
   "exclude": [
-    "examples/**/*.d.ts",
+    "packages/**/node_modules/**/*.ts",
+    "packages/checklist/**/*.d.ts",
     "packages/components/**/*.d.ts",
-    "packages/components/*/node_modules/**/*.ts"
+    "packages/themes/**/*.d.ts"
   ],
   "references": [
-    { "path": "./examples/lit" },
     { "path": "./packages/checklist" },
     { "path": "./packages/components/accordion" },
     { "path": "./packages/components/avatar" },

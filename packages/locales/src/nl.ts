@@ -30,5 +30,7 @@ export const templates = {
   sd244b51f6d7de8e2: 'Voer een waarde in volgens het gevraagde patroon.',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
   sf1ec4acb8d744ed9: 'Mededeling',
-  sf677da98fa27f9b6: 'Meer links'
+  sf677da98fa27f9b6: 'Meer links',
+  sd711c88b851db6c9: 'The following fields have errors:',
+  s4f6434b4c6326f21: 'All fields are valid.'
 };

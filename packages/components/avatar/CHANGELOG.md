@@ -1,5 +1,13 @@
 # @sl-design-system/avatar
 
+## 0.2.9
+
+### Patch Changes
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/shared@0.2.11
+  - @sl-design-system/tooltip@0.0.26
+
 ## 0.2.8
 
 ### Patch Changes

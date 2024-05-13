@@ -84,6 +84,36 @@ describe('sl-checkbox-group', () => {
     expect(el).to.have.attribute('show-validity', 'invalid');
   });
 
+  it('should be pristine', () => {
+    expect(el.dirty).not.to.be.true;
+  });
+
+  it('should be dirty after clicking on a checkbox', async () => {
+    el.querySelector('sl-checkbox')?.click();
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(el.dirty).to.be.true;
+  });
+
+  it('should be untouched', () => {
+    expect(el.touched).not.to.be.true;
+  });
+
+  it('should be touched after the checkbox loses focus', () => {
+    const checkbox = el.querySelector('sl-checkbox');
+
+    checkbox?.focus();
+    checkbox?.blur();
+
+    expect(el.touched).to.be.true;
+  });
+
+  it('should focus the first checkbox after calling focus()', () => {
+    el.focus();
+
+    expect(document.activeElement).to.equal(el.querySelector('sl-checkbox'));
+  });
+
   it('should emit an sl-update-validity event when calling reportValidity', async () => {
     const onUpdateValidity = spy();
 

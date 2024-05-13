@@ -170,6 +170,17 @@ describe('sl-text-field', () => {
       expect(el.dirty).to.be.true;
     });
 
+    it('should emit an sl-update-state event after typing in the input', async () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
     it('should be untouched', () => {
       expect(el.touched).not.to.be.true;
     });
@@ -179,6 +190,17 @@ describe('sl-text-field', () => {
       input.blur();
 
       expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after losing focus', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      input.focus();
+      input.blur();
+
+      expect(onUpdateState).to.have.been.calledOnce;
     });
 
     it('should focus the input when focusing the element', () => {

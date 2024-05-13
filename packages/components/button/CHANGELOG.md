@@ -1,5 +1,12 @@
 # @sl-design-system/button
 
+## 0.0.28
+
+### Patch Changes
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/shared@0.2.11
+
 ## 0.0.27
 
 ### Patch Changes

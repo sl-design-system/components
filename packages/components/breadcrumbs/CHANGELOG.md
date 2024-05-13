@@ -1,5 +1,17 @@
 # @sl-design-system/breadcrumbs
 
+## 0.0.8
+
+### Patch Changes
+
+- [#1243](https://github.com/sl-design-system/components/pull/1243) [`6dbe047`](https://github.com/sl-design-system/components/commit/6dbe047d690a069a16c1d96172accce6fa2980cb) - Fix missing `d.ts` files
+
+- [#1214](https://github.com/sl-design-system/components/pull/1214) [`63c9190`](https://github.com/sl-design-system/components/commit/63c919092c0cef165c9c5953fca88a42e4af618e) - Wrap all links in an unordered list to improve a11y
+
+- Updated dependencies [[`6dbe047`](https://github.com/sl-design-system/components/commit/6dbe047d690a069a16c1d96172accce6fa2980cb)]:
+  - @sl-design-system/menu@0.0.9
+  - @sl-design-system/tooltip@0.0.26
+
 ## 0.0.7
 
 ### Patch Changes

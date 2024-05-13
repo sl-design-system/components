@@ -188,8 +188,8 @@ const build = async (production = false) => {
               'sl/size/css/lineHeight',
               'sl/size/css/paragraphSpacing',
               'sl/size/css/px',
-              production ? undefined : 'sl/color/transparentColorMix',
-              production ? undefined : 'sl/wrapMathInCalc'
+              'sl/color/transparentColorMix',
+              'sl/wrapMathInCalc'
             ].filter(Boolean),
             prefix: 'sl',
             files

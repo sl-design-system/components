@@ -1,5 +1,33 @@
 # @sanomalearning/slds-max
 
+## 0.1.8
+
+### Patch Changes
+
+- [#1215](https://github.com/sl-design-system/components/pull/1215) [`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d) - Use circle-exclamation icon for form validation messages instead of triangle.
+
+- [#1242](https://github.com/sl-design-system/components/pull/1242) [`ab122ec`](https://github.com/sl-design-system/components/commit/ab122ec672a515ae2ca7dce88c7344c1b209d538) - Fix missing `calc()` functions in theme parts.
+
+- [#1225](https://github.com/sl-design-system/components/pull/1225) [`ad297ab`](https://github.com/sl-design-system/components/commit/ad297ab817ab998253b9c2a90033c72dcc686893) - Updated/added tokens:
+
+  - Button bar available in all themes
+  - Fixed accordion border
+  - Button fixes
+  - Dialog border radius fix
+
+- [#1220](https://github.com/sl-design-system/components/pull/1220) [`a693012`](https://github.com/sl-design-system/components/commit/a693012020b5d4a07bdde5739ce19d0a020c27bb) - Change tokens related to moving the hint above the form-field:
+  - Included hint colors tokens
+  - Include hint font tokens in all themes
+  - Fix token naming for hints
+  - Fix label font sizing and spacing
+  - Fix helper (validation message) fonts sizing and spacing
+  - Fix field label (label & tag) fonts sizing in all themes
+  - Fix helper (validation message) font sizes
+  - Fix Magister font tokens for label and tags
+  - Update MAX field label padding bottom to 4px and padding bottom lg to 8px in CORE
+  - Change field label padding bottom to 8px (sm)
+  - New gap form token (24px)
+
 ## 0.1.7
 
 ### Patch Changes

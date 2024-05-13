@@ -156,6 +156,7 @@ describe('sl-text-field', () => {
       el.inputSize = 10;
       await el.updateComplete;
 
+      expect(el).to.have.attribute('input-size', '10');
       expect(input).to.have.attribute('size', '10');
     });
 

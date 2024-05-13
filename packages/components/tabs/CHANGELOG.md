@@ -1,5 +1,22 @@
 # @sl-design-system/tabs
 
+## 0.1.10
+
+### Patch Changes
+
+- [#1208](https://github.com/sl-design-system/components/pull/1208) [`b48b108`](https://github.com/sl-design-system/components/commit/b48b108c4873b6bbbea7636988a663f92c0ee242) - Improvements and bug fixes:
+
+  - Add possibility of changing tab with URL by keyboard
+  - Add missing background for `container` part: `--_tablist-background: var(--sl-color-tab-tabbar-background)`
+  - Fix scrolling - only horizontally
+  - Fix updating selected tab - tab only, not all elements with `selected` attribute inside
+
+- [#994](https://github.com/sl-design-system/components/pull/994) [`4ae94ae`](https://github.com/sl-design-system/components/commit/4ae94aea4efb84f631b3d45faf76fbb32aed4a0f) - Fixing selecting tabs, when there are nested tabs.
+
+- Updated dependencies [[`6dbe047`](https://github.com/sl-design-system/components/commit/6dbe047d690a069a16c1d96172accce6fa2980cb), [`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/menu@0.0.9
+  - @sl-design-system/shared@0.2.11
+
 ## 0.1.9
 
 ### Patch Changes

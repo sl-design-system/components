@@ -1,5 +1,11 @@
 # @sl-design-system/shared
 
+## 0.2.11
+
+### Patch Changes
+
+- [#1207](https://github.com/sl-design-system/components/pull/1207) [`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b) - Fixed accessibility support for popover by using correct aria-labels
+
 ## 0.2.10
 
 ### Patch Changes

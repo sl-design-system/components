@@ -1,5 +1,15 @@
 # @sl-design-system/inline-message
 
+## 0.2.8
+
+### Patch Changes
+
+- [#1210](https://github.com/sl-design-system/components/pull/1210) [`c3c9de6`](https://github.com/sl-design-system/components/commit/c3c9de6590f5abd1d8010186df127a665ee303b5) - Add `sl-dismiss` event when the message is dismissed
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/shared@0.2.11
+  - @sl-design-system/button@0.0.28
+
 ## 0.2.7
 
 ### Patch Changes

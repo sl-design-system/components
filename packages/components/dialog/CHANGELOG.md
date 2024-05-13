@@ -1,5 +1,16 @@
 # @sl-design-system/dialog
 
+## 0.0.17
+
+### Patch Changes
+
+- [#1233](https://github.com/sl-design-system/components/pull/1233) [`68b6404`](https://github.com/sl-design-system/components/commit/68b6404bc5574b88daae711a2eb535c2572d23b1) - Fix dialog clipping the focus outline of form fields.
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b), [`39c22ca`](https://github.com/sl-design-system/components/commit/39c22cad76661ad4b1f3a8f4bc56c576c36a94be)]:
+  - @sl-design-system/shared@0.2.11
+  - @sl-design-system/button-bar@0.0.7
+  - @sl-design-system/button@0.0.28
+
 ## 0.0.16
 
 ### Patch Changes

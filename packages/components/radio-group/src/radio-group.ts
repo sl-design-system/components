@@ -75,10 +75,10 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
     isFocusableElement: (el: Radio) => !el.disabled
   });
 
-  /** @private Element internals. */
+  /** @internal Element internals. */
   readonly internals = this.attachInternals();
 
-  /** @private The slotted radios. */
+  /** @internal The slotted radios. */
   @queryAssignedElements() radios?: Array<Radio<T>>;
 
   /** @internal Emits when the component loses focus. */

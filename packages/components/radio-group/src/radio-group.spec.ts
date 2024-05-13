@@ -81,6 +81,58 @@ describe('sl-radio-group', () => {
       expect(el).to.have.attribute('horizontal');
     });
 
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after clicking on a checkbox', async () => {
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should emit an sl-update-state event after clicking the radio', async () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+      el.querySelector('sl-radio')?.click();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should be touched after the checkbox loses focus', () => {
+      const radio = el.querySelector('sl-radio');
+
+      radio?.focus();
+      radio?.blur();
+
+      expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after the radio loses focus', () => {
+      const radio = el.querySelector('sl-radio'),
+        onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      radio?.focus();
+      radio?.blur();
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should focus the first radio after calling focus()', () => {
+      el.focus();
+
+      expect(document.activeElement).to.equal(el.querySelector('sl-radio'));
+    });
+
     it('should emit an sl-change event when clicking an option', async () => {
       const onChange = spy();
 

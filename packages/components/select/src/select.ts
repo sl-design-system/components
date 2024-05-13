@@ -316,7 +316,10 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   }
 
   #onSlotchange(): void {
-    this.#setSelectedOption(this.options.find(option => option.value === this.value));
+    this.#setSelectedOption(
+      this.options.find(option => option.value === this.value),
+      false
+    );
 
     this.optionGroups?.forEach(group => {
       group.size = this.size;

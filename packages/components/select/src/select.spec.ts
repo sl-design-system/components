@@ -112,6 +112,55 @@ describe('sl-select', () => {
       expect(el.value).to.equal('1');
     });
 
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after clicking an option', async () => {
+      el.querySelector<SelectButton>('sl-select-button')?.click();
+      await el.updateComplete;
+
+      el.querySelector('sl-select-option')?.click();
+      await el.updateComplete;
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after clicking an option', async () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      el.querySelector<SelectButton>('sl-select-button')?.click();
+      await el.updateComplete;
+
+      el.querySelector('sl-select-option')?.click();
+      await el.updateComplete;
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should be touched after losing focus', () => {
+      el.focus();
+      el.dispatchEvent(new Event('focusout'));
+
+      expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after losing focus', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+      el.focus();
+      el.dispatchEvent(new Event('focusout'));
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
     it('should emit an sl-change event when selecting an option', async () => {
       const onChange = spy();
 

@@ -74,7 +74,14 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
    * The size attribute of the input element.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/size
    */
-  @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
+  @property({ type: Number, attribute: 'input-size', reflect: true })
+  set inputSize(size: number) {
+    this.input.size = size;
+  }
+
+  get inputSize() {
+    return this.input.size;
+  }
 
   /** This will validate the value of the input using the given pattern. */
   @property() pattern?: string;

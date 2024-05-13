@@ -147,6 +147,11 @@ describe('sl-text-field', () => {
       expect(input).to.have.attribute('minlength', '3');
     });
 
+    it('should have an input size', () => {
+      // 20 is the default that browsers use
+      expect(el.inputSize).to.equal(20);
+    });
+
     it('should focus the input when focusing the element', () => {
       el.focus();
 

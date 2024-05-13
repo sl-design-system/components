@@ -99,6 +99,17 @@ describe('sl-checkbox-group', () => {
     expect(el.touched).not.to.be.true;
   });
 
+  it('should emit an sl-update-state event after clicking the checkbox', async () => {
+    const onUpdateState = spy();
+
+    el.addEventListener('sl-update-state', onUpdateState);
+
+    el.querySelector('sl-checkbox')?.click();
+    await new Promise(resolve => setTimeout(resolve));
+
+    expect(onUpdateState).to.have.been.calledTwice;
+  });
+
   it('should be touched after the checkbox loses focus', () => {
     const checkbox = el.querySelector('sl-checkbox');
 
@@ -106,6 +117,18 @@ describe('sl-checkbox-group', () => {
     checkbox?.blur();
 
     expect(el.touched).to.be.true;
+  });
+
+  it('should emit an sl-update-state event after the checkbox loses focus', () => {
+    const checkbox = el.querySelector('sl-checkbox'),
+      onUpdateState = spy();
+
+    el.addEventListener('sl-update-state', onUpdateState);
+
+    checkbox?.focus();
+    checkbox?.blur();
+
+    expect(onUpdateState).to.have.been.calledTwice;
   });
 
   it('should focus the first checkbox after calling focus()', () => {

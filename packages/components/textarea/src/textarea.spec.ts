@@ -170,7 +170,51 @@ describe('sl-textarea', () => {
       expect(el).to.have.attribute('resize', 'auto');
     });
 
-    it('should focus the input when focusing the element', () => {
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after typing in the input', async () => {
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after typing in the input', async () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should be touched after textarea loses focus', () => {
+      textarea.focus();
+      textarea.blur();
+
+      expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after losing focus', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      textarea.focus();
+      textarea.blur();
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should focus the textarea when focusing the element', () => {
       el.focus();
 
       expect(document.activeElement).to.equal(textarea);

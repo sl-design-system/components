@@ -1,5 +1,15 @@
 # @sl-design-system/message-dialog
 
+## 0.0.10
+
+### Patch Changes
+
+- [#1243](https://github.com/sl-design-system/components/pull/1243) [`6dbe047`](https://github.com/sl-design-system/components/commit/6dbe047d690a069a16c1d96172accce6fa2980cb) - Fix missing `d.ts` files
+
+- Updated dependencies [[`68b6404`](https://github.com/sl-design-system/components/commit/68b6404bc5574b88daae711a2eb535c2572d23b1)]:
+  - @sl-design-system/dialog@0.0.17
+  - @sl-design-system/button@0.0.28
+
 ## 0.0.9
 
 ### Patch Changes

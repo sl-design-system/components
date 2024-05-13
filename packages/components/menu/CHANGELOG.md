@@ -1,5 +1,15 @@
 # @sl-design-system/menu
 
+## 0.0.9
+
+### Patch Changes
+
+- [#1243](https://github.com/sl-design-system/components/pull/1243) [`6dbe047`](https://github.com/sl-design-system/components/commit/6dbe047d690a069a16c1d96172accce6fa2980cb) - Fix missing `d.ts` files
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/shared@0.2.11
+  - @sl-design-system/button@0.0.28
+
 ## 0.0.8
 
 ### Patch Changes

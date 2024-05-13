@@ -1,5 +1,11 @@
 # @sl-design-system/button-bar
 
+## 0.0.7
+
+### Patch Changes
+
+- [#1170](https://github.com/sl-design-system/components/pull/1170) [`39c22ca`](https://github.com/sl-design-system/components/commit/39c22cad76661ad4b1f3a8f4bc56c576c36a94be) - Added button bar component
+
 ## 0.0.6
 
 ### Patch Changes

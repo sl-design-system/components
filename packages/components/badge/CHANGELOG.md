@@ -1,5 +1,11 @@
 # @sl-design-system/badge
 
+## 0.0.6
+
+### Patch Changes
+
+- [#1243](https://github.com/sl-design-system/components/pull/1243) [`6dbe047`](https://github.com/sl-design-system/components/commit/6dbe047d690a069a16c1d96172accce6fa2980cb) - Fix missing `d.ts` files
+
 ## 0.0.5
 
 ### Patch Changes

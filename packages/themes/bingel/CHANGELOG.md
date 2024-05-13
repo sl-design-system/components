@@ -1,5 +1,13 @@
 # @sanomalearning/slds-bingel
 
+## 0.1.7
+
+### Patch Changes
+
+- [#1215](https://github.com/sl-design-system/components/pull/1215) [`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d) - Use circle-exclamation icon for form validation messages instead of triangle.
+
+- [#1242](https://github.com/sl-design-system/components/pull/1242) [`ab122ec`](https://github.com/sl-design-system/components/commit/ab122ec672a515ae2ca7dce88c7344c1b209d538) - Fix missing `calc()` functions in theme parts.
+
 ## 0.1.6
 
 ### Patch Changes

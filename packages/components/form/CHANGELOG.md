@@ -1,5 +1,18 @@
 # @sl-design-system/form
 
+## 0.0.15
+
+### Patch Changes
+
+- [#1215](https://github.com/sl-design-system/components/pull/1215) [`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d) - Remove inline invalid icon and just have the form field display it, like the other form components.
+
+- [#1210](https://github.com/sl-design-system/components/pull/1210) [`c3c9de6`](https://github.com/sl-design-system/components/commit/c3c9de6590f5abd1d8010186df127a665ee303b5) - Convert form events to `CustomEvent`s
+
+- [#1215](https://github.com/sl-design-system/components/pull/1215) [`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d) - Move the hint above the form control, so you can have both hint and validation error showing at the same time.
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/shared@0.2.11
+
 ## 0.0.14
 
 ### Patch Changes

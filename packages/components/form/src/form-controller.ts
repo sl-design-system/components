@@ -91,6 +91,11 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
    * Emit the event in the next frame, so the form controls have to time to update.
    */
   #emitUpdateEvent(): void {
-    requestAnimationFrame(() => this.dispatchEvent(new Event('sl-update')));
+    requestAnimationFrame(() => {
+      // Abort if the form has been disconnected
+      if (this.#form?.parentElement) {
+        this.dispatchEvent(new Event('sl-update'));
+      }
+    });
   }
 }

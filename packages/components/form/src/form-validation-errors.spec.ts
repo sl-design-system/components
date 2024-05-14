@@ -2,24 +2,10 @@ import { expect, fixture } from '@open-wc/testing';
 import '@sl-design-system/text-field/register.js';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { query } from 'lit/decorators.js';
+import { spy, stub } from 'sinon';
 import '../register.js';
 import { FormController } from './form-controller.js';
 import { type FormValidationErrors } from './form-validation-errors.js';
-
-class TestComponent extends LitElement {
-  @query('sl-form-validation-errors') errors!: FormValidationErrors;
-
-  form = new FormController(this);
-
-  override render(): TemplateResult {
-    return html`
-      <sl-form>
-        <sl-form-validation-errors .controller=${this.form}></sl-form-validation-errors>
-        <sl-text-field name="foo" aria-label="Foo"></sl-text-field>
-      </sl-form>
-    `;
-  }
-}
 
 describe('sl-form-validation-errors', () => {
   describe('defaults', () => {
@@ -46,6 +32,28 @@ describe('sl-form-validation-errors', () => {
   });
 
   describe('with invalid controls', () => {
+    class TestComponent extends LitElement {
+      @query('sl-form-validation-errors') errors!: FormValidationErrors;
+
+      form = new FormController(this);
+
+      override render(): TemplateResult {
+        return html`
+          <sl-form>
+            <sl-form-validation-errors .controller=${this.form}></sl-form-validation-errors>
+
+            <sl-form-field label="Foo">
+              <sl-text-field name="foo" required></sl-text-field>
+            </sl-form-field>
+
+            <sl-form-field label="Bar">
+              <sl-text-field name="bar" required></sl-text-field>
+            </sl-form-field>
+          </sl-form>
+        `;
+      }
+    }
+
     let el: TestComponent;
 
     beforeEach(async () => {
@@ -56,13 +64,48 @@ describe('sl-form-validation-errors', () => {
       }
 
       el = await fixture(html`<test-component></test-component>`);
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      stub(el.form, 'invalid').get(() => true);
+      stub(el.form, 'showValidity').get(() => true);
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      el.form.dispatchEvent(new Event('sl-update'));
+
+      // Give all components time to update/render
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
-    it('should not be displayed', () => {
-      expect(el.errors).to.exist;
+    it('should be displayed if invalid and validity is shown', () => {
+      expect(el.errors).to.be.displayed;
+    });
 
-      // FIXME: expect(el.errors).not.to.be.displayed; does not work
-      expect(getComputedStyle(el.errors).display).to.equal('none');
+    it('should have a danger variant when invalid', () => {
+      expect(el.errors.variant).to.equal('danger');
+      expect(el.errors.renderRoot.querySelector('sl-inline-message')).to.have.attribute('variant', 'danger');
+    });
+
+    it('should indicate that there are fields with errors', () => {
+      const inlineMessage = el.errors.renderRoot.querySelector('sl-inline-message');
+
+      expect(inlineMessage).to.contain.text('The following fields have errors:');
+    });
+
+    it('should link to the invalid controls', () => {
+      const links = Array.from(el.errors.renderRoot.querySelectorAll<HTMLAnchorElement>('li a'));
+
+      expect(links).to.have.length(2);
+      expect(links.map(l => l.hash)).to.deep.equal(['#sl-form-field-control-6', '#sl-form-field-control-7']);
+      expect(links.map(l => l.textContent?.trim())).to.deep.equal(['Foo', 'Bar']);
+    });
+
+    it('should focus the control when the link is clicked', () => {
+      const textField = el.renderRoot.querySelector('sl-text-field')!,
+        focusSpy = spy(textField, 'focus');
+
+      el.errors.renderRoot.querySelector<HTMLAnchorElement>('li a')?.click();
+
+      expect(focusSpy).to.have.been.called;
     });
   });
 });

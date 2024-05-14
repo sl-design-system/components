@@ -108,4 +108,67 @@ describe('sl-form-validation-errors', () => {
       expect(focusSpy).to.have.been.called;
     });
   });
+
+  describe('with valid controls', () => {
+    class TestComponent extends LitElement {
+      @query('sl-form-validation-errors') errors!: FormValidationErrors;
+
+      form = new FormController(this);
+
+      override render(): TemplateResult {
+        return html`
+          <sl-form>
+            <sl-form-validation-errors .controller=${this.form}></sl-form-validation-errors>
+
+            <sl-form-field label="Foo">
+              <sl-text-field name="foo"></sl-text-field>
+            </sl-form-field>
+
+            <sl-form-field label="Bar">
+              <sl-text-field name="bar"></sl-text-field>
+            </sl-form-field>
+          </sl-form>
+        `;
+      }
+    }
+
+    let el: TestComponent;
+
+    beforeEach(async () => {
+      try {
+        customElements.define('test-component', TestComponent);
+      } catch {
+        /* empty */
+      }
+
+      el = await fixture(html`<test-component></test-component>`);
+
+      // Simulate the form being invalid and then valid
+      el.errors.validity = 'invalid';
+      await el.errors.updateComplete;
+
+      stub(el.form, 'invalid').get(() => false);
+      stub(el.form, 'showValidity').get(() => true);
+
+      el.form.dispatchEvent(new Event('sl-update'));
+
+      // Give all components time to update/render
+      await new Promise(resolve => setTimeout(resolve, 100));
+    });
+
+    it('should be displayed if valid and validity is shown', () => {
+      expect(el.errors).to.be.displayed;
+    });
+
+    it('should have a success variant when invalid', () => {
+      expect(el.errors.variant).to.equal('success');
+      expect(el.errors.renderRoot.querySelector('sl-inline-message')).to.have.attribute('variant', 'success');
+    });
+
+    it('should indicate that all fields with valid', () => {
+      const inlineMessage = el.errors.renderRoot.querySelector('sl-inline-message');
+
+      expect(inlineMessage).to.contain.text('All fields are valid.');
+    });
+  });
 });

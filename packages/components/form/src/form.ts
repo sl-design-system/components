@@ -1,7 +1,7 @@
 import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
-import { type FormField, type SlFormFieldEvent } from './form-field.js';
+import { FormField, type SlFormFieldEvent } from './form-field.js';
 import styles from './form.scss.js';
 
 declare global {
@@ -116,6 +116,16 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onSlotchange(): void {
     this.fields = this.fields.filter(f => !!f.parentElement);
+
+    this.controls = this.controls.filter(c => {
+      if (c.parentElement && c.parentElement instanceof FormField) {
+        // If the control is a child of a form field, only include it if the field is still in the form
+        return this.fields.includes(c.parentElement);
+      } else {
+        return !!c.parentElement;
+      }
+    });
+
     this.#updateMarkedFields();
   }
 

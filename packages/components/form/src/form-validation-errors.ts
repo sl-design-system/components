@@ -54,6 +54,12 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
   /** The variant of the inline message. */
   @state() variant?: 'danger' | 'success';
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.#onUpdate();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 

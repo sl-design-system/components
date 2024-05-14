@@ -74,14 +74,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
    * The size attribute of the input element.
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/size
    */
-  @property({ type: Number, attribute: 'input-size', reflect: true })
-  set inputSize(size: number) {
-    this.input.size = size;
-  }
-
-  get inputSize() {
-    return this.input.size;
-  }
+  @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
 
   /** This will validate the value of the input using the given pattern. */
   @property() pattern?: string;
@@ -132,6 +125,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     const props: Array<keyof TextField> = [
       'autocomplete',
       'disabled',
+      'inputSize',
       'maxLength',
       'minLength',
       'pattern',
@@ -231,6 +225,12 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {
       input.type = this.type;
+    }
+
+    if (typeof this.inputSize === 'number') {
+      input.setAttribute('size', this.inputSize.toString());
+    } else {
+      input.removeAttribute('size');
     }
 
     if (typeof this.maxLength === 'number') {

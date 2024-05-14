@@ -147,9 +147,8 @@ describe('sl-text-field', () => {
       expect(input).to.have.attribute('minlength', '3');
     });
 
-    it('should have an input size', () => {
-      // 20 is the default that browsers use
-      expect(el.inputSize).to.equal(20);
+    it('should not have a custom input size', () => {
+      expect(el.inputSize).to.be.undefined;
     });
 
     it('should have a custom input size when set', async () => {

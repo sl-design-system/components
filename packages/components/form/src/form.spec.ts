@@ -92,6 +92,58 @@ describe('sl-form', () => {
 
       expect(labels).to.eql(['', '(required)']);
     });
+
+    it('should have a value', () => {
+      expect(el.value).to.deep.equal({ foo: 'lorem', bar: '' });
+    });
+
+    it('should update the value when a field changes', async () => {
+      el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
+      await sendKeys({ type: 'asdf' });
+
+      expect(el.value).to.deep.equal({ foo: 'lorem', bar: 'asdf' });
+    });
+
+    it('should be pristine', () => {
+      expect(el.dirty).to.be.false;
+      expect(el.pristine).to.be.true;
+    });
+
+    it('should be dirty after modifying a field', async () => {
+      el.querySelector<HTMLElement>('sl-text-field[name="foo"]')?.focus();
+      await sendKeys({ type: 'asdf' });
+
+      expect(el.dirty).to.be.true;
+      expect(el.pristine).to.be.false;
+    });
+
+    it('should be invalid', () => {
+      expect(el.invalid).to.be.true;
+      expect(el.valid).to.be.false;
+    });
+
+    it('should be valid after modifying a field', async () => {
+      el.querySelector<HTMLElement>('sl-text-field[name="bar"]')?.focus();
+      await sendKeys({ type: 'asdf' });
+
+      expect(el.invalid).to.be.false;
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).to.be.false;
+      expect(el.untouched).to.be.true;
+    });
+
+    it('should be touched after focusing a field', () => {
+      const input = el.querySelector<HTMLElement>('sl-text-field[name="bar"] input');
+
+      input?.focus();
+      input?.blur();
+
+      expect(el.touched).to.be.true;
+      expect(el.untouched).to.be.false;
+    });
   });
 
   describe('mark optional fields', () => {

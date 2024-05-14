@@ -4032,15 +4032,15 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.warning.700}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.warning.600}",
+          "value": "{color.palette.warning.base}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.warning.600}",
+          "value": "{color.palette.black.base}",
           "type": "color"
         }
       },

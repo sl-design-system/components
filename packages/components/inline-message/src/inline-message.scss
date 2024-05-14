@@ -8,7 +8,9 @@ $variants: info, success, warning, danger;
       var(--sl-size-button-icon-container-icon-only-lg)
   );
   --_header-block-size: var(--sl-text-typeset-line-height-lg);
+  --_header-line-height: var(--sl-text-typeset-line-height-lg);
   --_header-padding-block-start: calc((var(--_button-size) - var(--_header-block-size)) / 2);
+  --_header-text-padding-block-start: calc((var(--_button-size) - var(--_header-line-height)) / 2);
   --_content-gap: var(--sl-space-inline-message-content-gap);
   --_description-font: var(--sl-text-body-md-normal);
   --_gap: var(--sl-space-inline-message-gap);
@@ -30,18 +32,24 @@ $variants: info, success, warning, danger;
 }
 
 :host([no-title]) {
+  --_header-line-height: var(--sl-text-typeset-line-height-md);
+
   [part='title'] {
     display: none;
   }
 
   [part='content'] {
     grid-area: 1 / 2;
-    padding-block: var(--_header-padding-block-start) 0;
+    padding-block: var(--_header-text-padding-block-start) 0;
   }
 }
 
 :host([indismissible][no-title]) [part='content'] {
   padding-block-start: calc((1lh - var(--_padding-block-start)) / 2);
+}
+
+:host([no-title][wrap-action]) [part='content'] {
+  padding-block-end: var(--_padding-block);
 }
 
 :host([wrap-action]) [part='action'] {
@@ -111,7 +119,7 @@ $variants: info, success, warning, danger;
 [part='title'] {
   font: var(--_title-font);
   grid-area: 1 / 2;
-  padding-block-start: var(--_header-padding-block-start);
+  padding-block-start: var(--_header-text-padding-block-start);
 
   slot {
     display: block;

@@ -158,23 +158,12 @@ export const All: StoryObj = {
     ${variants.map(
       variant => html`
         <sl-inline-message variant=${variant}>
-          <span slot="title">${variant} inline message title</span>
-          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
-          The main content of the message
-        </sl-inline-message>
-        <sl-inline-message variant=${variant}>
-          <span slot="title"
-            >${variant} inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu culpa
-            irure.</span
-          >
+          <span slot="title">
+            ${variant} inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
+          </span>
           <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
           Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non
           consequat eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
-        </sl-inline-message>
-        <sl-inline-message indismissible variant=${variant}>
-          <span slot="title">${variant} inline message title</span>
-          <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>
-          The main content of the message
         </sl-inline-message>
         <sl-inline-message variant=${variant}>
           <sl-button fill="outline" size="sm" slot="action" .variant=${variant}>Action</sl-button>

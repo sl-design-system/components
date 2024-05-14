@@ -1,5 +1,5 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
-import { FormControlMixin } from '@sl-design-system/form';
+import { FormControlMixin, type SlFormControlEvent } from '@sl-design-system/form';
 import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
@@ -130,6 +130,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
         @sl-blur=${this.#stopEvent}
         @sl-change=${this.#stopEvent}
         @sl-focus=${this.#stopEvent}
+        @sl-form-control=${this.#onFormControl}
         @sl-validate=${this.#stopEvent}
       ></slot>
     `;
@@ -158,6 +159,13 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   #onFocusout(): void {
     this.blurEvent.emit();
     this.updateState({ touched: true });
+  }
+
+  #onFormControl(event: SlFormControlEvent): void {
+    // Prevent the event from propagating any further because from the perspective of
+    // sl-form, only this control should be considered, not the slotted sl-checkbox.
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   #onSlotchange(): void {

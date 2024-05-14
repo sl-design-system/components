@@ -81,7 +81,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
         </sl-form-field>
 
         <sl-form-field label="Subscriptions">
-          <sl-checkbox-group name="subscription" required>
+          <sl-checkbox-group name="subscriptions" required>
             <sl-checkbox value="newsletter">Newsletter</sl-checkbox>
             <sl-checkbox value="promotions">Promotions</sl-checkbox>
             <sl-checkbox value="updates">Product updates</sl-checkbox>

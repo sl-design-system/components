@@ -256,9 +256,10 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     }
 
     /** @internal */
-    override connectedCallback(): void {
-      super.connectedCallback();
+    override firstUpdated(changes: PropertyValues<this>): void {
+      super.firstUpdated(changes);
 
+      // Emit the form control event after first render, so any parent components can listen to it
       this.formControlEvent.emit();
     }
 

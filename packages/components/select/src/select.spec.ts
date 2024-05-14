@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
+import { type SlFormControlEvent } from '@sl-design-system/form';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { SelectButton } from './select-button.js';
@@ -429,6 +430,34 @@ describe('sl-select', () => {
 
         expect(onChange).to.have.been.calledOnce;
       });
+    });
+  });
+
+  describe('form integration', () => {
+    let el: FormIntegrationTestComponent;
+
+    class FormIntegrationTestComponent extends LitElement {
+      onFormControl: (event: SlFormControlEvent) => void = spy();
+
+      override render(): TemplateResult {
+        return html`
+          <sl-select @sl-form-control=${this.onFormControl}>
+            <sl-select-option>Option 1</sl-select-option>
+            <sl-select-option>Option 2</sl-select-option>
+            <sl-select-option>Option 3</sl-select-option>
+          </sl-select>
+        `;
+      }
+    }
+
+    beforeEach(async () => {
+      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+
+      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+    });
+
+    it('should emit an sl-form-control event after first render', () => {
+      expect(el.onFormControl).to.have.been.calledOnce;
     });
   });
 });

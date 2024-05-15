@@ -2,6 +2,7 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
+import { CompositeForm } from '@sl-design-system/lit-examples';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
@@ -15,7 +16,8 @@ import { type Form } from './form.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Form/Form'
+  title: 'Form/Form',
+  tags: ['stable']
 };
 
 export const Basic: Story = {
@@ -125,6 +127,18 @@ export const Complex: Story = {
         </div>
       </sl-form>
     `;
+  }
+};
+
+export const CustomComponent: Story = {
+  render: () => {
+    try {
+      customElements.define('example-composite-form', CompositeForm);
+    } catch {
+      /* empty */
+    }
+
+    return html`<example-composite-form></example-composite-form>`;
   }
 };
 

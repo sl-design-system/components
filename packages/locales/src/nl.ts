@@ -11,6 +11,7 @@ export const templates = {
   s2ceb11be2290bb1b: 'Annuleren',
   s39bba60b440fcf00: 'verplicht',
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',
+  s4f6434b4c6326f21: 'Alle velden zijn correct.',
   s58bfb494feb8eb02: str`${0} geselecteerd`,
   s5e10d00d437e2e21: 'Leeg',
   s5e8250fb85d64c23: 'Sluiten',
@@ -28,6 +29,7 @@ export const templates = {
   sca81470958a97fc4: 'Filter op',
   sd0b6082239185272: 'Selecteer alles',
   sd244b51f6d7de8e2: 'Voer een waarde in volgens het gevraagde patroon.',
+  sd711c88b851db6c9: 'De volgende velden zijn incorrect:',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
   sf1ec4acb8d744ed9: 'Mededeling',
   sf677da98fa27f9b6: 'Meer links'

@@ -30,7 +30,8 @@ type Story = StoryObj<Props>;
 const sizes: TextFieldSize[] = ['md', 'lg'];
 
 export default {
-  title: 'Components/Text field',
+  title: 'Form/Text field',
+  tags: ['stable'],
   args: {
     disabled: false,
     label: 'Label',

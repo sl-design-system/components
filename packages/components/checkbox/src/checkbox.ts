@@ -157,6 +157,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
     this.checked = !this.checked;
     this.changeEvent.emit(this.formValue);
+    this.updateState({ dirty: true });
   }
 
   #onFocusin(): void {
@@ -165,6 +166,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
   }
 
   #onKeydown(event: KeyboardEvent): void {

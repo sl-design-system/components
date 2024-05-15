@@ -23,6 +23,7 @@ Icon.register(faPinata);
 
 export default {
   title: 'Components/Button',
+  tags: ['stable'],
   args: {
     text: 'Button',
     icon: 'none',

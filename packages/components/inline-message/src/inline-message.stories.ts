@@ -22,7 +22,8 @@ const onClose = (): void => {
 };
 
 export default {
-  title: 'Components/Inline message'
+  title: 'Components/Inline message',
+  tags: ['preview']
 };
 
 export const API: StoryObj = {

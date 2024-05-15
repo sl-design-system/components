@@ -58,6 +58,10 @@ node_modules/
 # Dist files & folders
 custom-elements.json
 dist
+examples/**/*.d.ts
+examples/**/*.d.ts.map
+examples/**/*.js
+examples/**/*.js.map
 packages/checklist/**/*.d.ts
 packages/checklist/**/*.d.ts.map
 packages/checklist/**/*.js

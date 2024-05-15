@@ -71,6 +71,46 @@ describe('sl-checkbox', () => {
       expect(el.internals.ariaRequired).to.equal('true');
     });
 
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after clicking the checkbox', () => {
+      el.click();
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after clicking the checkbox', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+      el.click();
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should be touched after losing focus', () => {
+      el.focus();
+      el.blur();
+
+      expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after losing focus', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+      el.focus();
+      el.blur();
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
     it('should toggle the state to checked when clicking the element', async () => {
       el.click();
       await el.updateComplete;

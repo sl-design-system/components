@@ -29,6 +29,7 @@ const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 
 export default {
   title: 'Components/Avatar',
+  tags: ['preview'],
   args: {
     displayName: 'Rose Nylund',
     imageOnly: false,

@@ -11,7 +11,7 @@ import { type GridViewModelGroup } from '../view-model.js';
 type Story = StoryObj;
 
 export default {
-  title: 'In progress/Grid/Grouping'
+  title: 'Layout/Grid/Grouping'
 };
 
 export const Basic: Story = {

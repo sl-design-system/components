@@ -2,6 +2,37 @@ import { addons, type API, type LeafEntry, type HashEntry } from '@storybook/man
 import { styled } from '@storybook/theming';
 import { Fragment, createElement } from 'react';
 
+const Status = styled.span(({ theme }) => ({
+  borderRadius: 2,
+  color: theme.color.inverseText,
+  display: 'inline-flex',
+  fontSize: 14,
+  lineHeight: '20px',
+  marginInlineStart: 'auto',
+  paddingInline: 6,
+  textTransform: 'capitalize'
+}));
+
+export const Deprecated = styled(Status)(({ theme }) => ({
+  background: `color-mix(in srgb, ${theme.color.negative}, transparent 80%)`,
+  color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.negative})`
+}));
+
+export const Draft = styled(Status)(({ theme }) => ({
+  background: `color-mix(in srgb, ${theme.color.darker}, transparent 80%)`,
+  color: theme.color.darker
+}));
+
+export const Preview = styled(Status)(({ theme }) => ({
+  background: `color-mix(in srgb, ${theme.color.secondary}, transparent 80%)`,
+  color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.secondary})`
+}));
+
+export const Stable = styled(Status)(({ theme }) => ({
+  background: `color-mix(in srgb, ${theme.color.positive}, transparent 80%)`,
+  color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.positive})`
+}));
+
 const SYSTEM_TAGS = ['dev', 'autodocs', 'test'];
 
 const findComponentTags = (stories: LeafEntry[]) => {
@@ -26,35 +57,6 @@ addons.setConfig({
 
       const tags = findComponentTags(item.children.map((childId) => api.getData(childId)));
       if (tags.length) {
-        const Status = styled.span(({ theme }) => ({
-          borderRadius: 2,
-          color: theme.color.inverseText,
-          display: 'inline-flex',
-          marginInlineStart: 'auto',
-          paddingInline: 6,
-          textTransform: 'capitalize'
-        }));
-
-        const Deprecated = styled(Status)(({ theme }) => ({
-          background: `color-mix(in srgb, ${theme.color.negative}, transparent 80%)`,
-          color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.negative})`
-        }));
-
-        const Draft = styled(Status)(({ theme }) => ({
-          background: `color-mix(in srgb, ${theme.color.darker}, transparent 80%)`,
-          color: theme.color.darker
-        }));
-
-        const Preview = styled(Status)(({ theme }) => ({
-          background: `color-mix(in srgb, ${theme.color.secondary}, transparent 80%)`,
-          color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.secondary})`
-        }));
-
-        const Stable = styled(Status)(({ theme }) => ({
-          background: `color-mix(in srgb, ${theme.color.positive}, transparent 80%)`,
-          color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.positive})`
-        }));
-
         const tag = tags[0];
 
         switch (tag) {

@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
+import { type SlFormControlEvent } from '@sl-design-system/form';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { type TextField } from './text-field.js';
@@ -145,6 +146,62 @@ describe('sl-text-field', () => {
       await el.updateComplete;
 
       expect(input).to.have.attribute('minlength', '3');
+    });
+
+    it('should not have a custom input size', () => {
+      expect(el.inputSize).to.be.undefined;
+    });
+
+    it('should have a custom input size when set', async () => {
+      el.inputSize = 10;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('input-size', '10');
+      expect(input).to.have.attribute('size', '10');
+    });
+
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after typing in the input', async () => {
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after typing in the input', async () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should be touched after input loses focus', () => {
+      input.focus();
+      input.blur();
+
+      expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after losing focus', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      input.focus();
+      input.blur();
+
+      expect(onUpdateState).to.have.been.calledOnce;
     });
 
     it('should focus the input when focusing the element', () => {
@@ -336,6 +393,28 @@ describe('sl-text-field', () => {
 
       expect(prefix).to.exist;
       expect(prefix).to.have.trimmed.text('suffix example');
+    });
+  });
+
+  describe('form integration', () => {
+    let el: FormIntegrationTestComponent;
+
+    class FormIntegrationTestComponent extends LitElement {
+      onFormControl: (event: SlFormControlEvent) => void = spy();
+
+      override render(): TemplateResult {
+        return html`<sl-text-field @sl-form-control=${this.onFormControl}></sl-text-field>`;
+      }
+    }
+
+    beforeEach(async () => {
+      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+
+      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+    });
+
+    it('should emit an sl-form-control event after first render', () => {
+      expect(el.onFormControl).to.have.been.calledOnce;
     });
   });
 });

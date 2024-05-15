@@ -5,6 +5,8 @@ import { property } from 'lit/decorators.js';
 
 declare global {
   interface GlobalEventHandlersEventMap {
+    'sl-form-control': SlFormControlEvent;
+    'sl-update-state': SlUpdateStateEvent;
     'sl-update-validity': SlUpdateValidityEvent;
     'sl-validate': SlValidateEvent;
   }
@@ -34,13 +36,17 @@ export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
 
 export type FormControlValidityState = 'valid' | 'invalid' | 'pending';
 
+export type SlFormControlEvent = CustomEvent<void> & { target: HTMLElement & FormControl };
+
+export type SlUpdateStateEvent = CustomEvent<void> & { target: HTMLElement & FormControl };
+
 export type SlUpdateValidityEvent = CustomEvent<{
   valid: boolean;
   validationMessage: string;
   showValidity: FormControlShowValidity;
-}>;
+}> & { target: HTMLElement & FormControl };
 
-export type SlValidateEvent = CustomEvent<void>;
+export type SlValidateEvent = CustomEvent<void> & { target: HTMLElement & FormControl };
 
 export interface FormControl {
   readonly form: HTMLFormElement | null;
@@ -55,13 +61,16 @@ export interface FormControl {
   readonly validityState: FormControlValidityState;
 
   customValidity?: string;
+  dirty?: boolean;
   disabled?: boolean;
   formValue: unknown;
   name?: string;
   showValid?: boolean;
+  touched?: boolean;
   value?: unknown;
 
   reportValidity(): boolean;
+  updateState(options: { dirty?: boolean; touched?: boolean }): void;
   updateValidity(): void;
 
   getLocalizedValidationMessage(): string;
@@ -83,7 +92,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     /**
      * This is necessary so we can check if an element implements this Mixin, since the
      * `FormControl` class isn't a generic class we can use in an `instanceof` comparison.
-     * @ignore
+     * @internal
      */
     static readonly extendsFormControlMixin = true;
 
@@ -108,17 +117,26 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
     };
 
-    /** @ignore Whether the form control should report the validity of the control. */
+    /** A control is dirty if the user has changed the value in the UI. */
+    dirty = false;
+
+    /** @internal Whether the form control should report the validity of the control. */
     report?: boolean;
 
     /** Optional property to indicate the valid state should be shown. */
     showValid = false;
+
+    /** A control is marked touched once the user has triggered a blur event on it. */
+    touched = false;
 
     /** The value for this form control. */
     value?: unknown;
 
     /** The error message to display when the control is invalid. */
     @property({ attribute: 'custom-validity' }) customValidity?: string;
+
+    /** @internal Emits when the form control is added to the DOM. */
+    @event({ name: 'sl-form-control' }) formControlEvent!: EventEmitter<SlFormControlEvent>;
 
     /** The name of the form control. */
     @property({ reflect: true }) name?: string;
@@ -128,6 +146,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @type {'valid' | 'invalid' | undefined }
      */
     @property({ attribute: 'show-validity', reflect: true }) showValidity: FormControlShowValidity;
+
+    /** @internal Emits when the UI state (dirty, pristine, touched or untouched) of the form control changes. */
+    @event({ name: 'sl-update-state' }) updateStateEvent!: EventEmitter<SlUpdateStateEvent>;
 
     /** @internal Emits when the validity of the form control changes. */
     @event({ name: 'sl-update-validity' }) updateValidityEvent!: EventEmitter<SlUpdateValidityEvent>;
@@ -145,7 +166,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       this.value = value;
     }
 
-    /** @ignore For internal use only */
+    /** @internal */
     get formControlElement(): FormControlElement {
       if (this.#formControlElement) {
         return this.#formControlElement;
@@ -226,14 +247,23 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
     }
 
-    /** Returns the current validity state.
+    /**
+     * Returns the current validity state.
      * @type { 'valid' | 'invalid' | 'pending'}
      */
     get validityState(): FormControlValidityState {
       return this.#customValidityPromise ? 'pending' : this.valid ? 'valid' : 'invalid';
     }
 
-    /** @ignore */
+    /** @internal */
+    override firstUpdated(changes: PropertyValues<this>): void {
+      super.firstUpdated(changes);
+
+      // Emit the form control event after first render, so any parent components can listen to it
+      this.formControlEvent.emit();
+    }
+
+    /** @internal */
     override disconnectedCallback(): void {
       this.#formControlElement?.removeEventListener('invalid', this.#onInvalid);
       this.#formControlElement = undefined;
@@ -241,7 +271,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       super.disconnectedCallback();
     }
 
-    /** @ignore */
+    /** @internal */
     override willUpdate(changes: PropertyValues<this>): void {
       super.willUpdate(changes);
 
@@ -250,7 +280,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
     }
 
-    /** @ignore */
+    /** @internal */
     override updated(changes: PropertyValues<this>): void {
       super.updated(changes);
 
@@ -290,13 +320,36 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
     }
 
     /**
+     * Updates the state of the form control. It also emits an `sl-update-state` event to
+     * signal that the state has changed.
+     * @internal
+     */
+    updateState({ dirty, touched }: { dirty?: boolean; touched?: boolean }): void {
+      let emitEvent = false;
+
+      if (dirty !== undefined) {
+        emitEvent = this.dirty !== dirty;
+        this.dirty = dirty;
+      }
+
+      if (touched !== undefined) {
+        emitEvent = this.touched !== touched;
+        this.touched = touched;
+      }
+
+      if (emitEvent) {
+        this.updateStateEvent.emit();
+      }
+    }
+
+    /**
      * Updates the validity of the form control. This does not *change* the `validity` of the
      * form control, it just updates the display of any validation message. Changing the validity
      * is up to the form control itself.
      *
      * NOTE: This method updates the `showValidity` property and therefore should be called from
      * `willUpdate`, never from `updated` or you will trigger a new lifecycle update.
-     * @ignore
+     * @internal
      */
     updateValidity(emitValidateEvent = true): void {
       if (emitValidateEvent) {
@@ -391,7 +444,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * a FACE), or a child of it. Otherwise we can't link the validation message to the form control
      * element, which is necessary for accessibility.
      * @param element The form control element.
-     * @ignore
+     * @internal
      */
     setFormControlElement(element: FormControlElement): void {
       this.#formControlElement = element;

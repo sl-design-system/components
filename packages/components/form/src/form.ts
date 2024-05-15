@@ -1,6 +1,7 @@
 import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
-import { type FormField, type SlFormFieldEvent } from './form-field.js';
+import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
+import { FormField, type SlFormFieldEvent } from './form-field.js';
 import styles from './form.scss.js';
 
 declare global {
@@ -25,29 +26,58 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** Events controller. */
   #events = new EventsController(this, {
+    'sl-form-control': this.#onFormControl,
     'sl-form-field': this.#onFormField
   });
 
   #showValidity = false;
 
+  /** The controls in the form; not necessarily the same amount as the fields. */
+  controls: Array<HTMLElement & FormControl> = [];
+
   /** The fields in the form. */
   fields: FormField[] = [];
+
+  /** A form is marked dirty when the user has modified a form control. */
+  get dirty(): boolean {
+    return this.controls.map(c => c.dirty).some(Boolean);
+  }
+
+  /** Whether the form is invalid. */
+  get invalid(): boolean {
+    return !this.valid;
+  }
+
+  /** A form is marked pristine as long as the user hasn't modified anything in the form. */
+  get pristine(): boolean {
+    return !this.dirty;
+  }
 
   /** Indicates whether to show validity state. */
   get showValidity(): boolean {
     return this.#showValidity;
   }
 
-  /** Whether all the fields in the form are valid. */
+  /** A form is marked touched once the user has triggered a blur event on a form control. */
+  get touched(): boolean {
+    return this.controls.map(c => c.touched).some(Boolean);
+  }
+
+  /** Whether the form is valid. */
   get valid(): boolean {
-    return this.fields.map(f => f.control?.valid).every(Boolean);
+    return this.controls.map(c => c.valid).every(Boolean);
+  }
+
+  /** A form is marked untouched as long as the user hasn't trigger a blur event on a form control. */
+  get untouched(): boolean {
+    return !this.touched;
   }
 
   /** The aggregated value of all form fields. */
   get value(): T {
     return Object.fromEntries(
-      this.fields
-        .map(f => (f.control ? [f.control.name, f.control.formValue] : null))
+      this.controls
+        .map(control => [control.name, control.formValue])
         .filter(
           (entry): entry is [keyof T, T[keyof T]] =>
             entry != null && !!entry[0] && entry[1] != null && entry[1] !== undefined
@@ -59,11 +89,18 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
-  /** Calls `reportValidity()` on all form fields. */
+  /** Calls `reportValidity()` on all form controls. */
   reportValidity(): boolean {
     this.#showValidity = true;
 
-    return this.fields.map(f => f.control?.reportValidity()).every(Boolean);
+    return this.controls.map(c => c.reportValidity()).every(Boolean);
+  }
+
+  #onFormControl(event: SlFormControlEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.controls = [...this.controls, event.target];
   }
 
   async #onFormField(event: SlFormFieldEvent): Promise<void> {
@@ -79,6 +116,16 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #onSlotchange(): void {
     this.fields = this.fields.filter(f => !!f.parentElement);
+
+    this.controls = this.controls.filter(c => {
+      if (c.parentElement && c.parentElement instanceof FormField) {
+        // If the control is a child of a form field, only include it if the field is still in the form
+        return this.fields.includes(c.parentElement);
+      } else {
+        return !!c.parentElement;
+      }
+    });
+
     this.#updateMarkedFields();
   }
 

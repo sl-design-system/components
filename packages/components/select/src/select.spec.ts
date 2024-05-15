@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
+import { type SlFormControlEvent } from '@sl-design-system/form';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { SelectButton } from './select-button.js';
@@ -110,6 +111,55 @@ describe('sl-select', () => {
       await el.updateComplete;
 
       expect(el.value).to.equal('1');
+    });
+
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after clicking an option', async () => {
+      el.querySelector<SelectButton>('sl-select-button')?.click();
+      await el.updateComplete;
+
+      el.querySelector('sl-select-option')?.click();
+      await el.updateComplete;
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after clicking an option', async () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      el.querySelector<SelectButton>('sl-select-button')?.click();
+      await el.updateComplete;
+
+      el.querySelector('sl-select-option')?.click();
+      await el.updateComplete;
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should be touched after losing focus', () => {
+      el.focus();
+      el.dispatchEvent(new Event('focusout'));
+
+      expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after losing focus', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+      el.focus();
+      el.dispatchEvent(new Event('focusout'));
+
+      expect(onUpdateState).to.have.been.calledOnce;
     });
 
     it('should emit an sl-change event when selecting an option', async () => {
@@ -380,6 +430,34 @@ describe('sl-select', () => {
 
         expect(onChange).to.have.been.calledOnce;
       });
+    });
+  });
+
+  describe('form integration', () => {
+    let el: FormIntegrationTestComponent;
+
+    class FormIntegrationTestComponent extends LitElement {
+      onFormControl: (event: SlFormControlEvent) => void = spy();
+
+      override render(): TemplateResult {
+        return html`
+          <sl-select @sl-form-control=${this.onFormControl}>
+            <sl-select-option>Option 1</sl-select-option>
+            <sl-select-option>Option 2</sl-select-option>
+            <sl-select-option>Option 3</sl-select-option>
+          </sl-select>
+        `;
+      }
+    }
+
+    beforeEach(async () => {
+      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+
+      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+    });
+
+    it('should emit an sl-form-control event after first render', () => {
+      expect(el.onFormControl).to.have.been.calledOnce;
     });
   });
 });

@@ -4,6 +4,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
+import { FormInDialog } from '@sl-design-system/lit-examples';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
@@ -101,42 +102,6 @@ export const FooterButtons: Story = {
   }
 };
 
-export const Form: Story = {
-  args: {
-    body: html`
-      <sl-form>
-        <sl-form-field label="First name">
-          <sl-text-field autofocus name="firstName" required></sl-text-field>
-        </sl-form-field>
-        <sl-form-field label="Last name">
-          <sl-text-field name="lastName" required></sl-text-field>
-        </sl-form-field>
-        <sl-form-field label="Email">
-          <sl-text-field></sl-text-field>
-        </sl-form-field>
-      </sl-form>
-    `,
-    closeButton: false,
-    footerButtons: () => {
-      const onSave = () => {
-        const form = document.querySelector('sl-form')!;
-
-        if (form.reportValidity()) {
-          document.querySelector('sl-dialog')?.close();
-        } else {
-          console.log('invalid');
-        }
-      };
-
-      return html`
-        <sl-button sl-dialog-close fill="ghost" slot="actions">Cancel</sl-button>
-        <sl-button @click=${onSave} slot="actions" variant="primary">Save</sl-button>
-      `;
-    },
-    title: 'Form'
-  }
-};
-
 export const HeaderButtons: Story = {
   args: {
     headerButtons: () => {
@@ -172,5 +137,24 @@ export const Overflow: Story = {
       'Nisi magna dolor ullamco voluptate irure adipisicing mollit ipsum ipsum irure. Non sunt occaecat mollit cillum pariatur enim ipsum aliquip do ex fugiat.',
     subtitle:
       'Esse exercitation do nisi nostrud sunt ea labore qui id laborum dolor cupidatat consequat excepteur. In aute veniam ullamco esse culpa id voluptate labore irure commodo aliquip amet Lorem. Quis tempor amet ea culpa non sint excepteur irure. Ad ipsum excepteur sunt sunt cillum Lorem. Fugiat consequat est ad qui Lorem Lorem. Ad cupidatat id mollit nostrud velit cillum eiusmod.'
+  }
+};
+
+export const CustomComponent: Story = {
+  render: () => {
+    try {
+      customElements.define('example-form-in-dialog', FormInDialog);
+    } catch {
+      /* empty */
+    }
+
+    const onClick = (event: Event & { target: HTMLElement }) => {
+      (event.target.nextElementSibling as FormInDialog)?.showModal();
+    };
+
+    return html`
+      <sl-button @click=${onClick}>Show Dialog</sl-button>
+      <example-form-in-dialog></example-form-in-dialog>
+    `;
   }
 };

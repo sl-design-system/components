@@ -9,7 +9,7 @@ export type Story = StoryObj<Props>;
 
 export default {
   title: 'Components/Accordion',
-  tags: ['stable'],
+  tags: ['preview'],
   args: {
     single: false
   },

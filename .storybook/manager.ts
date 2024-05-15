@@ -36,19 +36,23 @@ addons.setConfig({
         }));
 
         const Deprecated = styled(Status)(({ theme }) => ({
-          background: theme.color.negative
+          background: `color-mix(in srgb, ${theme.color.negative}, transparent 80%)`,
+          color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.negative})`
         }));
 
         const Draft = styled(Status)(({ theme }) => ({
-          background: theme.color.darker
+          background: `color-mix(in srgb, ${theme.color.darker}, transparent 80%)`,
+          color: theme.color.darker
         }));
 
         const Preview = styled(Status)(({ theme }) => ({
-          background: theme.color.secondary
+          background: `color-mix(in srgb, ${theme.color.secondary}, transparent 80%)`,
+          color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.secondary})`
         }));
 
         const Stable = styled(Status)(({ theme }) => ({
-          background: theme.color.positive
+          background: `color-mix(in srgb, ${theme.color.positive}, transparent 80%)`,
+          color: `color-mix(in srgb, ${theme.color.darker} 70%, ${theme.color.positive})`
         }));
 
         const tag = tags[0];

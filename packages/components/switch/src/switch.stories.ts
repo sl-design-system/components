@@ -17,7 +17,8 @@ type Story = StoryObj<Props>;
 const sizes: SwitchSize[] = ['sm', 'md', 'lg'];
 
 export default {
-  title: 'Components/Switch',
+  title: 'Form/Switch',
+  tags: ['preview'],
   args: {
     checked: false,
     disabled: false,

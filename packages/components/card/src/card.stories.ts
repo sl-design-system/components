@@ -24,7 +24,8 @@ type Story = StoryObj<Props>;
 const orientations = ['horizontal', 'vertical'];
 
 export default {
-  title: 'Components/Card',
+  title: 'Layout/Card',
+  tags: ['stable'],
   args: {
     title: 'Lorem Ipsum',
     bodyText:

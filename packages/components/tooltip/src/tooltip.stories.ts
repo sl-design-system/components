@@ -16,7 +16,8 @@ type Props = Pick<Tooltip, 'maxWidth' | 'position'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Tooltip',
+  title: 'Overlay/Tooltip',
+  tags: ['stable'],
   args: {
     alignSelf: 'center',
     justifySelf: 'center',

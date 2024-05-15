@@ -7,7 +7,8 @@ type Props = MessageDialogConfig & { onClick(args: Props): Promise<unknown> };
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Message dialog',
+  title: 'Overlay/Message dialog',
+  tags: ['preview'],
   render: args => {
     const onClick = async (): Promise<void> => {
       const result = await args.onClick(args);

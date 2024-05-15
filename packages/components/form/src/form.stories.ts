@@ -16,7 +16,8 @@ import { type Form } from './form.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Form/Form'
+  title: 'Form/Form',
+  tags: ['stable']
 };
 
 export const Basic: Story = {

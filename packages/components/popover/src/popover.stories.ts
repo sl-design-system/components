@@ -16,7 +16,8 @@ type Props = Pick<Popover, 'position'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Components/Popover',
+  title: 'Overlay/Popover',
+  tags: ['preview'],
   args: {
     alignSelf: 'center',
     body: "I'm a popover example",

@@ -6,7 +6,8 @@ import '../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Components/Skeleton'
+  title: 'Components/Skeleton',
+  tags: ['preview']
 };
 
 export const API: Story = {

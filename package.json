@@ -195,12 +195,12 @@
         "build:components",
         "build:examples",
         "build:locales",
-        "build:types",
         "build:themes:code",
         "dist:angular",
         "dist:checklist",
         "dist:components",
-        "dist:themes"
+        "dist:themes",
+        "dist:types"
       ]
     },
     "dist:angular": {
@@ -269,6 +269,30 @@
       "output": [
         "packages/themes/**/*.{css,scss}",
         "!packages/themes/*/fonts.css"
+      ]
+    },
+    "dist:types": {
+      "command": "tsc --build tsconfig.all.json --pretty",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:locales",
+        "dist:checklist",
+        "dist:components"
+      ],
+      "files": [
+        "tsconfig.all.json",
+        "examples/lit/**/*.ts",
+        "!examples/lit/**/*.d.ts",
+        "packages/{checklist,components,themes}/**/*.ts",
+        "!packages/{checklist,components,themes}/**/*.d.ts",
+        "!packages/{checklist,components,themes}/*/node_modules/**/*.ts"
+      ],
+      "output": [
+        "examples/lit/**/tsconfig.tsbuildinfo",
+        "examples/lit/**/*.d.ts",
+        "packages/{checklist,components,themes}/**/tsconfig.tsbuildinfo",
+        "packages/{checklist,components,themes}/**/*.d.ts",
+        "!packages/{checklist,components,themes}/*/node_modules/**"
       ]
     },
     "import-icons": {

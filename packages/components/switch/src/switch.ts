@@ -161,6 +161,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     this.checked = !this.checked;
     this.changeEvent.emit(this.formValue);
+    this.updateState({ dirty: true });
 
     this.#updateValue();
   }
@@ -171,6 +172,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
   }
 
   #onKeydown(event: KeyboardEvent): void {

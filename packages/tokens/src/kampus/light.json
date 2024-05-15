@@ -3893,11 +3893,11 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.success.500}",
+          "value": "{color.palette.success.600}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.success.500}",
+          "value": "{color.palette.success.600}",
           "type": "color"
         }
       },
@@ -3925,15 +3925,15 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.700}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.700}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.danger.base}",
+          "value": "{color.palette.danger.700}",
           "type": "color"
         }
       }

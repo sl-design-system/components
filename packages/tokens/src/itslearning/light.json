@@ -3892,11 +3892,11 @@
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.success.base}",
+          "value": "{color.palette.success.700}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.success.base}",
+          "value": "{color.palette.success.700}",
           "type": "color"
         }
       },

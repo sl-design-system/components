@@ -15,7 +15,7 @@ module.exports = async function() {
       auth: process.env.GITHUB_API_TOKEN
     })
 
-    const pages = [1,2,3];
+    const pages = [1,2,3,4,5];
 
     const gitpackages = await pages.map(async page => octokit.request('GET /orgs/sl-design-system/packages', {
       org: 'sl-design-system',

@@ -5,11 +5,15 @@
     "emitDeclarationOnly": false
   },
   "include": [
-    "packages/components/**/*.ts"
+    "packages/checklist/**/*.ts",
+    "packages/components/**/*.ts",
+    "packages/themes/**/*.ts"
   ],
   "exclude": [
+    "packages/**/node_modules/**/*.ts",
+    "packages/checklist/**/*.d.ts",
     "packages/components/**/*.d.ts",
-    "packages/components/*/node_modules/**/*.ts"
+    "packages/themes/**/*.d.ts"
   ],
   "references": [
     { "path": "./packages/checklist" },

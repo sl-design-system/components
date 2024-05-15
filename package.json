@@ -8,6 +8,7 @@
   },
   "workspaces": [
     "chromatic",
+    "examples/lit",
     "packages/angular",
     "packages/checklist",
     "packages/components/*",
@@ -42,6 +43,7 @@
       "dependencies": [
         "build:checklist",
         "build:components",
+        "build:examples",
         "build:locales",
         "build:themes",
         "build:types"
@@ -96,6 +98,17 @@
       ],
       "output": [
         "packages/components/**/*.scss.ts"
+      ]
+    },
+    "build:examples": {
+      "command": "node scripts/build-styles.js 'examples/lit/**/*.scss'",
+      "clean": "if-file-deleted",
+      "files": [
+        "scripts/build-styles.js",
+        "examples/lit/**/*.scss"
+      ],
+      "output": [
+        "examples/lit/**/*.scss.ts"
       ]
     },
     "build:locales": {
@@ -163,11 +176,15 @@
       ],
       "files": [
         "tsconfig.all.json",
+        "examples/lit/**/*.ts",
+        "!examples/lit/**/*.d.ts",
         "packages/{checklist,components,themes}/**/*.ts",
         "!packages/{checklist,components,themes}/**/*.d.ts",
         "!packages/{checklist,components,themes}/*/node_modules/**/*.ts"
       ],
       "output": [
+        "examples/lit/**/tsconfig.tsbuildinfo",
+        "examples/lit/**/*.d.ts",
         "packages/{checklist,components,themes}/**/tsconfig.tsbuildinfo",
         "packages/{checklist,components,themes}/**/*.d.ts",
         "!packages/{checklist,components,themes}/*/node_modules/**"
@@ -176,13 +193,14 @@
     "dist": {
       "dependencies": [
         "build:components",
+        "build:examples",
         "build:locales",
-        "build:types",
         "build:themes:code",
         "dist:angular",
         "dist:checklist",
         "dist:components",
-        "dist:themes"
+        "dist:themes",
+        "dist:types"
       ]
     },
     "dist:angular": {
@@ -253,6 +271,30 @@
         "!packages/themes/*/fonts.css"
       ]
     },
+    "dist:types": {
+      "command": "tsc --build tsconfig.all.json --pretty",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:locales",
+        "dist:checklist",
+        "dist:components"
+      ],
+      "files": [
+        "tsconfig.all.json",
+        "examples/lit/**/*.ts",
+        "!examples/lit/**/*.d.ts",
+        "packages/{checklist,components,themes}/**/*.ts",
+        "!packages/{checklist,components,themes}/**/*.d.ts",
+        "!packages/{checklist,components,themes}/*/node_modules/**/*.ts"
+      ],
+      "output": [
+        "examples/lit/**/tsconfig.tsbuildinfo",
+        "examples/lit/**/*.d.ts",
+        "packages/{checklist,components,themes}/**/tsconfig.tsbuildinfo",
+        "packages/{checklist,components,themes}/**/*.d.ts",
+        "!packages/{checklist,components,themes}/*/node_modules/**"
+      ]
+    },
     "import-icons": {
       "command": "node scripts/import-icons.js",
       "clean": false,
@@ -303,6 +345,10 @@
         },
         {
           "script": "build:components",
+          "cascade": false
+        },
+        {
+          "script": "build:examples",
           "cascade": false
         },
         {

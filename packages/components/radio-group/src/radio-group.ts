@@ -75,10 +75,10 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
     isFocusableElement: (el: Radio) => !el.disabled
   });
 
-  /** @private Element internals. */
+  /** @internal Element internals. */
   readonly internals = this.attachInternals();
 
-  /** @private The slotted radios. */
+  /** @internal The slotted radios. */
   @queryAssignedElements() radios?: Array<Radio<T>>;
 
   /** @internal Emits when the component loses focus. */
@@ -181,12 +181,17 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
+  override focus(): void {
+    this.#rovingTabindexController.focus();
+  }
+
   #onFocusin(): void {
     this.focusEvent.emit();
   }
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
   }
 
   #onSlotchange(): void {
@@ -211,6 +216,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
     }
 
     this.#updateValueAndValidity();

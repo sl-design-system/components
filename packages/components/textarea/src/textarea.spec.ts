@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
+import { type SlFormControlEvent } from '@sl-design-system/form';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { Textarea } from './textarea.js';
@@ -170,7 +171,51 @@ describe('sl-textarea', () => {
       expect(el).to.have.attribute('resize', 'auto');
     });
 
-    it('should focus the input when focusing the element', () => {
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after typing in the input', async () => {
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after typing in the input', async () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should be touched after textarea loses focus', () => {
+      textarea.focus();
+      textarea.blur();
+
+      expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after losing focus', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      textarea.focus();
+      textarea.blur();
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should focus the textarea when focusing the element', () => {
       el.focus();
 
       expect(document.activeElement).to.equal(textarea);
@@ -385,6 +430,28 @@ describe('sl-textarea', () => {
 
       expect(textarea?.placeholder).to.equal('');
       expect(textarea?.spellcheck).to.be.true;
+    });
+  });
+
+  describe('form integration', () => {
+    let el: FormIntegrationTestComponent;
+
+    class FormIntegrationTestComponent extends LitElement {
+      onFormControl: (event: SlFormControlEvent) => void = spy();
+
+      override render(): TemplateResult {
+        return html`<sl-textarea @sl-form-control=${this.onFormControl}></sl-textarea>`;
+      }
+    }
+
+    beforeEach(async () => {
+      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+
+      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+    });
+
+    it('should emit an sl-form-control event after first render', () => {
+      expect(el.onFormControl).to.have.been.calledOnce;
     });
   });
 });

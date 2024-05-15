@@ -70,6 +70,12 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Minimum length (number of characters). */
   @property({ type: Number, attribute: 'minlength' }) minLength?: number;
 
+  /**
+   * The size attribute of the input element.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/size
+   */
+  @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
+
   /** This will validate the value of the input using the given pattern. */
   @property() pattern?: string;
 
@@ -119,6 +125,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     const props: Array<keyof TextField> = [
       'autocomplete',
       'disabled',
+      'inputSize',
       'maxLength',
       'minLength',
       'pattern',
@@ -130,6 +137,11 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
     if (props.some(prop => changes.has(prop))) {
       this.#syncInput(this.input);
+    }
+
+    if (changes.has('disabled')) {
+      // We need to wait for the disabled state to propagate to the input before updating the validity
+      setTimeout(() => this.updateValidity());
     }
 
     if (changes.has('value') && this.value !== this.input.value) {
@@ -163,9 +175,19 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return super.getLocalizedValidationMessage();
   }
 
+  override focus(): void {
+    this.input.focus();
+  }
+
+  #onBlur(): void {
+    this.blurEvent.emit();
+    this.updateState({ touched: true });
+  }
+
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
     this.value = target.value;
     this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
     this.updateValidity();
   }
 
@@ -183,7 +205,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (input) {
       this.input = input;
-      this.input.addEventListener('blur', () => this.blurEvent.emit());
+      this.input.addEventListener('blur', () => this.#onBlur());
       this.input.addEventListener('focus', () => this.focusEvent.emit());
       this.#syncInput(this.input);
 
@@ -203,6 +225,12 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {
       input.type = this.type;
+    }
+
+    if (typeof this.inputSize === 'number') {
+      input.setAttribute('size', this.inputSize.toString());
+    } else {
+      input.removeAttribute('size');
     }
 
     if (typeof this.maxLength === 'number') {

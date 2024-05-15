@@ -15,8 +15,8 @@ import {
   RadioGroupDirective,
   SelectDirective,
   SwitchDirective,
-  TextFieldDirective,
-  TextareaDirective
+  TextAreaDirective,
+  TextFieldDirective
 } from '../src/forms/index';
 import {
   ButtonBarComponent,
@@ -31,8 +31,7 @@ import {
   SelectComponent,
   SelectOptionComponent,
   SwitchComponent,
-  TextFieldComponent,
-  TextareaComponent
+  TextFieldComponent
 } from '../src/wrappers';
 
 @Component({
@@ -44,7 +43,7 @@ import {
       </sl-form-field>
 
       <sl-form-field label="Textarea">
-        <sl-textarea formControlName="textarea"></sl-textarea>
+        <sl-text-area formControlName="textarea"></sl-text-area>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
@@ -86,7 +85,7 @@ import {
 export class AllFormControlsReactiveComponent {
   formGroup = new FormGroup({
     textField: new FormControl('Text field'),
-    textarea: new FormControl('Textarea'),
+    textArea: new FormControl('Text area'),
     checkbox: new FormControl('checked'),
     select: new FormControl('1'),
     switch: new FormControl('toggled'),
@@ -103,8 +102,8 @@ export class AllFormControlsReactiveComponent {
         <sl-text-field formControlName="textField" required></sl-text-field>
       </sl-form-field>
 
-      <sl-form-field label="Textarea">
-        <sl-textarea formControlName="textarea" required></sl-textarea>
+      <sl-form-field label="Text area">
+        <sl-text-area formControlName="textArea" required></sl-text-area>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
@@ -152,7 +151,7 @@ export class AllFormControlsEmptyReactiveComponent {
 
   formGroup = new FormGroup({
     textField: new FormControl(''),
-    textarea: new FormControl(''),
+    textArea: new FormControl(''),
     checkbox: new FormControl(false),
     select: new FormControl(''),
     switch: new FormControl(false),
@@ -173,8 +172,8 @@ export class AllFormControlsEmptyReactiveComponent {
         <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
       </sl-form-field>
 
-      <sl-form-field label="Textarea">
-        <sl-textarea [(ngModel)]="formGroup.textarea"></sl-textarea>
+      <sl-form-field label="Text area">
+        <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
@@ -216,7 +215,7 @@ export class AllFormControlsEmptyReactiveComponent {
 export class AllFormControlsTemplateComponent {
   formGroup = {
     textField: 'Text field',
-    textarea: 'Textarea',
+    textArea: 'Text area',
     checkbox: 'checked',
     select: '1',
     switch: 'toggled',
@@ -233,8 +232,8 @@ export class AllFormControlsTemplateComponent {
         <sl-text-field [(ngModel)]="formGroup.textField" required></sl-text-field>
       </sl-form-field>
 
-      <sl-form-field label="Textarea">
-        <sl-textarea [(ngModel)]="formGroup.textarea" required></sl-textarea>
+      <sl-form-field label="Text area">
+        <sl-text-area [(ngModel)]="formGroup.textArea" required></sl-text-area>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
@@ -282,7 +281,7 @@ export class AllFormControlsEmptyTemplateComponent {
 
   formGroup = {
     textField: '',
-    textarea: '',
+    textArea: '',
     checkbox: false,
     select: '',
     switch: false,
@@ -401,8 +400,8 @@ export default {
         SwitchDirective,
         TextFieldComponent,
         TextFieldDirective,
-        TextareaComponent,
-        TextareaDirective
+        TextAreaComponent,
+        TextAreaDirective
       ]
     })
   ],

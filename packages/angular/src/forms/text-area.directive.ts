@@ -1,26 +1,26 @@
 import { Directive, ElementRef, Inject, forwardRef } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, type ValidationErrors } from '@angular/forms';
-import { type Textarea } from '@sl-design-system/textarea';
+import { type TextArea } from '@sl-design-system/text-area';
 import { FormControlElementDirective } from './form-control-element.directive';
 
 @Directive({
-  selector: 'sl-textarea',
+  selector: 'sl-text-area',
   standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TextareaDirective),
+      useExisting: forwardRef(() => TextAreaDirective),
       multi: true
     },
     {
       provide: NG_VALIDATORS,
-      useExisting: forwardRef(() => TextareaDirective),
+      useExisting: forwardRef(() => TextAreaDirective),
       multi: true
     }
   ]
 })
-export class TextareaDirective extends FormControlElementDirective<Textarea> {
-  constructor(@Inject(ElementRef) elementRef: ElementRef<Textarea>) {
+export class TextAreaDirective extends FormControlElementDirective<TextArea> {
+  constructor(@Inject(ElementRef) elementRef: ElementRef<TextArea>) {
     super(elementRef);
   }
 

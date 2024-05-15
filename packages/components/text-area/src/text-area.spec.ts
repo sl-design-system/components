@@ -4,15 +4,15 @@ import { sendKeys } from '@web/test-runner-commands';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
-import { Textarea } from './textarea.js';
+import { TextArea } from './text-area.js';
 
-describe('sl-textarea', () => {
-  let el: Textarea, textarea: HTMLTextAreaElement;
+describe('sl-text-area', () => {
+  let el: TextArea, textArea: HTMLTextAreaElement;
 
   describe('defaults', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-textarea></sl-textarea>`);
-      textarea = el.querySelector('textarea')!;
+      el = await fixture(html`<sl-text-area></sl-text-area>`);
+      textArea = el.querySelector('textarea')!;
     });
 
     it('should render correctly', () => {
@@ -198,8 +198,8 @@ describe('sl-textarea', () => {
     });
 
     it('should be touched after textarea loses focus', () => {
-      textarea.focus();
-      textarea.blur();
+      textArea.focus();
+      textArea.blur();
 
       expect(el.touched).to.be.true;
     });
@@ -209,8 +209,8 @@ describe('sl-textarea', () => {
 
       el.addEventListener('sl-update-state', onUpdateState);
 
-      textarea.focus();
-      textarea.blur();
+      textArea.focus();
+      textArea.blur();
 
       expect(onUpdateState).to.have.been.calledOnce;
     });
@@ -218,14 +218,14 @@ describe('sl-textarea', () => {
     it('should focus the textarea when focusing the element', () => {
       el.focus();
 
-      expect(document.activeElement).to.equal(textarea);
+      expect(document.activeElement).to.equal(textArea);
     });
 
     it('should emit an sl-focus event when focusing the input', () => {
       const onFocus = spy();
 
       el.addEventListener('sl-focus', onFocus);
-      textarea.focus();
+      textArea.focus();
 
       expect(onFocus).to.have.been.calledOnce;
     });
@@ -234,7 +234,7 @@ describe('sl-textarea', () => {
       const onBlur = spy();
 
       el.addEventListener('sl-blur', onBlur);
-      textarea.focus();
+      textArea.focus();
       await sendKeys({ press: 'Tab' });
 
       expect(onBlur).to.have.been.calledOnce;
@@ -244,7 +244,7 @@ describe('sl-textarea', () => {
       const onInput = spy();
 
       el.addEventListener('sl-change', onInput);
-      textarea.focus();
+      textArea.focus();
       await sendKeys({ type: 'Lorem' });
 
       expect(onInput.callCount).to.equal(5);
@@ -272,7 +272,7 @@ describe('sl-textarea', () => {
 
   describe('required', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-textarea required></sl-textarea>`);
+      el = await fixture(html`<sl-text-area required></sl-text-area>`);
     });
 
     it('should be invalid', () => {
@@ -326,7 +326,7 @@ describe('sl-textarea', () => {
 
   describe('maxlength', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-textarea maxlength="3"></sl-textarea>`);
+      el = await fixture(html`<sl-text-area maxlength="3"></sl-text-area>`);
     });
 
     it('should be valid', () => {
@@ -344,7 +344,7 @@ describe('sl-textarea', () => {
 
   describe('minlength', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-textarea minlength="3"></sl-textarea>`);
+      el = await fixture(html`<sl-text-area minlength="3"></sl-text-area>`);
       el.focus();
       await sendKeys({ type: 'a' });
       await el.updateComplete;
@@ -371,7 +371,7 @@ describe('sl-textarea', () => {
 
   describe('show-valid', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-textarea show-valid></sl-textarea>`);
+      el = await fixture(html`<sl-text-area show-valid></sl-text-area>`);
     });
 
     it('should reflect the attribute', () => {
@@ -395,7 +395,7 @@ describe('sl-textarea', () => {
 
   describe('auto resize', () => {
     beforeEach(async () => {
-      el = await fixture(html`<sl-textarea resize="auto"></sl-textarea>`);
+      el = await fixture(html`<sl-text-area resize="auto"></sl-text-area>`);
     });
 
     // it('should set the textarea height to the value of the scrollHeight', async () => {
@@ -415,9 +415,9 @@ describe('sl-textarea', () => {
   describe('slotted textarea', () => {
     beforeEach(async () => {
       el = await fixture(html`
-        <sl-textarea>
+        <sl-text-area>
           <textarea id="foo" placeholder="I am a custom textarea" spellcheck="true" slot="textarea"></textarea>
-        </sl-textarea>
+        </sl-text-area>
       `);
     });
 
@@ -440,7 +440,7 @@ describe('sl-textarea', () => {
       onFormControl: (event: SlFormControlEvent) => void = spy();
 
       override render(): TemplateResult {
-        return html`<sl-textarea @sl-form-control=${this.onFormControl}></sl-textarea>`;
+        return html`<sl-text-area @sl-form-control=${this.onFormControl}></sl-text-area>`;
       }
     }
 

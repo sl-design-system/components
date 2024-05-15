@@ -1,24 +1,24 @@
 ---
-title: Textarea usage
+title: Text area usage
 tags: usage
-eleventyNavigation:
+eleventyNavigation
   parent: Text area
-  key: TextareaUsage
+  key: TextaAreaUsage
 ---
 <section class="no-heading">
 
 <div class="ds-example">
-  <sl-textarea
+  <sl-text-area
     aria-label="Hobbies"
     value="Painting, drawing, dance, photography, knitting, web design and cycling."
     style="width: 300px;"
-  ></sl-textarea>
+  ></sl-text-area>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-textarea aria-label="Hobbies" value="Painting, drawing, dance..."></sl-textarea>
+    <sl-text-area aria-label="Hobbies" value="Painting, drawing, dance..."></sl-text-area>
   ```
 
 </div>
@@ -134,5 +134,5 @@ With these options, you can tweak the appearance of the text area in Figma. They
 {.ds-table}
 
 </div>
-  
+
 </section>

@@ -2,10 +2,10 @@ import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type Textarea, type TextareaSize } from './textarea.js';
+import { type TextArea, type TextareaSize } from './text-area.js';
 
 type Props = Pick<
-  Textarea,
+  TextArea,
   | 'disabled'
   | 'maxLength'
   | 'minLength'
@@ -85,7 +85,7 @@ export default {
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
           html`
-            <sl-textarea
+            <sl-text-area
               ?disabled=${disabled}
               ?readonly=${readonly}
               ?required=${required}
@@ -98,7 +98,7 @@ export default {
               .size=${size}
               .value=${value}
               .wrap=${wrap}
-            ></sl-textarea>
+            ></sl-text-area>
           `}
         </sl-form-field>
         <sl-button-bar>
@@ -157,13 +157,13 @@ export const CustomValidity: StoryObj = {
   args: {
     hint: 'This story has both builtin validation (required) and custom validation. You need to enter "SLDS" to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the textarea element.',
     slot: () => {
-      const onValidate = (event: Event & { target: Textarea }): void => {
+      const onValidate = (event: Event & { target: TextArea }): void => {
         const value = event.target.value;
 
         event.target.setCustomValidity(value === 'SLDS' ? '' : 'Enter "SLDS"');
       };
 
-      return html`<sl-textarea @sl-validate=${onValidate} required></sl-textarea>`;
+      return html`<sl-text-area @sl-validate=${onValidate} required></sl-text-area>`;
     }
   }
 };
@@ -172,7 +172,7 @@ export const CustomAsyncValidity: Story = {
   args: {
     hint: 'This story has an async validator. You need to enter "SLDS" to make the field valid. It will wait 2 seconds before validating.',
     slot: () => {
-      const onValidate = (event: Event & { target: Textarea }): void => {
+      const onValidate = (event: Event & { target: TextArea }): void => {
         const promise = new Promise<string>(resolve =>
           setTimeout(() => resolve(event.target.value === 'SLDS' ? '' : 'Enter "SLDS"'), 2000)
         );
@@ -180,7 +180,7 @@ export const CustomAsyncValidity: Story = {
         event.target.setCustomValidity(promise);
       };
 
-      return html`<sl-textarea @sl-validate=${onValidate} required></sl-textarea>`;
+      return html`<sl-text-area @sl-validate=${onValidate} required></sl-text-area>`;
     }
   }
 };
@@ -205,7 +205,7 @@ export const All: StoryObj = {
         grid-template-columns: repeat(2, 1fr);
         justify-items: center;
       }
-      sl-textarea {
+      sl-text-area {
         width: 300px;
       }
     </style>
@@ -215,26 +215,26 @@ export const All: StoryObj = {
         <h2>Size: ${size}</h2>
         <div class="content-wrapper">
           <div class="wrapper">
-            <sl-textarea size=${size} placeholder="Placeholder ${size}"></sl-textarea>
-            <sl-textarea size=${size} value="I am ${size}"></sl-textarea>
-            <sl-textarea readonly size=${size} value="${size} readonly"></sl-textarea>
-            <sl-textarea disabled size=${size} value="${size} disabled"></sl-textarea>
-            <sl-textarea disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-textarea>
+            <sl-text-area size=${size} placeholder="Placeholder ${size}"></sl-text-area>
+            <sl-text-area size=${size} value="I am ${size}"></sl-text-area>
+            <sl-text-area readonly size=${size} value="${size} readonly"></sl-text-area>
+            <sl-text-area disabled size=${size} value="${size} disabled"></sl-text-area>
+            <sl-text-area disabled size=${size} placeholder="Placeholder ${size} disabled"></sl-text-area>
           </div>
           <div class="wrapper">
-            <sl-textarea show-validity="invalid" size=${size} value="${size} invalid"></sl-textarea>
-            <sl-textarea placeholder="Placeholder ${size} invalid" show-validity="invalid" size=${size}></sl-textarea>
-            <sl-textarea disabled show-validity="invalid" size=${size} value="${size} invalid disabled"></sl-textarea>
-            <sl-textarea
+            <sl-text-area show-validity="invalid" size=${size} value="${size} invalid"></sl-text-area>
+            <sl-text-area placeholder="Placeholder ${size} invalid" show-validity="invalid" size=${size}></sl-text-area>
+            <sl-text-area disabled show-validity="invalid" size=${size} value="${size} invalid disabled"></sl-text-area>
+            <sl-text-area
               disabled
               placeholder="Placeholder ${size} disabled invalid"
               size=${size}
               show-validity="invalid"
-            ></sl-textarea>
+            ></sl-text-area>
           </div>
           <div class="wrapper">
-            <sl-textarea show-validity="valid" size=${size} value="I am md valid"></sl-textarea>
-            <sl-textarea disabled show-validity="valid" size=${size} value="${size} valid disabled"></sl-textarea>
+            <sl-text-area show-validity="valid" size=${size} value="I am md valid"></sl-text-area>
+            <sl-text-area disabled show-validity="valid" size=${size} value="${size} valid disabled"></sl-text-area>
           </div>
         </div>
       `

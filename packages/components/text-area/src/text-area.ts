@@ -6,11 +6,11 @@ import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './textarea.scss.js';
+import styles from './text-area.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sl-textarea': Textarea;
+    'sl-text-area': TextArea;
   }
 }
 
@@ -25,11 +25,11 @@ let nextUniqueId = 0;
 /**
  * Multi line text area component.
  *
- * @cssprop --sl-textarea-rows - The number of rows initially visible in the textarea
+ * @cssprop --sl-text-area-rows - The number of rows initially visible in the textarea
  * @slot textarea - The slot for the textarea element
  */
 @localized()
-export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) {
+export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @private */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -135,7 +135,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   override updated(changes: PropertyValues<this>): void {
     super.updated(changes);
 
-    const props: Array<keyof Textarea> = [
+    const props: Array<keyof TextArea> = [
       'autocomplete',
       'disabled',
       'maxLength',
@@ -226,7 +226,7 @@ export class Textarea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
     textarea.autocomplete = this.autocomplete || 'off';
     textarea.autofocus = this.autofocus;
     textarea.disabled = !!this.disabled;
-    textarea.id ||= `sl-textarea-${nextUniqueId++}`;
+    textarea.id ||= `sl-text-area-${nextUniqueId++}`;
     textarea.placeholder = this.placeholder ?? '';
     textarea.readOnly = !!this.readonly;
     textarea.required = !!this.required;

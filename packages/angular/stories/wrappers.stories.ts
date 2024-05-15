@@ -269,7 +269,7 @@ export const TextField: StoryObj = {
 
 export const Textarea: StoryObj = {
   render: () => ({
-    template: '<sl-textarea></sl-textarea>'
+    template: '<sl-text-area></sl-text-area>'
   })
 };
 

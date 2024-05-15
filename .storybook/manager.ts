@@ -5,7 +5,7 @@ import { Fragment, createElement } from 'react';
 const SYSTEM_TAGS = ['dev', 'autodocs', 'test'];
 
 const findComponentTags = (stories: LeafEntry[]) => {
-  const allTags = stories.flatMap((story) => story.tags);
+  const allTags = stories.flatMap((story) => story?.tags ?? []);
   const tagToCount = allTags.reduce(
     (acc, tag) => {
       acc[tag] = (acc[tag] || 0) + 1;

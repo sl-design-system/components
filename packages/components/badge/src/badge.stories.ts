@@ -38,6 +38,7 @@ const sizeName = (size: string): string => {
 
 export default {
   title: 'Components/Badge',
+  tags: ['deprecated'],
   args: {
     text: '99+',
     size: 'md',

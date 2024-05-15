@@ -3251,7 +3251,7 @@
     "inline-message": {
       "info": {
         "background": {
-          "value": "rgba({color.palette.primary.400}, {opacity.300})",
+          "value": "rgba({color.palette.primary.400}, {opacity.100})",
           "type": "color"
         },
         "foreground": {

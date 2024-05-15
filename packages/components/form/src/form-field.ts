@@ -58,7 +58,7 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** @internal The message that will be displayed when the field is in an invalid state. */
   @state() error?: string;
 
-  /** @internals A record of error messages for all controls. */
+  /** @internal A record of error messages for all controls. */
   @state() errors: Record<string, string | undefined> = {};
 
   /** @internal Emits when the field is added to a form. */

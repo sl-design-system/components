@@ -3871,15 +3871,15 @@
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.700}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.700}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.info.base}",
+          "value": "{color.palette.info.700}",
           "type": "color"
         }
       },

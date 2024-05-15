@@ -2427,7 +2427,7 @@
     },
     "inline-message": {
       "start": {
-        "value": "{size.3xs}",
+        "value": "{size.2xs}",
         "type": "sizing"
       }
     }

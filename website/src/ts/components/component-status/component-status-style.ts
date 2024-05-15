@@ -6,19 +6,12 @@ export const componentStatusStyles = css`
 
     display: grid;
     grid-column-gap: 7.2rem;
-    grid-template-columns: 1fr; //88rem 1fr;
-    //display: none;
-    // display: block:
-    // height: 200px;
-    // border: 4px solid #AACBE9;
+    grid-template-columns: 1fr;
   }
 
   .wrapper {
-    // display: grid;
-    // grid-template-columns: 1fr;
     display: flex;
     flex-direction: column;
-   // background: #FFFFED; // #AACBE9;
     margin-block-start: var(--scale-400-scale);
   }
 
@@ -34,10 +27,8 @@ export const componentStatusStyles = css`
   .component-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    // display: flex;
-    // align-items: center;
-    border-bottom: 1px solid #C4C4C4;
-    padding-block-end: 24px;
+    border-bottom: 0.1rem solid var(--control-color-border-200-border);
+    padding-block-end: 2.4rem;
 
     sl-badge {
       width: fit-content;
@@ -46,35 +37,40 @@ export const componentStatusStyles = css`
 
   .links {
     display: block;
-    // display: flex;
-    // align-items: center;
-    padding-block-start: 24px;
+    padding-block-start: 2.4rem;
   }
 
   .info {
     display: flex;
     flex-direction: column;
     gap: var(--scale-50-scale);
-    padding-inline-start: 1.6rem;
   }
 
   .info:first-of-type {
     padding-inline-end: 1.6rem;
-    border-right: 1px solid #BCBCBC; // TODO: needs to be changed to token
+    border-right: 0.1rem solid var(--control-color-surface-400-surface);
   }
 
-    sl-button-bar {
+  .info:not(:first-of-type) {
+    padding-inline-start: 2.4rem;
+  }
+
+  sl-button-bar {
     --sl-button-bar-vertical: var(--sl-ON);
-    --sl-button-bar-direction-column: column; // column-reverse;
+    --sl-button-bar-direction-column: column;
   }
 
   .link {
     display: flex;
     gap: var(--scale-50-scale);
     align-items: center;
+
+     sl-icon {
+      --sl-icon-fill-default: var(--control-color-border-400-border);
+    }
   }
 
-    a:not(.ds-button) {
+  a:not(.ds-button) {
     color: var(--link-color);
     cursor: pointer;
     transition: transform $transition-timing;
@@ -94,120 +90,115 @@ export const componentStatusStyles = css`
     &.header-anchor {
       color: var(--font-color);
     }
-
-    }
-
-  .ds-button {
-  --_background: var(--color-button-default-outline-idle-background); //var(--control-color-state-accent-container-default-state);
-  --_border-color: var(--control-color-text-base-text); //var(--control-color-state-accent-border-default-state);
-  --_color: var(--helper-text); //var(--color-button-default-outline-idle-foreground); //var(--control-color-state-accent-font-default-state);
-
-  align-items: center;
-  justify-content: center;
-  background: var(--_background);
-  border: 1px solid var(--_border-color);
-  border-radius: 2px;
-  color: var(--_color);
-  display: inline-flex;
-  font-size: 1.4rem;
-  font-weight: 600;
-  gap: 8px;
-  // inline-size: fit-content;
-  line-height: 2.4rem;
-  padding: 0.7rem 1.2rem;
-  position: relative;
-  text-decoration: none;
-  transition: background-color 200ms linear;
-
-  * {
-    color: var(--_color);
   }
 
-  sl-icon {
-      fill: var(--_color);
-    }
+  .ds-button {
+    --_background: var(--color-button-default-outline-idle-background);
+    --_border-color: var(--control-color-text-base-text);
+    --_color: var(--helper-text);
 
-  &:hover {
-    --_background: var(--control-color-text-base-text); //var(--control-color-state-accent-container-hover-state);
-    --_border-color: var(--control-color-state-accent-border-hover-state);
-    --_color: var(--control-color-state-accent-border-hover-state); //var(--ds-color-faux-white); //var(--control-color-state-accent-font-hover-state);
+    align-items: center;
+    justify-content: center;
+    background: var(--_background);
+    border: 0.1rem solid var(--_border-color);
+    border-radius: 0.2rem;
+    color: var(--_color);
+    display: inline-flex;
+    font-size: 1.4rem;
+    font-weight: 600;
+    gap: 0.8rem;
+    line-height: 2.4rem;
+    padding: 0.7rem 1.2rem;
+    position: relative;
+    text-decoration: none;
+    transition: background-color 200ms linear;
+
+    * {
+      color: var(--_color);
+    }
 
     sl-icon {
       fill: var(--_color);
     }
-  }
 
-  &:active {
-    --_background: var(--control-color-visuals-component-text); //var(--control-color-state-accent-container-active-state);
-    --_border-color: var(--control-color-state-accent-border-active-state);
-    --_color: var(--control-color-state-accent-border-hover-state); //var(--helper-text); //var(--ds-color-faux-white); //var(--control-color-state-accent-font-active-state);
-  }
+    &:hover {
+      --_background: var(--control-color-text-base-text);
+      --_border-color: var(--control-color-state-accent-border-hover-state);
+      --_color: var(--control-color-state-accent-border-hover-state);
 
-  &:focus-visible {
-    border-radius: 2px;
-    outline: 2px solid var(--control-color-focus-accent-focus);
-    outline-offset: 2px;
+      sl-icon {
+        fill: var(--_color);
+      }
+    }
+
+    &:active {
+      --_background: var(--control-color-visuals-component-text);
+      --_border-color: var(--control-color-state-accent-border-active-state);
+      --_color: var(--control-color-state-accent-border-hover-state);
+    }
+
+    &:focus-visible {
+      border-radius: 0.2rem;
+      outline: 0.2rem solid var(--control-color-focus-accent-focus);
+      outline-offset: 0.2rem;
+    }
   }
-}
 
   @media screen and (min-width: 750px) {
     .component-info {
       display: flex;
-      align-items: center;
+      align-items: start;
       border-bottom: none;
     }
 
     sl-button-bar {
         --sl-button-bar-vertical: var(--sl-OFF);
         --sl-button-bar-align: end;
+    }
 
-        // sl-button {
-        //   flex-grow: 1;
-        // }
-      }
+    .ds-button {
+        justify-content: center;
+        flex-grow: 1;
+        inline-size: fit-content;
+    }
 
-      .ds-button {
-          justify-content: center;
-           flex-grow: 1;
-           inline-size: fit-content;
-      }
-
-     .links {
+    .links {
         padding-block-start: 0;
-     }
+    }
   }
 
   @media screen and (min-width: 1200px) {
     :host {
-    //   display: block;
-    //   font: var(--typography-body);
-         grid-template-columns: 6fr 1fr;
+      grid-template-columns: 6fr 1fr;
     }
 
-     .wrapper {
-        // grid-template-columns: 1fr 1fr;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
+    .wrapper {
+       display: flex;
+       flex-direction: row;
+       justify-content: space-between;
+       align-items: center;
+     }
 
-      sl-button-bar {
-        --sl-button-bar-vertical: var(--sl-OFF);
-        --sl-button-bar-align: end;
+    sl-button-bar {
+      --sl-button-bar-vertical: var(--sl-OFF);
+      --sl-button-bar-align: end;
 
-        sl-button {
-          flex-grow: 0;
-        }
+      sl-button {
+        flex-grow: 0;
       }
+    }
 
-      .component-info {
-        padding-block-end: 0;
-      }
+    .info:not(:first-of-type) {
+      padding-inline-start: 1.6rem;
+    }
 
-      .links {
-        padding-block-start: 0;
-      }
+    .component-info {
+      padding-block-end: 0;
+    }
+
+    .links {
+      padding-block-start: 0;
+    }
   }
 
   @media screen and (min-width: 1600px) {
@@ -276,7 +267,7 @@ export const componentStatusStyles = css`
     inline-size: 0.2rem;
     inset-block-start: 2.3rem;
     position: relative;
-    height: 32px;
+    height: 3.2rem;
     transition: all 400ms cubic-bezier(0.38, 0.8, 0.32, 1.07);
   }
 

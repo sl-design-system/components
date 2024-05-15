@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "button",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Button",

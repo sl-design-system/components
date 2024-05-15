@@ -4,7 +4,6 @@ layout: base.njk
 
 <header class="ds-component__heading">
   <div class="ds-component__heading-wrapper">
-    {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {% if version[post.data.packageName] %}<a href="https://github.com/sl-design-system/components/releases/tag/%40sl-design-system%2F{{post.data.packageName}}%40{{version[post.data.packageName]}}"><span class="ds-badge">v{{version[post.data.packageName]}}</span></a>{% endif %}{% endif %}{%- endfor -%}
     <h1 class="ds-heading-1">
      {%- for post in collections.component -%}{% if page.url.includes(post.url) %} {{ post.data.title }} {% endif %}{%- endfor -%}
     </h1>
@@ -12,9 +11,10 @@ layout: base.njk
   </div>
 </header>
 <section>
+  {{ component.data.componentStatus }}
   {%- for post in collections.component -%}
     {% if page.url.includes(post.url) %}
-      <ds-component-status componentName="{{post.data.packageName}}" version="{{version[post.data.packageName]}}">{{post.data.status}} {{post.data.componentStatus}}</ds-component-status>
+      <ds-component-status componentName="{{post.data.packageName}}" version="{{version[post.data.packageName]}}" status="{{ post.data.componentStatus }}">{{post.data.status}}</ds-component-status>
       <sl-tab-group class="ds-tab-group">
         {%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}<sl-tab href="{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}"
         {% if usage.url.includes(page.url) %}selected{% endif %}>Usage</sl-tab>{% endif %}{%- endfor -%}

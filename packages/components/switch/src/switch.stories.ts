@@ -18,7 +18,7 @@ const sizes: SwitchSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Form/Switch',
-  tags: ['preview'],
+  tags: ['stable'],
   args: {
     checked: false,
     disabled: false,

@@ -2424,6 +2424,12 @@
           "type": "sizing"
         }
       }
+    },
+    "inline-message": {
+      "start": {
+        "value": "{size.2xs}",
+        "type": "sizing"
+      }
     }
   },
   "opacity": {

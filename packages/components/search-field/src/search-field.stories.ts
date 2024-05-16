@@ -3,7 +3,7 @@ import { html } from 'lit';
 import '../register.js';
 import { type SearchField } from './search-field.js';
 
-type Props = Pick<SearchField, 'inputSize' | 'placeholder' | 'value'>;
+type Props = Pick<SearchField, 'disabled' | 'inputSize' | 'placeholder' | 'value'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -13,9 +13,14 @@ export default {
     placeholder: '',
     value: ''
   },
-  render: ({ inputSize, placeholder, value }) => {
+  render: ({ disabled, inputSize, placeholder, value }) => {
     return html`
-      <sl-search-field .inputSize=${inputSize} .placeholder=${placeholder} .value=${value}></sl-search-field>
+      <sl-search-field
+        .disabled=${disabled}
+        .inputSize=${inputSize}
+        .placeholder=${placeholder}
+        .value=${value}
+      ></sl-search-field>
     `;
   }
 } satisfies Meta<Props>;
@@ -23,6 +28,13 @@ export default {
 export const Basic: Story = {
   args: {
     placeholder: 'Search'
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    ...Basic.args,
+    disabled: true
   }
 };
 

@@ -42,6 +42,7 @@ export class SearchField extends TextField {
 
   #onClick(): void {
     this.clear();
+    this.input.focus();
   }
 
   #onKeyDown(event: KeyboardEvent): void {

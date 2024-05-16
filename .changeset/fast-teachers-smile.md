@@ -1,9 +1,10 @@
 ---
-"@sl-design-system/inline-message": patch
+"@sl-design-system/inline-message": minor
 ---
 
-Minor improvements:
-- Use new `info` button variant for the close button
+Various improvements:
+- Add new `action` slot
+- Improve styling and layout
+- Fix missing triangle exclamation icon
 - Remove `noIcon` property due to worse a11y
-- Remove `close-button` slot
-- Simplify markup & styling
+- Remove `close-button` & `details` slots

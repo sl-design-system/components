@@ -31,6 +31,7 @@ import {
   SelectComponent,
   SelectOptionComponent,
   SwitchComponent,
+  TextAreaComponent,
   TextFieldComponent
 } from '../src/wrappers';
 

@@ -19,39 +19,24 @@ Components that can be clicked to trigger an action.
 {% for component in collections.component %}
 {% if component.data.componentType == "action" %}
 {% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
-  <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
-    <div class="component-card__picture">
-      {% if component.data.picture != null %}
-        {{ component.data.picture }}
-      {% endif %}
-      {% if component.data.picture == null %}
-        {{ defaultPicture }}
-      {% endif %}
-      {% if component.data.eleventyNavigation.status == 'coming' %}
-        <div class="ds-badge">Coming</div>
-      {% endif %}
-    </div>
-    <div class="component-card__picture--dark">
-      {% if component.data.pictureDark != null %}
-        {{ component.data.pictureDark }}
-      {% endif %}
-      {% if component.data.pictureDark == null %}
-        {{ defaultDarkPicture }}
-      {% endif %}
-      {% if component.data.eleventyNavigation.status == 'coming' %}
-        <div class="ds-badge">Coming</div>
-      {% endif %}
-    </div>
-    <div class="header-anchor ds-heading-2">
-      {{ component.data.title }}
-    </div>
-    <p>{{ component.data.shortDescription }}</p>
-  </div>
+<sl-card orientation="vertical" class="{% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
+<span slot="media" class="component-card__picture">
+{% if component.data.picture != null %}{{ component.data.picture }}{% endif %}{% if component.data.picture == null %}{{ defaultPicture }}{% endif %}
+</span>
+<div class="header-anchor ds-heading-2">
+{{ component.data.title }}
+</div>
+<span slot="header">
+<sl-badge>new</sl-badge>
+</span>
+<p slot="body">{{ component.data.shortDescription }}</p>
+</sl-card>
 {% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}
 {% endfor %}
 </section>
 
+# TODO: badges with statuses and change coming to other ones
 
 ## Selection {.ds-heading-1}
 
@@ -61,34 +46,18 @@ Components that offer the user the possibility of choosing.
 {% for component in collections.component %}
 {% if component.data.componentType == "selection" %}
 {% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
-  <div class="component-card {% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
-    <div class="component-card__picture">
-      {% if component.data.picture != null %}
-        {{ component.data.picture }}
-      {% endif %}
-      {% if component.data.picture == null %}
-        {{ defaultPicture }}
-      {% endif %}
-      {% if component.data.eleventyNavigation.status == 'coming' %}
-        <div class="ds-badge">Coming</div>
-      {% endif %}
-    </div>
-    <div class="component-card__picture--dark">
-      {% if component.data.pictureDark != null %}
-        {{ component.data.pictureDark }}
-      {% endif %}
-      {% if component.data.pictureDark == null %}
-        {{ defaultDarkPicture }}
-      {% endif %}
-      {% if component.data.eleventyNavigation.status == 'coming' %}
-        <div class="ds-badge">Coming</div>
-      {% endif %}
-    </div>
-    <div class="header-anchor ds-heading-2">
-      {{ component.data.title }}
-    </div>
-    <p>{{ component.data.shortDescription }}</p>
-  </div>
+<sl-card orientation="vertical" class="{% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
+<span slot="media" class="component-card__picture">
+{% if component.data.picture != null %}{{ component.data.picture }}{% endif %}{% if component.data.picture == null %}{{ defaultPicture }}{% endif %}
+</span>
+<div class="header-anchor ds-heading-2">
+{{ component.data.title }}
+</div>
+<span slot="header">
+<sl-badge>new</sl-badge>
+</span>
+<p slot="body">{{ component.data.shortDescription }}</p>
+</sl-card>
 {% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
 {% endif %}
 {% endfor %}

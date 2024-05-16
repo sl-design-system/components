@@ -17,4 +17,5 @@
 "@sl-design-system/max": patch
 ---
 
-Enhanced the color contrast of buttons when used on slightly darker backgrounds across all themes.
+- Enhanced the color contrast of buttons when used on slightly darker backgrounds across all themes.
+- Enhanced the color contrast of inline messages to match our buttons.

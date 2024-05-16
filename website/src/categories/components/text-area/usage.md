@@ -1,9 +1,9 @@
 ---
 title: Text area usage
 tags: usage
-eleventyNavigation
+eleventyNavigation:
   parent: Text area
-  key: TextaAreaUsage
+  key: TextAreaUsage
 ---
 <section class="no-heading">
 

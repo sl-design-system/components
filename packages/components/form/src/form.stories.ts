@@ -6,8 +6,8 @@ import { CompositeForm } from '@sl-design-system/lit-examples';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
+import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
-import '@sl-design-system/textarea/register.js';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
@@ -157,7 +157,7 @@ export const All: Story = {
         </sl-form-field>
 
         <sl-form-field hint="Hint text" label="Textarea">
-          <sl-textarea name="textarea" placeholder="Placeholder" required></sl-textarea>
+          <sl-text-area name="textarea" placeholder="Placeholder" required></sl-text-area>
         </sl-form-field>
 
         <sl-form-field hint="Hint text" label="Checkbox">
@@ -214,7 +214,7 @@ export const AllInvalid: Story = {
         </sl-form-field>
 
         <sl-form-field hint="Hint text" label="Textarea">
-          <sl-textarea name="textarea" placeholder="Placeholder" required></sl-textarea>
+          <sl-text-area name="textarea" placeholder="Placeholder" required></sl-text-area>
         </sl-form-field>
 
         <sl-form-field hint="Hint text" label="Checkbox">
@@ -270,7 +270,7 @@ export const AllValid: Story = {
         </sl-form-field>
 
         <sl-form-field label="Textarea">
-          <sl-textarea name="textarea" placeholder="Placeholder" show-valid value="Textarea"></sl-textarea>
+          <sl-text-area name="textarea" placeholder="Placeholder" show-valid value="Textarea"></sl-text-area>
         </sl-form-field>
 
         <sl-form-field label="Checkbox">

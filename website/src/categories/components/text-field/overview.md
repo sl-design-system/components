@@ -3,7 +3,7 @@ title: Text field
 tags: overview
 eleventyNavigation:
   parent: Text field
-  key: TextInputOverview
+  key: TextFieldOverview
 ---
 <section>
 
@@ -48,7 +48,7 @@ Place text here
 <div class="ds-danger">
 
 ![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
-  
+
 <div class="ds-danger__content">
 
 ### Don't

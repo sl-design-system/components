@@ -4,7 +4,7 @@ tags: code
 APIdescription: Component has a range of properties to define the experience in different use cases.
 eleventyNavigation:
   parent: Text field
-  key: TextInputCode
+  key: TextFieldCode
 ---
 <section class="no-heading">
 

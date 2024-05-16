@@ -685,7 +685,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.success.50}",
+              "value": "{color.palette.success.100}",
               "type": "color",
               "description": "color.button.success.outline.hover.background"
             },
@@ -702,7 +702,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.success.100}",
+              "value": "{color.palette.success.150}",
               "type": "color",
               "description": "color.button.success.outline.active.background"
             },
@@ -755,7 +755,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.success.50}",
+              "value": "{color.palette.success.100}",
               "type": "color",
               "description": "color.button.success.outline.hover.background"
             },
@@ -772,7 +772,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.success.100}",
+              "value": "{color.palette.success.150}",
               "type": "color",
               "description": "color.button.success.outline.active.background"
             },
@@ -967,7 +967,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.warning.50}",
+              "value": "{color.palette.warning.100}",
               "type": "color",
               "description": "color.button.warning.outline.hover.background"
             },
@@ -984,7 +984,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.warning.100}",
+              "value": "{color.palette.warning.150}",
               "type": "color",
               "description": "color.button.warning.outline.active.background"
             },
@@ -1037,7 +1037,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.warning.50}",
+              "value": "{color.palette.warning.100}",
               "type": "color",
               "description": "color.button.warning.outline.hover.background"
             },
@@ -1054,7 +1054,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.warning.100}",
+              "value": "{color.palette.warning.150}",
               "type": "color",
               "description": "color.button.warning.outline.active.background"
             },
@@ -1249,7 +1249,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.danger.50}",
+              "value": "{color.palette.danger.100}",
               "type": "color",
               "description": "color.button.danger.outline.hover.background"
             },
@@ -1266,7 +1266,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.palette.danger.150}",
               "type": "color",
               "description": "color.button.danger.outline.active.background"
             },
@@ -1319,7 +1319,7 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.danger.50}",
+              "value": "{color.palette.danger.100}",
               "type": "color",
               "description": "color.button.danger.outline.hover.background"
             },
@@ -1336,7 +1336,7 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.danger.100}",
+              "value": "{color.palette.danger.150}",
               "type": "color",
               "description": "color.button.danger.outline.active.background"
             },
@@ -1531,34 +1531,34 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.info.50}",
+              "value": "{color.palette.info.100}",
               "type": "color",
               "description": "color.button.info.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.info.500}",
+              "value": "{color.palette.info.600}",
               "type": "color",
               "description": "color.button.info.outline.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.info.500}",
+              "value": "{color.palette.info.600}",
               "type": "color",
               "description": "color.button.info.outline.hover.border"
             }
           },
           "active": {
             "background": {
-              "value": "{color.palette.info.100}",
+              "value": "{color.palette.info.150}",
               "type": "color",
               "description": "color.button.info.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.info.600}",
+              "value": "{color.palette.info.700}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground"
             },
             "border": {
-              "value": "{color.palette.info.600}",
+              "value": "{color.palette.info.700}",
               "type": "color",
               "description": "color.button.info.outline.active.border"
             }
@@ -1601,12 +1601,12 @@
           },
           "hover": {
             "background": {
-              "value": "{color.palette.info.50}",
+              "value": "{color.palette.info.100}",
               "type": "color",
               "description": "color.button.info.outline.hover.background"
             },
             "foreground": {
-              "value": "{color.palette.info.500}",
+              "value": "{color.palette.info.600}",
               "type": "color",
               "description": "color.button.info.outline.hover.foreground"
             },
@@ -1618,12 +1618,12 @@
           },
           "active": {
             "background": {
-              "value": "{color.palette.info.100}",
+              "value": "{color.palette.info.150}",
               "type": "color",
               "description": "color.button.info.outline.active.background"
             },
             "foreground": {
-              "value": "{color.palette.info.600}",
+              "value": "{color.palette.info.700}",
               "type": "color",
               "description": "color.button.primary.outline.active.foreground"
             },

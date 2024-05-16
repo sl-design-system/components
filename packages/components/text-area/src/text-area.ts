@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-export type TextareaSize = 'md' | 'lg';
+export type TextAreaSize = 'md' | 'lg';
 
 export type ResizeType = 'none' | 'vertical' | 'auto';
 
@@ -100,7 +100,7 @@ export class TextArea extends FormControlMixin(ScopedElementsMixin(LitElement)) 
   @property({ type: Boolean, attribute: 'show-valid' }) override showValid?: boolean;
 
   /** The size of the textarea. */
-  @property({ reflect: true }) size: TextareaSize = 'md';
+  @property({ reflect: true }) size: TextAreaSize = 'md';
 
   /** The value for the textarea. */
   @property() override value: string = '';

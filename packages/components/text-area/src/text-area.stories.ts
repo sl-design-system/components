@@ -2,7 +2,7 @@ import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type TextArea, type TextareaSize } from './text-area.js';
+import { type TextArea, type TextAreaSize } from './text-area.js';
 
 type Props = Pick<
   TextArea,
@@ -25,10 +25,10 @@ type Props = Pick<
 };
 type Story = StoryObj<Props>;
 
-const sizes: TextareaSize[] = ['md', 'lg'];
+const sizes: TextAreaSize[] = ['md', 'lg'];
 
 export default {
-  title: 'Form/Textarea',
+  title: 'Form/Text area',
   tags: ['stable'],
   args: {
     disabled: false,

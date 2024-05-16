@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/text-area",
   "version": "0.1.24",
-  "description": "Textarea component for the SL Design System",
+  "description": "Text area component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/textarea"
+    "directory": "packages/components/text-area"
   },
   "homepage": "https://sanomalearning.design/components/text-area",
   "bugs": {

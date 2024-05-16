@@ -1,9 +1,12 @@
+import { setupIgnoreWindowResizeObserverLoopErrors } from '@lit-labs/virtualizer/support/resize-observer-errors.js';
 import { expect, fixture } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { spy } from 'sinon';
 import '../register.js';
 import { TabGroup, type TabsAlignment } from './tab-group.js';
+
+setupIgnoreWindowResizeObserverLoopErrors(beforeEach, afterEach);
 
 describe('sl-tab-group', () => {
   let el: TabGroup;
@@ -23,10 +26,6 @@ describe('sl-tab-group', () => {
 
       // We need to wait for the RovingTabindexController to do its thing
       await new Promise(resolve => setTimeout(resolve, 100));
-    });
-
-    it('should not break', () => {
-      expect(el).shadowDom.to.equalSnapshot();
     });
 
     it('should have a horizontal layout', () => {

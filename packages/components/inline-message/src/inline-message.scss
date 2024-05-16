@@ -51,10 +51,6 @@ $variants: info, success, warning, danger;
   }
 }
 
-:host([no-title][wrap-action]) [part='content'] {
-  padding-block-end: var(--_padding-block);
-}
-
 :host([wrap-action]) {
   .wrapper {
     padding-block-end: var(--sl-space-inline-message-block);

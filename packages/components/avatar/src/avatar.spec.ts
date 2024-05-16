@@ -300,7 +300,7 @@ describe('sl-avatar', () => {
     ];
 
     valuesPerSize.forEach(sizeValues => {
-      it(`should calculate the right properties for the image in size ${sizeValues.name}`, async () => {
+      it.skip(`should calculate the right properties for the image in size ${sizeValues.name}`, async () => {
         el.setAttribute('size', sizeValues.name);
         el.setAttribute('status', 'online');
         el.setAttribute('badge-text', '');

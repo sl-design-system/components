@@ -43,7 +43,7 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
   static override styles: CSSResultGroup = styles;
 
   /** Observe the size and determine where to place the action button if present. */
-  #observer = new ResizeObserver(() => this.#update());
+  #observer = new ResizeObserver(() => this.#onResize());
 
   /** @internal Emits when the inline message is dismissed. */
   @event({ name: 'sl-dismiss' }) dismissEvent!: EventEmitter<SlDismissEvent>;
@@ -135,6 +135,19 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     this.noAction = !event.target.assignedElements({ flatten: true }).length;
   }
 
+  #onResize(): void {
+    const heading = this.noTitle
+      ? this.renderRoot.querySelector('slot:not([name])')
+      : this.renderRoot.querySelector('slot[name="title"]');
+
+    if (heading) {
+      const { height } = heading.getBoundingClientRect(),
+        lineHeight = parseInt(getComputedStyle(heading).getPropertyValue('line-height') ?? '1000');
+
+      this.wrapAction = height > lineHeight;
+    }
+  }
+
   #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.noTitle = !Array.from(event.target.assignedNodes({ flatten: true })).some(
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
@@ -162,18 +175,5 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     requestAnimationFrame(() => {
       wrapper.setAttribute('close', '');
     });
-  }
-
-  #update(): void {
-    const heading = this.noTitle
-      ? this.renderRoot.querySelector('slot:not([name])')
-      : this.renderRoot.querySelector('slot[name="title"]');
-
-    if (heading) {
-      const { height } = heading.getBoundingClientRect(),
-        lineHeight = parseInt(getComputedStyle(heading).getPropertyValue('line-height') ?? '1000');
-
-      this.wrapAction = height > lineHeight;
-    }
   }
 }

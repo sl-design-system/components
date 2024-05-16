@@ -9,6 +9,7 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
   extends EventTarget
   implements ReactiveController
 {
+  #disconnected = true;
   #form?: Form<T>;
   #host: ReactiveControllerHost & LitElement;
   #selector: string;
@@ -63,6 +64,11 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
   }
 
   /** @internal */
+  hostConnected(): void {
+    this.#disconnected = false;
+  }
+
+  /** @internal */
   hostUpdated(): void {
     this.#form ??= this.#host.renderRoot.querySelector(this.#selector) as Form<T>;
     if (!this.#form) {
@@ -77,6 +83,7 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
 
   /** @internal */
   hostDisconnected(): void {
+    this.#disconnected = true;
     this.#form?.removeEventListener('sl-update-validity', this.#onUpdate);
     this.#form?.removeEventListener('sl-update-state', this.#onUpdate);
     this.#form = undefined;
@@ -92,8 +99,7 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
    */
   #emitUpdateEvent(): void {
     requestAnimationFrame(() => {
-      // Abort if the form has been disconnected
-      if (this.#form?.parentElement) {
+      if (!this.#disconnected) {
         this.dispatchEvent(new Event('sl-update'));
       }
     });

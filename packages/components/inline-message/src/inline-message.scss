@@ -22,7 +22,7 @@ $variants: info, success, warning, danger;
   --_gap: var(--sl-space-inline-message-gap);
   --_icon-block-size: var(--sl-text-typeset-line-height-lg);
   --_padding-block: calc(
-    var(--sl-space-inline-message-block) - ((var(--_header-block-size) / 2) - var(--sl-space-inline-message-block))
+    var(--sl-space-inline-message-block) - ((var(--_header-block-size) - var(--_action-button-size)) / 2)
   );
   --_padding-inline-start: var(--sl-space-inline-message-inline-start);
   --_padding-inline-end: var(--_padding-block);
@@ -33,9 +33,11 @@ $variants: info, success, warning, danger;
 
 :host([indismissible]) {
   --_header-block-size: var(--_action-button-size);
-  --_header-padding-block-start: 0;
-  --_padding-block-start: var(--sl-space-inline-message-block);
-  --_padding-block-end: var(--sl-space-inline-message-block);
+  --_padding-inline-end: var(--sl-space-inline-message-inline-end);
+}
+
+:host([no-action]) [part='action'] {
+  display: none;
 }
 
 :host([no-title]) {
@@ -53,10 +55,16 @@ $variants: info, success, warning, danger;
   padding-block-end: var(--_padding-block);
 }
 
-:host([wrap-action]) [part='action'] {
-  align-self: auto;
-  grid-area: auto / 2;
-  margin-block-start: 0;
+:host([wrap-action]) {
+  .wrapper {
+    padding-block-end: var(--sl-space-inline-message-block);
+  }
+
+  [part='action'] {
+    align-self: auto;
+    grid-area: auto / 2;
+    margin-block-start: var(--sl-space-inline-message-block);
+  }
 }
 
 @each $variant in $variants {

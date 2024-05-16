@@ -22,12 +22,12 @@ export type InlineMessageVariant = 'info' | 'success' | 'warning' | 'danger';
 export type SlDismissEvent = CustomEvent<void>;
 
 /**
- * An inline message component for displaying additional information/errors.
+ * An inline message component for displaying additional information.
  *
  * @slot default - The body of the inline-message
- * @slot title - Title content for the inline message
- * @slot details - More details of the inline-message like list of errors
  * @slot icon - Icon shown on the left side of the component
+ * @slot title - Title content for the inline message
+ * @slot action - Optional action button
  */
 @localized()
 export class InlineMessage extends ScopedElementsMixin(LitElement) {
@@ -50,6 +50,9 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
 
   /** Will hide the close button if set. */
   @property({ type: Boolean, reflect: true }) indismissible?: boolean;
+
+  /** @internal If the action is missing, we need to hide the action part. */
+  @property({ type: Boolean, attribute: 'no-action', reflect: true }) noAction = true;
 
   /** @internal If the title is missing, the content needs to be placed where the title should be. */
   @property({ type: Boolean, attribute: 'no-title', reflect: true }) noTitle = true;
@@ -103,10 +106,10 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
           </slot>
         </div>
         <div part="title">
-          <slot @slotchange=${this.#onSlotChange} name="title"></slot>
+          <slot @slotchange=${this.#onTitleSlotChange} name="title"></slot>
         </div>
         <div part="action">
-          <slot name="action"></slot>
+          <slot @slotchange=${this.#onActionSlotChange} name="action"></slot>
         </div>
         ${this.indismissible
           ? nothing
@@ -128,7 +131,11 @@ export class InlineMessage extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+  #onActionSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    this.noAction = !event.target.assignedElements({ flatten: true }).length;
+  }
+
+  #onTitleSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.noTitle = !Array.from(event.target.assignedNodes({ flatten: true })).some(
       node => node.nodeType === Node.ELEMENT_NODE || node.textContent?.trim()
     );

@@ -25,8 +25,8 @@ import {
   TabComponent,
   TabGroupComponent,
   TabPanelComponent,
+  TextAreaComponent,
   TextFieldComponent,
-  TextareaComponent,
   TooltipComponent
 } from '../src/wrappers/index';
 
@@ -60,7 +60,7 @@ export default {
         TabGroupComponent,
         TabPanelComponent,
         TextFieldComponent,
-        TextareaComponent,
+        TextAreaComponent,
         TooltipComponent
       ]
     })
@@ -267,9 +267,9 @@ export const TextField: StoryObj = {
   })
 };
 
-export const Textarea: StoryObj = {
+export const TextArea: StoryObj = {
   render: () => ({
-    template: '<sl-textarea></sl-textarea>'
+    template: '<sl-text-area></sl-text-area>'
   })
 };
 

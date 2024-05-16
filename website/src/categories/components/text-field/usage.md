@@ -3,7 +3,7 @@ title: Text field usage
 tags: usage
 eleventyNavigation:
   parent: Text field
-  key: TextInputUsage
+  key: TextFieldUsage
 ---
 
 <section class="no-heading">
@@ -32,7 +32,7 @@ eleventyNavigation:
 
 The following guidance describes when to use the text field component.
 
-### Unique input 
+### Unique input
 When users need to input information that is unique and cannot be anticipated from a predefined set of options. Text fields provide the flexibility to capture diverse and unpredictable data.
 
 ### Single-line input
@@ -48,8 +48,8 @@ Text fields may not be the best choice in the following scenarios:
 For handling sensitive or confidential information, such as passwords or credit card numbers, it's advisable to utilize specialized secure input fields designed to obscure the entered data for enhanced security.
 
 ### Longer text responses
-Consider using a [text area](/categories/components/textarea/usage) when you anticipate the input length will exceed the width of a text field or when you encourage users to provide longer text responses.
-  
+Consider using a [text area](/categories/components/text-area/usage) when you anticipate the input length will exceed the width of a text field or when you encourage users to provide longer text responses.
+
 </section>
 
 <section>
@@ -57,7 +57,7 @@ Consider using a [text area](/categories/components/textarea/usage) when you ant
 ## Anatomy
 
 <div class="ds-table-wrapper">
-  
+
 |Item|Name| Description | Optional|
 |-|-|-|-|
 |1|Container	|An input container is a structured enclosure for user input elements. It facilitates organized and user-friendly data collection in interfaces.|no|
@@ -77,7 +77,7 @@ Consider using a [text area](/categories/components/textarea/usage) when you ant
 With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the text field to exactly fit the user experience need for the uses case you are working on.
 
 <div class="ds-table-wrapper">
-  
+
 |Item|Options|Description|
 |-|-|-|
 |Size|`md` `lg`|The text field is available in two sizes. If not specified the default value is `md` (medium).|

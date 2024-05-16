@@ -12,7 +12,7 @@ export interface PersonWithRating extends Person {
 }
 
 export default {
-  title: 'In progress/Grid/Styling'
+  title: 'Layout/Grid/Styling'
 };
 
 export const NoBorders: Story = {

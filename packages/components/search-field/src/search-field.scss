@@ -1,0 +1,15 @@
+:host {
+  --_button-padding: 2px;
+
+  padding-inline-end: calc(var(--sl-space-input-text-field-inline-md) - var(--_button-padding));
+}
+
+button {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  padding: var(--_button-padding);
+}

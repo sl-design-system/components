@@ -5193,6 +5193,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/search-field@workspace:packages/components/search-field":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/search-field@workspace:packages/components/search-field"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/icon": "npm:0.0.10"
+    "@sl-design-system/text-field": "npm:0.1.25"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/select@npm:0.0.28, @sl-design-system/select@workspace:packages/components/select":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/select@workspace:packages/components/select"

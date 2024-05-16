@@ -18,7 +18,7 @@ type Props = Pick<FormField, 'hint' | 'label'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Form/Form Field',
+  title: 'Form/Form field',
   tags: ['stable'],
   args: {
     hint: 'This is a hint',

@@ -2126,6 +2126,11 @@
         "type": "Icons",
         "description": "icon.core.octagon-exclamation-solid"
       },
+      "triangle-exclamation-solid": {
+        "value": "triangle-exclamation",
+        "type": "Icons",
+        "description": "icon.core.triangle-exclamation-solid"
+      },
       "circle-check-solid": {
         "value": "circle-check",
         "type": "Icons",

@@ -6,6 +6,7 @@ import styles from './search-field.scss.js';
 declare global {
   interface GlobalEventHandlersEventMap {
     'sl-clear': SlClearEvent;
+    'sl-search': SlSearchEvent;
   }
 
   interface HTMLElementTagNameMap {
@@ -15,6 +16,13 @@ declare global {
 
 export type SlClearEvent = CustomEvent<void>;
 
+export type SlSearchEvent = CustomEvent<string>;
+
+/**
+ * Search field component.
+ *
+ * @slot input - The slot for the input element
+ */
 export class SearchField extends TextField {
   /** @internal */
   static override styles: CSSResultGroup = [TextField.styles, styles];
@@ -24,6 +32,9 @@ export class SearchField extends TextField {
 
   /** @internal Emits when the user clears the field. */
   @event({ name: 'sl-clear' }) clearEvent!: EventEmitter<SlClearEvent>;
+
+  /** @internal Emits when the user presses enter. */
+  @event({ name: 'sl-search' }) searchEvent!: EventEmitter<SlSearchEvent>;
 
   override renderPrefix(): TemplateResult {
     return html`<sl-icon name="search"></sl-icon>`;
@@ -50,7 +61,11 @@ export class SearchField extends TextField {
       return;
     }
 
-    if (event.key === 'Escape') {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      this.searchEvent.emit(this.value);
+    } else if (event.key === 'Escape') {
       event.preventDefault();
 
       this.clear();

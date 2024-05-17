@@ -9,5 +9,28 @@ layout: base.njk
   </div>
 </header>
 <div class="ds-components__content">
+  <div class="ds-components__content-wrapper">
+    ## Actions {.ds-heading-1}
+    Components that can be clicked to trigger an action.
+<section class="ds-components__cards">
+{% for component in collections.component %}
+{% if component.data.componentType == "action" %}
+{% if component.data.eleventyNavigation.status != 'coming' %}<a href="{{ component.url | url }}">{% endif %}
+<sl-card orientation="vertical" class="{% if component.data.eleventyNavigation.status == 'coming' %}component-card--disabled{% endif %}">
+<span slot="media" class="component-card__picture">{% if component.data.picture != null %}{{ component.data.picture }}{% endif %}{% if component.data.picture == null %}{{defaultPicture}}{% endif %}</span>
+<div class="header-anchor ds-heading-2">
+  {{ component.data.title }}
+</div>
+<span slot="header">
+<sl-badge size="xl">new</sl-badge>
+</span>
+<p slot="body">{{ component.data.shortDescription }}</p>
+</sl-card>
+{% if component.data.eleventyNavigation.status != 'coming' %}</a>{% endif %}
+{% endif %}
+{% endfor %}
+</section>
+</div>
+
   {{ content | safe }}
 </div>

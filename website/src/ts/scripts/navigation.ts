@@ -9,7 +9,8 @@ const menu = document.querySelector('.ds-sidebar') as HTMLElement,
   arrows = document.querySelectorAll('.ds-sidebar-nav__arrow'),
   linksWithSubmenu: NodeListOf<HTMLElement> = document.querySelectorAll('.ds-sidebar-nav__link--has-submenu'),
   heading = document.querySelector('header:not(.ds-top-navigation)'),
-  title = heading?.querySelector('h1') as HTMLElement;
+  title = heading?.querySelector('h1') as HTMLElement,
+  componentStatus = document.querySelector('ds-component-status');
 
 let previouslyOpened: Element, previouslyOpenedSubmenu: Element;
 
@@ -217,7 +218,10 @@ const headingObserver = new IntersectionObserver(handler, {
   rootMargin: mediaQueryList.matches ? '-32px' : '-68px'
 });
 
-if (heading) {
+if (componentStatus) {
+  headingObserver.observe(componentStatus);
+} else if (heading && !componentStatus) {
+  headingObserver?.disconnect;
   headingObserver.observe(heading);
 } else {
   headingObserver?.disconnect;

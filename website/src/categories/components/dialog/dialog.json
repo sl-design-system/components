@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "dialog",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Dialog",

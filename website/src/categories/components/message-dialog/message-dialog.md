@@ -7,6 +7,7 @@ picture:
 pictureDark:
 layout: "categories/components/components.njk"
 tags: component
+packageName: message-dialog
 eleventyNavigation:
   parent: Components
   key: Message dialog

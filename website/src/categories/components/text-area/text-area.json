@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "text-area",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Text area",

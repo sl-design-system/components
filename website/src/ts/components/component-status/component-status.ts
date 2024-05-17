@@ -39,7 +39,7 @@ export class ComponentStatus extends LitElement {
             <div class="component-info">
               <div class="ds-heading-4 info">
                 Status
-                <sl-badge size="3xl" variant=${this.badgeVariant}>${this.status ? this.status : 'planned'}</sl-badge>
+                <ds-status status=${this.status}></ds-status>
               </div>
               ${this.version ? html`
                   <div class="ds-heading-4 info">

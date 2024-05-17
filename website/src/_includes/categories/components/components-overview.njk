@@ -9,5 +9,114 @@ layout: base.njk
   </div>
 </header>
 <div class="ds-components__content">
-  {{ content | safe }}
+  <div class="ds-components__content-wrapper">
+
+    <h2 class="ds-heading-1">Actions</h2>
+    Components that can be clicked to trigger an action.
+
+    <section class="ds-components__cards">
+    {% for component in collections.component %}
+    {% if component.data.componentType == "action" %}
+    {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}<a href="{{ component.url | url }}">{% endif %}
+    <sl-card orientation="vertical" class="component-card {% if component.data.eleventyNavigation.status == 'planned' or component.data.eleventyNavigation.status == 'draft' %}component-card--disabled{% endif %}">
+    <span slot="media" class="component-card__picture">{%- if component.data.picture != null %}{{ component.data.picture | safe }}{% endif -%}{%- if component.data.picture == null %}{{ defaultPicture | safe}}{% endif -%}</span>
+    <div class="component-card__title">{{ component.data.title }}</div>
+    <span slot="header">
+    <ds-status status="{{ component.data.componentStatus }}"></ds-status>
+    </span>
+    <p slot="body">{{ component.data.shortDescription }}</p>
+    </sl-card>
+    {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}</a>{% endif %}
+    {% endif %}
+    {% endfor %}
+    </section>
+
+    <h2 class="ds-heading-1">Selection</h2>
+    Components that offer the user the possibility of choosing.
+
+    <section class="ds-components__cards">
+      {% for component in collections.component %}
+        {% if component.data.componentType == "selection" %}
+          {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}<a href="{{ component.url | url }}">{% endif %}
+          <sl-card orientation="vertical" class="component-card {% if component.data.eleventyNavigation.status == 'planned' or component.data.eleventyNavigation.status == 'draft' %}component-card--disabled{% endif %}">
+          <span slot="media" class="component-card__picture">
+          {% if component.data.picture != null %}{{ component.data.picture | safe }}{% endif %}{% if component.data.picture == null %}{{ defaultPicture | safe }}{% endif %}
+          </span>
+            <div class="component-card__title">{{ component.data.title }}</div>
+            <span slot="header">
+            <ds-status status="{{ component.data.componentStatus }}"></ds-status>
+            </span>
+            <p slot="body">{{ component.data.shortDescription }}</p>
+          </sl-card>
+          {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}</a>{% endif %}
+        {% endif %}
+      {% endfor %}
+    </section>
+
+    <h2 class="ds-heading-1">Editable</h2>
+    Components that give the user the possibility of add their inputs.
+
+    <section class="ds-components__cards">
+      {% for component in collections.component %}
+        {% if component.data.componentType == "editable" %}
+          {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}<a href="{{ component.url | url }}">{% endif %}
+          <sl-card orientation="vertical" class="component-card {% if component.data.eleventyNavigation.status == 'planned' or component.data.eleventyNavigation.status == 'draft' %}component-card--disabled{% endif %}">
+          <span slot="media" class="component-card__picture">
+          {% if component.data.picture != null %}{{ component.data.picture | safe }}{% endif %}{% if component.data.picture == null %}{{ defaultPicture | safe }}{% endif %}
+          </span>
+          <div class="component-card__title">{{ component.data.title }}</div>
+          <span slot="header">
+          <ds-status status="{{ component.data.componentStatus }}"></ds-status>
+          </span>
+          <p slot="body">{{ component.data.shortDescription }}</p>
+          </sl-card>
+          {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}</a>{% endif %}
+        {% endif %}
+      {% endfor %}
+    </section>
+
+    <h2 class="ds-heading-1">Overlay</h2>
+    Components that add a bit of extra screen real estate. Or will focus the attention of the user in a specific, smaller area of the screen.
+
+    <section class="ds-components__cards">
+      {% for component in collections.component %}
+        {% if component.data.componentType == "overlay" %}
+          {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}<a href="{{ component.url | url }}">{% endif %}
+          <sl-card orientation="vertical" class="component-card {% if component.data.eleventyNavigation.status == 'planned' or component.data.eleventyNavigation.status == 'draft' %}component-card--disabled{% endif %}">
+          <span slot="media" class="component-card__picture">
+          {% if component.data.picture != null %}{{ component.data.picture | safe }}{% endif %}{% if component.data.picture == null %}{{ defaultPicture | safe }}{% endif %}
+          </span>
+          <div class="component-card__title">{{ component.data.title }}</div>
+          <span slot="header">
+          <ds-status status="{{ component.data.componentStatus }}"></ds-status>
+          </span>
+          <p slot="body">{{ component.data.shortDescription }}</p>
+          </sl-card>
+          {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}</a>{% endif %}
+        {% endif %}
+      {% endfor %}
+    </section>
+
+    <h2 class="ds-heading-1">Feedback</h2>
+    Components that communicate the states of the system to the user.
+
+    <section class="ds-components__cards">
+      {% for component in collections.component %}
+        {% if component.data.componentType == "feedback" %}
+          {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}<a href="{{ component.url | url }}">{% endif %}
+          <sl-card orientation="vertical" class="component-card {% if component.data.eleventyNavigation.status == 'planned' or component.data.eleventyNavigation.status == 'draft' %}component-card--disabled{% endif %}">
+          <span slot="media" class="component-card__picture">
+          {% if component.data.picture != null %}{{ component.data.picture | safe }}{% endif %}{% if component.data.picture == null %}{{ defaultPicture | safe }}{% endif %}
+          </span>
+            <div class="component-card__title">{{ component.data.title }}</div>
+            <span slot="header">
+            <ds-status status="{{ component.data.componentStatus }}"></ds-status>
+            </span>
+            <p slot="body">{{ component.data.shortDescription }}</p>
+          </sl-card>
+          {% if component.data.eleventyNavigation.status != 'planned' and component.data.eleventyNavigation.status != 'draft' %}</a>{% endif %}
+        {% endif %}
+      {% endfor %}
+    </section>
+  </div>
 </div>

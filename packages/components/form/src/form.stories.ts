@@ -17,7 +17,7 @@ type Story = StoryObj;
 
 export default {
   title: 'Form/Form',
-  tags: ['stable']
+  tags: ['preview']
 };
 
 export const Basic: Story = {

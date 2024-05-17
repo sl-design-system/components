@@ -38,7 +38,7 @@ const sizeName = (size: string): string => {
 
 export default {
   title: 'Components/Badge',
-  tags: ['stable'],
+  tags: ['preview'],
   args: {
     text: '99+',
     size: 'md',

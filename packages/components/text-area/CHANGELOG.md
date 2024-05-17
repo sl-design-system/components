@@ -1,4 +1,4 @@
-# @sl-design-system/textarea
+# @sl-design-system/text-area
 
 ## 0.1.24
 

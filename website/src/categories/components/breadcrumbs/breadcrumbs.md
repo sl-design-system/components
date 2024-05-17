@@ -10,6 +10,6 @@ eleventyNavigation:
   parent: Components
   key: Breadcrumbs
   order: 5
-  status: ready
+  status: new
 ---
 

@@ -4,8 +4,8 @@ import { ButtonBar } from '@sl-design-system/button-bar';
 import { Checkbox, CheckboxGroup } from '@sl-design-system/checkbox';
 import { Form, FormController, FormField, FormValidationErrors } from '@sl-design-system/form';
 import { Radio, RadioGroup } from '@sl-design-system/radio-group';
+import { TextArea } from '@sl-design-system/text-area';
 import { TextField } from '@sl-design-system/text-field';
-import { Textarea } from '@sl-design-system/textarea';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import styles from './composite-form.scss.js';
 
@@ -23,7 +23,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
       'sl-radio': Radio,
       'sl-radio-group': RadioGroup,
       'sl-text-field': TextField,
-      'sl-textarea': Textarea
+      'sl-text-area': TextArea
     };
   }
 
@@ -77,7 +77,7 @@ export class CompositeForm extends ScopedElementsMixin(LitElement) {
         </sl-form-field>
 
         <sl-form-field label="Remarks">
-          <sl-textarea name="remarks" placeholder="Enter any remarks here" required></sl-textarea>
+          <sl-text-area name="remarks" placeholder="Enter any remarks here" required></sl-text-area>
         </sl-form-field>
 
         <sl-form-field label="Subscriptions">

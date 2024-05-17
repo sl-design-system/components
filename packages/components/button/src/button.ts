@@ -15,7 +15,7 @@ export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
-export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
+export type ButtonVariant = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
 /**
  * A single, simple button, with optionally an icon.

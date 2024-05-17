@@ -1593,20 +1593,20 @@
     },
     "inline-message": {
       "block": {
-        "value": "{space.lg}",
+        "value": "{space.md}",
         "type": "spacing",
-        "description": "space.button.solid.block.md"
+        "description": "space.inline-message.block.md"
       },
       "inline": {
         "start": {
-          "value": "{space.lg} + {border.width.inline-message.start}",
+          "value": "{space.lg} + {size.inline-message.start}",
           "type": "spacing",
-          "description": "space.button.solid.inline.md"
+          "description": "space.inline-message.inline.start"
         },
         "end": {
-          "value": "{space.2xl}",
+          "value": "{space.md}",
           "type": "spacing",
-          "description": "space.button.solid.inline.md"
+          "description": "space.inline-message.inline.end"
         }
       },
       "gap": {
@@ -2125,6 +2125,11 @@
         "value": "octagon-exclamation",
         "type": "Icons",
         "description": "icon.core.octagon-exclamation-solid"
+      },
+      "triangle-exclamation-solid": {
+        "value": "triangle-exclamation",
+        "type": "Icons",
+        "description": "icon.core.triangle-exclamation-solid"
       },
       "circle-check-solid": {
         "value": "circle-check",

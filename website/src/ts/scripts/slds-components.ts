@@ -23,13 +23,14 @@ import '@sl-design-system/skeleton/register.js';
 import '@sl-design-system/spinner/register.js';
 import '@sl-design-system/switch/register.js';
 import '@sl-design-system/tabs/register.js';
+import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
-import '@sl-design-system/textarea/register.js';
 import '@sl-design-system/tooltip/register.js';
 import { MessageDialog } from '@sl-design-system/message-dialog';
 import { setup } from '@sl-design-system/sanoma-learning';
 import { Icon } from '@sl-design-system/icon';
 import {
+  faArrowUpRightFromSquare,
   faBug,
   faCode,
   faCopy,
@@ -46,6 +47,7 @@ import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 setup();
 
 Icon.register(
+  faArrowUpRightFromSquare,
   faBug,
   faCode,
   faCopy,

@@ -22,11 +22,8 @@ $transition-timing: 300ms;
   }
 }
 
-.component-card,
-sl-card {
+.component-card {
   block-size: 100%;
-
-  // TODO: only for sl-card
   border-radius: 0.2rem;
   cursor: pointer;
   display: flex;
@@ -46,12 +43,14 @@ sl-card {
       transform: none;
     }
 
-    .ds-heading-2 {
+    .ds-heading-2,
+    .component-card__title {
       color: var(--highlight-color);
     }
   }
 
-  .ds-heading-2 {
+  .ds-heading-2,
+  .component-card__title {
     line-height: 2rem;
     margin-block-end: 0.8rem;
     transition: color $transition-timing linear;
@@ -59,8 +58,7 @@ sl-card {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .component-card,
-  sl-card {
+  .component-card {
     &:not(.component-card--disabled):hover,
     &:not(.component-card--disabled):focus-within {
       svg {
@@ -137,8 +135,8 @@ sl-card {
 }
 
 .ds-components__cards {
-  gap: 3.2rem 2.4rem;
   display: grid;
+  gap: 3.2rem 2.4rem;
   grid-template-columns: 1fr;
 
   @media screen and (min-width: $md-breakpoint) {

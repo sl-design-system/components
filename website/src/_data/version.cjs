@@ -7,7 +7,7 @@ async function getComponentVersions() {
     .map(dir => dir.split('/').at(-1))
     .filter(dir => !dir.includes('.'));
 
-  let versions = await Promise.all(
+  const versions = await Promise.all(
     components.map(async c => {
       const response = await fetch(`https://raw.githubusercontent.com/sl-design-system/components/main/packages/components/${c}/package.json`);
 

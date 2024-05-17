@@ -30,6 +30,10 @@ module.exports = function(eleventyConfig) {
     return str.replace(/\r|\n|\r\n/g, '<br />')
   });
 
+  eleventyConfig.addFilter('debug', function (value) {
+    return JSON.stringify(value, null, 2);
+  });
+
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {
     const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
 

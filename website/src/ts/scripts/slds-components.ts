@@ -30,6 +30,7 @@ import { MessageDialog } from '@sl-design-system/message-dialog';
 import { setup } from '@sl-design-system/sanoma-learning';
 import { Icon } from '@sl-design-system/icon';
 import {
+  faArrowUpRightFromSquare,
   faBug,
   faCode,
   faCopy,
@@ -46,6 +47,7 @@ import { faGithub, faSlack } from '@fortawesome/free-brands-svg-icons';
 setup();
 
 Icon.register(
+  faArrowUpRightFromSquare,
   faBug,
   faCode,
   faCopy,

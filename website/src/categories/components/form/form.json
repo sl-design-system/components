@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "form",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Form",

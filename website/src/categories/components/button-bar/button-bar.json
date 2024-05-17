@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "button-bar",
+  "componentStatus": "draft",
   "componentTagName": [
     {
       "name": "Button bar",

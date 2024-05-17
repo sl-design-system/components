@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "tooltip",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Tooltip",

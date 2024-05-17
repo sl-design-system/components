@@ -5197,11 +5197,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sl-design-system/search-field@workspace:packages/components/search-field"
   dependencies:
-    "@open-wc/scoped-elements": "npm:^3.0.5"
-    "@sl-design-system/icon": "npm:0.0.10"
+    "@sl-design-system/shared": "npm:0.2.11"
     "@sl-design-system/text-field": "npm:0.1.25"
-  peerDependencies:
-    "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
   linkType: soft
 

@@ -1358,5 +1358,13 @@
         "type": "textCase"
       }
     }
+  },
+  "size": {
+    "inline-message": {
+      "start": {
+        "value": "{size.3xs}",
+        "type": "sizing"
+      }
+    }
   }
 }

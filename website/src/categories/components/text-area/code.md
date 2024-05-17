@@ -1,29 +1,29 @@
 ---
-title: Textarea code
+title: Text area code
 tags: code
 APIdescription: Component has a range of properties to define the experience in different use cases.
 eleventyNavigation:
   parent: Text area
-  key: TextareaCode
+  key: TextAreaCode
 ---
 <section class="no-heading">
 
 <div class="ds-example">
-  <sl-textarea
+  <sl-text-area
     aria-label="My favourite subject"
     value="My favourite subject is English. It is an important language to learn."
     style="width: 250px;"
-  ></sl-textarea>
+  ></sl-text-area>
 </div>
 
 <div class="ds-code">
 
   ```html
-    <sl-textarea aria-label="My favourite subject" value="My favourite subject is..."></sl-textarea>
+    <sl-text-area aria-label="My favourite subject" value="My favourite subject is..."></sl-text-area>
   ```
 
 </div>
 
 </section>
-<ds-install-info link-in-navigation package="textarea"></ds-install-info>
+<ds-install-info link-in-navigation package="text-area"></ds-install-info>
 {% include "../component-table.njk" %}

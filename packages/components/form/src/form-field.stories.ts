@@ -3,8 +3,8 @@ import '@sl-design-system/icon/register.js';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
+import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
-import '@sl-design-system/textarea/register.js';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
@@ -99,7 +99,7 @@ export const Switch: Story = {
 
 export const Textarea: Story = {
   args: {
-    slot: () => html`<sl-textarea required></sl-textarea>`
+    slot: () => html`<sl-text-area required></sl-text-area>`
   }
 };
 

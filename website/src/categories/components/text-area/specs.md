@@ -1,15 +1,15 @@
 ---
-title: Textarea specs
+title: Text area specs
 tags: specs
 eleventyNavigation:
   parent: Text area
-  key: TextareaSpecs
+  key: TextAreaSpecs
 ---
 <section>
 
-## Textarea specs content
+## Text area specs content
 
-This is the textarea specs content
+This is the text area specs content
 
 </section>
 

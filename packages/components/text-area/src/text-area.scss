@@ -6,13 +6,13 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 $resize-types: none, both, horizontal, vertical, auto;
 
 :host {
-  --sl-textarea-rows: 3;
+  --sl-text-area-rows: 3;
   --_border-radius: var(--sl-border-radius-default);
   --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
-  --_min-height: calc(var(--sl-textarea-rows) * 1lh);
+  --_min-height: calc(var(--sl-text-area-rows) * 1lh);
   --_transition: 200ms ease-in-out;
 
   align-items: start;
@@ -44,7 +44,7 @@ $resize-types: none, both, horizontal, vertical, auto;
 
     // TODO: needs to be removed in the future when lh unit will be supported for Firefox as well
     @supports not (min-height: 1lh) {
-      --_min-height: calc(var(--sl-textarea-rows) * var(--sl-text-typeset-line-height-#{$size}));
+      --_min-height: calc(var(--sl-text-area-rows) * var(--sl-text-typeset-line-height-#{$size}));
     }
   }
 }

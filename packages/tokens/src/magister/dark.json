@@ -3251,19 +3251,19 @@
     "inline-message": {
       "info": {
         "background": {
-          "value": "rgba({color.palette.primary.400}, {opacity.300})",
+          "value": "rgba({color.palette.primary.400}, {opacity.100})",
           "type": "color"
         },
         "foreground": {
-          "value": "{color.palette.info.200}",
+          "value": "{color.palette.info.300}",
           "type": "color"
         },
         "border": {
-          "value": "{color.palette.info.200}",
+          "value": "{color.palette.info.300}",
           "type": "color"
         },
         "icon": {
-          "value": "{color.palette.info.200}",
+          "value": "{color.palette.info.300}",
           "type": "color"
         }
       },

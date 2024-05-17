@@ -12,12 +12,10 @@ eleventyNavigation:
   <sl-inline-message variant="danger" style="inline-size: 80%;">
       <span slot="title">There are some problems</span>
       Please fulfill all required fields:
-      <span slot="details">
-        <ul>
-          <li style="font-size: 1.4rem;">Last name is required</li>
-          <li style="font-size: 1.4rem;">School name is required</li>
-        </ul>
-      </span>
+      <ul>
+        <li style="font-size: 1.4rem;">Last name is required</li>
+        <li style="font-size: 1.4rem;">School name is required</li>
+      </ul>
     </sl-inline-message>
 </div>
 
@@ -27,12 +25,10 @@ eleventyNavigation:
     <sl-inline-message variant="danger">
       <span slot="title">There are some problems</span>
       Please fulfill all...
-      <span slot="details">
-        <ul>
-          <li>Last name is required</li>
-          <li>...</li>
-        </ul>
-      </span>
+      <ul>
+        <li>Last name is required</li>
+        <li>...</li>
+      </ul>
     </sl-inline-message>
   ```
 

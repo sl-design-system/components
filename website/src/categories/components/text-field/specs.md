@@ -3,7 +3,7 @@ title: Text field specs
 tags: specs
 eleventyNavigation:
   parent: Text field
-  key: TextInputSpecs
+  key: TextFieldSpecs
 ---
 <section>
 

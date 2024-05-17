@@ -1,22 +1,22 @@
 ---
-title: Textarea
+title: Text area
 tags: overview
 eleventyNavigation:
   parent: Text area
-  key: TextareaOverview
+  key: TextAreaOverview
 ---
 <section>
 
 <div class="ds-example">
 
-<sl-textarea placeholder="placeholder">Textarea example code</sl-textarea>
+<sl-text-area placeholder="placeholder">Textarea example code</sl-text-area>
 
 </div>
 
 <div class="ds-code">
 
 ```html
-  <sl-textarea placeholder="placeholder">Textarea example code</sl-textarea>
+  <sl-text-area placeholder="placeholder">Textarea example code</sl-text-area>
  ```
 
 </div>
@@ -48,7 +48,7 @@ Place text here
 <div class="ds-danger">
 
 ![Alt text example](/assets/images/example-dont.svg "don't picture"){.ds-do-dont__picture}
-  
+
 <div class="ds-danger__content">
 
 ### Don't

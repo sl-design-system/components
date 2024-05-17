@@ -13,6 +13,7 @@ layout: base.njk
 <section>
   {%- for post in collections.component -%}
     {% if page.url.includes(post.url) %}
+      <pre>{{version | debug}}</pre>
       <ds-component-status componentName="{{post.data.packageName}}" version="{{version[post.data.packageName]}}" status="{{ post.data.componentStatus }}">{{post.data.status}}</ds-component-status>
       <sl-tab-group class="ds-tab-group">
         {%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}<sl-tab href="{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}"

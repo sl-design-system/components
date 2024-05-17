@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "popover",
+  "componentStatus": "preview",
   "componentTagName": [
     {
       "name": "Popover",

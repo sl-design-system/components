@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "checkbox",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Checkbox",

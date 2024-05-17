@@ -8,6 +8,24 @@ eleventyNavigation:
 
 <section>
 
+<div class="ds-example">
+  <div class="ds-example__code-wrapper">
+    button bar example
+  </div>
+</div>
+
+<div class="ds-code">
+
+  ```html
+  button bar example
+  ```
+
+</div>
+
+</section>
+
+<section>
+
 ## Usage
 
 Lorem ipsum dolor sit amet

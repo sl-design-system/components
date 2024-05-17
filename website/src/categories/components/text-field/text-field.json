@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "text-field",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Text field",

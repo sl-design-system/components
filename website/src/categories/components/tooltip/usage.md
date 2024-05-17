@@ -32,6 +32,7 @@ Tooltips can offer brief definitions or explanations for technical terms, acrony
 
 ### Long titles or descriptions
 If you’re displaying a list of articles with truncated titles, a tooltip can reveal the complete title when users hover over the ellipsis.
+</section>
 
 <section>
 

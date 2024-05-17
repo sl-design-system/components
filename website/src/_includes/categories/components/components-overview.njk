@@ -22,7 +22,7 @@ layout: base.njk
     <span slot="media" class="component-card__picture">{%- if component.data.picture != null %}{{ component.data.picture | safe }}{% endif -%}{%- if component.data.picture == null %}{{ defaultPicture | safe}}{% endif -%}</span>
     <div class="component-card__title">{{ component.data.title }}</div>
     <span slot="header">
-    <ds-status size="xl" status="{{ component.data.componentStatus }}"></ds-status>
+    <ds-status status="{{ component.data.componentStatus }}"></ds-status>
     </span>
     <p slot="body">{{ component.data.shortDescription }}</p>
     </sl-card>
@@ -44,7 +44,7 @@ layout: base.njk
           </span>
             <div class="component-card__title">{{ component.data.title }}</div>
             <span slot="header">
-            <ds-status size="xl" status="{{ component.data.componentStatus }}"></ds-status>
+            <ds-status status="{{ component.data.componentStatus }}"></ds-status>
             </span>
             <p slot="body">{{ component.data.shortDescription }}</p>
           </sl-card>
@@ -66,7 +66,7 @@ layout: base.njk
           </span>
           <div class="component-card__title">{{ component.data.title }}</div>
           <span slot="header">
-          <ds-status size="xl" status="{{ component.data.componentStatus }}"></ds-status>
+          <ds-status status="{{ component.data.componentStatus }}"></ds-status>
           </span>
           <p slot="body">{{ component.data.shortDescription }}</p>
           </sl-card>
@@ -88,7 +88,7 @@ layout: base.njk
           </span>
           <div class="component-card__title">{{ component.data.title }}</div>
           <span slot="header">
-          <ds-status size="xl" status="{{ component.data.componentStatus }}"></ds-status>
+          <ds-status status="{{ component.data.componentStatus }}"></ds-status>
           </span>
           <p slot="body">{{ component.data.shortDescription }}</p>
           </sl-card>
@@ -110,7 +110,7 @@ layout: base.njk
           </span>
             <div class="component-card__title">{{ component.data.title }}</div>
             <span slot="header">
-            <ds-status size="xl" status="{{ component.data.componentStatus }}"></ds-status>
+            <ds-status status="{{ component.data.componentStatus }}"></ds-status>
             </span>
             <p slot="body">{{ component.data.shortDescription }}</p>
           </sl-card>

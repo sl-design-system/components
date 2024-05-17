@@ -1,7 +1,7 @@
 ---
 title: Search field
 description:  Search field description
-componentType: feedback
+componentType: editable
 shortDescription:  We have plans to work on the search field component.
 layout: "categories/components/components.njk"
 tags: component

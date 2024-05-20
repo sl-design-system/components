@@ -1,8 +1,10 @@
 import { EventsController } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { FormField, type SlFormFieldEvent } from './form-field.js';
 import styles from './form.scss.js';
+import { getValueByPath } from './path.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -31,6 +33,13 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   });
 
   #showValidity = false;
+
+  /**
+   * The form value explicitly set; this may be set before the form controls have
+   * registered themselves with the form. So we cache this value so that we can
+   * set it on the form controls when they are ready.
+   */
+  #value: T | undefined;
 
   /** The controls in the form; not necessarily the same amount as the fields. */
   controls: Array<HTMLElement & FormControl> = [];
@@ -85,6 +94,17 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     ) as T;
   }
 
+  @property({ attribute: false })
+  set value(value: T | undefined) {
+    this.#value = value;
+
+    if (value) {
+      this.controls.filter(c => c.name).forEach(c => (c.formValue = getValueByPath(value, c.name!)));
+    } else {
+      this.controls.forEach(c => (c.formValue = undefined));
+    }
+  }
+
   override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
@@ -99,6 +119,11 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   #onFormControl(event: SlFormControlEvent): void {
     event.preventDefault();
     event.stopPropagation();
+
+    const name = event.target.name;
+    if (name) {
+      event.target.formValue = getValueByPath(this.#value, name);
+    }
 
     this.controls = [...this.controls, event.target];
   }

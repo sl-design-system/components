@@ -2,26 +2,30 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
-import { CompositeForm } from '@sl-design-system/lit-examples';
+import { CompositeForm, NestedForm } from '@sl-design-system/lit-examples';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
-import { type StoryObj } from '@storybook/web-components';
+import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
 import { type Form } from './form.js';
 
-type Story = StoryObj;
+type Props = Pick<Form, 'value'>;
+type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Form',
-  tags: ['stable']
-};
+  tags: ['stable'],
+  args: {
+    value: {}
+  }
+} satisfies Meta<Props>;
 
 export const Basic: Story = {
-  render: () => {
+  render: ({ value }) => {
     const onSubmit = (event: Event & { target: HTMLElement }): void => {
       const form = event.target.closest('sl-form') as Form;
 
@@ -29,7 +33,7 @@ export const Basic: Story = {
     };
 
     return html`
-      <sl-form>
+      <sl-form .value=${value}>
         <sl-form-field label="Username">
           <sl-text-field
             name="username"
@@ -52,6 +56,17 @@ export const Basic: Story = {
         </sl-button-bar>
       </sl-form>
     `;
+  }
+};
+
+export const Value: Story = {
+  ...Basic,
+  args: {
+    value: {
+      username: 'john.doe',
+      password: 'password',
+      remember: true
+    }
   }
 };
 
@@ -139,6 +154,18 @@ export const CustomComponent: Story = {
     }
 
     return html`<example-composite-form></example-composite-form>`;
+  }
+};
+
+export const NestedComponent: Story = {
+  render: () => {
+    try {
+      customElements.define('example-nested-form', NestedForm);
+    } catch {
+      /* empty */
+    }
+
+    return html`<example-nested-form></example-nested-form>`;
   }
 };
 

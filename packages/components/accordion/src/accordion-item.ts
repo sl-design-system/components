@@ -61,9 +61,44 @@ export class AccordionItem extends LitElement {
           part="summary"
           tabindex=${this.disabled ? -1 : 0}
         >
-          <svg fill="none" height="28" viewBox="0 0 24 28" width="24" xmlns="http://www.w3.org/2000/svg">
-            <rect class="horizontal-line" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" />
-            <rect class="vertical-line" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" />
+          <svg fill="none" viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg">
+            <g class="horizontal-line" style="transform-origin: center;">
+              <rect id="horizontal_1" x="11" y="6" width="2" height="16" rx="0.824742" />
+            </g>
+            <g class="vertical-line" style="transform-origin: center;">
+              <rect id="vertical_1" x="11" y="6" width="2" height="16" rx="0.824742" />
+            </g>
+          </svg>
+          <svg fill="none" viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg">
+            <g class="horizontal-line" style="transform-origin: center;">
+              <rect id="horizontal_1" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" />
+            </g>
+            <g class="vertical-line" style="transform-origin: center;">
+              <rect id="vertical_1" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" />
+            </g>
+          </svg>
+          <svg
+            fill="#000000"
+            version="1.1"
+            id="Capa_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="-4.54 -4.54 54.48 54.48"
+            xml:space="preserve"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <g>
+                <path
+                  d="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141 c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27 c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435 c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z"
+                ></path>
+              </g>
+            </g>
+          </svg>
+          <svg width="120" height="120" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="60" x2="120" y2="60" stroke="black" />
+            <line x1="60" y1="0" x2="60" y2="120" stroke="black" />
           </svg>
           ${this.summary}
         </summary>
@@ -77,6 +112,12 @@ export class AccordionItem extends LitElement {
       </details>
     `;
   }
+
+  // with rx
+  // <svg fill="none" height="28" viewBox="0 0 24 28" width="24" xmlns="http://www.w3.org/2000/svg">
+  //   <rect id="horizontal_1" class="horizontal-line" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" />
+  //   <rect id="vertical_1" class="vertical-line" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" />
+  //     </svg>
 
   /**
    * This is a workaround for `delegatesFocus` not allowing you to select

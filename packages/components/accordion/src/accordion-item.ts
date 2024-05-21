@@ -63,10 +63,10 @@ export class AccordionItem extends LitElement {
         >
           <svg viewBox="-12 -14 24 28" xmlns="http://www.w3.org/2000/svg">
             <g class="horizontal-line">
-              <rect id="horizontal_1" x="-1" y="-8" width="2" height="16" rx="0.824742" />
+              <rect x="-1" y="-8" width="2" height="16" rx="0.824742" />
             </g>
             <g class="vertical-line">
-              <rect id="vertical_1" x="-1" y="-8" width="2" height="16" rx="0.824742" />
+              <rect x="-1" y="-8" width="2" height="16" rx="0.824742" />
             </g>
           </svg>
           ${this.summary}

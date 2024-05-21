@@ -126,7 +126,7 @@ svg {
 }
 
 g {
-  transform-origin: 0 0; // center;
+  transform-origin: 0 0;
 
   &.horizontal-line {
     transform: rotate(90deg);

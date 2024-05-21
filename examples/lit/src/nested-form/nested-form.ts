@@ -7,6 +7,14 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit'
 import { type Address, ChildForm } from './child-form.js';
 import styles from './nested-form.scss.js';
 
+type Profile = {
+  user: {
+    firstName: string;
+    lastName: string;
+    address: Address;
+  };
+};
+
 export class NestedForm extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
@@ -23,21 +31,21 @@ export class NestedForm extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  #form = new FormController<{ firstName: string; lastName: string; address: Address }>(this);
+  #form = new FormController<Profile>(this);
 
   override render(): TemplateResult {
     return html`
       <sl-form>
         <sl-form-field label="First name">
-          <sl-text-field name="firstName" required></sl-text-field>
+          <sl-text-field name="user.firstName" required></sl-text-field>
         </sl-form-field>
 
         <sl-form-field label="Last name">
-          <sl-text-field name="lastName" required></sl-text-field>
+          <sl-text-field name="user.lastName" required></sl-text-field>
         </sl-form-field>
 
         <sl-form-field label="Address">
-          <example-child-form name="address" required></example-child-form>
+          <example-child-form name="user.address" required></example-child-form>
         </sl-form-field>
 
         <sl-button-bar align="end">

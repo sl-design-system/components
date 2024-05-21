@@ -9,53 +9,69 @@ import '@sl-design-system/switch/register.js';
 import '@sl-design-system/text-area/register.js';
 import '@sl-design-system/text-field/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Form } from './form.js';
 
-type Props = Pick<Form, 'value'>;
+type Props = Pick<Form, 'disabled' | 'value'> & {
+  fields: TemplateResult;
+};
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Form',
-  tags: ['stable'],
+  tags: ['preview'],
   args: {
+    disabled: false,
     value: {}
+  },
+  render: ({ disabled, fields, value }) => {
+    const onToggle = (): void => {
+      const form = document.querySelector('sl-form')!;
+
+      form.disabled = !form.disabled;
+    };
+
+    const onReport = (): void => {
+      const form = document.querySelector('sl-form');
+
+      console.log(form?.reportValidity(), form?.value);
+    };
+
+    const onReset = (): void => document.querySelector('sl-form')?.reset();
+
+    return html`
+      <style>
+        sl-button[variant='primary'] {
+          margin-inline-start: auto;
+        }
+      </style>
+      <sl-form ?disabled=${disabled} .value=${value}>
+        ${fields}
+        <sl-button-bar>
+          <sl-button @click=${onReset}>Reset</sl-button>
+          <sl-button @click=${onToggle}>Toggle</sl-button>
+          <sl-button @click=${onReport} variant="primary">Report</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
   }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
-  render: ({ value }) => {
-    const onSubmit = (event: Event & { target: HTMLElement }): void => {
-      const form = event.target.closest('sl-form') as Form;
+  args: {
+    fields: html`
+      <sl-form-field label="Text field">
+        <sl-text-field name="textField" required></sl-text-field>
+      </sl-form-field>
+    `
+  }
+};
 
-      console.log(form.reportValidity(), form.value);
-    };
-
-    return html`
-      <sl-form .value=${value}>
-        <sl-form-field label="Username">
-          <sl-text-field
-            name="username"
-            placeholder="Enter your username or email address here"
-            required
-          ></sl-text-field>
-        </sl-form-field>
-
-        <sl-form-field label="Password">
-          <sl-text-field name="password" type="password" required></sl-text-field>
-        </sl-form-field>
-
-        <sl-form-field>
-          <sl-checkbox name="remember" required>Remember me</sl-checkbox>
-        </sl-form-field>
-
-        <sl-button-bar align="space-between">
-          <sl-button fill="link">Forgot password?</sl-button>
-          <sl-button @click=${onSubmit} variant="primary">Log in</sl-button>
-        </sl-button-bar>
-      </sl-form>
-    `;
+export const Disabled: Story = {
+  args: {
+    ...Basic.args,
+    disabled: true
   }
 };
 

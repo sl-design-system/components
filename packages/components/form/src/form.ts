@@ -1,5 +1,5 @@
 import { EventsController } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { FormField, type SlFormFieldEvent } from './form-field.js';
@@ -51,6 +51,9 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   get dirty(): boolean {
     return this.controls.map(c => c.dirty).some(Boolean);
   }
+
+  /** Will disable the entire form when true. */
+  @property({ type: Boolean }) disabled?: boolean;
 
   /** Whether the form is invalid. */
   get invalid(): boolean {
@@ -105,6 +108,14 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     }
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('disabled')) {
+      this.controls.forEach(control => (control.disabled = this.disabled));
+    }
+  }
+
   override render(): TemplateResult {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
@@ -116,16 +127,26 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return this.controls.map(c => c.reportValidity()).every(Boolean);
   }
 
+  reset(): void {
+    console.log('reset');
+  }
+
   #onFormControl(event: SlFormControlEvent): void {
     event.preventDefault();
     event.stopPropagation();
 
-    const name = event.target.name;
+    const control = event.target,
+      { name } = control;
+
     if (name) {
-      event.target.formValue = getValueByPath(this.#value, name);
+      control.formValue = getValueByPath(this.#value, name);
     }
 
-    this.controls = [...this.controls, event.target];
+    if (this.disabled) {
+      control.disabled = this.disabled;
+    }
+
+    this.controls = [...this.controls, control];
   }
 
   async #onFormField(event: SlFormFieldEvent): Promise<void> {

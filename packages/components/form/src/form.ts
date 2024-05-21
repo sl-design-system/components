@@ -131,14 +131,13 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   #onFormControl(event: SlFormControlEvent): void {
+    const control = event.target;
+
     event.preventDefault();
     event.stopPropagation();
 
-    const control = event.target,
-      { name } = control;
-
-    if (name) {
-      control.formValue = getValueByPath(this.#value, name);
+    if (control.name && this.#value) {
+      control.formValue = getValueByPath(this.#value, control.name);
     }
 
     if (this.disabled) {

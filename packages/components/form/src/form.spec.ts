@@ -23,6 +23,9 @@ describe('sl-form', () => {
           </sl-form-field>
         </sl-form>
       `);
+
+      // Give the form time to register the controls
+      await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     it('should register the form controls', () => {
@@ -37,7 +40,7 @@ describe('sl-form', () => {
       field.appendChild(textField);
       el.appendChild(field);
 
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve, 100));
 
       expect(el.controls).to.have.length(3);
       expect(el.controls[2]).to.equal(textField);
@@ -89,7 +92,7 @@ describe('sl-form', () => {
     it('should report validity of all form controls', () => {
       const controls = el.querySelectorAll('sl-text-field');
 
-      controls.forEach(f => spy(f, 'reportValidity'));
+      controls.forEach(c => spy(c, 'reportValidity'));
 
       expect(el.reportValidity()).to.be.false;
       expect(controls[0].reportValidity).to.have.been.calledOnce;

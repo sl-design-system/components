@@ -21,16 +21,19 @@ export type PathKeys<T> = T extends object
   ? { [K in keyof T]: K extends string ? `${K}.${PathKeys<T[K]>}` | K : never }[keyof T]
   : '';
 
-export function getValueByPath<T, P extends string>(obj: T, path: P): Path<T, P> {
-  const keys = path.split('.');
+export function getValueByPath<T, P extends string>(obj: T, path: P): Path<T, P> | undefined {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let result: any = obj;
 
-  for (const key of keys) {
+  for (const key of path.split('.')) {
+    if (result === undefined || result === null) {
+      break;
+    }
+
     const match = /\[(\d+)\]$/.exec(key);
     if (match) {
-      const index = Number(match[1]);
-      const arrayKey = key.slice(0, -match[0].length);
+      const index = Number(match[1]),
+        arrayKey = key.slice(0, -match[0].length);
 
       result = result[arrayKey][index];
     } else {

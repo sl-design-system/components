@@ -2,6 +2,10 @@ import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
+import {
+  CompositeForm as CompositeFormComponent,
+  NestedForm as NestedFormComponent
+} from '@sl-design-system/lit-examples';
 import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/select/register.js';
 import '@sl-design-system/switch/register.js';
@@ -49,5 +53,29 @@ export const LogIn: Story = {
         </sl-button-bar>
       </sl-form>
     `;
+  }
+};
+
+export const CompositeForm: Story = {
+  render: () => {
+    try {
+      customElements.define('example-composite-form', CompositeFormComponent);
+    } catch {
+      /* empty */
+    }
+
+    return html`<example-composite-form></example-composite-form>`;
+  }
+};
+
+export const NestedForm: Story = {
+  render: () => {
+    try {
+      customElements.define('example-nested-form', NestedFormComponent);
+    } catch {
+      /* empty */
+    }
+
+    return html`<example-nested-form></example-nested-form>`;
   }
 };

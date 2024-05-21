@@ -1,4 +1,5 @@
-type Path<T, P extends string> = P extends `${infer K}.${infer Rest}`
+/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment */
+export type Path<T, P extends string> = P extends `${infer K}.${infer Rest}`
   ? K extends keyof T
     ? Rest extends PathKeys<T[K]>
       ? Path<T[K], Rest>
@@ -16,7 +17,7 @@ type Path<T, P extends string> = P extends `${infer K}.${infer Rest}`
       ? T[P]
       : never;
 
-type PathKeys<T> = T extends object
+export type PathKeys<T> = T extends object
   ? { [K in keyof T]: K extends string ? `${K}.${PathKeys<T[K]>}` | K : never }[keyof T]
   : '';
 
@@ -31,16 +32,16 @@ export function getValueByPath<T, P extends string>(obj: T, path: P): Path<T, P>
       const index = Number(match[1]);
       const arrayKey = key.slice(0, -match[0].length);
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       result = result[arrayKey][index];
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       result = result[key];
     }
   }
 
   return result as Path<T, P>;
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function setValueByPath<T>(obj: T, path: string, value: any): void;
 
 export function setValueByPath<T, P extends string>(obj: T, path: P, value: Path<T, P>): void {
   const keys = path.split('.');
@@ -48,24 +49,24 @@ export function setValueByPath<T, P extends string>(obj: T, path: P, value: Path
   let current: any = obj;
 
   for (let i = 0; i < keys.length; i++) {
-    const key = keys[i];
-    const match = /\[(\d+)\]$/.exec(key);
+    const key = keys[i],
+      match = /\[(\d+)\]$/.exec(key);
+
     if (match) {
-      const index = Number(match[1]);
-      const arrayKey = key.slice(0, -match[0].length);
+      const index = Number(match[1]),
+        arrayKey = key.slice(0, -match[0].length);
+
       if (i === keys.length - 1) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         current[arrayKey][index] = value;
       } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         current = current[arrayKey][index];
       }
     } else {
+      current[key] ??= {};
+
       if (i === keys.length - 1) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         current[key] = value;
       } else {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         current = current[key];
       }
     }

@@ -4,7 +4,7 @@ import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { FormField, type SlFormFieldEvent } from './form-field.js';
 import styles from './form.scss.js';
-import { getValueByPath } from './path.js';
+import { getValueByPath, setValueByPath } from './path.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -87,14 +87,13 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   /** The aggregated value of all form fields. */
   get value(): T {
-    return Object.fromEntries(
-      this.controls
-        .map(control => [control.name, control.formValue])
-        .filter(
-          (entry): entry is [keyof T, T[keyof T]] =>
-            entry != null && !!entry[0] && entry[1] != null && entry[1] !== undefined
-        )
-    ) as T;
+    return this.controls.reduce((value, control) => {
+      if (control.name) {
+        setValueByPath(value, control.name, control.formValue);
+      }
+
+      return value;
+    }, {}) as T;
   }
 
   @property({ attribute: false })

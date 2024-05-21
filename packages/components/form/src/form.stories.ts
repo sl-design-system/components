@@ -23,8 +23,7 @@ export default {
   tags: ['preview'],
   args: {
     disabled: false,
-    reportValidity: false,
-    value: {}
+    reportValidity: false
   },
   render: ({ disabled, fields, reportValidity, value }) => {
     const onToggle = (): void => {
@@ -76,6 +75,22 @@ export const Basic: Story = {
     fields: () => html`
       <sl-form-field label="Text field">
         <sl-text-field name="textField" required></sl-text-field>
+      </sl-form-field>
+    `
+  }
+};
+
+export const Array: Story = {
+  args: {
+    fields: () => html`
+      <sl-form-field label="Item 1">
+        <sl-text-field name="items[0]" required></sl-text-field>
+      </sl-form-field>
+      <sl-form-field label="Item 2">
+        <sl-text-field name="items[1]" required></sl-text-field>
+      </sl-form-field>
+      <sl-form-field label="Item 3">
+        <sl-text-field name="items[2]" required></sl-text-field>
       </sl-form-field>
     `
   }

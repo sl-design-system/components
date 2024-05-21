@@ -12,6 +12,10 @@ export class ComponentStatus extends LitElement {
 
   @property() componentName = '';
 
+  @property() storybookCategory = '';
+
+  @property() storybookComponentName = '';
+
   @property() status: StatusType = 'planned';
 
   @property() version = '';
@@ -63,7 +67,7 @@ export class ComponentStatus extends LitElement {
                   <sl-icon name="github"></sl-icon>
                   View code
                 </a>
-                <a class="ds-button" href="https://storybook.sanomalearning.design/?path=/story/components-${this.componentName}" target="_blank">
+                <a class="ds-button" href="https://storybook.sanomalearning.design/?path=/story/${this.storybookCategory}-${this.storybookComponentName}" target="_blank">
                   <sl-icon name="storybook"></sl-icon>
                   View Storybook
                 </a>

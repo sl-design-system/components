@@ -6,6 +6,7 @@ shortDescription: Breadcrumbs are a navigation element used to show a user's loc
 layout: "categories/components/components.njk"
 tags: component
 packageName: breadcrumbs
+storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Breadcrumbs

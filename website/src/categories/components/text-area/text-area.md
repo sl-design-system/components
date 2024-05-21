@@ -8,6 +8,7 @@ pictureDark: <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" fi
 layout: "categories/components/components.njk"
 tags: component
 packageName: text-area
+storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Text area

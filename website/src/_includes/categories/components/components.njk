@@ -13,7 +13,7 @@ layout: base.njk
 <section>
   {%- for post in collections.component -%}
     {% if page.url.includes(post.url) %}
-      <ds-component-status componentName="{{post.data.packageName}}" version="{{version[post.data.packageName]}}" status="{{ post.data.componentStatus }}">{{post.data.status}}</ds-component-status>
+      <ds-component-status componentName="{{post.data.packageName}}" storybookComponentName="{% if post.data.storybookComponentName != null %}{{ post.data.storybookComponentName }}{% else %}{{post.data.packageName}}{% endif %}" storybookCategory="{{post.data.storybookCategory}}" version="{{version[post.data.packageName]}}" status="{{ post.data.componentStatus }}">{{post.data.status}}</ds-component-status>
       <sl-tab-group class="ds-tab-group">
         {%- for usage in collections.usage -%}{% if usage.url.includes(post.url) %}<sl-tab href="{% if usage.url.includes(post.url) %}{{ usage.url | url }}{% endif %}"
         {% if usage.url.includes(page.url) %}selected{% endif %}>Usage</sl-tab>{% endif %}{%- endfor -%}

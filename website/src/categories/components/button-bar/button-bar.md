@@ -6,6 +6,7 @@ shortDescription: We are still working on the button bar component
 layout: "categories/components/components.njk"
 tags: component
 packageName: button-bar
+storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Button bar

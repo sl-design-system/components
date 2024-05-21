@@ -136,15 +136,18 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     event.preventDefault();
     event.stopPropagation();
 
-    if (control.name && this.#value) {
-      control.formValue = getValueByPath(this.#value, control.name);
-    }
+    // Wait for the next frame change the control's properties
+    requestAnimationFrame(() => {
+      if (control.name && this.#value) {
+        control.formValue = getValueByPath(this.#value, control.name);
+      }
 
-    if (this.disabled) {
-      control.disabled = this.disabled;
-    }
+      if (this.disabled) {
+        control.disabled = this.disabled;
+      }
 
-    this.controls = [...this.controls, control];
+      this.controls = [...this.controls, control];
+    });
   }
 
   async #onFormField(event: SlFormFieldEvent): Promise<void> {

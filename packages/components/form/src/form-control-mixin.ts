@@ -260,7 +260,8 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       super.firstUpdated(changes);
 
       // Emit the form control event after first render, so any parent components can listen to it
-      requestAnimationFrame(() => this.formControlEvent.emit());
+      // requestAnimationFrame(() => this.formControlEvent.emit());
+      this.formControlEvent.emit();
     }
 
     /** @internal */

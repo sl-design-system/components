@@ -56,10 +56,12 @@ export function setValueByPath<T, P extends string>(obj: T, path: P, value: Path
       const index = Number(match[1]),
         arrayKey = key.slice(0, -match[0].length);
 
+      current[arrayKey] ??= [];
+
       if (i === keys.length - 1) {
         current[arrayKey][index] = value;
       } else {
-        current = current[arrayKey][index];
+        current = current[arrayKey][index] ??= {};
       }
     } else {
       current[key] ??= {};

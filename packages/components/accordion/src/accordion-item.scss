@@ -49,10 +49,6 @@ details {
     position: absolute;
   }
 
-  // rect {
-  //  transform-origin: 50%;
-  // }
-
   &[open],
   &.opening {
     .horizontal-line {
@@ -124,20 +120,13 @@ summary {
 }
 
 svg {
-  block-size: 28px;
-
-  // transform-box: content-box; // fill-box;
+  block-size: var(--_icon-size);
   flex-shrink: 0;
-  inline-size: 24px;
+  inline-size: var(--_icon-size);
 }
 
 g {
-  fill: currentcolor;
-
-  // transform-origin: 50% 50%; // 50% 50%; // center;
-  // transform-box: content-box;
-  transform-box: view-box; // fill-box;
-  transform-origin: 50% 50%; // center;
+  transform-origin: 0 0; // center;
 
   &.horizontal-line {
     transform: rotate(90deg);

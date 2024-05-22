@@ -117,8 +117,8 @@ body:
       - Sesame
       - TEAS
       - Other
-      validations:
-        required: true
+    validations:
+      required: true
   - type: dropdown
     id: theme
     attributes:
@@ -138,5 +138,5 @@ body:
       - Sanoma Learning
       - Sanoma Utbildning
       - TEAS
-      validations:
-        required: true
+    validations:
+      required: true

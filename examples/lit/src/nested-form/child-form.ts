@@ -14,6 +14,9 @@ export type Address = {
 
 export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement)) {
   /** @internal */
+  static formAssociated = true;
+
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-form': Form,
@@ -27,6 +30,7 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
 
   #form = new FormController<Address>(this);
 
+  /** Needed since we don't have a native input element. */
   internals = this.attachInternals();
 
   /** Whether the address is a required field. */
@@ -38,6 +42,7 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
   override connectedCallback(): void {
     super.connectedCallback();
 
+    // Set the form element to the ElementInternals instance
     this.setFormControlElement(this);
   }
 
@@ -64,6 +69,9 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
   }
 
   override reportValidity(): boolean {
+    // Don't forget to call super
+    super.reportValidity();
+
     return this.#form.reportValidity();
   }
 
@@ -75,8 +83,14 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
     }
   }
 
-  #onUpdate(): void {
+  #onUpdate(event: Event): void {
+    // Stop events from our sl-form from bubbling up
+    event.preventDefault();
+    event.stopPropagation();
+
     this.value = this.#form.value;
+    this.setCustomValidity(this.#form.invalid ? 'Please enter a valid address.' : '');
+
     this.updateState({ dirty: true });
     this.updateValidity();
   }

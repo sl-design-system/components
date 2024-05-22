@@ -23,7 +23,7 @@ declare global {
   }
 }
 
-export type SlFormFieldEvent = CustomEvent<void> & { target: FormField };
+export type SlFormFieldEvent = CustomEvent<{ unregister?(): void }> & { target: FormField };
 
 let nextUniqueId = 0;
 
@@ -52,6 +52,9 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   /** The label element. */
   #label?: Label;
 
+  /** Callback returned by the parent form to call when this element is disconnected. */
+  #unregister?: () => void;
+
   /** The form control element. */
   control?: HTMLElement & FormControl;
 
@@ -79,9 +82,18 @@ export class FormField extends ScopedElementsMixin(LitElement) {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.formFieldEvent.emit();
+    const event = new CustomEvent('sl-form-field', { bubbles: true, composed: true, detail: {} }) as SlFormFieldEvent;
+    this.formFieldEvent.emit(event);
+    this.#unregister = event.detail.unregister;
 
     this.#customError = !!this.querySelector('sl-error');
+  }
+
+  override disconnectedCallback(): void {
+    this.#unregister?.();
+    this.#unregister = undefined;
+
+    super.disconnectedCallback();
   }
 
   override willUpdate(changes: PropertyValues<this>): void {

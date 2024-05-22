@@ -240,7 +240,7 @@ describe('sl-menu-item', () => {
     it('should toggle the submenu when pressing arrow right/left', async () => {
       el.focus();
       await sendKeys({ press: 'ArrowRight' });
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(menu).to.match(':popover-open');
       expect(menu.querySelector('sl-menu-item')).to.equal(document.activeElement);
@@ -250,7 +250,7 @@ describe('sl-menu-item', () => {
       menu.setAttribute('actual-placement', 'right-start');
 
       await sendKeys({ press: 'ArrowLeft' });
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(menu).not.to.match(':popover-open');
       expect(el).to.equal(document.activeElement);

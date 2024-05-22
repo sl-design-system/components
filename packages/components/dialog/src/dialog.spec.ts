@@ -125,7 +125,7 @@ describe('sl-dialog', () => {
       dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(onCancel).to.have.been.calledOnce;
     });
@@ -163,7 +163,7 @@ describe('sl-dialog', () => {
       dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -189,7 +189,7 @@ describe('sl-dialog', () => {
       dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -204,7 +204,7 @@ describe('sl-dialog', () => {
       dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -219,7 +219,7 @@ describe('sl-dialog', () => {
       dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(onClose).to.have.been.calledOnce;
     });
@@ -230,7 +230,7 @@ describe('sl-dialog', () => {
       el.close();
 
       // Wait for the event to be emitted
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(dialog).to.have.attribute('closing');
 
@@ -298,7 +298,7 @@ describe('sl-dialog', () => {
       dialog.dispatchEvent(new Event('animationend'));
 
       // Wait for the component to stabilize
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should be inert', () => {

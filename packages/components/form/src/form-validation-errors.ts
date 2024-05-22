@@ -96,6 +96,7 @@ export class FormValidationErrors extends ScopedElementsMixin(LitElement) {
                   ([label, control]) => html`<li><a @click=${this.#onClick} href="#${control.id}">${label}</a></li>`
                 )}
               </ul>
+              .
             `
           : msg('All fields are valid.')}
       </sl-inline-message>

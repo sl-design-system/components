@@ -36,7 +36,7 @@ export type FormControlShowValidity = 'valid' | 'invalid' | undefined;
 
 export type FormControlValidityState = 'valid' | 'invalid' | 'pending';
 
-export type SlFormControlEvent = CustomEvent<void> & { target: HTMLElement & FormControl };
+export type SlFormControlEvent = CustomEvent<{ unregister?(): void }> & { target: HTMLElement & FormControl };
 
 export type SlUpdateStateEvent = CustomEvent<void> & { target: HTMLElement & FormControl };
 
@@ -116,6 +116,9 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
         this.updateValidity();
       }
     };
+
+    // A callback returned by the parent form component to unregister the control
+    #unregister?: () => void;
 
     /** A control is dirty if the user has changed the value in the UI. */
     dirty = false;
@@ -260,11 +263,22 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       super.firstUpdated(changes);
 
       // Emit the form control event after first render, so any parent components can listen to it
-      this.formControlEvent.emit();
+      const event = new CustomEvent('sl-form-control', {
+        bubbles: true,
+        composed: true,
+        detail: {}
+      }) as SlFormControlEvent;
+      this.formControlEvent.emit(event);
+
+      // Save the unregister function so the parent form can unregister the control
+      this.#unregister = event.detail.unregister;
     }
 
     /** @internal */
     override disconnectedCallback(): void {
+      this.#unregister?.();
+      this.#unregister = undefined;
+
       this.#formControlElement?.removeEventListener('invalid', this.#onInvalid);
       this.#formControlElement = undefined;
 

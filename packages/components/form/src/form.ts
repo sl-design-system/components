@@ -1,8 +1,10 @@
 import { EventsController } from '@sl-design-system/shared';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import { type FormControl, type SlFormControlEvent } from './form-control-mixin.js';
 import { FormField, type SlFormFieldEvent } from './form-field.js';
 import styles from './form.scss.js';
+import { getValueByPath, setValueByPath } from './path.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -32,6 +34,13 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
 
   #showValidity = false;
 
+  /**
+   * The form value explicitly set; this may be set before the form controls have
+   * registered themselves with the form. So we cache this value so that we can
+   * set it on the form controls when they are ready.
+   */
+  #value: T | undefined;
+
   /** The controls in the form; not necessarily the same amount as the fields. */
   controls: Array<HTMLElement & FormControl> = [];
 
@@ -42,6 +51,9 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   get dirty(): boolean {
     return this.controls.map(c => c.dirty).some(Boolean);
   }
+
+  /** Will disable the entire form when true. */
+  @property({ type: Boolean }) disabled?: boolean;
 
   /** Whether the form is invalid. */
   get invalid(): boolean {
@@ -73,20 +85,38 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return !this.touched;
   }
 
-  /** The aggregated value of all form fields. */
+  /** The aggregated value of all form controls. */
   get value(): T {
-    return Object.fromEntries(
-      this.controls
-        .map(control => [control.name, control.formValue])
-        .filter(
-          (entry): entry is [keyof T, T[keyof T]] =>
-            entry != null && !!entry[0] && entry[1] != null && entry[1] !== undefined
-        )
-    ) as T;
+    return this.controls.reduce((value, control) => {
+      if (control.name) {
+        setValueByPath(value, control.name, control.formValue);
+      }
+
+      return value;
+    }, {}) as T;
+  }
+
+  @property({ attribute: false })
+  set value(value: T | undefined) {
+    this.#value = value;
+
+    if (value) {
+      this.controls.filter(c => c.name).forEach(c => (c.formValue = getValueByPath(value, c.name!)));
+    } else {
+      this.controls.forEach(c => (c.formValue = undefined));
+    }
+  }
+
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('disabled')) {
+      this.controls.forEach(control => (control.disabled = this.disabled));
+    }
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
+    return html`<slot></slot>`;
   }
 
   /** Calls `reportValidity()` on all form controls. */
@@ -97,35 +127,50 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   #onFormControl(event: SlFormControlEvent): void {
+    const control = event.target;
+
     event.preventDefault();
     event.stopPropagation();
 
-    this.controls = [...this.controls, event.target];
+    // Allow the control to unregister itself; this is necessary because by the
+    // time `disconnectedCallback` is called, the control has already
+    // been removed from the DOM; so any events emitted will never reach the form.
+    event.detail.unregister = () => {
+      this.controls = this.controls.filter(c => c !== control);
+    };
+
+    // Wait for the next frame change the control's properties
+    requestAnimationFrame(() => {
+      if (control.name && this.#value) {
+        control.formValue = getValueByPath(this.#value, control.name);
+      }
+
+      if (this.disabled) {
+        control.disabled = this.disabled;
+      }
+
+      this.controls = [...this.controls, control];
+    });
   }
 
   async #onFormField(event: SlFormFieldEvent): Promise<void> {
+    const field = event.target;
+
     event.preventDefault();
     event.stopPropagation();
 
-    this.fields = [...this.fields, event.target];
+    // Allow the field to unregister itself; this is necessary because by the
+    // time `disconnectedCallback` is called, the field has already
+    // been removed from the DOM; so any events emitted will never reach the form.
+    event.detail.unregister = () => {
+      this.fields = this.fields.filter(f => f !== field);
+      this.#updateMarkedFields();
+    };
+
+    this.fields = [...this.fields, field];
 
     // Give the form field time to set the control
-    await event.target.updateComplete;
-    this.#updateMarkedFields();
-  }
-
-  #onSlotchange(): void {
-    this.fields = this.fields.filter(f => !!f.parentElement);
-
-    this.controls = this.controls.filter(c => {
-      if (c.parentElement && c.parentElement instanceof FormField) {
-        // If the control is a child of a form field, only include it if the field is still in the form
-        return this.fields.includes(c.parentElement);
-      } else {
-        return !!c.parentElement;
-      }
-    });
-
+    await field.updateComplete;
     this.#updateMarkedFields();
   }
 

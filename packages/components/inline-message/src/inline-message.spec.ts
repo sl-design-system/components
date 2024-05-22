@@ -115,7 +115,7 @@ describe('sl-inline-message', () => {
         </sl-inline-message>
       `);
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have a wrap-action attribute', () => {

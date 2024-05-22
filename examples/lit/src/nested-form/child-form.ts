@@ -27,11 +27,19 @@ export class ChildForm extends ScopedElementsMixin(FormControlMixin(LitElement))
 
   #form = new FormController<Address>(this);
 
+  internals = this.attachInternals();
+
   /** Whether the address is a required field. */
   @property({ type: Boolean }) override required?: boolean;
 
   /** The form value. */
   override value?: Partial<Address> = {};
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setFormControlElement(this);
+  }
 
   override render(): TemplateResult {
     return html`

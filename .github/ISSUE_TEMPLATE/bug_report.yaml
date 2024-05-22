@@ -15,9 +15,9 @@ body:
     attributes:
       label: 🕵️‍♀️ Where does this bug appear?
       options:
-      - Storybook
-      - Figma Toolkit
-      - My own environment
+      - label: Storybook
+      - label: Figma Toolkit
+      - label: My own environment
     validations:
       required: true
   - type: textarea

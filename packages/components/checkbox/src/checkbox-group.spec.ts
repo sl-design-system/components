@@ -97,6 +97,13 @@ describe('sl-checkbox-group', () => {
       expect(boxes[2]).not.to.have.attribute('checked');
     });
 
+    it('should set the value after clicking on a checkbox', async () => {
+      el.querySelector('sl-checkbox')?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el.value).to.deep.equal(['0']);
+    });
+
     it('should be pristine', () => {
       expect(el.dirty).not.to.be.true;
     });

@@ -151,8 +151,20 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   override render(): TemplateResult {
     return html`
-      <slot name="prefix"></slot>
+      ${this.renderPrefix()}
       <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
+      ${this.renderSuffix()}
+    `;
+  }
+
+  /** Renders the prefix slot; can be overridden to customize the prefix. */
+  renderPrefix(): TemplateResult | typeof nothing {
+    return html`<slot name="prefix"></slot>`;
+  }
+
+  /** Renders the suffix slot; can be overridden to customize the suffix. */
+  renderSuffix(): TemplateResult | typeof nothing {
+    return html`
       <slot name="suffix">
         ${this.showValidity === 'valid'
           ? html`<sl-icon .size=${this.size} class="valid-icon" name="circle-check-solid"></sl-icon>`

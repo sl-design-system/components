@@ -106,6 +106,10 @@
   <source>All fields are valid.</source>
   <target>Alle velden zijn correct.</target>
 </trans-unit>
+<trans-unit id="s13fdff160ffad275">
+  <source>Clear text</source>
+  <target>Wis tekst</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

@@ -4,6 +4,7 @@ import '@sl-design-system/checkbox/register.js';
 import '@sl-design-system/form/register.js';
 import {
   CompositeForm as CompositeFormComponent,
+  DynamicArrayForm as DynamicArrayFormComponent,
   NestedForm as NestedFormComponent
 } from '@sl-design-system/lit-examples';
 import '@sl-design-system/radio-group/register.js';
@@ -65,6 +66,18 @@ export const CompositeForm: Story = {
     }
 
     return html`<example-composite-form></example-composite-form>`;
+  }
+};
+
+export const DynamicArray: Story = {
+  render: () => {
+    try {
+      customElements.define('example-dynamic-array-form', DynamicArrayFormComponent);
+    } catch {
+      /* empty */
+    }
+
+    return html`<example-dynamic-array-form></example-dynamic-array-form>`;
   }
 };
 

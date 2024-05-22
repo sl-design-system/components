@@ -175,6 +175,45 @@ describe('sl-form', () => {
     });
   });
 
+  describe('array values', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form>
+          <sl-form-field label="Items">
+            <sl-text-field name="items[0]" value="Lorem"></sl-text-field>
+            <sl-text-field name="items[1]" value="Ipsum"></sl-text-field>
+            <sl-text-field name="items[2]" value="Dolar"></sl-text-field>
+          </sl-form-field>
+        </sl-form>
+      `);
+
+      // Give the form time to register the controls
+      await new Promise(resolve => setTimeout(resolve, 50));
+    });
+
+    it('should have an array value', () => {
+      expect(el.value).to.deep.equal({ items: ['Lorem', 'Ipsum', 'Dolar'] });
+    });
+
+    it('should update the value when a control is added', async () => {
+      const textField = document.createElement('sl-text-field');
+      textField.name = 'items[3]';
+      textField.value = 'Sit';
+
+      el.querySelector('sl-form-field')?.appendChild(textField);
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.value).to.deep.equal({ items: ['Lorem', 'Ipsum', 'Dolar', 'Sit'] });
+    });
+
+    it('should update the value when a control is removed', async () => {
+      el.querySelector('sl-text-field[name="items[2]"]')?.remove();
+      await new Promise(resolve => setTimeout(resolve, 50));
+
+      expect(el.value).to.deep.equal({ items: ['Lorem', 'Ipsum'] });
+    });
+  });
+
   describe('mark optional fields', () => {
     beforeEach(async () => {
       el = await fixture(html`

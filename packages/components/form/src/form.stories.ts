@@ -13,7 +13,8 @@ import '../register.js';
 import { type Form } from './form.js';
 
 type Props = Pick<Form, 'disabled' | 'value'> & {
-  fields(): TemplateResult;
+  buttons?(): TemplateResult;
+  fields(args: Props): TemplateResult;
   reportValidity?: boolean;
 };
 type Story = StoryObj<Props>;
@@ -25,7 +26,9 @@ export default {
     disabled: false,
     reportValidity: false
   },
-  render: ({ disabled, fields, reportValidity, value }) => {
+  render: args => {
+    const { buttons, disabled, fields, reportValidity, value } = args;
+
     const onToggle = (): void => {
       const form = document.querySelector('sl-form')!;
 
@@ -58,11 +61,14 @@ export default {
         }
       </style>
       <sl-form @sl-update-state=${onUpdate} @sl-update-validity=${onUpdate} ?disabled=${disabled} .value=${value}>
-        ${fields()}
+        ${fields(args)}
         <sl-button-bar>
-          <sl-button @click=${onReset}>Reset</sl-button>
-          <sl-button @click=${onToggle}>Toggle</sl-button>
-          <sl-button @click=${onReport} variant="primary">Report</sl-button>
+          ${buttons?.() ??
+          html`
+            <sl-button @click=${onReset}>Reset</sl-button>
+            <sl-button @click=${onToggle}>Toggle</sl-button>
+            <sl-button @click=${onReport} variant="primary">Report</sl-button>
+          `}
         </sl-button-bar>
       </sl-form>
       <pre>${JSON.stringify(value, null, 2)}</pre>

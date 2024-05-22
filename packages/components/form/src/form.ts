@@ -85,7 +85,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return !this.touched;
   }
 
-  /** The aggregated value of all form fields. */
+  /** The aggregated value of all form controls. */
   get value(): T {
     return this.controls.reduce((value, control) => {
       if (control.name) {
@@ -116,7 +116,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
+    return html`<slot></slot>`;
   }
 
   /** Calls `reportValidity()` on all form controls. */
@@ -136,6 +136,13 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     event.preventDefault();
     event.stopPropagation();
 
+    // Allow the control to unregister itself; this is necessary because by the
+    // time `disconnectedCallback` is called, the control has already
+    // been removed from the DOM; so any events emitted will never reach the form.
+    event.detail.unregister = () => {
+      this.controls = this.controls.filter(c => c !== control);
+    };
+
     // Wait for the next frame change the control's properties
     requestAnimationFrame(() => {
       if (control.name && this.#value) {
@@ -151,28 +158,23 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   }
 
   async #onFormField(event: SlFormFieldEvent): Promise<void> {
+    const field = event.target;
+
     event.preventDefault();
     event.stopPropagation();
 
-    this.fields = [...this.fields, event.target];
+    // Allow the field to unregister itself; this is necessary because by the
+    // time `disconnectedCallback` is called, the field has already
+    // been removed from the DOM; so any events emitted will never reach the form.
+    event.detail.unregister = () => {
+      this.fields = this.fields.filter(f => f !== field);
+      this.#updateMarkedFields();
+    };
+
+    this.fields = [...this.fields, field];
 
     // Give the form field time to set the control
-    await event.target.updateComplete;
-    this.#updateMarkedFields();
-  }
-
-  #onSlotchange(): void {
-    this.fields = this.fields.filter(f => !!f.parentElement);
-
-    this.controls = this.controls.filter(c => {
-      if (c.parentElement && c.parentElement instanceof FormField) {
-        // If the control is a child of a form field, only include it if the field is still in the form
-        return this.fields.includes(c.parentElement);
-      } else {
-        return !!c.parentElement;
-      }
-    });
-
+    await field.updateComplete;
     this.#updateMarkedFields();
   }
 

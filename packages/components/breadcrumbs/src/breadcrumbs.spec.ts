@@ -179,7 +179,7 @@ describe('sl-breadcrumbs', () => {
       `);
 
       // Give the resize observer time to process
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should only show the home icon', () => {

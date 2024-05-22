@@ -55,6 +55,14 @@ export class FormController<T extends Record<string, unknown> = Record<string, u
     return this.#form?.value;
   }
 
+  set value(value: T | undefined) {
+    if (this.#form) {
+      this.#form.value = value;
+    } else {
+      throw new Error('Cannot set value before the form is initialized.');
+    }
+  }
+
   constructor(host: ReactiveControllerHost & LitElement, options: Partial<FormControllerOptions> = {}) {
     super();
 

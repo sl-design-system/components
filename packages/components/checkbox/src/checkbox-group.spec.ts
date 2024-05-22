@@ -13,9 +13,9 @@ describe('sl-checkbox-group', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-checkbox-group>
-          <sl-checkbox>Option 1</sl-checkbox>
-          <sl-checkbox>Option 2</sl-checkbox>
-          <sl-checkbox>Option 3</sl-checkbox>
+          <sl-checkbox value="0">Option 1</sl-checkbox>
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
         </sl-checkbox-group>
       `);
     });
@@ -84,6 +84,17 @@ describe('sl-checkbox-group', () => {
       await el.updateComplete;
 
       expect(el).to.have.attribute('show-validity', 'invalid');
+    });
+
+    it('should check the boxes when setting the value', async () => {
+      el.value = ['0', '1'];
+      await el.updateComplete;
+
+      const boxes = el.querySelectorAll('sl-checkbox');
+
+      expect(boxes[0]).to.have.attribute('checked');
+      expect(boxes[1]).to.have.attribute('checked');
+      expect(boxes[2]).not.to.have.attribute('checked');
     });
 
     it('should be pristine', () => {

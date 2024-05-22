@@ -70,7 +70,7 @@ describe('sl-accordion-item', () => {
       expect(details).to.have.attribute('open');
 
       // Wait for the next frame
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(details).to.have.class('opening');
 
@@ -87,7 +87,7 @@ describe('sl-accordion-item', () => {
       summary.click();
 
       // Wait for the next frame
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(details).to.have.class('closing');
 

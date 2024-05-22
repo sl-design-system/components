@@ -64,16 +64,16 @@ describe('sl-form-validation-errors', () => {
       }
 
       el = await fixture(html`<test-component></test-component>`);
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       stub(el.form, 'invalid').get(() => true);
       stub(el.form, 'showValidity').get(() => true);
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       el.form.dispatchEvent(new Event('sl-update'));
 
       // Give all components time to update/render
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should be displayed if invalid and validity is shown', () => {
@@ -153,7 +153,7 @@ describe('sl-form-validation-errors', () => {
       el.form.dispatchEvent(new Event('sl-update'));
 
       // Give all components time to update/render
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should be displayed if valid and validity is shown', () => {

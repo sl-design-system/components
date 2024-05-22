@@ -43,7 +43,7 @@ describe('sl-grid', () => {
       ];
 
       // Give grid time to render the rows
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       const rows = Array.from(el.renderRoot.querySelectorAll('tbody tr')).map(row =>
         Array.from(row.querySelectorAll('td')).map(cell => cell.textContent?.trim())

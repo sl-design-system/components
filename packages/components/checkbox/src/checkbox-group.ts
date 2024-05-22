@@ -22,10 +22,10 @@ const OBSERVER_OPTIONS: MutationObserverInit = { attributeFilter: ['checked'], a
  */
 @localized()
 export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static formAssociated = true;
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** Events controller. */
@@ -50,10 +50,10 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
     isFocusableElement: (el: Checkbox) => !el.disabled
   });
 
-  /** @private */
+  /** @internal */
   readonly internals = this.attachInternals();
 
-  /** @private The slotted checkboxes. */
+  /** @internal The slotted checkboxes. */
   @queryAssignedElements() boxes?: Array<Checkbox<T>>;
 
   /** @internal Emits when the component loses focus. */
@@ -71,7 +71,8 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** At least one checkbox in the group must be checked if true. */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
-  /** The size of the checkboxes in the group.
+  /**
+   * The size of the checkboxes in the group.
    * @type {'md' | 'lg'}
    */
   @property() size?: CheckboxSize;
@@ -122,6 +123,12 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
     if (changes.has('size')) {
       this.boxes?.forEach(box => (box.size = this.size || 'md'));
+    }
+
+    if (changes.has('value')) {
+      this.#observer.disconnect();
+      this.boxes?.forEach(box => (box.checked = box.value && this.value?.includes(box.value)));
+      this.#observer.observe(this, OBSERVER_OPTIONS);
     }
   }
 

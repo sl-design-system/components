@@ -61,9 +61,13 @@ export class AccordionItem extends LitElement {
           part="summary"
           tabindex=${this.disabled ? -1 : 0}
         >
-          <svg fill="none" height="28" viewBox="0 0 24 28" width="24" xmlns="http://www.w3.org/2000/svg">
-            <rect class="horizontal-line" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" />
-            <rect class="vertical-line" x="11.0103" y="6" width="1.97938" height="16" rx="0.824742" />
+          <svg viewBox="-12 -14 24 28" xmlns="http://www.w3.org/2000/svg">
+            <g class="horizontal-line">
+              <rect x="-1" y="-8" width="2" height="16" rx="0.824742" />
+            </g>
+            <g class="vertical-line">
+              <rect x="-1" y="-8" width="2" height="16" rx="0.824742" />
+            </g>
           </svg>
           ${this.summary}
         </summary>

@@ -120,12 +120,12 @@ summary {
 }
 
 svg {
+  block-size: var(--_icon-size);
   flex-shrink: 0;
 }
 
-rect {
-  fill: currentcolor;
-  transform-origin: center;
+g {
+  transform-origin: 0 0;
 
   &.horizontal-line {
     transform: rotate(90deg);

@@ -101,6 +101,13 @@ describe('sl-select', () => {
       expect(el.value).to.be.undefined;
     });
 
+    it('should have a selected option after setting a value', async () => {
+      el.value = '2';
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-select-option[value="2"]')).to.have.attribute('selected');
+    });
+
     it('should have a value after selection', async () => {
       const button = el.querySelector('sl-select-button') as SelectButton;
 
@@ -283,6 +290,13 @@ describe('sl-select', () => {
       await el.updateComplete;
 
       el.querySelector('sl-select-option')?.click();
+      await el.updateComplete;
+
+      expect(el.valid).to.be.true;
+    });
+
+    it('should be valid after setting a value', async () => {
+      el.value = '2';
       await el.updateComplete;
 
       expect(el.valid).to.be.true;

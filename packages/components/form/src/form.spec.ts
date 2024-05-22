@@ -25,7 +25,7 @@ describe('sl-form', () => {
       `);
 
       // Give the form time to register the controls
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should register the form controls', () => {
@@ -40,7 +40,7 @@ describe('sl-form', () => {
       field.appendChild(textField);
       el.appendChild(field);
 
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el.controls).to.have.length(3);
       expect(el.controls[2]).to.equal(textField);
@@ -48,7 +48,7 @@ describe('sl-form', () => {
 
     it('should automatically unregister removed form controls', async () => {
       el.querySelector('sl-form-field')?.remove();
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
 
       expect(el.controls).to.have.length(1);
       expect(el.controls[0]).to.equal(el.querySelector('sl-text-field[name="bar"]'));

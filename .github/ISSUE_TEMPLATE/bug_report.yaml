@@ -101,29 +101,6 @@ body:
     attributes:
       value: "## 🦄 Other"
   - type: dropdown
-    id: company-team
-    attributes:
-      label: 🧢 Your Product
-      description: Which product is this bug impacting?
-      options:
-      - Bingel
-      - ClickEdu
-      - Editorial Suite
-      - ItsLearning
-      - Kampus
-      - Magister
-      - Max Online
-      - Nowa Era
-      - Sesame
-      - TEAS
-      - Other
-    validations:
-      required: true
-  - type: input
-    id: other
-    attributes:
-      label: If other, please specify.
-  - type: dropdown
     id: theme
     attributes:
       label: 🎨 Your Theme

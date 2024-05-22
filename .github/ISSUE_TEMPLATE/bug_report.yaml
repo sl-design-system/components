@@ -123,7 +123,7 @@ body:
     id: theme
     attributes:
       label: 🎨 Your Theme
-      description: Which theme of do you use?
+      description: Which theme do you use?
       options:
       - Bingel DC
       - Bingel INT

@@ -124,6 +124,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    console.log('this.internals checkbox group', this.internals, this.previousElementSibling);
     return html`
       <slot
         @slotchange=${this.#onSlotchange}

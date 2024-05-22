@@ -1,6 +1,7 @@
 name: 🐛 Bug Report
 description: File a bug report
-labels: "triage"
+title: '[Bug]: '
+labels: [bug, triage]
 body:
   - type: markdown
     attributes:

@@ -10,6 +10,12 @@ body:
   - type: markdown
     attributes:
       value: "# 🐛 Bug Report "
+  - type: textarea
+    id: general-summary
+    attributes:
+      label: Provide a general summary of the issue here
+    validations:
+      required: true
   - type: checkboxes
     id: where
     attributes:
@@ -18,12 +24,6 @@ body:
       - label: Storybook
       - label: Figma Toolkit
       - label: My own environment
-    validations:
-      required: true
-  - type: textarea
-    id: general-summary
-    attributes:
-      label: Provide a general summary of the issue here
     validations:
       required: true
   - type: textarea

@@ -103,7 +103,7 @@ body:
   - type: dropdown
     id: company-team
     attributes:
-      label: 🧢 Your Company
+      label: 🧢 Your Product
       description: Which product is this bug impacting?
       options:
       - Bingel
@@ -117,6 +117,8 @@ body:
       - Sesame
       - TEAS
       - Other
+      validations:
+        required: true
   - type: dropdown
     id: theme
     attributes:
@@ -136,3 +138,5 @@ body:
       - Sanoma Learning
       - Sanoma Utbildning
       - TEAS
+      validations:
+        required: true

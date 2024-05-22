@@ -8,7 +8,7 @@ body:
       attributes:
           value: |
               Thanks for filing an issue! Before you submit, search open/closed issues before submitting since someone might have asked the same thing before!
-              #🐛 Bug report
+              #🐛Bug report
     - type: textarea
       id: general
       attributes:
@@ -26,8 +26,7 @@ body:
       id: current-behavior
       attributes:
           label: 😯 Current behavior
-          description: Tell us what happens instead of the expected behavior. Please include a link to the storybook if possible.
-If you are seeing an error, please include the full error message and stack trace.
+          description: Tell us what happens instead of the expected behavior. Please include a link to the storybook if possible. If you are seeing an error, please include the full error message and stack trace.
       validations:
           required: true
     - type: textarea

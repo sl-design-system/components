@@ -36,6 +36,10 @@ eleventyNavigation:
 There are a number of icons included in the design system as SVG, provided via the `sl-icon` component. These can be either Font Awesome icons that are used in SLDS components or icons that have been created by (y)our designers. There is no difference in how to use these icons, both can be used by setting the name of the icon property without additional steps.
 You can find the list of available icons in your theme on our Storybook page.
 
+</section>
+
+<section>
+
 ## Using additional Font Awesome Pro icons
 
 In addition to the provided icons you can use all icons available in Font Awesome Pro<sup>[1]</sup>. Firstly you will need to add the install the icon styles you want to use:
@@ -60,7 +64,6 @@ Now you can use the icon:
 <ds-code-snippet language="html">&lt;sl-icon name="far-truck-fast"&gt;&lt;/sl-icon&gt;</ds-code-snippet>
 
 Where you import and register the icon is up to you, but it is advised to do this on the highest shared "parent" of all places that use the icon. So a very generally used icon could be registered in the same place you have the `setup()` for you theme, but an icon that is used only in dashboards can be registred in the dashboard-module.
-
 
 
 **Notes**

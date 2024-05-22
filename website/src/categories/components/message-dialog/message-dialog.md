@@ -8,6 +8,7 @@ pictureDark:
 layout: "categories/components/components.njk"
 tags: component
 packageName: message-dialog
+storybookCategory: overlay
 eleventyNavigation:
   parent: Components
   key: Message dialog

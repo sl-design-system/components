@@ -8,6 +8,7 @@ import { str } from '@lit/localize';
 
 export const templates = {
   s091d3d07b5b3076f: 'Ok',
+  s13fdff160ffad275: 'Wis tekst',
   s2ceb11be2290bb1b: 'Annuleren',
   s39bba60b440fcf00: 'verplicht',
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',

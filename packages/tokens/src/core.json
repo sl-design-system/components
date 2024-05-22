@@ -2154,7 +2154,12 @@
       "breadcrumb-separator": {
         "value": "slash-forward",
         "type": "Icons",
-        "description": "icon.core.slash-forward"
+        "description": "icon.core.breadcrumb-separator"
+      },
+      "search": {
+        "value": "magnifying-glass",
+        "type": "Icons",
+        "description": "icon.core.search"
       }
     },
     "typeset": {

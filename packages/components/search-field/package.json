@@ -40,5 +40,11 @@
   "dependencies": {
     "@sl-design-system/shared": "0.2.11",
     "@sl-design-system/text-field": "0.1.25"
+  },
+  "devDependencies": {
+    "@open-wc/scoped-elements": "^3.0.5"
+  },
+  "peerDependencies": {
+    "@open-wc/scoped-elements": "^3.0.5"
   }
 }

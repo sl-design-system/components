@@ -119,9 +119,14 @@ body:
       - Other
     validations:
       required: true
+  - type: input
+    id: other
+    attributes:
+      label: If other, please specify.
   - type: dropdown
     id: theme
     attributes:
+      value: Select theme
       label: 🎨 Your Theme
       description: Which theme do you use?
       options:

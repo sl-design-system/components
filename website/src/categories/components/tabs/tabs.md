@@ -8,6 +8,8 @@ pictureDark: <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" fi
 layout: "categories/components/components.njk"
 tags: component
 packageName: tabs
+storybookCategory: layout
+storybookComponentName: tab-group
 eleventyNavigation:
   parent: Components
   key: Tabs

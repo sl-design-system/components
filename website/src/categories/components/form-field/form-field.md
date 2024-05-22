@@ -8,6 +8,8 @@ shortDescription: Wrapper component for forms
 layout: "categories/components/components.njk"
 tags: component
 packageName: form
+storybookCategory: form
+storybookComponentName: form-field
 eleventyNavigation:
   parent: Components
   key: Form field

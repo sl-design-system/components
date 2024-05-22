@@ -41,8 +41,6 @@ export default {
       console.log(form?.reportValidity(), form?.value);
     };
 
-    const onReset = (): void => document.querySelector('sl-form')?.reset();
-
     const onUpdate = (): void => {
       const form = document.querySelector('sl-form')!,
         pre = form.nextElementSibling as HTMLPreElement;
@@ -65,7 +63,6 @@ export default {
         <sl-button-bar>
           ${buttons?.() ??
           html`
-            <sl-button @click=${onReset}>Reset</sl-button>
             <sl-button @click=${onToggle}>Toggle</sl-button>
             <sl-button @click=${onReport} variant="primary">Report</sl-button>
           `}

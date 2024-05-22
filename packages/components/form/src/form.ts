@@ -126,10 +126,6 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
     return this.controls.map(c => c.reportValidity()).every(Boolean);
   }
 
-  reset(): void {
-    console.log('reset');
-  }
-
   #onFormControl(event: SlFormControlEvent): void {
     const control = event.target;
 

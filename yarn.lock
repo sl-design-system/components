@@ -4766,6 +4766,7 @@ __metadata:
     stylelint: "npm:^16.3.1"
     typescript: "npm:^5.4.5"
     vite: "npm:^5.2.11"
+    vite-plugin-turbosnap: "npm:^1.0.3"
     wireit: "npm:^0.14.4"
   languageName: unknown
   linkType: soft
@@ -22974,6 +22975,13 @@ __metadata:
     unist-util-stringify-position: "npm:^2.0.0"
     vfile-message: "npm:^2.0.0"
   checksum: 10c0/4816aecfedc794ba4d3131abff2032ef0e825632cfa8cd20dd9d83819ef260589924f4f3e8fa30e06da2d8e60d7ec8ef7d0af93e0483df62890738258daf098a
+  languageName: node
+  linkType: hard
+
+"vite-plugin-turbosnap@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "vite-plugin-turbosnap@npm:1.0.3"
+  checksum: 10c0/fd4a283708e24b54442b5db05461f8302bc57094234fd5b0dae1a6f76bb79078c68a729e516f352d04b89fea7c459f8272921f788bd3cd20d1488c7e73d7238e
   languageName: node
   linkType: hard
 

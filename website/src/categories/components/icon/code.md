@@ -40,7 +40,7 @@ You can find the list of available icons in your theme on our Storybook page.
 
 <section>
 
-## Using additional Font Awesome P
+## Using additional Font Awesome Pro icons
 
 In addition to the provided icons you can use all icons available in Font Awesome Pro<sup>[1]</sup>. Firstly you will need to add the install the icon styles you want to use:
 

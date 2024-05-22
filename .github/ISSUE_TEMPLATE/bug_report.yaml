@@ -100,14 +100,39 @@ body:
   - type: markdown
     attributes:
       value: "## 🦄 Other"
-  - type: input
+  - type: dropdown
     id: company-team
     attributes:
-      label: 🧢 Your Company/Team
-      description: Which product team is this bug impacting?
-  - type: input
+      label: 🧢 Your Company
+      description: Which product is this bug impacting?
+      options:
+      - Bingel
+      - ClickEdu
+      - Editorial Suite
+      - ItsLearning
+      - Kampus
+      - Magister
+      - Max Online
+      - Nowa Era
+      - Sesame
+      - TEAS
+      - Other
+  - type: dropdown
     id: theme
     attributes:
       label: 🎨 Your Theme
       description: Which theme of do you use?
-      
+      options:
+      - Bingel DC
+      - Bingel INT
+      - Editorial Suite
+      - ItsLearning
+      - Kampus
+      - Magister
+      - Max Online
+      - My Digital Bok
+      - My Van in
+      - NEON
+      - Sanoma Learning
+      - Sanoma Utbildning
+      - TEAS

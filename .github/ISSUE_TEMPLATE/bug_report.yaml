@@ -100,6 +100,14 @@ body:
   - type: markdown
     attributes:
       value: "## 🦄 Other"
+  - type: input
+    id: product
+    attributes:
+      label: 🧢 Your product/team
+      description: | 
+        Which product team is this bug impacting? (i.e. Bingel DC/Pokemon)
+    validations:
+      required: false
   - type: dropdown
     id: theme
     attributes:

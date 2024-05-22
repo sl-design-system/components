@@ -39,12 +39,11 @@ body:
     validations:
       required: false
   - type: textarea
-    id: context
+    id: screenshots
     attributes:
-      label: 🔦 Context
+      label: 📷 Screenshots
       description: | 
-        Providing context helps us come up with a solution that is most useful in the real world.
-        How has this issue affected you? What are you trying to accomplish?
+        You can attach images by clicking this area to highlight it and then dragging files in.
     validations:
       required: false
   - type: textarea
@@ -53,6 +52,12 @@ body:
       label: 🖥️ Steps to Reproduce 
       description: | 
         Provide a minimal test case that can reproduce the problem.
+      value: |
+              1. Go to '...'
+              2. Click on '....'
+              3. Scroll to '....'
+              4. Check console
+              5. See error
     validations:
       required: true
   - type: markdown
@@ -63,8 +68,6 @@ body:
     attributes:
       label: Version (only for bugs in code)
       description: What version of sl-design-system are you running?
-    validations:
-      required: false
   - type: dropdown 
     id: browsers
     attributes:
@@ -76,8 +79,6 @@ body:
         - Safari
         - Microsoft Edge
         - Other
-    validations:
-      required: false
   - type: input
     id: other
     attributes:
@@ -86,8 +87,6 @@ body:
     id: operating-system
     attributes:
       label: What operating system are you using? (only for bugs in code)
-    validations:
-      required: false
   - type: markdown
     attributes:
       value: "## 🦄 Other"

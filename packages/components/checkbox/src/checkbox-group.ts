@@ -100,6 +100,8 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   override willUpdate(changes: PropertyValues): void {
     super.willUpdate(changes);
 
+    console.log('this.boxes in willUpdate', this.boxes, this.internals.labels);
+
     if (changes.has('disabled') && typeof this.disabled === 'boolean') {
       this.boxes?.forEach(box => (box.disabled = !!this.disabled));
     }
@@ -124,6 +126,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   }
 
   override render(): TemplateResult {
+    console.log('this.boxes', this.boxes);
     console.log('this.internals checkbox group', this.internals, this.previousElementSibling);
     return html`
       <slot

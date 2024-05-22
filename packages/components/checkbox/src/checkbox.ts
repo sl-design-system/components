@@ -108,6 +108,13 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     this.changeEvent.emit(this.formValue);
   }
 
+  override firstUpdated(changes: PropertyValues<this>): void {
+    super.firstUpdated(changes);
+
+    this.#updateValueAndValidity();
+    console.log('this.internals.labels in single checkbox in firstupdated', this.internals.labels);
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -128,7 +135,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div role="checkbox" id="label1" class="outer">
+      <div id="label1" class="outer">
         <div class="inner" .tabIndex=${this.disabled ? -1 : 0}>
           <svg
             aria-hidden="true"
@@ -185,16 +192,20 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
           node.nodeType === Node.TEXT_NODE
       )
       .every(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent?.trim() === '');
-    console.log('in no label',  Array.from(this.childNodes)
-      .filter(
-        node =>
-          (node.nodeType === Node.ELEMENT_NODE && !(node as Element).hasAttribute('slot')) ||
-          node.nodeType === Node.TEXT_NODE
-      ).every(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent));
+    console.log(
+      'in no label',
+      Array.from(this.childNodes)
+        .filter(
+          node =>
+            (node.nodeType === Node.ELEMENT_NODE && !(node as Element).hasAttribute('slot')) ||
+            node.nodeType === Node.TEXT_NODE
+        )
+        .every(node => node.nodeType !== Node.ELEMENT_NODE && node.textContent)
+    );
 
     // this.internals.labels = 'test';
 
-    console.log('this.internals.labels', this.internals.labels);
+    console.log('this.internals.labels in single checkbox', this.internals.labels);
 
     this.toggleAttribute('no-label', empty);
   }

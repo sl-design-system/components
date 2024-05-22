@@ -10,6 +10,16 @@ body:
   - type: markdown
     attributes:
       value: "# 🐛 Bug Report "
+  - type: checkboxes
+    id: where
+    attributes:
+      label: 🕵️‍♀️ Where does this bug appear?
+      options:
+      - Storybook
+      - Figma Toolkit
+      - My own environment
+    validations:
+      required: true
   - type: textarea
     id: general-summary
     attributes:

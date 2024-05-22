@@ -15,7 +15,12 @@ export default {
   },
   render: ({ disabled, placeholder, value }) => {
     return html`
-      <sl-search-field ?disabled=${disabled} .placeholder=${placeholder} .value=${value}></sl-search-field>
+      <sl-search-field
+        aria-label="Search"
+        ?disabled=${disabled}
+        .placeholder=${placeholder}
+        .value=${value}
+      ></sl-search-field>
     `;
   }
 } satisfies Meta<Props>;
@@ -37,5 +42,30 @@ export const Value: Story = {
   args: {
     ...Basic.args,
     value: 'Lorem'
+  }
+};
+
+export const Complete: Story = {
+  render: () => {
+    return html`
+      <style>
+        search {
+          display: flex;
+          gap: 0.5rem;
+          inline-size: 100%;
+        }
+        sl-search-field {
+          flex: 1;
+        }
+      </style>
+      <search>
+        <sl-search-field
+          aria-labelledby="search-button"
+          id="search-field"
+          placeholder="Enter your query"
+        ></sl-search-field>
+        <sl-button aria-controls="search-field" id="search-button">Search</sl-button>
+      </search>
+    `;
   }
 };

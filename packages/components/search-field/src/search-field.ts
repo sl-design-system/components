@@ -1,3 +1,4 @@
+import { msg } from '@lit/localize';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
@@ -42,7 +43,7 @@ export class SearchField extends TextField {
 
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.value && !this.disabled
-      ? html`<button @click=${this.#onClick}><sl-icon name="xmark"></sl-icon></button>`
+      ? html`<button @click=${this.#onClick} aria-label=${msg('Clear text')}><sl-icon name="xmark"></sl-icon></button>`
       : nothing;
   }
 

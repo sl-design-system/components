@@ -45,7 +45,7 @@ export const LogIn: Story = {
         </sl-form-field>
 
         <sl-form-field>
-          <sl-checkbox name="remember" required>Remember me</sl-checkbox>
+          <sl-checkbox name="remember">Remember me</sl-checkbox>
         </sl-form-field>
 
         <sl-button-bar align="space-between">

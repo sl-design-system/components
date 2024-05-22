@@ -1,5 +1,6 @@
 name: 🐛 Bug Report
 description: File a bug report
+labels: "triage"
 body:
   - type: markdown
     attributes:
@@ -25,8 +26,7 @@ body:
     attributes:
       label: 😯 Current Behavior
       description: | 
-        Tell us what happens instead of the expected behavior. Please include a link to the storybook if possible.
-        If you are seeing an error, please include the full error message and stack trace.
+        Tell us what happens instead of the expected behavior.
     validations:
       required: true
   - type: textarea
@@ -59,14 +59,14 @@ body:
   - type: input
     id: version
     attributes:
-      label: Version
+      label: Version (only for bugs in code)
       description: What version of sl-design-system are you running?
     validations:
-      required: true
-  - type: dropdown
+      required: false
+  - type: dropdown 
     id: browsers
     attributes:
-      label: What browsers are you seeing the problem on?
+      label: What browsers are you seeing the problem on? (only for bugs in code)
       multiple: true
       options:
         - Firefox
@@ -75,7 +75,7 @@ body:
         - Microsoft Edge
         - Other
     validations:
-      required: true
+      required: false
   - type: input
     id: other
     attributes:
@@ -94,3 +94,9 @@ body:
     attributes:
       label: 🧢 Your Company/Team
       description: Which product team is this bug impacting?
+  - type: input
+    id: theme
+    attributes:
+      label: 🎨 Your Theme
+      description: Which theme of do you use?
+      

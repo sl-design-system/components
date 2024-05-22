@@ -44,18 +44,6 @@ body:
       validations:
           required: false
     - type: textarea
-      id: reproduce
-      attributes:
-          label: 🖥️ Steps to Reproduce
-          value: |
-              1. Go to '...'
-              2. Click on '....'
-              3. Scroll to '....'
-              4. Check console
-              5. See error
-        validations:
-          required: true
-    - type: textarea
       id: screenshot
       attributes:
           label: Screenshots

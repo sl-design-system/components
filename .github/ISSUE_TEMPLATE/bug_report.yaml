@@ -1,8 +1,5 @@
-name: 🐛 Bug report
-description: Create a report to help us improve the project
-title: '[🐛Bug]: '
-labels: [bug, triage]
-# assignees:
+name: 🐛 Bug Report
+description: File a bug report
 body:
   - type: markdown
     attributes:
@@ -10,51 +7,90 @@ body:
   - type: markdown
     attributes:
       value: "# 🐛 Bug Report "
-    - type: textarea
-      id: general
-      attributes:
-          label: Provide a general summary of the issue here
-    - type: textarea
-      id: expected-behavior
-      attributes:
-          label: 🤔 Expected behavior
-          description: Tell us what should happen
-    - type: textarea
-      id: current-behavior
-      attributes:
-          label: 😯 Current behavior
-          description: Tell us what happens instead of the expected behavior. Please include a link to the storybook if possible. If you are seeing an error, please include the full error message and stack trace.
-    - type: textarea
-      id: possible-solution
-      attributes:
-          label: 💁 Possible Solution
-          description: Suggest a fix/reason for the bug
-    - type: textarea
-      id: context
-      attributes:
-          label: 🔦 Context
-          description: Providing context helps us come up with a solution that is most useful in the real world. How has this issue affected you? What are you trying to accomplish?
-    - type: textarea
-      id: screenshot
-      attributes:
-          label: Screenshots
-          description: You can attach images by clicking this area to highlight it and then dragging files in.
-    - type: dropdown
-      id: browsers
-      attributes:
-          label: What browsers are you seeing the problem in?
-          multiple: true
-          options:
-              - Firefox
-              - Chrome
-              - Safari
-              - Microsoft Edge
-    - type: textarea
-      id: code
-      attributes:
-          label: Sample code that illustrates the problem
-    - type: textarea
-      id: logs
-      attributes:
-          label: Logs taken while reproducing problem
-          description: You can attach log files by clicking this area to highlight it and then dragging files in.
+  - type: textarea
+    id: general-summary
+    attributes:
+      label: Provide a general summary of the issue here
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: 🤔 Expected Behavior?
+      description: Tell us what should happen
+    validations:
+      required: true
+  - type: textarea
+    id: current-behavior
+    attributes:
+      label: 😯 Current Behavior
+      description: | 
+        Tell us what happens instead of the expected behavior. Please include a link to the storybook if possible.
+        If you are seeing an error, please include the full error message and stack trace.
+    validations:
+      required: true
+  - type: textarea
+    id: possible-solution
+    attributes:
+      label: 💁 Possible Solution
+      description: Suggest a fix/reason for the bug
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: 🔦 Context
+      description: | 
+        Providing context helps us come up with a solution that is most useful in the real world.
+        How has this issue affected you? What are you trying to accomplish?
+    validations:
+      required: false
+  - type: textarea
+    id: base-reproduction
+    attributes:
+      label: 🖥️ Steps to Reproduce 
+      description: | 
+        Provide a minimal test case that can reproduce the problem.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## 🌍 Your Environment"
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of sl-design-system are you running?
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: other
+    attributes:
+      label: If other, please specify.
+  - type: input
+    id: operating-system
+    attributes:
+      label: What operating system are you using?
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: "## 🦄 Other"
+  - type: input
+    id: company-team
+    attributes:
+      label: 🧢 Your Company/Team
+      description: Which product team is this bug impacting?

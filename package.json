@@ -366,7 +366,7 @@
       ]
     },
     "chromatic-components": {
-      "command": "storybook build",
+      "command": "storybook build --stats-json",
       "dependencies": [
         "build"
       ]

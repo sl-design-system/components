@@ -135,7 +135,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <div id="label1" class="outer">
+      <div aria-labelledby="label1" class="outer">
         <div class="inner" .tabIndex=${this.disabled ? -1 : 0}>
           <svg
             aria-hidden="true"
@@ -151,7 +151,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
         </div>
       </div>
       <span class="label">
-        <label for="label1">test<slot @slotchange=${() => this.#updateNoLabel()}></slot></label>
+        <label id="label1">test<slot @slotchange=${() => this.#updateNoLabel()}></slot></label>
       </span>
     `;
   }

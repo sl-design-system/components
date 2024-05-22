@@ -85,9 +85,9 @@ body:
   - type: input
     id: operating-system
     attributes:
-      label: What operating system are you using?
+      label: What operating system are you using? (only for bugs in code)
     validations:
-      required: true
+      required: false
   - type: markdown
     attributes:
       value: "## 🦄 Other"

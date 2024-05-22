@@ -111,8 +111,8 @@ body:
   - type: dropdown
     id: theme
     attributes:
-      label: 🎨 Your Theme
-      description: Which theme do you use?
+      label: 🎨 Your Theme(s)
+      description: Which theme(s) do you use?
       multiple: true
       options:
       - Bingel DC

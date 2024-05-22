@@ -1,0 +1,39 @@
+name: New component
+description: Outline the requirements for a new component
+title: '[NEW]: '
+labels: [request]
+# assignees:
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for taking the time to fill out this component request. Please be sure to review other [requests](https://github.com/orgs/sl-design-system/projects/7/views/9) first to prevent duplication.
+    - type: input
+      id: component-name
+      attributes:
+          label: Name of component
+      validations:
+          required: true
+    - type: textarea
+      id: specs
+      attributes:
+          label: Design specification
+          description: Snapshots and link to mock-ups for this component. Should cover contexts and states with guidelines for spacing, typography, and structure. Breakpoint details for desktop, tablet, and mobile or general guidance for responsive changes.
+    - type: textarea
+      id: interaction
+      attributes:
+          label: Interaction
+          description: General guidance for how a user should interact with this component.
+    - type: textarea
+      id: a11y
+      attributes:
+          label: Accessibility
+          description: Guidance for keyboard navigation and screen-reader engagement.  [Best practice documentation](https://usability.yale.edu/web-accessibility/articles) from Yale University.
+    - type: textarea
+      id: api
+      attributes:
+          label: API requirements
+    - type: textarea
+      id: other
+      attributes:
+          label: Other requirements

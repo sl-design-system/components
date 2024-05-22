@@ -57,8 +57,6 @@ export class NestedForm extends ScopedElementsMixin(LitElement) {
   }
 
   #onClick() {
-    if (this.#form.reportValidity()) {
-      console.log(this.#form.value);
-    }
+    this.#form.reportValidity();
   }
 }

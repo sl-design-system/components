@@ -77,36 +77,3 @@ export function setValueByPath<T, P extends string>(obj: T, path: P, value: Path
     }
   }
 }
-
-// interface Test {
-//   foo: {
-//     bar: {
-//       baz: number[];
-//     };
-//   };
-// }
-
-// // Correct usage
-// let _test1: Path<Test, 'foo.bar.baz[0]'>; // type of test1 is number
-
-// // Incorrect usage
-// let _test2: Path<Test, 'foo.bar.baz[1].qux'>; // Error: 'qux' does not exist on type 'number'
-
-// // Correct usage
-// let _test3: Path<Test, 'foo.bar'>; // type of test3 is { baz: number[]; }
-
-// // Incorrect usage
-// let _test4: Path<Test, 'foo.qux'>; // Error: 'qux' does not exist on type '{ bar: { baz: number[]; }; }'
-
-// // Usage
-// const obj: Test = {
-//   foo: {
-//     bar: {
-//       baz: [1, 2, 3]
-//     }
-//   }
-// };
-
-// console.log(getValueByPath(obj, 'foo.bar.baz[0]')); // 1
-// setValueByPath(obj, 'foo.bar.baz[0]', 10);
-// console.log(getValueByPath(obj, 'foo.bar.baz[0]')); // 10

@@ -21,8 +21,8 @@ body:
       label: 🕵️‍♀️ Where does this bug appear?
       options:
       - label: Storybook
-      - label: Figma Toolkit
-      - label: My own environment
+      - label: My own application
+      - label: Both
     validations:
       required: true
   - type: textarea
@@ -75,8 +75,10 @@ body:
   - type: input
     id: version
     attributes:
-      label: Version (only for bugs in code)
+      label: Version
       description: What version of sl-design-system are you running?
+    validations:
+      required: true
   - type: dropdown 
     id: browsers
     attributes:
@@ -88,14 +90,20 @@ body:
         - Safari
         - Microsoft Edge
         - Other
+    validations:
+      required: true
   - type: input
     id: other
     attributes:
       label: If other, please specify.
+    validations:
+      required: false
   - type: input
     id: operating-system
     attributes:
-      label: What operating system are you using? (only for bugs in code)
+      label: What operating system are you using? 
+    validations:
+      required: true
   - type: markdown
     attributes:
       value: "## 🦄 Other"
@@ -106,7 +114,7 @@ body:
       description: | 
         Which product team is this bug impacting? (i.e. Bingel DC/Pokemon)
     validations:
-      required: false
+      required: true
   - type: dropdown
     id: theme
     attributes:

@@ -9,28 +9,28 @@ body:
   - type: markdown
     attributes:
       value: "# 🧩 New Component "
-    - type: input
+  - type: input
       id: component-name
       attributes:
           label: ✒️ Name of component
       validations:
           required: true
-    - type: textarea
+  - type: textarea
       id: specs
       attributes:
           label: 👩‍🎨 Design specification
           description: Snapshots and link to mock-ups for this component
-    - type: textarea
+  - type: textarea
       id: interaction
       attributes:
           label: 🖱️ Interaction
           description: General guidance for how a user should interact with this component
-    - type: textarea
+  - type: textarea
       id: a11y
       attributes:
           label: 🚪 Accessibility
           description: Guidance for keyboard navigation and screen-reader engagement
-    - type: textarea
+  - type: textarea
       id: other
       attributes:
           label: 📋 Other requirements

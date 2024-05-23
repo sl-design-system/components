@@ -12,25 +12,25 @@ body:
     - type: input
       id: component-name
       attributes:
-          label: Name of component
+          label: ✒️ Name of component
       validations:
           required: true
     - type: textarea
       id: specs
       attributes:
-          label: Design specification
+          label: 👩‍🎨 Design specification
           description: Snapshots and link to mock-ups for this component and structure
     - type: textarea
       id: interaction
       attributes:
-          label: Interaction
+          label: 🖱️ Interaction
           description: General guidance for how a user should interact with this component
     - type: textarea
       id: a11y
       attributes:
-          label: Accessibility
+          label: 🚪 Accessibility
           description: Guidance for keyboard navigation and screen-reader engagement
     - type: textarea
       id: other
       attributes:
-          label: Other requirements
+          label: 📋 Other requirements

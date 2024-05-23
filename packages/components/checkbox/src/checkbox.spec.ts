@@ -18,6 +18,12 @@ describe('sl-checkbox', () => {
       expect(el).shadowDom.to.equalSnapshot();
     });
 
+    it('should have an input of type checkbox', () => {
+      expect(input).to.exist;
+      expect(input.id).to.match(/sl-checkbox-(\d+)/);
+      expect(input.type).to.equal('checkbox');
+    });
+
     it('should not be checked', () => {
       expect(el.checked).not.to.be.true;
       expect(input.checked).not.to.be.true;

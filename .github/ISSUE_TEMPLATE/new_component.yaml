@@ -8,9 +8,9 @@ body:
       value: "### Thanks for filing an issue! Before you submit, search open/closed issues before submitting since someone might have asked the same thing before!"
   - type: markdown
     attributes:
-      value: "# 🧩 New Component "
+      value: "# 🧩 New Component"
   - type: input
-      id: component-name
+      id: component
       attributes:
           label: ✒️ Name of component
       validations:

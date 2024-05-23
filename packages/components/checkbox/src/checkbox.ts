@@ -130,8 +130,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     }
 
     if (changes.has('disabled')) {
-      // We need to wait for the disabled state to propagate to the input before updating the validity
-      setTimeout(() => this.updateValidity());
+      this.updateValidity();
     }
 
     if (changes.has('value') && this.value !== this.input.value) {
@@ -187,6 +186,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     this.checked = !this.checked;
     this.changeEvent.emit(this.formValue);
     this.updateState({ dirty: true });
+    this.updateValidity();
   }
 
   #onFocusin(): void {
@@ -249,7 +249,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     input.id ||= `sl-checkbox-${nextUniqueId++}`;
     input.required = !!this.required;
 
-    input.toggleAttribute('checked', this.checked);
-    input.toggleAttribute('indeterminate', this.indeterminate);
+    input.toggleAttribute('checked', !!this.checked);
+    input.toggleAttribute('indeterminate', !!this.indeterminate);
   }
 }

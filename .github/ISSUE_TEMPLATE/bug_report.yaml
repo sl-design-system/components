@@ -15,16 +15,6 @@ body:
       label: Provide a general summary of the issue here
     validations:
       required: true
-  - type: checkboxes
-    id: where
-    attributes:
-      label: 🕵️‍♀️ Where does this bug appear?
-      options:
-      - label: Storybook
-      - label: My own application
-      - label: Both
-    validations:
-      required: true
   - type: textarea
     id: expected-behavior
     attributes:

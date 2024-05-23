@@ -94,10 +94,10 @@ export const Group: Story = {
   args: {
     slot: () => html`
       <sl-checkbox-group>
-        <sl-checkbox>Check me</sl-checkbox>
-        <sl-checkbox>No me</sl-checkbox>
-        <sl-checkbox>I was here first!</sl-checkbox>
-        <sl-checkbox disabled>Can't check me, even if you wanted to</sl-checkbox>
+        <sl-checkbox value="0">Check me</sl-checkbox>
+        <sl-checkbox value="1">No me</sl-checkbox>
+        <sl-checkbox value="2">I was here first!</sl-checkbox>
+        <sl-checkbox disabled value="3">Can't check me, even if you wanted to</sl-checkbox>
       </sl-checkbox-group>
     `
   }

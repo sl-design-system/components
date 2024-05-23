@@ -76,6 +76,14 @@ describe('sl-checkbox', () => {
       expect(input.required).to.be.true;
     });
 
+    it('should link the text to the input via label', () => {
+      const label = el.querySelector('label');
+
+      expect(label).to.exist;
+      expect(label).to.have.text('Hello world');
+      expect(label).to.have.attribute('for', input.id);
+    });
+
     it('should be pristine', () => {
       expect(el.dirty).not.to.be.true;
     });

@@ -1,0 +1,59 @@
+import {Basic as AllAccordion} from '../../../packages/components/accordion/src/accordion.stories';
+import {All as AllAvatar} from '../../../packages/components/avatar/src/avatar.stories';
+import {All as AllBadge} from '../../../packages/components/badge/src/badge.stories';
+// import {All as AllBreadcrumbs} from '../../../packages/components/breadcrumbs/src/breadcrumbs.stories';
+import {All as AllButton} from '../../../packages/components/button/src/button.stories';
+// import {All as AllCard} from '../../../packages/components/card/src/card.stories';
+import {All as AllCheckbox} from '../../../packages/components/checkbox/src/checkbox.stories';
+import {Basic as AllDialog} from '../../../packages/components/dialog/src/dialog.stories';
+// import {All as AllIcon} from '../../../packages/components/icon/src/icon.stories';
+import {All as AllInlineMessage} from '../../../packages/components/inline-message/src/inline-message.stories';
+// import {All as AllMessageDialog} from '../../../packages/components/message-dialog/src/message-dialog.stories';
+import {All as AllPopover} from '../../../packages/components/popover/src/popover.stories';
+import {All as AllRadioGroup} from '../../../packages/components/radio-group/src/radio-group.stories';
+import {All as AllSelect} from '../../../packages/components/select/src/select.stories';
+import {All as AllSkeleton} from '../../../packages/components/skeleton/src/skeleton.stories';
+import {All as AllSpinner} from '../../../packages/components/spinner/src/spinner.stories';
+import {All as AllSwitch} from '../../../packages/components/switch/src/switch.stories';
+// import {All as AllTabs} from '../../../packages/components/tabs/src/tab-group.stories';
+import {All as AllTextArea} from '../../../packages/components/text-area/src/text-area.stories';
+import {All as AllTextField} from '../../../packages/components/text-field/src/text-field.stories';
+// import {All as AllTooltip} from '../../../packages/components/tooltip/src/tooltip.stories';
+import { allModes } from "../modes";
+
+export default {
+  title: 'All',
+  args: {theme:'sanoma-learning'},
+  parameters: {
+    chromatic: {
+      modes: {
+        max: allModes['max'],
+        sanomaLearning: allModes['sanomaLearning'],
+      },
+    },
+  },
+};
+
+
+export const Accordion = {render: AllAccordion.render};
+export const Avatar = {render: AllAvatar.render};
+export const Badge = {render: AllBadge.render};
+// export const Breadcrumbs = {render: AllBreadcrumbs.render};
+export const Button = {render: AllButton.render};
+// export const Card = {render: AllCard.render};
+export const Checkbox = {render: AllCheckbox.render};
+// export const Dialog = {render: AllDialog.render};
+// export const Icon = {render: AllIcon.render};
+export const InlineMessage = {render: AllInlineMessage.render};
+// export const MessageDialog = {render: AllMessageDialog.render};
+export const Popover = {render: AllPopover.render};
+export const RadioGroup = {render: AllRadioGroup.render};
+export const Select = {render: AllSelect.render};
+export const Skeleton = {render: AllSkeleton.render};
+export const Spinner = {render: AllSpinner.render};
+export const Switch = {render: AllSwitch.render};
+// export const Tabs = {render: AllTabs.render};
+export const TextArea = {render: AllTextArea.render};
+export const TextField = {render: AllTextField.render};
+// export const Tooltip = {render: AllTooltip.render};
+

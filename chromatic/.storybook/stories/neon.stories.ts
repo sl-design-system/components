@@ -7,6 +7,6 @@ export default {
   args: {theme:'neon'}
 };
 
-export const Button = AllButton;
-export const Checkbox = AllCheckbox;
-export const RadioGroup = AllRadioGroup;
+// export const Button = AllButton;
+// export const Checkbox = AllCheckbox;
+// export const RadioGroup = AllRadioGroup;

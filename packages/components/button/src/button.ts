@@ -96,7 +96,7 @@ export class Button extends LitElement {
   }
 
   override render(): TemplateResult {
-    return html`<slot @slotchange=${this.#onSlotChange}></slot>Chromatic test 🙂‍↔️`;
+    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
   }
 
   #onClick(event: Event): void {

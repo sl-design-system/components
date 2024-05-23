@@ -7,6 +7,6 @@ export default {
   args: {theme:'itslearning'}
 };
 
-export const Button = AllButton;
-export const Checkbox = AllCheckbox;
-export const RadioGroup = AllRadioGroup;
+// export const Button = AllButton;
+// export const Checkbox = AllCheckbox;
+// export const RadioGroup = AllRadioGroup;

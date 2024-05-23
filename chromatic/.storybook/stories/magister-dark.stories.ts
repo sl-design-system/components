@@ -7,6 +7,6 @@ export default {
   args: {theme:'magister', mode:'dark'}
 };
 
-export const Buttons = AllButton;
-export const Checkbox = AllCheckbox;
-export const RadioGroup = AllRadioGroup;
+// export const Buttons = AllButton;
+// export const Checkbox = AllCheckbox;
+// export const RadioGroup = AllRadioGroup;

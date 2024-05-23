@@ -16,7 +16,7 @@
   },
   "wireit": {
     "themes": {
-      "command": "storybook build",
+      "command": "storybook build --stats-json",
       "dependencies": [
         "..:build:components",
         "..:build:themes"
@@ -41,8 +41,12 @@
     "@storybook/web-components-vite": "^8.1.1",
     "lit": "^3.1.2",
     "storybook": "^8.1.1",
+    "storybook-addon-pseudo-states": "^3.1.1",
     "tslib": "^2.6.2",
     "typescript": "^5.4.5",
     "wireit": "^0.14.4"
+  },
+  "dependencies": {
+    "@storybook/addon-themes": "^8.1.2"
   }
 }

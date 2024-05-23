@@ -29,5 +29,13 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
           onlyChanged: true
           workingDir: .
+      - name: Publish to Chromatic - Themes
+        uses: chromaui/action@v1
+        with:
+          buildScriptName: themes
+          exitOnceUploaded: true
+          projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
+          onlyChanged: true
+          workingDir: chromatic
 
 

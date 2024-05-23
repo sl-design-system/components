@@ -378,7 +378,7 @@
       ]
     },
     "storybook:build": {
-      "command": "storybook build -o dist --quiet",
+      "command": "storybook build -o dist --quiet --stats-json",
       "dependencies": [
         "dist"
       ]
@@ -448,7 +448,6 @@
     "stylelint": "^16.3.1",
     "typescript": "^5.4.5",
     "vite": "^5.2.11",
-    "vite-plugin-turbosnap": "^1.0.3",
     "wireit": "^0.14.4"
   }
 }

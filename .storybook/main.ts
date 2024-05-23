@@ -1,5 +1,4 @@
 import { type StorybookConfig } from '@storybook/web-components-vite';
-import turbosnap from "vite-plugin-turbosnap";
 import { argv } from 'node:process';
 
 const devMode = !argv.includes('build');
@@ -37,21 +36,10 @@ const config: StorybookConfig = {
   staticDirs: [
     { from: '../packages/themes', to: '/themes' }
   ],
-  viteFinal: async (config, { configType }) => {
+  viteFinal: async config => {
     const { mergeConfig } = await import('vite');
 
-    return mergeConfig(config, { 
-      logLevel: 'warn',
-      plugins:
-      configType === "PRODUCTION"
-        ? [
-            turbosnap({
-              // This should be the base path of your storybook.  In monorepos, you may only need process.cwd().
-              rootDir: config.root ?? process.cwd(),
-            }),
-          ]
-        : []
-    });
+    return mergeConfig(config, { logLevel: 'warn' });
   }
 };
 

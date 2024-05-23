@@ -4484,9 +4484,11 @@ __metadata:
     "@storybook/addon-a11y": "npm:^8.1.1"
     "@storybook/addon-essentials": "npm:^8.1.1"
     "@storybook/addon-storysource": "npm:^8.1.1"
+    "@storybook/addon-themes": "npm:^8.1.2"
     "@storybook/web-components-vite": "npm:^8.1.1"
     lit: "npm:^3.1.2"
     storybook: "npm:^8.1.1"
+    storybook-addon-pseudo-states: "npm:^3.1.1"
     tslib: "npm:^2.6.2"
     typescript: "npm:^5.4.5"
     wireit: "npm:^0.14.4"
@@ -4766,7 +4768,6 @@ __metadata:
     stylelint: "npm:^16.3.1"
     typescript: "npm:^5.4.5"
     vite: "npm:^5.2.11"
-    vite-plugin-turbosnap: "npm:^1.0.3"
     wireit: "npm:^0.14.4"
   languageName: unknown
   linkType: soft
@@ -5197,6 +5198,15 @@ __metadata:
     estraverse: "npm:^5.2.0"
     tiny-invariant: "npm:^1.3.1"
   checksum: 10c0/cc5086931425c568e703128c17631a7b5a70505c489ed3b471c2ca08e07be7fd7f6199d7abdabc521df4981d5e63229dbdaa49475a60253c4f6baa7d01186d5e
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-themes@npm:^8.1.2":
+  version: 8.1.2
+  resolution: "@storybook/addon-themes@npm:8.1.2"
+  dependencies:
+    ts-dedent: "npm:^2.0.0"
+  checksum: 10c0/d6e6a589ec889621743053cee1b540d8dd376e962e9f53d02ec71a655b52bd404501489770d906dcc0f77987fa48d9bd70b7ff90dfda279ab2d226aa11337f12
   languageName: node
   linkType: hard
 
@@ -21187,6 +21197,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"storybook-addon-pseudo-states@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "storybook-addon-pseudo-states@npm:3.1.1"
+  checksum: 10c0/ed70ebacee76f433482e44a12e0e29d3f048ae8ef4fab7f02edd348b5a9917003e2626d78f3f86654ab6abb60a153370ae0fa6577d1a12805e2a1fec2bb1ec74
+  languageName: node
+  linkType: hard
+
 "storybook@npm:^8.1.1":
   version: 8.1.1
   resolution: "storybook@npm:8.1.1"
@@ -22975,13 +22992,6 @@ __metadata:
     unist-util-stringify-position: "npm:^2.0.0"
     vfile-message: "npm:^2.0.0"
   checksum: 10c0/4816aecfedc794ba4d3131abff2032ef0e825632cfa8cd20dd9d83819ef260589924f4f3e8fa30e06da2d8e60d7ec8ef7d0af93e0483df62890738258daf098a
-  languageName: node
-  linkType: hard
-
-"vite-plugin-turbosnap@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "vite-plugin-turbosnap@npm:1.0.3"
-  checksum: 10c0/fd4a283708e24b54442b5db05461f8302bc57094234fd5b0dae1a6f76bb79078c68a729e516f352d04b89fea7c459f8272921f788bd3cd20d1488c7e73d7238e
   languageName: node
   linkType: hard
 

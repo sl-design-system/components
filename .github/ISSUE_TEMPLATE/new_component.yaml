@@ -38,7 +38,7 @@ body:
       attributes:
           value: "## 🦄 Other"
     - type: input
-    id: product
+      id: product
       attributes:
           label: 🧢 Your Product/Team
           description: Which product team needs this component? (i.e. Bingel DC/Pokemon)

@@ -1,36 +1,33 @@
-name: 🧩 New Component
+name: New component
 description: Outline the requirements for a new component
-labels: ["request", "triage"]
+labels: [request, triage]
 projects: ["projects/2"]
 body:
-  - type: markdown
-    attributes:
-      value: "### Thanks for filing an issue! Before you submit, search open/closed issues before submitting since someone might have asked the same thing before!"
-  - type: markdown
-    attributes:
-      value: "# 🧩 New Component"
-  - type: input
-      id: component
+    - type: markdown
       attributes:
-          label: ✒️ Name of component
+          value: "### Thanks for filing an issue! Before you submit, search open/closed issues before submitting since someone might have asked the same thing before!"
+    - type: input
+      id: component-name
+      attributes:
+          label: Name of component
       validations:
           required: true
-  - type: textarea
+    - type: textarea
       id: specs
       attributes:
-          label: 👩‍🎨 Design specification
-          description: Snapshots and link to mock-ups for this component
-  - type: textarea
+          label: Design specification
+          description: Snapshots and link to mock-ups for this component and structure
+    - type: textarea
       id: interaction
       attributes:
-          label: 🖱️ Interaction
+          label: Interaction
           description: General guidance for how a user should interact with this component
-  - type: textarea
+    - type: textarea
       id: a11y
       attributes:
-          label: 🚪 Accessibility
+          label: Accessibility
           description: Guidance for keyboard navigation and screen-reader engagement
-  - type: textarea
+    - type: textarea
       id: other
       attributes:
-          label: 📋 Other requirements
+          label: Other requirements

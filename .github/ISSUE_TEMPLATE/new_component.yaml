@@ -37,8 +37,8 @@ body:
     - type: markdown
     attributes:
       value: "## 🦄 Other"
-      - type: input
-    id: company-team
+    - type: input
+    - id: product-team
     attributes:
       label: 🧢 Your Product/Team
       description: Which product team needs this component? (i.e. Bingel DC/Pokemon)

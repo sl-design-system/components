@@ -94,7 +94,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
     super.connectedCallback();
 
     if (!this.input) {
-      this.input = this.querySelector<HTMLInputElement>('input[slot="checkbox"]') || document.createElement('input');
+      this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
       this.input.type = 'checkbox';
       this.#syncInput(this.input);

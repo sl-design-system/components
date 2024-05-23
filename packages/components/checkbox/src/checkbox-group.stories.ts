@@ -5,40 +5,30 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type CheckboxGroup } from './checkbox-group.js';
-import { type Checkbox, type CheckboxSize } from './checkbox.js';
 
-type Props = Pick<
-  Checkbox,
-  'checked' | 'disabled' | 'indeterminate' | 'required' | 'showValid' | 'showValidity' | 'size' | 'value'
-> & {
+type Props = Pick<CheckboxGroup, 'disabled' | 'required' | 'size' | 'value'> & {
   hint?: string;
   label?: string;
   slot?(): TemplateResult;
-  text?: string;
+  boxes?(): TemplateResult;
 };
 type Story = StoryObj<Props>;
-
-const sizes: CheckboxSize[] = ['sm', 'md', 'lg'];
 
 export default {
   title: 'Form/Checkbox group',
   tags: ['stable'],
   args: {
-    checked: false,
     disabled: false,
-    indeterminate: false,
     label: 'Label',
-    text: 'Toggle me',
-    value: '12345',
     size: 'md'
   },
   argTypes: {
     size: {
       control: 'inline-radio',
-      options: sizes
+      options: ['sm', 'md', 'lg']
     }
   },
-  render: ({ checked, disabled, hint, indeterminate, label, required, showValid, size, slot, text, value }) => {
+  render: ({ boxes, disabled, hint, label, required, size, slot, value }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -48,16 +38,21 @@ export default {
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
           html`
-            <sl-checkbox
-              ?checked=${checked}
+            <sl-checkbox-group
               ?disabled=${disabled}
-              ?indeterminate=${indeterminate}
               ?required=${required}
-              .showValid=${showValid}
-              .size=${size ?? 'md'}
+              .label=${label}
+              .size=${size}
               .value=${value}
-              >${text}</sl-checkbox
             >
+              ${boxes?.() ??
+              html`
+                <sl-checkbox value="0">Option 1</sl-checkbox>
+                <sl-checkbox value="1">Option 2</sl-checkbox>
+                <sl-checkbox value="2">Option 3</sl-checkbox>
+                <sl-checkbox disabled value="2">Option 4</sl-checkbox>
+              `}
+            </sl-checkbox-group>
           `}
         </sl-form-field>
         <sl-button-bar>
@@ -76,146 +71,10 @@ export const Disabled: Story = {
   }
 };
 
-export const Empty: Story = {
-  args: {
-    hint: 'This checkbox has no text and is only as wide as the checkbox itself',
-    text: ''
-  }
-};
-
 export const Required: Story = {
   args: {
     hint: 'This checkbox is required and should display an error after reporting the validity',
     required: true
-  }
-};
-
-export const Group: Story = {
-  args: {
-    slot: () => html`
-      <sl-checkbox-group>
-        <sl-checkbox value="0">Check me</sl-checkbox>
-        <sl-checkbox value="1">No me</sl-checkbox>
-        <sl-checkbox value="2">I was here first!</sl-checkbox>
-        <sl-checkbox disabled value="3">Can't check me, even if you wanted to</sl-checkbox>
-      </sl-checkbox-group>
-    `
-  }
-};
-
-export const Indeterminate: StoryObj = {
-  render: () => {
-    const onChange = (event: Event & { target: Checkbox }): void => {
-      let check = event.target;
-
-      if (check.indeterminate) {
-        check.checked = true;
-        check.indeterminate = false;
-      }
-
-      if (!check) return;
-
-      // check/uncheck children (includes check itself)
-      check.parentElement?.querySelectorAll('sl-checkbox').forEach(child => {
-        child.checked = check.checked;
-        child.indeterminate = false;
-      });
-
-      //  traverse up from target check
-      while (check && check !== null) {
-        const parentContainer = (check as Element).closest('ul')?.parentNode;
-
-        if (!parentContainer || parentContainer?.nodeName !== 'LI') return;
-
-        const parent = parentContainer.querySelector('sl-checkbox');
-        if (!parent) return;
-
-        const checkStatus = Array.from(
-          parent?.closest('li')?.querySelector('ul')?.querySelectorAll('sl-checkbox') ?? []
-        ).map(child => child.checked);
-
-        //  get checked state of siblings
-        //  are every or some siblings checked (using Boolean as test function)
-        const every = checkStatus.every(Boolean);
-        const some = checkStatus.some(Boolean);
-
-        //  check parent if all siblings are checked
-        //  set indeterminate if not all and not none are checked
-        parent.checked = every;
-        parent.indeterminate = !every && every !== some;
-
-        //  prepare for nex loop
-        if (check != parent) {
-          check = parent;
-        } else {
-          return;
-        }
-      }
-    };
-
-    return html`
-      <h2>Single</h2>
-      <sl-checkbox indeterminate>Indeterminate</sl-checkbox>
-      <h2>In group, with children</h2>
-      <p>
-        When you use the checkboxes in a nested structure, or have one checkbox to rule them all (to select all in a
-        list of items for example) this is how the indeterminate state should behave:
-      </p>
-      <ul>
-        <li>
-          <sl-checkbox @sl-change=${onChange} name="tall" id="tall">Tall Things</sl-checkbox>
-          <ul>
-            <li>
-              <sl-checkbox @sl-change=${onChange} name="tall-1" id="tall-1">Buildings</sl-checkbox>
-            </li>
-            <li>
-              <sl-checkbox @sl-change=${onChange} name="tall-2" id="tall-2">Giants</sl-checkbox>
-
-              <ul>
-                <li>
-                  <sl-checkbox @sl-change=${onChange} name="tall-2-1" id="tall-2-1">Andre</sl-checkbox>
-                </li>
-                <li>
-                  <sl-checkbox @sl-change=${onChange} name="tall-2-2" id="tall-2-2">Paul Bunyan</sl-checkbox>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <sl-checkbox @sl-change=${onChange} name="tall-3" id="tall-3">Two sandwiches</sl-checkbox>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <sl-checkbox @sl-change=${onChange} name="short" id="short">Short Things</sl-checkbox>
-          <ul>
-            <li>
-              <sl-checkbox @sl-change=${onChange} name="short-1" id="short-1">Smurfs</sl-checkbox>
-            </li>
-            <li>
-              <sl-checkbox @sl-change=${onChange} name="short-2" id="short-2">Mushrooms</sl-checkbox>
-            </li>
-            <li>
-              <sl-checkbox @sl-change=${onChange} name="short-3" id="short-3">One Sandwich</sl-checkbox>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    `;
-  }
-};
-
-export const Overflow: Story = {
-  args: {
-    hint: 'The checkbox should be aligned with the first row of text',
-    text: 'Nostrud exercitation irure sint sint aliquip quis nostrud adipisicing. Amet qui proident aliqua est. Voluptate dolore est et nisi adipisicing minim magna excepteur officia sit ullamco aute dolor. Sit velit enim labore ullamco aute. Est ea officia velit aliquip anim non irure in occaecat ipsum est aliquip dolore. Excepteur magna aute duis sint enim exercitation aliqua dolor enim ullamco sit ex. Sit ea ex ut aute veniam laboris consectetur Lorem fugiat laboris.'
-  }
-};
-
-export const Valid: Story = {
-  args: {
-    checked: true,
-    hint: 'This checkbox is marked as valid after reporting the validity',
-    showValid: true
   }
 };
 
@@ -262,80 +121,5 @@ export const CustomAsyncValidity: Story = {
         </sl-checkbox-group>
       `;
     }
-  }
-};
-
-export const All: StoryObj = {
-  render: () => {
-    const checked: string[] = ['', 'checked', 'indeterminate'];
-
-    return html`
-      <style>
-        table {
-          border-collapse: collapse;
-          border-spacing: 0;
-        }
-        td[colspan] {
-          font-weight: bold;
-          padding-block-start: 1rem;
-          text-align: center;
-        }
-        td {
-          padding: 0.25rem 0.5rem;
-        }
-      </style>
-      <table>
-        <tbody>
-          ${sizes.map(
-            size => html`
-              <tr>
-                <td colspan="4">${size}</td>
-              </tr>
-              ${checked.map(
-                check => html`
-                  <tr>
-                    <td>
-                      <sl-checkbox
-                        ?checked=${check === 'checked'}
-                        ?indeterminate=${check === 'indeterminate'}
-                        size=${size}
-                        >Label
-                      </sl-checkbox>
-                    </td>
-                    <td>
-                      <sl-checkbox
-                        ?checked=${check === 'checked'}
-                        ?indeterminate=${check === 'indeterminate'}
-                        show-validity="valid"
-                        size=${size}
-                        >Label
-                      </sl-checkbox>
-                    </td>
-                    <td>
-                      <sl-checkbox
-                        ?checked=${check === 'checked'}
-                        ?indeterminate=${check === 'indeterminate'}
-                        show-validity="invalid"
-                        size=${size}
-                        >Label
-                      </sl-checkbox>
-                    </td>
-                    <td>
-                      <sl-checkbox
-                        ?checked=${check === 'checked'}
-                        ?indeterminate=${check === 'indeterminate'}
-                        size=${size}
-                        disabled
-                        >Label
-                      </sl-checkbox>
-                    </td>
-                  </tr>
-                `
-              )}
-            `
-          )}
-        </tbody>
-      </table>
-    `;
   }
 };

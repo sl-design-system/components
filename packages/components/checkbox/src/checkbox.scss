@@ -121,6 +121,10 @@ $variants: default, valid, invalid;
   position: absolute;
 }
 
+::slotted(label) {
+  cursor: var(--_cursor);
+}
+
 [part='outer'] {
   display: inline-flex;
   padding-block: var(--_padding-block);

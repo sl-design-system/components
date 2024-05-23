@@ -121,10 +121,6 @@ $variants: default, valid, invalid;
   position: absolute;
 }
 
-::slotted(input):focus-visible {
-  --_outline-color: var(--sl-color-focusring-default);
-}
-
 [part='outer'] {
   display: inline-flex;
   padding-block: var(--_padding-block);

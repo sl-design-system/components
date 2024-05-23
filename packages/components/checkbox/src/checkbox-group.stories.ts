@@ -66,7 +66,11 @@ export default {
   }
 } satisfies Meta<Props>;
 
-export const Basic: Story = {};
+export const Basic: Story = {
+  args: {
+    hint: 'This is a hint'
+  }
+};
 
 export const Disabled: Story = {
   args: {

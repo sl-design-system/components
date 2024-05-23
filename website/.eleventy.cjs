@@ -34,10 +34,14 @@ module.exports = function(eleventyConfig) {
     return JSON.stringify(value, null, 2);
   });
 
-  eleventyConfig.addFilter("sortByName", function (arr) {
-    console.log('arr in filter', arr);
+  eleventyConfig.addFilter("sortByName", function (arr, exclude) {
+    console.log('arr in filter', arr, exclude);
+    const excluded = arr.find(elem => elem.title == exclude);
+    // TODO: map array and add excluded in exact place, where we want to have it as parameter, begginning or end?
+    debugger;
     // TODO: exclude sth
-    return arr.slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
+    return arr.filter(elem => elem.title != exclude).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
+    // return arr.slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
   });
 
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {

@@ -21,7 +21,7 @@ type Story = StoryObj<Props>;
 const sizes: CheckboxSize[] = ['sm', 'md', 'lg'];
 
 export default {
-  title: 'Form/Checkbox',
+  title: 'Form/Checkbox group',
   tags: ['stable'],
   args: {
     checked: false,
@@ -70,12 +70,6 @@ export default {
 
 export const Basic: Story = {};
 
-export const Checked: Story = {
-  args: {
-    checked: true
-  }
-};
-
 export const Disabled: Story = {
   args: {
     disabled: true
@@ -86,6 +80,26 @@ export const Empty: Story = {
   args: {
     hint: 'This checkbox has no text and is only as wide as the checkbox itself',
     text: ''
+  }
+};
+
+export const Required: Story = {
+  args: {
+    hint: 'This checkbox is required and should display an error after reporting the validity',
+    required: true
+  }
+};
+
+export const Group: Story = {
+  args: {
+    slot: () => html`
+      <sl-checkbox-group>
+        <sl-checkbox value="0">Check me</sl-checkbox>
+        <sl-checkbox value="1">No me</sl-checkbox>
+        <sl-checkbox value="2">I was here first!</sl-checkbox>
+        <sl-checkbox disabled value="3">Can't check me, even if you wanted to</sl-checkbox>
+      </sl-checkbox-group>
+    `
   }
 };
 
@@ -194,13 +208,6 @@ export const Overflow: Story = {
   args: {
     hint: 'The checkbox should be aligned with the first row of text',
     text: 'Nostrud exercitation irure sint sint aliquip quis nostrud adipisicing. Amet qui proident aliqua est. Voluptate dolore est et nisi adipisicing minim magna excepteur officia sit ullamco aute dolor. Sit velit enim labore ullamco aute. Est ea officia velit aliquip anim non irure in occaecat ipsum est aliquip dolore. Excepteur magna aute duis sint enim exercitation aliqua dolor enim ullamco sit ex. Sit ea ex ut aute veniam laboris consectetur Lorem fugiat laboris.'
-  }
-};
-
-export const Required: Story = {
-  args: {
-    hint: 'This checkbox is required and should display an error after reporting the validity',
-    required: true
   }
 };
 

@@ -45,6 +45,13 @@ body:
         You can attach images by clicking this area to highlight it and then dragging files in.
     validations:
       required: false
+  - type: input
+    id: links
+    attributes:
+      label: 📎 Link to Figma
+      description: Please add a link to the screen or the comment you left within Figma.
+    validations:
+      required:
   - type: markdown
     attributes:
       value: "## 🦄 Other"

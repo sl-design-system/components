@@ -134,7 +134,7 @@ describe('sl-checkbox-group', () => {
       const checkbox = el.querySelector('sl-checkbox');
 
       checkbox?.focus();
-      checkbox?.blur();
+      checkbox?.querySelector('input')?.blur();
 
       expect(el.touched).to.be.true;
     });
@@ -146,7 +146,7 @@ describe('sl-checkbox-group', () => {
       el.addEventListener('sl-update-state', onUpdateState);
 
       checkbox?.focus();
-      checkbox?.blur();
+      checkbox?.querySelector('input')?.blur();
 
       expect(onUpdateState).to.have.been.calledTwice;
     });
@@ -154,7 +154,7 @@ describe('sl-checkbox-group', () => {
     it('should focus the first checkbox after calling focus()', () => {
       el.focus();
 
-      expect(document.activeElement).to.equal(el.querySelector('sl-checkbox'));
+      expect(document.activeElement).to.equal(el.querySelector('sl-checkbox input'));
     });
 
     it('should emit an sl-update-validity event when calling reportValidity', async () => {

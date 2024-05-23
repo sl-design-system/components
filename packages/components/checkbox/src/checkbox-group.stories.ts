@@ -3,6 +3,7 @@ import '@sl-design-system/button-bar/register.js';
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type CheckboxGroup } from './checkbox-group.js';
 
@@ -18,11 +19,13 @@ export default {
   title: 'Form/Checkbox group',
   tags: ['stable'],
   args: {
-    disabled: false,
     label: 'Label',
     size: 'md'
   },
   argTypes: {
+    disabled: {
+      control: 'boolean'
+    },
     size: {
       control: 'inline-radio',
       options: ['sm', 'md', 'lg']
@@ -39,7 +42,7 @@ export default {
           ${slot?.() ??
           html`
             <sl-checkbox-group
-              ?disabled=${disabled}
+              disabled=${ifDefined(disabled)}
               ?required=${required}
               .label=${label}
               .size=${size}
@@ -50,7 +53,7 @@ export default {
                 <sl-checkbox value="0">Option 1</sl-checkbox>
                 <sl-checkbox value="1">Option 2</sl-checkbox>
                 <sl-checkbox value="2">Option 3</sl-checkbox>
-                <sl-checkbox disabled value="2">Option 4</sl-checkbox>
+                <sl-checkbox disabled value="3">Option 4</sl-checkbox>
               `}
             </sl-checkbox-group>
           `}
@@ -75,6 +78,12 @@ export const Required: Story = {
   args: {
     hint: 'This checkbox is required and should display an error after reporting the validity',
     required: true
+  }
+};
+
+export const Value: Story = {
+  args: {
+    value: ['0', '2']
   }
 };
 

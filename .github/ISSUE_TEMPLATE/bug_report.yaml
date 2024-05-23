@@ -1,7 +1,7 @@
 name: 🐛 Bug Report
 description: File a bug report
 labels: [bug, triage]
-projects: [sl-design-system/projects/2]
+projects: projects/2
 body:
   - type: markdown
     attributes:

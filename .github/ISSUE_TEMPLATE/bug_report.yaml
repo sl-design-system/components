@@ -1,8 +1,7 @@
 name: 🐛 Bug Report
 description: File a bug report
-title: '[Bug]: '
 labels: [bug, triage]
-projects: "components/2"
+projects: "projects/2"
 body:
   - type: markdown
     attributes:

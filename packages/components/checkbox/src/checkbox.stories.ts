@@ -4,7 +4,6 @@ import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type CheckboxGroup } from './checkbox-group.js';
 import { type Checkbox, type CheckboxSize } from './checkbox.js';
 
 type Props = Pick<
@@ -214,18 +213,14 @@ export const Valid: Story = {
 
 export const CustomValidity: Story = {
   args: {
-    hint: 'This story has both builtin validation (required) and custom validation. You need to select the middle option to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox group.',
+    hint: 'This story has both builtin validation (required) and custom validation. You need to tick the box to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the checkbox.',
     slot: () => {
-      const onValidate = (event: Event & { target: CheckboxGroup }): void => {
-        event.target.setCustomValidity(event.target.value?.includes('2') ? '' : 'Pick the middle option');
+      const onValidate = (event: Event & { target: Checkbox }): void => {
+        event.target.setCustomValidity(event.target.checked ? '' : 'You need to tick the box');
       };
 
       return html`
-        <sl-checkbox-group @sl-validate=${onValidate} required>
-          <sl-checkbox value="1">One</sl-checkbox>
-          <sl-checkbox value="2">Two</sl-checkbox>
-          <sl-checkbox value="3">Three</sl-checkbox>
-        </sl-checkbox-group>
+        <sl-checkbox @sl-validate=${onValidate} required value="1">I agree to all terms &amp; conditions</sl-checkbox>
       `;
     }
   }
@@ -235,24 +230,20 @@ export const CustomAsyncValidity: Story = {
   args: {
     hint: 'This story has an async validator. You need to select the middle option to make the field valid. It will wait 2 seconds before validating.',
     slot: () => {
-      const onValidate = (event: Event & { target: CheckboxGroup }): void => {
-        if (!event.target.value?.length) {
+      const onValidate = (event: Event & { target: Checkbox }): void => {
+        if (event.target.checked) {
           return;
         }
 
         const promise = new Promise<string>(resolve =>
-          setTimeout(() => resolve(event.target.value?.includes('2') ? '' : 'Pick the middle option'), 2000)
+          setTimeout(() => resolve(event.target.checked ? '' : 'You need to tick the box'), 2000)
         );
 
         event.target.setCustomValidity(promise);
       };
 
       return html`
-        <sl-checkbox-group @sl-validate=${onValidate} required>
-          <sl-checkbox value="1">One</sl-checkbox>
-          <sl-checkbox value="2">Two</sl-checkbox>
-          <sl-checkbox value="3">Three</sl-checkbox>
-        </sl-checkbox-group>
+        <sl-checkbox @sl-validate=${onValidate} required value="1">I agree to all terms &amp; conditions</sl-checkbox>
       `;
     }
   }

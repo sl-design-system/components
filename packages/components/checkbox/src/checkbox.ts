@@ -168,7 +168,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   }
 
   override getLocalizedValidationMessage(): string {
-    if (this.validity.valueMissing) {
+    if (!this.validity.customError && this.validity.valueMissing) {
       return msg('Please check this box.');
     }
 

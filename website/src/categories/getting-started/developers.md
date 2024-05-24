@@ -5,7 +5,6 @@ layout: "categories/getting-started.njk"
 eleventyNavigation:
   parent: Getting Started
   key: Developers
-  order: 2
 ---
 <section>
 

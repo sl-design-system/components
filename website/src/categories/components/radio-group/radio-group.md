@@ -12,6 +12,5 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Radio group
-  order: 20
   status: ready
 ---

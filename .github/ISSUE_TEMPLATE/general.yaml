@@ -15,3 +15,11 @@ body:
       label: Provide a general summary of the issue here
     validations:
       required: true
+  - type: markdown
+    attributes:
+      value: "## 🦄 Other"
+  - type: input
+    id: company-team
+    attributes:
+      label: 🧢 Your Product/Team
+      description: Which product team are you part of? (i.e. Bingel DC/Pokemon)

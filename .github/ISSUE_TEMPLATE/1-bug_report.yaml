@@ -38,14 +38,6 @@ body:
     validations:
       required: false
   - type: textarea
-    id: screenshots
-    attributes:
-      label: 📷 Screenshots
-      description: | 
-        You can attach images by clicking this area to highlight it and then dragging files in.
-    validations:
-      required: false
-  - type: textarea
     id: base-reproduction
     attributes:
       label: 🖥️ Steps to Reproduce 
@@ -62,13 +54,6 @@ body:
   - type: markdown
     attributes:
       value: "## 🌍 Your Environment"
-  - type: input
-    id: version
-    attributes:
-      label: Version
-      description: What version of sl-design-system are you running?
-    validations:
-      required: true
   - type: dropdown 
     id: browsers
     attributes:

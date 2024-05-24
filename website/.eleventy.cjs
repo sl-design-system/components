@@ -35,9 +35,9 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addNunjucksFilter("sortByTitle", function (arr, exclude) {
-    const excluded = arr.filter(elem => elem.title == exclude);
-    arr.filter(elem => elem.title != exclude).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))
-    return [excluded, ...arr];
+    // const excluded = arr.filter(elem => elem.title == exclude);
+   return arr.filter(elem => elem.title != exclude).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))
+    // return [excluded, ...arr];
   });
 
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {

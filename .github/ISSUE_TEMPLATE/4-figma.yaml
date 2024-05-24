@@ -1,5 +1,5 @@
 name: 👩‍🎨 Figma Toolkit
-description: File an issue for the SL Design System Figma toolkit
+description: File an issue for the toolkit
 labels: ["figma", "bug", "triage"]
 projects: ["projects/2"]
 body:
@@ -27,7 +27,7 @@ body:
     attributes:
       label: 😯 Current Behavior
       description: | 
-        Tell us what happens instead of the expected behavior.
+        Tell us what happens instead of the expected behavior
     validations:
       required: true
   - type: textarea
@@ -42,9 +42,16 @@ body:
     attributes:
       label: 📷 Screenshots
       description: | 
-        You can attach images by clicking this area to highlight it and then dragging files in.
+        You can attach images by clicking this area to highlight it and then dragging files in
     validations:
       required: false
+  - type: input
+    id: links
+    attributes:
+      label: 📎 Link to Figma
+      description: Please add a link to the screen or the comment you left within Figma
+    validations:
+      required:
   - type: markdown
     attributes:
       value: "## 🦄 Other"

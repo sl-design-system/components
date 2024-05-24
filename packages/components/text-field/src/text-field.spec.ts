@@ -257,6 +257,20 @@ describe('sl-text-field', () => {
 
       expect(onValidate).to.have.been.callCount(5);
     });
+
+    it('should not throw an error when querying state after the element has been disconnected', () => {
+      const onError = spy();
+
+      el.remove();
+
+      try {
+        el.updateValidity();
+      } catch (error) {
+        onError(error);
+      }
+
+      expect(onError).not.to.have.been.called;
+    });
   });
 
   describe('invalid', () => {

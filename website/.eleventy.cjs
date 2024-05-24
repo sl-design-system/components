@@ -35,7 +35,7 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addNunjucksFilter("sortByTitle", function (arr, exclude) {
-    const excluded = arr.filter(elem => elem.title == exclude);
+    const excluded = arr.filter(elem => elem.title.toLowerCase() == exclude.toLowerCase());
     arr.filter(elem => elem.title != exclude).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))
     return [excluded, ...arr];
   });

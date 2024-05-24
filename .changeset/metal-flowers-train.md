@@ -1,5 +1,5 @@
 ---
-"@sl-design-system/form": patch
+"@sl-design-system/form": minor
 ---
 
 New Lit `FormController` for binding to the `<sl-form>` element

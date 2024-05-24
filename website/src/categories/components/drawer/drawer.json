@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "drawer",
+  "componentStatus": "draft",
   "componentTagName": [
     {
       "name": "Drawer",

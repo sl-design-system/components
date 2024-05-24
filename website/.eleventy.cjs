@@ -36,6 +36,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("sortByTitle", function (arr, exclude) {
     const excluded = arr.filter(elem => elem.title == exclude);
+    JSON.parse(JSON.stringify(excluded));
     arr.filter(elem => elem.title != exclude).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))
     return [excluded, ...arr];
   });

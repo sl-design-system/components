@@ -21,10 +21,10 @@ eleventyNavigation:
 
 <section>
 
-## The Checkbox documentation is now live!
+## Version 1.0 Milestone, Developer-Focused Enhancements, and Issue Tracking
 <small>May 2024</small>
 
-### Semantic Versioning
+### Introducing 1.0 Versions of SLDS Components
 
 The SLDS team is excited to share that our components, including Angular, Button, Card, Checkbox, Dialog, Form, Icon, Popover, RadioGroup, Skeleton, Spinner, Switch, TextArea, TextField, and Tooltip, have all reached their 1.0 versions. With this release, we’re officially adopting semantic versioning, aligning with the major.minor.patch versioning scheme to ensure consistency and predictability in our updates.
 

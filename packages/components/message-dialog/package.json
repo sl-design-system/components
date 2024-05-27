@@ -38,8 +38,8 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "0.0.28",
-    "@sl-design-system/dialog": "0.0.17"
+    "@sl-design-system/button": "^0.0.28",
+    "@sl-design-system/dialog": "^0.0.17"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.1",

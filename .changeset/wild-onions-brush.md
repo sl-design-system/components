@@ -1,11 +1,11 @@
 ---
-"@sl-design-system/radio-group": patch
-"@sl-design-system/text-field": patch
-"@sl-design-system/checkbox": patch
-"@sl-design-system/text-area": patch
-"@sl-design-system/select": patch
-"@sl-design-system/switch": patch
-"@sl-design-system/form": patch
+"@sl-design-system/radio-group": minor
+"@sl-design-system/text-field": minor
+"@sl-design-system/checkbox": minor
+"@sl-design-system/text-area": minor
+"@sl-design-system/select": minor
+"@sl-design-system/switch": minor
+"@sl-design-system/form": minor
 "@sl-design-system/locales": patch
 ---
 

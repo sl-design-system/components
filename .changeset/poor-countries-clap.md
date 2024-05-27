@@ -1,5 +1,5 @@
 ---
-"@sl-design-system/button": patch
+"@sl-design-system/button": minor
 ---
 
 Add new `info` variant

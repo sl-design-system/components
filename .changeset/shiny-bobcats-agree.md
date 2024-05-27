@@ -1,5 +1,5 @@
 ---
-"@sl-design-system/text-field": patch
+"@sl-design-system/text-field": minor
 ---
 
 Add ability to override the prefix and suffix rendering

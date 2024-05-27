@@ -1,6 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "editor",
+  "componentStatus": "draft",
   "componentTagName": [
     {
       "name": "Editor",

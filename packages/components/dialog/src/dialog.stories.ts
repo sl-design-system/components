@@ -70,6 +70,10 @@ export const Basic: Story = {
 
 export const CloseButton: Story = {};
 
+export const All: Story = {
+  render: () => html` <div></div>`
+};
+
 export const DisableCancel: Story = {
   args: {
     body: 'You cannot close me by pressing the Escape key, or clicking the backdrop. This dialog also has no close button. The only way to close it is by clicking one of the action buttons.',
@@ -82,18 +86,7 @@ export const DisableCancel: Story = {
 
 export const FooterButtons: Story = {
   args: {
-    footerButtons: ({ reverse }) => html`
-      <style>
-        @media (min-width: 600px) {
-          sl-dialog::part(footer-bar) {
-            --sl-button-bar-align: space-between;
-            ${reverse ? '--sl-button-bar-direction-row: row-reverse;' : ''}
-          }
-          sl-button:first-of-type {
-            margin-inline-${reverse ? 'start' : 'end'}: auto;
-          }
-        }
-      </style>
+    footerButtons: () => html`
       <sl-button fill="ghost" slot="actions" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
       <sl-button fill="outline" slot="actions" variant="primary" sl-dialog-close>Action 2</sl-button>
       <sl-button fill="solid" slot="actions" variant="primary" sl-dialog-close>Action</sl-button>

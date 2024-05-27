@@ -1,12 +1,12 @@
-import {Basic as AllAccordion} from '../../../packages/components/accordion/src/accordion.stories';
+import {All as AllAccordion} from '../../../packages/components/accordion/src/accordion.stories';
 import {All as AllAvatar} from '../../../packages/components/avatar/src/avatar.stories';
 import {All as AllBadge} from '../../../packages/components/badge/src/badge.stories';
-// import {All as AllBreadcrumbs} from '../../../packages/components/breadcrumbs/src/breadcrumbs.stories';
+import {All as AllBreadcrumbs} from '../../../packages/components/breadcrumbs/src/breadcrumbs.stories';
 import {All as AllButton} from '../../../packages/components/button/src/button.stories';
-// import {All as AllCard} from '../../../packages/components/card/src/card.stories';
+import {All as AllCard} from '../../../packages/components/card/src/card.stories';
 import {All as AllCheckbox} from '../../../packages/components/checkbox/src/checkbox.stories';
-import {Basic as AllDialog} from '../../../packages/components/dialog/src/dialog.stories';
-// import {All as AllIcon} from '../../../packages/components/icon/src/icon.stories';
+import {All as AllDialog} from '../../../packages/components/dialog/src/dialog.stories';
+import {AllIcons as AllIcon} from '../../../packages/components/icon/src/icon.stories';
 import {All as AllInlineMessage} from '../../../packages/components/inline-message/src/inline-message.stories';
 // import {All as AllMessageDialog} from '../../../packages/components/message-dialog/src/message-dialog.stories';
 import {All as AllPopover} from '../../../packages/components/popover/src/popover.stories';
@@ -23,7 +23,10 @@ import { allModes } from "../modes";
 
 export default {
   title: 'All',
-  args: {theme:'sanoma-learning'},
+  args: {
+    theme:'sanoma-learning',
+    icons: Object.keys(window.SLDS?.icons)
+  },
   parameters: {
     chromatic: {
       modes: {
@@ -34,16 +37,20 @@ export default {
   },
 };
 
-
+/** 
+ * When adding an "All" story of a component you need to only include all variants that can have changes per style; 
+ * so when multiple variants or scenarios use the exact same styling or, more specifically, tokens, 
+ * there is no need to incluse all those scenarios
+ */ 
 export const Accordion = {render: AllAccordion.render};
 export const Avatar = {render: AllAvatar.render};
 export const Badge = {render: AllBadge.render};
-// export const Breadcrumbs = {render: AllBreadcrumbs.render};
+export const Breadcrumbs = {render: AllBreadcrumbs.render};
 export const Button = {render: AllButton.render};
-// export const Card = {render: AllCard.render};
+export const Card = {render: AllCard.render};
 export const Checkbox = {render: AllCheckbox.render};
 // export const Dialog = {render: AllDialog.render};
-// export const Icon = {render: AllIcon.render};
+export const Icon = {render:  ({ icons },context) => { if(AllIcon?.render){ AllIcon.render({icons},context)}}};
 export const InlineMessage = {render: AllInlineMessage.render};
 // export const MessageDialog = {render: AllMessageDialog.render};
 export const Popover = {render: AllPopover.render};
@@ -56,4 +63,3 @@ export const Switch = {render: AllSwitch.render};
 export const TextArea = {render: AllTextArea.render};
 export const TextField = {render: AllTextField.render};
 // export const Tooltip = {render: AllTooltip.render};
-

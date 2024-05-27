@@ -1,5 +1,11 @@
 # @sl-design-system/form
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1285](https://github.com/sl-design-system/components/pull/1285) [`7167331`](https://github.com/sl-design-system/components/commit/716733139cab1d2d0387b7a40b6b36a5546b92cb) - Missing inline-message dependency for form-validation-errors component
+
 ## 1.0.0
 
 ### Major Changes

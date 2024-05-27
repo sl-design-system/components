@@ -4600,6 +4600,7 @@ __metadata:
   dependencies:
     "@lit/localize": "npm:^0.12.1"
     "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/inline-message": "npm:^0.3.0"
     "@sl-design-system/shared": "npm:^0.2.11"
   peerDependencies:
     "@lit/localize": ^0.12.1
@@ -4637,7 +4638,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/inline-message@workspace:packages/components/inline-message":
+"@sl-design-system/inline-message@npm:^0.3.0, @sl-design-system/inline-message@workspace:packages/components/inline-message":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/inline-message@workspace:packages/components/inline-message"
   dependencies:

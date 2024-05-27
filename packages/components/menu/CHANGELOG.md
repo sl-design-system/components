@@ -1,5 +1,13 @@
 # @sl-design-system/menu
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [[`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805)]:
+  - @sl-design-system/icon@1.0.0
+  - @sl-design-system/button@1.0.0
+
 ## 0.0.9
 
 ### Patch Changes

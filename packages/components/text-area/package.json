@@ -38,9 +38,9 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/form": "0.0.15",
-    "@sl-design-system/icon": "0.0.10",
-    "@sl-design-system/shared": "0.2.11"
+    "@sl-design-system/form": "^0.0.15",
+    "@sl-design-system/icon": "^0.0.10",
+    "@sl-design-system/shared": "^0.2.11"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5"

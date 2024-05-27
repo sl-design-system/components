@@ -38,6 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
+    "@sl-design-system/inline-message": "^0.3.0",
     "@sl-design-system/shared": "^0.2.11"
   },
   "devDependencies": {

@@ -147,6 +147,15 @@
   --vertical-slider-background: var(--ds-color-light-silver);
 }
 
+@media (prefers-color-scheme: light) {
+  .light-only {
+    display: initial;
+  }
+  .dark-only {
+    display: none;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --angle: url('../assets/icons/angle-right.svg');
@@ -216,5 +225,12 @@
     --text-color: var(--ds-color-white);
     --top-navbar-color: var(--ds-color-black);
     --vertical-slider-background: var(--ds-color-tundora);
+  }
+
+  .light-only {
+    display: none;
+  }
+  .dark-only {
+    display: initial;
   }
 }

@@ -13,9 +13,9 @@ describe('sl-checkbox-group', () => {
     beforeEach(async () => {
       el = await fixture(html`
         <sl-checkbox-group>
-          <sl-checkbox>Option 1</sl-checkbox>
-          <sl-checkbox>Option 2</sl-checkbox>
-          <sl-checkbox>Option 3</sl-checkbox>
+          <sl-checkbox value="0">Option 1</sl-checkbox>
+          <sl-checkbox value="1">Option 2</sl-checkbox>
+          <sl-checkbox value="2">Option 3</sl-checkbox>
         </sl-checkbox-group>
       `);
     });
@@ -86,6 +86,24 @@ describe('sl-checkbox-group', () => {
       expect(el).to.have.attribute('show-validity', 'invalid');
     });
 
+    it('should check the boxes when setting the value', async () => {
+      el.value = ['0', '1'];
+      await el.updateComplete;
+
+      const boxes = el.querySelectorAll('sl-checkbox');
+
+      expect(boxes[0]).to.have.attribute('checked');
+      expect(boxes[1]).to.have.attribute('checked');
+      expect(boxes[2]).not.to.have.attribute('checked');
+    });
+
+    it('should set the value after clicking on a checkbox', async () => {
+      el.querySelector('sl-checkbox')?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el.value).to.deep.equal(['0']);
+    });
+
     it('should be pristine', () => {
       expect(el.dirty).not.to.be.true;
     });
@@ -116,7 +134,7 @@ describe('sl-checkbox-group', () => {
       const checkbox = el.querySelector('sl-checkbox');
 
       checkbox?.focus();
-      checkbox?.blur();
+      checkbox?.querySelector('input')?.blur();
 
       expect(el.touched).to.be.true;
     });
@@ -128,7 +146,7 @@ describe('sl-checkbox-group', () => {
       el.addEventListener('sl-update-state', onUpdateState);
 
       checkbox?.focus();
-      checkbox?.blur();
+      checkbox?.querySelector('input')?.blur();
 
       expect(onUpdateState).to.have.been.calledTwice;
     });
@@ -136,7 +154,7 @@ describe('sl-checkbox-group', () => {
     it('should focus the first checkbox after calling focus()', () => {
       el.focus();
 
-      expect(document.activeElement).to.equal(el.querySelector('sl-checkbox'));
+      expect(document.activeElement).to.equal(el.querySelector('sl-checkbox input'));
     });
 
     it('should emit an sl-update-validity event when calling reportValidity', async () => {

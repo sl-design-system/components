@@ -18,7 +18,6 @@ export default {
   title: 'Components/Inline message',
   tags: ['preview'],
   args: {
-    body: 'The main content of the message',
     button: 'Action',
     variant: 'info'
   },
@@ -48,14 +47,13 @@ export default {
 
 export const Basic: Story = {
   args: {
-    title: 'Inline message title',
     body: 'The main content of the message'
   }
 };
 
 export const Details: Story = {
   args: {
-    ...Basic.args,
+    title: 'Inline message title',
     body: html`
       <style>
         p {
@@ -80,7 +78,8 @@ export const Details: Story = {
 
 export const Dynamic: Story = {
   args: {
-    ...Basic.args
+    ...Basic.args,
+    title: 'Dynamic inline message title'
   },
   render: ({ body, indismissible, title, variant }) => {
     const onAdd = (event: Event & { target: HTMLElement }): void => {

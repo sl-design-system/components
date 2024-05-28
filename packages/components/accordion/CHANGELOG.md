@@ -1,5 +1,11 @@
 # @sl-design-system/accordion
 
+## 0.0.7
+
+### Patch Changes
+
+- [#1259](https://github.com/sl-design-system/components/pull/1259) [`4d3db78`](https://github.com/sl-design-system/components/commit/4d3db782667ce5f1c6b3b0938ebee5cb7a81d68a) - Fixed issue where icons got distorted when zooming in Safari
+
 ## 0.0.6
 
 ### Patch Changes

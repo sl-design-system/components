@@ -32,6 +32,7 @@ $variants: default, valid, invalid;
   gap: var(--_gap);
   line-height: var(--_line-height);
   outline: none;
+  position: relative;
 
   &:is(:active, :hover) .inner {
     transition: var(--_transition);
@@ -112,30 +113,36 @@ $variants: default, valid, invalid;
   }
 }
 
-.outer {
+::slotted(input) {
+  block-size: 1px;
+  inline-size: 1px;
+  opacity: 0;
+  outline: 0;
+  position: absolute;
+}
+
+::slotted(label) {
+  cursor: var(--_cursor);
+}
+
+[part='outer'] {
   display: inline-flex;
   padding-block: var(--_padding-block);
   padding-inline-end: var(--_padding-inline);
 }
 
-.inner {
+[part='inner'] {
   background: var(--_background);
   border: var(--_border-size) solid var(--_border-color);
   border-radius: var(--_border-radius);
   display: inline-flex;
   flex-shrink: 0;
   outline-color: transparent;
+  outline-offset: var(--_focus-outline-offset);
   padding: calc((var(--_size) - var(--_icon-size)) / 2 - var(--_border-size));
-
-  &:focus-visible {
-    outline: var(--_focus-outline);
-    outline-offset: var(--_focus-outline-offset);
-    transition: var(--_transition);
-    transition-property: background, border-color, color, filter, outline-color;
-  }
 }
 
-.label {
+[part='label'] {
   line-height: var(--_line-height);
   margin-block-start: calc((var(--_size) + var(--_padding-block) * 2 - var(--_line-height)) / 2);
 }

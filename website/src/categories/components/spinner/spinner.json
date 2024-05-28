@@ -1,7 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "spinner",
-  "componentStatus": "preview",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Spinner",

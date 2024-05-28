@@ -25,7 +25,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have a horizontal layout', () => {
@@ -242,7 +242,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have a menu button', () => {
@@ -290,7 +290,7 @@ describe('sl-tab-group', () => {
       `);
 
       // We need to wait for the RovingTabindexController to do its thing
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 50));
     });
 
     it('should have a menu button', async () => {

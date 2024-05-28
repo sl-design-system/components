@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/dialog",
-  "version": "0.0.17",
+  "version": "1.0.0",
   "description": "Dialog component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,10 +38,10 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/button": "0.0.28",
-    "@sl-design-system/button-bar": "0.0.7",
-    "@sl-design-system/icon": "0.0.10",
-    "@sl-design-system/shared": "0.2.11"
+    "@sl-design-system/button": "^1.0.0",
+    "@sl-design-system/button-bar": "^0.0.7",
+    "@sl-design-system/icon": "^1.0.0",
+    "@sl-design-system/shared": "^0.2.11"
   },
   "devDependencies": {
     "@lit/localize": "^0.12.1",

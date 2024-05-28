@@ -10,26 +10,28 @@ eleventyNavigation:
 
 <div class="ds-example">
 
-<sl-label for="group">Subjects</sl-label>
-<sl-checkbox-group id="group">
-  <sl-checkbox checked>Mathematics</sl-checkbox>
-  <sl-checkbox>Geography</sl-checkbox>
-  <sl-checkbox>Physics</sl-checkbox>
-  <sl-checkbox disabled>History</sl-checkbox>
+<sl-form-field label="Subjects">
+<sl-checkbox-group value="0">
+  <sl-checkbox value="0" checked>Mathematics</sl-checkbox>
+  <sl-checkbox value="1">Geography</sl-checkbox>
+  <sl-checkbox value="2">Physics</sl-checkbox>
+  <sl-checkbox value="3" disabled>History</sl-checkbox>
 </sl-checkbox-group>
+</sl-form-field>
 
 </div>
 
 <div class="ds-code">
 
   ```html
-  <sl-label for="group">Subjects</sl-label>
-  <sl-checkbox-group id="group">
-    <sl-checkbox checked>Mathematics</sl-checkbox>
-    <sl-checkbox>Geography</sl-checkbox>
-    <sl-checkbox>Physics</sl-checkbox>
-    <sl-checkbox disabled>History</sl-checkbox>
-  </sl-checkbox-group>
+  <sl-form-field label="Subjects">
+    <sl-checkbox-group value="0">
+      <sl-checkbox value="0" checked>Mathematics</sl-checkbox>
+      <sl-checkbox value="1">Geography</sl-checkbox>
+      <sl-checkbox value="2">Physics</sl-checkbox>
+      <sl-checkbox value="3" disabled>History</sl-checkbox>
+    </sl-checkbox-group>
+  </sl-form-field>
   ```
 
 </div>

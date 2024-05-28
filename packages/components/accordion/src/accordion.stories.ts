@@ -23,6 +23,27 @@ export default {
   render: ({ items, single }) => html`<sl-accordion ?single=${single}>${items}</sl-accordion>`
 } satisfies Meta<Props>;
 
+export const All: Story = {
+  render: () => {
+    return html`
+      <sl-accordion>
+        <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
+          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿
+        </sl-accordion-item>
+        <sl-accordion-item summary="Journey Through Ancient Civilizations">
+          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍
+        </sl-accordion-item>
+        <sl-accordion-item summary="Math Magic - solving Puzzles with numbers" disabled open>
+          Get ready to unlock the secrets of numbers! 🌟✨🧩
+        </sl-accordion-item>
+        <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" disabled>
+          Buckle up for a cosmic adventure! 🚀🪐👽
+        </sl-accordion-item>
+      </sl-accordion>
+    `;
+  }
+};
+
 export const Basic: Story = {
   args: {
     items: html`
@@ -221,25 +242,6 @@ export const Sticky: Story = {
         Phasellus non justo odio. Phasellus a dui posuere, dapibus risus tempus, laoreet augue. Sed tincidunt, lorem a
         placerat aliquet, nisi erat lobortis orci, in aliquet mi ante nec nisi. Pellentesque porttitor elit sem, nec
         scelerisque arcu suscipit eu.
-      </sl-accordion-item>
-    `
-  }
-};
-
-export const All: Story = {
-  args: {
-    items: html`
-      <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
-        Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿
-      </sl-accordion-item>
-      <sl-accordion-item summary="Journey Through Ancient Civilizations">
-        Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍
-      </sl-accordion-item>
-      <sl-accordion-item summary="Math Magic - solving Puzzles with numbers" disabled open>
-        Get ready to unlock the secrets of numbers! 🌟✨🧩
-      </sl-accordion-item>
-      <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" disabled>
-        Buckle up for a cosmic adventure! 🚀🪐👽
       </sl-accordion-item>
     `
   }

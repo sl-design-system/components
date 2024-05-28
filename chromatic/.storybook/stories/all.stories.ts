@@ -40,7 +40,9 @@ export default {
 /** 
  * When adding an "All" story of a component you need to only include all variants that can have changes per style; 
  * so when multiple variants or scenarios use the exact same styling or, more specifically, tokens, 
- * there is no need to incluse all those scenarios
+ * there is no need to incluse all those scenarios.
+ * 
+ * The All story always needs its own `render` function, otherwise this doesn't work.
  */ 
 export const Accordion = {render: AllAccordion.render};
 export const Avatar = {render: AllAvatar.render};

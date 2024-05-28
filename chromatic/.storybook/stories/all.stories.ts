@@ -30,8 +30,21 @@ export default {
   parameters: {
     chromatic: {
       modes: {
+        bingelDc: allModes['bingel-dc'],
+        bingelInt: allModes['bingel-int'],
+        clickedu: allModes['clickedu'],
+        editorialSuite: allModes['editorial-suite'],
+        itslearning: allModes['itslearning'],
+        kampus: allModes['kampus'],
+        magister: allModes['magister'],
         max: allModes['max'],
-        sanomaLearning: allModes['sanomaLearning'],
+        myDigitalBook: allModes['my-digital-book'],
+        myvanin: allModes['myvanin'],
+        neon: allModes['neon'],
+        nowaEra: allModes['nowa-era'],
+        sanomaLearning: allModes['sanoma-learning'],
+        sanomaUtbildning: allModes['sanoma-utbildning'],
+        teas: allModes['teas'],
       },
     },
   },

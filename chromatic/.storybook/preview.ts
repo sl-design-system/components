@@ -40,9 +40,21 @@ const preview: Preview = {
     (story) => {
       withThemeFromJSXProvider({
         themes: {
-          'sanoma-learning': themes['sanoma-learning'],
-          'max': themes['max'],
-          'teas': themes['teas'],
+          bingelDc: themes['bingel-dc'],
+          bingelInt: themes['bingel-int'],
+          clickedu: themes['clickedu'],
+          editorialSuite: themes['editorial-suite'],
+          itslearning: themes['itslearning'],
+          kampus: themes['kampus'],
+          magister: themes['magister'],
+          max: themes['max'],
+          myDigitalBook: themes['my-digital-book'],
+          myvanin: themes['myvanin'],
+          neon: themes['neon'],
+          nowaEra: themes['nowa-era'],
+          sanomaLearning: themes['sanoma-learning'],
+          sanomaUtbildning: themes['sanoma-utbildning'],
+          teas: themes['teas'],
         },
         defaultTheme: 'sanoma-learning'
       });

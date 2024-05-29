@@ -1,5 +1,14 @@
 # @sl-design-system/search-field
 
+## 0.0.2
+
+### Patch Changes
+
+- [#1296](https://github.com/sl-design-system/components/pull/1296) [`39a4cb2`](https://github.com/sl-design-system/components/commit/39a4cb206ad923862c902b3ac7dddd4ae5b87746) - Update to use the new TextField generic type
+
+- Updated dependencies [[`39a4cb2`](https://github.com/sl-design-system/components/commit/39a4cb206ad923862c902b3ac7dddd4ae5b87746)]:
+  - @sl-design-system/text-field@1.1.0
+
 ## 0.0.1
 
 ### Patch Changes

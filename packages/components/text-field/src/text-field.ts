@@ -27,25 +27,27 @@ let nextUniqueId = 0;
  * @slot suffix - Content shown after the input
  */
 @localized()
-export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
-  /** @private */
+export class TextField<T extends { toString(): string } = string> extends FormControlMixin(
+  ScopedElementsMixin(LitElement)
+) {
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       'sl-icon': Icon
     };
   }
 
-  /** @private */
+  /** @internal */
   static override shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** @internal Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
 
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
@@ -101,7 +103,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
   /** The value for the input, to be used in forms. */
-  @property() override value = '';
+  @property() override value?: T;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -144,8 +146,8 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
       setTimeout(() => this.updateValidity());
     }
 
-    if (changes.has('value') && this.value !== this.input.value) {
-      this.input.value = this.value?.toString() || '';
+    if (changes.has('value') && this.value?.toString() !== this.input.value) {
+      this.setInputValue(this.value);
     }
   }
 
@@ -175,7 +177,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
 
   override getLocalizedValidationMessage(): string {
     if (this.validity.tooShort) {
-      const length = this.value.length;
+      const length = this.value?.toString().length || 0;
 
       return msg(
         str`Please enter at least ${this.minLength} characters (you currently have ${length} character${
@@ -187,6 +189,22 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return super.getLocalizedValidationMessage();
   }
 
+  /**
+   * Method that converts the string value in the input to the specified type T. Override this method
+   * if you want to convert the value in a different way.
+   */
+  getInputValue(): T | undefined {
+    return this.input.value as unknown as T;
+  }
+
+  /**
+   * Method that formats the value and set's it on the native input element. Override this method
+   * if you want to format the value in a different way.
+   */
+  setInputValue(value?: T): void {
+    this.input.value = value?.toString() || '';
+  }
+
   override focus(): void {
     this.input.focus();
   }
@@ -196,8 +214,8 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     this.updateState({ touched: true });
   }
 
-  #onInput({ target }: Event & { target: HTMLInputElement }): void {
-    this.value = target.value;
+  #onInput(): void {
+    this.value = this.getInputValue();
     this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.updateValidity();

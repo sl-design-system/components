@@ -16,7 +16,7 @@
   },
   "wireit": {
     "themes": {
-      "command": "storybook build --stats-json",
+      "command": "storybook build --stats-json -o storybook-static",
       "dependencies": [
         "..:build:components",
         "..:build:themes"

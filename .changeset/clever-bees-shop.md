@@ -1,4 +1,5 @@
 ---
+"@sl-design-system/angular": patch
 "@sl-design-system/search-field": patch
 ---
 

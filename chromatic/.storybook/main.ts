@@ -12,7 +12,8 @@ const config: StorybookConfig = {
     '@storybook/addon-actions', 
     '@storybook/addon-storysource',
     '@storybook/addon-themes',
-    'storybook-addon-pseudo-states',
+    'storybook-addon-pseudo-states',    
+    '@storybook/addon-viewport/register',
     {
       name: '@storybook/addon-essentials',
       options: {

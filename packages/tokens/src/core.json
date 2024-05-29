@@ -404,27 +404,27 @@
       }
     },
     "badge": {
-      "sm": {
+      "2xs": {
         "value": "{size.2xs}",
         "type": "sizing"
       },
-      "md": {
+      "xs": {
         "value": "{size.xs}",
         "type": "sizing"
       },
-      "lg": {
+      "sm": {
         "value": "{size.sm}",
         "type": "sizing"
       },
-      "xl": {
+      "md": {
         "value": "{size.md}",
         "type": "sizing"
       },
-      "2xl": {
+      "lg": {
         "value": "18",
         "type": "sizing"
       },
-      "3xl": {
+      "xl": {
         "value": "{size.lg}",
         "type": "sizing"
       }
@@ -1346,32 +1346,40 @@
     },
     "badge": {
       "inline": {
-        "sm": {
+        "2xs": {
           "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "xs": {
+          "value": "4px",
+          "type": "spacing"
+        },
+        "sm": {
+          "value": "6px",
           "type": "spacing"
         },
         "md": {
-          "value": "1px",
+          "value": "6px",
           "type": "spacing"
         },
         "lg": {
-          "value": "{space.2xs}",
+          "value": "6px",
           "type": "spacing"
         },
         "xl": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "2xl": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "3xl": {
-          "value": "3px",
+          "value": "6px",
           "type": "spacing"
         }
       },
       "block": {
+        "2xs": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
+        "xs": {
+          "value": "{space.2xs}",
+          "type": "spacing"
+        },
         "sm": {
           "value": "{space.2xs}",
           "type": "spacing"
@@ -1385,46 +1393,46 @@
           "type": "spacing"
         },
         "xl": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "2xl": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "3xl": {
           "value": "{space.2xs}",
           "type": "spacing"
         }
       },
       "gap": {
-        "sm": {
+        "2xs": {
           "value": "{space.2xs}",
           "type": "spacing"
         },
-        "md": {
+        "xs": {
           "value": "3",
           "type": "spacing"
         },
+        "sm": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
+        "md": {
+          "value": "{space.xs}",
+          "type": "spacing"
+        },
         "lg": {
-          "value": "{space.xs}",
-          "type": "spacing"
-        },
-        "xl": {
-          "value": "{space.xs}",
-          "type": "spacing"
-        },
-        "2xl": {
           "value": "{space.xs} + {space.2xs}",
           "type": "spacing"
         },
-        "3xl": {
+        "xl": {
           "value": "{space.xs} + {space.2xs}",
           "type": "spacing"
         }
       },
       "icon": {
         "inline": {
+          "2xs": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "xs": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
           "sm": {
             "value": "{space.none}",
             "type": "spacing"
@@ -1434,23 +1442,23 @@
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.none}",
-            "type": "spacing"
-          },
-          "xl": {
-            "value": "{space.none}",
-            "type": "spacing"
-          },
-          "2xl": {
             "value": "1",
             "type": "spacing"
           },
-          "3xl": {
+          "xl": {
             "value": "{space.2xs}",
             "type": "spacing"
           }
         },
         "block": {
+          "2xs": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
+          "xs": {
+            "value": "{space.none}",
+            "type": "spacing"
+          },
           "sm": {
             "value": "{space.none}",
             "type": "spacing"
@@ -1460,18 +1468,10 @@
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.none}",
-            "type": "spacing"
-          },
-          "xl": {
-            "value": "{space.none}",
-            "type": "spacing"
-          },
-          "2xl": {
             "value": "1",
             "type": "spacing"
           },
-          "3xl": {
+          "xl": {
             "value": "{space.2xs}",
             "type": "spacing"
           }
@@ -1479,27 +1479,27 @@
       },
       "label": {
         "inline": {
+          "2xs": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
+          "xs": {
+            "value": "{space.2xs}",
+            "type": "spacing"
+          },
           "sm": {
             "value": "{space.2xs}",
             "type": "spacing"
           },
           "md": {
-            "value": "{space.2xs}",
+            "value": "3px",
             "type": "spacing"
           },
           "lg": {
-            "value": "{space.2xs}",
+            "value": "3px",
             "type": "spacing"
           },
           "xl": {
-            "value": "3px",
-            "type": "spacing"
-          },
-          "2xl": {
-            "value": "3px",
-            "type": "spacing"
-          },
-          "3xl": {
             "value": "3px",
             "type": "spacing"
           }

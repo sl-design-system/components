@@ -4265,30 +4265,30 @@
             "description": "color.button.default.idle.background"
           },
           "foreground": {
-            "value": "{color.palette.neutral.400}",
+            "value": "{body.foreground}",
             "type": "color"
           }
         },
         "hover": {
           "background": {
-            "value": "#22222212",
+            "value": "#ffffff12",
             "type": "color",
             "description": "color.button.default.hover.background"
           },
           "foreground": {
-            "value": "{color.palette.primary.base}",
+            "value": "{body.foreground}",
             "type": "color",
             "description": "color.button.default.hover.foreground"
           }
         },
         "active": {
           "background": {
-            "value": "#22222221",
+            "value": "#ffffff21",
             "type": "color",
             "description": "color.button.default.active.background"
           },
           "foreground": {
-            "value": "{color.palette.primary.base}",
+            "value": "{body.foreground}",
             "type": "color",
             "description": "color.button.default.active.foreground"
           }

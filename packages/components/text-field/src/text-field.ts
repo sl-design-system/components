@@ -203,7 +203,7 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
 
   /**
    * Method that converts the string value in the input to the specified type T. Override this method
-   * if you want to convert the value in a different way.
+   * if you want to convert the value in a different way. Throw an error if the value is invalid.
    */
   parseValue(value: string): T | undefined {
     return value as unknown as T;

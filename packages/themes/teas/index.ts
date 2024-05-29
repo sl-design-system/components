@@ -13,6 +13,5 @@ import { icons } from './icons.js';
  * like icons, ...
  */
 export const setup = (): void => {
-  console.log('teas setup');
   Icon.register(icons as IconLibrary);
 };

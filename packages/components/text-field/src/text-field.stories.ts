@@ -4,6 +4,7 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import '../register.js';
 import { TextField, type TextFieldSize } from './text-field.js';
 
@@ -208,8 +209,20 @@ export const CustomAsyncValidity: Story = {
 
 export const CustomComponent: Story = {
   args: {
+    hint: 'This story uses a custom component that inherits from the text field component. It parses and formats the value as a date in the format "DD-MM-YYYY". The field is invalid if the year is before 2024.',
     slot: () => {
       class CustomTextField extends TextField<Date> {
+        #value?: Date;
+
+        override get value(): Date | undefined {
+          return this.#value;
+        }
+
+        @property()
+        override set value(value: Date | undefined) {
+          this.#value = value;
+        }
+
         /** Parse the string value as a date using a regex, or throw an error if the value is invalid. */
         override parseValue(value: string): Date | undefined {
           const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
@@ -240,7 +253,23 @@ export const CustomComponent: Story = {
         /* empty */
       }
 
-      return html`<custom-text-field placeholder="Enter a DD-MM-YYYY value"></custom-text-field>`;
+      const onValidate = (event: Event & { target: CustomTextField }): void => {
+        const year = event.target.value?.getFullYear();
+
+        if (typeof year === 'number') {
+          event.target.setCustomValidity(year < 2024 ? 'Enter a date after 2023' : '');
+        } else {
+          event.target.setCustomValidity('');
+        }
+      };
+
+      return html`
+        <custom-text-field
+          @sl-validate=${onValidate}
+          placeholder="Enter a DD-MM-YYYY value"
+          required
+        ></custom-text-field>
+      `;
     }
   }
 };

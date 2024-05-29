@@ -12,7 +12,6 @@ const config: StorybookConfig = {
     '@storybook/addon-a11y',
     '@storybook/addon-actions',
     '@storybook/addon-storysource',
-    '@storybook/addon-viewport/register',
     {
       name: '@storybook/addon-essentials',
       options: {

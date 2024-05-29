@@ -1,47 +1,47 @@
 export const allModes = {
-  bingelDc: {
-    theme: "bingel-dc",
+  'bingel-dc': {
+    theme: 'bingel-dc',
   },
-  bingelInt: {
-    theme: "bingel-int",
+  'bingel-int': {
+    theme: 'bingel-int',
   },
-  clickedu: {
-    theme: "clickedu",
+  'clickedu': {
+    theme: 'clickedu',
   },
-  editorialSuite: {
-    theme: "editorial-suite",
+  'editorial-suite': {
+    theme: 'editorial-suite',
   },
-  itslearning: {
-    theme: "itslearning",
+  'itslearning': {
+    theme: 'itslearning',
   },
-  kampus: {
-    theme: "kampus",
+  'kampus': {
+    theme: 'kampus',
   },
-  magister: {
-    theme: "magister",
+  'magister': {
+    theme: 'magister',
   },
-  max: {
-    theme: "max",
+  'max': {
+    theme: 'max',
   },
-  myDigitalBook: {
-    theme: "my-digital-book",
+  'my-digital-book': {
+    theme: 'my-digital-book',
   },
-  myvanin: {
-    theme: "myvanin",
+  'myvanin': {
+    theme: 'myvanin',
   },
-  neon: {
-    theme: "neon",
+  'neon': {
+    theme: 'neon',
   },
-  nowaEra: {
-    theme: "nowa-era",
+  'nowa-era': {
+    theme: 'nowa-era',
   },
-  sanomaLearning: {
-    theme: "sanoma-learning",
+  'sanoma-learning': {
+    theme: 'sanoma-learning',
   },
-  sanomaUtbildning: {
-    theme: "sanoma-utbildning",
+  'sanoma-utbildning': {
+    theme: 'sanoma-utbildning',
   },
-  teas: {
-    theme: "teas",
+  'teas': {
+    theme: 'teas',
   },
 };

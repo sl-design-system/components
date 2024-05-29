@@ -79,7 +79,7 @@ export class SearchField extends ScopedElementsMixin(TextField) {
     if (event.key === 'Enter') {
       event.preventDefault();
 
-      this.searchEvent.emit(this.value);
+      this.searchEvent.emit(this.value?.toString() ?? '');
     } else if (event.key === 'Escape') {
       event.preventDefault();
 

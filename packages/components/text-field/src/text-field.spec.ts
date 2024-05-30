@@ -112,6 +112,19 @@ describe('sl-text-field', () => {
       expect(input.type).to.equal('email');
     });
 
+    it('should not have a focus ring attribute', () => {
+      expect(el).not.to.have.attribute('has-focus-ring');
+      expect(el.hasFocusRing).not.to.be.true;
+    });
+
+    it('should have a focus ring attribute when the input has focus', async () => {
+      input.focus();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('has-focus-ring');
+      expect(el.hasFocusRing).to.be.true;
+    });
+
     it('should not have a pattern by default', () => {
       expect(el.pattern).to.be.undefined;
       expect(input).not.to.have.attribute('pattern');

@@ -20,6 +20,10 @@ const preview: Preview = {
           border-top: 1px solid currentColor;
           padding-top: 24px;
         }
+
+        #root-inner{
+          max-width: 1280px;
+        }
       </style>
       <h1>State: Default <small>(including "disabled")</small></h1>
       ${story()}

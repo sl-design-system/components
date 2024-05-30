@@ -70,6 +70,9 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
    */
   @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
 
+  /** @internal Used for styling the focus ring of the input. */
+  @property({ type: Boolean, reflect: true, attribute: 'has-focus-ring' }) hasFocusRing?: boolean;
+
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
 
@@ -222,8 +225,14 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   }
 
   #onBlur(): void {
+    this.hasFocusRing = false;
     this.blurEvent.emit();
     this.updateState({ touched: true });
+  }
+
+  #onFocus(): void {
+    this.hasFocusRing = true;
+    this.focusEvent.emit();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
@@ -256,7 +265,7 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     if (input) {
       this.input = input;
       this.input.addEventListener('blur', () => this.#onBlur());
-      this.input.addEventListener('focus', () => this.focusEvent.emit());
+      this.input.addEventListener('focus', () => this.#onFocus());
       this.#syncInput(this.input);
 
       this.setFormControlElement(this.input);

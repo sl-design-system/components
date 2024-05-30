@@ -1,7 +1,4 @@
 import type { StorybookConfig } from '@storybook/web-components-vite';
-import { argv } from 'node:process';
-
-const devMode = !argv.includes('build');
 
 const config: StorybookConfig = {
   stories: [
@@ -13,7 +10,6 @@ const config: StorybookConfig = {
     '@storybook/addon-storysource',
     '@storybook/addon-themes',
     'storybook-addon-pseudo-states',    
-    '@storybook/addon-viewport/register',
     {
       name: '@storybook/addon-essentials',
       options: {
@@ -31,7 +27,12 @@ const config: StorybookConfig = {
   },
   staticDirs: [
     { from: '../../packages/themes', to: '/themes' }
-  ]
+  ],
+  viteFinal: async config => {
+    const { mergeConfig } = await import('vite');
+
+    return mergeConfig(config, { logLevel: 'warn' });
+  }
 };
 
 export default config;

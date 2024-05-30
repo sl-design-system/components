@@ -123,71 +123,71 @@
       "subtle": {
         "info": {
           "background": {
-            "value": "{color.palette.info.400}",
+            "value": "{color.palette.info.100}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.white.base}",
+            "value": "{color.palette.info.500}",
             "type": "color"
           }
         },
         "danger": {
           "background": {
-            "value": "{color.palette.danger.500}",
+            "value": "{color.palette.danger.100}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.white.base}",
+            "value": "{color.palette.danger.600}",
             "type": "color"
           }
         },
         "success": {
           "background": {
-            "value": "{color.palette.success.500}",
+            "value": "{color.palette.success.100}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.white.base}",
+            "value": "{color.palette.success.600}",
             "type": "color"
           }
         },
         "warning": {
           "background": {
-            "value": "{color.palette.warning.600}",
+            "value": "{color.palette.warning.100}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.white.base}",
+            "value": "{color.palette.warning.700}",
             "type": "color"
           }
         },
         "accent": {
           "background": {
-            "value": "{color.palette.accent.base}",
+            "value": "{color.palette.accent.100}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.white.base}",
+            "value": "{color.palette.accent.500}",
             "type": "color"
           }
         },
         "neutral": {
           "background": {
-            "value": "{color.palette.neutral.200}",
+            "value": "{color.palette.neutral.100}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.black.base}",
+            "value": "{color.palette.neutral.600}",
             "type": "color"
           }
         },
         "primary": {
           "background": {
-            "value": "{color.palette.primary.base}",
+            "value": "{color.palette.primary.100}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.white.base}",
+            "value": "{color.palette.neutral.600}",
             "type": "color"
           }
         }

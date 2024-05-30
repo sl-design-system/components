@@ -4872,7 +4872,7 @@ __metadata:
   dependencies:
     "@open-wc/scoped-elements": "npm:^3.0.5"
     "@sl-design-system/shared": "npm:^0.2.11"
-    "@sl-design-system/text-field": "npm:^1.1.0"
+    "@sl-design-system/text-field": "npm:^1.2.0"
   peerDependencies:
     "@open-wc/scoped-elements": ^3.0.5
   languageName: unknown
@@ -4992,7 +4992,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sl-design-system/text-field@npm:^1.0.0, @sl-design-system/text-field@npm:^1.1.0, @sl-design-system/text-field@workspace:packages/components/text-field":
+"@sl-design-system/text-field@npm:^1.0.0, @sl-design-system/text-field@npm:^1.1.0, @sl-design-system/text-field@npm:^1.2.0, @sl-design-system/text-field@workspace:packages/components/text-field":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/text-field@workspace:packages/components/text-field"
   dependencies:

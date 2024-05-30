@@ -1,5 +1,11 @@
 # @sl-design-system/text-field
 
+## 1.2.0
+
+### Minor Changes
+
+- [#1299](https://github.com/sl-design-system/components/pull/1299) [`942bf3c`](https://github.com/sl-design-system/components/commit/942bf3ca851889bccd033e3a84f20d4f777c1e35) - Automatically style any `<button>`s that are slotted or in the shadow DOM as field buttons. An example of this can be found in the `<sl-search-field>` component.
+
 ## 1.1.0
 
 ### Minor Changes

@@ -64,6 +64,9 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
 
+  /** @internal Used for styling the focus ring of the input. */
+  @property({ type: Boolean, reflect: true, attribute: 'has-focus-ring' }) hasFocusRing?: boolean;
+
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
 
@@ -192,8 +195,14 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   }
 
   #onBlur(): void {
+    this.hasFocusRing = false;
     this.blurEvent.emit();
     this.updateState({ touched: true });
+  }
+
+  #onFocus(): void {
+    this.hasFocusRing = true;
+    this.focusEvent.emit();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
@@ -218,7 +227,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (input) {
       this.input = input;
       this.input.addEventListener('blur', () => this.#onBlur());
-      this.input.addEventListener('focus', () => this.focusEvent.emit());
+      this.input.addEventListener('focus', () => this.#onFocus());
       this.#syncInput(this.input);
 
       this.setFormControlElement(this.input);

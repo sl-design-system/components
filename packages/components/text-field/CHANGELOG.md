@@ -1,5 +1,14 @@
 # @sl-design-system/text-field
 
+## 1.1.0
+
+### Minor Changes
+
+- [#1296](https://github.com/sl-design-system/components/pull/1296) [`39a4cb2`](https://github.com/sl-design-system/components/commit/39a4cb206ad923862c902b3ac7dddd4ae5b87746) - Support other types than just string for inheritance:
+  - Use `T extends { toString(): string } = string` type for `TextField`
+  - Add `parseValue` method that converts the raw value to the given type (or throw an `Error` if it cannot be parsed)
+  - Add `formatValue` method to format a value for display in the input
+
 ## 1.0.0
 
 ### Major Changes

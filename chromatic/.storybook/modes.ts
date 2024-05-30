@@ -1,4 +1,8 @@
 export const allModes = {
+  default: {
+    // integer is just width
+    viewport: 1280,
+  },
   'bingel-dc': {
     theme: 'bingel-dc',
   },

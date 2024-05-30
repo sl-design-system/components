@@ -4,63 +4,48 @@ export const allModes = {
     viewport: 1280,
   },
   'bingel-dc': {
-    theme: 'bingel-dc',
-    viewport: 1280,
+    theme: 'bingel-dc'
   },
   'bingel-int': {
-    theme: 'bingel-int',
-    viewport: 1280,
+    theme: 'bingel-int'
   },
   'clickedu': {
-    theme: 'clickedu',
-    viewport: 1280,
+    theme: 'clickedu'
   },
   'editorial-suite': {
-    theme: 'editorial-suite',
-    viewport: 1280,
+    theme: 'editorial-suite'
   },
   'itslearning': {
-    theme: 'itslearning',
-    viewport: 1280,
+    theme: 'itslearning'
   },
   'kampus': {
-    theme: 'kampus',
-    viewport: 1280,
+    theme: 'kampus'
   },
   'magister': {
-    theme: 'magister',
-    viewport: 1280,
+    theme: 'magister'
   },
   'max': {
-    theme: 'max',
-    viewport: 1280,
+    theme: 'max'
   },
   'my-digital-book': {
-    theme: 'my-digital-book',
-    viewport: 1280,
+    theme: 'my-digital-book'
   },
   'myvanin': {
-    theme: 'myvanin',
-    viewport: 1280,
+    theme: 'myvanin'
   },
   'neon': {
-    theme: 'neon',
-    viewport: 1280,
+    theme: 'neon'
   },
   'nowa-era': {
-    theme: 'nowa-era',
-    viewport: 1280,
+    theme: 'nowa-era'
   },
   'sanoma-learning': {
-    theme: 'sanoma-learning',
-    viewport: 1280,
+    theme: 'sanoma-learning'
   },
   'sanoma-utbildning': {
-    theme: 'sanoma-utbildning',
-    viewport: 1280,
+    theme: 'sanoma-utbildning'
   },
   'teas': {
-    theme: 'teas',
-    viewport: 1280,
+    theme: 'teas'
   },
 };

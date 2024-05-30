@@ -35,7 +35,6 @@ jobs:
           buildScriptName: themes
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
-          onlyChanged: true
           workingDir: chromatic
 
 

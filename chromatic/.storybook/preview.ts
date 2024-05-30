@@ -1,8 +1,7 @@
 import type { Preview } from '@storybook/web-components';
 import '@webcomponents/scoped-custom-element-registry/scoped-custom-element-registry.min.js';
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { updateTheme, themes } from '../../.storybook/themes';
-import { withThemeByClassName, withThemeFromJSXProvider } from '@storybook/addon-themes';
+import { withThemeFromJSXProvider } from '@storybook/addon-themes';
 import { html } from 'lit';
 
 const preview: Preview = {
@@ -72,9 +71,6 @@ const preview: Preview = {
       storySort: {
         method: 'alphabetical'
       }
-    },
-    viewport: {
-      viewports: INITIAL_VIEWPORTS
     }
   }
 };

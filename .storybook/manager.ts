@@ -1,5 +1,6 @@
 import { addons, type API, type LeafEntry, type HashEntry } from '@storybook/manager-api';
 import { styled } from '@storybook/theming';
+import slTheme from './slTheme'
 import { Fragment, createElement } from 'react';
 
 const Status = styled.span(({ theme }) => ({
@@ -51,6 +52,7 @@ const findComponentTags = (stories: LeafEntry[]) => {
 
 addons.setConfig({
   enableShortcuts: false,
+  theme: slTheme,
   sidebar: {
     renderLabel: (item: HashEntry, api: API) => {
       if (item.type !== 'component') return item.name;

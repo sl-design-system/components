@@ -19,6 +19,7 @@ import {All as AllTabs} from '../../../packages/components/tabs/src/tab-group.st
 import {All as AllTextArea} from '../../../packages/components/text-area/src/text-area.stories';
 import {All as AllTextField} from '../../../packages/components/text-field/src/text-field.stories';
 // import {All as AllTooltip} from '../../../packages/components/tooltip/src/tooltip.stories';
+import { FormInDialog } from '@sl-design-system/lit-examples';
 import { allModes } from "../modes";
 
 export default {
@@ -64,7 +65,7 @@ export const Breadcrumbs = {render: AllBreadcrumbs.render};
 export const Button = {render: AllButton.render};
 export const Card = {render: AllCard.render};
 export const Checkbox = {render: AllCheckbox.render};
-// export const Dialog = {render: AllDialog.render};
+export const Dialog = {render: AllDialog.render};
 export const Icon = {render:  AllIcon.render};
 export const InlineMessage = {render: AllInlineMessage.render};
 // export const MessageDialog = {render: AllMessageDialog.render};

@@ -41,7 +41,7 @@ export default {
         'my-digital-book': allModes['my-digital-book'],
         'myvanin': allModes['myvanin'],
         'neon': allModes['neon'],
-        'nowa-era': allModes['nowa-era'],
+        // 'nowa-era': allModes['nowa-era'],
         'sanoma-learning': allModes['sanoma-learning'],
         'sanoma-utbildning': allModes['sanoma-utbildning'],
         'teas': allModes['teas'],

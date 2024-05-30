@@ -36,9 +36,9 @@ export const allModes = {
   'neon': {
     theme: 'neon'
   },
-  'nowa-era': {
-    theme: 'nowa-era'
-  },
+  // 'nowa-era': {
+  //   theme: 'nowa-era'
+  // },
   'sanoma-learning': {
     theme: 'sanoma-learning'
   },

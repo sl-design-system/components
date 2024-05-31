@@ -167,16 +167,19 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   }
 
   override render(): TemplateResult {
-    return html`
-      ${this.renderPrefix()}
-      <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
-      ${this.renderSuffix()}
-    `;
+    return html`${this.renderPrefix()}${this.renderInputSlot()}${this.renderSuffix()}`;
   }
 
   /** Renders the prefix slot; can be overridden to customize the prefix. */
   renderPrefix(): TemplateResult | typeof nothing {
     return html`<slot name="prefix"></slot>`;
+  }
+
+  /** Render the input slot; separate method so it is composable for child components. */
+  renderInputSlot(): TemplateResult {
+    return html`
+      <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
+    `;
   }
 
   /** Renders the suffix slot; can be overridden to customize the suffix. */

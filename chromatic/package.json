@@ -19,6 +19,7 @@
       "command": "storybook build --stats-json -o storybook-static",
       "dependencies": [
         "..:build:components",
+        "..:build:examples",
         "..:build:themes"
       ]
     },

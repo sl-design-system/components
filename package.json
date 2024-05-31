@@ -101,6 +101,21 @@
       ]
     },
     "build:examples": {
+      "command": "node scripts/build-packages.js examples",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:examples:styles"
+      ],
+      "files": [
+        "examples/lit/**/*.ts",
+        "!examples/lit/**/*.d.ts"
+      ],
+      "output": [
+        "examples/lit/**/*.js",
+        "examples/lit/**/*.js.map"
+      ]
+    },
+    "build:examples:styles": {
       "command": "node scripts/build-styles.js 'examples/lit/**/*.scss'",
       "clean": "if-file-deleted",
       "files": [

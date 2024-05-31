@@ -1,5 +1,11 @@
 # @sl-design-system/text-field
 
+## 1.3.1
+
+### Patch Changes
+
+- [#1303](https://github.com/sl-design-system/components/pull/1303) [`4aba9bf`](https://github.com/sl-design-system/components/commit/4aba9bf657f426d815e5850ef495ca9969bfa78e) - Fix scoping of CSS custom property `--_font` scoping being too specific
+
 ## 1.3.0
 
 ### Minor Changes

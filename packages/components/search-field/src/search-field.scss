@@ -1,7 +1,7 @@
 :host {
-  padding-block: 0;
+  padding: 0 0 0 var(--_padding-inline);
 }
 
 ::slotted(input) {
-  padding-block: var(--sl-space-input-text-field-block-md) !important;
+  padding-block: var(--_padding-block) !important;
 }

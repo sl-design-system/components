@@ -1,5 +1,14 @@
 # @sl-design-system/search-field
 
+## 0.0.3
+
+### Patch Changes
+
+- [#1299](https://github.com/sl-design-system/components/pull/1299) [`942bf3c`](https://github.com/sl-design-system/components/commit/942bf3ca851889bccd033e3a84f20d4f777c1e35) - Use the new field-button feature of the parent text-field component
+
+- Updated dependencies [[`942bf3c`](https://github.com/sl-design-system/components/commit/942bf3ca851889bccd033e3a84f20d4f777c1e35)]:
+  - @sl-design-system/text-field@1.2.0
+
 ## 0.0.2
 
 ### Patch Changes

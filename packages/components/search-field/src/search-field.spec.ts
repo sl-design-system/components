@@ -41,14 +41,21 @@ describe('sl-search-field', () => {
     });
 
     it('should have a clear button', () => {
-      const button = el.renderRoot.querySelector('sl-button');
+      const button = el.renderRoot.querySelector('button');
 
       expect(button).to.exist;
       expect(button).to.contain('sl-icon[name="xmark"]');
     });
 
+    it('should not have a clear button when disabled', async () => {
+      el.disabled = true;
+      await el.updateComplete;
+
+      expect(el.renderRoot.querySelector('button')).to.not.exist;
+    });
+
     it('should clear the input when the clear button is clicked', () => {
-      el.renderRoot.querySelector('sl-button')?.click();
+      el.renderRoot.querySelector('button')?.click();
 
       expect(el.value).to.equal('');
     });
@@ -61,7 +68,7 @@ describe('sl-search-field', () => {
     });
 
     it('should focus the input when the clear button is clicked', () => {
-      el.renderRoot.querySelector('sl-button')?.click();
+      el.renderRoot.querySelector('button')?.click();
 
       expect(document.activeElement).to.equal(el.querySelector('input'));
     });
@@ -70,7 +77,7 @@ describe('sl-search-field', () => {
       const onClear = spy();
 
       el.addEventListener('sl-clear', onClear);
-      el.renderRoot.querySelector('sl-button')?.click();
+      el.renderRoot.querySelector('button')?.click();
 
       expect(onClear).to.be.calledOnce;
     });

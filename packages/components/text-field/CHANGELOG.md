@@ -1,5 +1,23 @@
 # @sl-design-system/text-field
 
+## 1.3.1
+
+### Patch Changes
+
+- [#1303](https://github.com/sl-design-system/components/pull/1303) [`4aba9bf`](https://github.com/sl-design-system/components/commit/4aba9bf657f426d815e5850ef495ca9969bfa78e) - Fix scoping of CSS custom property `--_font` scoping being too specific
+
+## 1.3.0
+
+### Minor Changes
+
+- [#1301](https://github.com/sl-design-system/components/pull/1301) [`c1b7630`](https://github.com/sl-design-system/components/commit/c1b763058f28f736545592da7b79b8f68aa65953) - Separate rendering of the input slot in its own method, so it can be composed in components that inherit from `TextField`.
+
+## 1.2.0
+
+### Minor Changes
+
+- [#1299](https://github.com/sl-design-system/components/pull/1299) [`942bf3c`](https://github.com/sl-design-system/components/commit/942bf3ca851889bccd033e3a84f20d4f777c1e35) - Automatically style any `<button>`s that are slotted or in the shadow DOM as field buttons. An example of this can be found in the `<sl-search-field>` component.
+
 ## 1.1.0
 
 ### Minor Changes

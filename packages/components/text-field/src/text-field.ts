@@ -70,6 +70,9 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
    */
   @property({ type: Number, attribute: 'input-size', reflect: true }) inputSize?: number;
 
+  /** @internal Used for styling the focus ring of the input. */
+  @property({ type: Boolean, reflect: true, attribute: 'has-focus-ring' }) hasFocusRing?: boolean;
+
   /** Maximum length (number of characters). */
   @property({ type: Number, attribute: 'maxlength' }) maxLength?: number;
 
@@ -164,16 +167,19 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   }
 
   override render(): TemplateResult {
-    return html`
-      ${this.renderPrefix()}
-      <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
-      ${this.renderSuffix()}
-    `;
+    return html`${this.renderPrefix()}${this.renderInputSlot()}${this.renderSuffix()}`;
   }
 
   /** Renders the prefix slot; can be overridden to customize the prefix. */
   renderPrefix(): TemplateResult | typeof nothing {
     return html`<slot name="prefix"></slot>`;
+  }
+
+  /** Render the input slot; separate method so it is composable for child components. */
+  renderInputSlot(): TemplateResult {
+    return html`
+      <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
+    `;
   }
 
   /** Renders the suffix slot; can be overridden to customize the suffix. */
@@ -222,8 +228,14 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   }
 
   #onBlur(): void {
+    this.hasFocusRing = false;
     this.blurEvent.emit();
     this.updateState({ touched: true });
+  }
+
+  #onFocus(): void {
+    this.hasFocusRing = true;
+    this.focusEvent.emit();
   }
 
   #onInput({ target }: Event & { target: HTMLInputElement }): void {
@@ -256,7 +268,7 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     if (input) {
       this.input = input;
       this.input.addEventListener('blur', () => this.#onBlur());
-      this.input.addEventListener('focus', () => this.focusEvent.emit());
+      this.input.addEventListener('focus', () => this.#onFocus());
       this.#syncInput(this.input);
 
       this.setFormControlElement(this.input);

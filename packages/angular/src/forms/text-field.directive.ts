@@ -30,9 +30,13 @@ export class TextFieldDirective extends FormControlElementDirective<TextField> {
     } else if (this.element.validity.patternMismatch) {
       return { pattern: { requiredPattern: this.element.pattern, actualValue: this.element.value } };
     } else if (this.element.validity.tooLong) {
-      return { maxlength: { requiredLength: this.element.maxLength, actualLength: this.element.value.length } };
+      return {
+        maxlength: { requiredLength: this.element.maxLength, actualLength: this.element.value?.toString().length ?? 0 }
+      };
     } else if (this.element.validity.tooShort) {
-      return { minlength: { requiredLength: this.element.minLength, actualLength: this.element.value.length } };
+      return {
+        minlength: { requiredLength: this.element.minLength, actualLength: this.element.value?.toString().length ?? 0 }
+      };
     } else if (this.element.validity.valueMissing) {
       return { required: true };
     }

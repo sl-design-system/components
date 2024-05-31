@@ -18,6 +18,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   border-radius: var(--_border-radius);
   box-sizing: border-box;
   display: flex;
+  font: var(--_font);
   gap: var(--_gap);
   outline-color: transparent;
   padding: var(--_padding-block) var(--_padding-inline);
@@ -28,12 +29,9 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 @each $size in $sizes {
   :host([size='#{$size}']) {
     --_gap: var(--sl-space-input-text-field-gap-#{$size});
+    --_font: var(--sl-text-input-text-field-text-#{$size});
     --_padding-block: var(--sl-space-input-text-field-block-#{$size});
     --_padding-inline: var(--sl-space-input-text-field-inline-#{$size});
-
-    slot[name='input']::slotted(input) {
-      --_font: var(--sl-text-input-text-field-text-#{$size});
-    }
   }
 }
 

@@ -23,10 +23,7 @@ export const themes: Theme[] = [
   {
     id: 'bingel-dc',
     name: 'Bingel DC',
-    fonts: [
-      'https://use.typekit.net/ghy4rhf.css',
-      'https://use.typekit.net/xrr8gdw.css'
-    ],
+    fonts: ['https://use.typekit.net/ghy4rhf.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/bingel-dc');
 
@@ -36,9 +33,7 @@ export const themes: Theme[] = [
   {
     id: 'bingel-int',
     name: 'Bingel INT',
-    fonts: [
-      'https://use.typekit.net/udt1yjk.css“'
-    ],
+    fonts: ['https://use.typekit.net/qya8xxo.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/bingel-int');
 

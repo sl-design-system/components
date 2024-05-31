@@ -478,7 +478,7 @@
         }
       },
       "fontWeight": {
-        "demibold": {
+        "semibold": {
           "value": "SemiBold",
           "type": "fontWeights"
         }
@@ -572,7 +572,7 @@
           "type": "typography",
           "description": "text.typeset.body.sm.normal"
         },
-        "demibold": {
+        "semibold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.semibold}",
@@ -584,7 +584,7 @@
             "textCase": "{text.typeset.textCase.none}"
           },
           "type": "typography",
-          "description": "text.typeset.body.sm.demibold"
+          "description": "text.typeset.body.sm.semibold"
         },
         "bold": {
           "value": {
@@ -616,7 +616,7 @@
           "type": "typography",
           "description": "text.typeset.body.md.normal"
         },
-        "demibold": {
+        "semibold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.semibold}",
@@ -628,7 +628,7 @@
             "textCase": "{text.typeset.textCase.none}"
           },
           "type": "typography",
-          "description": "text.typeset.body.md.demibold"
+          "description": "text.typeset.body.md.semibold"
         },
         "bold": {
           "value": {
@@ -660,7 +660,7 @@
           "type": "typography",
           "description": "text.typeset.body.lg.normal"
         },
-        "demibold": {
+        "semibold": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.semibold}",
@@ -672,7 +672,7 @@
             "textCase": "{text.typeset.textCase.none}"
           },
           "type": "typography",
-          "description": "text.typeset.body.lg.demibold"
+          "description": "text.typeset.body.lg.semibold"
         },
         "bold": {
           "value": {

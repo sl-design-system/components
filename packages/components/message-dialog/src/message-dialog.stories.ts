@@ -55,3 +55,16 @@ export const CustomMessage: Story = {
     message: html`You can <em>customize</em> the message with <strong>HTML</strong>!`
   }
 };
+
+export const All: Story = {
+  render: () => {
+    // const onClick = async (): Promise<void> => {
+    //   const result = await args.onClick(args);
+
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    void MessageDialog.alert('Alert dialog content');
+    // };
+
+    return html`Dialog should have openend by now`;
+  }
+};

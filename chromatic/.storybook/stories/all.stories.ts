@@ -8,7 +8,7 @@ import {All as AllCheckbox} from '../../../packages/components/checkbox/src/chec
 import {All as AllDialog} from '../../../packages/components/dialog/src/dialog.stories';
 import {All as AllIcon} from '../../../packages/components/icon/src/icon.stories';
 import {All as AllInlineMessage} from '../../../packages/components/inline-message/src/inline-message.stories';
-// import {All as AllMessageDialog} from '../../../packages/components/message-dialog/src/message-dialog.stories';
+import {All as AllMessageDialog} from '../../../packages/components/message-dialog/src/message-dialog.stories';
 import {All as AllPopover} from '../../../packages/components/popover/src/popover.stories';
 import {All as AllRadioGroup} from '../../../packages/components/radio-group/src/radio-group.stories';
 import {All as AllSelect} from '../../../packages/components/select/src/select.stories';
@@ -18,8 +18,7 @@ import {All as AllSwitch} from '../../../packages/components/switch/src/switch.s
 import {All as AllTabs} from '../../../packages/components/tabs/src/tab-group.stories';
 import {All as AllTextArea} from '../../../packages/components/text-area/src/text-area.stories';
 import {All as AllTextField} from '../../../packages/components/text-field/src/text-field.stories';
-// import {All as AllTooltip} from '../../../packages/components/tooltip/src/tooltip.stories';
-import { FormInDialog } from '@sl-design-system/lit-examples';
+import {All as AllTooltip} from '../../../packages/components/tooltip/src/tooltip.stories';
 import { allModes } from "../modes";
 
 export default {
@@ -68,7 +67,7 @@ export const Checkbox = {render: AllCheckbox.render};
 export const Dialog = {render: AllDialog.render};
 export const Icon = {render:  AllIcon.render};
 export const InlineMessage = {render: AllInlineMessage.render};
-// export const MessageDialog = {render: AllMessageDialog.render};
+export const MessageDialog = {render: AllMessageDialog.render};
 export const Popover = {render: AllPopover.render};
 export const RadioGroup = {render: AllRadioGroup.render};
 export const Select = {render: AllSelect.render};
@@ -78,4 +77,4 @@ export const Switch = {render: AllSwitch.render};
 export const Tabs = {render: AllTabs.render};
 export const TextArea = {render: AllTextArea.render};
 export const TextField = {render: AllTextField.render};
-// export const Tooltip = {render: AllTooltip.render};
+export const Tooltip = {render: AllTooltip.render};

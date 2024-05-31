@@ -71,7 +71,25 @@ export const Basic: Story = {
 export const CloseButton: Story = {};
 
 export const All: Story = {
-  render: () => html` <div></div>`
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.nextElementSibling as Dialog).showModal();
+    };
+
+    setTimeout(() => {
+      const dialog = document.querySelector('sl-dialog') as Dialog;
+      dialog.showModal();
+    }, 100);
+
+    return html`<sl-button fill="outline" size="md" @click=${onClick}>Show Dialog</sl-button>
+      <sl-dialog close-button disable-cancel>
+        <span slot="title">Title</span>
+        <span slot="subtitle">Subtitle</span>
+        Body text
+        <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
+        <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
+      </sl-dialog>`;
+  }
 };
 
 export const DisableCancel: Story = {

@@ -326,7 +326,6 @@ export const All: StoryObj = {
           </tr>
         </tbody>
       </table>
-      Chromatic test 🙂‍↔️
     `;
   }
 };

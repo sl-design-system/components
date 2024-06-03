@@ -57,6 +57,7 @@ export const CustomMessage: Story = {
 };
 
 export const All: Story = {
+  parameters: { chromatic: { delay: 300 } },
   render: () => {
     setTimeout(() => {
       void MessageDialog.alert('Alert dialog content');

@@ -108,6 +108,7 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
             >
               ${button.text}
             </sl-button>
+            bla
           `
         )}
       </sl-dialog>

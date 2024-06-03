@@ -5,7 +5,18 @@ import { withThemeFromJSXProvider } from '@storybook/addon-themes';
 import { html } from 'lit';
 
 // Id's of components that only need to be rendered once, not in all mock states.
-const singleState = ['all--dialog','all--message-dialog'];
+const singleState = [
+  'all--dialog',
+  'all--message-dialog', 
+  'all--badge',
+  'all--card',
+  'all--icon',
+  'all--inline-message',
+  'all--popover',
+  'all--skeleton',
+  'all--spinner',
+  'all--tooltip'
+];
 
 const preview: Preview = {
   decorators: [
@@ -26,9 +37,9 @@ const preview: Preview = {
 
         #root-inner{
           max-width: 1280px;
+          padding: 16px;
         }
       </style>
-      ${console.log(data.id)}
       ${
         singleState.includes(data.id)
           ?story()

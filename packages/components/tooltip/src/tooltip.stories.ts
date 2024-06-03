@@ -110,15 +110,22 @@ export const Shared: Story = {
 };
 
 export const All: Story = {
-  render: () => html`
-    <style>
-      #root-inner {
-        display: grid;
-        height: calc(100dvh - 2rem);
-        place-items: center;
-      }
-    </style>
-    <sl-button aria-describedby="tooltip"> Button </sl-button>
-    <sl-tooltip id="tooltip" position="top" max-width="300">Tooltip message</sl-tooltip>
-  `
+  render: () => {
+    setTimeout(() => {
+      document.querySelectorAll('sl-button').forEach(button => {
+        button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      });
+    });
+    return html`
+      <style>
+        #root-inner {
+          display: grid;
+          height: calc(20rem);
+          place-items: center;
+        }
+      </style>
+      <sl-button aria-describedby="tooltip"> Button </sl-button>
+      <sl-tooltip id="tooltip" position="top" max-width="300">Tooltip message</sl-tooltip>
+    `;
+  }
 };

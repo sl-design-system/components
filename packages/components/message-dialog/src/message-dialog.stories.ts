@@ -58,12 +58,9 @@ export const CustomMessage: Story = {
 
 export const All: Story = {
   render: () => {
-    // const onClick = async (): Promise<void> => {
-    //   const result = await args.onClick(args);
-
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    void MessageDialog.alert('Alert dialog content');
-    // };
+    setTimeout(() => {
+      void MessageDialog.alert('Alert dialog content');
+    });
 
     return html`Dialog should have openend by now`;
   }

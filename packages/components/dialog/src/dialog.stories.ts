@@ -75,7 +75,7 @@ export const All: Story = {
     setTimeout(() => {
       const dialog = document.querySelector('sl-dialog') as Dialog;
       dialog.showModal();
-    }, 100);
+    });
 
     return html` <sl-dialog close-button disable-cancel>
       <span slot="title">Title</span>

@@ -29,7 +29,7 @@ jobs:
           buildScriptName: chromatic-components
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
-          onlyChanged: true
+          # onlyChanged: true
           workingDir: .
       - name: Publish to Chromatic - Themes
         uses: chromaui/action@v1

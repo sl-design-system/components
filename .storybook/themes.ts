@@ -12,7 +12,7 @@ export const themes: Theme[] = [
     id: 'bingel',
     name: 'Bingel',
     fonts: [
-      'https://use.typekit.net/xrr8gdw.css'
+      'https://use.typekit.net/xps8gfu.css'
     ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/bingel');
@@ -81,7 +81,7 @@ export const themes: Theme[] = [
     id: 'kampus',
     name: 'Kampus',
     fonts: [
-      'https://use.typekit.net/xrr8gdw.css'
+      'https://use.typekit.net/xps8gfu.css'
     ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/kampus');
@@ -182,7 +182,7 @@ export const themes: Theme[] = [
     id: 'sanoma-utbildning',
     name: 'Sanoma Utbildning',
     fonts: [
-      'https://use.typekit.net/xrr8gdw.css'
+      'https://use.typekit.net/xps8gfu.css'
     ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/sanoma-utbildning');
@@ -194,7 +194,7 @@ export const themes: Theme[] = [
     id: 'teas',
     name: 'TEAS',
     fonts: [
-      'https://use.typekit.net/xrr8gdw.css',
+      'https://use.typekit.net/xps8gfu.css',
     ],
     setup: async () => {
       const { setup } = await import('@sl-design-system/teas');

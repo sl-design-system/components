@@ -8,6 +8,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
+  --_cursor: text;
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_transition: 200ms ease-in-out;
@@ -111,7 +112,8 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 }
 
 :host([disabled]) {
-  cursor: default;
+  --_cursor: default;
+
   pointer-events: none;
 }
 
@@ -125,7 +127,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 }
 
 :host([readonly]) {
-  cursor: default;
+  --_cursor: default;
 }
 
 slot[name='input']::slotted(input) {
@@ -133,6 +135,7 @@ slot[name='input']::slotted(input) {
   background: none;
   border: 0;
   color: var(--_color);
+  cursor: var(--_cursor);
   flex: 1;
   font: var(--_font);
   margin: 0;

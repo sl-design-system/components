@@ -1,5 +1,11 @@
 # @sl-design-system/text-field
 
+## 1.3.2
+
+### Patch Changes
+
+- [#1308](https://github.com/sl-design-system/components/pull/1308) [`37b0c2c`](https://github.com/sl-design-system/components/commit/37b0c2c254466206c8789ed08b917776e3592768) - Fix cursor to be default when in readonly mode
+
 ## 1.3.1
 
 ### Patch Changes

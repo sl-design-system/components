@@ -1,5 +1,11 @@
 # @sanomalearning/slds-bingel-dc
 
+## 0.1.10
+
+### Patch Changes
+
+- [#1305](https://github.com/sl-design-system/components/pull/1305) [`5385d92`](https://github.com/sl-design-system/components/commit/5385d922f6b116a06794bee66f16120a1fe90de6) - Changed link to typekit font file
+
 ## 0.1.9
 
 ### Patch Changes

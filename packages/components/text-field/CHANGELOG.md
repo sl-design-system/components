@@ -1,5 +1,11 @@
 # @sl-design-system/text-field
 
+## 1.3.3
+
+### Patch Changes
+
+- [#1310](https://github.com/sl-design-system/components/pull/1310) [`3161771`](https://github.com/sl-design-system/components/commit/3161771790870cd2bfeb52d9016dbb4f94c07056) - Fix missing cursor styling on input
+
 ## 1.3.2
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { FormInDialog } from '@sl-design-system/lit-examples';
 import '@sl-design-system/text-field/register.js';
+import { userEvent, within } from '@storybook/test';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
@@ -71,18 +72,17 @@ export const Basic: Story = {
 export const CloseButton: Story = {};
 
 export const All: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // See https://storybook.js.org/docs/essentials/actions#automatically-matching-args to learn how to setup logging in the Actions panel
+    await userEvent.click(canvas.getByTestId('button'));
+  },
   render: () => {
-    setTimeout(() => {
-      document.querySelectorAll('sl-button').forEach(button => {
-        button.dispatchEvent(new Event('click', { bubbles: false }));
-      });
-    });
-
     const onClick = (event: Event & { target: HTMLElement }): void => {
       (event.target.nextElementSibling as Dialog).showModal();
     };
 
-    return html` <sl-button fill="outline" size="md" @click=${onClick}>Show Dialog</sl-button>
+    return html` <sl-button fill="outline" size="md" @click=${onClick} data-testid="button">Show Dialog</sl-button>
       <sl-dialog close-button disable-cancel>
         <span slot="title">Title</span>
         <span slot="subtitle">Subtitle</span>

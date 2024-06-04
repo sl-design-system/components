@@ -30,7 +30,7 @@
   pointer-events: none;
 
   summary {
-    color: var(--_title-color-disabled);
+    --_title-color: var(--_title-color-disabled);
   }
 }
 

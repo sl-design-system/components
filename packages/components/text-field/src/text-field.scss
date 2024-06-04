@@ -124,6 +124,10 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   inline-size: fit-content;
 }
 
+:host([readonly]) {
+  cursor: default;
+}
+
 slot[name='input']::slotted(input) {
   appearance: none;
   background: none;

@@ -44,6 +44,11 @@ export default {
     };
 
     return html`
+      <style>
+        #root-inner {
+          height: 120vh;
+        }
+      </style>
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??

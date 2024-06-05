@@ -148,9 +148,17 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
     // Listen for i18n updates and update the validation message
     this.#events.listen(window, LOCALE_STATUS_EVENT, this.#updateValueAndValidity);
 
+    window.addEventListener('scroll', this.#onScroll);
+
     if (!this.hasAttribute('tabindex')) {
       this.tabIndex = this.disabled ? -1 : 0;
     }
+  }
+
+  override disconnectedCallback(): void {
+    window.removeEventListener('scroll', this.#onScroll);
+
+    super.disconnectedCallback();
   }
 
   /** @ignore Stores the initial state of the select */
@@ -314,6 +322,12 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     if (option) {
       this.#setSelectedOption(option);
+      this.listbox.hidePopover();
+    }
+  }
+
+  #onScroll(): void {
+    if (isPopoverOpen(this.listbox)) {
       this.listbox.hidePopover();
     }
   }

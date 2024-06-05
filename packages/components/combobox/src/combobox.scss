@@ -3,6 +3,20 @@
   padding: 0 0 0 var(--_padding-inline);
 }
 
+:host([size='md']) [popover] {
+  --_gap: var(--sl-space-select-listbox-gap-md);
+
+  padding-block: var(--sl-space-select-listbox-block-md);
+  padding-inline: var(--sl-space-select-listbox-inline-md);
+}
+
+:host([size='lg']) [popover] {
+  --_gap: var(--sl-space-select-listbox-gap-lg);
+
+  padding-block: var(--sl-space-select-listbox-block-lg);
+  padding-inline: var(--sl-space-select-listbox-inline-lg);
+}
+
 .input {
   display: flex;
   flex: 1;
@@ -10,12 +24,13 @@
   position: relative;
 }
 
-.listbox {
+[popover] {
+  background: var(--sl-color-select-listbox-background);
   border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
   border-radius: var(--sl-border-radius-select-listbox);
   box-shadow: var(--sl-elevation-shadow-md);
+  display: none;
   margin: 0;
-  padding: var(--sl-space-popover-inline);
 
   @supports not selector(:popover-open) {
     position: fixed;
@@ -31,5 +46,11 @@
 
     display: flex;
     opacity: 1;
+  }
+
+  &::slotted(*) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_gap);
   }
 }

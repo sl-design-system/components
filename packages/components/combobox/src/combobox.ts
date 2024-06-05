@@ -10,7 +10,13 @@ declare global {
   }
 }
 
-export class Combobox<T = string> extends TextField {
+export interface ComboboxModel {}
+
+export type ComboboxMultipleSelectionType = 'automatic' | 'manual';
+
+let nextUniqueId = 0;
+
+export class Combobox extends TextField {
   /** The default offset of the popover to the input. */
   static offset = 6;
 
@@ -20,17 +26,34 @@ export class Combobox<T = string> extends TextField {
   /** The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
+  /** If true, automatically filter the results in the listbox based on the current text. */
+  @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
+
   /** @internal The popover containing the list. */
-  @query('.listbox') listbox?: HTMLElement;
+  @query('[popover]') menu?: HTMLElement;
 
-  /** The options in the listbox. */
-  @property({ type: Array }) options?: T[];
+  /** Use a custom model for the options. */
+  @property({ attribute: false }) model?: ComboboxModel;
 
-  /** The path to the label of T. */
-  @property({ attribute: 'option-label-path' }) optionLabelPath?: string;
+  /** Will allow the selection of multiple options if true. */
+  @property({ type: Boolean }) multiple?: boolean;
 
-  /** The path to the value of T. */
-  @property({ attribute: 'option-value-path' }) optionValuePath?: string;
+  /**
+   * If set to 'automatic' (default), it will be one single text input with delimited values.
+   * If set to "manual", you will only enter 1 option at a time, and then need to confirm selection, and then the input will clear,
+   * and then you will add another selection.
+   */
+  @property({ attribute: 'multiple-selection-type' }) multipleSelectionType: ComboboxMultipleSelectionType =
+    'automatic';
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.input.setAttribute('role', 'combobox');
+    this.input.setAttribute('aria-haspopup', 'listbox');
+    this.input.setAttribute('aria-expanded', 'false');
+    this.input.setAttribute('aria-autocomplete', 'both');
+  }
 
   override render(): TemplateResult {
     return html`
@@ -39,22 +62,37 @@ export class Combobox<T = string> extends TextField {
         <sl-icon name="chevron-down"></sl-icon>
       </button>
 
-      <div
+      <slot
         ${anchor({
           element: this,
           offset: Combobox.offset,
           position: 'bottom-start',
           viewportMargin: Combobox.viewportMargin
         })}
-        class="listbox"
+        @slotchange=${this.#onSlotChange}
+        @toggle=${this.#onToggle}
+        name="options"
         popover
-      >
-        HOHOHO
-      </div>
+      ></slot>
     `;
   }
 
   #onClick(): void {
-    this.listbox?.togglePopover();
+    this.menu?.togglePopover();
+  }
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const listbox = event.target.assignedElements({ flatten: true }).at(0);
+
+    if (listbox) {
+      listbox.id ||= `sl-combobox-listbox-${nextUniqueId++}`;
+      listbox.setAttribute('role', 'listbox');
+
+      this.input.setAttribute('aria-controls', listbox.id);
+    }
+  }
+
+  #onToggle(event: ToggleEvent): void {
+    this.input.setAttribute('aria-expanded', event.newState === 'open' ? 'true' : 'false');
   }
 }

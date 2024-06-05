@@ -2,6 +2,11 @@
   "color": {
     "palette": {
       "primary": {
+        "25": {
+          "value": "#F0F8FF",
+          "type": "color",
+          "description": "color.palette.primary.25"
+        },
         "50": {
           "value": "#DDEFFE",
           "type": "color",

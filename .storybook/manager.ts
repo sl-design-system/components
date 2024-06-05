@@ -1,6 +1,6 @@
 import { addons, type API, type LeafEntry, type HashEntry } from '@storybook/manager-api';
 import { styled } from '@storybook/theming';
-import slTheme from './slTheme'
+import slTheme from './sl-theme'
 import { Fragment, createElement } from 'react';
 
 const Status = styled.span(({ theme }) => ({

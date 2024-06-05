@@ -404,16 +404,8 @@
       }
     },
     "badge": {
-      "2xs": {
-        "value": "{size.2xs}",
-        "type": "sizing"
-      },
-      "xs": {
-        "value": "{size.xs}",
-        "type": "sizing"
-      },
       "sm": {
-        "value": "{size.sm}",
+        "value": "{size.2xs}",
         "type": "sizing"
       },
       "md": {
@@ -421,10 +413,6 @@
         "type": "sizing"
       },
       "lg": {
-        "value": "18",
-        "type": "sizing"
-      },
-      "xl": {
         "value": "{size.lg}",
         "type": "sizing"
       }
@@ -1360,16 +1348,8 @@
     },
     "badge": {
       "inline": {
-        "2xs": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "xs": {
-          "value": "4px",
-          "type": "spacing"
-        },
         "sm": {
-          "value": "6px",
+          "value": "{space.2xs}",
           "type": "spacing"
         },
         "md": {
@@ -1377,23 +1357,11 @@
           "type": "spacing"
         },
         "lg": {
-          "value": "6px",
-          "type": "spacing"
-        },
-        "xl": {
           "value": "6px",
           "type": "spacing"
         }
       },
       "block": {
-        "2xs": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "xs": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
         "sm": {
           "value": "{space.2xs}",
           "type": "spacing"
@@ -1403,25 +1371,13 @@
           "type": "spacing"
         },
         "lg": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "xl": {
           "value": "{space.2xs}",
           "type": "spacing"
         }
       },
       "gap": {
-        "2xs": {
-          "value": "{space.2xs}",
-          "type": "spacing"
-        },
-        "xs": {
-          "value": "3",
-          "type": "spacing"
-        },
         "sm": {
-          "value": "{space.xs}",
+          "value": "{space.2xs}",
           "type": "spacing"
         },
         "md": {
@@ -1429,10 +1385,6 @@
           "type": "spacing"
         },
         "lg": {
-          "value": "{space.xs} + {space.2xs}",
-          "type": "spacing"
-        },
-        "xl": {
           "value": "{space.xs} + {space.2xs}",
           "type": "spacing"
         }

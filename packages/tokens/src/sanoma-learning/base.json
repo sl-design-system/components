@@ -698,30 +698,12 @@
     },
     "badge": {
       "text": {
-        "2xs": {
+        "sm": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "6px",
             "lineHeight": "6px"
-          },
-          "type": "typography"
-        },
-        "xs": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "12px",
-            "lineHeight": "12px"
-          },
-          "type": "typography"
-        },
-        "sm": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "lineHeight": "{text.typeset.lineHeight.xxs}"
           },
           "type": "typography"
         },
@@ -735,15 +717,6 @@
           "type": "typography"
         },
         "lg": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "{text.typeset.fontSize.md}",
-            "lineHeight": "{text.typeset.lineHeight.xs}"
-          },
-          "type": "typography"
-        },
-        "xl": {
           "value": {
             "fontFamily": "{text.typeset.fontFamily.body}",
             "fontWeight": "{text.typeset.fontWeight.demibold}",

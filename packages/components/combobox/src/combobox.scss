@@ -1,0 +1,35 @@
+:host {
+  display: inline-flex;
+  padding: 0 0 0 var(--_padding-inline);
+}
+
+.input {
+  display: flex;
+  flex: 1;
+  padding-block: var(--_padding-block);
+  position: relative;
+}
+
+.listbox {
+  border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
+  border-radius: var(--sl-border-radius-select-listbox);
+  box-shadow: var(--sl-elevation-shadow-md);
+  margin: 0;
+  padding: var(--sl-space-popover-inline);
+
+  @supports not selector(:popover-open) {
+    position: fixed;
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  &:where(:popover-open, .\\:popover-open) {
+    /* stylelint-disable-next-line max-nesting-depth, scss/at-rule-no-unknown */
+    @starting-style {
+      display: flex;
+      opacity: 0;
+    }
+
+    display: flex;
+    opacity: 1;
+  }
+}

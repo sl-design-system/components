@@ -72,7 +72,7 @@ Don’t let avatars distract from essential content. Ensure they enhance, rather
 |3|Name	|Diplays the name of the user or entity|Yes|
 |4|Description	|Description is used to show essential information of user or entity which is related to the context of the page|Yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -93,7 +93,7 @@ With these options, you can tweak the appearance of the avatar in Figma. They ar
 |Orientation|`horizontal` `vertical`|The avatar has two different lay-out possibilities relating to the positions of the avatar, name and description relative to each other.|
 |Type|`initials` `photo` `placeholder`|Choose if you want to show a photo, a placeholder (icon) or initials in the avatar|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 </div>
 
 <div class="ds-table-wrapper">
@@ -105,7 +105,7 @@ With these options, you can tweak the appearance of the avatar in Figma. They ar
 |Types|`alpha numeric` `icon` `empty`|Choose how you want to visualize the status within the badge|
 |Background|`danger` `warning` `success` `accent` `grey` `primary`|To visualize the status color of the badge|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 </div>
 
 <div class="ds-table-wrapper">
@@ -118,8 +118,7 @@ With these options, you can tweak the appearance of the avatar in Figma. They ar
 |Subheader|`boolean`|To show the description of the user or entity|
 |Subheader|`value`|To insert the description of the user or entity|
 
-
-{.ds-table}
+{.ds-table .ds-table-align-top}
 </div>
 
 </section>

@@ -71,7 +71,7 @@ Buttons are used to trigger specific actions or functions. For example, you can 
 |2|Container	|The container of a button is its home, providing structure and placement within the user interface. It ensures the button is visually pleasing, strategically positioned, and accessible to users.	|no|
 |3|Icon	|The icon of a button is like a visual cue, conveying meaning and enhancing user understanding. It's a compact symbol that complements the button's text, adding an extra layer of context or functionality.|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </section>
 <section>

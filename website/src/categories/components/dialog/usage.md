@@ -86,7 +86,7 @@ Only show dialogs when the user explicitly triggers them. Avoid interrupting the
 | 5 | Close button| Icon button for closing the dialog | Yes |
 | 6 | Content | An area to display any content | Yes |
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

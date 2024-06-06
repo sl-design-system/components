@@ -56,7 +56,7 @@ If your setting has multiple states or requires more than a simple on/off toggle
 |4|Label	|Describes the purpose and context of the switch component. |yes|
 |5|Help text/hint	|The help text offers guidance, it explains to the user what happens when turning the option on or off. |yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

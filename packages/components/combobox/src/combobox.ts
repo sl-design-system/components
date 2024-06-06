@@ -1,4 +1,4 @@
-import { anchor } from '@sl-design-system/shared';
+import { EventsController, anchor } from '@sl-design-system/shared';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
@@ -26,6 +26,17 @@ export class Combobox extends TextField {
   /** The default margin between the popover and the viewport. */
   static viewportMargin = 8;
 
+  /** Event controller. */
+  #events = new EventsController(this);
+
+  /**
+   * Flag indicating whether pointerdown event has happened. We need to know this so
+   * we know if we need to show the popover when the input receives focus. If pointerdown
+   * has happened, we know that the input is being focused as a result of a click, and we
+   * will show the popover in the click event handler, not the focus event handler.
+   */
+  #pointerDown = false;
+
   /** If true, automatically filter the results in the listbox based on the current text. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
 
@@ -49,6 +60,11 @@ export class Combobox extends TextField {
   override connectedCallback(): void {
     super.connectedCallback();
 
+    this.#events.listen(this.input, 'click', this.#onClick);
+    this.#events.listen(this.input, 'focus', this.#onFocus);
+    this.#events.listen(this.input, 'pointerdown', this.#onPointerDown);
+    this.#events.listen(this.input, 'pointerup', this.#onPointerUp);
+
     this.input.setAttribute('role', 'combobox');
     this.input.setAttribute('aria-haspopup', 'listbox');
     this.input.setAttribute('aria-expanded', 'false');
@@ -58,7 +74,7 @@ export class Combobox extends TextField {
   override render(): TemplateResult {
     return html`
       <div class="input">${this.renderInputSlot()}</div>
-      <button @click=${this.#onClick}>
+      <button @click=${this.#onButtonClick}>
         <sl-icon name="chevron-down"></sl-icon>
       </button>
 
@@ -73,12 +89,31 @@ export class Combobox extends TextField {
         @toggle=${this.#onToggle}
         name="options"
         popover
+        tabindex="-1"
       ></slot>
     `;
   }
 
-  #onClick(): void {
+  #onButtonClick(): void {
     this.menu?.togglePopover();
+  }
+
+  #onClick(): void {
+    this.menu?.showPopover();
+  }
+
+  #onFocus(): void {
+    if (!this.#pointerDown) {
+      this.menu?.showPopover();
+    }
+  }
+
+  #onPointerDown(): void {
+    this.#pointerDown = true;
+  }
+
+  #onPointerUp(): void {
+    this.#pointerDown = false;
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {

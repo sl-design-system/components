@@ -38,10 +38,13 @@ export class AnchorDirective extends Directive {
 
   override update(part: ElementPart, [config = {}]: DirectiveParameters<this>): void {
     this.#config = config;
-    this.#host = part.element as HTMLElement;
-    this.#host.addEventListener('beforetoggle', (event: Event) =>
-      this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
-    );
+
+    if (!this.#host) {
+      this.#host = part.element as HTMLElement;
+      this.#host.addEventListener('beforetoggle', (event: Event) =>
+        this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
+      );
+    }
   }
 
   #onBeforeToggle(event: ToggleEvent & { target: HTMLElement }): void {

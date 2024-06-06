@@ -1385,7 +1385,7 @@
           "type": "spacing"
         },
         "lg": {
-          "value": "{space.xs} + {space.2xs}",
+          "value": "{space.xs}",
           "type": "spacing"
         }
       },

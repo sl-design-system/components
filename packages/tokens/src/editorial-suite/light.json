@@ -183,11 +183,11 @@
         },
         "info": {
           "background": {
-            "value": "{color.palette.info.600}",
+            "value": "{color.palette.info.50}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.white.base}",
+            "value": "{color.palette.info.600}",
             "type": "color"
           }
         }

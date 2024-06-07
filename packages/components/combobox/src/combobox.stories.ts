@@ -6,7 +6,10 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type Combobox } from './combobox.js';
 
-type Props = Pick<Combobox, 'disabled' | 'multiple' | 'placeholder' | 'readonly' | 'required' | 'value'> & {
+type Props = Pick<
+  Combobox,
+  'autocomplete' | 'disabled' | 'filterResults' | 'multiple' | 'placeholder' | 'readonly' | 'required' | 'value'
+> & {
   hint?: string;
   label?: string;
   options?(): TemplateResult;
@@ -49,14 +52,22 @@ export default {
   title: 'Form/Combobox',
   tags: ['draft'],
   args: {
+    autocomplete: 'both',
     disabled: false,
+    filterResults: false,
     label: 'Label',
     multiple: false,
     placeholder: 'Choose a component',
     readonly: false,
     required: false
   },
-  render: ({ disabled, hint, label, multiple, options, placeholder, readonly, required, value }) => {
+  argTypes: {
+    autocomplete: {
+      control: 'inline-radio',
+      options: ['off', 'inline', 'list', 'both']
+    }
+  },
+  render: ({ autocomplete, disabled, hint, label, multiple, options, placeholder, readonly, required, value }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
@@ -69,6 +80,7 @@ export default {
             ?multiple=${multiple}
             ?readonly=${readonly}
             ?required=${required}
+            .autocomplete=${autocomplete}
             .placeholder=${placeholder}
             .value=${value}
           >
@@ -88,6 +100,13 @@ export const Basic: Story = {};
 export const Disabled: Story = {
   args: {
     disabled: true
+  }
+};
+
+export const FilterResults: Story = {
+  args: {
+    hint: 'The filterResults property is true, which means the list of options will be filtered based on user input.',
+    filterResults: true
   }
 };
 

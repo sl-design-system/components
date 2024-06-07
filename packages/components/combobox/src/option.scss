@@ -19,6 +19,7 @@
   padding-inline: var(--sl-space-select-item-inline-lg);
 }
 
+:host([current]),
 :host(:hover) {
   background: var(--sl-color-select-item-hover-background);
 }

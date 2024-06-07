@@ -3,6 +3,7 @@ import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type TemplateResult, html } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import styles from './combobox.scss.js';
+import { Option } from './option.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -11,6 +12,15 @@ declare global {
 }
 
 export interface ComboboxModel {}
+
+export type ComboboxOption = {
+  id: string;
+  content: string;
+  current: boolean;
+  selected: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: any;
+};
 
 export type ComboboxMultipleSelectionType = 'automatic' | 'manual';
 
@@ -28,6 +38,9 @@ export class Combobox extends TextField {
 
   /** Event controller. */
   #events = new EventsController(this);
+
+  /** Monitor the DOM for new options. */
+  #observer = new MutationObserver(() => this.#updateOptions());
 
   /**
    * Flag indicating whether pointerdown event has happened. We need to know this so
@@ -48,6 +61,12 @@ export class Combobox extends TextField {
    */
   @property() override autocomplete?: 'off' | 'inline' | 'list' | 'both' = 'both';
 
+  /** @internal The current highlighted option in the listbox. */
+  currentOption?: ComboboxOption;
+
+  /** When set, will filter the results in the listbox based on user input. */
+  @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
+
   /** @internal The popover containing the list. */
   @query('[popover]') menu?: HTMLElement;
 
@@ -65,6 +84,9 @@ export class Combobox extends TextField {
   @property({ attribute: 'multiple-selection-type' }) multipleSelectionType: ComboboxMultipleSelectionType =
     'automatic';
 
+  /** @internal The options to choose from. */
+  options: ComboboxOption[] = [];
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -77,11 +99,24 @@ export class Combobox extends TextField {
     this.input.setAttribute('aria-haspopup', 'listbox');
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-autocomplete', 'both');
+
+    this.#observer.observe(this, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['aria-current', 'aria-selected', 'current', 'role', 'selected']
+    });
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer.disconnect();
+
+    super.disconnectedCallback();
   }
 
   override render(): TemplateResult {
     return html`
-      <div class="input">${this.renderInputSlot()}</div>
+      <div @input=${this.#onInput} @keydown=${this.#onKeydown} class="input">${this.renderInputSlot()}</div>
       <button @click=${this.#onButtonClick}>
         <sl-icon name="chevron-down"></sl-icon>
       </button>
@@ -102,11 +137,15 @@ export class Combobox extends TextField {
     `;
   }
 
-  /** @internal Set the aria-autocomplete attribute on the input element. */
+  /** @internal */
   override updateInputElement(input: HTMLInputElement): void {
     super.updateInputElement(input);
 
-    input.removeAttribute('autocomplete');
+    // Set readOnly if autocomplete is off
+    input.readOnly = this.readonly ?? this.autocomplete === 'off';
+
+    // Combobox uses aria-autocomplete instead of autocomplete
+    input.autocomplete = 'off';
     input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
   }
 
@@ -132,6 +171,25 @@ export class Combobox extends TextField {
     }
   }
 
+  #onInput(): void {
+    const value = this.input.value;
+
+    this.menu?.showPopover();
+
+    let currentOption: ComboboxOption | undefined = undefined;
+    if (this.autocomplete === 'inline' || this.autocomplete === 'both') {
+      currentOption = this.options.find(option => option.content.toLowerCase().startsWith(value.toLowerCase()));
+    } else {
+      currentOption = this.options.find(option => value === option.value);
+    }
+
+    this.#updateCurrent(currentOption);
+  }
+
+  #onKeydown(event: KeyboardEvent): void {
+    console.log('keydown', event.key);
+  }
+
   #onPointerDown(): void {
     this.#pointerDown = true;
   }
@@ -149,5 +207,70 @@ export class Combobox extends TextField {
 
       this.input.setAttribute('aria-controls', listbox.id);
     }
+  }
+
+  #findOptionElement(option: ComboboxOption): Option | null {
+    return option?.id ? this.querySelector(`#${option.id}`) : null;
+  }
+
+  #updateCurrent(option?: ComboboxOption): void {
+    if (this.currentOption) {
+      this.currentOption.current = false;
+
+      const optionElement = this.#findOptionElement(this.currentOption);
+      if (optionElement) {
+        optionElement.current = false;
+        optionElement.removeAttribute('aria-current');
+      }
+    }
+
+    this.currentOption = option;
+
+    if (this.currentOption) {
+      this.currentOption.current = true;
+
+      const optionElement = this.#findOptionElement(this.currentOption);
+      if (optionElement) {
+        optionElement.current = true;
+        optionElement.setAttribute('aria-current', 'true');
+      }
+    }
+  }
+
+  #updateOptions(): void {
+    this.options = Array.from(this.querySelectorAll(':is(sl-option, [role="option"]):not(:disabled, [disabled])'))
+      .filter((el): el is Option => el instanceof Option)
+      .map(el => {
+        el.id ||= `sl-combobox-option-${nextUniqueId++}`;
+
+        return {
+          id: el.id,
+          content: el.textContent?.trim() || '',
+          current: el.current || el.getAttribute('aria-current') === 'true',
+          selected: el.selected || el.getAttribute('aria-selected') === 'true',
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          value: el.value || el.textContent?.trim() || ''
+        };
+      });
+
+    if (this.currentOption) {
+      this.input.setAttribute('aria-activedescendant', this.currentOption.id);
+    } else {
+      this.input.removeAttribute('aria-activedescendant');
+    }
+
+    const value = this.input.value.slice(0, this.input.selectionStart ?? 0).trim();
+
+    this.options.forEach(option => {
+      let match = !this.filterResults || !value;
+      if (!match) {
+        match = option.content.toLowerCase().startsWith(value.toLowerCase());
+      }
+
+      const optionElement = this.#findOptionElement(option);
+      if (optionElement) {
+        optionElement.style.display = match ? '' : 'none';
+      }
+    });
   }
 }

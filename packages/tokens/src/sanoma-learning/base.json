@@ -1649,8 +1649,7 @@
             "value": {
               "fontFamily": "{text.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.xxs}",
-              "fontSize": "13"
+              "fontSize": "{icon.typeset.fontSize.xs}"
             },
             "type": "typography"
           },
@@ -1658,7 +1657,6 @@
             "value": {
               "fontFamily": "{text.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.xs}",
               "fontSize": "{text.typeset.fontSize.md}"
             },
             "type": "typography"
@@ -1667,7 +1665,6 @@
             "value": {
               "fontFamily": "{text.typeset.fontFamily.icon}",
               "fontWeight": "{text.typeset.fontWeight.regular}",
-              "lineHeight": "{text.typeset.lineHeight.sm}",
               "fontSize": "{text.typeset.fontSize.lg}"
             },
             "type": "typography"

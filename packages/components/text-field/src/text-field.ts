@@ -46,8 +46,11 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   /** The value of the text field. */
   #value: T | undefined = '' as unknown as T;
 
-  /** Specifies which type of data the browser can use to pre-fill the input. */
-  @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
+  /**
+   * Specifies which type of data the browser can use to pre-fill the input.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+   */
+  @property() autocomplete?: string;
 
   /** @internal Emits when the focus leaves the component. */
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
@@ -122,7 +125,7 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
-      this.#syncInput(this.input);
+      this.updateInputElement(this.input);
 
       if (!this.input.parentElement) {
         this.append(this.input);
@@ -149,7 +152,7 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     ];
 
     if (props.some(prop => changes.has(prop))) {
-      this.#syncInput(this.input);
+      this.updateInputElement(this.input);
     }
 
     if (changes.has('disabled')) {
@@ -269,14 +272,14 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
       this.input = input;
       this.input.addEventListener('blur', () => this.#onBlur());
       this.input.addEventListener('focus', () => this.#onFocus());
-      this.#syncInput(this.input);
+      this.updateInputElement(this.input);
 
       this.setFormControlElement(this.input);
     }
   }
 
-  #syncInput(input: HTMLInputElement): void {
-    input.autocomplete = this.autocomplete || 'off';
+  /** @internal Synchronize the input element with the component properties. */
+  updateInputElement(input: HTMLInputElement): void {
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-text-field-${nextUniqueId++}`;
@@ -287,6 +290,12 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {
       input.type = this.type;
+    }
+
+    if (this.autocomplete) {
+      input.setAttribute('autocomplete', this.autocomplete);
+    } else {
+      input.removeAttribute('autocomplete');
     }
 
     if (typeof this.inputSize === 'number') {

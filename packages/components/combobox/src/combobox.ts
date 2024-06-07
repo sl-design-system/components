@@ -37,8 +37,16 @@ export class Combobox extends TextField {
    */
   #pointerDown = false;
 
-  /** If true, automatically filter the results in the listbox based on the current text. */
-  @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
+  /**
+   * The behavior of the combobox when it comes to suggesting options based on user input.
+   * - 'off': Suggest is off
+   * - 'inline': Only suggest options inside the input
+   * - 'list': Filter options in the list based on user input
+   * - 'both': Use both inline and list suggestions
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete
+   */
+  @property() override autocomplete?: 'off' | 'inline' | 'list' | 'both' = 'both';
 
   /** @internal The popover containing the list. */
   @query('[popover]') menu?: HTMLElement;
@@ -92,6 +100,14 @@ export class Combobox extends TextField {
         tabindex="-1"
       ></slot>
     `;
+  }
+
+  /** @internal Set the aria-autocomplete attribute on the input element. */
+  override updateInputElement(input: HTMLInputElement): void {
+    super.updateInputElement(input);
+
+    input.removeAttribute('autocomplete');
+    input.setAttribute('aria-autocomplete', this.autocomplete || 'both');
   }
 
   #onBeforeToggle(event: ToggleEvent): void {

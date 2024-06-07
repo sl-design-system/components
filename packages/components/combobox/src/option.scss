@@ -1,6 +1,34 @@
 :host {
+  border-radius: var(--sl-border-radius-select-item);
+  color: var(--sl-color-select-item-default-foreground);
   cursor: pointer;
   display: block;
   padding: 0.5rem 1rem;
   user-select: none;
+}
+
+:host([size='md']) {
+  font: var(--sl-text-select-selectbox-text-md);
+  padding-block: var(--sl-space-select-item-block-md);
+  padding-inline: var(--sl-space-select-item-inline-md);
+}
+
+:host([size='lg']) {
+  font: var(--sl-text-select-selectbox-text-lg);
+  padding-block: var(--sl-space-select-item-block-lg);
+  padding-inline: var(--sl-space-select-item-inline-lg);
+}
+
+:host(:hover) {
+  background: var(--sl-color-select-item-hover-background);
+}
+
+:host(:active) {
+  background: var(--sl-color-select-item-active-background);
+}
+
+:host([disabled]) {
+  color: var(--sl-color-select-item-disabled-foreground);
+  cursor: default;
+  pointer-events: none;
 }

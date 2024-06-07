@@ -29,6 +29,7 @@
   border: var(--sl-border-width-select-listbox) solid var(--sl-color-select-listbox-border);
   border-radius: var(--sl-border-radius-select-listbox);
   box-shadow: var(--sl-elevation-shadow-md);
+  box-sizing: border-box;
   display: none;
   margin: 0;
 
@@ -52,5 +53,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--_gap);
+    inline-size: 100%;
   }
 }

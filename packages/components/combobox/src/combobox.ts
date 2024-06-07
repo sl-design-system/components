@@ -85,13 +85,21 @@ export class Combobox extends TextField {
           position: 'bottom-start',
           viewportMargin: Combobox.viewportMargin
         })}
+        @beforetoggle=${this.#onBeforeToggle}
         @slotchange=${this.#onSlotChange}
-        @toggle=${this.#onToggle}
         name="options"
         popover
         tabindex="-1"
       ></slot>
     `;
+  }
+
+  #onBeforeToggle(event: ToggleEvent): void {
+    this.input.setAttribute('aria-expanded', event.newState === 'open' ? 'true' : 'false');
+
+    if (event.newState === 'open') {
+      this.menu!.style.inlineSize = `${this.getBoundingClientRect().width}px`;
+    }
   }
 
   #onButtonClick(): void {
@@ -125,9 +133,5 @@ export class Combobox extends TextField {
 
       this.input.setAttribute('aria-controls', listbox.id);
     }
-  }
-
-  #onToggle(event: ToggleEvent): void {
-    this.input.setAttribute('aria-expanded', event.newState === 'open' ? 'true' : 'false');
   }
 }

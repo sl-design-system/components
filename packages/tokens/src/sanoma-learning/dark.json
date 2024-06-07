@@ -153,41 +153,41 @@
         },
         "warning": {
           "background": {
-            "value": "{color.palette.warning.800}",
+            "value": "{color.palette.warning.900}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.warning.700}",
+            "value": "{color.palette.warning.400}",
             "type": "color"
           }
         },
         "accent": {
           "background": {
-            "value": "{color.palette.accent.100}",
+            "value": "{color.palette.accent.800}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.accent.500}",
+            "value": "{color.palette.accent.300}",
             "type": "color"
           }
         },
         "neutral": {
           "background": {
-            "value": "{color.palette.neutral.100}",
+            "value": "{color.palette.neutral.800}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.200}",
             "type": "color"
           }
         },
         "primary": {
           "background": {
-            "value": "{color.palette.primary.100}",
+            "value": "{color.palette.primary.800}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.neutral.600}",
+            "value": "{color.palette.neutral.200}",
             "type": "color"
           }
         }

@@ -1353,11 +1353,11 @@
           "type": "spacing"
         },
         "md": {
-          "value": "6px",
+          "value": "{space.sm}",
           "type": "spacing"
         },
         "lg": {
-          "value": "6px",
+          "value": "{space.sm}",
           "type": "spacing"
         }
       },

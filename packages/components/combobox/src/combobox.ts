@@ -107,7 +107,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.#events.listen(this.input, 'click', this.#onClick);
+    this.#events.listen(this.input, 'click', this.#onInputClick);
     this.#events.listen(this.input, 'focus', this.#onFocus);
     this.#events.listen(this.input, 'pointerdown', this.#onPointerDown);
     this.#events.listen(this.input, 'pointerup', this.#onPointerUp);
@@ -146,6 +146,7 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
           viewportMargin: Combobox.viewportMargin
         })}
         @beforetoggle=${this.#onBeforeToggle}
+        @click=${this.#onOptionsClick}
         @slotchange=${this.#onSlotChange}
         name="options"
         popover
@@ -178,10 +179,6 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.menu?.togglePopover();
   }
 
-  #onClick(): void {
-    this.menu?.showPopover();
-  }
-
   #onFocus(): void {
     if (!this.#pointerDown) {
       this.menu?.showPopover();
@@ -211,9 +208,28 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
     this.#updateCurrent(currentOption);
   }
 
+  #onInputClick(): void {
+    this.menu?.showPopover();
+  }
+
   #onKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter' && this.currentOption) {
       this.#updateSelection(this.currentOption);
+      this.#updateCurrent();
+
+      if (!this.multiple) {
+        this.menu?.hidePopover();
+      }
+    }
+  }
+
+  #onOptionsClick(event: Event & { target: HTMLElement }): void {
+    const option = event
+      .composedPath()
+      .find((el): el is HTMLElement => el instanceof Option || el instanceof HTMLOptionElement);
+
+    if (option?.id) {
+      this.#updateSelection(this.options.find(o => o.id === option.id) as ComboboxOption);
       this.#updateCurrent();
 
       if (!this.multiple) {

@@ -8,7 +8,15 @@ import { type Combobox } from './combobox.js';
 
 type Props = Pick<
   Combobox,
-  'autocomplete' | 'disabled' | 'filterResults' | 'multiple' | 'placeholder' | 'readonly' | 'required' | 'value'
+  | 'autocomplete'
+  | 'disabled'
+  | 'filterResults'
+  | 'multiple'
+  | 'name'
+  | 'placeholder'
+  | 'readonly'
+  | 'required'
+  | 'value'
 > & {
   hint?: string;
   label?: string;
@@ -57,6 +65,7 @@ export default {
     filterResults: false,
     label: 'Label',
     multiple: false,
+    name: 'combobox',
     placeholder: 'Choose a component',
     readonly: false,
     required: false
@@ -67,20 +76,42 @@ export default {
       options: ['off', 'inline', 'list', 'both']
     }
   },
-  render: ({ autocomplete, disabled, hint, label, multiple, options, placeholder, readonly, required, value }) => {
+  render: ({
+    autocomplete,
+    disabled,
+    filterResults,
+    hint,
+    label,
+    multiple,
+    name,
+    options,
+    placeholder,
+    readonly,
+    required,
+    value
+  }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();
     };
 
+    const onUpdate = (): void => {
+      const form = document.querySelector('sl-form')!,
+        pre = form.nextElementSibling as HTMLPreElement;
+
+      pre.textContent = JSON.stringify(form.value, null, 2);
+    };
+
     return html`
-      <sl-form>
+      <sl-form @sl-update-state=${onUpdate} @sl-update-validity=${onUpdate}>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-combobox
             ?disabled=${disabled}
+            ?filter-results=${filterResults}
             ?multiple=${multiple}
             ?readonly=${readonly}
             ?required=${required}
             .autocomplete=${autocomplete}
+            .name=${name}
             .placeholder=${placeholder}
             .value=${value}
           >
@@ -91,6 +122,7 @@ export default {
           <sl-button @click=${onClick}>Report validity</sl-button>
         </sl-button-bar>
       </sl-form>
+      <pre></pre>
     `;
   }
 } satisfies Meta<Props>;

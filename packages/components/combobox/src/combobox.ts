@@ -26,7 +26,7 @@ export type ComboboxMultipleSelectionType = 'automatic' | 'manual';
 
 let nextUniqueId = 0;
 
-export class Combobox extends TextField {
+export class Combobox<T extends { toString(): string } = string> extends TextField<T> {
   /** The default offset of the popover to the input. */
   static offset = 6;
 
@@ -64,6 +64,9 @@ export class Combobox extends TextField {
   /** @internal The current highlighted option in the listbox. */
   currentOption?: ComboboxOption;
 
+  /** @internal The current selected options. */
+  currentSelection: ComboboxOption[] = [];
+
   /** When set, will filter the results in the listbox based on user input. */
   @property({ type: Boolean, attribute: 'filter-results' }) filterResults?: boolean;
 
@@ -86,6 +89,20 @@ export class Combobox extends TextField {
 
   /** @internal The options to choose from. */
   options: ComboboxOption[] = [];
+
+  override get value(): T | undefined {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return this.multiple ? this.currentSelection.map(o => o.value) : this.currentSelection[0]?.value;
+  }
+
+  @property()
+  override set value(value: T | undefined) {
+    if (this.multiple && Array.isArray(value)) {
+      this.currentSelection = this.options.filter(o => value.includes(o.value as T));
+    } else {
+      this.currentSelection = this.options.filter(o => o.value === value);
+    }
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -171,14 +188,22 @@ export class Combobox extends TextField {
     }
   }
 
-  #onInput(): void {
+  #onInput(event: InputEvent): void {
     const value = this.input.value;
 
     this.menu?.showPopover();
 
     let currentOption: ComboboxOption | undefined = undefined;
-    if (this.autocomplete === 'inline' || this.autocomplete === 'both') {
+    if (
+      event.inputType !== 'deleteContentBackward' &&
+      (this.autocomplete === 'inline' || this.autocomplete === 'both')
+    ) {
       currentOption = this.options.find(option => option.content.toLowerCase().startsWith(value.toLowerCase()));
+
+      if (currentOption) {
+        this.input.value = currentOption.content;
+        this.input.setSelectionRange(value.length, currentOption.content.length);
+      }
     } else {
       currentOption = this.options.find(option => value === option.value);
     }
@@ -187,7 +212,14 @@ export class Combobox extends TextField {
   }
 
   #onKeydown(event: KeyboardEvent): void {
-    console.log('keydown', event.key);
+    if (event.key === 'Enter' && this.currentOption) {
+      this.#updateSelection(this.currentOption);
+      this.#updateCurrent();
+
+      if (!this.multiple) {
+        this.menu?.hidePopover();
+      }
+    }
   }
 
   #onPointerDown(): void {
@@ -213,6 +245,16 @@ export class Combobox extends TextField {
     return option?.id ? this.querySelector(`#${option.id}`) : null;
   }
 
+  #toggleSelected(option: ComboboxOption): void {
+    option.selected = !option.selected;
+
+    const optionElement = this.#findOptionElement(option);
+    if (optionElement) {
+      optionElement.selected = option.selected;
+      optionElement.setAttribute('aria-selected', option.selected ? 'true' : 'false');
+    }
+  }
+
   #updateCurrent(option?: ComboboxOption): void {
     if (this.currentOption) {
       this.currentOption.current = false;
@@ -234,6 +276,8 @@ export class Combobox extends TextField {
         optionElement.current = true;
         optionElement.setAttribute('aria-current', 'true');
       }
+    } else {
+      this.#updateOptions();
     }
   }
 
@@ -272,5 +316,27 @@ export class Combobox extends TextField {
         optionElement.style.display = match ? '' : 'none';
       }
     });
+  }
+
+  #updateSelection(option: ComboboxOption): void {
+    this.#toggleSelected(option);
+
+    if (this.multiple) {
+      if (option.selected) {
+        this.currentSelection = [...this.currentSelection, option];
+      } else {
+        this.currentSelection = this.currentSelection.filter(o => o !== option);
+      }
+    } else {
+      if (this.currentSelection.length && this.currentSelection[0] !== option) {
+        this.#toggleSelected(this.currentSelection[0]);
+      }
+
+      this.currentSelection = option.selected ? [option] : [];
+    }
+
+    this.changeEvent.emit(this.value);
+    this.updateState({ dirty: true });
+    this.updateValidity();
   }
 }

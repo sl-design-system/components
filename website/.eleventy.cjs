@@ -36,9 +36,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("sortByTitle", function (arr, exclude) {
     const excluded = arr.filter(elem => elem.title.toLowerCase() === exclude.toLowerCase());
-    // /*return*/ arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
-    const filtered = JSON.parse(JSON.stringify((arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())))));
-    // console.log('arr', arr);
+    const filtered = JSON.parse(JSON.stringify(arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))));
     return [...excluded, ...filtered];
   });
 

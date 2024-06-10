@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/search-field",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Search field component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@sl-design-system/shared": "^0.2.11",
-    "@sl-design-system/text-field": "^1.0.0"
+    "@sl-design-system/text-field": "^1.2.0"
   },
   "devDependencies": {
     "@open-wc/scoped-elements": "^3.0.5"

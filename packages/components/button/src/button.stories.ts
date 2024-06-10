@@ -67,6 +67,9 @@ export const Basic: Story = {};
 export const All: Story = {
   render: () => {
     return html` <style>
+        sl-button-bar {
+          margin-block-end: 8px;
+        }
         table {
           border-collapse: collapse;
         }
@@ -93,76 +96,88 @@ export const All: Story = {
           border: none;
         }
       </style>
+      <h2>sizes:</h2>
       ${sizes.map(
-        size =>
-          html` <h2>Size: ${size}</h2>
-            <table>
-              <thead>
-                <tr>
-                  <td></td>
-                  ${fills.map(fill => html`<th colspan="6">${fill}</th>`)}
-                </tr>
-                <tr>
-                  <td></td>
-                  ${fills.map(() =>
-                    disabledStates.map(
-                      disabledState => html`
-                        <td colspan="3" class=${disabledState ? 'sb-disabled' : ''}>
-                          ${disabledState ? 'Disabled' : 'Enabled'}
+        size => html`
+          <sl-button-bar>
+            <sl-button fill="solid" .size=${size} variant="primary"><sl-icon name="face-smile"></sl-icon></sl-button>
+            <sl-button fill="solid" .size=${size} variant="primary"
+              ><sl-icon name="face-smile"></sl-icon> Icon ${size}</sl-button
+            >
+            <sl-button fill="solid" .size=${size} variant="primary"
+              >Icon ${size}<sl-icon name="face-smile"></sl-icon
+            ></sl-button>
+            <sl-button fill="solid" .size=${size} variant="primary">${size}</sl-button>
+          </sl-button-bar>
+        `
+      )}
+      <h2>Variants:</h2>
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            ${fills.map(fill => html`<th colspan="6">${fill}</th>`)}
+          </tr>
+          <tr>
+            <td></td>
+            ${fills.map(() =>
+              disabledStates.map(
+                disabledState => html`
+                  <td colspan="3" class=${disabledState ? 'sb-disabled' : ''}>
+                    ${disabledState ? 'Disabled' : 'Enabled'}
+                  </td>
+                `
+              )
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          ${variants.map(
+            variant => html`
+              <tr>
+                <th>${variant}</th>
+                ${fills.map(fill =>
+                  disabledStates.map(
+                    disabledState =>
+                      html` <td class=${disabledState ? 'sb-disabled' : ''}>
+                          <sl-button
+                            .fill=${fill}
+                            size="md"
+                            ?disabled=${disabledState}
+                            .variant=${variant}
+                            data-mock-state
+                            >Label
+                          </sl-button>
                         </td>
-                      `
-                    )
-                  )}
-                </tr>
-              </thead>
-              <tbody>
-                ${variants.map(
-                  variant => html`
-                    <tr>
-                      <th>${variant}</th>
-                      ${fills.map(fill =>
-                        disabledStates.map(
-                          disabledState =>
-                            html` <td class=${disabledState ? 'sb-disabled' : ''}>
-                                <sl-button
-                                  .fill=${fill}
-                                  .size=${size}
-                                  ?disabled=${disabledState}
-                                  .variant=${variant}
-                                  data-mock-state
-                                  >Label
-                                </sl-button>
-                              </td>
-                              <td class=${disabledState ? 'sb-disabled' : ''}>
-                                <sl-button
-                                  .fill=${fill}
-                                  .size=${size}
-                                  ?disabled=${disabledState}
-                                  .variant=${variant}
-                                  data-mock-state
-                                >
-                                  <sl-icon name="face-smile"></sl-icon> Label
-                                </sl-button>
-                              </td>
-                              <td class=${disabledState ? 'sb-disabled' : ''}>
-                                <sl-button
-                                  .fill=${fill}
-                                  .size=${size}
-                                  ?disabled=${disabledState}
-                                  .variant=${variant}
-                                  data-mock-state
-                                >
-                                  <sl-icon name="face-smile"></sl-icon>
-                                </sl-button>
-                              </td>`
-                        )
-                      )}
-                    </tr>
-                  `
+                        <td class=${disabledState ? 'sb-disabled' : ''}>
+                          <sl-button
+                            .fill=${fill}
+                            size="md"
+                            ?disabled=${disabledState}
+                            .variant=${variant}
+                            data-mock-state
+                          >
+                            <sl-icon name="face-smile"></sl-icon> Label
+                          </sl-button>
+                        </td>
+                        <td class=${disabledState ? 'sb-disabled' : ''}>
+                          <sl-button
+                            .fill=${fill}
+                            size="md"
+                            ?disabled=${disabledState}
+                            .variant=${variant}
+                            data-mock-state
+                          >
+                            <sl-icon name="face-smile"></sl-icon>
+                          </sl-button>
+                        </td>`
+                  )
                 )}
-              </tbody>
-            </table>`
-      )}`;
+              </tr>
+            `
+          )}
+        </tbody>
+      </table>`;
   }
 };
 

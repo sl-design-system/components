@@ -4359,6 +4359,57 @@
           }
         }
       }
+    },
+    "field-button": {
+      "default": {
+        "idle": {
+          "background": {
+            "value": "{color.palette.transparent.base}",
+            "type": "color",
+            "description": "color.button.default.idle.background"
+          },
+          "foreground": {
+            "value": "{color.palette.neutral.400}",
+            "type": "color"
+          }
+        },
+        "hover": {
+          "background": {
+            "value": "#22222212",
+            "type": "color",
+            "description": "color.button.default.hover.background"
+          },
+          "foreground": {
+            "value": "{color.palette.primary.base}",
+            "type": "color",
+            "description": "color.button.default.hover.foreground"
+          }
+        },
+        "active": {
+          "background": {
+            "value": "#22222221",
+            "type": "color",
+            "description": "color.button.default.active.background"
+          },
+          "foreground": {
+            "value": "{color.palette.primary.base}",
+            "type": "color",
+            "description": "color.button.default.active.foreground"
+          }
+        },
+        "disabled": {
+          "background": {
+            "value": "{color.palette.transparent.base}",
+            "type": "color",
+            "description": "color.button.default.disabled.background"
+          },
+          "foreground": {
+            "value": "{color.palette.neutral.100}",
+            "type": "color",
+            "description": "color.button.default.disabled.foreground"
+          }
+        }
+      }
     }
   },
   "boxShadow": {

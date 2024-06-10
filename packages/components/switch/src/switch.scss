@@ -76,12 +76,8 @@ $sizes: sm, md, lg;
   --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
 }
 
-:host([reverse]) {
-  align-self: start;
-
-  .toggle {
-    order: -1;
-  }
+:host([reverse]) .toggle {
+  order: -1;
 }
 
 :host(:focus-within) .track:focus-visible {

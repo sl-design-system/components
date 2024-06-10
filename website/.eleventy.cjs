@@ -182,17 +182,17 @@ module.exports = function(eleventyConfig) {
     }
   });
 
-  eleventyConfig.addTransform('htmlMinifier', content => {
-    if (process.env.NODE_ENV === 'production') {
-      return htmlMinifier.minify(content, {
-        useShortDoctype: true,
-        removeComments: true,
-        collapseWhitespace: true,
-      });
-    } else {
-      return content;
-    }
-  });
+  // eleventyConfig.addTransform('htmlMinifier', content => {
+  //   if (process.env.NODE_ENV === 'production') {
+  //     return htmlMinifier.minify(content, {
+  //       useShortDoctype: true,
+  //       removeComments: true,
+  //       collapseWhitespace: true,
+  //     });
+  //   } else {
+  //     return content;
+  //   }
+  // });
 
   const customElementsPath = './src/_data/custom-elements';
   const manifest = fs.readFileSync(`${customElementsPath}/custom-elements.json`, 'utf-8');

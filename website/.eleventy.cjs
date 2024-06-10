@@ -35,10 +35,11 @@ module.exports = function(eleventyConfig) {
   });
 
   eleventyConfig.addFilter("sortByTitle", function (arr, exclude) {
-    // const excluded = arr.filter(elem => elem.title.toLowerCase() === exclude.toLowerCase());
-    return arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
+    const excluded = arr.filter(elem => elem.title.toLowerCase() === exclude.toLowerCase());
+    // /*return*/ arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
+    const filtered = structuredClone(arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())));
     // console.log('arr', arr);
-    // return [...arr];
+    return [...excluded, ...filtered];
   });
 
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {

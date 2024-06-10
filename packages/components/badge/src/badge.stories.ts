@@ -16,7 +16,7 @@ export default {
     emphasis: 'subtle',
     icon: false,
     size: 'md',
-    text: '99+',
+    text: 'Status',
     variant: 'neutral'
   },
   argTypes: {
@@ -41,6 +41,15 @@ export default {
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
+
+export const Round: Story = {
+  render: ({ emphasis, size, variant }) => html`
+    <sl-badge .emphasis=${emphasis} .size=${size} .variant=${variant}>8</sl-badge>
+    <sl-badge .emphasis=${emphasis} .size=${size} .variant=${variant}>
+      <sl-icon name="check"></sl-icon>
+    </sl-badge>
+  `
+};
 
 export const All: Story = {
   render: () => {

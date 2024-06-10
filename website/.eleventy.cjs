@@ -36,8 +36,9 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter("sortByTitle", function (arr, exclude) {
     const excluded = arr.filter(elem => elem.title.toLowerCase() === exclude.toLowerCase());
-    arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))
-    return [excluded, ...arr];
+    arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).slice().sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
+    console.log('excluded', excluded);
+    return [...excluded];
   });
 
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {

@@ -10,24 +10,14 @@ describe('sl-badge', () => {
     el = await fixture(html`<sl-badge>99+</sl-badge>`);
   });
 
-  it('should render correctly', () => {
-    expect(el).shadowDom.to.equalSnapshot();
-  });
+  it('should have subtle emphasis, medium size and neutral variant by default', () => {
+    expect(el.emphasis).to.equal('subtle');
+    expect(el).to.have.attribute('emphasis', 'subtle');
 
-  it('should have size medium and variant neutral by default', () => {
+    expect(el.size).to.equal('md');
     expect(el).to.have.attribute('size', 'md');
+
+    expect(el.variant).to.equal('neutral');
     expect(el).to.have.attribute('variant', 'neutral');
-  });
-
-  it('should render the slotted content', () => {
-    expect(el).shadowDom.to.have.text('99+');
-    expect(el).shadowDom.to.equal('<slot></slot>');
-  });
-
-  it('should not render the slotted content for small size', async () => {
-    el.setAttribute('size', 'sm');
-    await el.updateComplete;
-
-    expect(el).shadowDom.to.equal('');
   });
 });

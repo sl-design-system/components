@@ -35,6 +35,19 @@ export class Badge extends LitElement {
   @property({ reflect: true }) variant: BadgeVariant = 'neutral';
 
   override render(): TemplateResult {
-    return html`<slot></slot>`;
+    return html`<slot @slotchange=${this.#onSlotChange}></slot>`;
+  }
+
+  #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
+    const elements = event.target.assignedElements({ flatten: true }),
+      icon = elements.length === 1 && elements[0].tagName === 'SL-ICON',
+      text = event.target
+        .assignedNodes({ flatten: true })
+        .filter(node => node.nodeType === Node.TEXT_NODE)
+        .map(node => node.textContent?.trim())
+        .join('');
+
+    // Toggle the round attribute if the badge contains only an icon, or a single character
+    this.toggleAttribute('round', (icon && text === '') || (!icon && text?.length === 1));
   }
 }

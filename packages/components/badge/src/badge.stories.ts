@@ -75,24 +75,40 @@ export const All: Story = {
               <tr>
                 <td>${variant}</td>
                 <td>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="md">8</sl-badge>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="md">
+                    <sl-icon name="check"></sl-icon>
+                  </sl-badge>
                   <sl-badge .variant=${variant} emphasis="subtle" size="md">
                     <sl-icon name="check"></sl-icon> Status
                   </sl-badge>
                   <sl-badge .variant=${variant} emphasis="subtle" size="md">Status</sl-badge>
                 </td>
                 <td>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="lg">8</sl-badge>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="lg">
+                    <sl-icon name="check"></sl-icon>
+                  </sl-badge>
                   <sl-badge .variant=${variant} emphasis="subtle" size="lg">
                     <sl-icon name="check"></sl-icon> Status
                   </sl-badge>
                   <sl-badge .variant=${variant} emphasis="subtle" size="lg">Status</sl-badge>
                 </td>
                 <td>
+                  <sl-badge .variant=${variant} emphasis="bold" size="md">8</sl-badge>
+                  <sl-badge .variant=${variant} emphasis="bold" size="md">
+                    <sl-icon name="check"></sl-icon>
+                  </sl-badge>
                   <sl-badge .variant=${variant} emphasis="bold" size="md">
                     <sl-icon name="check"></sl-icon> Status
                   </sl-badge>
                   <sl-badge .variant=${variant} emphasis="bold" size="md">Status</sl-badge>
                 </td>
                 <td>
+                  <sl-badge .variant=${variant} emphasis="bold" size="lg">8</sl-badge>
+                  <sl-badge .variant=${variant} emphasis="bold" size="lg">
+                    <sl-icon name="check"></sl-icon>
+                  </sl-badge>
                   <sl-badge .variant=${variant} emphasis="bold" size="lg">
                     <sl-icon name="check"></sl-icon> Status
                   </sl-badge>

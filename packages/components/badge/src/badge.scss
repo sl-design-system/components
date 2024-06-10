@@ -4,6 +4,7 @@ $variants: danger, success, info, warning, accent, neutral, primary;
 
 :host {
   align-items: center;
+  block-size: 1lh;
   border-radius: var(--sl-border-radius-badge-full);
   box-sizing: border-box;
   display: inline-flex;
@@ -36,6 +37,11 @@ $variants: danger, success, info, warning, accent, neutral, primary;
     --sl-icon-container-size: var(--sl-size-icon-xs);
     --sl-icon-size: var(--sl-size-icon-xs);
   }
+}
+
+:host([round]) {
+  justify-content: center;
+  padding-inline: 0;
 }
 
 ::slotted(sl-icon) {

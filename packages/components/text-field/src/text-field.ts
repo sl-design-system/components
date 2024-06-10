@@ -287,15 +287,12 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     input.readOnly = !!this.readonly;
     input.required = !!this.required;
 
+    // Use `setAttribute` to avoid typing coercion
+    input.setAttribute('autocomplete', this.autocomplete || 'off');
+
     // Do not overwrite the type on slotted inputs
     if (input.type !== this.type && input.type === 'text') {
       input.type = this.type;
-    }
-
-    if (this.autocomplete) {
-      input.setAttribute('autocomplete', this.autocomplete);
-    } else {
-      input.removeAttribute('autocomplete');
     }
 
     if (typeof this.inputSize === 'number') {

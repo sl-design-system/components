@@ -220,10 +220,14 @@ export class Combobox<T extends { toString(): string } = string> extends TextFie
       if (!this.multiple) {
         this.menu?.hidePopover();
       }
+    } else if (['ArrowDown', 'ArrowUp', 'End', 'Home'].includes(event.key)) {
+      event.preventDefault();
+
+      // this.#navigateOptions(event.key);
     }
   }
 
-  #onOptionsClick(event: Event & { target: HTMLElement }): void {
+  #onOptionsClick(event: Event): void {
     const option = event
       .composedPath()
       .find((el): el is HTMLElement => el instanceof Option || el instanceof HTMLOptionElement);

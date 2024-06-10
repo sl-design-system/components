@@ -33,7 +33,7 @@
       {% if entry.title == 'Components' and entry.children | length %}
         <ul role="group"
             class="ds-sublist {% if page.url.includes(entry.url) %} ds-sublist--active{% endif %} {% if page.url == entry.url %} ds-menu--expanded{% endif %}">
-          {% for child in entry.children | sortByTitle("Overview") %}
+          {% for child in entry.children | sortByTitle('Overview') %}
             {% if child.url %}
             <li>
               <a class="ds-sublist__link{% if page.url.includes(child.url) %} ds-sublist__link--active{% endif %} {% if child.status == 'planned' %}ds-sublist__link--disabled{% endif %}"

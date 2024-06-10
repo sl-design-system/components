@@ -16,14 +16,15 @@
   },
   "wireit": {
     "themes": {
-      "command": "storybook build",
+      "command": "storybook build --stats-json -o storybook-static",
       "dependencies": [
         "..:build:components",
+        "..:build:examples",
         "..:build:themes"
       ]
     },
     "start": {
-      "command": "storybook dev -p 6006 --no-open --quiet",
+      "command": "storybook dev -p 6008 --no-open --quiet",
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
@@ -41,6 +42,7 @@
     "@storybook/web-components-vite": "^8.1.5",
     "lit": "^3.1.2",
     "storybook": "^8.1.5",
+    "storybook-addon-pseudo-states": "^3.1.1",
     "tslib": "^2.6.2",
     "typescript": "^5.4.5",
     "wireit": "^0.14.4"

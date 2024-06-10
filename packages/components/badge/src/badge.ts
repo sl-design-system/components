@@ -1,4 +1,4 @@
-import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
+import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './badge.scss.js';
 
@@ -8,7 +8,8 @@ declare global {
   }
 }
 
-export type BadgeSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+export type BadgeEmphasis = 'subtle' | 'bold';
+export type BadgeSize = 'md' | 'lg';
 export type BadgeVariant = 'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent';
 
 /**
@@ -21,8 +22,11 @@ export type BadgeVariant = 'neutral' | 'primary' | 'info' | 'danger' | 'success'
  * @slot default - Contents of the badge
  */
 export class Badge extends LitElement {
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
+
+  /** The emphasis of the badge; defaults to 'subtle'. */
+  @property({ reflect: true }) emphasis: BadgeEmphasis = 'subtle';
 
   /** The size of the badge component. */
   @property({ reflect: true }) size: BadgeSize = 'md';
@@ -30,7 +34,7 @@ export class Badge extends LitElement {
   /** The variant of the badge. */
   @property({ reflect: true }) variant: BadgeVariant = 'neutral';
 
-  override render(): TemplateResult | typeof nothing {
-    return this.size !== 'sm' ? html`<slot></slot>` : nothing;
+  override render(): TemplateResult {
+    return html`<slot></slot>`;
   }
 }

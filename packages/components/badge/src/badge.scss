@@ -1,53 +1,42 @@
 @use 'sass:map';
 
-$sizes: 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
 $variants: danger, success, info, warning, accent, neutral, primary;
-$icons: (
-  'md': '2xs',
-  'lg': '2xs',
-  'xl': 'xs',
-  '2xl': 'sm',
-  '3xl': 'sm'
-);
 
 :host {
   align-items: center;
-  background-color: var(--_badge-background-color);
-  block-size: var(--_badge-container-size);
+  block-size: var(--sl-size-badge-md);
   border-radius: var(--sl-border-radius-badge-full);
   box-sizing: border-box;
-  color: var(--_badge-text-color);
   display: inline-flex;
-  font: var(--_badge-font);
-  gap: var(--_gap);
-  min-inline-size: var(--_badge-container-size);
-  padding-inline: var(--_padding-badge-inline);
+  font: var(--sl-text-badge-text-md);
+  gap: var(--sl-space-badge-label-inline-md);
+  min-inline-size: var(--sl-size-badge-md);
+  padding-inline: var(--sl-space-badge-inline-md);
   text-transform: var(--sl-text-case-badge-text-transform);
   vertical-align: middle;
 }
 
 @each $variant in $variants {
   :host([variant='#{$variant}']) {
-    --_badge-background-color: var(--sl-color-badge-#{$variant}-background);
-    --_badge-text-color: var(--sl-color-badge-#{$variant}-foreground);
+    background: var(--sl-color-badge-subtle-#{$variant}-background);
+    color: var(--sl-color-badge-subtle-#{$variant}-foreground);
+  }
+
+  :host([variant='#{$variant}'][emphasis='bold']) {
+    background: var(--sl-color-badge-bold-#{$variant}-background);
+    color: var(--sl-color-badge-bold-#{$variant}-foreground);
   }
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_badge-container-size: var(--sl-size-badge-#{$size});
-    --_badge-font: var(--sl-text-badge-text-#{$size});
-    --_gap: calc(2 * var(--sl-space-badge-label-inline-#{$size}));
-    --_icon-container-size: var(--_icon-size);
-    --_icon-margin: calc(-1 * var(--sl-space-badge-label-inline-#{$size}));
-    --_icon-size: var(--sl-size-icon-#{map.get($icons, $size)});
-    --_padding-badge-inline: calc(var(--sl-space-badge-inline-#{$size}) + var(--sl-space-badge-label-inline-#{$size}));
-  }
+:host([size='lg']) {
+  block-size: var(--sl-size-badge-lg);
+  font: var(--sl-text-badge-text-lg);
+  gap: var(--sl-space-badge-label-inline-lg);
+  min-inline-size: var(--sl-size-badge-lg);
+  padding-inline: var(--sl-space-badge-inline-lg);
 }
 
 ::slotted(sl-icon) {
-  --sl-icon-size: var(--_icon-size);
-  --sl-icon-container-size: var(--_icon-container-size);
-
-  margin: var(--_icon-margin, 0);
+  --sl-icon-container-size: var(--sl-size-icon-2xs);
+  --sl-icon-size: var(--sl-size-icon-2xs);
 }

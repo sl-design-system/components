@@ -34,6 +34,11 @@ $variants: danger, success, info, warning, accent, neutral, primary;
   gap: var(--sl-space-badge-label-inline-lg);
   min-inline-size: var(--sl-size-badge-lg);
   padding-inline: var(--sl-space-badge-inline-lg);
+
+  ::slotted(sl-icon) {
+    --sl-icon-container-size: var(--sl-size-icon-xs);
+    --sl-icon-size: var(--sl-size-icon-xs);
+  }
 }
 
 ::slotted(sl-icon) {

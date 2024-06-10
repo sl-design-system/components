@@ -9,6 +9,10 @@ slot:not([name])::slotted(*) {
   margin-block-start: var(--_label-gap);
 }
 
+slot:not([name])::slotted(:is(sl-checkbox, sl-switch[reverse])) {
+  align-self: start;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;

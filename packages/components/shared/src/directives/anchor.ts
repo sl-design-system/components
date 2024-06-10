@@ -7,7 +7,7 @@ import {
   PartType,
   directive
 } from 'lit/directive.js';
-import { type PositionPopoverOptions, positionPopover } from '../popover.js';
+import { type PositionPopoverOptions, positionPopover, updatePopoverVisibility } from '../popover.js';
 
 declare global {
   interface HTMLElement {
@@ -23,6 +23,15 @@ export class AnchorDirective extends Directive {
   #cleanup?: () => void;
   #config?: AnchorDirectiveConfig;
   #host?: HTMLElement;
+  visible: boolean = true;
+
+  observer = new IntersectionObserver(
+    (entries, _) => {
+      const outOfView = entries.some(e => e.intersectionRatio < 0.5);
+      updatePopoverVisibility(this.#host, outOfView);
+    },
+    { threshold: 0.5 }
+  );
 
   constructor(partInfo: PartInfo) {
     super(partInfo);
@@ -55,10 +64,12 @@ export class AnchorDirective extends Directive {
       }
 
       if (anchorElement) {
+        this.observer.observe(anchorElement);
         this.#cleanup = positionPopover(host, anchorElement, this.#config);
       }
     } else if (this.#cleanup) {
       this.#cleanup();
+      this.observer.disconnect();
       this.#cleanup = undefined;
     }
   }

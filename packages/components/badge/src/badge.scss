@@ -4,13 +4,12 @@ $variants: danger, success, info, warning, accent, neutral, primary;
 
 :host {
   align-items: center;
-  block-size: var(--sl-size-badge-md);
   border-radius: var(--sl-border-radius-badge-full);
   box-sizing: border-box;
   display: inline-flex;
   font: var(--sl-text-badge-text-md);
   gap: var(--sl-space-badge-label-inline-md);
-  min-inline-size: var(--sl-size-badge-md);
+  min-inline-size: 1lh;
   padding-inline: var(--sl-space-badge-inline-md);
   text-transform: var(--sl-text-case-badge-text-transform);
   vertical-align: middle;
@@ -29,10 +28,8 @@ $variants: danger, success, info, warning, accent, neutral, primary;
 }
 
 :host([size='lg']) {
-  block-size: var(--sl-size-badge-lg);
   font: var(--sl-text-badge-text-lg);
   gap: var(--sl-space-badge-label-inline-lg);
-  min-inline-size: var(--sl-size-badge-lg);
   padding-inline: var(--sl-space-badge-inline-lg);
 
   ::slotted(sl-icon) {

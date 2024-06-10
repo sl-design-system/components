@@ -6,6 +6,7 @@ import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { FormInDialog } from '@sl-design-system/lit-examples';
 import '@sl-design-system/text-field/register.js';
+import { userEvent, within } from '@storybook/test';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
@@ -70,6 +71,28 @@ export const Basic: Story = {
 
 export const CloseButton: Story = {};
 
+export const All: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    // See https://storybook.js.org/docs/essentials/actions#automatically-matching-args to learn how to setup logging in the Actions panel
+    await userEvent.click(canvas.getByTestId('button'));
+  },
+  render: () => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      (event.target.nextElementSibling as Dialog).showModal();
+    };
+
+    return html` <sl-button fill="outline" size="md" @click=${onClick} data-testid="button">Show Dialog</sl-button>
+      <sl-dialog close-button disable-cancel>
+        <span slot="title">Title</span>
+        <span slot="subtitle">Subtitle</span>
+        Body text
+        <sl-button slot="actions" fill="ghost" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
+        <sl-button slot="actions" fill="solid" variant="primary" sl-dialog-close>Action</sl-button>
+      </sl-dialog>`;
+  }
+};
+
 export const DisableCancel: Story = {
   args: {
     body: 'You cannot close me by pressing the Escape key, or clicking the backdrop. This dialog also has no close button. The only way to close it is by clicking one of the action buttons.',
@@ -82,18 +105,7 @@ export const DisableCancel: Story = {
 
 export const FooterButtons: Story = {
   args: {
-    footerButtons: ({ reverse }) => html`
-      <style>
-        @media (min-width: 600px) {
-          sl-dialog::part(footer-bar) {
-            --sl-button-bar-align: space-between;
-            ${reverse ? '--sl-button-bar-direction-row: row-reverse;' : ''}
-          }
-          sl-button:first-of-type {
-            margin-inline-${reverse ? 'start' : 'end'}: auto;
-          }
-        }
-      </style>
+    footerButtons: () => html`
       <sl-button fill="ghost" slot="actions" variant="default" sl-dialog-close autofocus>Cancel</sl-button>
       <sl-button fill="outline" slot="actions" variant="primary" sl-dialog-close>Action 2</sl-button>
       <sl-button fill="solid" slot="actions" variant="primary" sl-dialog-close>Action</sl-button>

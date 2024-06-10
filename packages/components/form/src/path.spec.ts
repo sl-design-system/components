@@ -4,6 +4,7 @@ import { getValueByPath, setValueByPath } from './path.js';
 describe('path utils', () => {
   describe('getValueByPath', () => {
     it('should return undefined if the path does not exist', () => {
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
       expect(getValueByPath({}, 'foo')).to.be.undefined;
     });
 
@@ -20,6 +21,7 @@ describe('path utils', () => {
     });
 
     it('should return a value in a nested object in an array item', () => {
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
       expect(getValueByPath({ foo: [{ bar: 'baz' }] }, 'foo[0].bar')).to.equal('baz');
     });
   });

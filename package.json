@@ -101,6 +101,21 @@
       ]
     },
     "build:examples": {
+      "command": "node scripts/build-packages.js examples",
+      "clean": "if-file-deleted",
+      "dependencies": [
+        "build:examples:styles"
+      ],
+      "files": [
+        "examples/lit/**/*.ts",
+        "!examples/lit/**/*.d.ts"
+      ],
+      "output": [
+        "examples/lit/**/*.js",
+        "examples/lit/**/*.js.map"
+      ]
+    },
+    "build:examples:styles": {
       "command": "node scripts/build-styles.js 'examples/lit/**/*.scss'",
       "clean": "if-file-deleted",
       "files": [
@@ -366,7 +381,7 @@
       ]
     },
     "chromatic-components": {
-      "command": "storybook build",
+      "command": "storybook build --stats-json",
       "dependencies": [
         "build"
       ]
@@ -378,7 +393,7 @@
       ]
     },
     "storybook:build": {
-      "command": "storybook build -o dist --quiet",
+      "command": "storybook build -o dist --quiet --stats-json",
       "dependencies": [
         "dist"
       ]
@@ -427,6 +442,7 @@
     "@storybook/addon-a11y": "^8.1.2",
     "@storybook/addon-essentials": "^8.1.2",
     "@storybook/addon-storysource": "^8.1.2",
+    "@storybook/test": "^8.1.5",
     "@storybook/web-components-vite": "^8.1.2",
     "@types/chai-as-promised": "^7.1.8",
     "@types/mocha": "^10.0.6",

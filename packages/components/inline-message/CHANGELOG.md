@@ -1,5 +1,22 @@
 # @sl-design-system/inline-message
 
+## 0.3.0
+
+### Minor Changes
+
+- [#1234](https://github.com/sl-design-system/components/pull/1234) [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f) - Various improvements:
+  - Add new `action` slot
+  - Improve styling and layout
+  - Fix missing triangle exclamation icon
+  - Remove `noIcon` property due to worse a11y
+  - Remove `close-button` & `details` slots
+
+### Patch Changes
+
+- Updated dependencies [[`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805)]:
+  - @sl-design-system/icon@1.0.0
+  - @sl-design-system/button@1.0.0
+
 ## 0.2.8
 
 ### Patch Changes

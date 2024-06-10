@@ -1,5 +1,41 @@
 # @sl-design-system/form
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1285](https://github.com/sl-design-system/components/pull/1285) [`7167331`](https://github.com/sl-design-system/components/commit/716733139cab1d2d0387b7a40b6b36a5546b92cb) - Missing inline-message dependency for form-validation-errors component
+
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
+### Minor Changes
+
+- [#1241](https://github.com/sl-design-system/components/pull/1241) [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb) - Support composite form fields
+
+  The `<sl-form-field>` component now supports more than 1 form control. The first form control will be the main control and the rest will be secondary controls. Only the first control will be linked to the field's label and help text. If the first form control does not have a validation message, then the second form control that does will be used etc. This allows for more complex fields like a radio group, with an "other" option that enables a text field when selected.
+
+- [#1241](https://github.com/sl-design-system/components/pull/1241) [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb) - New Lit `FormController` for binding to the `<sl-form>` element
+
+  `FormController` is a new `ReactiveController` that you can use in your Lit components to bind to the `<sl-form>` element. It monitors any changes to the form's fields and controls and updates the form's validity state accordingly. This makes it easy to modify a component when the form changes state.
+
+- [#1241](https://github.com/sl-design-system/components/pull/1241) [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb) - New `<sl-form-validation-errors>` component
+
+- [#1241](https://github.com/sl-design-system/components/pull/1241) [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb) - Add pristine/dirty and untouched/touched state to form controls
+
+- [#1258](https://github.com/sl-design-system/components/pull/1258) [`ac092e1`](https://github.com/sl-design-system/components/commit/ac092e16d29d3a0e404f2a05dbc35a7774e7fd7e) - Various improvements:
+  - Add ability to set the form value using the `value` property on the form component
+  - Add ability to set the form value on the `FormController`
+  - Add ability to use nested & array names for form controls
+  - Properly unregister controls & fields when they are removed from the DOM
+
+### Patch Changes
+
+- [#1279](https://github.com/sl-design-system/components/pull/1279) [`0208c28`](https://github.com/sl-design-system/components/commit/0208c282f68d9eac64a6609c5213094c8df04202) - Fix for form control element errors after disconnect in unit tests
+
 ## 0.0.15
 
 ### Patch Changes

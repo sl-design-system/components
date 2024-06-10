@@ -1,5 +1,11 @@
 # @sl-design-system/popover
 
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
 ## 0.1.12
 
 ### Patch Changes

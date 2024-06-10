@@ -1,5 +1,15 @@
 # @sl-design-system/button
 
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
+### Minor Changes
+
+- [#1234](https://github.com/sl-design-system/components/pull/1234) [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f) - Add new `info` variant
+
 ## 0.0.28
 
 ### Patch Changes

@@ -18,7 +18,6 @@ export default {
   title: 'Components/Inline message',
   tags: ['preview'],
   args: {
-    body: 'The main content of the message',
     button: 'Action',
     variant: 'info'
   },
@@ -48,14 +47,13 @@ export default {
 
 export const Basic: Story = {
   args: {
-    title: 'Inline message title',
     body: 'The main content of the message'
   }
 };
 
 export const Details: Story = {
   args: {
-    ...Basic.args,
+    title: 'Inline message title',
     body: html`
       <style>
         p {
@@ -80,7 +78,8 @@ export const Details: Story = {
 
 export const Dynamic: Story = {
   args: {
-    ...Basic.args
+    ...Basic.args,
+    title: 'Dynamic inline message title'
   },
   render: ({ body, indismissible, title, variant }) => {
     const onAdd = (event: Event & { target: HTMLElement }): void => {
@@ -155,30 +154,42 @@ export const All: StoryObj = {
         text-transform: capitalize;
       }
     </style>
+    <sl-inline-message indismissible variant="info">The main content of the message</sl-inline-message>
+    <sl-inline-message variant="info">The main content of the message</sl-inline-message>
+    <sl-inline-message variant="info">
+      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
+      The main content of the message
+    </sl-inline-message>
+    <sl-inline-message indismissible variant="info">
+      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
+      The main content of the message
+    </sl-inline-message>
+    <sl-inline-message variant="info">
+      Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
+      Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
+    </sl-inline-message>
+    <sl-inline-message variant="info">
+      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
+      Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est sunt.
+      Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
+    </sl-inline-message>
+    <sl-inline-message variant="info">
+      <span slot="title">
+        "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
+      </span>
+      <sl-button fill="outline" slot="action" variant="info">Action</sl-button>
+      Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non consequat
+      eiusmod aliqua consequat Lorem eu culpa labore aute laboris eiusmod.
+    </sl-inline-message>
     ${variants.map(
       variant => html`
-        <sl-inline-message indismissible variant=${variant}>The main content of the message</sl-inline-message>
-        <sl-inline-message variant=${variant}>The main content of the message</sl-inline-message>
         <sl-inline-message variant=${variant}>
           <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
           The main content of the message
-        </sl-inline-message>
-        <sl-inline-message indismissible variant=${variant}>
-          <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
-          The main content of the message
-        </sl-inline-message>
-        <sl-inline-message variant=${variant}>
-          Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est
-          sunt. Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
-        </sl-inline-message>
-        <sl-inline-message variant=${variant}>
-          <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
-          Duis deserunt ad quis Lorem. Consectetur non deserunt fugiat consequat pariatur amet commodo velit ut est
-          sunt. Exercitation culpa ea officia fugiat culpa laborum sit fugiat esse proident.
         </sl-inline-message>
         <sl-inline-message variant=${variant}>
           <span slot="title">
-            ${variant} inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
+            "info" inline message title esse laboris nisi ut quis ullamco dolor elit do commodo ea mollit eu irure.
           </span>
           <sl-button fill="outline" slot="action" .variant=${variant}>Action</sl-button>
           Duis ut magna commodo minim cillum voluptate incididunt ea labore adipisicing do ad anim. Incididunt non

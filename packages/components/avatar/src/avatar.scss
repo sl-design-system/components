@@ -55,16 +55,16 @@ $statuses: danger, success, warning, accent, neutral, primary;
   border-radius: 50%;
 }
 
-:host([image-only]) [part='wrapper'] {
-  grid-template: 'picture' auto;
-}
-
 :host([size='sm']) [part='wrapper'] {
   grid-template: 'picture spacer name' auto / auto var(--_gap-inline) 1fr;
 
   [part='name'] {
     align-self: center;
   }
+}
+
+:host([image-only]) [part='wrapper'] {
+  grid-template: 'picture' auto;
 }
 
 :host([vertical]) [part='wrapper'] {

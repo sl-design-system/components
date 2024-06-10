@@ -1,6 +1,4 @@
 import { msg } from '@lit/localize';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Button } from '@sl-design-system/button';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { TextField } from '@sl-design-system/text-field';
 import { type CSSResultGroup, type TemplateResult, html, nothing } from 'lit';
@@ -26,15 +24,7 @@ export type SlSearchEvent = CustomEvent<string>;
  *
  * @slot input - The slot for the input element
  */
-export class SearchField extends ScopedElementsMixin(TextField) {
-  /** @internal */
-  static override get scopedElements(): ScopedElementsMap {
-    return {
-      ...TextField.scopedElements,
-      'sl-button': Button
-    };
-  }
-
+export class SearchField extends TextField {
   /** @internal */
   static override styles: CSSResultGroup = [TextField.styles, styles];
 
@@ -54,9 +44,9 @@ export class SearchField extends ScopedElementsMixin(TextField) {
   override renderSuffix(): TemplateResult | typeof nothing {
     return this.value && !this.disabled
       ? html`
-          <sl-button @click=${this.#onClick} aria-label=${msg('Clear text')} fill="ghost" size="sm">
+          <button @click=${this.#onClick} aria-label=${msg('Clear text')}>
             <sl-icon name="xmark"></sl-icon>
-          </sl-button>
+          </button>
         `
       : nothing;
   }
@@ -79,7 +69,7 @@ export class SearchField extends ScopedElementsMixin(TextField) {
     if (event.key === 'Enter') {
       event.preventDefault();
 
-      this.searchEvent.emit(this.value);
+      this.searchEvent.emit(this.value?.toString() ?? '');
     } else if (event.key === 'Escape') {
       event.preventDefault();
 

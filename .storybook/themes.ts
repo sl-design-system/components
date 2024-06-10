@@ -11,9 +11,7 @@ export const themes: Theme[] = [
   {
     id: 'bingel',
     name: 'Bingel',
-    fonts: [
-      'https://use.typekit.net/xrr8gdw.css'
-    ],
+    fonts: ['https://use.typekit.net/xps8gfu.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/bingel');
 
@@ -23,10 +21,7 @@ export const themes: Theme[] = [
   {
     id: 'bingel-dc',
     name: 'Bingel DC',
-    fonts: [
-      'https://use.typekit.net/ghy4rhf.css',
-      'https://use.typekit.net/xrr8gdw.css'
-    ],
+    fonts: ['https://use.typekit.net/ghy4rhf.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/bingel-dc');
 
@@ -36,9 +31,7 @@ export const themes: Theme[] = [
   {
     id: 'bingel-int',
     name: 'Bingel INT',
-    fonts: [
-      'https://use.typekit.net/xrr8gdw.css'
-    ],
+    fonts: ['https://use.typekit.net/qya8xxo.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/bingel-int');
 
@@ -61,9 +54,7 @@ export const themes: Theme[] = [
   {
     id: 'editorial-suite',
     name: 'Editorial Suite',
-    fonts: [
-      'https://use.typekit.net/bws3iof.css'
-    ],
+    fonts: ['https://use.typekit.net/bws3iof.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/editorial-suite');
 
@@ -73,9 +64,7 @@ export const themes: Theme[] = [
   {
     id: 'itslearning',
     name: 'itslearning',
-    fonts: [
-      'https://use.typekit.net/ucw7xel.css'
-    ],
+    fonts: ['https://use.typekit.net/ucw7xel.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/itslearning');
 
@@ -85,9 +74,7 @@ export const themes: Theme[] = [
   {
     id: 'kampus',
     name: 'Kampus',
-    fonts: [
-      'https://use.typekit.net/xrr8gdw.css'
-    ],
+    fonts: ['https://use.typekit.net/pva0jun.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/kampus');
 
@@ -110,9 +97,7 @@ export const themes: Theme[] = [
   {
     id: 'max',
     name: 'MAX Online',
-    fonts: [
-      'https://use.typekit.net/doq6twb.css'
-    ],
+    fonts: ['https://use.typekit.net/doq6twb.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/max');
 
@@ -123,7 +108,7 @@ export const themes: Theme[] = [
     id: 'my-digital-book',
     name: 'My Digital Book',
     fonts: [
-      'https://use.typekit.net/doq6twb.css',
+      'https://use.typekit.net/pdw7rxd.css',
       '/themes/my-digital-book/fonts.css'
     ],
     setup: async () => {
@@ -135,9 +120,7 @@ export const themes: Theme[] = [
   {
     id: 'myvanin',
     name: 'My Van In',
-    fonts: [
-      'https://use.typekit.net/doq6twb.css'
-    ],
+    fonts: ['https://use.typekit.net/qwk4gym.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/myvanin');
 
@@ -160,10 +143,7 @@ export const themes: Theme[] = [
   {
     id: 'nowa-era',
     name: 'Nowa Era',
-    fonts: [
-      'https://use.typekit.net/ghy4rhf.css',
-      'https://use.typekit.net/qod6igq.css'
-    ],
+    fonts: ['https://use.typekit.net/jrl0ltd.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/nowa-era');
 
@@ -186,9 +166,7 @@ export const themes: Theme[] = [
   {
     id: 'sanoma-utbildning',
     name: 'Sanoma Utbildning',
-    fonts: [
-      'https://use.typekit.net/xrr8gdw.css'
-    ],
+    fonts: ['https://use.typekit.net/zjd4wix.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/sanoma-utbildning');
 
@@ -198,9 +176,7 @@ export const themes: Theme[] = [
   {
     id: 'teas',
     name: 'TEAS',
-    fonts: [
-      'https://use.typekit.net/xrr8gdw.css',
-    ],
+    fonts: ['https://use.typekit.net/fgr4zwk.css'],
     setup: async () => {
       const { setup } = await import('@sl-design-system/teas');
 

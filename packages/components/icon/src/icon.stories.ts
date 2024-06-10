@@ -106,6 +106,38 @@ export default {
 type Story = StoryObj<Props>;
 
 export const Basic: Story = {};
+
+export const All: Story = {
+  render: () => {
+    const icons = Object.keys(window.SLDS?.icons);
+    console.log(icons, window.SLDS.icons);
+    if (icons.length === 0) {
+      setTimeout(() => {
+        addons.getChannel().emit(Events.UPDATE_STORY_ARGS, {
+          storyId,
+          updatedArgs: { icons: Object.keys(window.SLDS.icons) }
+        });
+      }, 200);
+    }
+    return html`
+      <style>
+        section {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, var(--sl-size-icon-3xl));
+          grid-auto-rows: var(--sl-size-icon-3xl);
+          gap: 8px;
+          justify-items: center;
+        }
+      </style>
+      <section class="copyable">
+        ${icons
+          // .filter(i => window.SLDS.icons[i].type !== 'RegisteredIcon')
+          .map(i => html`<sl-icon .name=${i} size="2xl" .label=${i} title=${i}></sl-icon>`)}
+      </section>
+    `;
+  }
+};
+
 export const AllIcons: Story = {
   render: ({ icons }) => {
     if (icons.length === 0) {

@@ -1,6 +1,7 @@
+import '@sl-design-system/badge/register.js';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { html } from 'lit';
+import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type Avatar } from './avatar.js';
@@ -8,18 +9,9 @@ import { type AvatarSize } from './models.js';
 
 type Props = Pick<
   Avatar,
-  | 'badgeText'
-  | 'displayInitials'
-  | 'displayName'
-  | 'fallback'
-  | 'href'
-  | 'imageOnly'
-  | 'label'
-  | 'pictureUrl'
-  | 'size'
-  | 'status'
-  | 'vertical'
+  'displayInitials' | 'displayName' | 'href' | 'imageOnly' | 'pictureUrl' | 'size' | 'status' | 'vertical'
 > & {
+  badge?: TemplateResult;
   subheading?: string;
   tabIndex?: number;
 };
@@ -39,12 +31,10 @@ export default {
     subheading: ''
   },
   argTypes: {
-    badgeText: {
-      control: 'text'
-    },
-    fallback: {
-      control: 'inline-radio',
-      options: ['image', 'initials']
+    badge: {
+      table: {
+        disable: true
+      }
     },
     href: {
       control: 'text'
@@ -62,13 +52,11 @@ export default {
     }
   },
   render: ({
-    badgeText,
+    badge,
     displayInitials,
     displayName,
-    fallback,
     href,
     imageOnly,
-    label,
     pictureUrl,
     size,
     status,
@@ -79,20 +67,18 @@ export default {
     return html`
       <div style="max-width:175px;">
         <sl-avatar
-          .badgeText=${badgeText}
           .displayInitials=${displayInitials}
           .displayName=${displayName}
-          .fallback=${fallback}
           .href=${href}
-          .label=${label}
           .pictureUrl=${pictureUrl}
           .size=${size}
           .status=${status}
           ?image-only=${imageOnly}
           ?vertical=${vertical}
           tabindex=${ifDefined(tabIndex)}
-          >${subheading}</sl-avatar
         >
+          ${subheading} ${badge ?? nothing}
+        </sl-avatar>
       </div>
     `;
   }
@@ -102,8 +88,9 @@ export const Basic: Story = {};
 
 export const Badge: Story = {
   args: {
-    badgeText: '34',
-    label: '{{badgeText}} unread messages'
+    badge: html`<sl-badge size="lg" slot="badge"><sl-icon name="check"></sl-icon></sl-badge>`,
+    size: '3xl'
+    // label: '{{badgeText}} unread messages'
   }
 };
 
@@ -116,7 +103,6 @@ export const Href: Story = {
 
 export const ImageFallback: Story = {
   args: {
-    fallback: 'image',
     pictureUrl: undefined
   }
 };
@@ -131,7 +117,7 @@ export const ImageOnlyWithFocus: Story = {
 
 export const InitialsFallback: Story = {
   args: {
-    fallback: 'initials',
+    // fallback: 'initials',
     pictureUrl: undefined
   }
 };
@@ -154,7 +140,7 @@ export const Overflow: Story = {
 
 export const Status: Story = {
   args: {
-    badgeText: '34',
+    // badgeText: '34',
     status: 'accent'
   }
 };

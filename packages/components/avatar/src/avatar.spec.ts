@@ -2,7 +2,7 @@ import { expect, fixture } from '@open-wc/testing';
 import { Config, ConfigSettings } from '@sl-design-system/shared';
 import { html } from 'lit';
 import '../register.js';
-import { type Avatar } from './avatar.js';
+import { type Avatar } from './avatar.bak.js';
 
 const users = [
   {

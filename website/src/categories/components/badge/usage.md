@@ -85,7 +85,7 @@ Understanding when to use subtle and bold emphasis for badge components is cruci
     </div>
     <figcaption>
 
-### Bold (When it needs to stand out)
+### Bold
 Reserve bold emphasis for situations where the information conveyed by the badge is crucial or demands immediate attention. This could include urgent notifications, critical alerts, or high-priority indicators.
 
 

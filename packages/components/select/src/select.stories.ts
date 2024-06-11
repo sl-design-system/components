@@ -44,11 +44,6 @@ export default {
     };
 
     return html`
-      <style>
-        #root-inner {
-          height: 120vh;
-        }
-      </style>
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           ${slot?.() ??
@@ -305,6 +300,69 @@ export const CustomAsyncValidity: Story = {
         </sl-select>
       `;
     }
+  }
+};
+
+export const HideWhenOutOfView: StoryObj = {
+  render: () => {
+    return html`
+      <style>
+        #root-inner {
+          min-height: 150vh;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        header {
+          background: var(--sl-color-palette-accent-100);
+          position: sticky;
+          top: 0;
+          padding: 24px;
+          z-index: 2;
+        }
+
+        .container {
+          height: 400px;
+          overflow: auto;
+          margin-top: 24px;
+          border: 1px solid var(--sl-color-palette-neutral-200);
+        }
+        .scrollcontent {
+          height: 800px;
+          padding: 16px;
+        }
+      </style>
+      <header>Sticky header</header>
+      <sl-form-field hint="This will hide when the whole page" label="Window scroll">
+        <sl-select>
+          <sl-select-option value="1">Option 1</sl-select-option>
+          <sl-select-option value="2">Option 2</sl-select-option>
+          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-select-option value="4">Option 4</sl-select-option>
+          <sl-select-option value="5">Option 5</sl-select-option>
+          <sl-select-option value="6">Option 6</sl-select-option>
+        </sl-select>
+      </sl-form-field>
+
+      <div class="container">
+        <div class="scrollcontent">
+          <sl-form-field
+            hint="This will hide when the container is scrolled AND when the window is scrolled"
+            label="Container scroll"
+          >
+            <sl-select>
+              <sl-select-option value="1">Option 1</sl-select-option>
+              <sl-select-option value="2">Option 2</sl-select-option>
+              <sl-select-option value="3">Option 3</sl-select-option>
+              <sl-select-option value="4">Option 4</sl-select-option>
+              <sl-select-option value="5">Option 5</sl-select-option>
+              <sl-select-option value="6">Option 6</sl-select-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      </div>
+    `;
   }
 };
 

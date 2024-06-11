@@ -302,3 +302,34 @@ export const Vertical: Story = {
     vertical: true
   }
 };
+
+export const All: Story = {
+  render: () => html`
+    <sl-tab-group>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        Tab 1
+        <span slot="subtitle">Tab 1 subtitle</span>
+      </sl-tab>
+      <sl-tab> Tab 2 </sl-tab>
+      <sl-tab>
+        Tab 3
+        <span slot="subtitle">Tab 3 subtitle</span>
+        <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
+      </sl-tab>
+    </sl-tab-group>
+    <sl-tab-group vertical>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+        Tab 1
+        <span slot="subtitle">Tab 1 subtitle</span>
+      </sl-tab>
+      <sl-tab> Tab 2 </sl-tab>
+      <sl-tab>
+        Tab 3
+        <span slot="subtitle">Tab 3 subtitle</span>
+        <sl-badge slot="badge" size="lg" variant="danger">100</sl-badge>
+      </sl-tab>
+    </sl-tab-group>
+  `
+};

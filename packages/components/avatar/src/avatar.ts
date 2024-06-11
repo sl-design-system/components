@@ -118,15 +118,15 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   #onResize(): void {
     const badgeMargin = parseInt(getComputedStyle(this).getPropertyValue('--_badge-margin') || '0'),
       badgeRect = this.badge!.getBoundingClientRect(),
-      { width: badgeWidth, height: badgeHeight } = badgeRect,
+      badgeHeight = badgeRect.height,
       pictureRect = this.renderRoot.querySelector('[part="picture"]')!.getBoundingClientRect(),
       pictureSize = pictureRect.width,
       cutoutTop = badgeRect.top - pictureRect.top - badgeMargin,
       cutoutRight = pictureSize - badgeHeight / 2 + 1,
-      cutoutLeft = Math.ceil(badgeRect.left - pictureRect.left - badgeMargin + badgeHeight / 2) + 1,
-      cutoutBottom = cutoutTop + badgeHeight + 2 * badgeMargin;
+      cutoutBottom = cutoutTop + badgeHeight + 2 * badgeMargin,
+      cutoutLeft = Math.ceil(badgeRect.left - pictureRect.left - badgeMargin + badgeHeight / 2) + 1;
 
-    if (badgeWidth && pictureSize) {
+    if (badgeHeight && pictureSize) {
       this.clipPath = `path('M 0 0 L ${pictureSize} 0 L ${pictureSize} ${pictureSize} L 0 ${pictureSize} L 0 0 M ${cutoutLeft} ${cutoutTop} A 1 1 0 0 0 ${cutoutLeft} ${cutoutBottom} L ${cutoutRight} ${cutoutBottom} A 1 1 0 0 0 ${cutoutRight} ${cutoutTop} L ${cutoutLeft} ${cutoutTop} Z')`;
     } else {
       this.clipPath = undefined;

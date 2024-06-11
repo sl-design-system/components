@@ -63,6 +63,37 @@ Badges serve as visual cues to convey information without requiring user interac
 
 <section>
 
+## Emphasis
+Understanding when to use subtle and bold emphasis for badge components is crucial for effective user interface design. Badges serve as visual cues to convey various types of information, ranging from minor details to critical alerts.
+
+<section class="ds-cards">
+  <figure>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      <sl-button fill="solid" variant="primary" size="lg">Solid</sl-button>
+    </div>
+    <figcaption>
+
+  ### Subtle (default)
+  Use subtle emphasis when the information conveyed by the badge is important but not critical. This could include supplementary details, status indicators, or minor distinctions.
+</figcaption>
+  </figure>
+  <figure>
+    <div class="ds-example">
+      <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
+      preview subtle badge
+    </div>
+    <figcaption>
+
+### Bold (When it needs to stand out)
+Reserve bold emphasis for situations where the information conveyed by the badge is crucial or demands immediate attention. This could include urgent notifications, critical alerts, or high-priority indicators.
+
+
+</section>
+
+
+<section>
+
 ## Options
 
 With these options, you can tweak the appearance of the badge in Figma. They are available in the Design Panel so you can compose the badge to exactly fit the user experience need for the use case you are working on.

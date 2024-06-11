@@ -14,7 +14,6 @@ declare global {
 }
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
-export type AvatarStatus = 'danger' | 'success' | 'warning' | 'accent' | 'neutral' | 'primary';
 
 export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -57,9 +56,6 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   /** The size of the avatar. */
   @property({ reflect: true }) size: AvatarSize = 'md';
 
-  /** Optional user status to show. */
-  @property({ reflect: true }) status?: AvatarStatus;
-
   /** If true, will display the name below the image. */
   @property({ type: Boolean, reflect: true }) vertical?: boolean;
 
@@ -72,7 +68,7 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
-    if (changes.has('displayInitials')) {
+    if (changes.has('displayName') || changes.has('displayInitials')) {
       if (this.displayInitials) {
         this.initials = this.displayInitials;
       } else if (this.displayName) {

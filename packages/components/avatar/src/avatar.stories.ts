@@ -9,9 +9,10 @@ import { type AvatarSize } from './models.js';
 
 type Props = Pick<
   Avatar,
-  'displayInitials' | 'displayName' | 'href' | 'imageOnly' | 'pictureUrl' | 'size' | 'status' | 'vertical'
+  'displayInitials' | 'displayName' | 'href' | 'imageOnly' | 'pictureUrl' | 'size' | 'vertical'
 > & {
   badge?: TemplateResult;
+  fallback?: TemplateResult;
   subheading?: string;
   tabIndex?: number;
 };
@@ -28,10 +29,16 @@ export default {
     pictureUrl:
       'https://images.unsplash.com/photo-1699412958387-2fe86d46d394?q=80&w=188&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     size: 'md',
-    subheading: ''
+    subheading: '',
+    vertical: false
   },
   argTypes: {
     badge: {
+      table: {
+        disable: true
+      }
+    },
+    fallback: {
       table: {
         disable: true
       }
@@ -42,24 +49,17 @@ export default {
     size: {
       control: 'inline-radio',
       options: sizes
-    },
-    status: {
-      control: 'inline-radio',
-      options: ['danger', 'success', 'warning', 'accent', 'neutral', 'primary']
-    },
-    vertical: {
-      control: 'boolean'
     }
   },
   render: ({
     badge,
     displayInitials,
     displayName,
+    fallback,
     href,
     imageOnly,
     pictureUrl,
     size,
-    status,
     subheading,
     tabIndex,
     vertical
@@ -72,12 +72,11 @@ export default {
           .href=${href}
           .pictureUrl=${pictureUrl}
           .size=${size}
-          .status=${status}
           ?image-only=${imageOnly}
           ?vertical=${vertical}
           tabindex=${ifDefined(tabIndex)}
         >
-          ${subheading} ${badge ?? nothing}
+          ${subheading} ${badge ?? nothing} ${fallback ?? nothing}
         </sl-avatar>
       </div>
     `;
@@ -88,11 +87,8 @@ export const Basic: Story = {};
 
 export const Badge: Story = {
   args: {
-    badge: html`<sl-badge emphasis="bold" size="lg" slot="badge" variant="warning"
-      ><sl-icon name="check"></sl-icon>1</sl-badge
-    >`,
-    size: '3xl'
-    // label: '{{badgeText}} unread messages'
+    badge: html`<sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning">1</sl-badge>`,
+    size: 'xl'
   }
 };
 
@@ -103,7 +99,14 @@ export const Href: Story = {
   }
 };
 
-export const ImageFallback: Story = {
+export const FallbackImage: Story = {
+  args: {
+    fallback: html`<sl-icon name="face-smile" slot="fallback"></sl-icon>`,
+    pictureUrl: undefined
+  }
+};
+
+export const FallbackInitials: Story = {
   args: {
     pictureUrl: undefined
   }
@@ -114,13 +117,6 @@ export const ImageOnlyWithFocus: Story = {
     imageOnly: true,
     size: 'xl',
     tabIndex: 0
-  }
-};
-
-export const InitialsFallback: Story = {
-  args: {
-    // fallback: 'initials',
-    pictureUrl: undefined
   }
 };
 
@@ -140,13 +136,6 @@ export const Overflow: Story = {
   }
 };
 
-export const Status: Story = {
-  args: {
-    // badgeText: '34',
-    status: 'accent'
-  }
-};
-
 export const Subheading: Story = {
   args: {
     subheading: 'Subheading'
@@ -163,27 +152,6 @@ export const Vertical: Story = {
 
 export const All: StoryObj = {
   render: () => {
-    const sizeName = (size: string): string => {
-      switch (size) {
-        case 'sm':
-          return 'Small';
-        case 'md':
-          return 'Medium';
-        case 'lg':
-          return 'Large';
-        case 'xl':
-          return 'Extra Large';
-        case '2xl':
-          return '2 Extra Large';
-        case '3xl':
-          return '3 Extra Large';
-        case '4xl':
-          return '4 Extra Large';
-        default:
-          return 'Extra Small';
-      }
-    };
-
     const users: Array<{ name: string; picture?: string }> = [
       {
         name: 'Yousef van der Schaaf',
@@ -216,9 +184,6 @@ export const All: StoryObj = {
           margin-bottom: 24px;
         }
 
-        th {
-          text-transform: capitalize;
-        }
         th,
         td {
           padding: 4px 8px;
@@ -230,7 +195,7 @@ export const All: StoryObj = {
         <thead>
           <tr>
             <th></th>
-            ${sizes.map(size => html`<th>${sizeName(size)}</th>`)}
+            ${sizes.map(size => html`<th>${size}</th>`)}
           </tr>
         </thead>
         <tbody>
@@ -293,21 +258,13 @@ export const All: StoryObj = {
             )}
           </tr>
           <tr>
-            <td>Status</td>
-            ${sizes.map(
-              size => html`
-                <td>
-                  <sl-avatar .displayName=${users[3].name} .size=${size} image-only status="success"></sl-avatar>
-                </td>
-              `
-            )}
-          </tr>
-          <tr>
             <td>Badge</td>
             ${sizes.map(
               size => html`
                 <td>
-                  <sl-avatar .displayName=${users[3].name} .size=${size} image-only badge-text="34"></sl-avatar>
+                  <sl-avatar .displayName=${users[3].name} .size=${size} image-only>
+                    <sl-badge aria-label="1 unread message" emphasis="bold" slot="badge" variant="warning">1</sl-badge>
+                  </sl-avatar>
                 </td>
               `
             )}

@@ -117,16 +117,22 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
 
   #onResize(): void {
     const badgeMargin = parseInt(getComputedStyle(this).getPropertyValue('--_badge-margin') || '0'),
-      badgeRect = this.badge!.getBoundingClientRect(),
-      badgeHeight = badgeRect.height,
-      pictureRect = this.renderRoot.querySelector('[part="picture"]')!.getBoundingClientRect(),
-      pictureSize = pictureRect.width,
-      cutoutTop = badgeRect.top - pictureRect.top - badgeMargin,
-      cutoutRight = pictureSize - badgeHeight / 2 + 1,
+      { top: badgeTop, width: badgeWidth, height: badgeHeight } = this.badge!.getBoundingClientRect(),
+      badgeRadius = badgeHeight / 2,
+      { top: pictureTop, width: pictureSize } = this.renderRoot
+        .querySelector('[part="picture"]')!
+        .getBoundingClientRect();
+
+    // Calculate the bounds of the cutout path for the badge
+    const cutoutTop = badgeTop - pictureTop - badgeMargin,
+      cutoutRight = pictureSize - badgeRadius,
       cutoutBottom = cutoutTop + badgeHeight + 2 * badgeMargin,
-      cutoutLeft = Math.ceil(badgeRect.left - pictureRect.left - badgeMargin + badgeHeight / 2) + 1;
+      cutoutLeft = cutoutRight - badgeWidth + badgeRadius * 2;
 
     if (badgeHeight && pictureSize) {
+      // First draws a rectangle with the same size of the avatar image in clockwise direction,
+      // then draws a round/pill shape with the same size of the badge + a margin around the badge,
+      // in counter-clockwise direction. The change in direction creates a cutout path.
       this.clipPath = `path('M 0 0 L ${pictureSize} 0 L ${pictureSize} ${pictureSize} L 0 ${pictureSize} L 0 0 M ${cutoutLeft} ${cutoutTop} A 1 1 0 0 0 ${cutoutLeft} ${cutoutBottom} L ${cutoutRight} ${cutoutBottom} A 1 1 0 0 0 ${cutoutRight} ${cutoutTop} L ${cutoutLeft} ${cutoutTop} Z')`;
     } else {
       this.clipPath = undefined;

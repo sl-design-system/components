@@ -3767,7 +3767,8 @@
       "elevation.shadow.md": "S:6c6b7be431ee9c61fc4d751714e9bdf60eb9e59a,",
       "elevation.shadow.lg": "S:5b2c5d6f3520d11f43b8e98c29a15c9febd64392,",
       "elevation.shadow.none": "S:e17c5477d4b7781ef9b589de71198d749f36f3cd,",
-      "boxShadow.slds.checklist": "S:1b286691b70766e46ad6eae6feb071f3e3b6c264,"
+      "boxShadow.slds.checklist": "S:1b286691b70766e46ad6eae6feb071f3e3b6c264,",
+      "color.palette.primary.25": "S:698c81d955d82fe0f67122cb58ec1efc0a951207,"
     }
   },
   {

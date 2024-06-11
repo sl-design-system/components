@@ -10,7 +10,6 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Search field
-  order: 17
   status: planned
 ---
 

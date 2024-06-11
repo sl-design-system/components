@@ -12,7 +12,6 @@ storybookCategory: overlay
 eleventyNavigation:
   parent: Components
   key: Popover
-  order: 19
   status: ready
 ---
 

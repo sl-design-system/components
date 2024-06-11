@@ -12,6 +12,5 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Button
-  order: 6
   status: ready
 ---

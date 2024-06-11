@@ -13,7 +13,6 @@ storybookComponentName: form-field
 eleventyNavigation:
   parent: Components
   key: Form field
-  order: 14
   status: ready
 ---
 

@@ -3,7 +3,6 @@ title: Overlays
 eleventyNavigation:
   parent: Guidelines
   key: Overlays
-  order: 5
 ---
 
 <header class="ds-tokens__main-heading">

@@ -10,6 +10,5 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Button bar
-  order: 7
   status: planned
 ---

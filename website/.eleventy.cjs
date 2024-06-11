@@ -34,6 +34,12 @@ module.exports = function(eleventyConfig) {
     return JSON.stringify(value, null, 2);
   });
 
+  eleventyConfig.addFilter("sortByTitle", function (arr, exclude) {
+    const excluded = arr.filter(elem => elem.title.toLowerCase() === exclude.toLowerCase());
+    const filtered = JSON.parse(JSON.stringify(arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))));
+    return [...excluded, ...filtered];
+  });
+
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {
     const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
 

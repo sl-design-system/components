@@ -71,7 +71,8 @@ With these options, you can tweak the appearance of the badge in Figma. They are
   
 |Item|Options|Description|
 |-|-|-|
-|Size|`sm` `md` `lg` `xl` `2xl` `3xl`|Description|
+|Size|`md` `lg`|Indicates the size of the badge|
+|Emphasis|`subtle` `bold`|Indicates the emphasis the badge should have, with subtle being the default.|
 |Variant|`primary` `accent` `neutral` `success` `info` `warning` `danger`|The badge offers seven distinct intents, each conveying a unique tone to the user.|
 |Show label|`boolean`|The option to turn the label on or off|
 |Label|`option`|Displays the text of the label|

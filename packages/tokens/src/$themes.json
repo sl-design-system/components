@@ -13985,7 +13985,7 @@
       "text.badge.text.xl": "S:3a9e0941a2f8aa3a731a3607f86bf5989a23873c,"
     },
     "selectedTokenSets": {
-      "core": "source",
+      "core": "enabled",
       "editorial-suite/base": "enabled",
       "editorial-suite/light": "enabled"
     }

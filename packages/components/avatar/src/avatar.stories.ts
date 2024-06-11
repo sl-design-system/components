@@ -88,7 +88,7 @@ export const Basic: Story = {};
 
 export const Badge: Story = {
   args: {
-    badge: html`<sl-badge size="lg" slot="badge"><sl-icon name="check"></sl-icon></sl-badge>`,
+    badge: html`<sl-badge size="lg" slot="badge">1234</sl-badge>`,
     size: '3xl'
     // label: '{{badgeText}} unread messages'
   }

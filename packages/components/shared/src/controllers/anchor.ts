@@ -1,3 +1,4 @@
+import { Tooltip } from '@sl-design-system/tooltip';
 import { type ReactiveController, type ReactiveControllerHost } from 'lit';
 import { type PopoverPosition, type PositionPopoverOptions, isPopoverOpen, positionPopover } from '../popover.js';
 
@@ -96,6 +97,8 @@ export class AnchorController implements ReactiveController {
       anchorElement = (this.#host.getRootNode() as HTMLElement)?.querySelector(`#${this.#host.getAttribute('anchor')}`);
     }
 
+    console.log('anchorElement', anchorElement);
+
     return anchorElement;
   }
 
@@ -126,13 +129,26 @@ export class AnchorController implements ReactiveController {
     // If the anchor element is a button, we need to set the `popover-opened` attribute
     // TODO: Figure out whether we want to keep doing this. And if so, perhaps not just
     // for buttons?
-    if (anchorElement?.tagName === 'SL-BUTTON') {
+    console.log(
+      { anchorElement },
+      'expanded: ',
+      expanded,
+      'host: ',
+      this.#host,
+      'host is a tooltp?',
+      this.#host.matches('sl-tooltip'),
+      'instance of? ....',
+      this.#host instanceof Tooltip
+    );
+    if (anchorElement?.tagName === 'SL-BUTTON' && !this.#host.matches('sl-tooltip')) {
       if (expanded) {
+        console.log('in if popover');
         anchorElement.setAttribute('popover-opened', '');
         if (!hasRichContent && !this.#host.hasAttribute('no-describedby')) {
           anchorElement?.setAttribute('aria-describedby', this.#host.id);
         }
       } else {
+        console.log('in else popover');
         anchorElement.removeAttribute('popover-opened');
         anchorElement?.removeAttribute('aria-describedby');
       }

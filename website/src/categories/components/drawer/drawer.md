@@ -10,7 +10,6 @@ eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Components
   key: Drawer
-  order: 11
   status: coming
 ---
 

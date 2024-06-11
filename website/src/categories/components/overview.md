@@ -7,7 +7,6 @@ layout: "categories/components/components-overview.njk"
 eleventyNavigation:
   parent: Components
   key: Overview
-  order: 1
 ---
 
 Content rendered by: `components-overview.njk`

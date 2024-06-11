@@ -55,3 +55,14 @@ export const CustomMessage: Story = {
     message: html`You can <em>customize</em> the message with <strong>HTML</strong>!`
   }
 };
+
+export const All: Story = {
+  parameters: { chromatic: { delay: 300 } },
+  render: () => {
+    setTimeout(() => {
+      void MessageDialog.alert('Alert dialog content');
+    });
+
+    return html`Dialog should have openend by now`;
+  }
+};

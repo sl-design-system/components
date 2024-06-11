@@ -110,14 +110,14 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
         : html`
             <sl-tooltip id="avatar-tooltip">${this.displayName}</sl-tooltip>
             <span part="name">${this.displayName}</span>
-            <slot class="subheader"></slot>
+            <slot></slot>
           `}
     `;
   }
 
   #onResize(): void {
     const badgeMargin = parseInt(getComputedStyle(this).getPropertyValue('--_badge-margin') || '0'),
-      { top: badgeTop, width: badgeWidth, height: badgeHeight } = this.badge!.getBoundingClientRect(),
+      { top: badgeTop = 0, width: badgeWidth = 0, height: badgeHeight = 0 } = this.badge?.getBoundingClientRect() ?? {},
       badgeRadius = badgeHeight / 2,
       { top: pictureTop, width: pictureSize } = this.renderRoot
         .querySelector('[part="picture"]')!

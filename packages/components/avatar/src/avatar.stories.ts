@@ -100,7 +100,9 @@ export const FallbackContent: Story = {
   args: {
     displayName: 'Bluebell Secondary School',
     fallback: html`<sl-icon name="far-school" slot="fallback"></sl-icon>`,
-    pictureUrl: undefined
+    pictureUrl: undefined,
+    size: 'xl',
+    subheading: '1432 students'
   }
 };
 

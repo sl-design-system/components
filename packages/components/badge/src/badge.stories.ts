@@ -26,7 +26,7 @@ export default {
     },
     size: {
       control: 'inline-radio',
-      options: ['md', 'lg']
+      options: ['sm', 'md', 'lg']
     },
     variant: {
       control: 'radio',
@@ -72,8 +72,10 @@ export const All: Story = {
           </tr>
           <tr>
             <th></th>
+            <th>sm</th>
             <th>md</th>
             <th>lg</th>
+            <th>sm</th>
             <th>md</th>
             <th>lg</th>
           </tr>
@@ -83,6 +85,9 @@ export const All: Story = {
             variant => html`
               <tr>
                 <td>${variant}</td>
+                <td>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="sm"></sl-badge>
+                </td>
                 <td>
                   <sl-badge .variant=${variant} emphasis="subtle" size="md">8</sl-badge>
                   <sl-badge .variant=${variant} emphasis="subtle" size="md">
@@ -102,6 +107,9 @@ export const All: Story = {
                     <sl-icon name="check"></sl-icon> Status
                   </sl-badge>
                   <sl-badge .variant=${variant} emphasis="subtle" size="lg">Status</sl-badge>
+                </td>
+                <td>
+                  <sl-badge .variant=${variant} emphasis="bold" size="sm"></sl-badge>
                 </td>
                 <td>
                   <sl-badge .variant=${variant} emphasis="bold" size="md">8</sl-badge>

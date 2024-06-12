@@ -9,7 +9,7 @@ declare global {
 }
 
 export type BadgeEmphasis = 'subtle' | 'bold';
-export type BadgeSize = 'md' | 'lg';
+export type BadgeSize = 'sm' | 'md' | 'lg';
 export type BadgeVariant = 'neutral' | 'primary' | 'info' | 'danger' | 'success' | 'warning' | 'accent';
 
 /**

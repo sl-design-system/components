@@ -5,21 +5,23 @@ eleventyNavigation:
   parent: Badge
   key: BadgeUsage
 ---
-<section>  
+<section>
 <div class="ds-example" style="gap: 3rem;">
+<sl-badge emphasis="bold" size="sm" variant="danger"></sl-badge>
+<sl-badge><sl-icon name="check"></sl-icon></sl-badge>
 <sl-badge>99+</sl-badge>
-<sl-badge size="sm" variant="danger"></sl-badge>
-<sl-badge size="3xl" variant="info"><sl-icon name="face-smile"></sl-icon>Student</sl-badge>
-<sl-badge size="2xl" variant="success">English teacher</sl-badge>
+<sl-badge size="lg" variant="info"><sl-icon name="face-smile"></sl-icon>Student</sl-badge>
+<sl-badge size="lg" variant="success">English teacher</sl-badge>
 </div>
 
 <div class="ds-code">
 
   ```html
+    <sl-badge emphasis="bold" size="sm" variant="danger"></sl-badge>
+    <sl-badge><sl-icon name="check"></sl-icon></sl-badge>
     <sl-badge>99+</sl-badge>
-    <sl-badge size="sm" variant="danger"></sl-badge>
-    <sl-badge size="3xl" variant="info"><sl-icon name="face-smile"></sl-icon>Student</sl-badge>
-    <sl-badge size="2xl" variant="success">English teacher</sl-badge>
+    <sl-badge size="lg" variant="info"><sl-icon name="face-smile"></sl-icon>Student</sl-badge>
+    <sl-badge size="lg" variant="success">English teacher</sl-badge>
   ```
 </div>
 
@@ -39,7 +41,10 @@ Badges are an effective way to highlight new notifications, important content, o
 ## When not to use
 
 ### Don't use badges as a interactive status indicators
-Badges serve as visual cues to convey information without requiring user interaction. 
+Badges serve as visual cues to convey information without requiring user interaction.
+
+### Don't use the small size
+The small size of the badge is only meant to be used in combination with the avatar component. Do not use it for other purposes.
 
 </section>
 
@@ -99,10 +104,10 @@ Reserve bold emphasis for situations where the information conveyed by the badge
 With these options, you can tweak the appearance of the badge in Figma. They are available in the Design Panel so you can compose the badge to exactly fit the user experience need for the use case you are working on.
 
 <div class="ds-table-wrapper">
-  
+
 |Item|Options|Description|
 |-|-|-|
-|Size|`md` `lg`|Indicates the size of the badge|
+|Size|`sm` `md` `lg`|Indicates the size of the badge|
 |Emphasis|`subtle` `bold`|Indicates the emphasis the badge should have, with subtle being the default.|
 |Variant|`primary` `accent` `neutral` `success` `info` `warning` `danger`|The badge offers seven distinct intents, each conveying a unique tone to the user.|
 |Show label|`boolean`|The option to turn the label on or off|

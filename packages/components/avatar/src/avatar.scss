@@ -2,6 +2,7 @@
   --_badge-inset: var(--sl-space-avatar-badge-inset-md);
   --_badge-margin: var(--sl-space-avatar-badge-margin);
   --_block-gap: var(--sl-space-avatar-block-md);
+  --_icon-size: var(--sl-size-icon-md);
   --_inline-gap: var(--sl-space-avatar-inline-md);
   --_heading-font: var(--sl-text-avatar-header-md);
   --_initials-font: var(--sl-text-avatar-initials-md);
@@ -24,9 +25,7 @@
   --_block-gap: var(--sl-space-avatar-block-sm);
   --_inline-gap: var(--sl-space-avatar-inline-sm);
   --_heading-font: var(--sl-text-avatar-header-sm);
-  --_initials-font: var(--sl-text-avatar-initials-sm);
   --_picture-size: var(--sl-size-avatar-sm);
-  --_subheading-font: var(--sl-text-avatar-subheader-sm);
 
   [part='wrapper'] {
     grid-template: 'picture spacer name' auto / auto var(--_inline-gap) 1fr;
@@ -44,6 +43,7 @@
 :host([size='lg']) {
   --_badge-inset: var(--sl-space-avatar-badge-inset-lg);
   --_block-gap: var(--sl-space-avatar-block-lg);
+  --_icon-size: var(--sl-size-icon-lg);
   --_inline-gap: var(--sl-space-avatar-inline-lg);
   --_heading-font: var(--sl-text-avatar-header-lg);
   --_initials-font: var(--sl-text-avatar-initials-lg);
@@ -54,6 +54,7 @@
 :host([size='xl']) {
   --_badge-inset: var(--sl-space-avatar-badge-inset-xl);
   --_block-gap: var(--sl-space-avatar-block-xl);
+  --_icon-size: var(--sl-size-icon-xl);
   --_inline-gap: var(--sl-space-avatar-inline-xl);
   --_heading-font: var(--sl-text-avatar-header-xl);
   --_initials-font: var(--sl-text-avatar-initials-xl);
@@ -64,6 +65,7 @@
 :host([size='2xl']) {
   --_badge-inset: var(--sl-space-avatar-badge-inset-2xl);
   --_block-gap: var(--sl-space-avatar-block-2xl);
+  --_icon-size: var(--sl-size-icon-2xl);
   --_inline-gap: var(--sl-space-avatar-inline-2xl);
   --_heading-font: var(--sl-text-avatar-header-2xl);
   --_initials-font: var(--sl-text-avatar-initials-2xl);
@@ -74,6 +76,7 @@
 :host([size='3xl']) {
   --_badge-inset: var(--sl-space-avatar-badge-inset-3xl);
   --_block-gap: var(--sl-space-avatar-block-3xl);
+  --_icon-size: var(--sl-size-icon-3xl);
   --_inline-gap: var(--sl-space-avatar-inline-3xl);
   --_heading-font: var(--sl-text-avatar-header-3xl);
   --_initials-font: var(--sl-text-avatar-initials-3xl);
@@ -163,6 +166,14 @@ slot[name='fallback'] {
   display: flex;
   inline-size: 100%;
   justify-content: center;
+
+  &::slotted(*) {
+    --sl-icon-size: var(--_icon-size);
+
+    block-size: 100%;
+    inline-size: 100%;
+    object-fit: cover;
+  }
 }
 
 [part='initials'] {

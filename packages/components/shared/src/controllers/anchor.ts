@@ -35,6 +35,10 @@ export class AnchorController implements ReactiveController {
   #onToggle = (event: Event): void => {
     const { newState, oldState, target } = event as ToggleEvent & { target: HTMLElement };
 
+    if (this.#host instanceof Tooltip) {
+      return;
+    }
+
     /**
      * Workaround to make it working on clicking again (togglePopover method) on the anchor element
      * in Chrome and Safari there is the same state for new and old - open, when it's already opened
@@ -97,8 +101,6 @@ export class AnchorController implements ReactiveController {
       anchorElement = (this.#host.getRootNode() as HTMLElement)?.querySelector(`#${this.#host.getAttribute('anchor')}`);
     }
 
-    console.log('anchorElement', anchorElement);
-
     return anchorElement;
   }
 
@@ -112,6 +114,10 @@ export class AnchorController implements ReactiveController {
   #linkAnchorWithPopover(expanded = false): void {
     const anchorElement = this.#getAnchorElement();
     this.#host.id ||= `sl-popover-${nextUniqueId++}`;
+
+    if (this.#host instanceof Tooltip) {
+      return;
+    }
 
     if (anchorElement && !this.#host.hasAttribute('aria-details')) {
       anchorElement.id ||= `sl-anchor-${nextUniqueId++}`;
@@ -129,26 +135,13 @@ export class AnchorController implements ReactiveController {
     // If the anchor element is a button, we need to set the `popover-opened` attribute
     // TODO: Figure out whether we want to keep doing this. And if so, perhaps not just
     // for buttons?
-    console.log(
-      { anchorElement },
-      'expanded: ',
-      expanded,
-      'host: ',
-      this.#host,
-      'host is a tooltp?',
-      this.#host.matches('sl-tooltip'),
-      'instance of? ....',
-      this.#host instanceof Tooltip
-    );
-    if (anchorElement?.tagName === 'SL-BUTTON' && !this.#host.matches('sl-tooltip')) {
+    if (anchorElement?.tagName === 'SL-BUTTON') {
       if (expanded) {
-        console.log('in if popover');
         anchorElement.setAttribute('popover-opened', '');
         if (!hasRichContent && !this.#host.hasAttribute('no-describedby')) {
           anchorElement?.setAttribute('aria-describedby', this.#host.id);
         }
       } else {
-        console.log('in else popover');
         anchorElement.removeAttribute('popover-opened');
         anchorElement?.removeAttribute('aria-describedby');
       }

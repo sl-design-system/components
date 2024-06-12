@@ -95,9 +95,7 @@ export class Tooltip extends LitElement {
 
   #onHide = ({ target }: Event): void => {
     if (this.#matchesAnchor(target as Element)) {
-      // this.anchorElement = undefined;
       this.hidePopover();
-      // this.anchorElement = undefined;
     }
   };
 
@@ -111,7 +109,7 @@ export class Tooltip extends LitElement {
   #onKeydown(event: KeyboardEvent): void {
     if (isPopoverOpen(this)) {
       if (event.key === 'Escape') {
-        this.#onHide(event);
+        this.hidePopover();
       }
     }
   }

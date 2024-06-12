@@ -937,8 +937,8 @@
       "text": {
         "sm": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.bold}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
+            "fontWeight": "{text.typeset.fontWeight.demibold}",
             "fontSize": "6px",
             "lineHeight": "6px"
           },
@@ -946,46 +946,19 @@
         },
         "md": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
             "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "9px",
-            "lineHeight": "9px"
+            "fontSize": "{text.typeset.fontSize.sm}",
+            "lineHeight": "{text.typeset.lineHeight.sm}"
           },
           "type": "typography"
         },
         "lg": {
           "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
+            "fontFamily": "{text.typeset.fontFamily.heading}",
             "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "{text.typeset.fontSize.xs}",
-            "lineHeight": "{text.typeset.lineHeight.xs}"
-          },
-          "type": "typography"
-        },
-        "xl": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "{text.typeset.fontSize.xs}",
-            "lineHeight": "{text.typeset.lineHeight.xxs}"
-          },
-          "type": "typography"
-        },
-        "2xl": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "{text.typeset.fontSize.xs}",
-            "lineHeight": "{text.typeset.lineHeight.xxs}"
-          },
-          "type": "typography"
-        },
-        "3xl": {
-          "value": {
-            "fontFamily": "{text.typeset.fontFamily.body}",
-            "fontWeight": "{text.typeset.fontWeight.demibold}",
-            "fontSize": "{text.typeset.fontSize.sm}",
-            "lineHeight": "{text.typeset.lineHeight.sm}"
+            "fontSize": "{text.typeset.fontSize.md}",
+            "lineHeight": "{text.typeset.lineHeight.md}"
           },
           "type": "typography"
         }

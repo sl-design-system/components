@@ -1,5 +1,6 @@
 :host {
-  --_badge-margin: 2px;
+  --_badge-inset: var(--sl-space-avatar-badge-inset-md);
+  --_badge-margin: var(--sl-space-avatar-badge-margin);
   --_block-gap: var(--sl-space-avatar-block-md);
   --_inline-gap: var(--sl-space-avatar-inline-md);
   --_heading-font: var(--sl-text-avatar-header-md);
@@ -41,6 +42,7 @@
 }
 
 :host([size='lg']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-lg);
   --_block-gap: var(--sl-space-avatar-block-lg);
   --_inline-gap: var(--sl-space-avatar-inline-lg);
   --_heading-font: var(--sl-text-avatar-header-lg);
@@ -50,6 +52,7 @@
 }
 
 :host([size='xl']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-xl);
   --_block-gap: var(--sl-space-avatar-block-xl);
   --_inline-gap: var(--sl-space-avatar-inline-xl);
   --_heading-font: var(--sl-text-avatar-header-xl);
@@ -59,6 +62,7 @@
 }
 
 :host([size='2xl']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-2xl);
   --_block-gap: var(--sl-space-avatar-block-2xl);
   --_inline-gap: var(--sl-space-avatar-inline-2xl);
   --_heading-font: var(--sl-text-avatar-header-2xl);
@@ -68,6 +72,7 @@
 }
 
 :host([size='3xl']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-3xl);
   --_block-gap: var(--sl-space-avatar-block-3xl);
   --_inline-gap: var(--sl-space-avatar-inline-3xl);
   --_heading-font: var(--sl-text-avatar-header-3xl);
@@ -134,7 +139,7 @@ a {
 }
 
 ::slotted(sl-badge) {
-  inset: 8px 0 auto auto;
+  inset: var(--_badge-inset) var(--_badge-inset) auto auto;
   position: absolute;
 }
 

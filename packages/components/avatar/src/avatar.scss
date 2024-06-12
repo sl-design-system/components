@@ -4,7 +4,10 @@
   --_inline-gap: var(--sl-space-avatar-inline-md);
   --_heading-font: var(--sl-text-avatar-header-md);
   --_initials-font: var(--sl-text-avatar-initials-md);
-  --_picture-size: 32px;
+  --_outline: var(--sl-border-width-focusring-default) solid var(--sl-color-focusring-default);
+  --_outline-offset: calc(var(--sl-border-width-focusring-offset) * 2);
+  --_outline-radius: var(--sl-border-radius-focusring-default);
+  --_picture-size: var(--sl-size-avatar-md);
   --_subheading-font: var(--sl-text-avatar-subheader-md);
 
   display: inline-flex;
@@ -21,7 +24,7 @@
   --_inline-gap: var(--sl-space-avatar-inline-sm);
   --_heading-font: var(--sl-text-avatar-header-sm);
   --_initials-font: var(--sl-text-avatar-initials-sm);
-  --_picture-size: 24px;
+  --_picture-size: var(--sl-size-avatar-sm);
   --_subheading-font: var(--sl-text-avatar-subheader-sm);
 
   [part='wrapper'] {
@@ -42,7 +45,7 @@
   --_inline-gap: var(--sl-space-avatar-inline-lg);
   --_heading-font: var(--sl-text-avatar-header-lg);
   --_initials-font: var(--sl-text-avatar-initials-lg);
-  --_picture-size: 40px;
+  --_picture-size: var(--sl-size-avatar-lg);
   --_subheading-font: var(--sl-text-avatar-subheader-lg);
 }
 
@@ -51,7 +54,7 @@
   --_inline-gap: var(--sl-space-avatar-inline-xl);
   --_heading-font: var(--sl-text-avatar-header-xl);
   --_initials-font: var(--sl-text-avatar-initials-xl);
-  --_picture-size: 52px;
+  --_picture-size: var(--sl-size-avatar-xl);
   --_subheading-font: var(--sl-text-avatar-subheader-xl);
 }
 
@@ -60,7 +63,7 @@
   --_inline-gap: var(--sl-space-avatar-inline-2xl);
   --_heading-font: var(--sl-text-avatar-header-2xl);
   --_initials-font: var(--sl-text-avatar-initials-2xl);
-  --_picture-size: 64px;
+  --_picture-size: var(--sl-size-avatar-2xl);
   --_subheading-font: var(--sl-text-avatar-subheader-2xl);
 }
 
@@ -69,12 +72,16 @@
   --_inline-gap: var(--sl-space-avatar-inline-3xl);
   --_heading-font: var(--sl-text-avatar-header-3xl);
   --_initials-font: var(--sl-text-avatar-initials-3xl);
-  --_picture-size: 80px;
+  --_picture-size: var(--sl-size-avatar-3xl);
   --_subheading-font: var(--sl-text-avatar-subheader-3xl);
 }
 
-:host([image-only]) [part='wrapper'] {
-  grid-template: 'picture' auto;
+:host([image-only]) {
+  border-radius: 50%;
+
+  [part='wrapper'] {
+    grid-template: 'picture' auto;
+  }
 }
 
 :host([vertical]) [part='wrapper'] {

@@ -93,7 +93,9 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
         <slot @slotchange=${this.#onSlotChange} name="badge"></slot>
         <div part="picture" style=${styleMap({ clipPath: this.clipPath })}>
           ${this.pictureUrl
-            ? html`<img part="image" src=${this.pictureUrl} alt=${ifDefined(this.displayName)} />`
+            ? html`
+                <img @error=${this.#onError} part="image" src=${this.pictureUrl} alt=${ifDefined(this.displayName)} />
+              `
             : html`
                 <slot name="fallback">
                   <span part="initials">${this.initials}</span>
@@ -109,6 +111,10 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
             <slot></slot>
           `}
     `;
+  }
+
+  #onError(): void {
+    this.pictureUrl = undefined;
   }
 
   #onResize(): void {

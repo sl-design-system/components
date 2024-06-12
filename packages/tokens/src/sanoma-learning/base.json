@@ -1973,11 +1973,11 @@
     },
     "focusring": {
       "default": {
-        "value": "{borderRadius.default} - 1",
+        "value": "{borderRadius.default} - 1px",
         "type": "borderRadius"
       },
       "checkbox": {
-        "value": "{borderRadius.checkbox} - 1",
+        "value": "{borderRadius.checkbox} - 1px",
         "type": "borderRadius"
       },
       "full": {

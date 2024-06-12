@@ -12,7 +12,6 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Text field
-  order: 26
   status: ready
 ---
 

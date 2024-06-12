@@ -98,6 +98,7 @@ Reserve bold emphasis for situations where the information conveyed by the badge
   </figure>
 </section>
 
+</section>
 
 <section>
 

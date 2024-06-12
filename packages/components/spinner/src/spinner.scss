@@ -32,14 +32,12 @@ $variants: default, 'white', accent, info, danger, success, warning;
 }
 
 svg {
-  g {
+  g.slow {
     animation: spin var(--_rotate-duration) linear infinite;
-    transform-origin: center center;
   }
 
-  path {
+  g.fast {
     animation: spin var(--_spin-duration) cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
-    transform-origin: center center;
   }
 }
 

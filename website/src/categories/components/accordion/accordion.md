@@ -12,7 +12,6 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Accordion
-  order: 2
   status: ready
 ---
 

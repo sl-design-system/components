@@ -12,6 +12,5 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Switch
-  order: 24
   status: ready
 ---

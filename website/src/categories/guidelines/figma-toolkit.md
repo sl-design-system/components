@@ -4,5 +4,4 @@ eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Guidelines
   key: Figma Toolkit
-  order: 3
 ---

@@ -3767,7 +3767,8 @@
       "text.badge.text.sm": "S:516811bb42973dad32d814fed8cfb08efbd8c908,",
       "text.badge.text.md": "S:8db1242b5f45baaea9760c6d8758d64e59e20664,",
       "text.badge.text.lg": "S:89aed9d39ac8f6ba5c63e465d1bd1e95038feca3,",
-      "text.badge.text.xl": "S:507c0781b91c8103c33596cc2503fa0659cc3956,"
+      "text.badge.text.xl": "S:507c0781b91c8103c33596cc2503fa0659cc3956,",
+      "color.palette.primary.25": "S:698c81d955d82fe0f67122cb58ec1efc0a951207,"
     }
   },
   {
@@ -13984,7 +13985,7 @@
       "text.badge.text.xl": "S:3a9e0941a2f8aa3a731a3607f86bf5989a23873c,"
     },
     "selectedTokenSets": {
-      "core": "source",
+      "core": "enabled",
       "editorial-suite/base": "enabled",
       "editorial-suite/light": "enabled"
     }

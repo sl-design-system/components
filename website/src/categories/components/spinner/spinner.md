@@ -12,7 +12,6 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Spinner
-  order: 23
   status: ready
 ---
 

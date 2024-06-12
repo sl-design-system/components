@@ -28,6 +28,10 @@ $variants: danger, success, info, warning, accent, neutral, primary;
   }
 }
 
+:host([size='sm']) {
+  line-height: var(--sl-size-badge-sm);
+}
+
 :host([size='lg']) {
   font: var(--sl-text-badge-text-lg);
   gap: var(--sl-space-badge-label-inline-lg);
@@ -39,6 +43,7 @@ $variants: danger, success, info, warning, accent, neutral, primary;
   }
 }
 
+:host([size='sm']),
 :host([round]) {
   justify-content: center;
   padding-inline: 0;

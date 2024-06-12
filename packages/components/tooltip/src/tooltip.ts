@@ -1,4 +1,4 @@
-import { AnchorController, EventsController, type PopoverPosition } from '@sl-design-system/shared';
+import { AnchorController, EventsController, type PopoverPosition, isPopoverOpen } from '@sl-design-system/shared';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './tooltip.scss.js';
@@ -106,6 +106,12 @@ export class Tooltip extends LitElement {
     }
   };
 
+  #onKeydown(event: KeyboardEvent): void {
+    if (isPopoverOpen(this) && event.key === 'Escape') {
+      this.hidePopover();
+    }
+  }
+
   /** The maximum width of the tooltip. */
   @property({ type: Number, attribute: 'max-width' }) maxWidth?: number;
 
@@ -126,6 +132,7 @@ export class Tooltip extends LitElement {
     this.#events.listen(root, 'click', this.#onHide, { capture: true });
     this.#events.listen(root, 'focusin', this.#onShow);
     this.#events.listen(root, 'focusout', this.#onHide);
+    this.#events.listen(root, 'keydown', this.#onKeydown);
     this.#events.listen(root, 'pointerover', this.#onShow);
     this.#events.listen(root, 'pointerout', this.#onHide);
   }

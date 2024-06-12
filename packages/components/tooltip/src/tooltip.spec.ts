@@ -1,6 +1,7 @@
 import { expect, fixture } from '@open-wc/testing';
 import { type Button } from '@sl-design-system/button';
 import '@sl-design-system/button/register.js';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import '../register.js';
 import { Tooltip } from './tooltip.js';
@@ -50,6 +51,24 @@ describe('sl-tooltip', () => {
 
       const focusoutEvent = new Event('pointerout', { bubbles: true });
       button?.dispatchEvent(focusoutEvent);
+      expect(tooltip.matches(':popover-open')).to.be.false;
+    });
+
+    it('should toggle the tooltip on focusin and Escape key pressed', async () => {
+      const focusinEvent = new Event('focusin', { bubbles: true });
+      button?.dispatchEvent(focusinEvent);
+      expect(tooltip.matches(':popover-open')).to.be.true;
+
+      await sendKeys({ press: 'Escape' });
+      expect(tooltip.matches(':popover-open')).to.be.false;
+    });
+
+    it('should toggle the tooltip on pointerover and Escape key pressed', async () => {
+      const focusinEvent = new Event('pointerover', { bubbles: true });
+      button?.dispatchEvent(focusinEvent);
+      expect(tooltip.matches(':popover-open')).to.be.true;
+
+      await sendKeys({ press: 'Escape' });
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
 

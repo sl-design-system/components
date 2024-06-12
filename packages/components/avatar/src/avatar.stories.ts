@@ -1,4 +1,6 @@
+import { faSchool } from '@fortawesome/pro-regular-svg-icons';
 import '@sl-design-system/badge/register.js';
+import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/tooltip/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
@@ -12,12 +14,15 @@ type Props = Pick<
 > & {
   badge?: TemplateResult;
   fallback?: TemplateResult;
+  maxWidth?: string;
   subheading?: string;
   tabIndex?: number;
 };
 type Story = StoryObj<Props>;
 
 const sizes: AvatarSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
+
+Icon.register(faSchool);
 
 export default {
   title: 'Components/Avatar',
@@ -57,6 +62,7 @@ export default {
     fallback,
     href,
     imageOnly,
+    maxWidth,
     pictureUrl,
     size,
     subheading,
@@ -64,20 +70,19 @@ export default {
     vertical
   }) => {
     return html`
-      <div style="max-width:175px;">
-        <sl-avatar
-          .displayInitials=${displayInitials}
-          .displayName=${displayName}
-          .href=${href}
-          .pictureUrl=${pictureUrl}
-          .size=${size}
-          ?image-only=${imageOnly}
-          ?vertical=${vertical}
-          tabindex=${ifDefined(tabIndex)}
-        >
-          ${subheading} ${badge ?? nothing} ${fallback ?? nothing}
-        </sl-avatar>
-      </div>
+      <sl-avatar
+        .displayInitials=${displayInitials}
+        .displayName=${displayName}
+        .href=${href}
+        .pictureUrl=${pictureUrl}
+        .size=${size}
+        ?image-only=${imageOnly}
+        ?vertical=${vertical}
+        style=${ifDefined(maxWidth ? `max-width: ${maxWidth}` : undefined)}
+        tabindex=${ifDefined(tabIndex)}
+      >
+        ${subheading} ${badge ?? nothing} ${fallback ?? nothing}
+      </sl-avatar>
     `;
   }
 } satisfies Meta<Props>;
@@ -93,7 +98,8 @@ export const Badge: Story = {
 
 export const FallbackContent: Story = {
   args: {
-    fallback: html`<sl-icon name="face-smile" slot="fallback"></sl-icon>`,
+    displayName: 'Bluebell Secondary School',
+    fallback: html`<sl-icon name="far-school" slot="fallback"></sl-icon>`,
     pictureUrl: undefined
   }
 };
@@ -132,6 +138,7 @@ export const CustomInitials: Story = {
 export const Overflow: Story = {
   args: {
     displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden',
+    maxWidth: '175px',
     subheading: 'Ipsum adipisicing exercitation amet et anim consectetur.'
   }
 };
@@ -145,6 +152,7 @@ export const Subheading: Story = {
 export const Vertical: Story = {
   args: {
     displayName: 'Yousef van der Schaaf van Kommeren der Nederlanden',
+    maxWidth: '175px',
     size: '2xl',
     vertical: true
   }

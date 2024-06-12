@@ -5,6 +5,6 @@
 
 Various fixes:
 - Make it possible to close a tooltip with Escape key
-- Fixed showing a tooltip not only once
-- Fixed showing shared tooltip
-- Fixed tooltip accessibility - removed `aria-expaned` from a tooltip component
+- Fix issue where the tooltip was broken after first show
+- Fix showing shared tooltip
+- Fix tooltip accessibility - removed `aria-expanded` which is not applicable for tooltips

@@ -45,18 +45,17 @@ describe('sl-tooltip', () => {
     });
 
     it('should toggle the tooltip on pointerover and pointerout', () => {
-      const focusinEvent = new Event('pointerover', { bubbles: true });
-      button?.dispatchEvent(focusinEvent);
+      const pointerOver = new Event('pointerover', { bubbles: true });
+      button?.dispatchEvent(pointerOver);
       expect(tooltip.matches(':popover-open')).to.be.true;
 
-      const focusoutEvent = new Event('pointerout', { bubbles: true });
-      button?.dispatchEvent(focusoutEvent);
+      const pointerEvent = new Event('pointerout', { bubbles: true });
+      button?.dispatchEvent(pointerEvent);
       expect(tooltip.matches(':popover-open')).to.be.false;
     });
 
     it('should toggle the tooltip on focusin and Escape key pressed', async () => {
-      const focusinEvent = new Event('focusin', { bubbles: true });
-      button?.dispatchEvent(focusinEvent);
+      button?.focus();
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       await sendKeys({ press: 'Escape' });
@@ -64,8 +63,7 @@ describe('sl-tooltip', () => {
     });
 
     it('should toggle the tooltip on pointerover and Escape key pressed', async () => {
-      const focusinEvent = new Event('pointerover', { bubbles: true });
-      button?.dispatchEvent(focusinEvent);
+      button?.dispatchEvent(new Event('pointerover', { bubbles: true }));
       expect(tooltip.matches(':popover-open')).to.be.true;
 
       await sendKeys({ press: 'Escape' });

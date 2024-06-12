@@ -107,10 +107,8 @@ export class Tooltip extends LitElement {
   };
 
   #onKeydown(event: KeyboardEvent): void {
-    if (isPopoverOpen(this)) {
-      if (event.key === 'Escape') {
-        this.hidePopover();
-      }
+    if (isPopoverOpen(this) && event.key === 'Escape') {
+      this.hidePopover();
     }
   }
 

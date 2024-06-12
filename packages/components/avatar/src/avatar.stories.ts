@@ -91,23 +91,17 @@ export const Badge: Story = {
   }
 };
 
-export const Href: Story = {
-  args: {
-    href: 'https://example.com',
-    subheading: '30 May'
-  }
-};
-
-export const FallbackImage: Story = {
+export const FallbackContent: Story = {
   args: {
     fallback: html`<sl-icon name="face-smile" slot="fallback"></sl-icon>`,
     pictureUrl: undefined
   }
 };
 
-export const FallbackInitials: Story = {
+export const Href: Story = {
   args: {
-    pictureUrl: undefined
+    href: 'https://example.com',
+    subheading: '30 May'
   }
 };
 
@@ -119,7 +113,14 @@ export const ImageOnlyWithFocus: Story = {
   }
 };
 
-export const Initials: Story = {
+export const ImplicitInitials: Story = {
+  args: {
+    pictureUrl: undefined,
+    size: 'xl'
+  }
+};
+
+export const CustomInitials: Story = {
   args: {
     displayInitials: 'SLDS',
     displayName: 'SL Design System',
@@ -209,26 +210,27 @@ export const All: StoryObj = {
             )}
           </tr>
           <tr>
-            <td>Subheader</td>
+            <td>Subheading</td>
             ${sizes.map(
               size => html`
                 <td>
                   <sl-avatar .displayName=${users[2].name} .pictureUrl=${users[2].picture} .size=${size}
-                    >Subheader</sl-avatar
+                    >Subheading</sl-avatar
                   >
                 </td>
               `
             )}
           </tr>
           <tr>
-            <td>Image fallback</td>
-            ${sizes.map(size => html`<td><sl-avatar .displayName=${users[4].name} .size=${size}></sl-avatar></td>`)}
-          </tr>
-          <tr>
-            <td>Initials fallback</td>
+            <td>Fallback content</td>
             ${sizes.map(
-              size =>
-                html`<td><sl-avatar .displayName=${users[3].name} .size=${size} fallback="initials"></sl-avatar></td>`
+              size => html`
+                <td>
+                  <sl-avatar .displayName=${users[4].name} .size=${size}>
+                    <sl-icon name="check" slot="fallback"></sl-icon>
+                  </sl-avatar>
+                </td>
+              `
             )}
           </tr>
           <tr>

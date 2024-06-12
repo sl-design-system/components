@@ -75,27 +75,30 @@ Understanding when to use subtle and bold emphasis for badge components is cruci
   <figure>
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
-      <sl-button fill="solid" variant="primary" size="lg">Solid</sl-button>
+      <sl-badge size="lg" variant="accent">Subtle</sl-badge>
     </div>
     <figcaption>
 
-  ### Subtle (default)
-  Use subtle emphasis when the information conveyed by the badge is important but not critical. This could include supplementary details, status indicators, or minor distinctions.
-</figcaption>
+### Subtle (default)
+Use subtle emphasis when the information conveyed by the badge is important but not critical. This could include supplementary details, status indicators, or minor distinctions.
+
+    </figcaption>
   </figure>
   <figure>
     <div class="ds-example">
       <sl-icon name="fas-hand-back-point-up" aria-describedby="interactiveexample" size="sm"></sl-icon>
-      preview subtle badge
+      <sl-badge emphasis="bold" size="lg" variant="accent">Bold</sl-badge>
     </div>
     <figcaption>
 
 ### Bold
 Reserve bold emphasis for situations where the information conveyed by the badge is crucial or demands immediate attention. This could include urgent notifications, critical alerts, or high-priority indicators.
 
-
+    </figcaption>
+  </figure>
 </section>
 
+</section>
 
 <section>
 

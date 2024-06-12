@@ -64,7 +64,18 @@ describe('sl-avatar', () => {
     expect(img).to.have.attribute('src', 'https://randomuser.me/api/portraits/thumb/men/81.jpg');
   });
 
-  it('should set the alt attribute of the image to the display name', async () => {
+  it('should have an empty alt attribute on the image', async () => {
+    el.pictureUrl = 'https://randomuser.me/api/portraits/thumb/men/81.jpg';
+    await el.updateComplete;
+
+    const img = el.renderRoot.querySelector('img');
+
+    expect(img).to.exist;
+    expect(img).to.have.attribute('alt', '');
+  });
+
+  it('should set the alt attribute to the display name if imageOnly is set', async () => {
+    el.imageOnly = true;
     el.pictureUrl = 'https://randomuser.me/api/portraits/thumb/men/81.jpg';
     await el.updateComplete;
 

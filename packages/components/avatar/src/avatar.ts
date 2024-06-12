@@ -111,7 +111,12 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
         <div part="picture" style=${styleMap({ clipPath: this.clipPath })}>
           ${this.pictureUrl
             ? html`
-                <img @error=${this.#onError} part="image" src=${this.pictureUrl} alt=${ifDefined(this.displayName)} />
+                <img
+                  @error=${this.#onError}
+                  part="image"
+                  src=${this.pictureUrl}
+                  alt=${ifDefined(this.imageOnly ? this.displayName : '')}
+                />
               `
             : html`
                 <slot name="fallback">

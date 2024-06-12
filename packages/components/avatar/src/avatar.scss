@@ -92,7 +92,6 @@
 :host([vertical]) [part='wrapper'] {
   grid-template: 'picture' auto 'spacer' var(--_block-gap) 'name' auto 'subheader' auto / 1fr;
   justify-items: center;
-  max-inline-size: var(--_max-inline-size);
   text-align: center;
 
   [part='name'] {

@@ -15,6 +15,23 @@ declare global {
 
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
+/**
+ * An avatar component to show a picture, initials or icon, to provide a quickly recognizable representation of a user.
+ *
+ * ```html
+ *   <sl-avatar display-name="Lynn Smith" picture-url="http://sanomalearning.design/avatars/lynn.png"></sl-avatar>
+ * ```
+ *
+ * @csspart avatar - The container for positioning the badge.
+ * @csspart initials - The initials to display when no picture is set.
+ * @csspart name - The display name, either a <span> or <a> if `href` is set.
+ * @csspart picture - The element containing the image, initials or fallback content.
+ * @csspart wrapper - The wrapper element around the image and name.
+ *
+ * @slot badge - The badge to display on the avatar.
+ * @slot default - The subheading of the avatar.
+ * @slot fallback - The fallback content to display when no picture is set.
+ */
 export class Avatar extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {

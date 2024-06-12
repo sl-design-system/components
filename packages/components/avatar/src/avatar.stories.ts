@@ -4,8 +4,7 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
-import { type Avatar } from './avatar.js';
-import { type AvatarSize } from './models.js';
+import { type Avatar, type AvatarSize } from './avatar.js';
 
 type Props = Pick<
   Avatar,

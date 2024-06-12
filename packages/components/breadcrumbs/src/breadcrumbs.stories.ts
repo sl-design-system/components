@@ -67,16 +67,6 @@ export const Mobile: Story = {
   }
 };
 
-export const NoCurrentPage: Story = {
-  args: {
-    breadcrumbs: html`
-      <a href="javascript:void(0)">Lorem</a>
-      <a href="javascript:void(0)">Ipsum</a>
-      <span>Dolar</span>
-    `
-  }
-};
-
 export const NoHome: Story = {
   args: {
     ...Basic.args,
@@ -96,4 +86,30 @@ export const Overflow: Story = {
       >
     `
   }
+};
+
+export const All: Story = {
+  render: () => html`
+    <sl-breadcrumbs>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+    <sl-breadcrumbs no-home>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+    <sl-breadcrumbs>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+  `
 };

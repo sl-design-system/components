@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/spinner",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Spinner component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

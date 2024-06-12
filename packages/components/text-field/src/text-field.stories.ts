@@ -4,8 +4,9 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import '../register.js';
-import { type TextField, type TextFieldSize } from './text-field.js';
+import { TextField, type TextFieldSize } from './text-field.js';
 
 type Props = Pick<
   TextField,
@@ -172,7 +173,7 @@ export const CustomValidity: Story = {
     hint: 'This story has both builtin validation (required) and custom validation. You need to enter "SLDS" to make the field valid. The custom validation is done by listening to the sl-validate event and setting the custom validity on the input element.',
     slot: () => {
       const onValidate = (event: Event & { target: TextField }): void => {
-        const value = event.target.value;
+        const value = event.target.value?.toString() ?? '';
 
         let message = '';
         if (value.length > 0 && value !== 'SLDS') {
@@ -202,6 +203,73 @@ export const CustomAsyncValidity: Story = {
       };
 
       return html`<sl-text-field @sl-validate=${onValidate} required></sl-text-field>`;
+    }
+  }
+};
+
+export const CustomComponent: Story = {
+  args: {
+    hint: 'This story uses a custom component that inherits from the text field component. It parses and formats the value as a date in the format "DD-MM-YYYY". The field is invalid if the year is before 2024.',
+    slot: () => {
+      class CustomTextField extends TextField<Date> {
+        #value?: Date;
+
+        override get value(): Date | undefined {
+          return this.#value;
+        }
+
+        @property()
+        override set value(value: Date | undefined) {
+          this.#value = value;
+        }
+
+        /** Parse the string value as a date using a regex, or throw an error if the value is invalid. */
+        override parseValue(value: string): Date | undefined {
+          const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+
+          if (!match) {
+            throw new Error('Invalid date format');
+          } else {
+            const [, day, month, year] = match,
+              date = new Date(`${year}-${month}-${day}`);
+
+            if (isNaN(date.getTime())) {
+              throw new Error('Invalid date');
+            }
+
+            return date;
+          }
+        }
+
+        /** Format the date as DD-MM-YYYY. */
+        override formatValue(value?: Date): string {
+          return value?.toLocaleDateString() ?? '';
+        }
+      }
+
+      try {
+        customElements.define('custom-text-field', CustomTextField);
+      } catch {
+        /* empty */
+      }
+
+      const onValidate = (event: Event & { target: CustomTextField }): void => {
+        const year = event.target.value?.getFullYear();
+
+        if (typeof year === 'number') {
+          event.target.setCustomValidity(year < 2024 ? 'Enter a date after 2023' : '');
+        } else {
+          event.target.setCustomValidity('');
+        }
+      };
+
+      return html`
+        <custom-text-field
+          @sl-validate=${onValidate}
+          placeholder="Enter a DD-MM-YYYY value"
+          required
+        ></custom-text-field>
+      `;
     }
   }
 };

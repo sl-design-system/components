@@ -12,6 +12,5 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Checkbox
-  order: 9
   status: ready
 ---

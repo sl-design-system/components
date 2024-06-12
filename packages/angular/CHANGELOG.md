@@ -1,5 +1,21 @@
 # @sl-design-system/angular
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1296](https://github.com/sl-design-system/components/pull/1296) [`39a4cb2`](https://github.com/sl-design-system/components/commit/39a4cb206ad923862c902b3ac7dddd4ae5b87746) - Update to use the new TextField generic type
+
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
+### Minor Changes
+
+- [#1248](https://github.com/sl-design-system/components/pull/1248) [`fdf9a90`](https://github.com/sl-design-system/components/commit/fdf9a90e4621fb9c865ee307b9abd29ff03722ca) - Rename `<sl-textarea>` to `<sl-text-area>` to match `<sl-text-field>`
+
 ## 0.2.0
 
 ### Minor Changes

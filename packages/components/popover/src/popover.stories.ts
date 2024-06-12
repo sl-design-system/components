@@ -17,7 +17,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Overlay/Popover',
-  tags: ['preview'],
+  tags: ['stable'],
   args: {
     alignSelf: 'center',
     body: "I'm a popover example",

@@ -4,5 +4,4 @@ eleventyExcludeFromCollections: true
 eleventyNavigation:
   parent: Guidelines
   key: Accessibility
-  order: 1
 ---

@@ -7,7 +7,7 @@ type Story = StoryObj;
 
 export default {
   title: 'Components/Skeleton',
-  tags: ['preview']
+  tags: ['stable']
 };
 
 export const API: Story = {

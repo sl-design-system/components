@@ -280,7 +280,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       this.#unregister = undefined;
 
       this.#formControlElement?.removeEventListener('invalid', this.#onInvalid);
-      this.#formControlElement = undefined;
 
       super.disconnectedCallback();
     }

@@ -1,62 +1,40 @@
-import { faCheck, faGear } from '@fortawesome/pro-regular-svg-icons';
-import { Icon } from '@sl-design-system/icon';
 import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html, nothing } from 'lit';
 import '../register.js';
-import { type Badge, type BadgeSize, type BadgeVariant } from './badge.js';
+import { type Badge, type BadgeVariant } from './badge.js';
 
-type Props = Pick<Badge, 'size' | 'variant'> & { icon?: boolean; text?: string };
-
+type Props = Pick<Badge, 'emphasis' | 'size' | 'variant'> & { icon?: boolean; text?: string };
 type Story = StoryObj<Props>;
 
-Icon.register(faCheck, faGear);
-
-const sizes: BadgeSize[] = ['sm', 'md', 'lg', 'xl', '2xl', '3xl'];
 const variants: BadgeVariant[] = ['neutral', 'primary', 'info', 'danger', 'success', 'warning', 'accent'];
-
-const sizeName = (size: string): string => {
-  switch (size) {
-    case 'sm':
-      return 'Small';
-    case 'md':
-      return 'Medium';
-    case 'lg':
-      return 'Large';
-    case 'xl':
-      return 'Extra Large';
-    case '2xl':
-      return '2 Extra Large';
-    case '3xl':
-      return '3 Extra Large';
-    case '4xl':
-      return '4 Extra Large';
-    default:
-      return 'Extra Small';
-  }
-};
 
 export default {
   title: 'Components/Badge',
-  tags: ['stable'],
+  tags: ['preview'],
   args: {
-    text: '99+',
+    emphasis: 'subtle',
+    icon: false,
     size: 'md',
-    variant: 'neutral',
-    icon: false
+    text: 'Status',
+    variant: 'neutral'
   },
   argTypes: {
+    emphasis: {
+      control: 'inline-radio',
+      options: ['subtle', 'bold']
+    },
     size: {
       control: 'inline-radio',
-      options: sizes
+      options: ['sm', 'md', 'lg']
     },
     variant: {
       control: 'radio',
       options: variants
     }
   },
-  render: ({ size, text, variant, icon }) => html`
-    <sl-badge .size=${size} .variant=${variant}>
+  render: ({ emphasis, icon, size, text, variant }) => html`
+    <sl-badge .emphasis=${emphasis} .size=${size} .variant=${variant}>
       ${icon ? html`<sl-icon name="check"></sl-icon>` : nothing} ${text}
     </sl-badge>
   `
@@ -64,17 +42,21 @@ export default {
 
 export const Basic: Story = {};
 
+export const Round: Story = {
+  render: ({ emphasis, size, variant }) => html`
+    <sl-badge .emphasis=${emphasis} .size=${size} .variant=${variant}>8</sl-badge>
+    <sl-badge .emphasis=${emphasis} .size=${size} .variant=${variant}>
+      <sl-icon name="check"></sl-icon>
+    </sl-badge>
+  `
+};
+
 export const All: Story = {
   render: () => {
     return html`
       <style>
         table {
           border-collapse: collapse;
-          margin-bottom: 24px;
-        }
-
-        th {
-          text-transform: capitalize;
         }
         th,
         td {
@@ -84,25 +66,73 @@ export const All: Story = {
       <table>
         <thead>
           <tr>
-            <th>Size</th>
-            ${variants.map(variant => html`<th>${variant}</th>`)}
+            <th></th>
+            <th colspan="2">Subtle</th>
+            <th colspan="2">Bold</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th>sm</th>
+            <th>md</th>
+            <th>lg</th>
+            <th>sm</th>
+            <th>md</th>
+            <th>lg</th>
           </tr>
         </thead>
         <tbody>
-          ${sizes.map(
-            size =>
-              html` <tr>
-                <th>${sizeName(size)}</th>
-                ${variants.map(
-                  variant => html`
-                    <td>
-                      <sl-badge .variant=${variant} .size=${size}><sl-icon name="far-check"></sl-icon></sl-badge>
-                      <sl-badge .variant=${variant} .size=${size}>99+</sl-badge>
-                      <sl-badge .variant=${variant} .size=${size}><sl-icon name="far-gear"></sl-icon> away</sl-badge>
-                    </td>
-                  `
-                )}
-              </tr>`
+          ${variants.map(
+            variant => html`
+              <tr>
+                <td>${variant}</td>
+                <td>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="sm"></sl-badge>
+                </td>
+                <td>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="md">8</sl-badge>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="md">
+                    <sl-icon name="check"></sl-icon>
+                  </sl-badge>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="md">
+                    <sl-icon name="check"></sl-icon> Status
+                  </sl-badge>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="md">Status</sl-badge>
+                </td>
+                <td>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="lg">8</sl-badge>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="lg">
+                    <sl-icon name="check"></sl-icon>
+                  </sl-badge>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="lg">
+                    <sl-icon name="check"></sl-icon> Status
+                  </sl-badge>
+                  <sl-badge .variant=${variant} emphasis="subtle" size="lg">Status</sl-badge>
+                </td>
+                <td>
+                  <sl-badge .variant=${variant} emphasis="bold" size="sm"></sl-badge>
+                </td>
+                <td>
+                  <sl-badge .variant=${variant} emphasis="bold" size="md">8</sl-badge>
+                  <sl-badge .variant=${variant} emphasis="bold" size="md">
+                    <sl-icon name="check"></sl-icon>
+                  </sl-badge>
+                  <sl-badge .variant=${variant} emphasis="bold" size="md">
+                    <sl-icon name="check"></sl-icon> Status
+                  </sl-badge>
+                  <sl-badge .variant=${variant} emphasis="bold" size="md">Status</sl-badge>
+                </td>
+                <td>
+                  <sl-badge .variant=${variant} emphasis="bold" size="lg">8</sl-badge>
+                  <sl-badge .variant=${variant} emphasis="bold" size="lg">
+                    <sl-icon name="check"></sl-icon>
+                  </sl-badge>
+                  <sl-badge .variant=${variant} emphasis="bold" size="lg">
+                    <sl-icon name="check"></sl-icon> Status
+                  </sl-badge>
+                  <sl-badge .variant=${variant} emphasis="bold" size="lg">Status</sl-badge>
+                </td>
+              </tr>
+            `
           )}
         </tbody>
       </table>

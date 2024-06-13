@@ -35,6 +35,14 @@ export class AnchorController implements ReactiveController {
     const { newState, oldState, target } = event as ToggleEvent & { target: HTMLElement };
 
     /**
+     * Tooltips are working in a little bit different way than popovers,
+     * the workaround was making problems with showing shared tooltip.
+     * */
+    if (this.#host.tagName === 'SL-TOOLTIP') {
+      return;
+    }
+
+    /**too
      * Workaround to make it working on clicking again (togglePopover method) on the anchor element
      * in Chrome and Safari there is the same state for new and old - open, when it's already opened
      * and we want to close it in FF on click runs toggle event twice.
@@ -109,6 +117,15 @@ export class AnchorController implements ReactiveController {
   #linkAnchorWithPopover(expanded = false): void {
     const anchorElement = this.#getAnchorElement();
     this.#host.id ||= `sl-popover-${nextUniqueId++}`;
+
+    /**
+     * Tooltips should have different ARIAs than popover
+     * and the anchor element should not get active state when the tooltip is visible -
+     * should have `hover` or `focus` depending on how it was triggered.
+     * */
+    if (this.#host.tagName === 'SL-TOOLTIP') {
+      return;
+    }
 
     if (anchorElement && !this.#host.hasAttribute('aria-details')) {
       anchorElement.id ||= `sl-anchor-${nextUniqueId++}`;

@@ -1928,6 +1928,22 @@
           "type": "typography"
         }
       }
+    },
+    "badge": {
+      "text": {
+        "md": {
+          "value": {
+            "fontWeight": "{text.typeset.fontWeight.semibold}"
+          },
+          "type": "typography"
+        },
+        "lg": {
+          "value": {
+            "fontWeight": "{text.typeset.fontWeight.semibold}"
+          },
+          "type": "typography"
+        }
+      }
     }
   },
   "borderRadius": {

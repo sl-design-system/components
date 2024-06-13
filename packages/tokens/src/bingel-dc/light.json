@@ -2838,7 +2838,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.primary.base}",
+              "value": "{body.foreground}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3000,7 +3000,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.danger.base}",
+              "value": "{body.foreground}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3162,7 +3162,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.success.base}",
+              "value": "{body.foreground}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },

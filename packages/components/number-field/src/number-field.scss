@@ -1,0 +1,30 @@
+:host {
+  padding: 0 0 0 var(--_padding-inline);
+}
+
+::slotted(input) {
+  padding-block: var(--_padding-block) !important;
+}
+
+.stepper-buttons {
+  border-inline-start: 1px solid var(--_border-color);
+  display: flex;
+  flex-direction: column;
+
+  button {
+    background: var(--sl-color-button-default-solid-idle-background);
+    block-size: calc((1lh + var(--_padding-block) * 2) / 2);
+    border-radius: 0;
+    inline-size: 24px;
+
+    &:first-of-type {
+      border-start-end-radius: var(--_border-radius);
+      padding-block-end: 1px;
+    }
+
+    &:last-of-type {
+      border-block-start: 1px solid var(--_border-color);
+      border-end-end-radius: var(--_border-radius);
+    }
+  }
+}

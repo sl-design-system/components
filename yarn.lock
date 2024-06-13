@@ -4852,6 +4852,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/number-field@workspace:packages/components/number-field":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/number-field@workspace:packages/components/number-field"
+  dependencies:
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/shared": "npm:^0.2.11"
+    "@sl-design-system/text-field": "npm:^1.2.0"
+  peerDependencies:
+    "@open-wc/scoped-elements": ^3.0.5
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/popover@npm:^1.0.0, @sl-design-system/popover@workspace:packages/components/popover":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/popover@workspace:packages/components/popover"

@@ -460,7 +460,6 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
      * @internal
      */
     setFormControlElement(element: FormControlElement): void {
-      console.log('element in setFormControlElement', element);
       this.#formControlElement = element;
       this.#formControlElement.addEventListener('invalid', this.#onInvalid);
     }

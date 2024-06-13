@@ -170,11 +170,11 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
     }
 
     // Check if the name overflows and if so, enable the tooltip
-    const name = this.renderRoot.querySelector<HTMLElement>('[part="name"]')!;
-    if (name.offsetWidth < name.scrollWidth || name.offsetHeight + 4 < name.scrollHeight) {
+    const name = this.renderRoot.querySelector<HTMLElement>('[part="name"]');
+    if (name && (name?.offsetWidth < name.scrollWidth || name.offsetHeight + 4 < name.scrollHeight)) {
       name.setAttribute('aria-describedby', 'avatar-tooltip');
     } else {
-      name.removeAttribute('aria-describedby');
+      name?.removeAttribute('aria-describedby');
     }
   }
 

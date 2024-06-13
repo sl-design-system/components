@@ -283,7 +283,6 @@ export const All: StoryObj = {
                         ?checked=${check === 'checked'}
                         ?indeterminate=${check === 'indeterminate'}
                         size=${size}
-                        aria-label="label"
                         >Label
                       </sl-checkbox>
                     </td>
@@ -293,7 +292,6 @@ export const All: StoryObj = {
                         ?indeterminate=${check === 'indeterminate'}
                         show-validity="valid"
                         size=${size}
-                        aria-label="label"
                         >Label
                       </sl-checkbox>
                     </td>
@@ -303,7 +301,6 @@ export const All: StoryObj = {
                         ?indeterminate=${check === 'indeterminate'}
                         show-validity="invalid"
                         size=${size}
-                        aria-label="label"
                         >Label
                       </sl-checkbox>
                     </td>
@@ -312,7 +309,6 @@ export const All: StoryObj = {
                         ?checked=${check === 'checked'}
                         ?indeterminate=${check === 'indeterminate'}
                         size=${size}
-                        aria-label="label"
                         disabled
                         >Label
                       </sl-checkbox>

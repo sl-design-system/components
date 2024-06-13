@@ -335,7 +335,7 @@ export const HideWhenOutOfView: StoryObj = {
       </style>
       <header>Sticky header</header>
       <sl-form-field hint="This will hide when the whole page" label="Window scroll">
-        <sl-select>
+        <sl-select hide-margin-top="100">
           <sl-select-option value="1">Option 1</sl-select-option>
           <sl-select-option value="2">Option 2</sl-select-option>
           <sl-select-option value="3">Option 3</sl-select-option>

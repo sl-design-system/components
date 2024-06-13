@@ -23,15 +23,7 @@ export class AnchorDirective extends Directive {
   #cleanup?: () => void;
   #config?: AnchorDirectiveConfig;
   #host?: HTMLElement;
-  visible: boolean = true;
-
-  observer = new IntersectionObserver(
-    (entries, _) => {
-      const outOfView = entries.some(e => e.intersectionRatio < 0.5);
-      updatePopoverVisibility(this.#host, outOfView);
-    },
-    { threshold: 0.5 }
-  );
+  observer?: IntersectionObserver;
 
   constructor(partInfo: PartInfo) {
     super(partInfo);
@@ -51,6 +43,16 @@ export class AnchorDirective extends Directive {
     this.#host.addEventListener('beforetoggle', (event: Event) =>
       this.#onBeforeToggle(event as ToggleEvent & { target: HTMLElement })
     );
+    const rootMargin = `-${this.#config?.hideMarginTop}px 0px 0px 0px`;
+    this.observer = new IntersectionObserver(
+      (entries, _) => {
+        updatePopoverVisibility(this.#host, !entries[0].isIntersecting);
+      },
+      {
+        threshold: 0,
+        rootMargin
+      }
+    );
   }
 
   #onBeforeToggle(event: ToggleEvent & { target: HTMLElement }): void {
@@ -64,12 +66,12 @@ export class AnchorDirective extends Directive {
       }
 
       if (anchorElement) {
-        this.observer.observe(anchorElement);
+        this.observer?.observe(anchorElement);
         this.#cleanup = positionPopover(host, anchorElement, this.#config);
       }
     } else if (this.#cleanup) {
       this.#cleanup();
-      this.observer.disconnect();
+      this.observer?.disconnect();
       this.#cleanup = undefined;
     }
   }

@@ -20,9 +20,9 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  * </sl-button-bar>
  * ```
  *
- * @cssprop --sl-button-bar-align - The alignment of the buttons within the bar
- * @cssprop --sl-button-bar-direction - The flex direction of the button container
- * @slot default - Buttons to be grouped in the bar
+ * @cssprop --sl-button-bar-align - The alignment of the buttons within the bar. Possible values: `start`, `center`, `end`, `space-between`.
+ * @cssprop --sl-button-bar-direction - The flex direction of the button container.
+ * @slot default - Buttons to be grouped in the bar.
  */
 export class ButtonBar extends LitElement {
   /** @private */

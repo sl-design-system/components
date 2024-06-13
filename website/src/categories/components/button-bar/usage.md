@@ -10,14 +10,22 @@ eleventyNavigation:
 
 <div class="ds-example">
   <div class="ds-example__code-wrapper">
-    button bar example
+    <sl-button-bar align="center">
+    <sl-button fill="outline" variant="primary">One</sl-button>
+    <sl-button fill="outline" variant="primary">Two</sl-button>
+    <sl-button fill="outline" variant="primary">Three</sl-button>
+    </sl-button-bar>
   </div>
 </div>
 
 <div class="ds-code">
 
   ```html
-  button bar example
+  <sl-button-bar align="center">
+    <sl-button fill="outline" variant="primary">One</sl-button>
+    <sl-button fill="outline" variant="primary">Two</sl-button>
+    <sl-button fill="outline" variant="primary">Three</sl-button>
+  </sl-button-bar>
   ```
 
 </div>

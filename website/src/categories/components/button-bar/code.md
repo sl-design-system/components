@@ -22,6 +22,8 @@ eleventyNavigation:
 
 </div>
 
+## how on mobile???
+
 </section>
 <ds-install-info package="button-bar" link-in-navigation></ds-install-info>
 {% include "../component-table.njk" %}

@@ -168,6 +168,14 @@ export class Avatar extends ScopedElementsMixin(LitElement) {
     } else {
       this.clipPath = undefined;
     }
+
+    // Check if the name overflows and if so, enable the tooltip
+    const name = this.renderRoot.querySelector<HTMLElement>('[part="name"]')!;
+    if (name.offsetWidth < name.scrollWidth || name.offsetHeight + 4 < name.scrollHeight) {
+      name.setAttribute('aria-describedby', 'avatar-tooltip');
+    } else {
+      name.removeAttribute('aria-describedby');
+    }
   }
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {

@@ -62,8 +62,21 @@ Here are a few examples:
 
 <section>
 
+<section>
+
 ## Options
 
-...
+With these options you can tweak the appearance of the button bar in Figma. They are available in the Design Panel so you can compose the button to exactly fit the user experience need for the uses case you are working on.
+
+{{ 'components/button/sl-button-figma-options.svg' | svgImage }}
+
+|Item|Options|Description|
+|-|-|-|
+|Item|`option`|Description|
+|Item|`option`|Description|
+|Item|`option`|Description|
+|Item|`option`|Description|
+
+{.ds-table .ds-table-align-top}
 
 </section>

@@ -14,7 +14,7 @@ export interface PositionPopoverOptions {
   offset?: number;
   position?: PopoverPosition;
   viewportMargin?: number;
-  hideMarginTop?: number;
+  rootMarginTop?: number;
 }
 
 function roundByDPR(num: number): number {

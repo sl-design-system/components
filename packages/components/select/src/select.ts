@@ -116,7 +116,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   /** The number of pixels from the top of the viewport the select should be hidden on scroll.
    * Use this when there is a sticky header you don't want dropdowns to fall on top of. */
-  @property({ attribute: 'hide-margin-top' }) hideMarginTop: number = 0;
+  @property({ attribute: 'hide-margin-top' }) rootMarginTop: number = 0;
 
   /** The value for the select, to be used in forms. */
   @property() override value?: T;
@@ -225,7 +225,7 @@ export class Select<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
           offset: Select.offset,
           position: 'bottom-start',
           viewportMargin: Select.viewportMargin,
-          hideMarginTop: this.hideMarginTop
+          rootMarginTop: this.rootMarginTop
         })}
         @beforetoggle=${this.#onBeforetoggle}
         @click=${this.#onListboxClick}

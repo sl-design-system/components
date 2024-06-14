@@ -6,7 +6,7 @@ import { type NumberField } from './number-field.js';
 
 type Props = Pick<
   NumberField,
-  'disabled' | 'inputSize' | 'placeholder' | 'readonly' | 'required' | 'stepper' | 'value' | 'valueAsNumber'
+  'disabled' | 'inputSize' | 'noStepButtons' | 'placeholder' | 'readonly' | 'required' | 'value' | 'valueAsNumber'
 > & {
   hint?: string;
   label?: string;
@@ -21,15 +21,26 @@ export default {
     inputSize: 6,
     label: 'Number'
   },
-  render: ({ disabled, label, hint, inputSize, placeholder, readonly, required, stepper, value, valueAsNumber }) => {
+  render: ({
+    disabled,
+    label,
+    hint,
+    inputSize,
+    noStepButtons,
+    placeholder,
+    readonly,
+    required,
+    value,
+    valueAsNumber
+  }) => {
     return html`
       <sl-form>
         <sl-form-field .hint=${hint} .label=${label}>
           <sl-number-field
             ?disabled=${disabled}
+            ?no-step-buttons=${noStepButtons}
             ?readonly=${readonly}
             ?required=${required}
-            ?stepper=${stepper}
             .inputSize=${inputSize}
             .placeholder=${placeholder}
             .value=${value}
@@ -43,19 +54,28 @@ export default {
 
 export const Basic: Story = {
   args: {
-    stepper: true,
     valueAsNumber: 1024
   }
 };
 
 export const Disabled: Story = {
   args: {
+    ...Basic.args,
     disabled: true
+  }
+};
+
+export const NoStepButtons: Story = {
+  args: {
+    ...Basic.args,
+    hint: 'The step buttons are hidden, you can still use the keyboard to increase or decrease the value.',
+    noStepButtons: true
   }
 };
 
 export const Readonly: Story = {
   args: {
+    ...Basic.args,
     hint: 'The field is readonly, you can focus it, but you cannot enter any text.',
     readonly: true
   }

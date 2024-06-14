@@ -280,7 +280,6 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;
     input.id ||= `sl-text-field-${nextUniqueId++}`;
-    input.placeholder = this.placeholder ?? '';
     input.readOnly = !!this.readonly;
     input.required = !!this.required;
 
@@ -311,6 +310,12 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
       input.setAttribute('pattern', this.pattern);
     } else {
       input.removeAttribute('pattern');
+    }
+
+    if (typeof this.placeholder === 'string') {
+      input.setAttribute('placeholder', this.placeholder);
+    } else {
+      input.removeAttribute('placeholder');
     }
   }
 }

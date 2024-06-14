@@ -6,13 +6,13 @@
   padding-block: var(--_padding-block) !important;
 }
 
-.stepper-buttons {
+.step-buttons {
   border-inline-start: 1px solid var(--_border-color);
   display: flex;
   flex-direction: column;
 
   button {
-    background: var(--sl-color-button-default-solid-idle-background);
+    background: var(--sl-color-palette-neutral-100);
     block-size: calc((1lh + var(--_padding-block) * 2) / 2);
     border-radius: 0;
     inline-size: 24px;

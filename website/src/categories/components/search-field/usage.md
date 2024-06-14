@@ -40,13 +40,9 @@ Use a search field within a specific page section when users need to search data
 <section>
 
 ## When not to Use
-SECTION_INTRODUCTION
 
 ### Small Data
 Avoid using a search field within a page section when dealing with small or limited data. Additionally, refrain from implementing it when the information is simple and easily accessible within a single view. In such cases, a search field may be unnecessary and could complicate the user experience rather than enhance it. Use it for scenarios where it adds value and helps maintain a clean and efficient interface.
-
-### WHEN_NOT_POINT_TITLE
-WHEN_POINT_NOT_DESCRIPTION_TEXT
 
 </section>
 

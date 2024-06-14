@@ -9,8 +9,8 @@ eleventyNavigation:
 <section>
 
 <div class="ds-example">
-  <div class="ds-example__code-wrapper" aria-label="example of button bar">
-    <sl-button-bar align="center">
+  <div class="ds-example__code-wrapper">
+    <sl-button-bar align="center" aria-label="example of button bar">
     <sl-button fill="link" variant="default">Cancel</sl-button>
     <sl-button fill="outline" variant="primary">Save for later</sl-button>
     <sl-button fill="solid" variant="primary">Send</sl-button>

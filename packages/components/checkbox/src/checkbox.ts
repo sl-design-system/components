@@ -251,5 +251,6 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
 
     input.toggleAttribute('checked', !!this.checked);
     input.toggleAttribute('indeterminate', !!this.indeterminate);
+    this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
   }
 }

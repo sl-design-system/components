@@ -6,22 +6,9 @@ declare global {
   }
 }
 
-export type AvatarShape = 'circle' | 'square';
-export type AvatarConfig = {
-  shape: AvatarShape;
-  badgeGapWidth: number;
-};
+export interface ConfigSettings {}
 
-export interface ConfigSettings {
-  avatar: AvatarConfig;
-}
-
-const defaultConfig: ConfigSettings = {
-  avatar: {
-    shape: 'circle',
-    badgeGapWidth: 2
-  }
-};
+const defaultConfig: ConfigSettings = {};
 
 export class Config {
   static setConfig(settings: ConfigSettings): void {

@@ -24,7 +24,7 @@
             <li>
               <a class="ds-sublist__link{% if page.url.includes(child.url) %} ds-sublist__link--active{% endif %} {% if child.status == 'planned' %}ds-sublist__link--disabled{% endif %}"
                  {% if child.status != 'planned' %}href="{{ child.url }}{% if child.status %}usage{% endif %}"{% endif %} role="menuitem" {% if child.status == 'planned' %}aria-disabled="true"{% endif %}>
-                {{ child.title }} {% if child.status == 'planned' %}<sl-badge emphasis="bold" size="lg" variant="primary">Planned</sl-badge>{% endif %} {% if child.status == 'new' %}<sl-badge emphasis="bold" size="lg" variant="info">New</sl-badge>{% endif %}
+                {{ child.title }} {% if child.status == 'planned' %}<sl-badge emphasis="bold" variant="primary">Planned</sl-badge>{% endif %} {% if child.status == 'new' %}<sl-badge emphasis="bold" variant="info">New</sl-badge>{% endif %}
               </a>
             </li>
           {% endfor %}
@@ -38,7 +38,7 @@
             <li>
               <a class="ds-sublist__link{% if page.url.includes(child.url) %} ds-sublist__link--active{% endif %} {% if child.status == 'planned' %}ds-sublist__link--disabled{% endif %}"
                  {% if child.status != 'planned' %}href="{{ child.url }}{% if child.status %}usage{% endif %}"{% endif %} role="menuitem" {% if child.status == 'planned' %}aria-disabled="true"{% endif %}>
-                {{ child.title }} {% if child.status == 'planned' %}<sl-badge emphasis="bold" size="lg" variant="primary">Planned</sl-badge>{% endif %} {% if child.status == 'new' %}<sl-badge emphasis="bold" size="lg" variant="info">New</sl-badge>{% endif %}
+                {{ child.title }} {% if child.status == 'planned' %}<sl-badge emphasis="bold" variant="primary">Planned</sl-badge>{% endif %} {% if child.status == 'new' %}<sl-badge emphasis="bold" variant="info">New</sl-badge>{% endif %}
               </a>
             </li>
             {% endif %}

@@ -1526,105 +1526,35 @@
         }
       },
       "badge": {
-        "inline": {
+        "inset": {
           "sm": {
-            "value": "{space.2xs}",
+            "value": "{space.2xs} * -1",
             "type": "spacing"
           },
           "md": {
-            "value": "{space.2xs}",
+            "value": "{space.none}",
             "type": "spacing"
           },
           "lg": {
+            "value": "{space.xs} * -1",
+            "type": "spacing"
+          },
+          "xl": {
+            "value": "{space.2xs} * -1",
+            "type": "spacing"
+          },
+          "2xl": {
+            "value": "{space.2xs} * -1",
+            "type": "spacing"
+          },
+          "3xl": {
             "value": "{space.2xs}",
             "type": "spacing"
           }
         },
-        "block": {
-          "sm": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          },
-          "md": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          },
-          "lg": {
-            "value": "{space.2xs}",
-            "type": "spacing"
-          }
-        },
-        "gap": {
-          "sm": {
-            "value": "{space.xs}",
-            "type": "spacing"
-          },
-          "md": {
-            "value": "{space.xs}",
-            "type": "spacing"
-          },
-          "lg": {
-            "value": "{space.xs} + {space.2xs}",
-            "type": "spacing"
-          }
-        },
-        "icon": {
-          "inline": {
-            "sm": {
-              "value": "{space.none}",
-              "type": "spacing"
-            },
-            "md": {
-              "value": "{space.none}",
-              "type": "spacing"
-            },
-            "lg": {
-              "value": "1",
-              "type": "spacing"
-            }
-          },
-          "block": {
-            "sm": {
-              "value": "{space.none}",
-              "type": "spacing"
-            },
-            "md": {
-              "value": "{space.none}",
-              "type": "spacing"
-            },
-            "lg": {
-              "value": "1",
-              "type": "spacing"
-            }
-          }
-        },
-        "label": {
-          "inline": {
-            "2xs": {
-              "value": "{space.2xs}",
-              "type": "spacing"
-            },
-            "xs": {
-              "value": "{space.2xs}",
-              "type": "spacing"
-            },
-            "sm": {
-              "value": "{space.2xs}",
-              "type": "spacing"
-            },
-            "md": {
-              "value": "3px",
-              "type": "spacing"
-            },
-            "lg": {
-              "value": "3px",
-              "type": "spacing"
-            },
-            "xl": {
-              "value": "3px",
-              "type": "spacing"
-            }
-          }
+        "margin": {
+          "value": "{space.2xs}",
+          "type": "spacing"
         }
       }
     },

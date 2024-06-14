@@ -105,6 +105,8 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
       --_placeholder-color: var(--sl-color-input-text-field-#{$variant}-disabled-placeholder);
     }
 
+    slot[name='prefix']::slotted(sl-icon),
+    slot[name='suffix']::slotted(sl-icon),
     slot[name='suffix'] sl-icon {
       --sl-icon-fill-default: var(--sl-color-input-text-field-#{$variant}-disabled-icon);
     }

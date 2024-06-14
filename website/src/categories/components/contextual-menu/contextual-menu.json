@@ -1,0 +1,15 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "contextual menu",
+  "componentStatus": "draft",
+  "componentTagName": [
+    {
+      "name": "Menu button",
+      "selector": "sl-menu-button"
+    },
+    {
+      "name": "Menu",
+      "selector": "sl-menu"
+    }
+  ]
+}

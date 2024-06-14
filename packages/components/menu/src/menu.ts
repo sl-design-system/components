@@ -25,7 +25,7 @@ declare global {
  * @cssprop --sl-menu-max-inline-size - The maximum inline size of the menu.
  * @cssprop --sl-menu-min-inline-size - The minimum inline size of the menu.
  *
- * @slot - The menu's content: menu items or menu item groups.
+ * @slot default - The menu's content: menu items or menu item groups.
  */
 export class Menu extends LitElement {
   /** The default offset of the menu to its anchor. */
@@ -108,6 +108,7 @@ export class Menu extends LitElement {
     `;
   }
 
+  /** @internal */
   focusLastItem(): void {
     this.#rovingTabindexController.focusToElement(this.#menuItems.length - 1);
   }

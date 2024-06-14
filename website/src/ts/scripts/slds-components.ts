@@ -15,6 +15,7 @@ import '@sl-design-system/form/register.js';
 import '@sl-design-system/grid/register.js';
 import '@sl-design-system/icon/register.js';
 import '@sl-design-system/inline-message/register.js';
+import '@sl-design-system/menu/register.js';
 import '@sl-design-system/message-dialog/register.js';
 import '@sl-design-system/popover/register.js';
 import '@sl-design-system/radio-group/register.js';

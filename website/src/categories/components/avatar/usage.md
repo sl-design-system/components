@@ -108,7 +108,7 @@ With these options, you can tweak the appearance of the avatar in Figma. They ar
 
 |Item|Options|Description|
 |-|-|-|
-|Type|`initials` `photo` `placeholder`|Choose if you want to show a photo, a placeholder (icon) or initials in the avata.|
+|Type|`initials` `photo` `placeholder`|Choose if you want to show a photo, a placeholder (icon) or initials in the avatar.|
 |Badge Type|`alphanumeric` `icon` `empty`|Choose how you want to visualize the status within the badge.|
 |Initials|`value`|To insert the initials of the avatar.|
 |Show Badge|`boolean`|To indicate if the badge is enabled or disabled.|

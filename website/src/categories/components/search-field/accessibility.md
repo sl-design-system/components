@@ -18,7 +18,7 @@ Here's an overview of the common keyboard interactions associated with a search 
 |Command|Description|
 |-|-|
 |Tab|When focus is outside the search field, moves focus to the input container. If focus is on the input container, moves focus to the end enhancer (if provided, and interactive).|
-|Esc|Claer search value, when is an input.|
+|Esc|Clear search value, when is an input.|
 
 {.ds-table .ds-table-align-top}
 
@@ -38,8 +38,7 @@ WAI-ARIA Roles, States, and Properties for a search field provide essential info
 
 |Attribute | Value | Description | User supplied <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon> |
 |-|-|-|-|
-|`role`|`'textbox'`|Identifies as a text input|no|
-|`aria-label`	|string|Defines a string that labels the action that will be performed when the user interacts with the search field. Needs to be added when the text-field is not wrapped with `sl-form-field` and there is no `sl-label`. |yes|
+|`aria-label`	|string|Defines a string that labels the action that will be performed when the user interacts with the search field. Needs to be added when the search-field is not wrapped with `sl-form-field` and there is no `sl-label`. |yes|
 |`aria-labelledby`|string|Used to connect with single header/element that describes the search field, when there is no label component connected to.|yes|
 |`aria-required`	|boolean|Informs the user that an element is required. When set to ‘true’, screen readers notify users that the element is required. |yes|
 |`aria-disabled`|boolean|Announces the search field component as disabled with a screen reader. See [Note 1] below.|yes|

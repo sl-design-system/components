@@ -49,7 +49,14 @@ Here are a few examples:
 
 ## Anatomy
 
-...
+|Item|Name| Description | Optional|
+|-|-|-|-|
+|1|Name	|Descriptiom	|yes/no|
+|2|Name	|Descriptiom	|yes/no|
+|3|Name	|Descriptiom	|yes/no|
+
+
+{.ds-table}
 
 </section>
 

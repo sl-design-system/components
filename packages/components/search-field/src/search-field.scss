@@ -2,6 +2,10 @@
   padding: 0 0 0 var(--_padding-inline);
 }
 
+:host([disabled]) sl-icon {
+  --sl-icon-fill-default: var(--sl-color-input-text-field-default-disabled-icon);
+}
+
 ::slotted(input) {
   padding-block: var(--_padding-block) !important;
 }

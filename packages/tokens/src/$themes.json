@@ -1610,12 +1610,6 @@
       "text.avatar.subheader.xl": "S:17879a8fd99f1bfddee130065e4de6e9de962c1b,",
       "text.avatar.subheader.2xl": "S:bebfbebc12af679113a054767eb32e8bb920cf12,",
       "text.avatar.subheader.3xl": "S:9768ae26593a48dd8966299db13751df082bccd5,",
-      "text.badge.text.sm": "S:592a4f2de4f9eb84317029e1e7df7aee11ec1f89,",
-      "text.badge.text.md": "S:cc934f0be210e83b3d622f2bac93a27a59905dec,",
-      "text.badge.text.lg": "S:0737621c8b321e8f2040d5ecb46603f899a5caeb,",
-      "text.badge.text.xl": "S:7a0518b8eef20179a9d96c6f58c90ce096fe5cda,",
-      "text.badge.text.2xl": "S:e9f73e8329200c30899bdc690b678ef38fb93262,",
-      "text.badge.text.3xl": "S:4040542b806e314472fe20bf6d93586578df89f6,",
       "text.button.text.sm": "S:061f65c9a35d378bf51f7ebcaa1db59a7aac2db5,",
       "text.button.text.md": "S:5b0e524d602f819cd104bfe1a91e70b26ea6fc38,",
       "text.button.text.lg": "S:ae91548529b3561db66f43e4c1eae07099e9191c,",
@@ -1705,7 +1699,13 @@
       "elevation.shadow.md": "S:6072dcf6310dc5d1af5241de7ce433efb2b6a611,",
       "elevation.shadow.lg": "S:340f110335cbdfcdcbfc85b454edb8ed3b4f455a,",
       "elevation.shadow.none": "S:10c0b2d71e85dc46dbbb5511628908cc79da91ee,",
-      "boxShadow.slds.checklist": "S:8eae5d7b2789f9f7746c49a007cd3b3ec951f26a,"
+      "boxShadow.slds.checklist": "S:8eae5d7b2789f9f7746c49a007cd3b3ec951f26a,",
+      "text.badge.text.2xs": "S:592a4f2de4f9eb84317029e1e7df7aee11ec1f89,",
+      "text.badge.text.xs": "S:cc934f0be210e83b3d622f2bac93a27a59905dec,",
+      "text.badge.text.sm": "S:0737621c8b321e8f2040d5ecb46603f899a5caeb,",
+      "text.badge.text.md": "S:7a0518b8eef20179a9d96c6f58c90ce096fe5cda,",
+      "text.badge.text.lg": "S:e9f73e8329200c30899bdc690b678ef38fb93262,",
+      "text.badge.text.xl": "S:4040542b806e314472fe20bf6d93586578df89f6,"
     }
   },
   {
@@ -2675,12 +2675,6 @@
       "text.avatar.subheader.xl": "S:2509550068665fc7cc937f04614900c8369d0977,",
       "text.avatar.subheader.2xl": "S:ec8f2fb2a73f4881e32f06d3f56db7e0191c2d72,",
       "text.avatar.subheader.3xl": "S:282a203fc869dacd535952c2455166a692248aa9,",
-      "text.badge.text.sm": "S:c825bd1e65c79bc22c99856ebccde3507a32988a,",
-      "text.badge.text.md": "S:78c9deb3d62ea53167139907bae8b67a0a0ba70c,",
-      "text.badge.text.lg": "S:2ec18892ca029f79834c14b9e2978d9ec89132e2,",
-      "text.badge.text.xl": "S:991c82774304dc6a240ece59489aa01046e9693b,",
-      "text.badge.text.2xl": "S:e01266480ceb7bda06ada7e8ac433a60da4d8c16,",
-      "text.badge.text.3xl": "S:a1371d64a7a8a2c5d35ef8a07c8c5b60182d51cc,",
       "text.button.link.idle.sm": "S:a7729a55aad42e6454db68c75ba74c774f124bd9,",
       "text.button.link.idle.md": "S:3d3e71708bd8974634d7be2ed4abda2c2752169c,",
       "text.button.link.idle.lg": "S:e4044e7b0d1161cf395090018b743cf5041d3566,",
@@ -2713,7 +2707,13 @@
       "elevation.shadow.sm": "S:9a424c05253c6b636a91e6a8343e7f2a23382cb5,",
       "elevation.shadow.md": "S:9bc5247fba3cf7537b09b03ece1389a59a218d8b,",
       "elevation.shadow.lg": "S:03c5318057fc228c271dce8d58cdd8daab1527ab,",
-      "elevation.shadow.none": "S:5b20c0f18446195de1bb06390228417bd089161e,"
+      "elevation.shadow.none": "S:5b20c0f18446195de1bb06390228417bd089161e,",
+      "text.badge.text.2xs": "S:c825bd1e65c79bc22c99856ebccde3507a32988a,",
+      "text.badge.text.xs": "S:78c9deb3d62ea53167139907bae8b67a0a0ba70c,",
+      "text.badge.text.sm": "S:2ec18892ca029f79834c14b9e2978d9ec89132e2,",
+      "text.badge.text.md": "S:991c82774304dc6a240ece59489aa01046e9693b,",
+      "text.badge.text.lg": "S:e01266480ceb7bda06ada7e8ac433a60da4d8c16,",
+      "text.badge.text.xl": "S:a1371d64a7a8a2c5d35ef8a07c8c5b60182d51cc,"
     }
   },
   {
@@ -3726,12 +3726,6 @@
       "text.avatar.subheader.xl": "S:bd4ff472619bc6edea2c1ad68d327dcd94747640,",
       "text.avatar.subheader.2xl": "S:cf6ac1aeddf95f5354476cd4ef8e1acf85815ee4,",
       "text.avatar.subheader.3xl": "S:cd9413a80ecc9580ea4c826ce9e5ca1b7332d679,",
-      "text.badge.text.sm": "S:61bf670dae0343fd886e368506290481adbf8a9a,",
-      "text.badge.text.md": "S:927b87354b87f8319ad614f6c17f386551e23f3e,",
-      "text.badge.text.lg": "S:516811bb42973dad32d814fed8cfb08efbd8c908,",
-      "text.badge.text.xl": "S:8db1242b5f45baaea9760c6d8758d64e59e20664,",
-      "text.badge.text.2xl": "S:89aed9d39ac8f6ba5c63e465d1bd1e95038feca3,",
-      "text.badge.text.3xl": "S:507c0781b91c8103c33596cc2503fa0659cc3956,",
       "text.popover.text.text": "S:03b37f85ecaf74315ecfe3a5e0c164b73048f999,",
       "text.popover.text.title": "S:b4c6719316d57e138d73a207b3296718adbd3a3f,",
       "text.tooltip.text.tip": "S:2733317ab75557feb98443771aed186b5053ed8d,",
@@ -3767,7 +3761,14 @@
       "elevation.shadow.md": "S:6c6b7be431ee9c61fc4d751714e9bdf60eb9e59a,",
       "elevation.shadow.lg": "S:5b2c5d6f3520d11f43b8e98c29a15c9febd64392,",
       "elevation.shadow.none": "S:e17c5477d4b7781ef9b589de71198d749f36f3cd,",
-      "boxShadow.slds.checklist": "S:1b286691b70766e46ad6eae6feb071f3e3b6c264,"
+      "boxShadow.slds.checklist": "S:1b286691b70766e46ad6eae6feb071f3e3b6c264,",
+      "text.badge.text.2xs": "S:61bf670dae0343fd886e368506290481adbf8a9a,",
+      "text.badge.text.xs": "S:927b87354b87f8319ad614f6c17f386551e23f3e,",
+      "text.badge.text.sm": "S:516811bb42973dad32d814fed8cfb08efbd8c908,",
+      "text.badge.text.md": "S:8db1242b5f45baaea9760c6d8758d64e59e20664,",
+      "text.badge.text.lg": "S:89aed9d39ac8f6ba5c63e465d1bd1e95038feca3,",
+      "text.badge.text.xl": "S:507c0781b91c8103c33596cc2503fa0659cc3956,",
+      "color.palette.primary.25": "S:698c81d955d82fe0f67122cb58ec1efc0a951207,"
     }
   },
   {
@@ -4565,12 +4566,6 @@
       "text.avatar.subheader.xl": "S:620798ed5415c85ed58e07572de0f791994f7085,",
       "text.avatar.subheader.2xl": "S:c32c4024d896f5f7c2c056287004f8ab34a29746,",
       "text.avatar.subheader.3xl": "S:8b596fa6b897e0305abaf8156501c0e0e4c61199,",
-      "text.badge.text.sm": "S:c69c60850269a5242dd3ab5205b1316410900a64,",
-      "text.badge.text.md": "S:2696924d4db22c6fb3a811aac0d40a317c53e257,",
-      "text.badge.text.lg": "S:fd8fec4d9ae93ba51919d3645917378d53e08d43,",
-      "text.badge.text.xl": "S:e93f9c6f4bea942885778cf963bd16d4729c96bb,",
-      "text.badge.text.2xl": "S:bce33d31c196a854b6d5483ca504394fdd36c1a7,",
-      "text.badge.text.3xl": "S:f0c7863dea981d5d6f04b84c0fe24b05128b97a1,",
       "text.button.text.sm": "S:9240a1a5cccb8afea3672df061560a9d818eb79d,",
       "text.button.text.md": "S:aad2c666089d275579a538bbdc79b8d259a9f662,",
       "text.button.text.lg": "S:a3d7ac9e0df1c1356d2e228707672c1f64a02705,",
@@ -4625,7 +4620,13 @@
       "text.icon.font.icon.sm": "S:e751c201bff7521eafc46897cb1436b27be130e7,",
       "text.icon.font.icon.md": "S:ab7aec83a5efab80dd52818356cf0b3f33a0a995,",
       "text.icon.font.icon.lg": "S:d3c54af372ed487bb158da280fed5f649c004698,",
-      "text.list.sm.normal": "S:3cd61818f1250404ba55546828e26d78241fdb7f,"
+      "text.list.sm.normal": "S:3cd61818f1250404ba55546828e26d78241fdb7f,",
+      "text.badge.text.2xs": "S:c69c60850269a5242dd3ab5205b1316410900a64,",
+      "text.badge.text.xs": "S:2696924d4db22c6fb3a811aac0d40a317c53e257,",
+      "text.badge.text.sm": "S:fd8fec4d9ae93ba51919d3645917378d53e08d43,",
+      "text.badge.text.md": "S:e93f9c6f4bea942885778cf963bd16d4729c96bb,",
+      "text.badge.text.lg": "S:bce33d31c196a854b6d5483ca504394fdd36c1a7,",
+      "text.badge.text.xl": "S:f0c7863dea981d5d6f04b84c0fe24b05128b97a1,"
     }
   },
   {
@@ -6907,12 +6908,6 @@
       "text.avatar.subheader.xl": "S:8489bea87794fa79f1fea8a249cfd4f2089eaac3,",
       "text.avatar.subheader.2xl": "S:a3e3e26dfc83f0af59637a0db04d260320127a06,",
       "text.avatar.subheader.3xl": "S:ecf3e09975ac19eec94c5a740e868a9d4a90b86a,",
-      "text.badge.text.sm": "S:81597c8ce451eb6c5db2621360de1b12bff5ba48,",
-      "text.badge.text.md": "S:520382f0398acbe205a6738c1e103fe08d7b7a90,",
-      "text.badge.text.lg": "S:cb2e394ee4211f957e2118e7289b59198023bf65,",
-      "text.badge.text.xl": "S:bb945aea413d7b08c5253bf038bef7c9f04ef43e,",
-      "text.badge.text.2xl": "S:c80c426a789367b861afeca44b0910890eb2aebe,",
-      "text.badge.text.3xl": "S:d8988ac56bbac7125f20acd08132ffa394d9f5c6,",
       "text.tab.title": "S:45108e7b26fc52409a4bb4b4bc2dc15d11f62f56,",
       "text.tab.subtitle": "S:31535954e9cb3aef286de7f8b84a64edd80e4639,",
       "text.list.sm.normal": "S:04f48bd8d2d30e62eaadf4afba5aecf58815ab5b,",
@@ -6974,7 +6969,13 @@
       "text.href.disabled.lg": "S:f75260b5f16947c10cd0e30e21d71152593fd2ee,",
       "text.input.fieldLabel.hint.sm": "S:337709e52c78335531613a657bb55e0723327904,",
       "text.input.fieldLabel.hint.md": "S:771260db77b6d41f1fc5a06b29d1cbfa3260ab79,",
-      "text.input.fieldLabel.hint.lg": "S:599a4723584992d03f430323ce0ee5df4daf5447,"
+      "text.input.fieldLabel.hint.lg": "S:599a4723584992d03f430323ce0ee5df4daf5447,",
+      "text.badge.text.2xs": "S:81597c8ce451eb6c5db2621360de1b12bff5ba48,",
+      "text.badge.text.xs": "S:520382f0398acbe205a6738c1e103fe08d7b7a90,",
+      "text.badge.text.sm": "S:cb2e394ee4211f957e2118e7289b59198023bf65,",
+      "text.badge.text.md": "S:bb945aea413d7b08c5253bf038bef7c9f04ef43e,",
+      "text.badge.text.lg": "S:c80c426a789367b861afeca44b0910890eb2aebe,",
+      "text.badge.text.xl": "S:d8988ac56bbac7125f20acd08132ffa394d9f5c6,"
     }
   },
   {
@@ -9236,12 +9237,6 @@
       "text.avatar.subheader.xl": "S:fef388b400c75e5295656164598094b2eb23d44f,",
       "text.avatar.subheader.2xl": "S:833f62ed75b861a20848397b2f5929aa1e6b10ac,",
       "text.avatar.subheader.3xl": "S:13b587335c03f28824b9db40fd0270667760e3f6,",
-      "text.badge.text.sm": "S:6ec9270df3663664ffba7e2795f9002ad77323fa,",
-      "text.badge.text.md": "S:9f046925681a2d3fc88ccc07599a05fed0aec276,",
-      "text.badge.text.lg": "S:127569132f03acddc3e439c8d196742940ad9ef4,",
-      "text.badge.text.xl": "S:46840ce945b5fda2e9687c9cbf60079706931293,",
-      "text.badge.text.2xl": "S:5f68a61d68ca77065b6edc5352d2314c306ceefa,",
-      "text.badge.text.3xl": "S:6578674ae9da5a8e9e776be438b42d875fbcf496,",
       "text.button.text.sm": "S:a7ac18dd7e753a939391993ef2838febd0cb5cef,",
       "text.button.text.md": "S:3999a1df6419556bd9440d9c07efd12feeeb2929,",
       "text.button.text.lg": "S:de4687d82bbe6d26625bc81c7b8bdf5240566416,",
@@ -9331,7 +9326,13 @@
       "elevation.shadow.md": "S:214f14b3a0dfb2430f308a3480e2b6b752142e51,",
       "elevation.shadow.lg": "S:2ba56fe191578a991f63db452a75f91e8aeafd73,",
       "elevation.shadow.none": "S:b9e97d0abfa1da4061d7fc08c36d138b3aef7d7b,",
-      "boxShadow.slds.checklist": "S:4be26da3a985b776a79c9e40e45dfef207ce8490,"
+      "boxShadow.slds.checklist": "S:4be26da3a985b776a79c9e40e45dfef207ce8490,",
+      "text.badge.text.2xs": "S:6ec9270df3663664ffba7e2795f9002ad77323fa,",
+      "text.badge.text.xs": "S:9f046925681a2d3fc88ccc07599a05fed0aec276,",
+      "text.badge.text.sm": "S:127569132f03acddc3e439c8d196742940ad9ef4,",
+      "text.badge.text.md": "S:46840ce945b5fda2e9687c9cbf60079706931293,",
+      "text.badge.text.lg": "S:5f68a61d68ca77065b6edc5352d2314c306ceefa,",
+      "text.badge.text.xl": "S:6578674ae9da5a8e9e776be438b42d875fbcf496,"
     }
   },
   {
@@ -10490,12 +10491,6 @@
       "text.avatar.subheader.xl": "S:211bfaef53c2fbe1499d3b4cd51ffbbf12a0b638,",
       "text.avatar.subheader.2xl": "S:c4a1a5c21d8872fa39d869f63a1a434be25eca11,",
       "text.avatar.subheader.3xl": "S:e11db001851be731bfb611fa2c585ce3fd4cd908,",
-      "text.badge.text.sm": "S:4604084aa3df4e72a1b4dca7412f3b3e368af308,",
-      "text.badge.text.md": "S:b36286f3246f648cba2ee97027490e174f81f32b,",
-      "text.badge.text.lg": "S:5b4702d778983e701216b48f1040410bd118efd5,",
-      "text.badge.text.xl": "S:b6a14a17ce64827413a1e86768430b542a2b53a6,",
-      "text.badge.text.2xl": "S:6926d8d614409bd520103ec8090454fca67f11fc,",
-      "text.badge.text.3xl": "S:2de50523fab8cd281cf8a9930c8f3ee18f1c0538,",
       "text.button.link.idle.sm": "S:70761f076c4f7928e93a71ddfa089d91f7808733,",
       "text.button.link.idle.md": "S:70719c66111baa0fc737a7ba13737b8bde66675a,",
       "text.button.link.idle.lg": "S:58f7df8eb5125c2c44118c87a734acb1e624082e,",
@@ -10574,7 +10569,13 @@
       "elevation.shadow.md": "S:1c91ebf522714671d06bfc645f09efa2a7a99616,",
       "elevation.shadow.lg": "S:bd4a9cdbf719bafa8333a689840922c90ed1d7eb,",
       "elevation.shadow.none": "S:236c91739897abecea3853020a74e68147e522b6,",
-      "boxShadow.slds.checklist": "S:617ef636a5481e2fa77add123e02f752080e4e65,"
+      "boxShadow.slds.checklist": "S:617ef636a5481e2fa77add123e02f752080e4e65,",
+      "text.badge.text.2xs": "S:4604084aa3df4e72a1b4dca7412f3b3e368af308,",
+      "text.badge.text.xs": "S:b36286f3246f648cba2ee97027490e174f81f32b,",
+      "text.badge.text.sm": "S:5b4702d778983e701216b48f1040410bd118efd5,",
+      "text.badge.text.md": "S:b6a14a17ce64827413a1e86768430b542a2b53a6,",
+      "text.badge.text.lg": "S:6926d8d614409bd520103ec8090454fca67f11fc,",
+      "text.badge.text.xl": "S:2de50523fab8cd281cf8a9930c8f3ee18f1c0538,"
     }
   },
   {
@@ -12317,12 +12318,6 @@
       "text.avatar.subheader.xl": "S:9ac932ff8d4273cd8d3c6017ff101fe24f01e1e9,",
       "text.avatar.subheader.2xl": "S:d3506bf0be0c9cc17876fd98db2045f769aaa417,",
       "text.avatar.subheader.3xl": "S:8608850e3ed1f2cc999e4d6617cbab14de4ad30f,",
-      "text.badge.text.sm": "S:192485b9ccd41ec4e70d57fbf0e5449862217ed7,",
-      "text.badge.text.md": "S:4c11d44c36ed8748d63d63d5e666c244c2247830,",
-      "text.badge.text.lg": "S:81c06d2a0f667490657922080728860934664efe,",
-      "text.badge.text.xl": "S:df0acc2fbd1174972c7caacf981a37930ef59df1,",
-      "text.badge.text.2xl": "S:08dac7c72a8f184f2feed9a0c6de710a97aac894,",
-      "text.badge.text.3xl": "S:7da463af80db77f51b35320fe67ce3bb76fb0db8,",
       "text.tooltip.text.tip": "S:c9850803d72cb3a8e0f7c679e8b1ea151682b875,",
       "text.tooltip.text.title": "S:28858a40ffb75b92bf8ab4a1616c708dfa3fb041,",
       "text.popover.text.text": "S:8e030d356f6ffa26bb08068811b1e87e4e08a9dc,",
@@ -12362,7 +12357,13 @@
       "elevation.shadow.md": "S:8c19f44af3c206a1522bc53fd5f455703dbdf393,",
       "elevation.shadow.lg": "S:84c359ff23cdb8b9e8751e01a3955dc338354ff2,",
       "elevation.shadow.none": "S:9f49a35f4965aefcd093b584dfa2e5f68061096e,",
-      "boxShadow.slds.checklist": "S:006bdd0873388c4dbbd20993eb25c67a7c71cc3c,"
+      "boxShadow.slds.checklist": "S:006bdd0873388c4dbbd20993eb25c67a7c71cc3c,",
+      "text.badge.text.2xs": "S:192485b9ccd41ec4e70d57fbf0e5449862217ed7,",
+      "text.badge.text.xs": "S:4c11d44c36ed8748d63d63d5e666c244c2247830,",
+      "text.badge.text.sm": "S:81c06d2a0f667490657922080728860934664efe,",
+      "text.badge.text.md": "S:df0acc2fbd1174972c7caacf981a37930ef59df1,",
+      "text.badge.text.lg": "S:08dac7c72a8f184f2feed9a0c6de710a97aac894,",
+      "text.badge.text.xl": "S:7da463af80db77f51b35320fe67ce3bb76fb0db8,"
     },
     "selectedTokenSets": {
       "core": "enabled",
@@ -13902,12 +13903,6 @@
       "text.avatar.subheader.xl": "S:3f9e691b136dfde03b54d2e8488ccc3291e004ed,",
       "text.avatar.subheader.2xl": "S:c1cdbbaf1c94e414f8bf2e4de0948406f74a6b25,",
       "text.avatar.subheader.3xl": "S:ab56479734e44e4c20dd53343e171b5d516be3ef,",
-      "text.badge.text.sm": "S:e6f9ffc0e2b0e6f39c7cdd6f028e39c81cbd170f,",
-      "text.badge.text.md": "S:ad9472f4c4f47f9f7bd054d3794dd1f79c3172b4,",
-      "text.badge.text.lg": "S:416e4bbe4bc3184254e3fe4e5854a4eaa6b829ea,",
-      "text.badge.text.xl": "S:621b98fa9fd4dbbcf5db8b989d9884f1f6c0b332,",
-      "text.badge.text.2xl": "S:5f3a4ba5bb7d2f55ac6dfdc3b579eed3e8ada094,",
-      "text.badge.text.3xl": "S:3a9e0941a2f8aa3a731a3607f86bf5989a23873c,",
       "text.heading.0": "S:39a40e3d41bc5f1417106389f2b0835152a3a100,",
       "text.heading.1": "S:7edc60ea3807307c77dfaa8f64b2c13bce45c163,",
       "text.heading.2": "S:44baa38f812762cb38df1636fb6eb9f903e583f2,",
@@ -13981,10 +13976,16 @@
       "text.popover.text.text": "S:4acafe45e608d147e834f90fc605d5ceb49a1c8d,",
       "text.popover.text.title": "S:338ccbf174600f3e1048fe74a8a57ce7cfb0fda0,",
       "boxShadow.focus": "S:5172c607519be3d15eb067225b93c1dc3e83e534,",
-      "boxShadow.none": "S:735dd3b3e63eb588c9201ddd45c57dbf8e0ed160,"
+      "boxShadow.none": "S:735dd3b3e63eb588c9201ddd45c57dbf8e0ed160,",
+      "text.badge.text.2xs": "S:e6f9ffc0e2b0e6f39c7cdd6f028e39c81cbd170f,",
+      "text.badge.text.xs": "S:ad9472f4c4f47f9f7bd054d3794dd1f79c3172b4,",
+      "text.badge.text.sm": "S:416e4bbe4bc3184254e3fe4e5854a4eaa6b829ea,",
+      "text.badge.text.md": "S:621b98fa9fd4dbbcf5db8b989d9884f1f6c0b332,",
+      "text.badge.text.lg": "S:5f3a4ba5bb7d2f55ac6dfdc3b579eed3e8ada094,",
+      "text.badge.text.xl": "S:3a9e0941a2f8aa3a731a3607f86bf5989a23873c,"
     },
     "selectedTokenSets": {
-      "core": "source",
+      "core": "enabled",
       "editorial-suite/base": "enabled",
       "editorial-suite/light": "enabled"
     }
@@ -14974,12 +14975,6 @@
       "text.avatar.subheader.xl": "S:51d7a83c826f1b7aa9f9eddae7bb98df48331b82,",
       "text.avatar.subheader.2xl": "S:5636ef196f1e0f1443a386b600786f0027ea907c,",
       "text.avatar.subheader.3xl": "S:a58b90bf852843e339516eea2470e2d97ede8dde,",
-      "text.badge.text.sm": "S:d175dbbc494330bcf781a25d572c044f69786c68,",
-      "text.badge.text.md": "S:55b062b687e016e8473caa040ec182801c253932,",
-      "text.badge.text.lg": "S:93b4422376b95ab3c68aee8c9a59ead327a8b1ea,",
-      "text.badge.text.xl": "S:a8a3a2d87e0f12f44e8873b08c4b63291fd491f8,",
-      "text.badge.text.2xl": "S:edf9c93bdd85027a129ade4853a5d08a97536026,",
-      "text.badge.text.3xl": "S:1c79b3737e3f0ab0e3683f9d173b849363731f5d,",
       "text.tooltip.text.tip": "S:877507df27c076b6349ecfb709852f9ad762d139,",
       "text.tooltip.text.title": "S:15ffb78a3d6462ec63e3226270b62b4452dc96e5,",
       "text.popover.text.text": "S:ca93ec034723aa65b798f6b21c68bf7400432b23,",
@@ -15019,7 +15014,13 @@
       "elevation.shadow.md": "S:69d3782e66ed79dee794df57a490c159a317a08c,",
       "elevation.shadow.lg": "S:ea1b5c0d62edc74a1caf3b2be2c6ccfb2960792b,",
       "elevation.shadow.none": "S:5dca2074d463f100a1148182dc482fbb8b418cd2,",
-      "boxShadow.slds.checklist": "S:f1501849d0465112014832cb27bcc26059ff7799,"
+      "boxShadow.slds.checklist": "S:f1501849d0465112014832cb27bcc26059ff7799,",
+      "text.badge.text.2xs": "S:d175dbbc494330bcf781a25d572c044f69786c68,",
+      "text.badge.text.xs": "S:55b062b687e016e8473caa040ec182801c253932,",
+      "text.badge.text.sm": "S:93b4422376b95ab3c68aee8c9a59ead327a8b1ea,",
+      "text.badge.text.md": "S:a8a3a2d87e0f12f44e8873b08c4b63291fd491f8,",
+      "text.badge.text.lg": "S:edf9c93bdd85027a129ade4853a5d08a97536026,",
+      "text.badge.text.xl": "S:1c79b3737e3f0ab0e3683f9d173b849363731f5d,"
     },
     "selectedTokenSets": {
       "core": "enabled",

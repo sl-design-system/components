@@ -12,7 +12,6 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Inline message
-  order: 17
   status: ready
 ---
 

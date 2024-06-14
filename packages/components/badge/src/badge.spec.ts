@@ -6,28 +6,48 @@ import { type Badge } from './badge.js';
 describe('sl-badge', () => {
   let el: Badge;
 
-  beforeEach(async () => {
-    el = await fixture(html`<sl-badge>99+</sl-badge>`);
+  describe('defaults', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-badge>99+</sl-badge>`);
+    });
+
+    it('should not have a round attribute', () => {
+      expect(el).to.not.have.attribute('round');
+    });
+
+    it('should have subtle emphasis', () => {
+      expect(el.emphasis).to.equal('subtle');
+      expect(el).to.have.attribute('emphasis', 'subtle');
+    });
+
+    it('should have medium size', () => {
+      expect(el.size).to.equal('md');
+      expect(el).to.have.attribute('size', 'md');
+    });
+
+    it('should have neutral variant', () => {
+      expect(el.variant).to.equal('neutral');
+      expect(el).to.have.attribute('variant', 'neutral');
+    });
   });
 
-  it('should render correctly', () => {
-    expect(el).shadowDom.to.equalSnapshot();
+  describe('icon only', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-badge><sl-icon name="check"></sl-icon></sl-badge>`);
+    });
+
+    it('should have a round attribute', () => {
+      expect(el).to.have.attribute('round');
+    });
   });
 
-  it('should have size medium and variant neutral by default', () => {
-    expect(el).to.have.attribute('size', 'md');
-    expect(el).to.have.attribute('variant', 'neutral');
-  });
+  describe('single character', () => {
+    beforeEach(async () => {
+      el = await fixture(html`<sl-badge>9</sl-badge>`);
+    });
 
-  it('should render the slotted content', () => {
-    expect(el).shadowDom.to.have.text('99+');
-    expect(el).shadowDom.to.equal('<slot></slot>');
-  });
-
-  it('should not render the slotted content for small size', async () => {
-    el.setAttribute('size', 'sm');
-    await el.updateComplete;
-
-    expect(el).shadowDom.to.equal('');
+    it('should have a round attribute', () => {
+      expect(el).to.have.attribute('round');
+    });
   });
 });

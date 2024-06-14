@@ -6,10 +6,13 @@ eleventyNavigation:
   key: AvatarUsage
 ---
 
-<section>  
+<section>
 <div class="ds-example" style="justify-content: space-evenly">
-  <sl-avatar display-name="Anna Jenssen" picture-url="/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg" size="3xl" orientation="vertical"></sl-avatar>
-  <sl-avatar display-name="Tim Jenssen" picture-url="/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg" size="xl" status="success">Class: 1B</sl-avatar>
+  <sl-avatar display-name="Anna Jenssen" picture-url="/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg" size="3xl" vertical></sl-avatar>
+  <sl-avatar display-name="Tim Jenssen" picture-url="/assets/images/components/avatar/xia-yang-AGGA9LH3FLo-unsplash.jpg" size="xl">
+    <sl-badge emphasis="bold" slot="badge" variant="success"></sl-badge>
+    Class: 1B
+  </sl-avatar>
 
   <small style="position: absolute; bottom:0; right:var(--scale-150-scale)">
 
@@ -22,17 +25,16 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-avatar 
-      display-name="Anna Jenssen" 
-      picture-url="/images/avatar.jpg" 
-      size="3xl" 
-      orientation="vertical"></sl-avatar>
+    <sl-avatar
+      display-name="Anna Jenssen"
+      picture-url="/images/avatar.jpg"
+      size="3xl"
+      vertical></sl-avatar>
 
-    <sl-avatar 
-      display-name="Tim Jenssen" 
-      picture-url="/images/avatar.jpg"  
-      size="xl" 
-      status="success">Class: 1B</sl-avatar>
+    <sl-avatar display-name="Tim Jenssen" picture-url="/images/avatar.jpg" size="xl">
+      <sl-badge emphasis="bold" slot="badge" variant="success"></sl-badge>
+      Class: 1B
+    </sl-avatar>
   ```
 </div>
 
@@ -88,7 +90,7 @@ Avatar link variant shouldn't used to trigger actions. It is intended solely for
 With these options, you can tweak the appearance of the avatar in Figma. They are available in the Design Panel so you can compose the avatar to exactly fit the user experience need for the use case you are working on.
 
 <div class="ds-table-wrapper">
-  
+
 ### Avatar
 |Item|Options|Description|
 |-|-|-|
@@ -101,8 +103,9 @@ With these options, you can tweak the appearance of the avatar in Figma. They ar
 
 
 <div class="ds-table-wrapper">
-  
+
 ### Avatar Circle
+
 |Item|Options|Description|
 |-|-|-|
 |Type|`initials` `photo` `placeholder`|Choose if you want to show a photo, a placeholder (icon) or initials in the avata.|
@@ -116,8 +119,9 @@ With these options, you can tweak the appearance of the avatar in Figma. They ar
 
 
 <div class="ds-table-wrapper">
-  
+ 
 ### Badge
+
 |Item|Options|Description|
 |-|-|-|
 |Background|`danger` `warning` `success` `accent` `grey` `primary`|To visualize the status color of the badge.|

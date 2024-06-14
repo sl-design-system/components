@@ -10,7 +10,6 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Breadcrumbs
-  order: 5
   status: new
 ---
 

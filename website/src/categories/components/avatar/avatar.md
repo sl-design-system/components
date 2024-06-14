@@ -12,7 +12,6 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Avatar
-  order: 3
   status: ready
 ---
 

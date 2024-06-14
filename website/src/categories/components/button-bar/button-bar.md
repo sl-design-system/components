@@ -1,8 +1,8 @@
 ---
 title: Button bar
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna.
+description: The Button bar component is designed to add up to three different buttons side by side.
 componentType: action
-shortDescription: We are still working on the button bar component
+shortDescription: The Button bar component is designed to add up to three different buttons side by side.
 layout: "categories/components/components.njk"
 tags: component
 packageName: button-bar

@@ -59,6 +59,11 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** @internal Emits when the component gains focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
+  /** The formatted value, to be used as the input value. */
+  get formattedValue(): string {
+    return this.value ?? '';
+  }
+
   /** The input element in the light DOM. */
   input!: HTMLInputElement;
 
@@ -111,7 +116,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** The value of the text field. */
   @property()
   override set value(value: string | undefined) {
-    this.#value = value;
+    this.#value = this.parseValue(value ?? '');
   }
 
   override connectedCallback(): void {
@@ -156,10 +161,10 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     }
 
     if (changes.has('value')) {
-      const formattedValue = this.formatValue(this.value);
+      const formattedValue = this.formattedValue;
 
       if (this.input.value !== formattedValue) {
-        this.input.value = this.formatValue(this.value);
+        this.input.value = formattedValue;
       }
     }
   }
@@ -211,14 +216,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
    */
   parseValue(value: string): string {
     return value;
-  }
-
-  /**
-   * Method that formats the value and set's it on the native input element. Override this method
-   * if you want to format the value in a different way.
-   */
-  formatValue(value?: string): string {
-    return value ?? '';
   }
 
   override focus(): void {

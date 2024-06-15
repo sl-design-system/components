@@ -22,11 +22,22 @@ export class NumberField extends LocaleMixin(TextField) {
   /** The formatter for formatting the value. */
   #formatter = new Intl.NumberFormat(this.locale, this.formatOptions);
 
+  /** The number value. */
+  #value?: number;
+
   /**
    * Number formatting options.
    * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat
    */
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
+
+  override get formattedValue(): string {
+    if (typeof this.valueAsNumber === 'number') {
+      return this.#formatter.format(this.valueAsNumber);
+    } else {
+      return '';
+    }
+  }
 
   /**
    * The maximum value that is acceptable and valid.
@@ -46,14 +57,25 @@ export class NumberField extends LocaleMixin(TextField) {
   /** The amount by which the value will be increased/decreased by a step up/down. */
   @property({ type: Number }) step?: number;
 
-  get valueAsNumber(): number {
-    return typeof this.value === 'string' ? parseFloat(this.value) : NaN;
+  // override set value(value: string) {
+  //   const newValue = value === '' ? undefined : this.parseValue(value);
+  //   const oldValue = this.valueAsNumber;
+
+  //   if (newValue !== oldValue) {
+  //     this.valueAsNumber = newValue;
+  //     this.requestUpdate('value', oldValue);
+  //   }
+  // }
+
+  get valueAsNumber() {
+    return this.#value;
   }
 
   /** The value, as a number. */
   @property({ type: Number })
   set valueAsNumber(value: number | undefined) {
-    this.value = value?.toString() ?? '';
+    this.#value = value;
+    this.value = value === undefined ? '' : value.toString();
   }
 
   override connectedCallback(): void {
@@ -67,12 +89,6 @@ export class NumberField extends LocaleMixin(TextField) {
 
     if (changes.has('locale') || changes.has('formatOptions')) {
       this.#formatter = new Intl.NumberFormat(this.locale, this.formatOptions);
-    }
-
-    if (changes.has('valueAsNumber')) {
-      console.log('setting value');
-
-      this.value = this.#formatter.format(this.valueAsNumber);
     }
   }
 
@@ -91,15 +107,13 @@ export class NumberField extends LocaleMixin(TextField) {
         `;
   }
 
-  override formatValue(value?: string | undefined): string {
-    return this.#formatter.format(value ? parseFloat(value) : 0);
-  }
-
   stepDown(decrement: number = this.step ?? 1): void {
+    this.valueAsNumber ??= 0;
     this.valueAsNumber -= decrement;
   }
 
   stepUp(increment: number = this.step ?? 1): void {
+    this.valueAsNumber ??= 0;
     this.valueAsNumber += increment;
   }
 

@@ -8,6 +8,7 @@ import { type NumberField } from './number-field.js';
 type Props = Pick<
   NumberField,
   | 'disabled'
+  | 'formatOptions'
   | 'inputSize'
   | 'locale'
   | 'noStepButtons'
@@ -38,6 +39,7 @@ export default {
   },
   render: ({
     disabled,
+    formatOptions,
     label,
     hint,
     inputSize,
@@ -57,6 +59,7 @@ export default {
             ?no-step-buttons=${noStepButtons}
             ?readonly=${readonly}
             ?required=${required}
+            .formatOptions=${formatOptions}
             .inputSize=${inputSize}
             .placeholder=${placeholder}
             .valueAsNumber=${valueAsNumber}
@@ -72,6 +75,14 @@ export default {
 export const Basic: Story = {
   args: {
     valueAsNumber: 1024
+  }
+};
+
+export const Currency: Story = {
+  args: {
+    formatOptions: { style: 'currency', currency: 'EUR' },
+    hint: 'The number is formatted as currency.',
+    valueAsNumber: 9.99
   }
 };
 

@@ -15,6 +15,7 @@ type Props = Pick<
   | 'placeholder'
   | 'readonly'
   | 'required'
+  | 'step'
   | 'value'
   | 'valueAsNumber'
 > & {
@@ -48,6 +49,7 @@ export default {
     placeholder,
     readonly,
     required,
+    step,
     value,
     valueAsNumber
   }) => {
@@ -62,6 +64,7 @@ export default {
             .formatOptions=${formatOptions}
             .inputSize=${inputSize}
             .placeholder=${placeholder}
+            .step=${step}
             .valueAsNumber=${valueAsNumber}
             locale=${ifDefined(locale)}
             value=${ifDefined(value)}
@@ -78,18 +81,36 @@ export const Basic: Story = {
   }
 };
 
-export const Currency: Story = {
-  args: {
-    formatOptions: { style: 'currency', currency: 'EUR' },
-    hint: 'The number is formatted as currency.',
-    valueAsNumber: 9.99
-  }
-};
-
 export const Disabled: Story = {
   args: {
     ...Basic.args,
     disabled: true
+  }
+};
+
+export const FormatCurrency: Story = {
+  args: {
+    formatOptions: { style: 'currency', currency: 'EUR' },
+    hint: 'The number is formatted as currency.',
+    valueAsNumber: 9.9
+  }
+};
+
+export const FormatPercent: Story = {
+  args: {
+    formatOptions: { style: 'percent' },
+    hint: 'The number is formatted as a percentage.',
+    step: 0.01,
+    valueAsNumber: 0.1
+  }
+};
+
+export const FormatUnit: Story = {
+  args: {
+    formatOptions: { style: 'unit', unit: 'meter', unitDisplay: 'long' },
+    hint: 'The number is formatted as a unit.',
+    inputSize: 10,
+    valueAsNumber: 100
   }
 };
 

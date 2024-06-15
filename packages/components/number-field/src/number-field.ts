@@ -97,10 +97,18 @@ export class NumberField extends LocaleMixin(TextField) {
       ? nothing
       : html`
           <div class="step-buttons">
-            <button @click=${() => this.stepUp()} ?disabled=${this.disabled} aria-label=${msg('Step up')}>
+            <button
+              @click=${() => this.stepUp()}
+              ?disabled=${this.disabled || this.readonly}
+              aria-label=${msg('Step up')}
+            >
               <sl-icon name="chevron-up" size="xs"></sl-icon>
             </button>
-            <button @click=${() => this.stepDown()} ?disabled=${this.disabled} aria-label=${msg('Step down')}>
+            <button
+              @click=${() => this.stepDown()}
+              ?disabled=${this.disabled || this.readonly}
+              aria-label=${msg('Step down')}
+            >
               <sl-icon name="chevron-down" size="xs"></sl-icon>
             </button>
           </div>
@@ -108,13 +116,15 @@ export class NumberField extends LocaleMixin(TextField) {
   }
 
   stepDown(decrement: number = this.step ?? 1): void {
-    this.valueAsNumber ??= 0;
-    this.valueAsNumber -= decrement;
+    const value = this.valueAsNumber ?? 0;
+
+    this.valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
   }
 
   stepUp(increment: number = this.step ?? 1): void {
-    this.valueAsNumber ??= 0;
-    this.valueAsNumber += increment;
+    const value = this.valueAsNumber ?? 0;
+
+    this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
   }
 
   #onKeydown(event: KeyboardEvent): void {

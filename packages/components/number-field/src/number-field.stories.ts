@@ -11,6 +11,8 @@ type Props = Pick<
   | 'formatOptions'
   | 'inputSize'
   | 'locale'
+  | 'max'
+  | 'min'
   | 'noStepButtons'
   | 'placeholder'
   | 'readonly'
@@ -45,6 +47,8 @@ export default {
     hint,
     inputSize,
     locale,
+    max,
+    min,
     noStepButtons,
     placeholder,
     readonly,
@@ -63,6 +67,8 @@ export default {
             ?required=${required}
             .formatOptions=${formatOptions}
             .inputSize=${inputSize}
+            .max=${max}
+            .min=${min}
             .placeholder=${placeholder}
             .step=${step}
             .valueAsNumber=${valueAsNumber}
@@ -111,6 +117,15 @@ export const FormatUnit: Story = {
     hint: 'The number is formatted as a unit.',
     inputSize: 10,
     valueAsNumber: 100
+  }
+};
+
+export const MinMax: Story = {
+  args: {
+    hint: 'The number must be between 0 and 10.',
+    max: 10,
+    min: 0,
+    valueAsNumber: 5
   }
 };
 

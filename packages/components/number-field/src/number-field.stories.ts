@@ -1,12 +1,21 @@
 import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type NumberField } from './number-field.js';
 
 type Props = Pick<
   NumberField,
-  'disabled' | 'inputSize' | 'noStepButtons' | 'placeholder' | 'readonly' | 'required' | 'value' | 'valueAsNumber'
+  | 'disabled'
+  | 'inputSize'
+  | 'locale'
+  | 'noStepButtons'
+  | 'placeholder'
+  | 'readonly'
+  | 'required'
+  | 'value'
+  | 'valueAsNumber'
 > & {
   hint?: string;
   label?: string;
@@ -21,11 +30,18 @@ export default {
     inputSize: 6,
     label: 'Number'
   },
+  argTypes: {
+    locale: {
+      control: 'inline-radio',
+      options: ['de', 'en', 'es', 'fi', 'it', 'nl', 'no', 'pl', 'sv']
+    }
+  },
   render: ({
     disabled,
     label,
     hint,
     inputSize,
+    locale,
     noStepButtons,
     placeholder,
     readonly,
@@ -43,8 +59,9 @@ export default {
             ?required=${required}
             .inputSize=${inputSize}
             .placeholder=${placeholder}
-            .value=${value}
             .valueAsNumber=${valueAsNumber}
+            locale=${ifDefined(locale)}
+            value=${ifDefined(value)}
           ></sl-number-field>
         </sl-form-field>
       </sl-form>

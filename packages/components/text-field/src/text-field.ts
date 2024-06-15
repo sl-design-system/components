@@ -27,9 +27,7 @@ let nextUniqueId = 0;
  * @slot suffix - Content shown after the input
  */
 @localized()
-export class TextField<T extends { toString(): string } = string> extends FormControlMixin(
-  ScopedElementsMixin(LitElement)
-) {
+export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement)) {
   /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
@@ -44,7 +42,7 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   static override styles: CSSResultGroup = styles;
 
   /** The value of the text field. */
-  #value: T | undefined = '' as unknown as T;
+  #value?: string;
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;
@@ -53,7 +51,7 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** @internal Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<string | undefined>>;
 
   /** Whether the text field is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -106,13 +104,13 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
    */
   @property() type: 'email' | 'number' | 'tel' | 'text' | 'url' | 'password' = 'text';
 
-  override get value(): T | undefined {
+  override get value(): string | undefined {
     return this.#value;
   }
 
   /** The value of the text field. */
   @property()
-  override set value(value: T | undefined) {
+  override set value(value: string | undefined) {
     this.#value = value;
   }
 
@@ -211,16 +209,16 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
    * Method that converts the string value in the input to the specified type T. Override this method
    * if you want to convert the value in a different way. Throw an error if the value is invalid.
    */
-  parseValue(value: string): T | undefined {
-    return value as unknown as T;
+  parseValue(value: string): string {
+    return value;
   }
 
   /**
    * Method that formats the value and set's it on the native input element. Override this method
    * if you want to format the value in a different way.
    */
-  formatValue(value?: T): string {
-    return value?.toString() || '';
+  formatValue(value?: string): string {
+    return value ?? '';
   }
 
   override focus(): void {

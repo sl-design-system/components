@@ -10,5 +10,6 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Search field
+  status: new
 ---
 

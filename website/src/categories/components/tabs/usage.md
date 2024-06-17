@@ -135,17 +135,17 @@ The orientation of tabs plays a significant role in determining the layout and f
 
 <section>
 
-## Options
-With these options, you can tweak the appearance of the tabs in Figma. They are available in the Design Panel so you can compose the spinner to exactly fit the user experience need for the use case you are working on.
+## Figma Options
+With these options, you can tweak the appearance of the tabs in Figma. They are available in the Design Panel so you can compose the tabs to exactly fit the user experience need for the use case you are working on.
 
 ### Tab List
 The tab list provides the options to set up the version of the component that you need.
 
 |Item|Options|Description|
 |-|-|-|
-|Subtitles|`'on', 'of'`|Toogle to display the subtitle in the tabs. |
-|Alignement|`'Left', 'Filled'`|Define the behaviour of the tab related to the tab list. |
-|More Button|`'on', 'of'`|Toogle to display the overflow button in the tabs list. |
+|Subtitles|`boolean`|Toogle to display the subtitle in the tabs. |
+|Alignement|`left` `filled`|Define the behaviour of the tab related to the tab list. |
+|More Button|`boolean`|Toogle to display the overflow button in the tabs list. |
 
 {.ds-table .ds-table-align-top}
 
@@ -154,12 +154,12 @@ This are the tab buttons to switch between content.
 
 |Item|Options|Description|
 |-|-|-|
-|State|`'Default', 'Hover', 'Active', 'Disabled'`|Define the behaviour of the tab related to the tab list. |
-|Badge|`'on', 'of'`|Toogle to display the badge in the tabs. |
-|Icon|`'on', 'of'`|Toogle to display the icon in the tabs. |
-|Icon Only|`'on', 'of'`|Toogle to switch only icon tabs. |
-|Title|`'input'`|Text input to inser the title. |
-|Subtitle|`'input'`|Text input to inser the subtitle. |
+|State|`default` `hover` `Active` `Disabled`|Define the behaviour of the tab related to the tab list. |
+|Badge|`boolean`|Toggle to display the badge in the tabs. |
+|Icon|`boolean`|Toggle to display the icon in the tabs. |
+|Icon Only|`boolean`|Toggle to switch only icon tabs. |
+|Title|`value`|Text input to insert the title. |
+|Subtitle|`value`|Text input to insert the subtitle. |
 
 {.ds-table .ds-table-align-top}
 

@@ -36,7 +36,7 @@ eleventyNavigation:
 
 ## When to use
 
-The Button bar component is typically used in user interfaces where a group of actions can be performed related to a specific context or where the user needs to make a choice between a few options. It's designed to provide a clean and organized way to present up to three buttons side by side, which can be useful in various scenarios such as form submissions, navigation, or initiating different functionalities.
+The Button bar component is typically used in user interfaces where a group of actions can be performed related to a specific context or where the user needs to make a choice between a few options. It's designed to provide a clean and organized way to present up to four buttons side by side, which will stack up when there's not enough space, like on mobile screens. It's handy for things like submitting forms, navigation, or triggering different actions.
 
 Here are a few examples:
 - **Form Actions**: When you have a form that requires actions like 'Submit', 'Cancel', or 'Reset', a button bar can group these actions together.
@@ -51,10 +51,7 @@ Here are a few examples:
 
 |Item|Name| Description | Optional|
 |-|-|-|-|
-|1|Name	|Descriptiom	|yes/no|
-|2|Name	|Descriptiom	|yes/no|
-|3|Name	|Descriptiom	|yes/no|
-
+|1|Button placeholder	|A placeholder for an action	|yes|
 
 {.ds-table}
 
@@ -70,10 +67,10 @@ With these options you can tweak the appearance of the button bar in Figma. They
 
 |Item|Options|Description|
 |-|-|-|
-|Item|`option`|Description|
-|Item|`option`|Description|
-|Item|`option`|Description|
-|Item|`option`|Description|
+|Align|`left` `center` `expand` `right`|Determines the alignment of the buttons|
+|Ghost icon|`boolean`|To show icon only ghost buttons|
+|Size|`sm` `md` `lg`|Determines the size of the buttons|
+|Mobile|`boolean`|Determines if the buttons are stacked up for smaller screens|
 
 {.ds-table .ds-table-align-top}
 

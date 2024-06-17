@@ -72,7 +72,7 @@ Consider using a [text area](/categories/components/text-area/usage) when you an
 
 <section>
 
-## Options
+## Figma Options
 
 With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the text field to exactly fit the user experience need for the uses case you are working on.
 

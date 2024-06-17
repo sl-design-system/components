@@ -88,7 +88,7 @@ Warning: For potential problems that need attention.
 
 <section>
 
-## Options
+## Figma Options
 
 With these options you can tweak the appearance of the inline message in Figma. They are available in the Design Panel so you can compose the inline message to exactly fit the user experience need for the uses case you are working on.
 

@@ -102,7 +102,7 @@ Reserve bold emphasis for situations where the information conveyed by the badge
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the badge in Figma. They are available in the Design Panel so you can compose the badge to exactly fit the user experience need for the use case you are working on.
 

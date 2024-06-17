@@ -85,7 +85,7 @@ Avatar link variant shouldn't be used to trigger actions. It is intended solely 
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the avatar in Figma. They are available in the Design Panel so you can compose the avatar to exactly fit the user experience need for the use case you are working on.
 

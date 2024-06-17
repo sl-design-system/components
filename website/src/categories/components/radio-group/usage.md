@@ -124,9 +124,9 @@ Radio Group come in various versions, each suited for specific situations:
 
 <section>
 
-## Options
+## Figma Options
 
-With these options, you can tweak the appearance of the radio in Figma. They are available in the Design Panel so you can compose the radio (group) to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the radio group in Figma. They are available in the Design Panel so you can compose the component to exactly fit the user experience need for the use case you are working on.
 
 |Item|Options|Description|
 |-|-|-|

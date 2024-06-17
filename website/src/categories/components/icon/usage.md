@@ -64,7 +64,7 @@ We use the icons library Font Awesome to ensure that all the icons look similar 
 
 <section>
 
-## Options
+## Figma Options
 With these options, you can tweak the appearance of the icon in Figma. They are available in the Design Panel so you can compose the icon to exactly fit the user experience need for the use case you are working on.
 
 |Item|Options|Description|

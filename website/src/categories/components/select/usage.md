@@ -80,7 +80,7 @@ Avoid using the select component as a menu. Its primary purpose is to display a 
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the select in Figma. They are available in the Design Panel so you can compose the select to exactly fit the user experience need for the use case you are working on.
 

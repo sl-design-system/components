@@ -95,7 +95,7 @@ Use cards for simple content presentation, but avoid them for complex layouts or
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the card in Figma. They are available in the Design Panel so you can compose the card to exactly fit the user experience need for the use case you are working on.
 

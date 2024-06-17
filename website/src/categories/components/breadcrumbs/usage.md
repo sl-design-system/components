@@ -63,7 +63,7 @@ Users might jump directly from one section to another, use search functionality,
 |2|Breadcrumb item|An a href link, it can include an icon in front of the link|no|
 |3|Separator	|Visual separator that appears after ‘breadcrumb items’|no|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -85,7 +85,7 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
 |Page up to and including 3  |`boolean`|To indicate which pages are visible within the breadcrumb|
 |Current|`boolean`|To indicate if the active page is visible in the end of the breadcrumb |
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -99,7 +99,7 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
 |Show icon|`boolean`|Indicates if the icon is visible|
 |Show label|`boolean`|Indicates if the label is visible|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -113,7 +113,7 @@ With these options, you can tweak the appearance of the breadcrumbs in Figma. Th
 |State|`idle` `hover` `active` `current`|Indicates if the icon is visible|
 |Text|`value`|The title of the page|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -126,7 +126,7 @@ The option below is only shown when the **overflow** option is selected.
 |-|-|-|
 |Menu|`boolean`|Indicates if the menu with truncated pages is open or closed |
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

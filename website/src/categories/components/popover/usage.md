@@ -95,7 +95,7 @@ If your popover content becomes too lengthy or contains many interactions, it’
 |1|Pointer	|Directs user’s attention to the source element that triggered the popover.|no|
 |3|Container	|Area for text, images, links, and other content.|no|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -114,7 +114,7 @@ With these options, you can tweak the appearance of the popover in Figma. They a
 |Position|`1-o'clock` `2-o'clock` `3-o'clock` `4-o'clock` `5-o'clock` `6-o'clock` `7-o'clock` `8-o'clock` `9-o'clock` `10-o'clock` `11-o'clock` `12-o'clock`|To indicate the position of the pointer. The popover is always positioned so that this arrow is always closest to the element that triggered the popover.|
 |Container|`slot component`| To select the content you want to show within the container. |
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

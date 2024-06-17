@@ -80,7 +80,7 @@ Warning: For potential problems that need attention.
 | 3 | Message | Communicates what’s about to happen or has happened.| yes |
 | 4 | Close button	| Icon button for closing the dialog | yes |
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

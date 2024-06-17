@@ -77,7 +77,7 @@ The `sl-popover` component uses `'popover'` attribute and can be shown/hidden us
 |`showPopover()`|Shows a popover element by adding it to the top layer.|
 |`togglePopover()`|Toggles a popover element between the showing and hidden states.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

@@ -72,7 +72,7 @@ Avoid using the select component as a menu. Its primary purpose is to display a 
 |3|Hint	|Informative message|yes|
 |4|Dropdown panel	|Shows a list of options|no|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -98,7 +98,7 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 |Info|`boolean`| To show a info icon with tooltip after the label.|
 |Text|`value`| To insert the text of the label.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -113,7 +113,7 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 |Filled|`empty` `filled` `placeholder`|To indicate the select is filled or shows a placeholder text|
 |Default value|`value`|To insert the default text of the placeholder|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -127,7 +127,7 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 |Size|`md` `lg`|Description|
 |Pre selected item|`default` `01` `02` `03` `04` `05` `06` `07` `08` `09` `10` `11` `12` `13` `14` `15`|Indicates the pre selected item from the list|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -155,7 +155,7 @@ With these options, you can tweak the appearance of the select in Figma. They ar
 |-|-|-|
 |Focus ring|`boolean`| To display the focus state of the select.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

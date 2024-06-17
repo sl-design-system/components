@@ -1,8 +1,8 @@
 ---
 title: Button bar
-description: The Button bar component is designed to add up to three different buttons side by side.
+description: The Button bar provides a organized way to present buttons side by side, which will stack up when there's not enough space.
 componentType: action
-shortDescription: The Button bar component is designed to add up to three different buttons side by side.
+shortDescription: The Button bar provides a organized way to present buttons side by side.
 layout: "categories/components/components.njk"
 tags: component
 packageName: button-bar

@@ -63,7 +63,7 @@ For instance, when collecting a username or password a single-line input is more
 | 3 | Caret | A thin vertical line that blinks to indicate where input will be inserted. |No|
 | 4 | Resize handle | An indicator that appears in the bottom right corner of the input container. |No|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -71,7 +71,7 @@ For instance, when collecting a username or password a single-line input is more
 
 <section>
 
-## Options
+## Figma Options
 With these options, you can tweak the appearance of the text area in Figma. They are available in the Design Panel so you can compose the text area to exactly fit the user experience need for the use case you are working on.
 
 ### Text Area
@@ -103,7 +103,7 @@ With these options, you can tweak the appearance of the text area in Figma. They
 |Info|`boolean`| To show a info icon with tooltip after the label.|
 |Text|`value`| To insert the text of the label.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -131,7 +131,7 @@ With these options, you can tweak the appearance of the text area in Figma. They
 |-|-|-|
 |Focus ring|`boolean`| To display the focus state of the text area.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

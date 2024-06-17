@@ -132,7 +132,7 @@ The following guidance describes when not to use the Checkbox component.
 |5|Helper Text & Hint|The help text for a checkbox group is a informative component, it provides users with guidance and clarifications related to the available options. It assists users in making informed decisions by offering context, explanations, or additional details about the purpose or implications of the choices within the group. More information about help text you can find in the **Accessibility** tab.|Yes|
 |6|Checkboxes|The checkbox group is designed with a minimum requirement of two options and allows a maximum of five selections. When the list of options exceeds this maximum limit, it's advisable to consider alternative design elements like a dropdown menu or combobox. These options provide a more user-friendly way to navigate and select from a larger set of choices, ensuring a streamlined and efficient user experience.|No|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -246,7 +246,7 @@ The default, valid, and invalid checkboxes play a pivotal role in offering users
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the checkbox in Figma. They are available in the Design Panel so you can compose the checkbox to exactly fit the user experience need for the use case you are working on.
 

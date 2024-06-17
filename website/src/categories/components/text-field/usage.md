@@ -64,7 +64,7 @@ Consider using a [text area](/categories/components/text-area/usage) when you an
 |2|Input & Placeholder text	|Input text, entered by users, and placeholder text, providing guidance or examples.|yes|
 |3|Validation icon	|Ensures input accuracy for users.|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -72,7 +72,7 @@ Consider using a [text area](/categories/components/text-area/usage) when you an
 
 <section>
 
-## Options
+## Figma Options
 
 With these options you can tweak the appearance of the text field in Figma. They are available in the Design Panel so you can compose the text field to exactly fit the user experience need for the uses case you are working on.
 

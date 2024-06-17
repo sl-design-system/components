@@ -10,14 +10,22 @@ eleventyNavigation:
 <section class="no-heading">
 <div class="ds-example">
   <div class="ds-example__code-wrapper">
-    button bar example
+    <sl-button-bar align="center" aria-label="Actions group">
+    <sl-button fill="outline" variant="danger"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+    <sl-button fill="outline" variant="default"><sl-icon name="far-file-pen"></sl-icon>Edit</sl-button>
+    <sl-button fill="outline" variant="primary"><sl-icon name="far-floppy-disk"></sl-icon>Save</sl-button>
+    </sl-button-bar>
   </div>
 </div>
 
 <div class="ds-code">
 
   ```html
-  button bar example
+    <sl-button-bar align="center" aria-label="Actions group">
+      <sl-button fill="outline" variant="danger"><sl-icon name="far-trash"></sl-icon>Delete</sl-button>
+      <sl-button fill="outline" variant="default"><sl-icon name="far-file-pen"></sl-icon>Edit</sl-button>
+      <sl-button fill="outline" variant="primary"><sl-icon name="far-floppy-disk"></sl-icon>Save</sl-button>
+    </sl-button-bar>
   ```
 
 </div>

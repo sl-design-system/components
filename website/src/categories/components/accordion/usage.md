@@ -107,7 +107,7 @@ Accordion components are designed to manage content visibility efficiently. If m
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the accordion in Figma. They are available in the Design Panel so you can compose the accordion to exactly fit the user experience need for the use case you are working on.
 

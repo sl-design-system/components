@@ -34,10 +34,12 @@ import {
   faBug,
   faCode,
   faCopy,
+  faFileEdit,
   faFloppyDisk,
   faMessagesQuestion,
   faPenToSquare,
   faPencilRuler,
+  faTrash,
   faTruckFast,
   faXmark
 } from '@fortawesome/pro-regular-svg-icons';
@@ -52,6 +54,7 @@ Icon.register(
   faCode,
   faCopy,
   faEnvelope,
+  faFileEdit,
   faFloppyDisk,
   faGithub,
   faHandBackPointUp,
@@ -61,6 +64,7 @@ Icon.register(
   faSchool,
   faScreenUsers,
   faSlack,
+  faTrash,
   faTruckFast,
   faXmark
 );

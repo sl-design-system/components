@@ -20,7 +20,7 @@ export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
  * </sl-button-bar>
  * ```
  *
- * @cssprop --sl-button-bar-align - The alignment of the buttons within the bar. Possible values: `start`, `center`, `end`, `space-between`.
+ * @cssprop --sl-button-bar-align - The alignment of the buttons within the bar. Possible values: `start`, `center`, `end`, `space-between`. By default it is `start`. You can use it eg. for mobile version (together with `--sl-button-bar-direction-row`).
  * @cssprop --sl-button-bar-direction - The flex direction of the button container.
  * @cssprop --sl-button-bar-vertical - Vertical (column) direction - you can set <code>--sl-ON</code> or <code>`--sl-OFF`</code> when needed (eg. only for mobile version); by default it is OFF.
  *          Some more information can be found in the <a href="https://lea.verou.me/blog/2020/10/the-var-space-hack-to-toggle-multiple-values-with-one-custom-property/" target="_blank">article</a>.

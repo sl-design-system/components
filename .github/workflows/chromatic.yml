@@ -41,6 +41,3 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           onlyChanged: true
           workingDir: chromatic
-
-
-auto-accept-changes

@@ -38,6 +38,8 @@ eleventyNavigation:
 
 The Button bar component is typically used in user interfaces where a group of actions can be performed related to a specific context or where the user needs to make a choice between a few options. It's designed to provide a clean and organized way to present buttons side by side, which will stack up when there's not enough space, like on mobile screens. It's handy for things like submitting forms, navigation, or triggering different actions.
 
+Use a button bar instead of "manually", or separately laying out all places where you need multiple actions available to the user. That way you can achieve consistency across your entire application, including different layouts on different viewports.
+
 Here are a few examples:
 - **Form Actions**: When you have a form that requires actions like 'Submit', 'Cancel', or 'Reset', a button bar can group these actions together.
 - **Navigation**: In cases where you need to guide the user through a multi-step process, like a wizard or a survey, the button bar can be used to navigate between steps with 'Next', 'Previous', or 'Finish' buttons.

@@ -10,7 +10,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Components/Breadcrumbs',
-  tags: ['preview'],
+  tags: ['stable'],
   args: {
     homeUrl: '/',
     noHome: false

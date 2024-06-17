@@ -8,7 +8,7 @@ type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Search field',
-  tags: ['draft'],
+  tags: ['preview'],
   args: {
     placeholder: '',
     value: ''

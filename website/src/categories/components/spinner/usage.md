@@ -90,14 +90,14 @@ Spinner come in various versions, each suited for specific situations:
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the spinner in Figma. They are available in the Design Panel so you can compose the spinner to exactly fit the user experience need for the use case you are working on.
 
 |Item|Options|Description|
 |-|-|-|
-|Size|`'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'`|The spinner is available in six sizes. If not specified the default value is `medium` .|
-|Variant|`'default', 'light', 'accent', 'info', 'success', 'warning', 'danger'`|The spinner offers seven distinct intents, each conveying a unique meaning or solution to the user.|
+|Size|`xs` `sm` `md` `lg` `xl` `2xl` `3xl`|Indicates the size of the spinner. If not specified the default value is `medium`.|
+|Variant|`default` `light` `accent` `info` `success` `warning` `danger`|Indicates the variant of the spinner.|
 
 {.ds-table .ds-table-align-top}
 

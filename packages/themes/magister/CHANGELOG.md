@@ -1,5 +1,13 @@
 # @sanomalearning/slds-magister
 
+## 0.1.10
+
+### Patch Changes
+
+- [#1316](https://github.com/sl-design-system/components/pull/1316) [`7a0b830`](https://github.com/sl-design-system/components/commit/7a0b830690941467e182e7736eb7c669bcd645a3) - Added primary.25 color token
+
+- [#1323](https://github.com/sl-design-system/components/pull/1323) [`7053c6b`](https://github.com/sl-design-system/components/commit/7053c6b766a6254d852c2bba52ee4fc0a5020f4a) - Update badge tokens
+
 ## 0.1.9
 
 ### Patch Changes

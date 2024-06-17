@@ -1,7 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "search-field",
-  "componentStatus": "planned",
+  "componentStatus": "preview",
   "componentTagName": [
     {
       "name": "Search field",

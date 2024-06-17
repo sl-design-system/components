@@ -51,6 +51,7 @@ export class SearchField extends TextField {
       : nothing;
   }
 
+  /** Clears the value in the input element. */
   clear(): void {
     this.value = '';
     this.clearEvent.emit();

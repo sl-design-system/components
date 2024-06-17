@@ -60,7 +60,7 @@ In the context of contact lists, avatars serve as visual cues that swiftly conne
 Don’t let avatars distract from essential content. Ensure they enhance, rather than hinder, usability.
 
 ### Avatar actions
-Avatar link variant shouldn't used to trigger actions. It is intended solely for linking to another page. The users typically expect clickable avatars to navigate to profile pages or related content. By reserving the avatar link variant for page navigation, we maintain a clear and consistent user experience, ensuring that interactions with avatars are predictable and intuitive.
+Avatar link variant shouldn't be used to trigger actions. It is intended solely for linking to another page. The users typically expect clickable avatars to navigate to profile pages or related content. By reserving the avatar link variant for page navigation, we maintain a clear and consistent user experience, ensuring that interactions with avatars are predictable and intuitive.
 
 </section>
 

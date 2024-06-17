@@ -10,6 +10,14 @@
     {
       "name": "Menu",
       "selector": "sl-menu"
+    },
+    {
+      "name": "Menu item",
+      "selector": "sl-menu-item"
+    },
+    {
+      "name": "Menu item group",
+      "selector": "sl-menu-item-group"
     }
   ]
 }

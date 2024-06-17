@@ -2,7 +2,7 @@
 title: Contextual menu overview
 tags: overview
 eleventyNavigation:
-  parent: Checkbox
+  parent: Contextual menu
   key: ContextualMenuOverview
 ---
 

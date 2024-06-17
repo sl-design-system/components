@@ -2,24 +2,25 @@
 title: Contextual menu usage
 tags: usage
 eleventyNavigation:
-  parent: Checkbox
+  parent: Contextual menu
   key: ContextualMenuUsage
 ---
 
 <section class="no-heading">
 
-<div class="ds-example">
+<div class="ds-example" style="gap: 4rem;">
 
-<sl-menu-button>
-  <span slot="button">Button</span>
-  <sl-menu-item>Item 1</sl-menu-item>
-  <sl-menu-item>Item 2</sl-menu-item>
+<sl-menu-button position="bottom">
+  <span slot="button">Actions</span>
+  <sl-menu-item><sl-icon name="smile"></sl-icon>Profile</sl-menu-item>
+  <sl-menu-item><sl-icon name="far-gear"></sl-icon>Settings</sl-menu-item>
+  <sl-menu-item><sl-icon name="far-trash"></sl-icon>Remove</sl-menu-item>
 </sl-menu-button>
 
-<sl-menu-button>
+<sl-menu-button position="bottom-end" aria-label="Show more options">
   <sl-icon name="ellipsis" slot="button"></sl-icon>
-  <sl-menu-item>Item 1</sl-menu-item>
-  <sl-menu-item>Item 2</sl-menu-item>
+  <sl-menu-item>Update</sl-menu-item>
+  <sl-menu-item>Remove</sl-menu-item>
 </sl-menu-button>
 
 </div>
@@ -27,7 +28,27 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-  example
+  <sl-menu-button>
+    <span slot="button">Actions</span>
+    <sl-menu-item>
+      <sl-icon name="smile"></sl-icon>
+      Profile
+    </sl-menu-item>
+    <sl-menu-item>
+      <sl-icon name="far-gear"></sl-icon>
+      Settings
+    </sl-menu-item>
+    <sl-menu-item>
+      <sl-icon name="far-trash"></sl-icon>
+      Remove
+    </sl-menu-item>
+  </sl-menu-button>
+  
+  <sl-menu-button aria-label="Show more options">
+    <sl-icon name="ellipsis" slot="button"></sl-icon>
+    <sl-menu-item>Update</sl-menu-item>
+    <sl-menu-item>Remove</sl-menu-item>
+  </sl-menu-button>
   ```
 
 </div>

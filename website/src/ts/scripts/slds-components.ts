@@ -36,9 +36,11 @@ import {
   faCode,
   faCopy,
   faFloppyDisk,
+  faGear,
   faMessagesQuestion,
   faPenToSquare,
   faPencilRuler,
+  faTrash,
   faTruckFast,
   faXmark
 } from '@fortawesome/pro-regular-svg-icons';
@@ -54,6 +56,7 @@ Icon.register(
   faCopy,
   faEnvelope,
   faFloppyDisk,
+  faGear,
   faGithub,
   faHandBackPointUp,
   faMessagesQuestion,
@@ -62,6 +65,7 @@ Icon.register(
   faSchool,
   faScreenUsers,
   faSlack,
+  faTrash,
   faTruckFast,
   faXmark
 );

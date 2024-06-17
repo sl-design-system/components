@@ -2,7 +2,7 @@
 title: Contextual menu specs
 tags: specs
 eleventyNavigation:
-  parent: Checkbox
+  parent: Contextual menu
   key: ContextualMenuSpecs
 ---
 <section>

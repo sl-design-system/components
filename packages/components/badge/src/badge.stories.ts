@@ -11,7 +11,7 @@ const variants: BadgeVariant[] = ['neutral', 'primary', 'info', 'danger', 'succe
 
 export default {
   title: 'Components/Badge',
-  tags: ['preview'],
+  tags: ['stable'],
   args: {
     emphasis: 'subtle',
     icon: false,

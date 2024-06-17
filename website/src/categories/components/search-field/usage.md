@@ -26,7 +26,7 @@ eleventyNavigation:
 
 <section>
 
-## When to Use
+## When to use
 
 ### Fast Findings
 Making it easier for the user to find specific items within large data volumes. Users expect this feature for streamlined access, especially in interfaces with dynamic content. Improving task efficiency and usability ensures users access relevant information seamlessly, for example, by filtering a list of dynamic content like cards.
@@ -39,7 +39,7 @@ Use a search field within a specific page section when users need to search data
 
 <section>
 
-## When not to Use
+## When not to use
 
 ### Small Data
 Avoid using a search field within a page section when dealing with small or limited data. Additionally, refrain from implementing it when the information is simple and easily accessible within a single view. In such cases, a search field may be unnecessary and could complicate the user experience rather than enhance it. Use it for scenarios where it adds value and helps maintain a clean and efficient interface.

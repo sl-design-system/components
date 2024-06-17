@@ -8,14 +8,6 @@ eleventyNavigation:
 
 <section>
 
-## Accessibility considerations
-
-...
-
-</section>
-
-<section>
-
 ## WAI-ARIA
 
 <div class="ds-table-wrapper">

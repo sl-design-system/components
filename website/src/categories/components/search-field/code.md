@@ -9,17 +9,17 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-  TODO
+  <sl-search-field placeholder="Search"></sl-search-field>
 </div>
 
 <div class="ds-code">
 
   ```html
-    TODO
+    <sl-search-field placeholder="Search"></sl-search-field>
   ```
 
 </div>
 
 </section>
-<ds-install-info link-in-navigation package="inline-message"></ds-install-info>
+<ds-install-info link-in-navigation package="search-field"></ds-install-info>
 {% include "../component-table.njk" %}

@@ -64,7 +64,7 @@ Consider using a [text area](/categories/components/text-area/usage) when you an
 |2|Input & Placeholder text	|Input text, entered by users, and placeholder text, providing guidance or examples.|yes|
 |3|Validation icon	|Ensures input accuracy for users.|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 

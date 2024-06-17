@@ -87,7 +87,7 @@ Use cards for simple content presentation, but avoid them for complex layouts or
 |5|Card body	|The content of the card |no|
 |6|Card footer	|Displays actions related to subject|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -113,7 +113,7 @@ With these options, you can tweak the appearance of the card in Figma. They are 
 |Body text|`value`|To insert the text of the card|
 
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 </div>
 
 </section>

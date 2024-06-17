@@ -132,7 +132,7 @@ export class Breadcrumbs extends ScopedElementsMixin(LitElement) {
             `}
         ${this.breadcrumbs.length > this.collapseThreshold
           ? html`
-              <li>
+              <li class="more-menu">
                 <sl-button @click=${this.#onClick} aria-label=${msg('More breadcrumbs')} fill="link" id="button">
                   <sl-icon name="ellipsis"></sl-icon>
                 </sl-button>

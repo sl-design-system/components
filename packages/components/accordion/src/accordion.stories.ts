@@ -33,9 +33,6 @@ export const All: Story = {
         <sl-accordion-item summary="Journey Through Ancient Civilizations">
           Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍
         </sl-accordion-item>
-        <sl-accordion-item summary="Math Magic - solving Puzzles with numbers" disabled open>
-          Get ready to unlock the secrets of numbers! 🌟✨🧩
-        </sl-accordion-item>
         <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" disabled>
           Buckle up for a cosmic adventure! 🚀🪐👽
         </sl-accordion-item>

@@ -39,6 +39,10 @@ li {
     }
   }
 
+  &.more-menu {
+    flex-shrink: 0;
+  }
+
   &:not(:has(a)) {
     padding-block: var(--_link-padding-block);
     padding-inline: var(--_link-padding-inline);

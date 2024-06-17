@@ -1,5 +1,27 @@
 # @sl-design-system/avatar
 
+## 1.0.0
+
+### Major Changes
+
+- [#1336](https://github.com/sl-design-system/components/pull/1336) [`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744) - First stable release
+
+### Minor Changes
+
+- [#1325](https://github.com/sl-design-system/components/pull/1325) [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2) - Simplify the avatar component:
+  - Replace the internal badge by slotting an `<sl-badge>` element
+  - Replace the badge cutout SVG logic with a CSS clip-path
+  - Remove the `badgeText` and `status` properties (use the `sl-badge` element instead)
+  - Remove the `fallback` property and add a `<slot name="fallback">` instead
+
+### Patch Changes
+
+- [#1263](https://github.com/sl-design-system/components/pull/1263) [`4861828`](https://github.com/sl-design-system/components/commit/4861828b27ef460fd5136382e70f8e83f9cb68a4) - Fixed focus border on smaller sizes, when avatar was image only the border wasn't round.
+
+- Updated dependencies [[`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/tooltip@1.0.1
+  - @sl-design-system/shared@0.2.12
+
 ## 0.2.10
 
 ### Patch Changes

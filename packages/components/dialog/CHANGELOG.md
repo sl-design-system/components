@@ -1,5 +1,13 @@
 # @sl-design-system/dialog
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [[`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744), [`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/button-bar@1.0.0
+  - @sl-design-system/shared@0.2.12
+
 ## 1.0.0
 
 ### Major Changes

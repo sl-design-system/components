@@ -9,13 +9,13 @@ eleventyNavigation:
 <section class="no-heading">
 
 <div class="ds-example">
-  TODO
+  <sl-search-field placeholder="Search"></sl-search-field>
 </div>
 
 <div class="ds-code">
 
   ```html
-    TODO
+    <sl-search-field placeholder="Search"></sl-search-field>
   ```
 
 </div>

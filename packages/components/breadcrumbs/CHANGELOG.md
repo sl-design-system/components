@@ -1,5 +1,18 @@
 # @sl-design-system/breadcrumbs
 
+## 1.0.0
+
+### Major Changes
+
+- [#1336](https://github.com/sl-design-system/components/pull/1336) [`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744) - First stable release
+
+### Patch Changes
+
+- [#1338](https://github.com/sl-design-system/components/pull/1338) [`323f71e`](https://github.com/sl-design-system/components/commit/323f71ecac7f9f7f0ffe9a0c37e4470a7736143c) - Fixed issue where "more breadcrumbs" button was squished on smaller screens
+
+- Updated dependencies [[`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204)]:
+  - @sl-design-system/tooltip@1.0.1
+
 ## 0.0.9
 
 ### Patch Changes

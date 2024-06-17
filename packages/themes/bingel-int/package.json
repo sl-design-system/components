@@ -1,7 +1,7 @@
 {
   "name": "@sl-design-system/bingel-int",
   "description": "Bingel International theme for the SL Design System",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "license": "Apache 2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

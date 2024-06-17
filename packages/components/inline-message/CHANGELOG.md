@@ -1,5 +1,16 @@
 # @sl-design-system/inline-message
 
+## 1.0.0
+
+### Major Changes
+
+- [#1336](https://github.com/sl-design-system/components/pull/1336) [`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744) - First stable release
+
+### Patch Changes
+
+- Updated dependencies [[`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/shared@0.2.12
+
 ## 0.3.0
 
 ### Minor Changes

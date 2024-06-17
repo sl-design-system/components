@@ -17,12 +17,29 @@ import {
 import { property, query } from 'lit/decorators.js';
 import styles from './dialog.scss.js';
 
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'sl-cancel': SlCancelEvent;
+    'sl-close': SlCloseEvent;
+  }
+
+  interface HTMLElementTagNameMap {
+    'sl-dialog': Dialog;
+  }
+}
+
+export type SlCancelEvent = CustomEvent<void>;
+export type SlCloseEvent = CustomEvent<void>;
+
 /**
  * A dialog component for displaying modal UI.
  *
  * @csspart dialog - The dialog element
+ * @csspart header - The dialog header
  * @csspart titles - The container of the title and subtitle
  * @csspart header-bar - The button bar in the header
+ * @csspart body - The body of the dialog
+ * @csspart footer - The dialog footer
  * @csspart footer-bar - The button bar in the footer
  * @cssprop --sl-dialog-max-inline-size - The maximum width of the dialog
  * @slot actions - Area where action buttons are placed
@@ -54,11 +71,12 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
   /**
    * Emits when the cancel has been cancelled. This happens when the user closes
    * the dialog using the escape key or clicks on the backdrop.
+   * @internal
    */
-  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<void>;
+  @event({ name: 'sl-cancel' }) cancelEvent!: EventEmitter<SlCancelEvent>;
 
-  /** Emits when the dialog has been closed. */
-  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<void>;
+  /** @internal Emits when the dialog has been closed. */
+  @event({ name: 'sl-close' }) closeEvent!: EventEmitter<SlCloseEvent>;
 
   /** Determines whether a close button should be shown in the top right corner. */
   @property({ type: Boolean, attribute: 'close-button' }) closeButton?: boolean;
@@ -88,30 +106,36 @@ export class Dialog extends ScopedElementsMixin(LitElement) {
         role=${this.dialogRole}
         part="dialog"
       >
-        <slot name="header">
-          <div class="titles" part="titles">
-            <slot name="title" id="title"></slot>
-            <slot name="subtitle"></slot>
-          </div>
-          <slot name="header-actions">
-            <sl-button-bar part="header-bar">
-              <slot name="header-buttons"></slot>
-              ${this.closeButton
-                ? html`
-                    <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
-                      <sl-icon name="xmark"></sl-icon>
-                    </sl-button>
-                  `
-                : nothing}
+        <div part="header">
+          <slot name="header">
+            <div part="titles">
+              <slot name="title" id="title"></slot>
+              <slot name="subtitle"></slot>
+            </div>
+            <slot name="header-actions">
+              <sl-button-bar part="header-bar">
+                <slot name="header-buttons"></slot>
+                ${this.closeButton
+                  ? html`
+                      <sl-button @click=${this.#onCloseClick} fill="ghost" variant="default" aria-label=${msg('Close')}>
+                        <sl-icon name="xmark"></sl-icon>
+                      </sl-button>
+                    `
+                  : nothing}
+              </sl-button-bar>
+            </slot>
+          </slot>
+        </div>
+        <div part="body">
+          <slot></slot>
+        </div>
+        <div part="footer">
+          <slot name="footer">
+            <sl-button-bar part="footer-bar">
+              <slot name="actions"></slot>
             </sl-button-bar>
           </slot>
-        </slot>
-        <slot></slot>
-        <slot name="footer">
-          <sl-button-bar part="footer-bar">
-            <slot name="actions"></slot>
-          </sl-button-bar>
-        </slot>
+        </div>
       </dialog>
     `;
   }

@@ -66,7 +66,8 @@ const preview: Preview = {
   parameters: {
     options: {
       storySort: {
-        method: 'alphabetical'
+        method: 'alphabetical',
+        order: ['', 'Getting started', 'Components', 'Form', ['Examples'], 'Layout', 'Overlay']
       }
     },
     viewport: {

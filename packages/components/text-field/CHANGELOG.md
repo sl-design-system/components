@@ -1,5 +1,123 @@
 # @sl-design-system/text-field
 
+## 1.3.3
+
+### Patch Changes
+
+- [#1310](https://github.com/sl-design-system/components/pull/1310) [`3161771`](https://github.com/sl-design-system/components/commit/3161771790870cd2bfeb52d9016dbb4f94c07056) - Fix missing cursor styling on input
+
+## 1.3.2
+
+### Patch Changes
+
+- [#1308](https://github.com/sl-design-system/components/pull/1308) [`37b0c2c`](https://github.com/sl-design-system/components/commit/37b0c2c254466206c8789ed08b917776e3592768) - Fix cursor to be default when in readonly mode
+
+## 1.3.1
+
+### Patch Changes
+
+- [#1303](https://github.com/sl-design-system/components/pull/1303) [`4aba9bf`](https://github.com/sl-design-system/components/commit/4aba9bf657f426d815e5850ef495ca9969bfa78e) - Fix scoping of CSS custom property `--_font` scoping being too specific
+
+## 1.3.0
+
+### Minor Changes
+
+- [#1301](https://github.com/sl-design-system/components/pull/1301) [`c1b7630`](https://github.com/sl-design-system/components/commit/c1b763058f28f736545592da7b79b8f68aa65953) - Separate rendering of the input slot in its own method, so it can be composed in components that inherit from `TextField`.
+
+## 1.2.0
+
+### Minor Changes
+
+- [#1299](https://github.com/sl-design-system/components/pull/1299) [`942bf3c`](https://github.com/sl-design-system/components/commit/942bf3ca851889bccd033e3a84f20d4f777c1e35) - Automatically style any `<button>`s that are slotted or in the shadow DOM as field buttons. An example of this can be found in the `<sl-search-field>` component.
+
+## 1.1.0
+
+### Minor Changes
+
+- [#1296](https://github.com/sl-design-system/components/pull/1296) [`39a4cb2`](https://github.com/sl-design-system/components/commit/39a4cb206ad923862c902b3ac7dddd4ae5b87746) - Support other types than just string for inheritance:
+  - Use `T extends { toString(): string } = string` type for `TextField`
+  - Add `parseValue` method that converts the raw value to the given type (or throw an `Error` if it cannot be parsed)
+  - Add `formatValue` method to format a value for display in the input
+
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
+### Minor Changes
+
+- [#1251](https://github.com/sl-design-system/components/pull/1251) [`a3da76c`](https://github.com/sl-design-system/components/commit/a3da76c7df521c2241b565dc22025715f1231e9c) - Add ability to override the prefix and suffix rendering
+
+- [#1241](https://github.com/sl-design-system/components/pull/1241) [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb) - Add pristine/dirty and untouched/touched state to form controls
+
+### Patch Changes
+
+- [#1241](https://github.com/sl-design-system/components/pull/1241) [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb) - Focus the native element when calling `focus()`
+
+- Updated dependencies [[`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`0208c28`](https://github.com/sl-design-system/components/commit/0208c282f68d9eac64a6609c5213094c8df04202), [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`ac092e1`](https://github.com/sl-design-system/components/commit/ac092e16d29d3a0e404f2a05dbc35a7774e7fd7e)]:
+  - @sl-design-system/form@1.0.0
+  - @sl-design-system/icon@1.0.0
+
+## 0.1.25
+
+### Patch Changes
+
+- [#1215](https://github.com/sl-design-system/components/pull/1215) [`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d) - Remove inline invalid icon and just have the form field display it, like the other form components.
+
+- Updated dependencies [[`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d), [`c3c9de6`](https://github.com/sl-design-system/components/commit/c3c9de6590f5abd1d8010186df127a665ee303b5), [`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b), [`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d)]:
+  - @sl-design-system/form@0.0.15
+  - @sl-design-system/shared@0.2.11
+
+## 0.1.24
+
+### Patch Changes
+
+- [#1194](https://github.com/sl-design-system/components/pull/1194) [`244d50f`](https://github.com/sl-design-system/components/commit/244d50f46ee4c87aab26e167c8ca5b200c1d30c2) - Fix "The specified element is not a submit button." error when pressing Enter.
+
+## 0.1.23
+
+### Patch Changes
+
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537)]:
+  - @sl-design-system/shared@0.2.10
+  - @sl-design-system/icon@0.0.10
+  - @sl-design-system/form@0.0.14
+
+## 0.1.22
+
+### Patch Changes
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+  - @sl-design-system/form@0.0.13
+
+## 0.1.21
+
+### Patch Changes
+
+- Updated dependencies [[`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da)]:
+  - @sl-design-system/shared@0.2.8
+  - @sl-design-system/form@0.0.12
+
+## 0.1.20
+
+### Patch Changes
+
+- Updated dependencies [[`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad)]:
+  - @sl-design-system/shared@0.2.7
+  - @sl-design-system/form@0.0.11
+
+## 0.1.19
+
+### Patch Changes
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Linting fixes for styling
+
+- Updated dependencies [[`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b), [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b)]:
+  - @sl-design-system/form@0.0.10
+  - @sl-design-system/icon@0.0.9
+
 ## 0.1.18
 
 ### Patch Changes

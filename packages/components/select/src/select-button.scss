@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 $sizes: md, lg;
 $variants: default, valid, invalid;
 $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-validity="invalid"]';
@@ -14,8 +16,8 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
 }
 
 @each $variant in $variants {
-  $i: index($variants, $variant);
-  $variant-selector: nth($variant-selectors, $i);
+  $i: list.index($variants, $variant);
+  $variant-selector: list.nth($variant-selectors, $i);
 
   :host(#{$variant-selector}:not([disabled])) {
     --_background: var(--sl-color-select-selectbox-#{$variant}-default-background);
@@ -48,7 +50,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   :host(#{$variant-selector}[disabled]) {
     --_background: var(--sl-color-select-selectbox-#{$variant}-disabled-background);
     --_border-color: var(--sl-color-select-selectbox-#{$variant}-disabled-border);
-    --_color: var(--sl-color-select-selectbox-#{$variant}-disabled-foreground);
+    --_color: var(--sl-color-select-selectbox-#{$variant}-disabled-input-text);
     --_placeholder-color: var(--sl-color-select-selectbox-#{$variant}-disabled-placeholder);
   }
 }
@@ -58,6 +60,7 @@ $variant-selectors: ':not([show-validity])', '[show-validity="valid"]', '[show-v
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
   border-radius: var(--_border-radius);
+  color: var(--_color);
   display: flex;
   flex: 1;
   font: var(--_font);

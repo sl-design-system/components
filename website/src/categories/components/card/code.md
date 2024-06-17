@@ -45,9 +45,7 @@ eleventyNavigation:
 </div>
 
 </section>
-
-{% include "../component-table.njk" %}
-
+<ds-install-info package="card" link-in-navigation></ds-install-info>
 <section>
 
 ## CSS Variables
@@ -55,3 +53,6 @@ eleventyNavigation:
 As many properties as possible are being set by CSS variables because that way you can easily make all the cards inside a container look the same by setting the properties on that container, or you can create custom css classes that consist of a combination of settings.
 
 </section>
+
+{% include "../component-table.njk" %}
+

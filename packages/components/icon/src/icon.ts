@@ -5,6 +5,10 @@ import styles from './icon.scss.js';
 import { type IconDefinition, type IconLibrary } from './models.js';
 
 declare global {
+  interface HTMLElementTagNameMap {
+    'sl-icon': Icon;
+  }
+
   interface Window {
     SLDS: {
       icons: IconLibrary;
@@ -27,9 +31,10 @@ const isIconDefinition = (icon: IconDefinition | IconLibrary): icon is IconDefin
  *   <sl-icon name="unicorn"></sl-icon>
  * ```
  *
- * @cssproperty --fill-default: currentColor;
- * @cssproperty  [--fill-accent: rgb(var(--sl-color-palette-accent-300))] Accent color, only used for multicolor icons
- * @cssproperty --icon-container-size: unset;
+ * @cssprop --sl-icon-container-size - The size of the icon container, defaults to md
+ * @cssprop --sl-icon-fill-accent - Accent color, only used for multicolor icons
+ * @cssprop --sl-icon-fill-default - Default fill color
+ * @cssprop --sl-icon-size - The size of the svg element, defaults to md
  */
 export class Icon extends LitElement {
   /** @private */
@@ -48,13 +53,14 @@ export class Icon extends LitElement {
   static register(...icons: IconDefinition[]): void;
 
   /**
-   * Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.
+   * @ignore Store all icons from the IconLibrary of the theme (icons.json) in the icon registry for easy access.
    * Is run in the setup method of each theme.
    *
    * @param {IconLibrary} icons The IconLibrary of the theme
    */
   static register(icons: IconLibrary): void;
 
+  /** @ignore */
   static register(icon: IconDefinition | IconLibrary, ...icons: IconDefinition[]): void {
     // TODO: find a better (and more universal) way to only log these kind of warnings in dev mode
     const isDevMode = location.hostname === 'localhost';
@@ -74,7 +80,10 @@ export class Icon extends LitElement {
         const svg = `
           <svg viewBox="0 0 ${width} ${height}" "xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             ${paths
-              .map((p: string, idx) => `<path d="${p}" fill="var(--fill-${Icon.getColorToken(idx, i.prefix)})"></path>`)
+              .map(
+                (p: string, idx) =>
+                  `<path d="${p}" fill="var(--sl-icon-fill-${Icon.getColorToken(idx, i.prefix)})"></path>`
+              )
               .join('')}
           </svg>
         `;
@@ -97,12 +106,13 @@ export class Icon extends LitElement {
   @property() label?: string;
 
   /** The name of the icon; either the name from Font Awesome or the name of the custom icon in Figma. */
-  @property() name?: string;
+  @property({ reflect: true }) name?: string;
 
-  /** The size of the icon
+  /**
+   * The size of the icon.
    * @type {'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl'}
    */
-  @property({ reflect: true }) size: IconSize = 'md';
+  @property({ reflect: true }) size?: IconSize;
 
   #getIconHTML(): string {
     if (!this.sldsLibrary) {
@@ -130,8 +140,8 @@ export class Icon extends LitElement {
     this.iconHTML = this.#getIconHTML();
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
+  override willUpdate(changes: PropertyValues<this>): void {
+    super.willUpdate(changes);
 
     if (changes.has('name')) {
       this.iconHTML = this.#getIconHTML();

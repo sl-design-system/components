@@ -8,32 +8,8 @@ eleventyNavigation:
   parent: FormField
   key: FormFieldCode
 ---
-
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```html
-    npm install @sl-design-system/form
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```html
-    yarn add @sl-design-system/form
-  ```
-</div>
-
-</section>
-
+<div style="display: none;">Added to prevent rendering additional paragraph around, which causes navigation problems</div>
+<ds-install-info link-in-navigation package="form"></ds-install-info>
 <section>
 
 The `<sl-form-field>` component fulfills four functions:

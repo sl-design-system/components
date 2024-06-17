@@ -4,92 +4,80 @@ $sizes: sm, md, lg;
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_handle-color: var(--sl-color-input-switch-default-unchecked-default-handle);
+  --_handle-position: 0%;
   --_icon-color: var(--sl-color-input-switch-default-unchecked-default-icon);
   --_label-text-color: var(--sl-color-input-field-label-text-default);
   --_main-background-color: var(--sl-color-input-switch-default-unchecked-default-background);
   --_toggle-container-padding: var(--sl-space-input-switch-padding-container);
   --_toggle-padding: var(--sl-space-input-switch-padding-controller);
-  --_track-radius: calc((var(--handle-size) + var(--_toggle-padding) * 2) / 2);
+  --_track-radius: calc((var(--_handle-size) + var(--_toggle-padding) * 2) / 2);
   --_transition: var(--sl-animation-duration-normal);
-  --handle-position: 0%;
-  --isLTR: 1;
 
   align-items: center;
   display: inline-flex;
   gap: 0 var(--sl-space-input-switch-margin-left);
   outline: none;
+  vertical-align: middle;
+}
+
+:host(:hover) {
+  --_handle-color: var(--sl-color-input-switch-default-unchecked-hover-handle);
+  --_icon-color: var(--sl-color-input-switch-default-unchecked-hover-icon);
+  --_main-background-color: var(--sl-color-input-switch-default-unchecked-hover-background);
+}
+
+:host(:active) {
+  --_handle-color: var(--sl-color-input-switch-default-unchecked-active-handle);
+  --_icon-color: var(--sl-color-input-switch-default-unchecked-active-icon);
+  --_main-background-color: var(--sl-color-input-switch-default-unchecked-active-background);
 }
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --handle-size: var(--sl-size-input-switch-handle-#{$size});
-    --_toggle-width: calc(var(--sl-size-input-switch-controller-width-#{$size}) - var(--_toggle-padding) * 2);
     --_gap: var(--sl-space-input-gap-#{$size});
+    --_handle-size: var(--sl-size-input-switch-handle-#{$size});
     --_input-label-font: var(--sl-text-input-field-label-tag-#{$size});
+    --_toggle-width: calc(var(--sl-size-input-switch-controller-width-#{$size}) - var(--_toggle-padding) * 2);
   }
 }
 
-.toggle:hover {
-  --_main-background-color: var(--sl-color-input-switch-default-unchecked-hover-background);
-  --_handle-color: var(--sl-color-input-switch-default-unchecked-hover-handle);
-  --_icon-color: var(--sl-color-input-switch-default-unchecked-hover-icon);
-}
-
-.toggle:active {
-  --_main-background-color: var(--sl-color-input-switch-default-unchecked-active-background);
-  --_handle-color: var(--sl-color-input-switch-default-unchecked-active-handle);
-  --_icon-color: var(--sl-color-input-switch-default-unchecked-active-icon);
-}
-
 :host([disabled]) {
+  --_handle-color: var(--sl-color-input-switch-default-unchecked-disabled-handle);
+  --_icon-color: var(--sl-color-input-switch-default-unchecked-disabled-icon);
   --_label-text-color: var(--sl-color-input-field-label-text-disabled);
+  --_main-background-color: var(--sl-color-input-switch-default-unchecked-disabled-background);
 
-  .toggle {
-    --_main-background-color: var(--sl-color-input-switch-default-unchecked-disabled-background);
-    --_handle-color: var(--sl-color-input-switch-default-unchecked-disabled-handle);
-    --_icon-color: var(--sl-color-input-switch-default-unchecked-disabled-icon);
-  }
-}
-
-:host([checked]) {
-  .toggle {
-    --_main-background-color: var(--sl-color-input-switch-default-checked-default-background);
-    --_handle-color: var(--sl-color-input-switch-default-checked-default-handle);
-    --_icon-color: var(--sl-color-input-switch-default-checked-default-icon);
-
-    --handle-position: calc((var(--_toggle-width) - 100%) * var(--isLTR));
-  }
-
-  .toggle:hover {
-    --_main-background-color: var(--sl-color-input-switch-default-checked-hover-background);
-    --_handle-color: var(--sl-color-input-switch-default-checked-hover-handle);
-    --_icon-color: var(--sl-color-input-switch-default-checked-hover-icon);
-  }
-
-  .toggle:active {
-    --_main-background-color: var(--sl-color-input-switch-default-checked-active-background);
-    --_handle-color: var(--sl-color-input-switch-default-checked-active-handle);
-    --_icon-color: var(--sl-color-input-switch-default-checked-active-icon);
-  }
-}
-
-:host([checked][disabled]) .toggle {
-  --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
-  --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
-  --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
-}
-
-:host([disabled]) {
   cursor: default;
   pointer-events: none;
 }
 
-:host([reverse]) {
-  align-self: start;
+:host([checked]) {
+  --_handle-color: var(--sl-color-input-switch-default-checked-default-handle);
+  --_handle-position: calc(var(--_toggle-width) - 100%);
+  --_icon-color: var(--sl-color-input-switch-default-checked-default-icon);
+  --_main-background-color: var(--sl-color-input-switch-default-checked-default-background);
 
-  .toggle {
-    order: -1;
+  &:hover {
+    --_handle-color: var(--sl-color-input-switch-default-checked-hover-handle);
+    --_icon-color: var(--sl-color-input-switch-default-checked-hover-icon);
+    --_main-background-color: var(--sl-color-input-switch-default-checked-hover-background);
   }
+
+  &:active {
+    --_handle-color: var(--sl-color-input-switch-default-checked-active-handle);
+    --_icon-color: var(--sl-color-input-switch-default-checked-active-icon);
+    --_main-background-color: var(--sl-color-input-switch-default-checked-active-background);
+  }
+}
+
+:host([checked][disabled]) {
+  --_handle-color: var(--sl-color-input-switch-default-checked-disabled-handle);
+  --_icon-color: var(--sl-color-input-switch-default-checked-disabled-icon);
+  --_main-background-color: var(--sl-color-input-switch-default-checked-disabled-background);
+}
+
+:host([reverse]) .toggle {
+  order: -1;
 }
 
 :host(:focus-within) .track:focus-visible {
@@ -128,16 +116,16 @@ slot {
 
 .track div {
   background-color: var(--_handle-color);
-  block-size: var(--handle-size);
-  border-radius: calc(var(--handle-size) / 2);
+  block-size: var(--_handle-size);
+  border-radius: calc(var(--_handle-size) / 2);
   display: grid;
-  inline-size: var(--handle-size);
+  inline-size: var(--_handle-size);
   place-content: center;
-  translate: var(--handle-position);
+  translate: var(--_handle-position);
   will-change: transform;
 
   sl-icon {
-    --fill-default: var(--_icon-color);
+    --sl-icon-fill-default: var(--_icon-color);
   }
 
   @media (prefers-reduced-motion: no-preference) {

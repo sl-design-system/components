@@ -1,50 +1,38 @@
-const { AssetCache } = require("@11ty/eleventy-fetch");
-const { Octokit} = require("octokit");
+const { AssetCache } = require('@11ty/eleventy-fetch');
+const { readdir } = require('fs').promises;
+const { join } = require('path');
 
-module.exports = async function() {
-  // Pass in your unique custom cache key
-  let asset = new AssetCache("component-version-numbers");
-  // check if the cache is fresh within the last day
-  if(asset.isCacheValid("1d")) {
-    // return cached data.
-    return asset.getCachedValue(); // a promise
+async function getComponentVersions() {
+  const components = (await readdir(join(__dirname, '../categories/components')))
+    .map(dir => dir.split('/').at(-1))
+    .filter(dir => !dir.includes('.'));
+
+  const versions = await Promise.all(
+    components.map(async c => {
+      const response = await fetch(`https://raw.githubusercontent.com/sl-design-system/components/main/packages/components/${c}/package.json`);
+
+      if (response.ok) {
+        const body = await response.json();
+
+        return [c, body.version];
+      }
+    })
+  );
+
+  return Object.fromEntries(versions.filter(Boolean));
+}
+
+module.exports = async function () {
+  const asset = new AssetCache('component-version-numbers');
+
+  if (asset.isCacheValid('1h')) {
+    // Cache for 1 hour
+    return asset.getCachedValue();
   }
 
+  const versions = await getComponentVersions();
 
-    const octokit = new Octokit({
-      auth: process.env.GITHUB_API_TOKEN
-    })
+  await asset.save(versions, 'json');
 
-
-    const gitpackages = await octokit.request('GET /orgs/sl-design-system/packages', {
-      org: 'sl-design-system',
-      package_type: 'npm',
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28'
-      }
-    });
-
-    const versions = await gitpackages.data.map(async p => {
-      return octokit.request(`GET /orgs/sl-design-system/packages/npm/${p.name}/versions`, {
-        package_type: 'npm',
-        package_name: p.name,
-        org: 'sl-design-system',
-        headers: {
-          'X-GitHub-Api-Version': '2022-11-28'
-        }
-      })
-    });
-    const versionData = await Promise.all(versions);
-    const latestVersions = versionData.map(d => d.data[0]);
-    
-    let releases = {};
-    gitpackages.data.forEach(p => {
-      releases = {
-        ...releases,
-        [p.name]:latestVersions.find(version => version.package_html_url === p.html_url).name
-      }
-    });
-  await asset.save(releases, "json");
-
-  return releases;
+  return versions;
 };

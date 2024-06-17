@@ -48,7 +48,7 @@ Do not use the form field if the field is not part of a larger form. For example
 
 ## Layout
 
-A form field always has a vertical layout. The label is always at the top, followed by the form control itself, and at the bottom an optional hint or error message, depending on the state of the component.
+A form field always has a vertical layout. The label is always at the top, followed by an optional hint and then the form control itself, and at the bottom the error message, depending on the state of the component.
 
 </section>
 
@@ -88,7 +88,7 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 |-|-|-|
 |Size|`sm` `md` `lg`|The label is available in three sizes. If not specified the default value is `medium`.|
 |Text|`value`|Displays the text of the label.|
-|Disabled|`boolean`|Indicates if the label has a disabled styling.|
+|Disabled|`boolean`|Indicates if the label has disabled styling.|
 |Required|`boolean`|Indicates if the form control is required.|
 |Optional|`boolean`|Indicates if the form control is optional.|
 |Info|`boolean`|Shows an info icon on the end of the label to provide additional information.|
@@ -118,6 +118,6 @@ With these options you can tweak the appearance of the label and hint in Figma. 
 
 ## Related components
 
-- [Form](/categories/components/form/)
+- [Form](/categories/components/form/usage)
 
 </section>

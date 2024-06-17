@@ -1,5 +1,19 @@
 # @sl-design-system/spinner
 
+## 1.0.0
+
+### Major Changes
+
+- [#1281](https://github.com/sl-design-system/components/pull/1281) [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805) - First stable release
+
+## 0.0.5
+
+### Patch Changes
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Linting fixes for styling
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Clean up CSS custom properties that are public API
+
 ## 0.0.4
 
 ### Patch Changes

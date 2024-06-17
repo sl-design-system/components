@@ -9,9 +9,7 @@
   --_gap-sub-menu-indicator: 1rem;
   --_padding: 6px;
   --_submenu-offset: -5px;
-}
 
-:host {
   display: block;
   flex-grow: 1;
 }
@@ -32,6 +30,7 @@
 
 :host([disabled]) {
   --_cursor: default;
+
   color: var(--sl-color-select-item-disabled-foreground);
   pointer-events: none;
 }
@@ -48,6 +47,7 @@ slot[name='submenu']::slotted(sl-menu) {
 .safe-triangle {
   clip-path: polygon(var(--_safe-triangle-polygon));
   display: none;
+
   // The variables were calculated using getBoundingClientRect(), but that also
   // includes the border width, so we need to subtract it because CSS inset does
   // NOT include the border.
@@ -62,7 +62,7 @@ slot[name='submenu']::slotted(sl-menu) {
   }
 }
 
-.wrapper {
+[part='wrapper'] {
   align-items: center;
   background: var(--_background);
   border-radius: var(--_border-radius);

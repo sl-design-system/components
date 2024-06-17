@@ -1,6 +1,7 @@
 {
-  "layout": "components/components.njk",
+  "layout": "categories/components/components.njk",
   "tags": "switch",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Switch",

@@ -6,30 +6,32 @@ eleventyNavigation:
   parent: Breadcrumbs
   key: BreadcrumbsCode
 ---
-<section>
+<section class="no-heading">
 
-## Breadcrumbs code
+<div class="ds-example">
+<sl-breadcrumbs>
+  <a href="javascript:void(0)">Learning and Teaching</a>
+  <a href="javascript:void(0)">Pupils</a>
+  <a href="javascript:void(0)">Class Pages</a>
+  <a href="javascript:void(0)">Year 1</a>
+  <a href="javascript:void(0)">Learning Materials</a>
+</sl-breadcrumbs>
+</div>
 
-Breadcrumbs examples
+<div class="ds-code">
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  ```html
+    <sl-breadcrumbs>
+      <a href="...">Learning and Teaching</a>
+      <a href="...">Pupils</a>
+      ...
+      <a href="...">Learning Materials</a>
+    </sl-breadcrumbs>
+  ```
+
+</div>
 
 </section>
-
-<section>
-
-## Code
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>
+<ds-install-info link-in-navigation package="breadcrumbs"></ds-install-info>
 
 {% include "../component-table.njk" %}
-
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>  

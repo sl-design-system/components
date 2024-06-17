@@ -19,7 +19,8 @@ type Story = StoryObj<Props>;
 const sizes: SelectSize[] = ['md', 'lg'];
 
 export default {
-  title: 'Select',
+  title: 'Form/Select',
+  tags: ['stable'],
   args: {
     disabled: false,
     label: 'Label',
@@ -109,22 +110,22 @@ export const EmbeddedComponents: Story = {
       </style>
       <sl-select value="2">
         <sl-select-option value="1">
-          <sl-avatar size="sm" user='{"name":{"first":"Ashley","last":"Howard"}}'></sl-avatar>
+          <sl-avatar size="sm" display-name="Ashley Howard"></sl-avatar>
         </sl-select-option>
         <sl-select-option value="2">
-          <sl-avatar size="sm" user='{"name":{"first":"Aria","last":"Bailey"}}'></sl-avatar>
+          <sl-avatar size="sm" display-name="Aria Bailey"></sl-avatar>
         </sl-select-option>
         <sl-select-option value="3">
-          <sl-avatar size="sm" user='{"name":{"first":"Cooper","last":"Philips"}}'></sl-avatar>
+          <sl-avatar size="sm" display-name="Cooper Philips"></sl-avatar>
         </sl-select-option>
         <sl-select-option value="4">
-          <sl-avatar size="sm" user='{"name":{"first":"Abigail","last":"Lewis"}}'></sl-avatar>
+          <sl-avatar size="sm" display-name="Abigail Lewis"></sl-avatar>
         </sl-select-option>
         <sl-select-option disabled value="5">
-          <sl-avatar size="sm" user='{"name":{"first":"Ryder","last":"Turner"}}'></sl-avatar>
+          <sl-avatar size="sm" display-name="Ryder Turner"></sl-avatar>
         </sl-select-option>
         <sl-select-option value="6">
-          <sl-avatar size="sm" user='{"name":{"first":"Zoe","last":"Robinson"}}'></sl-avatar>
+          <sl-avatar size="sm" display-name="Zoe Robinson"></sl-avatar>
         </sl-select-option>
       </sl-select>
     `
@@ -208,6 +209,50 @@ export const TextOverflow: Story = {
   }
 };
 
+export const WordBreak: Story = {
+  args: {
+    slot: () => html`
+      <style>
+        sl-select {
+          width: 7em;
+        }
+      </style>
+      <sl-select value="2">
+        <sl-select-option value="1" lang="nl">Schoenenborstel</sl-select-option>
+        <sl-select-option value="2" lang="en">1. MBO Paragraphcomponent</sl-select-option>
+        <sl-select-option value="3" lang="en">Disproportionate</sl-select-option>
+      </sl-select>
+    `
+  }
+};
+
+export const DisplayInlineBlock: Story = {
+  render: () => html`
+    <style>
+      section {
+        border: 2px solid coral;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0px, 1fr));
+        gap: 8px;
+      }
+    </style>
+    <section>
+      <sl-select value="2">
+        <sl-select-option value="1">short</sl-select-option>
+        <sl-select-option value="2">very very long option text</sl-select-option>
+      </sl-select>
+      <sl-select value="2">
+        <sl-select-option value="1">short</sl-select-option>
+        <sl-select-option value="2">very very long option text</sl-select-option>
+      </sl-select>
+      <sl-select value="2">
+        <sl-select-option value="1">short</sl-select-option>
+        <sl-select-option value="2">very very long option text</sl-select-option>
+      </sl-select>
+    </section>
+  `
+};
+
 export const Valid: Story = {
   args: {
     hint: 'After clicking the button, this field will show it is valid.'
@@ -255,6 +300,69 @@ export const CustomAsyncValidity: Story = {
         </sl-select>
       `;
     }
+  }
+};
+
+export const HideWhenOutOfView: StoryObj = {
+  render: () => {
+    return html`
+      <style>
+        #root-inner {
+          min-height: 150vh;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        header {
+          background: var(--sl-color-palette-accent-100);
+          position: sticky;
+          top: 0;
+          padding: 24px;
+          z-index: 2;
+        }
+
+        .container {
+          height: 400px;
+          overflow: auto;
+          margin-top: 24px;
+          border: 1px solid var(--sl-color-palette-neutral-200);
+        }
+        .scrollcontent {
+          height: 800px;
+          padding: 16px;
+        }
+      </style>
+      <header>Sticky header</header>
+      <sl-form-field hint="This will hide when the whole page" label="Window scroll">
+        <sl-select hide-margin-top="100">
+          <sl-select-option value="1">Option 1</sl-select-option>
+          <sl-select-option value="2">Option 2</sl-select-option>
+          <sl-select-option value="3">Option 3</sl-select-option>
+          <sl-select-option value="4">Option 4</sl-select-option>
+          <sl-select-option value="5">Option 5</sl-select-option>
+          <sl-select-option value="6">Option 6</sl-select-option>
+        </sl-select>
+      </sl-form-field>
+
+      <div class="container">
+        <div class="scrollcontent">
+          <sl-form-field
+            hint="This will hide when the container is scrolled AND when the window is scrolled"
+            label="Container scroll"
+          >
+            <sl-select>
+              <sl-select-option value="1">Option 1</sl-select-option>
+              <sl-select-option value="2">Option 2</sl-select-option>
+              <sl-select-option value="3">Option 3</sl-select-option>
+              <sl-select-option value="4">Option 4</sl-select-option>
+              <sl-select-option value="5">Option 5</sl-select-option>
+              <sl-select-option value="6">Option 6</sl-select-option>
+            </sl-select>
+          </sl-form-field>
+        </div>
+      </div>
+    `;
   }
 };
 

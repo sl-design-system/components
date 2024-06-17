@@ -2,25 +2,21 @@ $sizes: 'xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl';
 $variants: default, 'white', accent, info, danger, success, warning;
 
 :host {
-  --spinner-size: unset;
-  --_color: currentColor;
+  --sl-spinner-size: var(--sl-size-spinner-md);
+  --_color: currentcolor;
+  --_rotate-duration: calc(var(--_spin-duration) * 4);
   --_shadow-opacity: var(--sl-opacity-spinner-shadow);
   --_spin-duration: 20s;
-  --_rotate-duration: calc(var(--_spin-duration) * 4);
-  block-size: var(--spinner-size, var(--_spinner-size));
-  display: inline-block;
-  inline-size: var(--spinner-size, var(--_spinner-size));
+
+  block-size: var(--sl-spinner-size);
+  display: inline-flex;
+  flex-shrink: 0;
+  inline-size: var(--sl-spinner-size);
   vertical-align: middle;
-}
 
-svg g {
-  animation: spin var(--_rotate-duration) linear infinite;
-  transform-origin: center center;
-}
-
-svg path {
-  animation: spin var(--_spin-duration) cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
-  transform-origin: center center;
+  @media (prefers-reduced-motion: no-preference) {
+    --_spin-duration: 1200ms;
+  }
 }
 
 @each $variant in $variants {
@@ -31,13 +27,17 @@ svg path {
 
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_spinner-size: var(--sl-size-spinner-#{$size});
+    --sl-spinner-size: var(--sl-size-spinner-#{$size});
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  :host {
-    --_spin-duration: 1200ms;
+svg {
+  g.slow {
+    animation: spin var(--_rotate-duration) linear infinite;
+  }
+
+  g.fast {
+    animation: spin var(--_spin-duration) cubic-bezier(0.46, 0.03, 0.52, 0.96) infinite;
   }
 }
 

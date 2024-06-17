@@ -1,5 +1,19 @@
 # @sl-design-system/button-bar
 
+## 0.0.7
+
+### Patch Changes
+
+- [#1170](https://github.com/sl-design-system/components/pull/1170) [`39c22ca`](https://github.com/sl-design-system/components/commit/39c22cad76661ad4b1f3a8f4bc56c576c36a94be) - Added button bar component
+
+## 0.0.6
+
+### Patch Changes
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Linting fixes for styling
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Clean up CSS custom properties that are public API
+
 ## 0.0.5
 
 ### Patch Changes

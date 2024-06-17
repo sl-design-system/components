@@ -1,10 +1,17 @@
 import { LOCALE_STATUS_EVENT, localized, msg } from '@lit/localize';
 import { FormControlMixin } from '@sl-design-system/form';
 import { type EventEmitter, EventsController, RovingTabindexController, event } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import styles from './radio-group.scss.js';
 import { type Radio, type RadioButtonSize } from './radio.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-radio-group': RadioGroup;
+  }
+}
 
 const OBSERVER_OPTIONS: MutationObserverInit = {
   attributeFilter: ['checked'],
@@ -68,20 +75,20 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
     isFocusableElement: (el: Radio) => !el.disabled
   });
 
-  /** @private Element internals. */
+  /** @internal Element internals. */
   readonly internals = this.attachInternals();
 
-  /** @private The slotted radios. */
+  /** @internal The slotted radios. */
   @queryAssignedElements() radios?: Array<Radio<T>>;
 
-  /** Emits when the component loses focus. */
-  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+  /** @internal Emits when the component loses focus. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the value changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | undefined>;
+  /** @internal Emits when the value changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | undefined>>;
 
-  /** Emits when the component receives focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+  /** @internal Emits when the component receives focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** Whether the group is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) override disabled?: boolean;
@@ -174,12 +181,17 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
     return html`<slot @slotchange=${this.#onSlotchange}></slot>`;
   }
 
+  override focus(): void {
+    this.#rovingTabindexController.focus();
+  }
+
   #onFocusin(): void {
     this.focusEvent.emit();
   }
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
   }
 
   #onSlotchange(): void {
@@ -204,6 +216,7 @@ export class RadioGroup<T = unknown> extends FormControlMixin(LitElement) {
 
     if (emitEvent) {
       this.changeEvent.emit(this.value);
+      this.updateState({ dirty: true });
     }
 
     this.#updateValueAndValidity();

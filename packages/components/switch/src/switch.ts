@@ -2,9 +2,16 @@ import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-ele
 import { FormControlMixin } from '@sl-design-system/form';
 import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
+import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './switch.scss.js';
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-switch': Switch;
+  }
+}
 
 export type SwitchSize = 'sm' | 'md' | 'lg';
 
@@ -48,14 +55,14 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
   /** @private Element internals. */
   readonly internals = this.attachInternals();
 
-  /** Emits when the component loses focus. */
-  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<void>;
+  /** @internal Emits when the component loses focus. */
+  @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
-  /** Emits when the checked state changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<T | null>;
+  /** @internal Emits when the checked state changes. */
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T | null>>;
 
-  /** Emits when the component receives focus. */
-  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<void>;
+  /** @internal Emits when the component receives focus. */
+  @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
 
   /** Whether the switch is on or off. */
   @property({ type: Boolean, reflect: true }) checked?: boolean;
@@ -154,6 +161,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
     this.checked = !this.checked;
     this.changeEvent.emit(this.formValue);
+    this.updateState({ dirty: true });
 
     this.#updateValue();
   }
@@ -164,6 +172,7 @@ export class Switch<T = unknown> extends FormControlMixin(ScopedElementsMixin(Li
 
   #onFocusout(): void {
     this.blurEvent.emit();
+    this.updateState({ touched: true });
   }
 
   #onKeydown(event: KeyboardEvent): void {

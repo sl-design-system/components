@@ -6,10 +6,13 @@ eleventyNavigation:
   parent: Avatar
   key: AvatarCode
 ---
-<section>  
+<section>
 <div class="ds-example" style="justify-content: space-evenly">
-  <sl-avatar display-name="Anna Jenssen" picture-url="/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg" size="3xl" orientation="vertical"></sl-avatar>
-  <sl-avatar display-name="Tim Jenssen" size="xl" status="success">Class: 1B</sl-avatar>
+  <sl-avatar display-name="Anna Jenssen" picture-url="/assets/images/components/avatar/toa-heftiba-ANNsvl-6AG0-unsplash.jpg" size="3xl" vertical></sl-avatar>
+  <sl-avatar display-name="Tim Jenssen" size="xl">
+    <sl-badge emphasis="bold" slot="badge" variant="success"></sl-badge>
+    Class: 1B
+  </sl-avatar>
 
   <small style="position: absolute; bottom:0; right:var(--scale-150-scale)">
 
@@ -21,53 +24,22 @@ eleventyNavigation:
 <div class="ds-code">
 
   ```html
-    <sl-avatar 
-      display-name="Anna Jenssen" 
-      picture-url="/images/avatar.jpg" 
-      size="3xl" 
-      orientation="vertical"></sl-avatar>
+    <sl-avatar
+      display-name="Anna Jenssen"
+      picture-url="/images/avatar.jpg"
+      size="3xl"
+      vertical></sl-avatar>
 
-    <sl-avatar 
-      display-name="Tim Jenssen"
-      size="xl" 
-      status="success">Class: 1B</sl-avatar>
+    <sl-avatar display-name="Tim Jenssen" size="xl">
+      <sl-badge emphasis="bold" slot="badge" variant="success"></sl-badge>
+      Class: 1B
+    </sl-avatar>
   ```
 </div>
 
 </section>
 
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/avatar
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/avatar
-  ```
-</div>
-
-</section>
-
-<section>
-
-## Avatar shape
-
-The shape of the avatar - a circle or a square, optionally with rounded corners - is determined by an application wide setting per theme. This is, like the tokens are, maintained by the SLDS team
-
-</section>
+<ds-install-info link-in-navigation package="avatar"></ds-install-info>
 
 {% include "../component-table.njk" %}
 

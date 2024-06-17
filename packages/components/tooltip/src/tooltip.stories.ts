@@ -16,7 +16,8 @@ type Props = Pick<Tooltip, 'maxWidth' | 'position'> & {
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Tooltip',
+  title: 'Overlay/Tooltip',
+  tags: ['stable'],
   args: {
     alignSelf: 'center',
     justifySelf: 'center',
@@ -105,5 +106,26 @@ export const Shared: Story = {
       </sl-button-bar>
       <sl-tooltip id="tooltip">${message}</sl-tooltip>
     `
+  }
+};
+
+export const All: Story = {
+  render: () => {
+    setTimeout(() => {
+      document.querySelectorAll('sl-button').forEach(button => {
+        button.dispatchEvent(new Event('pointerover', { bubbles: true }));
+      });
+    });
+    return html`
+      <style>
+        #root-inner {
+          display: grid;
+          height: calc(20rem);
+          place-items: center;
+        }
+      </style>
+      <sl-button aria-describedby="tooltip"> Button </sl-button>
+      <sl-tooltip id="tooltip" position="top" max-width="300">Tooltip message</sl-tooltip>
+    `;
   }
 };

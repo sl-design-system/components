@@ -1,9 +1,11 @@
 import { expect, fixture } from '@open-wc/testing';
+import { type SlFormControlEvent } from '@sl-design-system/form';
 import { sendKeys } from '@web/test-runner-commands';
-import { html } from 'lit';
+import { LitElement, type TemplateResult, html } from 'lit';
+import { property } from 'lit/decorators.js';
 import { spy } from 'sinon';
 import '../register.js';
-import { type TextField } from './text-field.js';
+import { TextField } from './text-field.js';
 
 describe('sl-text-field', () => {
   let el: TextField, input: HTMLInputElement;
@@ -111,6 +113,19 @@ describe('sl-text-field', () => {
       expect(input.type).to.equal('email');
     });
 
+    it('should not have a focus ring attribute', () => {
+      expect(el).not.to.have.attribute('has-focus-ring');
+      expect(el.hasFocusRing).not.to.be.true;
+    });
+
+    it('should have a focus ring attribute when the input has focus', async () => {
+      input.focus();
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('has-focus-ring');
+      expect(el.hasFocusRing).to.be.true;
+    });
+
     it('should not have a pattern by default', () => {
       expect(el.pattern).to.be.undefined;
       expect(input).not.to.have.attribute('pattern');
@@ -145,6 +160,62 @@ describe('sl-text-field', () => {
       await el.updateComplete;
 
       expect(input).to.have.attribute('minlength', '3');
+    });
+
+    it('should not have a custom input size', () => {
+      expect(el.inputSize).to.be.undefined;
+    });
+
+    it('should have a custom input size when set', async () => {
+      el.inputSize = 10;
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('input-size', '10');
+      expect(input).to.have.attribute('size', '10');
+    });
+
+    it('should be pristine', () => {
+      expect(el.dirty).not.to.be.true;
+    });
+
+    it('should be dirty after typing in the input', async () => {
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(el.dirty).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after typing in the input', async () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      el.focus();
+      await sendKeys({ type: 'L' });
+
+      expect(onUpdateState).to.have.been.calledOnce;
+    });
+
+    it('should be untouched', () => {
+      expect(el.touched).not.to.be.true;
+    });
+
+    it('should be touched after input loses focus', () => {
+      input.focus();
+      input.blur();
+
+      expect(el.touched).to.be.true;
+    });
+
+    it('should emit an sl-update-state event after losing focus', () => {
+      const onUpdateState = spy();
+
+      el.addEventListener('sl-update-state', onUpdateState);
+
+      input.focus();
+      input.blur();
+
+      expect(onUpdateState).to.have.been.calledOnce;
     });
 
     it('should focus the input when focusing the element', () => {
@@ -200,6 +271,20 @@ describe('sl-text-field', () => {
 
       expect(onValidate).to.have.been.callCount(5);
     });
+
+    it('should not throw an error when querying state after the element has been disconnected', () => {
+      const onError = spy();
+
+      el.remove();
+
+      try {
+        el.updateValidity();
+      } catch (error) {
+        onError(error);
+      }
+
+      expect(onError).not.to.have.been.called;
+    });
   });
 
   describe('invalid', () => {
@@ -248,15 +333,6 @@ describe('sl-text-field', () => {
       await el.updateComplete;
 
       expect(onUpdateValidity).to.have.been.calledOnce;
-    });
-
-    it('should show a warning icon when reported', async () => {
-      el.reportValidity();
-      await el.updateComplete;
-
-      const icon = el.renderRoot.querySelector('sl-icon');
-      expect(icon).to.exist;
-      expect(icon).to.have.attribute('name', 'triangle-exclamation-solid');
     });
   });
 
@@ -345,6 +421,119 @@ describe('sl-text-field', () => {
 
       expect(prefix).to.exist;
       expect(prefix).to.have.trimmed.text('suffix example');
+    });
+  });
+
+  describe('form integration', () => {
+    let el: FormIntegrationTestComponent;
+
+    class FormIntegrationTestComponent extends LitElement {
+      onFormControl: (event: SlFormControlEvent) => void = spy();
+
+      override render(): TemplateResult {
+        return html`<sl-text-field @sl-form-control=${this.onFormControl}></sl-text-field>`;
+      }
+    }
+
+    beforeEach(async () => {
+      customElements.define('form-integration-test-component', FormIntegrationTestComponent);
+
+      el = await fixture(html`<form-integration-test-component></form-integration-test-component>`);
+    });
+
+    it('should emit an sl-form-control event after first render', () => {
+      expect(el.onFormControl).to.have.been.calledOnce;
+    });
+  });
+
+  describe('inheritance', () => {
+    let el: DateField;
+
+    class DateField extends TextField<Date> {
+      #value?: Date;
+
+      override get value(): Date | undefined {
+        return this.#value;
+      }
+
+      @property()
+      override set value(value: number | string | Date | undefined) {
+        if (value instanceof Date) {
+          this.#value = value;
+        } else if (typeof value === 'number') {
+          this.#value = new Date(value);
+        } else if (typeof value === 'string') {
+          this.#value = new Date(value);
+        } else {
+          this.#value = undefined;
+        }
+      }
+
+      /** Parse the string value as a date using a regex, or throw an error if the value is invalid. */
+      override parseValue(value: string): Date | undefined {
+        const match = value.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+
+        if (!match) {
+          throw new Error('Invalid date format');
+        } else {
+          const [, day, month, year] = match,
+            date = new Date(`${year}-${month}-${day}`);
+
+          if (isNaN(date.getTime())) {
+            throw new Error('Invalid date');
+          }
+
+          return date;
+        }
+      }
+
+      /** Format the date as DD-MM-YYYY. */
+      override formatValue(value?: Date): string {
+        return value?.toLocaleDateString() ?? '';
+      }
+    }
+
+    beforeEach(async () => {
+      try {
+        customElements.define('test-date-field', DateField);
+      } catch {
+        /* empty */
+      }
+
+      el = await fixture(html`<test-date-field></test-date-field>`);
+    });
+
+    it('should format the value correctly', async () => {
+      const date = new Date(2024, 0, 1);
+
+      el.value = date;
+      await el.updateComplete;
+
+      expect(el.querySelector('input')?.value).to.equal(date.toLocaleDateString());
+    });
+
+    it('should parse the value correctly', async () => {
+      el.focus();
+      await sendKeys({ type: '01-01-2024' });
+
+      expect(el.value).to.be.an.instanceof(Date);
+      expect(el.value!.getFullYear()).to.equal(2024);
+      expect(el.value!.getMonth()).to.equal(0);
+      expect(el.value!.getDate()).to.equal(1);
+    });
+
+    it('should support setting a date in milliseconds', async () => {
+      el.value = new Date(2025, 0, 1).getTime();
+      await el.updateComplete;
+
+      expect(el.querySelector('input')?.value).to.equal('1/1/2025');
+    });
+
+    it('should support setting a date as text', async () => {
+      el.value = '01-01-2025';
+      await el.updateComplete;
+
+      expect(el.querySelector('input')?.value).to.equal('1/1/2025');
     });
   });
 });

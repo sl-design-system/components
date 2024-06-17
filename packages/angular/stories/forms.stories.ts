@@ -1,15 +1,39 @@
-import type { Meta, StoryFn } from '@storybook/angular';
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-bar/register.js';
-import '@sl-design-system/form/register.js';
-import '@sl-design-system/inline-message/register.js';
-import type { AbstractControl, ValidationErrors } from '@angular/forms';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import type { ElementRef } from '@angular/core';
-import { CUSTOM_ELEMENTS_SCHEMA, Component, ViewChild } from '@angular/core';
-import type { Form } from '@sl-design-system/form';
-import { moduleMetadata } from '@storybook/angular';
-import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
+import { Component, type ElementRef, ViewChild } from '@angular/core';
+import {
+  type AbstractControl,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  type ValidationErrors
+} from '@angular/forms';
+import { type Form } from '@sl-design-system/form';
+import { type Meta, type StoryFn, moduleMetadata } from '@storybook/angular';
+import {
+  CheckboxDirective,
+  CheckboxGroupDirective,
+  RadioGroupDirective,
+  SelectDirective,
+  SwitchDirective,
+  TextAreaDirective,
+  TextFieldDirective
+} from '../src/forms/index';
+import {
+  ButtonBarComponent,
+  ButtonComponent,
+  CheckboxComponent,
+  CheckboxGroupComponent,
+  FormComponent,
+  FormFieldComponent,
+  InlineMessageComponent,
+  RadioComponent,
+  RadioGroupComponent,
+  SelectComponent,
+  SelectOptionComponent,
+  SwitchComponent,
+  TextAreaComponent,
+  TextFieldComponent
+} from '../src/wrappers';
 
 @Component({
   selector: 'sla-all-form-controls-reactive',
@@ -20,7 +44,7 @@ import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
       </sl-form-field>
 
       <sl-form-field label="Textarea">
-        <sl-textarea formControlName="textarea"></sl-textarea>
+        <sl-text-area formControlName="textarea"></sl-text-area>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
@@ -62,7 +86,7 @@ import { FormsModule as CoreFormsModule } from '../src/forms/forms.module';
 export class AllFormControlsReactiveComponent {
   formGroup = new FormGroup({
     textField: new FormControl('Text field'),
-    textarea: new FormControl('Textarea'),
+    textArea: new FormControl('Text area'),
     checkbox: new FormControl('checked'),
     select: new FormControl('1'),
     switch: new FormControl('toggled'),
@@ -79,8 +103,8 @@ export class AllFormControlsReactiveComponent {
         <sl-text-field formControlName="textField" required></sl-text-field>
       </sl-form-field>
 
-      <sl-form-field label="Textarea">
-        <sl-textarea formControlName="textarea" required></sl-textarea>
+      <sl-form-field label="Text area">
+        <sl-text-area formControlName="textArea" required></sl-text-area>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
@@ -128,7 +152,7 @@ export class AllFormControlsEmptyReactiveComponent {
 
   formGroup = new FormGroup({
     textField: new FormControl(''),
-    textarea: new FormControl(''),
+    textArea: new FormControl(''),
     checkbox: new FormControl(false),
     select: new FormControl(''),
     switch: new FormControl(false),
@@ -149,8 +173,8 @@ export class AllFormControlsEmptyReactiveComponent {
         <sl-text-field [(ngModel)]="formGroup.textField"></sl-text-field>
       </sl-form-field>
 
-      <sl-form-field label="Textarea">
-        <sl-textarea [(ngModel)]="formGroup.textarea"></sl-textarea>
+      <sl-form-field label="Text area">
+        <sl-text-area [(ngModel)]="formGroup.textArea"></sl-text-area>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
@@ -192,7 +216,7 @@ export class AllFormControlsEmptyReactiveComponent {
 export class AllFormControlsTemplateComponent {
   formGroup = {
     textField: 'Text field',
-    textarea: 'Textarea',
+    textArea: 'Text area',
     checkbox: 'checked',
     select: '1',
     switch: 'toggled',
@@ -209,8 +233,8 @@ export class AllFormControlsTemplateComponent {
         <sl-text-field [(ngModel)]="formGroup.textField" required></sl-text-field>
       </sl-form-field>
 
-      <sl-form-field label="Textarea">
-        <sl-textarea [(ngModel)]="formGroup.textarea" required></sl-textarea>
+      <sl-form-field label="Text area">
+        <sl-text-area [(ngModel)]="formGroup.textArea" required></sl-text-area>
       </sl-form-field>
 
       <sl-form-field label="Checkbox">
@@ -258,7 +282,7 @@ export class AllFormControlsEmptyTemplateComponent {
 
   formGroup = {
     textField: '',
-    textarea: '',
+    textArea: '',
     checkbox: false,
     select: '',
     switch: false,
@@ -345,7 +369,7 @@ export class LoginFormComponent {
 }
 
 export default {
-  title: 'Forms/Examples',
+  title: 'Forms',
   decorators: [
     moduleMetadata({
       declarations: [
@@ -355,29 +379,52 @@ export default {
         AllFormControlsEmptyTemplateComponent,
         LoginFormComponent
       ],
-      imports: [CoreFormsModule, FormsModule, ReactiveFormsModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      imports: [
+        ButtonComponent,
+        ButtonBarComponent,
+        CheckboxComponent,
+        CheckboxDirective,
+        CheckboxGroupComponent,
+        CheckboxGroupDirective,
+        FormComponent,
+        FormFieldComponent,
+        FormsModule,
+        InlineMessageComponent,
+        RadioComponent,
+        RadioGroupComponent,
+        RadioGroupDirective,
+        ReactiveFormsModule,
+        SelectComponent,
+        SelectDirective,
+        SelectOptionComponent,
+        SwitchComponent,
+        SwitchDirective,
+        TextFieldComponent,
+        TextFieldDirective,
+        TextAreaComponent,
+        TextAreaDirective
+      ]
     })
   ],
   args: {}
 } as Meta;
 
 export const AllReactive: StoryFn = () => ({
-  template: `<sla-all-form-controls-reactive></sla-all-form-controls-reactive>`
+  template: '<sla-all-form-controls-reactive></sla-all-form-controls-reactive>'
 });
 
 export const AllEmptyReactive: StoryFn = () => ({
-  template: `<sla-all-form-controls-empty-reactive></sla-all-form-controls-empty-reactive>`
+  template: '<sla-all-form-controls-empty-reactive></sla-all-form-controls-empty-reactive>'
 });
 
 export const AllTemplate: StoryFn = () => ({
-  template: `<sla-all-form-controls-template></sla-all-form-controls-template>`
+  template: '<sla-all-form-controls-template></sla-all-form-controls-template>'
 });
 
 export const AllEmptyTemplate: StoryFn = () => ({
-  template: `<sla-all-form-controls-empty-template></sla-all-form-controls-empty-template>`
+  template: '<sla-all-form-controls-empty-template></sla-all-form-controls-empty-template>'
 });
 
 export const Login: StoryFn = () => ({
-  template: `<sla-login-form></sla-login-form>`
+  template: '<sla-login-form></sla-login-form>'
 });

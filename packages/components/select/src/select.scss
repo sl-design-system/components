@@ -25,14 +25,14 @@ $variants: default, valid, invalid;
 div {
   background: var(--_background);
   border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--_border-radius);
   box-shadow: var(--sl-elevation-shadow-md);
   box-sizing: border-box;
   display: none;
   flex-direction: column;
   gap: var(--_gap);
   margin: 0;
-  overflow-x: hidden; //because of firefox issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
-  overflow-y: auto;
+  overflow: hidden auto; // `auto` because of FF issue: https://bugzilla.mozilla.org/show_bug.cgi?id=764076
   padding-block: var(--_padding-block);
   padding-inline: var(--_padding-inline);
   transition: opacity 0.2s cubic-bezier(0.25, 0, 0.3, 1);

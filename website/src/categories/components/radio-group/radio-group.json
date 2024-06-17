@@ -1,6 +1,7 @@
 {
-  "layout": "components/components.njk",
+  "layout": "categories/components/components.njk",
   "tags": "radio-group",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Radio group",

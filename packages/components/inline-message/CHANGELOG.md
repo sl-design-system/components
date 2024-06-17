@@ -1,5 +1,75 @@
 # @sl-design-system/inline-message
 
+## 0.3.0
+
+### Minor Changes
+
+- [#1234](https://github.com/sl-design-system/components/pull/1234) [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f) - Various improvements:
+  - Add new `action` slot
+  - Improve styling and layout
+  - Fix missing triangle exclamation icon
+  - Remove `noIcon` property due to worse a11y
+  - Remove `close-button` & `details` slots
+
+### Patch Changes
+
+- Updated dependencies [[`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805)]:
+  - @sl-design-system/icon@1.0.0
+  - @sl-design-system/button@1.0.0
+
+## 0.2.8
+
+### Patch Changes
+
+- [#1210](https://github.com/sl-design-system/components/pull/1210) [`c3c9de6`](https://github.com/sl-design-system/components/commit/c3c9de6590f5abd1d8010186df127a665ee303b5) - Add `sl-dismiss` event when the message is dismissed
+
+- Updated dependencies [[`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b)]:
+  - @sl-design-system/shared@0.2.11
+  - @sl-design-system/button@0.0.28
+
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537)]:
+  - @sl-design-system/shared@0.2.10
+  - @sl-design-system/icon@0.0.10
+  - @sl-design-system/button@0.0.27
+
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+  - @sl-design-system/button@0.0.26
+
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [[`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da)]:
+  - @sl-design-system/shared@0.2.8
+  - @sl-design-system/button@0.0.25
+
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad)]:
+  - @sl-design-system/shared@0.2.7
+  - @sl-design-system/button@0.0.24
+
+## 0.2.3
+
+### Patch Changes
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Linting fixes for styling
+
+- Updated dependencies [[`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b), [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b)]:
+  - @sl-design-system/button@0.0.23
+  - @sl-design-system/icon@0.0.9
+
 ## 0.2.2
 
 ### Patch Changes

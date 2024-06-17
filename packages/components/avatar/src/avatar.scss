@@ -1,122 +1,201 @@
-$sizes: sm, md, lg, xl, 2xl, 3xl;
-$shapes: circle, square;
-$statuses: danger, success, warning, accent, neutral, primary;
-
 :host {
-  --_avatar-background: var(--sl-color-avatar-background);
-  --_avatar-foreground: var(--sl-color-avatar-foreground);
-  --_avatar-badge-background-color: var(--sl-color-badge-danger-background);
-  --_avatar-badge-text-color: var(--sl-color-badge-danger-foreground);
+  --_badge-inset: var(--sl-space-avatar-badge-inset-md);
+  --_badge-margin: var(--sl-space-avatar-badge-margin);
+  --_block-gap: var(--sl-space-avatar-block-md);
+  --_icon-size: var(--sl-size-icon-md);
+  --_inline-gap: var(--sl-space-avatar-inline-md);
+  --_heading-font: var(--sl-text-avatar-header-md);
+  --_initials-font: var(--sl-text-avatar-initials-md);
+  --_outline: var(--sl-border-width-focusring-default) solid var(--sl-color-focusring-default);
+  --_outline-offset: calc(var(--sl-border-width-focusring-offset) * 2);
+  --_outline-radius: var(--sl-border-radius-focusring-default);
+  --_picture-size: var(--sl-size-avatar-md);
+  --_subheading-font: var(--sl-text-avatar-subheader-md);
 
-  --_focusring-color: transparent;
-
-  --_max-width: var(--max-width, 20rem);
-
-  align-items: center;
   display: inline-flex;
-  gap: var(--_gap);
-  max-width: 100%;
+  outline: 0;
 }
 
-:host(:where(:focus-visible, [active])) {
-  --_focusring-color: var(--sl-color-focusring-default);
+:host(:focus-visible) {
+  outline: var(--_outline);
+  outline-offset: var(--sl-border-width-focusring-offset);
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_badge-font: var(--sl-text-badge-text-#{$size});
-    --_initials-font: var(--sl-text-avatar-initials-#{$size});
-    --_header-font: var(--sl-text-avatar-header-#{$size});
-    --_subheader-font: var(--sl-text-avatar-subheader-#{$size});
-    --_gap: var(--sl-space-avatar-block-#{$size}) var(--sl-space-avatar-inline-#{$size});
+:host([size='sm']) {
+  --_block-gap: var(--sl-space-avatar-block-sm);
+  --_inline-gap: var(--sl-space-avatar-inline-sm);
+  --_heading-font: var(--sl-text-avatar-header-sm);
+  --_picture-size: var(--sl-size-avatar-sm);
+
+  [part='wrapper'] {
+    grid-template: 'picture spacer name' auto / auto var(--_inline-gap) 1fr;
   }
-}
 
-@each $shape in $shapes {
-  :host([shape='#{$shape}']) {
-    --_avatar_border-radius: var(--sl-border-radius-avatar-#{$shape});
+  [part='name'] {
+    align-self: center;
   }
-}
 
-@each $status in $statuses {
-  :host([status='#{$status}']) {
-    --_avatar-badge-background-color: var(--sl-color-badge-#{$status}-background);
-    --_avatar-badge-text-color: var(--sl-color-badge-#{$status}-foreground);
+  slot:not([name]) {
+    display: none;
   }
 }
 
-picture {
-  display: grid;
-  flex: 0 0 var(--_picture-size);
-  height: var(--_picture-size);
-  place-content: center;
-  position: relative;
-  width: var(--_picture-size);
+:host([size='lg']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-lg);
+  --_block-gap: var(--sl-space-avatar-block-lg);
+  --_icon-size: var(--sl-size-icon-lg);
+  --_inline-gap: var(--sl-space-avatar-inline-lg);
+  --_heading-font: var(--sl-text-avatar-header-lg);
+  --_initials-font: var(--sl-text-avatar-initials-lg);
+  --_picture-size: var(--sl-size-avatar-lg);
+  --_subheading-font: var(--sl-text-avatar-subheader-lg);
+}
 
-  svg {
-    margin-bottom: var(--_margin-bottom);
-    margin-left: var(--_margin-left);
-    margin-right: var(--_margin-right);
-    margin-top: var(--_margin-top);
-    pointer-events: none;
-  }
+:host([size='xl']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-xl);
+  --_block-gap: var(--sl-space-avatar-block-xl);
+  --_icon-size: var(--sl-size-icon-xl);
+  --_inline-gap: var(--sl-space-avatar-inline-xl);
+  --_heading-font: var(--sl-text-avatar-header-xl);
+  --_initials-font: var(--sl-text-avatar-initials-xl);
+  --_picture-size: var(--sl-size-avatar-xl);
+  --_subheading-font: var(--sl-text-avatar-subheader-xl);
+}
 
-  text.badge-text {
-    font: var(--_badge-font);
-    text-anchor: middle;
-    text-transform: uppercase;
-  }
+:host([size='2xl']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-2xl);
+  --_block-gap: var(--sl-space-avatar-block-2xl);
+  --_icon-size: var(--sl-size-icon-2xl);
+  --_inline-gap: var(--sl-space-avatar-inline-2xl);
+  --_heading-font: var(--sl-text-avatar-header-2xl);
+  --_initials-font: var(--sl-text-avatar-initials-2xl);
+  --_picture-size: var(--sl-size-avatar-2xl);
+  --_subheading-font: var(--sl-text-avatar-subheader-2xl);
+}
 
-  text.initials {
-    font: var(--_initials-font);
-    text-anchor: middle;
-    text-transform: uppercase;
+:host([size='3xl']) {
+  --_badge-inset: var(--sl-space-avatar-badge-inset-3xl);
+  --_block-gap: var(--sl-space-avatar-block-3xl);
+  --_icon-size: var(--sl-size-icon-3xl);
+  --_inline-gap: var(--sl-space-avatar-inline-3xl);
+  --_heading-font: var(--sl-text-avatar-header-3xl);
+  --_initials-font: var(--sl-text-avatar-initials-3xl);
+  --_picture-size: var(--sl-size-avatar-3xl);
+  --_subheading-font: var(--sl-text-avatar-subheader-3xl);
+}
+
+:host([image-only]) {
+  border-radius: 50%;
+
+  [part='wrapper'] {
+    grid-template: 'picture' auto;
   }
 }
 
-div {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  font: var(--_subheader-font);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  span,
-  slot {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  span.header {
-    font: var(--_header-font);
-  }
-}
-
-:host([orientation='vertical']) {
-  flex-direction: column;
-  max-width: var(--_max-width);
+:host([vertical]) [part='wrapper'] {
+  grid-template: 'picture' auto 'spacer' var(--_block-gap) 'name' auto 'subheader' auto / 1fr;
+  justify-items: center;
   text-align: center;
 
-  .header {
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-box-orient: vertical;
-    /* stylelint-disable-next-line value-no-vendor-prefix*/
-    display: -webkit-box;
-    /* stylelint-disable-next-line property-no-vendor-prefix */
-    -webkit-line-clamp: 2;
-    max-width: var(--_max-width);
-    overflow: hidden;
+  [part='name'] {
     white-space: initial;
     word-break: break-word;
   }
+}
 
-  slot {
-    display: block;
-    max-width: var(--_max-width);
-    overflow: hidden;
-    text-overflow: ellipsis;
+[part='wrapper'] {
+  align-items: center;
+  border-radius: var(--_outline-radius);
+  display: grid;
+  grid-template: 'picture spacer name' auto 'picture spacer subheader' auto / auto var(--_inline-gap) 1fr;
+}
+
+a {
+  color: currentcolor;
+  text-decoration: none;
+
+  &:hover [part='name'] {
+    color: var(--sl-color-href-hover-foreground);
   }
+
+  &:active [part='name'] {
+    color: var(--sl-color-href-active-foreground);
+  }
+
+  &:focus-visible {
+    outline: var(--_outline);
+    outline-offset: var(--_outline-offset);
+  }
+
+  [part='name'] {
+    color: var(--sl-color-href-idle-foreground);
+    text-decoration: underline;
+  }
+}
+
+[part='avatar'] {
+  border-radius: var(--sl-border-radius-focusring-default);
+  display: inline-flex;
+  grid-area: picture;
+  position: relative;
+}
+
+::slotted(sl-badge) {
+  inset: var(--_badge-inset) var(--_badge-inset) auto auto;
+  position: absolute;
+}
+
+[part='picture'] {
+  background: var(--sl-color-avatar-background);
+  block-size: var(--_picture-size);
+  border-radius: 50%;
+  color: var(--sl-color-avatar-foreground);
+  display: inline-flex;
+  inline-size: var(--_picture-size);
+  overflow: clip;
+}
+
+img {
+  block-size: var(--_picture-size);
+  inline-size: var(--_picture-size);
+  object-fit: cover;
+}
+
+slot[name='fallback'] {
+  align-items: center;
+  display: flex;
+  inline-size: 100%;
+  justify-content: center;
+
+  &::slotted(*) {
+    --sl-icon-size: var(--_icon-size);
+
+    block-size: 100%;
+    inline-size: 100%;
+    object-fit: cover;
+  }
+}
+
+[part='initials'] {
+  font: var(--_initials-font);
+}
+
+[part='name'] {
+  align-self: end;
+  display: block;
+  font: var(--_heading-font);
+  grid-area: name;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+slot:not([name]) {
+  align-self: start;
+  display: block;
+  font: var(--_subheading-font);
+  grid-area: subheader;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

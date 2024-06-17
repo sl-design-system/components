@@ -11,7 +11,7 @@
   <target>Type hier om te filteren</target>
 </trans-unit>
 <trans-unit id="s58bfb494feb8eb02">
-  <source><x id="0" equiv-text="${count}"/> selected</source>
+  <source><x id="0" equiv-text="${this.getSelectedCount()}"/> selected</source>
   <target><x id="0" equiv-text="${count}"/> geselecteerd</target>
 </trans-unit>
 <trans-unit id="s629576c6b305d539">
@@ -62,10 +62,6 @@
   <source>Please fill in this field.</source>
   <target>Voer een waarde in.</target>
 </trans-unit>
-<trans-unit id="s864c948d4629240f">
-  <source>Show all</source>
-  <target>Toon alles</target>
-</trans-unit>
 <trans-unit id="sde6884478b7cc818">
   <source>Please enter at least <x id="0" equiv-text="${this.minLength}"/> characters (you currently have <x id="1" equiv-text="${length}"/> character<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</source>
   <target>Voer tenminste <x id="0" equiv-text="${this.minLength}"/> karakters in (je hebt op dit momoment <x id="1" equiv-text="${length}"/> karakter<x id="2" equiv-text="${length &gt; 1 ? 's' : ''}"/>).</target>
@@ -93,6 +89,26 @@
 <trans-unit id="sa996297f6a208e98">
   <source>Breadcrumb trail</source>
   <target>Kruimelpad</target>
+</trans-unit>
+<trans-unit id="s864c948d4629240f">
+  <source>Show all</source>
+  <target>Toon alles</target>
+</trans-unit>
+<trans-unit id="sf677da98fa27f9b6">
+  <source>More breadcrumbs</source>
+  <target>Meer links</target>
+</trans-unit>
+<trans-unit id="sd711c88b851db6c9">
+  <source>The following fields have errors:</source>
+  <target>De volgende velden zijn incorrect:</target>
+</trans-unit>
+<trans-unit id="s4f6434b4c6326f21">
+  <source>All fields are valid.</source>
+  <target>Alle velden zijn correct.</target>
+</trans-unit>
+<trans-unit id="s13fdff160ffad275">
+  <source>Clear text</source>
+  <target>Wis tekst</target>
 </trans-unit>
 </body>
 </file>

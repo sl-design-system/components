@@ -1,27 +1,27 @@
 $sizes: 2xs, xs, sm, md, lg, xl, 2xl, 3xl, 4xl;
 
 :host {
-  --fill-default: currentColor;
-  --fill-accent: rgb(var(--sl-color-palette-accent-300));
-  --icon-container-size: unset;
-  --icon-size: unset;
+  --sl-icon-container-size: var(--sl-size-icon-md);
+  --sl-icon-fill-accent: var(--sl-color-palette-accent-300);
+  --sl-icon-fill-default: currentcolor;
+  --sl-icon-size: var(--sl-size-icon-md);
 
-  block-size: var(--_icon-container-size);
+  block-size: var(--sl-icon-container-size, unset);
   display: inline-grid;
-  inline-size: var(--_icon-container-size);
+  inline-size: var(--sl-icon-container-size, unset);
   outline: none;
   place-content: center;
   translate: 0;
 }
 
-svg {
-  block-size: var(--icon-size, var(--_icon-size));
-  inline-size: var(--icon-size, var(--_icon-size));
-}
-
 @each $size in $sizes {
   :host([size='#{$size}']) {
-    --_icon-container-size: var(--icon-container-size, var(--sl-size-icon-#{$size}));
-    --_icon-size: var(--sl-size-icon-#{$size});
+    --sl-icon-container-size: var(--sl-size-icon-#{$size});
+    --sl-icon-size: var(--sl-size-icon-#{$size});
   }
+}
+
+svg {
+  block-size: var(--sl-icon-size);
+  inline-size: var(--sl-icon-size);
 }

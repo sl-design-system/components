@@ -1,26 +1,22 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
 import { type Person, getPeople } from '@sl-design-system/example-data';
-import { type SelectionController } from '@sl-design-system/shared';
+import { ArrayDataSource, type SelectionController } from '@sl-design-system/shared';
 import { type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../register.js';
-import { type GridActiveItemChangeEvent } from '../events.js';
-import { type Grid } from '../grid.js';
+import { type SlActiveItemChangeEvent } from '../grid.js';
 
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Selection'
+  title: 'Layout/Grid/Selection'
 };
 
 export const Single: Story = {
   loaders: [async () => ({ people: (await getPeople()).people })],
   render: (_, { loaded: { people } }) => {
-    const onActiveItemChange = ({
-      item,
-      target: grid
-    }: GridActiveItemChangeEvent<Person> & { target: Grid<Person> }): void => {
+    const onActiveItemChange = ({ detail: { item, grid } }: SlActiveItemChangeEvent<Person>): void => {
       grid.selection.select(item);
     };
 
@@ -118,6 +114,25 @@ export const MultipleWithCustomHeader: Story = {
           <sl-button size="sm">Do something</sl-button>
           <sl-button size="sm">Or something else</sl-button>
         </sl-button-bar>
+      </sl-grid>
+    `;
+  }
+};
+
+export const Grouped: Story = {
+  loaders: [async () => ({ people: (await getPeople()).people })],
+  render: (_, { loaded: { people } }) => {
+    const dataSource = new ArrayDataSource(people as Person[]);
+    dataSource.setGroupBy('membership');
+
+    return html`
+      <sl-grid .dataSource=${dataSource}>
+        <sl-grid-selection-column></sl-grid-selection-column>
+        <sl-grid-column path="firstName"></sl-grid-column>
+        <sl-grid-column path="lastName"></sl-grid-column>
+        <sl-grid-column path="email"></sl-grid-column>
+        <sl-grid-column path="address.phone"></sl-grid-column>
+        <sl-grid-column path="membership"></sl-grid-column>
       </sl-grid>
     `;
   }

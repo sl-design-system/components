@@ -6,7 +6,7 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Grid/Editing',
+  title: 'Layout/Grid/Editing',
   loaders: [async () => ({ people: (await getPeople()).people })]
 } satisfies Meta;
 

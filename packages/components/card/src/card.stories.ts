@@ -24,7 +24,8 @@ type Story = StoryObj<Props>;
 const orientations = ['horizontal', 'vertical'];
 
 export default {
-  title: 'Card',
+  title: 'Layout/Card',
+  tags: ['stable'],
   args: {
     title: 'Lorem Ipsum',
     bodyText:
@@ -128,7 +129,7 @@ const bodyCopy = [
   unforgettable.`
 ];
 
-export const All: Story = {
+export const FlexboxFullWidthResponsive: Story = {
   render: () =>
     html`<style>
         #root-inner > div {
@@ -140,11 +141,6 @@ export const All: Story = {
           align-items: flex-start;
           display: flex;
           flex-wrap: wrap;
-        }
-        div.grid {
-          display: grid;
-          grid-auto-rows: 240px;
-          grid-template-columns: repeat(var(--cols, 2), 1fr);
         }
       </style>
       <h1>In flexbox, full width, responsive cards</h1>
@@ -200,19 +196,35 @@ export const All: Story = {
           <p slot="body"><em>icon:pinata, padding, mediaPosition:end, aspectratio:1/1</em> - ${bodyCopy[1]}</p>
           <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
         </sl-card>
-      </div>
+      </div>`
+};
 
-      <hr />
-      <h1>Flex height, full width, image width is set</h1>
+export const FlexHeightFullWidthImageWidth: Story = {
+  render: () =>
+    html` <h1>Flex height, full width, image width is set</h1>
       <sl-card height="flex" style="--sl-card-image-width:200px">
         <img slot="media" src=${images[2]} />
         <h2>${titles[1]}</h2>
         <span slot="header"><sl-badge>new</sl-badge></span>
         <p slot="body"><em>imageWidth:200px, height:flex</em> - ${bodyCopy[4]}</p>
         <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
-      </sl-card>
+      </sl-card>`
+};
 
-      <hr />
+export const GridFixedRowHeight: Story = {
+  render: () =>
+    html`<style>
+        #root-inner > div {
+          gap: 16px;
+          margin-bottom: 24px;
+          width: 100%;
+        }
+        div.grid {
+          display: grid;
+          grid-auto-rows: 240px;
+          grid-template-columns: repeat(var(--cols, 2), 1fr);
+        }
+      </style>
       <h1>In grid, fixed row height (all cards have 'excplicit-height')</h1>
       <div class="grid">
         <sl-card explicit-height>
@@ -243,8 +255,23 @@ export const All: Story = {
           <p slot="body"><em>icon:pinata, aspectratio:2/1, padding, mediaPosition:end</em> - ${bodyCopy[1]}</p>
           <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
         </sl-card>
-      </div>
-      <hr />
+      </div>`
+};
+
+export const GridFixedRowHeightStretched: Story = {
+  render: () =>
+    html`<style>
+        #root-inner > div {
+          gap: 16px;
+          margin-bottom: 24px;
+          width: 100%;
+        }
+        div.grid {
+          display: grid;
+          grid-auto-rows: 240px;
+          grid-template-columns: repeat(var(--cols, 2), 1fr);
+        }
+      </style>
       <h1>In grid, fixed row height (all cards have 'excplicit-height')</h1>
       <pre>
     --sl-card-stretch-image:100%
@@ -278,9 +305,23 @@ export const All: Story = {
           <p slot="body"><em>padding, media: end, aspectratio: 2/1</em> - ${bodyCopy[1]}</p>
           <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
         </sl-card>
-      </div>
+      </div>`
+};
 
-      <hr />
+export const GridFixedRowHeight3Columns: Story = {
+  render: () =>
+    html`<style>
+        #root-inner > div {
+          gap: 16px;
+          margin-bottom: 24px;
+          width: 100%;
+        }
+        div.grid {
+          display: grid;
+          grid-auto-rows: 240px;
+          grid-template-columns: repeat(var(--cols, 2), 1fr);
+        }
+      </style>
       <h1>In grid, fixed row height, 3 columns</h1>
       <div class="grid" style="--cols: 3">
         <sl-card explicit-height>
@@ -311,14 +352,25 @@ export const All: Story = {
           <p slot="body"><em>icon:pinata, padding mediaposition:end</em> - ${bodyCopy[1]}</p>
           <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
         </sl-card>
-      </div>
+      </div>`
+};
 
-      <hr />
+export const Vertical: Story = {
+  render: () =>
+    html`<style>
+        #root-inner > div {
+          gap: 16px;
+          margin-bottom: 24px;
+          width: 100%;
+        }
+        div.flex {
+          align-items: flex-start;
+          display: flex;
+          flex-wrap: wrap;
+        }
+      </style>
       <h1>Vertical, in flexbox rows, max width of 300px</h1>
-      <pre>
-      --sl-card-media-aspect-ratio:1/1;
-    </pre
-      >
+
       <div class="flex">
         <sl-card style="max-width: 300px" orientation="vertical" padding>
           <img slot="media" src=${images[0]} />
@@ -355,6 +407,34 @@ export const All: Story = {
           <span slot="header"><sl-badge>new</sl-badge></span>
           <p slot="body"><em>icon:pinata</em> - ${bodyCopy[1]}</p>
           <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+        </sl-card>
+      </div>`
+};
+
+export const All: Story = {
+  render: () =>
+    html` <style>
+        #root-inner > div {
+          gap: 16px;
+          margin-bottom: 24px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+      </style>
+      <div>
+        <sl-card style="--sl-card-media-aspect-ratio:1/1;" padding>
+          <img slot="media" src=${images[1]} />
+          <h2>${titles[1]}</h2>
+          <span slot="header"><sl-badge>new</sl-badge></span>
+          <p slot="body">${bodyCopy[1]}</p>
+          <sl-button icon-only slot="actions" fill="ghost"><sl-icon name="eye"></sl-icon></sl-button>
+        </sl-card>
+
+        <sl-card style="--sl-card-media-aspect-ratio:1/1; max-width: 300px;" orientation="vertical">
+          <img slot="media" src=${images[1]} />
+          <h2>${titles[1]}</h2>
+          <p slot="body">${bodyCopy[1]}</p>
         </sl-card>
       </div>`
 };

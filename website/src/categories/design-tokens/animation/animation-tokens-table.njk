@@ -7,14 +7,14 @@
   <th>Token</th>
 </tr></thead>
 <tbody>
-{% for type in tokens.base.animation.duration -%}{% if type[1].value %}
+{% for type in tokens.core.animation.duration -%}{% if type[1].value %}
 <tr>
   <td><code>{{ type[1].value }}</code></td>
   <td class="ds-tokens__description">{{ type[1].description | tokenDescription }}</td>
   <td><code>{{ type[1].description | tokenName }}</code></td>
 </tr>
 {% endif %}{% endfor -%}
-{% for type in tokens.base.animation.easing -%}{% if type[1].value %}
+{% for type in tokens.core.animation.easing -%}{% if type[1].value %}
 <tr>
   <td><code>{{ type[1].value }}</code></td>
   <td class="ds-tokens__description">{{ type[1].description | tokenDescription }}</td>

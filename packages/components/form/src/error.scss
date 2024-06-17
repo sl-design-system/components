@@ -2,26 +2,24 @@
   --_color: var(--sl-color-input-helper-text-invalid);
   --_font: var(--sl-text-input-helper-text-md);
   --_gap: var(--sl-space-input-helper-gap-md);
-}
+  --_padding-block-start: var(--sl-space-input-helper-padding-top-md);
 
-:host {
   align-items: center;
   color: var(--_color);
   display: flex;
   font: var(--_font);
   gap: var(--_gap);
-}
-
-:host([hidden]) {
-  display: none;
+  padding-block-start: var(--_padding-block-start);
 }
 
 :host([size='sm']) {
   --_font: var(--sl-text-input-helper-text-sm);
   --_gap: var(--sl-space-input-helper-gap-sm);
+  --_padding-block-start: var(--sl-space-input-helper-padding-top-sm);
 }
 
 :host([size='lg']) {
   --_font: var(--sl-text-input-helper-text-lg);
   --_gap: var(--sl-space-input-helper-gap-lg);
+  --_padding-block-start: var(--sl-space-input-helper-padding-top-lg);
 }

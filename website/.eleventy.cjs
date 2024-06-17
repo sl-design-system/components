@@ -26,9 +26,23 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addFilter('search', searchFilter);
 
+  eleventyConfig.addFilter('nl2br', function(str) {
+    return str.replace(/\r|\n|\r\n/g, '<br />')
+  });
+
+  eleventyConfig.addFilter('debug', function (value) {
+    return JSON.stringify(value, null, 2);
+  });
+
+  eleventyConfig.addFilter("sortByTitle", function (arr, exclude) {
+    const excluded = arr.filter(elem => elem.title.toLowerCase() === exclude.toLowerCase());
+    const filtered = JSON.parse(JSON.stringify(arr.filter(elem => elem.title.toLowerCase() !== exclude.toLowerCase()).sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))));
+    return [...excluded, ...filtered];
+  });
+
   eleventyConfig.addLiquidFilter("tokenName",  function(value) {
     const newValue = value?.replace(/([A-Z])/g, '.$1').trim();
-    
+
     return `--sl-${newValue?.replaceAll('.', '-')}`;
   });
 
@@ -125,8 +139,7 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig
     .addPassthroughCopy('./src/assets')
-    .addPassthroughCopy({ './../packages/themes/sanoma-learning': `styles/slds-sanoma-learning` })
-    .addPassthroughCopy({ './../packages/tokens/src/sanoma-learning/*.json': `_data` });
+    .addPassthroughCopy({ './../packages/themes/sanoma-learning': `styles/slds-sanoma-learning` });
 
   const NOT_FOUND_PATH = `${outputFolder}/404.html`;
 
@@ -162,13 +175,13 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addShortcode('inlinejs', (path) => {
     if (process.env.NODE_ENV === 'production') {
       const script = fs.readFileSync(`${jsFolder}/${path}`, 'utf8').trim();
-      
+
       return `<script type="module">${script}</script>`;
     } else {
       return `<script type="module" src="/js/${path}"></script>`;
     }
   });
-  
+
   eleventyConfig.addTransform('htmlMinifier', content => {
     if (process.env.NODE_ENV === 'production') {
       return htmlMinifier.minify(content, {

@@ -10,20 +10,21 @@
   },
   "type": "module",
   "scripts": {
-    "chromatic": "chromatic --build-script-name build-storybook -o storybook-static --exit-zero-on-changes",
-    "build-storybook": "wireit",
+    "chromatic": "chromatic --build-script-name storybook -o storybook-static --exit-zero-on-changes",
+    "themes": "wireit",
     "start": "wireit"
   },
   "wireit": {
-    "build-storybook": {
-      "command": "storybook build",
+    "themes": {
+      "command": "storybook build --stats-json -o storybook-static",
       "dependencies": [
         "..:build:components",
+        "..:build:examples",
         "..:build:themes"
       ]
     },
     "start": {
-      "command": "storybook dev -p 6006 --no-open --quiet",
+      "command": "storybook dev -p 6008 --no-open --quiet",
       "service": {
         "readyWhen": {
           "lineMatches": "Storybook \\S+ for .*web-components-vite.* started"
@@ -35,16 +36,16 @@
     }
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^7.6.17",
-    "@storybook/addon-essentials": "^7.6.17",
-    "@storybook/addon-storysource": "^7.6.17",
-    "@storybook/web-components-vite": "^7.6.17",
+    "@storybook/addon-a11y": "^8.1.6",
+    "@storybook/addon-essentials": "^8.1.6",
+    "@storybook/addon-storysource": "^8.1.6",
+    "@storybook/addon-themes": "^8.1.6",
+    "@storybook/web-components-vite": "^8.1.6",
     "lit": "^3.1.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "storybook": "^7.6.17",
-    "tslib": "^2.6.2",
-    "typescript": "^5.3.3",
+    "storybook": "^8.1.6",
+    "storybook-addon-pseudo-states": "^3.1.1",
+    "tslib": "^2.6.3",
+    "typescript": "^5.4.5",
     "wireit": "^0.14.4"
   }
 }

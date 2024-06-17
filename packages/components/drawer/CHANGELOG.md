@@ -1,5 +1,58 @@
 # @sl-design-system/drawer
 
+## 0.0.29
+
+### Patch Changes
+
+- Updated dependencies [[`fe047da`](https://github.com/sl-design-system/components/commit/fe047da265a3d657d74ee26df95ebd73f2d7ef7f), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805)]:
+  - @sl-design-system/button@1.0.0
+
+## 0.0.28
+
+### Patch Changes
+
+- Updated dependencies [[`39c22ca`](https://github.com/sl-design-system/components/commit/39c22cad76661ad4b1f3a8f4bc56c576c36a94be)]:
+  - @sl-design-system/button-bar@0.0.7
+  - @sl-design-system/button@0.0.28
+
+## 0.0.27
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.27
+
+## 0.0.26
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.26
+
+## 0.0.25
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.25
+
+## 0.0.24
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @sl-design-system/button@0.0.24
+
+## 0.0.23
+
+### Patch Changes
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Linting fixes for styling
+
+- Updated dependencies [[`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b), [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b)]:
+  - @sl-design-system/button-bar@0.0.6
+  - @sl-design-system/button@0.0.23
+
 ## 0.0.22
 
 ### Patch Changes

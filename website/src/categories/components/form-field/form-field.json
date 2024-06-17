@@ -1,6 +1,7 @@
 {
-  "layout": "components/components.njk",
+  "layout": "categories/components/components.njk",
   "tags": "form-field",
+  "componentStatus": "preview",
   "componentTagName": [
     {
       "name": "Form field",

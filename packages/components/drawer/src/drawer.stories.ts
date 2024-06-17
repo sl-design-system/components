@@ -5,7 +5,8 @@ import '../register.js';
 import { type Drawer } from './drawer.js';
 
 export default {
-  title: 'Drawer',
+  title: 'Overlay/Drawer',
+  tags: ['draft'],
   args: {
     attachment: 'right',
     buttonSize: 'sm'

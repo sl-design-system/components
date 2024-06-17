@@ -7,30 +7,21 @@ eleventyNavigation:
   key: ButtonBarCode
 ---
 
-<section>
+<section class="no-heading">
+<div class="ds-example">
+  <div class="ds-example__code-wrapper">
+    button bar example
+  </div>
+</div>
 
-## Code
+<div class="ds-code">
 
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+  ```html
+  button bar example
+  ```
 
-### SL DS components
-
-<div class="ds-example__code-wrapper">
-  <sl-button fill="default" size="md">Default</sl-button>
-  <sl-button fill="default" size="md" variant="primary">Primary</sl-button>
-  <sl-button fill="default" size="md" variant="success">Success</sl-button>
-  <sl-button fill="default" size="md" variant="warning">Warning</sl-button>
-  <sl-button fill="default" size="md" variant="danger">Danger</sl-button>
 </div>
 
 </section>
-
+<ds-install-info package="button-bar" link-in-navigation></ds-install-info>
 {% include "../component-table.njk" %}
-
-<section>
-
-## Tokens
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>

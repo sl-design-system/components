@@ -5,16 +5,25 @@
     "emitDeclarationOnly": false
   },
   "include": [
-    "packages/components/**/*.ts"
+    "packages/checklist/**/*.ts",
+    "packages/components/**/*.ts",
+    "packages/themes/**/*.ts"
   ],
   "exclude": [
+    "packages/**/node_modules/**/*.ts",
+    "packages/checklist/**/*.d.ts",
     "packages/components/**/*.d.ts",
-    "packages/components/*/node_modules/**/*.ts"
+    "packages/themes/**/*.d.ts"
   ],
   "references": [
+    { "path": "./packages/checklist" },
+    { "path": "./packages/components/accordion" },
     { "path": "./packages/components/avatar" },
+    { "path": "./packages/components/badge" },
+    { "path": "./packages/components/breadcrumbs" },
     { "path": "./packages/components/button" },
     { "path": "./packages/components/button-bar" },
+    { "path": "./packages/components/card" },
     { "path": "./packages/components/checkbox" },
     { "path": "./packages/components/dialog" },
     { "path": "./packages/components/drawer" },
@@ -23,16 +32,20 @@
     { "path": "./packages/components/grid" },
     { "path": "./packages/components/icon" },
     { "path": "./packages/components/inline-message" },
+    { "path": "./packages/components/menu" },
+    { "path": "./packages/components/message-dialog" },
     { "path": "./packages/components/popover" },
     { "path": "./packages/components/radio-group" },
     { "path": "./packages/components/select" },
     { "path": "./packages/components/shared" },
     { "path": "./packages/components/skeleton" },
     { "path": "./packages/components/spinner" },
+    { "path": "./packages/components/switch" },
     { "path": "./packages/components/tabs" },
+    { "path": "./packages/components/text-area" },
     { "path": "./packages/components/text-field"},
-    { "path": "./packages/components/textarea" },
     { "path": "./packages/components/tooltip" },
+    { "path": "./packages/locales" },
     { "path": "./packages/themes/bingel" },
     { "path": "./packages/themes/bingel-dc" },
     { "path": "./packages/themes/bingel-int" },

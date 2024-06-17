@@ -13,6 +13,7 @@
   "ignore": [
     "@sl-design-system/chromatic",
     "@sl-design-system/example-data",
+    "@sl-design-system/lit-examples",
     "@sl-design-system/scripts",
     "@sl-design-system/tokens",
     "@sl-design-system/website"

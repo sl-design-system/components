@@ -1,14 +1,10 @@
 :host {
+  --_color: var(--sl-color-input-field-label-hint-default);
   --_font: var(--sl-text-input-helper-text-md);
-}
 
-:host {
+  color: var(--_color);
   display: block;
   font: var(--_font);
-}
-
-:host([hidden]) {
-  display: none;
 }
 
 :host([size='sm']) {

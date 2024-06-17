@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/avatar",
-  "version": "0.2.2",
+  "version": "0.2.10",
   "description": "Avatar component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,7 +38,7 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/shared": "0.2.6",
-    "@sl-design-system/tooltip": "0.0.20"
+    "@sl-design-system/shared": "^0.2.11",
+    "@sl-design-system/tooltip": "^1.0.0"
   }
 }

@@ -4,6 +4,9 @@ export interface SelectionControllerOptions {
   multiple: boolean;
 }
 
+/** Emits when the selection changes. */
+export type SlSelectionChangeEvent<T> = CustomEvent<{ selection: SelectionController<T> }>;
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class SelectionController<T = any> {
   #host: ReactiveControllerHost & Element;

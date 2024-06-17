@@ -8,82 +8,16 @@ $transition-timing: 300ms;
 
   pre {
     border: 1px solid var(--code-border);
+    border-block-start: 0;
     border-radius: 0.6rem;
-    border-top: 0;
     margin: 0;
   }
 }
 
 .ds-code__copy-button {
-  background-color: var(--copy-button-background);
-  background-image: var(--copy-icon);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 1.4rem;
-  border: 1px solid var(--copy-button-border);
-  border-radius: 6px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-  height: 3.2rem;
+  inset-block-start: 1.6rem;
+  inset-inline-end: 1.6rem;
   position: absolute;
-  right: 1.6rem;
-  top: 1.6rem;
-  width: 3.2rem;
-
-  &::before {
-    background-color: var(--copy-button-background--hover);
-    background-image: var(--copy-icon--hover);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 1.4rem;
-    border: 1px solid var(--ds-color-blue);
-    border-radius: 6px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-    content: '';
-    height: 3.2rem;
-    left: -1px;
-    opacity: 0;
-    position: absolute;
-    top: -1px;
-    transform: none;
-    transition: opacity 300ms;
-    width: 3.2rem;
-  }
-
-  &:hover::before {
-    animation: 300ms FadeIn;
-    opacity: 1;
-  }
-
-  &:active::before {
-    background-color: var(--copy-button-background--active);
-    background-image: var(--copy-icon--hover);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 1.4rem;
-    border: 1px solid var(--ds-color-blue);
-    box-shadow: none;
-    content: '';
-    height: 3.2rem;
-    left: -1px;
-    opacity: 1;
-    position: absolute;
-    top: -1px;
-    width: 3.2rem;
-  }
-
-  &:active {
-    box-shadow: none;
-  }
-}
-
-@keyframes FadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
 }
 
 .ds-example {
@@ -94,7 +28,7 @@ $transition-timing: 300ms;
   display: flex;
   gap: 1rem;
   justify-content: center;
-  min-height: 16rem;
+  min-block-size: 16rem;
   padding: 1.6rem;
   position: relative;
 }
@@ -116,7 +50,7 @@ $transition-timing: 300ms;
 }
 
 .ds-example + .ds-code {
-  margin-top: 0;
+  margin-block-start: 0;
 
   pre {
     border-radius: 0 0 0.6rem 0.6rem;
@@ -124,13 +58,14 @@ $transition-timing: 300ms;
 }
 
 .ds-example sl-icon[name='fas-hand-back-point-up'] {
-  --_icon-container-size: 20px;
+  --_icon-container-size: 2rem;
+
   background-color: var(--control-color-surface-400-surface);
-  border-radius: 2px;
+  border-radius: 0.2rem;
   color: var(--control-color-surface-100-surface);
+  inset-block-start: 0.8rem;
+  inset-inline-end: 0.8rem;
   position: absolute;
-  right: 8px;
-  top: 8px;
 }
 
 .ds-example__code-wrapper {
@@ -147,10 +82,11 @@ $transition-timing: 300ms;
 code {
   background-color: var(--table-code-background);
   border-radius: 0.6rem;
+
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  font-family: 'source-code-pro', monospace;
+  font-family: source-code-pro, monospace;
   font-size: 1.2rem;
   line-height: 1rem;
   padding: 0.2rem 0.8rem;
@@ -163,13 +99,13 @@ code[class*='language-'] {
   box-decoration-break: clone;
   color: var(--text-color);
   display: block;
-  font-family: 'source-code-pro', monospace;
+  font-family: source-code-pro, monospace;
   font-size: 1.2rem;
   hyphens: none;
   line-height: 1.5;
   padding: 2.4rem 2rem;
   tab-size: 4;
-  text-align: left;
+  text-align: start;
   text-shadow: none;
   word-break: normal;
   word-spacing: normal;
@@ -201,7 +137,7 @@ pre[class*='language-'] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #737373; // TODO: change these colours in the future
+  color: var(--control-color-code-text-neutral);
 }
 
 .token.punctuation {
@@ -213,12 +149,19 @@ pre[class*='language-'] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: var(--highlight-color);
+  color: var(--control-color-code-text-danger);
 }
 
+.token.keyword,
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable,
 .token.boolean,
 .token.number {
-  color: #00e0e0; // TODO: change these colours in the future
+  color: var(--control-color-code-text-success);
 }
 
 .token.selector,
@@ -227,16 +170,7 @@ pre[class*='language-'] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: var(--highlight-color);
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string,
-.token.variable {
-  color: #00e0e0; // TODO: change these colours in the future
+  color: var(--control-color-code-text-accent);
 }
 
 .token.atrule,
@@ -245,13 +179,9 @@ pre[class*='language-'] {
   color: var(--text-color);
 }
 
-.token.keyword {
-  color: #00e0e0; // TODO: change these colours in the future
-}
-
 .token.regex,
 .token.important {
-  color: #ffd700; // TODO: change these colours in the future
+  color: var(--control-color-code-text-warning);
 }
 
 .token.important,

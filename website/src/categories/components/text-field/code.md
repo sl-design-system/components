@@ -4,7 +4,7 @@ tags: code
 APIdescription: Component has a range of properties to define the experience in different use cases.
 eleventyNavigation:
   parent: Text field
-  key: TextInputCode
+  key: TextFieldCode
 ---
 <section class="no-heading">
 
@@ -25,30 +25,5 @@ eleventyNavigation:
 </div>
 
 </section>
-
-<section>
-
-## Installation
-
-With npm
-
-<div class="ds-code">
-
-  ```bash
-    npm install @sl-design-system/text-field
-  ```
-
-</div>
-
-With yarn
-
-<div class="ds-code">
-
-  ```bash
-    yarn add @sl-design-system/text-field
-  ```
-</div>
-
-</section>
-
+<ds-install-info link-in-navigation package="text-field"></ds-install-info>
 {% include "../component-table.njk" %}

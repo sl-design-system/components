@@ -1,11 +1,11 @@
 import { Directive, ElementRef, Inject, forwardRef } from '@angular/core';
-import type { ValidationErrors } from '@angular/forms';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
-import type { TextField } from '@sl-design-system/text-field';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, type ValidationErrors } from '@angular/forms';
+import { type TextField } from '@sl-design-system/text-field';
 import { FormControlElementDirective } from './form-control-element.directive';
 
 @Directive({
   selector: 'sl-text-field',
+  standalone: true,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -30,9 +30,13 @@ export class TextFieldDirective extends FormControlElementDirective<TextField> {
     } else if (this.element.validity.patternMismatch) {
       return { pattern: { requiredPattern: this.element.pattern, actualValue: this.element.value } };
     } else if (this.element.validity.tooLong) {
-      return { maxlength: { requiredLength: this.element.maxLength, actualLength: this.element.value.length } };
+      return {
+        maxlength: { requiredLength: this.element.maxLength, actualLength: this.element.value?.toString().length ?? 0 }
+      };
     } else if (this.element.validity.tooShort) {
-      return { minlength: { requiredLength: this.element.minLength, actualLength: this.element.value.length } };
+      return {
+        minlength: { requiredLength: this.element.minLength, actualLength: this.element.value?.toString().length ?? 0 }
+      };
     } else if (this.element.validity.valueMissing) {
       return { required: true };
     }

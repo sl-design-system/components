@@ -1,5 +1,4 @@
-import type { IconLibrary } from '@sl-design-system/icon';
-import { Icon } from '@sl-design-system/icon';
+import { Icon, type IconLibrary } from '@sl-design-system/icon';
 import { icons } from './icons.js';
 
 // export const setup = (): void => {

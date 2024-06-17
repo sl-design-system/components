@@ -140,7 +140,7 @@ export function toggleListCommand(listType: string): Command {
 
 function liftListItem(state: EditorState, selection: Selection, tr: Transaction): Transaction {
   const { $from, $to } = selection,
-    nodeType: NodeType = state.schema.nodes.listItem;
+    nodeType: NodeType = state.schema.nodes['listItem'];
 
   let range = $from.blockRange($to, node => !!node.childCount && node.firstChild?.type === nodeType);
   if (!range || range.depth < 2 || $from.node(range.depth - 1).type !== nodeType) {
@@ -275,7 +275,7 @@ export function liftListItems(): Command {
         const sel = new NodeSelection(tr.doc.resolve(tr.mapping.map(pos))),
           range = sel.$from.blockRange(sel.$to);
 
-        if (!range || sel.$from.parent.type !== state.schema.nodes.listItem) {
+        if (!range || sel.$from.parent.type !== state.schema.nodes['listItem']) {
           return false;
         }
 

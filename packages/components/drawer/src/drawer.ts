@@ -5,11 +5,18 @@ import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit'
 import { property, query } from 'lit/decorators.js';
 import styles from './drawer.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-drawer': Drawer;
+  }
+}
+
 export type DrawerAttachment = 'right' | 'left' | 'top' | 'bottom';
 
 /**
  * A drawer component for displaying UI at the side of the screen.
  *
+ * @cssprop --sl-drawer-max-inline-size - The maximum inline size of the drawer
  * @slot default - Body content for the drawer
  * @slot header - Header content for the drawer
  * @slot title - The title of the drawer

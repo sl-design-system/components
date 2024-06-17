@@ -6,12 +6,27 @@ import {
   RovingTabindexController,
   event
 } from '@sl-design-system/shared';
+import { type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { MenuItemGroup } from './menu-item-group.js';
 import { MenuItem } from './menu-item.js';
 import styles from './menu.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-menu': Menu;
+  }
+}
+
+/**
+ * A menu that can be used as a context menu or as a dropdown menu.
+ *
+ * @cssprop --sl-menu-max-inline-size - The maximum inline size of the menu.
+ * @cssprop --sl-menu-min-inline-size - The minimum inline size of the menu.
+ *
+ * @slot - The menu's content: menu items or menu item groups.
+ */
 export class Menu extends LitElement {
   /** The default offset of the menu to its anchor. */
   static offset = 4;
@@ -55,8 +70,8 @@ export class Menu extends LitElement {
   /** The position of the menu relative to its anchor. */
   @property() position?: PopoverPosition = 'right-start';
 
-  /** Emits when the menu item selection changes. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<void>;
+  /** @internal Emits when the menu item selection changes. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<void>>;
 
   /** Whether this menu has any children that can be selected. */
   @state() selectableChildren?: boolean;

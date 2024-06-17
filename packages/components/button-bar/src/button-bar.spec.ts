@@ -3,11 +3,17 @@ import { html } from 'lit';
 import '../register.js';
 import { type ButtonBar, type ButtonBarAlign } from './button-bar.js';
 
-describe('dna-button-bar', () => {
+describe('sl-button-bar', () => {
   let el: ButtonBar;
 
   beforeEach(async () => {
-    el = await fixture(html`<sl-button-bar></sl-button-bar>`);
+    el = await fixture(
+      html`<sl-button-bar>
+        <sl-button>Foo</sl-button>
+        <sl-button>Bar</sl-button>
+        <sl-button><sl-icon name="close"></sl-icon></sl-button>
+      </sl-button-bar>`
+    );
   });
 
   it('should render correctly', () => {
@@ -36,5 +42,60 @@ describe('dna-button-bar', () => {
     await el.updateComplete;
 
     expect(el).to.have.attribute('reverse');
+  });
+
+  it('should not have icon-only when there are not only icon-only buttons', () => {
+    expect(el).not.to.have.attribute('icon-only');
+  });
+
+  describe('icon only', () => {
+    beforeEach(async () => {
+      el = await fixture(
+        // the button component is not actually loaded, so it doesn't add the icon-only attribute automatically
+        html`<sl-button-bar>
+          <sl-button fill="ghost" icon-only><sl-icon name="close"></sl-icon></sl-button>
+          <sl-button fill="ghost" icon-only><sl-icon name="full-screen"></sl-icon></sl-button>
+        </sl-button-bar>`
+      );
+      await el.updateComplete;
+    });
+
+    it('should render correctly', () => {
+      expect(el).to.have.attribute('icon-only');
+    });
+  });
+
+  describe('icon only with non-ghost button', () => {
+    beforeEach(async () => {
+      el = await fixture(
+        // the button component is not actually loaded, so it doesn't add the icon-only attribute automatically
+        html`<sl-button-bar>
+          <sl-button icon-only><sl-icon name="close"></sl-icon></sl-button>
+          <sl-button fill="ghost" icon-only><sl-icon name="full-screen"></sl-icon></sl-button>
+        </sl-button-bar>`
+      );
+      await el.updateComplete;
+    });
+
+    it('should render correctly', () => {
+      expect(el).not.to.have.attribute('icon-only');
+    });
+  });
+
+  describe('mix of icon only and buttons with text', () => {
+    beforeEach(async () => {
+      el = await fixture(
+        // the button component is not actually loaded, so it doesn't add the icon-only attribute automatically
+        html`<sl-button-bar>
+          <sl-button fill="ghost">Foo</sl-button>
+          <sl-button fill="ghost" icon-only><sl-icon name="full-screen"></sl-icon></sl-button>
+        </sl-button-bar>`
+      );
+      await el.updateComplete;
+    });
+
+    it('should render correctly', () => {
+      expect(el).not.to.have.attribute('icon-only');
+    });
   });
 });

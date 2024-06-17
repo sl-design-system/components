@@ -7,7 +7,7 @@
             <section>
             <h2 id={{ tagName.selector }} tabindex="-1">
               <a class="header-anchor" href="#{{ tagName.selector }}">
-                {%- if component.data.componentTagName.length > 1 -%}{{ tagName.name }}{% endif %} API
+                {% if component.data.componentTagName.length > 1 -%}{{ tagName.name }}{%- endif %} API
               </a>
             </h2>
             <p class="ds-table-component-description">
@@ -18,7 +18,11 @@
               {%- endif -%}
             </p>
             {%- if declaration.fields.length > 0 or declaration.attributes.length > 0 -%}
-              <h3>Properties</h3>
+              <h3>
+                <a class="header-anchor" href="#properties">
+                  Properties
+                </a>
+              </h3>
               <div class="ds-table-wrapper"><table class="ds-table">
                   <thead>
                   <tr>
@@ -31,39 +35,36 @@
                   </thead>
                   <tbody>
                   {%- for member in declaration.members -%}
-                  {% if member.kind == 'field' %}
-                    <tr>
-                    <td><code>{{member.name}}</code></td>
-                    <td>
-                    {%- if member.attribute -%}
-                      <code>{{ member.attribute }}</code>
-                    {%- else -%}
-                      -
-                    {%- endif -%}
-                    </td>
-                    <td class="ds-table__type">
-                      {% if member.expandedType %}
-                        <code>{{member.expandedType.text}}</code>
-                      {% endif %}
+                    {%- if member.kind == 'field' -%}
+                      <tr>
+                      <td><code>{{member.name | escape}}</code></td>
+                      <td>
+                      {%- if member.attribute -%}<code>{{ member.attribute  | escape}}</code>{%- else -%} - {%- endif -%}
+                      </td>
+                      <td class="ds-table__type">
+                        {%- if member.expandedType -%}<code>{{member.expandedType.text | escape}}</code>{%- endif -%}
 
-                      {% if member.type and not member.expandedType %}
-                        <code>{{member.type.text}}</code>
-                      {% endif %}</td>
-                    <td>
-                      {% if member.default %}
-                        <code>{{member.default}}</code>
-                      {% endif %}
-                    </td>
-                    <td class="ds-table__description">{{member.description}}</td>
-                    </tr>
-                    {% endif %}
-                  {% endfor -%}
+                        {%- if member.type and not member.expandedType -%}<code>{{member.type.text | escape}}</code>{%- endif -%}
+                      </td>
+                      <td>
+                        {%- if member.default -%}
+                          <code>{{member.default | escape}}</code>
+                        {%- endif -%}
+                      </td>
+                      <td class="ds-table__description">{{member.description | escape | nl2br}}</td>
+                      </tr>
+                    {%- endif -%}
+                  {%- endfor -%}
                   </tbody>
                 </table>
               </div>
             {%- endif -%}
             {%- if declaration.methods.length > 0 -%}
-              <h3>Methods</h3>
+              <h3>
+                <a class="header-anchor" href="#methods">
+                  Methods
+                </a>
+              </h3>
               <div class="ds-table-wrapper">
                 <table class="ds-table">
                   <thead>
@@ -79,26 +80,30 @@
                     <tr>
                     <td><code>{{member.name}}</code></td>
                     <td>
-                      {% for parameter in member.parameters -%}
-                        {% if parameter %}
-                          <code>{{parameter.name}}{% if parameter.optional%}?{% endif %}: {{ parameter.type.text | escape }}</code>
-                        {% endif %}
-                      {% endfor -%}
+                      {%- for parameter in member.parameters -%}
+                        {%- if parameter -%}
+                          <code>{{parameter.name}}{%- if parameter.optional%}?{%- endif -%}: {{ parameter.type.text | escape }}</code>
+                        {%- endif -%}
+                      {%- endfor -%}
                     </td>
                     <td>
-                      {% if member.return.type.text %}
-                        <code>{{member.return.type.text}}</code>
-                      {% endif %}
+                      {%- if member.return.type.text -%}
+                        <code>{{member.return.type.text | escape}}</code>
+                      {%- endif -%}
                     </td>
-                    <td class="ds-table__description">{{member.description}}</td>
+                    <td class="ds-table__description">{{member.description | escape | nl2br}}</td>
                     </tr>
-                  {% endfor -%}
+                  {%- endfor -%}
                   </tbody>
                 </table>
               </div>
             {%- endif -%}
-            {% if declaration.events.length %}
-              <h3>Events</h3>
+            {%- if declaration.events.length -%}
+              <h3>
+                <a class="header-anchor" href="#events">
+                  Events
+                </a>
+              </h3>
               <div class="ds-table-wrapper">
                 <table class="ds-table">
                   <thead>
@@ -109,25 +114,29 @@
                   </tr>
                   </thead>
                   <tbody>
-                  {% for event in declaration.events -%}
-                    {% if event.name %}
+                  {%- for event in declaration.events -%}
+                    {%- if event.name -%}
                       <tr>
                         <td><code>{{event.name}}</code></td>
                         <td>
-                          {% if event.type %}
-                            <code>{{ event.type.text }}</code>
-                          {% endif %}
+                          {%- if event.type -%}
+                            <code>{{ event.type.text | escape}}</code>
+                          {%- endif -%}
                         </td>
-                        <td>{{event.description}}</td>
+                        <td>{{event.description | escape | nl2br}}</td>
                       </tr>
-                    {% endif %}
-                  {% endfor -%}
+                    {%- endif -%}
+                  {%- endfor -%}
                   </tbody>
                 </table>
               </div>
-            {% endif %}
-            {% if declaration.slots.length %}
-              <h3>Slots</h3>
+            {%- endif -%}
+            {%- if declaration.slots.length -%}
+              <h3>
+                <a class="header-anchor" href="#slots">
+                  Slots
+                </a>
+              </h3>
               <div class="ds-table-wrapper">
                 <table class="ds-table">
                   <thead>
@@ -137,18 +146,22 @@
                   </tr>
                   </thead>
                   <tbody>
-                  {% for slot in declaration.slots -%}
+                  {%- for slot in declaration.slots -%}
                     <tr>
                       <td><code>{{slot.name}}</code></td>
-                      <td>{{slot.description}}</td>
+                      <td>{{slot.description | escape | nl2br}}</td>
                     </tr>
-                  {% endfor -%}
+                  {%- endfor -%}
                   </tbody>
                 </table>
                </div>
-            {% endif %}
-            {% if declaration.cssProperties.length %}
-              <h3>CSS Properties</h3>
+            {%- endif -%}
+            {%- if declaration.cssProperties.length -%}
+              <h3>
+                <a class="header-anchor" href="#css-properties">
+                  CSS Properties
+                </a>
+              </h3>
               <div class="ds-table-wrapper">
                 <table class="ds-table">
                   <thead>
@@ -158,16 +171,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                  {% for property in declaration.cssProperties %}
+                  {%- for property in declaration.cssProperties -%}
                     <tr>
                       <td><code>{{property.name}}</code></td>
-                      <td>{{property.description}}</td>
+                      <td>{{property.description | escape | nl2br}}</td>
                     </tr>
-                  {% endfor %}
+                  {%- endfor -%}
                   </tbody>
                 </table>
               </div>
-            {% endif %}
+            {%- endif -%}
             </section>
           {%- endif -%}
         {%- endfor -%}

@@ -1,5 +1,3 @@
-/*
- * Public API Surface of core
- */
-
 export * from './forms/index';
+export * from './tooltip.directive';
+export * from './wrappers/index';

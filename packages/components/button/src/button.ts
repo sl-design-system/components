@@ -3,13 +3,19 @@ import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResu
 import { property } from 'lit/decorators.js';
 import styles from './button.scss.js';
 
+declare global {
+  interface HTMLElementTagNameMap {
+    'sl-button': Button;
+  }
+}
+
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonFill = 'solid' | 'outline' | 'link' | 'ghost';
 
 export type ButtonType = 'button' | 'reset' | 'submit';
 
-export type ButtonVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger';
+export type ButtonVariant = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
 /**
  * A single, simple button, with optionally an icon.

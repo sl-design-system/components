@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/grid",
-  "version": "0.1.2",
+  "version": "0.1.12",
   "description": "Grid components for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -38,11 +38,12 @@
     "test": "echo \"Error: run tests from monorepo root.\" && exit 1"
   },
   "dependencies": {
-    "@sl-design-system/checkbox": "0.0.23",
-    "@sl-design-system/icon": "0.0.8",
-    "@sl-design-system/popover": "0.1.6",
-    "@sl-design-system/shared": "0.2.6",
-    "@sl-design-system/text-field": "0.1.18"
+    "@sl-design-system/checkbox": "^1.0.0",
+    "@sl-design-system/icon": "^1.0.0",
+    "@sl-design-system/popover": "^1.0.0",
+    "@sl-design-system/select": "^1.0.0",
+    "@sl-design-system/shared": "^0.2.11",
+    "@sl-design-system/text-field": "^1.0.0"
   },
   "devDependencies": {
     "@lit-labs/virtualizer": "^2.0.12",

@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/button-bar",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Button-bar component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {

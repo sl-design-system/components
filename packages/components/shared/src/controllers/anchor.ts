@@ -35,6 +35,14 @@ export class AnchorController implements ReactiveController {
     const { newState, oldState, target } = event as ToggleEvent & { target: HTMLElement };
 
     /**
+     * Tooltips are working in a little bit different way than popovers,
+     * the workaround was making problems with showing shared tooltip.
+     * */
+    if (this.#host.tagName === 'SL-TOOLTIP') {
+      return;
+    }
+
+    /**too
      * Workaround to make it working on clicking again (togglePopover method) on the anchor element
      * in Chrome and Safari there is the same state for new and old - open, when it's already opened
      * and we want to close it in FF on click runs toggle event twice.
@@ -108,14 +116,29 @@ export class AnchorController implements ReactiveController {
    */
   #linkAnchorWithPopover(expanded = false): void {
     const anchorElement = this.#getAnchorElement();
+    this.#host.id ||= `sl-popover-${nextUniqueId++}`;
+
+    /**
+     * Tooltips should have different ARIAs than popover
+     * and the anchor element should not get active state when the tooltip is visible -
+     * should have `hover` or `focus` depending on how it was triggered.
+     * */
+    if (this.#host.tagName === 'SL-TOOLTIP') {
+      return;
+    }
 
     if (anchorElement && !this.#host.hasAttribute('aria-details')) {
       anchorElement.id ||= `sl-anchor-${nextUniqueId++}`;
 
-      this.#host.setAttribute('aria-details', anchorElement.id);
+      anchorElement?.setAttribute('aria-details', this.#host.id);
     }
 
     anchorElement?.setAttribute('aria-expanded', expanded.toString());
+
+    const hasRichContent =
+      Array.from(this.#host.childNodes)
+        .map((n: ChildNode) => n.nodeType)
+        .filter(t => t === 1).length > 0;
 
     // If the anchor element is a button, we need to set the `popover-opened` attribute
     // TODO: Figure out whether we want to keep doing this. And if so, perhaps not just
@@ -123,8 +146,12 @@ export class AnchorController implements ReactiveController {
     if (anchorElement?.tagName === 'SL-BUTTON') {
       if (expanded) {
         anchorElement.setAttribute('popover-opened', '');
+        if (!hasRichContent && !this.#host.hasAttribute('no-describedby')) {
+          anchorElement?.setAttribute('aria-describedby', this.#host.id);
+        }
       } else {
         anchorElement.removeAttribute('popover-opened');
+        anchorElement?.removeAttribute('aria-describedby');
       }
     }
   }

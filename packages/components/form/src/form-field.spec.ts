@@ -1,4 +1,5 @@
 import { expect, fixture } from '@open-wc/testing';
+import '@sl-design-system/radio-group/register.js';
 import '@sl-design-system/text-field/register.js';
 import { html } from 'lit';
 import '../register.js';
@@ -107,6 +108,40 @@ describe('sl-form-field', () => {
       expect(el.querySelector('sl-error')).to.have.text('Custom error');
 
       textField?.setCustomValidity('');
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');
+    });
+  });
+
+  describe('composite field', () => {
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-form-field>
+          <sl-radio-group required>
+            <sl-radio value="1">Option 1</sl-radio>
+            <sl-radio value="2">Option 2</sl-radio>
+            <sl-radio value="3">Option 3</sl-radio>
+          </sl-radio-group>
+          <sl-text-field required></sl-text-field>
+        </sl-form-field>
+      `);
+    });
+
+    it('should show validation of the first control after calling reportValidity', async () => {
+      el.querySelector('sl-radio-group')?.reportValidity();
+      el.querySelector('sl-text-field')?.reportValidity();
+      await el.updateComplete;
+
+      expect(el.querySelector('sl-error')).to.have.text('Please select an option.');
+    });
+
+    it('should show validation of the second control if the first control is valid after calling reportValidity', async () => {
+      el.querySelector('sl-radio')?.click();
+      await el.updateComplete;
+
+      el.querySelector('sl-radio-group')?.reportValidity();
+      el.querySelector('sl-text-field')?.reportValidity();
       await el.updateComplete;
 
       expect(el.querySelector('sl-error')).to.have.text('Please fill in this field.');

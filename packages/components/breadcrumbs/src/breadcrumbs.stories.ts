@@ -1,3 +1,5 @@
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/popover/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
@@ -7,7 +9,8 @@ type Props = Pick<Breadcrumbs, 'homeUrl' | 'noHome'> & { breadcrumbs: TemplateRe
 type Story = StoryObj<Props>;
 
 export default {
-  title: 'Breadcrumbs',
+  title: 'Components/Breadcrumbs',
+  tags: ['preview'],
   args: {
     homeUrl: '/',
     noHome: false
@@ -29,7 +32,7 @@ export const Basic: Story = {
     breadcrumbs: html`
       <a href="javascript:void(0)">Lorem</a>
       <a href="javascript:void(0)">Ipsum</a>
-      <span>Dolar</span>
+      <a href="javascript:void(0)">Dolar</a>
     `
   }
 };
@@ -43,7 +46,7 @@ export const Collapse: Story = {
       <a href="javascript:void(0)">Sit</a>
       <a href="javascript:void(0)">Amet</a>
       <a href="javascript:void(0)">Foo</a>
-      <span>Bar</span>
+      <a href="javascript:void(0)">Bar</a>
     `
   }
 };
@@ -78,7 +81,35 @@ export const Overflow: Story = {
       <a href="javascript:void(0)"
         >Nostrud ad fugiat amet officia anim qui sit tempor veniam magna irure adipisicing ea adipisicing.</a
       >
-      <span>Lorem adipisicing do duis sunt laboris magna officia irure fugiat velit deserunt duis enim in.</span>
+      <a href="javascript:void(0)"
+        >Lorem adipisicing do duis sunt laboris magna officia irure fugiat velit deserunt duis enim in.</a
+      >
     `
   }
+};
+
+export const All: Story = {
+  render: () => html`
+    <sl-breadcrumbs>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+    <sl-breadcrumbs no-home>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+    <sl-breadcrumbs>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+      <a href="javascript:void(0)">Lorem</a>
+      <a href="javascript:void(0)">Ipsum</a>
+      <a href="javascript:void(0)">Dolar</a>
+    </sl-breadcrumbs>
+  `
 };

@@ -61,7 +61,7 @@
     --control-color-state-warning-font-hover-state: var(--colors-neutral-base-black);
     --control-color-surface-100-accent-surface: #3366ff52;
     --control-color-surface-100-surface: var(--colors-neutral-800-neutral);
-    --control-color-surface-200-surface: var(--colors-neutral-700-neutral);
+    --control-color-surface-200-surface: var(--colors-neutral-900-neutral);
     --control-color-surface-300-surface: var(--colors-neutral-600-neutral);
     --control-color-surface-400-surface: var(--colors-neutral-500-neutral);
     --control-color-surface-accent-surface: var(--colors-accent-300-accent);
@@ -82,5 +82,10 @@
     --control-color-visuals-guide-clickable-area: var(--colors-warning-400-warning);
     --control-color-visuals-guide-fill: var(--colors-accent-500-accent);
     --control-color-visuals-guide-text: var(--colors-neutral-base-white);
+    --control-color-code-text-neutral: var(--sl-color-palette-neutral-100);
+    --control-color-code-text-accent: var(--sl-color-palette-accent-200);
+    --control-color-code-text-danger: var(--sl-color-palette-danger-200);
+    --control-color-code-text-warning: var(--sl-color-palette-warning-200);
+    --control-color-code-text-success: var(--sl-color-palette-success-200);
   }
 }

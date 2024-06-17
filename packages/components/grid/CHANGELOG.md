@@ -1,5 +1,121 @@
 # @sl-design-system/grid
 
+## 0.1.12
+
+### Patch Changes
+
+- Updated dependencies [[`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`ac092e1`](https://github.com/sl-design-system/components/commit/ac092e16d29d3a0e404f2a05dbc35a7774e7fd7e), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`c4012af`](https://github.com/sl-design-system/components/commit/c4012af75faaec57e3a1dc5d7f2e8205ce1d3805), [`a3da76c`](https://github.com/sl-design-system/components/commit/a3da76c7df521c2241b565dc22025715f1231e9c), [`405689c`](https://github.com/sl-design-system/components/commit/405689ce9230d69cb5e839ef7b4d3444c1ad4a39), [`6ab0c88`](https://github.com/sl-design-system/components/commit/6ab0c88a6fa49d3ea14cd42739458f98ce01e4cb), [`ac092e1`](https://github.com/sl-design-system/components/commit/ac092e16d29d3a0e404f2a05dbc35a7774e7fd7e)]:
+  - @sl-design-system/text-field@1.0.0
+  - @sl-design-system/checkbox@1.0.0
+  - @sl-design-system/select@1.0.0
+  - @sl-design-system/icon@1.0.0
+  - @sl-design-system/popover@1.0.0
+
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [[`27ad98d`](https://github.com/sl-design-system/components/commit/27ad98dc8add269600afc90d59c07d768989928d), [`59a41aa`](https://github.com/sl-design-system/components/commit/59a41aa4b6530d5002e6e45313249e4abe7dac3b), [`1a25611`](https://github.com/sl-design-system/components/commit/1a25611d2727aefb2d3535c303714cff49def731)]:
+  - @sl-design-system/text-field@0.1.25
+  - @sl-design-system/popover@0.1.12
+  - @sl-design-system/shared@0.2.11
+  - @sl-design-system/select@0.0.28
+  - @sl-design-system/checkbox@0.0.29
+
+## 0.1.10
+
+### Patch Changes
+
+- Updated dependencies [[`244d50f`](https://github.com/sl-design-system/components/commit/244d50f46ee4c87aab26e167c8ca5b200c1d30c2)]:
+  - @sl-design-system/text-field@0.1.24
+
+## 0.1.9
+
+### Patch Changes
+
+- [#1116](https://github.com/sl-design-system/components/pull/1116) [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537) - Various improvements and bug fixes:
+  - Add missing select dependency
+  - Fix issue with filter column not working with zero `0`
+  - Fix drag & drop in combination with grouping
+  - Add more stories with groupby combinations
+  - Add hack to remove the "extra padding" at bottom of the body when using groups
+  - Remove custom icons that are already part of the theme
+  - Fix rendering of selection header when first column is a drag handle
+  - Add ability to slot custom content in the group header (with example story)
+  - Fix filter & sorter `change-in-update` Lit warning
+  - Fix broken filter due to event naming regression
+  - Refactor `groupBy` functionality to a single API in dataSource; previously you could also set group by using the `items-group-by` attribute/property, leading to unnecessary complexity
+- Updated dependencies [[`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537), [`3295fa8`](https://github.com/sl-design-system/components/commit/3295fa8a92a7b0284a422232884f5fef77aa8537)]:
+  - @sl-design-system/shared@0.2.10
+  - @sl-design-system/icon@0.0.10
+  - @sl-design-system/checkbox@0.0.28
+  - @sl-design-system/popover@0.1.11
+  - @sl-design-system/select@0.0.27
+  - @sl-design-system/text-field@0.1.23
+
+## 0.1.8
+
+### Patch Changes
+
+- [#1110](https://github.com/sl-design-system/components/pull/1110) [`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b) - Fix filter being reset after selection
+
+- Updated dependencies [[`d22722e`](https://github.com/sl-design-system/components/commit/d22722e6792c19c76d0fb6ec476fac1ff241d52b)]:
+  - @sl-design-system/shared@0.2.9
+  - @sl-design-system/checkbox@0.0.27
+  - @sl-design-system/popover@0.1.10
+  - @sl-design-system/text-field@0.1.22
+
+## 0.1.7
+
+### Patch Changes
+
+- [#1084](https://github.com/sl-design-system/components/pull/1084) [`a323fde`](https://github.com/sl-design-system/components/commit/a323fdea3595304caac520fa05c111d015f7d5fd) - Fix incorrect filter event names
+
+## 0.1.6
+
+### Patch Changes
+
+- [#1081](https://github.com/sl-design-system/components/pull/1081) [`8da4a25`](https://github.com/sl-design-system/components/commit/8da4a251ccc588987850738e52c5b94ddd554a51) - Revert breaking event naming changes from #1061
+
+- Updated dependencies [[`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`090c7b0`](https://github.com/sl-design-system/components/commit/090c7b039c8a7cadbdfbed0563764445d792c3da), [`0d641dc`](https://github.com/sl-design-system/components/commit/0d641dcaa3a288111c3c6bf4862d3f6bed5a2cc3)]:
+  - @sl-design-system/shared@0.2.8
+  - @sl-design-system/popover@0.1.9
+  - @sl-design-system/checkbox@0.0.26
+  - @sl-design-system/text-field@0.1.21
+
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [[`38b0ca4`](https://github.com/sl-design-system/components/commit/38b0ca4d72014605418639b69410863eb8e231ad)]:
+  - @sl-design-system/shared@0.2.7
+  - @sl-design-system/checkbox@0.0.25
+  - @sl-design-system/popover@0.1.8
+  - @sl-design-system/text-field@0.1.20
+
+## 0.1.4
+
+### Patch Changes
+
+- [#1056](https://github.com/sl-design-system/components/pull/1056) [`51a32d1`](https://github.com/sl-design-system/components/commit/51a32d1331298cf1bc6c0a2311ec6204606d1126) - Fixed checkbox checked value;
+  When a grid includes both a selection column and a filter column, a potential issue may arise. If you select a filter and then proceed to check a checkbox in the selection column, subsequently deselecting it, the checked status of the filtered item might not be visible. However, the filtering functionality remains intact.
+
+  Fixed it by changing ?checked to .checked since it should have the same effect, as both the property and attribute control whether the checkbox is checked or not.
+
+## 0.1.3
+
+### Patch Changes
+
+- [#1026](https://github.com/sl-design-system/components/pull/1026) [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b) - Linting fixes for styling
+
+- [#1027](https://github.com/sl-design-system/components/pull/1027) [`3be7a02`](https://github.com/sl-design-system/components/commit/3be7a02b4bc5218e5dd8f6e3405e6573cbd65c5f) - Cleaner workaround for grid scrolling bug
+
+- Updated dependencies [[`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b), [`10c0cab`](https://github.com/sl-design-system/components/commit/10c0cabf69a1c2561a3ce459ed0ac67c7ae1bd6b)]:
+  - @sl-design-system/text-field@0.1.19
+  - @sl-design-system/checkbox@0.0.24
+  - @sl-design-system/popover@0.1.7
+  - @sl-design-system/icon@0.0.9
+
 ## 0.1.2
 
 ### Patch Changes

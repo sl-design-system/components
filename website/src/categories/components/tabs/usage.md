@@ -143,9 +143,9 @@ The tab list provides the options to set up the version of the component that yo
 
 |Item|Options|Description|
 |-|-|-|
-|Subtitles|`boolean`|Toogle to display the subtitle in the tabs. |
+|Subtitles|`boolean`|Toggle to display the subtitle in the tabs. |
 |Alignement|`left` `filled`|Define the behaviour of the tab related to the tab list. |
-|More Button|`boolean`|Toogle to display the overflow button in the tabs list. |
+|More Button|`boolean`|Toggle to display the overflow button in the tabs list. |
 
 {.ds-table .ds-table-align-top}
 
@@ -154,7 +154,7 @@ This are the tab buttons to switch between content.
 
 |Item|Options|Description|
 |-|-|-|
-|State|`default` `hover` `Active` `Disabled`|Define the behaviour of the tab related to the tab list. |
+|State|`default` `hover` `active` `aisabled`|Define the behaviour of the tab related to the tab list. |
 |Badge|`boolean`|Toggle to display the badge in the tabs. |
 |Icon|`boolean`|Toggle to display the icon in the tabs. |
 |Icon Only|`boolean`|Toggle to switch only icon tabs. |

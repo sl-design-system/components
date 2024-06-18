@@ -4473,16 +4473,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sinonjs/commons@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@sinonjs/commons@npm:3.0.0"
-  dependencies:
-    type-detect: "npm:4.0.8"
-  checksum: 10c0/1df9cd257942f4e4960dfb9fd339d9e97b6a3da135f3d5b8646562918e863809cb8e00268535f4f4723535d2097881c8fc03d545c414d8555183376cfc54ee84
-  languageName: node
-  linkType: hard
-
-"@sinonjs/commons@npm:^3.0.1":
+"@sinonjs/commons@npm:^3.0.0, @sinonjs/commons@npm:^3.0.1":
   version: 3.0.1
   resolution: "@sinonjs/commons@npm:3.0.1"
   dependencies:
@@ -4748,10 +4739,10 @@ __metadata:
     prosemirror-history: "npm:^1.4.0"
     prosemirror-inputrules: "npm:^1.4.0"
     prosemirror-keymap: "npm:^1.2.2"
-    prosemirror-model: "npm:^1.20.0"
-    prosemirror-schema-list: "npm:^1.3.0"
+    prosemirror-model: "npm:^1.21.1"
+    prosemirror-schema-list: "npm:^1.4.0"
     prosemirror-state: "npm:^1.4.3"
-    prosemirror-view: "npm:^1.33.4"
+    prosemirror-view: "npm:^1.33.8"
   peerDependencies:
     prosemirror-commands: ^1.5.2
     prosemirror-history: ^1.4.0
@@ -19442,17 +19433,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:^6.0.15, postcss-selector-parser@npm:^6.0.16, postcss-selector-parser@npm:^6.0.2, postcss-selector-parser@npm:^6.0.4":
-  version: 6.0.16
-  resolution: "postcss-selector-parser@npm:6.0.16"
-  dependencies:
-    cssesc: "npm:^3.0.0"
-    util-deprecate: "npm:^1.0.2"
-  checksum: 10c0/0e11657cb3181aaf9ff67c2e59427c4df496b4a1b6a17063fae579813f80af79d444bf38f82eeb8b15b4679653fd3089e66ef0283f9aab01874d885e6cf1d2cf
-  languageName: node
-  linkType: hard
-
-"postcss-selector-parser@npm:^6.1.0":
+"postcss-selector-parser@npm:^6.0.15, postcss-selector-parser@npm:^6.0.16, postcss-selector-parser@npm:^6.0.2, postcss-selector-parser@npm:^6.0.4, postcss-selector-parser@npm:^6.1.0":
   version: 6.1.0
   resolution: "postcss-selector-parser@npm:6.1.0"
   dependencies:
@@ -19818,23 +19799,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-model@npm:^1.0.0, prosemirror-model@npm:^1.20.0":
-  version: 1.20.0
-  resolution: "prosemirror-model@npm:1.20.0"
+"prosemirror-model@npm:^1.0.0, prosemirror-model@npm:^1.20.0, prosemirror-model@npm:^1.21.1":
+  version: 1.21.1
+  resolution: "prosemirror-model@npm:1.21.1"
   dependencies:
     orderedmap: "npm:^2.0.0"
-  checksum: 10c0/18fa7a7da6d10f6212c351ea7291e2ea750681fd04a608aee54ef2775c113f4a76b4ba9969925a8615c5345d3e50bbab48bc4ac142abfeeaf92883ada503ee30
+  checksum: 10c0/fdf7cbd6cd9e1fd8826671257ea06fb2171afdca315ce0df36b7e15f72404818bcf2c6a4c5e2d2035e1cfaf96ea30fdde78f13eee473ca7a13eda3c12a20da15
   languageName: node
   linkType: hard
 
-"prosemirror-schema-list@npm:^1.3.0":
-  version: 1.3.0
-  resolution: "prosemirror-schema-list@npm:1.3.0"
+"prosemirror-schema-list@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "prosemirror-schema-list@npm:1.4.0"
   dependencies:
     prosemirror-model: "npm:^1.0.0"
     prosemirror-state: "npm:^1.0.0"
     prosemirror-transform: "npm:^1.7.3"
-  checksum: 10c0/24364cae857601d75bf5e8ebb59bcd374861f6bff7ea36186bb74fc9d4e323889d16aa76765f68233e81f112727fef35bc8bd4cc0d9d11c7658c755143372b0f
+  checksum: 10c0/12d33ff6db23a0cef0524e1a82d7fb5a40b7ab8914ddd31d2e1bc1ab5f3fd450754a6c5b0f29cc0922842309986a6a76ddc452206849b0f724844a6de183d637
   languageName: node
   linkType: hard
 
@@ -19858,14 +19839,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-view@npm:^1.27.0, prosemirror-view@npm:^1.31.0, prosemirror-view@npm:^1.33.4":
-  version: 1.33.4
-  resolution: "prosemirror-view@npm:1.33.4"
+"prosemirror-view@npm:^1.27.0, prosemirror-view@npm:^1.31.0, prosemirror-view@npm:^1.33.8":
+  version: 1.33.8
+  resolution: "prosemirror-view@npm:1.33.8"
   dependencies:
     prosemirror-model: "npm:^1.20.0"
     prosemirror-state: "npm:^1.0.0"
     prosemirror-transform: "npm:^1.1.0"
-  checksum: 10c0/c39b01c42a39c2c41531c29140b61e5e86fcf8a703a26c99537e2d4addb219624abde501160ee965a3c7a42b210ea6b4097409c83f43856e1884c4cb1b939513
+  checksum: 10c0/aed7098d4251341bfcf2be2e07c6a227b71582a4e5b216e8c86b2b2add42ebda6df68dcd0f1839f86f65d79fd5d078783e940ae1d08534e35a8b299d1d2fe97a
   languageName: node
   linkType: hard
 

@@ -5147,7 +5147,7 @@ __metadata:
     stylelint-prettier: "npm:^5.0.0"
     stylelint-use-logical: "npm:^2.1.2"
   peerDependencies:
-    stylelint: ^16.3.1
+    stylelint: ^16.6.1
   languageName: unknown
   linkType: soft
 

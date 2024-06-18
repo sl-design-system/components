@@ -52,7 +52,6 @@ export function observe(propertyName: string, lifecycle: ObserveLifecycle = 'upd
       // if (process?.env.NODE_ENV === 'development') {
       if (!(propertyName in el)) {
         throw new TypeError(
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           `@observe: property '${propertyName}' does not exist.\nPossible properties: ${Object.keys(target)
             .map(p => `'${p}'`)
             .join(', ')}`

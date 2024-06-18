@@ -42,7 +42,7 @@ export class Drawer extends ScopedElementsMixin(LitElement) {
   @property({ reflect: true }) attachment: DrawerAttachment = 'right';
 
   /** The size of the button */
-  @property() closeButtonSize: ButtonSize = 'sm';
+  @property({ attribute: 'close-button-size' }) closeButtonSize: ButtonSize = 'sm';
 
   override connectedCallback(): void {
     super.connectedCallback();

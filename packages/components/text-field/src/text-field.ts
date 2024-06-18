@@ -218,6 +218,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return value;
   }
 
+  /** @internal */
   override focus(): void {
     this.input.focus();
   }

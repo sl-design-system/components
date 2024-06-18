@@ -76,7 +76,7 @@ Radio buttons become less practical as the number of options in a list grows. If
 |4|Label |The label explains the purpose or meaning of the radio button and helps users understand the available choices.|yes|
 |5|Radio groups |The radio groups can be displayed with one option, allowing a maximum of five selections. When the list of choices exceeds the limit, it's advisable to consider alternative design solutions like a dropdown menu or combobox. These options provide a more user-friendly way to navigate and select from more extensive choices.|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </section>
 
@@ -124,9 +124,9 @@ Radio Group come in various versions, each suited for specific situations:
 
 <section>
 
-## Options
+## Figma Options
 
-With these options, you can tweak the appearance of the radio in Figma. They are available in the Design Panel so you can compose the radio (group) to exactly fit the user experience need for the use case you are working on.
+With these options, you can tweak the appearance of the radio group in Figma. They are available in the Design Panel so you can compose the component to exactly fit the user experience need for the use case you are working on.
 
 |Item|Options|Description|
 |-|-|-|

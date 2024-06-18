@@ -6,31 +6,19 @@ eleventyNavigation:
   key: ButtonBarAccessibility
 ---
 
-<section> 
-
-## Accessibility
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
-
-</section>
-
 <section>
 
-## Interaction
+## WAI-ARIA
 
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi.
-- Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris.
-- Maecenas vitae mattis tellus. Nullam quis imperdiet augue, vestibulum auctor ornare leo.
-- Non suscipit magna interdum eu.
+<div class="ds-table-wrapper">
 
-</section>
+|Attribute|Value|Description|User supplied  <sl-icon name="info" aria-describedby="tooltip1" size="md"></sl-icon><sl-tooltip id="tooltip1">Specifies whether the attribute is always set in the component (no) or it needs to be provided by the developer (yes)</sl-tooltip>|
+|-|-|-|-|
+|`aria-label`|string|Provides a label describing the group of buttons wrapped by button bar component. Please remember to add `aria-label` to the icon-only buttons (when used) as well.|no|
 
-<section>
+{.ds-table .ds-table-align-top}
 
-## Behaviour
-
-The option to reverse order of the button uses flex-direction to visually change the order of the button. The text-to-speech and tab-order are still determined by the order of the elements in the HTML. This discrepancy can cause some confusion.
-
-Lorem ipsum dolor sit amet. Consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
+</div>
 
 </section>
+

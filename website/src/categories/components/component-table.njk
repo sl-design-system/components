@@ -174,7 +174,7 @@
                   {%- for property in declaration.cssProperties -%}
                     <tr>
                       <td><code>{{property.name}}</code></td>
-                      <td>{{property.description | escape | nl2br}}</td>
+                      <td>{{property.description }}</td>
                     </tr>
                   {%- endfor -%}
                   </tbody>

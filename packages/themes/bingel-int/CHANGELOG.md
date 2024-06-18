@@ -1,5 +1,11 @@
 # @sanomalearning/slds-bingel-int
 
+## 0.1.11
+
+### Patch Changes
+
+- [#1323](https://github.com/sl-design-system/components/pull/1323) [`7053c6b`](https://github.com/sl-design-system/components/commit/7053c6b766a6254d852c2bba52ee4fc0a5020f4a) - Update badge tokens
+
 ## 0.1.10
 
 ### Patch Changes

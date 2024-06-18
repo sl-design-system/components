@@ -1,5 +1,15 @@
 # @sl-design-system/search-field
 
+## 0.0.4
+
+### Patch Changes
+
+- [#1332](https://github.com/sl-design-system/components/pull/1332) [`d80d9a8`](https://github.com/sl-design-system/components/commit/d80d9a8888398b646147268c02f40512fa8250e6) - Fix prefix & suffix icons having wrong color when disabled
+
+- Updated dependencies [[`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`d80d9a8`](https://github.com/sl-design-system/components/commit/d80d9a8888398b646147268c02f40512fa8250e6), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/shared@0.2.12
+  - @sl-design-system/text-field@1.3.4
+
 ## 0.0.3
 
 ### Patch Changes

@@ -4,6 +4,7 @@
   --_border-size: var(--sl-border-width-input-border);
   --_border: var(--_border-size) solid var(--_border-color);
   --_border-radius: var(--sl-border-radius-default);
+  --_color: var(--sl-color-input-text-field-default-default-input-text);
   --_cursor: text;
   --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
   --_focus-outline-offset: var(--sl-border-width-focusring-offset);
@@ -15,6 +16,7 @@
   background: var(--_background);
   border: var(--_border);
   border-radius: var(--_border-radius);
+  color: var(--_color);
   cursor: var(--_cursor);
   display: block;
   font: var(--_font);
@@ -24,7 +26,11 @@
 }
 
 :host([disabled]) {
+  --_background: var(--sl-color-input-text-field-default-disabled-background);
+  --_border-color: var(--sl-color-input-text-field-default-disabled-border);
+  --_color: var(--sl-color-input-text-field-default-disabled-input-text);
   --_cursor: default;
+  --_placeholder-color: var(--sl-color-input-text-field-default-disabled-placeholder);
 
   pointer-events: none;
 }

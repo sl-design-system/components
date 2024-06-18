@@ -39,10 +39,10 @@ export default {
     }
   },
   render: ({ body, button, indismissible, title, variant }) => html`
-    <sl-inline-message ?indismissible=${indismissible} .variant=${variant}>
+    <sl-format-date ?indismissible=${indismissible} .variant=${variant}>
       ${title ? html`<span slot="title">${title}</span>` : nothing}
       ${button ? html`<sl-button fill="outline" slot="action" variant="info">${button}</sl-button>` : nothing} ${body}
-    </sl-inline-message>
+    </sl-format-date>
   `
 } satisfies Meta<Props>;
 
@@ -73,70 +73,6 @@ export const Details: Story = {
         <li>Error 3</li>
         <li>Error 4</li>
       </ul>
-    `
-  }
-};
-
-export const Dynamic: Story = {
-  args: {
-    ...Basic.args,
-    title: 'Dynamic inline message title'
-  },
-  render: ({ body, indismissible, title, variant }) => {
-    const onAdd = (event: Event & { target: HTMLElement }): void => {
-      const buttonBar = event.target.closest('sl-button-bar'),
-        count = buttonBar?.parentElement?.querySelectorAll('sl-inline-message').length ?? 0;
-
-      const msg = document.createElement('sl-format-date');
-      msg.indismissible = indismissible;
-      msg.innerHTML = `<span slot="title">${title} ${count + 1}</span>${body as string}`;
-      msg.variant = variant;
-
-      buttonBar?.after(msg);
-    };
-
-    const onRemove = (event: Event & { target: HTMLElement }): void => {
-      event.target.closest('sl-button-bar')?.nextElementSibling?.remove();
-    };
-
-    return html`
-      <style>
-        sl-button-bar {
-          margin-block-end: 1.5rem;
-        }
-        sl-inline-message + sl-inline-message {
-          margin-block-start: 1rem;
-        }
-      </style>
-      <sl-button-bar>
-        <sl-button @click=${onAdd}>Add message</sl-button>
-        <sl-button @click=${onRemove}>Remove message</sl-button>
-      </sl-button-bar>
-    `;
-  }
-};
-
-export const NoTitle: Story = {
-  args: {
-    ...Basic.args,
-    title: undefined
-  }
-};
-
-export const Overflow: Story = {
-  args: {
-    title:
-      'Excepteur officia qui nisi commodo ullamco labore dolor ipsum eu non Lorem. Aute enim quis sit id laboris consequat nisi esse.',
-    body: 'Duis laborum consectetur mollit deserunt nostrud anim occaecat elit ipsum laborum. Ad sit in anim aliqua laborum tempor. Labore cupidatat aute magna consectetur ullamco occaecat ea nostrud velit exercitation nulla est anim.'
-  }
-};
-
-export const CustomIcon: Story = {
-  args: {
-    ...Basic.args,
-    body: html`
-      <sl-icon slot="icon" name="face-smile"></sl-icon>
-      The main content of the message
     `
   }
 };

@@ -14,7 +14,7 @@ export const getStringByPath = (object: unknown, path = ''): string => {
   const value = getValueByPath(object, path);
 
   if (value) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-base-to-string
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     return value.toString();
   } else {
     return '';
@@ -35,7 +35,7 @@ export const getValueByPath = (object: unknown, path = ''): unknown => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
       result = (result as any)[prop];
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       result = (result as any[])?.at(parseInt(index));
     } else {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
@@ -60,7 +60,7 @@ export const setValueByPath = (object: unknown, path = '', value: unknown): void
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
       result = (result as any)[prop];
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       result = (result as any[])?.at(parseInt(index));
     } else {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any

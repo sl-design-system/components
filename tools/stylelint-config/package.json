@@ -25,7 +25,7 @@
   "dependencies": {
     "postcss": "^8.4.38",
     "postcss-lit": "^1.1.1",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.2",
     "stylelint-config-standard": "^36.0.0",
     "stylelint-config-standard-scss": "^13.1.0",
     "stylelint-order": "^6.0.4",
@@ -33,7 +33,7 @@
     "stylelint-use-logical": "^2.1.2"
   },
   "devDependencies": {
-    "stylelint": "^16.3.1"
+    "stylelint": "^16.6.1"
   },
   "peerDependencies": {
     "stylelint": "^16.3.1"

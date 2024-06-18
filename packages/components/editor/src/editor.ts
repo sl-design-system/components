@@ -27,7 +27,7 @@ export class Editor extends FormControlMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Manage events. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { focusout: this.#onFocusout });
 
   /** The value of the content in the editor. */

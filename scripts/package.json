@@ -27,7 +27,7 @@
     "esbuild": "^0.20.2",
     "fast-glob": "^3.3.2",
     "postcss": "^8.4.38",
-    "sass": "^1.77.4",
+    "sass": "^1.77.6",
     "style-dictionary": "^4.0.0-prerelease.22"
   }
 }

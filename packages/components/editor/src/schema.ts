@@ -202,7 +202,6 @@ const getAttributes = (node: string | HTMLElement): Attrs => {
     const attributes = node.attributes;
 
     let attr;
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < attributes.length; i++) {
       attr = attributes[i];
       result[attr.name] = attr.value;

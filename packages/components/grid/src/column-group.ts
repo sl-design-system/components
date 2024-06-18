@@ -9,7 +9,6 @@ declare global {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class GridColumnGroup<T = unknown> extends GridColumn<T> {
   #width?: number;
 

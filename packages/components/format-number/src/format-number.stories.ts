@@ -29,6 +29,9 @@ export default {
   title: 'Utilities/Format number',
   tags: ['draft'],
   argTypes: {
+    currency: {
+      type: 'string'
+    },
     currencyDisplay: {
       control: 'inline-radio',
       options: ['code', 'name', 'symbol', 'narrowSymbol']
@@ -52,12 +55,19 @@ export default {
     maximumSignificantDigits: {
       type: 'number'
     },
+    notation: {
+      control: 'inline-radio',
+      options: ['standard', 'scientific', 'engineering', 'compact']
+    },
     number: {
       type: 'number'
     },
     numberStyle: {
       control: 'inline-radio',
       options: ['decimal', 'currency', 'percent', 'unit']
+    },
+    unit: {
+      type: 'string'
     },
     unitDisplay: {
       control: 'inline-radio',

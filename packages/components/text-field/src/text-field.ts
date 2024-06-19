@@ -42,7 +42,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   static override styles: CSSResultGroup = styles;
 
   /** The value of the text field. */
-  #value?: string;
+  #value?: string = '';
 
   /** Specifies which type of data the browser can use to pre-fill the input. */
   @property() autocomplete?: typeof HTMLInputElement.prototype.autocomplete;

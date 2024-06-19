@@ -90,7 +90,7 @@ describe('sl-text-field', () => {
 
     it('should not have a placeholder', () => {
       expect(el.placeholder).to.be.undefined;
-      expect(input).to.have.attribute('placeholder', '');
+      expect(input).not.to.have.attribute('placeholder');
     });
 
     it('should have a placeholder when set', async () => {
@@ -119,7 +119,7 @@ describe('sl-text-field', () => {
 
     it('should have a focus ring attribute when the input has focus', async () => {
       input.focus();
-      await el.updateComplete;
+      await new Promise(resolve => setTimeout(resolve));
 
       expect(el).to.have.attribute('has-focus-ring');
       expect(el.hasFocusRing).to.be.true;
@@ -392,8 +392,8 @@ describe('sl-text-field', () => {
       expect(el.input).to.equal(input);
     });
 
-    it('should overwrite text field properties except for "type"', () => {
-      expect(input).to.have.attribute('placeholder', '');
+    it('should overwrite text field properties', () => {
+      expect(input).to.not.have.attribute('placeholder');
       expect(input.type).to.equal('color');
     });
   });

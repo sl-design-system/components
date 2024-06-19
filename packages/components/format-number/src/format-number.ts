@@ -79,7 +79,11 @@ export class FormatNumber extends LocaleMixin(LitElement) {
    * Whether to use grouping separators, such as thousands separators.
    * If you need more control than just true/false, use `formatOptions`.
    */
-  @property({ type: Boolean, attribute: 'use-grouping' }) useGrouping?: boolean;
+  @property({
+    attribute: 'use-grouping',
+    converter: value => (value === null ? undefined : value === 'false' ? false : true)
+  })
+  useGrouping?: boolean;
 
   override render(): TemplateResult | string {
     if (typeof this.number === 'number' && !Number.isNaN(this.number)) {
@@ -112,7 +116,7 @@ export class FormatNumber extends LocaleMixin(LitElement) {
         style,
         unit,
         unitDisplay,
-        useGrouping,
+        useGrouping: this.hasAttribute('use-grouping') ? true : useGrouping || undefined,
         ...this.formatOptions
       });
     }

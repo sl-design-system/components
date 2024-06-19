@@ -1,6 +1,7 @@
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { format } from './format.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -80,7 +81,42 @@ export class FormatNumber extends LocaleMixin(LitElement) {
    */
   @property({ type: Boolean, attribute: 'use-grouping' }) useGrouping?: boolean;
 
-  override render(): TemplateResult {
-    return html`HOHOHO`;
+  override render(): TemplateResult | string {
+    if (typeof this.number === 'number' && !Number.isNaN(this.number)) {
+      const {
+        currency,
+        currencyDisplay,
+        minimumIntegerDigits,
+        minimumFractionDigits,
+        maximumFractionDigits,
+        minimumSignificantDigits,
+        maximumSignificantDigits,
+        notation,
+        numberStyle: style,
+        signDisplay,
+        unit,
+        unitDisplay,
+        useGrouping
+      } = this;
+
+      return format(this.number, this.locale, {
+        currency,
+        currencyDisplay,
+        minimumIntegerDigits,
+        minimumFractionDigits,
+        maximumFractionDigits,
+        minimumSignificantDigits,
+        maximumSignificantDigits,
+        notation,
+        signDisplay,
+        style,
+        unit,
+        unitDisplay,
+        useGrouping,
+        ...this.formatOptions
+      });
+    }
+
+    return html`<slot></slot>`;
   }
 }

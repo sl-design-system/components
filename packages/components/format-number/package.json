@@ -22,6 +22,7 @@
   "customElements": "custom-elements.json",
   "exports": {
     ".": "./index.js",
+    "./format.js": "./src/format.js",
     "./package.json": "./package.json",
     "./register.js": "./register.js"
   },

@@ -5,7 +5,7 @@ import { Icon } from '@sl-design-system/icon';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlBlurEvent, type SlChangeEvent, type SlFocusEvent } from '@sl-design-system/shared/events.js';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import styles from './text-field.scss.js';
 
 declare global {
@@ -88,9 +88,6 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Placeholder text in the input. */
   @property() placeholder?: string;
 
-  /** The raw (string) value of the input. */
-  @state() rawValue = '';
-
   /** Whether you can interact with the input or if it is just a static, readonly display. */
   @property({ type: Boolean, reflect: true }) readonly?: boolean;
 
@@ -116,7 +113,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** The value of the text field. */
   @property()
   override set value(value: string | undefined) {
-    this.#value = this.parseValue(value ?? '');
+    this.#value = value;
   }
 
   override connectedCallback(): void {
@@ -125,7 +122,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     if (!this.input) {
       this.input = this.querySelector<HTMLInputElement>('input[slot="input"]') || document.createElement('input');
       this.input.slot = 'input';
-      this.#syncInput(this.input);
+      this.syncInputElement(this.input);
 
       if (!this.input.parentElement) {
         this.append(this.input);
@@ -152,7 +149,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     ];
 
     if (props.some(prop => changes.has(prop))) {
-      this.#syncInput(this.input);
+      this.syncInputElement(this.input);
     }
 
     if (changes.has('disabled')) {
@@ -181,7 +178,7 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
   /** Render the input slot; separate method so it is composable for child components. */
   renderInputSlot(): TemplateResult {
     return html`
-      <slot @keydown=${this.#onKeydown} @input=${this.#onInput} @slotchange=${this.#onSlotchange} name="input"></slot>
+      <slot @keydown=${this.onKeydown} @input=${this.onInput} @slotchange=${this.onSlotChange} name="input"></slot>
     `;
   }
 
@@ -210,68 +207,52 @@ export class TextField extends FormControlMixin(ScopedElementsMixin(LitElement))
     return super.getLocalizedValidationMessage();
   }
 
-  /**
-   * Method that converts the string value in the input to the specified type T. Override this method
-   * if you want to convert the value in a different way. Throw an error if the value is invalid.
-   */
-  parseValue(value: string): string {
-    return value;
-  }
-
   /** @internal */
   override focus(): void {
     this.input.focus();
   }
 
-  #onBlur(): void {
+  protected onBlur(): void {
     this.hasFocusRing = false;
     this.blurEvent.emit();
     this.updateState({ touched: true });
   }
 
-  #onFocus(): void {
+  protected onFocus(): void {
     this.hasFocusRing = true;
     this.focusEvent.emit();
   }
 
-  #onInput({ target }: Event & { target: HTMLInputElement }): void {
-    this.rawValue = target.value;
-
-    try {
-      // Try to parse the value, but do nothing if it fails
-      this.value = this.parseValue(this.rawValue);
-      this.changeEvent.emit(this.value);
-    } catch {
-      /* empty */
-    }
-
+  protected onInput({ target }: Event & { target: HTMLInputElement }): void {
+    this.value = target.value;
+    this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.updateValidity();
   }
 
-  #onKeydown(event: KeyboardEvent): void {
+  protected onKeydown(event: KeyboardEvent): void {
     // Simulate native behavior where pressing Enter in a text field will submit the form
     if (!this.disabled && event.key === 'Enter') {
       this.form?.requestSubmit();
     }
   }
 
-  #onSlotchange(event: Event & { target: HTMLSlotElement }): void {
+  protected onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const elements = event.target.assignedElements({ flatten: true }),
       input = elements.find((el): el is HTMLInputElement => el instanceof HTMLInputElement);
 
     // Handle the scenario where a custom input is being slotted after `connectedCallback`
     if (input) {
       this.input = input;
-      this.input.addEventListener('blur', () => this.#onBlur());
-      this.input.addEventListener('focus', () => this.#onFocus());
-      this.#syncInput(this.input);
+      this.input.addEventListener('blur', () => this.onBlur());
+      this.input.addEventListener('focus', () => this.onFocus());
+      this.syncInputElement(this.input);
 
       this.setFormControlElement(this.input);
     }
   }
 
-  #syncInput(input: HTMLInputElement): void {
+  protected syncInputElement(input: HTMLInputElement): void {
     input.autocomplete = this.autocomplete || 'off';
     input.autofocus = this.autofocus;
     input.disabled = !!this.disabled;

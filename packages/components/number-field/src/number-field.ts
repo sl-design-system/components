@@ -1,10 +1,11 @@
 import { msg } from '@lit/localize';
-import { EventsController } from '@sl-design-system/shared';
+import { format } from '@sl-design-system/format-number/format.js';
 import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { TextField } from '@sl-design-system/text-field';
 import { type PropertyValues, type TemplateResult, html, nothing } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import styles from './number-field.scss.js';
+import { NumberParser } from './number-parser.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -16,11 +17,9 @@ export class NumberField extends LocaleMixin(TextField) {
   /** @internal */
   static override styles = [TextField.styles, styles];
 
-  /** Event controller. */
-  #events = new EventsController(this, { keydown: this.#onKeydown });
-
-  /** The formatter for formatting the value. */
-  #formatter = new Intl.NumberFormat(this.locale, this.formatOptions);
+  /** Parser used for user input.  */
+  // eslint-disable-next-line no-unused-private-class-members
+  #parser?: NumberParser;
 
   /** The number value. */
   #value?: number;
@@ -32,8 +31,8 @@ export class NumberField extends LocaleMixin(TextField) {
   @property({ type: Object, attribute: 'format-options' }) formatOptions?: Intl.NumberFormatOptions;
 
   override get formattedValue(): string {
-    if (typeof this.valueAsNumber === 'number') {
-      return this.#formatter.format(this.valueAsNumber);
+    if (typeof this.valueAsNumber === 'number' && !Number.isNaN(this.valueAsNumber)) {
+      return format(this.valueAsNumber, this.locale, this.formatOptions);
     } else {
       return '';
     }
@@ -53,6 +52,9 @@ export class NumberField extends LocaleMixin(TextField) {
 
   /** Hides the step buttons if set. */
   @property({ type: Boolean, reflect: true, attribute: 'no-step-buttons' }) noStepButtons?: boolean;
+
+  /** @internal The raw value of the input. */
+  @state() rawValue?: string;
 
   /** The amount by which the value will be increased/decreased by a step up/down. */
   @property({ type: Number }) step?: number;
@@ -88,7 +90,7 @@ export class NumberField extends LocaleMixin(TextField) {
     super.willUpdate(changes);
 
     if (changes.has('locale') || changes.has('formatOptions')) {
-      this.#formatter = new Intl.NumberFormat(this.locale, this.formatOptions);
+      this.#parser = new NumberParser(this.locale, this.formatOptions);
     }
   }
 
@@ -101,6 +103,7 @@ export class NumberField extends LocaleMixin(TextField) {
               @click=${() => this.stepUp()}
               ?disabled=${this.disabled || this.readonly}
               aria-label=${msg('Step up')}
+              tabindex="-1"
             >
               <sl-icon name="chevron-up" size="xs"></sl-icon>
             </button>
@@ -108,6 +111,7 @@ export class NumberField extends LocaleMixin(TextField) {
               @click=${() => this.stepDown()}
               ?disabled=${this.disabled || this.readonly}
               aria-label=${msg('Step down')}
+              tabindex="-1"
             >
               <sl-icon name="chevron-down" size="xs"></sl-icon>
             </button>
@@ -115,19 +119,33 @@ export class NumberField extends LocaleMixin(TextField) {
         `;
   }
 
+  /** Decreases the current value by the `step` amount. */
   stepDown(decrement: number = this.step ?? 1): void {
     const value = this.valueAsNumber ?? 0;
 
     this.valueAsNumber = Math.min(Math.max(value - decrement, this.min ?? -Infinity), this.max ?? Infinity);
   }
 
+  /** Increases the current value by the `step` amount. */
   stepUp(increment: number = this.step ?? 1): void {
     const value = this.valueAsNumber ?? 0;
 
     this.valueAsNumber = Math.min(Math.max(value + increment, this.min ?? -Infinity), this.max ?? Infinity);
   }
 
-  #onKeydown(event: KeyboardEvent): void {
+  override onBlur(): void {
+    if (this.rawValue !== undefined) {
+      this.valueAsNumber = this.#convertValueToNumber(this.rawValue);
+    }
+
+    super.onBlur();
+  }
+
+  override onInput({ target }: Event & { target: HTMLInputElement }): void {
+    this.rawValue = target.value;
+  }
+
+  override onKeydown(event: KeyboardEvent): void {
     if (event.key === 'ArrowUp') {
       event.preventDefault();
 
@@ -136,6 +154,12 @@ export class NumberField extends LocaleMixin(TextField) {
       event.preventDefault();
 
       this.stepDown();
+    } else {
+      super.onKeydown(event);
     }
+  }
+
+  #convertValueToNumber(value: string): number {
+    return parseFloat(value);
   }
 }

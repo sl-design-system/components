@@ -116,7 +116,7 @@ export class FormatNumber extends LocaleMixin(LitElement) {
         style,
         unit,
         unitDisplay,
-        useGrouping: this.hasAttribute('use-grouping') ? true : useGrouping || undefined,
+        useGrouping,
         ...this.formatOptions
       });
     }

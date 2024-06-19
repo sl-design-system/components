@@ -22,7 +22,7 @@ type Props = Pick<
   | 'unit'
   | 'unitDisplay'
   | 'useGrouping'
->;
+> & { slot?: string };
 type Story = StoryObj<Props>;
 
 export default {
@@ -91,11 +91,12 @@ export default {
     number,
     numberStyle,
     signDisplay,
+    slot,
     unit,
     unitDisplay,
     useGrouping
-  }) =>
-    html`<sl-format-number
+  }) => html`
+    <sl-format-number
       ?use-grouping=${useGrouping}
       .formatOptions=${formatOptions}
       .number=${number}
@@ -112,7 +113,9 @@ export default {
       sign-display=${ifDefined(signDisplay)}
       unit=${ifDefined(unit)}
       unit-display=${ifDefined(unitDisplay)}
-    ></sl-format-number>`
+      >${slot}</sl-format-number
+    >
+  `
 } satisfies Meta<Props>;
 
 export const Basic: Story = {
@@ -142,5 +145,12 @@ export const Unit: Story = {
     numberStyle: 'unit',
     unit: 'meter',
     unitDisplay: 'long'
+  }
+};
+
+export const Fallback: Story = {
+  args: {
+    number: 'not a number' as unknown as number,
+    slot: 'This content is displayed when the number is not a valid number.'
   }
 };

@@ -4,9 +4,12 @@ import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
 import { FormatDate } from './format-date';
+import {formatDateTime} from "./format-date-time";
 
 interface Props extends FormatDate {
   fallback: string | TemplateResult;
+  // body: string | TemplateResult;
+  // date: Date | number | string | undefined;
 }
 type Story = StoryObj<Props>;
 
@@ -14,19 +17,86 @@ export default {
   title: 'Utilities/Format date',
   tags: ['draft'],
   args: {
-    fallback: 'Action',
-    date: new Date,
+    fallback: 'invalid date',
+    locale: 'en',
   },
   argTypes: {
+    date: { control: 'date' },
     fallback: {
       table: {
         disable: true
       }
     },
+    year: {
+      control: 'inline-radio',
+      options: ['numeric', '2-digit']
+    },
+    month: {
+      control: 'inline-radio',
+      options: ['numeric', '2-digit', 'narrow', 'short', 'long']
+    },
+    day: {
+      control: 'inline-radio',
+      options: ['numeric', '2-digit']
+    },
+    weekday: {
+      control: 'inline-radio',
+      options: ['narrow', 'short', 'long']
+    },
+    hour: {
+      control: 'inline-radio',
+      options: ['numeric', '2-digit']
+    },
+    minute: {
+      control: 'inline-radio',
+      options: ['numeric', '2-digit']
+    },
+    second: {
+      control: 'inline-radio',
+      options: ['numeric', '2-digit']
+    },
+    timeZoneName: {
+      control: 'inline-radio',
+      options: ['short', 'long']
+    },
+    timeZone: { control: 'text' },
+    hour12: {
+      control: 'inline-radio',
+      options: ['undefined', 'true', 'false']
+    },
+    era: {
+      control: 'inline-radio',
+      options: ['narrow', 'short', 'long']
+    },
   },
-  render: ({ fallback, date }) => html`
-    date? ${date}
-    <sl-format-date .date=${date}>
+  render: ({ fallback,
+             date,
+             locale,
+             weekday,
+             era,
+             year,
+             month,
+             day,
+             hour,
+             minute,
+             second,
+             timeZoneName,
+             timeZone,
+             hour12 }) => html`
+    <sl-format-date
+      .date=${date}
+      .locale=${locale}
+      .weekday=${weekday}
+      .era=${era}
+      .year=${year}
+      .month=${month}
+      .day=${day}
+      .hour=${hour}
+      .minute=${minute}
+      .second=${second}
+      .timeZoneName=${timeZoneName}
+      .timeZone=${timeZone}
+      .hour12=${hour12}>
       ${fallback}
     </sl-format-date>
   `
@@ -35,19 +105,84 @@ export default {
 // date=${new Date()}
 // date='hj02/02/2022
 
+// hour12
+
 export const Basic: Story = {
   args: {
+    date: new Date,
     fallback: 'This is not a valid date',
   }
 };
 
-export const Details: Story = {
+export const InvalidDate: Story = {
   args: {
-    fallback: 'Details fallback'
+    fallback: 'This date is not valid and I cannot render it.',
+    // date: 'nothing',
   }
 };
 
+export const Function: StoryObj = {
+  render: ({ date,
+             locale,
+             weekday,
+             era,
+             year,
+             month,
+             day,
+             hour,
+             minute,
+             second,
+             timeZoneName,
+             timeZone,
+             hour12 }) => {
+    // const options = { date,
+    //   locale,
+    //   weekday,
+    //   era,
+    //   year,
+    //   month,
+    //   day,
+    //   hour,
+    //   minute,
+    //   second,
+    //   timeZoneName,
+    //   timeZone,
+    //   hour12 };
+    // const formattedDate = formatDateTime(date ? date : new Date, locale, options);
+
+    try {
+      const options = { date,
+        locale,
+        weekday,
+        era,
+        year,
+        month,
+        day,
+        hour,
+        minute,
+        second,
+        timeZoneName,
+        timeZone,
+        hour12 };
+      const formattedDate = formatDateTime(date ? date : new Date, locale, options);
+      return html`
+      <article>This is a value rendered with function <code>formatDateTime</code>
+        <div style="font-size: 20px;">
+          ${formattedDate ? formattedDate : nothing}
+        </div>
+      </article>
+  `
+    } catch {
+      return html`Something went wrong. Please check function parameters.`
+    }
+}
+};
+
 // TODO in All - examples of all in one place
+
+// TODO: add example with just function usage
+
+// TODO: 12h not working !!!!!!
 
 // export const All: StoryObj = {
 //   render: () => html`

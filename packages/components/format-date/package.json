@@ -22,6 +22,7 @@
   "customElements": "custom-elements.json",
   "exports": {
     ".": "./index.js",
+    "./format-date-time.js": "./src/format-date-time.js",
     "./package.json": "./package.json",
     "./register.js": "./register.js"
   },

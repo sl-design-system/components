@@ -28,6 +28,7 @@ export default {
         frequently-used=${ifDefined(frequentlyUsed)}
         locale=${ifDefined(locale)}
         query=${ifDefined(query)}
+        style="height: calc(100dvh - 32px)"
       ></sl-emoji-browser>
     `;
   }

@@ -1,3 +1,15 @@
+import {
+  faBurgerSoda,
+  faCarBuilding,
+  faFaceLaugh,
+  faFlag,
+  faFutbol,
+  faLightbulb,
+  faRabbit,
+  faSymbols,
+  faTimer,
+  faUser
+} from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
@@ -5,9 +17,11 @@ import { Icon } from '@sl-design-system/icon';
 import { SearchField } from '@sl-design-system/search-field';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
+import { Tab, TabGroup } from '@sl-design-system/tabs';
 import { type CompactEmoji, type MessagesDataset } from 'emojibase';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
 import styles from './emoji-browser.scss.js';
 
 declare global {
@@ -16,6 +30,31 @@ declare global {
   }
 }
 
+Icon.register(
+  faBurgerSoda,
+  faCarBuilding,
+  faFaceLaugh,
+  faFlag,
+  faFutbol,
+  faLightbulb,
+  faRabbit,
+  faSymbols,
+  faTimer,
+  faUser
+);
+
+const GROUP_ICONS: Record<number, string> = {
+  0: 'far-face-laugh',
+  1: 'far-user',
+  3: 'far-rabbit',
+  4: 'far-burger-soda',
+  5: 'far-car-building',
+  6: 'far-futbol',
+  7: 'far-lightbulb',
+  8: 'far-symbols',
+  9: 'far-flag'
+};
+
 @localized()
 export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -23,7 +62,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     return {
       'sl-button': Button,
       'sl-icon': Icon,
-      'sl-search-field': SearchField
+      'sl-search-field': SearchField,
+      'sl-tab': Tab,
+      'sl-tab-group': TabGroup
     };
   }
 
@@ -90,37 +131,45 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
 
   override render(): TemplateResult {
     return html`
-      <sl-search-field
-        @sl-change=${this.#onChange}
-        @sl-clear=${this.#onClear}
-        .placeholder=${msg('Search')}
-        .value=${this.query}
-      ></sl-search-field>
+      <sl-tab-group>
+        ${this.frequentlyUsedEmojis?.length ? html`<sl-tab><sl-icon name="far-timer"></sl-icon></sl-tab>` : nothing}
+        ${this.messages?.groups
+          .filter(group => typeof group.order === 'number' && group.key !== 'component')
+          .map(group => html`<sl-tab><sl-icon .name=${GROUP_ICONS[group.order]}></sl-icon></sl-tab>`)}
+      </sl-tab-group>
+      <div part="wrapper">
+        <sl-search-field
+          @sl-change=${this.#onChange}
+          @sl-clear=${this.#onClear}
+          .placeholder=${msg('Search')}
+          .value=${this.query}
+        ></sl-search-field>
 
-      ${this.filteredEmojis.length
-        ? this.renderEmojis(this.filteredEmojis)
-        : html`
-            <ol class="groups">
-              ${this.frequentlyUsedEmojis?.length
-                ? html`
-                    <li class="group">
-                      <h1>${msg('Frequently Used')}</h1>
-                      ${this.renderEmojis(this.frequentlyUsedEmojis)}
-                    </li>
-                  `
-                : nothing}
-              ${this.messages?.groups
-                .filter(({ order }) => typeof order === 'number')
-                .map(
-                  group => html`
-                    <li class="group">
-                      <h1>${group.message}</h1>
-                      ${this.renderEmojis(this.groups[group.order])}
-                    </li>
-                  `
-                )}
-            </ol>
-          `}
+        ${this.filteredEmojis.length
+          ? this.renderEmojis(this.filteredEmojis)
+          : html`
+              <ol class="groups">
+                ${this.frequentlyUsedEmojis?.length
+                  ? html`
+                      <li class="group">
+                        <h1>${msg('Frequently Used')}</h1>
+                        ${this.renderEmojis(this.frequentlyUsedEmojis)}
+                      </li>
+                    `
+                  : nothing}
+                ${this.messages?.groups
+                  .filter(group => typeof group.order === 'number' && group.key !== 'component')
+                  .map(
+                    group => html`
+                      <li class="group">
+                        <h1>${group.message}</h1>
+                        ${this.renderEmojis(this.groups[group.order])}
+                      </li>
+                    `
+                  )}
+              </ol>
+            `}
+      </div>
     `;
   }
 
@@ -131,7 +180,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
 
     return html`
       <ul class="emojis">
-        ${emojis.map(
+        ${repeat(
+          emojis,
+          emoji => emoji.unicode,
           emoji => html`
             <li class="emoji">
               <sl-button @click=${() => this.#onClick(emoji)} aria-label=${emoji.label} fill="ghost">
@@ -158,6 +209,8 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
 
   async #loadEmojis(): Promise<void> {
     this.emojis = await this.#loadEmojiData();
+    this.emojis = this.emojis.filter(emoji => typeof emoji.group === 'number' && emoji.group !== 2);
+
     this.messages = await this.#loadEmojiMessages();
 
     this.groups = Object.groupBy(this.emojis, ({ group }) => group ?? -1);

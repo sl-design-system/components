@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+[part='wrapper'] {
+  overflow: auto;
+}
+
 sl-search-field + .emojis {
   margin-block-start: 1rem;
 }
@@ -39,4 +43,8 @@ sl-button {
   aspect-ratio: 1 / 1;
   box-sizing: border-box;
   inline-size: 32px;
+}
+
+sl-tab {
+  --_padding: var(--sl-space-tab-block);
 }

@@ -36,6 +36,10 @@ export default {
       }
     }
   },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
   render: ({ alignTabs, tabs, tabPanels, vertical }) => {
     return html`<sl-tab-group .alignTabs=${alignTabs} .vertical=${vertical}>${tabs?.()}${tabPanels?.()}</sl-tab-group>`;
   }

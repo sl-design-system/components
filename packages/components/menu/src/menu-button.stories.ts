@@ -56,6 +56,10 @@ export default {
       ]
     }
   },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
   render: ({
     alignSelf,
     body,

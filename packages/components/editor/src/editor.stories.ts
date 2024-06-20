@@ -11,6 +11,10 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Form/Editor',
   tags: ['draft'],
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
   render: ({ value }) => {
     return html`<sl-editor .value=${value}></sl-editor>`;
   }

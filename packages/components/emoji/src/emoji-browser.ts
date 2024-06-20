@@ -1,13 +1,13 @@
 import {
   faBurgerSoda,
   faCarBuilding,
+  faClock,
   faFaceLaugh,
   faFlag,
   faFutbol,
   faLightbulb,
   faRabbit,
   faSymbols,
-  faTimer,
   faUser
 } from '@fortawesome/pro-regular-svg-icons';
 import { localized, msg } from '@lit/localize';
@@ -18,7 +18,7 @@ import { SearchField } from '@sl-design-system/search-field';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Tab, TabGroup } from '@sl-design-system/tabs';
-import { type CompactEmoji, type MessagesDataset } from 'emojibase';
+import { type CompactEmoji, type GroupMessage, type MessagesDataset } from 'emojibase';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
@@ -33,13 +33,13 @@ declare global {
 Icon.register(
   faBurgerSoda,
   faCarBuilding,
+  faClock,
   faFaceLaugh,
   faFlag,
   faFutbol,
   faLightbulb,
   faRabbit,
   faSymbols,
-  faTimer,
   faUser
 );
 
@@ -87,16 +87,16 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   @state() frequentlyUsedEmojis: CompactEmoji[] = [];
 
   /** @internal The emojis, grouped by group. */
-  @state() groups: Record<number, CompactEmoji[] | undefined> = {};
+  @state() groupedEmojis: Record<number, CompactEmoji[] | undefined> = {};
+
+  /** @internal The emoji groups. */
+  @state() groups: GroupMessage[] = [];
 
   /**
    * The locale for this component.
    * TODO: Use the LocaleMixin.
    */
   @property() locale?: string;
-
-  /** @internal The emoji groups. */
-  @state() messages?: MessagesDataset;
 
   /** The query string to filter emojis. */
   @property() query?: string;
@@ -132,11 +132,10 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   override render(): TemplateResult {
     return html`
       <sl-tab-group>
-        ${this.frequentlyUsedEmojis?.length ? html`<sl-tab><sl-icon name="far-timer"></sl-icon></sl-tab>` : nothing}
-        ${this.messages?.groups
-          .filter(group => typeof group.order === 'number' && group.key !== 'component')
-          .map(group => html`<sl-tab><sl-icon .name=${GROUP_ICONS[group.order]}></sl-icon></sl-tab>`)}
+        ${this.frequentlyUsedEmojis?.length ? html`<sl-tab><sl-icon name="far-clock"></sl-icon></sl-tab>` : nothing}
+        ${this.groups.map(group => html`<sl-tab><sl-icon .name=${GROUP_ICONS[group.order]}></sl-icon></sl-tab>`)}
       </sl-tab-group>
+
       <div part="wrapper">
         <sl-search-field
           @sl-change=${this.#onChange}
@@ -157,16 +156,16 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
                       </li>
                     `
                   : nothing}
-                ${this.messages?.groups
-                  .filter(group => typeof group.order === 'number' && group.key !== 'component')
-                  .map(
-                    group => html`
-                      <li class="group">
-                        <h1>${group.message}</h1>
-                        ${this.renderEmojis(this.groups[group.order])}
-                      </li>
-                    `
-                  )}
+                ${repeat(
+                  this.groups,
+                  group => group.key,
+                  group => html`
+                    <li class="group">
+                      <h1>${group.message}</h1>
+                      ${this.renderEmojis(this.groupedEmojis[group.order])}
+                    </li>
+                  `
+                )}
               </ol>
             `}
       </div>
@@ -210,11 +209,10 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   async #loadEmojis(): Promise<void> {
     this.emojis = await this.#loadEmojiData();
     this.emojis = this.emojis.filter(emoji => typeof emoji.group === 'number' && emoji.group !== 2);
+    this.groupedEmojis = Object.groupBy(this.emojis, ({ group }) => group ?? -1);
 
-    this.messages = await this.#loadEmojiMessages();
-
-    this.groups = Object.groupBy(this.emojis, ({ group }) => group ?? -1);
-    console.log(this.groups);
+    const messages = await this.#loadEmojiMessages();
+    this.groups = messages.groups.filter(group => typeof group.order === 'number' && group.key !== 'component');
   }
 
   async #loadEmojiData(): Promise<CompactEmoji[]> {

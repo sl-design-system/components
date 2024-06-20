@@ -3,12 +3,21 @@
   flex-direction: column;
 }
 
-[part='wrapper'] {
-  overflow: auto;
+sl-tab-group::part(wrapper) {
+  padding-inline: 1rem;
 }
 
-sl-search-field + .emojis {
+[part='wrapper'] {
+  overflow: auto;
+  padding-inline: 1rem;
+}
+
+sl-search-field {
   margin-block-start: 1rem;
+
+  + .emojis {
+    margin-block-start: 1rem;
+  }
 }
 
 ol,
@@ -21,7 +30,10 @@ ul {
 h1 {
   font: var(--sl-text-body-lg-demibold);
   margin-block: 1rem 0.25rem;
-  text-transform: capitalize;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .emojis {
@@ -35,7 +47,7 @@ h1 {
 }
 
 sl-button {
-  --_font: var(--sl-text-typeset-font-size-2xl) / var(--sl-text-typeset-line-height-xl)
+  --_font: var(--sl-text-typeset-font-size-2xl) / var(--sl-text-typeset-font-size-2xl)
     var(--sl-text-typeset-font-family-body);
   --_padding-block: 0;
   --_padding-inline: 0;

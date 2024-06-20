@@ -41,6 +41,10 @@
   }
 }
 
+:host(:not([no-panels])) [part='panels'] {
+  padding: var(--_panel-horizontal-padding);
+}
+
 :host([scroll-start]) .fade-start,
 :host([scroll-end]) .fade-end {
   visibility: visible;
@@ -216,8 +220,4 @@ sl-menu-button {
   align-self: center;
   padding-inline-start: var(--_menu-button-inline-padding);
   position: relative;
-}
-
-[part='panels'] {
-  padding: var(--_panel-horizontal-padding);
 }

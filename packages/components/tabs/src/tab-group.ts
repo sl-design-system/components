@@ -296,6 +296,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       panel.id ||= `${this.#idPrefix}-panel-${index + 1}`;
     });
 
+    // Set the no-panels attribute if there are no panels; used for styling
+    this.toggleAttribute('no-panels', this.tabPanels.length === 0);
+
     this.#linkTabsWithPanels();
   }
 

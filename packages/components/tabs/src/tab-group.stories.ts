@@ -58,6 +58,13 @@ export const Basic: Story = {
   }
 };
 
+export const Empty: Story = {
+  args: {
+    ...Basic.args,
+    tabPanels: undefined
+  }
+};
+
 export const InitialSelected: Story = {
   args: {
     ...Basic.args,

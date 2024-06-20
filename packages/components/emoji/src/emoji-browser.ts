@@ -2,7 +2,9 @@ import { localized, msg } from '@lit/localize';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
-import { SearchField, type SlSearchEvent } from '@sl-design-system/search-field';
+import { SearchField } from '@sl-design-system/search-field';
+import { type EventEmitter, event } from '@sl-design-system/shared';
+import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { type CompactEmoji, type MessagesDataset } from 'emojibase';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
@@ -34,6 +36,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal The emoji data. */
   @state() emojis: CompactEmoji[] = [];
 
+  /** @internal The filtered emojis based on the `query` value. */
+  @state() filteredEmojis: CompactEmoji[] = [];
+
   /** Frequently used emojis, separated by spaces. */
   @property({ attribute: 'frequently-used' }) frequentlyUsed?: string;
 
@@ -52,6 +57,12 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal The emoji groups. */
   @state() messages?: MessagesDataset;
 
+  /** The query string to filter emojis. */
+  @property() query?: string;
+
+  /** @internal Emits when the user selects an emoji. */
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<CompactEmoji>>;
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -65,36 +76,51 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     if (changes.has('locale')) {
       void this.#loadEmojis();
     }
+
+    if (changes.has('query') || changes.has('emojis')) {
+      const query = this.query?.toLowerCase();
+
+      if (query) {
+        this.filteredEmojis = this.emojis.filter(e => e.label.includes(query) || e.tags?.some(t => t.includes(query)));
+      } else {
+        this.filteredEmojis = [];
+      }
+    }
   }
 
   override render(): TemplateResult {
     return html`
       <sl-search-field
+        @sl-change=${this.#onChange}
         @sl-clear=${this.#onClear}
-        @sl-search=${this.#onSearch}
         .placeholder=${msg('Search')}
+        .value=${this.query}
       ></sl-search-field>
 
-      <ol class="groups">
-        ${this.frequentlyUsedEmojis?.length
-          ? html`
-              <li class="group">
-                <h1>${msg('Frequently Used')}</h1>
-                ${this.renderEmojis(this.frequentlyUsedEmojis)}
-              </li>
-            `
-          : nothing}
-        ${this.messages?.groups
-          .filter(({ order }) => typeof order === 'number')
-          .map(
-            group => html`
-              <li class="group">
-                <h1>${group.message}</h1>
-                ${this.renderEmojis(this.groups[group.order])}
-              </li>
-            `
-          )}
-      </ol>
+      ${this.filteredEmojis.length
+        ? this.renderEmojis(this.filteredEmojis)
+        : html`
+            <ol class="groups">
+              ${this.frequentlyUsedEmojis?.length
+                ? html`
+                    <li class="group">
+                      <h1>${msg('Frequently Used')}</h1>
+                      ${this.renderEmojis(this.frequentlyUsedEmojis)}
+                    </li>
+                  `
+                : nothing}
+              ${this.messages?.groups
+                .filter(({ order }) => typeof order === 'number')
+                .map(
+                  group => html`
+                    <li class="group">
+                      <h1>${group.message}</h1>
+                      ${this.renderEmojis(this.groups[group.order])}
+                    </li>
+                  `
+                )}
+            </ol>
+          `}
     `;
   }
 
@@ -118,16 +144,16 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     `;
   }
 
+  #onChange({ detail: query }: SlChangeEvent<string>): void {
+    this.query = query;
+  }
+
   #onClear(): void {
-    console.log('clear');
+    this.query = '';
   }
 
   #onClick(emoji: CompactEmoji): void {
-    console.log('click', emoji);
-  }
-
-  #onSearch({ detail: query }: SlSearchEvent): void {
-    console.log('search', query);
+    this.selectEvent.emit(emoji);
   }
 
   async #loadEmojis(): Promise<void> {

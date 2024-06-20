@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+sl-search-field + .emojis {
+  margin-block-start: 1rem;
+}
+
 ol,
 ul {
   list-style: none;

@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '../register.js';
 import { type EmojiBrowser } from './emoji-browser.js';
 
-type Props = Pick<EmojiBrowser, 'frequentlyUsed' | 'locale'>;
+type Props = Pick<EmojiBrowser, 'frequentlyUsed' | 'locale' | 'query'>;
 type Story = StoryObj<Props>;
 
 export default {
@@ -16,14 +16,18 @@ export default {
   argTypes: {
     frequentlyUsed: {
       type: 'string'
+    },
+    query: {
+      type: 'string'
     }
   },
-  render: ({ frequentlyUsed, locale }) => {
+  render: ({ frequentlyUsed, locale, query }) => {
     return html`
       <sl-emoji-browser
         base-url="/emoji"
         frequently-used=${ifDefined(frequentlyUsed)}
         locale=${ifDefined(locale)}
+        query=${ifDefined(query)}
       ></sl-emoji-browser>
     `;
   }
@@ -34,5 +38,11 @@ export const Basic: Story = {};
 export const FrequentlyUsed: Story = {
   args: {
     frequentlyUsed: '😀 😂 😎 🤔 🤷‍♂️'
+  }
+};
+
+export const Search: Story = {
+  args: {
+    query: 'point'
   }
 };

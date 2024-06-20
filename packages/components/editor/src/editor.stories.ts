@@ -1,22 +1,40 @@
+import '@sl-design-system/button/register.js';
+import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/form/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { html } from 'lit';
 import '../register.js';
+import { type Editor } from './editor.js';
 
-interface Props {
-  value: string;
-}
-
+type Props = Pick<Editor, 'disabled' | 'value'> & { hint?: string; label?: string };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Form/Editor',
   tags: ['draft'],
+  args: {
+    disabled: false,
+    label: 'Label'
+  },
   parameters: {
     // Disables Chromatic's snapshotting on a story level
     chromatic: { disableSnapshot: true }
   },
-  render: ({ value }) => {
-    return html`<sl-editor .value=${value}></sl-editor>`;
+  render: ({ disabled, hint, label, value }) => {
+    const onClick = (event: Event & { target: HTMLElement }): void => {
+      event.target.closest('sl-form')?.reportValidity();
+    };
+
+    return html`
+      <sl-form>
+        <sl-form-field .hint=${hint} .label=${label}>
+          <sl-editor ?disabled=${disabled} .value=${value}></sl-editor>
+        </sl-form-field>
+        <sl-button-bar>
+          <sl-button @click=${onClick}>Report validity</sl-button>
+        </sl-button-bar>
+      </sl-form>
+    `;
   }
 } satisfies Meta<Props>;
 
@@ -35,5 +53,12 @@ export const Basic: Story = {
         <li><p>Insert links</p></li>
       </ul>
     `
+  }
+};
+
+export const Disabled: Story = {
+  args: {
+    ...Basic.args,
+    disabled: true
   }
 };

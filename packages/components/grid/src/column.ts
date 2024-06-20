@@ -128,14 +128,12 @@ export class GridColumn<T = any> extends LitElement {
    * This method is called when the contents of the grid has changed.
    * This happens when the items property is directly set or when the data source has changed.
    */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   itemsChanged(): void {}
 
   /**
    * This method is called when the state of the grid has changed.
    * This happens for examples when a filter or sorting changes.
    */
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   stateChanged(): void {}
 
   renderHeader(): TemplateResult {
@@ -154,7 +152,6 @@ export class GridColumn<T = any> extends LitElement {
     `;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   renderStyles(): CSSResult | void {}
 
   getParts(item?: T): string[] {

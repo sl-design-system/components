@@ -21,52 +21,51 @@ declare global {
 }
 
 export class Editor extends FormControlMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static formAssociated = true;
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Manage events. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { focusout: this.#onFocusout });
 
   /** The value of the content in the editor. */
   #value: string = '';
 
-  /** The ProseMirror editor view instance. */
-  #view?: EditorView;
-
-  /** @private Element internals. */
+  /** @internal */
   readonly internals = this.attachInternals();
 
   /** Additional plugins. */
   @property({ attribute: false }) plugins?: Plugin[];
 
-  @property()
   override get value(): string {
     return this.#value;
   }
 
+  @property()
   override set value(value: string | undefined) {
-    const oldValue = this.#value;
     this.#value = value ?? '';
 
-    if (this.#view) {
-      setHTML(this.#value)(this.#view.state, this.#view.dispatch, this.#view);
+    if (this.view) {
+      setHTML(this.#value)(this.view.state, this.view.dispatch, this.view);
     }
-
-    this.requestUpdate('value', oldValue);
   }
+
+  /** The ProseMirror editor view instance. */
+  view?: EditorView;
 
   override connectedCallback(): void {
     super.connectedCallback();
 
     this.internals.role = 'textbox';
     this.internals.ariaMultiLine = 'true';
+
+    this.setFormControlElement(this);
   }
 
   override firstUpdated(): void {
-    this.#view ??= this.createEditor();
+    this.view ??= this.createEditor();
   }
 
   override updated(changes: PropertyValues<this>): void {
@@ -129,10 +128,10 @@ export class Editor extends FormControlMixin(LitElement) {
   }
 
   #onFocusout(): void {
-    if (!this.#view) {
+    if (!this.view) {
       return;
     }
 
-    this.#value = getHTML(this.#view.state);
+    this.#value = getHTML(this.view.state);
   }
 }

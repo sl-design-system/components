@@ -110,6 +110,10 @@
   <source>Clear text</source>
   <target>Wis tekst</target>
 </trans-unit>
+<trans-unit id="s5d929ff1619ac0c9">
+  <source>Search</source>
+  <target>Zoeken</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

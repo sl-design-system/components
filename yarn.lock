@@ -4770,6 +4770,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/emoji@workspace:packages/components/emoji":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/emoji@workspace:packages/components/emoji"
+  dependencies:
+    "@lit/localize": "npm:^0.12.1"
+    "@open-wc/scoped-elements": "npm:^3.0.5"
+    "@sl-design-system/button": "npm:^1.0.0"
+    "@sl-design-system/icon": "npm:^1.0.0"
+    "@sl-design-system/shared": "npm:^0.2.12"
+    emojibase: "npm:^15.3.1"
+    emojibase-data: "npm:^15.3.2"
+  peerDependencies:
+    "@lit/localize": ^0.12.1
+    "@open-wc/scoped-elements": ^3.0.5
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/eslint-config@workspace:tools/eslint-config":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/eslint-config@workspace:tools/eslint-config"
@@ -11259,6 +11276,22 @@ __metadata:
   version: 9.2.2
   resolution: "emoji-regex@npm:9.2.2"
   checksum: 10c0/af014e759a72064cf66e6e694a7fc6b0ed3d8db680427b021a89727689671cefe9d04151b2cad51dbaf85d5ba790d061cd167f1cf32eb7b281f6368b3c181639
+  languageName: node
+  linkType: hard
+
+"emojibase-data@npm:^15.3.2":
+  version: 15.3.2
+  resolution: "emojibase-data@npm:15.3.2"
+  peerDependencies:
+    emojibase: "*"
+  checksum: 10c0/5ebde8203f00d65d3cd73b114b979d57124b6554dabd47ec45f1fe688bbe63eaa086f0238ebf033007095e59d8353cb700b2b939531bb4a1d6fbb14dc92a7d13
+  languageName: node
+  linkType: hard
+
+"emojibase@npm:^15.3.1":
+  version: 15.3.1
+  resolution: "emojibase@npm:15.3.1"
+  checksum: 10c0/9ea27ef8f67a1797d1db4e58a5630a288dd13a015ff8d6b88f3d30ce64c95a7132a9e2c9e6b1566815968f05320facb4d023b62645a095c29a846fee6f7a15e9
   languageName: node
   linkType: hard
 

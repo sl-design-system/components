@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font: var(--sl-text-body-lg-demibold);
+  text-transform: capitalize;
+}
+
+.emojis {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.emoji {
+  display: inline-flex;
+}
+
+sl-button {
+  --_font: var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
+    var(--sl-text-typeset-font-family-body);
+  --_padding-block: 0;
+  --_padding-inline: 0;
+
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
+  inline-size: 32px;
+}

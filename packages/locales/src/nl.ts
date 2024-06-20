@@ -3,9 +3,6 @@
 
 import { str } from '@lit/localize';
 
-/* eslint-disable no-irregular-whitespace */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export const templates = {
   s091d3d07b5b3076f: 'Ok',
   s13fdff160ffad275: 'Wis tekst',
@@ -14,6 +11,7 @@ export const templates = {
   s4215e0aa2fa8f5b4: 'Type hier om te filteren',
   s4f6434b4c6326f21: 'Alle velden zijn correct.',
   s58bfb494feb8eb02: str`${0} geselecteerd`,
+  s5d929ff1619ac0c9: 'Zoeken',
   s5e10d00d437e2e21: 'Leeg',
   s5e8250fb85d64c23: 'Sluiten',
   s629576c6b305d539: 'optioneel',

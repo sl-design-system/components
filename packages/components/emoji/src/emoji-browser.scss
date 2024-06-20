@@ -7,6 +7,12 @@ sl-tab-group::part(wrapper) {
   padding-inline: 1rem;
 }
 
+sl-tab {
+  --_padding: 11px;
+
+  line-height: 0;
+}
+
 [part='wrapper'] {
   overflow: auto;
   padding-inline: 1rem;
@@ -55,8 +61,4 @@ sl-button {
   aspect-ratio: 1 / 1;
   box-sizing: border-box;
   inline-size: 32px;
-}
-
-sl-tab {
-  --_padding: var(--sl-space-tab-block);
 }

@@ -4,7 +4,7 @@ import { Button } from '@sl-design-system/button';
 import { Icon } from '@sl-design-system/icon';
 import { SearchField, type SlSearchEvent } from '@sl-design-system/search-field';
 import { type CompactEmoji, type MessagesDataset } from 'emojibase';
-import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import styles from './emoji-browser.scss.js';
 
@@ -37,6 +37,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** Frequently used emojis, separated by spaces. */
   @property({ attribute: 'frequently-used' }) frequentlyUsed?: string;
 
+  /** @internals The frequently used emojis. */
+  @state() frequentlyUsedEmojis: CompactEmoji[] = [];
+
   /** @internal The emojis, grouped by group. */
   @state() groups: Record<number, CompactEmoji[] | undefined> = {};
 
@@ -52,6 +55,13 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
+    if (changes.has('frequentlyUsed') || changes.has('emojis')) {
+      this.frequentlyUsedEmojis = this.frequentlyUsed
+        ?.split(' ')
+        .map(unicode => this.emojis.find(emoji => emoji.unicode === unicode)!)
+        .filter(Boolean) as CompactEmoji[];
+    }
+
     if (changes.has('locale')) {
       void this.#loadEmojis();
     }
@@ -66,27 +76,45 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
       ></sl-search-field>
 
       <ol class="groups">
+        ${this.frequentlyUsedEmojis?.length
+          ? html`
+              <li class="group">
+                <h1>${msg('Frequently Used')}</h1>
+                ${this.renderEmojis(this.frequentlyUsedEmojis)}
+              </li>
+            `
+          : nothing}
         ${this.messages?.groups
           .filter(({ order }) => typeof order === 'number')
           .map(
             group => html`
               <li class="group">
                 <h1>${group.message}</h1>
-                <ul class="emojis">
-                  ${this.groups?.[group.order]?.map(
-                    emoji => html`
-                      <li class="emoji">
-                        <sl-button @click=${() => this.#onClick(emoji)} aria-label=${emoji.label} fill="ghost">
-                          ${emoji.unicode}
-                        </sl-button>
-                      </li>
-                    `
-                  )}
-                </ul>
+                ${this.renderEmojis(this.groups[group.order])}
               </li>
             `
           )}
       </ol>
+    `;
+  }
+
+  renderEmojis(emojis?: CompactEmoji[]): TemplateResult | typeof nothing {
+    if (!emojis) {
+      return nothing;
+    }
+
+    return html`
+      <ul class="emojis">
+        ${emojis.map(
+          emoji => html`
+            <li class="emoji">
+              <sl-button @click=${() => this.#onClick(emoji)} aria-label=${emoji.label} fill="ghost">
+                ${emoji.unicode}
+              </sl-button>
+            </li>
+          `
+        )}
+      </ul>
     `;
   }
 

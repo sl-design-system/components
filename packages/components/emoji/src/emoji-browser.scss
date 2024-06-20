@@ -16,8 +16,9 @@ h1 {
 }
 
 .emojis {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  gap: 2px;
+  grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
 }
 
 .emoji {
@@ -25,7 +26,7 @@ h1 {
 }
 
 sl-button {
-  --_font: var(--sl-text-typeset-font-size-lg) / var(--sl-text-typeset-line-height-sm)
+  --_font: var(--sl-text-typeset-font-size-2xl) / var(--sl-text-typeset-line-height-xl)
     var(--sl-text-typeset-font-family-body);
   --_padding-block: 0;
   --_padding-inline: 0;

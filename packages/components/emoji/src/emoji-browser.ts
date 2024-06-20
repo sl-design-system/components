@@ -34,6 +34,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal The emoji data. */
   @state() emojis: CompactEmoji[] = [];
 
+  /** Frequently used emojis, separated by spaces. */
+  @property({ attribute: 'frequently-used' }) frequentlyUsed?: string;
+
   /** @internal The emojis, grouped by group. */
   @state() groups: Record<number, CompactEmoji[] | undefined> = {};
 

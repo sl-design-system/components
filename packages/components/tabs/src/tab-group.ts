@@ -82,25 +82,21 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Selected changes made by the user are handled by the click event listener.
    */
   #mutationObserver = new MutationObserver(entries => {
-    const selected = entries
-      .filter(
-        entry =>
-          entry.attributeName === 'selected' &&
-          entry.oldValue === null &&
-          entry.target instanceof Tab &&
-          entry.target.parentElement === this
-      )
-      .at(0);
+    const selected = entries.find(
+      entry =>
+        entry.attributeName === 'selected' &&
+        entry.oldValue === null &&
+        entry.target instanceof Tab &&
+        entry.target.parentElement === this
+    );
 
-    const deselected = entries
-      .filter(
-        entry =>
-          entry.attributeName === 'selected' &&
-          entry.target instanceof Tab &&
-          entry.target.parentElement === this &&
-          !entry.target.hasAttribute('selected')
-      )
-      .at(0);
+    const deselected = entries.find(
+      entry =>
+        entry.attributeName === 'selected' &&
+        entry.target instanceof Tab &&
+        entry.target.parentElement === this &&
+        !entry.target.hasAttribute('selected')
+    );
 
     // Update the selected tab with the observer turned off to avoid loops
     this.#mutationObserver?.disconnect();

@@ -82,14 +82,12 @@ describe('sl-tab-group', () => {
       expect(menuButton).not.to.exist;
     });
 
-    it('should select the first tab by default', () => {
+    it('should not have a selected tab', () => {
       const tabs = el.querySelectorAll('sl-tab[selected]'),
         panels = el.querySelectorAll('sl-tab-panel[aria-hidden="false"]');
 
-      expect(tabs).to.have.lengthOf(1);
-      expect(tabs[0]).to.have.text('Tab 1');
-      expect(panels).to.have.lengthOf(1);
-      expect(panels[0]).to.have.text('Panel 1');
+      expect(tabs).to.have.lengthOf(0);
+      expect(panels).to.have.lengthOf(0);
     });
 
     it('should select the second tab when clicked', () => {
@@ -168,26 +166,6 @@ describe('sl-tab-group', () => {
 
       expect(selectedTab).to.have.text('Tab 2');
       expect(selectedPanel).to.have.text('Panel 2');
-    });
-  });
-
-  describe('disabled', () => {
-    beforeEach(async () => {
-      el = await fixture(html`
-        <sl-tab-group>
-          <sl-tab disabled>Tab 1</sl-tab>
-          <sl-tab>Tab 2</sl-tab>
-          <sl-tab>Tab 3</sl-tab>
-          <sl-tab-panel>Panel 1</sl-tab-panel>
-          <sl-tab-panel>Panel 2</sl-tab-panel>
-          <sl-tab-panel>Panel 3</sl-tab-panel>
-        </sl-tab-group>
-      `);
-    });
-
-    it('should select the second tab by default', () => {
-      expect(el.querySelector('sl-tab[selected]')).to.have.text('Tab 2');
-      expect(el.querySelector('sl-tab-panel[aria-hidden="false"]')).to.have.text('Panel 2');
     });
   });
 

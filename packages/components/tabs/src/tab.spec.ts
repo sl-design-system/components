@@ -53,6 +53,39 @@ describe('sl-tab', () => {
     it('should not render a link', () => {
       expect(el.renderRoot.querySelector('a')).not.to.exist;
     });
+
+    it('should not have a has-icon attribute', () => {
+      expect(el).not.to.have.attribute('has-icon');
+    });
+
+    it('should have a has-icon attribute if the icon slot has content', async () => {
+      el.innerHTML = '<span slot="icon"></span>';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('has-icon');
+    });
+
+    it('should not have a has-title attribute', () => {
+      expect(el).not.to.have.attribute('has-title');
+    });
+
+    it('should have a has-title attribute if the default slot has content', async () => {
+      el.innerHTML = 'Hello world';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('has-title');
+    });
+
+    it('should not have a has-subtitle attribute', () => {
+      expect(el).not.to.have.attribute('has-subtitle');
+    });
+
+    it('should have a has-subtitle attribute if the subtitle slot has text', async () => {
+      el.innerHTML = '<span slot="subtitle">Subtitle</span>';
+      await el.updateComplete;
+
+      expect(el).to.have.attribute('has-subtitle');
+    });
   });
 
   describe('href', () => {

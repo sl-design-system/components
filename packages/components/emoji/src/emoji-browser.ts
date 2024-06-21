@@ -18,11 +18,12 @@ import { SearchField } from '@sl-design-system/search-field';
 import { type EventEmitter, event } from '@sl-design-system/shared';
 import { type SlChangeEvent, type SlSelectEvent } from '@sl-design-system/shared/events.js';
 import { Tab, TabGroup } from '@sl-design-system/tabs';
-import { type CompactEmoji, type GroupMessage, type MessagesDataset } from 'emojibase';
 import { type CSSResultGroup, LitElement, type PropertyValues, type TemplateResult, html, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { map } from 'lit/directives/map.js';
 import { repeat } from 'lit/directives/repeat.js';
 import styles from './emoji-browser.scss.js';
+import { type Emoji, type EmojiGroup, EmojiService, type SupportedLocale } from './emoji-service.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -74,23 +75,17 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** The base URL where the emoji data can be found. */
   @property({ attribute: 'base-url' }) baseUrl = '';
 
-  /** @internal The emoji data. */
-  @state() emojis: CompactEmoji[] = [];
-
   /** @internal The filtered emojis based on the `query` value. */
-  @state() filteredEmojis: CompactEmoji[] = [];
+  @state() filteredEmojis: Emoji[] = [];
 
   /** Frequently used emojis, separated by spaces. */
   @property({ attribute: 'frequently-used' }) frequentlyUsed?: string;
 
   /** @internals The frequently used emojis. */
-  @state() frequentlyUsedEmojis: CompactEmoji[] = [];
+  @state() frequentlyUsedEmojis: Emoji[] = [];
 
   /** @internal The emojis, grouped by group. */
-  @state() groupedEmojis: Record<number, CompactEmoji[] | undefined> = {};
-
-  /** @internal The emoji groups. */
-  @state() groups: GroupMessage[] = [];
+  @state() emojis?: Map<EmojiGroup, Emoji[]>;
 
   /**
    * The locale for this component.
@@ -102,27 +97,40 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   @property() query?: string;
 
   /** @internal Emits when the user selects an emoji. */
-  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<CompactEmoji>>;
+  @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<Emoji>>;
 
-  override willUpdate(changes: PropertyValues<this>): void {
+  /** @internal Service for getting the data. */
+  service?: EmojiService;
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    if (this.baseUrl) {
+      this.service = new EmojiService(this.baseUrl);
+    } else {
+      throw new Error('The `baseUrl` property is required when using the sl-emoji-browser component.');
+    }
+  }
+
+  override async willUpdate(changes: PropertyValues<this>): Promise<void> {
     super.willUpdate(changes);
 
-    if (changes.has('frequentlyUsed') || changes.has('emojis')) {
+    if (changes.has('frequentlyUsed')) {
+      const emojis = await this.service?.getEmojis(this.locale as SupportedLocale);
+
       this.frequentlyUsedEmojis = this.frequentlyUsed
         ?.split(' ')
-        .map(unicode => this.emojis.find(emoji => emoji.unicode === unicode)!)
-        .filter(Boolean) as CompactEmoji[];
+        .map(unicode => emojis?.find(emoji => emoji.unicode === unicode))
+        .filter(Boolean) as Emoji[];
     }
 
     if (changes.has('locale')) {
-      void this.#loadEmojis();
+      this.emojis = await this.service?.getGroupedEmojis(this.locale as SupportedLocale);
     }
 
-    if (changes.has('query') || changes.has('emojis')) {
-      const query = this.query?.toLowerCase();
-
-      if (query) {
-        this.filteredEmojis = this.emojis.filter(e => e.label.includes(query) || e.tags?.some(t => t.includes(query)));
+    if (changes.has('query')) {
+      if (this.query) {
+        this.filteredEmojis = (await this.service?.findEmojis(this.locale as SupportedLocale, this.query)) ?? [];
       } else {
         this.filteredEmojis = [];
       }
@@ -139,7 +147,8 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
               </sl-tab>
             `
           : nothing}
-        ${this.groups.map(
+        ${map(
+          this.emojis?.keys(),
           group => html`
             <sl-tab @click=${this.#onTabClick} .id=${`group-${group.key}`}>
               <sl-icon .name=${GROUP_ICONS[group.order]} slot="icon"></sl-icon>
@@ -165,12 +174,11 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
                     ${this.renderEmojis(this.frequentlyUsedEmojis)}
                   `
                 : nothing}
-              ${repeat(
-                this.groups,
-                group => group.key,
-                group => html`
+              ${map(
+                this.emojis?.entries(),
+                ([group, emojis]) => html`
                   <h1 .id=${group.key}>${group.message}</h1>
-                  ${this.renderEmojis(this.groupedEmojis[group.order])}
+                  ${this.renderEmojis(emojis)}
                 `
               )}
             `}
@@ -178,11 +186,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  renderEmojis(emojis?: CompactEmoji[]): TemplateResult | typeof nothing {
-    if (!emojis) {
-      return nothing;
-    }
-
+  renderEmojis(emojis: Emoji[]): TemplateResult | typeof nothing {
     return html`
       <ul class="emojis">
         ${repeat(
@@ -208,7 +212,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     this.query = '';
   }
 
-  #onClick(emoji: CompactEmoji): void {
+  #onClick(emoji: Emoji): void {
     this.selectEvent.emit(emoji);
   }
 
@@ -217,7 +221,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
       { clientHeight, offsetTop, scrollHeight, scrollTop } = event.target;
 
     if (Math.abs(scrollHeight - clientHeight - scrollTop) <= 1) {
-      this.renderRoot.querySelector(`sl-tab#group-${this.groups.at(-1)?.key}`)?.setAttribute('selected', '');
+      const group = Array.from(this.emojis?.keys() ?? []).at(-1);
+
+      this.renderRoot.querySelector(`sl-tab#group-${group?.key}`)?.setAttribute('selected', '');
     } else {
       const activeHeading = headings.find(h => h.offsetTop - scrollTop <= offsetTop);
 
@@ -235,39 +241,6 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
 
     if (key) {
       this.renderRoot.querySelector(`h1#${key}`)?.scrollIntoView();
-    }
-  }
-
-  async #loadEmojis(): Promise<void> {
-    this.emojis = await this.#loadEmojiData();
-    this.emojis = this.emojis.filter(emoji => typeof emoji.group === 'number' && emoji.group !== 2);
-    this.groupedEmojis = Object.groupBy(this.emojis, ({ group }) => group ?? -1);
-
-    const messages = await this.#loadEmojiMessages();
-    this.groups = messages.groups.filter(group => typeof group.order === 'number' && group.key !== 'component');
-  }
-
-  async #loadEmojiData(): Promise<CompactEmoji[]> {
-    const response = await fetch(`${this.baseUrl}/${this.locale}/compact.json`);
-
-    if (response.ok) {
-      const emojis = (await response.json()) as CompactEmoji[];
-
-      return emojis;
-    } else {
-      throw new Error(`Failed to load emoji data: ${response.statusText}`);
-    }
-  }
-
-  async #loadEmojiMessages(): Promise<MessagesDataset> {
-    const response = await fetch(`${this.baseUrl}/${this.locale}/messages.json`);
-
-    if (response.ok) {
-      const messages = (await response.json()) as MessagesDataset;
-
-      return messages;
-    } else {
-      throw new Error(`Failed to load emoji data: ${response.statusText}`);
     }
   }
 }

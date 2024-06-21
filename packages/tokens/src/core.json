@@ -500,6 +500,12 @@
     "breadcrumb": {
       "value": "{size.2xl}",
       "type": "sizing"
+    },
+    "tab": {
+      "indicator": {
+        "value": "{size.4xs}",
+        "type": "sizing"
+      }
     }
   },
   "space": {

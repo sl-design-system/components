@@ -14,7 +14,8 @@
   --_font-subtitle: var(--sl-text-tab-subtitle);
   --_gap: var(--sl-space-tab-gap);
   --_icon-block-size: var(--sl-text-typeset-line-height-md);
-  --_padding: var(--sl-space-tab-block) var(--sl-space-tab-inline);
+  --_padding-block: var(--sl-space-tab-block);
+  --_padding-inline: var(--sl-space-tab-inline);
 
   background: var(--_background);
   color: var(--_color);
@@ -48,6 +49,17 @@
   }
 }
 
+:host([has-icon]:not([has-title])) {
+  a,
+  .wrapper {
+    --_padding-inline: var(--_padding-block);
+  }
+}
+
+:host([has-title]) .content {
+  display: flex;
+}
+
 :host([has-subtitle]) .title {
   font: var(--_font);
 }
@@ -59,7 +71,8 @@ a,
   gap: var(--_gap);
   justify-content: center;
   outline: 0;
-  padding: var(--_padding);
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
 
   &:focus-visible {
     border-radius: var(--_focus-radius);
@@ -85,7 +98,7 @@ slot[name='icon']::slotted(sl-icon) {
 }
 
 .content {
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 

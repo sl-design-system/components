@@ -7,23 +7,13 @@ sl-tab-group::part(wrapper) {
   padding-inline: 1rem;
 }
 
-sl-tab {
-  --_padding: 11px;
-
-  line-height: 0;
-}
-
 [part='wrapper'] {
   overflow: auto;
-  padding-inline: 1rem;
+  padding: 1rem;
 }
 
-sl-search-field {
+sl-search-field + .emojis {
   margin-block-start: 1rem;
-
-  + .emojis {
-    margin-block-start: 1rem;
-  }
 }
 
 ol,

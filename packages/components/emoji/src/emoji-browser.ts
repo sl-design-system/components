@@ -119,6 +119,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
           { offsetTop, scrollTop } = this.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!;
 
         const activeGroup = groups.find(group => group.offsetTop - scrollTop <= offsetTop);
+
         if (activeGroup) {
           this.renderRoot.querySelector(`#group-${activeGroup.id}`)?.setAttribute('selected', '');
         } else {
@@ -191,7 +192,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
         )}
       </sl-tab-group>
 
-      <div part="wrapper">
+      <div @scrollend=${this.#onScrollEnd} part="wrapper">
         <sl-search-field
           @sl-change=${this.#onChange}
           @sl-clear=${this.#onClear}
@@ -261,12 +262,22 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     this.selectEvent.emit(emoji);
   }
 
+  #onScrollEnd(event: Event & { target: HTMLElement }): void {
+    const { clientHeight, scrollHeight, scrollTop } = event.target;
+
+    if (Math.abs(scrollHeight - clientHeight - scrollTop) <= 1) {
+      const group = this.groups.at(-1);
+
+      this.renderRoot.querySelector(`sl-tab#group-${group?.key}`)?.setAttribute('selected', '');
+    }
+  }
+
   #onTabClick(event: Event & { target: HTMLElement }): void {
     const tab = event.target.closest('sl-tab'),
       key = tab?.id.split('group-').at(1);
 
     if (key) {
-      this.renderRoot.querySelector(`h1#${key}`)?.scrollIntoView({ behavior: 'smooth' });
+      this.renderRoot.querySelector(`h1#${key}`)?.scrollIntoView();
     }
   }
 

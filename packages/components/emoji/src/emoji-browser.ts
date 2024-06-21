@@ -71,9 +71,6 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Observes the position of the group headers to update the tabs. */
-  #observer?: IntersectionObserver;
-
   /** The base URL where the emoji data can be found. */
   @property({ attribute: 'base-url' }) baseUrl = '';
 
@@ -107,39 +104,6 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the user selects an emoji. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<CompactEmoji>>;
 
-  override async connectedCallback(): Promise<void> {
-    super.connectedCallback();
-
-    // Wait until the component has rendered before observing the group headers.
-    await this.updateComplete;
-
-    this.#observer = new IntersectionObserver(
-      () => {
-        const groups = Array.from(this.renderRoot.querySelectorAll('h1')).reverse(),
-          { offsetTop, scrollTop } = this.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!;
-
-        const activeGroup = groups.find(group => group.offsetTop - scrollTop <= offsetTop);
-
-        if (activeGroup) {
-          this.renderRoot.querySelector(`#group-${activeGroup.id}`)?.setAttribute('selected', '');
-        } else {
-          this.renderRoot.querySelector('sl-tab[selected]')?.removeAttribute('selected');
-        }
-      },
-      {
-        root: this.renderRoot.querySelector('[part="wrapper"]'),
-        threshold: 1
-      }
-    );
-  }
-
-  override disconnectedCallback(): void {
-    this.#observer?.disconnect();
-    this.#observer = undefined;
-
-    super.disconnectedCallback();
-  }
-
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -165,14 +129,6 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  override updated(changes: PropertyValues<this>): void {
-    super.updated(changes);
-
-    if (changes.has('filteredEmojis') || changes.has('frequentlyUsedEmojis') || changes.has('groups')) {
-      this.renderRoot.querySelectorAll('h1').forEach(header => this.#observer?.observe(header));
-    }
-  }
-
   override render(): TemplateResult {
     return html`
       <sl-tab-group>
@@ -192,7 +148,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
         )}
       </sl-tab-group>
 
-      <div @scrollend=${this.#onScrollEnd} part="wrapper">
+      <div @scroll=${this.#onScroll} part="wrapper">
         <sl-search-field
           @sl-change=${this.#onChange}
           @sl-clear=${this.#onClear}
@@ -203,26 +159,20 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
         ${this.filteredEmojis.length
           ? this.renderEmojis(this.filteredEmojis)
           : html`
-              <ol class="groups">
-                ${this.frequentlyUsedEmojis?.length
-                  ? html`
-                      <li class="group">
-                        <h1 id="frequently-used">${msg('Frequently Used')}</h1>
-                        ${this.renderEmojis(this.frequentlyUsedEmojis)}
-                      </li>
-                    `
-                  : nothing}
-                ${repeat(
-                  this.groups,
-                  group => group.key,
-                  group => html`
-                    <li class="group">
-                      <h1 .id=${group.key}>${group.message}</h1>
-                      ${this.renderEmojis(this.groupedEmojis[group.order])}
-                    </li>
+              ${this.frequentlyUsedEmojis?.length
+                ? html`
+                    <h1 id="frequently-used">${msg('Frequently Used')}</h1>
+                    ${this.renderEmojis(this.frequentlyUsedEmojis)}
                   `
-                )}
-              </ol>
+                : nothing}
+              ${repeat(
+                this.groups,
+                group => group.key,
+                group => html`
+                  <h1 .id=${group.key}>${group.message}</h1>
+                  ${this.renderEmojis(this.groupedEmojis[group.order])}
+                `
+              )}
             `}
       </div>
     `;
@@ -262,13 +212,20 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     this.selectEvent.emit(emoji);
   }
 
-  #onScrollEnd(event: Event & { target: HTMLElement }): void {
-    const { clientHeight, scrollHeight, scrollTop } = event.target;
+  #onScroll(event: Event & { target: HTMLElement }): void {
+    const headings = Array.from(this.renderRoot.querySelectorAll('h1')).reverse(),
+      { clientHeight, offsetTop, scrollHeight, scrollTop } = event.target;
 
     if (Math.abs(scrollHeight - clientHeight - scrollTop) <= 1) {
-      const group = this.groups.at(-1);
+      this.renderRoot.querySelector(`sl-tab#group-${this.groups.at(-1)?.key}`)?.setAttribute('selected', '');
+    } else {
+      const activeHeading = headings.find(h => h.offsetTop - scrollTop <= offsetTop);
 
-      this.renderRoot.querySelector(`sl-tab#group-${group?.key}`)?.setAttribute('selected', '');
+      if (activeHeading) {
+        this.renderRoot.querySelector(`#group-${activeHeading.id}`)?.setAttribute('selected', '');
+      } else {
+        this.renderRoot.querySelector('sl-tab[selected]')?.removeAttribute('selected');
+      }
     }
   }
 

@@ -65,6 +65,25 @@ export const Empty: Story = {
   }
 };
 
+export const IconOnly: Story = {
+  args: {
+    tabs: () => html`
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+    `
+  }
+};
+
 export const InitialSelected: Story = {
   args: {
     ...Basic.args,

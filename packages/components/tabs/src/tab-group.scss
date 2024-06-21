@@ -195,10 +195,13 @@
   block-size: var(--_indicator-size);
   inline-size: 100px;
   inset: auto auto 0 0;
+  opacity: 0;
   position: absolute;
+  scale: 0 1;
   transform-origin: center left;
   transition-property: scale, translate;
   transition-timing-function: ease-in-out;
+  translate: 0;
 
   /** z-index is set to 2 to make sure the indicator is above the tab, when that is selected, focused or hovered */
   z-index: 2;

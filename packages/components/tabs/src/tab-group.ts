@@ -82,7 +82,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
    * Selected changes made by the user are handled by the click event listener.
    */
   #mutationObserver = new MutationObserver(entries => {
-    entries
+    const selected = entries
       .filter(
         entry =>
           entry.attributeName === 'selected' &&
@@ -90,14 +90,28 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
           entry.target instanceof Tab &&
           entry.target.parentElement === this
       )
-      .forEach(entry => {
-        this.#mutationObserver?.disconnect();
+      .at(0);
 
-        // Update the selected tab with the observer turned off to avoid loops
-        this.#updateSelectedTab(entry.target as Tab);
+    const deselected = entries
+      .filter(
+        entry =>
+          entry.attributeName === 'selected' &&
+          entry.target instanceof Tab &&
+          entry.target.parentElement === this &&
+          !entry.target.hasAttribute('selected')
+      )
+      .at(0);
 
-        this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
-      });
+    // Update the selected tab with the observer turned off to avoid loops
+    this.#mutationObserver?.disconnect();
+
+    if (selected) {
+      this.#updateSelectedTab(selected.target as Tab);
+    } else if (deselected) {
+      this.#updateSelectedTab();
+    }
+
+    this.#mutationObserver?.observe(this, OBSERVER_OPTIONS);
   });
 
   /**
@@ -124,22 +138,22 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
   /** The alignment of tabs within the wrapper. */
   @property({ attribute: 'align-tabs', reflect: true }) alignTabs?: TabsAlignment;
 
-  /** The menu items to render when the tabs are overflowing. */
+  /** @internal The menu items to render when the tabs are overflowing. */
   @state() menuItems?: Array<{ tab: Tab; disabled?: boolean; title: string; subtitle?: string }>;
 
-  /** The currently selected tab. */
+  /** @internal The currently selected tab. */
   @state() selectedTab?: Tab;
 
-  /** Whether the menu button needs to be shown. */
+  /** @internal Whether the menu button needs to be shown. */
   @state() showMenu = false;
 
   /** @internal Emits when the tab has been selected/changed. */
   @event({ name: 'sl-tab-change' }) tabChangeEvent!: EventEmitter<SlTabChangeEvent>;
 
-  /** The slotted tabs. */
+  /** @internal The slotted tabs. */
   @state() tabPanels?: TabPanel[];
 
-  /** The slotted tabs. */
+  /** @internal The slotted tabs. */
   @state() tabs?: Tab[];
 
   /** Renders the tabs vertically instead of the default horizontal  */
@@ -201,7 +215,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
             <div @scroll=${this.#onScroll} part="scroller">
               <div @click=${this.#onClick} @keydown=${this.#onKeydown} part="tablist" role="tablist">
                 <span class="indicator" role="presentation"></span>
-                <slot @slotchange=${this.#onTabSlotchange} name="tabs"></slot>
+                <slot @slotchange=${this.#onTabSlotChange} name="tabs"></slot>
               </div>
             </div>
           </div>
@@ -223,7 +237,7 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
         </div>
       </div>
       <div part="panels">
-        <slot @slotchange=${this.#onTabPanelSlotchange}></slot>
+        <slot @slotchange=${this.#onTabPanelSlotChange}></slot>
       </div>
     `;
   }
@@ -274,20 +288,19 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     this.toggleAttribute('scroll-end', scrollEnd);
   }
 
-  #onTabSlotchange(event: Event & { target: HTMLSlotElement }): void {
+  #onTabSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.tabs = event.target.assignedElements({ flatten: true }).filter((el): el is Tab => el instanceof Tab);
     this.tabs.forEach((tab, index) => {
       tab.id ||= `${this.#idPrefix}-tab-${index + 1}`;
     });
 
-    // If no tab is selected, select the first enabled one
-    this.selectedTab = this.tabs.find(tab => tab.selected) || this.tabs.find(tab => !tab.disabled);
+    this.selectedTab = this.tabs.find(tab => tab.selected);
 
     this.#rovingTabindexController.clearElementCache();
     this.#linkTabsWithPanels();
   }
 
-  #onTabPanelSlotchange(event: Event & { target: HTMLSlotElement }): void {
+  #onTabPanelSlotChange(event: Event & { target: HTMLSlotElement }): void {
     this.tabPanels = event.target
       .assignedElements({ flatten: true })
       .filter((el): el is TabPanel => el instanceof TabPanel);
@@ -353,29 +366,37 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
     getScrollParent(this)?.scrollBy({ top: top - (this.vertical ? wrapperTop : containerBottom) });
   }
 
-  #updateSelectedTab(selectedTab: Tab): void {
+  #updateSelectedTab(selectedTab?: Tab): void {
     if (selectedTab !== this.selectedTab) {
       this.tabs?.forEach(tab => tab.toggleAttribute('selected', tab === selectedTab));
 
       this.querySelectorAll('sl-tab-panel').forEach(panel => {
-        panel.setAttribute('aria-hidden', selectedTab.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
+        panel.setAttribute('aria-hidden', selectedTab?.getAttribute('aria-controls') === panel.id ? 'false' : 'true');
       });
 
       this.selectedTab = selectedTab;
-      this.tabChangeEvent.emit(this.tabs?.indexOf(selectedTab) ?? 0);
+      this.tabChangeEvent.emit(selectedTab ? this.tabs?.indexOf(selectedTab) ?? 0 : -1);
       this.#updateSelectionIndicator();
     }
 
-    this.#scrollIntoViewIfNeeded(selectedTab);
+    if (selectedTab) {
+      this.#scrollIntoViewIfNeeded(selectedTab);
+    }
   }
 
   #updateSelectionIndicator(): void {
+    const indicator = this.renderRoot.querySelector('.indicator') as HTMLElement;
+
     if (!this.selectedTab) {
+      indicator.style.opacity = '';
+      indicator.style.scale = '';
+      indicator.style.transitionDuration = '0s';
+      indicator.style.translate = '';
+
       return;
     }
 
-    const indicator = this.renderRoot.querySelector('.indicator') as HTMLElement,
-      tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
+    const tablist = this.renderRoot.querySelector('[part="tablist"]') as HTMLElement,
       rect = this.selectedTab.getBoundingClientRect();
 
     let start = 0;
@@ -385,7 +406,9 @@ export class TabGroup extends ScopedElementsMixin(LitElement) {
       start = rect.left - tablist.getBoundingClientRect().left;
     }
 
+    indicator.style.opacity = '1';
     indicator.style.transitionDuration = this.#shouldAnimate ? '' : '0s';
+    indicator.style.transitionProperty = indicator.style.translate === '' ? 'opacity' : '';
 
     if (this.vertical) {
       indicator.style.scale = `1 ${rect.height / 100}`;

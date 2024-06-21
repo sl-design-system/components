@@ -110,6 +110,14 @@
   <source>Clear text</source>
   <target>Wis tekst</target>
 </trans-unit>
+<trans-unit id="sefa2cd5631cae9d8">
+  <source>Step up</source>
+  <target>Stap omhoog</target>
+</trans-unit>
+<trans-unit id="s078cac19db271b0d">
+  <source>Step down</source>
+  <target>Stap omlaag</target>
+</trans-unit>
 </body>
 </file>
 </xliff>

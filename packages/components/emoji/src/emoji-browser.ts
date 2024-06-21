@@ -71,6 +71,9 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /** Observes the position of the group headers to update the tabs. */
+  #observer?: IntersectionObserver;
+
   /** The base URL where the emoji data can be found. */
   @property({ attribute: 'base-url' }) baseUrl = '';
 
@@ -104,6 +107,38 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   /** @internal Emits when the user selects an emoji. */
   @event({ name: 'sl-select' }) selectEvent!: EventEmitter<SlSelectEvent<CompactEmoji>>;
 
+  override async connectedCallback(): Promise<void> {
+    super.connectedCallback();
+
+    // Wait until the component has rendered before observing the group headers.
+    await this.updateComplete;
+
+    this.#observer = new IntersectionObserver(
+      () => {
+        const groups = Array.from(this.renderRoot.querySelectorAll('h1')).reverse(),
+          { offsetTop, scrollTop } = this.renderRoot.querySelector<HTMLElement>('[part="wrapper"]')!;
+
+        const activeGroup = groups.find(group => group.offsetTop - scrollTop <= offsetTop);
+        if (activeGroup) {
+          this.renderRoot.querySelector(`#group-${activeGroup.id}`)?.setAttribute('selected', '');
+        } else {
+          this.renderRoot.querySelector('sl-tab[selected]')?.removeAttribute('selected');
+        }
+      },
+      {
+        root: this.renderRoot.querySelector('[part="wrapper"]'),
+        threshold: 1
+      }
+    );
+  }
+
+  override disconnectedCallback(): void {
+    this.#observer?.disconnect();
+    this.#observer = undefined;
+
+    super.disconnectedCallback();
+  }
+
   override willUpdate(changes: PropertyValues<this>): void {
     super.willUpdate(changes);
 
@@ -129,11 +164,31 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
     }
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('filteredEmojis') || changes.has('frequentlyUsedEmojis') || changes.has('groups')) {
+      this.renderRoot.querySelectorAll('h1').forEach(header => this.#observer?.observe(header));
+    }
+  }
+
   override render(): TemplateResult {
     return html`
       <sl-tab-group>
-        ${this.frequentlyUsedEmojis?.length ? html`<sl-tab><sl-icon name="far-clock"></sl-icon></sl-tab>` : nothing}
-        ${this.groups.map(group => html`<sl-tab><sl-icon .name=${GROUP_ICONS[group.order]}></sl-icon></sl-tab>`)}
+        ${this.frequentlyUsedEmojis?.length
+          ? html`
+              <sl-tab @click=${this.#onTabClick} id="group-frequently-used">
+                <sl-icon name="far-clock" slot="icon"></sl-icon>
+              </sl-tab>
+            `
+          : nothing}
+        ${this.groups.map(
+          group => html`
+            <sl-tab @click=${this.#onTabClick} .id=${`group-${group.key}`}>
+              <sl-icon .name=${GROUP_ICONS[group.order]} slot="icon"></sl-icon>
+            </sl-tab>
+          `
+        )}
       </sl-tab-group>
 
       <div part="wrapper">
@@ -151,7 +206,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
                 ${this.frequentlyUsedEmojis?.length
                   ? html`
                       <li class="group">
-                        <h1>${msg('Frequently Used')}</h1>
+                        <h1 id="frequently-used">${msg('Frequently Used')}</h1>
                         ${this.renderEmojis(this.frequentlyUsedEmojis)}
                       </li>
                     `
@@ -161,7 +216,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
                   group => group.key,
                   group => html`
                     <li class="group">
-                      <h1>${group.message}</h1>
+                      <h1 .id=${group.key}>${group.message}</h1>
                       ${this.renderEmojis(this.groupedEmojis[group.order])}
                     </li>
                   `
@@ -204,6 +259,15 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
 
   #onClick(emoji: CompactEmoji): void {
     this.selectEvent.emit(emoji);
+  }
+
+  #onTabClick(event: Event & { target: HTMLElement }): void {
+    const tab = event.target.closest('sl-tab'),
+      key = tab?.id.split('group-').at(1);
+
+    if (key) {
+      this.renderRoot.querySelector(`h1#${key}`)?.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   async #loadEmojis(): Promise<void> {

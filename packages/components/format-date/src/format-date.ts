@@ -9,85 +9,74 @@ declare global {
   }
 }
 
-// export interface FormatDateOptions extends Intl.DateTimeFormatOptions {
-//   locale: string;
-// }
-//
-// export function formatDate(date: Date, options: FormatDateOptions): string {
-//   const { locale, ...rest } = options;
-//
-//   return new Intl.DateTimeFormat(locale, rest).format(date);
-// }
-
 /**
  * A format date component for formatting date and time.
  *
  * @slot default - A place for the fallback when there is no valid date/time applied.
  */
 export class FormatDate extends LocaleMixin(LitElement) {
-  // TODO: extends LocaleMixin?
-
   #date?: Date = new Date();
 
-  @property() era?: 'narrow' | 'short' | 'long';
+  /** The format for displaying the weekday. */
+  @property() weekday?: Intl.DateTimeFormatOptions['weekday'];
 
-  @property() year?: '2-digit' | 'numeric' = 'numeric';
+  /** The format for displaying the era (eg. 'long' -> `Anno Domini`). */
+  @property() era?: Intl.DateTimeFormatOptions['era'];
 
-  /** The format for displaying the month. */
-  @property() month?: 'numeric' | '2-digit' | 'narrow' | 'short' | 'long' = '2-digit';
+  /** The format for displaying the year. Default to `numeric` when all properties are `undefined`. */
+  @property() year?: Intl.DateTimeFormatOptions['year'];
 
-  /** The format for displaying the day. */
-  @property() day?: 'numeric' | '2-digit' = '2-digit';
+  /** The format for displaying the month. Default to `numeric` when all properties are `undefined`. */
+  @property() month?: Intl.DateTimeFormatOptions['month'];
+
+  /** The format for displaying the day. Default to `numeric` when all properties are `undefined`. */
+  @property() day?: Intl.DateTimeFormatOptions['day'];
 
   /** The format for displaying the day periods. It only has an effect if a 12-hour clock - hour12 is set to true */
-  @property() dayPeriod?: 'narrow' | 'short' | 'long'; // TODO: maybe remove this one? should be connected with hourCycle
-
-  /** The format for displaying the weekday. */
-  @property() weekday?: 'narrow' | 'short' | 'long';
+  @property() dayPeriod?: Intl.DateTimeFormatOptions['dayPeriod'];
 
   /** The format for displaying the hour. */
-  @property() hour?: '2-digit' | 'numeric';
+  @property() hour?: Intl.DateTimeFormatOptions['hour'];
 
   /** The format for displaying the minute. */
-  @property() minute?: 'numeric' | '2-digit';
+  @property() minute?: Intl.DateTimeFormatOptions['minute'];
 
   /** The format for displaying the second. */
-  @property() second?: 'numeric' | '2-digit';
+  @property() second?: Intl.DateTimeFormatOptions['second'];
 
   /** The format for displaying the time. */
-  @property({ attribute: 'time-zone-name' }) timeZoneName?: 'short' | 'long';
+  @property() timeZoneName?: Intl.DateTimeFormatOptions['timeZoneName'];
 
-  /** The time zone to express the time in. */
-  @property({ attribute: 'time-zone' }) timeZone?: string;
+  /** The time zone to express the time in. The default is the runtime's default time zone. */
+  @property() timeZone?: Intl.DateTimeFormatOptions['timeZone'];
 
-  // /** When set, 24 hour time will always be used. */
-  // @property({ attribute: 'hour-format' }) hourFormat: 'auto' | '12' | '24' = 'auto';
+  /** Whether to use 12-hour time or not (when `false` is set 24-hour time is used). The default is locale dependent. */
+  @property({ type: Boolean }) hour12?: Intl.DateTimeFormatOptions['hour12'];
 
-  /** When set, 24 hour time will always be used. */
-  @property({ type: Boolean }) hour12?: boolean | undefined;
-
-  // TODO: month, day, dayPeriod, hour, minute, second, fractionalseconddigits??, timeZoneName, formatMatcher??, datestyle, timestyle
-  // TODO; calendar, numberingSystem, hour12, hourCycle, timeZone
+  /**
+   * Use this property if you need access to advanced formatting options not provided via properties of this component.
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat
+   */
+  @property({ type: Object, attribute: 'date-time-options' }) dateTimeOptions?: Intl.DateTimeFormatOptions;
 
 
   set date(value: number | string | Date | undefined | null) {
-    const oldVal = this.#date;
-    console.log('oldVal', oldVal, 'value????',  value);
+    const oldValue = this.#date;
+    console.log('oldVal', oldValue, 'value????',  value);
 
     if (value instanceof Date) {
       this.#date = value;
     } else if (typeof value === 'number' && this.#isDateValid(value)) {
       this.#date = new Date(value);
     } else if (typeof value === 'string' && this.#isDateValid(value)) {
-      this.#date = new Date(value); //value;
-      // this.#date = dateConverter.fromAttribute(value);
+      this.#date = new Date(value);
     } else {
       this.#date = undefined;
     }
 
     console.log('date in set date?', this.#date);
 
-    this.requestUpdate('date', oldVal);
+    this.requestUpdate('date', oldValue);
   }
 
   /** The date/time to format. If not set, the current date and time will be used. */
@@ -99,63 +88,36 @@ export class FormatDate extends LocaleMixin(LitElement) {
   override render(): TemplateResult {
     const myOptions = { year: 'numeric', month: 'short', day: 'numeric', weekday: 'long', locale: 'pl' } as const;
     console.log('---format date time----', formatDateTime(new Date(), this.locale ? this.locale : 'pl', myOptions));
-    // Intl.DateTimeFormatOptions()
-    // new Intl.DateTimeFormat(Locale)
     console.log('thiiiis.date', this.date);
     console.log('date', this.#date, 'with locales', new Intl.DateTimeFormat(), new Intl.DateTimeFormat('pl').format(this.#date));
     return html`
       ${(!this.date) ? html`<slot></slot>` : this.#formatDateTime(this.date)}
     `;
-  } // ${formatDate(this.#date, {locale: 'pl'})}
-  // TODO: test timezone eg. UTC
-  // TODO: render check if this is a date or sth else, if not retun fallback
+  }
 
-  // TODO hour12 undefined when not set?
-
-  // this.dejt? ${this.date}
-  // formaaat ----> ${this.date ? this.#formatDateTime(this.date) : 'no date'}
-
-/*  hour12???  ${this.hour12}
-  this.dejt? ${this.date} ${this.#formatDateTime(new Date)}
-  <slot></slot>*/
-
-
-/*<div class="wrapper" style="background: lightskyblue;">
-    ${this.#date}
-    <slot></slot>
-  ${formatDate(new Date(), { locale: 'pl', weekday: 'long', timeZoneName: 'short' })}
-dateStyle: ${formatDate(new Date(), { locale: 'en', dateStyle: 'long' })}
-dateValid??? ${this.#isDateValid(this.#date as string)}
-  22dateValid??? ${this.#isDateValid('unknown')}
-    </div>
-    <div style="background: lightyellow;">
-      ${(!this.date || !this.#isDateValid(this.date as string))
-        ? html`slooooot <slot></slot>`
-        : this.date}
-      ${this.#date}
-      </div>
-      <div style="background: lightgreen;">
-        ${(!this.date)
-          ? html`test<slot></slot>`
-          : this.date}
-        ${this.#date}
-      </div>*/
 
 
   #formatDateTime(date: Date): string { // TODO: in separated file?
     const localeString = this.locale ? this.locale : 'en';
-    console.log('thiiiis', this.day, this.month, this.year, this.locale);
-    const { weekday, era, year, month, day, hour, minute, second, timeZoneName, timeZone } = this;
+    const { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 } = this;
     console.log('locale', localeString);
-    const hour12 = this.hour12 ? this.hour12 : undefined;
-    console.log('hour12', hour12);
-    return formatDateTime(date, localeString, { weekday, era, year, month, day, hour, minute, second, timeZoneName, timeZone });
-  //  return date.toString();
+    let options = {
+      weekday,
+      era,
+      year,
+      month,
+      day,
+      dayPeriod,
+      hour,
+      minute,
+      second,
+      timeZoneName,
+      timeZone,
+      hour12
+    };
+    console.log('hour12', hour12, formatDateTime(date, localeString, {...options, ...this.dateTimeOptions}));
+    return formatDateTime(date, localeString, {...options, ...this.dateTimeOptions});
   }
-
-  // #isDateValid(date: string): boolean {
-  //   return !isNaN(new Date(date));
-  // }
 
   #isDateValid(date: string | number): boolean {
     const parsedDate = new Date(date);

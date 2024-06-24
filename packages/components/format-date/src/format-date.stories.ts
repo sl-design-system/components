@@ -1,7 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
 import '../register.js';
-import { format } from './format';
 import { type FormatDate } from './format-date.js';
 
 type Props = Pick<
@@ -127,40 +126,5 @@ export const Basic: Story = {
 export const InvalidDate: Story = {
   args: {
     fallback: 'This date is not valid and I cannot render it.'
-  }
-};
-
-export const Function: StoryObj = {
-  render: props => {
-    const { date, locale, ...options } = props;
-
-    try {
-      const formattedDate = format(
-        date ? (date as Date) : new Date(),
-        locale as string,
-        options as Intl.DateTimeFormatOptions | undefined
-      );
-
-      return html`
-        <style>
-          article {
-            display: flex;
-            flex-direction: column;
-          }
-
-          span {
-            margin-block: 16px;
-            font-size: 24px;
-            font-weight: 600;
-          }
-        </style>
-        <article>
-          This is a value rendered with function <code>format</code>
-          <span>${formattedDate ? formattedDate : nothing}</span>
-        </article>
-      `;
-    } catch {
-      return html`Something went wrong. Please check function parameters.`;
-    }
   }
 };

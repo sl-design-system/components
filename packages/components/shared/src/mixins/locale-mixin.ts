@@ -37,7 +37,6 @@ export function LocaleMixin<T extends Constructor<LitElement>>(constructor: T): 
     @property()
     set locale(value: string) {
       this.#locale = value;
-      console.log('this.locale in locale mixin', this.#locale);
     }
 
     override connectedCallback(): void {

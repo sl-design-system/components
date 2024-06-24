@@ -33,7 +33,7 @@ export class FormatDate extends LocaleMixin(LitElement) {
   @property() day?: Intl.DateTimeFormatOptions['day'];
 
   /** The format for displaying the day periods. It only has an effect if a 12-hour clock - hour12 is set to true */
-  @property() dayPeriod?: Intl.DateTimeFormatOptions['dayPeriod'];
+  @property({ attribute: 'day-period' }) dayPeriod?: Intl.DateTimeFormatOptions['dayPeriod'];
 
   /** The format for displaying the hour. */
   @property() hour?: Intl.DateTimeFormatOptions['hour'];
@@ -45,10 +45,10 @@ export class FormatDate extends LocaleMixin(LitElement) {
   @property() second?: Intl.DateTimeFormatOptions['second'];
 
   /** The format for displaying the time. */
-  @property() timeZoneName?: Intl.DateTimeFormatOptions['timeZoneName'];
+  @property({ attribute: 'time-zone-name' }) timeZoneName?: Intl.DateTimeFormatOptions['timeZoneName'];
 
   /** The time zone to express the time in. The default is the runtime's default time zone. */
-  @property() timeZone?: Intl.DateTimeFormatOptions['timeZone'];
+  @property({ attribute: 'time-zone' }) timeZone?: Intl.DateTimeFormatOptions['timeZone'];
 
   /** Whether to use 12-hour time or not (when `false` is set 24-hour time is used). The default is locale dependent. */
   @property({ type: Boolean }) hour12?: Intl.DateTimeFormatOptions['hour12'];
@@ -61,7 +61,6 @@ export class FormatDate extends LocaleMixin(LitElement) {
 
   set date(value: number | string | Date | undefined | null) {
     const oldValue = this.#date;
-    console.log('oldVal', oldValue, 'value????', value);
 
     if (value instanceof Date) {
       this.#date = value;
@@ -73,8 +72,6 @@ export class FormatDate extends LocaleMixin(LitElement) {
       this.#date = undefined;
     }
 
-    console.log('date in set date?', this.#date);
-
     this.requestUpdate('date', oldValue);
   }
 
@@ -85,39 +82,14 @@ export class FormatDate extends LocaleMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    const myOptions = { year: 'numeric', month: 'short', day: 'numeric', weekday: 'long', locale: 'pl' } as const;
-    console.log('---format date time----', formatDateTime(new Date(), this.locale ? this.locale : 'pl', myOptions));
-    console.log('thiiiis.date', this.date);
-    console.log(
-      'date',
-      this.#date,
-      'with locales',
-      new Intl.DateTimeFormat(),
-      new Intl.DateTimeFormat('pl').format(this.#date)
-    );
     return html` ${!this.date ? html`<slot></slot>` : this.#formatDateTime(this.date)} `;
   }
 
   #formatDateTime(date: Date): string {
-    // TODO: in separated file?
-    const localeString = this.locale ? this.locale : 'en';
-    const { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 } = this;
-    console.log('locale', localeString);
-    const options = {
-      weekday,
-      era,
-      year,
-      month,
-      day,
-      dayPeriod,
-      hour,
-      minute,
-      second,
-      timeZoneName,
-      timeZone,
-      hour12
-    };
-    console.log('hour12', hour12, formatDateTime(date, localeString, { ...options, ...this.dateTimeOptions }));
+    const localeString = this.locale ? this.locale : 'en',
+     { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 } = this,
+     options = { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 };
+
     return formatDateTime(date, localeString, { ...options, ...this.dateTimeOptions });
   }
 

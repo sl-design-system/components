@@ -1,9 +1,7 @@
-import '@sl-design-system/button/register.js';
-import '@sl-design-system/button-bar/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html, nothing } from 'lit';
 import '../register.js';
-import { FormatDate } from './format-date';
+import { type FormatDate } from './format-date.js';
 import { formatDateTime } from './format-date-time';
 
 interface Props extends FormatDate {
@@ -119,56 +117,44 @@ export const InvalidDate: Story = {
 };
 
 export const Function: StoryObj = {
-  render: ({ date,
-             locale,
-             weekday,
-             era,
-             year,
-             month,
-             day,
-             dayPeriod,
-             hour,
-             minute,
-             second,
-             timeZoneName,
-             timeZone,
-             hour12 }) => {
-              try {
-                const options = {
-                  weekday,
-                  era,
-                  year,
-                  month,
-                  day,
-                  dayPeriod,
-                  hour,
-                  minute,
-                  second,
-                  timeZoneName,
-                  timeZone,
-                  hour12 };
-                const formattedDate = formatDateTime(date ? date : new Date, locale, options);
-                return html`
-                  <style>
-                    article {
-                      display: flex;
-                      flex-direction: column;
-                    }
+  render: ({ date, locale, weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 }) => {
+    const options: Intl.DateTimeFormatOptions = {
+      weekday,
+      era,
+      year,
+      month,
+      day,
+      dayPeriod,
+      hour,
+      minute,
+      second,
+      timeZoneName,
+      timeZone,
+      hour12,
+    };
+    try {
+      const formattedDate = formatDateTime(date ? date as Date : new Date(), locale as string, options);
 
-                    span {
-                      margin-block: 16px;
-                      font-size: 24px;
-                      font-weight: 600;
-                    }
-                  </style>
-                <article>This is a value rendered with function <code>formatDateTime</code>
-                  <span>
-                    ${formattedDate ? formattedDate : nothing}
-                  </span>
-                </article>
-            `
-              } catch {
-                return html`Something went wrong. Please check function parameters.`
-              }
-            }
+      return html`
+        <style>
+          article {
+            display: flex;
+            flex-direction: column;
+          }
+
+          span {
+            margin-block: 16px;
+            font-size: 24px;
+            font-weight: 600;
+          }
+        </style>
+        <article>
+          This is a value rendered with function <code>formatDateTime</code>
+          <span>${formattedDate ? formattedDate : nothing}</span>
+        </article>
+      `;
+    } catch {
+      return html`Something went wrong. Please check function parameters.`;
+    }
+  },
 };

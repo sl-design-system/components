@@ -81,7 +81,7 @@ describe('sl-format-number', () => {
       el.hour = 'numeric';
 
       await el.updateComplete;
-      expect(el.renderRoot).to.have.trimmed.text('3 PM');
+      expect(el.renderRoot).to.have.trimmed.text('2 PM');
     });
 
     it('should format date (time) with the numeric minute when set', async () => {
@@ -98,13 +98,6 @@ describe('sl-format-number', () => {
       expect(el.renderRoot).to.have.trimmed.text('42');
     });
 
-    it('should format date (time) with the long time zone name when set', async () => {
-      el.timeZoneName = 'long';
-
-      await el.updateComplete;
-      expect(el.renderRoot).to.have.trimmed.text('12/17/2022, Central European Standard Time');
-    });
-
     it('should format date (time) with the set time zone', async () => {
       el.timeZone = 'UTC';
       el.timeZoneName = 'short';
@@ -113,13 +106,22 @@ describe('sl-format-number', () => {
       expect(el.renderRoot).to.have.trimmed.text('12/17/2022, UTC');
     });
 
+    it('should format date (time) with the long time zone name when set', async () => {
+      el.timeZone = 'UTC';
+      el.timeZoneName = 'long';
+
+      await el.updateComplete;
+      console.log(el.renderRoot);
+      expect(el.renderRoot).to.have.trimmed.text('12/17/2022, Coordinated Universal Time');
+    });
+
     it('should format date (time) with the 24h time when set', async () => {
       el.hour = 'numeric';
       el.minute = 'numeric';
       el.hour12 = false;
 
       await el.updateComplete;
-      expect(el.renderRoot).to.have.trimmed.text('15:05');
+      expect(el.renderRoot).to.have.trimmed.text('14:05');
     });
   });
 

@@ -1,7 +1,7 @@
-import { LocaleMixin } from '@sl-design-system/shared';
+import { LocaleMixin } from '@sl-design-system/shared/mixins.js';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import { formatDateTime } from './format-date-time';
+import { format } from './format';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -15,7 +15,7 @@ declare global {
  * @slot default - A place for the fallback when there is no valid date/time applied.
  */
 export class FormatDate extends LocaleMixin(LitElement) {
-  #date?: Date = new Date();
+  #date?: Date;
 
   /** The format for displaying the weekday. */
   @property() weekday?: Intl.DateTimeFormatOptions['weekday'];
@@ -59,9 +59,9 @@ export class FormatDate extends LocaleMixin(LitElement) {
    */
   @property({ type: Object, attribute: 'date-time-options' }) dateTimeOptions?: Intl.DateTimeFormatOptions;
 
+  /** The date/time to format. If not set, the slotted content will be shown. */
+  @property()
   set date(value: number | string | Date | undefined | null) {
-    const oldValue = this.#date;
-
     if (value instanceof Date) {
       this.#date = value;
     } else if (typeof value === 'number' && this.#isDateValid(value)) {
@@ -71,12 +71,8 @@ export class FormatDate extends LocaleMixin(LitElement) {
     } else {
       this.#date = undefined;
     }
-
-    this.requestUpdate('date', oldValue);
   }
 
-  /** The date/time to format. If not set, the current date and time will be used. */
-  @property()
   get date(): Date | undefined {
     return this.#date;
   }
@@ -87,10 +83,10 @@ export class FormatDate extends LocaleMixin(LitElement) {
 
   #formatDateTime(date: Date): string {
     const localeString = this.locale ? this.locale : 'en',
-     { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 } = this,
-     options = { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 };
+      { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 } = this,
+      options = { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 };
 
-    return formatDateTime(date, localeString, { ...options, ...this.dateTimeOptions });
+    return format(date, localeString, { ...options, ...this.dateTimeOptions });
   }
 
   #isDateValid(date: string | number): boolean {

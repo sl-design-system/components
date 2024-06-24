@@ -1,63 +1,75 @@
 import { type Meta, type StoryObj } from '@storybook/web-components';
-import { type TemplateResult, html, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import '../register.js';
+import { format } from './format';
 import { type FormatDate } from './format-date.js';
-import { formatDateTime } from './format-date-time';
 
-interface Props extends FormatDate {
-  fallback: string | TemplateResult;
-}
+type Props = Pick<
+  FormatDate,
+  | 'locale'
+  | 'date'
+  | 'year'
+  | 'month'
+  | 'day'
+  | 'weekday'
+  | 'dayPeriod'
+  | 'hour'
+  | 'minute'
+  | 'second'
+  | 'timeZoneName'
+  | 'timeZone'
+  | 'hour12'
+  | 'era'
+> & { fallback?: string };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Utilities/Format date',
   tags: ['draft'],
   args: {
-    fallback: 'invalid date',
-    locale: 'en-US',
+    fallback: 'invalid date'
   },
   argTypes: {
-    fallback: {
-      table: {
-        disable: true
-      }
+    locale: {
+      control: 'inline-radio',
+      options: ['de', 'en', 'es', 'fi', 'it', 'nl', 'no', 'pl', 'sv']
     },
     date: { control: 'date' },
     year: {
       control: 'inline-radio',
-      options: ['numeric', '2-digit']
+      options: ['numeric', '2-digit', undefined]
     },
     month: {
       control: 'inline-radio',
-      options: ['numeric', '2-digit', 'narrow', 'short', 'long']
+      options: ['numeric', '2-digit', 'narrow', 'short', 'long', undefined]
     },
     day: {
       control: 'inline-radio',
-      options: ['numeric', '2-digit']
+      options: ['numeric', '2-digit', undefined]
     },
     weekday: {
       control: 'inline-radio',
-      options: ['narrow', 'short', 'long']
+      options: ['narrow', 'short', 'long', undefined]
     },
     dayPeriod: {
       control: 'inline-radio',
-      options: ['narrow', 'short', 'long']
+      options: ['narrow', 'short', 'long', undefined]
     },
     hour: {
       control: 'inline-radio',
-      options: ['numeric', '2-digit']
+      options: ['numeric', '2-digit', undefined]
     },
     minute: {
       control: 'inline-radio',
-      options: ['numeric', '2-digit']
+      options: ['numeric', '2-digit', undefined]
     },
     second: {
       control: 'inline-radio',
-      options: ['numeric', '2-digit']
+      options: ['numeric', '2-digit', undefined]
     },
     timeZoneName: {
       control: 'inline-radio',
-      options: ['short', 'long']
+      options: ['short', 'long', undefined]
     },
     timeZone: { control: 'text' },
     hour12: {
@@ -65,24 +77,26 @@ export default {
     },
     era: {
       control: 'inline-radio',
-      options: ['narrow', 'short', 'long']
-    },
+      options: ['narrow', 'short', 'long', undefined]
+    }
   },
-  render: ({ fallback,
-             date,
-             locale,
-             weekday,
-             era,
-             year,
-             month,
-             day,
-             dayPeriod,
-             hour,
-             minute,
-             second,
-             timeZoneName,
-             timeZone,
-             hour12 }) => html`
+  render: ({
+    fallback,
+    date,
+    locale,
+    weekday,
+    era,
+    year,
+    month,
+    day,
+    dayPeriod,
+    hour,
+    minute,
+    second,
+    timeZoneName,
+    timeZone,
+    hour12
+  }) => html`
     <sl-format-date
       .date=${date}
       .locale=${locale}
@@ -97,7 +111,8 @@ export default {
       .second=${second}
       .timeZoneName=${timeZoneName}
       .timeZone=${timeZone}
-      .hour12=${hour12}>
+      .hour12=${hour12}
+    >
       ${fallback}
     </sl-format-date>
   `
@@ -105,35 +120,26 @@ export default {
 
 export const Basic: Story = {
   args: {
-    date: new Date,
-    fallback: 'This is not a valid date',
+    fallback: 'This is not a valid date'
   }
 };
 
 export const InvalidDate: Story = {
   args: {
-    fallback: 'This date is not valid and I cannot render it.',
+    fallback: 'This date is not valid and I cannot render it.'
   }
 };
 
 export const Function: StoryObj = {
-  render: ({ date, locale, weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 }) => {
-    const options: Intl.DateTimeFormatOptions = {
-      weekday,
-      era,
-      year,
-      month,
-      day,
-      dayPeriod,
-      hour,
-      minute,
-      second,
-      timeZoneName,
-      timeZone,
-      hour12,
-    };
+  render: props => {
+    const { date, locale, ...rest } = props;
+
     try {
-      const formattedDate = formatDateTime(date ? date as Date : new Date(), locale as string, options);
+      const formattedDate = format(
+        date ? (date as Date) : new Date(),
+        locale as string,
+        rest as Intl.DateTimeFormatOptions | undefined
+      );
 
       return html`
         <style>
@@ -149,12 +155,12 @@ export const Function: StoryObj = {
           }
         </style>
         <article>
-          This is a value rendered with function <code>formatDateTime</code>
+          This is a value rendered with function <code>format</code>
           <span>${formattedDate ? formattedDate : nothing}</span>
         </article>
       `;
     } catch {
       return html`Something went wrong. Please check function parameters.`;
     }
-  },
+  }
 };

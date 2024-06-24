@@ -22,6 +22,11 @@ export default {
       }
     }
   },
+  parameters: {
+    viewport: {
+      defaultViewport: 'default'
+    }
+  },
   render: ({ breadcrumbs, homeUrl, noHome }) => html`
     <sl-breadcrumbs .homeUrl=${homeUrl} .noHome=${noHome}>${breadcrumbs}</sl-breadcrumbs>
   `

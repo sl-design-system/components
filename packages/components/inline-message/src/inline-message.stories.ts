@@ -16,7 +16,7 @@ const variants: InlineMessageVariant[] = ['info', 'success', 'warning', 'danger'
 
 export default {
   title: 'Components/Inline message',
-  tags: ['preview'],
+  tags: ['stable'],
   args: {
     button: 'Action',
     variant: 'info'

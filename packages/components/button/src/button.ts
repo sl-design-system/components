@@ -33,7 +33,7 @@ export class Button extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Event controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown

@@ -26,7 +26,7 @@ Icon.register(faSchool);
 
 export default {
   title: 'Components/Avatar',
-  tags: ['preview'],
+  tags: ['stable'],
   args: {
     displayName: 'Rose Nylund',
     imageOnly: false,

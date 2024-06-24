@@ -28,7 +28,7 @@ export class SearchField extends TextField {
   /** @internal */
   static override styles: CSSResultGroup = [TextField.styles, styles];
 
-  /** Event controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, { keydown: this.#onKeyDown });
 
   /** @internal Emits when the user clears the field. */
@@ -51,6 +51,7 @@ export class SearchField extends TextField {
       : nothing;
   }
 
+  /** Clears the value in the input element. */
   clear(): void {
     this.value = '';
     this.clearEvent.emit();

@@ -10,6 +10,6 @@ storybookCategory: form
 eleventyNavigation:
   parent: Components
   key: Search field
-  status: ready
+  status: new
 ---
 

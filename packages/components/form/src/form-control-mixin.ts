@@ -199,6 +199,7 @@ export function FormControlMixin<T extends Constructor<ReactiveElement>>(constru
       }
     }
 
+    /** Returns the form value as used in a native `<form>`. This is always a string, File, FormData or null.  */
     get nativeFormValue(): FormValue {
       if (
         this.formValue === null ||

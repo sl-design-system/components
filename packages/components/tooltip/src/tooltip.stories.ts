@@ -1,5 +1,6 @@
 import '@sl-design-system/button/register.js';
 import '@sl-design-system/button-bar/register.js';
+import '@sl-design-system/spinner/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -97,7 +98,7 @@ export const Shared: Story = {
   args: {
     example: ({ alignSelf, justifySelf, message }) => html`
       <sl-button-bar style=${styleMap({ 'align-self': alignSelf, 'justify-self': justifySelf })}>
-        <sl-button aria-describedby="tooltip" fill="outline">We</sl-button>
+        <sl-button aria-describedby="tooltip" fill="outline"><sl-spinner></sl-spinner> We</sl-button>
         <sl-button aria-describedby="tooltip" fill="outline">all</sl-button>
         <sl-button aria-describedby="tooltip" fill="outline">share</sl-button>
         <sl-button aria-describedby="tooltip" fill="outline">the</sl-button>

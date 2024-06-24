@@ -41,7 +41,7 @@ export class MenuItem extends ScopedElementsMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     keydown: this.#onKeydown,

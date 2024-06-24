@@ -132,13 +132,13 @@ export const InvalidDate: Story = {
 
 export const Function: StoryObj = {
   render: props => {
-    const { date, locale, ...rest } = props;
+    const { date, locale, ...options } = props;
 
     try {
       const formattedDate = format(
         date ? (date as Date) : new Date(),
         locale as string,
-        rest as Intl.DateTimeFormatOptions | undefined
+        options as Intl.DateTimeFormatOptions | undefined
       );
 
       return html`

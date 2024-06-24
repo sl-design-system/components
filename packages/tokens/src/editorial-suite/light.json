@@ -4276,7 +4276,7 @@
         "type": "color"
       },
       "warning": {
-        "value": "{color.palette.warning.700}",
+        "value": "{color.palette.warning.600}",
         "type": "color"
       },
       "danger": {

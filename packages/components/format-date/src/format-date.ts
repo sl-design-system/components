@@ -1,7 +1,7 @@
 import { LocaleMixin } from '@sl-design-system/shared';
 import { LitElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import {formatDateTime} from "./format-date-time";
+import { formatDateTime } from './format-date-time';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -59,10 +59,9 @@ export class FormatDate extends LocaleMixin(LitElement) {
    */
   @property({ type: Object, attribute: 'date-time-options' }) dateTimeOptions?: Intl.DateTimeFormatOptions;
 
-
   set date(value: number | string | Date | undefined | null) {
     const oldValue = this.#date;
-    console.log('oldVal', oldValue, 'value????',  value);
+    console.log('oldVal', oldValue, 'value????', value);
 
     if (value instanceof Date) {
       this.#date = value;
@@ -89,19 +88,22 @@ export class FormatDate extends LocaleMixin(LitElement) {
     const myOptions = { year: 'numeric', month: 'short', day: 'numeric', weekday: 'long', locale: 'pl' } as const;
     console.log('---format date time----', formatDateTime(new Date(), this.locale ? this.locale : 'pl', myOptions));
     console.log('thiiiis.date', this.date);
-    console.log('date', this.#date, 'with locales', new Intl.DateTimeFormat(), new Intl.DateTimeFormat('pl').format(this.#date));
-    return html`
-      ${(!this.date) ? html`<slot></slot>` : this.#formatDateTime(this.date)}
-    `;
+    console.log(
+      'date',
+      this.#date,
+      'with locales',
+      new Intl.DateTimeFormat(),
+      new Intl.DateTimeFormat('pl').format(this.#date)
+    );
+    return html` ${!this.date ? html`<slot></slot>` : this.#formatDateTime(this.date)} `;
   }
 
-
-
-  #formatDateTime(date: Date): string { // TODO: in separated file?
+  #formatDateTime(date: Date): string {
+    // TODO: in separated file?
     const localeString = this.locale ? this.locale : 'en';
     const { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 } = this;
     console.log('locale', localeString);
-    let options = {
+    const options = {
       weekday,
       era,
       year,
@@ -115,8 +117,8 @@ export class FormatDate extends LocaleMixin(LitElement) {
       timeZone,
       hour12
     };
-    console.log('hour12', hour12, formatDateTime(date, localeString, {...options, ...this.dateTimeOptions}));
-    return formatDateTime(date, localeString, {...options, ...this.dateTimeOptions});
+    console.log('hour12', hour12, formatDateTime(date, localeString, { ...options, ...this.dateTimeOptions }));
+    return formatDateTime(date, localeString, { ...options, ...this.dateTimeOptions });
   }
 
   #isDateValid(date: string | number): boolean {

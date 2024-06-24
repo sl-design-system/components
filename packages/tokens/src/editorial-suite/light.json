@@ -71,11 +71,11 @@
         },
         "warning": {
           "background": {
-            "value": "{color.palette.warning.base}",
+            "value": "{color.palette.warning.500}",
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.black.base}",
+            "value": "{color.palette.white.base}",
             "type": "color"
           }
         },
@@ -147,7 +147,7 @@
             "type": "color"
           },
           "foreground": {
-            "value": "{color.palette.warning.700}",
+            "value": "{color.palette.warning.600}",
             "type": "color"
           }
         },

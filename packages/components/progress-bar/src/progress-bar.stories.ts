@@ -26,7 +26,7 @@ export default {
       defaultViewport: 'default'
     }
   },
-  render: ({ align, buttons, reverse }) => html`
+  render: ({}) => html`
     <style>
       @media (max-width: 600px) {
         sl-button-bar {
@@ -34,15 +34,8 @@ export default {
         }
       }
     </style>
-    <sl-progress-bar></sl-progress-bar>
-    <sl-button-bar .align=${align} .reverse=${reverse}>
-      ${buttons ??
-      html`
-        <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
-        <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
-        <sl-button><sl-icon name="smile"></sl-icon> Baz</sl-button>
-      `}
-    </sl-button-bar>
+    <sl-progress-bar value="50" label="This is the label of progress bar, what if it will be longer? Ellipsis? Or wrap?"></sl-progress-bar>
+    <sl-progress-bar inline value="50" label="This is the label of progress bar, what if it will be longer? Ellipsis? Or wrap?"></sl-progress-bar>
   `
 } satisfies Meta<Props>;
 

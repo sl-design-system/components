@@ -48,31 +48,38 @@ export class ProgressBar extends LitElement {
   // TODO: percentage and label on the top or on the botton of the progress bar
 
   /** Progress value (from 0...100). */
-  @property({ type: Number }) value = 0;
+  @property({ type: Number }) value = 20; // TODO: should default to 0;
 
   /** Whether the progress bar has the indeterminate state. */
   @property({ type: Boolean, reflect: true }) indeterminate?: boolean;
 
+  /** Label describing the value of the progress bar. */
+  @property() label?: string;
+
+  @property({ attribute: 'inline', reflect: true }) inline?: boolean;
+
   override render(): TemplateResult {
-    return html` <div class="container">
-        <div class="progress">${this.value}%</div>
+    return html`
+      <span>${this.label}</span>
+      <div class="container">
+        <div class="progress" style="inline-size: ${this.value}%">${this.value}%</div>
       </div>
-      <slot @slotchange=${this.#onSlotchange}></slot>`;
-  }
+      <span>Optional helper text</span><h2>${this.value}%</h2>`;
+  } // TODO: do we need any slot?
 
-  async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
-    const assignedElements = event.target.assignedElements({ flatten: true });
-
-    const icons = await Promise.all(
-      assignedElements.map(async el => {
-        if (el instanceof ReactiveElement) {
-          await el.updateComplete;
-        }
-
-        return el.hasAttribute('icon-only') && el.getAttribute('fill') === 'ghost';
-      })
-    );
-
-    this.iconOnly = icons.every(Boolean);
-  }
+  // async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
+  //   const assignedElements = event.target.assignedElements({ flatten: true });
+  //
+  //   const icons = await Promise.all(
+  //     assignedElements.map(async el => {
+  //       if (el instanceof ReactiveElement) {
+  //         await el.updateComplete;
+  //       }
+  //
+  //       return el.hasAttribute('icon-only') && el.getAttribute('fill') === 'ghost';
+  //     })
+  //   );
+  //
+  //   this.iconOnly = icons.every(Boolean);
+  // }
 }

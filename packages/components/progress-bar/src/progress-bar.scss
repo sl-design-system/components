@@ -11,6 +11,9 @@
   --_block-gap: var(--sl-space-button-bar-gap-default-block);
   --_inline-gap: var(--sl-space-button-bar-gap-default-inline);
 
+  --_border-radius: var(--sl-border-radius-full);
+  --_label-font: var(--sl-text-input-field-label-label-md);
+
   display: block;
 }
 
@@ -43,8 +46,8 @@
 
 .container {
   align-items: stretch;
-  background: #6FBCFB; //var(--background);
-  border-radius: var(--border-radius);
+  background: #8D959D; //var(--background);
+  border-radius: var(--_border-radius);
   display: flex;
   height: var(--height);
   overflow: hidden;
@@ -53,8 +56,9 @@
 }
 
 .progress {
-  background: var(--progress);
-  flex: 1;
+  background: #6FBCFB; //var(--progress);
+  border-radius: var(--_border-radius);
+  //flex: 1;
   transform-origin: left;
   transition: transform var(--transition);
 }

@@ -1,5 +1,11 @@
 # @sl-design-system/editor
 
+## 0.0.30
+
+### Patch Changes
+
+- [#1344](https://github.com/sl-design-system/components/pull/1344) [`53f052d`](https://github.com/sl-design-system/components/commit/53f052d00d2985c6690f653e6d7050626fa64cbf) - Minor changes to update the proof-of-concept
+
 ## 0.0.29
 
 ### Patch Changes

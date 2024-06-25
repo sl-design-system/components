@@ -1,5 +1,11 @@
 # @sl-design-system/stylelint-config
 
+## 0.0.4
+
+### Patch Changes
+
+- [#1349](https://github.com/sl-design-system/components/pull/1349) [`9fa3694`](https://github.com/sl-design-system/components/commit/9fa369409b87ad66f7be0809ace5cb5a02e79e5c) - Update dependencies
+
 ## 0.0.3
 
 ### Patch Changes

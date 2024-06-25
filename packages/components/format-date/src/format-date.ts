@@ -119,26 +119,26 @@ export class FormatDate extends LocaleMixin(LitElement) {
   }
 
   override render(): TemplateResult {
-    return html` ${!this.date ? html`<slot></slot>` : this.#formatDateTime(this.date)} `;
+    return html`${!this.date ? html`<slot></slot>` : this.#formatDateTime(this.date)}`;
   }
 
   #formatDateTime(date: Date): string {
     const localeString = this.locale ? this.locale : 'en',
       {
         dateStyle,
-        timeStyle,
-        weekday,
-        era,
-        year,
-        month,
         day,
         dayPeriod,
+        era,
         hour,
+        hour12,
+        month,
         minute,
         second,
+        timeStyle,
         timeZoneName,
         timeZone,
-        hour12
+        weekday,
+        year
       } = this,
       predefinedStyles = { dateStyle, timeStyle },
       options = { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 },

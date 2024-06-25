@@ -5,22 +5,22 @@ import { type FormatDate } from './format-date.js';
 
 type Props = Pick<
   FormatDate,
-  | 'locale'
   | 'date'
   | 'dateStyle'
-  | 'timeStyle'
-  | 'year'
-  | 'month'
   | 'day'
-  | 'weekday'
   | 'dayPeriod'
+  | 'era'
   | 'hour'
+  | 'hour12'
+  | 'locale'
   | 'minute'
+  | 'month'
   | 'second'
   | 'timeZoneName'
   | 'timeZone'
-  | 'hour12'
-  | 'era'
+  | 'timeStyle'
+  | 'weekday'
+  | 'year'
 > & { fallback?: string };
 type Story = StoryObj<Props>;
 
@@ -139,7 +139,7 @@ export const Basic: Story = {
   }
 };
 
-export const InvalidDate: Story = {
+export const Fallback: Story = {
   args: {
     fallback: 'This date is not valid and it cannot be rendered.'
   }

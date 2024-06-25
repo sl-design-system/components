@@ -24,6 +24,10 @@
       "import": "./src/events.js",
       "types": "./src/events.d.ts"
     },
+    "./mixins.js": {
+      "import": "./src/mixins.js",
+      "types": "./src/mixins.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "files": [

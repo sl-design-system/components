@@ -29,6 +29,7 @@
     { "path": "./packages/components/drawer" },
     { "path": "./packages/components/editor" },
     { "path": "./packages/components/form" },
+    { "path": "./packages/components/format-date" },
     { "path": "./packages/components/grid" },
     { "path": "./packages/components/icon" },
     { "path": "./packages/components/inline-message" },

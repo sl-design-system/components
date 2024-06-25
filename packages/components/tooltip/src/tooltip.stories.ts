@@ -110,7 +110,7 @@ export const Shared: Story = {
   },
   parameters: {
     // Notifies Chromatic to pause the animations at the first frame for this specific story.
-    chromatic: { pauseAnimationAtEnd: false }
+    chromatic: { pauseAnimationAtEnd: false, prefersReducedMotion: 'reduce' }
   }
 };
 

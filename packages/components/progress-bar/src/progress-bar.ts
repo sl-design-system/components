@@ -1,6 +1,6 @@
 import { type CSSResultGroup, LitElement, ReactiveElement, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './button-bar.scss.js';
+import styles from './progress-bar.scss.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -50,9 +50,11 @@ export class ProgressBar extends LitElement {
   /** Progress value (from 0...100). */
   @property({ type: Number }) value = 0;
 
+  /** Whether the progress bar has the indeterminate state. */
+  @property({ type: Boolean, reflect: true }) indeterminate?: boolean;
+
   override render(): TemplateResult {
-    return html`
-      <div class="container">
+    return html` <div class="container">
         <div class="progress">${this.value}%</div>
       </div>
       <slot @slotchange=${this.#onSlotchange}></slot>`;

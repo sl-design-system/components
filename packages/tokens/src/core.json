@@ -506,6 +506,10 @@
         "value": "{size.4xs}",
         "type": "sizing"
       }
+    },
+    "progressbar": {
+      "value": "{size.3xs}",
+      "type": "sizing"
     }
   },
   "space": {

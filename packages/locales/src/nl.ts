@@ -3,6 +3,9 @@
 
 import { str } from '@lit/localize';
 
+/* eslint-disable no-irregular-whitespace */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const templates = {
   s091d3d07b5b3076f: 'Ok',
   s13fdff160ffad275: 'Wis tekst',

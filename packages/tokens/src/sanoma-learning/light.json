@@ -4451,6 +4451,16 @@
           "value": "{color.palette.neutral.150}",
           "type": "color"
         }
+      },
+      "warning": {
+        "track": {
+          "value": "{color.palette.warning.600}",
+          "type": "color"
+        },
+        "background": {
+          "value": "{color.palette.neutral.150}",
+          "type": "color"
+        }
       }
     }
   },

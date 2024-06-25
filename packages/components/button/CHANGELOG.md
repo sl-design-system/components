@@ -1,5 +1,11 @@
 # @sl-design-system/button
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1351](https://github.com/sl-design-system/components/pull/1351) [`0f9c568`](https://github.com/sl-design-system/components/commit/0f9c5683edc57c217d7d27ce22add842eca074fe) - Made sure slotted elements in sl-button don't capture events. This caused problems with tooltips unexpectedly disappearing when using something other than text or sl-icon inside a button
+
 ## 1.0.0
 
 ### Major Changes

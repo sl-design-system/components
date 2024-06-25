@@ -7,6 +7,8 @@ type Props = Pick<
   FormatDate,
   | 'locale'
   | 'date'
+  | 'dateStyle'
+  | 'timeStyle'
   | 'year'
   | 'month'
   | 'day'
@@ -26,14 +28,24 @@ export default {
   title: 'Utilities/Format date',
   tags: ['draft'],
   args: {
-    fallback: 'invalid date'
+    fallback: 'invalid date',
+    dateStyle: 'long',
+    timeStyle: 'medium'
   },
   argTypes: {
     locale: {
       control: 'inline-radio',
-      options: ['de', 'en', 'es', 'fi', 'it', 'nl', 'no', 'pl', 'sv']
+      options: ['de-DE', 'en-GB', 'es-ES', 'fi-FI', 'it-IT', 'nl-NL', 'no-NO', 'pl-PL', 'sv-FI']
     },
     date: { control: 'date' },
+    dateStyle: {
+      control: 'inline-radio',
+      options: ['full', 'long', 'medium', 'short', undefined]
+    },
+    timeStyle: {
+      control: 'inline-radio',
+      options: ['full', 'long', 'medium', 'short', undefined]
+    },
     year: {
       control: 'inline-radio',
       options: ['numeric', '2-digit', undefined]
@@ -83,6 +95,8 @@ export default {
     fallback,
     date,
     locale,
+    dateStyle,
+    timeStyle,
     weekday,
     era,
     year,
@@ -99,6 +113,8 @@ export default {
     <sl-format-date
       .date=${date}
       .locale=${locale}
+      .dateStyle=${dateStyle}
+      .timeStyle=${timeStyle}
       .weekday=${weekday}
       .era=${era}
       .year=${year}
@@ -125,6 +141,6 @@ export const Basic: Story = {
 
 export const InvalidDate: Story = {
   args: {
-    fallback: 'This date is not valid and I cannot render it.'
+    fallback: 'This date is not valid and it cannot be rendered.'
   }
 };

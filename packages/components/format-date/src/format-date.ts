@@ -12,10 +12,51 @@ declare global {
 /**
  * A format date component for formatting date and time.
  *
+ *
  * @slot default - A place for the fallback when there is no valid date/time applied.
  */
 export class FormatDate extends LocaleMixin(LitElement) {
+  /**
+   * The date style format. The `dateStyle` and `timeStyle` can be used with each other, but not with other date-time component options (e.g. weekday, hour, month, etc.).
+   *
+   * By changing this static property you can change the default value for all future instances of the component with dateStyle usage.
+   * Changing the static property won't affect already created instances.
+   */
+  static dateStyle: Intl.DateTimeFormatOptions['dateStyle'] = 'long';
+
+  /**
+   * The time style format. The `dateStyle` and `timeStyle` can be used with each other, but not with other date-time component options (e.g. weekday, hour, month, etc.).
+   *
+   * By changing this static property you can change the default value for all future instances of the component with timeStyle usage.
+   * Changing the static property won't affect already created instances.
+   */
+  static timeStyle: Intl.DateTimeFormatOptions['timeStyle'] = 'medium';
+
   #date?: Date;
+
+  /**
+   * The date style format.
+   *
+   * If you want to change the default value for all future instances of the component, you can change the static property.
+   * If you want to change the property of an already created instance, you need to change this property.
+   *
+   * The `dateStyle` and `timeStyle` can be used with each other, but not with other date-time component options (e.g. weekday, hour, month, etc.).
+   * If you set other options than dateStyle/timeStyle like `weekday`, `hour` etc. dateStyle/timeStyle will not be used to format your date/time.
+   * The dateStyle/timeStyle will be overwritten in that case by your other properties.
+   */
+  @property({ attribute: 'date-style' }) dateStyle?: Intl.DateTimeFormatOptions['dateStyle'];
+
+  /**
+   * The time style format.
+   *
+   * If you want to change the default value for all future instances of the component, you can change the static property.
+   * If you want to change the property of an already created instance, you need to change this property.
+   *
+   * The `dateStyle` and `timeStyle` can be used with each other, but not with other date-time component options (e.g. weekday, hour, month, etc.).
+   * If you set other options than dateStyle/timeStyle like `weekday`, `hour` etc. dateStyle/timeStyle will not be used to format your date/time.
+   * The dateStyle/timeStyle will be overwritten in that case by your other properties.
+   */
+  @property({ attribute: 'time-style' }) timeStyle?: Intl.DateTimeFormatOptions['timeStyle'];
 
   /** The format for displaying the weekday. */
   @property() weekday?: Intl.DateTimeFormatOptions['weekday'];
@@ -23,13 +64,13 @@ export class FormatDate extends LocaleMixin(LitElement) {
   /** The format for displaying the era (eg. 'long' -> `Anno Domini`). */
   @property() era?: Intl.DateTimeFormatOptions['era'];
 
-  /** The format for displaying the year. Default to `numeric` when all properties are `undefined`. */
+  /** The format for displaying the year. Default to `numeric` when all properties are `undefined`, including dateStyle and timeStyle. */
   @property() year?: Intl.DateTimeFormatOptions['year'];
 
-  /** The format for displaying the month. Default to `numeric` when all properties are `undefined`. */
+  /** The format for displaying the month. Default to `numeric` when all properties are `undefined`, including dateStyle and timeStyle. */
   @property() month?: Intl.DateTimeFormatOptions['month'];
 
-  /** The format for displaying the day. Default to `numeric` when all properties are `undefined`. */
+  /** The format for displaying the day. Default to `numeric` when all properties are `undefined`, including dateStyle and timeStyle. */
   @property() day?: Intl.DateTimeFormatOptions['day'];
 
   /** The format for displaying the day periods. It only has an effect if a 12-hour clock - hour12 is set to true */
@@ -83,10 +124,27 @@ export class FormatDate extends LocaleMixin(LitElement) {
 
   #formatDateTime(date: Date): string {
     const localeString = this.locale ? this.locale : 'en',
-      { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 } = this,
-      options = { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 };
+      {
+        dateStyle,
+        timeStyle,
+        weekday,
+        era,
+        year,
+        month,
+        day,
+        dayPeriod,
+        hour,
+        minute,
+        second,
+        timeZoneName,
+        timeZone,
+        hour12
+      } = this,
+      predefinedStyles = { dateStyle, timeStyle },
+      options = { weekday, era, year, month, day, dayPeriod, hour, minute, second, timeZoneName, timeZone, hour12 },
+      formatOptions = Object.values(options).every(value => value === undefined) ? predefinedStyles : options;
 
-    return format(date, localeString, { ...options, ...this.dateTimeOptions });
+    return format(date, localeString, { ...formatOptions, ...this.dateTimeOptions });
   }
 
   #isDateValid(date: string | number): boolean {

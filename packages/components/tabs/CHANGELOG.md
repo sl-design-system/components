@@ -1,5 +1,18 @@
 # @sl-design-system/tabs
 
+## 0.1.12
+
+### Patch Changes
+
+- [#1354](https://github.com/sl-design-system/components/pull/1354) [`07d4437`](https://github.com/sl-design-system/components/commit/07d443778cf46b80c0f89fb2e7fdc8d11b5c335a) - Various improvements:
+
+  - Fix tab group to not always select a tab by default
+  - Fix tab group component to allow for removing the selected attribute from a tab
+  - Fade in the selected tab indicator on first selected tab
+  - Change styling to account for icon-only tabs
+
+- [#1353](https://github.com/sl-design-system/components/pull/1353) [`ab2a09b`](https://github.com/sl-design-system/components/commit/ab2a09ba9073f52c0c920d7eac4e38a02ee9c83f) - Fix unnecessary padding if there are no panels
+
 ## 0.1.11
 
 ### Patch Changes

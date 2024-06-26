@@ -4815,6 +4815,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@sl-design-system/format-date@workspace:packages/components/format-date":
+  version: 0.0.0-use.local
+  resolution: "@sl-design-system/format-date@workspace:packages/components/format-date"
+  dependencies:
+    "@sl-design-system/shared": "npm:^0.2.11"
+  languageName: unknown
+  linkType: soft
+
 "@sl-design-system/grid@workspace:packages/components/grid":
   version: 0.0.0-use.local
   resolution: "@sl-design-system/grid@workspace:packages/components/grid"

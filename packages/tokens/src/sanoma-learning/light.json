@@ -81,7 +81,7 @@
         },
         "warning": {
           "background": {
-            "value": "{color.palette.warning.500}",
+            "value": "{color.palette.warning.600}",
             "type": "color"
           },
           "foreground": {
@@ -4454,7 +4454,7 @@
       },
       "warning": {
         "track": {
-          "value": "{color.palette.warning.600}",
+          "value": "{color.palette.warning.500}",
           "type": "color"
         },
         "background": {

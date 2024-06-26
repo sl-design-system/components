@@ -81,7 +81,7 @@
         },
         "warning": {
           "background": {
-            "value": "{color.palette.warning.600}",
+            "value": "{color.palette.warning.500}",
             "type": "color"
           },
           "foreground": {

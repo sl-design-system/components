@@ -1,7 +1,7 @@
 {
-  "name": "@sl-design-system/button",
-  "version": "1.0.1",
-  "description": "Button component for the SL Design System",
+  "name": "@sl-design-system/format-date",
+  "version": "0.0.0",
+  "description": "Format-date component for the SL Design System",
   "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -9,9 +9,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/sl-design-system/components.git",
-    "directory": "packages/components/button"
+    "directory": "packages/components/format-date"
   },
-  "homepage": "https://sanomalearning.design/components/button",
+  "homepage": "https://sanomalearning.design/components/format-date",
   "bugs": {
     "url": "https://github.com/sl-design-system/components/issues"
   },
@@ -22,6 +22,7 @@
   "customElements": "custom-elements.json",
   "exports": {
     ".": "./index.js",
+    "./format.js": "./src/format.js",
     "./package.json": "./package.json",
     "./register.js": "./register.js"
   },

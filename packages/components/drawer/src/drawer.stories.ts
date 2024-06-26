@@ -20,6 +20,10 @@ export default {
       control: 'radio',
       options: ['sm', 'md', 'lg']
     }
+  },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
   }
 };
 

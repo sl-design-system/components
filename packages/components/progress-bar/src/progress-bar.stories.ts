@@ -5,28 +5,38 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
 
-type Props = Pick<ProgressBar, 'align' | 'reverse'> & { buttons: TemplateResult };
+type Props = Pick<ProgressBar, 'indeterminate' | 'helperText' | 'label' | 'status' | 'value'> & { buttons: TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
   title: 'Components/Progress bar',
   tags: ['draft'],
   args: {
-    align: 'start',
-    reverse: false
+    label: 'This is the label of progress bar, what if it will be longer? Ellipsis? Or wrap?',
+    helperText: 'This is an optional helper text',
+    value: 60,
+    indeterminate: false,
+    status: 'active'
   },
   argTypes: {
-    align: {
-      control: 'select',
-      options: ['start', 'center', 'end', 'space-between']
-    }
+    value: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 100
+      }
+    },
+    status: {
+      control: 'inline-radio',
+      options: ['active', 'success', 'warning', 'error']
+    },
   },
   parameters: {
     viewport: {
       defaultViewport: 'default'
     }
   },
-  render: ({}) => html`
+  render: ({helperText, indeterminate, status, value, label}) => html`
     <style>
       @media (max-width: 600px) {
         sl-button-bar {
@@ -34,8 +44,7 @@ export default {
         }
       }
     </style>
-    <sl-progress-bar value="50" label="This is the label of progress bar, what if it will be longer? Ellipsis? Or wrap?"></sl-progress-bar>
-    <sl-progress-bar inline value="50" label="This is the label of progress bar, what if it will be longer? Ellipsis? Or wrap?"></sl-progress-bar>
+    <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .helperText=${helperText} .status=${status}></sl-progress-bar>
   `
 } satisfies Meta<Props>;
 

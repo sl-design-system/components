@@ -8,7 +8,9 @@ declare global {
   }
 }
 
-export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
+// export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
+
+export type ProgressStatus = 'active' | 'success' | 'warning' | 'error';
 
 /**
  * Progress bar component...
@@ -31,18 +33,9 @@ export class ProgressBar extends LitElement {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** The alignment of the buttons within the bar. */
-  @property({ reflect: true }) align?: ButtonBarAlign;
+  // /** The alignment of the buttons within the bar. */
+  // @property({ reflect: true }) align?: ButtonBarAlign;
 
-  /** When set to true, the button order is reversed using flex-direction.*/
-  @property({ type: Boolean, reflect: true }) reverse?: boolean;
-
-  /**
-   * Whether the bar only contains icon-only buttons.
-   * Determined based on the actual content, so does not need to be set.
-   * @private
-   */
-  @property({ type: Boolean, reflect: true, attribute: 'icon-only' }) iconOnly?: boolean;
 
   // TODO: indeterminate, animate, 3 sizes sm/md/lg, variants primary (default), success, danger?
   // TODO: percentage and label on the top or on the botton of the progress bar
@@ -51,20 +44,26 @@ export class ProgressBar extends LitElement {
   @property({ type: Number }) value = 20; // TODO: should default to 0;
 
   /** Whether the progress bar has the indeterminate state. */
-  @property({ type: Boolean, reflect: true }) indeterminate?: boolean;
+  @property({ type: Boolean, reflect: true }) indeterminate = false;
 
   /** Label describing the value of the progress bar. */
   @property() label?: string;
 
-  @property({ attribute: 'inline', reflect: true }) inline?: boolean;
+  /** Helper text describing more the progress bar. */
+  @property({attribute: 'helper-text'}) helperText?: string;
+
+  /** The status of the progress bar. */
+  @property({ reflect: true }) status?: ProgressStatus = 'active';
+
+  // @property({ attribute: 'inline', reflect: true }) inline?: boolean;
 
   override render(): TemplateResult {
     return html`
-      <span>${this.label}</span>
+      <span class="label">${this.label}</span>
       <div class="container">
         <div class="progress" style="inline-size: ${this.value}%">${this.value}%</div>
       </div>
-      <span>Optional helper text</span><h2>${this.value}%</h2>`;
+      <span class="helper">Optional helper text</span><h2>${this.value}%</h2>`;
   } // TODO: do we need any slot?
 
   // async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {

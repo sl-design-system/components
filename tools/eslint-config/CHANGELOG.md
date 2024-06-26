@@ -1,5 +1,11 @@
 # @sl-design-system/eslint-config
 
+## 0.1.0
+
+### Minor Changes
+
+- [#1349](https://github.com/sl-design-system/components/pull/1349) [`9fa3694`](https://github.com/sl-design-system/components/commit/9fa369409b87ad66f7be0809ace5cb5a02e79e5c) - Update the linting dependencies. Causes new rules to be applied.
+
 ## 0.0.4
 
 ### Patch Changes

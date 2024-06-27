@@ -1,6 +1,9 @@
-import { type CSSResultGroup, LitElement, ReactiveElement, type TemplateResult, html } from 'lit';
+import {type CSSResultGroup, LitElement, ReactiveElement, type TemplateResult, html, nothing} from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './progress-bar.scss.js';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import {Button} from "@sl-design-system/button";
+import {Icon} from "@sl-design-system/icon";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -29,7 +32,14 @@ export type ProgressStatus = 'active' | 'success' | 'warning' | 'error';
  *          Some more information can be found in the <a href="https://lea.verou.me/blog/2020/10/the-var-space-hack-to-toggle-multiple-values-with-one-custom-property/" target="_blank">article about using multiple values with one custom property</a>.
  * @slot default - Buttons to be grouped in the bar.
  */
-export class ProgressBar extends LitElement {
+export class ProgressBar extends ScopedElementsMixin(LitElement) {
+  /** @internal */
+  static get scopedElements(): ScopedElementsMap {
+    return {
+      'sl-icon': Icon
+    };
+  }
+
   /** @private */
   static override styles: CSSResultGroup = styles;
 
@@ -57,12 +67,36 @@ export class ProgressBar extends LitElement {
 
   // @property({ attribute: 'inline', reflect: true }) inline?: boolean;
 
+  /** @internal The name of the icon, depending on the status. */
+  get iconName(): string {
+    switch (this.status) {
+      case 'success':
+        return 'circle-check-solid';
+      case 'warning':
+        return 'octagon-exclamation-solid';
+      case 'error':
+        return 'triangle-exclamation-solid';
+      default:
+        return 'info';
+    }
+  }
+
+  // TODO:  warning octagon-exclamation-solid
+  // TODO: error triangle-exclamation-solid
+
   override render(): TemplateResult {
     return html`
-      <span class="label">${this.label}</span>
+      <span class="label">
+        ${this.label}
+        ${this.status !== 'active' ?
+          html`<sl-icon .name=${this.iconName} size="md" ></sl-icon>`
+          : nothing
+        }
+      </span>
       <div class="container">
-        <div class="progress" style="inline-size: ${this.value}%">${this.value}%</div>
+        <div class="progress" style="inline-size: ${this.value}%"></div>
       </div>
+      <slot name="helper"></slot>
       <span class="helper">Optional helper text</span><h2>${this.value}%</h2>`;
   } // TODO: do we need any slot?
 

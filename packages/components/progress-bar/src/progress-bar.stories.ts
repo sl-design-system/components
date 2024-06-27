@@ -36,7 +36,74 @@ export default {
       defaultViewport: 'default'
     }
   },
-  render: ({helperText, indeterminate, status, value, label}) => html`
+  render: ({helperText, indeterminate, status, value, label}) => {
+    // const increaseProgressBarValue = (value: number): number => {
+    //   console.log('value', value);
+    //   // const progressBar = document.getElementById("progress-bar"); // Replace with your actual progress bar element
+    //   // let value = 0;
+    //
+    //   const intervalId = setInterval(() => {
+    //     value += 1;
+    //     // progressBar.style.width = `${value}%`;
+    //     console.log('value2', value);
+    //
+    //     if (value >= 100) {
+    //       clearInterval(intervalId);
+    //       return 100;
+    //     }
+    //     return value;
+    //   }, 1); // Change the interval duration as needed
+    // }
+
+// Call the function to start increasing the progress bar value
+//     increaseProgressBarValue(value);
+
+//     const increaseProgressBarValue = (value: number): number => {
+//       console.log('value', value);
+//
+//       // Initialize the interval ID outside the setInterval callback
+//       let intervalId: NodeJS.Timeout | null = null;
+//
+//       const incrementValue = () => {
+//         value += 1;
+//         console.log('value2', value);
+//
+//         if (value >= 100) {
+//           clearInterval(intervalId!); // Use the non-null assertion operator
+//           return 100;
+//         }
+//         return value;
+//       };
+//
+//       // Start the interval
+//       intervalId = setInterval(incrementValue, 10); // Change the interval duration as needed
+//
+//       return value; // Return the initial value
+//     };
+//
+// // Example usage:
+// //     const initialValue = 0;
+//     const finalValue = increaseProgressBarValue(value);
+//     console.log('Final value:', finalValue);
+
+    setTimeout(() => {
+      const progressBar = document.querySelector('sl-progress-bar') as ProgressBar;
+      const subtractButton = progressBar?.nextElementSibling;
+      const addButton = subtractButton?.nextElementSibling;
+      console.log('progressBar', progressBar, subtractButton, addButton, document.querySelector('sl-progress-bar'));
+
+      addButton?.addEventListener('click', () => {
+        const value = Math.min(100, progressBar.value + 10);
+        progressBar.value = value;
+      });
+
+      subtractButton?.addEventListener('click', () => {
+        const value = Math.max(0, progressBar.value - 10);
+        progressBar.value = value;
+      });
+    });
+
+    return html`
     <style>
       @media (max-width: 600px) {
         sl-button-bar {
@@ -44,8 +111,12 @@ export default {
         }
       }
     </style>
-    <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .helperText=${helperText} .status=${status}></sl-progress-bar>
-  `
+    <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .helperText='${helperText} blablabla ${value}% of 100%' .status=${status}>
+      <span slot="helper">blablabla ${value}% of 100%</span>
+    </sl-progress-bar>
+    <sl-button class="minus">- Decrease</sl-button>
+    <sl-button class="plus">+ Increase</sl-button>
+  `}
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
@@ -70,12 +141,14 @@ export const Alignment: Story = {
   }
 };
 
-export const Mobile: Story = {
+export const Overflow: Story = {
   ...Basic,
-  parameters: {
-    viewport: {
-      defaultViewport: 'iphone5'
-    }
+  args: {
+    label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
+      'Nunc lobortis mattis aliquam faucibus purus in massa tempor nec. Tincidunt eget nullam non nisi est sit amet facilisis magna. ' +
+      'Dignissim convallis aenean et tortor. Facilisis leo vel fringilla est ullamcorper. Mi proin sed libero enim sed faucibus turpis in. ' +
+      'Ullamcorper malesuada proin libero nunc consequat interdum varius. Eget egestas purus viverra accumsan in nisl nisi scelerisque. ' +
+      'Erat imperdiet sed euismod nisi porta. Pulvinar pellentesque habitant morbi tristique. Lobortis elementum nibh tellus molestie nunc non blandit massa enim.',
   }
 };
 

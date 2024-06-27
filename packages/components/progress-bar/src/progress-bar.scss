@@ -1,3 +1,5 @@
+$statuses: active, success, warning, error;
+
 :host {
   --_border-radius: var(--sl-border-radius-full);
   --_label-font: var(--sl-text-input-field-label-label-md);
@@ -5,8 +7,13 @@
   --_helper-color: var(--sl-color-input-helper-text-default);
   --height: 0.5rem;
   --_gap: 8px; // TODO: use a token
-  --_bar-background: var(--sl-color-progressbar-active-background);
-  --_progress-background: var(--sl-color-progressbar-active-track);
+  --_indeterminate-duration: 20s;
+  // --_bar-background: var(--sl-color-progressbar-active-background);
+  // --_progress-background: var(--sl-color-progressbar-active-track);
+
+  @media (prefers-reduced-motion: no-preference) {
+    --_indeterminate-duration: 1.2s;
+  }
 
   // display: block;
   display: flex;
@@ -16,26 +23,47 @@
 
 // TODO: add statuses on the top
 
-:host([indeterminate]) {
+:host([indeterminate][status='active']) {
   // position: relative;
 
   .progress {
    // position: absolute;
     position: relative;
-    animation: indeterminate 2s infinite cubic-bezier(0.37, 0, 0.63, 1);
+    animation: indeterminate var(--_indeterminate-duration) infinite cubic-bezier(0.37, 0, 0.63, 1);
   }
 }
 
-:host([status=success]) {
-  // position: relative;
+@each $status in $statuses {
+  :host([status='#{$status}']) {
+    --_bar-background: var(--sl-color-progressbar-#{$status}-background);
+    --_progress-background: var(--sl-color-progressbar-#{$status}-track);
+    --_icon-fill: var(--sl-color-progressbar-#{$status}-track);
 
-  .progress {
-    background: #0B8356;
+    //--_background: var(--sl-color-inline-message-#{$variant}-background);
+    //--_border-color: var(--sl-color-inline-message-#{$variant}-border);
+    //--_color: var(--sl-color-inline-message-#{$variant}-foreground);
+    //--_fill: var(--sl-color-inline-message-#{$variant}-icon);
+    //--_icon-fill: var(--sl-color-inline-message-#{$variant}-icon);
   }
 }
+
+//:host([status=success]) {
+//  // position: relative;
+//
+//  .progress {
+//    background: #0B8356;
+//  }
+//}
 
 .label {
+  display: flex;
+  justify-content: space-between;
   font: var(--_label-font);
+  gap: 16px; // TODO: use a token for the gap here
+
+  sl-icon {
+    --sl-icon-fill-default: var(--_icon-fill);
+  }
 }
 
 .helper {
@@ -60,17 +88,20 @@
   border-radius: var(--_border-radius);
   // flex: 1;
   transform-origin: left;
-  transition: transform var(--transition);
+  //transition: transform var(--transition);
+  transition:
+    400ms width,
+    400ms background-color;
 }
 
 @keyframes indeterminate {
   0% {
-    left: -50%;
-    width: 50%;
+    left: -25%;
+    width: 25%;
   }
-  75%,
+  // 75%,
   100% {
     left: 100%;
-    width: 50%;
+    width: 25%;
   }
 }

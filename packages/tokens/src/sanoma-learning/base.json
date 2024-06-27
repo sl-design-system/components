@@ -2362,6 +2362,10 @@
         "value": "{space.md}",
         "type": "spacing"
       }
+    },
+    "progressbar": {
+      "value": "{space.sm}",
+      "type": "spacing"
     }
   },
   "dialog": {

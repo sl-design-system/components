@@ -4416,19 +4416,11 @@
         "track": {
           "value": "{color.palette.accent.base}",
           "type": "color"
-        },
-        "background": {
-          "value": "{color.palette.neutral.150}",
-          "type": "color"
         }
       },
       "success": {
         "track": {
           "value": "{color.palette.success.500}",
-          "type": "color"
-        },
-        "background": {
-          "value": "{color.palette.neutral.150}",
           "type": "color"
         }
       },
@@ -4436,19 +4428,11 @@
         "track": {
           "value": "{color.palette.danger.400}",
           "type": "color"
-        },
-        "background": {
-          "value": "{color.palette.neutral.150}",
-          "type": "color"
         }
       },
       "indeterminate": {
         "track": {
           "value": "{color.palette.accent.base}",
-          "type": "color"
-        },
-        "background": {
-          "value": "{color.palette.neutral.150}",
           "type": "color"
         }
       },
@@ -4456,11 +4440,11 @@
         "track": {
           "value": "{color.palette.warning.500}",
           "type": "color"
-        },
-        "background": {
-          "value": "{color.palette.neutral.150}",
-          "type": "color"
         }
+      },
+      "background": {
+        "value": "{color.palette.neutral.150}",
+        "type": "color"
       }
     }
   },

@@ -26,6 +26,7 @@ jobs:
       - name: Publish to Chromatic - Components
         uses: chromaui/action@latest
         with:
+          autoAcceptChanges: main
           buildScriptName: chromatic-components
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN }}
@@ -34,10 +35,9 @@ jobs:
       - name: Publish to Chromatic - Themes
         uses: chromaui/action@v1
         with:
+          autoAcceptChanges: main
           buildScriptName: themes
           exitOnceUploaded: true
           projectToken: ${{ secrets.CHROMATIC_TOKEN_THEMES }}
           onlyChanged: true
           workingDir: chromatic
-
-

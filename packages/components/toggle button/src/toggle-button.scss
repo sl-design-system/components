@@ -1,55 +1,206 @@
-@use 'sass:map';
-
-$variants: danger, success, info, warning, accent, neutral, primary;
+$fills: outline, ghost;
+$sizes: sm, md, lg;
+$variants: default, primary, success, info, warning, danger;
 
 :host {
+  --_animation: var(--sl-animation-button);
+  --_background: var(--sl-color-button-default-idle-background);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_transition-duration: var(--sl-animation-button-duration);
+  --_transition-easing: var(--sl-animation-button-easing);
+
   align-items: center;
-  block-size: 1lh;
-  border-radius: var(--sl-border-radius-badge-full);
-  box-sizing: border-box;
+  background: var(--_background);
+  border: var(--_border-width) solid var(--_border-color);
+  border-radius: var(--_border-radius);
+  color: var(--_color);
+  cursor: pointer;
   display: inline-flex;
-  font: var(--sl-text-badge-text-md);
-  gap: var(--sl-space-badge-label-inline-md);
-  min-inline-size: 1lh;
-  padding-inline: var(--sl-space-badge-inline-md);
-  text-transform: var(--sl-text-case-badge-text-transform);
+  font: var(--_font);
+  gap: var(--_label-gap);
+  justify-content: center;
+  outline-color: transparent;
+  padding-block: var(--_padding-block);
+  padding-inline: var(--_padding-inline);
+  transform: var(--_transform);
   vertical-align: middle;
 }
 
-@each $variant in $variants {
-  :host([variant='#{$variant}']) {
-    background: var(--sl-color-badge-subtle-#{$variant}-background);
-    color: var(--sl-color-badge-subtle-#{$variant}-foreground);
+:host([fill='ghost']) {
+  --_background: var(--sl-color-button-default-ghost-idle-background);
+  --_border-color: var(--sl-color-button-default-ghost-idle-border);
+  --_color: var(--sl-color-button-default-ghost-idle-foreground);
+}
+
+:host([fill='ghost']:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-ghost-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-hover-border);
+  --_color: var(--sl-color-button-default-ghost-hover-foreground);
+}
+
+:host([fill='ghost']:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-ghost-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-active-border);
+  --_color: var(--sl-color-button-default-ghost-active-foreground);
+}
+
+:host([fill='ghost'][disabled]) {
+  --_background: var(--sl-color-button-default-ghost-disabled-background);
+  --_border-color: var(--sl-color-button-default-ghost-disabled-border);
+  --_color: var(--sl-color-button-default-ghost-disabled-foreground);
+}
+
+:host([fill='ghost'][pressed]) {
+  --_background: var(--sl-color-button-default-ghost-selected-idle-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-idle-border);
+  --_color: var(--sl-color-button-default-ghost-selected-idle-foreground);
+}
+
+:host([fill='ghost'][pressed]:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-ghost-selected-hover-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-hover-border);
+  --_color: var(--sl-color-button-default-ghost-selected-hover-foreground);
+}
+
+:host([fill='ghost'][pressed]:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-ghost-selected-active-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-active-border);
+  --_color: var(--sl-color-button-default-ghost-selected-active-foreground);
+}
+
+:host([fill='ghost'][pressed][disabled]) {
+  --_background: var(--sl-color-button-default-ghost-selected-disabled-background);
+  --_border-color: var(--sl-color-button-default-ghost-selected-disabled-border);
+  --_color: var(--sl-color-button-default-ghost-selected-disabled-foreground);
+}
+
+:host([fill='outline']) {
+  --_border-width: var(--sl-border-width-button-outline);
+  --_background: var(--sl-color-button-default-outline-idle-background);
+  --_border-color: var(--sl-color-button-default-outline-idle-border);
+  --_color: var(--sl-color-button-default-outline-idle-foreground);
+}
+
+:host([fill='outline']:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-outline-hover-background);
+  --_border-color: var(--sl-color-button-default-outline-hover-border);
+  --_color: var(--sl-color-button-default-outline-hover-foreground);
+}
+
+:host([fill='outline']:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-outline-active-background);
+  --_border-color: var(--sl-color-button-default-outline-active-border);
+  --_color: var(--sl-color-button-default-outline-active-foreground);
+}
+
+:host([fill='outline'][disabled]) {
+  --_background: var(--sl-color-button-default-outline-disabled-background);
+  --_border-color: var(--sl-color-button-default-outline-disabled-border);
+  --_color: var(--sl-color-button-default-outline-disabled-foreground);
+}
+
+:host([fill='outline'][pressed]) {
+  --_background: var(--sl-color-button-default-outline-selected-idle-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-idle-border);
+  --_color: var(--sl-color-button-default-outline-selected-idle-foreground);
+}
+
+:host([fill='outline'][pressed]:not([disabled]):hover) {
+  --_background: var(--sl-color-button-default-outline-selected-hover-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-hover-border);
+  --_color: var(--sl-color-button-default-outline-selected-hover-foreground);
+}
+
+:host([fill='outline'][pressed]:not([disabled]):active) {
+  --_background: var(--sl-color-button-default-outline-selected-active-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-active-border);
+  --_color: var(--sl-color-button-default-outline-selected-active-foreground);
+}
+
+:host([fill='outline'][pressed][disabled]) {
+  --_background: var(--sl-color-button-default-outline-selected-disabled-background);
+  --_border-color: var(--sl-color-button-default-outline-selected-disabled-border);
+  --_color: var(--sl-color-button-default-outline-selected-disabled-foreground);
+}
+
+@each $size in $sizes {
+  :host([size='#{$size}']) {
+    --_border-radius: var(--sl-border-radius-button-#{$size});
+    --_font: var(--sl-text-button-text-#{$size});
+    --_icon-container-size: var(--sl-size-button-icon-#{$size});
+    --_label-gap: var(--sl-space-button-gap-#{$size});
   }
 
-  :host([variant='#{$variant}'][emphasis='bold']) {
-    background: var(--sl-color-badge-bold-#{$variant}-background);
-    color: var(--sl-color-badge-bold-#{$variant}-foreground);
+  :host([size='#{$size}'][fill='link']:not([popover-opened])) {
+    --_font: var(--sl-text-button-link-idle-#{$size});
+  }
+
+  :host([size='#{$size}'][fill='link']:not([disabled]):hover) {
+    --_font: var(--sl-text-button-link-hover-#{$size});
+  }
+
+  :host([size='#{$size}'][fill='link']:not([disabled]):active),
+  :host([size='#{$size}'][fill='link'][popover-opened]) {
+    --_font: var(--sl-text-button-link-active-#{$size});
+  }
+
+  :host([size='#{$size}'][fill='link'][disabled]) {
+    --_font: var(--sl-text-button-link-disabled-#{$size});
+  }
+
+  :host([size='#{$size}'][icon-only]) {
+    --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
+    --_icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
+
+    line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
+  }
+
+  :host([size='#{$size}']) ::slotted(sl-spinner) {
+    --sl-spinner-size: var(--sl-size-spinner-#{$size});
+  }
+
+  @each $fill in $fills {
+    :host([size='#{$size}'][fill='#{$fill}']) {
+      --_padding-block: var(--sl-space-button-#{$fill}-block-#{$size});
+      --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size});
+    }
+
+    :host([size='#{$size}'][size='#{$size}'][icon-only]) {
+      --_padding-block: var(--sl-space-button-#{$fill}-icon-only-#{$size});
+      --_padding-inline: var(--sl-space-button-#{$fill}-icon-only-#{$size});
+    }
   }
 }
 
-:host([size='sm']) {
-  line-height: var(--sl-size-badge-sm);
+:host(:focus-visible) {
+  outline: var(--_focus-outline);
+  outline-offset: var(--_focus-outline-offset);
 }
 
-:host([size='lg']) {
-  font: var(--sl-text-badge-text-lg);
-  gap: var(--sl-space-badge-label-inline-lg);
-  padding-inline: var(--sl-space-badge-inline-lg);
-
-  ::slotted(sl-icon) {
-    --sl-icon-container-size: var(--sl-size-icon-xs);
-    --sl-icon-size: var(--sl-size-icon-xs);
-  }
+:host(:where(:active, :focus-visible, :hover)) {
+  transition-duration: var(--_transition-duration);
+  transition-property: background, border-color, color, outline-color;
+  transition-timing-function: var(--_transition-easing);
 }
 
-:host([size='sm']),
-:host([round]) {
-  justify-content: center;
-  padding-inline: 0;
+:host([disabled]) {
+  cursor: default;
+  pointer-events: none;
+}
+
+:host([pressed]) ::slotted(:not([slot='pressed'])),
+:host(:not([pressed])) ::slotted([slot='pressed']) {
+  display: none;
+}
+
+::slotted(*) {
+  // Prevent the icon from ever gaining focus inside the button
+  pointer-events: none;
 }
 
 ::slotted(sl-icon) {
-  --sl-icon-container-size: var(--sl-size-icon-2xs);
-  --sl-icon-size: var(--sl-size-icon-2xs);
+  --sl-icon-container-size: var(--_icon-container-size);
+
+  fill: var(--_color);
 }

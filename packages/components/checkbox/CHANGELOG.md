@@ -1,5 +1,17 @@
 # @sl-design-system/checkbox
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1369](https://github.com/sl-design-system/components/pull/1369) [`25d1de0`](https://github.com/sl-design-system/components/commit/25d1de0d8b6e032aa13463d18db201cf88d5ddd6) - Fix behavior to match native checkbox:
+
+  - If a checkbox has no value, the form value should be `"on"` when checked
+  - The value of the checkbox group should be an array of the form value of _all_ checkboxes
+  - The form value will filter out any `null` values (so this change is not breaking)
+
+  This also fixes the inability to check a checkbox in a group that has no values.
+
 ## 1.0.1
 
 ### Patch Changes

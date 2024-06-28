@@ -2364,8 +2364,18 @@
       }
     },
     "progressbar": {
-      "value": "{space.sm}",
-      "type": "spacing"
+      "vertical": {
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "horizontal": {
+        "gap": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      }
     }
   },
   "dialog": {

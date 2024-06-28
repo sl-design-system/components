@@ -51,6 +51,16 @@ export default {
 
 export const Basic: Story = {};
 
+export const OneIcon: Story = {
+  render: () => {
+    return html`
+      <sl-toggle-button fill="outline">
+        <sl-icon name="pinata"></sl-icon>
+      </sl-toggle-button>
+    `;
+  }
+};
+
 export const All: Story = {
   render: () => {
     return html` <style>

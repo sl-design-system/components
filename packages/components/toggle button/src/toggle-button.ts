@@ -51,6 +51,8 @@ export class ToggleButton extends LitElement {
   /** Whether the switch is disabled; when set no interaction is possible. */
   @property({ type: Boolean, reflect: true }) disabled?: boolean;
 
+  @property({ type: Boolean, reflect: true, attribute: 'single-icon' }) singleIcon?: boolean = true;
+
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotChange} class="default"></slot>
@@ -60,6 +62,9 @@ export class ToggleButton extends LitElement {
 
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const assignedNodes = event.target.assignedNodes({ flatten: true });
+    if (event.target.matches('[name="pressed"]')) {
+      this.singleIcon = assignedNodes.length > 0;
+    }
     this.#setIconProperties(assignedNodes);
   }
 
@@ -92,7 +97,7 @@ export class ToggleButton extends LitElement {
       return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
     });
 
-    let hasIcon = false;
+    console.log(filteredNodes.length);
 
     filteredNodes.forEach(node => {
       const el = node as HTMLElement;
@@ -102,13 +107,5 @@ export class ToggleButton extends LitElement {
         (el.children[0] as HTMLElement).setAttribute('size', this.size);
       }
     });
-
-    if (filteredNodes.length === 1) {
-      const el = filteredNodes[0] as HTMLElement;
-      // This button is icon-only if it only contains an icon.
-      hasIcon = el.nodeName === 'SL-ICON' || this.#hasOnlyIconAsChild(el);
-    }
-
-    this.toggleAttribute('icon-only', hasIcon);
   }
 }

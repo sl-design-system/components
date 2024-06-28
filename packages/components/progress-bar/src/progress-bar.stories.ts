@@ -5,7 +5,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
 
-type Props = Pick<ProgressBar, 'indeterminate' | 'helperText' | 'label' | 'status' | 'value'> & { buttons: TemplateResult };
+type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'state' | 'value'> & { buttons: TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
@@ -13,10 +13,10 @@ export default {
   tags: ['draft'],
   args: {
     label: 'This is the label of progress bar, what if it will be longer? Ellipsis? Or wrap?',
-    helperText: 'This is an optional helper text',
+    // helperText: 'This is an optional helper text',
     value: 60,
     indeterminate: false,
-    status: 'active'
+    state: 'active'
   },
   argTypes: {
     value: {
@@ -26,7 +26,7 @@ export default {
         max: 100
       }
     },
-    status: {
+    state: {
       control: 'inline-radio',
       options: ['active', 'success', 'warning', 'error']
     },
@@ -36,7 +36,7 @@ export default {
       defaultViewport: 'default'
     }
   },
-  render: ({helperText, indeterminate, status, value, label}) => {
+  render: ({indeterminate, state, value, label}) => {
     // const increaseProgressBarValue = (value: number): number => {
     //   console.log('value', value);
     //   // const progressBar = document.getElementById("progress-bar"); // Replace with your actual progress bar element
@@ -94,12 +94,14 @@ export default {
 
       addButton?.addEventListener('click', () => {
         const value = Math.min(100, progressBar.value + 10);
-        progressBar.value = value;
+        progressBar.value = value; // TODO: needs to update helper text as well
+        progressBar.requestUpdate();
       });
 
       subtractButton?.addEventListener('click', () => {
         const value = Math.max(0, progressBar.value - 10);
         progressBar.value = value;
+        progressBar.requestUpdate();
       });
     });
 
@@ -111,35 +113,15 @@ export default {
         }
       }
     </style>
-    <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .helperText='${helperText} blablabla ${value}% of 100%' .status=${status}>
-      <span slot="helper">blablabla ${value}% of 100%</span>
+    <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
+      <span>Uploaded ${value}% of 100%</span>
     </sl-progress-bar>
-    <sl-button class="minus">- Decrease</sl-button>
-    <sl-button class="plus">+ Increase</sl-button>
+    <sl-button fill="outline" class="minus">- Decrease</sl-button>
+    <sl-button fill="outline" class="plus">+ Increase</sl-button>
   `}
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
-
-export const Alignment: Story = {
-  render: () => {
-    const buttons = html`
-      <sl-button><sl-icon name="home-blank"></sl-icon> Foo</sl-button>
-      <sl-button><sl-icon name="pinata"></sl-icon> Bar</sl-button>
-      <sl-button><sl-icon name="smile"></sl-icon> Baz</sl-button>
-    `;
-    return html`
-      <p>Start:</p>
-      <sl-button-bar style="--sl-button-bar-align: start;"> ${buttons} </sl-button-bar>
-      <p>End:</p>
-      <sl-button-bar style="--sl-button-bar-align: end;"> ${buttons} </sl-button-bar>
-      <p>Center:</p>
-      <sl-button-bar style="--sl-button-bar-align: center;"> ${buttons} </sl-button-bar>
-      <p>Space between:</p>
-      <sl-button-bar style="--sl-button-bar-align: space-between;"> ${buttons} </sl-button-bar>
-    `;
-  }
-};
 
 export const Overflow: Story = {
   ...Basic,
@@ -152,39 +134,38 @@ export const Overflow: Story = {
   }
 };
 
-export const Wrapping: Story = {
+export const Indeterminate: Story = {
   args: {
-    buttons: html`
-      <sl-button>Lorem </sl-button>
-      <sl-button>dolor</sl-button>
-      <sl-button>sit</sl-button>
-      <sl-button>amet</sl-button>
-      <sl-button>officia</sl-button>
-      <sl-button>esse</sl-button>
-      <sl-button>sunt</sl-button>
-      <sl-button>nulla</sl-button>
-      <sl-button>et</sl-button>
-      <sl-button>sint</sl-button>
-      <sl-button>nostrud</sl-button>
-      <sl-button>nisi</sl-button>
-      <sl-button>ullamco</sl-button>
-      <sl-button>ut</sl-button>
-    `
+    indeterminate: true,
   }
 };
 
-export const IconOnly: Story = {
-  args: {
-    buttons: html`
-      <sl-button fill="ghost">
-        <sl-icon name="home-blank"></sl-icon>
-      </sl-button>
-      <sl-button fill="ghost">
-        <sl-icon name="pinata"></sl-icon>
-      </sl-button>
-      <sl-button fill="ghost">
-        <sl-icon name="smile"></sl-icon>
-      </sl-button>
-    `
-  }
+export const All: StoryObj = {
+  render: () => html`
+    <style>
+      #root-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+      }
+    </style>
+    <sl-progress-bar value="20" label="Progress bar label in the active state" state="active">
+      <span>20% of 100%</span>
+    </sl-progress-bar>
+    <sl-progress-bar value="30" label="Progress bar label in the success state" state="success">
+      <span>30% of 100%</span>
+    </sl-progress-bar>
+    <sl-progress-bar value="40" label="Progress bar label in the warning state" state="warning">
+      <span>40% of 100%</span>
+    </sl-progress-bar>
+    <sl-progress-bar value="50" label="Progress bar label in the error state" state="error">
+      <span>50% of 100%</span>
+    </sl-progress-bar>
+    <sl-progress-bar indeterminate label="label">
+      <span">This is the indeterminate state of the progress bar</span>
+    </sl-progress-bar>
+  `
 };
+
+// TODO: increase and decrease buttons only in one story
+

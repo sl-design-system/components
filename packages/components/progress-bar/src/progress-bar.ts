@@ -13,10 +13,11 @@ declare global {
 
 // export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
 
-export type ProgressStatus = 'active' | 'success' | 'warning' | 'error';
+export type ProgressState = 'active' | 'success' | 'warning' | 'error';
 
 /**
  * Progress bar component...
+ * slot default a place for helper text like `20% of 100%`
  * Groups buttons together in a bar separated by whitespace.
  *
  * ```html
@@ -59,17 +60,17 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** Label describing the value of the progress bar. */
   @property() label?: string;
 
-  /** Helper text describing more the progress bar. */
-  @property({attribute: 'helper-text'}) helperText?: string;
+  // /** Helper text describing more the progress bar. */
+  // @property({attribute: 'helper-text'}) helperText?: string;
 
-  /** The status of the progress bar. */
-  @property({ reflect: true }) status?: ProgressStatus = 'active';
+  /** The state of the progress bar. */
+  @property({ reflect: true }) state?: ProgressState = 'active';
 
   // @property({ attribute: 'inline', reflect: true }) inline?: boolean;
 
-  /** @internal The name of the icon, depending on the status. */
+  /** @internal The name of the icon, depending on the state. */
   get iconName(): string {
-    switch (this.status) {
+    switch (this.state) {
       case 'success':
         return 'circle-check-solid';
       case 'warning':
@@ -88,7 +89,7 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
     return html`
       <span class="label">
         ${this.label}
-        ${this.status !== 'active' ?
+        ${this.state !== 'active' ?
           html`<sl-icon .name=${this.iconName} size="md" ></sl-icon>`
           : nothing
         }
@@ -96,23 +97,8 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       <div class="container">
         <div class="progress" style="inline-size: ${this.value}%"></div>
       </div>
-      <slot name="helper"></slot>
-      <span class="helper">Optional helper text</span><h2>${this.value}%</h2>`;
+      <slot></slot>`;
   } // TODO: do we need any slot?
-
-  // async #onSlotchange(event: Event & { target: HTMLSlotElement }): Promise<void> {
-  //   const assignedElements = event.target.assignedElements({ flatten: true });
-  //
-  //   const icons = await Promise.all(
-  //     assignedElements.map(async el => {
-  //       if (el instanceof ReactiveElement) {
-  //         await el.updateComplete;
-  //       }
-  //
-  //       return el.hasAttribute('icon-only') && el.getAttribute('fill') === 'ghost';
-  //     })
-  //   );
-  //
-  //   this.iconOnly = icons.every(Boolean);
-  // }
 }
+
+// <span class="helper">Optional helper text</span>

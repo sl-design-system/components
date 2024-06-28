@@ -1,14 +1,15 @@
-$statuses: active, success, warning, error;
+$states: active, success, warning, error;
 
 :host {
   --_border-radius: var(--sl-border-radius-full);
   --_label-font: var(--sl-text-input-field-label-label-md);
   --_helper-font: var(--sl-text-input-field-label-hint-md);
   --_helper-color: var(--sl-color-input-helper-text-default);
-  --height: 0.5rem;
-  --_gap: 8px; // TODO: use a token
+  --height: var(--sl-size-progressbar);//0.5rem;
+  --_gap: var(--sl-space-progressbar-vertical-gap); //8px; // TODO: use a token
+  --_label-gap: var(--sl-space-progressbar-horizontal-gap);
   --_indeterminate-duration: 20s;
-  // --_bar-background: var(--sl-color-progressbar-active-background);
+   --_bar-background: var(--sl-color-progressbar-background);
   // --_progress-background: var(--sl-color-progressbar-active-track);
 
   @media (prefers-reduced-motion: no-preference) {
@@ -21,9 +22,7 @@ $statuses: active, success, warning, error;
   gap: var(--_gap);
 }
 
-// TODO: add statuses on the top
-
-:host([indeterminate][status='active']) {
+:host([indeterminate][state='active']) {
   // position: relative;
 
   .progress {
@@ -33,40 +32,26 @@ $statuses: active, success, warning, error;
   }
 }
 
-@each $status in $statuses {
-  :host([status='#{$status}']) {
-    --_bar-background: var(--sl-color-progressbar-#{$status}-background);
-    --_progress-background: var(--sl-color-progressbar-#{$status}-track);
-    --_icon-fill: var(--sl-color-progressbar-#{$status}-track);
-
-    //--_background: var(--sl-color-inline-message-#{$variant}-background);
-    //--_border-color: var(--sl-color-inline-message-#{$variant}-border);
-    //--_color: var(--sl-color-inline-message-#{$variant}-foreground);
-    //--_fill: var(--sl-color-inline-message-#{$variant}-icon);
-    //--_icon-fill: var(--sl-color-inline-message-#{$variant}-icon);
+@each $state in $states {
+  :host([state='#{$state}']) {
+    --_progress-background: var(--sl-color-progressbar-#{$state}-track);
+    --_icon-fill: var(--sl-color-progressbar-#{$state}-track);
   }
 }
-
-//:host([status=success]) {
-//  // position: relative;
-//
-//  .progress {
-//    background: #0B8356;
-//  }
-//}
 
 .label {
   display: flex;
   justify-content: space-between;
   font: var(--_label-font);
-  gap: 16px; // TODO: use a token for the gap here
+  gap: var(--_label-gap); //16px; // TODO: use a token for the gap here
 
   sl-icon {
     --sl-icon-fill-default: var(--_icon-fill);
   }
 }
 
-.helper {
+::slotted(*) {
+// .helper {
   font: var(--_helper-font);
   color: var(--_helper-color);
 }

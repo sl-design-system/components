@@ -13,6 +13,10 @@ export default {
     placeholder: '',
     value: ''
   },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
   render: ({ disabled, placeholder, value }) => {
     return html`
       <sl-search-field

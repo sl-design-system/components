@@ -16,6 +16,10 @@ export default {
     disabled: false,
     label: 'Label'
   },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
   render: ({ disabled, hint, label, value }) => {
     const onClick = (event: Event & { target: HTMLElement }): void => {
       event.target.closest('sl-form')?.reportValidity();

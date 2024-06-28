@@ -54,7 +54,6 @@ export class Tooltip extends LitElement {
   /** To attach the `sl-tooltip` to the DOM tree and anchor element */
   static lazy(target: Element, callback: (target: Tooltip) => void, options: TooltipOptions = {}): void {
     const createTooltip = (): void => {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const tooltip = (options.context ?? document).createElement('sl-tooltip') as Tooltip;
       tooltip.id = `sl-tooltip-${nextUniqueId++}`;
 

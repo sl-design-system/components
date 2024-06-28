@@ -35,7 +35,7 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   /** @internal */
   static override styles: CSSResultGroup = styles;
 
-  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     click: this.#onClick,
     focusin: this.#onFocusin,
@@ -83,11 +83,11 @@ export class Checkbox<T = unknown> extends FormControlMixin(LitElement) {
   @property() override value?: T;
 
   override get formValue(): T | null {
-    return this.checked ? ((this.value ?? true) as T) : null;
+    return this.checked ? ((this.value ?? 'on') as T) : null;
   }
 
   override set formValue(value: T | null) {
-    this.checked = value === true || value === this.value;
+    this.checked = value === this.value || (this.value === undefined && value === 'on');
   }
 
   override connectedCallback(): void {

@@ -1,8 +1,8 @@
 ---
 title: Button bar
-description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna.
+description: The Button bar provides a organized way to present buttons side by side, which will stack up when there's not enough space.
 componentType: action
-shortDescription: We are still working on the button bar component
+shortDescription: The Button bar provides a organized way to present buttons side by side.
 layout: "categories/components/components.njk"
 tags: component
 packageName: button-bar
@@ -10,5 +10,5 @@ storybookCategory: components
 eleventyNavigation:
   parent: Components
   key: Button bar
-  status: planned
+  status: new
 ---

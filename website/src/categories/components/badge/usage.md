@@ -60,7 +60,7 @@ The small size of the badge is only meant to be used in combination with the ava
 |2|Icon	|Icon that can be positioned before the label.|yes|
 |3|Label	|The label is the text attributed to the badge that provides context.|yes|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 
 </div>
 
@@ -102,7 +102,7 @@ Reserve bold emphasis for situations where the information conveyed by the badge
 
 <section>
 
-## Options
+## Figma Options
 
 With these options, you can tweak the appearance of the badge in Figma. They are available in the Design Panel so you can compose the badge to exactly fit the user experience need for the use case you are working on.
 
@@ -120,7 +120,7 @@ With these options, you can tweak the appearance of the badge in Figma. They are
 |FontAwesome|`value`|To insert the name of the icon.|
 |SVG Instance|`instance`|To select the instance of the SVG.|
 
-{.ds-table}
+{.ds-table .ds-table-align-top}
 </div>
 
 </section>

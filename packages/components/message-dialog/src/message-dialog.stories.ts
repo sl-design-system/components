@@ -9,6 +9,10 @@ type Story = StoryObj<Props>;
 export default {
   title: 'Overlay/Message dialog',
   tags: ['preview'],
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
   render: args => {
     const onClick = async (): Promise<void> => {
       const result = await args.onClick(args);

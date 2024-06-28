@@ -9,7 +9,7 @@ export type Story = StoryObj<Props>;
 
 export default {
   title: 'Components/Accordion',
-  tags: ['preview'],
+  tags: ['stable'],
   args: {
     single: false
   },
@@ -28,13 +28,10 @@ export const All: Story = {
     return html`
       <sl-accordion>
         <sl-accordion-item summary="Discovering Dinosaurs: A Prehistoric Adventure" open>
-          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿
+          Embark on a thrilling journey back in time to the age of dinosaurs! 🌎🦕🌿🦖
         </sl-accordion-item>
         <sl-accordion-item summary="Journey Through Ancient Civilizations">
-          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍
-        </sl-accordion-item>
-        <sl-accordion-item summary="Math Magic - solving Puzzles with numbers" disabled open>
-          Get ready to unlock the secrets of numbers! 🌟✨🧩
+          Pack your virtual bags and travel through time to ancient Egypt, Greece, Rome, and beyond 🌍🏛️🔍🏺
         </sl-accordion-item>
         <sl-accordion-item summary="Space Odyssey: Exploring Planets and Stars" disabled>
           Buckle up for a cosmic adventure! 🚀🪐👽

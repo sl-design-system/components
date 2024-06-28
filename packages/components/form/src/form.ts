@@ -26,7 +26,7 @@ export class Form<T extends Record<string, unknown> = Record<string, unknown>> e
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-  /** Events controller. */
+  // eslint-disable-next-line no-unused-private-class-members
   #events = new EventsController(this, {
     'sl-form-control': this.#onFormControl,
     'sl-form-field': this.#onFormField

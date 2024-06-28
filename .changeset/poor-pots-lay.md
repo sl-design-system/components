@@ -1,4 +1,5 @@
 ---
+'@sl-design-system/bingel': patch
 '@sl-design-system/bingel-dc': patch
 '@sl-design-system/bingel-int': patch
 '@sl-design-system/clickedu': patch
@@ -10,9 +11,10 @@
 '@sl-design-system/my-digital-book': patch
 '@sl-design-system/myvanin': patch
 '@sl-design-system/neon': patch
+'@sl-design-system/nowa-era': patch
 '@sl-design-system/sanoma-learning': patch
 '@sl-design-system/sanoma-utbildning': patch
 '@sl-design-system/teas': patch
 ---
 
-Update badge tokens
+Added `--sl-size-tab-indicator` token to `core.json`

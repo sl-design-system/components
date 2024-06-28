@@ -1,5 +1,19 @@
 # @sl-design-system/badge
 
+## 1.0.0
+
+### Major Changes
+
+- [#1336](https://github.com/sl-design-system/components/pull/1336) [`d787820`](https://github.com/sl-design-system/components/commit/d7878202384eab3f58908b1cf252851c6a3d2744) - First stable release
+
+### Patch Changes
+
+- [#1323](https://github.com/sl-design-system/components/pull/1323) [`7053c6b`](https://github.com/sl-design-system/components/commit/7053c6b766a6254d852c2bba52ee4fc0a5020f4a) - Various improvements:
+  - Add new `emphasis` property with `subtle` (default) and `bold` values
+  - Reduce sizes to `sm`, `md` (default) and `lg`, with `sm` only meant to be used in combination with the avatar component
+  - Add padding around the icon
+  - Make the badge round based on the content (icon only, or only 1 character)
+
 ## 0.0.6
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
   "layout": "categories/components/components.njk",
   "tags": "breadcrumbs",
-  "componentStatus": "preview",
+  "componentStatus": "stable",
   "componentTagName": [
     {
       "name": "Breadcrumbs",

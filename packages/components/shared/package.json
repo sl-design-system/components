@@ -1,6 +1,6 @@
 {
   "name": "@sl-design-system/shared",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "Shared code for the SL Design System components",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -24,6 +24,10 @@
       "import": "./src/events.js",
       "types": "./src/events.d.ts"
     },
+    "./mixins.js": {
+      "import": "./src/mixins.js",
+      "types": "./src/mixins.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -36,7 +40,7 @@
   },
   "devDependencies": {
     "@floating-ui/dom": "^1.6.5",
-    "lit": "^3.1.2"
+    "lit": "^3.1.4"
   },
   "peerDependencies": {
     "@floating-ui/dom": "^1.6.3",

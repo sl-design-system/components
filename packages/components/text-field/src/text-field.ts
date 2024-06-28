@@ -223,6 +223,7 @@ export class TextField<T extends { toString(): string } = string> extends FormCo
     return value?.toString() || '';
   }
 
+  /** @internal */
   override focus(): void {
     this.input.focus();
   }

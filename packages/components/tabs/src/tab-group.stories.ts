@@ -4,7 +4,7 @@ import '@sl-design-system/icon/register.js';
 import { type Meta, type StoryObj } from '@storybook/web-components';
 import { type TemplateResult, html } from 'lit';
 import '../register.js';
-import { type TabGroup } from './tab-group.js';
+import { type SlTabChangeEvent, type TabGroup } from './tab-group.js';
 import { type TabPanel } from './tab-panel.js';
 
 type Props = Pick<TabGroup, 'vertical' | 'alignTabs'> & {
@@ -36,6 +36,10 @@ export default {
       }
     }
   },
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  },
   render: ({ alignTabs, tabs, tabPanels, vertical }) => {
     return html`<sl-tab-group .alignTabs=${alignTabs} .vertical=${vertical}>${tabs?.()}${tabPanels?.()}</sl-tab-group>`;
   }
@@ -58,6 +62,32 @@ export const Basic: Story = {
   }
 };
 
+export const Empty: Story = {
+  args: {
+    ...Basic.args,
+    tabPanels: undefined
+  }
+};
+
+export const IconOnly: Story = {
+  args: {
+    tabs: () => html`
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+      <sl-tab>
+        <sl-icon slot="icon" name="star" size="md"></sl-icon>
+      </sl-tab>
+    `
+  }
+};
+
 export const InitialSelected: Story = {
   args: {
     ...Basic.args,
@@ -72,8 +102,8 @@ export const InitialSelected: Story = {
 
 export const Lazy: Story = {
   render: ({ alignTabs, vertical }) => {
-    const onTabChange = (event: Event & { target: TabGroup }) => {
-      document.querySelector('strong')!.textContent = event.target.selectedTab!.textContent;
+    const onTabChange = ({ detail }: SlTabChangeEvent) => {
+      document.querySelector('sl-tab-group strong')!.textContent = detail.toString();
     };
 
     return html`

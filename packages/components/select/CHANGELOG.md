@@ -1,5 +1,15 @@
 # @sl-design-system/select
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1324](https://github.com/sl-design-system/components/pull/1324) [`a494f33`](https://github.com/sl-design-system/components/commit/a494f3300826d828bb4cfa3f39758729dd2b8704) - Dropdown disappears when select button is out of view
+
+- Updated dependencies [[`a705c3f`](https://github.com/sl-design-system/components/commit/a705c3f7034207b19a10a819bccd85a3347e0204), [`0f0e93c`](https://github.com/sl-design-system/components/commit/0f0e93c374f1706ce461217849d385649ed45a5a), [`5f4226f`](https://github.com/sl-design-system/components/commit/5f4226f0025e4839fc5c8a694c2df26bafea67c2)]:
+  - @sl-design-system/shared@0.2.12
+  - @sl-design-system/form@1.0.2
+
 ## 1.0.0
 
 ### Major Changes

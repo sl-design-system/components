@@ -11,8 +11,8 @@ eleventyNavigation:
 <div class="ds-example">
 
 <sl-form-field label="Subjects">
-<sl-checkbox-group value="0">
-  <sl-checkbox value="0" checked>Mathematics</sl-checkbox>
+<sl-checkbox-group value='["0","2"]'>
+  <sl-checkbox value="0">Mathematics</sl-checkbox>
   <sl-checkbox value="1">Geography</sl-checkbox>
   <sl-checkbox value="2">Physics</sl-checkbox>
   <sl-checkbox value="3" disabled>History</sl-checkbox>
@@ -25,8 +25,8 @@ eleventyNavigation:
 
   ```html
   <sl-form-field label="Subjects">
-    <sl-checkbox-group value="0">
-      <sl-checkbox value="0" checked>Mathematics</sl-checkbox>
+    <sl-checkbox-group value='["0","2"]'>
+      <sl-checkbox value="0">Mathematics</sl-checkbox>
       <sl-checkbox value="1">Geography</sl-checkbox>
       <sl-checkbox value="2">Physics</sl-checkbox>
       <sl-checkbox value="3" disabled>History</sl-checkbox>

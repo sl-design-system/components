@@ -37,7 +37,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
   /** Observe changes to the checkboxes. */
   #observer = new MutationObserver(() => {
-    this.value = this.boxes?.map(box => box.formValue).filter((v): v is T => v !== null) ?? [];
+    this.value = this.boxes?.map(box => box.formValue) ?? [];
     this.changeEvent.emit(this.value);
     this.updateState({ dirty: true });
     this.#updateValidity();
@@ -60,7 +60,7 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   @event({ name: 'sl-blur' }) blurEvent!: EventEmitter<SlBlurEvent>;
 
   /** @internal Emits when the value of the group changes. */
-  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<T[]>>;
+  @event({ name: 'sl-change' }) changeEvent!: EventEmitter<SlChangeEvent<Array<T | null>>>;
 
   /** @internal Emits when the component receives focus. */
   @event({ name: 'sl-focus' }) focusEvent!: EventEmitter<SlFocusEvent>;
@@ -71,14 +71,15 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
   /** At least one checkbox in the group must be checked if true. */
   @property({ type: Boolean, reflect: true }) override required?: boolean;
 
-  /**
-   * The size of the checkboxes in the group.
-   * @type {'md' | 'lg'}
-   */
+  /** The size of the checkboxes in the group. */
   @property() size?: CheckboxSize;
 
   /** The value of the group. */
-  @property({ type: Array }) override value?: T[];
+  @property({ type: Array }) override value?: Array<T | null>;
+
+  override get formValue(): T[] {
+    return this.value?.filter((v): v is T => v !== null) ?? [];
+  }
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -125,7 +126,13 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
     if (changes.has('value')) {
       this.#observer.disconnect();
-      this.boxes?.forEach(box => (box.checked = box.value && this.value?.includes(box.value)));
+      this.boxes?.forEach((box, index) => {
+        if (box.value !== undefined) {
+          box.checked = this.value?.includes(box.value) ?? false;
+        } else {
+          box.formValue = this.value?.at(index) ?? null;
+        }
+      });
       this.#observer.observe(this, OBSERVER_OPTIONS);
     }
   }
@@ -180,9 +187,13 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
 
     this.#observer.disconnect();
 
-    this.boxes?.forEach(box => {
+    this.boxes?.forEach((box, index) => {
       box.name = this.name;
-      box.checked = box.value !== undefined && this.value?.includes(box.value);
+      if (box.value !== undefined) {
+        box.checked = this.value?.includes(box.value) ?? false;
+      } else {
+        box.formValue = this.value?.at(index) ?? null;
+      }
 
       if (typeof this.disabled === 'boolean') {
         box.disabled = !!this.disabled;
@@ -192,6 +203,8 @@ export class CheckboxGroup<T = unknown> extends FormControlMixin(LitElement) {
         box.size = this.size;
       }
     });
+
+    this.value = this.boxes?.map(box => box.formValue) ?? [];
 
     this.#observer.observe(this, OBSERVER_OPTIONS);
   }

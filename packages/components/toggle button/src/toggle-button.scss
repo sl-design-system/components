@@ -75,6 +75,21 @@ $variants: default, primary, success, info, warning, danger;
   --_color: var(--sl-color-button-default-ghost-selected-disabled-foreground);
 }
 
+:host([size='sm'][fill='ghost']) {
+  --_padding-block: var(--sl-space-button-ghost-icon-only-sm);
+  --_padding-inline: var(--sl-space-button-ghost-icon-only-sm);
+}
+
+:host([size='md'][fill='ghost']) {
+  --_padding-block: var(--sl-space-button-ghost-icon-only-md);
+  --_padding-inline: var(--sl-space-button-ghost-icon-only-md);
+}
+
+:host([size='lg'][fill='ghost']) {
+  --_padding-block: var(--sl-space-button-ghost-icon-only-lg);
+  --_padding-inline: var(--sl-space-button-ghost-icon-only-lg);
+}
+
 :host([fill='outline']) {
   --_border-width: var(--sl-border-width-button-outline);
   --_background: var(--sl-color-button-default-outline-idle-background);
@@ -124,53 +139,34 @@ $variants: default, primary, success, info, warning, danger;
   --_color: var(--sl-color-button-default-outline-selected-disabled-foreground);
 }
 
-@each $size in $sizes {
-  :host([size='#{$size}']) {
-    --_border-radius: var(--sl-border-radius-button-#{$size});
-    --_font: var(--sl-text-button-text-#{$size});
-    --_icon-container-size: var(--sl-size-button-icon-#{$size});
-    --_label-gap: var(--sl-space-button-gap-#{$size});
-  }
+:host([size='sm'][fill='outline']) {
+  --_padding-block: var(--sl-space-button-outline-icon-only-sm);
+  --_padding-inline: var(--sl-space-button-outline-icon-only-sm);
+}
 
-  :host([size='#{$size}'][fill='link']:not([popover-opened])) {
-    --_font: var(--sl-text-button-link-idle-#{$size});
-  }
+:host([size='md'][fill='outline']) {
+  --_padding-block: var(--sl-space-button-outline-icon-only-md);
+  --_padding-inline: var(--sl-space-button-outline-icon-only-md);
+}
 
-  :host([size='#{$size}'][fill='link']:not([disabled]):hover) {
-    --_font: var(--sl-text-button-link-hover-#{$size});
-  }
+:host([size='lg'][fill='outline']) {
+  --_padding-block: var(--sl-space-button-outline-icon-only-lg);
+  --_padding-inline: var(--sl-space-button-outline-icon-only-lg);
+}
 
-  :host([size='#{$size}'][fill='link']:not([disabled]):active),
-  :host([size='#{$size}'][fill='link'][popover-opened]) {
-    --_font: var(--sl-text-button-link-active-#{$size});
-  }
+:host([size='sm']) {
+  --_border-radius: var(--sl-border-radius-button-sm);
+  --_icon-container-size: var(--sl-size-button-icon-sm);
+}
 
-  :host([size='#{$size}'][fill='link'][disabled]) {
-    --_font: var(--sl-text-button-link-disabled-#{$size});
-  }
+:host([size='md']) {
+  --_border-radius: var(--sl-border-radius-button-md);
+  --_icon-container-size: var(--sl-size-button-icon-sm);
+}
 
-  :host([size='#{$size}'][icon-only]) {
-    --_border-radius: var(--sl-border-radius-button-icon-only-#{$size});
-    --_icon-container-size: var(--sl-size-button-icon-container-icon-only-#{$size});
-
-    line-height: var(--sl-size-button-icon-container-icon-only-#{$size});
-  }
-
-  :host([size='#{$size}']) ::slotted(sl-spinner) {
-    --sl-spinner-size: var(--sl-size-spinner-#{$size});
-  }
-
-  @each $fill in $fills {
-    :host([size='#{$size}'][fill='#{$fill}']) {
-      --_padding-block: var(--sl-space-button-#{$fill}-block-#{$size});
-      --_padding-inline: var(--sl-space-button-#{$fill}-inline-#{$size});
-    }
-
-    :host([size='#{$size}'][size='#{$size}'][icon-only]) {
-      --_padding-block: var(--sl-space-button-#{$fill}-icon-only-#{$size});
-      --_padding-inline: var(--sl-space-button-#{$fill}-icon-only-#{$size});
-    }
-  }
+:host([size='lg']) {
+  --_border-radius: var(--sl-border-radius-button-lg);
+  --_icon-container-size: var(--sl-size-button-icon-#{$size});
 }
 
 :host(:focus-visible) {

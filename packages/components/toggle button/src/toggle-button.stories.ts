@@ -13,6 +13,7 @@ type Story = StoryObj<Props>;
 
 const fills: ToggleButtonFill[] = ['outline', 'ghost'];
 const sizes: ToggleButtonSize[] = ['sm', 'md', 'lg'];
+const disabledStates = [false, true];
 
 Icon.register(fasGear, farGear, faEyeSlash);
 
@@ -50,4 +51,94 @@ export default {
 
 export const Basic: Story = {};
 
-export const All: Story = {};
+export const All: Story = {
+  render: () => {
+    return html` <style>
+        sl-button-bar {
+          margin-block-end: 8px;
+        }
+        table {
+          border-collapse: collapse;
+        }
+
+        th {
+          text-transform: capitalize;
+        }
+        th,
+        td {
+          padding: 4px 8px;
+        }
+        thead td {
+          text-align: center;
+        }
+
+        tbody td:nth-of-type(4n) {
+          border-right: 2px solid #dedede;
+          padding-right: 24px;
+        }
+        tbody td:nth-of-type(4n + 1):not(:first-of-type) {
+          padding-left: 24px;
+        }
+        tbody td:last-of-type {
+          border: none;
+        }
+      </style>
+      <h2>sizes:</h2>
+      ${sizes.map(
+        size => html`
+          <sl-toggle-button fill="outline" .size=${size}>
+            <sl-icon name="far-gear"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+          <sl-toggle-button fill="ghost" .size=${size}>
+            <sl-icon name="far-gear"></sl-icon>
+            <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+          </sl-toggle-button>
+        `
+      )}
+      <h2>Variants:</h2>
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            ${fills.map(fill => html`<th colspan="4">${fill}</th>`)}
+          </tr>
+          <tr>
+            <td></td>
+            ${fills.map(() =>
+              disabledStates.map(
+                disabledState => html`
+                  <td colspan="2" class=${disabledState ? 'sb-disabled' : ''}>
+                    ${disabledState ? 'Disabled' : 'Enabled'}
+                  </td>
+                `
+              )
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th></th>
+            ${fills.map(
+              fill =>
+                html` ${disabledStates.map(
+                  disabledState =>
+                    html` <td class=${disabledState ? 'sb-disabled' : ''}>
+                        <sl-toggle-button .fill=${fill} size="md" ?disabled=${disabledState} data-mock-state>
+                          <sl-icon name="far-gear"></sl-icon>
+                          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+                        </sl-toggle-button>
+                      </td>
+                      <td class=${disabledState ? 'sb-disabled' : ''}>
+                        <sl-toggle-button .fill=${fill} size="md" ?disabled=${disabledState} pressed data-mock-state>
+                          <sl-icon name="far-gear"></sl-icon>
+                          <sl-icon name="fas-gear" slot="pressed"></sl-icon>
+                        </sl-toggle-button>
+                      </td>`
+                )}`
+            )}
+          </tr>
+        </tbody>
+      </table>`;
+  }
+};

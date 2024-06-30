@@ -48,11 +48,11 @@ export const componentStatusStyles = css`
 
   .info:first-of-type {
     padding-inline-end: 1.6rem;
-    border-right: 0.1rem solid var(--control-color-surface-400-surface);
   }
 
   .info:not(:first-of-type) {
     padding-inline-start: 2.4rem;
+    border-left: 0.1rem solid var(--control-color-surface-400-surface);
   }
 
   sl-button-bar {

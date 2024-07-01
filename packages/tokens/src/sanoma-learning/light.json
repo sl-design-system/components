@@ -3007,7 +3007,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3017,7 +3017,7 @@
               "description": "color.surface.solid.primary.foreground"
             },
             "icon": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3039,7 +3039,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.danger.600}",
+              "value": "{color.palette.danger.500}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3312,7 +3312,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "invalid": {
-            "value": "{color.palette.danger.600}",
+            "value": "{color.palette.danger.500}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }
@@ -3348,7 +3348,7 @@
             "description": "color.surface.solid.primary.foreground"
           },
           "invalid": {
-            "value": "{color.palette.danger.600}",
+            "value": "{color.palette.danger.500}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           }
@@ -4426,7 +4426,7 @@
       },
       "error": {
         "track": {
-          "value": "{color.palette.danger.600}",
+          "value": "{color.palette.danger.500}",
           "type": "color"
         }
       },

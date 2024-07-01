@@ -500,6 +500,16 @@
     "breadcrumb": {
       "value": "{size.2xl}",
       "type": "sizing"
+    },
+    "tab": {
+      "indicator": {
+        "value": "{size.4xs}",
+        "type": "sizing"
+      }
+    },
+    "progressbar": {
+      "value": "{size.3xs}",
+      "type": "sizing"
     }
   },
   "space": {
@@ -1784,6 +1794,20 @@
       "gap": {
         "value": "{space.xl}",
         "type": "spacing"
+      }
+    },
+    "progressbar": {
+      "vertical": {
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "horizontal": {
+        "gap": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
       }
     }
   },

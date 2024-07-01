@@ -5,8 +5,9 @@ $states: active, success, warning, error;
   --_label-font: var(--sl-text-input-field-label-label-md);
   --_helper-font: var(--sl-text-input-field-label-hint-md);
   --_helper-color: var(--sl-color-input-helper-text-default);
+  --_helper-color-error: var(--sl-color-progressbar-error-track);
   --height: var(--sl-size-progressbar);//0.5rem;
-  --_gap: var(--sl-space-progressbar-vertical-gap); //8px; // TODO: use a token
+  --_gap: var(--sl-space-progressbar-vertical-gap); // TODO: use a token
   --_label-gap: var(--sl-space-progressbar-horizontal-gap);
   --_indeterminate-duration: 20s;
    --_bar-background: var(--sl-color-progressbar-background);
@@ -23,8 +24,6 @@ $states: active, success, warning, error;
 }
 
 :host([indeterminate][state='active']) {
-  // position: relative;
-
   .progress {
    // position: absolute;
     position: relative;
@@ -39,10 +38,26 @@ $states: active, success, warning, error;
   }
 }
 
+:host([state='error']) {
+  ::slotted(*) {
+    color: var(--_helper-color-error);
+  }
+}
+
 .label {
   display: flex;
   justify-content: space-between;
   font: var(--_label-font);
+  gap: var(--_label-gap); //16px; // TODO: use a token for the gap here
+
+  sl-icon {
+    --sl-icon-fill-default: var(--_icon-fill);
+  }
+}
+
+.helper {
+  display: flex;
+  justify-content: space-between;
   gap: var(--_label-gap); //16px; // TODO: use a token for the gap here
 
   sl-icon {
@@ -59,17 +74,16 @@ $states: active, success, warning, error;
 .container {
   position: relative;
   align-items: stretch;
-  background: var(--_bar-background); // #8D959D; // var(--background);
+  background: var(--_bar-background);
   border-radius: var(--_border-radius);
   display: flex;
-  height: var(--height);
+  block-size: var(--height);
   overflow: hidden;
-  width: 100%;
- // border: 1px solid #8A9EA5;
+  inline-size: 100%;
 }
 
 .progress {
-  background: var(--_progress-background); // #6FBCFB; // var(--progress);
+  background: var(--_progress-background);
   border-radius: var(--_border-radius);
   // flex: 1;
   transform-origin: left;
@@ -84,9 +98,45 @@ $states: active, success, warning, error;
     left: -25%;
     width: 25%;
   }
-  // 75%,
   100% {
     left: 100%;
     width: 25%;
   }
 }
+
+////progress[value] {
+////  /* Reset the default appearance */
+////  -webkit-appearance: none;
+////  -moz-appearance: none;
+////  appearance: none;
+////}
+//
+//progress/*, ::-moz-progress-bar*/ {
+//  position: relative;
+//  align-items: stretch;
+//  background: var(--_bar-background);
+//  border: none;
+//  border-radius: var(--_border-radius);
+//  display: flex;
+//  block-size: var(--height);
+//  overflow: hidden;
+//  inline-size: 100%;
+//}
+//
+//progress::-webkit-progress-bar/*,
+//progress::-moz-progress-bar */ {
+//  //border-radius: 1rem;
+//  background: var(--_bar-background);
+//  border-radius: var(--_border-radius);
+//}
+//
+//progress::-webkit-progress-value/*,
+//progress[value]::-moz-progress-bar*/ {
+//  background-color: #e20074;
+//  //box-shadow: 2px 0 0 0 #cfcfcf, 0 0 1rem .5rem #cfcfcf;
+//  //border-radius: 1rem;
+//  border-radius: var(--_border-radius);
+//  transition:
+//    400ms width,
+//    400ms background-color;
+//}

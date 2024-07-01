@@ -140,7 +140,91 @@ export const Indeterminate: Story = {
   }
 };
 
+// export const Example: StoryObj = {
+//   args: {
+//   ...Basic.args
+//   },
+//   render: () => {
+//     let progressBar: ProgressBar;
+//     let helperText: string;
+//     let currentProgress: number;
+//     setTimeout(() => {
+//       const size = 728;
+//       progressBar = document.querySelector('sl-progress-bar') as ProgressBar;
+//       // const [progress, setProgress] = useState(0);
+//
+//       // incrementCount() {
+//       //   this.count += 1;
+//       //   this.requestUpdate(); // Trigger Lit Element to re-render
+//       // }
+//
+//       //useEffect(() => {
+//       setTimeout(() => {
+//         // const progressBar = document.querySelector('sl-progress-bar') as ProgressBar;
+//         const interval = setInterval(() => {
+//           currentProgress = progressBar.value;
+//           const advancement = Math.random() * 8;
+//           if (currentProgress + advancement < size) {
+//             return currentProgress + advancement;
+//           } else {
+//             clearInterval(interval);
+//             return size;
+//           }
+//         }, 50);
+//       }, 3000);
+//       //}, []);
+//       const running = progressBar.value > 0;
+//       helperText = running ? `${progressBar.value.toFixed(1)}MB of ${size}MB` : 'Fetching assets...';
+//       if (progressBar.value >= size) {
+//         helperText = 'Done';
+//       }
+//     });
+//     return html`
+//       <sl-progress-bar .value=${currentProgress > 0 ? currentProgress : null} max={size}
+//                        .state={progress === size ? 'success' : 'active'} label="Export data">
+//       <span>${helperText}</span>
+//       </sl-progress-bar>`}
+// };
+
+// export const Example2 = () => {
+//   const size = 728;
+//   let progress = 0;
+//
+//   const updateProgress = () => {
+//     const advancement = Math.random() * 8;
+//     if (progress + advancement < size) {
+//       progress += advancement;
+//     } else {
+//       clearInterval(interval);
+//       progress = size;
+//     }
+//     // Trigger Lit Element to re-render
+//     document.querySelector('progress-bar').value = progress;
+//   };
+//
+//   const interval = setInterval(updateProgress, 50);
+//
+//   const running = progress > 0;
+//   let helperText = running ? `${progress.toFixed(1)}MB of ${size}MB` : 'Fetching assets...';
+//   if (progress >= size) {
+//     helperText = 'Done';
+//   }
+//
+//   return html`
+//         <sl-progress-bar
+//             .value="${running ? progress : null}"
+//             .max="${size}"
+//             .status="${progress === size ? 'finished' : 'active'}"
+//             label="Export data"
+//             helperText="${helperText}"
+//         ></sl-progress-bar>
+//     `;
+// };
+
 export const All: StoryObj = {
+  args: {
+    ...Basic.args
+  },
   render: () => html`
     <style>
       #root-inner {

@@ -20,7 +20,7 @@ const disabledStates = [false, true];
 Icon.register(fasGear, farGear, faEyeSlash);
 
 export default {
-  title: 'Components/ToggleButton',
+  title: 'Components/Toggle button',
   tags: ['draft'],
   args: {
     pressed: false,

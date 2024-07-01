@@ -87,10 +87,10 @@ $variants: default, primary, success, info, warning, danger;
     --_padding-inline: var(--sl-space-button-#{$fill}-icon-only-#{$size});
   }
 }
+
 @include sizing-fill-specific('sm', 'ghost');
 @include sizing-fill-specific('md', 'ghost');
 @include sizing-fill-specific('lg', 'ghost');
-
 @include sizing-fill-specific('sm', 'outline');
 @include sizing-fill-specific('md', 'outline');
 @include sizing-fill-specific('lg', 'outline');

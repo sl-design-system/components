@@ -53,6 +53,15 @@ export class ToggleButton extends LitElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'single-icon' }) singleIcon?: boolean = true;
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+
+    this.setAttribute('role', 'button');
+    if (!this.hasAttribute('tabindex')) {
+      this.tabIndex = 0;
+    }
+  }
+
   override render(): TemplateResult {
     return html`
       <slot @slotchange=${this.#onSlotChange} class="default"></slot>
@@ -77,6 +86,7 @@ export class ToggleButton extends LitElement {
     event.stopPropagation();
 
     this.pressed = !this.pressed;
+    this.setAttribute('aria-pressed', this.pressed ? 'true' : 'false');
     this.toggleEvent.emit(this.pressed);
   }
 

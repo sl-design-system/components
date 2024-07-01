@@ -8,7 +8,9 @@ import { html } from 'lit';
 import '../register.js';
 import { type ToggleButton, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
-type Props = Pick<ToggleButton, 'size' | 'fill' | 'pressed'>;
+interface Props extends Pick<ToggleButton, 'size' | 'fill' | 'pressed'> {
+  label: string;
+}
 type Story = StoryObj<Props>;
 
 const fills: ToggleButtonFill[] = ['outline', 'ghost'];
@@ -23,7 +25,8 @@ export default {
   args: {
     pressed: false,
     size: 'md',
-    fill: 'ghost'
+    fill: 'ghost',
+    label: 'Show settings'
   },
   argTypes: {
     size: {
@@ -35,13 +38,13 @@ export default {
       options: fills
     }
   },
-  render: ({ fill, size, pressed }) => {
+  render: ({ fill, size, pressed, label }) => {
     const onToggle = (event: Event & { target: ToggleButton }): void => {
       console.log(event.target.pressed);
     };
 
     return html`
-      <sl-toggle-button .fill=${fill} .size=${size} ?pressed=${pressed} @sl-toggle=${onToggle}>
+      <sl-toggle-button .fill=${fill} .size=${size} ?pressed=${pressed} @sl-toggle=${onToggle} .ariaLabel=${label}>
         <sl-icon name="far-gear"></sl-icon>
         <sl-icon name="fas-gear" slot="pressed"></sl-icon>
       </sl-toggle-button>

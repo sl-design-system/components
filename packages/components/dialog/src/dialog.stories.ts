@@ -54,8 +54,8 @@ export default {
       </style>
       <sl-button fill="outline" size="md" @click=${onClick}>Show Dialog</sl-button>
       <sl-dialog ?close-button=${closeButton} ?disable-cancel=${disableCancel}>
-        <h1 slot="title">${title}</h1>
-        ${subtitle ? html`<h2 slot="subtitle">${subtitle}</h2>` : nothing} ${body}
+        <span slot="title">${title}</span>
+        ${subtitle ? html`<span slot="subtitle">${subtitle}</span>` : nothing} ${body}
         ${headerButtons ? headerButtons(args) : nothing}
         ${footerButtons
           ? footerButtons(args)

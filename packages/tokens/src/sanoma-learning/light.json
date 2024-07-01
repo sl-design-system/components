@@ -3007,7 +3007,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.danger.400}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -3039,7 +3039,7 @@
               "description": "color.surface.solid.primary.background"
             },
             "border": {
-              "value": "{color.palette.danger.400}",
+              "value": "{color.palette.danger.600}",
               "type": "color",
               "description": "color.surface.solid.primary.background"
             },
@@ -4426,7 +4426,7 @@
       },
       "error": {
         "track": {
-          "value": "{color.palette.danger.400}",
+          "value": "{color.palette.danger.600}",
           "type": "color"
         }
       },

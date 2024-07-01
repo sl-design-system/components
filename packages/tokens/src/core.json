@@ -1795,6 +1795,20 @@
         "value": "{space.xl}",
         "type": "spacing"
       }
+    },
+    "progressbar": {
+      "vertical": {
+        "gap": {
+          "value": "{space.sm}",
+          "type": "spacing"
+        }
+      },
+      "horizontal": {
+        "gap": {
+          "value": "{space.lg}",
+          "type": "spacing"
+        }
+      }
     }
   },
   "text": {

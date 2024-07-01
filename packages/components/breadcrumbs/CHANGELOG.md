@@ -1,5 +1,11 @@
 # @sl-design-system/breadcrumbs
 
+## 1.0.1
+
+### Patch Changes
+
+- [#1367](https://github.com/sl-design-system/components/pull/1367) [`95ea0ec`](https://github.com/sl-design-system/components/commit/95ea0ec2cbe7d4e61dca6bc26a470b1ed5e04e47) - Fix missing button and popover dependencies
+
 ## 1.0.0
 
 ### Major Changes

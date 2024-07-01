@@ -101,7 +101,14 @@ describe('sl-checkbox-group', () => {
       el.querySelector('sl-checkbox')?.click();
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      expect(el.value).to.deep.equal(['0']);
+      expect(el.value).to.deep.equal(['0', null, null]);
+    });
+
+    it('should filter out the null values in the formValue', async () => {
+      el.querySelector('sl-checkbox')?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el.formValue).to.deep.equal(['0']);
     });
 
     it('should be pristine', () => {
@@ -249,6 +256,40 @@ describe('sl-checkbox-group', () => {
 
       expect(el.boxes?.[0].checked).to.equal(true);
       expect(el.boxes?.[1].checked).to.equal(true);
+    });
+  });
+
+  describe('without values', () => {
+    let el: CheckboxGroup;
+
+    beforeEach(async () => {
+      el = await fixture(html`
+        <sl-checkbox-group>
+          <sl-checkbox>Option 1</sl-checkbox>
+          <sl-checkbox>Option 2</sl-checkbox>
+          <sl-checkbox>Option 3</sl-checkbox>
+        </sl-checkbox-group>
+      `);
+    });
+
+    it('should have a value of all nulls', () => {
+      expect(el.value).to.deep.equal([null, null, null]);
+    });
+
+    it('should have a value of "on" when checked', async () => {
+      el.querySelector('sl-checkbox')?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el.value).to.deep.equal(['on', null, null]);
+    });
+
+    it('should filter out the null values in the formValue', async () => {
+      expect(el.formValue).to.deep.equal([]);
+
+      el.querySelector('sl-checkbox')?.click();
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      expect(el.formValue).to.deep.equal(['on']);
     });
   });
 

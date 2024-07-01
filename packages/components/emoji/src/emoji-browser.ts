@@ -170,14 +170,14 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
           : html`
               ${this.frequentlyUsedEmojis?.length
                 ? html`
-                    <h1 id="frequently-used">${msg('Frequently Used')}</h1>
+                    <div id="frequently-used" class="heading">${msg('Frequently Used')}</div>
                     ${this.renderEmojis(this.frequentlyUsedEmojis)}
                   `
                 : nothing}
               ${map(
                 this.emojis?.entries(),
                 ([group, emojis]) => html`
-                  <h1 .id=${group.key}>${group.message}</h1>
+                  <div .id=${group.key} class="heading">${group.message}</div>
                   ${this.renderEmojis(emojis)}
                 `
               )}
@@ -217,7 +217,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
   }
 
   #onScroll(event: Event & { target: HTMLElement }): void {
-    const headings = Array.from(this.renderRoot.querySelectorAll('h1')).reverse(),
+    const headings = Array.from(this.renderRoot.querySelectorAll<HTMLElement>('.heading')).reverse(),
       { clientHeight, offsetTop, scrollHeight, scrollTop } = event.target;
 
     if (Math.abs(scrollHeight - clientHeight - scrollTop) <= 1) {
@@ -240,7 +240,7 @@ export class EmojiBrowser extends ScopedElementsMixin(LitElement) {
       key = tab?.id.split('group-').at(1);
 
     if (key) {
-      this.renderRoot.querySelector(`h1#${key}`)?.scrollIntoView();
+      this.renderRoot.querySelector(`#${key}`)?.scrollIntoView();
     }
   }
 }

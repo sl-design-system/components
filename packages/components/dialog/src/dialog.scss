@@ -82,11 +82,13 @@ dialog[open]:not([closing]) {
 
 slot[name='title']::slotted(*) {
   font: var(--_title-font);
+  margin: 0;
   text-wrap: balance;
 }
 
 slot[name='subtitle']::slotted(*) {
   font: var(--_subtitle-font);
+  margin: 0;
 }
 
 slot[name='header-actions'] sl-button-bar {

@@ -63,7 +63,7 @@ export class ToggleButton extends LitElement {
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const assignedNodes = event.target.assignedNodes({ flatten: true });
     if (event.target.matches('[name="pressed"]')) {
-      this.singleIcon = assignedNodes.length > 0;
+      this.singleIcon = assignedNodes.length > 0 ? false : true;
     }
     this.#setIconProperties(assignedNodes);
   }
@@ -96,8 +96,6 @@ export class ToggleButton extends LitElement {
     const filteredNodes = assignedNodes.filter(node => {
       return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
     });
-
-    console.log(filteredNodes.length);
 
     filteredNodes.forEach(node => {
       const el = node as HTMLElement;

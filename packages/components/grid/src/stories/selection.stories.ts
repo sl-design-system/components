@@ -10,7 +10,11 @@ import { type SlActiveItemChangeEvent } from '../grid.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Selection'
+  title: 'Layout/Grid/Selection',
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  }
 };
 
 export const Single: Story = {

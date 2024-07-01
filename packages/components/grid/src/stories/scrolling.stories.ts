@@ -7,7 +7,11 @@ import '../../register.js';
 type Story = StoryObj;
 
 export default {
-  title: 'Layout/Grid/Scrolling'
+  title: 'Layout/Grid/Scrolling',
+  parameters: {
+    // Disables Chromatic's snapshotting on a story level
+    chromatic: { disableSnapshot: true }
+  }
 };
 
 export const VerticalOverflow: Story = {

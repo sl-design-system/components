@@ -71,7 +71,7 @@
     "@sl-design-system/checkbox": "^1.0.0",
     "@sl-design-system/form": "^1.0.0",
     "@sl-design-system/icon": "^1.0.0",
-    "@sl-design-system/locales": "^0.0.8",
+    "@sl-design-system/locales": "^0.0.9",
     "@sl-design-system/radio-group": "^1.0.0",
     "@sl-design-system/select": "^1.0.0",
     "@sl-design-system/switch": "^1.0.0",

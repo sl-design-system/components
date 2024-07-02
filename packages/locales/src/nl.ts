@@ -23,6 +23,7 @@ export const templates = {
   sa996297f6a208e98: 'Kruimelpad',
   sb85774dc5d18ff0f: 'Bevestig',
   sb881081d4f28c851: 'Kies een optie uit de lijst.',
+  sbf1de7bf2881bae1: 'Vaak gebruikt',
   sc94053131f85fc8a: 'Vink dit vakje aan.',
   sc95c7150ab686f99: 'Voer een correcte waarde in.',
   sca81470958a97fc4: 'Filter op',
@@ -31,6 +32,5 @@ export const templates = {
   sd711c88b851db6c9: 'De volgende velden zijn incorrect:',
   sde6884478b7cc818: str`Voer tenminste ${0} karakters in (je hebt op dit momoment ${1} karakter${2}).`,
   sf1ec4acb8d744ed9: 'Mededeling',
-  sf677da98fa27f9b6: 'Meer links',
-  sbf1de7bf2881bae1: 'Frequently Used'
+  sf677da98fa27f9b6: 'Meer links'
 };

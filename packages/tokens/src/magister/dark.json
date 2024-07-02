@@ -3138,7 +3138,7 @@
       "helper": {
         "text": {
           "default": {
-            "value": "{color.palette.neutral.150}",
+            "value": "{color.palette.neutral.200}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },
@@ -3155,7 +3155,7 @@
         },
         "icon": {
           "default": {
-            "value": "{color.palette.neutral.150}",
+            "value": "{color.palette.neutral.200}",
             "type": "color",
             "description": "color.surface.solid.primary.foreground"
           },

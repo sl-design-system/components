@@ -233,6 +233,7 @@ export const All: StoryObj = {
         gap: 32px;
       }
     </style>
+    <h2>With label</h2>
     <sl-progress-bar value="20" label="Progress bar label in the active state" state="active">
       <span>20% of 100%</span>
     </sl-progress-bar>
@@ -245,8 +246,24 @@ export const All: StoryObj = {
     <sl-progress-bar value="50" label="Progress bar label in the error state" state="error">
       <span>50% of 100%</span>
     </sl-progress-bar>
-    <sl-progress-bar indeterminate label="label">
-      <span">This is the indeterminate state of the progress bar</span>
+    <sl-progress-bar indeterminate label="Progress bar label in the indeterminate state">
+      <span">Preparing download</span>
+    </sl-progress-bar>
+    <h2>No label</h2>
+    <sl-progress-bar value="20" state="active">
+      <span>20% of 100%</span>
+    </sl-progress-bar>
+    <sl-progress-bar value="30" state="success">
+      <span>30% of 100%</span>
+    </sl-progress-bar>
+    <sl-progress-bar value="40" state="warning">
+      <span>40% of 100%</span>
+    </sl-progress-bar>
+    <sl-progress-bar value="50" state="error">
+      <span>50% of 100%</span>
+    </sl-progress-bar>
+    <sl-progress-bar indeterminate>
+      <span">Preparing download</span>
     </sl-progress-bar>
   `
 };

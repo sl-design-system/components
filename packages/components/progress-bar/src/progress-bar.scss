@@ -27,7 +27,8 @@ $states: active, success, warning, error;
   .progress {
    // position: absolute;
     position: relative;
-    animation: indeterminate var(--_indeterminate-duration) infinite cubic-bezier(0.37, 0, 0.63, 1);
+    //animation: indeterminate var(--_indeterminate-duration) infinite cubic-bezier(0.37, 0, 0.63, 1);
+    animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
   }
 }
 
@@ -94,49 +95,20 @@ $states: active, success, warning, error;
 }
 
 @keyframes indeterminate {
+  //0% {
+  //  left: -25%;
+  //  width: 25%;
+  //}
+  //100% {
+  //  left: 100%;
+  //  width: 25%;
+  //}
   0% {
-    left: -25%;
-    width: 25%;
+    left: -80%;
+    width: 80%;
   }
   100% {
-    left: 100%;
-    width: 25%;
-  }
+     left: 110%;
+     width: 10%;
+   }
 }
-
-////progress[value] {
-////  /* Reset the default appearance */
-////  -webkit-appearance: none;
-////  -moz-appearance: none;
-////  appearance: none;
-////}
-//
-//progress/*, ::-moz-progress-bar*/ {
-//  position: relative;
-//  align-items: stretch;
-//  background: var(--_bar-background);
-//  border: none;
-//  border-radius: var(--_border-radius);
-//  display: flex;
-//  block-size: var(--height);
-//  overflow: hidden;
-//  inline-size: 100%;
-//}
-//
-//progress::-webkit-progress-bar/*,
-//progress::-moz-progress-bar */ {
-//  //border-radius: 1rem;
-//  background: var(--_bar-background);
-//  border-radius: var(--_border-radius);
-//}
-//
-//progress::-webkit-progress-value/*,
-//progress[value]::-moz-progress-bar*/ {
-//  background-color: #e20074;
-//  //box-shadow: 2px 0 0 0 #cfcfcf, 0 0 1rem .5rem #cfcfcf;
-//  //border-radius: 1rem;
-//  border-radius: var(--_border-radius);
-//  transition:
-//    400ms width,
-//    400ms background-color;
-//}

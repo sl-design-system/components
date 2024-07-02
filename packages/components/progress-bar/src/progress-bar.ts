@@ -1,8 +1,9 @@
 import {type CSSResultGroup, LitElement, ReactiveElement, type TemplateResult, html, nothing} from 'lit';
 import { property } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './progress-bar.scss.js';
 import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import {Icon} from "@sl-design-system/icon";
+import { Icon } from "@sl-design-system/icon";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -38,11 +39,8 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** @private */
   static override styles: CSSResultGroup = styles;
 
-
-  // TODO: indeterminate, animate, 3 sizes sm/md/lg, variants primary (default), success, danger?
-
   /** Progress value (from 0...100). */
-  @property({ type: Number }) value = 20; // TODO: should default to 0;
+  @property({ type: Number }) value = 0;
 
   /** Whether the progress bar has the indeterminate state. */
   @property({ type: Boolean, reflect: true }) indeterminate = false;
@@ -67,8 +65,6 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  // TODO:  warning octagon-exclamation-solid
-  // TODO: error triangle-exclamation-solid
   // TODO: when there is no label applied, aria-label needs to be applied
 
   override render(): TemplateResult {
@@ -83,12 +79,13 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
         </span>`
         : nothing
       }
-      <div aria-labelledby="label"
+      <div aria-labelledby=${ifDefined(this.label ? 'label' : undefined)}
            aria-describedby="helper"
            class="container"
            role="progressbar"
+           aria-busy=${ifDefined(this.indeterminate || this.state === 'active' ? true : undefined)}
            aria-valuemin="0"
-           .aria-valuenow=${this.value}
+           aria-valuenow=${ifDefined(!this.indeterminate ? `${this.value}` : undefined)}
            aria-valuemax="100">
         <div class="progress" style="inline-size: ${this.value}%"></div>
       </div>
@@ -111,7 +108,5 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
 // aria-valuemax="100"
 
 // TODO: dependencies!!
-
-// TODO: aria-describedby and aria-labelledby?
 
 // TODO: use slotchange to detect whether helper text is slotted and if not don't show any icon there

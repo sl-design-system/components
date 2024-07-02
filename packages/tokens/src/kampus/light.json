@@ -4303,7 +4303,7 @@
     "progressbar": {
       "active": {
         "track": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.base}",
           "type": "color"
         }
       },
@@ -4315,19 +4315,19 @@
       },
       "error": {
         "track": {
-          "value": "{color.palette.danger.500}",
+          "value": "{color.palette.danger.600}",
           "type": "color"
         }
       },
       "indeterminate": {
         "track": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.base}",
           "type": "color"
         }
       },
       "warning": {
         "track": {
-          "value": "{color.palette.warning.500}",
+          "value": "{color.palette.warning.600}",
           "type": "color"
         }
       },

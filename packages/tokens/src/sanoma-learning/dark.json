@@ -22,7 +22,7 @@
         "description": "color.body.default.foreground"
       },
       "overlay": {
-        "value": "rgba( {color.palette.white.base},{opacity.500})",
+        "value": "rgba({color.palette.white.base},{opacity.500})",
         "type": "color",
         "description": "body.surface.200"
       }

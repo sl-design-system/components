@@ -6,6 +6,8 @@ $md-breakpoint: 600px;
   --_border-radius: var(--sl-border-radius-dialog-mobile);
   --_border: var(--sl-border-width-dialog-default) solid var(--sl-color-dialog-border);
   --_color: var(--sl-color-dialog-foreground);
+  --_focus-outline: var(--sl-color-focusring-default) solid var(--sl-border-width-focusring-default);
+  --_focus-outline-offset: var(--sl-border-width-focusring-offset);
   --_header-gap: var(--sl-space-dialog-gap-header);
   --_heading-direction: var(--sl-dialog-header-flex-direction);
   --_heading-gap: var(--sl-space-dialog-gap-header);
@@ -39,6 +41,11 @@ dialog {
   opacity: 0;
   overflow: visible;
   padding: 0;
+
+  &:focus-visible {
+    outline: var(--_focus-outline);
+    outline-offset: calc(var(--_focus-outline-offset) * -1);
+  }
 }
 
 dialog,

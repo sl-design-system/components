@@ -22,6 +22,7 @@ export interface MessageDialogConfig<T = unknown> {
 
 export interface MessageDialogButton<T = unknown> {
   action?(): void;
+  autofocus?: boolean;
   fill?: ButtonFill;
   text: string;
   value?: T;
@@ -29,11 +30,17 @@ export interface MessageDialogButton<T = unknown> {
 }
 
 /**
- * A dialog for displaying messages to the user.
+ * Use this component to show alerts, confirmations, or custom dialogs.
+ *
+ * This component is meant to be used as a static class. Not as a declarative component. For example:
+ * ```js
+ * await MessageDialog.alert('Hello, world!');
+ * // Dialog has been closed or cancelled at this point
+ * ```
  */
 @localized()
 export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) {
-  /** @private */
+  /** @internal */
   static get scopedElements(): ScopedElementsMap {
     return {
       ...Dialog.scopedElements,
@@ -42,21 +49,34 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
     };
   }
 
-  /** @private */
+  /** @internal */
   static override styles: CSSResultGroup = styles;
 
+  /**
+   * Shows an alert message to the user with an OK button by default.
+   *
+   * @param message - The message to display.
+   * @param title - The title of the dialog.
+   */
   static async alert(message: string, title = msg('Alert')): Promise<void> {
     return await this.show({
-      buttons: [{ text: msg('OK'), variant: 'primary' }],
+      buttons: [{ autofocus: true, text: msg('OK'), variant: 'primary' }],
       title,
       message
     });
   }
 
+  /**
+   * Shows a confirmation dialog to the user with OK and Cancel buttons by default.
+   *
+   * @param message - The message to display.
+   * @param title - The title of the dialog.
+   * @returns A promise that resolves with `true` if the user clicks OK, `false` if the user clicks Cancel, or `undefined` if the user closes the dialog.
+   */
   static async confirm(message: string, title = msg('Confirm')): Promise<boolean | undefined> {
     return await this.show<boolean>({
       buttons: [
-        { text: msg('Cancel'), value: false },
+        { text: msg('Cancel'), value: false, autofocus: true, fill: 'outline', variant: 'primary' },
         { text: msg('OK'), value: true, variant: 'primary' }
       ],
       title,
@@ -64,6 +84,12 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
     });
   }
 
+  /**
+   * Shows a message dialog to the user. Use this method to display custom dialogs with any number of buttons.
+   *
+   * @param config - The configuration for the dialog.
+   * @returns A promise that resolves with the value of the button that was clicked, or `undefined` if the dialog was closed.
+   */
   static async show<T = unknown>(config: MessageDialogConfig<T>): Promise<T | undefined> {
     return await new Promise<T | undefined>(resolve => {
       config.buttons = config.buttons?.map(button => {
@@ -87,6 +113,7 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
     });
   }
 
+  /** The configuration of the message dialog. */
   @property({ attribute: false }) config?: MessageDialogConfig<T>;
 
   override render(): TemplateResult {
@@ -101,6 +128,7 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
           button => html`
             <sl-button
               @click=${() => button.action?.()}
+              ?autofocus=${button.autofocus}
               .fill=${button.fill ?? 'solid'}
               .variant=${button.variant ?? 'default'}
               slot="actions"
@@ -114,10 +142,12 @@ export class MessageDialog<T = unknown> extends ScopedElementsMixin(LitElement) 
     `;
   }
 
+  /** Show the message dialog as a modal, in the top layer, with a backdrop. */
   showModal(): void {
     this.renderRoot.querySelector<Dialog>('sl-dialog')?.showModal();
   }
 
+  /** Close the message dialog. */
   close(): void {
     this.renderRoot.querySelector<Dialog>('sl-dialog')?.close();
   }

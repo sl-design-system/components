@@ -4302,36 +4302,36 @@
     "progressbar": {
       "active": {
         "track": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.base}",
           "type": "color"
         }
       },
       "success": {
         "track": {
-          "value": "{color.palette.success.500}",
+          "value": "{color.palette.success.base}",
           "type": "color"
         }
       },
       "error": {
         "track": {
-          "value": "{color.palette.danger.500}",
+          "value": "{color.palette.danger.700}",
           "type": "color"
         }
       },
       "indeterminate": {
         "track": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.base}",
           "type": "color"
         }
       },
       "warning": {
         "track": {
-          "value": "{color.palette.warning.500}",
+          "value": "{color.palette.warning.700}",
           "type": "color"
         }
       },
       "background": {
-        "value": "{color.palette.neutral.150}",
+        "value": "{color.palette.neutral.300}",
         "type": "color"
       }
     }

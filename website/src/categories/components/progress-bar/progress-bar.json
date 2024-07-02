@@ -1,0 +1,11 @@
+{
+  "layout": "categories/components/components.njk",
+  "tags": "progress-bar",
+  "componentStatus": "preview",
+  "componentTagName": [
+    {
+      "name": "Progress bar",
+      "selector": "sl-progress-bar"
+    }
+  ]
+}

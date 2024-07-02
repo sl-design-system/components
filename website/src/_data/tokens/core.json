@@ -1062,34 +1062,32 @@
           "paddingTop": {
             "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.dialog.desktop.container.paddingTop"
+            "description": "space.button.solid.block.md"
           },
           "inline": {
             "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.dialog.desktop.container.inline"
+            "description": "space.button.solid.block.md"
           },
           "paddingBottom": {
             "value": "{space.xl}",
             "type": "spacing",
-            "description": "space.dialog.desktop.container.paddingBottom"
+            "description": "space.button.solid.block.md"
           }
         },
         "body": {
           "block": {
-            "value": "{space.xl}",
+            "value": "{space.2xl}",
             "type": "spacing",
-            "description": "space.dialog.desktop.body.block"
+            "description": "space.button.solid.block.md"
           },
           "inline": {
-            "value": "{space.xl}",
-            "type": "spacing",
-            "description": "space.dialog.desktop.body.inline"
+            "value": "{space.2xl}",
+            "type": "spacing"
           },
           "gap": {
-            "value": "{space.xl}",
-            "type": "spacing",
-            "description": "space.dialog.desktop.body.gap"
+            "value": "{space.2xl}",
+            "type": "spacing"
           }
         }
       },
@@ -1113,17 +1111,17 @@
         },
         "body": {
           "block": {
-            "value": "{space.lg}",
+            "value": "{space.xl}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "inline": {
-            "value": "{space.lg}",
+            "value": "{space.xl}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           },
           "gap": {
-            "value": "{space.lg}",
+            "value": "{space.xl}",
             "type": "spacing",
             "description": "space.button.solid.block.md"
           }

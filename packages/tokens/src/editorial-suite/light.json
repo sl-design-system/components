@@ -4445,7 +4445,7 @@
     "progressbar": {
       "active": {
         "track": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.500}",
           "type": "color"
         }
       },
@@ -4457,13 +4457,13 @@
       },
       "error": {
         "track": {
-          "value": "{color.palette.danger.500}",
+          "value": "{color.palette.danger.600}",
           "type": "color"
         }
       },
       "indeterminate": {
         "track": {
-          "value": "{color.palette.accent.base}",
+          "value": "{color.palette.primary.500}",
           "type": "color"
         }
       },

@@ -1,5 +1,11 @@
 # @sanomalearning/sanoma-utbildning
 
+## 0.0.8
+
+### Patch Changes
+
+- [#1374](https://github.com/sl-design-system/components/pull/1374) [`836d6d5`](https://github.com/sl-design-system/components/commit/836d6d54ff835b81378d996deb8bf6cb8a108b43) - Reduce dialog padding from 30px to 24px (and from 24px to 16px on mobile)
+
 ## 0.0.7
 
 ### Patch Changes

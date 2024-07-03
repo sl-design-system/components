@@ -11,7 +11,7 @@
   <target>Type hier om te filteren</target>
 </trans-unit>
 <trans-unit id="s58bfb494feb8eb02">
-  <source><x id="0" equiv-text="${this.getSelectedCount()}"/> selected</source>
+  <source><x id="0" equiv-text="${count}"/> selected</source>
   <target><x id="0" equiv-text="${count}"/> geselecteerd</target>
 </trans-unit>
 <trans-unit id="s629576c6b305d539">
@@ -109,6 +109,14 @@
 <trans-unit id="s13fdff160ffad275">
   <source>Clear text</source>
   <target>Wis tekst</target>
+</trans-unit>
+<trans-unit id="s5d929ff1619ac0c9">
+  <source>Search</source>
+  <target>Zoeken</target>
+</trans-unit>
+<trans-unit id="sbf1de7bf2881bae1">
+  <source>Frequently Used</source>
+  <target>Vaak gebruikt</target>
 </trans-unit>
 </body>
 </file>

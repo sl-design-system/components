@@ -6,36 +6,32 @@ $states: active, success, warning, error;
   --_helper-font: var(--sl-text-input-field-label-hint-md);
   --_helper-color: var(--sl-color-input-helper-text-default);
   --_helper-color-error: var(--sl-color-progressbar-error-track);
-  --height: var(--sl-size-progressbar);//0.5rem;
-  --_gap: var(--sl-space-progressbar-vertical-gap); // TODO: use a token
+  --height: var(--sl-size-progressbar);
+  --_gap: var(--sl-space-progressbar-vertical-gap);
   --_label-gap: var(--sl-space-progressbar-horizontal-gap);
   --_indeterminate-duration: 20s;
    --_bar-background: var(--sl-color-progressbar-background);
-  // --_progress-background: var(--sl-color-progressbar-active-track);
 
   @media (prefers-reduced-motion: no-preference) {
     --_indeterminate-duration: 1.2s;
   }
 
-  // display: block;
   display: flex;
   flex-direction: column;
   gap: var(--_gap);
-}
-
-:host([indeterminate][state='active']) {
-  .progress {
-   // position: absolute;
-    position: relative;
-    //animation: indeterminate var(--_indeterminate-duration) infinite cubic-bezier(0.37, 0, 0.63, 1);
-    animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
-  }
 }
 
 @each $state in $states {
   :host([state='#{$state}']) {
     --_progress-background: var(--sl-color-progressbar-#{$state}-track);
     --_icon-fill: var(--sl-color-progressbar-#{$state}-track);
+  }
+}
+
+:host([indeterminate][state='active']) {
+  .progress {
+    position: relative;
+    animation: var(--_indeterminate-duration) ease 500ms infinite normal none running indeterminate;
   }
 }
 
@@ -49,7 +45,7 @@ $states: active, success, warning, error;
   display: flex;
   justify-content: space-between;
   font: var(--_label-font);
-  gap: var(--_label-gap); //16px; // TODO: use a token for the gap here
+  gap: var(--_label-gap);
 
   sl-icon {
     --sl-icon-fill-default: var(--_icon-fill);
@@ -59,7 +55,7 @@ $states: active, success, warning, error;
 .helper {
   display: flex;
   justify-content: space-between;
-  gap: var(--_label-gap); //16px; // TODO: use a token for the gap here
+  gap: var(--_label-gap);
 
   sl-icon {
     --sl-icon-fill-default: var(--_icon-fill);
@@ -67,7 +63,6 @@ $states: active, success, warning, error;
 }
 
 ::slotted(*) {
-// .helper {
   font: var(--_helper-font);
   color: var(--_helper-color);
 }
@@ -86,23 +81,11 @@ $states: active, success, warning, error;
 .progress {
   background: var(--_progress-background);
   border-radius: var(--_border-radius);
-  // flex: 1;
   transform-origin: left;
-  //transition: transform var(--transition);
-  transition:
-    400ms width,
-    400ms background-color;
+  transition: 400ms width, 400ms background-color;
 }
 
 @keyframes indeterminate {
-  //0% {
-  //  left: -25%;
-  //  width: 25%;
-  //}
-  //100% {
-  //  left: 100%;
-  //  width: 25%;
-  //}
   0% {
     left: -80%;
     width: 80%;

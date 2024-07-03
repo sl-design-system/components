@@ -1,9 +1,9 @@
-import {type CSSResultGroup, LitElement, ReactiveElement, type TemplateResult, html, nothing} from 'lit';
+import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
+import { Icon } from '@sl-design-system/icon';
+import { type CSSResultGroup, LitElement, type TemplateResult, html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import styles from './progress-bar.scss.js';
-import { type ScopedElementsMap, ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { Icon } from "@sl-design-system/icon";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -11,22 +11,19 @@ declare global {
   }
 }
 
-// export type ButtonBarAlign = 'start' | 'center' | 'end' | 'space-between';
-
 export type ProgressState = 'active' | 'success' | 'warning' | 'error';
 
 /**
- * Progress bar component...
- * slot default a place for helper text like `20% of 100%`
- * Groups buttons together in a bar separated by whitespace.
+ * Progress bar component that can be used to communicate process status.
+ *
  *
  * ```html
- * <sl-progress-bar label="Downloading file">
- *   <span>40% of 100%</span>
- * </sl-button-bar>
+ *  <sl-progress-bar label="Downloading file">
+ *     <span>40% of 100%</span>
+ *  </sl-button-bar>
  * ```
  *
- * @slot default - A place for helper text like `20% of 100%`.
+ * @slot default - A place for helper text like eg. `20% of 100%`.
  */
 export class ProgressBar extends ScopedElementsMixin(LitElement) {
   /** @internal */
@@ -65,48 +62,29 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  // TODO: when there is no label applied, aria-label needs to be applied
-
   override render(): TemplateResult {
-    return html`
-      ${this.label ?
-        html`<span id="label" class="label">
-          ${this.label}
-          ${this.state !== 'active' ?
-            html`<sl-icon .name=${this.iconName} size="md" ></sl-icon>`
-            : nothing
-          }
-        </span>`
-        : nothing
-      }
-      <div aria-labelledby=${ifDefined(this.label ? 'label' : undefined)}
-           aria-describedby="helper"
-           class="container"
-           role="progressbar"
-           aria-busy=${ifDefined(this.indeterminate || this.state === 'active' ? true : undefined)}
-           aria-valuemin="0"
-           aria-valuenow=${ifDefined(!this.indeterminate ? `${this.value}` : undefined)}
-           aria-valuemax="100">
+    return html` ${this.label
+        ? html`<span id="label" class="label">
+            ${this.label}
+            ${this.state !== 'active' ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
+          </span>`
+        : nothing}
+      <div
+        aria-labelledby=${ifDefined(this.label ? 'label' : undefined)}
+        aria-describedby="helper"
+        class="container"
+        role="progressbar"
+        aria-busy=${ifDefined(this.indeterminate || this.state === 'active' ? true : undefined)}
+        aria-valuemin="0"
+        aria-valuenow=${ifDefined(!this.indeterminate ? `${this.value}` : undefined)}
+        aria-valuemax="100"
+      >
         <div class="progress" style="inline-size: ${this.value}%"></div>
       </div>
       <span id="helper" class="helper">
         <slot></slot>
-        ${this.state !== 'active' && !this.label ?
-          html`<sl-icon .name=${this.iconName} size="md" ></sl-icon>`
-          : nothing
-        }
+        ${this.state !== 'active' && !this.label ? html`<sl-icon .name=${this.iconName} size="md"></sl-icon>` : nothing}
       </span>`;
-  } // TODO: do we need any slot?
+  }
 }
 // TODO: what about state success warning and error and a11y???
-// <span class="helper">Optional helper text</span>
-
-// TODO: aria-label when there is no label?
-// TODO: role=progressbar?
-// aria-valuemin="0"
-// aria-valuenow="50"
-// aria-valuemax="100"
-
-// TODO: dependencies!!
-
-// TODO: use slotchange to detect whether helper text is slotted and if not don't show any icon there

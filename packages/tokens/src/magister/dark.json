@@ -4297,6 +4297,24 @@
           "description": "color.button.info.outline.disabled.foreground"
         }
       }
+    },
+    "avatar": {
+      "background": {
+        "value": "{color.palette.accent.base}",
+        "type": "color"
+      },
+      "foreground": {
+        "value": "{color.palette.white.base}",
+        "type": "color"
+      },
+      "header": {
+        "value": "{color.input.fieldLabel.text.default}",
+        "type": "color"
+      },
+      "subheader": {
+        "value": "{color.input.helper.text.default}",
+        "type": "color"
+      }
     }
   },
   "boxShadow": {

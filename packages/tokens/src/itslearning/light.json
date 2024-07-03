@@ -14,19 +14,19 @@
   "color": {
     "avatar": {
       "background": {
-        "value": "{color.palette.primary.base}",
+        "value": "{color.palette.accent.base}",
         "type": "color"
       },
       "foreground": {
-        "value": "{color.palette.primary.100}",
+        "value": "{color.palette.white.base}",
         "type": "color"
       },
       "header": {
-        "value": "{body.foreground}",
+        "value": "{color.input.fieldLabel.text.default}",
         "type": "color"
       },
       "subheader": {
-        "value": "{body.foreground}",
+        "value": "{color.input.helper.text.default}",
         "type": "color"
       }
     },

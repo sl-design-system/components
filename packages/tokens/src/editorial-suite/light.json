@@ -31,7 +31,7 @@
   "color": {
     "avatar": {
       "background": {
-        "value": "{color.palette.primary.500}",
+        "value": "{color.palette.accent.base}",
         "type": "color"
       },
       "foreground": {
@@ -39,11 +39,11 @@
         "type": "color"
       },
       "header": {
-        "value": "{body.foreground}",
+        "value": "{color.input.fieldLabel.text.default}",
         "type": "color"
       },
       "subheader": {
-        "value": "{body.foreground}",
+        "value": "{color.input.helper.text.default}",
         "type": "color"
       }
     },

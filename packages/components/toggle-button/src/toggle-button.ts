@@ -1,6 +1,6 @@
 import { type EventEmitter, EventsController, event } from '@sl-design-system/shared';
 import { type SlFocusEvent, type SlToggleEvent } from '@sl-design-system/shared/events.js';
-import { type CSSResultGroup, LitElement, type TemplateResult, html } from 'lit';
+import { type CSSResultGroup, LitElement, PropertyValues, type TemplateResult, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import styles from './toggle-button.scss.js';
 
@@ -53,6 +53,9 @@ export class ToggleButton extends LitElement {
 
   @property({ type: Boolean, reflect: true, attribute: 'single-icon' }) singleIcon?: boolean = true;
 
+  /** The original tabIndex before disabled. */
+  private originalTabIndex = 0;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -69,6 +72,17 @@ export class ToggleButton extends LitElement {
     `;
   }
 
+  override updated(changes: PropertyValues<this>): void {
+    super.updated(changes);
+
+    if (changes.has('disabled')) {
+      if (this.disabled) {
+        this.originalTabIndex = this.tabIndex;
+      }
+      this.tabIndex = this.disabled ? -1 : this.originalTabIndex;
+    }
+  }
+
   #onSlotChange(event: Event & { target: HTMLSlotElement }): void {
     const assignedNodes = event.target.assignedNodes({ flatten: true });
     if (event.target.matches('[name="pressed"]')) {
@@ -78,12 +92,11 @@ export class ToggleButton extends LitElement {
   }
 
   #onClick(event: Event): void {
-    if (this.disabled) {
+    if (this.hasAttribute('disabled')) {
+      event.preventDefault();
+      event.stopPropagation();
       return;
     }
-
-    event.preventDefault();
-    event.stopPropagation();
 
     this.pressed = !this.pressed;
     this.setAttribute('aria-pressed', this.pressed ? 'true' : 'false');
@@ -96,12 +109,6 @@ export class ToggleButton extends LitElement {
     }
   }
 
-  #hasOnlyIconAsChild(el: HTMLElement): boolean {
-    return (
-      (el.textContent || '').trim().length === 0 && el.children.length === 1 && el.children[0].nodeName === 'SL-ICON'
-    );
-  }
-
   #setIconProperties(assignedNodes: Node[]): void {
     const filteredNodes = assignedNodes.filter(node => {
       return node.nodeType === Node.ELEMENT_NODE || (node.textContent && node.textContent.trim().length > 0);
@@ -111,8 +118,6 @@ export class ToggleButton extends LitElement {
       const el = node as HTMLElement;
       if (el.nodeName === 'SL-ICON') {
         el.setAttribute('size', this.size);
-      } else if (this.#hasOnlyIconAsChild(el)) {
-        (el.children[0] as HTMLElement).setAttribute('size', this.size);
       }
     });
   }

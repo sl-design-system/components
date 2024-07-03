@@ -8,7 +8,7 @@ import { html } from 'lit';
 import '../register.js';
 import { type ToggleButton, ToggleButtonFill, ToggleButtonSize } from './toggle-button.js';
 
-interface Props extends Pick<ToggleButton, 'size' | 'fill' | 'pressed'> {
+interface Props extends Pick<ToggleButton, 'size' | 'fill' | 'pressed' | 'disabled' | 'tabIndex'> {
   label: string;
 }
 type Story = StoryObj<Props>;
@@ -24,9 +24,11 @@ export default {
   tags: ['draft'],
   args: {
     pressed: false,
+    disabled: false,
     size: 'md',
     fill: 'ghost',
-    label: 'Show settings'
+    label: 'Show settings',
+    tabIndex: undefined
   },
   argTypes: {
     size: {
@@ -36,15 +38,26 @@ export default {
     fill: {
       control: 'inline-radio',
       options: fills
+    },
+    tabIndex: {
+      control: 'number'
     }
   },
-  render: ({ fill, size, pressed, label }) => {
+  render: ({ fill, size, pressed, label, disabled, tabIndex }) => {
     const onToggle = (event: Event & { target: ToggleButton }): void => {
       console.log(event.target.pressed);
     };
 
     return html`
-      <sl-toggle-button .fill=${fill} .size=${size} ?pressed=${pressed} @sl-toggle=${onToggle} .ariaLabel=${label}>
+      <sl-toggle-button
+        .fill=${fill}
+        .size=${size}
+        .tabIndex=${tabIndex}
+        ?disabled=${disabled}
+        ?pressed=${pressed}
+        @sl-toggle=${onToggle}
+        .ariaLabel=${label}
+      >
         <sl-icon name="far-gear"></sl-icon>
         <sl-icon name="fas-gear" slot="pressed"></sl-icon>
       </sl-toggle-button>

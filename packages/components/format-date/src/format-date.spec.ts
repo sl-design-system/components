@@ -5,7 +5,7 @@ import { FormatDate } from './format-date.js';
 
 describe('sl-format-number', () => {
   let el: FormatDate;
-  const date = new Date(Date.UTC(2022, 11, 17, 14, 5, 42));
+  const date = new Date(2022, 11, 17, 14, 5, 42);
 
   describe('defaults', () => {
     beforeEach(async () => {

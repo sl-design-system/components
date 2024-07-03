@@ -5,7 +5,7 @@ import { type TemplateResult, html } from 'lit';
 import '../register.js';
 import { type ProgressBar } from './progress-bar.js';
 
-type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'state' | 'value'> & { slot?(): TemplateResult; };
+type Props = Pick<ProgressBar, 'indeterminate' | 'label' | 'state' | 'value'> & { slot?(): TemplateResult };
 type Story = StoryObj<Props>;
 
 export default {
@@ -40,12 +40,13 @@ export default {
       defaultViewport: 'default'
     }
   },
-  render: ({indeterminate, state, value, label, slot}) => {
+  render: ({ indeterminate, state, value, label, slot }) => {
     return html`
-    <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
-      ${slot?.() ?? html`<span>Uploaded ${value}% of 100%</span>`}
-    </sl-progress-bar>
-  `}
+      <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
+        ${slot?.() ?? html`<span>Uploaded ${value}% of 100%</span>`}
+      </sl-progress-bar>
+    `;
+  }
 } satisfies Meta<Props>;
 
 export const Basic: Story = {};
@@ -53,13 +54,14 @@ export const Basic: Story = {};
 export const Overflow: Story = {
   ...Basic,
   args: {
-    label: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
+    label:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
       'Nunc lobortis mattis aliquam faucibus purus in massa tempor nec. Tincidunt eget nullam non nisi est sit amet facilisis magna. ' +
       'Dignissim convallis aenean et tortor. Facilisis leo vel fringilla est ullamcorper. Mi proin sed libero enim sed faucibus turpis in. ' +
       'Ullamcorper malesuada proin libero nunc consequat interdum varius. Eget egestas purus viverra accumsan in nisl nisi scelerisque. ' +
-      'Erat imperdiet sed euismod nisi porta. Pulvinar pellentesque habitant morbi tristique. Lobortis elementum nibh tellus molestie nunc non blandit massa enim.',
+      'Erat imperdiet sed euismod nisi porta. Pulvinar pellentesque habitant morbi tristique. Lobortis elementum nibh tellus molestie nunc non blandit massa enim.'
   },
-  render: ({indeterminate, state, value, label}) => {
+  render: ({ indeterminate, state, value, label }) => {
     setTimeout(() => {
       const progressBar = document.querySelector('sl-progress-bar') as ProgressBar,
         subtractButton = progressBar?.nextElementSibling,
@@ -79,29 +81,31 @@ export const Overflow: Story = {
     });
 
     return html`
-    <style>
-      sl-progress-bar {
-        margin-block-end: 32px;
-      }
-    </style>
-    <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
-      <span>Uploaded ${value}% of 100%</span>
-    </sl-progress-bar>
-    <sl-button fill="outline" class="minus">- Decrease</sl-button>
-    <sl-button fill="outline" class="plus">+ Increase</sl-button>
-  `}
+      <style>
+        sl-progress-bar {
+          margin-block-end: 32px;
+        }
+      </style>
+      <sl-progress-bar .indeterminate=${indeterminate} .value=${value} .label=${label} .state=${state}>
+        <span>Uploaded ${value}% of 100%</span>
+      </sl-progress-bar>
+      <sl-button fill="outline" class="minus">- Decrease</sl-button>
+      <sl-button fill="outline" class="plus">+ Increase</sl-button>
+    `;
+  }
 };
 
 export const Indeterminate: Story = {
   args: {
     indeterminate: true,
-    slot: () => html`<span>Preparing upload</span>`
+    label: 'Generating report',
+    slot: () => html`<span>This may take a few minutes</span>`
   }
 };
 
-export const Success: StoryObj = {
+export const Download: StoryObj = {
   args: {
-  ...Basic.args
+    ...Basic.args
   },
   argTypes: {
     label: {
@@ -123,31 +127,32 @@ export const Success: StoryObj = {
       table: {
         disable: true
       }
-    },
+    }
   },
   render: () => {
-    let progressBar: ProgressBar,
-     helperText = 'Preparing download',
-     currentProgress: number;
+    let progressBar: ProgressBar, currentProgress: number;
+    const helperText = 'Preparing download';
     setTimeout(() => {
-      const size = 110;
+      const size = 100;
       progressBar = document.querySelector('sl-progress-bar') as ProgressBar;
       setTimeout(() => {
         const interval = setInterval(() => {
           currentProgress = progressBar.value;
           const progressBarHelper = progressBar.renderRoot.querySelector('span.helper'),
-           step = Math.random() * 8;
+            step = Math.random() * 8;
 
           progressBar.state = progressBar.value >= 100 ? 'success' : 'active';
 
           const running = progressBar.value > 0;
-          progressBarHelper!.innerHTML = running ? `Downloading ${progressBar.value.toFixed(1)}MB of ${size}MB` : 'Preparing download';
+          progressBarHelper!.innerHTML = running
+            ? `Downloading ${progressBar.value.toFixed(1)}MB of ${size}MB`
+            : 'Preparing download';
           if (progressBar.value >= 100) {
             progressBarHelper!.innerHTML = 'Done';
           }
           if (currentProgress + step < size) {
             progressBar.removeAttribute('indeterminate');
-            progressBar.value = (currentProgress + step);
+            progressBar.value = currentProgress + step;
             return currentProgress + step;
           } else {
             clearInterval(interval);
@@ -156,17 +161,17 @@ export const Success: StoryObj = {
         }, 300);
       }, 2500);
     });
-    return html`
-      <style>
+    return html` <style>
         #root-inner {
           display: flex;
           flex-direction: column;
           inline-size: 400px;
         }
       </style>
-      <sl-progress-bar indeterminate label="File download">
+      <sl-progress-bar indeterminate label="File download" aria-live="polite" aria-atomic="false">
         <span>${helperText}</span>
-      </sl-progress-bar>`}
+      </sl-progress-bar>`;
+  }
 };
 
 export const All: StoryObj = {
@@ -190,7 +195,7 @@ export const All: StoryObj = {
       table: {
         disable: true
       }
-    },
+    }
   },
   render: () => html`
     <style>
@@ -234,4 +239,3 @@ export const All: StoryObj = {
     </sl-progress-bar>
   `
 };
-

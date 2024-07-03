@@ -87,4 +87,3 @@ export class ProgressBar extends ScopedElementsMixin(LitElement) {
       </span>`;
   }
 }
-// TODO: what about state success warning and error and a11y???

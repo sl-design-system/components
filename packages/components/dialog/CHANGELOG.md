@@ -1,5 +1,11 @@
 # @sl-design-system/dialog
 
+## 1.0.2
+
+### Patch Changes
+
+- [#1374](https://github.com/sl-design-system/components/pull/1374) [`836d6d5`](https://github.com/sl-design-system/components/commit/836d6d54ff835b81378d996deb8bf6cb8a108b43) - Remove any margin on the slotted (sub)title
+
 ## 1.0.1
 
 ### Patch Changes

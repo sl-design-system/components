@@ -44,7 +44,7 @@ dialog {
 
   &:focus-visible {
     outline: var(--_focus-outline);
-    outline-offset: calc(var(--_focus-outline-offset) * -1);
+    outline-offset: calc(var(--_focus-outline-offset) * -2);
   }
 }
 

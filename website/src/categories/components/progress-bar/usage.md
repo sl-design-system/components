@@ -24,7 +24,6 @@ eleventyNavigation:
 
 
 <section>
-Use a progress bar when a user uploads or downloads a file. It shows the progress and provides an estimate of the remaining time.
 
 ## When to use
 
@@ -36,8 +35,6 @@ A progress bar is used to visually indicate the progression of system operations
 
 ### Quantitative information
 A progress bar is suitable when the progress of a task can be quantitatively measured, such as using percentages. For instance, it's effective for showing teachers the percentage completion of their students' assignments.
-
-...
 
 </section>
 

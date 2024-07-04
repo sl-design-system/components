@@ -195,6 +195,7 @@ slot[name='fallback'] {
 
 slot:not([name]) {
   align-self: start;
+  color: var(--sl-color-avatar-subheader);
   display: block;
   font: var(--_subheading-font);
   grid-area: subheader;

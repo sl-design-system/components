@@ -147,6 +147,7 @@ export const Overflow: Story = {
 
 export const Subheading: Story = {
   args: {
+    size: 'lg',
     subheading: 'Subheading'
   }
 };

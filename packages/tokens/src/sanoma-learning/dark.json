@@ -225,7 +225,7 @@
               "description": "color.button.default.hover.foreground"
             },
             "border": {
-              "value": "{color.palette.primary.50}",
+              "value": "{color.palette.primary.150}",
               "type": "color",
               "description": "color.button.default.hover.border"
             }
